@@ -39,6 +39,9 @@ class ATBDP_Custom_Field {
 
         add_filter('post_row_actions', array($this, 'remove_row_actions_for_quick_view'), 10, 2);
 
+        // action hook trigger the drop and drag feature
+        add_action('admin_init', array($this, 'refresh'));
+
         add_action('admin_enqueue_scripts', array($this, 'load_script_css'));
 
         add_action('wp_ajax_update-menu-order', array($this, 'update_menu_order'));
@@ -46,6 +49,36 @@ class ATBDP_Custom_Field {
         add_action('pre_get_posts', array($this, 'scporder_pre_get_posts'));
 
 
+
+    }
+
+
+    function refresh() {
+        global $wpdb;
+        $objects = ATBDP_CUSTOM_FIELD_POST_TYPE;
+        $objects = array($objects);
+
+        if (!empty($objects)) {
+            foreach ($objects as $object) {
+                $result = $wpdb->get_results("
+					SELECT count(*) as cnt, max(menu_order) as max, min(menu_order) as min 
+					FROM $wpdb->posts 
+					WHERE post_type = '" . $object . "' AND post_status IN ('publish', 'pending', 'draft', 'private', 'future')
+				");
+                if ($result[0]->cnt == 0 || $result[0]->cnt == $result[0]->max)
+                    continue;
+
+                $results = $wpdb->get_results("
+					SELECT ID 
+					FROM $wpdb->posts 
+					WHERE post_type = '" . $object . "' AND post_status IN ('publish', 'pending', 'draft', 'private', 'future') 
+					ORDER BY menu_order ASC
+				");
+                foreach ($results as $key => $result) {
+                    $wpdb->update($wpdb->posts, array('menu_order' => $key + 1), array('ID' => $result->ID));
+                }
+            }
+        }
 
     }
 

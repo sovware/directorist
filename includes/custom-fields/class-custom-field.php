@@ -530,13 +530,6 @@ class ATBDP_Custom_Field {
                 <td>
                     <label>Select a category</label>
                 </td>
-                <?php
-                $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
-                foreach ($categories as $key => $val){
-                    $cat_id = $val->term_id;
-                    var_dump($cat_id);
-                }
-                ?>
                 <td class="field_lable_to_asign">
                         <?php
                         $current_val = isset( $post_meta['category_pass'] ) ? esc_attr($post_meta['category_pass'][0]) : '';

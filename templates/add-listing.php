@@ -77,7 +77,7 @@ $currency = get_directorist_option('g_currency', 'USD');
 
                                     foreach ($custom_fields as $post) {
                                         setup_postdata($post);
-                                        var_dump(get_the_ID());
+
                                     }
                                     wp_reset_postdata();
                                     wp_reset_query();
@@ -98,7 +98,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                                         $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
 
                                         echo '<select class="form-control directory_field" id="cat-type" name="category_pass">';
-                                        echo '<option value="all">'.__( "Categories", ATBDP_TEXTDOMAIN ).'</option>';
+                                        echo '<option>'.__( "--Select a Category--", ATBDP_TEXTDOMAIN ).'</option>';
                                         foreach ($categories as $key => $cat_title){
                                             $term_id = $cat_title->term_id;
                                             printf( '<option value="%s" %s>%s</option>', $term_id, selected( $term_id, $current_val), $cat_title->name );
@@ -126,6 +126,8 @@ $currency = get_directorist_option('g_currency', 'USD');
                                             $( '#atbdp-custom-fields-list' ).html( response );
                                         });
                                     });
+
+
 
                                 </script>
 

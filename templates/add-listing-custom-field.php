@@ -1,46 +1,68 @@
-<?php
-
-/**
- * Display "Custom Fields" under "Listing Details" meta box.
- */
-?>
-
-<?php if( $acadp_query->have_posts() ) : ?>
-    <table class="acadp-input widefat">
-        <tbody>
-        <?php while( $acadp_query->have_posts() ) : $acadp_query->the_post(); $field_meta = get_post_meta( $post->ID ); ?>
-            <tr>
-                <td class="label">
-                    <label>
-                        <?php the_title(); ?>
-                        <?php if( 1 == $field_meta['required'][0] ) echo '<i>*</i>'; ?>
-                    </label>
-                    <?php if( isset( $field_meta['instructions'] ) ) : ?>
-                        <p class="description"><?php echo $field_meta['instructions'][0]; ?></p>
-                    <?php endif; ?>
-                </td>
-
-                <td>
+ <?php
+ $fields = $atbdp_query->posts;
+            if (isset($_POST['term_id'])){
+            foreach ($fields as $post){
+                setup_postdata($post);
+                $post_id = $post->ID;
+                $cf_required = get_post_meta(get_the_ID(), 'required', true);
+                ?>
+                <div class="form-group" id="custom_field_for_cat">
+                    <label for=""><?php the_title(); ?><?php if($cf_required){echo '<span style="color: red"> *</span>'; }?></label>
                     <?php
-                    $value = $field_meta['default_value'][0];
-                    if( isset( $post_meta[ $post->ID ] ) ) {
-                        $value = $post_meta[ $post->ID ][0];
-                    }
+                    $value = ['default_value'][0];
+                    $cf_meta_default_val = get_post_meta(get_the_ID(), 'default_value', true);
 
-                    switch( $field_meta['type'][0] ) {
+                    if( isset( $post_id ) ) {
+                        $cf_meta_default_val = $post_id[0];
+                    }
+                    $cf_meta_val = get_post_meta(get_the_ID(), 'type', true);
+                    $cf_rows = get_post_meta(get_the_ID(), 'rows', true);
+                    $cf_placeholder = get_post_meta(get_the_ID(), 'placeholder', true);
+
+                    switch ($cf_meta_val){
+
                         case 'text' :
-                            echo '<div class="acadp-input-wrap">';
-                            printf( '<input type="text" name="acadp_fields[%d]" class="text" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $field_meta['placeholder'][0] ), esc_attr( $value ) );
+                            echo '<div>';
+                            printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
+
+                            printf( '<input type="text" name="acadp_fields[%d]" class="form-control directory_field" placeholder="" value="%s"/>', $post->ID, esc_attr( $value ) );
                             echo '</div>';
                             break;
                         case 'textarea' :
-                            printf( '<textarea name="acadp_fields[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $post->ID, (int) $field_meta['rows'][0],esc_attr( $field_meta['placeholder'][0] ), esc_textarea( $value ) );
-                            break;
-                        case 'select' :
-                            $choices = $field_meta['choices'][0];
-                            $choices = explode( "\n", $choices );
+                            printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
 
-                            printf( '<select name="acadp_fields[%d]" class="select">', $post->ID );
+                            printf( '<textarea class="form-control directory_field" name="acadp_fields[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $post->ID, (int) $cf_rows,esc_attr( $cf_placeholder ), esc_textarea( $cf_meta_default_val ) );
+                            break;
+                        case 'radio':
+                            $choices = get_post_meta(get_the_ID(), 'choices', true);
+                            $choices = explode( "\n", $choices );
+                            printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
+                            echo '<ul class="acadp-radio-list radio vertical">';
+                            foreach( $choices as $choice ) {
+                                if( strpos( $choice, ':' ) !== false ) {
+                                    $_choice = explode( ':', $choice );
+                                    $_choice = array_map( 'trim', $_choice );
+
+                                    $_value  = $_choice[0];
+                                    $_label  = $_choice[1];
+                                } else {
+                                    $_value  = trim( $choice );
+                                    $_label  = $_value;
+                                }
+
+                                $_checked = '';
+                                if( trim( $value ) == $_value ) $_checked = ' checked="checked"';
+
+                                printf( '<li><label><input type="radio" name="acadp_fields[%d]" value="%s"%s>%s</label></li>', $post->ID, $_value, $_checked, $_label );
+                            }
+                            echo '</ul>';
+                            break;
+
+                        case 'select' :
+                            $choices = get_post_meta(get_the_ID(), 'choices', true);
+                            $choices = explode( "\n", $choices );
+                            printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
+                            printf( '<select name="acadp_fields[%d]" class="form-control directory_field">', $post->ID );
                             if( ! empty( $field_meta['allow_null'][0] ) ) {
                                 printf( '<option value="">%s</option>', '- '.__( 'Select an Option', 'advanced-classifieds-and-directory-pro' ).' -' );
                             }
@@ -63,14 +85,16 @@
                             }
                             echo '</select>';
                             break;
+
                         case 'checkbox' :
-                            $choices = $field_meta['choices'][0];
+                            $choices = get_post_meta(get_the_ID(), 'choices', true);
                             $choices = explode( "\n", $choices );
 
                             $values = explode( "\n", $value );
                             $values = array_map( 'trim', $values );
-
+                            printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
                             echo '<ul class="acadp-checkbox-list checkbox vertical">';
+
                             foreach( $choices as $choice ) {
                                 if( strpos( $choice, ':' ) !== false ) {
                                     $_choice = explode( ':', $choice );
@@ -90,40 +114,29 @@
                             }
                             echo '</ul>';
                             break;
-                        case 'radio' :
-                            $choices = $field_meta['choices'][0];
-                            $choices = explode( "\n", $choices );
-
-                            echo '<ul class="acadp-radio-list radio vertical">';
-                            foreach( $choices as $choice ) {
-                                if( strpos( $choice, ':' ) !== false ) {
-                                    $_choice = explode( ':', $choice );
-                                    $_choice = array_map( 'trim', $_choice );
-
-                                    $_value  = $_choice[0];
-                                    $_label  = $_choice[1];
-                                } else {
-                                    $_value  = trim( $choice );
-                                    $_label  = $_value;
-                                }
-
-                                $_checked = '';
-                                if( trim( $value ) == $_value ) $_checked = ' checked="checked"';
-
-                                printf( '<li><label><input type="radio" name="acadp_fields[%d]" value="%s"%s>%s</label></li>', $post->ID, $_value, $_checked, $_label );
-                            }
-                            echo '</ul>';
-                            break;
                         case 'url'  :
-                            echo '<div class="acadp-input-wrap">';
-                            printf( '<input type="text" name="acadp_fields[%d]" class="text" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $field_meta['placeholder'][0] ), esc_url( $value ) );
+                            echo '<div>';
+                            printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
+                            printf( '<input type="text" name="acadp_fields[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_url( $cf_meta_default_val ) );
+                            echo '</div>';
+                            break;
+
+                        case 'date'  :
+                            echo '<div>';
+                            printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
+                            printf( '<input type="date" name="acadp_fields[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_url( $cf_meta_default_val ) );
+                            echo '</div>';
+                            break;
+
+                        case 'color'  :
+                            echo '<div>';
+                            printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
+                            printf( '<input type="text" name="acadp_fields[%d]" class="color-field" />', $post->ID );
                             echo '</div>';
                             break;
                     }
                     ?>
-                </td>
-            </tr>
-        <?php endwhile; ?>
-        </tbody>
-    </table>
-<?php endif; ?>
+                </div>
+                <?php
+            }
+            }

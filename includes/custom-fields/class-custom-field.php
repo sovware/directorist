@@ -133,16 +133,11 @@ class ATBDP_Custom_Field {
 
 
     function get_scporder_options_objects() {
-        $scporder_options = get_option('scporder_options') ? get_option('scporder_options') : array();
-        $objects = isset($scporder_options['objects']) && is_array($scporder_options['objects']) ? $scporder_options['objects'] : array();
+        $atbdp_options = ATBDP_CUSTOM_FIELD_POST_TYPE;
+        $objects = array($atbdp_options);
         return $objects;
     }
 
-    function get_scporder_options_tags() {
-        $scporder_options = get_option('scporder_options') ? get_option('scporder_options') : array();
-        $tags = isset($scporder_options['tags']) && is_array($scporder_options['tags']) ? $scporder_options['tags'] : array();
-        return $tags;
-    }
 
 /*
  * for update the drop and dragable field
@@ -184,7 +179,6 @@ class ATBDP_Custom_Field {
         $active = false;
 
         $objects = $this->get_scporder_options_objects();
-        $tags = $this->get_scporder_options_tags();
 
         if (empty($objects) && empty($tags))
             return false;
@@ -201,11 +195,6 @@ class ATBDP_Custom_Field {
             }
         }
 
-        if (!empty($tags)) {
-            if (isset($_GET['taxonomy']) && in_array($_GET['taxonomy'], $tags)) {
-                $active = true;
-            }
-        }
 
         return $active;
     }
@@ -222,7 +211,6 @@ class ATBDP_Custom_Field {
 
 
    public function load_script_css() {
-        require ATBDP_INC_DIR . 'custom-fields/field-settings.php';
         if ($this->_check_load_script_css()) {
             wp_enqueue_script('jquery');
             wp_enqueue_script('jquery-ui-sortable');

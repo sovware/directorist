@@ -14,8 +14,62 @@ class ATBDP_Metabox {
             // http://wordpress.stackexchange.com/questions/228322/how-to-set-default-value-for-checkbox-in-wordpress
             add_action( 'edit_post', array($this, 'save_post_meta'), 10, 2);
             add_action('post_submitbox_misc_actions', array($this, 'post_submitbox_meta'));
+
+
+            add_action('wp_ajax_atbdp_custom_fields_listings', array($this, 'ajax_callback_custom_fields'), 10, 2 );
+
         }
      }
+
+    /**
+     * Display custom fields.
+     *
+     * @since	 3.2
+     * @access   public
+     * @return   true   //if it fairs any post
+     * @param	 int    $post_id	Post ID.
+     * @param	 int    $term_id    Category ID.
+     */
+    public function ajax_callback_custom_fields( $post_id = 0, $term_id = 0 ) {
+        $ajax = false;
+        if( isset( $_POST['term_id'] ) ) {
+            $ajax = true;
+            $post_id = (int) $_POST['post_id'];
+            $term_id = (int) $_POST['term_id'];
+        }
+
+        // Get custom fields
+        $custom_field_ids = $term_id;
+        $args = array(
+            'post_type'      => 'atbdp_fields',
+            'posts_per_page' => -1,
+            'meta_key'   => 'category_pass',
+            'meta_value' => $custom_field_ids
+
+        );
+
+        $atbdp_query = new WP_Query( $args );
+        if ($atbdp_query->have_posts()){
+            // Start the Loop
+            global $post;
+
+            // Process output
+            ob_start();
+            include ATBDP_TEMPLATES_DIR . 'add-listing-custom-field.php';
+            wp_reset_postdata(); // Restore global post data stomped by the_post()
+            $output = ob_get_clean();
+
+            print $output;
+
+            if( $ajax ) {
+                wp_die();
+            }
+        }else{
+            $no_custom_field = __('No custom field linked with this category', ATBDP_TEXTDOMAIN);
+            printf('<p>%s</p>', $no_custom_field);
+        }
+
+    }
 
     /**
      * Render Metaboxes for ATBDP_POST_TYPE
@@ -34,7 +88,6 @@ class ATBDP_Metabox {
         ATBDP_POST_TYPE,
         'normal' );
 
-
     }
 
     /**
@@ -45,6 +98,10 @@ class ATBDP_Metabox {
         $lf= get_post_meta($post->ID, '_listing_info', true);
         $listing_info = (!empty($lf))? aazztech_enc_unserialize($lf) : array();
         $listing_info['price'] = get_post_meta($post->ID, '_price', true);
+
+        //data needed for the custom field
+        $post_meta = get_post_meta( $post->ID );
+        $category = wp_get_object_terms( $post->ID, 'at_biz_dir-category', array( 'fields' => 'ids' ) );
         wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
         ATBDP()->load_template('add-listing', compact('listing_info') );
     }

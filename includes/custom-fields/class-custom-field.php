@@ -128,7 +128,9 @@ class ATBDP_Custom_Field {
                 if (!$wp_query->get('order'))
                     $wp_query->set('order', 'ASC');
             }
+
         }
+
     }
 
 
@@ -354,6 +356,9 @@ class ATBDP_Custom_Field {
                 $field_category_pass =  sanitize_text_field( $_POST['category_pass'] );
                 update_post_meta( $post_id, 'category_pass', $field_category_pass );
 
+                $field_category_pass_id =  sanitize_text_field( $_POST['category_pass_id'] );
+                update_post_meta( $post_id, 'category_pass_id', $field_category_pass_id );
+
                /* $field_searchable = (int) $_POST['searchable'];
                 update_post_meta( $post_id, 'searchable', $field_searchable );*/
 
@@ -525,6 +530,13 @@ class ATBDP_Custom_Field {
                 <td>
                     <label>Select a category</label>
                 </td>
+                <?php
+                $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
+                foreach ($categories as $key => $val){
+                    $cat_id = $val->term_id;
+                    var_dump($cat_id);
+                }
+                ?>
                 <td class="field_lable_to_asign">
                         <?php
                         $current_val = isset( $post_meta['category_pass'] ) ? esc_attr($post_meta['category_pass'][0]) : '';
@@ -533,7 +545,7 @@ class ATBDP_Custom_Field {
                         echo '<select name="category_pass">';
                             echo '<option value="all">'.__( "Categories", ATBDP_TEXTDOMAIN ).'</option>';
                                 foreach ($categories as $key => $cat_title){
-                                printf( '<option value="%s" %s>%s</option>', $key, selected( $key, $current_val), $cat_title->name );
+                                printf( '<option value="%s" %s>%s</option>', $cat_title->term_id, selected( $cat_title->term_id, $current_val), $cat_title->name );
                                 }
                             echo '</select>';
                         ?>

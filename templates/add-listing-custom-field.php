@@ -7,11 +7,24 @@
                 $cf_required = get_post_meta(get_the_ID(), 'required', true);
                 ?>
                 <div class="form-group" id="custom_field_for_cat">
+                    <script>
+                        jQuery(document).ready(function($){
+                            $('.my-color-field').wpColorPicker();
+                        });
+                    </script>
+
                     <label for=""><?php the_title(); ?><?php if($cf_required){echo '<span style="color: red"> *</span>'; }?></label>
                     <?php
                     $value = ['default_value'][0];
                     $cf_meta_default_val = get_post_meta(get_the_ID(), 'default_value', true);
-
+                    global $wpdb;
+                    // get the all values for edit and show for custom fields
+                    $all_values = $wpdb->get_col( $wpdb->prepare( "
+                                                SELECT pm.meta_value FROM {$wpdb->postmeta} pm
+                                                LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id
+                                                WHERE pm.meta_key = '%d' 
+                                            ", $post_id ) );
+                    $value =  end($all_values);
                     if( isset( $post_id ) ) {
                         $cf_meta_default_val = $post_id[0];
                     }
@@ -25,13 +38,13 @@
                             echo '<div>';
                             printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
 
-                            printf( '<input type="text" name="acadp_fields[%d]" class="form-control directory_field" placeholder="" value="%s"/>', $post->ID, esc_attr( $value ) );
+                            printf( '<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="" value="%s"/>', $post->ID, esc_attr( $value ) );
                             echo '</div>';
                             break;
                         case 'textarea' :
                             printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
 
-                            printf( '<textarea class="form-control directory_field" name="acadp_fields[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $post->ID, (int) $cf_rows,esc_attr( $cf_placeholder ), esc_textarea( $cf_meta_default_val ) );
+                            printf( '<textarea class="form-control directory_field" name="custom_field[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $post->ID, (int) $cf_rows,esc_attr( $cf_placeholder ), esc_textarea( $value ) );
                             break;
                         case 'radio':
                             $choices = get_post_meta(get_the_ID(), 'choices', true);
@@ -53,7 +66,7 @@
                                 $_checked = '';
                                 if( trim( $value ) == $_value ) $_checked = ' checked="checked"';
 
-                                printf( '<li><label><input type="radio" name="acadp_fields[%d]" value="%s"%s>%s</label></li>', $post->ID, $_value, $_checked, $_label );
+                                printf( '<li><label><input type="radio" name="custom_field[%d]" value="%s"%s>%s</label></li>', $post->ID, $_value, $_checked, $_label );
                             }
                             echo '</ul>';
                             break;
@@ -62,7 +75,7 @@
                             $choices = get_post_meta(get_the_ID(), 'choices', true);
                             $choices = explode( "\n", $choices );
                             printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-                            printf( '<select name="acadp_fields[%d]" class="form-control directory_field">', $post->ID );
+                            printf( '<select name="custom_field[%d]" class="form-control directory_field">', $post->ID );
                             if( ! empty( $field_meta['allow_null'][0] ) ) {
                                 printf( '<option value="">%s</option>', '- '.__( 'Select an Option', 'advanced-classifieds-and-directory-pro' ).' -' );
                             }
@@ -110,28 +123,28 @@
                                 $_checked = '';
                                 if( in_array( $_value, $values ) ) $_checked = ' checked="checked"';
 
-                                printf( '<li><label><input type="hidden" name="acadp_fields[%s][]" value="" /><input type="checkbox" name="acadp_fields[%d][]" value="%s"%s>%s</label></li>', $post->ID, $post->ID, $_value, $_checked, $_label );
+                                printf( '<li><label><input type="hidden" name="custom_field[%s][]" value="" /><input type="checkbox" name="custom_field[%d][]" value="%s"%s>%s</label></li>', $post->ID, $post->ID, $_value, $_checked, $_label );
                             }
                             echo '</ul>';
                             break;
                         case 'url'  :
                             echo '<div>';
                             printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-                            printf( '<input type="text" name="acadp_fields[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_url( $cf_meta_default_val ) );
+                            printf( '<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_url( $cf_meta_default_val ) );
                             echo '</div>';
                             break;
 
                         case 'date'  :
                             echo '<div>';
                             printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-                            printf( '<input type="date" name="acadp_fields[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_url( $cf_meta_default_val ) );
+                            printf( '<input type="date" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_url( $cf_meta_default_val ) );
                             echo '</div>';
                             break;
 
                         case 'color'  :
                             echo '<div>';
                             printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-                            printf( '<input type="text" name="acadp_fields[%d]" class="color-field" />', $post->ID );
+                            printf( '<input type="text" name="custom_field[%d]" class="my-color-field" value="%s"/>', $post->ID, $value );
                             echo '</div>';
                             break;
                     }
@@ -139,4 +152,6 @@
                 </div>
                 <?php
             }
+            wp_reset_postdata();
+            wp_reset_query();
             }

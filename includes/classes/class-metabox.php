@@ -64,11 +64,7 @@ class ATBDP_Metabox {
             if( $ajax ) {
                 wp_die();
             }
-        }else{
-            $no_custom_field = __('No custom field linked with this category', ATBDP_TEXTDOMAIN);
-            printf('<p>%s</p>', $no_custom_field);
         }
-
     }
 
     /**
@@ -158,6 +154,7 @@ class ATBDP_Metabox {
         $price = !empty($p['price'])? (int) $p['price'] : 0;
         $listing_status = !empty($p['listing_status'])? sanitize_text_field($p['listing_status']) : 'post_status';
         $listing_info = (!empty($p['listing'])) ? aazztech_enc_serialize($p['listing']) : aazztech_enc_serialize(array());
+        $custom_field = (!empty($p['custom_field'])) ? $p['custom_field'] : array();
         //prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
         if (!is_empty_v($exp_dt) && !empty($exp_dt['aa'])){
             $exp_dt = array(
@@ -170,6 +167,43 @@ class ATBDP_Metabox {
             $exp_dt = get_date_in_mysql_format($exp_dt);
         }else{
             $exp_dt = calc_listing_expiry_date(); // get the expiry date in mysql date format using the default expiration date.
+        }
+
+
+        /*
+         * send the custom input value to the database
+         */
+        if( isset( $custom_field ) ) {
+
+            foreach( $custom_field as $key => $value ) {
+
+                $type = get_post_meta( $key, 'type', true );
+
+                switch( $type ) {
+                    case 'text' :
+                        $value = sanitize_text_field( $value );
+                        break;
+                    case 'textarea' :
+                        $value = esc_textarea( $value );
+                        break;
+                    case 'select' :
+                    case 'radio'  :
+                        $value = sanitize_text_field( $value );
+                        break;
+                    case 'checkbox' :
+                        $value = array_map( 'esc_attr', $value );
+                        $value = implode( "\n", array_filter( $value ) );
+                        break;
+                    case 'url' :
+                        $value = esc_url_raw( $value );
+                        break;
+                    default :
+                        $value = sanitize_text_field( $value );
+                }
+
+                update_post_meta( $post_id, $key, $value );
+            }
+
         }
 
         // save the meta data to the database

@@ -250,8 +250,13 @@ class ATBDP_Custom_Field {
 
         $current_val = esc_attr(get_post_meta( $post_id, 'category_pass', true ));
         $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
+        foreach ($categories as $key => $value){
+           $cat_value = $value->term_id;
+        }
+
         $category_name = '';
         $category_name = !empty($categories[$current_val]->name) ? $categories[$current_val]->name : '' ;
+        var_dump($category_name);
 
 
         echo '</select>';

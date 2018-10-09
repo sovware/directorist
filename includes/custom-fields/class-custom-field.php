@@ -247,18 +247,8 @@ class ATBDP_Custom_Field {
 
 
     public function custom_field_column_content( $column, $post_id ){
-
         $current_val = esc_attr(get_post_meta( $post_id, 'category_pass', true ));
-        $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
-        foreach ($categories as $key => $value){
-           $cat_value = $value->term_id;
-        }
-
-        $category_name = '';
-        $category_name = !empty($categories[$current_val]->name) ? $categories[$current_val]->name : '' ;
-        var_dump($category_name);
-
-
+       $all_term =  get_term_by('term_id', $current_val, ATBDP_CATEGORY);
         echo '</select>';
         switch ( $column ) {
             case 'type' :
@@ -270,7 +260,7 @@ class ATBDP_Custom_Field {
             case 'asign' :
 
                 $value = esc_attr(get_post_meta( $post_id, 'associate', true ));
-                echo ( 'form' == $value ) ? __( 'Form', ATBDP_TEXTDOMAIN ) : $category_name. __( ' Category', ATBDP_TEXTDOMAIN );
+                echo ( 'form' == $value ) ? __( 'Form', ATBDP_TEXTDOMAIN ) : $all_term->name. __( ' Category', ATBDP_TEXTDOMAIN );
 
                 break;
             case 'require' :
@@ -281,7 +271,6 @@ class ATBDP_Custom_Field {
                 $value = esc_attr(get_post_meta( $post_id, 'searchable', true ));
                 echo '<span class="atbdp-tick-cross2">'.($value == 1 ? '&#x2713;' : '&#x2717;').'</span>';
                 break;*/
-
         }
     }
 
@@ -332,9 +321,6 @@ class ATBDP_Custom_Field {
                     }
                     update_post_meta($post_id, 'default_value', $field_default_value);
 
-                    $field_allow_null = (int)$_POST['allow_null'];
-                    update_post_meta($post_id, 'allow_null', $field_allow_null);
-
                     $field_placeholder = sanitize_text_field($_POST['placeholder']);
                     update_post_meta($post_id, 'placeholder', $field_placeholder);
 
@@ -343,11 +329,8 @@ class ATBDP_Custom_Field {
 
                     $field_target = sanitize_text_field($_POST['target']);
                     update_post_meta($post_id, 'target', $field_target);
-
-
                 }
         }
-
         // Check if "atbdp_field_options_nonce" nonce is set
         if ( isset( $_POST['atbdp_field_options_nonce'] ) ) {
 
@@ -360,14 +343,8 @@ class ATBDP_Custom_Field {
 
                 $field_category_pass =  sanitize_text_field( $_POST['category_pass'] );
                 update_post_meta( $post_id, 'category_pass', $field_category_pass );
-
-                $field_category_pass_id =  sanitize_text_field( $_POST['category_pass_id'] );
-                update_post_meta( $post_id, 'category_pass_id', $field_category_pass_id );
-
                /* $field_searchable = (int) $_POST['searchable'];
                 update_post_meta( $post_id, 'searchable', $field_searchable );*/
-
-
 
             }
 
@@ -548,6 +525,7 @@ class ATBDP_Custom_Field {
                             echo '</select>';
                         ?>
                     <input type="hidden" id="to_Show_if_checked" value="<?php echo $form_or_cat?>">
+
                 </td>
             </tr>
             </tbody>
@@ -670,53 +648,7 @@ class ATBDP_Custom_Field {
                     <textarea class="textarea" name="choices" rows="8"><?php if( isset( $post_meta['choices'] ) ) echo esc_attr($post_meta['choices'][0]); ?></textarea>
                 </td>
             </tr>
-            <tr class="field-options field-option-text field-option-select field-option-radio field-option-url">
-                <td class="label">
-                    <label><?php _e( 'Default Value', ATBDP_TEXTDOMAIN ); ?></label>
-                    <p class="description"><?php _e( 'It shows while someone create a listing', ATBDP_TEXTDOMAIN ); ?></p>
-                </td>
-                <td>
-                    <div class="atbdp-input-wrap">
-                        <input type="text" class="text" name="default_value" value="<?php if( isset( $post_meta['default_value'] ) ) echo esc_attr( $post_meta['default_value'][0] ); ?>" />
-                    </div>
-                </td>
-            </tr>
-            <tr class="field-options field-option-textarea" style="display:none;">
-                <td class="label">
-                    <label><?php _e( 'Default Value', ATBDP_TEXTDOMAIN ); ?></label>
-                    <p class="description"><?php _e( 'It shows while someone create a listing', ATBDP_TEXTDOMAIN ); ?></p>
-                </td>
-                <td>
-                    <textarea class="textarea" name="default_value_textarea" rows="6"><?php if( isset( $post_meta['default_value'] ) ) echo esc_textarea( $post_meta['default_value'][0] ); ?></textarea>
-                </td>
-            </tr>
-            <tr class="field-options field-option-checkbox" style="display:none;">
-                <td class="label">
-                    <label><?php _e( 'Default Value', ATBDP_TEXTDOMAIN ); ?></label>
-                    <p class="description"><?php _e( 'Enter each default value on a new line', ATBDP_TEXTDOMAIN ); ?></p>
-                </td>
-                <td>
-                    <textarea class="textarea" name="default_value_checkbox" rows="8"><?php if( isset( $post_meta['default_value'] ) ) echo esc_textarea( $post_meta['default_value'][0] ); ?></textarea>
-                </td>
-            </tr>
-            <tr class="field-options field-option-select">
-                <td class="label">
-                    <label><?php _e( 'Allow Null?', ATBDP_TEXTDOMAIN ); ?></label>
-                    <p class="description"><?php _e( 'If selected, the select list will begin with a null value titled "- Select an Option -"', ATBDP_TEXTDOMAIN ); ?></p>
-                </td>
-                <td>
-                    <?php $selected_allow_null = isset( $post_meta['allow_null'] ) ? esc_attr($post_meta['allow_null'][0]) : 1; ?>
-                    <ul class="atbdp-radio-list radio horizontal">
-                        <li>
-                            <label><input type="radio" name="allow_null" value="1" <?php echo checked( $selected_allow_null, 1, false ); ?>><?php _e( 'Yes', ATBDP_TEXTDOMAIN ); ?></label>
-                        </li>
-                        <li>
-                            <label><input type="radio" name="allow_null" value="0" <?php echo checked( $selected_allow_null, 0, false ); ?>><?php _e( 'No', ATBDP_TEXTDOMAIN ); ?></label>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-            <tr class="field-options field-option-text field-option-textarea field-option-url">
+            <tr class="field-options field-option-text field-option-textarea field-option-url field-option-email">
                 <td class="label">
                     <label><?php _e( 'Placeholder Text', ATBDP_TEXTDOMAIN ); ?></label>
                     <p class="description"><?php _e( 'Appears within the input', ATBDP_TEXTDOMAIN ); ?></p>
@@ -766,18 +698,6 @@ class ATBDP_Custom_Field {
 
             </tr>
 
-           <tr class="field-options field-option-email" style="display:none;">
-
-                <td class="label">
-                    <label><?php _e( 'Default Email', ATBDP_TEXTDOMAIN ); ?></label>
-                    <p class="description"><?php _e( 'Appears within the input', ATBDP_TEXTDOMAIN );?></p>
-                </td>
-                <td>
-                    <div class="atbdp-input-wrap">
-                        <input type="email" class="text" name="email_value"/>
-                    </div>
-                </td>
-            </tr>
             </tbody>
         </table>
 

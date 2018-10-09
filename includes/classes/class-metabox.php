@@ -152,6 +152,7 @@ class ATBDP_Metabox {
         $never_expire = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
         $featured = !empty($p['featured'])? (int) $p['featured'] : 0;
         $price = !empty($p['price'])? (int) $p['price'] : 0;
+        $admin_category_select = !empty($p['admin_category_select'])? (int) $p['admin_category_select'] : 0;
         $listing_status = !empty($p['listing_status'])? sanitize_text_field($p['listing_status']) : 'post_status';
         $listing_info = (!empty($p['listing'])) ? aazztech_enc_serialize($p['listing']) : aazztech_enc_serialize(array());
         $custom_field = (!empty($p['custom_field'])) ? $p['custom_field'] : array();
@@ -199,6 +200,13 @@ class ATBDP_Metabox {
                         break;
                     default :
                         $value = sanitize_text_field( $value );
+                        break;
+                    case 'email' :
+                        $value = sanitize_text_field( $value );
+                        break;
+                    case 'date' :
+                        $value = sanitize_text_field( $value );
+
                 }
 
                 update_post_meta( $post_id, $key, $value );
@@ -213,6 +221,7 @@ class ATBDP_Metabox {
         update_post_meta( $post_id, '_featured', $featured );
         update_post_meta( $post_id, '_listing_status', $listing_status );
         update_post_meta( $post_id, '_price', $price );
+        update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
 
 
     }

@@ -208,14 +208,21 @@ $currency = get_directorist_option('g_currency', 'USD');
                                             case 'url'  :
                                                 echo '<div>';
                                                 printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-                                                printf( '<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_url( $cf_meta_default_val ) );
+                                                printf( '<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_url( $value ) );
                                                 echo '</div>';
                                                 break;
 
                                             case 'date'  :
                                                 echo '<div>';
                                                 printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-                                                printf( '<input type="date" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_url( $cf_meta_default_val ) );
+                                                printf( '<input type="date" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_attr( $value ) );
+                                                echo '</div>';
+                                                break;
+
+                                                case 'email'  :
+                                                echo '<div>';
+                                                printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
+                                                printf( '<input type="email" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_attr( $value ) );
                                                 echo '</div>';
                                                 break;
 
@@ -251,10 +258,16 @@ $currency = get_directorist_option('g_currency', 'USD');
                                     <div class="form-group">
                                         <label for="atbdp_select_cat"><?php esc_html_e('Select Category', ATBDP_TEXTDOMAIN) ?></label>
                                         <?php
-                                        $current_val = isset( $post_meta['category_pass_id'] ) ? esc_attr($post_meta['category_pass_id'][0]) : '';
+                                        $admin_selected_cat = '_admin_category_select';
+                                        $all_values = $wpdb->get_col( $wpdb->prepare( "
+                                                SELECT pm.meta_value FROM {$wpdb->postmeta} pm
+                                                LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id
+                                                WHERE pm.meta_key = '%s'
+                                            ", $admin_selected_cat ) );
+                                        $current_val = end($all_values);
                                         $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
 
-                                        echo '<select class="form-control directory_field" id="cat-type" name="category_pass">';
+                                        echo '<select class="form-control directory_field" id="cat-type" name="admin_category_select">';
                                         echo '<option>'.__( "--Select a Category--", ATBDP_TEXTDOMAIN ).'</option>';
                                         foreach ($categories as $key => $cat_title){
                                             $term_id = $cat_title->term_id;
@@ -265,20 +278,35 @@ $currency = get_directorist_option('g_currency', 'USD');
                                     </div>
                                 </div>
                                 <script>
-                                    // Load custom fields of the selected category in the custom post type "acadp_listings"
-                                    $( '#cat-type' ).on( 'change', function() {
-                                        $( '#atbdp-custom-fields-list' ).html( '<div class="spinner"></div>' );
+                                    (function ($) {
+                                        $(document).ready(function () {
+                                            // Load custom fields of the selected category in the custom post type "acadp_listings"
+                                            $( '#cat-type' ).on( 'change', function() {
+                                                $( '#atbdp-custom-fields-list' ).html( '<div class="spinner"></div>' );
 
-                                        var data = {
-                                            'action'  : 'atbdp_custom_fields_listings',
-                                            'post_id' : $( '#atbdp-custom-fields-list' ).data('post_id'),
-                                            'term_id' : $(this).val()
-                                        };
+                                                var data = {
+                                                    'action'  : 'atbdp_custom_fields_listings',
+                                                    'post_id' : $( '#atbdp-custom-fields-list' ).data('post_id'),
+                                                    'term_id' : $(this).val()
+                                                };
 
-                                        $.post( ajaxurl, data, function(response) {
-                                            $( '#atbdp-custom-fields-list' ).html( response );
+                                                $.post( ajaxurl, data, function(response) {
+                                                    $( '#atbdp-custom-fields-list' ).html( response );
+                                                });
+                                            });
+                                            $( window ).on( "load", function() {
+                                                var checked_val = $('#cat-type').val();
+                                                   if(checked_val){
+                                                       $('#atbdp-custom-fields-list').attr('data-hidden', 'show');
+                                                   } else{
+                                                       $('#selectbox-extra').attr('data-hidden', 'hidden');
+                                                   }
+
+                                            });
                                         });
-                                    });
+                                    })(jQuery);
+
+
                                 </script>
 
                                 <div  id="atbdp-custom-fields-list" data-post_id="<?php echo $post->ID; ?>">

@@ -172,7 +172,7 @@ class ATBDP_Metabox {
 
 
         /*
-         * send the custom input value to the database
+         * send the custom field value to the database
          */
         if( isset( $custom_field ) ) {
 

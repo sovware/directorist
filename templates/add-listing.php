@@ -63,9 +63,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                                 <!--***********************************************************************
                                 Run the custom field loop to show all published custom fields asign to form
                                 **************************************************************************-->
-
                                 <?php
-
                                 // custom fields information
                                 //// get all the custom field that has posted by admin ane return the field
                                 $custom_fields  = new WP_Query( array(
@@ -231,12 +229,12 @@ $currency = get_directorist_option('g_currency', 'USD');
                                                 ?>
                                             <script>
                                                 jQuery(document).ready(function($){
-                                                    $('.my-color-field').wpColorPicker();
+                                                    $('.my-color-field2').wpColorPicker();
                                                 });
                                             </script>
                                         <?php
                                                 printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-                                                printf( '<input type="text" name="custom_field[%d]" class="my-color-field" value="%s" />', $post->ID, $value );
+                                                printf( '<input type="color" name="custom_field[%d]" class="my-color-field2" value="%s" />', $post->ID, $value );
                                                 echo '</div>';
                                                 break;
                                         }
@@ -247,12 +245,9 @@ $currency = get_directorist_option('g_currency', 'USD');
                                 wp_reset_postdata();
                                 wp_reset_query();
                                 ?>
-
-
                                 <!--***********************************************************************
                                Run the custom field loop to show all published custom fields assign to Category
                                **************************************************************************-->
-
                                 <div id="category_container">
                                     <!--@ Options for select the category.-->
                                     <div class="form-group">
@@ -301,11 +296,9 @@ $currency = get_directorist_option('g_currency', 'USD');
                                                    } else{
                                                        $('#selectbox-extra').attr('data-hidden', 'hidden');
                                                    }
-
                                             });
                                         });
                                     })(jQuery);
-
 
                                 </script>
 
@@ -316,7 +309,6 @@ $currency = get_directorist_option('g_currency', 'USD');
                             </div>
                         </div>
                     </div>
-
 
 
                     <?php if (!$disable_contact_info){ ?>

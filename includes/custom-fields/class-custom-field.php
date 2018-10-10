@@ -481,18 +481,14 @@ class ATBDP_Custom_Field {
                                 $(document).ready(function () {
                                     $('#custom_cat').on('click', function () {
 
-                                        $('#cat_types_toshow').show();
+                                        $('#cat_types_toshow').fadeIn(500);
                                     });
                                     var is_checked = $('#to_Show_if_checked').val();
-                                    var if_form_checked = 'form';
-                                    if (is_checked == if_form_checked){
-                                        $('#cat_types_toshow').hide();
-                                    }else {
-                                        $('#cat_types_toshow').show();
+                                    if (is_checked > 0){
+                                        $('#cat_types_toshow').fadeIn(300);
                                     }
-
                                     $('#custom_cat_tohide').on('click', function () {
-                                        $('#cat_types_toshow').hide();
+                                        $('#cat_types_toshow').fadeOut(500);
                                     });
                                 });
                             })(jQuery);
@@ -515,16 +511,15 @@ class ATBDP_Custom_Field {
                 <td class="field_lable_to_asign">
                         <?php
                         $current_val = isset( $post_meta['category_pass'] ) ? esc_attr($post_meta['category_pass'][0]) : '';
-                        $form_or_cat = isset( $post_meta['associate'] ) ? esc_attr($post_meta['associate'][0]) : '';
                         $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
                         echo '<select name="category_pass">';
-                            echo '<option value="all">'.__( "Categories", ATBDP_TEXTDOMAIN ).'</option>';
+                            echo '<option>'.__( "Categories", ATBDP_TEXTDOMAIN ).'</option>';
                                 foreach ($categories as $key => $cat_title){
                                 printf( '<option value="%s" %s>%s</option>', $cat_title->term_id, selected( $cat_title->term_id, $current_val), $cat_title->name );
                                 }
                             echo '</select>';
                         ?>
-                    <input type="hidden" id="to_Show_if_checked" value="<?php echo $form_or_cat?>">
+                    <input type="hidden" id="to_Show_if_checked" value="<?php echo $current_val?>">
 
                 </td>
             </tr>

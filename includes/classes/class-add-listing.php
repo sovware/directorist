@@ -73,6 +73,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                     // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');;
                     $title= !empty($_POST['listing_title']) ? sanitize_text_field($_POST['listing_title']) : '';
                     $price= !empty($_POST['price']) ? sanitize_text_field($_POST['price']) : '';
+                    $admin_category_select= !empty($_POST['admin_category_select']) ? sanitize_text_field($_POST['admin_category_select']) : '';
+                    $custom_field= !empty($_POST['custom_field']) ? ($_POST['custom_field']) : array();
                     $content = !empty($_POST['listing_content']) ? wp_kses($_POST['listing_content'], wp_kses_allowed_html('post')) : '';
                     $info= (!empty($_POST['listing'])) ? aazztech_enc_serialize($_POST['listing']) : aazztech_enc_serialize( array() );
                     $args = array(
@@ -171,6 +173,53 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 update_post_meta( $post_id, '_never_expire', $never_expire );
                                 update_post_meta( $post_id, '_featured', 0 );
                                 update_post_meta( $post_id, '_listing_status', 'post_status' );
+                                update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
+
+
+                                 /*
+                                   * send the custom field value to the database
+                                   */
+                                if( isset( $custom_field ) ) {
+
+                                    foreach( $custom_field as $key => $value ) {
+
+                                        $type = get_post_meta( $key, 'type', true );
+
+                                        switch( $type ) {
+                                            case 'text' :
+                                                $value = sanitize_text_field( $value );
+                                                break;
+                                            case 'textarea' :
+                                                $value = esc_textarea( $value );
+                                                break;
+                                            case 'select' :
+                                            case 'radio'  :
+                                                $value = sanitize_text_field( $value );
+                                                break;
+                                            case 'checkbox' :
+                                                $value = array_map( 'esc_attr', $value );
+                                                $value = implode( "\n", array_filter( $value ) );
+                                                break;
+                                            case 'url' :
+                                                $value = esc_url_raw( $value );
+                                                break;
+                                            default :
+                                                $value = sanitize_text_field( $value );
+                                                break;
+                                            case 'email' :
+                                                $value = sanitize_text_field( $value );
+                                                break;
+                                            case 'date' :
+                                                $value = sanitize_text_field( $value );
+
+                                        }
+
+                                        update_post_meta( $post_id, $key, $value );
+                                    }
+
+                                }
+
+
                             }
 
                         }

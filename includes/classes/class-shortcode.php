@@ -22,7 +22,59 @@ class ATBDP_Shortcode {
         add_shortcode('directorist_payment_receipt', array($checkout, 'payment_receipt'));
         add_shortcode('transaction_failure', array($checkout, 'transaction_failure'));
 
+        add_action('wp_ajax_atbdp_custom_fields_listings_front', array($this, 'ajax_callback_custom_fields'), 10, 2 );
+
     }
+
+
+    /**
+     * Display custom fields.
+     *
+     * @since	 3.2
+     * @access   public
+     * @param	 int    $post_id	Post ID.
+     * @param	 int    $term_id    Category ID.
+     */
+    public function ajax_callback_custom_fields( $post_id = 0, $term_id = 0 ) {
+
+
+        $ajax = false;
+        if( isset( $_POST['term_id'] ) ) {
+            $ajax = true;
+            $post_id = (int) $_POST['post_id'];
+            $term_id = (int) $_POST['term_id'];
+        }
+
+        // Get custom fields
+        $custom_field_ids = $term_id;
+        $args = array(
+            'post_type'      => 'atbdp_fields',
+            'posts_per_page' => -1,
+            'meta_key'   => 'category_pass',
+            'meta_value' => $custom_field_ids
+
+        );
+
+        $atbdp_query = new WP_Query( $args );
+
+        if ($atbdp_query->have_posts()){
+            // Start the Loop
+            global $post;
+            // Process output
+            ob_start();
+
+            include ATBDP_TEMPLATES_DIR . 'add-listing-custom-field.php';
+            wp_reset_postdata(); // Restore global post data stomped by the_post()
+            $output = ob_get_clean();
+
+            print $output;
+
+            if( $ajax ) {
+                wp_die();
+            }
+        }
+    }
+
 
     public function search_result()
     {

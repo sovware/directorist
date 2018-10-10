@@ -19,12 +19,39 @@ class ATBDP_Enqueuer {
         // best hook to enqueue scripts for front-end is 'template_redirect'
         // 'Professional WordPress Plugin Development' by Brad Williams
         add_action( 'wp_enqueue_scripts', array( $this, 'front_end_enqueue_scripts' ), -10 );
+        add_action( 'wp_enqueue_scripts', array( $this, 'custom_color_picker_scripts' ) );
 
         /*The plugins_loaded action hook fires early, and precedes the setup_theme, after_setup_theme, init and wp_loaded action hooks.
         This is why calling is_multiple_images_active() which is a wrapper function of vp_option() returned false all the time here.
         Because we bootstrapped the Vafpress at the after_theme_setup hook as directed by the author for various good reason.
         This bug took very hard time to fix :'( I should be more aware of the sequence of hook.*/
         add_action('init', array($this, 'everything_has_loaded_and_ready')); // otherwise, vp_option would return null
+
+    }
+
+    public function custom_color_picker_scripts() {
+        wp_enqueue_style( 'wp-color-picker' );
+        wp_enqueue_script(
+            'iris',
+            admin_url( 'js/iris.min.js' ),
+            array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ),
+            false,
+            1
+        );
+        wp_enqueue_script(
+            'wp-color-picker',
+            admin_url( 'js/color-picker.min.js' ),
+            array( 'iris' ),
+            false,
+            1
+        );
+        $colorpicker_l10n = array(
+            'clear' => __( 'Clear' ),
+            'defaultString' => __( 'Default' ),
+            'pick' => __( 'Select Color' ),
+            'current' => __( 'Current Color' ),
+        );
+        wp_localize_script( 'wp-color-picker', 'wpColorPickerL10n', $colorpicker_l10n );
 
     }
 
@@ -209,6 +236,7 @@ class ATBDP_Enqueuer {
         wp_enqueue_script('atbdp-uikit-grid');
 
         wp_enqueue_style('wp-color-picker');
+        wp_enqueue_script('wp-color-picker');
 
         $data = array(
             'nonce'       => wp_create_nonce('atbdp_nonce_action_js'),

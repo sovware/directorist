@@ -144,7 +144,7 @@
                         case 'color'  :
                             echo '<div>';
                             printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-                            printf( '<input type="text" name="custom_field[%d]" class="my-color-field" value="%s"/>', $post->ID, $value );
+                            printf( '<input type="text" name="custom_field[%d]" id="color_code" class="my-color-field" value="%s"/>', $post->ID, $value );
                             echo '</div>';
                             break;
                     }

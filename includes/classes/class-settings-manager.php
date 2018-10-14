@@ -1305,6 +1305,20 @@ The Administrator of ==SITE_NAME==
                         'description' => __('Here YES means users can renew their listings. NO means users can not renew their listings. Default is YES.', ATBDP_TEXTDOMAIN),
                         'default' => 1,
                     ),
+                array(
+                        'type' => 'toggle',
+                        'name' => 'listing_terms_condition',
+                        'label' => __('Required Terms & Conditions', ATBDP_TEXTDOMAIN),
+                        'description' => __('Here YES means restrict user to submit listing from front end without checking it.', ATBDP_TEXTDOMAIN),
+                        'default' => 1,
+                    ),
+                array(
+                        'type' => 'textarea',
+                        'name' => 'listing_terms_condition_text',
+                        'label' => __('Custom Terms & Conditions', ATBDP_TEXTDOMAIN),
+                        'description' => __('You may include and any of your business policy here.', ATBDP_TEXTDOMAIN),
+                        'default' => 'Replace it with your own Terms and Conditions',
+                    ),
                     array(
                         'type' => 'toggle',
                         'name' => 'delete_expired_listing',

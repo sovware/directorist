@@ -46,7 +46,7 @@ class ATBDP_Custom_Field {
 
         add_action('wp_ajax_update-menu-order', array($this, 'update_menu_order'));
 
-        add_action('pre_get_posts', array($this, 'scporder_pre_get_posts'));
+        add_action('pre_get_posts', array($this, 'atbdp_pre_get_posts'));
 
 
 
@@ -86,7 +86,7 @@ class ATBDP_Custom_Field {
     /*
      * to get the pre get post
      */
-    function scporder_pre_get_posts($wp_query) {
+    function atbdp_pre_get_posts($wp_query) {
         $objects = $this->get_scporder_options_objects();
         if (empty($objects))
             return false;

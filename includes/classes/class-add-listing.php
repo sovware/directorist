@@ -58,6 +58,8 @@ if (!class_exists('ATBDP_Add_Listing')):
             return $query;
         }
 
+
+
         /**
          * It inserts & Updates a listing to the database and redirects use to the checkout page
          * when a new post is saved & monetization is active
@@ -74,6 +76,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $title= !empty($_POST['listing_title']) ? sanitize_text_field($_POST['listing_title']) : '';
                     $price= !empty($_POST['price']) ? sanitize_text_field($_POST['price']) : '';
                     $admin_category_select= !empty($_POST['admin_category_select']) ? sanitize_text_field($_POST['admin_category_select']) : '';
+                    $t_c_check= !empty($_POST['t_c_check']) ? sanitize_text_field($_POST['t_c_check']) : '';
                     $custom_field= !empty($_POST['custom_field']) ? ($_POST['custom_field']) : array();
                     $content = !empty($_POST['listing_content']) ? wp_kses($_POST['listing_content'], wp_kses_allowed_html('post')) : '';
                     $info= (!empty($_POST['listing'])) ? aazztech_enc_serialize($_POST['listing']) : aazztech_enc_serialize( array() );
@@ -85,6 +88,13 @@ if (!class_exists('ATBDP_Add_Listing')):
                         'meta_input'=>  array('_listing_info'=>$info,'_price'=>$price),
 
                     );
+
+                    if($title == '' || get_directorist_option('listing_terms_condition') == 1){
+                            if ($t_c_check == ''){
+                                $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span style="color: red">*</span></strong></div>';
+                                return $msg;
+                            }
+                    }
 
 
                     // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags

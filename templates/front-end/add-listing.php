@@ -9,6 +9,7 @@ if (!empty($id)) {
         echo '<p class="error">'.__('You do not have permission to edit this listing', ATBDP_TEXTDOMAIN).'</p>';
         return;
     }
+
     $lf= get_post_meta($p_id, '_listing_info', true);
     $price= get_post_meta($p_id, '_price', true);
     $listing_info = (!empty($lf))? aazztech_enc_unserialize($lf) : array();
@@ -49,6 +50,9 @@ $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map');
 $disable_price = get_directorist_option('disable_list_price');
 $disable_contact_info = get_directorist_option('disable_contact_info');
+
+// get the custom terms and conditions
+$listing_terms_condition_text = get_directorist_option('listing_terms_condition_text');
 ?>
 
 <div class="directorist directory_wrapper single_area">
@@ -64,7 +68,10 @@ $disable_contact_info = get_directorist_option('disable_contact_info');
             <input type="hidden" name="listing_id" value="<?= !empty($p_id) ?  esc_attr($p_id) : ''; ?>">
 
 
-
+        <?php
+            $all_validation = ATBDP()->listing->add_listing->add_listing_to_db();
+            echo $all_validation;
+        ?>
 
         <div class="row">
             <div class="col-md-12">
@@ -83,7 +90,7 @@ $disable_contact_info = get_directorist_option('disable_contact_info');
                             <div class="col-md-12 col-sm-12">
                                 <h3 class="module_title"><?php esc_html_e('General information', ATBDP_TEXTDOMAIN) ?></h3>
                                 <div class="form-group">
-                                    <label for="listing_title"><?php esc_html_e('Title:', ATBDP_TEXTDOMAIN); ?></label>
+                                    <label for="listing_title"><?php esc_html_e('Title:', ATBDP_TEXTDOMAIN); echo '<span style="color: red"> *</span>'; ?></label>
                                     <input type="text" name="listing_title" value="<?= !empty($listing->post_title) ? esc_attr($listing->post_title):'';?>" class="form-control directory_field" placeholder="<?= __('Enter a title', ATBDP_TEXTDOMAIN); ?>"/>
                                 </div>
 
@@ -147,7 +154,7 @@ $disable_contact_info = get_directorist_option('disable_contact_info');
                                             $value = $post_meta[0];
                                         }
                                         global $wpdb;
-                                        // get the all values for edit and show for custom fields
+                                        // get the all values to edit and show for custom fields
                                         $all_values = $wpdb->get_col( $wpdb->prepare( "
                                                 SELECT pm.meta_value FROM {$wpdb->postmeta} pm
                                                 LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id
@@ -565,6 +572,16 @@ $disable_contact_info = get_directorist_option('disable_contact_info');
                         <?php  ATBDP()->load_template('media-upload', array('attachment_ids'=> $attachment_ids)); ?>
 
                     </div>
+                    <div style="text-align: center">
+                        <input type="checkbox" name="t_c_check">
+                        <?php
+                        if (get_directorist_option('listing_terms_condition') == 1){
+                            printf('<span style="color: red"> *</span>');
+                        }
+                        ?>
+                        <label><?php echo __('I Agree with all ',ATBDP_TEXTDOMAIN);?><a style="color: red" href="" id="listing_t_c" "><?php echo __('terms & conditions',ATBDP_TEXTDOMAIN);?></a></label>
+                        <div id="tc_container"></div>
+                    </div>
                     <div class="btn_wrap list_submit">
                         <button type="submit" class="btn btn-primary listing_submit_btn"><?= !empty($p_id) ? __( 'Update Listing', ATBDP_TEXTDOMAIN) : __( 'Submit listing', ATBDP_TEXTDOMAIN); ?></button>
                     </div>
@@ -772,6 +789,13 @@ $disable_contact_info = get_directorist_option('disable_contact_info');
 
         $(function () {
             $('#color_code2').wpColorPicker();
+        });
+        $(function () {
+            $('#listing_t_c').on('click', function (e) {
+                e.preventDefault();
+                var output = "<p style='padding:25px; border-radius: 10px; border:1px solid brown; font-size:13px; text-align:justify' class='alert-danger'><?php _e($listing_terms_condition_text, ATBDP_TEXTDOMAIN);?></p>";
+                $('#tc_container').html(output).fadeIn(500);
+            })
         })
 
     }); // ends jquery ready function.

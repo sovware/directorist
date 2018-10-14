@@ -79,6 +79,9 @@ $currency = get_directorist_option('g_currency', 'USD');
                                     setup_postdata($post);
                                     $post_id = $post->ID;
                                     $cf_required = get_post_meta(get_the_ID(), 'required', true);
+                                    if ($cf_required){
+                                        $required = '';
+                                    }
                                     $post_meta = get_post_meta( $post_id );
                                     ?>
 
@@ -114,7 +117,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                                             case 'text' :
                                                 echo '<div>';
                                                 printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-                                                printf( '<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>',$post_id,$cf_placeholder, $value );
+                                                printf( '<input required="" type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>',$post_id,$cf_placeholder, $value );
                                                 echo '</div>';
                                                 break;
                                             case 'textarea' :
@@ -292,9 +295,10 @@ $currency = get_directorist_option('g_currency', 'USD');
                                             $( window ).on( "load", function() {
                                                 var checked_val = $('#cat-type').val();
                                                    if(checked_val){
-                                                       $('#atbdp-custom-fields-list').attr('data-hidden', 'show');
-                                                   } else{
-                                                       $('#selectbox-extra').attr('data-hidden', 'hidden');
+
+                                                      var all = $('#custom_field_for_cat').val();
+                                                       console.log(all);
+                                                       $('.custom_field_for_cat').prevAll();
                                                    }
                                             });
                                         });

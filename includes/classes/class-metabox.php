@@ -43,9 +43,7 @@ class ATBDP_Metabox {
             'posts_per_page' => -1,
             'meta_key'   => 'category_pass',
             'meta_value' => $custom_field_ids
-
         );
-
         $atbdp_query = new WP_Query( $args );
 
         if ($atbdp_query->have_posts()){

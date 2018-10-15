@@ -287,15 +287,18 @@ $currency = get_directorist_option('g_currency', 'USD');
                                                     $( '#atbdp-custom-fields-list' ).html( response );
                                                 });
                                             });
-                                            $( window ).on( "load", function() {
-                                                var checked_val = $('#cat-type').val();
-                                                   if(checked_val){
-
-                                                      var all = $('#custom_field_for_cat').val();
-                                                       console.log(all);
-                                                       $('.custom_field_for_cat').prevAll();
-                                                   }
-                                            });
+                                          /* $( window ).on( "load", function() {
+                                                $( '#atbdp-custom-fields-list' ).html( '<div class="spinner"></div>' );
+                                                var data = {
+                                                    'action'  : 'atbdp_custom_fields_listings',
+                                                    'post_id' : $( '#atbdp-custom-fields-list' ).data('post_id'),
+                                                    'term_id' : $(this).val()
+                                                };
+                                                console.log(data);
+                                                $.post( ajaxurl, data, function(response) {
+                                                    $( '#atbdp-custom-fields-list' ).html( response );
+                                                });
+                                            });*/
                                         });
                                     })(jQuery);
 
@@ -303,6 +306,7 @@ $currency = get_directorist_option('g_currency', 'USD');
 
                                 <div  id="atbdp-custom-fields-list" data-post_id="<?php echo $post_ID; ?>">
                                     <?php
+
                                     $selected_category = !empty($selected_category) ? $selected_category : '';
                                     do_action( 'wp_ajax_atbdp_custom_fields_listings', $post_ID, $selected_category ); ?>
                                 </div>

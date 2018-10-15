@@ -151,6 +151,7 @@ class ATBDP_Metabox {
         $never_expire = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
         $featured = !empty($p['featured'])? (int) $p['featured'] : 0;
         $price = !empty($p['price'])? (int) $p['price'] : 0;
+        $video_url = !empty($p['video_url']) ? (int) $p['video_url'] : '';
         $admin_category_select = !empty($p['admin_category_select'])? (int) $p['admin_category_select'] : 0;
         $listing_status = !empty($p['listing_status'])? sanitize_text_field($p['listing_status']) : 'post_status';
         $listing_info = (!empty($p['listing'])) ? aazztech_enc_serialize($p['listing']) : aazztech_enc_serialize(array());
@@ -220,6 +221,7 @@ class ATBDP_Metabox {
         update_post_meta( $post_id, '_featured', $featured );
         update_post_meta( $post_id, '_listing_status', $listing_status );
         update_post_meta( $post_id, '_price', $price );
+        update_post_meta( $post_id, '_video_url', $video_url );
         update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
 
 

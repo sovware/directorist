@@ -86,14 +86,7 @@ class ATBDP_Settings_Manager {
                 'name' => 'listings',
                 'title' => __('Listings settings', ATBDP_TEXTDOMAIN),
                 'icon' => 'font-awesome:fa-list',
-                'controls' => apply_filters('atbdp_listings_settings_controls', array(
-                    'search_section' => array(
-                        'type' => 'section',
-                        'title' => __('Listings Settings', ATBDP_TEXTDOMAIN),
-                        'description' => __('You can Customize Listings related settings here. After switching any option, Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
-                        'fields' => $this->get_listings_settings_fields(),
-                    ), // ends 'search_settings' section
-                )),
+                'menus' => $this->get_listings_settings_submenus(),
             ),
             /*Main Menu 5*/
             'pages' => array(
@@ -125,6 +118,44 @@ class ATBDP_Settings_Manager {
         ));
     }
 
+    /**
+     * Get all the submenus for listings
+     * @since 3.1.0 ( new)
+     * @return array It returns an array of submenus
+     */
+    public function get_listings_settings_submenus() {
+        return apply_filters('atbdp_general_listings_submenus', array(
+            /*Submenu : General Listings*/
+            array(
+                'title' => __('General Listings', ATBDP_TEXTDOMAIN),
+                'name' => 'general_listings',
+                'icon' => 'font-awesome:fa-sliders',
+                'controls' => apply_filters('atbdp_general_listings_controls', array(
+                    'emails' => array(
+                        'type' => 'section',
+                        'title' => __('General Listings', ATBDP_TEXTDOMAIN),
+                        'description' => __('You can Customize all Listings related settings here', ATBDP_TEXTDOMAIN),
+                        'fields' => $this->get_general_listings_settings_fields(),
+                    ),
+                )),
+            ),
+
+            /*Submenu : Listing form */
+            array(
+                'title' => __('Listings Form', ATBDP_TEXTDOMAIN),
+                'name' => 'listings_form',
+                'icon' => 'font-awesome:fa-wpforms',
+                'controls' => apply_filters('atbdp_listings_form_controls', array(
+                    'emails' => array(
+                        'type' => 'section',
+                        'title' => __('Listing Form', ATBDP_TEXTDOMAIN),
+                        'description' => __('You can Customize Listings Form related settings here', ATBDP_TEXTDOMAIN),
+                        'fields' => $this->get_listings_form_settings_fields(),
+                    ),
+                )),
+            ),
+        ));
+    }
 
     /**
      * Get all the submenus for the email menu
@@ -1274,6 +1305,249 @@ The Administrator of ==SITE_NAME==
                 )
             );
         }
+
+
+    /**
+     * Get all the settings fields for the listings settings section
+     * @since 3.0.0
+     * @return array
+     */
+    function get_listings_form_settings_fields() {
+        return apply_filters('atbdp_listings_settings_fields' , array(
+            array(
+                'type' => 'toggle',
+                'name' => 'listing_terms_condition',
+                'label' => __('Required Terms & Conditions', ATBDP_TEXTDOMAIN),
+                'description' => __('Here YES means restrict user to submit listing from front end without checking it.', ATBDP_TEXTDOMAIN),
+                'default' => 1,
+            ),
+            array(
+                'type' => 'textarea',
+                'name' => 'listing_terms_condition_text',
+                'label' => __('Custom Terms & Conditions', ATBDP_TEXTDOMAIN),
+                'description' => __('You may include and any of your business policy here.', ATBDP_TEXTDOMAIN),
+                'default' => 'Replace it with your own Terms and Conditions',
+            ),
+            array(
+                'type' => 'select',
+                'name' => 'new_listing_status',
+                'label' => __( 'New Listing\'s Default status', ATBDP_TEXTDOMAIN ),
+                'items' => array(
+                    array(
+                        'value' => 'publish',
+                        'label' => __('Published', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'value' => 'pending',
+                        'label' => __('Pending', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                'description' => __( 'Choose the Default Listing Status for a new listing when a user submits it from the Front End', ATBDP_TEXTDOMAIN ),
+
+                'default' => array(
+                    'value' => 'publish',
+                    'label' => __('Published', ATBDP_TEXTDOMAIN),
+                ),
+            ),
+            array(
+                'type' => 'select',
+                'name' => 'edit_listing_status',
+                'label' => __( 'Edited Listing\'s Default Status', ATBDP_TEXTDOMAIN ),
+                'items' => array(
+                    array(
+                        'value' => 'publish',
+                        'label' => __('Published', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'value' => 'pending',
+                        'label' => __('Pending', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                'description' => __( 'Select the Default Listing Status for Edited listing when a user edits it on the front end.', ATBDP_TEXTDOMAIN ),
+
+                'default' => array(
+                    'value' => 'publish',
+                    'label' => __('Published', ATBDP_TEXTDOMAIN),
+                ),
+            ),
+            array(
+                'type' => 'toggle',
+                'name' => 'atbd_video_url',
+                'label' => __('Enable Video', ATBDP_TEXTDOMAIN),
+                'description' => __('Allow users to add videos for their listings.', ATBDP_TEXTDOMAIN),
+                'default' => 1,
+            ),
+
+        ));
+    }
+    /**
+     * Get all the settings fields for the listings settings section
+     * @since 3.0.0
+     * @return array
+     */
+    function get_general_listings_settings_fields(){
+        // BACKWARD COMPATIBILITY:  OLD SETTINGS DATA that should be adapted by using them as default value, will be removed in future
+        $s_p_cat = atbdp_get_option('show_popular_category', 'atbdp_general', 'yes');
+        $e_p_list = atbdp_get_option('enable_pop_listing', 'atbdp_general', 'yes');
+        $e_r_list = atbdp_get_option('enable_rel_listing', 'atbdp_general', 'yes');
+
+        return apply_filters('atbdp_listings_settings_fields', array(
+                array(
+                    'type' => 'slider',
+                    'name' => 'listing_expire_in_days',
+                    'label' => __('Default Listing Expires in Days', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Set how many days after publishing a listing, you would like to expire a listing by default ? Set it to 0 to keep it alive forever.', ATBDP_TEXTDOMAIN ),
+                    'min' => '0',
+                    'max' => '730',
+                    'step' => '1',
+                    'default' => 365,
+                    'validation' => 'numeric',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'can_renew_listing',
+                    'label' => __('Can User Renew Listing?', ATBDP_TEXTDOMAIN),
+                    'description' => __('Here YES means users can renew their listings. NO means users can not renew their listings. Default is YES.', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'delete_expired_listing',
+                    'label' => __('Delete/Trash Expired Listings', ATBDP_TEXTDOMAIN),
+                    'description' => __('Here YES means expired listings will be deleted (after threshold of course). NO means expired listings will not be deleted. Default is YES.', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'delete_expired_listings_after',
+                    'label' => __('Delete/Trash Expired Listings After (days) of Expiration', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Set how many days after the expiration of a listing you would like the listings gets tashed/deleted. Set it 0 to delete/trash expired listings immediately.(N.B. This option depends on the "Delete/Trash Expired Listings" option', ATBDP_TEXTDOMAIN ),
+                    'min' => '0',
+                    'max' => '180',
+                    'step' => '1',
+                    'default' => 15,
+                    'validation' => 'numeric',
+                ),
+                array(
+                    'type' => 'select',
+                    'name' => 'deletion_mode',
+                    'label' => __( 'Delete or Trash Expired Listings', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'force_delete',
+                            'label' => __('Delete Permanently', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'trash',
+                            'label' => __('Move to Trash', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'description' => __( 'Choose the Default actions after a listing reaches its deletion threshold. Default action is to trash them.', ATBDP_TEXTDOMAIN ),
+                    /*@todo; later add option to make listing status hidden or invalid for expired listing, so that admin may retain expired listings without having them deleted after the deletion threshold */
+                    'default' => array(
+                        'value' => 'trash',
+                        'label' => __('Move to Trash', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'all_listing_title',
+                    'label' => __('Title for all listing page', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Enter a title for the page where all listings will be shown using the shortcode [all_listing] . Eg. All Listings/ Items.', ATBDP_TEXTDOMAIN ),
+                    'default' => atbdp_get_option('all_listing_title', 'atbdp_general'),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'paginate_all_listings',
+                    'label' => __('Paginate Listings On "All listings" Page', ATBDP_TEXTDOMAIN),
+                    'description' => __('If you do not want to show pagination on all listings page, turn it off.', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+
+                array(
+                    'type' => 'slider',
+                    'name' => 'all_listing_page_items',
+                    'label' => __('Listings Per Page on All listing page', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Set how many listings you would like to show per page on the All Listings page. Eg. 6. Default is 6. If pagination is off, then this number will be the total listings to show.', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '30',
+                    'step' => '1',
+                    'default' => '6',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'show_popular_category',
+                    'label' => __('Show popular category on the search page', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can show popular category on search page or you can hide it here.', ATBDP_TEXTDOMAIN),
+                    'default' => atbdp_yes_to_bool($s_p_cat),
+                ),
+
+                array(
+                    'type' => 'textbox',
+                    'name' => 'popular_cat_title',
+                    'label' => __('Popular Category Title', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Enter the title for popular category on listing search page eg. Browse by popular categories', ATBDP_TEXTDOMAIN ),
+                    'default' => __('Browse by popular categories', ATBDP_TEXTDOMAIN),
+                ),
+
+                array(
+                    'type' => 'slider',
+                    'name' => 'popular_cat_num',
+                    'label' => __('Number of Popular Category', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Set how many popular categories you would like to show on your listing main search page. Eg. 10. Default is 10', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '30',
+                    'step' => '1',
+                    'default' => '10',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+
+                array(
+                    'type' => 'toggle',
+                    'name' => 'enable_pop_listing',
+                    'label' => __('Enable popular listings on Single Listing page', ATBDP_TEXTDOMAIN),
+                    'description' => __('Choose whether you want to display popular listings on Single listing details page or not. Default is YES.', ATBDP_TEXTDOMAIN),
+                    'default' => atbdp_yes_to_bool($e_p_list),
+                ),
+
+                array(
+                    'type' => 'slider',
+                    'name' => 'pop_listing_num',
+                    'label' => __('Number of Popular Listings', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Set how many popular listings you would like to show on your website. Eg. 5. Default is 5.', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '30',
+                    'step' => '1',
+                    'default' => '5',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+
+
+                array(
+                    'type' => 'toggle',
+                    'name' => 'enable_rel_listing',
+                    'label' => __('Enable related listings on Single Listing page', ATBDP_TEXTDOMAIN),
+                    'description' => __('Choose whether you want to display related listings on Single listing details page or not. Default is YES.', ATBDP_TEXTDOMAIN),
+                    'default' => atbdp_yes_to_bool($e_r_list),
+                ),
+
+                array(
+                    'type' => 'slider',
+                    'name' => 'rel_listing_num',
+                    'label' => __('Number of Related Listings', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Set how many related listings you would like to show on your website. Eg. 2. Default is 2.', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '10',
+                    'step' => '1',
+                    'default' => '2',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+
+
+            )
+        );
+    }
 
     /**
      * Get all the settings fields for the listings settings section

@@ -202,7 +202,9 @@ $main_col_size = is_active_sidebar( 'right-sidebar-listing' ) || !$disable_s_wid
                                 </div> <!--ends .directory_open_hours -->
                             </div> <!--ends. .opening hours-->
                         </div> <!--ends. .col-md-5-->
+                        <div>
 
+                        </div>
                         <div class="col-md-7">
                             <?php }
                             if (!$disable_contact_info || !$hide_contact_info) {

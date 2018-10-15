@@ -19,6 +19,7 @@ $social_info = !empty( $social ) ? $social : array();
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map');
 $disable_price = get_directorist_option('disable_list_price');
+$enable_video_url = get_directorist_option('atbd_video_url');
 $disable_contact_info = get_directorist_option('disable_contact_info');
 $currency = get_directorist_option('g_currency', 'USD');
 ?>
@@ -259,6 +260,16 @@ $currency = get_directorist_option('g_currency', 'USD');
                                         ?>
                                     </div>
                                 </div>
+                                <?php
+                                if($enable_video_url) {?>
+                                <div class="form-group">
+                                    <!--@todo; Add currency Name near price-->
+                                    <label for="video_url"><?php
+                                        /*Translator: % is the name of the currency such eg. USD etc.*/
+                                        printf(esc_html__('Video URL', ATBDP_TEXTDOMAIN), $currency); ?></label>
+                                    <input type="text" id="video_url" name="video_url" value="<?= !empty($video_url) ? esc_attr($video_url): ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
+                                </div>
+                                <?php } ?>
                                 <script>
                                     (function ($) {
                                         $(document).ready(function () {
@@ -368,6 +379,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                         do_action('atbdp_edit_after_social_info_fields', 'add_listing_page_backend', $args['listing_info']);
                     ?>
                     </div>
+
 
 
 

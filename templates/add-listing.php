@@ -99,11 +99,11 @@ $currency = get_directorist_option('g_currency', 'USD');
                                                 LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id
                                                 WHERE pm.meta_key = '%d'
                                             ", $post_id ) );
-
-                                         $value =  end($all_values);
-
-
-
+                                        $listing_ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} AS p INNER JOIN {$wpdb->postmeta} AS pm ON p.ID=pm.post_id WHERE pm.meta_key=$post_id" );
+                                        $value =  '';
+                                        if(in_array($p_id, $listing_ids)){
+                                            $value =  end($all_values);
+                                        }
                                         $cf_meta_default_val = get_post_meta(get_the_ID(), 'default_value', true);
 
                                         if( isset( $post_id ) ) {

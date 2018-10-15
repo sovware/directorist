@@ -160,10 +160,11 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                 LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id
                                                 WHERE pm.meta_key = '%d'
                                             ", $post_id ) );
-
-                                        $value =  end($all_values);
-
-
+                                        $listing_ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} AS p INNER JOIN {$wpdb->postmeta} AS pm ON p.ID=pm.post_id WHERE pm.meta_key=$post_id" );
+                                        $value =  '';
+                                        if(in_array($p_id, $listing_ids)){
+                                            $value =  end($all_values);
+                                        }
 
                                         $cf_meta_default_val = get_post_meta(get_the_ID(), 'default_value', true);
 
@@ -299,7 +300,6 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     <?php
                                 }
                                 wp_reset_postdata();
-                                wp_reset_query();
                                 ?>
 
 

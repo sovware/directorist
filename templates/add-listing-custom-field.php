@@ -17,18 +17,7 @@
                     <?php
                     $value = ['default_value'][0];
                     $cf_meta_default_val = get_post_meta(get_the_ID(), 'default_value', true);
-                    global $wpdb;
-                    // get the all values for edit and show for custom fields
-                    $all_values = $wpdb->get_col( $wpdb->prepare( "
-                                                SELECT pm.meta_value FROM {$wpdb->postmeta} pm
-                                                LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id
-                                                WHERE pm.meta_key = '%d' 
-                                            ", $post_id ) );
-                    $listing_ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} AS p INNER JOIN {$wpdb->postmeta} AS pm ON p.ID=pm.post_id WHERE pm.meta_key=$post_id" );
-                    $value =  '';
-                    if(in_array($p_id, $listing_ids)){
-                        $value =  end($all_values);
-                    }
+                    $value =  get_post_meta($post_ID, $post_id, true); ///store the value for the db
                     if( isset( $post_id ) ) {
                         $cf_meta_default_val = $post_id[0];
                     }
@@ -157,5 +146,4 @@
                 <?php
             }
             wp_reset_postdata();
-            wp_reset_query();
             }

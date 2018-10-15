@@ -153,19 +153,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         if( isset( $post_meta[ $post->ID ] ) ) {
                                             $value = $post_meta[0];
                                         }
-                                        global $wpdb;
-                                        // get the all values to edit and show for custom fields
-                                        $all_values = $wpdb->get_col( $wpdb->prepare( "
-                                                SELECT pm.meta_value FROM {$wpdb->postmeta} pm
-                                                LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id
-                                                WHERE pm.meta_key = '%d'
-                                            ", $post_id ) );
-                                        $listing_ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} AS p INNER JOIN {$wpdb->postmeta} AS pm ON p.ID=pm.post_id WHERE pm.meta_key=$post_id" );
-                                        $value =  '';
-                                        if(in_array($p_id, $listing_ids)){
-                                            $value =  end($all_values);
-                                        }
-
+                                        $value =  get_post_meta($p_id, $post_id, true); ///store the value for the db
                                         $cf_meta_default_val = get_post_meta(get_the_ID(), 'default_value', true);
 
                                         if( isset( $post_id ) ) {
@@ -301,11 +289,6 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 }
                                 wp_reset_postdata();
                                 ?>
-
-
-
-
-
                             </div>
                         </div>
 
@@ -362,17 +345,12 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                  **************************************************************************-->
                                 <!--@ Options for select the category.-->
                                 <div class="form-group">
+
                                     <label for="atbdp_select_cat"><?php esc_html_e('Select Category', ATBDP_TEXTDOMAIN) ?></label>
                                     <?php
-                                    $admin_selected_cat = '_admin_category_select';
-                                    $all_values = $wpdb->get_col( $wpdb->prepare( "
-                                                SELECT pm.meta_value FROM {$wpdb->postmeta} pm
-                                                LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id
-                                                WHERE pm.meta_key = '%s'
-                                            ", $admin_selected_cat ) );
-                                    $current_val = end($all_values);
-                                    $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
 
+                                    $current_val = esc_attr(get_post_meta($p_id, '_admin_category_select', true) );
+                                    $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
                                     echo '<select class="form-control directory_field" id="cat-type" name="admin_category_select">';
                                     echo '<option>'.__( "--Select a Category--", ATBDP_TEXTDOMAIN ).'</option>';
                                     foreach ($categories as $key => $cat_title){
@@ -413,8 +391,10 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                                     })(jQuery);
                                 </script>
-                                <div  id="atbdp-custom-fields-list" data-post_id="<?php echo $post->ID; ?>">
-                                    <?php do_action( 'wp_ajax_atbdp_custom_fields_listings_front', $post->ID, $selected_category ); ?>
+                                <div  id="atbdp-custom-fields-list" data-post_id="<?php echo $p_id; ?>">
+                                    <?php
+                                    $selected_category = !empty($selected_category) ? $selected_category : '';
+                                    do_action( 'wp_ajax_atbdp_custom_fields_listings_front', $p_id, $selected_category ); ?>
                                 </div>
                             </div>
 

@@ -33,10 +33,9 @@ class ATBDP_Metabox {
         $ajax = false;
         if( isset( $_POST['term_id'] ) ) {
             $ajax = true;
-            $post_id = (int) $_POST['post_id'];
+            $post_ID = (int) $_POST['post_id'];
             $term_id = (int) $_POST['term_id'];
         }
-
         // Get custom fields
         $custom_field_ids = $term_id;
         $args = array(

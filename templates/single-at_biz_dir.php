@@ -1,8 +1,8 @@
 <?php
-$lf= get_post_meta($post->ID, '_listing_info', true);
-$price= get_post_meta($post->ID, '_price', true);
-$listing_info = (!empty($lf))? aazztech_enc_unserialize($lf) : array();
-$attachment_ids= (!empty($listing_info['attachment_id'])) ? $listing_info['attachment_id'] : array();
+$lf                 = get_post_meta($post->ID, '_listing_info', true);
+$price              = get_post_meta($post->ID, '_price', true);
+$listing_info       = (!empty($lf))? aazztech_enc_unserialize($lf) : array();
+$attachment_ids     = (!empty($listing_info['attachment_id'])) ? $listing_info['attachment_id'] : array();
 
 $image_links = array(); // define a link placeholder variable
 foreach ($attachment_ids as $id){
@@ -14,6 +14,7 @@ foreach ($attachment_ids as $id){
 extract($listing_info);
 /*Code for Business Hour Extensions*/
 /*@todo; Make business hour settings compatible to our new settings panel. It is good to prefix all settings of extensions with their prefix*/
+$video_url = !empty($videourl) ? esc_attr(ATBDP()->atbdp_parse_videos($videourl)): '';
 $enable_bh_on_page = get_directorist_option('enable_bh_on_page', 0 ); // yes or no
 $text247 = get_directorist_option('text247',  __('Open 24/7', ATBDP_TEXTDOMAIN)); // text for 24/7 type listing
 $business_hour_title = get_directorist_option('business_hour_title',  __('Business Hour', ATBDP_TEXTDOMAIN)); // text Business Hour Title
@@ -44,6 +45,8 @@ $disable_s_widget = get_directorist_option('disable_submit_listing_widget', 0);
 $disable_widget_login = get_directorist_option('disable_widget_login', 0);
 $disable_contact_info = get_directorist_option('disable_contact_info', 0);
 $is_disable_price = get_directorist_option('disable_list_price');
+$enable_video_url = get_directorist_option('atbd_video_url');
+$video_label = get_directorist_option('atbd_video_title');
 $p_lnk = get_the_permalink();
 $p_title = get_the_title();
 $featured = get_post_meta(get_the_ID(), '_featured', true);
@@ -180,6 +183,14 @@ $main_col_size = is_active_sidebar( 'right-sidebar-listing' ) || !$disable_s_wid
                             <?php } ?>
                         </div>
                     </div>
+                    <?php if($enable_video_url && !empty($video_url)) { ?>
+                    <div class="col-md-8">
+                        <div class="directory_video_url">
+                            <h2><?php echo !empty( $video_label ) ? $video_label : 'Video'; ?></h2>
+                            <iframe class="embed-responsive-item" src="<?php echo $video_url;?>" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <?php } ?>
                     <?php
                     // if business hour is active then add the following markup...
                     if ( is_business_hour_active() && $enable_bh_on_page && (!is_empty_v($business_hours) || !empty($enable247hour)) ) {
@@ -202,9 +213,7 @@ $main_col_size = is_active_sidebar( 'right-sidebar-listing' ) || !$disable_s_wid
                                 </div> <!--ends .directory_open_hours -->
                             </div> <!--ends. .opening hours-->
                         </div> <!--ends. .col-md-5-->
-                        <div>
-
-                        </div>
+                         <!-- video -->
                         <div class="col-md-7">
                             <?php }
                             if (!$disable_contact_info || !$hide_contact_info) {

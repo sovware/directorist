@@ -947,6 +947,40 @@ final class Directorist_Base {
 
     }
 
+    /**
+     * Parse the video URL and determine it's valid embeddable URL for usage.
+     */
+    function atbdp_parse_videos( $url ) {
+
+        $embeddable_url = '';
+
+        // Check for YouTube
+        $is_youtube = preg_match( '/youtu\.be/i', $url ) || preg_match( '/youtube\.com\/watch/i', $url );
+
+        if( $is_youtube ) {
+            $pattern = '/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/';
+            preg_match( $pattern, $url, $matches );
+            if( count( $matches ) && strlen( $matches[7] ) == 11 ) {
+                $embeddable_url = 'https://www.youtube.com/embed/'.$matches[7];
+            }
+        }
+
+        // Check for Vimeo
+        $is_vimeo = preg_match( '/vimeo\.com/i', $url );
+
+        if( $is_vimeo ) {
+            $pattern = '/\/\/(www\.)?vimeo.com\/(\d+)($|\/)/';
+            preg_match( $pattern, $url, $matches );
+            if( count( $matches ) ) {
+                $embeddable_url = 'https://player.vimeo.com/video/'.$matches[2];
+            }
+        }
+
+        // Return
+        return $embeddable_url;
+
+    }
+
 
 
 } // ends Directorist_Base

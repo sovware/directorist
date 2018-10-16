@@ -1,5 +1,6 @@
  <?php
  $fields = $atbdp_query->posts;
+
             if (isset($_POST['term_id'])){
             foreach ($fields as $post){
                 setup_postdata($post);

@@ -47,6 +47,7 @@ class ATBDP_Metabox {
         $atbdp_query = new WP_Query( $args );
 
         if ($atbdp_query->have_posts()){
+
             // Start the Loop
             global $post;
             // Process output

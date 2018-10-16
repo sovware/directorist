@@ -227,8 +227,8 @@ $currency = get_directorist_option('g_currency', 'USD');
                                                 });
                                             </script>
                                         <?php
-                                                printf('<p style="font-style: italic">%s</p>', $post_meta['instructions'][0]);
-                                                printf( '<input type="color" name="custom_field[%d]" class="my-color-field2" value="%s" />', $post->ID, $value );
+                                                //printf('<p style="font-style: italic">%s</p>', $post_meta['instructions'][0]);
+                                                //printf( '<input type="color" name="custom_field[%d]" class="my-color-field2" value="%s" />', $post->ID, $value );
                                                 echo '</div>';
                                                 break;
                                         }
@@ -257,6 +257,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                                             printf( '<option value="%s" %s>%s</option>', $term_id, selected( $term_id, $current_val), $cat_title->name );
                                         }
                                         echo '</select>';
+                                            $term_id_selected = $current_val;
                                         ?>
                                     </div>
                                 </div>
@@ -287,18 +288,19 @@ $currency = get_directorist_option('g_currency', 'USD');
                                                     $( '#atbdp-custom-fields-list' ).html( response );
                                                 });
                                             });
-                                          /* $( window ).on( "load", function() {
-                                                $( '#atbdp-custom-fields-list' ).html( '<div class="spinner"></div>' );
-                                                var data = {
-                                                    'action'  : 'atbdp_custom_fields_listings',
-                                                    'post_id' : $( '#atbdp-custom-fields-list' ).data('post_id'),
-                                                    'term_id' : $(this).val()
-                                                };
-                                                console.log(data);
-                                                $.post( ajaxurl, data, function(response) {
-                                                    $( '#atbdp-custom-fields-list' ).html( response );
+                                            var t_id = <?php echo $term_id_selected; ?>;
+                                                $(window).on("load", function () {
+                                                    $('#atbdp-custom-fields-list').html('<div class="spinner"></div>');
+                                                    var data = {
+                                                        'action': 'atbdp_custom_fields_listings',
+                                                        'post_id': $('#atbdp-custom-fields-list').data('post_id'),
+                                                        'term_id': t_id
+                                                    };
+                                                    $.post(ajaxurl, data, function (response) {
+                                                        $('#atbdp-custom-fields-list').html(response);
+                                                    });
                                                 });
-                                            });*/
+
                                         });
                                     })(jQuery);
 

@@ -881,7 +881,7 @@ The Administrator of ==SITE_NAME==
      * @return array it returns an array of events
      */
     private function default_notifiable_events()
-    {
+     {
         return apply_filters('atbdp_default_notifiable_events', array(
             array(
                 'value' => 'order_created',
@@ -1376,6 +1376,13 @@ The Administrator of ==SITE_NAME==
                 'label' => __('Enable Video', ATBDP_TEXTDOMAIN),
                 'description' => __('Allow users to add videos for their listings.', ATBDP_TEXTDOMAIN),
                 'default' => 1,
+            ),
+            array(
+                'type' => 'textbox',
+                'name' => 'atbd_video_title',
+                'label' => __('Video Label', ATBDP_TEXTDOMAIN),
+                'description' => __('Enter video label for the single listing page.', ATBDP_TEXTDOMAIN),
+                'default' => __('Video', ATBDP_TEXTDOMAIN),
             ),
 
         ));

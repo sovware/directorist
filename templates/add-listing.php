@@ -1,7 +1,6 @@
 <?php
 if (!empty($args['listing_info'])) { extract($args['listing_info']); }
 
-
 //@TODO: I will have to add a text area to get the content for the info window of the map later
 $t = get_the_title();
 $t = !empty($t)? $t : __('No Title', ATBDP_TEXTDOMAIN);
@@ -267,7 +266,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                                     <label for="video_url"><?php
                                         /*Translator: % is the name of the currency such eg. USD etc.*/
                                         printf(esc_html__('Video URL', ATBDP_TEXTDOMAIN), $currency); ?></label>
-                                    <input type="text" id="video_url" name="video_url" value="<?= !empty($video_url) ? esc_attr($video_url): ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
+                                    <input type="text" id="atbdp_tagline" name="listing[videourl]" value="<?= !empty($videourl) ? $videourl: ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
                                 </div>
                                 <?php } ?>
                                 <script>

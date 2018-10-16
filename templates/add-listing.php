@@ -258,6 +258,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                                         echo '</select>';
                                             $term_id_selected = $current_val;
                                         ?>
+                                        <input type="hidden" id="value_selected" value="<?php echo $term_id_selected?>">
                                     </div>
                                 </div>
                                 <?php
@@ -270,47 +271,24 @@ $currency = get_directorist_option('g_currency', 'USD');
                                     <input type="text" id="atbdp_tagline" name="listing[videourl]" value="<?= !empty($videourl) ? $videourl: ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
                                 </div>
                                 <?php } ?>
-                                <script>
-                                    (function ($) {
-                                        $(document).ready(function () {
-                                            // Load custom fields of the selected category in the custom post type "acadp_listings"
-                                            $( '#cat-type' ).on( 'change', function() {
-                                                $( '#atbdp-custom-fields-list' ).html( '<div class="spinner"></div>' );
-
-                                                var data = {
-                                                    'action'  : 'atbdp_custom_fields_listings',
-                                                    'post_id' : $( '#atbdp-custom-fields-list' ).data('post_id'),
-                                                    'term_id' : $(this).val()
-                                                };
-
-                                                $.post( ajaxurl, data, function(response) {
-                                                    $( '#atbdp-custom-fields-list' ).html( response );
-                                                });
-                                            });
-                                            var t_id = <?php echo $term_id_selected; ?>;
-                                                $(window).on("load", function () {
-                                                    $('#atbdp-custom-fields-list').html('<div class="spinner"></div>');
-                                                    var data = {
-                                                        'action': 'atbdp_custom_fields_listings',
-                                                        'post_id': $('#atbdp-custom-fields-list').data('post_id'),
-                                                        'term_id': t_id
-                                                    };
-                                                    $.post(ajaxurl, data, function (response) {
-                                                        $('#atbdp-custom-fields-list').html(response);
-                                                    });
-                                                });
-
-                                        });
-                                    })(jQuery);
-
-                                </script>
 
                                 <div  id="atbdp-custom-fields-list" data-post_id="<?php echo $post_ID; ?>">
                                     <?php
-
                                     $selected_category = !empty($selected_category) ? $selected_category : '';
                                     do_action( 'wp_ajax_atbdp_custom_fields_listings', $post_ID, $selected_category ); ?>
                                 </div>
+                                <?php
+                                if ($term_id_selected){
+                                    ?>
+                                    <div  id="atbdp-custom-fields-list-selected" data-post_id="<?php echo $post_ID; ?>">
+                                        <?php
+                                        $selected_category = !empty($selected_category) ? $selected_category : '';
+                                        do_action( 'wp_ajax_atbdp_custom_fields_listings_selected', $post_ID, $selected_category ); ?>
+                                    </div>
+                                <?php
+                                }
+                                ?>
+
 
                             </div>
                         </div>
@@ -653,6 +631,39 @@ $currency = get_directorist_option('g_currency', 'USD');
         }
         <?php } ?>
 
+
+        // Load custom fields of the selected category in the custom post type "acadp_listings"
+        $( '#cat-type' ).on( 'change', function() {
+            $( '#atbdp-custom-fields-list' ).html( '<div class="spinner"></div>' );
+
+            var data = {
+                'action'  : 'atbdp_custom_fields_listings',
+                'post_id' : $( '#atbdp-custom-fields-list' ).data('post_id'),
+                'term_id' : $(this).val()
+            };
+
+            $.post( ajaxurl, data, function(response) {
+                $( '#atbdp-custom-fields-list' ).html( response );
+            });
+            $('#atbdp-custom-fields-list-selected').hide();
+
+        });
+           var selected_cat = $('#value_selected').val();
+           if(!selected_cat){
+
+           }else{
+               $(window).on("load", function () {
+                   $('#atbdp-custom-fields-list-selected').html('<div class="spinner"></div>');
+                   var data = {
+                       'action': 'atbdp_custom_fields_listings_selected',
+                       'post_id': $('#atbdp-custom-fields-list-selected').data('post_id'),
+                       'term_id': selected_cat
+                   };
+                   $.post(ajaxurl, data, function (response) {
+                       $('#atbdp-custom-fields-list-selected').html(response);
+                   });
+               });
+           }
 
 
     }); // ends jquery ready function.

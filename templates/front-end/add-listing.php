@@ -359,7 +359,9 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         printf( '<option value="%s" %s>%s</option>', $term_id, selected( $term_id, $current_val), $cat_title->name );
                                     }
                                     echo '</select>';
+                                    $term_id_selected = $current_val;
                                     ?>
+                                    <input type="hidden" id="value_selected" value="<?php echo $term_id_selected?>">
                                 </div>
 
                                 <?php
@@ -370,44 +372,24 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         <input type="text" id="video_url" name="video_url" value="<?= !empty($video_url) ? esc_attr($video_url): ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
                                     </div>
                                 <?php } ?>
-                                <script>
-                                    (function ($) {
 
-                                        $(document).ready(function () {
-                                            // Load custom fields of the selected category in the custom post type "acadp_listings"
-                                            $( '#cat-type' ).on( 'change', function() {
-                                                $( '#atbdp-custom-fields-list' ).html( '<div class="spinner"></div>' );
-
-                                                var data = {
-                                                    'action'  : 'atbdp_custom_fields_listings_front',
-                                                    'post_id' : $( '#atbdp-custom-fields-list' ).data('post_id'),
-                                                    'term_id' : $(this).val()
-                                                };
-
-                                                $.post( ajaxurl, data, function(response) {
-                                                    $( '#atbdp-custom-fields-list' ).html( response );
-                                                });
-                                            });
-                                          /*  $( window ).on( "load", function() {
-                                                var checked_val = $('#cat-type').val();
-                                                if(checked_val){
-                                                    $('#atbdp-custom-fields-list').attr('data-hidden', 'show');
-                                                } else{
-                                                    $('#selectbox-extra').attr('data-hidden', 'hidden');
-                                                }
-                                            });*/
-                                        });
-
-                                    })(jQuery);
-                                </script>
                                 <div  id="atbdp-custom-fields-list" data-post_id="<?php echo $p_id; ?>">
                                     <?php
                                     $selected_category = !empty($selected_category) ? $selected_category : '';
                                     do_action( 'wp_ajax_atbdp_custom_fields_listings_front', $p_id, $selected_category ); ?>
                                 </div>
+                                <?php
+                                if ($term_id_selected){
+                                    ?>
+                                    <div  id="atbdp-custom-fields-list-selected" data-post_id="<?php echo $p_id; ?>">
+                                        <?php
+                                        $selected_category = !empty($selected_category) ? $selected_category : '';
+                                        do_action( 'wp_ajax_atbdp_custom_fields_listings_front_selected', $p_id, $selected_category ); ?>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
                             </div>
-
-
                     </div>
 
                     </div>
@@ -785,8 +767,40 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                 var output = "<p style='padding:25px; border-radius: 10px; border:1px solid brown; font-size:13px; text-align:justify' class='alert-danger'><?php _e($listing_terms_condition_text, ATBDP_TEXTDOMAIN);?></p>";
                 $('#tc_container').html(output).fadeIn(500);
             })
-        })
+        });
 
+
+
+        // Load custom fields of the selected category in the custom post type "acadp_listings"
+        $( '#cat-type' ).on( 'change', function() {
+            $( '#atbdp-custom-fields-list' ).html( '<div class="spinner"></div>' );
+
+            var data = {
+                'action'  : 'atbdp_custom_fields_listings_front',
+                'post_id' : $( '#atbdp-custom-fields-list' ).data('post_id'),
+                'term_id' : $(this).val()
+            };
+            $.post( ajaxurl, data, function(response) {
+                $( '#atbdp-custom-fields-list' ).html( response );
+            });
+            $('#atbdp-custom-fields-list-selected').hide();
+        });
+        var selected_cat = $('#value_selected').val();
+        if(!selected_cat){
+
+        }else{
+            $(window).on("load", function () {
+                $('#atbdp-custom-fields-list-selected').html('<div class="spinner"></div>');
+                var data = {
+                    'action': 'atbdp_custom_fields_listings_front_selected',
+                    'post_id': $('#atbdp-custom-fields-list-selected').data('post_id'),
+                    'term_id': selected_cat
+                };
+                $.post(ajaxurl, data, function (response) {
+                    $('#atbdp-custom-fields-list-selected').html(response);
+                });
+            });
+        }
     }); // ends jquery ready function.
 
 

@@ -23,6 +23,7 @@ class ATBDP_Shortcode {
         add_shortcode('transaction_failure', array($checkout, 'transaction_failure'));
 
         add_action('wp_ajax_atbdp_custom_fields_listings_front', array($this, 'ajax_callback_custom_fields'), 10, 2 );
+        add_action('wp_ajax_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2 );
 
     }
 

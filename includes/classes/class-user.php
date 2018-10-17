@@ -93,6 +93,7 @@ class ATBDP_User {
         ATBDP()->load_template('front-end/user-registration-form');
     }
 
+
     /**
      * It registers a user. It is a private function, All the vars this function uses will be passed into it after proper validation and sanitization
      * @param $username
@@ -192,7 +193,7 @@ class ATBDP_User {
     public function handle_user_registration() {
         // if the form is submitted then save the form
         if ( isset($_POST['atbdp_user_submit'] ) ) {
-            $username = !empty($_POST['username']) ? $_POST[ 'username' ] : '';
+                $username = !empty($_POST['username']) ? $_POST[ 'username' ] : '';
                 $password = !empty($_POST['password']) ? $_POST[ 'password' ] : '';
                 $email = !empty($_POST['email']) ? $_POST[ 'email' ] : '';
                 $website = !empty($_POST['website']) ? $_POST[ 'website' ] : '';
@@ -202,10 +203,25 @@ class ATBDP_User {
             // validate all the inputs
             $validation = $this->registration_validation( $username, $password, $email, $website, $first_name, $last_name, $bio );
             if ('passed' !== $validation){
-
-                wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('errors' => true)));
-
-                exit();
+                if (empty( $username ) || empty( $password ) || empty( $email ) ){
+                    wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('errors' => 1)));
+                    exit();
+                }elseif(email_exists($email)){
+                    wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('errors' => 2)));
+                    exit();
+                }elseif(!empty( $username ) && 4 > strlen( $username ) ){
+                    wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('errors' => 3)));
+                    exit();
+                }elseif( username_exists( $username )){
+                    wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('errors' => 4)));
+                    exit();
+                }elseif(! empty( $password ) && 5 > strlen( $password )){
+                    wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('errors' => 5)));
+                    exit();
+                }elseif(!is_email( $email )){
+                    wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('errors' => 6)));
+                    exit();
+                }
             }
 
             // sanitize user form input

@@ -16,6 +16,8 @@ class ATBDP_Shortcode {
 
         add_shortcode( 'custom_registration', array( $this, 'user_registration' ) );
 
+        add_shortcode( 'user_login', array( $this, 'custom_user_login' ) );
+
         add_shortcode( 'user_dashboard', array( $this, 'user_dashboard' ) );
         $checkout = new ATBDP_Checkout;
         add_shortcode('directorist_checkout', array($checkout, 'display_checkout_content'));
@@ -266,12 +268,21 @@ class ATBDP_Shortcode {
         }
     }
 
+    public function custom_user_login()
+    {
+        ob_start();
+        wp_login_form();
+        return ob_get_clean();
+    }
+
+
     public function user_registration()
     {
 
         ob_start();
         // show registration form if the user is not
         if (!is_user_logged_in()){
+
              ATBDP()->user->registration_form();
         }else{
             $error_message = sprintf(__('Registration page is only for unregistered user. <a href="%s">Go Back To Home</a>', ATBDP_TEXTDOMAIN), esc_url(get_home_url()));

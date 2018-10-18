@@ -90,13 +90,24 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     );
 
+                    //let check all the required custom field
+                    foreach ($custom_field as $key => $value) {
+                        $require = get_post_meta($key, 'required', true);
+                        switch( $require ) {
+                            case '1' :
+                                $Check_require = $value;
+                                break;
+                        }
+                        if (empty($Check_require)){
+                            $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span style="color: red">*</span></strong></div>';
+                            return $msg;
+                    }}
                     if($title == '' || get_directorist_option('listing_terms_condition') == 1){
                             if ($t_c_check == ''){
                                 $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span style="color: red">*</span></strong></div>';
                                 return $msg;
                             }
                     }
-
 
                     // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
                     if (!empty($_POST['listing_id'])){

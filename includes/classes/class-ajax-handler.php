@@ -30,6 +30,8 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         add_action( 'wp_ajax_atbdp_format_total_amount', array('ATBDP_Checkout', 'ajax_atbdp_format_total_amount') );
         add_action( 'wp_ajax_nopriv_atbdp_format_total_amount', array('ATBDP_Checkout', 'ajax_atbdp_format_total_amount') );
 
+        add_action( 'wp_ajax_acadp_public_report_abuse', array($this,'ajax_callback_report_abuse') );
+        add_action( 'wp_ajax_nopriv_acadp_public_report_abuse', array($this,'ajax_callback_report_abuse') );
 
     }
 
@@ -209,6 +211,92 @@ if(!class_exists('ATBDP_Ajax_Handler')):
             $id = (!empty($_POST['id'])) ? absint($_POST['id']) : 0;
             ATBDP()->load_template('ajax/social', array( 'id' => $id, ));
             die();
+
+    }
+
+    public function acadp_get_admin_email_id_s( $settings = array() ) {
+
+        $to = '';
+
+        if( empty( $settings ) ) {
+            $settings = ATBDP()->helper->get_directorist_option('admin_email_lists');
+            $to = explode( "\n", $settings );
+            $to = array_map( 'trim', $to );
+            $to = array_filter( $to );
+        }
+
+
+        if( empty( $to ) ) {
+            $to = get_bloginfo( 'admin_email' );
+        }
+
+        return $to;
+
+    }
+
+    public function acadp_email_admin_report_abuse() {
+
+        // sanitize form values
+        $post_id = (int) $_POST["post_id"];
+        $message = esc_textarea( $_POST["message"] );
+
+        // vars
+        $user          = wp_get_current_user();
+        $site_name     = get_bloginfo( 'name' );
+        $site_url      = get_bloginfo( 'url' );
+        $listing_title = get_the_title( $post_id );
+        $listing_url   = get_permalink( $post_id );
+
+        $placeholders = array(
+            '{site_name}'       => $site_name,
+            '{site_link}'       => sprintf( '<a href="%s">%s</a>', $site_url, $site_name ),
+            '{site_url}'        => sprintf( '<a href="%s">%s</a>', $site_url, $site_url ),
+            '{listing_title}'   => $listing_title,
+            '{listing_link}'    => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_title ),
+            '{listing_url}'     => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_url ),
+            '{sender_name}'     => $user->display_name,
+            '{sender_email}'    => $user->user_email,
+            '{message}'         => $message
+        );
+        $send_email = get_directorist_option('admin_email_lists');
+
+        $to = !empty($send_email) ? $send_email : get_bloginfo('admin_email');
+
+        $subject = __( '[{site_name}] Report Abuse via "{listing_title}"', ATBDP_TEXTDOMAIN );
+        $subject = strtr( $subject, $placeholders );
+
+        $message =  __( "Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}", ATBDP_TEXTDOMAIN );
+        $message = strtr( $message, $placeholders );
+
+        $headers  = "From: {$user->display_name} <{$user->user_email}>\r\n";
+        $headers .= "Reply-To: {$user->user_email}\r\n";
+
+        // return true or false, based on the result
+        return ATBDP()->email->send_mail( $to, $subject, $message, $headers ) ? true : false;
+
+    }
+
+    public function ajax_callback_report_abuse() {
+
+        $data = array( 'error' => 0 );
+
+
+
+            if( $this->acadp_email_admin_report_abuse() ) {
+
+                $data['message'] = __( 'Your message sent successfully.', ATBDP_TEXTDOMAIN );
+
+            } else {
+
+                $data['error']   = 1;
+                $data['message'] = __( 'Sorry! Please try again.', ATBDP_TEXTDOMAIN );
+
+            }
+
+
+
+        echo wp_json_encode( $data );
+        wp_die();
 
     }
 

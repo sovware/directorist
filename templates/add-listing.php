@@ -18,7 +18,7 @@ $social_info = !empty( $social ) ? $social : array();
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map');
 $disable_price = get_directorist_option('disable_list_price');
-$enable_video_url = get_directorist_option('atbd_video_url');
+$enable_video_url = get_directorist_option('atbd_video_url',1);
 $disable_contact_info = get_directorist_option('disable_contact_info');
 $currency = get_directorist_option('g_currency', 'USD');
 ?>

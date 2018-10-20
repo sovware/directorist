@@ -49,7 +49,7 @@ $listing_tags = get_terms(ATBDP_TAGS, array('hide_empty' => 0));
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map');
 $disable_price = get_directorist_option('disable_list_price');
-$enable_video_url = get_directorist_option('atbd_video_url');
+$enable_video_url = get_directorist_option('atbd_video_url',1);
 $disable_contact_info = get_directorist_option('disable_contact_info');
 
 // get the custom terms and conditions

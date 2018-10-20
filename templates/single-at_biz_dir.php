@@ -45,7 +45,7 @@ $disable_s_widget = get_directorist_option('disable_submit_listing_widget', 0);
 $disable_widget_login = get_directorist_option('disable_widget_login', 0);
 $disable_contact_info = get_directorist_option('disable_contact_info', 0);
 $is_disable_price = get_directorist_option('disable_list_price');
-$enable_video_url = get_directorist_option('atbd_video_url');
+$enable_video_url = get_directorist_option('atbd_video_url',1);
 $video_label = get_directorist_option('atbd_video_title');
 $p_lnk = get_the_permalink();
 $p_title = get_the_title();
@@ -185,24 +185,24 @@ $main_col_size = is_active_sidebar( 'right-sidebar-listing' ) || !$disable_s_wid
                            <!-- Report Abuse-->
 
                             <?php if( is_user_logged_in() ) { ?>
-                                <a href="javascript:void(0)" data-toggle="modal" data-target="#acadp-report-abuse-modal"><?php _e( 'Report abuse', ATBDP_TEXTDOMAIN ); ?></a>
+                                <a href="javascript:void(0)" data-toggle="modal" data-target="#atbdp-report-abuse-modal"><?php _e( 'Report abuse', ATBDP_TEXTDOMAIN ); ?></a>
 
                                 <!-- Modal (report abuse form) -->
-                                <div class="modal fade" id="acadp-report-abuse-modal" tabindex="-1" role="dialog" aria-labelledby="acadp-report-abuse-modal-label">
+                                <div class="modal fade" id="atbdp-report-abuse-modal" tabindex="-1" role="dialog" aria-labelledby="atbdp-report-abuse-modal-label">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
-                                            <form id="acadp-report-abuse-form" class="form-vertical" role="form">
+                                            <form id="atbdp-report-abuse-form" class="form-vertical" role="form">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-                                                    <h3 class="modal-title" id="acadp-report-abuse-modal-label"><?php _e( 'Report Abuse', ATBDP_TEXTDOMAIN ); ?></h3>
+                                                    <h3 class="modal-title" id="atbdp-report-abuse-modal-label"><?php _e( 'Report Abuse', ATBDP_TEXTDOMAIN ); ?></h3>
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="form-group">
-                                                        <label for="acadp-report-abuse-message"><?php _e( 'Your Complaint', ATBDP_TEXTDOMAIN ); ?><span class="acadp-star">*</span></label>
-                                                        <textarea class="form-control" id="acadp-report-abuse-message" rows="3" placeholder="<?php _e( 'Message', ATBDP_TEXTDOMAIN ); ?>..." required></textarea>
+                                                        <label for="atbdp-report-abuse-message"><?php _e( 'Your Complaint', ATBDP_TEXTDOMAIN ); ?><span class="atbdp-star">*</span></label>
+                                                        <textarea class="form-control" id="atbdp-report-abuse-message" rows="3" placeholder="<?php _e( 'Message', ATBDP_TEXTDOMAIN ); ?>..." required></textarea>
                                                     </div>
-                                                    <div id="acadp-report-abuse-g-recaptcha"></div>
-                                                    <div id="acadp-report-abuse-message-display"></div>
+                                                    <div id="atbdp-report-abuse-g-recaptcha"></div>
+                                                    <div id="atbdp-report-abuse-message-display"></div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e( 'Close', ATBDP_TEXTDOMAIN ); ?></button>
@@ -213,9 +213,9 @@ $main_col_size = is_active_sidebar( 'right-sidebar-listing' ) || !$disable_s_wid
                                     </div>
                                 </div>
                             <?php } else { ?>
-                                <a href="javascript:void(0)" class="acadp-require-login"><?php _e( 'Report abuse', ATBDP_TEXTDOMAIN ); ?></a>
+                                <a href="javascript:void(0)" class="atbdp-require-login"><?php _e( 'Report abuse', ATBDP_TEXTDOMAIN ); ?></a>
                             <?php } ?>
-
+                            <input type="hidden" id="atbdp-post-id" value="<?php echo get_the_ID(); ?>" />
                         </div>
 
                     </div>

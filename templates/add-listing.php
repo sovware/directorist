@@ -119,7 +119,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                                                 $choices = get_post_meta($post_id, 'choices', true);
                                                 $choices = explode( "\n", $choices );
                                                 printf('<p style="font-style: italic">%s</p>', $value);
-                                                echo '<ul class="acadp-radio-list radio vertical">';
+                                                echo '<ul class="atbdp-radio-list radio vertical">';
                                                 foreach( $choices as $choice ) {
                                                     if( strpos( $choice, ':' ) !== false ) {
                                                         $_choice = explode( ':', $choice );
@@ -175,7 +175,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                                                 $values = explode( "\n", $value );
                                                 $values = array_map( 'trim', $values );
                                                 printf('<p style="font-style: italic">%s</p>', $post_meta['instructions'][0]);
-                                                echo '<ul class="acadp-checkbox-list checkbox vertical">';
+                                                echo '<ul class="atbdp-checkbox-list checkbox vertical">';
 
                                                 foreach( $choices as $choice ) {
                                                     if( strpos( $choice, ':' ) !== false ) {
@@ -226,8 +226,8 @@ $currency = get_directorist_option('g_currency', 'USD');
                                                 });
                                             </script>
                                         <?php
-                                                //printf('<p style="font-style: italic">%s</p>', $post_meta['instructions'][0]);
-                                                //printf( '<input type="color" name="custom_field[%d]" class="my-color-field2" value="%s" />', $post->ID, $value );
+                                                printf('<p style="font-style: italic">%s</p>', $post_meta['instructions'][0]);
+                                                printf( '<input type="color" name="custom_field[%d]" class="my-color-field2" value="%s" />', $post->ID, $value );
                                                 echo '</div>';
                                                 break;
                                         }
@@ -632,7 +632,7 @@ $currency = get_directorist_option('g_currency', 'USD');
         <?php } ?>
 
 
-        // Load custom fields of the selected category in the custom post type "acadp_listings"
+        // Load custom fields of the selected category in the custom post type "atbdp_listings"
         $( '#cat-type' ).on( 'change', function() {
             $( '#atbdp-custom-fields-list' ).html( '<div class="spinner"></div>' );
 

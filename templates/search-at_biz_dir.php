@@ -1,7 +1,15 @@
 <?php
 global $wp_query;
 !empty($args['data']) ? extract($args['data']) : array();
+
+/*echo '<pre>';
+var_dump($args['data']);
+echo '</pre>';*/
+
 $listings = !empty($listings) ? $listings : array();
+/*echo '<pre>';
+var_dump($listings);
+echo '<pre>';*/
 // Pagination fix
 $temp_query = $wp_query;
 $wp_query   = NULL;
@@ -25,6 +33,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                 <div class="directory_title">
                                     <h3>
                                         <?php
+
                                         // show appropriate text for the search
                                         if (!empty($in_cat) || !empty($in_tag) || !empty($in_loc)){
                                             echo $in_s_string_text, $in_tag_text, $in_cat_text, $in_loc_text;
@@ -55,8 +64,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
             </div>
             <!--maybe we should removed the parent container so that it can match perfectly -->
                 <div class="row" data-uk-grid>
-
-
                     <?php
                     if ( count($listings->posts) ) {
                         while ( $listings->have_posts() ) {

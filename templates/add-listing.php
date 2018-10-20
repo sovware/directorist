@@ -17,7 +17,7 @@ $social_info = !empty( $social ) ? $social : array();
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map');
 $disable_price = get_directorist_option('disable_list_price');
-$enable_video_url = get_directorist_option('atbd_video_url');
+$enable_video_url = get_directorist_option('atbd_video_url',1);
 $disable_contact_info = get_directorist_option('disable_contact_info');
 $currency = get_directorist_option('g_currency', 'USD');
 ?>
@@ -129,7 +129,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                                                 $choices = get_post_meta(get_the_ID(), 'choices', true);
                                                 $choices = explode( "\n", $choices );
                                                 printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-                                                echo '<ul class="acadp-radio-list radio vertical">';
+                                                echo '<ul class="ATBDP-radio-list radio vertical">';
                                                 foreach( $choices as $choice ) {
                                                     if( strpos( $choice, ':' ) !== false ) {
                                                         $_choice = explode( ':', $choice );
@@ -185,7 +185,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                                                 $values = explode( "\n", $value );
                                                 $values = array_map( 'trim', $values );
                                                 printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-                                                echo '<ul class="acadp-checkbox-list checkbox vertical">';
+                                                echo '<ul class="ATBDP-checkbox-list checkbox vertical">';
 
                                                 foreach( $choices as $choice ) {
                                                     if( strpos( $choice, ':' ) !== false ) {
@@ -288,7 +288,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                                 <script>
                                     (function ($) {
                                         $(document).ready(function () {
-                                            // Load custom fields of the selected category in the custom post type "acadp_listings"
+                                            // Load custom fields of the selected category in the custom post type "ATBDP_listings"
                                             $( '#cat-type' ).on( 'change', function() {
                                                 $( '#atbdp-custom-fields-list' ).html( '<div class="spinner"></div>' );
 

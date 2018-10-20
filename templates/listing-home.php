@@ -31,7 +31,6 @@ $popular_cat_num = get_directorist_option('popular_cat_num', 10);
                             <?php  echo !empty($search_subtitle) ?  '<p class="sub_title">'. esc_html($search_subtitle) . '</p>' : ''; ?>
                         </div><!--- end title area -->
                         <?php } ?>
-
                         <div class="search_form_wrapper">
                             <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
                                 <!-- @todo; if the input fields break in different themes, use bootstrap form inputs then -->
@@ -45,7 +44,7 @@ $popular_cat_num = get_directorist_option('popular_cat_num', 10);
 
                                         <?php
                                         foreach ( $categories as $category ) {
-                                            echo "<option id='atbdp_category' value='$category->slug'>$category->name</option>";
+                                            echo "<option id='atbdp_category' value='$category->term_id'>$category->name</option>";
                                         }
                                         ?>
                                     </select>

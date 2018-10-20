@@ -8,18 +8,40 @@
                     <h2><?php _e('Register', ATBDP_TEXTDOMAIN); ?></h2>
                     <?php if(!empty($_GET['success']) && true == $_GET['success']){ ?>
                         <!--registration succeeded, so show notification -->
-                        <p class="success"><span class="fa fa-check"></span><?php _e('Registration completed. Please check your inbox and activate your account.', ATBDP_TEXTDOMAIN); ?></p>
-                        <?php
-                    } ?>
-
-                    <?php
-                    if(!empty($_GET['errors']) && true == $_GET['errors']){ ?>
-                        <!--Registration failed, so show notification.-->
-                        <p class="warning"> <span class="fa fa-exclamation"></span><?php _e('Registration failed. Please make sure you filed up all the necessary fields.', ATBDP_TEXTDOMAIN); ?></p>
+                        <p style="padding: 20px" class="alert-success"><span class="fa fa-check"></span><?php _e('Registration completed. Please check your inbox and activate your account.', ATBDP_TEXTDOMAIN); ?></p>
                         <?php
                     }
-
                     ?>
+                    <!--Registration failed, so show notification.-->
+                    <?php
+                    $errors = $_GET['errors'];
+                    switch ($errors) {
+                        case '1':
+                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation"></span><?php _e('Registration failed. Please make sure you filed up all the necessary fields marked with <span style="color: red">*</span>', ATBDP_TEXTDOMAIN); ?></p><?php
+                           break;
+                        case '2':
+                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation"></span><?php _e('Sorry, that email already exists!', ATBDP_TEXTDOMAIN); ?></p><?php
+                            break;
+                        case '3':
+                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation"></span><?php _e('Username too short. At least 4 characters is required', ATBDP_TEXTDOMAIN); ?></p><?php
+                            break;
+                        case '4':
+                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation"></span><?php _e('Sorry, that username already exists!', ATBDP_TEXTDOMAIN); ?></p><?php
+                            break;
+                        case '5':
+                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation"></span><?php _e('Password length must be greater than 5', ATBDP_TEXTDOMAIN); ?></p><?php
+                            break;
+                        case '6':
+                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation"></span><?php _e('Email is not valid', ATBDP_TEXTDOMAIN); ?></p><?php
+                            break;
+
+                    }
+                  ?>
+
+
+
+
+
 
 
                 </div>
@@ -68,6 +90,15 @@
                                 <div class="directory_regi_btn">
                                     <button type="submit" class="btn btn-default" name="atbdp_user_submit"><?php _e('Sign Up', ATBDP_TEXTDOMAIN); ?></button>
                                 </div>
+
+                                <div class="directory_regi_btn">
+                                 <p>
+                                     <?php
+                                     printf(__('Already have an account? Please login %s.', ATBDP_TEXTDOMAIN), "<a href='".wp_login_url()."'><span style='color: red'> ". __('Here', ATBDP_TEXTDOMAIN)."</span></a>");
+                                     ?>
+                                 </p>
+                                </div>
+
                             </form>
                         </div>
                     </div>

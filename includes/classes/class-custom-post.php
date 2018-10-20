@@ -140,19 +140,38 @@ if(!class_exists('ATBDP_Custom_Post')):
                         }
                     }
                     break;
-                case 'atbdp_category':
+
+                     case 'atbdp_category':
+                         $current_val = esc_attr(get_post_meta($post_id, '_admin_category_select', true) );
+                         $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
+                         foreach ($categories as $key => $cat_title){
+                             $term_id = $cat_title->term_id;
+                             if ($term_id == $current_val){
+                                 ?>
+                                 <a href="<?= ATBDP_Permalink::get_category_archive( $cat_title ); ?>">
+                                     <i class="fa <?= get_cat_icon( $cat_title->term_id ); ?>" aria-hidden="true"></i>
+                                     <?= $cat_title->name; ?>
+                                 </a>
+                                 <?php
+                             }
+                             }
+
+                        break;
+
+                    //code for multiselect category
+              /*  case 'atbdp_category':
                     $cats = wp_get_post_terms( $post_id, ATBDP_CATEGORY );
                     if (!empty( $cats ) && is_array( $cats )){
                         foreach ( $cats as $c ) {
-                    ?>
-                    <a href="<?= ATBDP_Permalink::get_category_archive( $c ); ?>">
-                        <i class="fa <?= get_cat_icon( $c->term_id ); ?>" aria-hidden="true"></i>
-                        <?= $c->name; ?>
+                    */?><!--
+                    <a href="<?/*= ATBDP_Permalink::get_category_archive( $c ); */?>">
+                        <i class="fa <?/*= get_cat_icon( $c->term_id ); */?>" aria-hidden="true"></i>
+                        <?/*= $c->name; */?>
                     </a>
-                    <?php
-                        }
+                    --><?php
+/*                        }
                     }
-                    break;
+                    break;*/
                 default:
                     break;
                 case 'atbdp_author':

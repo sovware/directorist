@@ -154,19 +154,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         if( isset( $post_meta[ $post->ID ] ) ) {
                                             $value = $post_meta[0];
                                         }
-                                        global $wpdb;
-                                        // get the all values to edit and show for custom fields
-                                        $all_values = $wpdb->get_col( $wpdb->prepare( "
-                                                SELECT pm.meta_value FROM {$wpdb->postmeta} pm
-                                                LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id
-                                                WHERE pm.meta_key = '%d'
-                                            ", $post_id ) );
-                                        $listing_ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} AS p INNER JOIN {$wpdb->postmeta} AS pm ON p.ID=pm.post_id WHERE pm.meta_key=$post_id" );
-                                        $value =  '';
-                                        if(in_array($p_id, $listing_ids)){
-                                            $value =  end($all_values);
-                                        }
-
+                                        $value =  get_post_meta($p_id, $post_id, true); ///store the value for the db
                                         $cf_meta_default_val = get_post_meta(get_the_ID(), 'default_value', true);
 
                                         if( isset( $post_id ) ) {
@@ -302,11 +290,6 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 }
                                 wp_reset_postdata();
                                 ?>
-
-
-
-
-
                             </div>
                         </div>
 
@@ -363,17 +346,12 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                  **************************************************************************-->
                                 <!--@ Options for select the category.-->
                                 <div class="form-group">
+
                                     <label for="atbdp_select_cat"><?php esc_html_e('Select Category', ATBDP_TEXTDOMAIN) ?></label>
                                     <?php
-                                    $admin_selected_cat = '_admin_category_select';
-                                    $all_values = $wpdb->get_col( $wpdb->prepare( "
-                                                SELECT pm.meta_value FROM {$wpdb->postmeta} pm
-                                                LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id
-                                                WHERE pm.meta_key = '%s'
-                                            ", $admin_selected_cat ) );
-                                    $current_val = end($all_values);
-                                    $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
 
+                                    $current_val = esc_attr(get_post_meta($p_id, '_admin_category_select', true) );
+                                    $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
                                     echo '<select class="form-control directory_field" id="cat-type" name="admin_category_select">';
                                     echo '<option>'.__( "--Select a Category--", ATBDP_TEXTDOMAIN ).'</option>';
                                     foreach ($categories as $key => $cat_title){
@@ -381,7 +359,9 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         printf( '<option value="%s" %s>%s</option>', $term_id, selected( $term_id, $current_val), $cat_title->name );
                                     }
                                     echo '</select>';
+                                    $term_id_selected = $current_val;
                                     ?>
+                                    <input type="hidden" id="value_selected" value="<?php echo $term_id_selected?>">
                                 </div>
 
                                 <?php
@@ -392,42 +372,24 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         <input type="text" id="video_url" name="video_url" value="<?= !empty($video_url) ? esc_attr($video_url): ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
                                     </div>
                                 <?php } ?>
-                                <script>
-                                    (function ($) {
 
-                                        $(document).ready(function () {
-                                            // Load custom fields of the selected category in the custom post type "ATBDP_listings"
-                                            $( '#cat-type' ).on( 'change', function() {
-                                                $( '#atbdp-custom-fields-list' ).html( '<div class="spinner"></div>' );
-
-                                                var data = {
-                                                    'action'  : 'atbdp_custom_fields_listings_front',
-                                                    'post_id' : $( '#atbdp-custom-fields-list' ).data('post_id'),
-                                                    'term_id' : $(this).val()
-                                                };
-
-                                                $.post( ajaxurl, data, function(response) {
-                                                    $( '#atbdp-custom-fields-list' ).html( response );
-                                                });
-                                            });
-                                          /*  $( window ).on( "load", function() {
-                                                var checked_val = $('#cat-type').val();
-                                                if(checked_val){
-                                                    $('#atbdp-custom-fields-list').attr('data-hidden', 'show');
-                                                } else{
-                                                    $('#selectbox-extra').attr('data-hidden', 'hidden');
-                                                }
-                                            });*/
-                                        });
-
-                                    })(jQuery);
-                                </script>
-                                <div  id="atbdp-custom-fields-list" data-post_id="<?php echo $post->ID; ?>">
-                                    <?php do_action( 'wp_ajax_atbdp_custom_fields_listings_front', $post->ID, $selected_category ); ?>
+                                <div  id="atbdp-custom-fields-list" data-post_id="<?php echo $p_id; ?>">
+                                    <?php
+                                    $selected_category = !empty($selected_category) ? $selected_category : '';
+                                    do_action( 'wp_ajax_atbdp_custom_fields_listings_front', $p_id, $selected_category ); ?>
                                 </div>
+                                <?php
+                                if ($term_id_selected){
+                                    ?>
+                                    <div  id="atbdp-custom-fields-list-selected" data-post_id="<?php echo $p_id; ?>">
+                                        <?php
+                                        $selected_category = !empty($selected_category) ? $selected_category : '';
+                                        do_action( 'wp_ajax_atbdp_custom_fields_listings_front_selected', $p_id, $selected_category ); ?>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
                             </div>
-
-
                     </div>
 
                     </div>
@@ -805,8 +767,40 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                 var output = "<p style='padding:25px; border-radius: 10px; border:1px solid brown; font-size:13px; text-align:justify' class='alert-danger'><?php _e($listing_terms_condition_text, ATBDP_TEXTDOMAIN);?></p>";
                 $('#tc_container').html(output).fadeIn(500);
             })
-        })
+        });
 
+
+
+        // Load custom fields of the selected category in the custom post type "atbdp_listings"
+        $( '#cat-type' ).on( 'change', function() {
+            $( '#atbdp-custom-fields-list' ).html( '<div class="spinner"></div>' );
+
+            var data = {
+                'action'  : 'atbdp_custom_fields_listings_front',
+                'post_id' : $( '#atbdp-custom-fields-list' ).data('post_id'),
+                'term_id' : $(this).val()
+            };
+            $.post( ajaxurl, data, function(response) {
+                $( '#atbdp-custom-fields-list' ).html( response );
+            });
+            $('#atbdp-custom-fields-list-selected').hide();
+        });
+        var selected_cat = $('#value_selected').val();
+        if(!selected_cat){
+
+        }else{
+            $(window).on("load", function () {
+                $('#atbdp-custom-fields-list-selected').html('<div class="spinner"></div>');
+                var data = {
+                    'action': 'atbdp_custom_fields_listings_front_selected',
+                    'post_id': $('#atbdp-custom-fields-list-selected').data('post_id'),
+                    'term_id': selected_cat
+                };
+                $.post(ajaxurl, data, function (response) {
+                    $('#atbdp-custom-fields-list-selected').html(response);
+                });
+            });
+        }
     }); // ends jquery ready function.
 
 

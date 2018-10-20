@@ -17,6 +17,7 @@ class ATBDP_Metabox {
 
 
             add_action('wp_ajax_atbdp_custom_fields_listings', array($this, 'ajax_callback_custom_fields'), 10, 2 );
+            add_action('wp_ajax_atbdp_custom_fields_listings_selected', array($this, 'ajax_callback_custom_fields'), 10, 2 );
 
         }
      }
@@ -33,10 +34,9 @@ class ATBDP_Metabox {
         $ajax = false;
         if( isset( $_POST['term_id'] ) ) {
             $ajax = true;
-            $post_id = (int) $_POST['post_id'];
+            $post_ID = (int) $_POST['post_id'];
             $term_id = (int) $_POST['term_id'];
         }
-
         // Get custom fields
         $custom_field_ids = $term_id;
         $args = array(
@@ -44,12 +44,11 @@ class ATBDP_Metabox {
             'posts_per_page' => -1,
             'meta_key'   => 'category_pass',
             'meta_value' => $custom_field_ids
-
         );
-
         $atbdp_query = new WP_Query( $args );
 
         if ($atbdp_query->have_posts()){
+
             // Start the Loop
             global $post;
             // Process output

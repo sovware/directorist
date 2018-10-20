@@ -78,6 +78,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $admin_category_select= !empty($_POST['admin_category_select']) ? sanitize_text_field($_POST['admin_category_select']) : '';
                     $t_c_check= !empty($_POST['t_c_check']) ? sanitize_text_field($_POST['t_c_check']) : '';
                     $custom_field= !empty($_POST['custom_field']) ? ($_POST['custom_field']) : array();
+
                     $content = !empty($_POST['listing_content']) ? wp_kses($_POST['listing_content'], wp_kses_allowed_html('post')) : '';
                     $info= (!empty($_POST['listing'])) ? aazztech_enc_serialize($_POST['listing']) : aazztech_enc_serialize( array() );
                     $args = array(
@@ -89,13 +90,24 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     );
 
+                    //let check all the required custom field
+                    foreach ($custom_field as $key => $value) {
+                        $require = get_post_meta($key, 'required', true);
+                        switch( $require ) {
+                            case '1' :
+                                $Check_require = $value;
+                                break;
+                        }
+                        if (empty($Check_require)){
+                            $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span style="color: red">*</span></strong></div>';
+                            return $msg;
+                    }}
                     if($title == '' || get_directorist_option('listing_terms_condition') == 1){
                             if ($t_c_check == ''){
                                 $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span style="color: red">*</span></strong></div>';
                                 return $msg;
                             }
                     }
-
 
                     // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
                     if (!empty($_POST['listing_id'])){
@@ -157,6 +169,50 @@ if (!class_exists('ATBDP_Add_Listing')):
 
 
                             $post_id = wp_update_post($args);
+                            /*
+                                  * send the custom field value to the database
+                                  */
+                            if( isset( $custom_field ) ) {
+
+                                foreach( $custom_field as $key => $value ) {
+
+                                    $type = get_post_meta( $key, 'type', true );
+
+                                    switch( $type ) {
+                                        case 'text' :
+                                            $value = sanitize_text_field( $value );
+                                            break;
+                                        case 'textarea' :
+                                            $value = esc_textarea( $value );
+                                            break;
+                                        case 'select' :
+                                        case 'radio'  :
+                                            $value = sanitize_text_field( $value );
+                                            break;
+                                        case 'checkbox' :
+                                            $value = array_map( 'esc_attr', $value );
+                                            $value = implode( "\n", array_filter( $value ) );
+                                            break;
+                                        case 'url' :
+                                            $value = esc_url_raw( $value );
+                                            break;
+                                        default :
+                                            $value = sanitize_text_field( $value );
+                                            break;
+                                        case 'email' :
+                                            $value = sanitize_text_field( $value );
+                                            break;
+                                        case 'date' :
+                                            $value = sanitize_text_field( $value );
+
+                                    }
+
+                                    update_post_meta( $post_id, $key, $value );
+                                }
+                                update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
+
+                            }
+
                             // for dev
                             do_action('atbdp_listing_updated', $post_id);
                         }else{
@@ -184,8 +240,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 update_post_meta( $post_id, '_featured', 0 );
                                 update_post_meta( $post_id, '_listing_status', 'post_status' );
                                 update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
-
-
                                  /*
                                    * send the custom field value to the database
                                    */

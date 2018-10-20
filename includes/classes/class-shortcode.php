@@ -16,6 +16,8 @@ class ATBDP_Shortcode {
 
         add_shortcode( 'custom_registration', array( $this, 'user_registration' ) );
 
+        add_shortcode( 'user_login', array( $this, 'custom_user_login' ) );
+
         add_shortcode( 'user_dashboard', array( $this, 'user_dashboard' ) );
         $checkout = new ATBDP_Checkout;
         add_shortcode('directorist_checkout', array($checkout, 'display_checkout_content'));
@@ -23,6 +25,7 @@ class ATBDP_Shortcode {
         add_shortcode('transaction_failure', array($checkout, 'transaction_failure'));
 
         add_action('wp_ajax_atbdp_custom_fields_listings_front', array($this, 'ajax_callback_custom_fields'), 10, 2 );
+        add_action('wp_ajax_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2 );
 
     }
 
@@ -41,9 +44,10 @@ class ATBDP_Shortcode {
         $ajax = false;
         if( isset( $_POST['term_id'] ) ) {
             $ajax = true;
-            $post_id = (int) $_POST['post_id'];
+            $post_ID = (int) $_POST['post_id'];
             $term_id = (int) $_POST['term_id'];
         }
+       // var_dump($post_id);
 
         // Get custom fields
         $custom_field_ids = $term_id;
@@ -107,7 +111,7 @@ class ATBDP_Shortcode {
             /*@todo; add option to the settings panel to let user choose whether to include result from children or not*/
             $tax_queries[] = array(
                 'taxonomy'         => ATBDP_CATEGORY,
-                'field'            => 'slug',
+                'field'            => 'term_id',
                 'terms'            => $in_cat,
                 'include_children' => true, /*@todo; Add option to include children or exclude it*/
             );
@@ -264,12 +268,21 @@ class ATBDP_Shortcode {
         }
     }
 
+    public function custom_user_login()
+    {
+        ob_start();
+        wp_login_form();
+        return ob_get_clean();
+    }
+
+
     public function user_registration()
     {
 
         ob_start();
         // show registration form if the user is not
         if (!is_user_logged_in()){
+
              ATBDP()->user->registration_form();
         }else{
             $error_message = sprintf(__('Registration page is only for unregistered user. <a href="%s">Go Back To Home</a>', ATBDP_TEXTDOMAIN), esc_url(get_home_url()));

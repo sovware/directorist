@@ -1,5 +1,6 @@
  <?php
  $fields = $atbdp_query->posts;
+
             if (isset($_POST['term_id'])){
             foreach ($fields as $post){
                 setup_postdata($post);
@@ -17,18 +18,7 @@
                     <?php
                     $value = ['default_value'][0];
                     $cf_meta_default_val = get_post_meta(get_the_ID(), 'default_value', true);
-                    global $wpdb;
-                    // get the all values for edit and show for custom fields
-                    $all_values = $wpdb->get_col( $wpdb->prepare( "
-                                                SELECT pm.meta_value FROM {$wpdb->postmeta} pm
-                                                LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id
-                                                WHERE pm.meta_key = '%d' 
-                                            ", $post_id ) );
-                    $listing_ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} AS p INNER JOIN {$wpdb->postmeta} AS pm ON p.ID=pm.post_id WHERE pm.meta_key=$post_id" );
-                    $value =  '';
-                    if(in_array($p_id, $listing_ids)){
-                        $value =  end($all_values);
-                    }
+                    $value =  get_post_meta($post_ID, $post_id, true); ///store the value for the db
                     if( isset( $post_id ) ) {
                         $cf_meta_default_val = $post_id[0];
                     }
@@ -54,7 +44,7 @@
                             $choices = get_post_meta(get_the_ID(), 'choices', true);
                             $choices = explode( "\n", $choices );
                             printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-                            echo '<ul class="ATBDP-radio-list radio vertical">';
+                            echo '<ul class="atbdp-radio-list radio vertical">';
                             foreach( $choices as $choice ) {
                                 if( strpos( $choice, ':' ) !== false ) {
                                     $_choice = explode( ':', $choice );
@@ -110,7 +100,7 @@
                             $values = explode( "\n", $value );
                             $values = array_map( 'trim', $values );
                             printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-                            echo '<ul class="ATBDP-checkbox-list checkbox vertical">';
+                            echo '<ul class="atbdp-checkbox-list checkbox vertical">';
 
                             foreach( $choices as $choice ) {
                                 if( strpos( $choice, ':' ) !== false ) {
@@ -157,5 +147,4 @@
                 <?php
             }
             wp_reset_postdata();
-            wp_reset_query();
             }

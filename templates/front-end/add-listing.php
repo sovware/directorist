@@ -192,7 +192,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                 $choices = get_post_meta(get_the_ID(), 'choices', true);
                                                 $choices = explode( "\n", $choices );
                                                 printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-                                                echo '<ul class="ATBDP-radio-list radio vertical">';
+                                                echo '<ul class="atbdp-radio-list radio vertical">';
                                                 foreach( $choices as $choice ) {
                                                     if( strpos( $choice, ':' ) !== false ) {
                                                         $_choice = explode( ':', $choice );
@@ -248,7 +248,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                 $values = explode( "\n", $value );
                                                 $values = array_map( 'trim', $values );
                                                 printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-                                                echo '<ul class="ATBDP-checkbox-list checkbox vertical">';
+                                                echo '<ul class="atbdp-checkbox-list checkbox vertical">';
 
                                                 foreach( $choices as $choice ) {
                                                     if( strpos( $choice, ':' ) !== false ) {

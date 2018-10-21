@@ -369,7 +369,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     <div class="form-group">
                                         <!--@todo; Add currency Name near price-->
                                         <label for="video_url"><?php esc_html_e('Video Url', ATBDP_TEXTDOMAIN) ?></label>
-                                        <input type="text" id="video_url" name="video_url" value="<?= !empty($video_url) ? esc_attr($video_url): ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
+                                        <input type="text" id="video_url" name="listing[videourl]" value="<?= !empty($videourl) ? esc_url($videourl): ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
                                     </div>
                                 <?php } ?>
 

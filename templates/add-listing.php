@@ -268,7 +268,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                                     <label for="video_url"><?php
                                         /*Translator: % is the name of the currency such eg. USD etc.*/
                                         printf(esc_html__('Video URL', ATBDP_TEXTDOMAIN), $currency); ?></label>
-                                    <input type="text" id="atbdp_tagline" name="listing[videourl]" value="<?= !empty($videourl) ? $videourl: ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
+                                    <input type="text" id="atbdp_tagline" name="listing[videourl]" value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
                                 </div>
                                 <?php } ?>
 

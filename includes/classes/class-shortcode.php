@@ -111,7 +111,7 @@ class ATBDP_Shortcode {
             /*@todo; add option to the settings panel to let user choose whether to include result from children or not*/
             $tax_queries[] = array(
                 'taxonomy'         => ATBDP_CATEGORY,
-                'field'            => 'term_id',
+                'field'            => 'slug',
                 'terms'            => $in_cat,
                 'include_children' => true, /*@todo; Add option to include children or exclude it*/
             );

@@ -7,9 +7,9 @@ var_dump($args['data']);
 echo '</pre>';*/
 
 $listings = !empty($listings) ? $listings : array();
-/*echo '<pre>';
+echo '<pre>';
 var_dump($listings);
-echo '<pre>';*/
+echo '<pre>';
 // Pagination fix
 $temp_query = $wp_query;
 $wp_query   = NULL;
@@ -62,6 +62,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                         </div>
                     </div>
             </div>
+
+
             <!--maybe we should removed the parent container so that it can match perfectly -->
                 <div class="row" data-uk-grid>
                     <?php

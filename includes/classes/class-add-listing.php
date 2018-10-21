@@ -90,6 +90,7 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     );
 
+
                     //let check all the required custom field
                     foreach ($custom_field as $key => $value) {
                         $require = get_post_meta($key, 'required', true);
@@ -99,18 +100,19 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 break;
                         }
                         if (empty($Check_require)){
-                            $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span style="color: red">*</span></strong></div>';
+                            $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span style="color:                            red">*</span></strong></div>';
                             return $msg;
                     }}
                     if($title == '' || get_directorist_option('listing_terms_condition') == 1){
                             if ($t_c_check == ''){
-                                $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span style="color: red">*</span></strong></div>';
+                                $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span                                          style="color: red">*</span></strong></div>';
                                 return $msg;
                             }
                     }
 
                     // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
                     if (!empty($_POST['listing_id'])){
+
                         $edit_l_status = get_directorist_option('edit_listing_status');
                         // update the post
                         $args['ID']= absint($_POST['listing_id']); // set the ID of the post to update the post
@@ -211,7 +213,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 }
                                 update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
 
+
                             }
+                            //@todo; need to update the term_relationship_id in order to get proper term meta
+                            // wp_set_object_terms(get_the_ID(), $admin_category_select, ATBDP_CATEGORY); to update term_relationship_id
+
 
                             // for dev
                             do_action('atbdp_listing_updated', $post_id);
@@ -277,6 +283,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                                 $value = sanitize_text_field( $value );
 
                                         }
+
 
                                         update_post_meta( $post_id, $key, $value );
                                     }

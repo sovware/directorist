@@ -1,15 +1,7 @@
 <?php
 global $wp_query;
 !empty($args['data']) ? extract($args['data']) : array();
-
-/*echo '<pre>';
-var_dump($args['data']);
-echo '</pre>';*/
-
 $listings = !empty($listings) ? $listings : array();
-echo '<pre>';
-var_dump($listings);
-echo '<pre>';
 // Pagination fix
 $temp_query = $wp_query;
 $wp_query   = NULL;
@@ -20,9 +12,7 @@ $in_tag_text = !empty($in_tag) ? sprintf(__(' from "%s" Tag', ATBDP_TEXTDOMAIN),
 $in_cat_text = !empty($in_cat) ? sprintf(__(' from "%s" Category', ATBDP_TEXTDOMAIN), $in_cat) : '';
 $in_loc_text = !empty($in_loc) ? sprintf(__(' in "%s" Location', ATBDP_TEXTDOMAIN), $in_loc) : '';
 $is_disable_price = get_directorist_option('disable_list_price');
-
 ?>
-
     <div class="directorist directory_wrapper single_area">
         <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
 
@@ -33,7 +23,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                 <div class="directory_title">
                                     <h3>
                                         <?php
-
                                         // show appropriate text for the search
                                         if (!empty($in_cat) || !empty($in_tag) || !empty($in_loc)){
                                             echo $in_s_string_text, $in_tag_text, $in_cat_text, $in_loc_text;
@@ -44,7 +33,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 _e('Showing Result from all categories and locations.', ATBDP_TEXTDOMAIN);
                                             }
                                         }
-
                                         ?>
                                     </h3>
                                     <p>

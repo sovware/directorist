@@ -2,7 +2,7 @@
 
 $id = get_query_var('atbdp_listing_id');
 if (!empty($id)) {
-    $p_id = absint($id);
+    $p_id = !empty($id)?absint($id):'';
     $listing  = get_post( $p_id ); //@TODO; ADD security to prevent user from editing other posts from front end and backend (except admin)
     // kick the user out if he tries to edit the listing of other user
     if ($listing->post_author != get_current_user_id() && !current_user_can('edit_others_at_biz_dirs')){
@@ -49,7 +49,7 @@ $listing_tags = get_terms(ATBDP_TAGS, array('hide_empty' => 0));
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map');
 $disable_price = get_directorist_option('disable_list_price');
-$enable_video_url = get_directorist_option('atbd_video_url');
+$enable_video_url = get_directorist_option('atbd_video_url',1);
 $disable_contact_info = get_directorist_option('disable_contact_info');
 
 // get the custom terms and conditions
@@ -369,7 +369,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     <div class="form-group">
                                         <!--@todo; Add currency Name near price-->
                                         <label for="video_url"><?php esc_html_e('Video Url', ATBDP_TEXTDOMAIN) ?></label>
-                                        <input type="text" id="video_url" name="video_url" value="<?= !empty($video_url) ? esc_attr($video_url): ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
+                                        <input type="text" id="video_url" name="videourl" value="<?= !empty($videourl) ? esc_attr($videourl): ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
                                     </div>
                                 <?php } ?>
 

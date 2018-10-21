@@ -207,10 +207,6 @@ class ATBDP_Enqueuer {
 
 
 
-
-
-
-
         wp_register_script( 'atbdp-user-dashboard', ATBDP_PUBLIC_ASSETS . 'js/user-dashboard.js', array( 'jquery' ), ATBDP_VERSION, true );
 
 
@@ -246,10 +242,6 @@ class ATBDP_Enqueuer {
             'nonceName'       => 'atbdp_nonce_js',
             'PublicAssetPath'  => ATBDP_PUBLIC_ASSETS,
             'login_alert_message' => __( 'Sorry, you need to login first.', ATBDP_TEXTDOMAIN ),
-            'report_abuse'=> 0,
-            'recaptcha_report_abuse'=> 1,
-            'recaptcha_invalid_message'    => __( "You can't leave Captcha Code empty", ATBDP_TEXTDOMAIN ),
-            'recaptcha_site_key'           => ''
         );
         wp_localize_script( 'atbdp_checkout_script', 'atbdp_checkout', $data );
 
@@ -263,20 +255,9 @@ class ATBDP_Enqueuer {
             wp_enqueue_script('sweetalert' );
             wp_enqueue_script( 'atbdp-public-script', ATBDP_PUBLIC_ASSETS . 'js/main.js', apply_filters('atbdp_front_script_dependency', $front_scripts_dependency), ATBDP_VERSION, true );
 
-           // wp_localize_script( 'atbdp-public-script', 'atbdp_public_data', $data );
+            wp_localize_script( 'atbdp-public-script', 'atbdp_public_data', $data );
             wp_enqueue_script( 'public-report', ATBDP_PUBLIC_ASSETS . 'js/flug.js',$front_scripts_dependency, ATBDP_VERSION, true );
-            $done = array(
-                'nonce'       => wp_create_nonce('atbdp_nonce_action_js'),
-                'ajax_url'       => admin_url('admin-ajax.php'),
-                'nonceName'       => 'atbdp_nonce_js',
-                'PublicAssetPath'  => ATBDP_PUBLIC_ASSETS,
-                'login_alert_message' => __( 'Sorry, you need to login first.', ATBDP_TEXTDOMAIN ),
-                'report_abuse'=> 0,
-                'recaptcha_report_abuse'=> 1,
-                'recaptcha_invalid_message'    => __( "You can't leave Captcha Code empty", ATBDP_TEXTDOMAIN ),
-                'recaptcha_site_key'           => ''
-            );
-            wp_localize_script( 'public-report', 'public_report', $done );
+            wp_localize_script( 'public-report', 'public_report',$data  );
             wp_enqueue_style('wp-color-picker');
 
             wp_enqueue_media();

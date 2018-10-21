@@ -97,6 +97,7 @@ class ATBDP_Metabox {
         //data needed for the custom field
         $post_meta = get_post_meta( $post->ID );
         $category = wp_get_object_terms( $post->ID, 'at_biz_dir-category', array( 'fields' => 'ids' ) );
+
         wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
         ATBDP()->load_template('add-listing', compact('listing_info') );
     }
@@ -221,6 +222,7 @@ class ATBDP_Metabox {
         update_post_meta( $post_id, '_listing_status', $listing_status );
         update_post_meta( $post_id, '_price', $price );
         update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
+        wp_set_object_terms($post_id, $admin_category_select, ATBDP_CATEGORY);
 
 
     }

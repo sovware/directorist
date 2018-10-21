@@ -30,8 +30,8 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         add_action( 'wp_ajax_atbdp_format_total_amount', array('ATBDP_Checkout', 'ajax_atbdp_format_total_amount') );
         add_action( 'wp_ajax_nopriv_atbdp_format_total_amount', array('ATBDP_Checkout', 'ajax_atbdp_format_total_amount') );
 
-        add_action( 'wp_ajax_acadp_public_report_abuse', array($this,'ajax_callback_report_abuse') );
-        add_action( 'wp_ajax_nopriv_acadp_public_report_abuse', array($this,'ajax_callback_report_abuse') );
+        add_action( 'wp_ajax_atbdp_public_report_abuse', array($this,'ajax_callback_report_abuse') );
+        add_action( 'wp_ajax_nopriv_atbdp_public_report_abuse', array($this,'ajax_callback_report_abuse') );
 
     }
 
@@ -214,27 +214,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
     }
 
-    public function acadp_get_admin_email_id_s( $settings = array() ) {
-
-        $to = '';
-
-        if( empty( $settings ) ) {
-            $settings = ATBDP()->helper->get_directorist_option('admin_email_lists');
-            $to = explode( "\n", $settings );
-            $to = array_map( 'trim', $to );
-            $to = array_filter( $to );
-        }
-
-
-        if( empty( $to ) ) {
-            $to = get_bloginfo( 'admin_email' );
-        }
-
-        return $to;
-
-    }
-
-    public function acadp_email_admin_report_abuse() {
+    public function atbdp_email_admin_report_abuse() {
 
         // sanitize form values
         $post_id = (int) $_POST["post_id"];
@@ -278,11 +258,12 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
     public function ajax_callback_report_abuse() {
 
+
         $data = array( 'error' => 0 );
 
 
 
-            if( $this->acadp_email_admin_report_abuse() ) {
+            if( $this->atbdp_email_admin_report_abuse() ) {
 
                 $data['message'] = __( 'Your message sent successfully.', ATBDP_TEXTDOMAIN );
 

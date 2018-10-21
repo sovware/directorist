@@ -101,7 +101,7 @@ class ATBDP_Shortcode {
             'post_status'    => 'publish',
             'posts_per_page' => (int) $srch_p_num,
             'paged'          => $paged,
-            's'              => $s_string,
+            's'            => $s_string,
         );
         if (!$paginate) $args['no_found_rows'] = true;
 

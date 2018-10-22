@@ -170,7 +170,6 @@ class ATBDP_Metabox {
             $exp_dt = calc_listing_expiry_date(); // get the expiry date in mysql date format using the default expiration date.
         }
 
-
         /*
          * send the custom field value to the database
          */

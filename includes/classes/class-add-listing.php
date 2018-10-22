@@ -212,12 +212,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     update_post_meta( $post_id, $key, $value );
                                 }
                                 update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
-
-
+                                //@todo; need to update the term_relationship_id in order to get proper term meta
+                                //wp_set_object_terms(get_the_ID(), $admin_category_select, ATBDP_CATEGORY);
                             }
-                            //@todo; need to update the term_relationship_id in order to get proper term meta
-                            // wp_set_object_terms(get_the_ID(), $admin_category_select, ATBDP_CATEGORY); to update term_relationship_id
-
 
                             // for dev
                             do_action('atbdp_listing_updated', $post_id);
@@ -231,13 +228,13 @@ if (!class_exists('ATBDP_Add_Listing')):
                     }else{
                         // the post is a new post, so insert it as new post.
                         if (current_user_can('publish_at_biz_dirs')){
-                            $new_l_status = get_directorist_option('new_listing_status', 'publish');
+                            $new_l_status = get_directorist_option('new_listing_status', 'pending');
                             $args['post_status'] = $new_l_status;
                             $post_id = wp_insert_post($args);
                             do_action('atbdp_listing_inserted', $post_id);
 
                             //Every post with the published status should contain all the post meta keys so that we can include them in query.
-                            if ('publish' == $new_l_status) {
+                            if ('publish' == $new_l_status || 'pending' == $new_l_status) {
                                 $expire_in_days = get_directorist_option('listing_expire_in_days');
                                 $never_expire =empty($expire_in_days) ? 1 : 0;
                                 $exp_dt = calc_listing_expiry_date();
@@ -246,9 +243,10 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 update_post_meta( $post_id, '_featured', 0 );
                                 update_post_meta( $post_id, '_listing_status', 'post_status' );
                                 update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
-                                 /*
-                                   * send the custom field value to the database
-                                   */
+
+                                /*
+                                * send the custom field value to the database
+                             */
                                 if( isset( $custom_field ) ) {
 
                                     foreach( $custom_field as $key => $value ) {
@@ -290,10 +288,12 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                                 }
 
-
                             }
 
+
+
                         }
+
                     }
 
                     if (!empty($post_id)){

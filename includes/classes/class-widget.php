@@ -17,7 +17,7 @@ if (!class_exists('BD_Popular_Listing_Widget')) {
             );
             parent::__construct(
                 'bdpl_widget', // Base ID
-                esc_html__('Popular Listings', ATBDP_TEXTDOMAIN), // Name
+                esc_html__('Directorist - Popular Listings', ATBDP_TEXTDOMAIN), // Name
                 $widget_options // Args
             );
         }

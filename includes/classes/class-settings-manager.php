@@ -1372,6 +1372,13 @@ The Administrator of ==SITE_NAME==
             ),
             array(
                 'type' => 'toggle',
+                'name' => 'enable_report_abuse',
+                'label' => __('Enable Report Abuse', ATBDP_TEXTDOMAIN),
+                'description' => __('Check this to enable Report Abuse.', ATBDP_TEXTDOMAIN),
+                'default' => 1,
+            ),
+            array(
+                'type' => 'toggle',
                 'name' => 'atbd_video_url',
                 'label' => __('Enable Video', ATBDP_TEXTDOMAIN),
                 'description' => __('Allow users to add videos for their listings.', ATBDP_TEXTDOMAIN),

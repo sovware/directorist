@@ -45,6 +45,7 @@ $disable_s_widget = get_directorist_option('disable_submit_listing_widget', 0);
 $disable_widget_login = get_directorist_option('disable_widget_login', 0);
 $disable_contact_info = get_directorist_option('disable_contact_info', 0);
 $is_disable_price = get_directorist_option('disable_list_price');
+$enable_report_abuse = get_directorist_option('enable_report_abuse',1);
 $enable_video_url = get_directorist_option('atbd_video_url',1);
 $video_label = get_directorist_option('atbd_video_title');
 $p_lnk = get_the_permalink();
@@ -183,8 +184,9 @@ $main_col_size = is_active_sidebar( 'right-sidebar-listing' ) || !$disable_s_wid
                             <?php } ?>
 
                            <!-- Report Abuse-->
-
-                            <?php if( is_user_logged_in() ) { ?>
+                        <?php
+                        if( $enable_report_abuse ) {
+                            if( is_user_logged_in() ) { ?>
                                 <a href="javascript:void(0)" data-toggle="modal" data-target="#atbdp-report-abuse-modal"><?php _e( 'Report abuse', ATBDP_TEXTDOMAIN ); ?></a>
 
                                 <!-- Modal (report abuse form) -->
@@ -217,6 +219,7 @@ $main_col_size = is_active_sidebar( 'right-sidebar-listing' ) || !$disable_s_wid
                             <?php } ?>
                             <input type="hidden" id="atbdp-post-id" value="<?php echo get_the_ID(); ?>" />
                         </div>
+                        <?php } ?>
 
                     </div>
                     <?php if($enable_video_url && !empty($video_url)) { ?>

@@ -19,7 +19,7 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
             );
             parent::__construct(
                 'bdvd_widget', // Base ID
-                esc_html__('Directorist-Video', ATBDP_TEXTDOMAIN), // Name
+                esc_html__('Directorist - Video', ATBDP_TEXTDOMAIN), // Name
                 $widget_options // Args
             );
         }

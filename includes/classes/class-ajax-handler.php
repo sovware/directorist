@@ -258,6 +258,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
     public function ajax_callback_report_abuse() {
 
+
         $data = array( 'error' => 0 );
 
 

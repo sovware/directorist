@@ -101,7 +101,7 @@ class ATBDP_Shortcode {
             'post_status'    => 'publish',
             'posts_per_page' => (int) $srch_p_num,
             'paged'          => $paged,
-            's'              => $s_string,
+            's'            => $s_string,
         );
         if (!$paginate) $args['no_found_rows'] = true;
 
@@ -111,7 +111,7 @@ class ATBDP_Shortcode {
             /*@todo; add option to the settings panel to let user choose whether to include result from children or not*/
             $tax_queries[] = array(
                 'taxonomy'         => ATBDP_CATEGORY,
-                'field'            => 'term_id',
+                'field'            => 'slug',
                 'terms'            => $in_cat,
                 'include_children' => true, /*@todo; Add option to include children or exclude it*/
             );

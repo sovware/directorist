@@ -33,7 +33,7 @@ class ATBDP_Custom_Field {
 
         //add_filter( 'manage_edit-atbdp_fields_sortable_columns', array($this, 'get_sortable_columns') );
 
-        add_filter( 'post_row_actions', array($this, 'set_payment_receipt_link'), 10, 2 );
+        add_filter( 'post_row_actions', array($this, 'set_custom_field_link'), 10, 2 );
 
         add_action('manage_atbdp_fields_posts_custom_column', array($this, 'custom_field_column_content'), 10, 2);
 
@@ -734,7 +734,7 @@ class ATBDP_Custom_Field {
      * @param WP_Post   $post           The current post post
      * @return array    $actions        It returns the array of post actions after modifying the order view link
      */
-    public function set_payment_receipt_link($actions, WP_Post $post ) {
+    public function set_custom_field_link($actions, WP_Post $post ) {
         if ( $post->post_type != 'atbdp_fields' ) return $actions;
         $actions['view'] = sprintf("<a href='%s'>%s</a>", ATBDP_Permalink::get_payment_receipt_page_link($post->ID), __('View', ATBDP_TEXTDOMAIN));
         return $actions;

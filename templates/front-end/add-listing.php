@@ -1,5 +1,4 @@
 <?php
-
 $id = get_query_var('atbdp_listing_id');
 if (!empty($id)) {
     $p_id = !empty($id)?absint($id):'';
@@ -13,11 +12,7 @@ if (!empty($id)) {
     $lf= get_post_meta($p_id, '_listing_info', true);
     $price= get_post_meta($p_id, '_price', true);
     $listing_info = (!empty($lf))? aazztech_enc_unserialize($lf) : array();
-
     extract($listing_info);
-
-
-
 //for editing page
     $p_tags = wp_get_post_terms($p_id, ATBDP_TAGS);
     $p_locations = wp_get_post_terms($p_id, ATBDP_LOCATION);
@@ -543,13 +538,13 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                     </div>
                     <div style="text-align: center">
-                        <input type="checkbox" name="t_c_check">
+                        <input id="listing_t" type="checkbox" name="t_c_check">
                         <?php
                         if (get_directorist_option('listing_terms_condition') == 1){
                             printf('<span style="color: red"> *</span>');
                         }
                         ?>
-                        <label><?php echo __('I Agree with all ',ATBDP_TEXTDOMAIN);?><a style="color: red" href="" id="listing_t_c" "><?php echo __('terms & conditions',ATBDP_TEXTDOMAIN);?></a></label>
+                        <label for="listing_t"><?php echo __('I Agree with all ',ATBDP_TEXTDOMAIN);?><a style="color: red" href="" id="listing_t_c" "><?php echo __('terms & conditions',ATBDP_TEXTDOMAIN);?></a></label>
                         <div id="tc_container"></div>
                     </div>
                     <div class="btn_wrap list_submit">

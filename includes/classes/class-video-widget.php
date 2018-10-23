@@ -36,12 +36,10 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
         {
             if( is_singular(ATBDP_POST_TYPE)) {
                 global $post;
-                $enable_video_url = get_directorist_option('atbd_video_url');
                 $listing_info = ATBDP()->metabox->get_listing_info( $post->ID);
                 $listing      =  !empty($listing_info) ? $listing_info : array();
                 extract($listing);
 
-                if( $enable_video_url && !empty($videourl)) {
                     $videourl   = esc_attr(ATBDP()->atbdp_parse_videos($videourl));
                     $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Listing Video', ATBDP_TEXTDOMAIN);
                     echo $args['before_widget'];
@@ -54,7 +52,7 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
 
                     <?php
                     echo $args['after_widget'];
-                }
+
             }
         }
         /**

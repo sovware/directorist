@@ -45,7 +45,53 @@
 
             });
 
+            // Validate contact form
+            var atbdp_contact_submitted = false;
+
+            $( '#atbdp-contact-form' ).validator({
+                disable : false
+            }).on( 'submit', function( e ) {
+
+                if( atbdp_contact_submitted ) return false;
+
+                // Check for errors
+                if( ! e.isDefaultPrevented() ) {
+
+                    e.preventDefault();
+
+                    atbdp_contact_submitted = true;
+
+
+                    $( '#atbdp-contact-message-display' ).append('<div class="atbdp-spinner"></div>');
+
+                    // Post via AJAX
+                    var data = {
+                        'action'  : 'atbdp_public_send_contact_email',
+                        'post_id' : $( '#atbdp-post-id' ).val(),
+                        'name'    : $( '#atbdp-contact-name' ).val(),
+                        'email'   : $( '#atbdp-contact-email' ).val(),
+                        'message' : $( '#atbdp-contact-message' ).val(),
+                    };
+
+                    $.post( public_report.ajaxurl, data, function( response ) {
+                        if( 1 == response.error ) {
+                            $( '#atbdp-contact-message-display' ).addClass('text-danger').html( response.message );
+                        } else {
+                            $( '#atbdp-contact-message' ).val('');
+                            $( '#atbdp-contact-message-display' ).addClass('text-success').html( response.message );
+                        };
+
+                    }, 'json' );
+
+                } else {
+                    atbdp_contact_submitted = false;
+                };
+
+            });
+
+
         };
+
         // Report abuse [on modal closed]
         $('#atbdp-report-abuse-modal').on( 'hidden.bs.modal', function( e ) {
 
@@ -53,6 +99,16 @@
             $( '#atbdp-report-abuse-message-display' ).html('');
 
         });
+
+        // Contact form [on modal closed]
+        $('#atbdp-contact-modal').on( 'hidden.bs.modal', function( e ) {
+
+            $( '#atbdp-contact-message' ).val('');
+            $( '#atbdp-contact-message-display' ).html('');
+
+        });
+
+
 
         // Alert users to login (only if applicable)
         $( '.atbdp-require-login' ).on( 'click', function( e ) {

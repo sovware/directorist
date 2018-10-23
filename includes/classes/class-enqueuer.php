@@ -256,7 +256,7 @@ class ATBDP_Enqueuer {
             wp_enqueue_script( 'atbdp-public-script', ATBDP_PUBLIC_ASSETS . 'js/main.js', apply_filters('atbdp_front_script_dependency', $front_scripts_dependency), ATBDP_VERSION, true );
 
             wp_localize_script( 'atbdp-public-script', 'atbdp_public_data', $data );
-            wp_enqueue_script( 'public-report', ATBDP_PUBLIC_ASSETS . 'js/flug.js',$front_scripts_dependency, ATBDP_VERSION, true );
+            //wp_enqueue_script( 'public-report', ATBDP_PUBLIC_ASSETS . 'js/flug.js',$front_scripts_dependency, ATBDP_VERSION, true );
             wp_localize_script( 'public-report', 'public_report',$data  );
             wp_enqueue_style('wp-color-picker');
 

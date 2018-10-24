@@ -41,7 +41,6 @@ $info_content .= "<a href='http://www.google.com/maps/place/{$manual_lat},{$manu
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map', 0);
 $disable_sharing = get_directorist_option('disable_sharing', 0);
-$disable_s_widget = get_directorist_option('disable_submit_listing_widget', 0);
 $disable_widget_login = get_directorist_option('disable_widget_login', 0);
 $disable_contact_info = get_directorist_option('disable_contact_info', 0);
 $is_disable_price = get_directorist_option('disable_list_price');
@@ -52,7 +51,7 @@ $p_lnk = get_the_permalink();
 $p_title = get_the_title();
 $featured = get_post_meta(get_the_ID(), '_featured', true);
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
-$main_col_size = is_active_sidebar( 'right-sidebar-listing' ) || !$disable_s_widget ? 'col-md-8' : 'col-md-12';
+$main_col_size = is_active_sidebar( 'right-sidebar-listing' )  ? 'col-md-8' : 'col-md-12';
 ?>
 
 <section class="directorist directory_wrapper">

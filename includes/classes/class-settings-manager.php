@@ -1132,23 +1132,6 @@ The Administrator of ==SITE_NAME==
                     'description' => __( 'Set it YES to disable Social Sharing links on a Single Listing Details Page.', ATBDP_TEXTDOMAIN ),
                     'default' => 0,
                 ),
-
-                array(
-                    'type' => 'toggle',
-                    'name' => 'disable_submit_listing_widget',
-                    'label' => __( 'Disable "Submit Your Item" Widget', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'Set it YES to disable "Submit New Item Widget" on a Single Listing Details page.', ATBDP_TEXTDOMAIN ),
-                    'default' => 0,
-                ),
-
-                array(
-                    'type' => 'toggle',
-                    'name' => 'disable_widget_login',
-                    'label' => __( 'Disable Login Form Inside "Submit Your Item" Widget', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'Set it YES to disable the Login Form inside "Submit New Item Widget" on a Single Listing Details page.', ATBDP_TEXTDOMAIN ),
-                    'default' => 0,
-                ),
-
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_contact_info',

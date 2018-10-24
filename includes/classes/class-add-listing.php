@@ -217,7 +217,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                             }
 
                             // for dev
-                            do_action('atbdp_listing_updated', $post_id);
+                            do_action('atbdp_listing_updated', $post_id);//for sending email notification
                         }else{
                             // kick the user out because he is trying to modify the listing of other user.
                             wp_redirect($_SERVER['REQUEST_URI'].'?error=true');
@@ -231,7 +231,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                             $new_l_status = get_directorist_option('new_listing_status', 'pending');
                             $args['post_status'] = $new_l_status;
                             $post_id = wp_insert_post($args);
-                            do_action('atbdp_listing_inserted', $post_id);
+                            do_action('atbdp_listing_inserted', $post_id);//for sending email notification
 
                             //Every post with the published status should contain all the post meta keys so that we can include them in query.
                             if ('publish' == $new_l_status || 'pending' == $new_l_status) {
@@ -282,16 +282,13 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                                         }
 
-
                                         update_post_meta( $post_id, $key, $value );
                                     }
-
                                 }
-
                             }
-
-
-
+                            if ('publish' == $new_l_status){
+                                do_action('atbdp_listing_published', $post_id);//for sending email notification
+                            }
                         }
 
                     }

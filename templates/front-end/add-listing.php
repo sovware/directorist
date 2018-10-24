@@ -65,6 +65,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
 
         <?php
+        //to show validation notification @todo;letter need to validate with ajax action and identify the required field with color
             $all_validation = ATBDP()->listing->add_listing->add_listing_to_db();
             echo $all_validation;
         ?>

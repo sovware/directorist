@@ -38,7 +38,7 @@ if ( !class_exists('BD_contact_form_Widget')) {
                 $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact Form', ATBDP_TEXTDOMAIN);
                 echo $args['before_widget'];
 
-                echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
+                echo $args['before_title'] . esc_html(apply_filters('widget_contact_form_title', $title)) . $args['after_title'];
                 ?>
                 <div class="atbdp directorist atbdp-widget-listing-contact">
                     <form id="atbdp-contact-form" class="form-vertical" role="form">
@@ -84,6 +84,24 @@ if ( !class_exists('BD_contact_form_Widget')) {
             </p>
 
             <?php
+        }
+
+        /**
+         * Sanitize widget form values as they are saved.
+         *
+         * @see WP_Widget::update()
+         *
+         * @param array $new_instance Values just sent to be saved.
+         * @param array $old_instance Previously saved values from database.
+         *
+         * @return array Updated safe values to be saved.
+         */
+        public function update($new_instance, $old_instance)
+        {
+            $instance = array();
+            $instance['title'] = (!empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
+
+            return $instance;
         }
 
     } //end class

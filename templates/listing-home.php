@@ -111,6 +111,7 @@ $popular_cat_num = get_directorist_option('popular_cat_num', 10);
                                 </ul>
                             </div><!-- End category area -->
                     <?php }
+
                     }?>
 
 

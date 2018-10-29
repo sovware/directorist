@@ -49,10 +49,16 @@ class ATBDP_Settings_Manager {
         return apply_filters('atbdp_settings_menus', array(
             /*Main Menu 1*/
             'general_menu' => array(
-                'title' => __('General settings', ATBDP_TEXTDOMAIN),
-                'name' => 'menu_1',
+                'title' => __('Currency settings', ATBDP_TEXTDOMAIN),
+                'name' => 'currency_settings',
                 'icon' => 'font-awesome:fa-magic',
-                'menus' => $this->get_general_settings_submenus(),
+                'controls'=>apply_filters('atbdp_currency_settings_controll',array(
+                    'currency_section' => array(
+                      'type' => 'section',
+                      'title'=> __('Currency Settings',ATBDP_TEXTDOMAIN),
+                      'fields'=> $this->get_currency_settings_fields(),
+                    ),
+                )),
             ),
             /*Main Menu 2*/
             'permalink_menu' => array(
@@ -142,7 +148,7 @@ class ATBDP_Settings_Manager {
 
             /*Submenu : Listing form */
             array(
-                'title' => __('Listings Form', ATBDP_TEXTDOMAIN),
+                'title' => __('Single Listings', ATBDP_TEXTDOMAIN),
                 'name' => 'listings_form',
                 'icon' => 'font-awesome:fa-wpforms',
                 'controls' => apply_filters('atbdp_listings_form_controls', array(
@@ -1035,35 +1041,7 @@ The Administrator of ==SITE_NAME==
         return $pages_options;
     }
 
-    /**
-     * Get all the submenus for the General Settings menu
-     * @since 3.0.0
-     * @return array It returns an array of submenus
-     */
-    function get_general_settings_submenus(){
-        return apply_filters('atbdp_general_settings_submenus', array(
-            'submenu_1' => array(
-                'title' => __( 'Home', ATBDP_TEXTDOMAIN),
-                'name' => 'submenu_1',
-                'icon' => 'font-awesome:fa-home',
-                'controls' => apply_filters('atbdp_general_settings_controls', array(
-                    'general_section' => array(
-                        'type'          => 'section',
-                        'title'         => __('General Settings', ATBDP_TEXTDOMAIN),
-                        'description'   => __('You can Customize General settings here. After switching any option, Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
-                        'fields'        => $this->get_general_settings_fields(),
-                    ), // ends general settings section
-                    'currency_section' => array(
-                        'type'          => 'section',
-                        'title'         => __('Currency Settings', ATBDP_TEXTDOMAIN),
-                        'description'   => __('This currency settings lets you customize how you would like to display price amount in your website. Note: You can accept currency in different currency. So, For payment related Currency Settings, Go to Gateway Settings Tab.', ATBDP_TEXTDOMAIN),
-                        'fields'        => $this->get_currency_settings_fields(),
-                    ), // ends general settings section
-                )),
-            ),
 
-        ) );
-    }
 
     /**
      * Get all the submenus for the extension menu
@@ -1087,90 +1065,6 @@ The Administrator of ==SITE_NAME==
                 )),
             ),
         ));
-    }
-
-    /**
-     * Get all the settings fields for the general settings section
-     * @since 3.0.0
-     * @return array
-     */
-    function get_general_settings_fields(){
-        /*ADAPTED FOR BACKWARD COMPATIBILITY*/
-        $fix_b_js = atbdp_get_option('fix_js_conflict', 'atbdp_general', 'no'); // fix bootstrap js conflict
-
-        return apply_filters('atbdp_general_settings_fields', array(
-                array(
-                    'type' => 'textbox',
-                    'name' => 'map_api_key',
-                    'label' => __( 'Google Map API key', ATBDP_TEXTDOMAIN ),
-                    'description' => sprintf(__( 'You need to enter your google map api key in order to display google map. You can find your map api key and detailed information %s. or you can search in google', ATBDP_TEXTDOMAIN ), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
-                    'default' => atbdp_get_option('map_api_key', 'atbdp_general'),
-                ),
-
-                array(
-                    'type' => 'slider',
-                    'name' => 'map_zoom_level',
-                    'label' => __( 'Google Map Zoom Level', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'You can adjust the zoom level of the map. 0 means 100% zoom-out. 22 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22. Default is 16. ', ATBDP_TEXTDOMAIN ),
-                    'min' => '1',
-                    'max' => '22',
-                    'step' => '1',
-                    'default' => '16',
-
-                ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'disable_map',
-                    'label' => __( 'Disable Google Map', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'Set it YES to disable Google map on your website. If you leave it off, then you or your user can disable google map on individual listing too.', ATBDP_TEXTDOMAIN ),
-                    'default' => 0,
-                ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'disable_sharing',
-                    'label' => __( 'Disable Social Sharing links', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'Set it YES to disable Social Sharing links on a Single Listing Details Page.', ATBDP_TEXTDOMAIN ),
-                    'default' => 0,
-                ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'disable_contact_info',
-                    'label' => __( 'Disable Contact Information', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'Set it YES to disable Contact Information on a Single Listing Details page.', ATBDP_TEXTDOMAIN ),
-                    'default' => 0,
-                ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'disable_list_price',
-                    'label' => __( 'Disable Listing Price', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'Set it YES to disable Price field. However, if you do not disable price globally here, you can also disable pricing per listing during adding a listing.', ATBDP_TEXTDOMAIN ),
-                    'default' => 0,
-                ),
-
-                array(
-                    'type' => 'toggle',
-                    'name' => 'fix_js_conflict',
-                    'label' => __('Fix Conflict with Bootstrap JS', ATBDP_TEXTDOMAIN),
-                    'description' => __('If you use a theme that uses Bootstrap Framework especially Bootstrap JS, then Check this setting to fix any conflict with theme bootstrap js.', ATBDP_TEXTDOMAIN),
-                    'default' => atbdp_yes_to_bool($fix_b_js),
-                ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'exclude_bootstrap_css',
-                    'label' => __('Do not include Plugin\'s Bootstrap CSS in the Front-End', ATBDP_TEXTDOMAIN),
-                    'description' => __('You can turn this option YES to disable Bootstrap CSS in the Front-End if your theme is using bootstrap CSS already and you are facing problem.', ATBDP_TEXTDOMAIN),
-                    'default' => 0,
-                ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'exclude_admin_bootstrap_css',
-                    'label' => __('Do not include Plugin\'s Bootstrap CSS in the Backend', ATBDP_TEXTDOMAIN),
-                    'description' => __('You can turn this option YES to disable Bootstrap CSS in the Admin Area of Directorist. It is better to keep this option turned off to load bootstrap css in the admin area of this plugin, unless you have a good reason to turn it YES', ATBDP_TEXTDOMAIN),
-                    'default' => 0,
-                ),
-
-            )
-        );
     }
 
     /**
@@ -1430,6 +1324,53 @@ The Administrator of ==SITE_NAME==
                 'label' => __('Video Label', ATBDP_TEXTDOMAIN),
                 'description' => __('Enter video label for the single listing page.', ATBDP_TEXTDOMAIN),
                 'default' => __('Video', ATBDP_TEXTDOMAIN),
+            ),
+            array(
+                'type' => 'textbox',
+                'name' => 'map_api_key',
+                'label' => __( 'Google Map API key', ATBDP_TEXTDOMAIN ),
+                'description' => sprintf(__( 'You need to enter your google map api key in order to display google map. You can find your map api key and detailed information %s. or you can search in google', ATBDP_TEXTDOMAIN ), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                'default' => atbdp_get_option('map_api_key', 'atbdp_general'),
+            ),
+
+            array(
+                'type' => 'slider',
+                'name' => 'map_zoom_level',
+                'label' => __( 'Google Map Zoom Level', ATBDP_TEXTDOMAIN ),
+                'description' => __( 'You can adjust the zoom level of the map. 0 means 100% zoom-out. 22 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22. Default is 16. ', ATBDP_TEXTDOMAIN ),
+                'min' => '1',
+                'max' => '22',
+                'step' => '1',
+                'default' => '16',
+
+            ),
+            array(
+                'type' => 'toggle',
+                'name' => 'disable_map',
+                'label' => __( 'Disable Google Map', ATBDP_TEXTDOMAIN ),
+                'description' => __( 'Set it YES to disable Google map on your website. If you leave it off, then you or your user can disable google map on individual listing too.', ATBDP_TEXTDOMAIN ),
+                'default' => 0,
+            ),
+            array(
+                'type' => 'toggle',
+                'name' => 'disable_sharing',
+                'label' => __( 'Disable Social Sharing links', ATBDP_TEXTDOMAIN ),
+                'description' => __( 'Set it YES to disable Social Sharing links on a Single Listing Details Page.', ATBDP_TEXTDOMAIN ),
+                'default' => 0,
+            ),
+            array(
+                'type' => 'toggle',
+                'name' => 'disable_contact_info',
+                'label' => __( 'Disable Contact Information', ATBDP_TEXTDOMAIN ),
+                'description' => __( 'Set it YES to disable Contact Information on a Single Listing Details page.', ATBDP_TEXTDOMAIN ),
+                'default' => 0,
+            ),
+            array(
+                'type' => 'toggle',
+                'name' => 'disable_list_price',
+                'label' => __( 'Disable Listing Price', ATBDP_TEXTDOMAIN ),
+                'description' => __( 'Set it YES to disable Price field. However, if you do not disable price globally here, you can also disable pricing per listing during adding a listing.', ATBDP_TEXTDOMAIN ),
+                'default' => 0,
             ),
 
         ));

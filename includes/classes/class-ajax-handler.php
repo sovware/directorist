@@ -30,9 +30,13 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         add_action( 'wp_ajax_atbdp_format_total_amount', array('ATBDP_Checkout', 'ajax_atbdp_format_total_amount') );
         add_action( 'wp_ajax_nopriv_atbdp_format_total_amount', array('ATBDP_Checkout', 'ajax_atbdp_format_total_amount') );
 
+        /*REPORT ABUSE*/
         add_action( 'wp_ajax_atbdp_public_report_abuse', array($this,'ajax_callback_report_abuse') );
         add_action( 'wp_ajax_nopriv_atbdp_public_report_abuse', array($this,'ajax_callback_report_abuse') );
 
+        /*CONTACT FORM*/
+        add_action( 'wp_ajax_atbdp_public_send_contact_email', array($this, 'ajax_callback_send_contact_email') );
+        add_action( 'wp_ajax_nopriv_atbdp_public_send_contact_email', array($this, 'ajax_callback_send_contact_email') );
     }
 
 
@@ -274,6 +278,155 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
             }
 
+
+
+        echo wp_json_encode( $data );
+        wp_die();
+
+    }
+
+    /**
+     * Send contact message to the listing owner.
+     *
+     * @since    4.0.0
+     *
+     * @return   string    $result    Message based on the result.
+     */
+    function acadp_email_listing_owner_listing_contact() {
+
+        if(! in_array( 'listing_contact_form', get_directorist_option('notify_user', array()) ) ) return false;
+        // sanitize form values
+        $post_id = (int) $_POST["post_id"];
+        $name    = sanitize_text_field( $_POST["name"] );
+        $email   = sanitize_email( $_POST["email"] );
+        $message = stripslashes( esc_textarea( $_POST["message"] ) );
+
+        // vars
+        $post_author_id         = get_post_field( 'post_author', $post_id );
+        $user                   = get_userdata( $post_author_id );
+        $site_name              = get_bloginfo( 'name' );
+        $site_url               = get_bloginfo( 'url' );
+        $site_email		        = get_bloginfo( 'admin_email' );
+        $listing_title          = get_the_title( $post_id );
+        $listing_url            = get_permalink( $post_id );
+        $date_format            = get_option( 'date_format' );
+        $time_format            = get_option( 'time_format' );
+        $current_time           = current_time( 'timestamp' );
+        $contact_email_subject  = get_directorist_option('email_sub_listing_contact_email');
+        $contact_email_body     = get_directorist_option('email_tmpl_listing_contact_email');
+
+        $placeholders = array(
+            '==NAME=='            => $user->display_name,
+            '==USERNAME=='        => $user->user_login,
+            '==SITE_NAME=='       => $site_name,
+            '==SITE_LINK=='       => sprintf( '<a href="%s">%s</a>', $site_url, $site_name ),
+            '==SITE_URL=='        => sprintf( '<a href="%s">%s</a>', $site_url, $site_url ),
+            '==LISTING_TITLE=='   => $listing_title,
+            '==LISTING_LINK=='    => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_title ),
+            '==LISTING_URL=='     => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_url ),
+            '==SENDER_NAME=='     => $name,
+            '==SENDER_EMAIL=='    => $email,
+            '==MESSAGE=='         => $message,
+            '==TODAY=='           => date_i18n( $date_format, $current_time ),
+            '==NOW=='             => date_i18n( $date_format . ' ' . $time_format, $current_time )
+        );
+
+        $to      = $user->user_email;
+
+        $subject = strtr( $contact_email_subject, $placeholders );
+
+        $message = strtr( $contact_email_body, $placeholders );
+        $message = nl2br( $message );
+
+        $headers  = "From: {$name} <{$site_email}>\r\n";
+        $headers .= "Reply-To: {$email}\r\n";
+
+        // return true or false, based on the result
+        return ATBDP()->email->send_mail( $to, $subject, $message, $headers ) ? true : false;
+
+    }
+
+    /**
+     * Send contact message to the admin.
+     *
+     * @since    4.0
+     */
+    function acadp_email_admin_listing_contact() {
+
+        if (get_directorist_option('disable_email_notification')) return false; //vail if email notification is off
+
+        if( ! in_array( 'listing_contact_form', get_directorist_option('notify_admin', array()) ) ) return false; // vail if order created notification to admin off
+
+            // sanitize form values
+            $post_id = (int) $_POST["post_id"];
+            $name    = sanitize_text_field( $_POST["name"] );
+            $email   = sanitize_email( $_POST["email"] );
+            $message = esc_textarea( $_POST["message"] );
+
+            // vars
+            $site_name      = get_bloginfo( 'name' );
+            $site_url       = get_bloginfo( 'url' );
+            $listing_title  = get_the_title( $post_id );
+            $listing_url    = get_permalink( $post_id );
+            $date_format    = get_option( 'date_format' );
+            $time_format    = get_option( 'time_format' );
+            $current_time   = current_time( 'timestamp' );
+
+            $placeholders = array(
+                '{site_name}'     => $site_name,
+                '{site_link}'     => sprintf( '<a href="%s">%s</a>', $site_url, $site_name ),
+                '{site_url}'      => sprintf( '<a href="%s">%s</a>', $site_url, $site_url ),
+                '{listing_title}' => $listing_title,
+                '{listing_link}'  => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_title ),
+                '{listing_url}'   => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_url ),
+                '{sender_name}'   => $name,
+                '{sender_email}'  => $email,
+                '{message}'       => $message,
+                '{today}'         => date_i18n( $date_format, $current_time ),
+                '{now}'           => date_i18n( $date_format . ' ' . $time_format, $current_time )
+            );
+            $send_emails = ATBDP()->email->get_admin_email_list();
+            $to = !empty($send_emails) ? $send_emails : get_bloginfo('admin_email');
+
+            $subject = __( '[{site_name}] Contact via "{listing_title}"', ATBDP_TEXTDOMAIN );
+            $subject = strtr( $subject, $placeholders );
+
+            $message =  __( "Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary.", ATBDP_TEXTDOMAIN );
+            $message = strtr( $message, $placeholders );
+
+            $headers  = "From: {$name} <{$email}>\r\n";
+            $headers .= "Reply-To: {$email}\r\n";
+
+            return ATBDP()->email->send_mail( $to, $subject, $message, $headers ) ? true : false;
+
+
+
+    }
+
+    /**
+     * Send contact email.
+     *
+     * @since    4.0
+     * @access   public
+     */
+    public function ajax_callback_send_contact_email() {
+
+        $data = array( 'error' => 0 );
+
+
+        if( $this->acadp_email_listing_owner_listing_contact() ) {
+
+            // Send a copy to admin( only if applicable ).
+            $this->acadp_email_admin_listing_contact();
+
+            $data['message'] = __( 'Your message sent successfully.', ATBDP_TEXTDOMAIN );
+
+        } else {
+
+            $data['error']   = 1;
+            $data['message'] = __( 'Sorry! Please try again.', ATBDP_TEXTDOMAIN );
+
+        }
 
 
         echo wp_json_encode( $data );

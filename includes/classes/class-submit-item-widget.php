@@ -1,25 +1,22 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    die( '-1' );
-}
-
-if( !class_exists('BD_VIDEO_WIDGET')) {
+if (!class_exists('BD_Submit_Item_Widget')) {
     /**
-     * Adds BD_VIDEO_WIDGET widget.
+     * Adds BD_Popular_Listing_Widget widget.
      */
-    class BD_VIDEO_WIDGET extends WP_Widget {
+    class BD_Submit_Item_Widget extends WP_Widget
+    {
         /**
          * Register widget with WordPress.
          */
-        function __construct()
+        function __construct ()
         {
             $widget_options = array(
                 'classname' => 'listings',
-                'description' => esc_html__('You can show video by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show submit item  listing link by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
-                'bdvd_widget', // Base ID
-                esc_html__('Directorist - Video', ATBDP_TEXTDOMAIN), // Name
+                'bdsi_widget', // Base ID
+                esc_html__('Directorist - Submit Item', ATBDP_TEXTDOMAIN), // Name
                 $widget_options // Args
             );
         }
@@ -35,25 +32,23 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
         public function widget($args, $instance)
         {
             if( is_singular(ATBDP_POST_TYPE)) {
-                global $post;
-                $listing_info = ATBDP()->metabox->get_listing_info( $post->ID);
-                $listing      =  !empty($listing_info) ? $listing_info : array();
-                extract($listing);
-                $videourl   = !empty($videourl) ? esc_attr(ATBDP()->atbdp_parse_videos($videourl)) : '';
-                $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Listing Video', ATBDP_TEXTDOMAIN);
+                $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Title', ATBDP_TEXTDOMAIN);
                 echo $args['before_widget'];
 
-                echo $args['before_title'] . esc_html(apply_filters('widget_video_title', $title)) . $args['after_title'];
+                echo $args['before_title'] . esc_html(apply_filters('widget_submit_item_title', $title)) . $args['after_title'];
+
                 ?>
-
-                <iframe class="embed-responsive-item" src="<?php echo $videourl; ?>"
-                        allowfullscreen></iframe>
-
+                <div class="directorist">
+                    <a href="<?= esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
+                       class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Submit New Listing', ATBDP_TEXTDOMAIN); ?></a>
+                </div>
                 <?php
-                echo $args['after_widget'];
 
+
+                echo $args['after_widget'];
             }
         }
+
         /**
          * Back-end widget form.
          *
@@ -64,7 +59,7 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
          */
         public function form($instance)
         {
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Listing Video', ATBDP_TEXTDOMAIN);
+            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Submit Your Item', ATBDP_TEXTDOMAIN);
             ?>
             <p>
                 <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', ATBDP_TEXTDOMAIN); ?></label>
@@ -93,7 +88,5 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
 
             return $instance;
         }
-
-
     }
 }

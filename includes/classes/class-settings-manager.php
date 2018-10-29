@@ -251,6 +251,12 @@ class ATBDP_Settings_Manager {
                         'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
                         'fields' => $this->email_completed_order_tmpl_settings_fields(),
                     ),
+                    'listing_contact_email' => array(
+                        'type' => 'section',
+                        'title' => __('For Listing contact email', ATBDP_TEXTDOMAIN),
+                        'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                        'fields' => $this->listing_contact_email(),
+                    ),
                 )),
             ),
         ));
@@ -759,6 +765,51 @@ The Administrator of ==SITE_NAME==
 
 
     /**
+     * Get all the settings fields for the offline new order email template section
+     * @since 3.1.0
+     * @return array
+     */
+    public function listing_contact_email()
+    {
+        // let's define default data
+        $sub = __('[==SITE_NAME==] Contact via "[==LISTING_TITLE==]"', ATBDP_TEXTDOMAIN);
+
+        $tmpl = __("
+Dear [==NAME==],
+
+You have received a reply from your listing at ==LISTING_URL==.
+
+Name: ==SENDER_NAME==
+Email: ==SENDER_EMAIL==
+Message: ==MESSAGE==
+Time: ==NOW==
+
+Thanks,
+The Administrator of ==SITE_NAME==
+", ATBDP_TEXTDOMAIN);
+
+        return apply_filters('atbdp_completed_order_tmpl_settings_fields', array(
+            array(
+                'type' => 'textbox',
+                'name' => 'email_sub_listing_contact_email',
+                'label' => __('Email Subject', ATBDP_TEXTDOMAIN),
+                'description' => __('Edit the subject for sending to the user when listing contact message send.', ATBDP_TEXTDOMAIN),
+                'default' => $sub,
+            ),
+            array(
+                'type' => 'textarea',
+                'name' => 'email_tmpl_listing_contact_email',
+                'label' => __('Email Body', ATBDP_TEXTDOMAIN),
+                'description' => __('Edit the email template for sending to the user when when listing contact message send', ATBDP_TEXTDOMAIN),
+                'default' => $tmpl,
+            ),
+
+
+        ));
+    }
+
+
+    /**
      * Get all the settings fields for the email settings section
      * @since 3.1.0
      * @return array
@@ -850,6 +901,7 @@ The Administrator of ==SITE_NAME==
             'payment_received',
             'listing_published',
             'listing_deleted',
+            'listing_contact_form',
         ));
     }
 
@@ -872,6 +924,7 @@ The Administrator of ==SITE_NAME==
             'order_completed',
             'listing_edited',
             'listing_deleted',
+            'listing_contact_form',
         ));
     }
 
@@ -910,6 +963,10 @@ The Administrator of ==SITE_NAME==
             array(
                 'value' => 'listing_deleted',
                 'label' => __('Listing Deleted', ATBDP_TEXTDOMAIN),
+            ),
+            array(
+                'value' => 'listing_contact_form',
+                'label' => __('Listing contact form', ATBDP_TEXTDOMAIN),
             ),
         ));
     }
@@ -1075,23 +1132,6 @@ The Administrator of ==SITE_NAME==
                     'description' => __( 'Set it YES to disable Social Sharing links on a Single Listing Details Page.', ATBDP_TEXTDOMAIN ),
                     'default' => 0,
                 ),
-
-                array(
-                    'type' => 'toggle',
-                    'name' => 'disable_submit_listing_widget',
-                    'label' => __( 'Disable "Submit Your Item" Widget', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'Set it YES to disable "Submit New Item Widget" on a Single Listing Details page.', ATBDP_TEXTDOMAIN ),
-                    'default' => 0,
-                ),
-
-                array(
-                    'type' => 'toggle',
-                    'name' => 'disable_widget_login',
-                    'label' => __( 'Disable Login Form Inside "Submit Your Item" Widget', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'Set it YES to disable the Login Form inside "Submit New Item Widget" on a Single Listing Details page.', ATBDP_TEXTDOMAIN ),
-                    'default' => 0,
-                ),
-
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_contact_info',

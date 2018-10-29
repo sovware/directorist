@@ -1,0 +1,15 @@
+Metabox Support:
+
+- WPAlchemy MetaBox PHP Class
+  by Dimas Begunoff
+  http://www.farinspace.com/wpalchemy-metabox/
+
+- Multiple WYSIWYG
+  by Kathy (helgatheviking)
+  http://www.kathyisawesome.com/426/multiple-wordpress-wysiwyg-visual-editors/
+
+Icons:
+
+- FontAwesome
+  by Dave Gandy
+  http://fortawesome.github.com/Font-Awesome/

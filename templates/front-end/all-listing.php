@@ -59,7 +59,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                 <article class="<?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                     <figure>
                                         <div class="post_img_wrapper">
-                                            <?= (!empty($attachment_id[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($attachment_id[0],  array(432,400))).'" alt="listing image">' : '' ?>
+                                            <?= (!empty($attachment_id[0])) ? '<img height="150" width="150"src="'.esc_url(wp_get_attachment_image_url($attachment_id[0],  array(432,400))).'" alt="listing image">' : '' ?>
                                         </div>
 
                                         <figcaption>

@@ -1,0 +1,48 @@
+/* Common styles across whole plugin */
+.atbd_content_active #directorist.atbd_wrapper h1, .atbd_content_active #directorist.atbd_wrapper h2, .atbd_content_active #directorist.atbd_wrapper h3, .atbd_content_active #directorist.atbd_wrapper h4, .atbd_content_active #directorist.atbd_wrapper h5, .atbd_content_active #directorist.atbd_wrapper h6,
+.atbd_content_active #directorist.atbd_wrapper .h1, .atbd_content_active #directorist.atbd_wrapper .h2, .atbd_content_active #directorist.atbd_wrapper .h3, .atbd_content_active #directorist.atbd_wrapper .h4, .atbd_content_active #directorist.atbd_wrapper .h5, .atbd_content_active #directorist.atbd_wrapper .h6 {
+  margin-bottom: $headings-margin-bottom;
+  font-family: $headings-font-family;
+  font-weight: $headings-font-weight;
+  line-height: $headings-line-height;
+  color: $headings-color;
+  letter-spacing: normal;
+  a{
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    color: $headings-color;
+    &:hover{
+      @extend .atbd_color-primary;
+    }
+  }
+}
+
+h1, .h1 { font-size: $h1-font-size; }
+h2, .h2 { font-size: $h2-font-size; }
+h3, .h3 { font-size: $h3-font-size; }
+h4, .h4 { font-size: $h4-font-size; }
+h5, .h5 { font-size: $h5-font-size; }
+h6, .h6 { font-size: $h6-font-size; }
+
+.atbd_content_active #directorist.atbd_wrapper{
+  color: $text-color;
+  font-size: 15px;
+  font-family: 'Roboto', Sans-serif!important;
+  p{
+    font-size: 15px;
+    color: $text-color;
+    line-height: 24px;
+  }
+  ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.border-color{
+  border-color: $border-color;
+}

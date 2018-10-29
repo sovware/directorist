@@ -242,11 +242,9 @@ if(!class_exists('ATBDP_Ajax_Handler')):
             '{sender_email}'    => $user->user_email,
             '{message}'         => $message
         );
-        $send_emails = ATBDP()->email->get_admin_email_list();
+        $send_email = get_directorist_option('admin_email_lists');
 
-        $to = !empty($send_emails) ? $send_emails : get_bloginfo('admin_email');
-
-
+        $to = !empty($send_email) ? $send_email : get_bloginfo('admin_email');
 
         $subject = __( '[{site_name}] Report Abuse via "{listing_title}"', ATBDP_TEXTDOMAIN );
         $subject = strtr( $subject, $placeholders );

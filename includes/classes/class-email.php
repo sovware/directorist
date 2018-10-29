@@ -462,10 +462,7 @@ This email is sent automatically for information purpose only. Please do not res
     }
 
 
-
     /**
-     * It notifies the listing owner via email when his listing has nearly expired
-     *
      * @since 3.1.0
      * @param int $listing_id   The listing ID
      * @return bool Whether the message was sent successfully or not.
@@ -637,7 +634,6 @@ This email is sent automatically for information purpose only. Please do not res
         return $this->send_mail( $this->get_admin_email_list(), $sub, $this->replace_in_content($body, null, $listing_id), $this->get_email_headers() );
 
     }
-
 
 
     /**

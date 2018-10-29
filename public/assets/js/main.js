@@ -271,12 +271,17 @@
         var $form = $(this);
         var $queryString = $form.serialize();
         atbdp_do_ajax($form, 'update_user_profile', $queryString, function (response) {
-            $form.append(response);
+            if (response.success){
+                $('#pro_notice').html('<p style="padding: 22px;" class="alert-success">'+response.data+'</p>');
+            }else {
+                $('#pro_notice').html('<p style="padding: 22px;" class="alert-danger">'+response.data+'</p>');
+            }
         });
 
         // prevent the from submitting
         return false;
     });
+
 
 
 

@@ -94,15 +94,20 @@ if (!class_exists('ATBDP_Add_Listing')):
                     //let check all the required custom field
                     foreach ($custom_field as $key => $value) {
                         $require = get_post_meta($key, 'required', true);
-                        switch( $require ) {
-                            case '1' :
-                                $Check_require = $value;
-                                break;
+                        if ($require){
+                            switch( $require ) {
+                                case '1' :
+                                    $Check_require = $value;
+                                    break;
+                            }
+                            if (empty($Check_require)){
+                                $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span style="color:                            red">*</span></strong></div>';
+                                return $msg;
+                            }
                         }
-                        if (empty($Check_require)){
-                            $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span style="color:                            red">*</span></strong></div>';
-                            return $msg;
-                    }}
+
+
+                    }
                     if($title == '' || get_directorist_option('listing_terms_condition') == 1){
                             if ($t_c_check == ''){
                                 $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span                                          style="color: red">*</span></strong></div>';
@@ -212,8 +217,10 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     update_post_meta( $post_id, $key, $value );
                                 }
                                 update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
-                                //@todo; need to update the term_relationship_id in order to get proper term meta
-                                //wp_set_object_terms(get_the_ID(), $admin_category_select, ATBDP_CATEGORY);
+
+
+                                $term_by_id =  get_term_by('term_id', $admin_category_select, ATBDP_CATEGORY);
+                                wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
                             }
 
                             // for dev
@@ -243,6 +250,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 update_post_meta( $post_id, '_featured', 0 );
                                 update_post_meta( $post_id, '_listing_status', 'post_status' );
                                 update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
+                                $term_by_id =  get_term_by('term_id', $admin_category_select, ATBDP_CATEGORY);
+                                wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
 
                                 /*
                                 * send the custom field value to the database

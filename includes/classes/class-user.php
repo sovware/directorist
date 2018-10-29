@@ -277,59 +277,51 @@ class ATBDP_User {
      */
     public function update_profile($data)
     {
-        /**
-       * Sample data
-       * array (size=3)
-        'user' =>
-          array (size=10)
-            'full_name' =>  'Kamal Ahmed' ,
-            'first_name' =>  'Kamal' ,
-            'last_name' =>  'Ahmed' ,
-            'user_email' =>  'kamalacca@gmail.com' ,
-            'phone' =>  '1111-1111-1111' ,
-            'website' =>  '' ,
-            'address' =>  '' ,
-            'current_pass' =>  '' ,
-            'new_pass' =>  '' ,
-            'confirm_pass' =>  '' ,
-        'action' =>  'update_user_profile' ,
-        'atbdp_nonce_js' =>  'b49cc5b8dd' ,
-      */
-
         $userdata = array();
         // we need to sanitize the data and then save it.
         $ID = !empty($data['ID']) ? absint($data['ID']) : get_current_user_id();
         $userdata['ID'] = $ID;
         $userdata['display_name'] = !empty($data['full_name']) ? sanitize_text_field(trim($data['full_name'])) : '';
-       $userdata['user_email'] = !empty($data['user_email']) ? sanitize_email($data['user_email'] ): '';
-       $userdata['user_url'] = !empty($data['website']) ? esc_url_raw(trim($data['website'] )): '';
+        $userdata['user_email'] = !empty($data['user_email']) ? sanitize_email($data['user_email'] ): '';
+        $userdata['user_url'] = !empty($data['website']) ? esc_url_raw(trim($data['website'] )): '';
         $phone = !empty($data['phone']) ? sanitize_text_field(trim($data['phone'] )): '';
         $pro_pic = !empty($data['pro_pic']) ? esc_url_raw(trim($data['pro_pic'] )): '';
         $first_name = !empty($data['first_name']) ? sanitize_text_field(trim($data['first_name'])) : '';
         $last_name = !empty($data['last_name']) ? sanitize_text_field(trim($data['last_name'] )): '';
-       $address = !empty($data['address']) ? sanitize_text_field(trim($data['address'] )): '';
-       $current_pass = !empty($data['current_pass']) ? sanitize_text_field(trim($data['current_pass'] )): ''; // match with with the hash in DB
+        $address = !empty($data['address']) ? sanitize_text_field(trim($data['address'] )): '';
+        //$current_pass = !empty($data['current_pass']) ? wp_hash_password(trim($data['current_pass'] )): ''; // match with with the hash in DB
+        $new_pass = !empty($data['new_pass']) ? sanitize_text_field(trim($data['new_pass'] )): '';
+        $confirm_pass = !empty($data['confirm_pass']) ? sanitize_text_field(trim($data['confirm_pass'] )): '';
+        //$user = get_userdata($ID); // get current user data to check if the provided pass match current usr pass
 
-       $new_pass = !empty($data['new_pass']) ? sanitize_text_field(trim($data['new_pass'] )): '';
-       $confirm_pass = !empty($data['confirm_pass']) ? sanitize_text_field(trim($data['confirm_pass'] )): '';
+        //@TODO: add functionality to alert user that his/her password has not been changed if he did not insert
 
-       $user = get_userdata($ID); // get current user data to check if the provided pass match current usr pass
+        // user entered correct current password and his new password is valid, so lets set it to data
 
-        //@TODO: add functionality to alert user that his password has not been changed if he did not insert
-       if (( wp_hash_password( $current_pass) === $user->user_pass ) && ( $new_pass === $confirm_pass )){
-           // user entered correct current password and his new password is valid, so lets set it to data
-           $userdata['user_pass'] = $new_pass;
-       }
-        // now lets save the data to the db
+        // now lets save the data to the db without password
         $uid = wp_update_user($userdata);
-
         update_user_meta( $ID, 'address', $address );
         update_user_meta( $ID, 'first_name', $first_name );
         update_user_meta( $ID, 'last_name', $last_name );
         update_user_meta( $ID, 'phone', $phone );
         update_user_meta( $ID, 'pro_pic', $pro_pic );
 
-        if (!is_wp_error($uid)) return true;
+        if (!empty($new_pass && $confirm_pass)){
+            // password will be updated here
+            if ( ( $new_pass == $confirm_pass ) && ( strlen( $confirm_pass) > 5 ) ){
+                wp_set_password($new_pass, $ID); // set the password to the database
+            }else{
+                wp_send_json_error('Password should be matched and more than five character', ATBDP_TEXTDOMAIN);
+
+            }
+        }
+        if (!is_wp_error($uid)){
+            wp_send_json_success('Congratulations! Your profile updated successfully', ATBDP_TEXTDOMAIN);
+            return true;
+        }else{
+            wp_send_json_error('Oops! Something wrong.', ATBDP_TEXTDOMAIN);
+        }
+
 
         return false; // failed to save data, so return false
 

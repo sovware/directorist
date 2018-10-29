@@ -75,13 +75,13 @@ class ATBDP_Metabox {
         __( 'Listing Information', ATBDP_TEXTDOMAIN ),
         array($this, 'listing_info'),
         ATBDP_POST_TYPE,
-        'normal' );
+        'normal', 'high' );
 
         add_meta_box( '_listing_gallery',
         __( 'Upload Image for the listing', ATBDP_TEXTDOMAIN ),
         array($this, 'listing_gallery'),
         ATBDP_POST_TYPE,
-        'normal' );
+        'normal', 'high' );
 
     }
 

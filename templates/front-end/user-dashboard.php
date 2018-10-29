@@ -42,6 +42,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                         </div>
                     </div> <!--ends dashboard_nav-->
 
+
                     <!-- Tab panes -->
                     <div class="tab-content row">
                         <div role="tabpanel" class="tab-pane active" data-uk-grid id="my_listings">
@@ -153,7 +154,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             ?>
 
                         </div> <!--ends #my_listings-->
-                        <div role="tabpanel" class="tab-pane " id="profile">
+                        <div role="tabpanel" class="tab-pane" id="profile">
+
                             <form action="#" id="user_profile_form" method="post">
                                 <div class="col-md-4">
                                     <div class="user_pro_img_area">
@@ -218,27 +220,26 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <input class="directory_field" id="address" type="text" name="user[address]" value="<?= !empty($u_address)? esc_attr($u_address):'';?>">
                                             </div>
                                         </div> <!--ends .row-->
-
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label for="current_pass"><?php _e('Current Password', ATBDP_TEXTDOMAIN); ?></label>
-                                                <input class="directory_field" type="password" name="user[current_pass]" id="current_pass" value="" placeholder="Your Current Password" >
-                                            </div>
-                                        </div> <!--ends .row-->
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="new_pass"><?php _e('New Password', ATBDP_TEXTDOMAIN); ?></label>
-                                                <input class="directory_field" type="password" name="user[new_pass]" value="" placeholder="Enter a new password" >
+                                                <input class="directory_field" type="password" name="user[new_pass]" value="<?= !empty($new_pass)? esc_attr($new_pass):'';?>" placeholder="Enter a new password" >
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="confirm_pass"><?php _e('Confirm Password', ATBDP_TEXTDOMAIN); ?></label>
-                                                <input class="directory_field" type="password" name="user[confirm_pass]" value="" placeholder="Confirm your new password" >
+                                                <label for="confirm_pass"><?php _e('Confirm New Password', ATBDP_TEXTDOMAIN); ?></label>
+                                                <input class="directory_field" type="password" name="user[confirm_pass]" value="<?= !empty($confirm_pass)? esc_attr($confirm_pass):'';?>" placeholder="Confirm your new password" >
                                             </div>
                                         </div><!--ends .row-->
+
+
                                         <button type="submit" class="btn btn-primary" id="update_user_profile"><?php _e('Save Changes', ATBDP_TEXTDOMAIN); ?></button>
                                     </div>
                                 </div>
                             </form>
+                            <div id="pro_notice" style="display: inline-block; padding: 20px">
+
+                            </div>
+
                         </div>
                     </div>
 

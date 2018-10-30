@@ -189,6 +189,7 @@ class ATBDP_Enqueuer {
         wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false, ATBDP_VERSION);
         wp_register_style( 'sweetalertcss', ATBDP_PUBLIC_ASSETS.'css/sweetalert.min.css', false, ATBDP_VERSION );
         wp_register_style( 'select2style', ATBDP_PUBLIC_ASSETS.'css/select2.min.css', false, ATBDP_VERSION );
+        /** @todo Shahadat -> enqued new fonts */
         wp_register_style( 'atbd_googlefonts', '//fonts.googleapis.com/css?family=Roboto:400,500', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-style', ATBDP_PUBLIC_ASSETS . 'css/style.css', array( 'atbdp-font-awesome',), ATBDP_VERSION);
 
@@ -208,14 +209,11 @@ class ATBDP_Enqueuer {
 
 
 
-
-
-
-
         wp_register_script( 'atbdp-user-dashboard', ATBDP_PUBLIC_ASSETS . 'js/user-dashboard.js', array( 'jquery' ), ATBDP_VERSION, true );
 
 
         wp_register_script( 'select2script', ATBDP_PUBLIC_ASSETS . 'js/select2.min.js', array( 'jquery' ), ATBDP_VERSION, true );
+        wp_register_script( 'atbdp_validator', ATBDP_PUBLIC_ASSETS . 'js/validator.min.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp_checkout_script', ATBDP_PUBLIC_ASSETS . 'js/checkout.js', array( 'jquery' ), ATBDP_VERSION, true );
 
         // we need select2 js on taxonomy edit screen to let the use to select the fonts-awesome icons ans search the icons easily
@@ -223,6 +221,7 @@ class ATBDP_Enqueuer {
 
         wp_enqueue_style('select2style');
         wp_enqueue_script('select2script');
+        wp_enqueue_script('atbdp_validator');
 
         /* Enqueue all styles*/
         wp_enqueue_style('atbdp-bootstrap-style');
@@ -248,6 +247,7 @@ class ATBDP_Enqueuer {
             'ajaxurl'       => admin_url('admin-ajax.php'),
             'nonceName'       => 'atbdp_nonce_js',
             'PublicAssetPath'  => ATBDP_PUBLIC_ASSETS,
+            'login_alert_message' => __( 'Sorry, you need to login first.', ATBDP_TEXTDOMAIN ),
         );
         wp_localize_script( 'atbdp_checkout_script', 'atbdp_checkout', $data );
 
@@ -262,6 +262,8 @@ class ATBDP_Enqueuer {
             wp_enqueue_script( 'atbdp-public-script', ATBDP_PUBLIC_ASSETS . 'js/main.js', apply_filters('atbdp_front_script_dependency', $front_scripts_dependency), ATBDP_VERSION, true );
 
             wp_localize_script( 'atbdp-public-script', 'atbdp_public_data', $data );
+            //wp_enqueue_script( 'public-report', ATBDP_PUBLIC_ASSETS . 'js/flug.js',$front_scripts_dependency, ATBDP_VERSION, true );
+            //wp_localize_script( 'public-report', 'public_report',$data  );
             wp_enqueue_style('wp-color-picker');
 
             wp_enqueue_media();

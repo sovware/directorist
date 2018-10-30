@@ -49,7 +49,7 @@ class ATBDP_Review_Rating{
      */
     public function print_static_rating($star_number=1)
     {
-        /*@todo: Shahadat -> To me this function is unnecessary! Please refactor this*/
+        /* @todo Shahadat -> To me this function is unnecessary! Please refactor this*/
         $v ='<ul>';
             for ($i=1; $i<=5; $i++){
                 $v .= ($i <= $star_number)

@@ -16,6 +16,9 @@ class ATBDP_Email {
         /*Fire up emails for updated/edited listings */
         add_action('atbdp_listing_updated', array($this, 'notify_admin_listing_edited'));
         add_action('atbdp_listing_updated', array($this, 'notify_owner_listing_edited'));
+        /*Fire up emails for published listings */
+        add_action('atbdp_listing_published', array($this, 'notify_admin_listing_published'));
+        add_action('atbdp_listing_published', array($this, 'notify_owner_listing_published'));
         /*Fire up emails for created order*/
         add_action('atbdp_order_created', array($this, 'notify_admin_order_created'), 10, 2);
         add_action('atbdp_order_created', array($this, 'notify_owner_order_created'), 10, 2);
@@ -400,6 +403,27 @@ This email is sent automatically for information purpose only. Please do not res
         return $this->send_mail( $user->user_email, $sub, $body, $this->get_email_headers() );
     }
 
+
+    /**
+     * It notifies admin via email when a listing is published
+     *
+     * @since 3.1.0
+     * @param int $listing_id
+     * @return bool Whether the email was sent successfully or not.
+     */
+    public function notify_admin_listing_published($listing_id)
+    {
+        if (get_directorist_option('disable_email_notification')) return false;
+        if( ! in_array( 'listing_published', get_directorist_option('notify_admin', array()) ) ) return false;
+        $s = __( '[==SITE_NAME==] The Listing #==LISTING_ID== has been published on your website', ATBDP_TEXTDOMAIN );
+        $sub = $this->replace_in_content($s, null, $listing_id);
+
+        $body = $this->get_listing_published_admin_tmpl();
+        return $this->send_mail( $this->get_admin_email_list(), $sub, $this->replace_in_content($body, null, $listing_id), $this->get_email_headers() );
+
+    }
+
+
     /**
      * It notifies the listing owner via email when his listing is published
      *
@@ -435,6 +459,8 @@ This email is sent automatically for information purpose only. Please do not res
 
         return $this->send_mail( $user->user_email, $sub, $body, $this->get_email_headers() );
     }
+
+
 
     /**
      * It notifies the listing owner via email when his listing has nearly expired
@@ -611,24 +637,6 @@ This email is sent automatically for information purpose only. Please do not res
 
     }
 
-    /**
-     * It notifies admin via email when a listing is published
-     *
-     * @since 3.1.0
-     * @param int $listing_id
-     * @return bool Whether the email was sent successfully or not.
-     */
-    public function notify_admin_listing_published($listing_id)
-    {
-        if (get_directorist_option('disable_email_notification')) return false;
-        if( ! in_array( 'listing_published', get_directorist_option('notify_admin', array()) ) ) return false;
-        $s = __( '[==SITE_NAME==] The Listing #==LISTING_ID== has been published on your website', ATBDP_TEXTDOMAIN );
-        $sub = $this->replace_in_content($s, null, $listing_id);
-
-        $body = $this->get_listing_published_admin_tmpl();
-        return $this->send_mail( $this->get_admin_email_list(), $sub, $this->replace_in_content($body, null, $listing_id), $this->get_email_headers() );
-
-    }
 
     /**
      * It notifies admin via email when a listing is edited

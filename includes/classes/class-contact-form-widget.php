@@ -3,11 +3,11 @@ if ( ! defined( 'ABSPATH' ) ) {
     die( '-1' );
 }
 
-if( !class_exists('BD_VIDEO_WIDGET')) {
+if ( !class_exists('BD_contact_form_Widget')) {
     /**
-     * Adds BD_VIDEO_WIDGET widget.
+     * Adds BD_contact_form_Widget widget.
      */
-    class BD_VIDEO_WIDGET extends WP_Widget {
+    class BD_contact_form_Widget extends WP_Widget {
         /**
          * Register widget with WordPress.
          */
@@ -15,11 +15,11 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
         {
             $widget_options = array(
                 'classname' => 'listings',
-                'description' => esc_html__('You can show video by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show "contact the listing owner" by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
-                'bdvd_widget', // Base ID
-                esc_html__('Directorist - Video', ATBDP_TEXTDOMAIN), // Name
+                'bdco_widget', // Base ID
+                esc_html__('Directorist - Listing Contact', ATBDP_TEXTDOMAIN), // Name
                 $widget_options // Args
             );
         }
@@ -32,23 +32,33 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
          * @param array $args Widget arguments.
          * @param array $instance Saved values from database.
          */
-        public function widget($args, $instance)
-        {
+        public function widget($args, $instance) {
             if( is_singular(ATBDP_POST_TYPE)) {
                 global $post;
-                $listing_info = ATBDP()->metabox->get_listing_info( $post->ID);
-                $listing      =  !empty($listing_info) ? $listing_info : array();
-                extract($listing);
-                $videourl   = !empty($videourl) ? esc_attr(ATBDP()->atbdp_parse_videos($videourl)) : '';
-                $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Listing Video', ATBDP_TEXTDOMAIN);
+                $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact Form', ATBDP_TEXTDOMAIN);
                 echo $args['before_widget'];
 
-                echo $args['before_title'] . esc_html(apply_filters('widget_video_title', $title)) . $args['after_title'];
+                echo $args['before_title'] . esc_html(apply_filters('widget_contact_form_title', $title)) . $args['after_title'];
                 ?>
+                <div class="atbdp directorist atbdp-widget-listing-contact">
+                    <form id="atbdp-contact-form" class="form-vertical" role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="atbdp-contact-name" placeholder="<?php _e( 'Name', ATBDP_TEXTDOMAIN ); ?>" required />
+                        </div>
 
-                <iframe class="embed-responsive-item" src="<?php echo $videourl; ?>"
-                        allowfullscreen></iframe>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="atbdp-contact-email" placeholder="<?php _e( 'Email', ATBDP_TEXTDOMAIN ); ?>" required />
+                        </div>
 
+                        <div class="form-group">
+                            <textarea class="form-control" id="atbdp-contact-message" rows="3" placeholder="<?php _e( 'Message', ATBDP_TEXTDOMAIN ); ?>..." required ></textarea>
+                        </div>
+
+                        <p id="atbdp-contact-message-display"></p>
+                        <button type="submit" class="btn btn-primary"><?php _e( 'Submit', ATBDP_TEXTDOMAIN ); ?></button>
+                    </form>
+                </div>
+                <input type="hidden" id="atbdp-post-id" value="<?php echo $post->ID; ?>" />
                 <?php
                 echo $args['after_widget'];
 
@@ -64,7 +74,7 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
          */
         public function form($instance)
         {
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Listing Video', ATBDP_TEXTDOMAIN);
+            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact Form', ATBDP_TEXTDOMAIN);
             ?>
             <p>
                 <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', ATBDP_TEXTDOMAIN); ?></label>
@@ -94,6 +104,5 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
             return $instance;
         }
 
-
-    }
-}
+    } //end class
+} // end if condition

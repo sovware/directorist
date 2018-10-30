@@ -90,16 +90,34 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     );
 
+
+                    //let check all the required custom field
+                    foreach ($custom_field as $key => $value) {
+                        $require = get_post_meta($key, 'required', true);
+                        if ($require){
+                            switch( $require ) {
+                                case '1' :
+                                    $Check_require = $value;
+                                    break;
+                            }
+                            if (empty($Check_require)){
+                                $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span style="color:                            red">*</span></strong></div>';
+                                return $msg;
+                            }
+                        }
+
+
+                    }
                     if($title == '' || get_directorist_option('listing_terms_condition') == 1){
                             if ($t_c_check == ''){
-                                $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span style="color: red">*</span></strong></div>';
+                                $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span                                          style="color: red">*</span></strong></div>';
                                 return $msg;
                             }
                     }
 
-
                     // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
                     if (!empty($_POST['listing_id'])){
+
                         $edit_l_status = get_directorist_option('edit_listing_status');
                         // update the post
                         $args['ID']= absint($_POST['listing_id']); // set the ID of the post to update the post
@@ -200,10 +218,13 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 }
                                 update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
 
+
+                                $term_by_id =  get_term_by('term_id', $admin_category_select, ATBDP_CATEGORY);
+                                wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
                             }
 
                             // for dev
-                            do_action('atbdp_listing_updated', $post_id);
+                            do_action('atbdp_listing_updated', $post_id);//for sending email notification
                         }else{
                             // kick the user out because he is trying to modify the listing of other user.
                             wp_redirect($_SERVER['REQUEST_URI'].'?error=true');
@@ -214,13 +235,13 @@ if (!class_exists('ATBDP_Add_Listing')):
                     }else{
                         // the post is a new post, so insert it as new post.
                         if (current_user_can('publish_at_biz_dirs')){
-                            $new_l_status = get_directorist_option('new_listing_status', 'publish');
+                            $new_l_status = get_directorist_option('new_listing_status', 'pending');
                             $args['post_status'] = $new_l_status;
                             $post_id = wp_insert_post($args);
-                            do_action('atbdp_listing_inserted', $post_id);
+                            do_action('atbdp_listing_inserted', $post_id);//for sending email notification
 
                             //Every post with the published status should contain all the post meta keys so that we can include them in query.
-                            if ('publish' == $new_l_status) {
+                            if ('publish' == $new_l_status || 'pending' == $new_l_status) {
                                 $expire_in_days = get_directorist_option('listing_expire_in_days');
                                 $never_expire =empty($expire_in_days) ? 1 : 0;
                                 $exp_dt = calc_listing_expiry_date();
@@ -229,9 +250,12 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 update_post_meta( $post_id, '_featured', 0 );
                                 update_post_meta( $post_id, '_listing_status', 'post_status' );
                                 update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
-                                 /*
-                                   * send the custom field value to the database
-                                   */
+                                $term_by_id =  get_term_by('term_id', $admin_category_select, ATBDP_CATEGORY);
+                                wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
+
+                                /*
+                                * send the custom field value to the database
+                             */
                                 if( isset( $custom_field ) ) {
 
                                     foreach( $custom_field as $key => $value ) {
@@ -269,13 +293,13 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                                         update_post_meta( $post_id, $key, $value );
                                     }
-
                                 }
-
-
                             }
-
+                            if ('publish' == $new_l_status){
+                                do_action('atbdp_listing_published', $post_id);//for sending email notification
+                            }
                         }
+
                     }
 
                     if (!empty($post_id)){

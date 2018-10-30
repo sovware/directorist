@@ -26,6 +26,8 @@ class ATBDP_Custom_Taxonomy {
         add_filter(ATBDP_CATEGORY.'_row_actions', array($this, 'edit_taxonomy_view_link'), 10, 2);
         // Modify the view link of the category tax
         add_filter(ATBDP_LOCATION.'_row_actions', array($this, 'edit_taxonomy_view_link'), 10, 2);
+        //to remove custom category metabox form add new listing page
+        //add_action( 'admin_menu', array($this,'remove_custom_taxonomy') );
 
 
 
@@ -190,6 +192,9 @@ class ATBDP_Custom_Taxonomy {
             'query_var'         => true,
             'public'            => true,
             'show_in_nav_menus' => true,
+            'show_in_menu'      => true,
+             'meta_box_cb'      => false,
+
         );
 
         // get the rewrite slug from the user settings, if exist use it.
@@ -236,9 +241,14 @@ class ATBDP_Custom_Taxonomy {
         }
 
         register_taxonomy( ATBDP_LOCATION, ATBDP_POST_TYPE, $args );
+
         register_taxonomy( ATBDP_CATEGORY, ATBDP_POST_TYPE, $args2 );
+
         register_taxonomy( ATBDP_TAGS, ATBDP_POST_TYPE, $args3 );
+
     }
+
+
 
     public function category_columns($original_columns) {
         $new_columns = $original_columns;

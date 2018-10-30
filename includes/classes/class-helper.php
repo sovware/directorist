@@ -206,14 +206,14 @@ class ATBDP_Helper {
      */
     public function output_listings_taxonomy_info($cat, $loc)
     {
-        if (!empty($cat) || !empty($loc)) { ?>
+        if (!empty($cat) || !empty($loc)) {
+            ?>
             <div class="general_info">
                 <ul>
                     <?php if (!empty($cat)){ ?>
                         <li>
                             <p class="info_title"><?php _e('Category:', ATBDP_TEXTDOMAIN);?></p>
                             <p class="directory_tag">
-
                                 <span class="fa <?= esc_attr(get_cat_icon(@$cat->term_id)); ?>" aria-hidden="true"></span>
                                 <span> <?php if (is_object($cat)) { ?>
                                         <a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>">
@@ -223,7 +223,6 @@ class ATBDP_Helper {
                                 </span>
                             </p>
                         </li>
-
                     <?php } if (!empty($loc)){ ?>
                         <li><p class="info_title"><?php _e('Location:', ATBDP_TEXTDOMAIN);?>
                                 <span><?php if (is_object($loc)) { ?>

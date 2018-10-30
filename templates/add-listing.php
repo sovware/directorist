@@ -18,7 +18,7 @@ $social_info = !empty( $social ) ? $social : array();
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map');
 $disable_price = get_directorist_option('disable_list_price');
-$enable_video_url = get_directorist_option('atbd_video_url');
+$enable_video_url = get_directorist_option('atbd_video_url',1);
 $disable_contact_info = get_directorist_option('disable_contact_info');
 $currency = get_directorist_option('g_currency', 'USD');
 ?>
@@ -119,7 +119,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                                                 $choices = get_post_meta($post_id, 'choices', true);
                                                 $choices = explode( "\n", $choices );
                                                 printf('<p style="font-style: italic">%s</p>', $value);
-                                                echo '<ul class="acadp-radio-list radio vertical">';
+                                                echo '<ul class="atbdp-radio-list radio vertical">';
                                                 foreach( $choices as $choice ) {
                                                     if( strpos( $choice, ':' ) !== false ) {
                                                         $_choice = explode( ':', $choice );
@@ -175,7 +175,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                                                 $values = explode( "\n", $value );
                                                 $values = array_map( 'trim', $values );
                                                 printf('<p style="font-style: italic">%s</p>', $post_meta['instructions'][0]);
-                                                echo '<ul class="acadp-checkbox-list checkbox vertical">';
+                                                echo '<ul class="atbdp-checkbox-list checkbox vertical">';
 
                                                 foreach( $choices as $choice ) {
                                                     if( strpos( $choice, ':' ) !== false ) {
@@ -226,8 +226,8 @@ $currency = get_directorist_option('g_currency', 'USD');
                                                 });
                                             </script>
                                         <?php
-                                                //printf('<p style="font-style: italic">%s</p>', $post_meta['instructions'][0]);
-                                                //printf( '<input type="color" name="custom_field[%d]" class="my-color-field2" value="%s" />', $post->ID, $value );
+                                                printf('<p style="font-style: italic">%s</p>', $post_meta['instructions'][0]);
+                                                printf( '<input type="color" name="custom_field[%d]" class="my-color-field2" value="%s" />', $post->ID, $value );
                                                 echo '</div>';
                                                 break;
                                         }
@@ -268,7 +268,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                                     <label for="video_url"><?php
                                         /*Translator: % is the name of the currency such eg. USD etc.*/
                                         printf(esc_html__('Video URL', ATBDP_TEXTDOMAIN), $currency); ?></label>
-                                    <input type="text" id="atbdp_tagline" name="listing[videourl]" value="<?= !empty($videourl) ? $videourl: ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
+                                    <input type="text" id="atbdp_tagline" name="listing[videourl]" value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
                                 </div>
                                 <?php } ?>
 
@@ -632,7 +632,7 @@ $currency = get_directorist_option('g_currency', 'USD');
         <?php } ?>
 
 
-        // Load custom fields of the selected category in the custom post type "acadp_listings"
+        // Load custom fields of the selected category in the custom post type "atbdp_listings"
         $( '#cat-type' ).on( 'change', function() {
             $( '#atbdp-custom-fields-list' ).html( '<div class="spinner"></div>' );
 

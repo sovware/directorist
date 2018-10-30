@@ -1,8 +1,7 @@
 <?php
-
 $id = get_query_var('atbdp_listing_id');
 if (!empty($id)) {
-    $p_id = absint($id);
+    $p_id = !empty($id)?absint($id):'';
     $listing  = get_post( $p_id ); //@TODO; ADD security to prevent user from editing other posts from front end and backend (except admin)
     // kick the user out if he tries to edit the listing of other user
     if ($listing->post_author != get_current_user_id() && !current_user_can('edit_others_at_biz_dirs')){
@@ -13,11 +12,7 @@ if (!empty($id)) {
     $lf= get_post_meta($p_id, '_listing_info', true);
     $price= get_post_meta($p_id, '_price', true);
     $listing_info = (!empty($lf))? aazztech_enc_unserialize($lf) : array();
-
     extract($listing_info);
-
-
-
 //for editing page
     $p_tags = wp_get_post_terms($p_id, ATBDP_TAGS);
     $p_locations = wp_get_post_terms($p_id, ATBDP_LOCATION);
@@ -49,7 +44,7 @@ $listing_tags = get_terms(ATBDP_TAGS, array('hide_empty' => 0));
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map');
 $disable_price = get_directorist_option('disable_list_price');
-$enable_video_url = get_directorist_option('atbd_video_url');
+$enable_video_url = get_directorist_option('atbd_video_url',1);
 $disable_contact_info = get_directorist_option('disable_contact_info');
 
 // get the custom terms and conditions
@@ -70,6 +65,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
 
         <?php
+        //to show validation notification @todo;letter need to validate with ajax action and identify the required field with color
             $all_validation = ATBDP()->listing->add_listing->add_listing_to_db();
             echo $all_validation;
         ?>
@@ -180,7 +176,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                 $choices = get_post_meta(get_the_ID(), 'choices', true);
                                                 $choices = explode( "\n", $choices );
                                                 printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-                                                echo '<ul class="acadp-radio-list radio vertical">';
+                                                echo '<ul class="atbdp-radio-list radio vertical">';
                                                 foreach( $choices as $choice ) {
                                                     if( strpos( $choice, ':' ) !== false ) {
                                                         $_choice = explode( ':', $choice );
@@ -236,7 +232,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                 $values = explode( "\n", $value );
                                                 $values = array_map( 'trim', $values );
                                                 printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-                                                echo '<ul class="acadp-checkbox-list checkbox vertical">';
+                                                echo '<ul class="atbdp-checkbox-list checkbox vertical">';
 
                                                 foreach( $choices as $choice ) {
                                                     if( strpos( $choice, ':' ) !== false ) {
@@ -367,9 +363,8 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 <?php
                                 if($enable_video_url) {?>
                                     <div class="form-group">
-                                        <!--@todo; Add currency Name near price-->
                                         <label for="video_url"><?php esc_html_e('Video Url', ATBDP_TEXTDOMAIN) ?></label>
-                                        <input type="text" id="video_url" name="video_url" value="<?= !empty($video_url) ? esc_attr($video_url): ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
+                                        <input type="text" id="video_url" name="listing[videourl]" value="<?= !empty($videourl) ? esc_attr($videourl): ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
                                     </div>
                                 <?php } ?>
 
@@ -544,13 +539,13 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                     </div>
                     <div style="text-align: center">
-                        <input type="checkbox" name="t_c_check">
+                        <input id="listing_t" type="checkbox" name="t_c_check">
                         <?php
                         if (get_directorist_option('listing_terms_condition') == 1){
                             printf('<span style="color: red"> *</span>');
                         }
                         ?>
-                        <label><?php echo __('I Agree with all ',ATBDP_TEXTDOMAIN);?><a style="color: red" href="" id="listing_t_c" "><?php echo __('terms & conditions',ATBDP_TEXTDOMAIN);?></a></label>
+                        <label for="listing_t"><?php echo __('I Agree with all ',ATBDP_TEXTDOMAIN);?><a style="color: red" href="" id="listing_t_c" "><?php echo __('terms & conditions',ATBDP_TEXTDOMAIN);?></a></label>
                         <div id="tc_container"></div>
                     </div>
                     <div class="btn_wrap list_submit">
@@ -771,7 +766,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
 
 
-        // Load custom fields of the selected category in the custom post type "acadp_listings"
+        // Load custom fields of the selected category in the custom post type "atbdp_listings"
         $( '#cat-type' ).on( 'change', function() {
             $( '#atbdp-custom-fields-list' ).html( '<div class="spinner"></div>' );
 

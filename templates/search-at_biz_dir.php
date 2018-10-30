@@ -12,9 +12,7 @@ $in_tag_text = !empty($in_tag) ? sprintf(__(' from "%s" Tag', ATBDP_TEXTDOMAIN),
 $in_cat_text = !empty($in_cat) ? sprintf(__(' from "%s" Category', ATBDP_TEXTDOMAIN), $in_cat) : '';
 $in_loc_text = !empty($in_loc) ? sprintf(__(' in "%s" Location', ATBDP_TEXTDOMAIN), $in_loc) : '';
 $is_disable_price = get_directorist_option('disable_list_price');
-
 ?>
-
     <div class="directorist directory_wrapper single_area">
         <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
 
@@ -35,7 +33,10 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 _e('Showing Result from all categories and locations.', ATBDP_TEXTDOMAIN);
                                             }
                                         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fb54a492e274b90099672a6d5ee6306854a796cb
                                         ?>
                                     </h3>
                                     <p>
@@ -53,10 +54,10 @@ $is_disable_price = get_directorist_option('disable_list_price');
                         </div>
                     </div>
             </div>
+
+
             <!--maybe we should removed the parent container so that it can match perfectly -->
                 <div class="row" data-uk-grid>
-
-
                     <?php
                     if ( count($listings->posts) ) {
                         while ( $listings->have_posts() ) {

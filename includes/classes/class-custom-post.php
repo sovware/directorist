@@ -20,9 +20,48 @@ if(!class_exists('ATBDP_Custom_Post')):
             add_filter( 'manage_edit-'.ATBDP_POST_TYPE.'_sortable_columns', array($this, 'make_sortable_column'), 10, 1 );
             add_filter( 'post_row_actions', array($this, 'add_listing_id_row'), 10, 2 );
 
-
-
             add_filter( 'enter_title_here', array($this, 'change_title_text') );
+            add_filter('post_row_actions', array($this, 'add_row_actions_for_quick_view'), 10, 2);
+            add_filter('load-edit.php', array($this, 'work_row_actions_for_quick_view'), 10, 2);
+
+
+        }
+
+
+        public function work_row_actions_for_quick_view(){
+            $nonce = isset( $_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : null;
+            if ( wp_verify_nonce( $nonce, 'quick-publish-action' ) && isset( $_REQUEST['update_id'] ) )
+            {
+                $my_post = array();
+                $my_post['ID'] = $_REQUEST['update_id'];
+                $my_post['post_status'] = 'publish';
+                wp_update_post( $my_post );
+            }
+        }
+
+        /**
+         * Remove quick edit.
+         *
+         * @since	 1.0.0
+         * @access   public
+         *
+         * @param	 array      $actions    An array of row action links.
+         * @param	 WP_Post    $post       The post object.
+         * @return	 array      $actions    Updated array of row action links.
+         */
+        public function add_row_actions_for_quick_view( $actions, $post ) {
+
+            global $current_screen;
+
+            if( $current_screen->post_type != ATBDP_POST_TYPE ) return $actions;
+
+            if ( get_post_status( $post ) != 'publish' && current_user_can('publish_at_biz_dirs') )
+            {
+                $nonce = wp_create_nonce( 'quick-publish-action' );
+                $link = admin_url( "edit.php?update_id={$post->ID}&_wpnonce={$nonce}&post_type=at_biz_dir" );
+                $actions['publish'] = "<a href='$link' style='color: #4caf50; font-weight: bold'>Publish</a>";
+            }
+            return $actions;
 
         }
 
@@ -68,7 +107,7 @@ if(!class_exists('ATBDP_Custom_Post')):
                 'label'               => __( 'Directory Listing', 'directorist' ),
                 'description'         => __( 'Directory listings', 'directorist' ),
                 'labels'              => $labels,
-                'supports'            => array('title', 'editor'),
+                'supports'            => array('title', 'editor', 'author'),
                 'taxonomies'          => array(),
                 'hierarchical'        => false,
                 'public'              => true,
@@ -140,19 +179,38 @@ if(!class_exists('ATBDP_Custom_Post')):
                         }
                     }
                     break;
-                case 'atbdp_category':
+
+                     case 'atbdp_category':
+                         $current_val = esc_attr(get_post_meta($post_id, '_admin_category_select', true) );
+                         $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
+                         foreach ($categories as $key => $cat_title){
+                             $term_id = $cat_title->term_id;
+                             if ($term_id == $current_val){
+                                 ?>
+                                 <a href="<?= ATBDP_Permalink::get_category_archive( $cat_title ); ?>">
+                                     <i class="fa <?= get_cat_icon( $cat_title->term_id ); ?>" aria-hidden="true"></i>
+                                     <?= $cat_title->name; ?>
+                                 </a>
+                                 <?php
+                             }
+                             }
+
+                        break;
+
+                    //code for multiselect category
+              /*  case 'atbdp_category':
                     $cats = wp_get_post_terms( $post_id, ATBDP_CATEGORY );
                     if (!empty( $cats ) && is_array( $cats )){
                         foreach ( $cats as $c ) {
-                    ?>
-                    <a href="<?= ATBDP_Permalink::get_category_archive( $c ); ?>">
-                        <i class="fa <?= get_cat_icon( $c->term_id ); ?>" aria-hidden="true"></i>
-                        <?= $c->name; ?>
+                    */?><!--
+                    <a href="<?/*= ATBDP_Permalink::get_category_archive( $c ); */?>">
+                        <i class="fa <?/*= get_cat_icon( $c->term_id ); */?>" aria-hidden="true"></i>
+                        <?/*= $c->name; */?>
                     </a>
-                    <?php
-                        }
+                    --><?php
+/*                        }
                     }
-                    break;
+                    break;*/
                 default:
                     break;
                 case 'atbdp_author':

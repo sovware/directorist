@@ -75,13 +75,13 @@ class ATBDP_Metabox {
         __( 'Listing Information', ATBDP_TEXTDOMAIN ),
         array($this, 'listing_info'),
         ATBDP_POST_TYPE,
-        'normal' );
+        'normal', 'high' );
 
         add_meta_box( '_listing_gallery',
         __( 'Upload Image for the listing', ATBDP_TEXTDOMAIN ),
         array($this, 'listing_gallery'),
         ATBDP_POST_TYPE,
-        'normal' );
+        'normal', 'high' );
 
     }
 
@@ -169,7 +169,6 @@ class ATBDP_Metabox {
             $exp_dt = calc_listing_expiry_date(); // get the expiry date in mysql date format using the default expiration date.
         }
 
-
         /*
          * send the custom field value to the database
          */
@@ -221,6 +220,7 @@ class ATBDP_Metabox {
         update_post_meta( $post_id, '_listing_status', $listing_status );
         update_post_meta( $post_id, '_price', $price );
         update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
+        wp_set_object_terms($post_id, $admin_category_select, ATBDP_CATEGORY);
 
 
     }

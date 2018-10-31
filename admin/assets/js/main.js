@@ -100,7 +100,7 @@
     // upgrade old listing
     $('#upgrade_directorist').on('click', function (event) {
         event.preventDefault();
-        let $this = $(this);
+        var $this = $(this);
         // display a notice to user to wait
         // send an ajax request to the back end
         atbdp_do_ajax($this, 'atbdp_upgrade_old_listings', null, function (response) {

@@ -90,16 +90,34 @@ class ATBDP_Metabox {
      * @param WP_Post $post
      */
     public function listing_info( $post ) {
-        $lf= get_post_meta($post->ID, '_listing_info', true);
-        $listing_info = (!empty($lf))? aazztech_enc_unserialize($lf) : array();
-        $listing_info['price'] = get_post_meta($post->ID, '_price', true);
-
+       
         //data needed for the custom field
         $post_meta = get_post_meta( $post->ID );
         $category = wp_get_object_terms( $post->ID, 'at_biz_dir-category', array( 'fields' => 'ids' ) );
 
+        // get all the meta values from the db, prepare them for use and then send in in a single bar to the add listing view
+        $listing_info['never_expire']           = get_post_meta($post->ID, '_never_expire', true);
+        $listing_info['featured']               = get_post_meta($post->ID, '_featured', true);
+        $listing_info['price']                  = get_post_meta($post->ID, '_price', true);
+        $listing_info['listing_status']         = get_post_meta($post->ID, '_listing_status', true);
+        $listing_info['tagline']                = get_post_meta($post->ID, '_tagline', true);
+        $listing_info['excerpt']                = get_post_meta($post->ID, '_excerpt', true);
+        $listing_info['address']                = get_post_meta($post->ID, '_address', true);
+        $listing_info['phone']                  = get_post_meta($post->ID, '_phone', true);
+        $listing_info['email']                  = get_post_meta($post->ID, '_email', true);
+        $listing_info['website']                = get_post_meta($post->ID, '_website', true);
+        $listing_info['social']                 = get_post_meta($post->ID, '_social', true);
+        $listing_info['manual_lat']             = get_post_meta($post->ID, '_manual_lat', true);
+        $listing_info['manual_lng']             = get_post_meta($post->ID, '_manual_lng', true);
+        $listing_info['bdbh']                   = get_post_meta($post->ID, '_bdbh', true);
+        $listing_info['listing_img']            = get_post_meta($post->ID, '_listing_img', true);
+        $listing_info['hide_contact_info']      = get_post_meta($post->ID, '_hide_contact_info', true);
+        $listing_info['expiry_date']           = get_post_meta($post->ID, '_expiry_date', true);
+
+
+        // add nonce security token
         wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
-        ATBDP()->load_template('add-listing', compact('listing_info') );
+        ATBDP()->load_template('add-listing', compact('listing_info') ); // load metabox view and pass data to it.
     }
 
     /**
@@ -108,10 +126,8 @@ class ATBDP_Metabox {
      */
     public function listing_gallery($post )
     {
-        $lf= get_post_meta($post->ID, '_listing_info', true);
-        $listing_info= (!empty($lf)) ? aazztech_enc_unserialize($lf) : array();
-        $attachment_ids= (!empty($listing_info['attachment_id'])) ? $listing_info['attachment_id'] : array();
-        ATBDP()->load_template('media-upload', compact('attachment_ids') );
+        $listing_img= get_post_meta($post->ID, '_listing_img', true);
+        ATBDP()->load_template('media-upload', compact('listing_img') );
     }
 
     /**
@@ -144,18 +160,31 @@ class ATBDP_Metabox {
      * @param object    $post       Current post object being saved
      */
     public function save_post_meta( $post_id, $post ) {
-        if ( ! $this->passSecurity($post_id, $post) )  return;
+        if ( ! $this->passSecurity($post_id, $post) )  return; // vail if security check fails
+        $metas = array();
         $expire_in_days = get_directorist_option('listing_expire_in_days');
         $p = $_POST; // save some character
-        $exp_dt = $p['exp_date']; // get expiry date
-        // if the posted data has info about never_expire, then use it, otherwise, use the data from the settings.
-        $never_expire = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
-        $featured = !empty($p['featured'])? (int) $p['featured'] : 0;
-        $price = !empty($p['price'])? (int) $p['price'] : 0;
+        $exp_dt = $p['exp_date']; // get expiry date from the $_POST and then later sanitize it.
         $admin_category_select = !empty($p['admin_category_select'])? (int) $p['admin_category_select'] : 0;
-        $listing_status = !empty($p['listing_status'])? sanitize_text_field($p['listing_status']) : 'post_status';
-        $listing_info = (!empty($p['listing'])) ? aazztech_enc_serialize($p['listing']) : aazztech_enc_serialize(array());
         $custom_field = (!empty($p['custom_field'])) ? $p['custom_field'] : array();
+        // if the posted data has info about never_expire, then use it, otherwise, use the data from the settings.
+        $metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
+        $metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
+        $metas['_price']             = !empty($p['price'])? (float) $p['price'] : 0;
+        $metas['_listing_status']    = !empty($p['listing_status'])? sanitize_text_field($p['listing_status']) : 'post_status';
+        $metas['_tagline']           = !empty($p['tagline'])? sanitize_text_field($p['tagline']) : '';
+        $metas['_excerpt']           = !empty($p['excerpt'])? sanitize_text_field($p['excerpt']) : '';
+        $metas['_address']           = !empty($p['address'])? sanitize_text_field($p['address']) : '';
+        $metas['_phone']             = !empty($p['phone'])? sanitize_text_field($p['phone']) : '';
+        $metas['_email']             = !empty($p['email'])? sanitize_text_field($p['email']) : '';
+        $metas['_website']           = !empty($p['website'])? sanitize_text_field($p['website']) : '';
+        $metas['_social']            = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
+        $metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
+        $metas['_manual_lng']        = !empty($p['manual_lng'])? sanitize_text_field($p['manual_lng']) : '';
+        $metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();
+        $metas['_hide_contact_info']       = !empty($p['hide_contact_info'])? sanitize_text_field($p['hide_contact_info']) : 0;
+
+        //$listing_info = (!empty($p['listing'])) ? aazztech_enc_serialize($p['listing']) : aazztech_enc_serialize(array());
         //prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
         if (!is_empty_v($exp_dt) && !empty($exp_dt['aa'])){
             $exp_dt = array(
@@ -214,16 +243,16 @@ class ATBDP_Metabox {
         }
 
         // save the meta data to the database
-        update_post_meta( $post_id, '_listing_info', $listing_info );
-        update_post_meta( $post_id, '_expiry_date', $exp_dt );
-        update_post_meta( $post_id, '_never_expire', $never_expire );
-        update_post_meta( $post_id, '_featured', $featured );
-        update_post_meta( $post_id, '_listing_status', $listing_status );
-        update_post_meta( $post_id, '_price', $price );
         update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
         wp_set_object_terms($post_id, $admin_category_select, ATBDP_CATEGORY);
 
 
+        $metas['_expiry_date']              = $exp_dt;
+        $metas = apply_filters('atbdp_listing_meta_admin_submission', $metas);
+        // save the meta data to the database
+        foreach ($metas as $meta_key => $meta_value) {
+            update_post_meta($post_id, $meta_key, $meta_value); // array value will be serialize automatically by update post meta
+        }
     }
 
 
@@ -253,10 +282,34 @@ class ATBDP_Metabox {
      * @param int $id The id of the post whose meta we want to collect
      * @return array It returns the listing information of the given listing/post id.
      */
-    public function get_listing_info($id)
+    public function get_listing_info($id=0)
     {
-        $lf= get_post_meta($id, '_listing_info', true);
-        return (!empty($lf)) ? aazztech_enc_unserialize($lf) : array();
+        global $post;
+        //@todo;clean
+        //$lf= get_post_meta($id, '_listing_info', true);
+        //return (!empty($lf)) ? aazztech_enc_unserialize($lf) : array();
+        $id = !empty($id) ? (int) $id : $post->ID;
+
+        $listing_info['never_expire']           = get_post_meta($id, '_never_expire', true);
+        $listing_info['featured']               = get_post_meta($id, '_featured', true);
+        $listing_info['price']                  = get_post_meta($id, '_price', true);
+        $listing_info['listing_status']         = get_post_meta($id, '_listing_status', true);
+        $listing_info['tagline']                = get_post_meta($id, '_tagline', true);
+        $listing_info['excerpt']                = get_post_meta($id, '_excerpt', true);
+        $listing_info['address']                = get_post_meta($id, '_address', true);
+        $listing_info['phone']                  = get_post_meta($id, '_phone', true);
+        $listing_info['email']                  = get_post_meta($id, '_email', true);
+        $listing_info['website']                = get_post_meta($id, '_website', true);
+        $listing_info['social']                 = get_post_meta($id, '_social', true);
+        $listing_info['manual_lat']             = get_post_meta($id, '_manual_lat', true);
+        $listing_info['manual_lng']             = get_post_meta($id, '_manual_lng', true);
+        $listing_info['bdbh']                   = get_post_meta($id, '_bdbh', true);
+        $listing_info['bdbh_settings']          = get_post_meta($id, '_bdbh_settings', true);
+        $listing_info['listing_img']            = get_post_meta($id, '_listing_img', true);
+        $listing_info['hide_contact_info']      = get_post_meta($id, '_hide_contact_info', true);
+        $listing_info['expiry_date']            = get_post_meta($id, '_expiry_date', true);
+
+        return apply_filters('atbdp_get_listing_info', $listing_info);
 
     }
 

@@ -284,7 +284,6 @@
 
 
 
-
     /*HELPERS*/
     function print_static_rating($star_number)
     {

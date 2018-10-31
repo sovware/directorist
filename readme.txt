@@ -2,8 +2,8 @@
 Contributors: AazzTech
 Tags: business directory, directory, listings, classifieds, listing, ads
 Requires at least: 4.0
-Tested up to:  4.9.5
-Stable tag: 3.1.5
+Tested up to:  4.9.8
+Stable tag: 3.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -147,6 +147,16 @@ Note: It is best to use it in a page with full-width template if possible for th
 25. Order History
 
 == Changelog ==
+
+
+= 3.2.0 - OCTOBER 14, 2018 =
+* Feature - Import and export
+* Tweak - Removed settings related to Popular Listings and Submit Listing from Settings page
+* Tweak - Added Popular Listings and Submit Listing as widget
+* Tweak - Displayed all categories and locations in the listing search result page instead of displaying top level one
+* Fix - Contact information toggle
+* Fix - Currency symbol
+* Fix - Several minor issues
 
 = 3.1.5 =
 * Fixed: Editor could not manage listing from the back end

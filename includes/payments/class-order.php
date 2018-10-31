@@ -98,7 +98,6 @@ class ATBDP_Order {
     public function admin_footer_edit() {
 
         global $post_type;
-
         if( 'atbdp_orders' == $post_type ) {
 
             ?>

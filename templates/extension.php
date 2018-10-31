@@ -1,7 +1,22 @@
 <div class="directorist attc_extension_page">
     <div class="attc_extension_wrapper">
 
-        <!--Paypal Gateway-->
+        <!--Google reCAPTCHA-->
+        <div class="single_extension">
+            <img src="" alt="">
+
+            <div class="extension_detail">
+                <a href="https://aazztech.com/product/google-recaptcha" target="_blank" class="ext_title"><h4> Directorist - Google reCAPTCHA </h4></a>
+                <p><?php esc_html_e('No longer chance of spammer to slow down your site by blocking them.', ATBDP_TEXTDOMAIN); ?></p>
+
+                <div class="btn_wrapper">
+                    <a href="https://aazztech.com/product/google-recaptcha/#screenshots" target="_blank" class="btn demo"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
+                    <a href="https://aazztech.com/product/google-recaptcha" target="_blank" class="btn get"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
+                </div>
+            </div>
+        </div>
+
+        <!--Stripe Gateway-->
         <div class="single_extension">
             <img src="" alt="">
 

@@ -442,7 +442,6 @@ This email is sent automatically for information purpose only. Please do not res
         return $this->send_mail( $user->user_email, $sub, $body, $this->get_email_headers() );
     }
 
-
     /**
      * It notifies the listing owner via email when his listing is edited
      *

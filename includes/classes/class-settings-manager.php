@@ -126,7 +126,7 @@ class ATBDP_Settings_Manager {
 
     /**
      * Get all the submenus for listings
-     * @since 3.1.0 ( new)
+     * @since 4.0.0 
      * @return array It returns an array of submenus
      */
     public function get_listings_settings_submenus() {
@@ -314,7 +314,7 @@ You can use the following keywords/placeholder in any of your email bodies/templ
 KAMAL;
 
 
-        return apply_filters('atbdp_email_new__tmpl_settings_fields', array(
+        return apply_filters('atbdp_email_new_tmpl_settings_fields', array(
                 array(
                     'type' => 'notebox',
                     'name' => 'email_placeholder_info',
@@ -721,7 +721,7 @@ The Administrator of ==SITE_NAME==
     }
 
     /**
-     * Get all the settings fields for the offline new order email template section
+     * Get all the settings fields for the completed new order email template section
      * @since 3.1.0
      * @return array
      */
@@ -940,7 +940,7 @@ The Administrator of ==SITE_NAME==
      * @return array it returns an array of events
      */
     private function default_notifiable_events()
-     {
+    {
         return apply_filters('atbdp_default_notifiable_events', array(
             array(
                 'value' => 'order_created',
@@ -1040,7 +1040,6 @@ The Administrator of ==SITE_NAME==
 
         return $pages_options;
     }
-
 
 
     /**
@@ -1232,7 +1231,7 @@ The Administrator of ==SITE_NAME==
                         'min' => '1',
                         'max' => '100',
                         'step' => '1',
-                        'default' => atbdp_get_option('search_posts_num', 'atbdp_general'),
+                        'default' => atbdp_get_option('search_posts_num', 'atbdp_general', 6),
                         'validation' => 'numeric|minlength[1]',
                     ),
 
@@ -1552,7 +1551,6 @@ The Administrator of ==SITE_NAME==
     function get_listings_settings_fields(){
         // BACKWARD COMPATIBILITY:  OLD SETTINGS DATA that should be adapted by using them as default value, will be removed in future
         $s_p_cat = atbdp_get_option('show_popular_category', 'atbdp_general', 'yes');
-        $e_p_list = atbdp_get_option('enable_pop_listing', 'atbdp_general', 'yes');
         $e_r_list = atbdp_get_option('enable_rel_listing', 'atbdp_general', 'yes');
 
         return apply_filters('atbdp_listings_settings_fields', array(

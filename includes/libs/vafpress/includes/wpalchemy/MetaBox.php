@@ -1612,7 +1612,6 @@ class WPAlchemy_MetaBox
 
 		$meta = get_post_meta($post_id, $this->id, TRUE);
 
-		// var_dump($meta);
 
 		// WPALCHEMY_MODE_EXTRACT
 

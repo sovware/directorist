@@ -37,8 +37,8 @@
         $('.atbdp_social_field_wrapper').each(function( index , element) {
             var e = $(element);
             e.attr('id','socialID-'+index);
-            e.find('select').attr('name', 'listing[social]['+index+'][id]');
-            e.find('.atbdp_social_input').attr('name', 'listing[social]['+index+'][url]');
+            e.find('select').attr('name', 'social['+index+'][id]');
+            e.find('.atbdp_social_input').attr('name', 'social['+index+'][url]');
             e.find('.removeSocialField').attr('data-id',index);
         });
         // now add the new elements. we could do it here without using ajax but it would require more markup here.
@@ -71,8 +71,8 @@
                         $('.atbdp_social_field_wrapper').each(function( index , element) {
                             var e = $(element);
                             e.attr('id','socialID-'+index);
-                            e.find('select').attr('name', 'listing[social]['+index+'][id]');
-                            e.find('.atbdp_social_input').attr('name', 'listing[social]['+index+'][url]');
+                            e.find('select').attr('name', 'social['+index+'][id]');
+                            e.find('.atbdp_social_input').attr('name', 'social['+index+'][url]');
                             e.find('.removeSocialField').attr('data-id',index);
                         });
                     });
@@ -141,14 +141,6 @@
 
 
 
-
-
-
-
-
-
-
-
 // Custom Image uploader for listing image (multiple)
 jQuery(function($){
     // Set all variables to be used in scope
@@ -162,8 +154,8 @@ jQuery(function($){
         active_mi_ext = atbdp_add_listing.active_mi_ext;
 
 
-        /*if the multiple image extension is active then set the multiple image parameter to true*/
-        if(1 == active_mi_ext){ multiple_image = true }
+    /*if the multiple image extension is active then set the multiple image parameter to true*/
+    if(1 == active_mi_ext){ multiple_image = true }
 
 
     // ADD IMAGE LINK
@@ -192,9 +184,9 @@ jQuery(function($){
             /*get the image collection array if the MI extension is active*/
             /*One little hints: a constant can not be defined inside the if block*/
             if (multiple_image){
-                 selection = frame.state().get( 'selection' ).toJSON();
+                selection = frame.state().get( 'selection' ).toJSON();
             }else {
-                 selection = frame.state().get( 'selection' ).first().toJSON();
+                selection = frame.state().get( 'selection' ).first().toJSON();
             }
 
 
@@ -214,7 +206,7 @@ jQuery(function($){
                         // we have got an image attachment so lets proceed.
                         // target the input field and then assign the current id of the attachment to an array.
                         data += '<div class="single_attachment">';
-                        data += '<input class="listing_image_attachment" name="listing[attachment_id][]" type="hidden" value="'+this.id+'">';
+                        data += '<input class="listing_image_attachment" name="listing_img[]" type="hidden" value="'+this.id+'">';
                         data += '<img style="width: 100%; height: 100%;" src="'+this.url+'" alt="Listing Image" /> <span class="remove_image  dashicons dashicons-dismiss" title="Remove it"></span></div>';
                     }
 
@@ -227,7 +219,7 @@ jQuery(function($){
                     // we have got an image attachment so lets proceed.
                     // target the input field and then assign the current id of the attachment to an array.
                     data += '<div class="single_attachment">';
-                    data += '<input class="listing_image_attachment" name="listing[attachment_id][]" type="hidden" value="'+selection.id+'">';
+                    data += '<input class="listing_image_attachment" name="listing_img[]" type="hidden" value="'+selection.id+'">';
                     data += '<img style="width: 100%; height: 100%;" src="' + selection.url + '" alt="Listing Image" /> <span class="remove_image  dashicons dashicons-dismiss" title="Remove it"></span></div>';
                 }
             }
@@ -277,7 +269,4 @@ jQuery(function($){
         }
     });
 
-
-
 });
-

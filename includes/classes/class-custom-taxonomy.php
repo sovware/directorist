@@ -33,7 +33,6 @@ class ATBDP_Custom_Taxonomy {
 
     }
 
-
     public function edit_taxonomy_view_link($actions, $tag)
     {
         // change the view link of ATBDP_Category

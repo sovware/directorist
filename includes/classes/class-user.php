@@ -93,7 +93,6 @@ class ATBDP_User {
         ATBDP()->load_template('front-end/user-registration-form');
     }
 
-
     /**
      * It registers a user. It is a private function, All the vars this function uses will be passed into it after proper validation and sanitization
      * @param $username
@@ -118,7 +117,7 @@ class ATBDP_User {
                 'last_name'     =>   $last_name,
                 'description'   =>   $bio,
             );
-            return wp_insert_user( $userdata ); // return inserted user id
+            return wp_insert_user( $userdata ); // return inserted user id or a WP_Error
         }
         return false;
     }
@@ -306,7 +305,7 @@ class ATBDP_User {
         update_user_meta( $ID, 'phone', $phone );
         update_user_meta( $ID, 'pro_pic', $pro_pic );
 
-        if (!empty($new_pass && $confirm_pass)){
+        if (!empty($new_pass || $confirm_pass)){
             // password will be updated here
             if ( ( $new_pass == $confirm_pass ) && ( strlen( $confirm_pass) > 5 ) ){
                 wp_set_password($new_pass, $ID); // set the password to the database

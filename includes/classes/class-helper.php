@@ -13,6 +13,26 @@ class ATBDP_Helper {
     public function __construct(){
         if ( ! defined('ABSPATH') ) { return; }
         add_action('init', array( $this, 'check_req_php_version' ), 100 );
+
+        //todo;need to remove those 2 function when all the user will moved to the new update
+        add_action('admin_init', array( $this, 'check_need_to_upgrade_database' ), 100 );
+        add_action('admin_notices', array( $this, 'upgrade_notice' ), 100 );
+    }
+    public function check_need_to_upgrade_database( ){
+        $user_id = get_current_user_id();
+        if ( isset( $_GET['my-plugin-dismissed'] ) )
+            add_user_meta( $user_id, 'my_plugin_notice_dismissed', 'true', true );
+    }
+
+    public function upgrade_notice() {
+        $l = admin_url().'/edit.php?post_type=at_biz_dir&page=directorist-upgrade';
+        $link = '<a href="'.$l.'">please upgrade</a>';
+        $user_id = get_current_user_id();
+        if ( !get_user_meta( $user_id, 'my_plugin_notice_dismissed' ) ){
+            echo '<div id="message" class="notice notice-info" style="display: flex; justify-content: space-between;"><p>';
+            printf(__('If you are an old user of the %s plugin, %s your database as we have restructured the data storing system.', ATBDP_TEXTDOMAIN), ATBDP_NAME, $link);
+            echo '</p><p><a href="?my-plugin-dismissed">Hide Forever</a></p></div>';
+        }
     }
     public function check_req_php_version( ){
         if ( version_compare( PHP_VERSION, '5.4', '<' )) {
@@ -206,8 +226,7 @@ class ATBDP_Helper {
      */
     public function output_listings_taxonomy_info($cat, $loc)
     {
-        if (!empty($cat) || !empty($loc)) {
-            ?>
+        if (!empty($cat) || !empty($loc)) { ?>
             <div class="general_info">
                 <ul>
                     <?php if (!empty($cat)){ ?>
@@ -257,6 +276,68 @@ class ATBDP_Helper {
             </a>
         </div>
 <?php
+    }
+
+    /**
+     * It outputs all categories and locations related markup for the listing
+     * @param array $cats [optional] the array of Listing Category Objects
+     * @param array $locs [optional] the array of Listing Location Objects
+     */
+    public function output_listings_all_taxonomy_info($cats=array(), $locs=array())
+    {
+        // get terms from db if not provided
+        $cats = !empty ($cats ) ? $cats : get_the_terms(null, ATBDP_CATEGORY);
+        $locs = !empty ($locs ) ? $locs : get_the_terms(null, ATBDP_LOCATION);
+
+        if (!empty($cats) || !empty($locs)) { ?>
+            <div class="general_info">
+                <ul>
+                    <?php if (!empty($cats) && is_array($cats)){?>
+                        <li>
+                            <ul>
+                                <p class="info_title"><?php _e('Category:', ATBDP_TEXTDOMAIN);?></p>
+                                <?php foreach ($cats as $cat) { ?>
+                                <li>
+                                    <p class="directory_tag">
+                                        <span class="fa <?= esc_attr(get_cat_icon(@$cat->term_id)); ?>" aria-hidden="true"></span>
+                                        <span> <?php if (is_object($cat)) { ?>
+                                                <a href="<?= esc_url(ATBDP_Permalink::get_category_archive($cat)); ?>">
+                                                  <?= esc_html($cat->name); ?>
+                                                 </a>
+                                            <?php } ?>
+                                        </span>
+                                    </p>
+                                </li>
+                            <?php  } ?>
+                            </ul>
+                        </li>
+                    <?php }
+
+                    if (!empty($locs) && is_array($locs)){
+                        $location_count = count($locs);
+                        ?>
+                        <li>
+                            <ul>
+                            <p class="info_title"><?php _e('Location:', ATBDP_TEXTDOMAIN);?></p>
+                                <?php foreach ($locs as $loc) { $location_count--;// reduce count to display comma for the right item?>
+                                    <li>
+                                    <span><?php if (is_object($loc)) { ?>
+                                            <a href="<?= esc_url(ATBDP_Permalink::get_location_archive($loc)); ?>">
+                                                <?= esc_html($loc->name); ?>
+                                            </a>
+                                        <?php } ?>
+                                    </span><?php
+                                        // @todo; discuss with front-end dev if it is good to put comma here directly or he will do?
+                                        if ($location_count >= 1) echo ",";
+                                        ?>
+                                    </li>
+                                <?php  } ?>
+                            </ul>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </div>
+        <?php }
     }
 
 }

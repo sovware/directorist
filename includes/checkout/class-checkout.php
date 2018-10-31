@@ -37,7 +37,7 @@ class ATBDP_Checkout
     /**
      *
      */
-    function ajax_atbdp_format_total_amount()
+    public static function ajax_atbdp_format_total_amount()
     {
 
         if (valid_js_nonce()){
@@ -202,7 +202,7 @@ class ATBDP_Checkout
             update_post_meta( $order_id, '_payment_status', 'created' );
 
             // Hook for developer
-            do_action( 'atbdp_order_created', $order_id, $listing_id );
+            do_action( 'atbdp_order_created', $order_id, $listing_id ); /*@todo; do something to prevent multiple order creation when user try to repeat failed payment*/
             $this->process_payment($amount, $gateway, $order_id, $listing_id, $data);
         }
 

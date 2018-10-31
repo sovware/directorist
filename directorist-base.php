@@ -3,7 +3,7 @@
 Plugin Name: Directorist - Business Directory Plugin
 Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
 Description: Create a professional directory listing website like Yelp by a few clicks only. You can list place, any business etc.  with this plugin very easily.
-Version: 3.1.5
+Version: 3.2
 Author: AazzTech
 Author URI: https://aazztech.com
 License: GPLv2 or later
@@ -243,6 +243,10 @@ final class Directorist_Base {
             new ATBDP_Offline_Gateway;
             // Init Cron jobs to run some periodic tasks
             new ATBDP_Cron;
+            // add upgrade feature
+            new ATBDP_Upgrade;
+            // add upgrade feature
+            new ATBDP_Help_Support;
         }
 
         return self::$instance;
@@ -303,6 +307,12 @@ final class Directorist_Base {
         register_widget('BD_contact_form_Widget');
         register_widget('BD_Submit_Item_Widget');
         register_widget('BD_Login_Form_Widget');
+        if (class_exists('BD_Popular_Listing_Widget')){
+            register_widget('BD_Popular_Listing_Widget');
+        }
+        if (class_exists('ATBDP_Submit_Listing_Widget')){
+            register_widget('ATBDP_Submit_Listing_Widget');
+        }
 
     }
 
@@ -344,6 +354,9 @@ final class Directorist_Base {
         /*Load payment related stuff*/
         require_once ATBDP_INC_DIR . 'custom-actions.php';
         require_once ATBDP_INC_DIR . 'custom-filters.php';
+        /*Load export & Import */
+        require_once ATBDP_INC_DIR . 'export-import/directorist-export-import.php';
+
     }
 
     public function load_textdomain()
@@ -472,31 +485,26 @@ final class Directorist_Base {
 
     /**
      * It displays popular listings
-     * @param int $count Number of popular listing to show.
+     * @param int $count [optional] Number of popular listing to show. Default 5.
      * If the count is more than one then it uses it, else the function will use the value from the settings page.
      * Count variable is handy if we want to show different number of popular listings on different pages. For example, on different widgets place
+     * @todo Try to move popular listings related functionalities to a dedicated listing related class that handles popular listings, related listings etc. when have time.
      */
-    public function show_popular_listing($count=0)
+    public function show_popular_listing($count=5)
     {
-
-        $enable_pop_listing = get_directorist_option('enable_pop_listing', 1);
-        if (1 != $enable_pop_listing ) return; // vail if popular listing is not enabled
         $popular_listings = $this->get_popular_listings($count);
 
         if ($popular_listings->have_posts()){ ?>
             <div class="categorized_listings">
                 <ul class="listings">
                     <?php foreach ($popular_listings->posts as $pop_post) {
-                        /*RATING RELATED STUFF ENDS*/
-                        $info = ATBDP()->metabox->get_listing_info($pop_post->ID); // get all post meta and extract it.
                         // get only one parent or high level term object
                         $top_category = ATBDP()->taxonomy->get_one_high_level_term($pop_post->ID, ATBDP_CATEGORY);
-                        /*$featured = get_post_meta($pop_post->ID, '_featured', true);
-                        $price = get_post_meta($pop_post->ID, '_price', true);*/
+                        $listing_img = get_post_meta($pop_post->ID, '_listing_img', true);
                         ?>
                         <li>
                             <div class="left_img">
-                                <?= (!empty($info['attachment_id'][0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($info['attachment_id'][0],  array(90,90))).'" alt="listing image">' : '' ?>
+                                <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(90,90))).'" alt="listing image">' : '' ?>
                             </div>
                             <div class="right_content">
                                 <div class="cate_title">
@@ -532,18 +540,16 @@ final class Directorist_Base {
     /**
      * It gets the popular listings of the given listing/post
      *
-     * @param int $count Number of popular listing to show.  If the count is more than one then it uses it,
+     * @param int $count [optional] Number of popular listing to show.  If the count is more than one then it uses it,
      *                   else the function will use the value from the settings page.
      *                   Count variable is handy if we want to show different number of popular listings on different pages.
-     *                   For example, on different widgets place
-     * @return object|WP_Query It returns the popular listings if found.
+     *                   For example, on different widgets place. Default 5.
+     * @return WP_Query It returns the popular listings if found.
      */
-    private function get_popular_listings($count=0)
+    private function get_popular_listings($count=5)
     {
         /*Popular post related stuff*/
-        $p_count = get_directorist_option('pop_listing_num', 5);
-        // use $count from args if available, else use the count from the database option
-        $p_count = !empty($count) ? $count : $p_count;
+        $p_count = !empty($count) ? $count : 5;
 
         /**
          * It filters the number of the popular listing to display
@@ -581,6 +587,7 @@ final class Directorist_Base {
         $enable_rel_listing = get_directorist_option('enable_rel_listing', 1);
         if (1 != $enable_rel_listing ) return; // vail if related listing is not enabled
         $related_listings = $this->get_related_listings($post);
+        $is_disable_price = get_directorist_option('disable_list_price');
 
 
         if ($related_listings->have_posts()){
@@ -592,40 +599,43 @@ final class Directorist_Base {
                 </div>
                 <div class="row">
                     <?php foreach ($related_listings->posts as $r_post) {
-                        /*RATING RELATED STUFF ENDS*/
-                        $info = ATBDP()->metabox->get_listing_info($r_post->ID); // get all post meta and extract it.
-                        // this will have all vars like attachment etc
-                        // get only one parent or high level term object
-                        $top_category = ATBDP()->taxonomy->get_one_high_level_term($r_post->ID, ATBDP_CATEGORY);
-                        $deepest_location = ATBDP()->taxonomy->get_one_deepest_level_term(get_the_ID(), ATBDP_LOCATION);
-
+                        $cats =  get_the_terms($r_post->ID, ATBDP_CATEGORY);
+                        $locs =  get_the_terms($r_post->ID, ATBDP_LOCATION);
+                        $featured = get_post_meta($r_post->ID, '_featured', true);
+                        $price = get_post_meta($r_post->ID, '_price', true);
+                        $listing_img = get_post_meta($r_post->ID, '_listing_img', true);
+                        $excerpt = get_post_meta($r_post->ID, '_excerpt', true);
+                        $tagline = get_post_meta($r_post->ID, '_tagline', true);
                         ?>
                         <div class="col-md-6">
                             <div class="single_directory_post">
-                                <article>
-                                    <figure>
-                                        <div class="post_img_wrapper">
-                                            <?= (!empty($info['attachment_id'][0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($info['attachment_id'][0],  array(432,400))).'" alt="listing image">' : '' ?>
-                                        </div>
-
-                                        <figcaption>
-                                            <p><?= !empty($info['excerpt']) ? esc_html(stripslashes($info['excerpt'])) : ''; ?></p>
-                                        </figcaption>
-                                    </figure>
+                                <article class="<?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
+                                    <?php if (!is_empty_v($listing_img)){ ?>
+                                        <figure>
+                                            <div class="post_img_wrapper">
+                                                <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(340,227))).'" alt="listing image">' : '' ?>
+                                            </div>
+                                            <figcaption>
+                                                <p><?= !empty($excerpt) ? esc_html(stripslashes($excerpt)) : ''; ?></p>
+                                            </figcaption>
+                                        </figure> <!--ends figure-->
+                                    <?php } ?>
 
                                     <div class="article_content">
                                         <div class="content_upper">
                                             <h4 class="post_title">
                                                 <a href="<?= esc_url(get_post_permalink($r_post->ID)); ?>"><?php echo esc_html($r_post->post_title); ?></a>
                                             </h4>
-                                            <p><?= (!empty($info['tagline'])) ? esc_html(stripslashes($info['tagline'])) : '' ?></p>
+                                            <p><?= (!empty($tagline)) ? esc_html(stripslashes($tagline)) : ''; ?></p>
                                             <?php
+                                            atbdp_display_price($price, $is_disable_price);
                                             /**
-                                             * Fires after the title and sub title of the listing is rendered
+                                             * Fires after the price of the listing is rendered
                                              *
                                              *
-                                             * @since 1.0.0
+                                             * @since 3.1.0
                                              */
+                                            do_action('atbdp_after_listing_price');
 
                                             do_action('atbdp_after_listing_tagline');
 
@@ -633,7 +643,7 @@ final class Directorist_Base {
                                         </div>
                                         <?php
                                         //show category and location info
-                                        ATBDP()->helper->output_listings_taxonomy_info($top_category, $deepest_location);
+                                        ATBDP()->helper->output_listings_all_taxonomy_info($cats, $locs);
                                         // show read more link/btn
                                         ATBDP()->helper->listing_read_more_link($r_post->ID);
                                         ?>

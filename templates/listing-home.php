@@ -19,7 +19,6 @@ $popular_cat_num = get_directorist_option('popular_cat_num', 10);
     <div class="<?php echo is_directoria_active() ? 'container': ' container-fluid'; ?>">
 
         <div class="row">
-
             <!-- start col-md-12 -->
             <div class="col-md-12">
                 <!-- start directory_main_area -->
@@ -111,7 +110,6 @@ $popular_cat_num = get_directorist_option('popular_cat_num', 10);
                                 </ul>
                             </div><!-- End category area -->
                     <?php }
-
                     }?>
 
 

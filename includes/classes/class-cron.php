@@ -40,8 +40,6 @@ class ATBDP_Cron {
     }
 
 
-
-
     /**
      * Define actions to execute during the cron event.
      *

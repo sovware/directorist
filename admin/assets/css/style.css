@@ -164,7 +164,7 @@ ADMIN SIDE STYLE
 	line-height: 32px;
 	cursor: pointer;
 }
-.directorist span.adl-move-icon.dashicons.dashicons-move {
+.directorist span.atbdp-move-icon.dashicons.dashicons-move {
 	font-size: 32px;
 	line-height: 32px;
 	margin-left: 10px;
@@ -402,4 +402,54 @@ for shortable field*/
 .ui-sortable tr.ui-sortable-helper {
 	background-color: #F9F9F9;
 	border-top: 1px solid #DFDFDF;
+}
+
+
+
+/* css for Documentation page*/
+.atbdp_support_wrapper .wrap.wrap_left {
+	width: 60%;
+}
+.atbdp_support_wrapper .wrap {
+	float: left;
+	margin-right: 20px;
+}
+.atbdp_support_wrapper .wrap.wrap_right {
+	width: 30%;
+}
+.atbdp_support_wrapper .wrap.wrap_right .postbox {
+	background: #f0f9dc;
+	padding: 0 0 10px;
+}
+ul.atbdp_pro_features {
+	padding: 0 23px;
+}
+.atbdp_pro_features li {
+	font-size: 13px;
+	line-height: 22px;
+	color: #333;
+	position: relative;
+	margin-bottom: 6px;
+}
+.atbdp_pro_features li:before {
+	content: "\f522";
+	font-family: 'dashicons', 'sans-serif';
+	margin-right: 4px;
+	display: inline-block;
+	vertical-align: -1.9px;
+}
+.atbdp-upgrade-content-wrapper-right h3 {
+	font-size: 15px;
+	font-weight: normal;
+	color: #ffffff;
+	background: #0085ba;
+	text-align: center;
+	padding: 12px 0;
+	margin: 0;
+}
+.atbdp_support_wrapper .wrap.wrap_right .text-center {
+	text-align: center;
+}
+.wrap .wpcs-admin-extra {
+	padding: 25px;
 }

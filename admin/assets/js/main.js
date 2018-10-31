@@ -22,7 +22,7 @@
 
 
     // enable sorting if only the container has any social or skill field
-    var $s_wrap = $("#social_info_sortable_container"); // cache it
+    const $s_wrap = $("#social_info_sortable_container"); // cache it
     if( $s_wrap.length ) {
         $s_wrap.sortable(
             {
@@ -35,15 +35,15 @@
     // SOCIAL SECTION
     // Rearrange the IDS and Add new social field
     $("#addNewSocial").on('click', function(){
-        var currentItems = $('.atbdp_social_field_wrapper').length;
-        var ID = "id="+currentItems; // eg. 'id=3'
-        var iconBindingElement = jQuery('#addNewSocial');
+        const currentItems = $('.atbdp_social_field_wrapper').length;
+        const ID = "id="+currentItems; // eg. 'id=3'
+        const iconBindingElement = jQuery('#addNewSocial');
         // arrange names ID in order before adding new elements
         $('.atbdp_social_field_wrapper').each(function( index , element) {
-            var e = $(element);
+            const e = $(element);
             e.attr('id','socialID-'+index);
-            e.find('select').attr('name', 'listing[social]['+index+'][id]');
-            e.find('.atbdp_social_input').attr('name', 'listing[social]['+index+'][url]');
+            e.find('select').attr('name', 'social['+index+'][id]');
+            e.find('.atbdp_social_input').attr('name', 'social['+index+'][url]');
             e.find('.removeSocialField').attr('data-id',index);
         });
         // now add the new elements. we could do it here without using ajax but it would require more markup here.
@@ -55,7 +55,7 @@
 
     // remove the social field and then reset the ids while maintaining position
     $(document).on('click', '.removeSocialField', function(e){
-        var id = $(this).data("id"),
+        const id = $(this).data("id"),
             elementToRemove = $('div#socialID-'+id);
         event.preventDefault();
         /* Act on the event */
@@ -74,10 +74,10 @@
                         elementToRemove.remove();
                         // reorder the index
                         $('.atbdp_social_field_wrapper').each(function( index , element) {
-                            var e = $(element);
+                            const e = $(element);
                             e.attr('id','socialID-'+index);
-                            e.find('select').attr('name', 'listing[social]['+index+'][id]');
-                            e.find('.atbdp_social_input').attr('name', 'listing[social]['+index+'][url]');
+                            e.find('select').attr('name', 'social['+index+'][id]');
+                            e.find('.atbdp_social_input').attr('name', 'social['+index+'][url]');
                             e.find('.removeSocialField').attr('data-id',index);
                         });
                     });
@@ -96,15 +96,31 @@
 
     });
 
+
+    // upgrade old listing
+    $('#upgrade_directorist').on('click', function (event) {
+        event.preventDefault();
+        let $this = $(this);
+        // display a notice to user to wait
+        // send an ajax request to the back end
+        atbdp_do_ajax($this, 'atbdp_upgrade_old_listings', null, function (response) {
+            if (response.success){
+                $this.after('<p>'+response.data+'</p>');
+            }
+        })
+
+    });
+
+
     /*This function handles all ajax request*/
     function atbdp_do_ajax( ElementToShowLoadingIconAfter, ActionName, arg, CallBackHandler){
-        var data;
+        let data;
         if(ActionName) data = "action=" + ActionName;
         if(arg)    data = arg + "&action=" + ActionName;
         if(arg && !ActionName) data = arg;
-        data = data ;
+        //data = data ;
 
-        var n = data.search(atbdp_admin_data.nonceName);
+        let n = data.search(atbdp_admin_data.nonceName);
         if(n<0){
             data = data + "&"+atbdp_admin_data.nonceName+"=" + atbdp_admin_data.nonce;
         }
@@ -127,12 +143,6 @@
 
 
 
-
-
-
-
-
-
 // Custom Image uploader for listing image
 jQuery(function($){
     // Set all variables to be used in scope
@@ -146,7 +156,7 @@ jQuery(function($){
         active_mi_ext = atbdp_admin_data.active_mi_ext;
 
     /*if the multiple image extension is active then set the multiple image parameter to true*/
-    if(1 == active_mi_ext){ multiple_image = true }
+    if(1 === active_mi_ext){ multiple_image = true }
 
     // ADD IMAGE LINK
     addImgLink.on( 'click', function( event ){
@@ -187,7 +197,6 @@ jQuery(function($){
             }
 
 
-
             //handle multiple image uploading.......
             if ( multiple_image ){
                 $(selection).each(function () {
@@ -197,7 +206,7 @@ jQuery(function($){
                         // we have got an image attachment so lets proceed.
                         // target the input field and then assign the current id of the attachment to an array.
                         data += '<div class="single_attachment">';
-                        data += '<input class="listing_image_attachment" name="listing[attachment_id][]" type="hidden" value="'+this.id+'">';
+                        data += '<input class="listing_image_attachment" name="listing_img[]" type="hidden" value="'+this.id+'">';
                         data += '<img style="width: 100%; height: 100%;" src="'+this.url+'" alt="Listing Image" /> <span class="remove_image dashicons dashicons-dismiss" title="Remove it"></span></div>';
                     }
 
@@ -211,13 +220,12 @@ jQuery(function($){
                     // we have got an image attachment so lets proceed.
                     // target the input field and then assign the current id of the attachment to an array.
                     data += '<div class="single_attachment">';
-                    data += '<input class="listing_image_attachment" name="listing[attachment_id][]" type="hidden" value="'+selection.id+'">';
+                    data += '<input class="listing_image_attachment" name="listing_img[]" type="hidden" value="'+selection.id+'">';
                     data += '<img style="width: 100%; height: 100%;" src="' + selection.url + '" alt="Listing Image" /> <span class="remove_image  dashicons dashicons-dismiss" title="Remove it"></span></div>';
                 }
             }
 
-
-            // If MI extension is active then append images to the listng, else only add one image replacing previus upload
+            // If MI extension is active then append images to the listing, else only add one image replacing previous upload
             if(multiple_image){
                 imgContainer.append(data);
             }else {
@@ -227,7 +235,6 @@ jQuery(function($){
             // Un-hide the remove image link
             delImgLink.removeClass( 'hidden' );
         });
-
         // Finally, open the modal on click
         frame.open();
     });
@@ -235,15 +242,9 @@ jQuery(function($){
 
     // DELETE ALL IMAGES LINK
     delImgLink.on( 'click', function( event ){
-
         event.preventDefault();
-
         // Clear out the preview image and set no image as placeholder
         imgContainer.html( '<img src="' + atbdp_admin_data.AdminAssetPath + 'images/no-image.jpg" alt="Listing Image" />' );
-
-        // Un-hide the add image link
-        //addImgLink.removeClass( 'hidden' );
-
         // Hide the delete image link
         delImgLink.addClass( 'hidden' );
 
@@ -262,10 +263,6 @@ jQuery(function($){
 
         }
     });
-
-
 });
-
-
 
 

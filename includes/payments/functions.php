@@ -56,8 +56,6 @@ function atbdp_get_payment_statuses() {
 
 }
 
-
-
 /**
  * Get order bulk actions array.
  *

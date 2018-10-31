@@ -187,7 +187,6 @@ class ATBDP_Enqueuer {
         wp_register_style( 'atbdp-style', ATBDP_PUBLIC_ASSETS . 'css/style.css', array( 'atbdp-font-awesome',), ATBDP_VERSION);
         wp_register_script('atbdp-bootstrap-script', ATBDP_PUBLIC_ASSETS . 'js/bootstrap.min.js', array('jquery'), ATBDP_VERSION, true);
 
-
         wp_register_script( 'atbdp-rating', ATBDP_PUBLIC_ASSETS . 'js/jquery.barrating.min.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-uikit', ATBDP_PUBLIC_ASSETS . 'js/uikit.min.js', array( 'jquery' ), ATBDP_VERSION, true );
 
@@ -246,8 +245,6 @@ class ATBDP_Enqueuer {
             wp_enqueue_script( 'atbdp-public-script', ATBDP_PUBLIC_ASSETS . 'js/main.js', apply_filters('atbdp_front_script_dependency', $front_scripts_dependency), ATBDP_VERSION, true );
 
             wp_localize_script( 'atbdp-public-script', 'atbdp_public_data', $data );
-            //wp_enqueue_script( 'public-report', ATBDP_PUBLIC_ASSETS . 'js/flug.js',$front_scripts_dependency, ATBDP_VERSION, true );
-            //wp_localize_script( 'public-report', 'public_report',$data  );
             wp_enqueue_style('wp-color-picker');
 
             wp_enqueue_media();

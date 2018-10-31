@@ -48,17 +48,11 @@ class ATBDP_Settings_Manager {
     function get_settings_menus(){
         return apply_filters('atbdp_settings_menus', array(
             /*Main Menu 1*/
-            'general_menu' => array(
-                'title' => __('Currency settings', ATBDP_TEXTDOMAIN),
-                'name' => 'currency_settings',
-                'icon' => 'font-awesome:fa-magic',
-                'controls'=>apply_filters('atbdp_currency_settings_controll',array(
-                    'currency_section' => array(
-                      'type' => 'section',
-                      'title'=> __('Currency Settings',ATBDP_TEXTDOMAIN),
-                      'fields'=> $this->get_currency_settings_fields(),
-                    ),
-                )),
+            'listings' => array(
+                'name' => 'listings',
+                'title' => __('Listings settings', ATBDP_TEXTDOMAIN),
+                'icon' => 'font-awesome:fa-list',
+                'menus' => $this->get_listings_settings_submenus(),
             ),
             /*Main Menu 2*/
             'permalink_menu' => array(
@@ -88,13 +82,6 @@ class ATBDP_Settings_Manager {
                 ) ),
             ),
             /*Main Menu 4*/
-            'listings' => array(
-                'name' => 'listings',
-                'title' => __('Listings settings', ATBDP_TEXTDOMAIN),
-                'icon' => 'font-awesome:fa-list',
-                'menus' => $this->get_listings_settings_submenus(),
-            ),
-            /*Main Menu 5*/
             'pages' => array(
                 'name' => 'pages',
                 'title' => __('Pages, links & views', ATBDP_TEXTDOMAIN),
@@ -106,6 +93,32 @@ class ATBDP_Settings_Manager {
                         'description' => __('You can Customize Listings related settings here. After switching any option, Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
                         'fields' => $this->get_pages_settings_fields(),
                     ), // ends 'pages' section
+                )),
+            ),
+            /*Main Menu 5*/
+            'general_menu' => array(
+                'title' => __('Currency settings', ATBDP_TEXTDOMAIN),
+                'name' => 'currency_settings',
+                'icon' => 'font-awesome:fa-money',
+                'controls'=>apply_filters('atbdp_currency_settings_controls',array(
+                    'currency_section' => array(
+                        'type' => 'section',
+                        'title'=> __('Currency Settings',ATBDP_TEXTDOMAIN),
+                        'fields'=> $this->get_currency_settings_fields(),
+                    ),
+                )),
+            ),
+            /*Main Menu 6*/
+            'categories_menu' => array(
+                'title' => __('Categories Page', ATBDP_TEXTDOMAIN),
+                'name' => 'categories_menu',
+                'icon' => 'font-awesome:',
+                'controls'=>apply_filters('atbdp_categories_settings_controls',array(
+                    'currency_section' => array(
+                        'type' => 'section',
+                        'title'=> __('Categories Page Setting',ATBDP_TEXTDOMAIN),
+                        'fields'=> $this->get_categories_settings_fields(),
+                    ),
                 )),
             ),
             /*Lets make the following extension menu customization by the extensions. Apply a filter on it*/
@@ -1124,6 +1137,119 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                 ),
+            )
+        );
+    }
+
+    /**
+     * Get all the settings fields for the categories page section
+     * @since 4.0.0
+     * @return array
+     */
+    function get_categories_settings_fields(){
+        return apply_filters('atbdp_categories_settings_fields', array(
+                array(
+                    'type' => 'select',
+                    'name' => 'display_categories_as',
+                    'label' => __( 'Display All Categories By', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'grid',
+                            'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'list',
+                            'label' => __('List', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'grid',
+                        'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'categories_column_number',
+                    'label' => __('Number of  Column', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Set how many columns you would like to show on your categories page. Eg. 3. Default is 3', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '5',
+                    'step' => '1',
+                    'default' => '3',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'categories_depth_number',
+                    'label' => __('Depth', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Set how many category sub-levels you would like to show on your categories page. Eg. 2. Default is 2', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '15',
+                    'step' => '1',
+                    'default' => '2',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+                array(
+                    'type' => 'select',
+                    'name' => 'order_category_by',
+                    'label' => __( 'Categories Order By', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'id',
+                            'label' => __('ID', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'count',
+                            'label' => __('Count', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'name',
+                            'label' => __('Name', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'slug',
+                            'label' => __('Slug', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'id',
+                        'label' => __('ID', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                array(
+                    'type' => 'select',
+                    'name' => 'sort_category_by',
+                    'label' => __( 'Categories Sort By', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'asc',
+                            'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'desc',
+                            'label' => __('Descending', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'asc',
+                        'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_listing_count',
+                    'label' => __('Display Listing Count', ATBDP_TEXTDOMAIN),
+                    'description' => __('If you do not want to display listing count on categories page, turn it off.', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'hide_empty_categories',
+                    'label' => __('Hide Empty Categories', ATBDP_TEXTDOMAIN),
+                    'description' => __('If you do not want to display empty categories on categories page, turn it on.', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+
             )
         );
     }

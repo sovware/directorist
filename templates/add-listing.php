@@ -265,10 +265,10 @@ $currency = get_directorist_option('g_currency', 'USD');
                                 if($enable_video_url) {?>
                                 <div class="form-group">
                                     <!--@todo; Add currency Name near price-->
-                                    <label for="video_url"><?php
+                                    <label for="videourl"><?php
                                         /*Translator: % is the name of the currency such eg. USD etc.*/
                                         printf(esc_html__('Video URL', ATBDP_TEXTDOMAIN), $currency); ?></label>
-                                    <input type="text" id="atbdp_tagline" name="listing[videourl]" value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
+                                    <input type="text" id="videourl" name="videourl" value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
                                 </div>
                                 <?php } ?>
 
@@ -477,7 +477,7 @@ $currency = get_directorist_option('g_currency', 'USD');
         <?php if (!$disable_map) { ?>
 
         // initialize all vars here to avoid hoisting related misunderstanding.
-        let placeSearch, map, autocomplete, address_input, markers, info_window, $manual_lat, $manual_lng, saved_lat_lng, info_content;
+        var placeSearch, map, autocomplete, address_input, markers, info_window, $manual_lat, $manual_lng, saved_lat_lng, info_content;
          $manual_lat = $('#manual_lat');
          $manual_lng = $('#manual_lng');
          saved_lat_lng = {lat:<?= (!empty($manual_lat)) ? floatval($manual_lat) : '51.5073509' ?>, lng: <?= (!empty($manual_lng)) ? floatval($manual_lng) : '-0.12775829999998223' ?> }; // default is London city

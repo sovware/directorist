@@ -15,6 +15,7 @@ if (!empty($p_id)) {
     $listing_info['never_expire']           = get_post_meta($p_id, '_never_expire', true);
     $listing_info['featured']               = get_post_meta($p_id, '_featured', true);
     $listing_info['price']                  = get_post_meta($p_id, '_price', true);
+    $listing_info['videourl']               = get_post_meta($p_id, '_videourl', true);
     $listing_info['listing_status']         = get_post_meta($p_id, '_listing_status', true);
     $listing_info['tagline']                = get_post_meta($p_id, '_tagline', true);
     $listing_info['excerpt']                = get_post_meta($p_id, '_excerpt', true);
@@ -28,7 +29,7 @@ if (!empty($p_id)) {
     $listing_info['bdbh']                   = get_post_meta($p_id, '_bdbh', true);
     $listing_info['listing_img']            = get_post_meta($p_id, '_listing_img', true);
     $listing_info['hide_contact_info']      = get_post_meta($p_id, '_hide_contact_info', true);
-    $listing_info['expiry_date']           = get_post_meta($p_id, '_expiry_date', true);
+    $listing_info['expiry_date']            = get_post_meta($p_id, '_expiry_date', true);
 
     extract($listing_info);
     //for editing page
@@ -380,10 +381,11 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 </div>
 
                                 <?php
-                                if($enable_video_url) {?>
+                                if($enable_video_url) {
+                                ?>
                                     <div class="form-group">
-                                        <label for="video_url"><?php esc_html_e('Video Url', ATBDP_TEXTDOMAIN) ?></label>
-                                        <input type="text" id="video_url" name="listing[videourl]" value="<?= !empty($videourl) ? esc_attr($videourl): ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
+                                        <label for="videourl"><?php esc_html_e('Video Url', ATBDP_TEXTDOMAIN) ?></label>
+                                        <input type="text" id="videourl" name="videourl" value="<?= !empty($videourl) ? esc_url($videourl): ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
                                     </div>
                                 <?php } ?>
 

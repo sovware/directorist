@@ -86,6 +86,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $title= !empty($p['listing_title']) ? sanitize_text_field($p['listing_title']) : '';/*@todo; in future, do not let the user add a post without a title. Return here with an error shown to the user*/
 
                     $metas['_price']             = !empty($p['price'])? (float) $p['price'] : 0;
+                    $metas['_videourl']           = !empty($p['videourl'])? sanitize_text_field($p['videourl']) : '';
                     $metas['_tagline']           = !empty($p['tagline'])? sanitize_text_field($p['tagline']) : '';
                     $metas['_excerpt']           = !empty($p['excerpt'])? sanitize_text_field($p['excerpt']) : '';
                     $metas['_address']           = !empty($p['address'])? sanitize_text_field($p['address']) : '';

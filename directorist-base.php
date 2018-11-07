@@ -307,12 +307,6 @@ final class Directorist_Base {
         register_widget('BD_contact_form_Widget');
         register_widget('BD_Submit_Item_Widget');
         register_widget('BD_Login_Form_Widget');
-        if (class_exists('BD_Popular_Listing_Widget')){
-            register_widget('BD_Popular_Listing_Widget');
-        }
-        if (class_exists('ATBDP_Submit_Listing_Widget')){
-            register_widget('ATBDP_Submit_Listing_Widget');
-        }
 
     }
 
@@ -410,6 +404,14 @@ final class Directorist_Base {
             'all_listing_page' => array(
                 'title'   => __( 'All Listings', ATBDP_TEXTDOMAIN ),
                 'content' => '[all_listing]'
+            ),
+            'all_categories_page' => array(
+                'title'   => __( 'All Categories', ATBDP_TEXTDOMAIN ),
+                'content' => '[all_categories]'
+            ),
+            'all_locations_page' => array(
+                'title'   => __( 'All Locations', ATBDP_TEXTDOMAIN ),
+                'content' => '[all_locations]'
             ),
             'user_dashboard' => array(
                 'title'   => __( 'Dashboard', ATBDP_TEXTDOMAIN ),

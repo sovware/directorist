@@ -99,6 +99,7 @@ class ATBDP_Metabox {
         $listing_info['never_expire']           = get_post_meta($post->ID, '_never_expire', true);
         $listing_info['featured']               = get_post_meta($post->ID, '_featured', true);
         $listing_info['price']                  = get_post_meta($post->ID, '_price', true);
+        $listing_info['videourl']               = get_post_meta($post->ID, '_videourl', true);
         $listing_info['listing_status']         = get_post_meta($post->ID, '_listing_status', true);
         $listing_info['tagline']                = get_post_meta($post->ID, '_tagline', true);
         $listing_info['excerpt']                = get_post_meta($post->ID, '_excerpt', true);
@@ -112,7 +113,7 @@ class ATBDP_Metabox {
         $listing_info['bdbh']                   = get_post_meta($post->ID, '_bdbh', true);
         $listing_info['listing_img']            = get_post_meta($post->ID, '_listing_img', true);
         $listing_info['hide_contact_info']      = get_post_meta($post->ID, '_hide_contact_info', true);
-        $listing_info['expiry_date']           = get_post_meta($post->ID, '_expiry_date', true);
+        $listing_info['expiry_date']            = get_post_meta($post->ID, '_expiry_date', true);
 
 
         // add nonce security token
@@ -171,6 +172,7 @@ class ATBDP_Metabox {
         $metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
         $metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
         $metas['_price']             = !empty($p['price'])? (float) $p['price'] : 0;
+        $metas['_videourl']          = !empty($p['videourl']) ?  sanitize_text_field($p['videourl']) : '';
         $metas['_listing_status']    = !empty($p['listing_status'])? sanitize_text_field($p['listing_status']) : 'post_status';
         $metas['_tagline']           = !empty($p['tagline'])? sanitize_text_field($p['tagline']) : '';
         $metas['_excerpt']           = !empty($p['excerpt'])? sanitize_text_field($p['excerpt']) : '';
@@ -182,7 +184,7 @@ class ATBDP_Metabox {
         $metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
         $metas['_manual_lng']        = !empty($p['manual_lng'])? sanitize_text_field($p['manual_lng']) : '';
         $metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();
-        $metas['_hide_contact_info']       = !empty($p['hide_contact_info'])? sanitize_text_field($p['hide_contact_info']) : 0;
+        $metas['_hide_contact_info'] = !empty($p['hide_contact_info'])? sanitize_text_field($p['hide_contact_info']) : 0;
 
         //$listing_info = (!empty($p['listing'])) ? aazztech_enc_serialize($p['listing']) : aazztech_enc_serialize(array());
         //prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
@@ -293,6 +295,7 @@ class ATBDP_Metabox {
         $listing_info['never_expire']           = get_post_meta($id, '_never_expire', true);
         $listing_info['featured']               = get_post_meta($id, '_featured', true);
         $listing_info['price']                  = get_post_meta($id, '_price', true);
+        $listing_info['videourl']               = get_post_meta($id, '_videourl', true);
         $listing_info['listing_status']         = get_post_meta($id, '_listing_status', true);
         $listing_info['tagline']                = get_post_meta($id, '_tagline', true);
         $listing_info['excerpt']                = get_post_meta($id, '_excerpt', true);

@@ -5,7 +5,7 @@
  */
 ?>
 
-    <div class="acadp acadp-categories acadp-text-list">
+    <div class="atbdp atbdp-categories atbdp-text-list">
     <?php
 
 		$span = 'col-md-' . floor( 12 /  $categories_settings['columns'] );
@@ -24,7 +24,7 @@
 			}
 
 			if( $i % $categories_settings['columns'] == 0 ) {
-				echo '<div class="row acadp-no-margin">';
+				echo '<div class="row atbdp-no-margin">';
 			}
 
 			echo '<div class="' . $span . '">';

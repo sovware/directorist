@@ -1431,6 +1431,95 @@ function atbdp_list_categories( $settings ) {
 
     return $html;
 }
+
+/**
+ * Get total listings count.
+ *
+ * @since    4.0.0
+ *
+ * @param    int     $term_id       Custom Taxonomy term ID.
+ * @return   int                    Listings count.
+ */
+function atbdp_listings_count_by_location( $term_id ) {
+
+    $args = array(
+        'fields'          =>'ids',
+        'posts_per_page'  => -1,
+        'post_type'       => ATBDP_POST_TYPE,
+        'post_status'     => 'publish',
+        'tax_query' 	  => array(
+            array(
+                'taxonomy'         => ATBDP_LOCATION,
+                'field'            => 'term_id',
+                'terms'            => $term_id,
+                'include_children' => true
+            )
+        )
+    );
+
+    return count( get_posts( $args ) );
+
+}
+
+/**
+ * List ACADP categories.
+ *
+ * @since    1.0.0
+ *
+ * @param    array     $settings    Settings args.
+ * @return   string                 HTML code that contain categories list.
+ */
+function atbdp_list_locations( $settings ) {
+
+    if( $settings['depth'] <= 0 ) {
+        return;
+    }
+
+    $args = array(
+        'orderby'      => $settings['orderby'],
+        'order'        => $settings['order'],
+        'hide_empty'   => ! empty( $settings['hide_empty'] ) ? 1 : 0,
+        'parent'       => $settings['term_id'],
+        'hierarchical' => false
+    );
+
+    $terms = get_terms( ATBDP_LOCATION, $args );
+
+    $html = '';
+
+    if( count( $terms ) > 0 ) {
+
+        --$settings['depth'];
+
+        $html .= '<ul class="list-unstyled">';
+
+        foreach( $terms as $term ) {
+            $settings['term_id'] = $term->term_id;
+
+            $count = 0;
+            if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
+                $count = atbdp_listings_count_by_location( $term->term_id );
+
+                if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
+            }
+
+            $html .= '<li>';
+            $html .= '<a href=" ' .ATBDP_Permalink::get_location_archive($settings['term']) . ' ">';
+            $html .= $term->name;
+            if( ! empty( $settings['show_count'] ) ) {
+                $html .= ' (' . $count . ')';
+            }
+            $html .= '</a>';
+            $html .= atbdp_list_locations( $settings );
+            $html .= '</li>';
+        }
+
+        $html .= '</ul>';
+
+    }
+
+    return $html;
+}
 /*
  * Clean variables using sanitize_text_field. Arrays are cleaned recursively.
  * Non-scalar values are ignored.

@@ -4,13 +4,14 @@
 $listing_info['never_expire']       = get_post_meta($post->ID, '_never_expire', true);
 $listing_info['featured']           = get_post_meta($post->ID, '_featured', true);
 $listing_info['price']              = get_post_meta($post->ID, '_price', true);
+$listing_info['videourl']           = get_post_meta($post->ID, '_videourl', true);
 $listing_info['listing_status']     = get_post_meta($post->ID, '_listing_status', true);
 $listing_info['tagline']            = get_post_meta($post->ID, '_tagline', true);
 $listing_info['excerpt']            = get_post_meta($post->ID, '_excerpt', true);
 $listing_info['address']            = get_post_meta($post->ID, '_address', true);
 $listing_info['phone']              = get_post_meta($post->ID, '_phone', true);
 $listing_info['email']              = get_post_meta($post->ID, '_email', true);
-$listing_info['website']           = get_post_meta($post->ID, '_website', true);
+$listing_info['website']            = get_post_meta($post->ID, '_website', true);
 $listing_info['social']             = get_post_meta($post->ID, '_social', true);
 $listing_info['manual_lat']         = get_post_meta($post->ID, '_manual_lat', true);
 $listing_info['manual_lng']         = get_post_meta($post->ID, '_manual_lng', true);
@@ -228,11 +229,11 @@ $main_col_size = is_active_sidebar( 'right-sidebar-listing' ) ? 'col-md-8' : 'co
                         <?php } ?>
 
                     </div>
-                    <?php if($enable_video_url && !empty($video_url)) { ?>
+                    <?php if($enable_video_url && !empty($videourl)) { ?>
                     <div class="col-md-8">
                         <div class="directory_video_url">
                             <h2><?php echo !empty( $video_label ) ? $video_label : 'Video'; ?></h2>
-                            <iframe class="embed-responsive-item" src="<?php echo $video_url;?>" allowfullscreen></iframe>
+                            <iframe class="embed-responsive-item" src="<?php echo esc_attr(ATBDP()->atbdp_parse_videos(($videourl)));?>" allowfullscreen></iframe>
                         </div>
                     </div>
                     <?php } ?>
@@ -358,7 +359,7 @@ $main_col_size = is_active_sidebar( 'right-sidebar-listing' ) ? 'col-md-8' : 'co
         // Do not show map if lat long is empty or map is globally disabled.
         <?php if (!$disable_map && (!empty($manual_lat) && !empty($manual_lng))){ ?>
         // initialize all vars here to avoid hoisting related misunderstanding.
-        let  map, info_window, saved_lat_lng, info_content;
+        var  map, info_window, saved_lat_lng, info_content;
         saved_lat_lng = {lat:<?= (!empty($manual_lat)) ? floatval($manual_lat) : false ?>, lng: <?= (!empty($manual_lng)) ? floatval($manual_lng) : false ?> }; // default is London city
         info_content = "<?= $info_content; ?>";
 
@@ -375,7 +376,7 @@ $main_col_size = is_active_sidebar( 'right-sidebar-listing' ) ? 'col-md-8' : 'co
                 zoom: <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 16; ?>,
                 center: saved_lat_lng
             });
-            let marker = new google.maps.Marker({
+            var marker = new google.maps.Marker({
                 map: map,
                 position:  saved_lat_lng
             });
@@ -388,7 +389,7 @@ $main_col_size = is_active_sidebar( 'right-sidebar-listing' ) ? 'col-md-8' : 'co
         initMap();
         //Convert address tags to google map links -
         $('address').each(function () {
-            const link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent( $(this).text() ) + "' target='_blank'>" + $(this).text() + "</a>";
+            var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent( $(this).text() ) + "' target='_blank'>" + $(this).text() + "</a>";
             $(this).html(link);
         });
         <?php } ?>

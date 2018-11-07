@@ -112,12 +112,17 @@ class ATBDP_Settings_Manager {
             'categories_menu' => array(
                 'title' => __('Categories Page', ATBDP_TEXTDOMAIN),
                 'name' => 'categories_menu',
-                'icon' => 'font-awesome:',
+                'icon' => 'font-awesome:fa-list-alt',
                 'controls'=>apply_filters('atbdp_categories_settings_controls',array(
-                    'currency_section' => array(
+                    'category_section' => array(
                         'type' => 'section',
                         'title'=> __('Categories Page Setting',ATBDP_TEXTDOMAIN),
                         'fields'=> $this->get_categories_settings_fields(),
+                    ),
+                    'location_section' => array(
+                        'type' => 'section',
+                        'title'=> __('Locations Page Setting',ATBDP_TEXTDOMAIN),
+                        'fields'=> $this->get_locations_settings_fields()
                     ),
                 )),
             ),
@@ -1254,6 +1259,119 @@ The Administrator of ==SITE_NAME==
     }
 
     /**
+     * Get all the settings fields for the categories page section
+     * @since 4.0.0
+     * @return array
+     */
+    function get_locations_settings_fields(){
+        return apply_filters('atbdp_locations_settings_fields', array(
+                array(
+                    'type' => 'select',
+                    'name' => 'display_locations_as',
+                    'label' => __( 'Display All Locations By', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'grid',
+                            'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'list',
+                            'label' => __('List', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'grid',
+                        'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'locations_column_number',
+                    'label' => __('Number of  Column', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Set how many columns you would like to show on your locations page. Eg. 3. Default is 3', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '5',
+                    'step' => '1',
+                    'default' => '3',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'locations_depth_number',
+                    'label' => __('Depth', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Set how many category sub-levels you would like to show on your locations page. Eg. 2. Default is 2', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '15',
+                    'step' => '1',
+                    'default' => '2',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+                array(
+                    'type' => 'select',
+                    'name' => 'order_location_by',
+                    'label' => __( 'Locations Order By', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'id',
+                            'label' => __('ID', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'count',
+                            'label' => __('Count', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'name',
+                            'label' => __('Name', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'slug',
+                            'label' => __('Slug', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'id',
+                        'label' => __('ID', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                array(
+                    'type' => 'select',
+                    'name' => 'sort_location_by',
+                    'label' => __( 'Locations Sort By', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'asc',
+                            'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'desc',
+                            'label' => __('Descending', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'asc',
+                        'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_location_listing_count',
+                    'label' => __('Display Listing Count', ATBDP_TEXTDOMAIN),
+                    'description' => __('If you do not want to display listing count on locations page, turn it off.', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'hide_empty_locations',
+                    'label' => __('Hide Empty Locations', ATBDP_TEXTDOMAIN),
+                    'description' => __('If you do not want to display empty location on locations page, turn it on.', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+
+            )
+        );
+    }
+
+    /**
      * Get all the settings fields for the permalink settings section
      * @since 3.0.0
      * @return array
@@ -1320,7 +1438,6 @@ The Administrator of ==SITE_NAME==
                         'description' => __( 'Enter the title for search bar on Home Page. Eg. Find the Best Places to Be', ATBDP_TEXTDOMAIN ),
                         'default' => atbdp_get_option('search_title', 'atbdp_general'),
                     ),
-
                     array(
                         'type' => 'textbox',
                         'name' => 'search_subtitle',
@@ -1600,7 +1717,7 @@ The Administrator of ==SITE_NAME==
                     'name' => 'show_popular_category',
                     'label' => __('Show popular category on the search page', ATBDP_TEXTDOMAIN),
                     'description' => __('You can show popular category on search page or you can hide it here.', ATBDP_TEXTDOMAIN),
-                    'default' => atbdp_yes_to_bool($s_p_cat),
+                    'default' => '0',
                 ),
 
                 array(
@@ -1931,6 +2048,28 @@ The Administrator of ==SITE_NAME==
                         'default' => atbdp_get_option('user_dashboard', 'atbdp_general'),
                         'validation' => 'required|numeric',
 
+                    ),
+
+                    array(
+                        'type' => 'select',
+                        'name' => 'all_categories_page',
+                        'label' => __( 'Add All Categories Page ID', ATBDP_TEXTDOMAIN ),
+                        'items' => $this->get_pages_vl_arrays(),
+                        'description' => sprintf(__( 'Select your All Categories  page ( where you used %s shortcode ) ID here.', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[all_categories]</strong>'),
+
+                        'default' => atbdp_get_option('all_categories', 'atbdp_general'),
+                        'validation' => 'required|numeric',
+                    ),
+
+                    array(
+                        'type' => 'select',
+                        'name' => 'all_locations_page',
+                        'label' => __( 'Add All Locations Page ID', ATBDP_TEXTDOMAIN ),
+                        'items' => $this->get_pages_vl_arrays(),
+                        'description' => sprintf(__( 'Select your All Locations  page ( where you used %s shortcode ) ID here.', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[all_locations]</strong>'),
+
+                        'default' => atbdp_get_option('all_locations', 'atbdp_general'),
+                        'validation' => 'required|numeric',
                     ),
 
                     array(

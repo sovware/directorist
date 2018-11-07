@@ -21,6 +21,8 @@ class ATBDP_Shortcode {
         add_shortcode( 'user_dashboard', array( $this, 'user_dashboard' ) );
 
         add_shortcode( 'all_categories', array( $this, 'all_categories' ) );
+
+        add_shortcode( 'all_locations', array( $this, 'all_locations' ) );
         $checkout = new ATBDP_Checkout;
         add_shortcode('directorist_checkout', array($checkout, 'display_checkout_content'));
         add_shortcode('directorist_payment_receipt', array($checkout, 'payment_receipt'));
@@ -232,8 +234,9 @@ class ATBDP_Shortcode {
         return ob_get_clean();
     }
 
-    public function all_categories ()
+    public function all_categories ( $atts )
     {
+        ob_start();
         $display_categories_as   = get_directorist_option('display_categories_as','grid');
         $categories_settings = array();
         $categories_settings['depth'] = get_directorist_option('categories_depth_number',1);
@@ -242,9 +245,16 @@ class ATBDP_Shortcode {
         $categories_settings['hide_empty'] = get_directorist_option('hide_empty_categories');
         $categories_settings['orderby'] = get_directorist_option('order_category_by','id');
         $categories_settings['order'] = get_directorist_option('sort_category_by','asc');
+
+        $atts = shortcode_atts( array(
+            'view'              => $display_categories_as,
+            'orderby'           => $categories_settings['orderby'],
+            'order'             => $categories_settings['order']
+        ), $atts );
+
         $args = array(
-            'orderby'      => $categories_settings['orderby'],
-            'order'        => $categories_settings['order'],
+            'orderby'      => $atts['orderby'],
+            'order'        => $atts['order'],
             'hide_empty'   => ! empty( $categories_settings['hide_empty'] ) ? 1 : 0,
             'parent'       => 0,
             'hierarchical' => ! empty( $categories_settings['hide_empty'] ) ? true : false
@@ -253,12 +263,52 @@ class ATBDP_Shortcode {
         $terms = get_terms( ATBDP_CATEGORY, $args );
         //var_dump($terms);
         if( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-            if('grid' == $display_categories_as) {
+            if('grid' == $atts['view']) {
                 include ATBDP_TEMPLATES_DIR . 'front-end/categories-page/categories-grid.php';
-            }elseif ('list' == $display_categories_as) {
+            }elseif ('list' == $atts['view']) {
                 include ATBDP_TEMPLATES_DIR . 'front-end/categories-page/categories-list.php';
             }
         }
+        return ob_get_clean();
+
+    }
+
+    public function all_locations ($atts)
+    {
+        ob_start();
+        $display_locations_as              = get_directorist_option('display_locations_as','grid');
+        $locations_settings                = array();
+        $locations_settings['depth']       = get_directorist_option('locations_depth_number',1);
+        $locations_settings['columns']     = get_directorist_option('locations_column_number',3);
+        $locations_settings['show_count']  = get_directorist_option('display_location_listing_count',1);
+        $locations_settings['hide_empty']  = get_directorist_option('hide_empty_locations');
+        $locations_settings['orderby']     = get_directorist_option('order_location_by','id');
+        $locations_settings['order']       = get_directorist_option('sort_location_by','asc');
+
+        $atts = shortcode_atts( array(
+            'view'              => $display_locations_as,
+            'orderby'           => $locations_settings['orderby'],
+            'order'             => $locations_settings['order']
+        ), $atts );
+
+        $args = array(
+            'orderby'      => $atts['orderby'],
+            'order'        => $atts['order'],
+            'hide_empty'   => ! empty( $locations_settings['hide_empty'] ) ? 1 : 0,
+            'parent'       => 0,
+            'hierarchical' => ! empty( $locations_settings['hide_empty'] ) ? true : false
+        );
+
+        $terms = get_terms( ATBDP_LOCATION, $args );
+
+        if( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+            if('grid' == $atts['view']) {
+                include ATBDP_TEMPLATES_DIR . 'front-end/locations-page/locations-grid.php';
+            }elseif ('list' == $atts['view']) {
+                include ATBDP_TEMPLATES_DIR . 'front-end/locations-page/locations-list.php';
+            }
+        }
+        return ob_get_clean();
 
     }
 

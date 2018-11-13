@@ -8,9 +8,6 @@ if (!empty($p_id)) {
         echo '<p class="error">'.__('You do not have permission to edit this listing', ATBDP_TEXTDOMAIN).'</p>';
         return;
     }
-    /*$lf= get_post_meta($p_id, '_listing_info', true);
-    $price= get_post_meta($p_id, '_price', true);
-    $listing_info = (!empty($lf))? aazztech_enc_unserialize($lf) : array();*/
 
     $listing_info['never_expire']           = get_post_meta($p_id, '_never_expire', true);
     $listing_info['featured']               = get_post_meta($p_id, '_featured', true);
@@ -72,11 +69,16 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
 <div class="directorist directory_wrapper single_area">
     <div class="<?php echo is_directoria_active() ? 'container': ' container-fluid'; ?>">
-        <div class="add_listing_title">
-            <h2><?= !empty($p_id) ? __('Update Listing', ATBDP_TEXTDOMAIN) : __('Add Listing', ATBDP_TEXTDOMAIN); ?></h2>
-        </div>
-        <form action="<?= esc_url($_SERVER['REQUEST_URI']); ?>" method="post">
 
+        <form action="<?= esc_url($_SERVER['REQUEST_URI']); ?>" method="post">
+            <?php if(class_exists('ATBDP_Fee_Manager')){
+                do_action('atbdb_before_add_listing_from_frontend');//for dev purpose
+            }
+                ?>
+            <div class="atbdp-form-fields"  <?php if(class_exists('ATBDP_Fee_Manager')){ echo 'style="display:none"';}?>>
+            <div class="add_listing_title">
+                <h2><?= !empty($p_id) ? __('Update Listing', ATBDP_TEXTDOMAIN) : __('Add Listing', ATBDP_TEXTDOMAIN); ?></h2>
+            </div>
         <!--add nonce field security -->
             <?php  ATBDP()->listing->add_listing->show_nonce_field(); ?>
             <input type="hidden" name="add_listing_form" value="1">
@@ -369,7 +371,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     $current_val = esc_attr(get_post_meta($p_id, '_admin_category_select', true) );
                                     $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
                                     echo '<select class="form-control directory_field" id="cat-type" name="admin_category_select">';
-                                    echo '<option>'.__( "--Select a Category--", ATBDP_TEXTDOMAIN ).'</option>';
+                                    echo '<option value="">'.__( "--Select a Category--", ATBDP_TEXTDOMAIN ).'</option>';
                                     foreach ($categories as $key => $cat_title){
                                         $term_id = $cat_title->term_id;
                                         printf( '<option value="%s" %s>%s</option>', $term_id, selected( $term_id, $current_val), $cat_title->name );
@@ -585,7 +587,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                 </div><!--ends .add_listing_form_wrapper-->
 
             </div> <!--ends col-md-12 -->
-        </div><!--ends .row-->
+        </div><!--ends .row--></div>
         </form>
     </div> <!--ends container-fluid-->
 </div>
@@ -594,7 +596,12 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
 
     jQuery(document).ready(function ($) {
-
+        <?php if(class_exists('ATBDP_Fee_Manager')) { ?>
+        $('#fm_plans_container').on('click', function(){
+            $('.atbdp-form-fields').fadeIn(1000);
+            $('#fm_plans_container').fadeOut(300)
+        });
+        <?php } ?>
         $(function () {
             $('#color_code2').wpColorPicker();
         });

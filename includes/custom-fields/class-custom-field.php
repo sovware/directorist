@@ -1,14 +1,4 @@
 <?php
-/**
- * Custom Field
- *
- * @package       directorist
- * @subpackage    directorist/includes/custom-field
- * @copyright     Copyright 2018. AazzTech
- * @license       https://www.gnu.org/licenses/gpl-3.0.en.html GNU Public License
- * @since         3.1.6
- */
-
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
@@ -56,7 +46,7 @@ class ATBDP_Custom_Field {
     function refresh() {
         global $wpdb;
         $objects = ATBDP_CUSTOM_FIELD_POST_TYPE;
-        $objects = array($objects);
+        $objects = array($objects, 'atbdp_fee_manager');
 
         if (!empty($objects)) {
             foreach ($objects as $object) {
@@ -136,7 +126,7 @@ class ATBDP_Custom_Field {
 
     function get_scporder_options_objects() {
         $atbdp_options = ATBDP_CUSTOM_FIELD_POST_TYPE;
-        $objects = array($atbdp_options);
+        $objects = array($atbdp_options, 'atbdp_fee_manager');
         return $objects;
     }
 

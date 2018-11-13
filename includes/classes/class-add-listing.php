@@ -64,6 +64,7 @@ if (!class_exists('ATBDP_Add_Listing')):
          * @return void
          */
         public function add_listing_to_db() {
+
             // has the listing for been submitted ?
             if ( !empty( $_POST['add_listing_form'] ) ) {
                 /**
@@ -97,7 +98,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
                     $metas['_manual_lng']        = !empty($p['manual_lng'])? sanitize_text_field($p['manual_lng']) : '';
                     $metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();
-                    $metas['_hide_contact_info']       = !empty($p['hide_contact_info'])? sanitize_text_field($p['hide_contact_info']) : 0;
+                    $metas['_hide_contact_info'] = !empty($p['hide_contact_info'])? sanitize_text_field($p['hide_contact_info']) : 0;
                     /**
                      * It applies a filter to the meta values that are going to be saved with the listing submitted from the front end
                      * @param array $metas the array of meta keys and meta values
@@ -276,6 +277,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
                                 $term_by_id =  get_term_by('term_id', $admin_category_select, ATBDP_CATEGORY);
                                 wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
+                                /*
+                                  * It fires before processing a listing from the front end
+                                  * @param array $_POST the array containing the submitted fee data.
+                                  * */
+                                do_action('atbdp_before_processing_listing_frontend', $post_id);
 
                                 /*
                                 * send the custom field value to the database

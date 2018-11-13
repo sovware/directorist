@@ -85,6 +85,7 @@ class ATBDP_Checkout
                         'type' => 'header',
                         'title' => $title,
                 );
+
                 $form_data[] = array(
                         'type' => 'checkbox',
                         'name' => 'feature',
@@ -94,6 +95,7 @@ class ATBDP_Checkout
                         'desc' => $desc,
                         'price' => $price,
                 );
+
             }
 
             // if data is empty then vail,
@@ -104,6 +106,7 @@ class ATBDP_Checkout
                     'form_data' => $form_data,
                     'listing_id' => $listing_id,
             );
+           // var_dump(get_post_meta($listing_id, '_fm_plans', true));
 
             ATBDP()->load_template('front-end/checkout-form', $data);
         }

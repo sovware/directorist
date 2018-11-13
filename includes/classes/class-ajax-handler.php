@@ -292,7 +292,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
      *
      * @return   string    $result    Message based on the result.
      */
-    function acadp_email_listing_owner_listing_contact() {
+    function atbdp_email_listing_owner_listing_contact() {
 
         if(! in_array( 'listing_contact_form', get_directorist_option('notify_user', array()) ) ) return false;
         // sanitize form values
@@ -351,7 +351,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
      *
      * @since    4.0
      */
-    function acadp_email_admin_listing_contact() {
+    function atbdp_email_admin_listing_contact() {
 
         if (get_directorist_option('disable_email_notification')) return false; //vail if email notification is off
 
@@ -414,10 +414,10 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         $data = array( 'error' => 0 );
 
 
-        if( $this->acadp_email_listing_owner_listing_contact() ) {
+        if( $this->atbdp_email_listing_owner_listing_contact() ) {
 
             // Send a copy to admin( only if applicable ).
-            $this->acadp_email_admin_listing_contact();
+            $this->atbdp_email_admin_listing_contact();
 
             $data['message'] = __( 'Your message sent successfully.', ATBDP_TEXTDOMAIN );
 

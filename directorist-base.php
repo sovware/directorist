@@ -309,6 +309,7 @@ final class Directorist_Base {
         register_widget('BD_Login_Form_Widget');
         register_widget('BD_Categories_Widget');
         register_widget('BD_Locations_Widget');
+        register_widget('BD_Tags_Widget');
 
     }
 
@@ -967,7 +968,7 @@ final class Directorist_Base {
     /**
      * Parse the video URL and determine it's valid embeddable URL for usage.
      */
-    function atbdp_parse_videos( $url ) {
+    public function atbdp_parse_videos( $url ) {
 
         $embeddable_url = '';
 

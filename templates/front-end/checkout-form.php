@@ -7,7 +7,6 @@ $c_position = get_directorist_option('payment_currency_position');
 $currency = atbdp_get_payment_currency();
 $symbol = atbdp_currency_symbol($currency);
 //displaying data for checkout
-
 ?>
 <div class="directorist directorist-checkout-form">
     <?php do_action('atbdp_before_checkout_form_start'); ?>

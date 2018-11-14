@@ -67,7 +67,6 @@ class ATBDP_Checkout
         if ( empty($listing_id) || (!empty($listing_id) && ATBDP_POST_TYPE != get_post_type($listing_id)) ) {
             return __('Sorry, Something went wrong. Listing ID is missing. Please try again.', ATBDP_TEXTDOMAIN);
         }
-
         // if the checkout form is submitted, then process placing order
         if ('POST' == $_SERVER['REQUEST_METHOD'] && ATBDP()->helper->verify_nonce( $this->nonce, $this->nonce_action )){
             // Process the order
@@ -97,6 +96,30 @@ class ATBDP_Checkout
                 );
 
             }
+            $selected_plan_id = get_post_meta($listing_id, '_fm_plans', true);
+            if (!empty($selected_plan_id && class_exists('ATBDP_Fee_Manager'))) {
+                // start process selected plan add to checkout form
+                $p_title = get_the_title($selected_plan_id);
+                $p_description = get_post_meta($selected_plan_id, 'fm_description', true);
+                $fm_price = get_post_meta($selected_plan_id, 'fm_price', true);
+                $price_decimal = get_post_meta($selected_plan_id, 'price_decimal', true);
+                $decimal = $price_decimal ? '.'.$price_decimal : '';
+                $form_data[] = array(
+                    'type' => 'header',
+                    'title' => $p_title
+                );
+
+                $form_data[] = array(
+                    'type' => 'checkbox',
+                    'name' => 'feature',
+                    'value' => 1,
+                    'selected' => 1,
+                    'title' => $p_title,
+                    'desc' => $p_description,
+                    'price' => $fm_price.$decimal
+                );
+            }
+
 
             // if data is empty then vail,
             if (empty($form_data)) { return __('Sorry, Nothing is available to buy. Please try again.', ATBDP_TEXTDOMAIN); }
@@ -106,7 +129,6 @@ class ATBDP_Checkout
                     'form_data' => $form_data,
                     'listing_id' => $listing_id,
             );
-           // var_dump(get_post_meta($listing_id, '_fm_plans', true));
 
             ATBDP()->load_template('front-end/checkout-form', $data);
         }
@@ -132,8 +154,9 @@ class ATBDP_Checkout
             'order_id' => $order_id,
             'o_metas' => $meta,
         ));
+        $listing_id = $meta['_listing_id'];
         // we need to provide payment receipt shortcode with the order details array as we passed in the order checkout form page.
-        $order_items = apply_filters( 'atbdp_order_items', array(), $order_id ); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
+        $order_items = apply_filters( 'atbdp_order_items', array(), $order_id); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
         // let's add featured listing data if the order has featured listing in it
         $featured_active = get_directorist_option('enable_featured_listing');
         if ($featured_active && !empty($meta['_featured'])){
@@ -145,9 +168,23 @@ class ATBDP_Checkout
                 'desc' => $desc,
                 'price' => $price,
             );
-        }
-        $data['order_items'] = $order_items;
 
+        }
+        $selected_plan_id = get_post_meta($listing_id[0], '_fm_plans', true);
+        if (class_exists('ATBDP_Fee_Manager') && !empty($selected_plan_id)){
+            $p_title = get_the_title($selected_plan_id);
+            $p_description = get_post_meta($selected_plan_id, 'fm_description', true);
+            $fm_price = get_post_meta($selected_plan_id, 'fm_price', true);
+            $price_decimal = get_post_meta($selected_plan_id, 'price_decimal', true);
+            $decimal = $price_decimal ? '.'.$price_decimal : '';
+            $order_items[] = array(
+                'title' => $p_title,
+                'desc' => $p_description,
+                'price' => $fm_price.$decimal,
+            );
+        }
+
+        $data['order_items'] = $order_items;
         ob_start();
         ATBDP()->load_template('front-end/payment-receipt', array('data'=> $data));
         return ob_get_clean();
@@ -178,9 +215,8 @@ class ATBDP_Checkout
                 'post_type' => 'atbdp_orders',
                 'post_title' => sprintf('Order #%d for the listing ID #%d', $order_id, $listing_id)
                 ));*/
-            $order_details = apply_filters( 'atbdp_order_details', array(), $order_id );
+            $order_details = apply_filters( 'atbdp_order_details', array(), $order_id, $listing_id );
             //If featured item is bought, attach it to the order.
-
             if (!empty($data['feature'])) {
                 update_post_meta($order_id, '_featured', 1);
                 //lets add the settings of featured listing to the order details

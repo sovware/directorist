@@ -37,16 +37,13 @@ if (!class_exists('BD_Locations_Widget')) {
         {
             $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Directorist Locations', ATBDP_TEXTDOMAIN);
 
-            $order_by = get_directorist_option('order_category_by');
-            $order  = get_directorist_option('sort_category_by');
-
             $query_args = array(
                 'template'       => ! empty( $instance['display_as'] ) ? sanitize_text_field( $instance['display_as'] ) : 'list',
                 'parent'         => ! empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
                 'term_id'        => ! empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
                 'hide_empty'     => ! empty( $instance['hide_empty'] ) ? 1 : 0,
-                'orderby'        => $order_by,
-                'order'          => $order,
+                'orderby'        => ! empty( $instance['orderby'] ) ? sanitize_text_field( $instance['order_by'] ) : 'id',
+                'order'          => ! empty( $instance['order'] ) ? sanitize_text_field( $instance['order'] ) : 'asc',
                 'show_count'     => ! empty( $instance['show_count'] ) ? 1 : 0,
                 'pad_counts'     => true,
                 'immediate_category' => ! empty( $instance['immediate_category'] ) ? 1 : 0,
@@ -62,7 +59,7 @@ if (!class_exists('BD_Locations_Widget')) {
                     $term = get_term_by( 'slug', $term_slug, ATBDP_LOCATION );
                     $query_args['active_term_id'] = $term->term_id;
 
-                    $query_args['ancestors'] = get_ancestors( $query_args['active_term_id'], 'acadp_categories' );
+                    $query_args['ancestors'] = get_ancestors( $query_args['active_term_id'], ATBDP_LOCATION );
                     $query_args['ancestors'][] = $query_args['active_term_id'];
                     $query_args['ancestors'] = array_unique( $query_args['ancestors'] );
                 }
@@ -70,9 +67,9 @@ if (!class_exists('BD_Locations_Widget')) {
             }
 
             if( 'dropdown' == $query_args['template'] ) {
-                $categories = $this->dropdown_categories( $query_args );
+                $categories = $this->dropdown_locations( $query_args );
             } else {
-                $categories = $this->list_categories( $query_args );
+                $categories = $this->list_locations( $query_args );
             }
             echo $args['before_widget'];
 
@@ -82,8 +79,9 @@ if (!class_exists('BD_Locations_Widget')) {
 
             <div class="acadp acadp-widget-categories">
                 <?php if( 'dropdown' == $query_args['template'] ) : ?>
-                    <form action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
-                        <select class="form-control" name="acadp_categories" onchange="this.form.submit()">
+                    <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
+                        <input type="hidden" name="q" placeholder="">
+                        <select id="at_biz_dir-location" name="in_loc" onchange="this.form.submit()">
                             <?php echo $categories; ?>
                         </select>
                     </form>
@@ -115,6 +113,8 @@ if (!class_exists('BD_Locations_Widget')) {
                 'show_count'=> 0,
                 'parent'=>0,
                 'immediate_category'=>0,
+                'order_by'=>'id',
+                'order'=>'asc',
             );
 
             $instance = wp_parse_args((array)$instance,$values);
@@ -127,6 +127,8 @@ if (!class_exists('BD_Locations_Widget')) {
                        value="<?php echo esc_attr($title); ?>">
             </p>
 
+
+
             <p>
                 <label for="<?php echo $this->get_field_id( 'display_as' ); ?>"><?php _e( 'Locations Display As', ATBDP_TEXTDOMAIN ); ?></label>
                 <select class="widefat" id="<?php echo $this->get_field_id( 'display_as' ); ?>" name="<?php echo $this->get_field_name( 'display_as' ); ?>">
@@ -134,6 +136,7 @@ if (!class_exists('BD_Locations_Widget')) {
                     <option value="dropdown" <?php selected( $instance['display_as'], 'dropdown' ); ?>><?php _e( 'Dropdown', ATBDP_TEXTDOMAIN ); ?></option>
                 </select>
             </p>
+
             <p>
                 <label for="<?php echo $this->get_field_id( 'parent' ); ?>"><?php _e( 'Select Parent', ATBDP_TEXTDOMAIN ); ?></label>
                 <?php
@@ -152,10 +155,30 @@ if (!class_exists('BD_Locations_Widget')) {
                 ) );
                 ?>
             </p>
+
+            <p>
+                <label for="<?php echo $this->get_field_id( 'order_by' ); ?>"><?php _e( 'Locations Order By', ATBDP_TEXTDOMAIN ); ?></label>
+                <select class="widefat" id="<?php echo $this->get_field_id( 'order_by' ); ?>" name="<?php echo $this->get_field_name( 'order_by' ); ?>">
+                    <option value="id" <?php selected( $instance['order_by'], 'id' ); ?>><?php _e( 'Id', ATBDP_TEXTDOMAIN ); ?></option>
+                    <option value="count" <?php selected( $instance['order_by'], 'count' ); ?>><?php _e( 'Count', ATBDP_TEXTDOMAIN ); ?></option>
+                    <option value="name" <?php selected( $instance['order_by'], 'name' ); ?>><?php _e( 'Name', ATBDP_TEXTDOMAIN ); ?></option>
+                    <option value="slug" <?php selected( $instance['order_by'], 'slug' ); ?>><?php _e( 'Slug', ATBDP_TEXTDOMAIN ); ?></option>
+                </select>
+            </p>
+
+            <p>
+                <label for="<?php echo $this->get_field_id( 'order' ); ?>"><?php _e( 'Locations Sord By', ATBDP_TEXTDOMAIN ); ?></label>
+                <select class="widefat" id="<?php echo $this->get_field_id( 'order' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>">
+                    <option value="asc" <?php selected( $instance['order'], 'asc' ); ?>><?php _e( 'Ascending', ATBDP_TEXTDOMAIN ); ?></option>
+                    <option value="desc" <?php selected( $instance['order'], 'desc' ); ?>><?php _e( 'Descending', ATBDP_TEXTDOMAIN ); ?></option>
+                </select>
+            </p>
+
             <p>
                 <input <?php checked( $instance['immediate_category'],1 ); ?> id="<?php echo $this->get_field_id( 'immediate_category' ); ?>" name="<?php echo $this->get_field_name( 'immediate_category' ); ?>" value="1" type="checkbox" />
                 <label for="<?php echo $this->get_field_id( 'immediate_category' ); ?>"><?php _e( 'Show all the top level categories only', ATBDP_TEXTDOMAIN ); ?></label>
             </p>
+
             <p>
                 <input <?php checked( $instance['hide_empty'],1 ); ?> id="<?php echo $this->get_field_id( 'hide_empty' ); ?>" name="<?php echo $this->get_field_name( 'hide_empty' ); ?>" value="1" type="checkbox" />
                 <label for="<?php echo $this->get_field_id( 'hide_empty' ); ?>"><?php _e( 'Hide Empty Locations', ATBDP_TEXTDOMAIN ); ?></label>
@@ -184,6 +207,8 @@ if (!class_exists('BD_Locations_Widget')) {
 
             $instance['title']          = ! empty( $new_instance['title'] ) ? strip_tags( $new_instance['title'] ) : '';
             $instance['display_as']       = isset( $new_instance['display_as'] ) ? sanitize_text_field( $new_instance['display_as'] ) : 'list';
+            $instance['order_by']       = isset( $new_instance['order_by'] ) ? sanitize_text_field( $new_instance['order_by'] ) : 'id';
+            $instance['order']       = isset( $new_instance['order'] ) ? sanitize_text_field( $new_instance['order'] ) : 'asc';
             $instance['parent']         = isset( $new_instance['parent'] ) ? (int) $new_instance['parent'] : 0;
             $instance['immediate_category'] = isset( $new_instance['immediate_category'] ) ? 1 : 0;
             $instance['hide_empty']     = isset( $new_instance['hide_empty'] ) ? 1 : 0;
@@ -193,7 +218,7 @@ if (!class_exists('BD_Locations_Widget')) {
 
         }
 
-        public function list_categories( $settings ) {
+        public function list_locations( $settings ) {
 
             if( $settings['immediate_category'] ) {
 
@@ -236,7 +261,7 @@ if (!class_exists('BD_Locations_Widget')) {
                         $html .= ' (' . $count . ')';
                     }
                     $html .= '</a>';
-                    $html .= $this->list_categories( $settings );
+                    $html .= $this->list_locations( $settings );
                     $html .= '</li>';
                 }
 
@@ -248,7 +273,7 @@ if (!class_exists('BD_Locations_Widget')) {
 
         }
 
-        public function dropdown_categories( $settings, $prefix = '' ) {
+        public function dropdown_locations( $settings, $prefix = '' ) {
 
             if( $settings['immediate_category'] ) {
 
@@ -289,7 +314,7 @@ if (!class_exists('BD_Locations_Widget')) {
                     if( ! empty( $settings['show_count'] ) ) {
                         $html .= ' (' . $count . ')';
                     }
-                    $html .= $this->dropdown_categories( $settings, $prefix . '&nbsp;&nbsp;&nbsp;' );
+                    $html .= $this->dropdown_locations( $settings, $prefix . '&nbsp;&nbsp;&nbsp;' );
                     $html .= '</option>';
                 }
 

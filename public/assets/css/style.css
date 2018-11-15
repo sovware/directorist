@@ -14,7 +14,7 @@
   color: #3a7dfd;
 }
 
-.atbd_bg-primary, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_price, .atbd_content_active #directorist.atbd_wrapper .atbd_listting_category a span {
+.atbd_bg-primary, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_price, .atbd_content_active #directorist.atbd_wrapper .atbd_listting_category a span, .atbd_content_active .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover, .atbd_content_active .widget.atbd_widget .directorist.atbdp-widget-tags ul li a:hover {
   background: #3a7dfd;
 }
 
@@ -546,6 +546,10 @@ h6, .h6 {
   margin-right: 7px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_related_listings .atbd_related_listing_title {
+  margin-bottom: 20px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper p {
   margin: 0;
   padding: 0;
@@ -704,6 +708,50 @@ h6, .h6 {
   border-radius: 50%;
   text-align: center;
   border: 1px solid #e3e6ef;
+}
+
+.atbd_content_active .widget.atbd_widget {
+  background: #ffffff;
+  border: 1px solid #e3e6ef;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_widget_title {
+  border-bottom: 1px solid #e3e6ef;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_widget_title h4 {
+  margin: 0 !important;
+  font-size: 18px;
+  padding: 15px 30px;
+  font-weight: 400 !important;
+}
+
+.atbd_content_active .widget.atbd_widget .directorist {
+  text-align: center;
+}
+
+.atbd_content_active .widget.atbd_widget .atbdp, .atbd_content_active .widget.atbd_widget .directorist {
+  padding: 20px 30px 15px;
+}
+
+.atbd_content_active .widget.atbd_widget .atbdp.atbdp-widget-tags ul li, .atbd_content_active .widget.atbd_widget .directorist.atbdp-widget-tags ul li {
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.atbd_content_active .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a, .atbd_content_active .widget.atbd_widget .directorist.atbdp-widget-tags ul li a {
+  border: 1px solid #e3e6ef;
+  color: #5d658c;
+  border-radius: 3px;
+  padding: 3px 10px;
+  display: inline-block;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.atbd_content_active .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover, .atbd_content_active .widget.atbd_widget .directorist.atbdp-widget-tags ul li a:hover {
+  color: #ffffff;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .pricing {

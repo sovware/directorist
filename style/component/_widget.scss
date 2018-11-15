@@ -1,0 +1,39 @@
+.atbd_content_active  .widget.atbd_widget{
+  background: $light;
+  border: 1px solid $border-color;
+  .atbd_widget_title{
+    border-bottom: 1px solid $border-color;
+    h4{
+      margin: 0!important;
+      font-size: 18px;
+      padding: 15px 30px;
+      font-weight: 400!important;
+    }
+  }
+  .directorist{
+    text-align: center;
+  }
+  .atbdp, .directorist{
+    padding: 20px 30px 15px;
+    &.atbdp-widget-tags{
+      ul li{
+        display: inline-block;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        a{
+          border: 1px solid $border-color;
+          color: #5d658c;
+          border-radius: 3px;
+          padding: 3px 10px;
+          display: inline-block;
+          font-size: 14px;
+          transition: 0.3s;
+          &:hover{
+            @extend .atbd_bg-primary;
+            color: $light;
+          }
+        }
+      }
+    }
+  }
+}

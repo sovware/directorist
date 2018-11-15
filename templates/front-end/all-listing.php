@@ -167,7 +167,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
             </div>
         </div>
 
-        <?php /* @todo: atbd listing list style */?>
+        <?php /* @todo: Shahadat -> atbd listing list style */?>
         <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
             <div class="row" data-uk-grid>
 

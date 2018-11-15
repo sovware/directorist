@@ -130,39 +130,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') || !$disable_s_widge
 
                                 <span class="fa fa-flag"></span><?php _e('Report', ATBDP_TEXTDOMAIN); ?>
                                 <!-- Modal (report abuse form) -->
-                                <div class="modal fade" id="atbdp-report-abuse-modal" tabindex="-1" role="dialog"
-                                     aria-labelledby="atbdp-report-abuse-modal-label">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <form id="atbdp-report-abuse-form" class="form-vertical" role="form">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal"><span
-                                                                aria-hidden="true">&times;</span></button>
-                                                    <h3 class="modal-title"
-                                                        id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', ATBDP_TEXTDOMAIN); ?></h3>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label for="atbdp-report-abuse-message"><?php _e('Your Complaint', ATBDP_TEXTDOMAIN); ?>
-                                                            <span class="atbdp-star">*</span></label>
-                                                        <textarea class="form-control" id="atbdp-report-abuse-message"
-                                                                  rows="3"
-                                                                  placeholder="<?php _e('Message', ATBDP_TEXTDOMAIN); ?>..."
-                                                                  required></textarea>
-                                                    </div>
-                                                    <div id="atbdp-report-abuse-g-recaptcha"></div>
-                                                    <div id="atbdp-report-abuse-message-display"></div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default"
-                                                            data-dismiss="modal"><?php _e('Close', ATBDP_TEXTDOMAIN); ?></button>
-                                                    <button type="submit"
-                                                            class="btn btn-primary"><?php _e('Submit', ATBDP_TEXTDOMAIN); ?></button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+
                             <?php } else { ?>
                                 <a href="javascript:void(0)"
                                    class="atbdp-require-login"><span class="fa fa-flag"></span><?php _e('Report', ATBDP_TEXTDOMAIN); ?></a>
@@ -170,6 +138,39 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') || !$disable_s_widge
                             <input type="hidden" id="atbdp-post-id" value="<?php echo get_the_ID(); ?>"/>
                             </div>
                         <?php } ?>
+                        <div class="modal fade" id="atbdp-report-abuse-modal" tabindex="-1" role="dialog"
+                             aria-labelledby="atbdp-report-abuse-modal-label" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <form id="atbdp-report-abuse-form" class="form-vertical" role="form">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span
+                                                        aria-hidden="true">&times;</span></button>
+                                            <h3 class="modal-title"
+                                                id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', ATBDP_TEXTDOMAIN); ?></h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="atbdp-report-abuse-message"><?php _e('Your Complaint', ATBDP_TEXTDOMAIN); ?>
+                                                    <span class="atbdp-star">*</span></label>
+                                                <textarea class="form-control" id="atbdp-report-abuse-message"
+                                                          rows="3"
+                                                          placeholder="<?php _e('Message', ATBDP_TEXTDOMAIN); ?>..."
+                                                          required></textarea>
+                                            </div>
+                                            <div id="atbdp-report-abuse-g-recaptcha"></div>
+                                            <div id="atbdp-report-abuse-message-display"></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal"><?php _e('Close', ATBDP_TEXTDOMAIN); ?></button>
+                                            <button type="submit"
+                                                    class="btn btn-primary"><?php _e('Submit', ATBDP_TEXTDOMAIN); ?></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

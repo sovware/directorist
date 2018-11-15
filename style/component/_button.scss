@@ -1,0 +1,18 @@
+#directorist.atbd_wrapper{
+  .btn{
+    font-size: 14px;
+    text-transform: capitalize;
+    border-color: #e3e6ef;
+  }
+  .atbd_upload_btn{
+    line-height: 48px;
+    display: inline-block;
+    padding: 0 20px;
+    span{
+      @extend .atbd_color-primary;
+      margin-right: 6px;
+    }
+    background: #f5f7fc;
+    color: #9299b8;
+  }
+}

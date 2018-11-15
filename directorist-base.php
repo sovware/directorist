@@ -1,15 +1,15 @@
 <?php
 /**
-Plugin Name: Directorist - Business Directory Plugin
-Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
-Description: Create a professional directory listing website like Yelp by a few clicks only. You can list place, any business etc.  with this plugin very easily.
-Version: 3.1.5
-Author: AazzTech
-Author URI: https://aazztech.com
-License: GPLv2 or later
-Text Domain: directorist
-Domain Path: /languages
-*/
+ * Plugin Name: Directorist - Business Directory Plugin
+ * Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
+ * Description: Create a professional directory listing website like Yelp by a few clicks only. You can list place, any business etc.  with this plugin very easily.
+ * Version: 3.1.5
+ * Author: AazzTech
+ * Author URI: https://aazztech.com
+ * License: GPLv2 or later
+ * Text Domain: directorist
+ * Domain Path: /languages
+ */
 /*
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -28,13 +28,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 Copyright 2018 AazzTech.com.
 */
 // prevent direct access to the file
-defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
+defined('ABSPATH') || die('No direct script access allowed!');
+
 /**
  * Main Directorist_Base Class.
  *
  * @since 1.0
  */
-final class Directorist_Base {
+final class Directorist_Base
+{
     /** Singleton *************************************************************/
 
     /**
@@ -180,32 +182,33 @@ final class Directorist_Base {
      * @uses Directorist_Base::setup_constants() Setup the constants needed.
      * @uses Directorist_Base::includes() Include the required files.
      * @uses Directorist_Base::load_textdomain() load the language files.
-     * @see ATBDP()
+     * @see  ATBDP()
      * @return object|Directorist_Base The one true Directorist_Base
      */
-    public static function instance() {
-        if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Directorist_Base ) ) {
+    public static function instance()
+    {
+        if (!isset(self::$instance) && !(self::$instance instanceof Directorist_Base)) {
             self::$instance = new Directorist_Base;
             self::$instance->setup_constants();
 
-            add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
-            add_action( 'widgets_init', array( self::$instance, 'register_widgets' ) );
+            add_action('plugins_loaded', array(self::$instance, 'load_textdomain'));
+            add_action('widgets_init', array(self::$instance, 'register_widgets'));
 
             self::$instance->includes();
-            self::$instance->custom_post    = new ATBDP_Custom_Post; // create custom post
-            self::$instance->taxonomy       = new ATBDP_Custom_Taxonomy;
-            self::$instance->enquirer       = new ATBDP_Enqueuer;
-            self::$instance->metabox        = new ATBDP_Metabox;
-            self::$instance->ajax_handler   = new ATBDP_Ajax_Handler;
-            self::$instance->helper         = new ATBDP_Helper;
-            self::$instance->listing        = new ATBDP_Listing;
-            self::$instance->user           = new ATBDP_User;
-            self::$instance->roles          = new ATBDP_Roles;
-            self::$instance->gateway        = new ATBDP_Gateway;
-            self::$instance->custom_field   = new ATBDP_Custom_Field;
-            self::$instance->order          = new ATBDP_Order;
-            self::$instance->shortcode      = new ATBDP_Shortcode;
-            self::$instance->email          = new ATBDP_Email;
+            self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
+            self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
+            self::$instance->enquirer = new ATBDP_Enqueuer;
+            self::$instance->metabox = new ATBDP_Metabox;
+            self::$instance->ajax_handler = new ATBDP_Ajax_Handler;
+            self::$instance->helper = new ATBDP_Helper;
+            self::$instance->listing = new ATBDP_Listing;
+            self::$instance->user = new ATBDP_User;
+            self::$instance->roles = new ATBDP_Roles;
+            self::$instance->gateway = new ATBDP_Gateway;
+            self::$instance->custom_field = new ATBDP_Custom_Field;
+            self::$instance->order = new ATBDP_Order;
+            self::$instance->shortcode = new ATBDP_Shortcode;
+            self::$instance->email = new ATBDP_Email;
 
 
             // new settings
@@ -215,7 +218,7 @@ final class Directorist_Base {
             /*initiate extensions link*/
             new ATBDP_Extensions();
             /*Initiate Review and Rating Features*/
-            self::$instance->review         = new ATBDP_Review_Rating;
+            self::$instance->review = new ATBDP_Review_Rating;
 
             //activate rewrite api
             new ATBDP_Rewrite;
@@ -232,17 +235,18 @@ final class Directorist_Base {
             // Attempt to create listing related custom pages with plugin's custom shortcode to give user best experience.
             // we can check the database if our custom pages have been installed correctly or not here first.
             // This way we can minimize the adding of our custom function to the WordPress hooks.
-            if (get_option('atbdp_pages_version') < 1){
+            if (get_option('atbdp_pages_version') < 1) {
                 add_action('wp_loaded', array(self::$instance, 'add_custom_directorist_pages'));
             }
             //fire up one time compatibility increasing function.
-            if (get_option('atbdp_meta_version') < 1){
+            if (get_option('atbdp_meta_version') < 1) {
                 add_action('init', array(self::$instance, 'add_custom_meta_keys_for_old_listings'));
             }
             // init offline gateway
             new ATBDP_Offline_Gateway;
             // Init Cron jobs to run some periodic tasks
             new ATBDP_Cron;
+            add_filter('body_class', array(self::$instance, 'atbdp_body_class'));
         }
 
         return self::$instance;
@@ -259,9 +263,10 @@ final class Directorist_Base {
      * @access public
      * @return void
      */
-    public function __clone() {
+    public function __clone()
+    {
         // Cloning instances of the class is forbidden.
-        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', ATBDP_TEXTDOMAIN ), '1.0' );
+        _doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', ATBDP_TEXTDOMAIN), '1.0');
     }
 
     /**
@@ -271,9 +276,10 @@ final class Directorist_Base {
      * @access public
      * @return void
      */
-    public function __wakeup() {
+    public function __wakeup()
+    {
         // Unserializing instances of the class is forbidden.
-        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', ATBDP_TEXTDOMAIN ), '1.0' );
+        _doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', ATBDP_TEXTDOMAIN), '1.0');
     }
 
     /**
@@ -285,17 +291,17 @@ final class Directorist_Base {
      */
     public function register_widgets()
     {
-        if (!is_registered_sidebar('right-sidebar-listing') ) {
-            register_sidebar( array(
-                'name'          => __( 'Listing Right Sidebar', ATBDP_TEXTDOMAIN ),
-                'id'            => 'right-sidebar-listing',
-                'description'   => __( 'Add widgets for the right sidebar on single listing page', ATBDP_TEXTDOMAIN ),
+        if (!is_registered_sidebar('right-sidebar-listing')) {
+            register_sidebar(array(
+                'name' => __('Listing Right Sidebar', ATBDP_TEXTDOMAIN),
+                'id' => 'right-sidebar-listing',
+                'description' => __('Add widgets for the right sidebar on single listing page', ATBDP_TEXTDOMAIN),
                 'before_widget' => '<div class="widget default">',
-                'after_widget'  => '</div>',
-                'before_title'  => '<div class="widget_title"><h4>',
-                'after_title'  => '</h4></div>',
+                'after_widget' => '</div>',
+                'before_title' => '<div class="widget_title"><h4>',
+                'after_title' => '</h4></div>',
 
-            ) );
+            ));
         }
 
         register_widget('BD_Popular_Listing_Widget');
@@ -313,9 +319,10 @@ final class Directorist_Base {
      * @since 1.0
      * @return void
      */
-    private function setup_constants() {
+    private function setup_constants()
+    {
         // test
-        require_once plugin_dir_path(__FILE__).'/config.php'; // loads constant from a file so that it can be available on all files.
+        require_once plugin_dir_path(__FILE__) . '/config.php'; // loads constant from a file so that it can be available on all files.
     }
 
     /**
@@ -325,7 +332,8 @@ final class Directorist_Base {
      * @since 1.0
      * @return void
      */
-    private function includes() {
+    private function includes()
+    {
         require_once ATBDP_LIB_DIR . 'vafpress/bootstrap.php'; // load option framework.
         require_once ATBDP_INC_DIR . 'helper-functions.php';
         require_once ATBDP_INC_DIR . 'login-register.php';
@@ -360,16 +368,17 @@ final class Directorist_Base {
      * @param bool $return_path Whether to return the path instead of including it
      * @return string|void
      */
-    public function load_template($name, $args = array(), $return_path = false ){
+    public function load_template($name, $args = array(), $return_path = false)
+    {
         global $post;
-        $path = ATBDP_TEMPLATES_DIR.$name.'.php';
+        $path = ATBDP_TEMPLATES_DIR . $name . '.php';
         if ($return_path) return $path;
-        include ($path);
+        include($path);
     }
 
     public static function prepare_plugin()
     {
-        include ATBDP_INC_DIR.'classes/class-installation.php';
+        include ATBDP_INC_DIR . 'classes/class-installation.php';
         ATBDP_Installation::install();
     }
 
@@ -383,39 +392,39 @@ final class Directorist_Base {
 
         $directorist_pages = array(
             'search_listing' => array(
-                'title'   => __( 'Search Home', ATBDP_TEXTDOMAIN ),
+                'title' => __('Search Home', ATBDP_TEXTDOMAIN),
                 'content' => '[search_listing]'
             ),
             'search_result_page' => array(
-                'title'   => __( 'Search Result', ATBDP_TEXTDOMAIN ),
+                'title' => __('Search Result', ATBDP_TEXTDOMAIN),
                 'content' => '[search_result]'
             ),
             'add_listing_page' => array(
-                'title'   => __( 'Add Listing', ATBDP_TEXTDOMAIN ),
+                'title' => __('Add Listing', ATBDP_TEXTDOMAIN),
                 'content' => '[add_listing]'
             ),
             'all_listing_page' => array(
-                'title'   => __( 'All Listings', ATBDP_TEXTDOMAIN ),
+                'title' => __('All Listings', ATBDP_TEXTDOMAIN),
                 'content' => '[all_listing]'
             ),
             'user_dashboard' => array(
-                'title'   => __( 'Dashboard', ATBDP_TEXTDOMAIN ),
+                'title' => __('Dashboard', ATBDP_TEXTDOMAIN),
                 'content' => '[user_dashboard]'
             ),
             'custom_registration' => array(
-                'title'   => __( 'Registration', ATBDP_TEXTDOMAIN ),
+                'title' => __('Registration', ATBDP_TEXTDOMAIN),
                 'content' => '[custom_registration]'
             ),
             'checkout_page' => array(
-                'title'   => __( 'Checkout', ATBDP_TEXTDOMAIN ),
+                'title' => __('Checkout', ATBDP_TEXTDOMAIN),
                 'content' => '[directorist_checkout]'
             ),
             'payment_receipt_page' => array(
-                'title'   => __( 'Payment Receipt', ATBDP_TEXTDOMAIN ),
+                'title' => __('Payment Receipt', ATBDP_TEXTDOMAIN),
                 'content' => '[directorist_payment_receipt]'
             ),
             'transaction_failure_page' => array(
-                'title'   => __( 'Transaction Failure', ATBDP_TEXTDOMAIN ),
+                'title' => __('Transaction Failure', ATBDP_TEXTDOMAIN),
                 'content' => '[transaction_failure]'
             ),
         );
@@ -425,19 +434,19 @@ final class Directorist_Base {
             // $op_name is the page option name in the database.
             // if we do not have the page id assigned in the settings with the given page option name, then create an page
             // and update the option.
-            if (empty($options[$op_name])){
+            if (empty($options[$op_name])) {
                 $id = wp_insert_post(
                     array(
-                        'post_title'     => $page_settings['title'],
-                        'post_content'   => $page_settings['content'],
-                        'post_status'    => 'publish',
-                        'post_type'      => 'page',
+                        'post_title' => $page_settings['title'],
+                        'post_content' => $page_settings['content'],
+                        'post_status' => 'publish',
+                        'post_type' => 'page',
                         'comment_status' => 'closed'
                     )
                 );
                 // if we have added the page successfully, lets add the page id to the options array to save the page settings in the database after the loop.
-                if($id) {
-                    $options[$op_name] = (int) $id;
+                if ($id) {
+                    $options[$op_name] = (int)$id;
 
                     /*TRYING TO SET THE DEFAULT PAGE TEMPLATE FOR THIS PAGE WHERE OUR SHORTCODE IS USED */
                     // get the template list of the theme and if it has any full width template then assign it.
@@ -448,7 +457,7 @@ final class Directorist_Base {
                     foreach ($page_templates as $slug => $name) {
                         // checkout page and payment receipt page looks better on non full-width template, so skip them.
                         if (in_array($op_name, array('checkout_page', 'payment_receipt_page'))) break;
-                        if (strpos($slug, $temp_type)){
+                        if (strpos($slug, $temp_type)) {
                             $custom_template = $slug;
                             break;
                         }
@@ -476,14 +485,14 @@ final class Directorist_Base {
      * If the count is more than one then it uses it, else the function will use the value from the settings page.
      * Count variable is handy if we want to show different number of popular listings on different pages. For example, on different widgets place
      */
-    public function show_popular_listing($count=0)
+    public function show_popular_listing($count = 0)
     {
 
         $enable_pop_listing = get_directorist_option('enable_pop_listing', 1);
-        if (1 != $enable_pop_listing ) return; // vail if popular listing is not enabled
+        if (1 != $enable_pop_listing) return; // vail if popular listing is not enabled
         $popular_listings = $this->get_popular_listings($count);
 
-        if ($popular_listings->have_posts()){ ?>
+        if ($popular_listings->have_posts()) { ?>
             <div class="categorized_listings">
                 <ul class="listings">
                     <?php foreach ($popular_listings->posts as $pop_post) {
@@ -496,31 +505,35 @@ final class Directorist_Base {
                         ?>
                         <li>
                             <div class="left_img">
-                                <?= (!empty($info['attachment_id'][0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($info['attachment_id'][0],  array(90,90))).'" alt="listing image">' : '' ?>
+                                <?= (!empty($info['attachment_id'][0])) ? '<img src="' . esc_url(wp_get_attachment_image_url($info['attachment_id'][0], array(90, 90))) . '" alt="listing image">' : '' ?>
                             </div>
                             <div class="right_content">
                                 <div class="cate_title">
-                                    <h4><a href="<?= esc_url(get_post_permalink($pop_post->ID)); ?>"><?= esc_html($pop_post->post_title); ?></a></h4>
+                                    <h4>
+                                        <a href="<?= esc_url(get_post_permalink($pop_post->ID)); ?>"><?= esc_html($pop_post->post_title); ?></a>
+                                    </h4>
                                 </div>
 
-                        <?php if (!empty($top_category)){ ?>
+                                <?php if (!empty($top_category)) { ?>
 
-                            <p class="directory_tag">
-                                <span class="fa <?= esc_attr(get_cat_icon(@$top_category->term_id)); ?>" aria-hidden="true"></span>
-                                    <span> <?php if (is_object($top_category)) { ?>
-                                            <a href="<?= ATBDP_Permalink::get_category_archive($top_category); ?>">
+                                    <p class="directory_tag">
+                                        <span class="fa <?= esc_attr(get_cat_icon(@$top_category->term_id)); ?>"
+                                              aria-hidden="true"></span>
+                                        <span> <?php if (is_object($top_category)) { ?>
+                                                <a href="<?= ATBDP_Permalink::get_category_archive($top_category); ?>">
                                                  <?= esc_html($top_category->name); ?>
                                             </a>
-                                        <?php } ?>
+                                            <?php } ?>
 
                                     </span>
-                            </p>
-                            <?php }
-                                    ATBDP()->show_static_rating($pop_post);
+                                    </p>
+                                <?php }
+                                ATBDP()->show_static_rating($pop_post);
                                 ?>
                             </div>
                         </li>
-                    <?php } // ends the loop ?>
+                    <?php } // ends the loop
+                    ?>
 
                 </ul>
             </div> <!--ends .categorized_listings-->
@@ -538,7 +551,7 @@ final class Directorist_Base {
      *                   For example, on different widgets place
      * @return object|WP_Query It returns the popular listings if found.
      */
-    private function get_popular_listings($count=0)
+    private function get_popular_listings($count = 0)
     {
         /*Popular post related stuff*/
         $p_count = get_directorist_option('pop_listing_num', 5);
@@ -553,21 +566,21 @@ final class Directorist_Base {
         $p_count = apply_filters('atbdp_popular_listing_number', $p_count);
 
         $args = array(
-            'post_type'  => ATBDP_POST_TYPE,
-            'meta_key'   => '_atbdp_post_views_count',
-            'orderby'    => 'meta_value_num',
-            'order'      => 'DESC',
-            'posts_per_page' => (int) $p_count,
+            'post_type' => ATBDP_POST_TYPE,
+            'meta_key' => '_atbdp_post_views_count',
+            'orderby' => 'meta_value_num',
+            'order' => 'DESC',
+            'posts_per_page' => (int)$p_count,
             'meta_query' => array(
                 array(
-                    'key'     => '_atbdp_post_views_count',
-                    'value'   => 0,
+                    'key' => '_atbdp_post_views_count',
+                    'value' => 0,
                     'compare' => '>',
                 ),
                 /*@todo; later sort by featured listings*/
             ),
         );
-        return new WP_Query( apply_filters('atbdp_popular_listing_args', $args) );
+        return new WP_Query(apply_filters('atbdp_popular_listing_args', $args));
 
     }
 
@@ -579,11 +592,11 @@ final class Directorist_Base {
     {
 
         $enable_rel_listing = get_directorist_option('enable_rel_listing', 1);
-        if (1 != $enable_rel_listing ) return; // vail if related listing is not enabled
+        if (1 != $enable_rel_listing) return; // vail if related listing is not enabled
         $related_listings = $this->get_related_listings($post);
 
 
-        if ($related_listings->have_posts()){
+        if ($related_listings->have_posts()) {
             ?>
             <!--Related Listings starts-->
             <div class="related_listings">
@@ -605,7 +618,7 @@ final class Directorist_Base {
                                 <article>
                                     <figure>
                                         <div class="post_img_wrapper">
-                                            <?= (!empty($info['attachment_id'][0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($info['attachment_id'][0],  array(432,400))).'" alt="listing image">' : '' ?>
+                                            <?= (!empty($info['attachment_id'][0])) ? '<img src="' . esc_url(wp_get_attachment_image_url($info['attachment_id'][0], array(432, 400))) . '" alt="listing image">' : '' ?>
                                         </div>
 
                                         <figcaption>
@@ -652,7 +665,7 @@ final class Directorist_Base {
 
     /**
      * It gets the related listings of the given listing/post
-     * @param object|WP_Post $post  The WP Post Object of whose related listing we would like to show
+     * @param object|WP_Post $post The WP Post Object of whose related listing we would like to show
      * @return object|WP_Query It returns the related listings if found.
      */
     private function get_related_listings($post)
@@ -666,12 +679,12 @@ final class Directorist_Base {
 
         if (!empty($atbd_cats)) {
             foreach ($atbd_cats as $atbd_cat) {
-                $atbd_cats_ids[]= $atbd_cat->term_id;
+                $atbd_cats_ids[] = $atbd_cat->term_id;
             }
         }
         if (!empty($atbd_tags)) {
             foreach ($atbd_tags as $atbd_tag) {
-                $atbd_tags_ids[]= $atbd_tag->term_id;
+                $atbd_tags_ids[] = $atbd_tag->term_id;
             }
         }
         $args = array(
@@ -680,36 +693,37 @@ final class Directorist_Base {
                 'relation' => 'OR',
                 array(
                     'taxonomy' => ATBDP_CATEGORY,
-                    'field'    => 'term_id',
-                    'terms'    => $atbd_cats_ids,
+                    'field' => 'term_id',
+                    'terms' => $atbd_cats_ids,
                 ),
                 array(
                     'taxonomy' => ATBDP_TAGS,
-                    'field'    => 'term_id',
-                    'terms'    => $atbd_tags_ids,
+                    'field' => 'term_id',
+                    'terms' => $atbd_tags_ids,
                 ),
             ),
-            'posts_per_page' => (int) $rel_listing_num ,
+            'posts_per_page' => (int)$rel_listing_num,
             'post__not_in' => array($post->ID),
         );
 
-        return new WP_Query( apply_filters('atbdp_related_listing_args', $args) );
+        return new WP_Query(apply_filters('atbdp_related_listing_args', $args));
 
     }
 
     public function show_review_after_tagliine()
     {
         $enable_review = get_directorist_option('enable_review', 1);
-        if (!$enable_review ) return; // vail if review is not enabled
+        if (!$enable_review) return; // vail if review is not enabled
         global $post;
-        $average =ATBDP()->review->get_average($post->ID);
-        $reviews_count =ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
+        $average = ATBDP()->review->get_average($post->ID);
+        $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
 
         ?>
         <span class="atbd_meta atbd_listing_rating">
             <?= $average /*ATBDP()->review->print_static_rating($average);*/ ?><i class="fa fa-star"></i>
         </span>
-        <?php /*todo: Shahadat -> I have deleted a chunk of code from here as it was unnecessary from the perspective of UI*/?>
+        <?php /*todo: Shahadat -> I have deleted a chunk of code from here as it was unnecessary from the perspective of UI*/
+        ?>
         <?php
     }
 
@@ -720,7 +734,7 @@ final class Directorist_Base {
     public function show_review($post)
     {
         $enable_review = get_directorist_option('enable_review', 1);
-        if (!$enable_review ) return; // vail if review is not enabled
+        if (!$enable_review) return; // vail if review is not enabled
         $enable_owner_review = get_directorist_option('enable_owner_review');
         $review_num = get_directorist_option('review_num', 5); // how many reviews to show?
         $reviews = ATBDP()->_get_reviews($post, $review_num);
@@ -729,47 +743,99 @@ final class Directorist_Base {
         ?>
 
         <!-- Review_area Section-->
-        <div class="review_area">
-            <?php
-            // check if the user is logged in and the current user is not the owner of this listing.
-            if (is_user_logged_in() ) {
-                global $wpdb;
-                // if the current user is NOT the owner of the listing print review form
-                // get the settings of the admin whether to display review form even if the user is the owner of the listing.
-                if (get_current_user_id() != $post->post_author || $enable_owner_review){
+        <?php /*@todo shahadat -> restructured the review area*/
+        ?>
+        <div class="atbd_content_module atbd_review_module">
+            <div class="atbd_content_module__tittle_area">
+                <div class="atbd_area_title">
+                    <h4><span class="fa fa-star atbd_area_icon"></span><?php _e('Reviews', ATBDP_TEXTDOMAIN); ?></h4>
+                </div>
+                <a href="#" class="btn btn-primary btn-sm">Add a review</a>
+            </div>
 
-                    // if user has a review then fetch it.
-                    $cur_user_review = ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), get_the_ID());
-                    ?>
-                    <div class="review_form">
-                        <div class="directory_are_title">
-                            <h4><span class="fa fa-star" aria-hidden="true"></span><?= !empty($cur_user_review)? __('Update Review', ATBDP_TEXTDOMAIN) : __('Leave a Review', ATBDP_TEXTDOMAIN);?></h4>
-                        </div>
-
-                        <form action="" id="atbdp_review_form" method="post">
-                            <?php wp_nonce_field( 'atbdp_review_action_form', 'atbdp_review_nonce_form' ); ?>
-                            <input type="hidden" name="post_id" value="<?php the_ID(); ?>">
-                            <!--<input type="email" name="email" class="directory_field" placeholder="Your email" required>-->
-                            <input type="hidden" name="name" class="btn btn-default" value="<?= wp_get_current_user()->display_name; ?>" placeholder="<?php esc_attr_e('Your name', ATBDP_TEXTDOMAIN); ?>" id="reviewer_name">
-
-                            <div class="rating clearfix"> <!--It should be displayed on the left side -->
-                                <?php
-                                // color the stars if user has rating
-                                if (!empty($cur_user_review)){
-
-                                    ?>
-
-                                    <div class="pull-left">
-                                        <p class="rating_label"><?php _e('Current Rating:', ATBDP_TEXTDOMAIN); ?></p>
-                                        <div class="br-theme-css-stars-static">
-                                            <?= ATBDP()->review->print_static_rating($cur_user_review->rating); ?>
+            <div class="atbdb_content_module_contents">
+                <div id="client_review_list">
+                    <?php if (!empty($reviews)) {
+                        ?>
+                        <?php foreach ($reviews as $review) { ?>
+                            <div class="atbd_single_review" id="single_review_<?= $review->id; ?>">
+                                <div class="atbd_review_top">
+                                    <div class="atbd_avatar_wrapper">
+                                        <?php /* @todo -> Shahadat, Please show user avatar or if usr avatar isn't available show this static image */ ?>
+                                        <div class="atbd_review_avatar"><img
+                                                    src="<?php echo ATBDP_PUBLIC_ASSETS . 'images/revav.png' ?>"
+                                                    alt="Avatar Image"></div>
+                                        <div class="atbd_name_time">
+                                            <p><?= esc_html($review->name); ?></p>
+                                            <span class="review_time"><?= date("d/m/Y", strtotime($review->date_created)) ?></span>
                                         </div>
                                     </div>
+                                    <div class="atbd_rated_stars">
+                                        <?= ATBDP()->review->print_static_rating($review->rating); ?>
+                                    </div>
+                                </div>
+                                <div class="review_content">
+                                    <p><?= esc_html($review->content); ?></p>
+                                    <a href="#"><span class="fa fa-mail-reply-all"></span>Reply</a>
+                                </div>
+                            </div>
+                        <?php }
+                    } else { ?>
+                        <p class="notice" id="review_notice">
+                            <span class="fa fa-info" aria-hidden="true"></span>
+                            <?php _e('No reviews found. Be the first to post a review !', ATBDP_TEXTDOMAIN);
+                            ?>
+                        </p>
+                    <?php } ?>
+                </div>
+            </div>
+        </div><!-- end .atbd_review_module -->
+
+
+        <?php
+        // check if the user is logged in and the current user is not the owner of this listing.
+        if (is_user_logged_in()) {
+            global $wpdb;
+            // if the current user is NOT the owner of the listing print review form
+            // get the settings of the admin whether to display review form even if the user is the owner of the listing.
+            if (get_current_user_id() != $post->post_author || $enable_owner_review) {
+
+                // if user has a review then fetch it.
+                $cur_user_review = ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), get_the_ID());
+                ?>
+                <div class="atbd_content_module">
+                    <div class="atbd_content_module__tittle_area">
+                        <div class="atbd_area_title">
+                            <h4><span class="fa fa-star"
+                                      aria-hidden="true"></span><?= !empty($cur_user_review) ? __('Update Review', ATBDP_TEXTDOMAIN) : __('Leave a Review', ATBDP_TEXTDOMAIN); ?>
+                            </h4>
+                        </div>
+                    </div>
+
+                    <div class="atbdb_content_module_contents atbd_give_review_area">
+                        <form action="" id="atbdp_review_form" method="post">
+                            <?php wp_nonce_field('atbdp_review_action_form', 'atbdp_review_nonce_form'); ?>
+                            <input type="hidden" name="post_id" value="<?php the_ID(); ?>">
+                            <!--<input type="email" name="email" class="directory_field" placeholder="Your email" required>-->
+                            <input type="hidden" name="name" class="btn btn-default"
+                                   value="<?= wp_get_current_user()->display_name; ?>"
+                                   placeholder="<?php esc_attr_e('Your name', ATBDP_TEXTDOMAIN); ?>" id="reviewer_name">
+
+                            <div class="atbd_review_rating_area"> <!--It should be displayed on the left side -->
+                                <?php
+                                // color the stars if user has rating
+                                if (!empty($cur_user_review)) { ?>
+                                   <div class="atbd_review_current_rating">
+                                       <p class="atbd_rating_label"><?php _e('Current Rating:', ATBDP_TEXTDOMAIN); ?></p>
+                                       <div class="atbd_rated_stars">
+                                           <?= ATBDP()->review->print_static_rating($cur_user_review->rating); ?>
+                                       </div>
+                                   </div>
                                 <?php } ?>
 
-                                <div class="pull-right">
-                                    <p class="rating_label"><?= !empty($cur_user_review)? __('Give New Rating:', ATBDP_TEXTDOMAIN) : __('Your Rating:', ATBDP_TEXTDOMAIN);?></p>
-                                    <div class="br-theme-css-stars">
+                                <div class="atbd_review_update_rating">
+                                    <p class="atbd_rating_label"><?= !empty($cur_user_review) ? __('Update Rating:', ATBDP_TEXTDOMAIN) : __('Your Rating:', ATBDP_TEXTDOMAIN); ?></p>
+                                    <div class="atbd_rating_stars">
                                         <select class="stars" name="rating" id="review_rating">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
@@ -781,81 +847,65 @@ final class Directorist_Base {
                                 </div>
                             </div>
                             <div class="form-group">
-                                <textarea name="content" id="review_content" class="form-control" cols="20" rows="5" placeholder="<?= !empty($cur_user_review)? __('Update your review.....', ATBDP_TEXTDOMAIN): __('Write your review.....', ATBDP_TEXTDOMAIN);?>"><?= !empty($cur_user_review)? $cur_user_review->content:'';?></textarea>
+                                <textarea name="content" id="review_content" class="form-control" cols="20" rows="5"
+                                          placeholder="<?= !empty($cur_user_review) ? __('Update your review.....', ATBDP_TEXTDOMAIN) : __('Write your review.....', ATBDP_TEXTDOMAIN); ?>"><?= !empty($cur_user_review) ? $cur_user_review->content : ''; ?></textarea>
                             </div>
 
+                            <?php /* @todo  Shahadat -> Added new upload button*/ ?>
+                            <div class="form-group">
+                                <div id="atbd_up_preview"></div>
+                                <div class="atbd_upload_btn_wrap">
+                                    <label for="atbd_review_attachment">
+                                        <input type="file" id="atbd_review_attachment" hidden multiple>
+                                        <span class="btn atbd_upload_btn"><span class="fa fa-upload"></span>Upload Photo</span>
+                                    </label>
+                                </div>
+                            </div>
 
                             <!--If current user has a review then show him update and delete button-->
-                            <?php if (!empty($cur_user_review)){ ?>
-                                <button class="<?= atbdp_directorist_button_classes(); ?>" type="submit" id="atbdp_review_form_submit"><?php _e('Update', ATBDP_TEXTDOMAIN); ?></button> <!-- ends update  button -->
-                                <button class="directory_btn btn btn-danger" type="button" id="atbdp_review_remove" data-review_id="<?= $cur_user_review->id; ?>"><?php _e('Remove', ATBDP_TEXTDOMAIN); ?></button> <!-- ends delete button -->
-                            <?php }else{ ?>
-                                <button class="directory_btn btn btn-primary" type="submit" id="atbdp_review_form_submit"><?php _e('Submit Review', ATBDP_TEXTDOMAIN); ?></button> <!-- submit button -->
+                            <?php if (!empty($cur_user_review)) { ?>
+                                <button class="<?= atbdp_directorist_button_classes(); ?>" type="submit"
+                                        id="atbdp_review_form_submit"><?php _e('Update', ATBDP_TEXTDOMAIN); ?></button> <!-- ends update  button -->
+                                <button class="btn btn-danger" type="button" id="atbdp_review_remove"
+                                        data-review_id="<?= $cur_user_review->id; ?>"><?php _e('Remove', ATBDP_TEXTDOMAIN); ?></button> <!-- ends delete button -->
+                            <?php } else { ?>
+                                <button class="btn btn-primary" type="submit"
+                                        id="atbdp_review_form_submit"><?php _e('Submit Review', ATBDP_TEXTDOMAIN); ?></button> <!-- submit button -->
                             <?php } ?>
-
-
                         </form>
-                    </div> <!--ends .review_form-->
-                <?php };
-                 }else{ ?>
-                <p class="notice">
-                    <span class="fa fa-info" aria-hidden="true"></span>
-                    <?php
-                    // get the custom registration page id from the db and create a permalink
-                    $reg_link_custom = ATBDP_Permalink::get_registration_page_link();
-                    //if we have custom registration page, use it, else use the default registration url.
-                    $reg_link = !empty($reg_link_custom) ? $reg_link_custom : wp_registration_url();
-
-                    $login_url = '<a href="'. esc_url(wp_login_url()) .'">'. __('Login', ATBDP_TEXTDOMAIN). '</a>';
-                    $register_url = '<a href="'.esc_url($reg_link).'">'. __('Register', ATBDP_TEXTDOMAIN). '</a>';
-
-                    printf(__('You need to %s or %s to submit a review', ATBDP_TEXTDOMAIN), $login_url, $register_url );
-                    ?>
-                </p>
-
-            <?php } ?>
+                    </div>
+                </div><!-- end .atbd_custom_fields_contents -->
 
 
+                <div class="review_form">
+                    <div class="directory_are_title">
+
+                    </div>
 
 
-            <div class="client_reviews" id="client_reviews">
-                <div class="atbdp_reviews_title">
-                    <p><?php _e('Reviews', ATBDP_TEXTDOMAIN); ?></p>
-                </div>
-                <div id="client_review_list">
-                    <?php if (!empty($reviews)) {
-                        ?>
-                        <?php foreach ($reviews as $review) { ?>
-                            <div class="single_review" id="single_review_<?= $review->id; ?>">
-                                <div class="review_top">
-                                    <div class="reviewer"><i class="fa fa-user" aria-hidden="true"></i><p><?= esc_html($review->name); ?></p></div>
-                                    <span class="review_time"><?= date("d/m/Y", strtotime($review->date_created)) ?></span>
-                                    <div class="br-theme-css-stars-static">
-                                        <?= ATBDP()->review->print_static_rating($review->rating); ?>
-                                    </div>
-                                </div>
-                                <div class="review_content">
-                                    <p><?= esc_html($review->content); ?></p>
-                                </div>
-                            </div>
+                </div> <!--ends .review_form-->
+            <?php };
+        } else { ?>
+            <p class="notice">
+                <span class="fa fa-info" aria-hidden="true"></span>
+                <?php
+                // get the custom registration page id from the db and create a permalink
+                $reg_link_custom = ATBDP_Permalink::get_registration_page_link();
+                //if we have custom registration page, use it, else use the default registration url.
+                $reg_link = !empty($reg_link_custom) ? $reg_link_custom : wp_registration_url();
 
-                        <?php }
-                    } else { ?>
-                        <p class="notice" id="review_notice">
-                            <span class="fa fa-info" aria-hidden="true"></span>
-                            <?php _e('No reviews found. Be the first to post a review !', ATBDP_TEXTDOMAIN);
-                            ?>
-                        </p>
-                    <?php } ?>
-                </div>
+                $login_url = '<a href="' . esc_url(wp_login_url()) . '">' . __('Login', ATBDP_TEXTDOMAIN) . '</a>';
+                $register_url = '<a href="' . esc_url($reg_link) . '">' . __('Register', ATBDP_TEXTDOMAIN) . '</a>';
 
-            </div> <!--ends .client_reviews-->
-        </div> <!--end .review_area-->
+                printf(__('You need to %s or %s to submit a review', ATBDP_TEXTDOMAIN), $login_url, $register_url);
+                ?>
+            </p>
+        <?php } ?>
         <?php
 
         // if the count of review is more than the number of showing reviews then show the more review button, eg. here we will show the read more button  if the number of the review in the database is more than $review_num=5 default
-        if (!empty($reviews_count) && $reviews_count > $review_num){
-            echo "<button class='directory_btn' type='button' id='load_more_review' data-id='{$post->ID}''>".__('View More Review', ATBDP_TEXTDOMAIN)."</button>";
+        if (!empty($reviews_count) && $reviews_count > $review_num) {
+            echo "<button class='directory_btn' type='button' id='load_more_review' data-id='{$post->ID}''>" . __('View More Review', ATBDP_TEXTDOMAIN) . "</button>";
         }
 
     }
@@ -863,14 +913,14 @@ final class Directorist_Base {
 
     /**
      * It gets the reviews of the given listing/post
-     * @param object|WP_Post $post  The WP Post Object of whose review we would like to show
-     * @param int $review_number  The number of reviews to return, Default 5
+     * @param object|WP_Post $post The WP Post Object of whose review we would like to show
+     * @param int $review_number The number of reviews to return, Default 5
      * @return object|WP_Query It returns the reviews if found.
      */
-    private function _get_reviews($post, $review_number=5)
+    private function _get_reviews($post, $review_number = 5)
     {
 
-        return ATBDP()->review->db->get_reviews_by('post_id', $post->ID, 0,  $review_number); // get the amount of reviews set by $review_number
+        return ATBDP()->review->db->get_reviews_by('post_id', $post->ID, 0, $review_number); // get the amount of reviews set by $review_number
     }
 
 
@@ -881,7 +931,7 @@ final class Directorist_Base {
     public function show_static_rating($post)
     {
         $enable_review = get_directorist_option('enable_review', 1);
-        if (!$enable_review ) return; // vail if review is not enabled
+        if (!$enable_review) return; // vail if review is not enabled
         $average = ATBDP()->review->get_average($post->ID);
         ?>
         <div class="br-theme-css-stars-static">
@@ -897,29 +947,29 @@ final class Directorist_Base {
         // loop through then and find which one does not contain a meta key
         // if they return false then add new meta keys to them
         $args = array(
-            'post_type'=> ATBDP_POST_TYPE,
-            'post_status'=> 'any',
+            'post_type' => ATBDP_POST_TYPE,
+            'post_status' => 'any',
             'posts_per_page' => -1,
-            'meta_query'     => array(
-                'relation'    => 'OR',
+            'meta_query' => array(
+                'relation' => 'OR',
                 array(
-                    'key'	  => '_featured',
+                    'key' => '_featured',
                     'compare' => 'NOT EXISTS'
                 ),
                 array(
-                    'key'	  => '_expiry_date',
+                    'key' => '_expiry_date',
                     'compare' => 'NOT EXISTS'
                 ),
                 array(
-                    'key'	  => '_never_expire',
+                    'key' => '_never_expire',
                     'compare' => 'NOT EXISTS',
                 ),
                 array(
-                    'key'	  => '_listing_status',
+                    'key' => '_listing_status',
                     'compare' => 'NOT EXISTS'
                 ),
                 array(
-                    'key'	  => '_price',
+                    'key' => '_price',
                     'compare' => 'NOT EXISTS',
                 ),
             )
@@ -934,11 +984,21 @@ final class Directorist_Base {
             $ls = get_post_meta($l->ID, '_listing_status', true);
             $pr = get_post_meta($l->ID, '_price', true);
             $exp_d = calc_listing_expiry_date();
-            if (empty($ft)) { update_post_meta($l->ID, '_featured', 0); }
-            if (empty($ep)) { update_post_meta($l->ID, '_expiry_date', $exp_d); }
-            if (empty($np)) { update_post_meta($l->ID, '_never_expire', 0); }
-            if (empty($ls)) { update_post_meta($l->ID, '_listing_status', 'post_status'); }
-            if (empty($pr)) { update_post_meta($l->ID, '_price', 0); }
+            if (empty($ft)) {
+                update_post_meta($l->ID, '_featured', 0);
+            }
+            if (empty($ep)) {
+                update_post_meta($l->ID, '_expiry_date', $exp_d);
+            }
+            if (empty($np)) {
+                update_post_meta($l->ID, '_never_expire', 0);
+            }
+            if (empty($ls)) {
+                update_post_meta($l->ID, '_listing_status', 'post_status');
+            }
+            if (empty($pr)) {
+                update_post_meta($l->ID, '_price', 0);
+            }
         }
         // update db version to avoid duplication
         update_option('atbdp_meta_version', 1);
@@ -948,29 +1008,30 @@ final class Directorist_Base {
     /**
      * Parse the video URL and determine it's valid embeddable URL for usage.
      */
-    function atbdp_parse_videos( $url ) {
+    function atbdp_parse_videos($url)
+    {
 
         $embeddable_url = '';
 
         // Check for YouTube
-        $is_youtube = preg_match( '/youtu\.be/i', $url ) || preg_match( '/youtube\.com\/watch/i', $url );
+        $is_youtube = preg_match('/youtu\.be/i', $url) || preg_match('/youtube\.com\/watch/i', $url);
 
-        if( $is_youtube ) {
+        if ($is_youtube) {
             $pattern = '/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/';
-            preg_match( $pattern, $url, $matches );
-            if( count( $matches ) && strlen( $matches[7] ) == 11 ) {
-                $embeddable_url = 'https://www.youtube.com/embed/'.$matches[7];
+            preg_match($pattern, $url, $matches);
+            if (count($matches) && strlen($matches[7]) == 11) {
+                $embeddable_url = 'https://www.youtube.com/embed/' . $matches[7];
             }
         }
 
         // Check for Vimeo
-        $is_vimeo = preg_match( '/vimeo\.com/i', $url );
+        $is_vimeo = preg_match('/vimeo\.com/i', $url);
 
-        if( $is_vimeo ) {
+        if ($is_vimeo) {
             $pattern = '/\/\/(www\.)?vimeo.com\/(\d+)($|\/)/';
-            preg_match( $pattern, $url, $matches );
-            if( count( $matches ) ) {
-                $embeddable_url = 'https://player.vimeo.com/video/'.$matches[2];
+            preg_match($pattern, $url, $matches);
+            if (count($matches)) {
+                $embeddable_url = 'https://player.vimeo.com/video/' . $matches[2];
             }
         }
 
@@ -979,19 +1040,16 @@ final class Directorist_Base {
 
     }
 
+    /*@todo: Shahadat -> for adding bodyclass*/
+    public function atbdp_body_class($c_classes)
+    {
+        $c_classes[] = 'atbd_content_active';//class name goes here
+        return $c_classes;
+
+    }
 
 
 } // ends Directorist_Base
-
-
-
-
-
-
-
-
-
-
 
 
 /**
@@ -1008,7 +1066,8 @@ final class Directorist_Base {
  * @since 1.0
  * @return object|Directorist_Base The one true Directorist_Base Instance.
  */
-function ATBDP() {
+function ATBDP()
+{
     return Directorist_Base::instance();
 }
 

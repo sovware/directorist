@@ -1,2 +1,5 @@
 @import "config.bs";
-@import "scss/grid";
+#directorist{
+  @import "scss/grid";
+  @import "scss/buttons";
+}

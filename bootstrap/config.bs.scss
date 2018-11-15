@@ -25,11 +25,20 @@ $badge-open: #32cc6f;
 $badge-feature: #fa8b0c;
 $badge-popular: #f51957;
 $border-color: #e3e6ef;
+$rating-color: #fa8b0c;
 
 // link
 $link-hover-decoration: none;
 $link-color: $text-color;
 $link-hover-color: $primary;
+
+$box-shadow-sm:               0 5px .8px rgba(#a7b2c7, .1);
+$box-shadow:                  0 5px 20px rgba(#a7b2c7, .30);
+$box-shadow-lg:               0 1rem 3rem rgba($black, .175);
+
+
+// Button
+$btn-line-height:       27px;
 $other-colors: (
         'badge-feature': $badge-feature,
         'badge-popular': $badge-popular

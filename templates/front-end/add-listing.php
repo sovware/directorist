@@ -51,8 +51,85 @@ $disable_contact_info = get_directorist_option('disable_contact_info');
 $listing_terms_condition_text = get_directorist_option('listing_terms_condition_text');
 ?>
 
-<div class="directorist directory_wrapper single_area">
+<div id="directorist" class="directorist atbd_wrapper single_area">
     <div class="<?php echo is_directoria_active() ? 'container': ' container-fluid'; ?>">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+
+                <div class="pricing pricing--1 shadow-lg-2">
+                    <div class="pricing__title">
+                        <h4>Starter</h4>
+                    </div>
+
+                    <div class="pricing__price rounded">
+                        <p><sup>$</sup>00<small>/month</small></p>
+                    </div>
+
+                    <div class="pricing__features">
+                        <ul>
+                            <li><span class="fa fa-check"></span> Limitless Concepts</li>
+                            <li><span class="fa fa-check"></span> Annual Reports</li>
+                            <li><span class="fa fa-check"></span> Free Support</li>
+                            <li><span class="fa fa-times"></span> Expert Reviews</li>
+                            <li><span class="fa fa-times"></span> Community Access</li>
+                        </ul>
+
+                        <a href="#" class="btn btn-block btn-primary">Try It Free</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-md-6">
+
+                <div class="pricing pricing--1 atbd_pricing_special shadow-lg-2">
+                    <div class="pricing__title">
+                        <h4>professional</h4>
+                    </div>
+
+                    <div class="pricing__price rounded">
+                        <p><sup>$</sup>35<small>/month</small></p>
+                    </div>
+
+                    <div class="pricing__features">
+                        <ul>
+                            <li><span class="fa fa-check"></span> Limitless Concepts</li>
+                            <li><span class="fa fa-check"></span> Annual Reports</li>
+                            <li><span class="fa fa-check"></span> Free Support</li>
+                            <li><span class="fa fa-check"></span> Expert Reviews</li>
+                            <li><span class="fa fa-times"></span> Community Access</li>
+                        </ul>
+
+                        <a href="#" class="btn btn-block btn-primary">Try It Now</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-md-6">
+
+                <div class="pricing pricing--1 shadow-lg-2">
+                    <div class="pricing__title">
+                        <h4>enterprise</h4>
+                    </div>
+
+                    <div class="pricing__price rounded">
+                        <p><sup>$</sup>69<small>/month</small></p>
+                    </div>
+
+                    <div class="pricing__features">
+                        <ul>
+                            <li><span class="fa fa-check"></span> Limitless Concepts</li>
+                            <li><span class="fa fa-check"></span> Annual Reports</li>
+                            <li><span class="fa fa-check"></span> Free Support</li>
+                            <li><span class="fa fa-check"></span> Expert Reviews</li>
+                            <li><span class="fa fa-check"></span> Community Access</li>
+                        </ul>
+
+                        <a href="#" class="btn btn-block btn-primary">Try It Now</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
         <div class="add_listing_title">
             <h2><?= !empty($p_id) ? __('Update Listing', ATBDP_TEXTDOMAIN) : __('Add Listing', ATBDP_TEXTDOMAIN); ?></h2>
         </div>

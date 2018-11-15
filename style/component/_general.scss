@@ -1,4 +1,7 @@
 /* Common styles across whole plugin */
+body.atbd_content_active{
+  line-height: 24px;
+}
 .atbd_content_active #directorist.atbd_wrapper h1, .atbd_content_active #directorist.atbd_wrapper h2, .atbd_content_active #directorist.atbd_wrapper h3, .atbd_content_active #directorist.atbd_wrapper h4, .atbd_content_active #directorist.atbd_wrapper h5, .atbd_content_active #directorist.atbd_wrapper h6,
 .atbd_content_active #directorist.atbd_wrapper .h1, .atbd_content_active #directorist.atbd_wrapper .h2, .atbd_content_active #directorist.atbd_wrapper .h3, .atbd_content_active #directorist.atbd_wrapper .h4, .atbd_content_active #directorist.atbd_wrapper .h5, .atbd_content_active #directorist.atbd_wrapper .h6 {
   margin-bottom: $headings-margin-bottom;
@@ -19,6 +22,8 @@
     }
   }
 }
+
+
 
 h1, .h1 { font-size: $h1-font-size; }
 h2, .h2 { font-size: $h2-font-size; }
@@ -42,7 +47,55 @@ h6, .h6 { font-size: $h6-font-size; }
     padding: 0;
   }
 }
-
+.shadow-lg-2 {
+  -webkit-box-shadow: 0 5px 30px rgba(105, 106, 119, 0.1) !important;
+  box-shadow: 0 5px 30px rgba(105, 106, 119, 0.1) !important;
+}
 .border-color{
   border-color: $border-color;
+}
+#directorist.atbd_wrapper{
+  .atbd_rated_stars {
+    ul li {
+      display: inline-block;
+      span {
+        color: #d4d3f3;
+        &:before {
+          content: "\f005";
+          font-size: 14px;
+          font-family: 'Fontawesome', Sans-serif;
+        }
+        &.rate_active {
+          @extend .atbd_rating_color;
+        }
+      }
+    }
+  }
+
+  .atbd_rating_stars{
+    .br-widget{
+      .br-current-rating{
+        display: inline-block;
+        margin-left: 20px;
+      }
+      a{
+        &:before{
+          content: "\f005";
+          font-size: 14px;
+          font-family: 'Fontawesome', Sans-serif;
+          color: #d4d3f3;
+          &.br-selected , &.br-active{
+            @extend .atbd_rating_color;
+          }
+        }
+      }
+    }
+  }
+
+  .atbd_upload_btn_wrap label{
+    display: inline-block;
+  }
+}
+.atbd_rating_color{
+  color: #fa8b0c;
 }

@@ -1,8 +1,12 @@
 @import "../bootstrap/config.bs";
 @import "reboot";
+
 //mixins
 @import "mixins/colors";
 //components
 @import "component/general";
+@import "component/listing-details";
 @import "component/listing";
 @import "component/widget";
+@import "component/pricing";
+@import "component/button";

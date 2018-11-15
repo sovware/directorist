@@ -37,7 +37,7 @@ class ATBDP_Shortcode {
     public function my_body_class( $c ) {
 
         global $post;
-
+        $shortcodes = array('');
         if( isset($post->post_content) && has_shortcode( $post->post_content, 'all_listing' ) ) {
             $c[] = 'atbd_content_active';
         }

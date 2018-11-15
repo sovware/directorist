@@ -299,7 +299,7 @@ class ATBDP_Settings_Manager {
         $tmpl = __("
 Dear ==NAME==,
 
-This email is to notify you that your listing '==LISTING_TITLE==' has been received and it is under review now. 
+This email is to notify you that your listing '==LISTING_TITLE==' has been received and it is under review now.
 It may take up to 24 hours to complete the review.
 
 Thanks,
@@ -701,7 +701,7 @@ The Administrator of ==SITE_NAME==
 Dear ==NAME==,
 
 Thank you very much for your order.
-This email is to notify you that your order (#==ORDER_ID==) has been received. 
+This email is to notify you that your order (#==ORDER_ID==) has been received.
 
 %s
 
@@ -752,7 +752,7 @@ The Administrator of ==SITE_NAME==
         $tmpl = __("
 Dear ==NAME==,
 
-Congratulation! This email is to notify you that your order #==ORDER_ID== has been completed. 
+Congratulation! This email is to notify you that your order #==ORDER_ID== has been completed.
 
 You can check your order details by clicking the link below.
 Order Details Page: ==ORDER_RECEIPT_URL==
@@ -1039,7 +1039,7 @@ The Administrator of ==SITE_NAME==
 
     /**
      * Get all the pages in an array where each page is an array of key:value:id and key:label:name
-     * 
+     *
      * Example : array(
      *                  array('value'=> 1, 'label'=> 'page_name'),
      *                  array('value'=> 50, 'label'=> 'page_name'),

@@ -51,17 +51,17 @@ class ATBDP_Custom_Field {
         if (!empty($objects)) {
             foreach ($objects as $object) {
                 $result = $wpdb->get_results("
-					SELECT count(*) as cnt, max(menu_order) as max, min(menu_order) as min 
-					FROM $wpdb->posts 
+					SELECT count(*) as cnt, max(menu_order) as max, min(menu_order) as min
+					FROM $wpdb->posts
 					WHERE post_type = '" . $object . "' AND post_status IN ('publish', 'pending', 'draft', 'private', 'future')
 				");
                 if ($result[0]->cnt == 0 || $result[0]->cnt == $result[0]->max)
                     continue;
 
                 $results = $wpdb->get_results("
-					SELECT ID 
-					FROM $wpdb->posts 
-					WHERE post_type = '" . $object . "' AND post_status IN ('publish', 'pending', 'draft', 'private', 'future') 
+					SELECT ID
+					FROM $wpdb->posts
+					WHERE post_type = '" . $object . "' AND post_status IN ('publish', 'pending', 'draft', 'private', 'future')
 					ORDER BY menu_order ASC
 				");
                 foreach ($results as $key => $result) {

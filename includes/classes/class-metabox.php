@@ -90,7 +90,7 @@ class ATBDP_Metabox {
      * @param WP_Post $post
      */
     public function listing_info( $post ) {
-       
+
         //data needed for the custom field
         $post_meta = get_post_meta( $post->ID );
         $category = wp_get_object_terms( $post->ID, 'at_biz_dir-category', array( 'fields' => 'ids' ) );

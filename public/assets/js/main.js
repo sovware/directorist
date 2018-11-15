@@ -12,6 +12,39 @@
         theme: 'fontawesome-stars'
     });
 
+    function handleFiles(files) {
+        var preview = document.getElementById('atbd_up_preview');
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+
+            if (!file.type.startsWith('image/')){ continue }
+
+            var img = document.createElement("img");
+                img.classList.add("atbd_review_thumb");
+
+            var imgWrap = document.createElement('div');
+                imgWrap.classList.add('atbd_up_prev');
+
+            preview.appendChild(imgWrap); // Assuming that "preview" is the div output where the content will be displayed.
+            imgWrap.appendChild(img);
+            $(imgWrap).append('<span class="rmrf">x</span>');
+
+
+            var reader = new FileReader();
+            reader.onload = (
+                function(aImg) {
+                    return function(e) { aImg.src = e.target.result; };
+                }
+            )(img);
+            reader.readAsDataURL(file);
+
+        }
+    }
+
+    $('#atbd_review_attachment').on('change', function (e) {
+        handleFiles(this.files);
+        console.log(this.files);
+    });
 
     /* Add review to the database using ajax*/
     var submit_count = 1;
@@ -41,16 +74,31 @@
                 d = new Date(); // parse mysql date string to js date object
                 d = d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear(); // build the date string, month is 0 based so add 1 to that to get real month.
 
-                output += '<div class="single_review"  id="single_review_'+response.data.id+'">' +
-                    '<div class="review_top">' +
-                    '<div class="reviewer"><i class="fa fa-user" aria-hidden="true"></i><p>'+name+'</p></div>' +
-                    '<span class="review_time">'+d+'</span>' +
-                    '<div class="br-theme-css-stars-static">' + print_static_rating(rating)+'</div>' +
-                    '</div>' +
-                    '<div class="review_content">' +
-                    '<p> '+ content+ '</p>' +
-                    '</div>' +
+                output += '<div class="atbd_single_review" id="single_review_'+response.data.id+'">' +
+                    '<div class="atbd_review_top"> ' +
+                    '<div class="atbd_avatar_wrapper"> ' +
+                    '<div class="atbd_review_avatar"><img src="http://localhost/martplace/wp-content/plugins/directorist-business-directory-plugin/public/assets/images/revav.png" alt="Avatar Image"></div> ' +
+                    '<div class="atbd_name_time"> ' +
+                    '<p>'+name+'</p>' +
+                    '<span class="review_time">'+d+'</span> ' + '</div> ' + '</div> ' +
+                    '<div class="atbd_rated_stars">'+ print_static_rating(rating)+'</div> ' +
+                    '</div> ' +
+                    '<div class="review_content"> ' +
+                    '<p>'+content+'</p> ' +
+                    '<a href="#"><span class="fa fa-mail-reply-all"></span>Reply</a> ' +
+                    '</div> ' +
                     '</div>';
+
+                // output += '<div class="single_review"  id="single_review_'+response.data.id+'">' +
+                //     '<div class="review_top">' +
+                //     '<div class="reviewer"><i class="fa fa-user" aria-hidden="true"></i><p>'+name+'</p></div>' +
+                //     '<span class="review_time">'+d+'</span>' +
+                //     '<div class="br-theme-css-stars-static">' + print_static_rating(rating)+'</div>' +
+                //     '</div>' +
+                //     '<div class="review_content">' +
+                //     '<p> '+ content+ '</p>' +
+                //     '</div>' +
+                //     '</div>';
 
                 // as we have saved a review lets add a delete button so that user cann delete the review he has just added.
                 deleteBtn += '<button class="directory_btn btn btn-danger" type="button" id="atbdp_review_remove" data-review_id="'+response.data.id+'">Remove</button>';

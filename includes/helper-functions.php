@@ -1322,7 +1322,7 @@ if (!function_exists('currency_has_decimal')){
  * @param bool $echo Whether to Print value or to Return value. Default is printing value.
  * @return mixed
  */
-function atbdp_display_price($price='', $disable_price=false, $currency='USD', $symbol='', $c_position='', $echo=true){
+function atbdp_display_price($price='', $disable_price=false, $currency='', $symbol='', $c_position='', $echo=true){
     if (empty($price) || $disable_price) return null; // vail if the price is empty or price display is disabled.
 
         $before = ''; $after = '';
@@ -1342,4 +1342,285 @@ function atbdp_display_price($price='', $disable_price=false, $currency='USD', $
         $p = sprintf("<span class='atbd_meta atbd_listing_price'>%s</span>", $price );
         if ($echo){ echo $p; }else{ return $p; }
 
+}
+
+/**
+ * Get total listings count.
+ *
+ * @since    4.0.0
+ *
+ * @param    int     $term_id       Custom Taxonomy term ID.
+ * @return   int                    Listings count.
+ */
+function atbdp_listings_count_by_category( $term_id ) {
+
+    $args = array(
+        'fields'          =>'ids',
+        'posts_per_page'  => -1,
+        'post_type'       => ATBDP_POST_TYPE,
+        'post_status'     => 'publish',
+        'tax_query' 	  => array(
+            array(
+                'taxonomy'         => ATBDP_CATEGORY,
+                'field'            => 'term_id',
+                'terms'            => $term_id,
+                'include_children' => true
+            )
+        )
+    );
+
+    return count( get_posts( $args ) );
+
+}
+
+/**
+ * List ACADP categories.
+ *
+ * @since    1.0.0
+ *
+ * @param    array     $settings    Settings args.
+ * @return   string                 HTML code that contain categories list.
+ */
+function atbdp_list_categories( $settings ) {
+
+    if( $settings['depth'] <= 0 ) {
+        return;
+    }
+
+    $args = array(
+        'orderby'      => $settings['orderby'],
+        'order'        => $settings['order'],
+        'hide_empty'   => ! empty( $settings['hide_empty'] ) ? 1 : 0,
+        'parent'       => $settings['term_id'],
+        'hierarchical' => false
+    );
+
+    $terms = get_terms( ATBDP_CATEGORY, $args );
+
+    $html = '';
+
+    if( count( $terms ) > 0 ) {
+
+        --$settings['depth'];
+
+        $html .= '<ul class="list-unstyled">';
+
+        foreach( $terms as $term ) {
+            $settings['term_id'] = $term->term_id;
+
+            $count = 0;
+            if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
+                $count = atbdp_listings_count_by_category( $term->term_id );
+
+                if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
+            }
+
+            $html .= '<li>';
+            $html .= '<a href=" ' .ATBDP_Permalink::get_category_archive($settings['term']) . ' ">';
+            $html .= $term->name;
+            if( ! empty( $settings['show_count'] ) ) {
+                $html .= ' (' . $count . ')';
+            }
+            $html .= '</a>';
+            $html .= atbdp_list_categories( $settings );
+            $html .= '</li>';
+        }
+
+        $html .= '</ul>';
+
+    }
+
+    return $html;
+}
+
+/**
+ * Get total listings count.
+ *
+ * @since    4.0.0
+ *
+ * @param    int     $term_id       Custom Taxonomy term ID.
+ * @return   int                    Listings count.
+ */
+function atbdp_listings_count_by_location( $term_id ) {
+
+    $args = array(
+        'fields'          =>'ids',
+        'posts_per_page'  => -1,
+        'post_type'       => ATBDP_POST_TYPE,
+        'post_status'     => 'publish',
+        'tax_query' 	  => array(
+            array(
+                'taxonomy'         => ATBDP_LOCATION,
+                'field'            => 'term_id',
+                'terms'            => $term_id,
+                'include_children' => true
+            )
+        )
+    );
+
+    return count( get_posts( $args ) );
+
+}
+
+/**
+ * List ACADP categories.
+ *
+ * @since    1.0.0
+ *
+ * @param    array     $settings    Settings args.
+ * @return   string                 HTML code that contain categories list.
+ */
+function atbdp_list_locations( $settings ) {
+
+    if( $settings['depth'] <= 0 ) {
+        return;
+    }
+
+    $args = array(
+        'orderby'      => $settings['orderby'],
+        'order'        => $settings['order'],
+        'hide_empty'   => ! empty( $settings['hide_empty'] ) ? 1 : 0,
+        'parent'       => $settings['term_id'],
+        'hierarchical' => false
+    );
+
+    $terms = get_terms( ATBDP_LOCATION, $args );
+
+    $html = '';
+
+    if( count( $terms ) > 0 ) {
+
+        --$settings['depth'];
+
+        $html .= '<ul class="list-unstyled">';
+
+        foreach( $terms as $term ) {
+            $settings['term_id'] = $term->term_id;
+
+            $count = 0;
+            if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
+                $count = atbdp_listings_count_by_location( $term->term_id );
+
+                if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
+            }
+
+            $html .= '<li>';
+            $html .= '<a href=" ' .ATBDP_Permalink::get_location_archive($settings['term']) . ' ">';
+            $html .= $term->name;
+            if( ! empty( $settings['show_count'] ) ) {
+                $html .= ' (' . $count . ')';
+            }
+            $html .= '</a>';
+            $html .= atbdp_list_locations( $settings );
+            $html .= '</li>';
+        }
+
+        $html .= '</ul>';
+
+    }
+
+    return $html;
+}
+
+/**
+ * Get total listings count.
+ *
+ * @since    4.0.0
+ *
+ * @param    int     $term_id       Custom Taxonomy term ID.
+ * @return   int                    Listings count.
+ */
+function atbdp_listings_count_by_tag( $term_id ) {
+
+    $args = array(
+        'fields'          =>'ids',
+        'posts_per_page'  => -1,
+        'post_type'       => ATBDP_POST_TYPE,
+        'post_status'     => 'publish',
+        'tax_query' 	  => array(
+            array(
+                'taxonomy'         => ATBDP_TAGS,
+                'field'            => 'term_id',
+                'terms'            => $term_id,
+                'include_children' => true
+            )
+        )
+    );
+
+    return count( get_posts( $args ) );
+
+}
+
+/**
+ * List ACADP categories.
+ *
+ * @since    1.0.0
+ *
+ * @param    array     $settings    Settings args.
+ * @return   string                 HTML code that contain categories list.
+ */
+function atbdp_list_tags( $settings ) {
+
+    if( $settings['depth'] <= 0 ) {
+        return;
+    }
+
+    $args = array(
+        'orderby'      => $settings['orderby'],
+        'order'        => $settings['order'],
+        'hide_empty'   => ! empty( $settings['hide_empty'] ) ? 1 : 0,
+        'parent'       => $settings['term_id'],
+        'hierarchical' => false
+    );
+
+    $terms = get_terms( ATBDP_TAGS, $args );
+
+    $html = '';
+
+    if( count( $terms ) > 0 ) {
+
+        --$settings['depth'];
+
+        $html .= '<ul class="list-unstyled">';
+
+        foreach( $terms as $term ) {
+            $settings['term_id'] = $term->term_id;
+
+            $count = 0;
+            if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
+                $count = atbdp_listings_count_by_tag( $term->term_id );
+
+                if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
+            }
+
+            $html .= '<li>';
+            $html .= '<a href=" ' .ATBDP_Permalink::get_tag_archive($settings['term']) . ' ">';
+            $html .= $term->name;
+            if( ! empty( $settings['show_count'] ) ) {
+                $html .= ' (' . $count . ')';
+            }
+            $html .= '</a>';
+            $html .= atbdp_list_tags( $settings );
+            $html .= '</li>';
+        }
+
+        $html .= '</ul>';
+
+    }
+
+    return $html;
+}
+/*
+ * Clean variables using sanitize_text_field. Arrays are cleaned recursively.
+ * Non-scalar values are ignored.
+ *
+ * @param string|array $var Data to sanitize.
+ * @return string|array
+ */
+function directorist_clean( $var ) {
+    if ( is_array( $var ) ) {
+        return array_map( 'directorist_clean', $var );
+    } else {
+        return is_scalar( $var ) ? sanitize_text_field( $var ) : $var;
+    }
 }

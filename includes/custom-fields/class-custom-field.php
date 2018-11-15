@@ -1,14 +1,4 @@
 <?php
-/**
- * Custom Field
- *
- * @package       directorist
- * @subpackage    directorist/includes/custom-field
- * @copyright     Copyright 2018. AazzTech
- * @license       https://www.gnu.org/licenses/gpl-3.0.en.html GNU Public License
- * @since         3.1.6
- */
-
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
 
@@ -56,7 +46,7 @@ class ATBDP_Custom_Field {
     function refresh() {
         global $wpdb;
         $objects = ATBDP_CUSTOM_FIELD_POST_TYPE;
-        $objects = array($objects);
+        $objects = array($objects, 'atbdp_fee_manager');
 
         if (!empty($objects)) {
             foreach ($objects as $object) {
@@ -136,7 +126,7 @@ class ATBDP_Custom_Field {
 
     function get_scporder_options_objects() {
         $atbdp_options = ATBDP_CUSTOM_FIELD_POST_TYPE;
-        $objects = array($atbdp_options);
+        $objects = array($atbdp_options, 'atbdp_fee_manager');
         return $objects;
     }
 
@@ -382,7 +372,7 @@ class ATBDP_Custom_Field {
         $args = array(
             'labels'              => $labels,
             'description'         => __( 'This order post type will keep track of user\'s order and payment status', ATBDP_TEXTDOMAIN ),
-            'supports'            => array( 'title', 'author', ),
+            'supports'            => array( 'title' ),
             'taxonomies'          => array( '' ),
             'hierarchical'        => false,
             'public'              => true,
@@ -467,7 +457,9 @@ class ATBDP_Custom_Field {
                     <label><?php _e( 'Assigned to', ATBDP_TEXTDOMAIN ); ?></label>
                 </td>
                 <td>
-                    <?php $associate = isset( $post_meta['associate'] ) ? esc_attr($post_meta['associate'][0]) : 'form'; ?>
+                    <?php
+                    $associate = isset( $post_meta['associate'] ) ? esc_attr($post_meta['associate'][0]) : 'form'; ?>
+                    <input type="hidden" id="is_checked_form" value="<?php echo $associate;?>">
                     <ul class="atbdp-radio-list radio horizontal">
                         <li>
                             <label>
@@ -483,9 +475,13 @@ class ATBDP_Custom_Field {
 
                                         $('#cat_types_toshow').fadeIn(500);
                                     });
-                                    var is_checked = $('#to_Show_if_checked').val();
-                                    if (is_checked > 0){
+                                    var is_checked_cat = $('#to_Show_if_checked_cat').val();
+                                    var is_checked_form = $('#is_checked_form').val();
+                                    if (is_checked_cat > 0){
                                         $('#cat_types_toshow').fadeIn(300);
+                                    }
+                                    if (is_checked_cat > 0 && is_checked_form == 'form'){
+                                        $('#cat_types_toshow').hide();
                                     }
                                     $('#custom_cat_tohide').on('click', function () {
                                         $('#cat_types_toshow').fadeOut(500);
@@ -519,7 +515,7 @@ class ATBDP_Custom_Field {
                                 }
                             echo '</select>';
                         ?>
-                    <input type="hidden" id="to_Show_if_checked" value="<?php echo $current_val?>">
+                    <input type="hidden" id="to_Show_if_checked_cat" value="<?php echo $current_val?>">
 
                 </td>
             </tr>

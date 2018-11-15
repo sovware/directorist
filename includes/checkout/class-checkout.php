@@ -37,7 +37,7 @@ class ATBDP_Checkout
     /**
      *
      */
-    function ajax_atbdp_format_total_amount()
+    public static function ajax_atbdp_format_total_amount()
     {
 
         if (valid_js_nonce()){
@@ -67,7 +67,6 @@ class ATBDP_Checkout
         if ( empty($listing_id) || (!empty($listing_id) && ATBDP_POST_TYPE != get_post_type($listing_id)) ) {
             return __('Sorry, Something went wrong. Listing ID is missing. Please try again.', ATBDP_TEXTDOMAIN);
         }
-
         // if the checkout form is submitted, then process placing order
         if ('POST' == $_SERVER['REQUEST_METHOD'] && ATBDP()->helper->verify_nonce( $this->nonce, $this->nonce_action )){
             // Process the order
@@ -85,6 +84,9 @@ class ATBDP_Checkout
                         'type' => 'header',
                         'title' => $title,
                 );
+
+                if (class_exists('ATBDP_Fee_Manager'))
+
                 $form_data[] = array(
                         'type' => 'checkbox',
                         'name' => 'feature',
@@ -94,7 +96,13 @@ class ATBDP_Checkout
                         'desc' => $desc,
                         'price' => $price,
                 );
+
             }
+            echo '<pre>';
+            var_dump($form_data);
+            echo '</pre>';
+
+
 
             // if data is empty then vail,
             if (empty($form_data)) { return __('Sorry, Nothing is available to buy. Please try again.', ATBDP_TEXTDOMAIN); }
@@ -120,17 +128,18 @@ class ATBDP_Checkout
         //content of order receipt should be outputted here.
         $order_id = (int) get_query_var('atbdp_order_id');
         if (empty($order_id)) { return __('Sorry! No order id has been provided.', ATBDP_TEXTDOMAIN); }
-
-        $data = apply_filters('atbdp_payment_receipt_data', array(), $order_id);
-        $order = get_post($order_id); // we need that order to use its time
         $meta = get_post_meta($order_id);
+        $listing_id = $meta['_listing_id'];
+        $data = apply_filters('atbdp_payment_receipt_data', array(), $order_id, $listing_id);
+        $order = get_post($order_id); // we need that order to use its time
         $data = array_merge($data, array(
             'order' => $order,
             'order_id' => $order_id,
             'o_metas' => $meta,
         ));
+
         // we need to provide payment receipt shortcode with the order details array as we passed in the order checkout form page.
-        $order_items = apply_filters( 'atbdp_order_items', array(), $order_id ); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
+        $order_items = apply_filters( 'atbdp_order_items', array(), $order_id); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
         // let's add featured listing data if the order has featured listing in it
         $featured_active = get_directorist_option('enable_featured_listing');
         if ($featured_active && !empty($meta['_featured'])){
@@ -142,9 +151,23 @@ class ATBDP_Checkout
                 'desc' => $desc,
                 'price' => $price,
             );
-        }
-        $data['order_items'] = $order_items;
 
+        }
+        $selected_plan_id = get_post_meta($listing_id[0], '_fm_plans', true);
+        if (class_exists('ATBDP_Fee_Manager') && !empty($selected_plan_id)){
+            $p_title = get_the_title($selected_plan_id);
+            $p_description = get_post_meta($selected_plan_id, 'fm_description', true);
+            $fm_price = get_post_meta($selected_plan_id, 'fm_price', true);
+            $price_decimal = get_post_meta($selected_plan_id, 'price_decimal', true);
+            $decimal = $price_decimal ? '.'.$price_decimal : '';
+            $order_items[] = array(
+                'title' => $p_title,
+                'desc' => $p_description,
+                'price' => $fm_price.$decimal,
+            );
+        }
+
+        $data['order_items'] = $order_items;
         ob_start();
         ATBDP()->load_template('front-end/payment-receipt', array('data'=> $data));
         return ob_get_clean();
@@ -175,9 +198,8 @@ class ATBDP_Checkout
                 'post_type' => 'atbdp_orders',
                 'post_title' => sprintf('Order #%d for the listing ID #%d', $order_id, $listing_id)
                 ));*/
-            $order_details = apply_filters( 'atbdp_order_details', array(), $order_id );
+            $order_details = apply_filters( 'atbdp_order_details', array(), $order_id, $listing_id );
             //If featured item is bought, attach it to the order.
-
             if (!empty($data['feature'])) {
                 update_post_meta($order_id, '_featured', 1);
                 //lets add the settings of featured listing to the order details
@@ -202,7 +224,7 @@ class ATBDP_Checkout
             update_post_meta( $order_id, '_payment_status', 'created' );
 
             // Hook for developer
-            do_action( 'atbdp_order_created', $order_id, $listing_id );
+            do_action( 'atbdp_order_created', $order_id, $listing_id ); /*@todo; do something to prevent multiple order creation when user try to repeat failed payment*/
             $this->process_payment($amount, $gateway, $order_id, $listing_id, $data);
         }
 

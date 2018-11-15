@@ -58,38 +58,60 @@ if (!class_exists('ATBDP_Add_Listing')):
             return $query;
         }
 
-
-
         /**
          * It inserts & Updates a listing to the database and redirects use to the checkout page
          * when a new post is saved & monetization is active
          * @return void
          */
         public function add_listing_to_db() {
+
             // has the listing for been submitted ?
             if ( !empty( $_POST['add_listing_form'] ) ) {
+                /**
+                 * It fires before processing a submitted listing from the front end
+                 * @param array $_POST the array containing the submitted listing data.
+                 * */
+                do_action('atbdp_before_processing_submitted_listing_frontend', $_POST);
                 // add listing form has been submitted
                 if (ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action )) {
                     // we have data and passed the security
                     // we not need to sanitize post vars to be saved to the database,
                     // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');;
-                    $title= !empty($_POST['listing_title']) ? sanitize_text_field($_POST['listing_title']) : '';
-                    $price= !empty($_POST['price']) ? sanitize_text_field($_POST['price']) : '';
                     $admin_category_select= !empty($_POST['admin_category_select']) ? sanitize_text_field($_POST['admin_category_select']) : '';
                     $t_c_check= !empty($_POST['t_c_check']) ? sanitize_text_field($_POST['t_c_check']) : '';
                     $custom_field= !empty($_POST['custom_field']) ? ($_POST['custom_field']) : array();
+                    // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');
+                    $metas = array();
+                    $p = $_POST; // save some character
+                    $content = !empty($p['listing_content']) ? wp_kses($p['listing_content'], wp_kses_allowed_html('post')) : '';
+                    $title= !empty($p['listing_title']) ? sanitize_text_field($p['listing_title']) : '';/*@todo; in future, do not let the user add a post without a title. Return here with an error shown to the user*/
 
-                    $content = !empty($_POST['listing_content']) ? wp_kses($_POST['listing_content'], wp_kses_allowed_html('post')) : '';
-                    $info= (!empty($_POST['listing'])) ? aazztech_enc_serialize($_POST['listing']) : aazztech_enc_serialize( array() );
+                    $metas['_price']             = !empty($p['price'])? (float) $p['price'] : 0;
+                    $metas['_videourl']           = !empty($p['videourl'])? sanitize_text_field($p['videourl']) : '';
+                    $metas['_tagline']           = !empty($p['tagline'])? sanitize_text_field($p['tagline']) : '';
+                    $metas['_excerpt']           = !empty($p['excerpt'])? sanitize_text_field($p['excerpt']) : '';
+                    $metas['_address']           = !empty($p['address'])? sanitize_text_field($p['address']) : '';
+                    $metas['_phone']             = !empty($p['phone'])? sanitize_text_field($p['phone']) : '';
+                    $metas['_email']             = !empty($p['email'])? sanitize_text_field($p['email']) : '';
+                    $metas['_website']           = !empty($p['website'])? sanitize_text_field($p['website']) : '';
+                    $metas['_social']            = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
+                    $metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
+                    $metas['_manual_lng']        = !empty($p['manual_lng'])? sanitize_text_field($p['manual_lng']) : '';
+                    $metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();
+                    $metas['_hide_contact_info'] = !empty($p['hide_contact_info'])? sanitize_text_field($p['hide_contact_info']) : 0;
+                    /**
+                     * It applies a filter to the meta values that are going to be saved with the listing submitted from the front end
+                     * @param array $metas the array of meta keys and meta values
+                    */
+                    $metas = apply_filters('atbdp_listing_meta_user_submission', $metas);
                     $args = array(
                         'post_content' => $content,
                         'post_title' => $title,
                         'post_type' => ATBDP_POST_TYPE,
                         'tax_input' =>!empty($_POST['tax_input'])? atbdp_sanitize_array( $_POST['tax_input'] ) : array(),
-                        'meta_input'=>  array('_listing_info'=>$info,'_price'=>$price),
+                        'meta_input'=>  $metas,
 
                     );
-
 
                     //let check all the required custom field
                     foreach ($custom_field as $key => $value) {
@@ -105,19 +127,22 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 return $msg;
                             }
                         }
-
-
                     }
-                    if($title == '' || get_directorist_option('listing_terms_condition') == 1){
-                            if ($t_c_check == ''){
-                                $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span                                          style="color: red">*</span></strong></div>';
-                                return $msg;
-                            }
+                    //check the title is empty or not
+                    if (empty($title)){
+                        $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span                                          style="color: red">*</span></strong></div>';
+                        return $msg;
                     }
 
+                    if(get_directorist_option('listing_terms_condition') == 1){
+                        if ($t_c_check == ''){
+                            $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span                                          style="color: red">*</span></strong></div>';
+                            return $msg;
+                        }
+                    }
+                    
                     // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
                     if (!empty($_POST['listing_id'])){
-
                         $edit_l_status = get_directorist_option('edit_listing_status');
                         // update the post
                         $args['ID']= absint($_POST['listing_id']); // set the ID of the post to update the post
@@ -252,6 +277,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
                                 $term_by_id =  get_term_by('term_id', $admin_category_select, ATBDP_CATEGORY);
                                 wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
+                                /*
+                                  * It fires before processing a listing from the front end
+                                  * @param array $_POST the array containing the submitted fee data.
+                                  * */
+                                do_action('atbdp_before_processing_listing_frontend', $post_id);
 
                                 /*
                                 * send the custom field value to the database
@@ -425,4 +455,3 @@ if (!class_exists('ATBDP_Add_Listing')):
 
 
 endif;
-

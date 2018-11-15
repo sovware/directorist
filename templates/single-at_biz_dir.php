@@ -1,24 +1,41 @@
 <?php
-$lf = get_post_meta($post->ID, '_listing_info', true);
-$price = get_post_meta($post->ID, '_price', true);
-$listing_info = (!empty($lf)) ? aazztech_enc_unserialize($lf) : array();
-$attachment_ids = (!empty($listing_info['attachment_id'])) ? $listing_info['attachment_id'] : array();
 
+/*store all data in an array so that we can pass it to filters for extension to get this value*/
+$listing_info['never_expire']       = get_post_meta($post->ID, '_never_expire', true);
+$listing_info['featured']           = get_post_meta($post->ID, '_featured', true);
+$listing_info['price']              = get_post_meta($post->ID, '_price', true);
+$listing_info['videourl']           = get_post_meta($post->ID, '_videourl', true);
+$listing_info['listing_status']     = get_post_meta($post->ID, '_listing_status', true);
+$listing_info['tagline']            = get_post_meta($post->ID, '_tagline', true);
+$listing_info['excerpt']            = get_post_meta($post->ID, '_excerpt', true);
+$listing_info['address']            = get_post_meta($post->ID, '_address', true);
+$listing_info['phone']              = get_post_meta($post->ID, '_phone', true);
+$listing_info['email']              = get_post_meta($post->ID, '_email', true);
+$listing_info['website']            = get_post_meta($post->ID, '_website', true);
+$listing_info['social']             = get_post_meta($post->ID, '_social', true);
+$listing_info['manual_lat']         = get_post_meta($post->ID, '_manual_lat', true);
+$listing_info['manual_lng']         = get_post_meta($post->ID, '_manual_lng', true);
+$listing_info['listing_img']        = get_post_meta($post->ID, '_listing_img', true);
+$listing_info['hide_contact_info']  = get_post_meta($post->ID, '_hide_contact_info', true);
+$listing_info['expiry_date']        = get_post_meta($post->ID, '_expiry_date', true);
+extract($listing_info);
+/*Prepare Listing Image links*/
+$listing_imgs= (!empty($listing_img)) ? $listing_img : array();
 $image_links = array(); // define a link placeholder variable
-foreach ($attachment_ids as $id) {
-    $image_links[$id] = wp_get_attachment_image_src($id, 'full')[0]; // store the attachment id and url
+foreach ($listing_imgs as $id){
+    $image_links[$id]= wp_get_attachment_image_src($id, 'full')[0]; // store the attachment id and url
+    //@todo; instead of getting a full size image, define a an image size and then fetch that size and let the user change that image size via a hook.
 }
 
-
-extract($listing_info);
 /*Code for Business Hour Extensions*/
 /*@todo; Make business hour settings compatible to our new settings panel. It is good to prefix all settings of extensions with their prefix*/
-$video_url = !empty($videourl) ? esc_attr(ATBDP()->atbdp_parse_videos($videourl)) : '';
-$enable_bh_on_page = get_directorist_option('enable_bh_on_page', 0); // yes or no
-$text247 = get_directorist_option('text247', __('Open 24/7', ATBDP_TEXTDOMAIN)); // text for 24/7 type listing
-$business_hour_title = get_directorist_option('business_hour_title', __('Business Hour', ATBDP_TEXTDOMAIN)); // text Business Hour Title
-$business_hours = !empty($listing_info['bdbh']) ? atbdp_sanitize_array($listing_info['bdbh']) : array(); // arrays of days and times if exist
-$bdbh_settings = !empty($listing_info['bdbh_settings']) ? extract(atbdp_sanitize_array($listing_info['bdbh_settings'])) : array();
+$enable_bh_on_page      = get_directorist_option('enable_bh_on_page', 0 ); // yes or no
+$text247                = get_directorist_option('text247',  __('Open 24/7', ATBDP_TEXTDOMAIN)); // text for 24/7 type listing
+$business_hour_title    = get_directorist_option('business_hour_title',  __('Business Hour', ATBDP_TEXTDOMAIN)); // text Business Hour Title
+$bdbh                   = get_post_meta($post->ID, '_bdbh', true);
+$bdbh_ops               = get_post_meta($post->ID, '_bdbh_settings', true);
+$business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
+$bdbh_settings          = !empty($bdbh_ops) ? extract(atbdp_sanitize_array($bdbh_ops)) : array();
 /*Code for Business Hour Extensions*/
 
 
@@ -34,13 +51,13 @@ $ad = !empty($address) ? esc_html($address) : '';
 $image = (!empty($attachment_id[0])) ? "<img src='" . esc_url(wp_get_attachment_image_url($attachment_id[0], 'thumbnail')) . "'>" : '';
 $info_content = "<div class='map_info_window'> <h3>{$t}</h3>";
 $info_content .= "<p> {$tg} </p>";
-$info_content .= $image; // add the image if available
-$info_content .= "<address> {$ad} </address>";
-$info_content .= "<a href='http://www.google.com/maps/place/{$manual_lat},{$manual_lng}' target='_blank'> " . __('View On Google Maps', ATBDP_TEXTDOMAIN) . "</a></div>";
+$info_content .= $image ; // add the image if available
+$info_content .= "<address>{$ad}</address>";
+$info_content .= "<a href='http://www.google.com/maps/place/{$manual_lat},{$manual_lng}' target='_blank'> ".__('View On Google Maps', ATBDP_TEXTDOMAIN)."</a></div>";
+/*END INFO WINDOW CONTENT*/
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map', 0);
 $disable_sharing = get_directorist_option('disable_sharing', 0);
-$disable_widget_login = get_directorist_option('disable_widget_login', 0);
 $disable_contact_info = get_directorist_option('disable_contact_info', 0);
 $is_disable_price = get_directorist_option('disable_list_price');
 $enable_report_abuse = get_directorist_option('enable_report_abuse', 1);
@@ -518,8 +535,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') || !$disable_s_widge
             marker.addListener('click', function () {
                 info_window.open(map, marker);
             });
-
-
         }
 
 
@@ -530,7 +545,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') || !$disable_s_widge
             $(this).html(link);
         });
         <?php } ?>
-
     }); // ends jquery ready function.
 
 

@@ -1,0 +1,128 @@
+.directorist-export-import #directorist-export-import-form {
+}
+.directorist-export-import .submit {
+	padding:0;
+}
+#directorist-export-import-results-close-holder {
+	height:5%;
+	text-align:right;
+}
+.directorist-export-import #directorist-export-import-results-holder #directorist-export-import-results {
+	width: 100%;
+	height: 95%;
+	overflow: auto;
+	margin:0;
+}
+.directorist-export-import #directorist-export-import-results-holder {
+	padding: 10px;
+	width: 95%;
+	height: 90%;
+	background: #fff;
+	position:fixed;
+	box-shadow: 0px 0px 25px #888;
+	top: 5%;
+	left: 50%;
+	margin-left: -47%;
+	display:none;
+	z-index: 9999;
+}
+.directorist-export-import #directorist-export-import-results-close {
+	padding: 0 0 10px 0;
+	display:inline-block;
+}
+.directorist-export-import .floatleft {
+	float: left;
+}
+.directorist-export-import .floatright {
+	float: right;
+}
+.directorist-export-import .marginleft {
+	margin-left: 80px;
+}
+.directorist-export-import .clearboth {
+    height: 1px;
+    display: block;
+	clear: both;
+    visibility: hidden;
+}
+.directorist-export-import .button a {
+	color:#464646 !important;
+	text-decoration:none !important;
+}
+.directorist-export-import .checkbox_box {
+    min-height: 195px;
+	width:218px;
+	overflow: auto;
+	padding: 6px 6px 0 6px;
+	border: solid 1px #DFDFDF;
+	margin:0 0 0 1px;
+}
+.directorist-export-import .checkbox_box ul {
+	margin:0;
+}
+.directorist-export-import .checkbox_box ul.children {
+	margin:6px 0 0 15px;
+}
+.directorist-export-import #options_holder {
+	overflow: hidden;
+	margin-bottom:10px;
+}
+.directorist-export-import .option_box {
+	width:240px;
+    height:auto !important;
+    float:left;
+	margin:5px;
+    display: inline-block;
+
+}
+.directorist-export-import .option_box_short {
+	height:auto !important;
+}
+.directorist-export-import .option_box_submit{
+	height:auto !important;
+	width:315px;
+}
+.directorist-export-import .option_box label.short_label {
+	width:70px;
+	display:inline-block;
+	vertical-align:top;
+	line-height:26px;
+}
+.directorist-export-import .option_box label.full_label {
+	line-height:26px;
+	text-transform:capitalize;
+}
+.directorist-export-import .option_box li.e2t_all {
+	border-bottom:1px solid #DFDFDF;
+	padding-bottom:3px;
+	margin-bottom:2px;
+}
+.directorist-export-import .sidebar-description {
+	border-width: 0 1px 1px;
+	border-style: none solid solid;
+	-webkit-border-bottom-right-radius: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+	background-color: #FCFCFC;
+	border-color: #DFDFDF;
+}
+.directorist-export-import .sidebar-description p {
+	padding:8px;
+	margin:0;
+}
+.directorist-export-import .info-box {
+	width:240px;
+	float:left;
+	margin:5px;
+}
+
+.directorist-export-import .sortable label {
+	display:block;
+	cursor:move;
+}
+#last_option_box{
+    float: none;
+    display: inline-block;
+    margin-top: 20px;
+}

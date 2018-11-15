@@ -19,6 +19,10 @@ class ATBDP_Shortcode {
         add_shortcode( 'user_login', array( $this, 'custom_user_login' ) );
 
         add_shortcode( 'user_dashboard', array( $this, 'user_dashboard' ) );
+
+        add_shortcode( 'all_categories', array( $this, 'all_categories' ) );
+
+        add_shortcode( 'all_locations', array( $this, 'all_locations' ) );
         $checkout = new ATBDP_Checkout;
         add_shortcode('directorist_checkout', array($checkout, 'display_checkout_content'));
         add_shortcode('directorist_payment_receipt', array($checkout, 'payment_receipt'));
@@ -221,7 +225,6 @@ class ATBDP_Shortcode {
 
     public function user_dashboard()
     {
-
         ob_start();
         // show user dashboard if the user is logged in, else kick him out of this page or show a message
         if (is_user_logged_in()){
@@ -229,10 +232,7 @@ class ATBDP_Shortcode {
              ATBDP()->user->user_dashboard();
         }else{
             // user not logged in;
-            $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s.', ATBDP_TEXTDOMAIN), "<a href='".wp_login_url()."'> ". __('Here', ATBDP_TEXTDOMAIN)."</a>");
-
-
-             ?>
+            $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s.', ATBDP_TEXTDOMAIN), "<a href='".wp_login_url()."'> ". __('Here', ATBDP_TEXTDOMAIN)."</a>"); ?>
             <section class="directory_wrapper single_area">
                 <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
                     <div class="row">
@@ -242,12 +242,88 @@ class ATBDP_Shortcode {
                     </div>
             </section>
 <?php
-
         }
+        return ob_get_clean();
+    }
 
+    public function all_categories ( $atts )
+    {
+        ob_start();
+        $display_categories_as   = get_directorist_option('display_categories_as','grid');
+        $categories_settings = array();
+        $categories_settings['depth'] = get_directorist_option('categories_depth_number',1);
+        $categories_settings['columns'] = get_directorist_option('categories_column_number',3);
+        $categories_settings['show_count'] = get_directorist_option('display_listing_count',1);
+        $categories_settings['hide_empty'] = get_directorist_option('hide_empty_categories');
+        $categories_settings['orderby'] = get_directorist_option('order_category_by','id');
+        $categories_settings['order'] = get_directorist_option('sort_category_by','asc');
+
+        $atts = shortcode_atts( array(
+            'view'              => $display_categories_as,
+            'orderby'           => $categories_settings['orderby'],
+            'order'             => $categories_settings['order']
+        ), $atts );
+
+        $args = array(
+            'orderby'      => $atts['orderby'],
+            'order'        => $atts['order'],
+            'hide_empty'   => ! empty( $categories_settings['hide_empty'] ) ? 1 : 0,
+            'parent'       => 0,
+            'hierarchical' => ! empty( $categories_settings['hide_empty'] ) ? true : false
+        );
+
+        $terms = get_terms( ATBDP_CATEGORY, $args );
+        //var_dump($terms);
+        if( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+            if('grid' == $atts['view']) {
+                include ATBDP_TEMPLATES_DIR . 'front-end/categories-page/categories-grid.php';
+            }elseif ('list' == $atts['view']) {
+                include ATBDP_TEMPLATES_DIR . 'front-end/categories-page/categories-list.php';
+            }
+        }
         return ob_get_clean();
 
     }
+
+    public function all_locations ($atts)
+    {
+        ob_start();
+        $display_locations_as              = get_directorist_option('display_locations_as','grid');
+        $locations_settings                = array();
+        $locations_settings['depth']       = get_directorist_option('locations_depth_number',1);
+        $locations_settings['columns']     = get_directorist_option('locations_column_number',3);
+        $locations_settings['show_count']  = get_directorist_option('display_location_listing_count',1);
+        $locations_settings['hide_empty']  = get_directorist_option('hide_empty_locations');
+        $locations_settings['orderby']     = get_directorist_option('order_location_by','id');
+        $locations_settings['order']       = get_directorist_option('sort_location_by','asc');
+
+        $atts = shortcode_atts( array(
+            'view'              => $display_locations_as,
+            'orderby'           => $locations_settings['orderby'],
+            'order'             => $locations_settings['order']
+        ), $atts );
+
+        $args = array(
+            'orderby'      => $atts['orderby'],
+            'order'        => $atts['order'],
+            'hide_empty'   => ! empty( $locations_settings['hide_empty'] ) ? 1 : 0,
+            'parent'       => 0,
+            'hierarchical' => ! empty( $locations_settings['hide_empty'] ) ? true : false
+        );
+
+        $terms = get_terms( ATBDP_LOCATION, $args );
+
+        if( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+            if('grid' == $atts['view']) {
+                include ATBDP_TEMPLATES_DIR . 'front-end/locations-page/locations-grid.php';
+            }elseif ('list' == $atts['view']) {
+                include ATBDP_TEMPLATES_DIR . 'front-end/locations-page/locations-list.php';
+            }
+        }
+        return ob_get_clean();
+
+    }
+
     public function search_listing($atts, $content = null) {
         ob_start();
         ATBDP()->load_template('listing-home');
@@ -295,7 +371,6 @@ class ATBDP_Shortcode {
         ob_start();
         // show registration form if the user is not
         if (!is_user_logged_in()){
-
              ATBDP()->user->registration_form();
         }else{
             $error_message = sprintf(__('Registration page is only for unregistered user. <a href="%s">Go Back To Home</a>', ATBDP_TEXTDOMAIN), esc_url(get_home_url()));

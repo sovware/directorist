@@ -37,22 +37,14 @@ $is_disable_price = get_directorist_option('disable_list_price');
 
 
                 <?php if ( $all_listings->have_posts() ) {
-                    while ( $all_listings->have_posts() ) { $all_listings->the_post(); ?>
-                        <?php
-                        $info = ATBDP()->metabox->get_listing_info(get_the_ID()); // get all post meta and extract it.
-                        extract($info);
-                        // get only one parent or high level term object
-                        //$top_category = ATBDP()->taxonomy->get_one_high_level_term(get_the_ID(), ATBDP_CATEGORY);
-                        $current_val = esc_attr(get_post_meta(get_the_ID(), '_admin_category_select', true) );
-                        $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
-                        foreach ($categories as $key => $cat_title){
-                            $cat_term = $cat_title->term_id;
-                            if ($current_val == $cat_term)
-                            $top_category = $cat_title;
-                        }
-                        $deepest_location = ATBDP()->taxonomy->get_one_deepest_level_term(get_the_ID(), ATBDP_LOCATION);
-                        $featured = get_post_meta(get_the_ID(), '_featured', true);
-                        $price = get_post_meta(get_the_ID(), '_price', true);
+                    while ( $all_listings->have_posts() ) { $all_listings->the_post();
+                        $cats       =  get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+                        $locs       =  get_the_terms(get_the_ID(), ATBDP_LOCATION);
+                        $featured   = get_post_meta(get_the_ID(), '_featured', true);
+                        $price      = get_post_meta(get_the_ID(), '_price', true);
+                        $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
+                        $excerpt    = get_post_meta(get_the_ID(), '_excerpt', true);
+                        $tagline    = get_post_meta(get_the_ID(), '_tagline', true);
 
                         ?>
 

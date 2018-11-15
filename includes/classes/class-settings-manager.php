@@ -48,11 +48,11 @@ class ATBDP_Settings_Manager {
     function get_settings_menus(){
         return apply_filters('atbdp_settings_menus', array(
             /*Main Menu 1*/
-            'general_menu' => array(
-                'title' => __('General settings', ATBDP_TEXTDOMAIN),
-                'name' => 'menu_1',
-                'icon' => 'font-awesome:fa-magic',
-                'menus' => $this->get_general_settings_submenus(),
+            'listings' => array(
+                'name' => 'listings',
+                'title' => __('Listings settings', ATBDP_TEXTDOMAIN),
+                'icon' => 'font-awesome:fa-list',
+                'menus' => $this->get_listings_settings_submenus(),
             ),
             /*Main Menu 2*/
             'permalink_menu' => array(
@@ -82,13 +82,6 @@ class ATBDP_Settings_Manager {
                 ) ),
             ),
             /*Main Menu 4*/
-            'listings' => array(
-                'name' => 'listings',
-                'title' => __('Listings settings', ATBDP_TEXTDOMAIN),
-                'icon' => 'font-awesome:fa-list',
-                'menus' => $this->get_listings_settings_submenus(),
-            ),
-            /*Main Menu 5*/
             'pages' => array(
                 'name' => 'pages',
                 'title' => __('Pages, links & views', ATBDP_TEXTDOMAIN),
@@ -100,6 +93,37 @@ class ATBDP_Settings_Manager {
                         'description' => __('You can Customize Listings related settings here. After switching any option, Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
                         'fields' => $this->get_pages_settings_fields(),
                     ), // ends 'pages' section
+                )),
+            ),
+            /*Main Menu 5*/
+            'general_menu' => array(
+                'title' => __('Currency settings', ATBDP_TEXTDOMAIN),
+                'name' => 'currency_settings',
+                'icon' => 'font-awesome:fa-money',
+                'controls'=>apply_filters('atbdp_currency_settings_controls',array(
+                    'currency_section' => array(
+                        'type' => 'section',
+                        'title'=> __('Currency Settings',ATBDP_TEXTDOMAIN),
+                        'fields'=> $this->get_currency_settings_fields(),
+                    ),
+                )),
+            ),
+            /*Main Menu 6*/
+            'categories_menu' => array(
+                'title' => __('Categories Page', ATBDP_TEXTDOMAIN),
+                'name' => 'categories_menu',
+                'icon' => 'font-awesome:fa-list-alt',
+                'controls'=>apply_filters('atbdp_categories_settings_controls',array(
+                    'category_section' => array(
+                        'type' => 'section',
+                        'title'=> __('Categories Page Setting',ATBDP_TEXTDOMAIN),
+                        'fields'=> $this->get_categories_settings_fields(),
+                    ),
+                    'location_section' => array(
+                        'type' => 'section',
+                        'title'=> __('Locations Page Setting',ATBDP_TEXTDOMAIN),
+                        'fields'=> $this->get_locations_settings_fields()
+                    ),
                 )),
             ),
             /*Lets make the following extension menu customization by the extensions. Apply a filter on it*/
@@ -120,7 +144,7 @@ class ATBDP_Settings_Manager {
 
     /**
      * Get all the submenus for listings
-     * @since 3.1.0 ( new)
+     * @since 4.0.0 
      * @return array It returns an array of submenus
      */
     public function get_listings_settings_submenus() {
@@ -142,7 +166,7 @@ class ATBDP_Settings_Manager {
 
             /*Submenu : Listing form */
             array(
-                'title' => __('Listings Form', ATBDP_TEXTDOMAIN),
+                'title' => __('Single Listings', ATBDP_TEXTDOMAIN),
                 'name' => 'listings_form',
                 'icon' => 'font-awesome:fa-wpforms',
                 'controls' => apply_filters('atbdp_listings_form_controls', array(
@@ -308,7 +332,7 @@ You can use the following keywords/placeholder in any of your email bodies/templ
 KAMAL;
 
 
-        return apply_filters('atbdp_email_new__tmpl_settings_fields', array(
+        return apply_filters('atbdp_email_new_tmpl_settings_fields', array(
                 array(
                     'type' => 'notebox',
                     'name' => 'email_placeholder_info',
@@ -715,7 +739,7 @@ The Administrator of ==SITE_NAME==
     }
 
     /**
-     * Get all the settings fields for the offline new order email template section
+     * Get all the settings fields for the completed new order email template section
      * @since 3.1.0
      * @return array
      */
@@ -934,7 +958,7 @@ The Administrator of ==SITE_NAME==
      * @return array it returns an array of events
      */
     private function default_notifiable_events()
-     {
+    {
         return apply_filters('atbdp_default_notifiable_events', array(
             array(
                 'value' => 'order_created',
@@ -1035,35 +1059,6 @@ The Administrator of ==SITE_NAME==
         return $pages_options;
     }
 
-    /**
-     * Get all the submenus for the General Settings menu
-     * @since 3.0.0
-     * @return array It returns an array of submenus
-     */
-    function get_general_settings_submenus(){
-        return apply_filters('atbdp_general_settings_submenus', array(
-            'submenu_1' => array(
-                'title' => __( 'Home', ATBDP_TEXTDOMAIN),
-                'name' => 'submenu_1',
-                'icon' => 'font-awesome:fa-home',
-                'controls' => apply_filters('atbdp_general_settings_controls', array(
-                    'general_section' => array(
-                        'type'          => 'section',
-                        'title'         => __('General Settings', ATBDP_TEXTDOMAIN),
-                        'description'   => __('You can Customize General settings here. After switching any option, Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
-                        'fields'        => $this->get_general_settings_fields(),
-                    ), // ends general settings section
-                    'currency_section' => array(
-                        'type'          => 'section',
-                        'title'         => __('Currency Settings', ATBDP_TEXTDOMAIN),
-                        'description'   => __('This currency settings lets you customize how you would like to display price amount in your website. Note: You can accept currency in different currency. So, For payment related Currency Settings, Go to Gateway Settings Tab.', ATBDP_TEXTDOMAIN),
-                        'fields'        => $this->get_currency_settings_fields(),
-                    ), // ends general settings section
-                )),
-            ),
-
-        ) );
-    }
 
     /**
      * Get all the submenus for the extension menu
@@ -1087,90 +1082,6 @@ The Administrator of ==SITE_NAME==
                 )),
             ),
         ));
-    }
-
-    /**
-     * Get all the settings fields for the general settings section
-     * @since 3.0.0
-     * @return array
-     */
-    function get_general_settings_fields(){
-        /*ADAPTED FOR BACKWARD COMPATIBILITY*/
-        $fix_b_js = atbdp_get_option('fix_js_conflict', 'atbdp_general', 'no'); // fix bootstrap js conflict
-
-        return apply_filters('atbdp_general_settings_fields', array(
-                array(
-                    'type' => 'textbox',
-                    'name' => 'map_api_key',
-                    'label' => __( 'Google Map API key', ATBDP_TEXTDOMAIN ),
-                    'description' => sprintf(__( 'You need to enter your google map api key in order to display google map. You can find your map api key and detailed information %s. or you can search in google', ATBDP_TEXTDOMAIN ), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
-                    'default' => atbdp_get_option('map_api_key', 'atbdp_general'),
-                ),
-
-                array(
-                    'type' => 'slider',
-                    'name' => 'map_zoom_level',
-                    'label' => __( 'Google Map Zoom Level', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'You can adjust the zoom level of the map. 0 means 100% zoom-out. 22 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22. Default is 16. ', ATBDP_TEXTDOMAIN ),
-                    'min' => '1',
-                    'max' => '22',
-                    'step' => '1',
-                    'default' => '16',
-
-                ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'disable_map',
-                    'label' => __( 'Disable Google Map', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'Set it YES to disable Google map on your website. If you leave it off, then you or your user can disable google map on individual listing too.', ATBDP_TEXTDOMAIN ),
-                    'default' => 0,
-                ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'disable_sharing',
-                    'label' => __( 'Disable Social Sharing links', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'Set it YES to disable Social Sharing links on a Single Listing Details Page.', ATBDP_TEXTDOMAIN ),
-                    'default' => 0,
-                ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'disable_contact_info',
-                    'label' => __( 'Disable Contact Information', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'Set it YES to disable Contact Information on a Single Listing Details page.', ATBDP_TEXTDOMAIN ),
-                    'default' => 0,
-                ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'disable_list_price',
-                    'label' => __( 'Disable Listing Price', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'Set it YES to disable Price field. However, if you do not disable price globally here, you can also disable pricing per listing during adding a listing.', ATBDP_TEXTDOMAIN ),
-                    'default' => 0,
-                ),
-
-                array(
-                    'type' => 'toggle',
-                    'name' => 'fix_js_conflict',
-                    'label' => __('Fix Conflict with Bootstrap JS', ATBDP_TEXTDOMAIN),
-                    'description' => __('If you use a theme that uses Bootstrap Framework especially Bootstrap JS, then Check this setting to fix any conflict with theme bootstrap js.', ATBDP_TEXTDOMAIN),
-                    'default' => atbdp_yes_to_bool($fix_b_js),
-                ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'exclude_bootstrap_css',
-                    'label' => __('Do not include Plugin\'s Bootstrap CSS in the Front-End', ATBDP_TEXTDOMAIN),
-                    'description' => __('You can turn this option YES to disable Bootstrap CSS in the Front-End if your theme is using bootstrap CSS already and you are facing problem.', ATBDP_TEXTDOMAIN),
-                    'default' => 0,
-                ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'exclude_admin_bootstrap_css',
-                    'label' => __('Do not include Plugin\'s Bootstrap CSS in the Backend', ATBDP_TEXTDOMAIN),
-                    'description' => __('You can turn this option YES to disable Bootstrap CSS in the Admin Area of Directorist. It is better to keep this option turned off to load bootstrap css in the admin area of this plugin, unless you have a good reason to turn it YES', ATBDP_TEXTDOMAIN),
-                    'default' => 0,
-                ),
-
-            )
-        );
     }
 
     /**
@@ -1230,6 +1141,232 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                 ),
+            )
+        );
+    }
+
+    /**
+     * Get all the settings fields for the categories page section
+     * @since 4.0.0
+     * @return array
+     */
+    function get_categories_settings_fields(){
+        return apply_filters('atbdp_categories_settings_fields', array(
+                array(
+                    'type' => 'select',
+                    'name' => 'display_categories_as',
+                    'label' => __( 'Display All Categories By', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'grid',
+                            'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'list',
+                            'label' => __('List', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'grid',
+                        'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'categories_column_number',
+                    'label' => __('Number of  Column', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Set how many columns you would like to show on your categories page. Eg. 3. Default is 3', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '5',
+                    'step' => '1',
+                    'default' => '3',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'categories_depth_number',
+                    'label' => __('Depth', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Set how many category sub-levels you would like to show on your categories page. Eg. 2. Default is 2', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '15',
+                    'step' => '1',
+                    'default' => '2',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+                array(
+                    'type' => 'select',
+                    'name' => 'order_category_by',
+                    'label' => __( 'Categories Order By', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'id',
+                            'label' => __('ID', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'count',
+                            'label' => __('Count', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'name',
+                            'label' => __('Name', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'slug',
+                            'label' => __('Slug', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'id',
+                        'label' => __('ID', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                array(
+                    'type' => 'select',
+                    'name' => 'sort_category_by',
+                    'label' => __( 'Categories Sort By', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'asc',
+                            'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'desc',
+                            'label' => __('Descending', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'asc',
+                        'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_listing_count',
+                    'label' => __('Display Listing Count', ATBDP_TEXTDOMAIN),
+                    'description' => __('If you do not want to display listing count on categories page, turn it off.', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'hide_empty_categories',
+                    'label' => __('Hide Empty Categories', ATBDP_TEXTDOMAIN),
+                    'description' => __('If you do not want to display empty categories on categories page, turn it on.', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+
+            )
+        );
+    }
+
+    /**
+     * Get all the settings fields for the categories page section
+     * @since 4.0.0
+     * @return array
+     */
+    function get_locations_settings_fields(){
+        return apply_filters('atbdp_locations_settings_fields', array(
+                array(
+                    'type' => 'select',
+                    'name' => 'display_locations_as',
+                    'label' => __( 'Display All Locations By', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'grid',
+                            'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'list',
+                            'label' => __('List', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'grid',
+                        'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'locations_column_number',
+                    'label' => __('Number of  Column', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Set how many columns you would like to show on your locations page. Eg. 3. Default is 3', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '5',
+                    'step' => '1',
+                    'default' => '3',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'locations_depth_number',
+                    'label' => __('Depth', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Set how many category sub-levels you would like to show on your locations page. Eg. 2. Default is 2', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '15',
+                    'step' => '1',
+                    'default' => '2',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+                array(
+                    'type' => 'select',
+                    'name' => 'order_location_by',
+                    'label' => __( 'Locations Order By', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'id',
+                            'label' => __('ID', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'count',
+                            'label' => __('Count', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'name',
+                            'label' => __('Name', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'slug',
+                            'label' => __('Slug', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'id',
+                        'label' => __('ID', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                array(
+                    'type' => 'select',
+                    'name' => 'sort_location_by',
+                    'label' => __( 'Locations Sort By', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'asc',
+                            'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'desc',
+                            'label' => __('Descending', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'asc',
+                        'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_location_listing_count',
+                    'label' => __('Display Listing Count', ATBDP_TEXTDOMAIN),
+                    'description' => __('If you do not want to display listing count on locations page, turn it off.', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'hide_empty_locations',
+                    'label' => __('Hide Empty Locations', ATBDP_TEXTDOMAIN),
+                    'description' => __('If you do not want to display empty location on locations page, turn it on.', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+
             )
         );
     }
@@ -1301,7 +1438,6 @@ The Administrator of ==SITE_NAME==
                         'description' => __( 'Enter the title for search bar on Home Page. Eg. Find the Best Places to Be', ATBDP_TEXTDOMAIN ),
                         'default' => atbdp_get_option('search_title', 'atbdp_general'),
                     ),
-
                     array(
                         'type' => 'textbox',
                         'name' => 'search_subtitle',
@@ -1338,7 +1474,7 @@ The Administrator of ==SITE_NAME==
                         'min' => '1',
                         'max' => '100',
                         'step' => '1',
-                        'default' => atbdp_get_option('search_posts_num', 'atbdp_general'),
+                        'default' => atbdp_get_option('search_posts_num', 'atbdp_general', 6),
                         'validation' => 'numeric|minlength[1]',
                     ),
 
@@ -1430,6 +1566,53 @@ The Administrator of ==SITE_NAME==
                 'label' => __('Video Label', ATBDP_TEXTDOMAIN),
                 'description' => __('Enter video label for the single listing page.', ATBDP_TEXTDOMAIN),
                 'default' => __('Video', ATBDP_TEXTDOMAIN),
+            ),
+            array(
+                'type' => 'textbox',
+                'name' => 'map_api_key',
+                'label' => __( 'Google Map API key', ATBDP_TEXTDOMAIN ),
+                'description' => sprintf(__( 'You need to enter your google map api key in order to display google map. You can find your map api key and detailed information %s. or you can search in google', ATBDP_TEXTDOMAIN ), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                'default' => atbdp_get_option('map_api_key', 'atbdp_general'),
+            ),
+
+            array(
+                'type' => 'slider',
+                'name' => 'map_zoom_level',
+                'label' => __( 'Google Map Zoom Level', ATBDP_TEXTDOMAIN ),
+                'description' => __( 'You can adjust the zoom level of the map. 0 means 100% zoom-out. 22 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22. Default is 16. ', ATBDP_TEXTDOMAIN ),
+                'min' => '1',
+                'max' => '22',
+                'step' => '1',
+                'default' => '16',
+
+            ),
+            array(
+                'type' => 'toggle',
+                'name' => 'disable_map',
+                'label' => __( 'Disable Google Map', ATBDP_TEXTDOMAIN ),
+                'description' => __( 'Set it YES to disable Google map on your website. If you leave it off, then you or your user can disable google map on individual listing too.', ATBDP_TEXTDOMAIN ),
+                'default' => 0,
+            ),
+            array(
+                'type' => 'toggle',
+                'name' => 'disable_sharing',
+                'label' => __( 'Disable Social Sharing links', ATBDP_TEXTDOMAIN ),
+                'description' => __( 'Set it YES to disable Social Sharing links on a Single Listing Details Page.', ATBDP_TEXTDOMAIN ),
+                'default' => 0,
+            ),
+            array(
+                'type' => 'toggle',
+                'name' => 'disable_contact_info',
+                'label' => __( 'Disable Contact Information', ATBDP_TEXTDOMAIN ),
+                'description' => __( 'Set it YES to disable Contact Information on a Single Listing Details page.', ATBDP_TEXTDOMAIN ),
+                'default' => 0,
+            ),
+            array(
+                'type' => 'toggle',
+                'name' => 'disable_list_price',
+                'label' => __( 'Disable Listing Price', ATBDP_TEXTDOMAIN ),
+                'description' => __( 'Set it YES to disable Price field. However, if you do not disable price globally here, you can also disable pricing per listing during adding a listing.', ATBDP_TEXTDOMAIN ),
+                'default' => 0,
             ),
 
         ));
@@ -1534,7 +1717,7 @@ The Administrator of ==SITE_NAME==
                     'name' => 'show_popular_category',
                     'label' => __('Show popular category on the search page', ATBDP_TEXTDOMAIN),
                     'description' => __('You can show popular category on search page or you can hide it here.', ATBDP_TEXTDOMAIN),
-                    'default' => atbdp_yes_to_bool($s_p_cat),
+                    'default' => '0',
                 ),
 
                 array(
@@ -1611,7 +1794,6 @@ The Administrator of ==SITE_NAME==
     function get_listings_settings_fields(){
         // BACKWARD COMPATIBILITY:  OLD SETTINGS DATA that should be adapted by using them as default value, will be removed in future
         $s_p_cat = atbdp_get_option('show_popular_category', 'atbdp_general', 'yes');
-        $e_p_list = atbdp_get_option('enable_pop_listing', 'atbdp_general', 'yes');
         $e_r_list = atbdp_get_option('enable_rel_listing', 'atbdp_general', 'yes');
 
         return apply_filters('atbdp_listings_settings_fields', array(
@@ -1866,6 +2048,28 @@ The Administrator of ==SITE_NAME==
                         'default' => atbdp_get_option('user_dashboard', 'atbdp_general'),
                         'validation' => 'required|numeric',
 
+                    ),
+
+                    array(
+                        'type' => 'select',
+                        'name' => 'all_categories_page',
+                        'label' => __( 'Add All Categories Page ID', ATBDP_TEXTDOMAIN ),
+                        'items' => $this->get_pages_vl_arrays(),
+                        'description' => sprintf(__( 'Select your All Categories  page ( where you used %s shortcode ) ID here.', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[all_categories]</strong>'),
+
+                        'default' => atbdp_get_option('all_categories', 'atbdp_general'),
+                        'validation' => 'required|numeric',
+                    ),
+
+                    array(
+                        'type' => 'select',
+                        'name' => 'all_locations_page',
+                        'label' => __( 'Add All Locations Page ID', ATBDP_TEXTDOMAIN ),
+                        'items' => $this->get_pages_vl_arrays(),
+                        'description' => sprintf(__( 'Select your All Locations  page ( where you used %s shortcode ) ID here.', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[all_locations]</strong>'),
+
+                        'default' => atbdp_get_option('all_locations', 'atbdp_general'),
+                        'validation' => 'required|numeric',
                     ),
 
                     array(

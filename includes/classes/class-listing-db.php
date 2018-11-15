@@ -50,7 +50,9 @@ class ATBDP_Listing_DB {
         $args = array(
             'author'=> !empty($user_id) ? absint($user_id) :  get_current_user_id(),
             'post_type'=> ATBDP_POST_TYPE,
-            'posts_per_page' => -1
+            'posts_per_page' => -1, //@todo; Add pagination in future.
+            'order'=> 'DESC',
+            'orderby' => 'date'
         );
         return new WP_Query($args);
     }

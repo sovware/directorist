@@ -7,7 +7,6 @@
  * @package Directorist
  */
 
-
  if (  is_active_sidebar( 'right-sidebar-listing' ) ) { ?>
 <!-- start col-md-4  -->
 <div class="directorist col-md-4">

@@ -52,14 +52,15 @@ class ATBDP_Listing{
         remove_action( 'wp_head',  array($this, 'adjacent_posts_rel_link_wp_head', 10));
         add_action( 'wp_head',  array($this, 'track_post_views'));
         add_filter('the_content', array($this, 'the_content'), 20); // add the output of the single page when the content filter fires in our post type. This way is better than using a custom post template because it will not match the style of all theme.
-    }
 
+    }
 
     public function the_content($content)
     {
         if( is_singular(ATBDP_POST_TYPE ) && in_the_loop() && is_main_query() ) {
             global $post;
             ob_start();
+
            // echo 'hello from the function';
             include ATBDP_TEMPLATES_DIR . 'single-at_biz_dir.php';
             return ob_get_clean();

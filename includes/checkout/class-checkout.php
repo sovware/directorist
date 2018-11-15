@@ -85,6 +85,8 @@ class ATBDP_Checkout
                         'title' => $title,
                 );
 
+                if (class_exists('ATBDP_Fee_Manager'))
+
                 $form_data[] = array(
                         'type' => 'checkbox',
                         'name' => 'feature',
@@ -96,29 +98,10 @@ class ATBDP_Checkout
                 );
 
             }
-            $selected_plan_id = get_post_meta($listing_id, '_fm_plans', true);
-            if (!empty($selected_plan_id && class_exists('ATBDP_Fee_Manager'))) {
-                // start process selected plan add to checkout form
-                $p_title = get_the_title($selected_plan_id);
-                $p_description = get_post_meta($selected_plan_id, 'fm_description', true);
-                $fm_price = get_post_meta($selected_plan_id, 'fm_price', true);
-                $price_decimal = get_post_meta($selected_plan_id, 'price_decimal', true);
-                $decimal = $price_decimal ? '.'.$price_decimal : '';
-                $form_data[] = array(
-                    'type' => 'header',
-                    'title' => $p_title
-                );
+            echo '<pre>';
+            var_dump($form_data);
+            echo '</pre>';
 
-                $form_data[] = array(
-                    'type' => 'checkbox',
-                    'name' => 'feature',
-                    'value' => 1,
-                    'selected' => 1,
-                    'title' => $p_title,
-                    'desc' => $p_description,
-                    'price' => $fm_price.$decimal
-                );
-            }
 
 
             // if data is empty then vail,
@@ -145,16 +128,16 @@ class ATBDP_Checkout
         //content of order receipt should be outputted here.
         $order_id = (int) get_query_var('atbdp_order_id');
         if (empty($order_id)) { return __('Sorry! No order id has been provided.', ATBDP_TEXTDOMAIN); }
-
-        $data = apply_filters('atbdp_payment_receipt_data', array(), $order_id);
-        $order = get_post($order_id); // we need that order to use its time
         $meta = get_post_meta($order_id);
+        $listing_id = $meta['_listing_id'];
+        $data = apply_filters('atbdp_payment_receipt_data', array(), $order_id, $listing_id);
+        $order = get_post($order_id); // we need that order to use its time
         $data = array_merge($data, array(
             'order' => $order,
             'order_id' => $order_id,
             'o_metas' => $meta,
         ));
-        $listing_id = $meta['_listing_id'];
+
         // we need to provide payment receipt shortcode with the order details array as we passed in the order checkout form page.
         $order_items = apply_filters( 'atbdp_order_items', array(), $order_id); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
         // let's add featured listing data if the order has featured listing in it

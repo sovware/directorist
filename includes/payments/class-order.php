@@ -239,7 +239,7 @@ class ATBDP_Order {
                 $listing_id = get_post_meta( $post_id, '_listing_id', true );
                 printf( '<p><a href="%s"> %s: [Listing ID #%d]</a></p>', get_edit_post_link( $listing_id ), get_the_title( $listing_id ),  $listing_id );
 
-                $order_details = apply_filters( 'atbdp_order_details', array(), $post_id );
+                $order_details = apply_filters( 'atbdp_order_details', array(), $post_id, $listing_id);
                 foreach( $order_details as $order_detail ) {
                     echo '<div>#Short Notes: '.$order_detail['label'].'</div>';
                 }

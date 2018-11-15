@@ -77,7 +77,7 @@ if (!class_exists('BD_Categories_Widget')) {
 
             ?>
 
-            <div class="acadp acadp-widget-categories">
+            <div class="atbdp atbdp-widget-categories">
                 <?php if( 'dropdown' == $query_args['template'] ) : ?>
                     <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
                         <input type="hidden" name="q" placeholder="">
@@ -218,6 +218,7 @@ if (!class_exists('BD_Categories_Widget')) {
 
         public function atbdp_categories_list( $settings ) {
 
+
             if( $settings['immediate_category'] ) {
 
                 if( $settings['term_id'] > $settings['parent'] && ! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
@@ -243,6 +244,7 @@ if (!class_exists('BD_Categories_Widget')) {
                 $html .= '<ul>';
 
                 foreach( $terms as $term ) {
+                    $icon = get_term_meta($term->term_id,'category_icon',true);
                     $settings['term_id'] = $term->term_id;
 
                     $count = 0;
@@ -253,7 +255,7 @@ if (!class_exists('BD_Categories_Widget')) {
                     }
 
                     $html .= '<li>';
-                    $html .= '<a href="' . ATBDP_Permalink::get_category_archive( $term ) . '">';
+                    $html .= '<a href="' . ATBDP_Permalink::get_category_archive( $term ) . '" class="fa '.$icon.'">';
                     $html .= $term->name;
                     if( ! empty( $settings['show_count'] ) ) {
                         $html .= ' (' . $count . ')';

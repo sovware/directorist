@@ -577,7 +577,7 @@ jQuery(function($){
         $( '.atbdp-require-login' ).on( 'click', function( e ) {
 
             e.preventDefault();
-            alert( public_report.login_alert_message );
+            alert( atbdp_public_data.login_alert_message );
 
         });
 

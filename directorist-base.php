@@ -223,7 +223,8 @@ final class Directorist_Base {
             //map custom capabilities
             add_filter('map_meta_cap', array(self::$instance->roles, 'meta_caps'), 10, 4);
 
-
+            //add dtbdp custom body class
+            add_filter('body_class', array(self::$instance, 'atbdp_body_class') );
             // display related listings
             add_action('atbdp_after_single_listing', array(self::$instance, 'show_related_listing'));
             //review and rating
@@ -999,8 +1000,11 @@ final class Directorist_Base {
 
     }
 
-
-
+    public function atbdp_body_class($c_classes){
+        $c_classes[] = 'atbd_content_active';//class name goes here
+        return $c_classes;
+    }
+    
 } // ends Directorist_Base
 
 

@@ -77,7 +77,7 @@ if (!class_exists('BD_Locations_Widget')) {
 
             ?>
 
-            <div class="acadp acadp-widget-categories">
+            <div class="atbdp atbdp-widget-categories">
                 <?php if( 'dropdown' == $query_args['template'] ) : ?>
                     <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
                         <input type="hidden" name="q" placeholder="">

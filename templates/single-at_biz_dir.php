@@ -67,7 +67,7 @@ $p_lnk = get_the_permalink();
 $p_title = get_the_title();
 $featured = get_post_meta(get_the_ID(), '_featured', true);
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
-$main_col_size = is_active_sidebar('right-sidebar-listing') || !$disable_s_widget ? 'col-md-8' : 'col-md-12';
+$main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col-md-12';
 ?>
 
 <section id="directorist" class="directorist atbd_wrapper">
@@ -125,10 +125,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') || !$disable_s_widge
                         <!-- Report Abuse-->
                         <?php
                         if ($enable_report_abuse) { ?>
-                            <div class="atbd_action atbd_report" data-toggle="modal" data-target="#atbdp-report-abuse-modal">
+                            <div class="atbd_action atbd_report">
                             <?php if (is_user_logged_in()) { ?>
 
-                                <span class="fa fa-flag"></span><?php _e('Report', ATBDP_TEXTDOMAIN); ?>
+                                <span class="fa fa-flag"></span><a href="javascript:void(0)" data-toggle="modal" data-target="#atbdp-report-abuse-modal"><?php _e( 'Report abuse', ATBDP_TEXTDOMAIN ); ?></a>
                                 <!-- Modal (report abuse form) -->
                                 <div class="modal fade" id="atbdp-report-abuse-modal" tabindex="-1" role="dialog"
                                      aria-labelledby="atbdp-report-abuse-modal-label">

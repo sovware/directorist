@@ -70,9 +70,8 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 <div id="directorist" class="directorist atbd_wrapper single_area">
     <div class="<?php echo is_directoria_active() ? 'container': ' container-fluid'; ?>">
         <form action="<?= esc_url($_SERVER['REQUEST_URI']); ?>" method="post">
-            <?php if(class_exists('ATBDP_Fee_Manager')){
+            <?php
                 do_action('atbdb_before_add_listing_from_frontend');//for dev purpose
-            }
                 ?>
             <div class="atbdp-form-fields"  <?php if(class_exists('ATBDP_Fee_Manager')){ echo 'style="display:none"';}?>>
             <div class="add_listing_title">

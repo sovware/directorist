@@ -33,10 +33,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 _e('Showing Result from all categories and locations.', ATBDP_TEXTDOMAIN);
                                             }
                                         }
-<<<<<<< HEAD
 
-=======
->>>>>>> fb54a492e274b90099672a6d5ee6306854a796cb
                                         ?>
                                     </h3>
                                     <p>

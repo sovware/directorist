@@ -96,13 +96,10 @@ class ATBDP_Checkout
                         'desc' => $desc,
                         'price' => $price,
                 );
-
             }
-            echo '<pre>';
+           /* echo '<pre>';
             var_dump($form_data);
-            echo '</pre>';
-
-
+            echo '</pre>';*/
 
             // if data is empty then vail,
             if (empty($form_data)) { return __('Sorry, Nothing is available to buy. Please try again.', ATBDP_TEXTDOMAIN); }
@@ -112,10 +109,8 @@ class ATBDP_Checkout
                     'form_data' => $form_data,
                     'listing_id' => $listing_id,
             );
-
             ATBDP()->load_template('front-end/checkout-form', $data);
         }
-
         return ob_get_clean();
     }
 

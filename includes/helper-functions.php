@@ -1338,7 +1338,8 @@ function atbdp_display_price($price='', $disable_price=false, $currency='', $sym
 
         ('after' == $c_position) ? $after = $symbol : $before = $symbol;
         $price = $before.atbdp_format_amount($price).$after;
-        $p = sprintf("<p class='listing_price'>%s: %s</p>", __('Price', ATBDP_TEXTDOMAIN), $price );
+        /*todo: Shahadat -> removed translatable text 'Price' here */
+        $p = sprintf("<span class='atbd_meta atbd_listing_price'>%s</span>", $price );
         if ($echo){ echo $p; }else{ return $p; }
 
 }

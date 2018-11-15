@@ -1,0 +1,83 @@
+// pricing scss
+.atbd_content_active #directorist.atbd_wrapper{
+  .pricing{
+    text-align: center;
+    margin-bottom: 30px;
+    .pricing__title{
+      h4{
+        color: $light;
+        line-height: 45px;
+        margin-bottom: 0;
+        font-weight: 500;
+        text-transform: capitalize;
+      }
+      span{
+        color: $light-gray;
+        line-height: 1.8rem;
+        display: inline-block;
+      }
+    }
+    .pricing__price{
+      p{
+        font-size: 44px;
+        //color: $light;
+        margin-bottom: 0;
+        line-height: initial;
+        sup{
+          font-size: 18px;
+        }
+        small{
+          font-size: 1rem;
+        }
+      }
+    }
+
+    &.pricing--1{
+      border-radius: 6px;
+      background: $light;
+      margin-bottom: 30px;
+      &.atbd_pricing_special{
+        .pricing__title h4{
+          background: $secondary;
+          color: $light;
+        }
+      }
+      .pricing__title{
+        margin-bottom: 20px;
+        h4{
+          font-size: 22px;
+          background: #b2b7d0;
+        }
+      }
+      .pricing__price{
+        margin: 0 auto;
+        border-bottom: 1px solid #ededed;
+        padding-bottom: 20px;
+        p{
+          margin: 0;
+        }
+      }
+      .pricing__features{
+        padding: 15px 30px 30px;
+        ul{
+          margin: 0;
+          text-align: left;
+          padding-bottom: 30px;
+          li{
+            line-height: 2.66rem;
+            span{
+              margin-right: 4px;
+              &.fa-check{
+                color: $success
+              }
+              &.fa-times{
+                color: $danger;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

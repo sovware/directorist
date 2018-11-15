@@ -184,6 +184,8 @@ class ATBDP_Enqueuer {
         wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false, ATBDP_VERSION);
         wp_register_style( 'sweetalertcss', ATBDP_PUBLIC_ASSETS.'css/sweetalert.min.css', false, ATBDP_VERSION );
         wp_register_style( 'select2style', ATBDP_PUBLIC_ASSETS.'css/select2.min.css', false, ATBDP_VERSION );
+        /** @todo Shahadat -> enqued new fonts */
+        wp_register_style( 'atbd_googlefonts', '//fonts.googleapis.com/css?family=Roboto:400,500', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-style', ATBDP_PUBLIC_ASSETS . 'css/style.css', array( 'atbdp-font-awesome',), ATBDP_VERSION);
         wp_register_script('atbdp-bootstrap-script', ATBDP_PUBLIC_ASSETS . 'js/bootstrap.min.js', array('jquery'), ATBDP_VERSION, true);
 
@@ -214,6 +216,10 @@ class ATBDP_Enqueuer {
         wp_enqueue_style('atbdp-bootstrap-style');
         wp_enqueue_style('atbdp-font-awesome');
         wp_enqueue_style('atbdp-style');
+
+        /* Enqueue google Directorist google font */
+        wp_enqueue_style('atbd_googlefonts');
+
 
         /* Enqueue all scripts */
         wp_enqueue_script('atbdp-bootstrap-script');

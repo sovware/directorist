@@ -1,0 +1,170 @@
+.atbd_content_active #directorist.atbd_wrapper {
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  .atbd_badge {
+    color: $light;
+    font-size: 12px;
+    padding: 0 10px;
+    border-radius: 2px;
+    font-weight: 500;
+    display: inline-block;
+    line-height: 27px;
+    &.atbd_badge_open {
+      @extend .atbd_bg-success;
+    }
+    &.atbd_badge_featured {
+      @extend .atbd_bg-badge-feature;
+    }
+    &.atbd_badge_popular {
+      @extend .atbd_bg-badge-popular;
+    }
+  }
+  .atbd_listing_meta {
+    .atbd_meta {
+      font-size: 16px;
+      line-height: 30px;
+      padding: 0 8px;
+      color: $light;
+      display: inline-block;
+      border-radius: 3px;
+      & + .atbd_meta {
+        margin-left: 5px;
+      }
+    }
+    .atbd_listing_rating {
+      @extend .atbd_bg-success;
+      i.fa {
+        font-size: 12px;
+        margin-left: 5px;
+      }
+    }
+    .atbd_listing_price {
+      @extend .atbd_bg-primary;
+    }
+    .atbd_listing_average_pricing , .atbd_close_now{
+      border: 1px solid #e3e6ef;
+      > span {
+        font-weight: 500;
+        color: rgba(#7a82a6, .3);
+        &.atbd_active {
+          color: #5d658c;
+        }
+      }
+    }
+    .atbd_close_now{
+      color: #f51957;
+    }
+  }
+  .atbd_listting_category{
+    a span{
+      font-size: 15px;
+      display: inline-block;
+      margin-right: 10px;
+      line-height: 35px;
+      width: 35px;
+      text-align: center;
+      @extend .atbd_bg-primary;
+      color: $light;
+      border-radius: 50%;
+    }
+  }
+  .atbd_single_listing {
+    margin-bottom: 30px;
+    background: $light;
+    border-radius: 4px;
+    border: 1px solid $border-color;
+    &.atbd_listing_list{
+      .atbd_single_listing_wrapper{
+        display: flex;
+        .atbd_listing_thumbnail_area{
+          flex: 1;
+          height: auto;
+          img{
+            
+          }
+        }
+        .atbd_listing_info{
+          flex: 2;
+        }
+      }
+    }
+    .atbd_listing_thumbnail_area {
+      margin: 0;
+      position: relative;
+      .atbd_thumbnail_overlay_content {
+        position: absolute;
+        top: 0;
+        background: rgba($overlay-color, .2);
+        height: 100%;
+        width: 100%;
+        z-index: 3;
+        padding: 15px 20px;
+        display: flex;
+        flex-flow: column;
+        justify-content: space-between;
+      }
+    }
+    .atbd_listing_info {
+      .atbd_content_upper {
+        padding: 20px;
+        .atbd_listing_title {
+          font-size: 18px;
+          line-height: 28px;
+        }
+        .atbd_listing_tagline {
+          color: #7a82a6;
+          line-height: 26px;
+          font-size: 15px;
+          margin-bottom: 10px;
+        }
+        .atbd_listing_data_list {
+          margin-top: 16px;
+          margin-bottom: 12px;
+          ul li {
+            p {
+              margin-bottom: 7px;
+              font-size: 14px;
+              span {
+                @extend .atbd_color-primary;
+                font-size: 15px;
+                margin-right: 10px;
+              }
+            }
+          }
+        }
+      }
+
+      .atbd_listing_bottom_content{
+        border-top: 1px solid $border-color;
+        padding: 12px 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .atbd_content_right{
+          display: flex;
+          align-items: center;
+          li+li{
+            margin-left: 6px;
+          }
+          .atbd_count{
+            span{
+                margin-right: 5px;
+            }
+          }
+          .atbd_save{
+            span{
+              color: #b2b7d0;
+              line-height: 35px;
+              width: 35px;
+              border-radius: 50%;
+              text-align: center;
+              border: 1px solid $border-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}

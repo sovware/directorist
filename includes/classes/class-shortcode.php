@@ -31,10 +31,22 @@ class ATBDP_Shortcode {
         add_action('wp_ajax_atbdp_custom_fields_listings_front', array($this, 'ajax_callback_custom_fields'), 10, 2 );
         add_action('wp_ajax_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2 );
 
+        add_filter( 'body_class', array($this, 'my_body_class'));
+
     }
 
+    /*
+     *  add own class in order to push custom style
+     */
+    public function my_body_class( $c ) {
 
-
+        global $post;
+        $shortcodes = array('');
+        if( isset($post->post_content) && has_shortcode( $post->post_content, 'all_listing' ) ) {
+            $c[] = 'atbd_content_active';
+        }
+        return $c;
+    }
     /**
      * Display custom fields.
      *

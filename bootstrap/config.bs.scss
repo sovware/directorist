@@ -1,0 +1,50 @@
+// this file contains the configuration
+// for customizing bootstrap,
+// and other theme components
+@import "scss/functions";
+@import "scss/mixins";
+@import "scss/variables";
+
+// theme color
+$light-gray: #9192a3;
+$primary: #3a7dfd;
+$secondary: #122069;
+$success: #32cc6f;
+$info: #3590ec;
+$warning: #ffaf00;
+$danger: #e23636;
+$dark: #202428;
+$light: #ffffff;
+$body-color: #5a6671;
+$theme-colors: ();
+
+// other colors
+$overlay-color: #20232e;
+$text-color: #7a82a6;
+$badge-open: #32cc6f;
+$badge-feature: #fa8b0c;
+$badge-popular: #f51957;
+$border-color: #e3e6ef;
+$rating-color: #fa8b0c;
+
+// link
+$link-hover-decoration: none;
+$link-color: $text-color;
+$link-hover-color: $primary;
+
+$box-shadow-sm:               0 5px .8px rgba(#a7b2c7, .1);
+$box-shadow:                  0 5px 20px rgba(#a7b2c7, .30);
+$box-shadow-lg:               0 1rem 3rem rgba($black, .175);
+
+
+// Button
+$btn-line-height:       27px;
+$other-colors: (
+        'badge-feature': $badge-feature,
+        'badge-popular': $badge-popular
+);
+
+/* typography */
+$headings-font-family: 'Roboto', sans-serif;
+$headings-color: #272b41;
+@import "scss/variables";

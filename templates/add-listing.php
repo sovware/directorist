@@ -13,7 +13,6 @@ $info_content .= $image ; // add the image if available
 $info_content .= "<p> {$ad}</p></div>";
 $post_ID = $post->ID;
 
-
 // grab social information
 $social_info = !empty( $social ) ? $social : array();
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);

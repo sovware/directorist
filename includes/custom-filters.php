@@ -7,11 +7,13 @@
  * @param string $type the type of the button being printed. eg. default or primary etc.
  * @return string it returns the names of the classed that should be added to a button.
  */
-function atbdp_directorist_button_classes($type='default'){
+
+/* @todo: Shahadat -> Updated default button value and updatd btn class */
+function atbdp_directorist_button_classes($type='primary'){
      /**
       * It lets you modify button classes used by the directorist plugin. You can add your custom class or modify existing ones.
       * @param $type string the type of the button eg. default, primary etc. Default value is default.
       *
       */
-     return apply_filters('atbdp_button_class', "directory_btn btn btn-{$type}", $type);
+     return apply_filters('atbdp_button_class', "btn btn-{$type}", $type);
  }

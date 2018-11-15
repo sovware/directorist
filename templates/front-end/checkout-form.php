@@ -17,9 +17,6 @@ $symbol = atbdp_currency_symbol($currency);
                 <?php
                 // $args is auto available available through the load_template().
                 foreach ($form_data as $op){
-                  /*  echo '<pre>';
-                    var_dump($op);
-                    echo '</pre>';*/
                     /*Display header type item in a bold style*/
                     if ('header' == $op['type']){ ?>
                         <tr>

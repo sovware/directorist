@@ -35,18 +35,20 @@ if ( !class_exists('BD_Map_Widget')) {
          */
         public function widget ($args, $instance)
         {
-            global $post;
-            $manual_lat = get_post_meta($post->ID, '_manual_lat', true);
-            $manual_lng = get_post_meta($post->ID, '_manual_lng', true);
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Map', ATBDP_TEXTDOMAIN);
-            echo $args['before_widget'];
-            echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
+            if( is_singular(ATBDP_POST_TYPE)) {
+                global $post;
+                $manual_lat = get_post_meta($post->ID, '_manual_lat', true);
+                $manual_lng = get_post_meta($post->ID, '_manual_lng', true);
+                $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Map', ATBDP_TEXTDOMAIN);
+                echo $args['before_widget'];
+                echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
 
-            ?>
+                ?>
 
-            <?php
+                <?php
 
-            echo $args['after_widget'];
+                echo $args['after_widget'];
+            }
         }
 
         /**

@@ -73,7 +73,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
             <?php
                 do_action('atbdb_before_add_listing_from_frontend');//for dev purpose
                 ?>
-            <div class="atbdp-form-fields"  <?php if(class_exists('ATBDP_Fee_Manager')){ echo 'style="display:none"';}?>>
+            <div class="atbdp-form-fields">
             <div class="add_listing_title">
                 <h2><?= !empty($p_id) ? __('Update Listing', ATBDP_TEXTDOMAIN) : __('Add Listing', ATBDP_TEXTDOMAIN); ?></h2>
             </div>
@@ -594,7 +594,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
 
     jQuery(document).ready(function ($) {
-        <?php if(class_exists('ATBDP_Fee_Manager')) { ?>
+        <?php if(class_exists('ATBDP_Fee_Manager') ) { ?>
         $('#fm_plans_container').on('click', function(){
             $('.atbdp-form-fields').fadeIn(1000);
             $('#fm_plans_container').fadeOut(300)

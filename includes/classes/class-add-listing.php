@@ -140,6 +140,10 @@ if (!class_exists('ATBDP_Add_Listing')):
                             return $msg;
                         }
                     }
+                    if (class_exists('ATBDP_Fee_Manager') && empty($p['fm_plans'])){
+                        $msg = '<div class="alert alert-danger"><strong>You need to select a plan in order to submit a listing <span                                          style="color: red">*</span></strong></div>';
+                        return $msg;
+                    }
                     
                     // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
                     if (!empty($_POST['listing_id'])){

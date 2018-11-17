@@ -43,7 +43,7 @@ if ( !class_exists('BD_Search_Widget')) {
             echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
 
             ?>
-            <div class="directorist acadp-search acadp-search-vertical">
+            <div class="directorist atbdp-search atbdp-search-vertical">
                 <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" class="form-vertical" role="form">
                     <div class="form-group">
                         <input type="text" name="q" class="form-control" placeholder="<?php _e( 'Enter your keyword here ...', 'advanced-classifieds-and-directory-pro' ); ?>" value="">

@@ -2,9 +2,6 @@
 /*Template for displaying Checkout form*/
 // prepare all the variables required by the payment receipt page.
 $data = !empty($args['data']) ? $args['data'] : array();
-echo '<pre>';
-var_dump($data);
-echo '</pre>';
 extract($data);
 $c_position = get_directorist_option('payment_currency_position');
 $currency = atbdp_get_payment_currency();

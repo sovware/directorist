@@ -97,9 +97,6 @@ class ATBDP_Checkout
                         'price' => $price,
                 );
             }
-           /* echo '<pre>';
-            var_dump($form_data);
-            echo '</pre>';*/
 
             // if data is empty then vail,
             if (empty($form_data)) { return __('Sorry, Nothing is available to buy. Please try again.', ATBDP_TEXTDOMAIN); }

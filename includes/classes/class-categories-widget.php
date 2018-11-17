@@ -59,7 +59,7 @@ if (!class_exists('BD_Categories_Widget')) {
                     $term = get_term_by( 'slug', $term_slug, ATBDP_CATEGORY );
                     $query_args['active_term_id'] = $term->term_id;
 
-                    $query_args['ancestors'] = get_ancestors( $query_args['active_term_id'], 'acadp_categories' );
+                    $query_args['ancestors'] = get_ancestors( $query_args['active_term_id'], 'atbdp_categories' );
                     $query_args['ancestors'][] = $query_args['active_term_id'];
                     $query_args['ancestors'] = array_unique( $query_args['ancestors'] );
                 }

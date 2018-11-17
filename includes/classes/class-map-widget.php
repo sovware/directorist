@@ -40,13 +40,76 @@ if ( !class_exists('BD_Map_Widget')) {
                 $manual_lat = get_post_meta($post->ID, '_manual_lat', true);
                 $manual_lng = get_post_meta($post->ID, '_manual_lng', true);
                 $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Map', ATBDP_TEXTDOMAIN);
+                $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 16;
                 echo $args['before_widget'];
                 echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
 
-                ?>
+
+                if ( !empty($manual_lat) && !empty($manual_lng)) {
+                    ?>
+                    <section id="directorist" class="directorist atbd_wrapper">
+
+                            <div class="atbd_content_module">
+                                <div class="atbd_content_module__tittle_area">
+                                    <div class="atbd_area_title">
+                                        <h4><span class="fa fa fa-map atbd_area_icon"></span>Location</h4>
+                                    </div>
+                                </div>
+
+                                <div class="atbdb_content_module_contents">
+                                    <div id="widgetMap" class="atbd_google_map"></div>
+                                </div>
+                            </div><!-- end .atbd_custom_fields_contents -->
+
+                    </section>
+                    <?php } ?>
+                    <script>
+
+                        jQuery(document).ready(function ($) {
+
+                            // Do not show map if lat long is empty or map is globally disabled.
+                            <?php if ((!empty($manual_lat) && !empty($manual_lng))){ ?>
+                            // initialize all vars here to avoid hoisting related misunderstanding.
+                            var map, info_window, saved_lat_lng;
+                            saved_lat_lng = {
+                                lat:<?= (!empty($manual_lat)) ? floatval($manual_lat) : false ?>,
+                                lng: <?= (!empty($manual_lng)) ? floatval($manual_lng) : false ?> }; // default is London city
+
+                            // create an info window for map
+                            info_window = new google.maps.InfoWindow({
+                                maxWidth: 400/*Add configuration for max width*/
+                            });
+
+
+                            function initMap() {
+                                /* Create new map instance*/
+                                map = new google.maps.Map(document.getElementById('widgetMap'), {
+                                    zoom: <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 16; ?>,
+                                    center: saved_lat_lng
+                                });
+                                var marker = new google.maps.Marker({
+                                    map: map,
+                                    position: saved_lat_lng
+                                });
+                                marker.addListener('click', function () {
+                                    info_window.open(map, marker);
+                                });
+                            }
+
+
+                            initMap();
+                            //Convert address tags to google map links -
+                            $('address').each(function () {
+                                var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
+                                $(this).html(link);
+                            });
+                            <?php } ?>
+                        }); // ends jquery ready function.
+
+
+                    </script>
 
                 <?php
-
                 echo $args['after_widget'];
             }
         }
@@ -62,12 +125,20 @@ if ( !class_exists('BD_Map_Widget')) {
         public function form ($instance)
         {
             $title = !empty($instance['title']) ? esc_html($instance['title']) : __( 'Map',ATBDP_TEXTDOMAIN );
+            $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 16;
             ?>
             <p>
                 <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', ATBDP_TEXTDOMAIN); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
                        name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
                        value="<?php echo esc_attr($title); ?>">
+            </p>
+
+            <p>
+                <label for="<?php echo esc_attr($this->get_field_id('zoom')); ?>"><?php esc_attr_e('Google Map Zoom Level:', ATBDP_TEXTDOMAIN); ?></label>
+                <input class="widefat" id="<?php echo esc_attr($this->get_field_id('zoom')); ?>"
+                       name="<?php echo esc_attr($this->get_field_name('zoom')); ?>" type="number"
+                       value="<?php echo esc_attr($map_zoom_level); ?>">
             </p>
             <?php
         }
@@ -86,6 +157,7 @@ if ( !class_exists('BD_Map_Widget')) {
         {
             $instance = array();
             $instance['title'] = (!empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
+            $instance['zoom'] = (!empty($new_instance['zoom'])) ? strip_tags($new_instance['zoom']) : '16';
 
             return $instance;
         }

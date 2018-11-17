@@ -754,6 +754,41 @@ h6, .h6 {
   color: #ffffff;
 }
 
+.atbd_content_active .widget.atbd_widget .atbd_categorized_listings {
+  padding: 0px 30px;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_categorized_listings .listings > li {
+  padding: 15px 0;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_categorized_listings .listings > li + li {
+  border-top: 1px solid #e3e6ef;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_categorized_listings .listings > li .atbd_left_img {
+  height: 70px;
+  width: 70px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_categorized_listings .listings > li .atbd_left_img img {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_categorized_listings .listings > li .atbd_right_content {
+  width: calc(100% - 75px);
+  display: inline-block;
+  vertical-align: top;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_categorized_listings .listings > li .atbd_left_img + .atbd_right_content {
+  padding-left: 10px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .pricing {
   text-align: center;
   margin-bottom: 30px;

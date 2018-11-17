@@ -510,7 +510,7 @@ final class Directorist_Base
         $popular_listings = $this->get_popular_listings($count);
 
         if ($popular_listings->have_posts()) { ?>
-            <div class="categorized_listings">
+            <div class="atbd_categorized_listings">
                 <ul class="listings">
                     <?php foreach ($popular_listings->posts as $pop_post) {
                         // get only one parent or high level term object
@@ -518,10 +518,10 @@ final class Directorist_Base
                         $listing_img = get_post_meta($pop_post->ID, '_listing_img', true);
                         ?>
                         <li>
-                            <div class="left_img">
+                            <div class="atbd_left_img">
                                 <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(90,90))).'" alt="listing image">' : '' ?>
                             </div>
-                            <div class="right_content">
+                            <div class="atbd_right_content">
                                 <div class="cate_title">
                                     <h4>
                                         <a href="<?= esc_url(get_post_permalink($pop_post->ID)); ?>"><?= esc_html($pop_post->post_title); ?></a>
@@ -995,7 +995,7 @@ final class Directorist_Base
         if (!$enable_review) return; // vail if review is not enabled
         $average = ATBDP()->review->get_average($post->ID);
         ?>
-        <div class="br-theme-css-stars-static">
+        <div class="atbd_rated_stars">
             <?= ATBDP()->review->print_static_rating($average); ?>
         </div>
         <?php

@@ -300,11 +300,10 @@ final class Directorist_Base
                 'name' => __('Listing Right Sidebar', ATBDP_TEXTDOMAIN),
                 'id' => 'right-sidebar-listing',
                 'description' => __('Add widgets for the right sidebar on single listing page', ATBDP_TEXTDOMAIN),
-                'before_widget' => '<div class="widget default">',
+                'before_widget' => '<div class="widget atbd_widget">',
                 'after_widget' => '</div>',
-                'before_title' => '<div class="widget_title"><h4>',
+                'before_title' => '<div class="atbd_widget_title"><h4>',
                 'after_title' => '</h4></div>',
-
             ));
         }
 
@@ -511,7 +510,7 @@ final class Directorist_Base
         $popular_listings = $this->get_popular_listings($count);
 
         if ($popular_listings->have_posts()) { ?>
-            <div class="categorized_listings">
+            <div class="atbd_categorized_listings">
                 <ul class="listings">
                     <?php foreach ($popular_listings->posts as $pop_post) {
                         // get only one parent or high level term object
@@ -519,10 +518,10 @@ final class Directorist_Base
                         $listing_img = get_post_meta($pop_post->ID, '_listing_img', true);
                         ?>
                         <li>
-                            <div class="left_img">
+                            <div class="atbd_left_img">
                                 <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(90,90))).'" alt="listing image">' : '' ?>
                             </div>
-                            <div class="right_content">
+                            <div class="atbd_right_content">
                                 <div class="cate_title">
                                     <h4>
                                         <a href="<?= esc_url(get_post_permalink($pop_post->ID)); ?>"><?= esc_html($pop_post->post_title); ?></a>
@@ -613,9 +612,9 @@ final class Directorist_Base
         if ($related_listings->have_posts()) {
             ?>
             <!--Related Listings starts-->
-            <div class="related_listings">
-                <div class="related_listing_title">
-                    <p><?php _e('Related Items', ATBDP_TEXTDOMAIN); ?></p>
+            <div class="atbd_related_listings">
+                <div class="atbd_related_listing_title">
+                    <h3><?php _e('Related Items', ATBDP_TEXTDOMAIN); ?></h3>
                 </div>
                 <div class="row">
                     <?php foreach ($related_listings->posts as $r_post) {
@@ -628,46 +627,100 @@ final class Directorist_Base
                         $tagline = get_post_meta($r_post->ID, '_tagline', true);
                         ?>
                         <div class="col-md-6">
-                            <div class="single_directory_post">
-                                <article class="<?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
-                                    <?php if (!is_empty_v($listing_img)){ ?>
-                                        <figure>
-                                            <div class="post_img_wrapper">
-                                                <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(340,227))).'" alt="listing image">' : '' ?>
-                                            </div>
-                                            <figcaption>
-                                                <p><?= !empty($excerpt) ? esc_html(stripslashes($excerpt)) : ''; ?></p>
-                                            </figcaption>
-                                        </figure> <!--ends figure-->
-                                    <?php } ?>
-
-                                    <div class="article_content">
-                                        <div class="content_upper">
-                                            <h4 class="post_title">
-                                                <a href="<?= esc_url(get_post_permalink($r_post->ID)); ?>"><?php echo esc_html($r_post->post_title); ?></a>
-                                            </h4>
-                                            <p><?= (!empty($tagline)) ? esc_html(stripslashes($tagline)) : ''; ?></p>
-                                            <?php
-                                            atbdp_display_price($price, $is_disable_price);
-                                            /**
-                                             * Fires after the price of the listing is rendered
-                                             *
-                                             *
-                                             * @since 3.1.0
-                                             */
-                                            do_action('atbdp_after_listing_price');
-
-                                            do_action('atbdp_after_listing_tagline');
-
-                                            ?>
+                            <div class="atbd_single_listing atbd_listing_card">
+                                <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
+                                    <figure class="atbd_listing_thumbnail_area">
+                                        <div class="atbd_listing_image">
+                                            <?= (!empty($attachment_id[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($attachment_id[0],  array(432,400))).'" alt="listing image">' : '' ?>
                                         </div>
-                                        <?php
-                                        //show category and location info
-                                        ATBDP()->helper->output_listings_all_taxonomy_info($cats, $locs);
-                                        // show read more link/btn
-                                        ATBDP()->helper->listing_read_more_link($r_post->ID);
-                                        ?>
 
+                                        <figcaption class="atbd_thumbnail_overlay_content">
+                                            <?php /*todo: Shahadat -> It needs dynamization */?>
+                                            <div class="atbd_upper_badge">
+                                                <span class="atbd_badge atbd_badge_open">Open Now</span>
+                                            </div><!-- END /.atbd_upper_badge -->
+
+                                            <div class="atbd_lower_badge">
+                                                <?php
+                                                if ($featured){ printf(
+                                                    '<span class="atbd_badge atbd_badge_featured">Featured</span>',
+                                                    esc_html__('Featured', ATBDP_TEXTDOMAIN)
+                                                );}
+                                                ?>
+                                                <?php /*todo: Shahadat -> It needs dynamization */?>
+                                                <span class="atbd_badge atbd_badge_popular">Popular</span>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+
+                                    <?php /*todo: Shahadat -> please implement the current markup*/?>
+                                    <div class="atbd_listing_info">
+                                        <div class="atbd_content_upper">
+                                            <h4 class="atbd_listing_title">
+                                                <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
+                                            </h4>
+                                            <p class="atbd_listing_tagline"><?= (!empty($tagline)) ? esc_html(stripslashes($tagline)) : ''; ?></p>
+                                            <?php /* todo: Shahadat -> new markup implemented */?>
+                                            <div class="atbd_listing_meta">
+                                                <?php
+                                                /**
+                                                 * Fires after the title and sub title of the listing is rendered
+                                                 *
+                                                 *
+                                                 * @since 1.0.0
+                                                 */
+
+                                                do_action('atbdp_after_listing_tagline');
+                                                /*@todo: Shahadat -> added new markup, Average pricing */?>
+                                                <span class="atbd_meta atbd_listing_average_pricing">
+                                                    <span class="atbd_active">$</span>
+                                                    <span class="atbd_active">$</span>
+                                                    <span>$</span>
+                                                    <span>$</span>
+                                                </span>
+                                                <?php
+                                                atbdp_display_price($price, $is_disable_price);
+
+                                                /**
+                                                 * Fires after the price of the listing is rendered
+                                                 *
+                                                 *
+                                                 * @since 3.1.0
+                                                 */
+                                                do_action('atbdp_after_listing_price');
+                                                ?>
+                                            </div><!-- End atbd listing meta -->
+
+                                            <?php /* @todo: Shahadat -> please implement this */?>
+                                            <div class="atbd_listing_data_list">
+                                                <ul>
+                                                    <li><p><span class="fa fa-location-arrow"></span>House -24C, Road -113A, Gulshan -2, Dhaka</p></li>
+                                                    <li><p><span class="fa fa-phone"></span>(415) 796-3633</p></li>
+                                                    <li><p><span class="fa fa-clock-o"></span>Posted 2 months ago</p></li>
+                                                </ul>
+                                            </div><!-- End atbd listing meta -->
+                                            <?php
+                                            //show category and location info
+                                            /* @todo: Shahadat -> Please fetch location, phone number and listing addition info here */
+                                            /*ATBDP()->helper->output_listings_taxonomy_info($top_category, $deepest_location);*/?>
+                                            <p><?= !empty($excerpt) ? esc_html(stripslashes($excerpt)) : ''; ?></p>
+
+                                            <?php /* @todo: deleted the read more link */ ?>
+                                        </div><!-- end ./atbd_content_upper -->
+
+                                        <div class="atbd_listing_bottom_content">
+                                            <div class="atbd_content_left">
+                                                <div class="atbd_listting_category">
+                                                    <a href="#"><span class="fa fa-glass"></span>Restaurant</a>
+                                                </div>
+                                            </div>
+
+                                            <ul class="atbd_content_right">
+                                                <li class="atbd_count"><span class="fa fa-eye"></span>900+</li>
+                                                <li class="atbd_save"><span class="fa fa-heart"></span></li>
+                                                <li class="atbd_author"><a href="#"><img src="<?php echo ATBDP_PUBLIC_ASSETS.'images/avtr.png'?>" alt=""></a></li>
+                                            </ul>
+                                        </div><!-- end ./atbd_listing_bottom_content -->
                                     </div>
                                 </article>
                             </div>
@@ -892,18 +945,9 @@ final class Directorist_Base
                         </form>
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
-
-
-                <div class="review_form">
-                    <div class="directory_are_title">
-
-                    </div>
-
-
-                </div> <!--ends .review_form-->
             <?php };
         } else { ?>
-            <p class="notice">
+            <p class="atbd_notice">
                 <span class="fa fa-info" aria-hidden="true"></span>
                 <?php
                 // get the custom registration page id from the db and create a permalink
@@ -951,7 +995,7 @@ final class Directorist_Base
         if (!$enable_review) return; // vail if review is not enabled
         $average = ATBDP()->review->get_average($post->ID);
         ?>
-        <div class="br-theme-css-stars-static">
+        <div class="atbd_rated_stars">
             <?= ATBDP()->review->print_static_rating($average); ?>
         </div>
         <?php

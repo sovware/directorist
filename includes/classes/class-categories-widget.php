@@ -255,12 +255,12 @@ if (!class_exists('BD_Categories_Widget')) {
                     }
 
                     $html .= '<li>';
-                    $html .= '<a href="' . ATBDP_Permalink::get_category_archive( $term ) . '"><span class="fa '.$icon.'">';
+                    $html .= '<a href="' . ATBDP_Permalink::get_category_archive( $term ) . '"><span class="fa '.$icon.'"></span>';
                     $html .= $term->name;
                     if( ! empty( $settings['show_count'] ) ) {
                         $html .= ' (' . $count . ')';
                     }
-                    $html .= '</span></a>';
+                    $html .= '</a>';
                     $html .= $this->atbdp_categories_list( $settings );
                     $html .= '</li>';
                 }

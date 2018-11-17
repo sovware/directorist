@@ -14,7 +14,7 @@
   color: #3a7dfd;
 }
 
-.atbd_bg-primary, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_price, .atbd_content_active #directorist.atbd_wrapper .atbd_listting_category a span {
+.atbd_bg-primary, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_price, .atbd_content_active #directorist.atbd_wrapper .atbd_listting_category a span, .atbd_content_active .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover, .atbd_content_active .widget.atbd_widget .directorist.atbdp-widget-tags ul li a:hover, .atbd_content_active .widget.atbd_widget .atbdp-widget-categories ul li a span {
   background: #3a7dfd;
 }
 
@@ -546,6 +546,10 @@ h6, .h6 {
   margin-right: 7px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_related_listings .atbd_related_listing_title {
+  margin-bottom: 20px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper p {
   margin: 0;
   padding: 0;
@@ -704,6 +708,127 @@ h6, .h6 {
   border-radius: 50%;
   text-align: center;
   border: 1px solid #e3e6ef;
+}
+
+.atbd_content_active .widget.atbd_widget {
+  background: #ffffff;
+  border: 1px solid #e3e6ef;
+  margin-bottom: 30px;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_widget_title {
+  border-bottom: 1px solid #e3e6ef;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_widget_title h4 {
+  margin: 0 !important;
+  font-size: 18px;
+  padding: 15px 30px;
+  font-weight: 400 !important;
+}
+
+.atbd_content_active .widget.atbd_widget .directorist {
+  text-align: center;
+}
+
+.atbd_content_active .widget.atbd_widget .atbdp, .atbd_content_active .widget.atbd_widget .directorist {
+  padding: 20px 30px 15px;
+}
+
+.atbd_content_active .widget.atbd_widget .atbdp.atbdp-widget-tags ul li, .atbd_content_active .widget.atbd_widget .directorist.atbdp-widget-tags ul li {
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.atbd_content_active .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a, .atbd_content_active .widget.atbd_widget .directorist.atbdp-widget-tags ul li a {
+  border: 1px solid #e3e6ef;
+  color: #5d658c;
+  border-radius: 3px;
+  padding: 3px 10px;
+  display: inline-block;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.atbd_content_active .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover, .atbd_content_active .widget.atbd_widget .directorist.atbdp-widget-tags ul li a:hover {
+  color: #ffffff;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_categorized_listings {
+  padding: 0px 30px;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_categorized_listings .listings > li {
+  padding: 15px 0;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_categorized_listings .listings > li + li {
+  border-top: 1px solid #e3e6ef;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_categorized_listings .listings > li .atbd_left_img {
+  height: 70px;
+  width: 70px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_categorized_listings .listings > li .atbd_left_img img {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_categorized_listings .listings > li .atbd_right_content {
+  width: calc(100% - 75px);
+  display: inline-block;
+  vertical-align: top;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_categorized_listings .listings > li .atbd_left_img + .atbd_right_content {
+  padding-left: 10px;
+}
+
+.atbd_content_active .widget.atbd_widget .atbdp-widget-categories ul li + li {
+  margin-top: 10px;
+}
+
+.atbd_content_active .widget.atbd_widget .atbdp-widget-categories ul li a span {
+  font-size: 15px;
+  display: inline-block;
+  margin-right: 10px;
+  line-height: 35px;
+  width: 35px;
+  text-align: center;
+  color: #ffffff;
+  border-radius: 50%;
+}
+
+.atbd_content_active .widget.atbd_widget #loginform {
+  text-align: left;
+}
+
+.atbd_content_active .widget.atbd_widget #loginform p.login-username, .atbd_content_active .widget.atbd_widget #loginform p.login-password {
+  margin-bottom: 12px;
+}
+
+.atbd_content_active .widget.atbd_widget #loginform p input[type='text'], .atbd_content_active .widget.atbd_widget #loginform p input[type='password'] {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 23px;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.atbd_content_active .widget.atbd_widget .embed-responsive-item {
+  border: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .pricing {

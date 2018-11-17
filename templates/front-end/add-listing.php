@@ -414,7 +414,9 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                     <div class="directorist-contact-fields atbdp_info_module">
                         <div class="row">
                             <!-- MAP or ADDRESS related information starts here -->
-                            <div class="col-sm-12">
+                            <div
+
+                                    class="col-sm-12">
                                 <h3 class="directorist_contact_form_title"><?php esc_html_e('Contact Information', ATBDP_TEXTDOMAIN) ?></h3>
                                 <div class="form-check">
                                     <input type="checkbox" name="hide_contact_info" class="form-check-input" id="hide_contact_info" value="1" <?php if(!empty($hide_contact_info) ) {checked($hide_contact_info); } ?> >

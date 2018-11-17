@@ -1,6 +1,7 @@
 .atbd_content_active .widget.atbd_widget {
   background: $light;
   border: 1px solid $border-color;
+  margin-bottom: 30px;
   .atbd_widget_title {
     border-bottom: 1px solid $border-color;
     h4 {
@@ -39,7 +40,7 @@
   .atbd_categorized_listings {
     padding: 0px 30px;
     .listings {
-      >li {
+      > li {
         padding: 15px 0;
         & + li {
           border-top: 1px solid $border-color;
@@ -60,10 +61,54 @@
           display: inline-block;
           vertical-align: top;
         }
-        .atbd_left_img+.atbd_right_content{
+        .atbd_left_img + .atbd_right_content {
           padding-left: 10px;
         }
       }
     }
+  }
+  .atbdp-widget-categories {
+    ul li {
+     &+li{
+       margin-top: 10px;
+     }
+      a {
+        span {
+          font-size: 15px;
+          display: inline-block;
+          margin-right: 10px;
+          line-height: 35px;
+          width: 35px;
+          text-align: center;
+          color: #ffffff;
+          @extend .atbd_bg-primary;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+  #loginform{
+    text-align: left;
+    p{
+      &.login-username, &.login-password{
+        margin-bottom: 12px;
+      }
+      input[type='text'], input[type='password']{
+        display: block;
+        width: 100%;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 23px;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      }
+    }
+  }
+  .embed-responsive-item{
+    border: 0;
   }
 }

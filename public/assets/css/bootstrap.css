@@ -823,7 +823,7 @@
   user-select: none;
   border: 1px solid transparent;
   padding: 0.375rem 0.75rem;
-  font-size: 1rem;
+  font-size: 15px;
   line-height: 27px;
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -1456,6 +1456,434 @@
 #directorist input[type="reset"].btn-block,
 #directorist input[type="button"].btn-block {
   width: 100%;
+}
+
+#directorist .form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  #directorist .form-control {
+    transition: none;
+  }
+}
+
+#directorist .form-control::-ms-expand {
+  background-color: transparent;
+  border: 0;
+}
+
+#directorist .form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+#directorist .form-control::placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+#directorist .form-control:disabled, #directorist .form-control[readonly] {
+  background-color: #e9ecef;
+  opacity: 1;
+}
+
+#directorist select.form-control:not([size]):not([multiple]) {
+  height: calc(2.25rem + 2px);
+}
+
+#directorist select.form-control:focus::-ms-value {
+  color: #495057;
+  background-color: #fff;
+}
+
+#directorist .form-control-file,
+#directorist .form-control-range {
+  display: block;
+  width: 100%;
+}
+
+#directorist .col-form-label {
+  padding-top: calc(0.375rem + 1px);
+  padding-bottom: calc(0.375rem + 1px);
+  margin-bottom: 0;
+  font-size: inherit;
+  line-height: 1.5;
+}
+
+#directorist .col-form-label-lg {
+  padding-top: calc(0.5rem + 1px);
+  padding-bottom: calc(0.5rem + 1px);
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+#directorist .col-form-label-sm {
+  padding-top: calc(0.25rem + 1px);
+  padding-bottom: calc(0.25rem + 1px);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+#directorist .form-control-plaintext {
+  display: block;
+  width: 100%;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  margin-bottom: 0;
+  line-height: 1.5;
+  color: #212529;
+  background-color: transparent;
+  border: solid transparent;
+  border-width: 1px 0;
+}
+
+#directorist .form-control-plaintext.form-control-sm, #directorist .form-control-plaintext.form-control-lg {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+#directorist .form-control-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+}
+
+#directorist select.form-control-sm:not([size]):not([multiple]) {
+  height: calc(1.8125rem + 2px);
+}
+
+#directorist .form-control-lg {
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  border-radius: 0.3rem;
+}
+
+#directorist select.form-control-lg:not([size]):not([multiple]) {
+  height: calc(2.875rem + 2px);
+}
+
+#directorist .form-group {
+  margin-bottom: 1rem;
+}
+
+#directorist .form-text {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+#directorist .form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -5px;
+  margin-left: -5px;
+}
+
+#directorist .form-row > .col,
+#directorist .form-row > [class*="col-"] {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+#directorist .form-check {
+  position: relative;
+  display: block;
+  padding-left: 1.25rem;
+}
+
+#directorist .form-check-input {
+  position: absolute;
+  margin-top: 0.3rem;
+  margin-left: -1.25rem;
+}
+
+#directorist .form-check-input:disabled ~ .form-check-label {
+  color: #6c757d;
+}
+
+#directorist .form-check-label {
+  margin-bottom: 0;
+}
+
+#directorist .form-check-inline {
+  display: inline-flex;
+  align-items: center;
+  padding-left: 0;
+  margin-right: 0.75rem;
+}
+
+#directorist .form-check-inline .form-check-input {
+  position: static;
+  margin-top: 0;
+  margin-right: 0.3125rem;
+  margin-left: 0;
+}
+
+#directorist .valid-feedback {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #28a745;
+}
+
+#directorist .valid-tooltip {
+  position: absolute;
+  top: 100%;
+  z-index: 5;
+  display: none;
+  max-width: 100%;
+  padding: .5rem;
+  margin-top: .1rem;
+  font-size: .875rem;
+  line-height: 1;
+  color: #fff;
+  background-color: rgba(40, 167, 69, 0.8);
+  border-radius: .2rem;
+}
+
+.was-validated #directorist .form-control:valid, #directorist .form-control.is-valid, .was-validated
+#directorist .custom-select:valid,
+#directorist .custom-select.is-valid {
+  border-color: #28a745;
+}
+
+.was-validated #directorist .form-control:valid:focus, #directorist .form-control.is-valid:focus, .was-validated
+#directorist .custom-select:valid:focus,
+#directorist .custom-select.is-valid:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.was-validated #directorist .form-control:valid ~ .valid-feedback,
+.was-validated #directorist .form-control:valid ~ .valid-tooltip, #directorist .form-control.is-valid ~ .valid-feedback,
+#directorist .form-control.is-valid ~ .valid-tooltip, .was-validated
+#directorist .custom-select:valid ~ .valid-feedback,
+.was-validated
+#directorist .custom-select:valid ~ .valid-tooltip,
+#directorist .custom-select.is-valid ~ .valid-feedback,
+#directorist .custom-select.is-valid ~ .valid-tooltip {
+  display: block;
+}
+
+.was-validated #directorist .form-check-input:valid ~ .form-check-label, #directorist .form-check-input.is-valid ~ .form-check-label {
+  color: #28a745;
+}
+
+.was-validated #directorist .form-check-input:valid ~ .valid-feedback,
+.was-validated #directorist .form-check-input:valid ~ .valid-tooltip, #directorist .form-check-input.is-valid ~ .valid-feedback,
+#directorist .form-check-input.is-valid ~ .valid-tooltip {
+  display: block;
+}
+
+.was-validated #directorist .custom-control-input:valid ~ .custom-control-label, #directorist .custom-control-input.is-valid ~ .custom-control-label {
+  color: #28a745;
+}
+
+.was-validated #directorist .custom-control-input:valid ~ .custom-control-label::before, #directorist .custom-control-input.is-valid ~ .custom-control-label::before {
+  background-color: #71dd8a;
+}
+
+.was-validated #directorist .custom-control-input:valid ~ .valid-feedback,
+.was-validated #directorist .custom-control-input:valid ~ .valid-tooltip, #directorist .custom-control-input.is-valid ~ .valid-feedback,
+#directorist .custom-control-input.is-valid ~ .valid-tooltip {
+  display: block;
+}
+
+.was-validated #directorist .custom-control-input:valid:checked ~ .custom-control-label::before, #directorist .custom-control-input.is-valid:checked ~ .custom-control-label::before {
+  background-color: #34ce57;
+}
+
+.was-validated #directorist .custom-control-input:valid:focus ~ .custom-control-label::before, #directorist .custom-control-input.is-valid:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.was-validated #directorist .custom-file-input:valid ~ .custom-file-label, #directorist .custom-file-input.is-valid ~ .custom-file-label {
+  border-color: #28a745;
+}
+
+.was-validated #directorist .custom-file-input:valid ~ .custom-file-label::before, #directorist .custom-file-input.is-valid ~ .custom-file-label::before {
+  border-color: inherit;
+}
+
+.was-validated #directorist .custom-file-input:valid ~ .valid-feedback,
+.was-validated #directorist .custom-file-input:valid ~ .valid-tooltip, #directorist .custom-file-input.is-valid ~ .valid-feedback,
+#directorist .custom-file-input.is-valid ~ .valid-tooltip {
+  display: block;
+}
+
+.was-validated #directorist .custom-file-input:valid:focus ~ .custom-file-label, #directorist .custom-file-input.is-valid:focus ~ .custom-file-label {
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+#directorist .invalid-feedback {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+
+#directorist .invalid-tooltip {
+  position: absolute;
+  top: 100%;
+  z-index: 5;
+  display: none;
+  max-width: 100%;
+  padding: .5rem;
+  margin-top: .1rem;
+  font-size: .875rem;
+  line-height: 1;
+  color: #fff;
+  background-color: rgba(220, 53, 69, 0.8);
+  border-radius: .2rem;
+}
+
+.was-validated #directorist .form-control:invalid, #directorist .form-control.is-invalid, .was-validated
+#directorist .custom-select:invalid,
+#directorist .custom-select.is-invalid {
+  border-color: #dc3545;
+}
+
+.was-validated #directorist .form-control:invalid:focus, #directorist .form-control.is-invalid:focus, .was-validated
+#directorist .custom-select:invalid:focus,
+#directorist .custom-select.is-invalid:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.was-validated #directorist .form-control:invalid ~ .invalid-feedback,
+.was-validated #directorist .form-control:invalid ~ .invalid-tooltip, #directorist .form-control.is-invalid ~ .invalid-feedback,
+#directorist .form-control.is-invalid ~ .invalid-tooltip, .was-validated
+#directorist .custom-select:invalid ~ .invalid-feedback,
+.was-validated
+#directorist .custom-select:invalid ~ .invalid-tooltip,
+#directorist .custom-select.is-invalid ~ .invalid-feedback,
+#directorist .custom-select.is-invalid ~ .invalid-tooltip {
+  display: block;
+}
+
+.was-validated #directorist .form-check-input:invalid ~ .form-check-label, #directorist .form-check-input.is-invalid ~ .form-check-label {
+  color: #dc3545;
+}
+
+.was-validated #directorist .form-check-input:invalid ~ .invalid-feedback,
+.was-validated #directorist .form-check-input:invalid ~ .invalid-tooltip, #directorist .form-check-input.is-invalid ~ .invalid-feedback,
+#directorist .form-check-input.is-invalid ~ .invalid-tooltip {
+  display: block;
+}
+
+.was-validated #directorist .custom-control-input:invalid ~ .custom-control-label, #directorist .custom-control-input.is-invalid ~ .custom-control-label {
+  color: #dc3545;
+}
+
+.was-validated #directorist .custom-control-input:invalid ~ .custom-control-label::before, #directorist .custom-control-input.is-invalid ~ .custom-control-label::before {
+  background-color: #efa2a9;
+}
+
+.was-validated #directorist .custom-control-input:invalid ~ .invalid-feedback,
+.was-validated #directorist .custom-control-input:invalid ~ .invalid-tooltip, #directorist .custom-control-input.is-invalid ~ .invalid-feedback,
+#directorist .custom-control-input.is-invalid ~ .invalid-tooltip {
+  display: block;
+}
+
+.was-validated #directorist .custom-control-input:invalid:checked ~ .custom-control-label::before, #directorist .custom-control-input.is-invalid:checked ~ .custom-control-label::before {
+  background-color: #e4606d;
+}
+
+.was-validated #directorist .custom-control-input:invalid:focus ~ .custom-control-label::before, #directorist .custom-control-input.is-invalid:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.was-validated #directorist .custom-file-input:invalid ~ .custom-file-label, #directorist .custom-file-input.is-invalid ~ .custom-file-label {
+  border-color: #dc3545;
+}
+
+.was-validated #directorist .custom-file-input:invalid ~ .custom-file-label::before, #directorist .custom-file-input.is-invalid ~ .custom-file-label::before {
+  border-color: inherit;
+}
+
+.was-validated #directorist .custom-file-input:invalid ~ .invalid-feedback,
+.was-validated #directorist .custom-file-input:invalid ~ .invalid-tooltip, #directorist .custom-file-input.is-invalid ~ .invalid-feedback,
+#directorist .custom-file-input.is-invalid ~ .invalid-tooltip {
+  display: block;
+}
+
+.was-validated #directorist .custom-file-input:invalid:focus ~ .custom-file-label, #directorist .custom-file-input.is-invalid:focus ~ .custom-file-label {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+#directorist .form-inline {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+#directorist .form-inline .form-check {
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  #directorist .form-inline label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+  #directorist .form-inline .form-group {
+    display: flex;
+    flex: 0 0 auto;
+    flex-flow: row wrap;
+    align-items: center;
+    margin-bottom: 0;
+  }
+  #directorist .form-inline .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+  }
+  #directorist .form-inline .form-control-plaintext {
+    display: inline-block;
+  }
+  #directorist .form-inline .input-group,
+  #directorist .form-inline .custom-select {
+    width: auto;
+  }
+  #directorist .form-inline .form-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    padding-left: 0;
+  }
+  #directorist .form-inline .form-check-input {
+    position: relative;
+    margin-top: 0;
+    margin-right: 0.25rem;
+    margin-left: 0;
+  }
+  #directorist .form-inline .custom-control {
+    align-items: center;
+    justify-content: center;
+  }
+  #directorist .form-inline .custom-control-label {
+    margin-bottom: 0;
+  }
 }
 
 .modal-open {

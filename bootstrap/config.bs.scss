@@ -4,7 +4,7 @@
 @import "scss/functions";
 @import "scss/mixins";
 @import "scss/variables";
-
+$font-size-base: 15px;
 // theme color
 $light-gray: #9192a3;
 $primary: #3a7dfd;
@@ -44,7 +44,9 @@ $other-colors: (
         'badge-popular': $badge-popular
 );
 
-/* typography */
+// forms
+
+  /* typography */
 $headings-font-family: 'Roboto', sans-serif;
 $headings-color: #272b41;
 @import "scss/variables";

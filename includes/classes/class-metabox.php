@@ -72,14 +72,26 @@ class ATBDP_Metabox {
      */
     public function listing_info_meta( $post ) {
         add_meta_box( '_listing_info',
-        __( 'Listing Information', ATBDP_TEXTDOMAIN ),
+        __( 'General Information', ATBDP_TEXTDOMAIN ),
         array($this, 'listing_info'),
+        ATBDP_POST_TYPE,
+        'normal', 'high' );
+
+        add_meta_box( '_listing_contact_info',
+        __( 'Contact Information', ATBDP_TEXTDOMAIN ),
+        array($this, 'listing_contact_info'),
         ATBDP_POST_TYPE,
         'normal', 'high' );
 
         add_meta_box( '_listing_gallery',
         __( 'Upload Image for the listing', ATBDP_TEXTDOMAIN ),
         array($this, 'listing_gallery'),
+        ATBDP_POST_TYPE,
+        'normal', 'high' );
+
+        add_meta_box( '_listing_video_gallery',
+        __( 'Upload Video for the listing', ATBDP_TEXTDOMAIN ),
+        array($this, 'listing_video_gallery'),
         ATBDP_POST_TYPE,
         'normal', 'high' );
 
@@ -99,20 +111,9 @@ class ATBDP_Metabox {
         $listing_info['never_expire']           = get_post_meta($post->ID, '_never_expire', true);
         $listing_info['featured']               = get_post_meta($post->ID, '_featured', true);
         $listing_info['price']                  = get_post_meta($post->ID, '_price', true);
-        $listing_info['videourl']               = get_post_meta($post->ID, '_videourl', true);
         $listing_info['listing_status']         = get_post_meta($post->ID, '_listing_status', true);
         $listing_info['tagline']                = get_post_meta($post->ID, '_tagline', true);
         $listing_info['excerpt']                = get_post_meta($post->ID, '_excerpt', true);
-        $listing_info['address']                = get_post_meta($post->ID, '_address', true);
-        $listing_info['phone']                  = get_post_meta($post->ID, '_phone', true);
-        $listing_info['email']                  = get_post_meta($post->ID, '_email', true);
-        $listing_info['website']                = get_post_meta($post->ID, '_website', true);
-        $listing_info['social']                 = get_post_meta($post->ID, '_social', true);
-        $listing_info['manual_lat']             = get_post_meta($post->ID, '_manual_lat', true);
-        $listing_info['manual_lng']             = get_post_meta($post->ID, '_manual_lng', true);
-        $listing_info['bdbh']                   = get_post_meta($post->ID, '_bdbh', true);
-        $listing_info['listing_img']            = get_post_meta($post->ID, '_listing_img', true);
-        $listing_info['hide_contact_info']      = get_post_meta($post->ID, '_hide_contact_info', true);
         $listing_info['expiry_date']            = get_post_meta($post->ID, '_expiry_date', true);
 
 
@@ -120,15 +121,54 @@ class ATBDP_Metabox {
         wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
         ATBDP()->load_template('add-listing', compact('listing_info') ); // load metabox view and pass data to it.
     }
+    /**
+     * It displays meta box for listing contact information from the backend editor of ATBDP_POST_TYPE
+     * @param WP_Post $post
+     */
+    public function listing_contact_info($post )
+    {
+        // get all the meta values from the db, prepare them for use and then send in in a single bar to the add listing view
+        $listing_contact_info['address']                = get_post_meta($post->ID, '_address', true);
+        $listing_contact_info['phone']                  = get_post_meta($post->ID, '_phone', true);
+        $listing_contact_info['email']                 = get_post_meta($post->ID, '_email', true);
+        $listing_contact_info['website']               = get_post_meta($post->ID, '_website', true);
+        $listing_contact_info['social']                = get_post_meta($post->ID, '_social', true);
+        $listing_contact_info['manual_lat']             = get_post_meta($post->ID, '_manual_lat', true);
+        $listing_contact_info['manual_lng']            = get_post_meta($post->ID, '_manual_lng', true);
+        $listing_contact_info['bdbh']                  = get_post_meta($post->ID, '_bdbh', true);
+        $listing_contact_info['listing_img']            = get_post_meta($post->ID, '_listing_img', true);
+        $listing_contact_info['hide_contact_info']      = get_post_meta($post->ID, '_hide_contact_info', true);
 
+        ATBDP()->load_template('contact-info', compact('listing_contact_info') );
+    }
     /**
      * It displays meta box for uploading image from the backend editor of ATBDP_POST_TYPE
      * @param WP_Post $post
      */
     public function listing_gallery($post )
     {
+
         $listing_img= get_post_meta($post->ID, '_listing_img', true);
         ATBDP()->load_template('media-upload', compact('listing_img') );
+    }
+    /**
+     * It displays meta box for uploading image from the backend editor of ATBDP_POST_TYPE
+     * @param WP_Post $post
+     */
+    public function listing_video_gallery($post )
+    {
+        $post_meta = get_post_meta( $post->ID );
+        $videourl = get_post_meta($post->ID, '_videourl', true);
+        $enable_video_url = get_directorist_option('atbd_video_url',1);
+        if($enable_video_url) {?>
+            <div class="form-group">
+                <!--@todo; Add currency Name near price-->
+                <label for="videourl"><?php
+                    /*Translator: % is the name of the currency such eg. USD etc.*/
+                    printf(esc_html__('Video URL', ATBDP_TEXTDOMAIN)); ?></label>
+                <input type="text" id="videourl" name="videourl" value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
+            </div>
+        <?php }
     }
 
     /**

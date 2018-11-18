@@ -12,7 +12,7 @@ $symbol = atbdp_currency_symbol($currency);
         <p><?php _e( 'Thank you for your order!', ATBDP_TEXTDOMAIN ); ?></p>
 
         <?php
-        // show the user instruction for banking gatewayy
+        // show the user instruction for banking gateway
         if( isset( $o_metas['_payment_gateway'] ) && 'bank_transfer' == $o_metas['_payment_gateway'][0] && 'created' == $o_metas['_payment_status'][0] ) {
             $ins = get_directorist_option('bank_transfer_instruction');
             echo !empty($ins) ? '<p>'.ATBDP()->email->replace_in_content($ins, @$order_id, @$o_metas['_listing_id'][0]).'</p>' : '';

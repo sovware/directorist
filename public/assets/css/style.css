@@ -949,6 +949,15 @@ h6, .h6 {
   margin-right: 6px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .select2-container--default.select2-container--focus .select2-selection--multiple,
+.atbd_content_active #directorist.atbd_wrapper .select2-container--default .select2-selection--multiple {
+  border-color: #e3e6ef;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .select2-container--default .select2-selection {
+  padding: 0 20px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_add_listing_title {
   text-align: center;
 }
@@ -957,6 +966,10 @@ h6, .h6 {
   margin: 0;
   font-size: 28px;
   padding-bottom: 27px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper #gmap {
+  height: 350px;
 }
 
 /*# sourceMappingURL=map/style.css.map */

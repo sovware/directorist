@@ -1,4 +1,11 @@
 .atbd_content_active #directorist.atbd_wrapper{
+  .select2-container--default.select2-container--focus .select2-selection--multiple,
+  .select2-container--default .select2-selection--multiple{
+    border-color: $border-color;
+  }
+  .select2-container--default .select2-selection{
+    padding: 0 20px;
+  }
   .atbd_add_listing_title{
     text-align: center;
     h3{
@@ -6,5 +13,9 @@
       font-size: 28px;
       padding-bottom: 27px;
     }
+  }
+
+  #gmap{
+    height: 350px;
   }
 }

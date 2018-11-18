@@ -74,10 +74,11 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                 do_action('atbdb_before_add_listing_from_frontend');//for dev purpose
                 ?>
             <div class="atbdp-form-fields">
-            <div class="add_listing_title">
-                <h2><?= !empty($p_id) ? __('Update Listing', ATBDP_TEXTDOMAIN) : __('Add Listing', ATBDP_TEXTDOMAIN); ?></h2>
+            <div class="atbd_add_listing_title">
+                <h3><?= !empty($p_id) ? __('Update Listing', ATBDP_TEXTDOMAIN) : __('Add Listing', ATBDP_TEXTDOMAIN); ?></h3>
             </div>
-        <!--add nonce field security -->
+
+            <!--add nonce field security -->
             <?php  ATBDP()->listing->add_listing->show_nonce_field(); ?>
             <input type="hidden" name="add_listing_form" value="1">
             <input type="hidden" name="listing_id" value="<?= !empty($p_id) ?  esc_attr($p_id) : ''; ?>">
@@ -101,7 +102,6 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                     do_action('atbdp_edit_before_title_fields', 'add_listing_page_frontend');
                     ?>
                     <div class="atbdp_info_module">
-
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h3 class="module_title"><?php esc_html_e('General information', ATBDP_TEXTDOMAIN) ?></h3>
@@ -595,10 +595,10 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
     jQuery(document).ready(function ($) {
         <?php if(class_exists('ATBDP_Fee_Manager') ) { ?>
-        $('#fm_plans_container').on('click', function(){
-            $('.atbdp-form-fields').fadeIn(1000);
-            $('#fm_plans_container').fadeOut(300)
-        });
+//        $('#fm_plans_container').on('click', function(){
+//            $('.atbdp-form-fields').fadeIn(1000);
+//            $('#fm_plans_container').fadeOut(300)
+//        });
         <?php } ?>
         $(function () {
             $('#color_code2').wpColorPicker();

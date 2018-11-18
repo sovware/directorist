@@ -13,7 +13,7 @@ $in_cat_text = !empty($in_cat) ? sprintf(__(' from "%s" Category', ATBDP_TEXTDOM
 $in_loc_text = !empty($in_loc) ? sprintf(__(' in "%s" Location', ATBDP_TEXTDOMAIN), $in_loc) : '';
 $is_disable_price = get_directorist_option('disable_list_price');
 ?>
-    <div class="directorist directory_wrapper single_area">
+    <div id="directorist" class="directorist atbd_wrapper directory_wrapper single_area">
         <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
 
             <div class="header_bar">
@@ -70,64 +70,106 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             $excerpt = get_post_meta(get_the_ID(), '_excerpt', true);
                             $tagline = get_post_meta(get_the_ID(), '_tagline', true);
                             ?>
-
+                            <?php /*@todo shahadat - > updated search results page */?>
                             <div class="col-md-4 col-sm-6">
-                                <div class="single_directory_post">
-                                    <article class="<?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
-                                        <figure>
-                                            <div class="post_img_wrapper">
-                                                <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(432,400))).'" alt="listing image">' : '' ?>
+                                <div class="atbd_single_listing atbd_listing_card">
+                                    <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
+                                        <figure class="atbd_listing_thumbnail_area">
+                                            <div class="atbd_listing_image">
+                                                <?= (!empty($attachment_id[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($attachment_id[0],  array(432,400))).'" alt="listing image">' : '' ?>
                                             </div>
 
-                                            <figcaption>
-                                                <p><?= !empty($excerpt) ? esc_html(stripslashes($excerpt)) : ''; ?></p>
-                                            </figcaption>
-                                        </figure>
+                                            <figcaption class="atbd_thumbnail_overlay_content">
+                                                <?php /*todo: Shahadat -> It needs dynamization */?>
+                                                <div class="atbd_upper_badge">
+                                                    <span class="atbd_badge atbd_badge_open">Open Now</span>
+                                                </div><!-- END /.atbd_upper_badge -->
 
-                                        <div class="article_content">
-                                            <div class="content_upper">
-                                                <h4 class="post_title">
-                                                    <a href="<?= esc_url(get_post_permalink($l_ID)); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
+                                                <div class="atbd_lower_badge">
                                                     <?php
                                                     if ($featured){ printf(
-                                                        ' <span class="directorist-ribbon featured-ribbon">%s</span>',
+                                                        '<span class="atbd_badge atbd_badge_featured">Featured</span>',
                                                         esc_html__('Featured', ATBDP_TEXTDOMAIN)
                                                     );}
                                                     ?>
+                                                    <?php /*todo: Shahadat -> It needs dynamization */?>
+                                                    <span class="atbd_badge atbd_badge_popular">Popular</span>
+                                                </div>
+                                            </figcaption>
+                                        </figure>
+
+                                        <?php /*todo: Shahadat -> please implement the current markup*/?>
+                                        <div class="atbd_listing_info">
+                                            <div class="atbd_content_upper">
+                                                <h4 class="atbd_listing_title">
+                                                    <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                                 </h4>
-                                                <p><?= (!empty($tagline)) ? esc_html(stripslashes($tagline)) : ''; ?></p>
+                                                <p class="atbd_listing_tagline"><?= (!empty($tagline)) ? esc_html(stripslashes($tagline)) : ''; ?></p>
+                                                <?php /* todo: Shahadat -> new markup implemented */?>
+                                                <div class="atbd_listing_meta">
+                                                    <?php
+                                                    /**
+                                                     * Fires after the title and sub title of the listing is rendered
+                                                     *
+                                                     *
+                                                     * @since 1.0.0
+                                                     */
+
+                                                    do_action('atbdp_after_listing_tagline');
+                                                    /*@todo: Shahadat -> added new markup, Average pricing */?>
+                                                    <span class="atbd_meta atbd_listing_average_pricing">
+                                                    <span class="atbd_active">$</span>
+                                                    <span class="atbd_active">$</span>
+                                                    <span>$</span>
+                                                    <span>$</span>
+                                                </span>
+                                                    <?php
+                                                    atbdp_display_price($price, $is_disable_price);
+
+                                                    /**
+                                                     * Fires after the price of the listing is rendered
+                                                     *
+                                                     *
+                                                     * @since 3.1.0
+                                                     */
+                                                    do_action('atbdp_after_listing_price');
+                                                    ?>
+                                                </div><!-- End atbd listing meta -->
+
+                                                <?php /* @todo: Shahadat -> please implement this */?>
+                                                <div class="atbd_listing_data_list">
+                                                    <ul>
+                                                        <li><p><span class="fa fa-location-arrow"></span>House -24C, Road -113A, Gulshan -2, Dhaka</p></li>
+                                                        <li><p><span class="fa fa-phone"></span>(415) 796-3633</p></li>
+                                                        <li><p><span class="fa fa-clock-o"></span>Posted 2 months ago</p></li>
+                                                    </ul>
+                                                </div><!-- End atbd listing meta -->
                                                 <?php
-                                                atbdp_display_price($price, $is_disable_price);
-                                                /**
-                                                 * Fires after the price of the listing is rendered
-                                                 *
-                                                 *
-                                                 * @since 3.1.0
-                                                 */
-                                                do_action('atbdp_after_listing_price');
-                                                /**
-                                                 * Fires after the title and sub title of the listing is rendered
-                                                 *
-                                                 *
-                                                 * @since 1.0.0
-                                                 */
-                                                /*@todo; later refactor the hook name and now it is kept for backward compatibility to show ratings here in this action*/
-                                                do_action('atbdp_after_listing_tagline');
+                                                //show category and location info
+                                                /* @todo: Shahadat -> Please fetch location, phone number and listing addition info here */
+                                                /*ATBDP()->helper->output_listings_taxonomy_info($top_category, $deepest_location);*/?>
+                                                <p><?= !empty($excerpt) ? esc_html(stripslashes($excerpt)) : ''; ?></p>
 
-                                                ?>
+                                                <?php /* @todo: deleted the read more link */ ?>
+                                            </div><!-- end ./atbd_content_upper -->
 
-                                            </div>
-                                            <?php
-                                            //show category and location info
-                                            ATBDP()->helper->output_listings_all_taxonomy_info($cats, $locs);
-                                            // show read more link/btn
-                                            ATBDP()->helper->listing_read_more_link();
-                                            ?>
+                                            <div class="atbd_listing_bottom_content">
+                                                <div class="atbd_content_left">
+                                                    <div class="atbd_listting_category">
+                                                        <a href="#"><span class="fa fa-glass"></span>Restaurant</a>
+                                                    </div>
+                                                </div>
+
+                                                <ul class="atbd_content_right">
+                                                    <li class="atbd_count"><span class="fa fa-eye"></span>900+</li>
+                                                    <li class="atbd_save"><span class="fa fa-heart"></span></li>
+                                                    <li class="atbd_author"><a href="#"><img src="<?php echo ATBDP_PUBLIC_ASSETS.'images/avtr.png'?>" alt=""></a></li>
+                                                </ul>
+                                            </div><!-- end ./atbd_listing_bottom_content -->
                                         </div>
                                     </article>
                                 </div>
                             </div>
-
                         <?php }
 
                         } else {?>

@@ -1,7 +1,16 @@
 // pricing scss
 .atbd_content_active #directorist.atbd_wrapper{
+  .atbd_pricing_header{
+    text-align: center;
+    h3{
+      margin: 0;
+      font-size: 28px;
+      padding-bottom: 27px;
+    }
+  }
   .pricing{
     text-align: center;
+    border: 1px solid $border-color;
     margin-bottom: 30px;
     .pricing__title{
       h4{
@@ -65,8 +74,8 @@
           padding-bottom: 30px;
           li{
             line-height: 2.66rem;
-            span{
-              margin-right: 4px;
+            span.fa{
+              margin-right: 7px;
               &.fa-check{
                 color: $success
               }

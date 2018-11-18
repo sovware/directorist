@@ -47,21 +47,10 @@ if ( !class_exists('BD_Map_Widget')) {
 
                 if ( !empty($manual_lat) && !empty($manual_lng)) {
                     ?>
-                    <section id="directorist" class="directorist atbd_wrapper">
+                        <div class="atbdb_content_module_contents">
+                            <div id="widgetMap" class="atbd_google_map"></div>
+                        </div>
 
-                            <div class="atbd_content_module">
-                                <div class="atbd_content_module__tittle_area">
-                                    <div class="atbd_area_title">
-                                        <h4><span class="fa fa fa-map atbd_area_icon"></span>Location</h4>
-                                    </div>
-                                </div>
-
-                                <div class="atbdb_content_module_contents">
-                                    <div id="widgetMap" class="atbd_google_map"></div>
-                                </div>
-                            </div><!-- end .atbd_custom_fields_contents -->
-
-                    </section>
                     <?php } ?>
                     <script>
 

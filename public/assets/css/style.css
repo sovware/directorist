@@ -831,8 +831,19 @@ h6, .h6 {
   border: 0;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_pricing_header {
+  text-align: center;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_pricing_header h3 {
+  margin: 0;
+  font-size: 28px;
+  padding-bottom: 27px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .pricing {
   text-align: center;
+  border: 1px solid #e3e6ef;
   margin-bottom: 30px;
 }
 
@@ -908,15 +919,15 @@ h6, .h6 {
   line-height: 2.66rem;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .pricing.pricing--1 .pricing__features ul li span {
-  margin-right: 4px;
+.atbd_content_active #directorist.atbd_wrapper .pricing.pricing--1 .pricing__features ul li span.fa {
+  margin-right: 7px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .pricing.pricing--1 .pricing__features ul li span.fa-check {
+.atbd_content_active #directorist.atbd_wrapper .pricing.pricing--1 .pricing__features ul li span.fa.fa-check {
   color: #32cc6f;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .pricing.pricing--1 .pricing__features ul li span.fa-times {
+.atbd_content_active #directorist.atbd_wrapper .pricing.pricing--1 .pricing__features ul li span.fa.fa-times {
   color: #e23636;
 }
 
@@ -936,6 +947,16 @@ h6, .h6 {
 
 #directorist.atbd_wrapper .atbd_upload_btn span {
   margin-right: 6px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_add_listing_title {
+  text-align: center;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_add_listing_title h3 {
+  margin: 0;
+  font-size: 28px;
+  padding-bottom: 27px;
 }
 
 /*# sourceMappingURL=map/style.css.map */

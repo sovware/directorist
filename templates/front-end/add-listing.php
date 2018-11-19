@@ -69,7 +69,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 /* @todo: Shahadat -> this page heavily modified, please test it better */
 ?>
 
-<div id="directorist" class="directorist atbd_wrapper single_area">
+<div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
     <div class="<?php echo is_directoria_active() ? 'container': ' container-fluid'; ?>">
         <form action="<?= esc_url($_SERVER['REQUEST_URI']); ?>" method="post">
             <?php
@@ -442,7 +442,17 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                                     ?>
                                 </div>
+                            </div>
+                        </div><!-- end .atbd_general_information_module -->
 
+                        <div class="atbd_content_module atbd_location_map_setting">
+                            <div class="atbd_content_module__tittle_area">
+                                <div class="atbd_area_title">
+                                    <h4><?php esc_html_e('Location (Map)', ATBDP_TEXTDOMAIN) ?></h4>
+                                </div>
+                            </div>
+                            
+                            <div class="atbdb_content_module_contents">
                                 <div class="cor-wrap form-group">
                                     <?php $map_guide = sprintf("<span class='color:#c71585;'>%s</span>", __('SET 0 to LAT & LONG Field to HIDE MAP FOR THIS LISTING', ATBDP_TEXTDOMAIN)); ?>
                                     <label for="manual_coordinate"><input type="checkbox" name="manual_coordinate" value="1" id="manual_coordinate" <?= (!empty($manual_coordinate)) ? 'checked' : ''; ?> > <?php
@@ -499,15 +509,13 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                                 <?php } ?>
                             </div>
-                        </div><!-- end .atbd_custom_fields_contents -->
+                        </div> <!--./end atbd_location_map_setting-->
                     </div><!--ends contact information-->
                     <?php } ?>
 
                 <div class="directorist-contact-fields atbdp_info_module">
 
-                    <div class="atbd_content_module atbd_general_information_module">
-                        <div class="atbd_content_module__tittle_area">
-                            <div class="atbd_area_title">
+
 
                     <div class="atbdp_info_module">
                         <?php

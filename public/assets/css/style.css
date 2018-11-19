@@ -972,4 +972,47 @@ h6, .h6 {
   height: 350px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper #hide_if_no_manual_cor {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .map_wrapper {
+  position: relative;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .map_wrapper #floating-panel {
+  position: absolute;
+  top: 10px;
+  left: 185px;
+  z-index: 1;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_plan_alert a.btn {
+  margin-left: 10px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_plan_alert strong {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .close {
+  float: none;
+  padding: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  font-size: 20px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .close:hover {
+  background: none;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .atbd_plan_alert {
+  margin-bottom: 30px;
+}
+
 /*# sourceMappingURL=map/style.css.map */

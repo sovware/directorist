@@ -384,8 +384,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                     </div><!-- end .atbd_custom_fields_contents -->
 
                     <?php if (!$disable_contact_info){ ?>
-                    <div class="directorist-contact-fields atbdp_info_module">
-                        <div class="atbd_content_module atbd_general_information_module">
+                        <div class="atbd_content_module atbd_contact_information">
                             <div class="atbd_content_module__tittle_area">
                                 <div class="atbd_area_title">
                                     <h4><?php esc_html_e('Contact Information', ATBDP_TEXTDOMAIN) ?></h4>
@@ -487,7 +486,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                                             <div class="col-md-3 col-sm-12">
                                                 <div class="form-group lat_btn_wrap">
-                                                    <button class="btn btn-default"
+                                                    <button class="btn btn-primary"
                                                             id="generate_admin_map"><?php _e('Generate on Map', ATBDP_TEXTDOMAIN); ?></button>
                                                 </div>
                                             </div> <!-- ends #hide_if_no_manual_cor-->
@@ -510,13 +509,9 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 <?php } ?>
                             </div>
                         </div> <!--./end atbd_location_map_setting-->
-                    </div><!--ends contact information-->
                     <?php } ?>
 
                 <div class="directorist-contact-fields atbdp_info_module">
-
-
-
                     <div class="atbdp_info_module">
                         <?php
                         /**
@@ -527,12 +522,22 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                          **/
                         do_action('atbdp_edit_after_googlemap_preview', 'add_listing_page_frontend', $listing_info, $p_id);?>
                     </div>
+                    <div class="atbd_content_module">
+                        <div class="atbd_content_module__tittle_area">
+                            <div class="atbd_area_title">
+                                <h4><?php esc_html_e('Imges & Video', ATBDP_TEXTDOMAIN) ?></h4>
+                            </div>
+                        </div>
 
-
-                    <!--Image Uploader-->
-                    <div id="_listing_gallery">
-                        <?php  ATBDP()->load_template('media-upload', array('listing_img'=> $listing_img)); ?>
+                        <div class="atbdb_content_module_contents">
+                            <!--Image Uploader-->
+                            <div id="_listing_gallery">
+                                <?php  ATBDP()->load_template('media-upload', array('listing_img'=> $listing_img)); ?>
+                            </div>
+                        </div>
                     </div>
+
+
                     <div style="text-align: center">
                         <input id="listing_t" type="checkbox" name="t_c_check">
                         <?php

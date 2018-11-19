@@ -1610,6 +1610,55 @@ function atbdp_list_tags( $settings ) {
 
     return $html;
 }
+
+/**
+ * Get the current listings order.
+ *
+ * @since    4.0
+ *
+ * @param    string    $default_order    Default Order.
+ * @return   string    $order            Listings Order.
+ */
+function atbdp_get_listings_current_order( $default_order = '' ) {
+
+    $order = $default_order;
+
+    if( isset( $_GET['sort'] ) ) {
+        $order = sanitize_text_field( $_GET['sort'] );
+    } else if( isset( $_GET['order'] ) ) {
+        $order = sanitize_text_field( $_GET['order'] );
+    }
+
+    return apply_filters( 'atbdp_get_listings_current_order', $order );
+
+}
+
+/**
+ * Get orderby list.
+ *
+ * @since    1.0.0
+ *
+ * @return   array    $options    A list of the orderby options.
+ */
+function atbdp_get_listings_orderby_options() {
+
+
+    $options = array(
+        'title-asc'  => __( "A to Z ( title )", ATBDP_TEXTDOMAIN ),
+        'title-desc' => __( "Z to A ( title )", ATBDP_TEXTDOMAIN ),
+        'date-desc'  => __( "Recently added ( latest )", ATBDP_TEXTDOMAIN ),
+        'date-asc'   => __( "Date added ( oldest )", ATBDP_TEXTDOMAIN ),
+        'views-desc' => __( "Most viewed", ATBDP_TEXTDOMAIN ),
+        'views-asc'  => __( "Less viewed", ATBDP_TEXTDOMAIN ),
+        'price-asc' => __( "Price ( low to high )",ATBDP_TEXTDOMAIN ),
+        'price-desc' => __( "Price ( high to low )",ATBDP_TEXTDOMAIN ),
+    );
+
+
+    return apply_filters( 'atbdp_get_listings_orderby_options', $options );
+
+}
+
 /*
  * Clean variables using sanitize_text_field. Arrays are cleaned recursively.
  * Non-scalar values are ignored.

@@ -985,7 +985,7 @@ h6, .h6 {
 .atbd_content_active #directorist.atbd_wrapper .map_wrapper #floating-panel {
   position: absolute;
   top: 10px;
-  left: 185px;
+  right: 58px;
   z-index: 1;
 }
 

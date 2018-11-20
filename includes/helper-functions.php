@@ -1646,16 +1646,77 @@ function atbdp_get_listings_orderby_options() {
     $options = array(
         'title-asc'  => __( "A to Z ( title )", ATBDP_TEXTDOMAIN ),
         'title-desc' => __( "Z to A ( title )", ATBDP_TEXTDOMAIN ),
-        'date-desc'  => __( "Recently added ( latest )", ATBDP_TEXTDOMAIN ),
-        'date-asc'   => __( "Date added ( oldest )", ATBDP_TEXTDOMAIN ),
-        'views-desc' => __( "Most viewed", ATBDP_TEXTDOMAIN ),
-        'views-asc'  => __( "Less viewed", ATBDP_TEXTDOMAIN ),
+        'date-desc'  => __( "Latest listings", ATBDP_TEXTDOMAIN ),
+        'date-asc'   => __( "Oldest listings", ATBDP_TEXTDOMAIN ),
+        'popular' => __( "Popular listings", ATBDP_TEXTDOMAIN ),
         'price-asc' => __( "Price ( low to high )",ATBDP_TEXTDOMAIN ),
         'price-desc' => __( "Price ( high to low )",ATBDP_TEXTDOMAIN ),
+        'rand' => __( "Random listings",ATBDP_TEXTDOMAIN ),
     );
 
 
     return apply_filters( 'atbdp_get_listings_orderby_options', $options );
+
+}
+
+/**
+ * Get the listing view.
+ *
+ * @since    4.0.0
+ *
+ * @param    string    $view    Default View.
+ * @return   string    $view    Grid or List.
+ */
+function atbdp_get_listings_current_view_name( $view ) {
+
+
+    if( isset( $_GET['view'] ) ) {
+        $view = sanitize_text_field( $_GET['view'] );
+    }
+
+    $allowed_views = array( 'list', 'grid' );
+    if( ! in_array( $view, $allowed_views ) ) {
+        $listing_view = get_directorist_option('default_listing_view');
+        $listings_settings = !empty($listing_view) ? $listing_view : 'grid';
+        $view = $listings_settings;
+    }
+
+
+    return $view;
+
+}
+
+/**
+ * Get the list of listings view options.
+ *
+ * @since    4.0.0
+ *
+ * @return   array    $view_options    List of view Options.
+ */
+function atbdp_get_listings_view_options() {
+    $listing_view = get_directorist_option('default_listing_view');
+    $listings_settings = !empty($listing_view) ? $listing_view : 'grid';
+
+    $options   = array('grid','list');
+    $options[] = isset( $_GET['view'] ) ? sanitize_text_field( $_GET['view'] ) : $listings_settings;
+    $options   = array_unique( $options );
+
+    $views = array();
+
+    foreach( $options as $option ) {
+
+        switch( $option ) {
+            case 'list' :
+                $views[ $option ] = __( 'List', ATBDP_TEXTDOMAIN );
+                break;
+            case 'grid' :
+                $views[ $option ] = __( 'Grid', ATBDP_TEXTDOMAIN );
+                break;
+        }
+
+    }
+
+    return $views;
 
 }
 

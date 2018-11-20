@@ -13,7 +13,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                 <div class="row">
                     <div class="col-md-12">
                         <div class="header_form_wrapper">
-                            <div class="directory_title pull-left text-muted">
+                            <div class="directory_title pull-left">
                                 <h3>
                                     <?php echo esc_html($all_listing_title); ?>
                                 </h3>
@@ -44,22 +44,22 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                         ?>
                                     </ul>
                                 </div>
-                                    <!-- Orderby dropdown -->
-                                    <div class="btn-group" role="group">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <?php _e( "Sort by", ATBDP_TEXTDOMAIN ); ?> <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <?php
-                                            $options = atbdp_get_listings_orderby_options();
+                                <!-- Orderby dropdown -->
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <?php _e( "Sort by", ATBDP_TEXTDOMAIN ); ?> <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <?php
+                                        $options = atbdp_get_listings_orderby_options();
 
-                                            foreach( $options as $value => $label ) {
-                                                $active_class = ( $value == $current_order ) ? ' active' : '';
-                                                printf( '<li class="dropdown-item%s"><a href="%s">%s</a></li>', $active_class, add_query_arg( 'sort', $value ), $label );
-                                            }
-                                            ?>
-                                        </ul>
-                                    </div>
+                                        foreach( $options as $value => $label ) {
+                                            $active_class = ( $value == $current_order ) ? ' active' : '';
+                                            printf( '<li class="dropdown-item%s"><a href="%s">%s</a></li>', $active_class, add_query_arg( 'sort', $value ), $label );
+                                        }
+                                        ?>
+                                    </ul>
+                                </div>
 
                             </div>
                         </div>
@@ -68,35 +68,35 @@ $is_disable_price = get_directorist_option('disable_list_price');
             </div>
         </div>
 
-
-
-        <?php /* @todo: Shahadat -> atbd listing list style */?>
         <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
             <div class="row" data-uk-grid>
 
 
                 <?php if ( $all_listings->have_posts() ) {
-                    while ( $all_listings->have_posts() ) { $all_listings->the_post(); ?>
-                        <?php
-                        $info = ATBDP()->metabox->get_listing_info(get_the_ID()); // get all post meta and extract it.
-                        extract($info);
-                        // get only one parent or high level term object
-                        $top_category = ATBDP()->taxonomy->get_one_high_level_term(get_the_ID(), ATBDP_CATEGORY);
-                        $deepest_location = ATBDP()->taxonomy->get_one_deepest_level_term(get_the_ID(), ATBDP_LOCATION);
-                        $featured = get_post_meta(get_the_ID(), '_featured', true);
-                        $price = get_post_meta(get_the_ID(), '_price', true);
+                    while ( $all_listings->have_posts() ) { $all_listings->the_post();
+                        $cats       =  get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+                        $locs       =  get_the_terms(get_the_ID(), ATBDP_LOCATION);
+                        $featured   = get_post_meta(get_the_ID(), '_featured', true);
+                        $price      = get_post_meta(get_the_ID(), '_price', true);
+                        $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
+                        $excerpt    = get_post_meta(get_the_ID(), '_excerpt', true);
+                        $tagline    = get_post_meta(get_the_ID(), '_tagline', true);
 
                         ?>
 
-                        <div class="col-md-8">
-                            <div class="atbd_single_listing atbd_listing_list">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="atbd_single_listing atbd_listing_card">
                                 <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                     <figure class="atbd_listing_thumbnail_area">
-                                        <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(432,400))).'" alt="listing image">' : '' ?>
-
+                                        <div class="atbd_listing_image">
+                                            <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(432,400))).'" alt="listing image">' : '' ?>
+                                        </div>
 
                                         <figcaption class="atbd_thumbnail_overlay_content">
                                             <?php /*todo: Shahadat -> It needs dynamization */?>
+                                            <div class="atbd_upper_badge">
+                                                <span class="atbd_badge atbd_badge_open">Open Now</span>
+                                            </div><!-- END /.atbd_upper_badge -->
 
                                             <div class="atbd_lower_badge">
                                                 <?php
@@ -147,9 +147,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                  */
                                                 do_action('atbdp_after_listing_price');
                                                 ?>
-
-                                                <?php /*@todo: Shahadat -> open close moved from thumbnail area to content area*/?>
-                                                <span class="atbd_meta atbd_close_now">Close Now</span>
                                             </div><!-- End atbd listing meta -->
 
                                             <?php /* @todo: Shahadat -> please implement this */?>
@@ -205,6 +202,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                 </div>
             </div>
         </div>
+
+
     </div>
 <?php
 ?>

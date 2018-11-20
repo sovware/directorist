@@ -200,6 +200,11 @@ h6, .h6 {
   color: #202428;
 }
 
+#directorist.atbd_wrapper label label {
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
 .atbd_rating_color, #directorist.atbd_wrapper .atbd_rated_stars ul li span.rate_active, #directorist.atbd_wrapper .atbd_rating_stars .br-widget a.br-selected:before, #directorist.atbd_wrapper .atbd_rating_stars .br-widget a.br-active:before {
   color: #fa8b0c;
 }
@@ -1075,6 +1080,12 @@ h6, .h6 {
   line-height: 32px;
   padding: 9px 40px;
   font-size: 18px;
+}
+
+#directorist.atbd_wrapper .atbd_user_dashboard_nav {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 30px;
 }
 
 /*# sourceMappingURL=map/style.css.map */

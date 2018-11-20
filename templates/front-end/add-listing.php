@@ -385,14 +385,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 <input type="hidden" id="value_selected" value="<?php echo $term_id_selected?>">
                             </div>
 
-                            <?php
-                            if($enable_video_url) {
-                                ?>
-                                <div class="form-group">
-                                    <label for="videourl"><?php esc_html_e('Video Url', ATBDP_TEXTDOMAIN) ?></label>
-                                    <input type="text" id="videourl" name="videourl" value="<?= !empty($videourl) ? esc_url($videourl): ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
-                                </div>
-                            <?php } ?>
+
                         </div>
                     </div><!-- end .atbd_custom_fields_contents -->
 
@@ -547,6 +540,14 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                             <div id="_listing_gallery">
                                 <?php  ATBDP()->load_template('media-upload', array('listing_img'=> $listing_img)); ?>
                             </div>
+                            <?php
+                            if($enable_video_url) {
+                                ?>
+                                <div class="form-group">
+                                    <label for="videourl"><?php esc_html_e('Video Url', ATBDP_TEXTDOMAIN) ?></label>
+                                    <input type="text" id="videourl" name="videourl" value="<?= !empty($videourl) ? esc_url($videourl): ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
+                                </div>
+                            <?php } ?>
                         </div>
                     </div>
 

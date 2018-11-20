@@ -1,456 +1,94 @@
-.directorist ul{
-	padding: 0;
-	margin: 0;
-}
-.directorist li{
-	list-style: none;
-}
-.directorist a:hover, .directorist a:focus{
-	text-decoration: none;
-}
-.directorist a:focus{
-	outline: 0;
-}
-.directorist label {
-	cursor: pointer;
-	font-weight: 700;
-}
-.directorist #addNewSocial{
-	font-weight:700;
-}
-/* TYPOGRAPHY */
-.directorist p,
-.directorist a{
-	color: #676767;
-}
-.directorist .single_directory_post p{
-	font-size: 14px;
-	line-height: 26px;
+/* typography */
+#directorist.atbd_wrapper #gmap {
+  height: 350px;
 }
 
-.directorist h1,
-.directorist h2,
-.directorist h3,
-.directorist h4,
-.directorist h5,
-.directorist h6{
-	margin: 0;
-	font-weight: 500;
-	padding: 0;
-	color: #333;
+#directorist.atbd_wrapper label {
+  margin-bottom: 8px;
+  display: inline-block;
+  font-weight: 500;
+  color: #202428;
 }
 
-/* HELPER CLASSES */
-.directorist .no-padding{
-	padding: 0;
-}
-.directorist .no-margin{
-	margin: 0;
-}
-.directorist .padding-left0{
-	padding-left: 0;
-}
-.directorist .ltr{
-	text-align: right;
-}
-.directorist .rtl{
-	text-align: left;
-}
-.directorist .br_0{
-	border-right: none!important;
-}
-.directorist .bt1{
-	border-top: 1px solid #e4e4e4;
-}
-.directorist .v_middle{
-	display: inline-block;
-	vertical-align: middle;
-	margin-right: -3px;
-	float: none;
-}
-.directorist .directory_wrapper input:focus,
-.directorist .days_time button{
-	outline: 0;
-	box-shadow: 0 0 0;
+#directorist.atbd_wrapper .map_wrapper {
+  position: relative;
 }
 
-
-.directorist .directory_btn span.fa{
-	margin-right: 11px;
-}
-.directorist .cor-wrap {
-	margin-bottom: 20px;
-	padding-top: 10px;
-}
-/*
-========================================
-ADMIN SIDE STYLE
-========================================
-*/
-
-.directorist .single_attachment {
-	display: inline-block;
-	width: 250px;
-    height: 200px;
-    margin: 0 20px 20px 0;
-    position: relative;
-}
-.directorist span.remove_image {
-    cursor: pointer;
-    position: absolute;
-    color: #ff0000;
-    top: -15px;
-    right: -2px;
-    font-size: 35px;
-}
-.directorist .hide-it{
-    display: none;
+#directorist.atbd_wrapper .map_wrapper #floating-panel {
+  position: absolute;
+  z-index: 2;
+  right: 59px;
+  top: 10px;
 }
 
-
-#gmap {
-    width:100%;
-    height:300px;
-	z-index:50;
-}
-.directorist .map_wrapper{
-	position: relative;
-}
-.directorist #floating-panel {
-	position: absolute;
-	top: 5px;
-	right: 7px;
-	z-index: 51;
-	padding: 5px 5px 5px 10px;
-	text-align: center;
-	font-family: 'Roboto','sans-serif';
-	line-height: 30px;
+#directorist.atbd_wrapper a.btn {
+  text-decoration: none;
 }
 
-/*Info window*/
-
-.directorist .map_info_window {
-	text-align: center;
-}
-.directorist .map_info_window h3 {
-	font-weight: 400;
-	font-size: 25px;
-}
-/* Map area css front end map. NEEDS TO change to gmap later*/
-.directorist #map{
-	width: 100%;
-	height: 300px;
-}
-.directorist .infoWindowWrap {
-	padding: 20px;
-}
-/*.gm-style .gm-style-iw{
-	width: 200px!important;
-}*/
-
-
-/*Style  for social field*/
-/*.directorist .atbdp_social_field_wrapper select{
-	width : 100%;
-	height:45px;
-}*/
-/*.atbdp_social_field_wrapper input.directory_field {
-	width:80%;
-}*/
-
-.directorist span.removeSocialField.dashicons.dashicons-trash {
-	color: #ff8282;
-	font-size: 32px;
-	line-height: 32px;
-	cursor: pointer;
-}
-.directorist span.atbdp-move-icon.dashicons.dashicons-move {
-	font-size: 32px;
-	line-height: 32px;
-	margin-left: 10px;
-	cursor: move;
-	color: #888888;
-}
-.directorist .plus-sign {
-	font-weight:900;
-	padding-right:5px;
+#directorist.atbd_wrapper #listing_image_btn span {
+  vertical-align: text-bottom;
 }
 
-
-
-/*Extension page style */
-.directorist .single_extension{
-	width: 33.33%;
-	background: #f5f5f5;
-    margin-bottom:20px;
-}
-.directorist .single_extension:first-child{
-    margin-top:20px;
-}
-.directorist .single_extension p {
-	font-size: 14px;
-	color: #5c5c5c;
-	line-height: 24px;
-	font-weight: 400;
-}
-.directorist .single_extension .extension_detail{
-	padding: 30px 25px;
-}
-.directorist .single_extension .btn_wrapper{
-	margin-top: 20px;
-}
-.directorist .single_extension .btn_wrapper a.btn:focus{
-	outline: none;
-	box-shadow: 0 0 0;
-}
-.directorist .single_extension .btn_wrapper a.btn.demo{
-	background: #6b91ef;
-	color: #fff;
-	margin-right: 10px;
-	text-transform: capitalize;
-}
-.directorist .single_extension .btn_wrapper a.btn.get,
-.directorist .extension_detail a.ext_title h4 span{
-	background: #23c8f3;
-	color: #fff;
-	text-transform: capitalize;
-}
-.directorist .extension_detail a.ext_title h4{
-	font-weight: 500;
-	color: #333;
-	text-transform: capitalize;
-	display: inline-block;
-    padding-bottom: 10px;
+#directorist.atbd_wrapper .listing-img-container {
+  text-align: center;
+  padding: 10px 0 15px;
 }
 
-.directorist .extension_detail a.ext_title:focus{
-	outline: 0;
-	box-shadow: 0 0 0;
+#directorist.atbd_wrapper .listing-img-container p {
+  margin-top: 15px;
+  margin-bottom: 4px;
+  color: #7a82a6;
+  font-size: 16px;
 }
 
-.directorist .extension_detail a.ext_title h4 span{
-    padding: 8px 25px;
-    border-radius: 5px;
+#directorist.atbd_wrapper .listing-img-container small {
+  color: #7a82a6;
+  font-size: 13px;
 }
 
-
-/* business hour plugin extension */
-.directorist .business-hour-title{
-	margin-top: 15px;
-	margin-bottom: 30px;
-	border-bottom: 1px solid #ededed;
-}
-.directorist .business-hour-title p{
-	margin-top: 5px;
+#directorist.atbd_wrapper .listing-img-container .single_attachment {
+  width: 208px;
+  display: inline-block;
+  position: relative;
 }
 
-/*OVERRIDE VAFPRESS STYLE*/
-.vp-wrap .vp-menus li.vp-current>a.vp-menu-goto {
-	background-color: #3485ba;
-	color: #FFF;
-}
-.vp-wrap a.vp-menu-goto:focus,
-.vp-wrap a.vp-menu-dropdown:focus
-{
-	outline:none;
-	box-shadow: none;
-}
-
-li.vp-current a.vp-js-menu-dropdown.vp-menu-dropdown {
-	background-color: rgba(108, 185, 234, 0.18823529411764706);
-}
-
-/*Add style for expiration meta box*/
-#atbdp-timestamp{
-	padding: 2px 0 1px 0;
-	display: inline !important;
-	height: auto !important;
-}
-#atbdp-timestamp:before {
-	content: "\f145";
-	position: relative;
-	top: -1px;
-	font: normal 20px/1 dashicons;
-	speak: none;
-	display: inline-block;
-	margin-left: -1px;
-	padding-right: 3px;
-	vertical-align: top;
-	-webkit-font-smoothing: antialiased;
+#directorist.atbd_wrapper .listing-img-container .single_attachment .remove_image {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #d3d1ec;
+  line-height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: 0.2s;
+  cursor: pointer;
+  color: #ffffff;
 }
 
-#atbdp-timestamp-wrap select {
-	height: 21px;
-	line-height: 14px;
-	padding: 0;
-	vertical-align: top;
-	font-size: 12px;
+#directorist.atbd_wrapper .listing-img-container .single_attachment .remove_image:hover {
+  color: #e23636;
 }
 
-#atbdp-jj,  #atbdp-mn {
-	width: 2em;
-}
-#atbdp-hh{
-	width: 2.5em;
-}
-#atbdp-aa{
-	width: 3.2em;
-}
-#atbdp-aa, #atbdp-jj, #atbdp-hh, #atbdp-mn {
-	padding: 1px;
-	font-size: 12px;
+#directorist.atbd_wrapper .hide-if-no-js {
+  text-align: center;
 }
 
-/*Back end listing page*/
-.column-atbdp_featured i{
-    font-size: 21px;
-}
-.column-atbdp_featured i.fa.fa-check-circle{
-    color: green;
-}
-.column-atbdp_featured i.fa.fa-times-circle{
-    color: red;
+#directorist.atbd_wrapper .form-check {
+  margin-bottom: 25px;
+  padding-top: 15px;
 }
 
-/*Ajax loading */
-.atbdp_ajax_loading {
-	background: url("../images/spinner-2x.gif") no-repeat center center;
-	display: inline-block;
-	background-size: cover;
-	min-height: 35px;
-	min-width: 35px;
-    position: relative;
-    top: 14px;
-    left: 5px;
+#directorist.atbd_wrapper .form-check input {
+  vertical-align: top;
 }
 
-.post-type-atbdp_orders .wrap a.page-title-action {
-    display: none !important;
-}
-/*Contact Information*/
-#poststuff h2.directorist_contact_form_title {
-	font-weight: 700;
-	font-size: 18px;
-	text-align: center;
+#directorist.atbd_wrapper .form-check .form-check-label {
+  margin: 0;
+  font-size: 15px;
 }
 
-
-/**/
-.add_listing_form_wrapper .module_title{
-	font-size: 22px;
-}
-.add_listing_form_wrapper  .atbdp_info_module {
-	padding-bottom: 25px;
-	border-bottom: 1px solid #ededed;
-	margin-bottom: 25px;
-}
-.add_listing_form_wrapper input[type='checkbox'] + label{
-	margin: 0;
-}
-.add_listing_form_wrapper .directorist-contact-fields .form-check{
-	margin-bottom: 30px;
-	margin-top: 10px;
-}
-.add_listing_form_wrapper  .enable247hour{
-	margin-bottom: 10px;
-}
-.add_listing_form_wrapper  .map_cor.cor-wrap{
-	margin-top: 30px;
-	margin-bottom: 20px;
-}
-/*fix problem with quick tags*/
-#qt_listing_content_toolbar input{
-    width:initial;
-}
-
-
-/***********************************************************
-************************************************************
-					css for Custom Field
-*************************************************************
-**************************************************************/
-.postbox table.widefat {
-	box-shadow: none;
-	background: #eff2f5;
-}
-
-#atbdp-field-details td {
-	color: #555;
-	font-size: 17px;
-	width: 8%;
-}
-#atbdp-field-options td {
-	color: #555;
-	font-size: 17px;
-	width: 8%;
-}
-.atbdp-tick-cross{
-	margin-left: 18px;
-}
-.atbdp-tick-cross2{
-	margin-left: 25px;
-	color: #bc0b0b;
-}
-
-/*
-for shortable field*/
-.ui-sortable tr:hover {
-	cursor: move;
-}
-.ui-sortable tr.alternate {
-	background-color: #F9F9F9;
-}
-.ui-sortable tr.ui-sortable-helper {
-	background-color: #F9F9F9;
-	border-top: 1px solid #DFDFDF;
-}
-
-
-
-/* css for Documentation page*/
-.atbdp_support_wrapper .wrap.wrap_left {
-	width: 60%;
-}
-.atbdp_support_wrapper .wrap {
-	float: left;
-	margin-right: 20px;
-}
-.atbdp_support_wrapper .wrap.wrap_right {
-	width: 30%;
-}
-.atbdp_support_wrapper .wrap.wrap_right .postbox {
-	background: #f0f9dc;
-	padding: 0 0 10px;
-}
-ul.atbdp_pro_features {
-	padding: 0 23px;
-}
-.atbdp_pro_features li {
-	font-size: 13px;
-	line-height: 22px;
-	color: #333;
-	position: relative;
-	margin-bottom: 6px;
-}
-.atbdp_pro_features li:before {
-	content: "\f522";
-	font-family: 'dashicons', 'sans-serif';
-	margin-right: 4px;
-	display: inline-block;
-	vertical-align: -1.9px;
-}
-.atbdp-upgrade-content-wrapper-right h3 {
-	font-size: 15px;
-	font-weight: normal;
-	color: #ffffff;
-	background: #0085ba;
-	text-align: center;
-	padding: 12px 0;
-	margin: 0;
-}
-.atbdp_support_wrapper .wrap.wrap_right .text-center {
-	text-align: center;
-}
-.wrap .wpcs-admin-extra {
-	padding: 25px;
-}
+/*# sourceMappingURL=map/style.css.map */

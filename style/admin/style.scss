@@ -1,0 +1,81 @@
+@import "../../bootstrap/config.bs";
+
+#directorist.atbd_wrapper {
+  #gmap {
+    height: 350px;
+  }
+  label {
+    margin-bottom: $label-margin-bottom;
+    display: inline-block;
+    font-weight: 500;
+    color: $dark;
+  }
+  .map_wrapper {
+    position: relative;
+    #floating-panel {
+      position: absolute;
+      z-index: 2;
+      right: 59px;
+      top: 10px;
+    }
+  }
+
+  a.btn {
+    text-decoration: none;
+  }
+  #listing_image_btn span {
+    vertical-align: text-bottom;
+  }
+  .listing-img-container {
+    text-align: center;
+    padding: 10px 0 15px;
+    p {
+      margin-top: 15px;
+      margin-bottom: 4px;
+      color: #7a82a6;
+      font-size: 16px;
+    }
+    small {
+      color: $text-color;
+      font-size: 13px;
+    }
+    .single_attachment {
+      width: 208px;
+      display: inline-block;
+      position: relative;
+      .remove_image {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #d3d1ec;
+        line-height: 26px;
+        width: 26px;
+        border-radius: 50%;
+        -webkit-transition: 0.2s;
+        -moz-transition: 0.2s;
+        -ms-transition: 0.2s;
+        -o-transition: 0.2s;
+        transition: 0.2s;
+        cursor: pointer;
+        color: $light;
+        &:hover {
+          color: $danger;
+        }
+      }
+    }
+  }
+  .hide-if-no-js {
+    text-align: center;
+  }
+  .form-check {
+    margin-bottom: 25px;
+    padding-top: 15px;
+    input{
+      vertical-align: top;
+    }
+    .form-check-label {
+      margin: 0;
+      font-size: 15px;
+    }
+  }
+}

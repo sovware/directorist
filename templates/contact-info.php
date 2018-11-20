@@ -11,8 +11,9 @@ $disable_contact_info = get_directorist_option('disable_contact_info');
 $currency = get_directorist_option('g_currency', 'USD');
 
 ?>
-<?php if (!$disable_contact_info){ ?>
 <div id="directorist" class="directorist atbd_wrapper">
+    <?php if (!$disable_contact_info) { ?>
+
         <!-- MAP or ADDRESS related information starts here -->
         <div class="form-check">
             <input type="checkbox" name="hide_contact_info" class="form-check-input" id="hide_contact_info"
@@ -58,41 +59,47 @@ $currency = get_directorist_option('g_currency', 'USD');
         </div>
 
 
-        <?php } ?>
+    <?php } ?>
 
-        <!--Social Information-->
+    <!--Social Information-->
 
-            <?php
-            /**
-             * It fires before social information fields
-             * @param string $type Page type.
-             * @param array $listing_info Information of the current listing
-             * @since 1.1.1
-             **/
-            do_action('atbdp_edit_before_social_info_fields', 'add_listing_page_backend', $args['listing_info']);
+    <?php
+    /**
+     * It fires before social information fields
+     * @param string $type Page type.
+     * @param array $listing_info Information of the current listing
+     * @since 1.1.1
+     **/
+    do_action('atbdp_edit_before_social_info_fields', 'add_listing_page_backend', $args['listing_info']);
 
-            ATBDP()->load_template('meta-partials/social', array('social_info' => $social_info));
-
-            /**
-             * It fires after social information fields
-             * @param string $type Page type.
-             * @param array $listing_info Information of the current listing
-             * @since 1.1.1
-             **/
-            do_action('atbdp_edit_after_social_info_fields', 'add_listing_page_backend', $args['listing_info']);
-            ?>
-
-
-
-        <?php if (!$disable_map) { ?>
-            <div class="cor-wrap map_cor">
-                <input type="checkbox" name="manual_coordinate" value="1"
-                       id="manual_coordinate" <?= (!empty($manual_coordinate)) ? 'checked' : ''; ?> >
-                <label for="manual_coordinate"> <?php _e('Enter Coordinates ( latitude and longitude) Manually ? or set the marker on the map anywhere by clicking on the map', ATBDP_TEXTDOMAIN); ?> </label>
+    ?>
+    <div class="form-group">
+        <?php ATBDP()->load_template('meta-partials/social', array('social_info' => $social_info));?>
+    </div>
+    <?
+    /**
+     * It fires after social information fields
+     * @param string $type Page type.
+     * @param array $listing_info Information of the current listing
+     * @since 1.1.1
+     **/
+    do_action('atbdp_edit_after_social_info_fields', 'add_listing_page_backend', $args['listing_info']);
+    ?>
 
 
-            <div id="hide_if_no_manual_cor">
 
+    <?php if (!$disable_map) { ?>
+    <div class="form-group">
+        <div class="cor-wrap map_cor">
+            <input type="checkbox" name="manual_coordinate" value="1"
+                   id="manual_coordinate" <?= (!empty($manual_coordinate)) ? 'checked' : ''; ?> >
+            <label for="manual_coordinate"> <?php _e('Enter Coordinates ( latitude and longitude) Manually ? or set the marker on the map anywhere by clicking on the map', ATBDP_TEXTDOMAIN); ?> </label>
+        </div>
+    </div>
+
+    <div id="hide_if_no_manual_cor">
+        <div class="form-group">
+            <div class="row">
                 <div class="col-md-5 col-sm-12 v_middle">
                     <div class="form-group">
                         <label for="manual_lat"> <?php _e('Latitude', ATBDP_TEXTDOMAIN); ?>  </label>
@@ -111,233 +118,233 @@ $currency = get_directorist_option('g_currency', 'USD');
                                placeholder="<?php esc_attr_e('Enter Longitude eg. 91.87198', ATBDP_TEXTDOMAIN); ?>"/>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-12 v_middle">
-                    <div class="lat_btn_wrap">
-                        <button class="btn btn-default btn-sm"
-                                id="generate_admin_map"><?php _e('Generate on Map', ATBDP_TEXTDOMAIN); ?></button>
-                    </div>
-                </div> <!-- ends #hide_if_no_manual_cor-->
-
-
-            </div> <!--ends #hide_if_no_manual_cor -->
-        </div> <!--ends .row-->
-
-
-        <!--Google map will be generated here using js-->
-        <div class="map_wrapper">
-            <div id="floating-panel">
-                <button class="btn btn-danger"
-                        id="delete_marker"> <?php _e('Delete Marker', ATBDP_TEXTDOMAIN); ?></button>
             </div>
 
-            <div id="gmap"></div>
+            <div class="lat_btn_wrap">
+                <button class="btn btn-primary btn-sm"
+                        id="generate_admin_map"><?php _e('Generate on Map', ATBDP_TEXTDOMAIN); ?></button>
+            </div>
         </div>
 
-    <?php
-    }
-    ?>
+    </div> <!--ends #hide_if_no_manual_cor -->
+
+    <!--Google map will be generated here using js-->
+    <div class="map_wrapper">
+        <div id="floating-panel">
+            <button class="btn btn-danger"
+                    id="delete_marker"> <?php _e('Delete Marker', ATBDP_TEXTDOMAIN); ?></button>
+        </div>
+
+        <div id="gmap"></div>
+    </div>
+</div> <!--ends .row-->
 
 
-    <script>
-
-        // Bias the auto complete object to the user's geographical location,
-        // as supplied by the browser's 'navigator.geolocation' object.
-
-        jQuery(document).ready(function ($) {
+<?php
+}
+?>
 
 
-            <?php if (!$disable_map) { ?>
+<script>
 
-            // initialize all vars here to avoid hoisting related misunderstanding.
-            var placeSearch, map, autocomplete, address_input, markers, info_window, $manual_lat, $manual_lng, saved_lat_lng, info_content;
-            $manual_lat = $('#manual_lat');
-            $manual_lng = $('#manual_lng');
-            saved_lat_lng = {
-                lat:<?= (!empty($manual_lat)) ? floatval($manual_lat) : '51.5073509' ?>,
-                lng: <?= (!empty($manual_lng)) ? floatval($manual_lng) : '-0.12775829999998223' ?> }; // default is London city
-            info_content = "<?= $info_content; ?>";
-            markers = [];// initialize the array to keep track all the marker
-            /*@todo; make the max width size customizable*/
-            info_window = new google.maps.InfoWindow({
-                content: info_content,
-                maxWidth: 400
-            });
+    // Bias the auto complete object to the user's geographical location,
+    // as supplied by the browser's 'navigator.geolocation' object.
+
+    jQuery(document).ready(function ($) {
 
 
-            address_input = document.getElementById('address');
-            address_input.addEventListener('focus', geolocate);
-            // this function will work on sites that uses SSL, it applies to Chrome especially, other browsers may allow location sharing without securing.
-            function geolocate() {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(function (position) {
-                        var geolocation = {
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude
-                        };
-                        var circle = new google.maps.Circle({
-                            center: geolocation,
-                            radius: position.coords.accuracy
-                        });
-                        autocomplete.setBounds(circle.getBounds());
+        <?php if (!$disable_map) { ?>
+
+        // initialize all vars here to avoid hoisting related misunderstanding.
+        var placeSearch, map, autocomplete, address_input, markers, info_window, $manual_lat, $manual_lng, saved_lat_lng, info_content;
+        $manual_lat = $('#manual_lat');
+        $manual_lng = $('#manual_lng');
+        saved_lat_lng = {
+            lat:<?= (!empty($manual_lat)) ? floatval($manual_lat) : '51.5073509' ?>,
+            lng: <?= (!empty($manual_lng)) ? floatval($manual_lng) : '-0.12775829999998223' ?> }; // default is London city
+        info_content = "<?= $info_content; ?>";
+        markers = [];// initialize the array to keep track all the marker
+        /*@todo; make the max width size customizable*/
+        info_window = new google.maps.InfoWindow({
+            content: info_content,
+            maxWidth: 400
+        });
+
+
+        address_input = document.getElementById('address');
+        address_input.addEventListener('focus', geolocate);
+        // this function will work on sites that uses SSL, it applies to Chrome especially, other browsers may allow location sharing without securing.
+        function geolocate() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var geolocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    var circle = new google.maps.Circle({
+                        center: geolocation,
+                        radius: position.coords.accuracy
                     });
-                }
-            }
-
-
-            function initAutocomplete() {
-                // Create the autocomplete object, restricting the search to geographical
-                // location types.
-                autocomplete = new google.maps.places.Autocomplete(
-                    (address_input),
-                    {types: ['geocode']});
-
-                // When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
-                autocomplete.addListener('place_changed', fillInAddress);
-            }
-
-            function fillInAddress() {
-                // Get the place details from the autocomplete object.
-                var place = autocomplete.getPlace();
-                // set the value of input field to save them to the database
-                $manual_lat.val(place.geometry.location.lat());
-                $manual_lng.val(place.geometry.location.lng());
-                map.setCenter(place.geometry.location);
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: place.geometry.location
-                });
-
-                marker.addListener('click', function () {
-                    info_window.open(map, marker);
-                });
-
-                // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
-                markers.push(marker);
-            }
-
-            initAutocomplete(); // start google map place auto complete API call
-
-
-            function initMap() {
-                /* Create new map instance*/
-                map = new google.maps.Map(document.getElementById('gmap'), {
-                    zoom: <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 16; ?>,
-                    center: saved_lat_lng
-                });
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: saved_lat_lng,
-                    draggable: true,
-                    title: '<?php _e('You can drag the marker to your desired place to place a marker', ATBDP_TEXTDOMAIN); ?>'
-                });
-                marker.addListener('click', function () {
-                    info_window.open(map, marker);
-                });
-                // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
-                markers.push(marker);
-
-                // create a Geocode instance
-                var geocoder = new google.maps.Geocoder();
-
-                document.getElementById('generate_admin_map').addEventListener('click', function (e) {
-                    e.preventDefault();
-                    geocodeAddress(geocoder, map);
-                });
-
-
-                // This event listener calls addMarker() when the map is clicked.
-                google.maps.event.addListener(map, 'click', function (event) {
-                    // at first delete the old marker if there is any and then add new marker
-                    deleteMarker();
-                    // set the value of input field to save them to the database
-                    $manual_lat.val(event.latLng.lat());
-                    $manual_lng.val(event.latLng.lng());
-                    // add the marker to the given map.
-                    addMarker(event.latLng, map);
-                });
-
-                // This event listener update the lat long field of the form so that we can add the lat long to the database when the MARKER is drag.
-                google.maps.event.addListener(marker, 'dragend', function (event) {
-                    // set the value of input field to save them to the database
-                    $manual_lat.val(event.latLng.lat());
-                    $manual_lng.val(event.latLng.lng());
+                    autocomplete.setBounds(circle.getBounds());
                 });
             }
-
-            /*
-             * Geocode and address using google map javascript api and then populate the input fields for storing lat and long
-             * */
-
-            function geocodeAddress(geocoder, resultsMap) {
-                var address = address_input.value;
-                geocoder.geocode({'address': address}, function (results, status) {
-                    if (status === 'OK') {
-                        // set the value of input field to save them to the database
-                        $manual_lat.val(results[0].geometry.location.lat());
-                        $manual_lng.val(results[0].geometry.location.lng());
-                        resultsMap.setCenter(results[0].geometry.location);
-                        var marker = new google.maps.Marker({
-                            map: resultsMap,
-                            position: results[0].geometry.location
-                        });
-
-                        marker.addListener('click', function () {
-                            info_window.open(map, marker);
-                        });
-
-                        // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
-                        markers.push(marker);
-                    } else {
-                        alert('<?php _e('Geocode was not successful for the following reason: ', ATBDP_TEXTDOMAIN); ?>' + status);
-                    }
-                });
-            }
-
-            initMap();
+        }
 
 
-            // adding features of creating marker manually on the map on add listing page.
-            /*var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-             var labelIndex = 0;*/
+        function initAutocomplete() {
+            // Create the autocomplete object, restricting the search to geographical
+            // location types.
+            autocomplete = new google.maps.places.Autocomplete(
+                (address_input),
+                {types: ['geocode']});
 
+            // When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
+            autocomplete.addListener('place_changed', fillInAddress);
+        }
 
-            // Adds a marker to the map.
-            function addMarker(location, map) {
-                // Add the marker at the clicked location, and add the next-available label
-                // from the array of alphabetical characters.
-                var marker = new google.maps.Marker({
-                    position: location,
-                    /*label: labels[labelIndex++ % labels.length],*/
-                    draggable: true,
-                    title: '<?php _e('You can drag the marker to your desired place to place a marker', ATBDP_TEXTDOMAIN); ?>',
-                    map: map
-                });
-                marker.addListener('click', function () {
-                    info_window.open(map, marker);
-                });
-                // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
-                markers.push(marker);
-            }
-
-            // Delete Marker
-            $('#delete_marker').on('click', function (e) {
-                e.preventDefault();
-                deleteMarker();// delete all markers
-
+        function fillInAddress() {
+            // Get the place details from the autocomplete object.
+            var place = autocomplete.getPlace();
+            // set the value of input field to save them to the database
+            $manual_lat.val(place.geometry.location.lat());
+            $manual_lng.val(place.geometry.location.lng());
+            map.setCenter(place.geometry.location);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: place.geometry.location
             });
-            /**
-             * It deletes all the map markers
-             * */
-            function deleteMarker() {
-                for (var i = 0; i < markers.length; i++) {
-                    markers[i].setMap(null);
+
+            marker.addListener('click', function () {
+                info_window.open(map, marker);
+            });
+
+            // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+            markers.push(marker);
+        }
+
+        initAutocomplete(); // start google map place auto complete API call
+
+
+        function initMap() {
+            /* Create new map instance*/
+            map = new google.maps.Map(document.getElementById('gmap'), {
+                zoom: <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 16; ?>,
+                center: saved_lat_lng
+            });
+            var marker = new google.maps.Marker({
+                map: map,
+                position: saved_lat_lng,
+                draggable: true,
+                title: '<?php _e('You can drag the marker to your desired place to place a marker', ATBDP_TEXTDOMAIN); ?>'
+            });
+            marker.addListener('click', function () {
+                info_window.open(map, marker);
+            });
+            // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+            markers.push(marker);
+
+            // create a Geocode instance
+            var geocoder = new google.maps.Geocoder();
+
+            document.getElementById('generate_admin_map').addEventListener('click', function (e) {
+                e.preventDefault();
+                geocodeAddress(geocoder, map);
+            });
+
+
+            // This event listener calls addMarker() when the map is clicked.
+            google.maps.event.addListener(map, 'click', function (event) {
+                // at first delete the old marker if there is any and then add new marker
+                deleteMarker();
+                // set the value of input field to save them to the database
+                $manual_lat.val(event.latLng.lat());
+                $manual_lng.val(event.latLng.lng());
+                // add the marker to the given map.
+                addMarker(event.latLng, map);
+            });
+
+            // This event listener update the lat long field of the form so that we can add the lat long to the database when the MARKER is drag.
+            google.maps.event.addListener(marker, 'dragend', function (event) {
+                // set the value of input field to save them to the database
+                $manual_lat.val(event.latLng.lat());
+                $manual_lng.val(event.latLng.lng());
+            });
+        }
+
+        /*
+         * Geocode and address using google map javascript api and then populate the input fields for storing lat and long
+         * */
+
+        function geocodeAddress(geocoder, resultsMap) {
+            var address = address_input.value;
+            geocoder.geocode({'address': address}, function (results, status) {
+                if (status === 'OK') {
+                    // set the value of input field to save them to the database
+                    $manual_lat.val(results[0].geometry.location.lat());
+                    $manual_lng.val(results[0].geometry.location.lng());
+                    resultsMap.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location
+                    });
+
+                    marker.addListener('click', function () {
+                        info_window.open(map, marker);
+                    });
+
+                    // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+                    markers.push(marker);
+                } else {
+                    alert('<?php _e('Geocode was not successful for the following reason: ', ATBDP_TEXTDOMAIN); ?>' + status);
                 }
-                markers = [];
+            });
+        }
+
+        initMap();
+
+
+        // adding features of creating marker manually on the map on add listing page.
+        /*var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+         var labelIndex = 0;*/
+
+
+        // Adds a marker to the map.
+        function addMarker(location, map) {
+            // Add the marker at the clicked location, and add the next-available label
+            // from the array of alphabetical characters.
+            var marker = new google.maps.Marker({
+                position: location,
+                /*label: labels[labelIndex++ % labels.length],*/
+                draggable: true,
+                title: '<?php _e('You can drag the marker to your desired place to place a marker', ATBDP_TEXTDOMAIN); ?>',
+                map: map
+            });
+            marker.addListener('click', function () {
+                info_window.open(map, marker);
+            });
+            // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+            markers.push(marker);
+        }
+
+        // Delete Marker
+        $('#delete_marker').on('click', function (e) {
+            e.preventDefault();
+            deleteMarker();// delete all markers
+
+        });
+        /**
+         * It deletes all the map markers
+         * */
+        function deleteMarker() {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
             }
-            <?php } ?>
+            markers = [];
+        }
+        <?php } ?>
 
 
-        }); // ends jquery ready function.
+    }); // ends jquery ready function.
 
 
-    </script>
+</script>

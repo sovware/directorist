@@ -30,9 +30,7 @@ $currency = get_directorist_option('g_currency', 'USD');
         do_action('atbdp_edit_before_tagline_fields', 'add_listing_page_backend', $args['listing_info']);
         ?>
 
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12">
+        <div class="atbd_">
                     <!--@todo; add toggle for the moto and excerpt later. -->
                     <div class="form-group">
                         <label for="atbdp_tagline"><?php esc_html_e('Tag-line/Motto', ATBDP_TEXTDOMAIN) ?></label>
@@ -269,10 +267,6 @@ $currency = get_directorist_option('g_currency', 'USD');
                     <?php
                     }
                     ?>
-
-
-                </div>
-            </div>
         </div>
 
 
@@ -283,7 +277,7 @@ $currency = get_directorist_option('g_currency', 'USD');
              * @param array $listing_info Information of the current listing
              * @since 1.1.1
              **/
-            do_action('atbdp_edit_after_googlemap_preview', 'add_listing_page_backend', $args['listing_info'], get_the_ID());
+            do_action('3', 'add_listing_page_backend', $args['listing_info'], get_the_ID());
             ?>
 </div>
 <script>

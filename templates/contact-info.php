@@ -59,9 +59,35 @@ $currency = get_directorist_option('g_currency', 'USD');
         </div>
 
 
+<<<<<<< HEAD
     <?php } ?>
 
     <!--Social Information-->
+=======
+        <?php } ?>
+
+        <!--Social Information-->
+
+            <?php
+            /**
+             * It fires before social information fields
+             * @param string $type Page type.
+             * @param array $listing_info Information of the current listing
+             * @since 1.1.1
+             **/
+            do_action('atbdp_edit_before_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
+
+            ATBDP()->load_template('meta-partials/social', array('social_info' => $social_info));
+
+            /**
+             * It fires after social information fields
+             * @param string $type Page type.
+             * @param array $listing_info Information of the current listing
+             * @since 1.1.1
+             **/
+            do_action('atbdp_edit_after_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
+            ?>
+>>>>>>> d35115b4c7838bc2eb7e911de872533714120269
 
     <?php
     /**

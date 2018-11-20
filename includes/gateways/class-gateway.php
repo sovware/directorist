@@ -314,7 +314,7 @@ class ATBDP_Gateway{
 
                 $format = <<<KAMAL
                 <li class="list-group-item">
-                    <div class="gateway_list"> 
+                    <div class="gateway_list">
                         <label for="##GATEWAY##">
                             <input type="radio" id="##GATEWAY##" name="payment_gateway" value="##GATEWAY##" ##CHECKED##>##LABEL##
                         </label>

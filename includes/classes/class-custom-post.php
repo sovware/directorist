@@ -155,8 +155,12 @@ if(!class_exists('ATBDP_Custom_Post')):
             $columns['atbdp_status']   = __('Status', ATBDP_TEXTDOMAIN);
             if ($featured_active){
                 $columns['atbdp_featured']   = __('Featured', ATBDP_TEXTDOMAIN);
-
             }
+            $subscribed_package_id = get_user_meta(get_current_user_id(), '_subscribed_users_plan_id', true);
+            $num_featured_unl = get_post_meta($subscribed_package_id, 'num_featured_unl', true);
+            $num_featured = get_post_meta($subscribed_package_id, 'num_featured', true);
+            $featured_type = get_user_meta(get_current_user_id(), '_featured_type',true) ? (int)get_user_meta(get_current_user_id(), '_featured_type',true) : 1;
+            if (class_exists('ATBDP_Fee_Manager'))
             $columns['atbdp_expiry_date']   = __('Expires on', ATBDP_TEXTDOMAIN);
             $columns['atbdp_date']   = __('Created on', ATBDP_TEXTDOMAIN);
             return $columns;

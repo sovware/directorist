@@ -143,11 +143,13 @@ if (!class_exists('ATBDP_Add_Listing')):
                     }
                     // find the user has subscribed or not
                     $has_plan = get_user_meta(get_current_user_id(), '_subscribed_users_plan_id', true);
-                    if ((empty($has_plan)) && empty($_POST['listing_id']))
-                    if (class_exists('ATBDP_Fee_Manager') && empty($p['fm_plans'])){
-                        $msg = '<div class="alert alert-danger"><strong>You need to select a plan in order to submit a listing</strong></div>';
-                        return $msg;
+                    if ((empty($has_plan)) && empty($_POST['listing_id'])){
+                        if (class_exists('ATBDP_Fee_Manager') && empty($p['fm_plans'])){
+                            $msg = '<div class="alert alert-danger"><strong>You need to select a plan in order to submit a listing</strong></div>';
+                            return $msg;
+                        }
                     }
+
                     
                     // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
                     if (!empty($_POST['listing_id'])){
@@ -344,14 +346,12 @@ if (!class_exists('ATBDP_Add_Listing')):
                         // Redirect to avoid duplicate form submissions
                         // if monetization on, redirect to checkout page
 // vail if monetization is not active.
-                        $has_validate_plan = get_user_meta(get_current_user_id(), '_subscribed_users_plan_id', true);
-                        if (class_exists('ATBDP_Fee_Manager')){
-                            var_dump($has_plan);
-                            die();
+                        if (class_exists('ATBDP_Fee_Manager') && !$has_plan){
                             wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
                             exit;
                         }else{
-                            if (get_directorist_option('enable_monetization') ){
+                            $featured_enabled = get_directorist_option('enable_featured_listing');
+                            if (get_directorist_option('enable_monetization') && $featured_enabled){
                                 wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
                                 exit;
                             }

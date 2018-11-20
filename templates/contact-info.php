@@ -69,7 +69,7 @@ $currency = get_directorist_option('g_currency', 'USD');
              * @param array $listing_info Information of the current listing
              * @since 1.1.1
              **/
-            do_action('atbdp_edit_before_social_info_fields', 'add_listing_page_backend', $args['listing_info']);
+            do_action('atbdp_edit_before_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
 
             ATBDP()->load_template('meta-partials/social', array('social_info' => $social_info));
 
@@ -79,7 +79,7 @@ $currency = get_directorist_option('g_currency', 'USD');
              * @param array $listing_info Information of the current listing
              * @since 1.1.1
              **/
-            do_action('atbdp_edit_after_social_info_fields', 'add_listing_page_backend', $args['listing_info']);
+            do_action('atbdp_edit_after_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
             ?>
 
 

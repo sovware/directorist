@@ -3,9 +3,8 @@
  * Template for showing Social Meta Info on Add listing page
  */
 $social_info = (array_key_exists('social_info', $args)) ? $args['social_info'] : array(); ?>
-<div class="col-md-12">
-    <div class="directorist" id="social_info_sortable_container">
-        <label for="atbdp_social"><?php esc_html_e('Social Information:', ATBDP_TEXTDOMAIN); ?></label>
+    <label for="atbdp_social"><?php esc_html_e('Social Information:', ATBDP_TEXTDOMAIN); ?></label>
+    <div id="social_info_sortable_container">
         <?php
         if ( !empty($social_info) ) {
             foreach ($social_info as $index => $socialInfo) { // eg. here, $socialInfo = ['id'=> 'facebook', 'url'=> 'http://fb.com']
@@ -42,9 +41,8 @@ $social_info = (array_key_exists('social_info', $args)) ? $args['social_info'] :
         }?>
     </div> <!--    ends .social_info_sortable_container    -->
 
-    <button type="button" class="btn btn-default btn-sm" id="addNewSocial"> <span class="plus-sign">+</span>
+    <button type="button" class="btn btn-secondary btn-sm" id="addNewSocial"> <span class="plus-sign">+</span>
         <?php esc_html_e('Add New', ATBDP_TEXTDOMAIN); ?>
     </button>
-</div>
 
 

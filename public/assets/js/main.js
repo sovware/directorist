@@ -37,7 +37,6 @@
                 }
             )(img);
             reader.readAsDataURL(file);
-
         }
     }
 

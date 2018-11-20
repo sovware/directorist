@@ -1,10 +1,61 @@
 .atbd_content_active #directorist.atbd_wrapper{
+  .select2-container--default.select2-container--focus .select2-selection--multiple,
+  .select2-container--default .select2-selection--multiple{
+    border-color: $border-color;
+  }
+  .select2-container--default .select2-selection{
+    padding: 0 20px;
+  }
   .atbd_add_listing_title{
     text-align: center;
     h3{
       margin: 0;
       font-size: 28px;
       padding-bottom: 27px;
+    }
+  }
+
+  #gmap{
+    height: 350px;
+  }
+  #hide_if_no_manual_cor{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .map_wrapper{
+    position: relative;
+    #floating-panel{
+      position: absolute;
+      top: 10px;
+      right: 58px;
+      z-index: 1;
+    }
+  }
+  .atbd_plan_alert{
+    a.btn{
+      margin-left: 10px;
+    }
+    strong{
+      display: inline-block;
+      margin: 0 5px;
+    }
+  }
+
+  .close{
+    float: none;
+    padding: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    font-size: 20px;
+    &:hover{
+      background: none;
+    }
+  }
+  &.atbd_add_listing_wrapper{
+    .atbd_plan_alert{
+      margin-bottom: 30px;
     }
   }
 }

@@ -11,6 +11,7 @@ if (!empty($p_id)) {
 
     $listing_info['never_expire']           = get_post_meta($p_id, '_never_expire', true);
     $listing_info['featured']               = get_post_meta($p_id, '_featured', true);
+    $listing_info['listing_type']           = get_post_meta($p_id, '_listing_type', true);
     $listing_info['price']                  = get_post_meta($p_id, '_price', true);
     $listing_info['videourl']               = get_post_meta($p_id, '_videourl', true);
     $listing_info['listing_status']         = get_post_meta($p_id, '_listing_status', true);
@@ -79,7 +80,19 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
             <div class="atbd_add_listing_title">
                 <h3><?= !empty($p_id) ? __('Update Listing', ATBDP_TEXTDOMAIN) : __('Add Listing', ATBDP_TEXTDOMAIN); ?></h3>
             </div>
-
+                <?php
+                if (class_exists('ATBDP_Fee_Manager')){
+                  ?>
+                    <div>
+                        <h4> Choice listing type</h4>
+                        <label for="featured">Featured listing</label>
+                        <input id="featured" type="radio" <?php echo ($listing_type == 'featured') ? 'checked' : '';  ?>  name="listing_type" value="featured">
+                        <label for="regular">Regular listing</label>
+                        <input id="regular" <?php echo ($listing_type == 'regular') ? 'checked' : '';  ?> type="radio" name="listing_type" value="regular">
+                    </div>
+                <?php
+                }
+                ?>
             <!--add nonce field security -->
             <?php  ATBDP()->listing->add_listing->show_nonce_field(); ?>
             <input type="hidden" name="add_listing_form" value="1">

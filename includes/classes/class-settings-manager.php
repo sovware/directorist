@@ -114,6 +114,11 @@ class ATBDP_Settings_Manager {
                 'name' => 'categories_menu',
                 'icon' => 'font-awesome:fa-list-alt',
                 'controls'=>apply_filters('atbdp_categories_settings_controls',array(
+                    'all_listing_section' => array(
+                        'type' => 'section',
+                        'title'=> __('Listings Page Setting',ATBDP_TEXTDOMAIN),
+                        'fields'=> $this->get_listings_page_settings_fields(),
+                    ),
                     'category_section' => array(
                         'type' => 'section',
                         'title'=> __('Categories Page Setting',ATBDP_TEXTDOMAIN),
@@ -1141,6 +1146,79 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                 ),
+            )
+        );
+    }
+
+    /**
+     * Get all the settings fields for the listings page section
+     * @since 4.0.0
+     * @return array
+     */
+    function get_listings_page_settings_fields(){
+        return apply_filters('atbdp_listings_settings_fields', array(
+                array(
+                    'type' => 'select',
+                    'name' => 'default_listing_view',
+                    'label' => __( 'Default View', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'grid',
+                            'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'list',
+                            'label' => __('List', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'grid',
+                        'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                array(
+                    'type' => 'select',
+                    'name' => 'order_listing_by',
+                    'label' => __( 'Listing Order By', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'title',
+                            'label' => __('Title', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'date',
+                            'label' => __('Date', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'price',
+                            'label' => __('Price', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'title',
+                        'label' => __('Title', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                array(
+                    'type' => 'select',
+                    'name' => 'sort_listing_by',
+                    'label' => __( 'Categories Sort By', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'asc',
+                            'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'desc',
+                            'label' => __('Descending', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'asc',
+                        'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+
             )
         );
     }

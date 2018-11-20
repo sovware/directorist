@@ -1082,4 +1082,10 @@ h6, .h6 {
   font-size: 18px;
 }
 
+#directorist.atbd_wrapper .atbd_user_dashboard_nav {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 30px;
+}
+
 /*# sourceMappingURL=map/style.css.map */

@@ -69,6 +69,7 @@ class ATBDP_Gateway{
                         'description'   => __('You can Customize Monetization settings here. After switching any option, Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
                         'fields'        => $this->get_monetization_settings_fields(),
                     ), // ends monetization settings section
+                    //class_exists('ATBDP_Fee_Manager') ? '' :
                     'featured_listing_section' => array(
                         'type'          => 'section',
                         'title'         => __('Monetize by Featured Listing', ATBDP_TEXTDOMAIN),

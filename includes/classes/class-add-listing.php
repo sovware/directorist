@@ -86,6 +86,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $content = !empty($p['listing_content']) ? wp_kses($p['listing_content'], wp_kses_allowed_html('post')) : '';
                     $title= !empty($p['listing_title']) ? sanitize_text_field($p['listing_title']) : '';/*@todo; in future, do not let the user add a post without a title. Return here with an error shown to the user*/
 
+                    $metas['_listing_type']      = !empty($p['listing_type']) ? sanitize_text_field($p['listing_type']) : 0;
                     $metas['_price']             = !empty($p['price'])? (float) $p['price'] : 0;
                     $metas['_videourl']           = !empty($p['videourl'])? sanitize_text_field($p['videourl']) : '';
                     $metas['_tagline']           = !empty($p['tagline'])? sanitize_text_field($p['tagline']) : '';
@@ -140,8 +141,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                             return $msg;
                         }
                     }
+                    // find the user has subscribed or not
+                    $has_plan = get_user_meta(get_current_user_id(), '_subscribed_users_plan_id', true);
+                    if ((empty($has_plan)) && empty($_POST['listing_id']))
                     if (class_exists('ATBDP_Fee_Manager') && empty($p['fm_plans'])){
-                        $msg = '<div class="alert alert-danger"><strong>You need to select a plan in order to submit a listing <span                                          style="color: red">*</span></strong></div>';
+                        $msg = '<div class="alert alert-danger"><strong>You need to select a plan in order to submit a listing</strong></div>';
                         return $msg;
                     }
                     
@@ -340,12 +344,21 @@ if (!class_exists('ATBDP_Add_Listing')):
                         // Redirect to avoid duplicate form submissions
                         // if monetization on, redirect to checkout page
 // vail if monetization is not active.
-                       if (get_directorist_option('enable_monetization')){
-                           wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
-                           exit;
-                       }
-                        wp_redirect(get_permalink($post_id));
-                        exit;
+                        $has_validate_plan = get_user_meta(get_current_user_id(), '_subscribed_users_plan_id', true);
+                        if (class_exists('ATBDP_Fee_Manager')){
+                            var_dump($has_plan);
+                            die();
+                            wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
+                            exit;
+                        }else{
+                            if (get_directorist_option('enable_monetization') ){
+                                wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
+                                exit;
+                            }
+                            wp_redirect(get_permalink($post_id));
+                            exit;
+                        }
+
                     }else{
                         /*@todo; redirect back to the listing creation page with data's saying something went wrong*/
                         wp_redirect(site_url().'?error=true');

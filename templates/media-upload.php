@@ -26,8 +26,10 @@ $active_mi_ext = is_multiple_images_active(); // default is no
                         </div>
                     <?php }  // ends foreach for looping image
                     } else { ?>
-                    <img src="<?= esc_url( ATBDP_ADMIN_ASSETS.'images/no-image.jpg');?>"
+                    <img src="<?= esc_url( ATBDP_ADMIN_ASSETS.'images/no-image.png');?>"
                          alt="<?php esc_attr_e('No Image Found', ATBDP_TEXTDOMAIN); ?>">
+                        <p>No images</p>
+                        <small>(allowed formats jpeg. png. gif)</small>
                     <?php } //  ends if statement  ?>
                 </div>
                 <?php
@@ -36,11 +38,11 @@ $active_mi_ext = is_multiple_images_active(); // default is no
                 ?>
                 <!--  add & remove image links -->
                 <p class="hide-if-no-js">
-                    <a href="#" id="listing_image_btn" class="btn btn-default ">
+                    <a href="#" id="listing_image_btn" class="btn btn-primary">
                         <span class="dashicons dashicons-format-image"></span>
                         <?php _e('Upload Image', ATBDP_TEXTDOMAIN); ?>
                     </a>
-                    <a id="delete-custom-img" class="btn btn-default <?= (!empty($image_links)) ? '': 'hidden' ?>" href="#"> <?php echo ( 1 == $active_mi_ext ) ? esc_html__('Remove Images') : esc_html__('Remove Image'); ?></a>
+                    <a id="delete-custom-img" class="btn btn-danger <?= (!empty($image_links)) ? '': 'hidden' ?>" href="#"> <?php echo ( 1 == $active_mi_ext ) ? esc_html__('Remove Images') : esc_html__('Remove Image'); ?></a>
                 </p>
             </div>
         </div> <!--ends add_listing_form_wrapper-->

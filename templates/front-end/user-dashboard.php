@@ -14,7 +14,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
 /*@todo; later show featured listing first on the user dashboard maybe??? */
 
 ?>
-<div class="directorist directory_wrapper single_area">
+<div id="directorist" class="directorist atbd_wrapper single_area">
     <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
         <div class="row">
             <div class="col-md-12">

@@ -538,18 +538,19 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                     </div>
 
 
-                    <div style="text-align: center">
-                        <input id="listing_t" type="checkbox" name="t_c_check">
+                    <div class="atbd_term_and_condition_area">
                         <?php
                         if (get_directorist_option('listing_terms_condition') == 1){
                             printf('<span style="color: red"> *</span>');
                         }
                         ?>
+                        <input id="listing_t" type="checkbox" name="t_c_check">
                         <label for="listing_t"><?php echo __('I Agree with all ',ATBDP_TEXTDOMAIN);?><a style="color: red" href="" id="listing_t_c" "><?php echo __('terms & conditions',ATBDP_TEXTDOMAIN);?></a></label>
                         <div id="tc_container" style="display: none">
                             <p style='padding:25px; border-radius: 10px; border:1px solid brown; font-size:13px; text-align:justify' class='alert-danger'><?php _e($listing_terms_condition_text, ATBDP_TEXTDOMAIN);?></p>
                         </div>
                     </div>
+
                     <?php
                     /**
                      * It fires before rendering submit listing button on the front end.
@@ -557,7 +558,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                     do_action('atbdp_before_submit_listing_frontend');
                     ?>
                     <div class="btn_wrap list_submit">
-                        <button type="submit" class="btn btn-primary listing_submit_btn"><?= !empty($p_id) ? __( 'Update Listing', ATBDP_TEXTDOMAIN) : __( 'Submit listing', ATBDP_TEXTDOMAIN); ?></button>
+                        <button type="submit" class="btn btn-primary btn-lg listing_submit_btn"><?= !empty($p_id) ? __( 'Update Listing', ATBDP_TEXTDOMAIN) : __( 'Submit listing', ATBDP_TEXTDOMAIN); ?></button>
                     </div>
 
                     <div class="clearfix"></div>

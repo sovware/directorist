@@ -57,5 +57,58 @@
     .atbd_plan_alert{
       margin-bottom: 30px;
     }
+    .hide-if-no-js{
+      text-align: center;
+    }
+    .listing-img-container{
+      text-align: center;
+      padding-bottom: 15px;
+      .single_attachment{
+        width: 205px;
+        display: inline-block;
+        vertical-align: top;
+        padding: 10px;
+        position: relative;
+        .remove_image{
+          cursor: pointer;
+          position: absolute;
+          top: 0;
+          right: 0;
+          background: #d3d1ec;
+          color: #fff;
+          width: 20px;
+          line-height: 20px;
+          font-size: 13px;
+          border-radius: 50%;
+          &:hover{
+            @extend  .atbd_color-danger;
+          }
+        }
+      }
+      p{
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      small{
+        font-size: 13px;
+      }
+    }
+    .atbd_term_and_condition_area{
+      text-align: center;
+      > label{
+        display: inline-block;
+      }
+    }
+    .btn_wrap.list_submit{
+      text-align: center;
+      .listing_submit_btn {
+        line-height: 32px;
+        padding: 9px 40px;
+        font-size: 18px;
+      }
+    }
   }
+
+
 }

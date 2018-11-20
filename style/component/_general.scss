@@ -95,6 +95,10 @@ h6, .h6 { font-size: $h6-font-size; }
   .atbd_upload_btn_wrap label{
     display: inline-block;
   }
+  label{
+    color: $dark;
+    
+  }
 }
 .atbd_rating_color{
   color: #fa8b0c;

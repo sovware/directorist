@@ -207,7 +207,7 @@ jQuery(function($){
                         // target the input field and then assign the current id of the attachment to an array.
                         data += '<div class="single_attachment">';
                         data += '<input class="listing_image_attachment" name="listing_img[]" type="hidden" value="'+this.id+'">';
-                        data += '<img style="width: 100%; height: 100%;" src="'+this.url+'" alt="Listing Image" /> <span class="remove_image dashicons dashicons-dismiss" title="Remove it"></span></div>';
+                        data += '<img style="width: 100%; height: 100%;" src="'+this.url+'" alt="Listing Image" /> <span class="remove_image fa fa-times" title="Remove it"></span></div>';
                     }
 
                 });
@@ -221,7 +221,7 @@ jQuery(function($){
                     // target the input field and then assign the current id of the attachment to an array.
                     data += '<div class="single_attachment">';
                     data += '<input class="listing_image_attachment" name="listing_img[]" type="hidden" value="'+selection.id+'">';
-                    data += '<img style="width: 100%; height: 100%;" src="' + selection.url + '" alt="Listing Image" /> <span class="remove_image  dashicons dashicons-dismiss" title="Remove it"></span></div>';
+                    data += '<img style="width: 100%; height: 100%;" src="' + selection.url + '" alt="Listing Image" /> <span class="remove_image  fa fa-times" title="Remove it"></span></div>';
                 }
             }
 
@@ -244,7 +244,7 @@ jQuery(function($){
     delImgLink.on( 'click', function( event ){
         event.preventDefault();
         // Clear out the preview image and set no image as placeholder
-        imgContainer.html( '<img src="' + atbdp_admin_data.AdminAssetPath + 'images/no-image.jpg" alt="Listing Image" />' );
+        imgContainer.html( '<img src="' + atbdp_admin_data.AdminAssetPath + 'images/no-image.png" alt="Listing Image" />' );
         // Hide the delete image link
         delImgLink.addClass( 'hidden' );
 

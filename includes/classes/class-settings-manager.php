@@ -1158,6 +1158,20 @@ The Administrator of ==SITE_NAME==
     function get_listings_page_settings_fields(){
         return apply_filters('atbdp_listings_settings_fields', array(
                 array(
+                    'type' => 'toggle',
+                    'name' => 'display_sort_by',
+                    'label' => __('Display "Sort By" Dropdown', ATBDP_TEXTDOMAIN),
+                    'description' => __('If you do not want to display "sort by" dropdown on all listing page, turn it off.', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_view_as',
+                    'label' => __('Display "View As" Dropdown', ATBDP_TEXTDOMAIN),
+                    'description' => __('If you do not want to display "View As" dropdown on all listing page, turn it off.', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+             array(
                     'type' => 'select',
                     'name' => 'default_listing_view',
                     'label' => __( 'Default View', ATBDP_TEXTDOMAIN ),
@@ -1230,6 +1244,7 @@ The Administrator of ==SITE_NAME==
      */
     function get_categories_settings_fields(){
         return apply_filters('atbdp_categories_settings_fields', array(
+
                 array(
                     'type' => 'select',
                     'name' => 'display_categories_as',

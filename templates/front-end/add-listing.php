@@ -86,6 +86,9 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                     <div>
                         <h4> Choice listing type</h4>
                         <label for="featured">Featured listing</label>
+                        <?php
+                        $listing_type = !empty($listing_type) ? $listing_type : '';
+                        ?>
                         <input id="featured" type="radio" <?php echo ($listing_type == 'featured') ? 'checked' : '';  ?>  name="listing_type" value="featured">
                         <label for="regular">Regular listing</label>
                         <input id="regular" <?php echo ($listing_type == 'regular') ? 'checked' : '';  ?> type="radio" name="listing_type" value="regular">

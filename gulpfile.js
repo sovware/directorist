@@ -17,9 +17,11 @@ function compileSass(src, dest){
 // compile bootstrap
 gulp.task('bs', compileSass('bootstrap/bootstrap.scss','public/assets/css/'));
 gulp.task('style', compileSass('style/style.scss','public/assets/css/'));
+gulp.task('admin', compileSass('style/admin/style.scss','admin/assets/css/'));
 
-// default gulp task
-gulp.task('default',['bs', 'style'], function(){
+// default gulp task\
+gulp.task('default',['bs', 'style', 'admin'], function(){
     gulp.watch('bootstrap/*.scss', ['bs']);
     gulp.watch('style/**/*.scss', ['style']);
+    gulp.watch('style/admin/**/*.scss', ['admin']);
 });

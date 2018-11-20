@@ -148,9 +148,12 @@ class ATBDP_Metabox {
     public function listing_gallery($post )
     {
 
-        $listing_img= get_post_meta($post->ID, '_listing_img', true);
-        ATBDP()->load_template('media-upload', compact('listing_img') );
-    }
+        $listing_img= get_post_meta($post->ID, '_listing_img', true);?>
+        <div id="directorist" class="atbd_wrapper"><?php  ATBDP()->load_template('media-upload', compact('listing_img') );?></div>
+
+   <?php }
+
+
     /**
      * It displays meta box for uploading image from the backend editor of ATBDP_POST_TYPE
      * @param WP_Post $post

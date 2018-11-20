@@ -258,7 +258,8 @@ jQuery(function($){
         // if no image exist then add placeholder and hide remove image button
         if ($('.single_attachment').length === 0) {
 
-            imgContainer.html( '<img src="'+atbdp_admin_data.AdminAssetPath+'images/no-image.jpg" alt="Listing Image" />' );
+            imgContainer.html( '<img src="'+atbdp_admin_data.AdminAssetPath+'images/no-image.png" alt="Listing Image" /><p>No images</p> ' +
+                '<small>(allowed formats jpeg. png. gif)</small>' );
             delImgLink.addClass( 'hidden' );
 
         }

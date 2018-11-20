@@ -18,7 +18,7 @@ $id = (array_key_exists('id', $args)) ? $args['id'] : 0;
             <input type="url" name="social[<?= $id; ?>][url]" class="form-control directory_field atbdp_social_input" value="" placeholder="eg. http://example.com" required>
         </div>
     </div>
-    <div class="col-md-3 col-sm-12">
+    <div class="col-md-2 col-sm-12">
         <span data-id="<?= $id; ?>" class="removeSocialField dashicons dashicons-trash" title="<?php _e('Remove this item', ATBDP_TEXTDOMAIN); ?>"></span>
         <span class="adl-move-icon dashicons dashicons-move"></span>
     </div>

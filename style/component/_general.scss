@@ -97,7 +97,10 @@ h6, .h6 { font-size: $h6-font-size; }
   }
   label{
     color: $dark;
-    
+    label {
+      display: inline-block;
+      margin-bottom: $label-margin-bottom;
+    }
   }
 }
 .atbd_rating_color{

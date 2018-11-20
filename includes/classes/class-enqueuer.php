@@ -187,7 +187,7 @@ class ATBDP_Enqueuer {
         /** @todo Shahadat -> enqued new fonts */
         wp_register_style( 'atbd_googlefonts', '//fonts.googleapis.com/css?family=Roboto:400,500', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-style', ATBDP_PUBLIC_ASSETS . 'css/style.css', array( 'atbdp-font-awesome',), ATBDP_VERSION);
-        wp_register_script('atbdp-popper-script', ATBDP_PUBLIC_ASSETS . 'js/popper.js', array('jquery'), ATBDP_VERSION, true);
+        wp_register_script('atbdp-popper-script', ATBDP_PUBLIC_ASSETS . 'js/popper.js', array('jquery'), ATBDP_VERSION, false);
         wp_register_script('atbdp-bootstrap-script', ATBDP_PUBLIC_ASSETS . 'js/bootstrap.min.js', array('jquery', 'atbdp-popper-script'), ATBDP_VERSION, true);
 
         wp_register_script( 'atbdp-rating', ATBDP_PUBLIC_ASSETS . 'js/jquery.barrating.min.js', array( 'jquery' ), ATBDP_VERSION, true );

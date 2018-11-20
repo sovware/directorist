@@ -12,6 +12,8 @@ class ATBDP_Shortcode {
 
         add_shortcode( 'all_listing', array( $this, 'all_listing' ) );
 
+        //add_shortcode( 'test_listing', array( $this, 'test_listing' ) );
+
         add_shortcode( 'add_listing', array( $this, 'add_listing' ) );
 
         add_shortcode( 'custom_registration', array( $this, 'user_registration' ) );
@@ -185,7 +187,7 @@ class ATBDP_Shortcode {
         return ob_get_clean();
     }
 
-    public function all_listing()
+    /*public function all_listing()
     {
         ob_start();
         //for pagination
@@ -220,6 +222,192 @@ class ATBDP_Shortcode {
         $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
 
         ATBDP()->load_template('front-end/all-listing', array('data' => $data_for_template));
+        return ob_get_clean();
+    }*/
+
+    public function all_listing( $atts )
+    {
+        $listing_orderby = get_directorist_option('order_listing_by');
+        $listing_view    = get_directorist_option('default_listing_view');
+        $listing_order   = get_directorist_option('sort_listing_by');
+        $atts = shortcode_atts( array(
+            'view'              => !empty($listing_view) ? $listing_view : 'grid',
+            '_featured'          => 1,
+            'filterby'          => '',
+            'orderby'           => !empty($listing_orderby) ? $listing_orderby : 'title',
+            'order'             => !empty($listing_order) ? $listing_order : 'asc',
+            'listings_per_page' => (int) get_directorist_option('all_listing_page_items', 6),
+            'pagination'        => 1,
+            'header'            => 1
+        ), $atts );
+
+        //for pagination
+        $paged = atbdp_get_paged_num();
+        $paginate = get_directorist_option('paginate_all_listings');
+
+        if (!$paginate) $args['no_found_rows'] = true;
+
+        $has_featured = get_directorist_option('enable_featured_listing');
+        if( $has_featured ) {
+            $has_featured = $atts['_featured'];
+        }
+
+        $current_order       = atbdp_get_listings_current_order( $atts['orderby'].'-'.$atts['order'] );
+        $view = atbdp_get_listings_current_view_name( $atts['view'] );
+
+        $args = array(
+            'post_type'      => ATBDP_POST_TYPE,
+            'post_status'    => 'publish',
+            'posts_per_page' => (int) $atts['listings_per_page'],
+            'paged'          => $paged,
+        );
+
+
+        $meta_queries = array();
+
+        if( $has_featured ) {
+
+            if( '_featured' == $atts['filterby'] ) {
+                $meta_queries['_featured'] = array(
+                    'key'     => '_featured',
+                    'value'   => 1,
+                    'compare' => '='
+                );
+
+            } else {
+                $meta_queries['_featured'] = array(
+                    'key'     => '_featured',
+                    'type'    => 'NUMERIC',
+                    'compare' => 'EXISTS',
+                );
+            }
+
+        }
+
+        switch( $current_order ) {
+            case 'title-asc' :
+                if( $has_featured ) {
+                    $args['meta_key'] = '_featured';
+                    $args['orderby']  = array(
+                        'meta_value_num' => 'DESC',
+                        'title'          => 'ASC',
+                    );
+                } else {
+                    $args['orderby'] = 'title';
+                    $args['order']   = 'ASC';
+                };
+                break;
+            case 'title-desc' :
+                if( $has_featured ) {
+                    $args['meta_key'] = '_featured';
+                    $args['orderby']  = array(
+                        'meta_value_num' => 'DESC',
+                        'title'          => 'DESC',
+                    );
+                } else {
+                    $args['orderby'] = 'title';
+                    $args['order']   = 'DESC';
+                };
+                break;
+            case 'date-asc' :
+                if( $has_featured ) {
+                    $args['meta_key'] = '_featured';
+                    $args['orderby']  = array(
+                        'meta_value_num' => 'DESC',
+                        'date'           => 'ASC',
+                    );
+                } else {
+                    $args['orderby'] = 'date';
+                    $args['order']   = 'ASC';
+                };
+                break;
+            case 'date-desc' :
+                if( $has_featured ) {
+                    $args['meta_key'] = '_featured';
+                    $args['orderby']  = array(
+                        'meta_value_num' => 'DESC',
+                        'date'           => 'DESC',
+                    );
+                } else {
+                    $args['orderby'] = 'date';
+                    $args['order']   = 'DESC';
+                };
+                break;
+            case 'price-asc' :
+                if( $has_featured ) {
+                    $meta_queries['price'] = array(
+                        'key'     => '_price',
+                        'type'    => 'NUMERIC',
+                        'compare' => 'EXISTS',
+                    );
+
+                    $args['orderby']  = array(
+                        '_featured' => 'DESC',
+                        'price'    => 'ASC',
+                    );
+                } else {
+                    $args['meta_key'] = '_price';
+                    $args['orderby']  = 'meta_value_num';
+                    $args['order']    = 'ASC';
+                };
+                break;
+            case 'price-desc' :
+                if( $has_featured ) {
+                    $meta_queries['price'] = array(
+                        'key'     => '_price',
+                        'type'    => 'NUMERIC',
+                        'compare' => 'EXISTS',
+                    );
+
+                    $args['orderby']  = array(
+                        '_featured' => 'DESC',
+                        'price'    => 'DESC',
+                    );
+                } else {
+                    $args['meta_key'] = '_price';
+                    $args['orderby']  = 'meta_value_num';
+                    $args['order']    = 'DESC';
+                };
+                break;
+            case 'views-desc' :
+                if( $has_featured ) {
+                    $meta_queries['views'] = array(
+                        'key'     => '_atbdp_post_views_count',
+                        'type'    => 'NUMERIC',
+                        'compare' => 'EXISTS',
+                    );
+
+                    $args['orderby']  = array(
+                        '_featured' => 'DESC',
+                        '_atbdp_post_views_count'    => 'DESC',
+                    );
+                } else {
+                    $args['meta_key'] = '_atbdp_post_views_count';
+                    $args['orderby']  = 'meta_value_num';
+                    $args['order']    = 'DESC';
+                };
+                break;
+            case 'rand' :
+                if( $has_featured ) {
+                    $args['meta_key'] = '_featured';
+                    $args['orderby']  = 'meta_value_num rand';
+                } else {
+                    $args['orderby'] = 'rand';
+                };
+                break;
+        }
+
+        $count_meta_queries = count( $meta_queries );
+        if( $count_meta_queries ) {
+            $args['meta_query'] = ( $count_meta_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $meta_queries ) : $meta_queries;
+        }
+
+        $all_listings = new WP_Query($args);
+        $all_listing_title = get_directorist_option('all_listing_title', __('All Items', ATBDP_TEXTDOMAIN));
+        $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
+
+        ob_start();
+        include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
         return ob_get_clean();
     }
 

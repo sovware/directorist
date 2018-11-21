@@ -95,6 +95,16 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                         $post_view         = get_post_meta(get_the_Id(),'_atbdp_post_views_count',true);
                         $hide_contact_info = get_post_meta(get_the_ID(), '_hide_contact_info', true);
                         $disable_contact_info = get_directorist_option('disable_contact_info', 0);
+                        /*Code for Business Hour Extensions*/
+                        $enable_bh_on_page      = get_directorist_option('enable_bh_on_page', 0 ); // yes or no
+                        $text247                = get_directorist_option('text247',  __('Open 24/7', ATBDP_TEXTDOMAIN)); // text for 24/7 type listing
+                        $business_hour_title    = get_directorist_option('business_hour_title',  __('Business Hour', ATBDP_TEXTDOMAIN)); // text Business Hour Title
+
+                        $bdbh                   = get_post_meta(get_the_ID(), '_bdbh', true);
+                        $bdbh_ops               = get_post_meta(get_the_ID(), '_bdbh_settings', true);
+                        $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
+                        $bdbh_settings          = !empty($bdbh_ops) ? extract(atbdp_sanitize_array($bdbh_ops)) : array();
+                        /*Code for Business Hour Extensions*/
                         ?>
                         <div class="col-md-4 col-sm-6">
                             <div class="atbd_single_listing atbd_listing_card">
@@ -105,10 +115,17 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                         </div>
 
                                         <figcaption class="atbd_thumbnail_overlay_content">
-                                            <?php /*todo: Shahadat -> It needs dynamization */?>
-                                            <div class="atbd_upper_badge">
-                                                <span class="atbd_badge atbd_badge_open">Open Now</span>
-                                            </div><!-- END /.atbd_upper_badge -->
+                                            <?php if (class_exists('BD_Business_Hour')){
+                                                //lets check is it 24/7
+                                                if (!empty($enable247hour)) {
+                                                    var_dump($bdbh_ops)
+                                                    ?>
+                                                    <div class="atbd_upper_badge">
+                                                        <span class="atbd_badge atbd_badge_open">Open Now</span>
+                                                    </div><!-- END /.atbd_upper_badge -->
+                                                    <?php
+                                                }}?>
+
 
                                             <div class="atbd_lower_badge">
                                                 <?php
@@ -197,7 +214,15 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                     <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span><?php  echo $cats[0]->name;?></a>
                                                 </div>
                                             </div>
-                                            <?php } ?>
+                                            <?php }else{
+                                                ?>
+                                                <div class="atbd_content_left">
+                                                    <div class="atbd_listting_category">
+                                                        <a href=""><span class="fa fa fa-square-o"></span><?php  echo __('Uncategorized', ATBDP_TEXTDOMAIN);?></a>
+                                                    </div>
+                                                </div>
+
+                                        <?php    } ?>
                                             <ul class="atbd_content_right">
                                                 <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li>
                                                 <li class="atbd_save"><span class="fa fa-heart"></span></li>

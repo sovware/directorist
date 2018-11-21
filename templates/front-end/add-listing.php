@@ -25,6 +25,7 @@ if (!empty($p_id)) {
     $listing_info['manual_lat']             = get_post_meta($p_id, '_manual_lat', true);
     $listing_info['manual_lng']             = get_post_meta($p_id, '_manual_lng', true);
     $listing_info['bdbh']                   = get_post_meta($p_id, '_bdbh', true);
+    $listing_info['bdbh_settings']          = get_post_meta($p_id, '_bdbh_settings', true);
     $listing_info['listing_img']            = get_post_meta($p_id, '_listing_img', true);
     $listing_info['hide_contact_info']      = get_post_meta($p_id, '_hide_contact_info', true);
     $listing_info['expiry_date']            = get_post_meta($p_id, '_expiry_date', true);
@@ -86,6 +87,9 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                     <div>
                         <h4> Choice listing type</h4>
                         <label for="featured">Featured listing</label>
+                        <?php
+                        $listing_type = !empty($listing_type) ? $listing_type : '';
+                        ?>
                         <input id="featured" type="radio" <?php echo ($listing_type == 'featured') ? 'checked' : '';  ?>  name="listing_type" value="featured">
                         <label for="regular">Regular listing</label>
                         <input id="regular" <?php echo ($listing_type == 'regular') ? 'checked' : '';  ?> type="radio" name="listing_type" value="regular">

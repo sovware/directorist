@@ -3,6 +3,8 @@
 $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
 $all_listing_title = !empty($all_listing_title) ? $all_listing_title : __('All Items', ATBDP_TEXTDOMAIN);
 $is_disable_price = get_directorist_option('disable_list_price');
+$display_sortby_dropdown = get_directorist_option('display_sort_by',1);
+$display_viewas_dropdown = get_directorist_option('display_view_as',1);
 
 ?>
 
@@ -26,9 +28,10 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                 }
                                 ?>
                             </div>
-
+                            <?php if($display_viewas_dropdown || $display_sortby_dropdown) {?>
                             <div class="btn-toolbar pull-right" role="toolbar">
                                 <!-- Views dropdown -->
+                                <?php if($display_viewas_dropdown) { ?>
                                 <div class="btn-group" role="group">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <?php _e( "View as", ATBDP_TEXTDOMAIN ); ?> <span class="caret"></span>
@@ -44,7 +47,11 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                         ?>
                                     </ul>
                                 </div>
+                                <?php } ?>
                                 <!-- Orderby dropdown -->
+                                <?php
+                                if($display_sortby_dropdown) {
+                                ?>
                                 <div class="btn-group" role="group">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <?php _e( "Sort by", ATBDP_TEXTDOMAIN ); ?> <span class="caret"></span>
@@ -60,8 +67,9 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                         ?>
                                     </ul>
                                 </div>
-
+                                <?php } ?>
                             </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -74,16 +82,20 @@ $is_disable_price = get_directorist_option('disable_list_price');
 
                 <?php if ( $all_listings->have_posts() ) {
                     while ( $all_listings->have_posts() ) { $all_listings->the_post();
-                        $cats       =  get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-                        $locs       =  get_the_terms(get_the_ID(), ATBDP_LOCATION);
-                        $featured   = get_post_meta(get_the_ID(), '_featured', true);
-                        $price      = get_post_meta(get_the_ID(), '_price', true);
-                        $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
-                        $excerpt    = get_post_meta(get_the_ID(), '_excerpt', true);
-                        $tagline    = get_post_meta(get_the_ID(), '_tagline', true);
-
+                        $cats              =  get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+                        $locs              =  get_the_terms(get_the_ID(), ATBDP_LOCATION);
+                        $featured          = get_post_meta(get_the_ID(), '_featured', true);
+                        $price             = get_post_meta(get_the_ID(), '_price', true);
+                        $listing_img       = get_post_meta(get_the_ID(), '_listing_img', true);
+                        $excerpt           = get_post_meta(get_the_ID(), '_excerpt', true);
+                        $tagline           = get_post_meta(get_the_ID(), '_tagline', true);
+                        $address           = get_post_meta(get_the_ID(), '_address', true);
+                        $phone_number      = get_post_meta(get_the_Id(), '_phone', true);
+                        $category          = get_post_meta(get_the_Id(), '_admin_category_select', true);
+                        $post_view         = get_post_meta(get_the_Id(),'_atbdp_post_views_count',true);
+                        $hide_contact_info = get_post_meta(get_the_ID(), '_hide_contact_info', true);
+                        $disable_contact_info = get_directorist_option('disable_contact_info', 0);
                         ?>
-
                         <div class="col-md-4 col-sm-6">
                             <div class="atbd_single_listing atbd_listing_card">
                                 <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
@@ -117,7 +129,9 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             <h4 class="atbd_listing_title">
                                                 <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                             </h4>
-                                            <p class="atbd_listing_tagline"><?= (!empty($tagline)) ? esc_html(stripslashes($tagline)) : ''; ?></p>
+                                            <?php if(!empty($tagline)) {?>
+                                            <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
+                                            <?php } ?>
                                             <?php /* todo: Shahadat -> new markup implemented */?>
                                             <div class="atbd_listing_meta">
                                                 <?php
@@ -152,31 +166,42 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             <?php /* @todo: Shahadat -> please implement this */?>
                                             <div class="atbd_listing_data_list">
                                                 <ul>
-                                                    <li><p><span class="fa fa-location-arrow"></span>House -24C, Road -113A, Gulshan -2, Dhaka</p></li>
-                                                    <li><p><span class="fa fa-phone"></span>(415) 796-3633</p></li>
-                                                    <li><p><span class="fa fa-clock-o"></span>Posted 2 months ago</p></li>
+                                                    <?php
+                                                    if (!$disable_contact_info && !$hide_contact_info) {
+                                                        if( !empty( $address )) { ?>
+                                                        <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
+                                                        <?php } ?>
+                                                        <?php if( !empty( $phone_number )) {?>
+                                                        <li><p><span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number));?></p></li>
+                                                    <?php
+                                                        } }?>
+                                                    <li><p><span class="fa fa-clock-o"></span><?php
+                                                            printf( __( 'Posted %s ago', ATBDP_TEXTDOMAIN ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
+                                                            ?></p></li>
                                                 </ul>
                                             </div><!-- End atbd listing meta -->
                                             <?php
                                             //show category and location info
                                             /* @todo: Shahadat -> Please fetch location, phone number and listing addition info here */
                                             /*ATBDP()->helper->output_listings_taxonomy_info($top_category, $deepest_location);*/?>
-                                            <p><?= !empty($excerpt) ? esc_html(stripslashes($excerpt)) : ''; ?></p>
-
+                                            <?php if( !empty($excerpt) ) {?>
+                                            <p><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
+                                            <?php } ?>
                                             <?php /* @todo: deleted the read more link */ ?>
                                         </div><!-- end ./atbd_content_upper -->
 
                                         <div class="atbd_listing_bottom_content">
+                                            <?php if(!empty($category)) {?>
                                             <div class="atbd_content_left">
                                                 <div class="atbd_listting_category">
-                                                    <a href="#"><span class="fa fa-glass"></span>Restaurant</a>
+                                                    <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span><?php  echo $cats[0]->name;?></a>
                                                 </div>
                                             </div>
-
+                                            <?php } ?>
                                             <ul class="atbd_content_right">
-                                                <li class="atbd_count"><span class="fa fa-eye"></span>900+</li>
+                                                <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li>
                                                 <li class="atbd_save"><span class="fa fa-heart"></span></li>
-                                                <li class="atbd_author"><a href="#"><img src="<?php echo ATBDP_PUBLIC_ASSETS.'images/avtr.png'?>" alt=""></a></li>
+                                                <li class="atbd_author"><a href=""><?php echo get_avatar( get_the_author_meta( 'ID' ) , 32 ); ?></a></li>
                                             </ul>
                                         </div><!-- end ./atbd_listing_bottom_content -->
                                     </div>

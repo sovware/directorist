@@ -136,6 +136,7 @@ class ATBDP_Metabox {
         $listing_contact_info['manual_lat']             = get_post_meta($post->ID, '_manual_lat', true);
         $listing_contact_info['manual_lng']            = get_post_meta($post->ID, '_manual_lng', true);
         $listing_contact_info['bdbh']                  = get_post_meta($post->ID, '_bdbh', true);
+        $listing_contact_info['bdbh_settings']         = get_post_meta($post->ID, '_bdbh_settings', true);
         $listing_contact_info['listing_img']            = get_post_meta($post->ID, '_listing_img', true);
         $listing_contact_info['hide_contact_info']      = get_post_meta($post->ID, '_hide_contact_info', true);
 
@@ -349,8 +350,6 @@ class ATBDP_Metabox {
         $listing_info['social']                 = get_post_meta($id, '_social', true);
         $listing_info['manual_lat']             = get_post_meta($id, '_manual_lat', true);
         $listing_info['manual_lng']             = get_post_meta($id, '_manual_lng', true);
-        $listing_info['bdbh']                   = get_post_meta($id, '_bdbh', true);
-        $listing_info['bdbh_settings']          = get_post_meta($id, '_bdbh_settings', true);
         $listing_info['listing_img']            = get_post_meta($id, '_listing_img', true);
         $listing_info['hide_contact_info']      = get_post_meta($id, '_hide_contact_info', true);
         $listing_info['expiry_date']            = get_post_meta($id, '_expiry_date', true);

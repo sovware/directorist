@@ -4,4 +4,53 @@
     justify-content: space-between;
     padding-bottom: 30px;
   }
+  &.dashboard_area{
+    .db_btn_area{
+      padding: 20px;
+      border-top: 1px solid $border-color;
+    }
+    .atbd_dashboard_tittle_metas{
+      padding: 15px 20px;
+    }
+    .atbd_promote_btn_wrapper{
+      margin-bottom: 10px;
+    }
+    .directory_edit_btn{
+      margin-right: 6px;
+    }
+    .atbd_listing_bottom_content{
+      .listing-meta p span{
+        font-weight: 500;
+        color: $primary;
+      }
+    }
+    .atbd_single_listing .atbd_listing_info .atbd_content_upper{
+      padding: 0;
+    }
+    .user_pro_img_area{
+      .user_img{
+        position: relative;
+        #remove_pro_pic{
+          position: absolute;
+          z-index: 1;
+          right: 0;
+          background: #ff4949;
+          color: #fff;
+          padding: 3px 10px;
+        }
+        .choose_btn{
+          position: absolute;
+          width: 100%;
+          bottom: 0;
+          text-align: center;
+          #upload_pro_pic{
+            margin-bottom: 0;
+            @extend .atbd_bg-primary;
+            color: $light;
+            padding: 8px 20px;
+          }
+        }
+      }
+    }
+  }
 }

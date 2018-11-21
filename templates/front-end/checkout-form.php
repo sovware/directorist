@@ -15,6 +15,7 @@ $symbol = atbdp_currency_symbol($currency);
         <p><?php esc_html_e('Your order details are given below. Please review it and click on Proceed to Payment to complete this order.', ATBDP_TEXTDOMAIN); ?></p>
             <table id="directorist-checkout-table" class="table table-bordered table-striped">
                 <?php
+
                 // $args is auto available available through the load_template().
                 foreach ($form_data as $op){
                     /*Display header type item in a bold style*/

@@ -25,6 +25,7 @@ if (!empty($p_id)) {
     $listing_info['manual_lat']             = get_post_meta($p_id, '_manual_lat', true);
     $listing_info['manual_lng']             = get_post_meta($p_id, '_manual_lng', true);
     $listing_info['bdbh']                   = get_post_meta($p_id, '_bdbh', true);
+    $listing_info['bdbh_settings']          = get_post_meta($p_id, '_bdbh_settings', true);
     $listing_info['listing_img']            = get_post_meta($p_id, '_listing_img', true);
     $listing_info['hide_contact_info']      = get_post_meta($p_id, '_hide_contact_info', true);
     $listing_info['expiry_date']            = get_post_meta($p_id, '_expiry_date', true);

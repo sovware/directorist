@@ -32,6 +32,7 @@ foreach ($listing_imgs as $id){
 $enable_bh_on_page      = get_directorist_option('enable_bh_on_page', 0 ); // yes or no
 $text247                = get_directorist_option('text247',  __('Open 24/7', ATBDP_TEXTDOMAIN)); // text for 24/7 type listing
 $business_hour_title    = get_directorist_option('business_hour_title',  __('Business Hour', ATBDP_TEXTDOMAIN)); // text Business Hour Title
+
 $bdbh                   = get_post_meta($post->ID, '_bdbh', true);
 $bdbh_ops               = get_post_meta($post->ID, '_bdbh_settings', true);
 $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist

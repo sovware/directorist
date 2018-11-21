@@ -67,7 +67,7 @@ $currency = get_directorist_option('g_currency', 'USD');
             /**
              * It fires before social information fields
              * @param string $type Page type.
-             * @param array $listing_info Information of the current listing
+             * @param array $listing_contact_info Information of the current listing
              * @since 1.1.1
              **/
             do_action('atbdp_edit_before_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
@@ -77,36 +77,11 @@ $currency = get_directorist_option('g_currency', 'USD');
             /**
              * It fires after social information fields
              * @param string $type Page type.
-             * @param array $listing_info Information of the current listing
+             * @param array $listing_contact_info Information of the current listing
              * @since 1.1.1
              **/
             do_action('atbdp_edit_after_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
             ?>
-
-    <?php
-    /**
-     * It fires before social information fields
-     * @param string $type Page type.
-     * @param array $listing_info Information of the current listing
-     * @since 1.1.1
-     **/
-    do_action('atbdp_edit_before_social_info_fields', 'add_listing_page_backend', $args['listing_info']);
-
-    ?>
-    <div class="form-group">
-        <?php ATBDP()->load_template('meta-partials/social', array('social_info' => $social_info));?>
-    </div>
-    <?
-    /**
-     * It fires after social information fields
-     * @param string $type Page type.
-     * @param array $listing_info Information of the current listing
-     * @since 1.1.1
-     **/
-    do_action('atbdp_edit_after_social_info_fields', 'add_listing_page_backend', $args['listing_info']);
-    ?>
-
-
 
     <?php if (!$disable_map) { ?>
     <div class="form-group">
@@ -162,6 +137,15 @@ $currency = get_directorist_option('g_currency', 'USD');
 
 <?php
 }
+
+/**
+ * It fires after the google map preview area
+ * @param string $type Page type.
+ * @param array $listing_contact_info Information of the current listing
+ * @since 1.1.1
+ **/
+do_action('atbdp_edit_after_googlemap_preview', 'add_listing_page_backend', $args['listing_contact_info'], get_the_ID());
+
 ?>
 
 

@@ -225,6 +225,8 @@ class ATBDP_Metabox {
         $metas['_email']             = !empty($p['email'])? sanitize_text_field($p['email']) : '';
         $metas['_website']           = !empty($p['website'])? sanitize_text_field($p['website']) : '';
         $metas['_social']            = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
+        $metas['_bdbh_settings']     = !empty($p['bdbh_settings']) ? atbdp_sanitize_array($p['bdbh_settings']) : array(); // we are expecting array value
+        $metas['_bdbh']              = !empty($p['bdbh']) ? atbdp_sanitize_array($p['bdbh']) : array(); // we are expecting array value
         $metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
         $metas['_manual_lng']        = !empty($p['manual_lng'])? sanitize_text_field($p['manual_lng']) : '';
         $metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();

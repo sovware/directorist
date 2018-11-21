@@ -14,7 +14,7 @@
   color: #272b41;
 }
 
-.atbd_bg-primary, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_price, .atbd_content_active #directorist.atbd_wrapper .atbd_listting_category a span, .atbd_content_active .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover, .atbd_content_active .widget.atbd_widget .directorist.atbdp-widget-tags ul li a:hover, .atbd_content_active .widget.atbd_widget .atbdp-widget-categories ul li a span {
+.atbd_bg-primary, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_price, .atbd_content_active #directorist.atbd_wrapper .atbd_listting_category a span, .atbd_content_active .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover, .atbd_content_active .widget.atbd_widget .directorist.atbdp-widget-tags ul li a:hover, .atbd_content_active .widget.atbd_widget .atbdp-widget-categories ul li a span, #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic {
   background: #272b41;
 }
 
@@ -1084,11 +1084,59 @@ h6, .h6 {
 #directorist.atbd_wrapper .atbd_user_dashboard_nav {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 #directorist.atbd_wrapper.dashboard_area .db_btn_area {
-  padding-top: 20px;
+  padding: 20px;
+  border-top: 1px solid #e3e6ef;
+}
+
+#directorist.atbd_wrapper.dashboard_area .atbd_dashboard_tittle_metas {
+  padding: 15px 20px;
+}
+
+#directorist.atbd_wrapper.dashboard_area .atbd_promote_btn_wrapper {
+  margin-bottom: 10px;
+}
+
+#directorist.atbd_wrapper.dashboard_area .directory_edit_btn {
+  margin-right: 6px;
+}
+
+#directorist.atbd_wrapper.dashboard_area .atbd_listing_bottom_content .listing-meta p span {
+  font-weight: 500;
+  color: #272b41;
+}
+
+#directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_info .atbd_content_upper {
+  padding: 0;
+}
+
+#directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img {
+  position: relative;
+}
+
+#directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img #remove_pro_pic {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  background: #ff4949;
+  color: #fff;
+  padding: 3px 10px;
+}
+
+#directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+}
+
+#directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic {
+  margin-bottom: 0;
+  color: #ffffff;
+  padding: 8px 20px;
 }
 
 /*# sourceMappingURL=map/style.css.map */

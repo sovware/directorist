@@ -63,8 +63,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                     ?>
                                     <div class="col-lg-4 col-sm-6" id="listing_id_<?= $listing->ID; ?>">
                                         <div class="atbd_single_listing atbd_listing_card">
-                                            <article
-                                                    class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
+                                            <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                                 <figure class="atbd_listing_thumbnail_area">
                                                     <div class="atbd_listing_image">
                                                         <?= (!empty($listing_img[0])) ? '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(432, 400))) . '" alt="listing image">' : '' ?>
@@ -89,25 +88,27 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <?php /*todo: Shahadat -> please implement the current markup*/ ?>
                                                 <div class="atbd_listing_info">
                                                     <div class="atbd_content_upper">
-                                                        <h4 class="atbd_listing_title">
-                                                            <a href="<?= get_post_permalink($listing->ID); ?>">
-                                                                <?= !empty($listing->post_title) ? esc_html(stripslashes($listing->post_title)) : ''; ?>
-                                                            </a>
-                                                        </h4>
-                                                        <p class="atbd_listing_tagline"><?= (!empty($tagline)) ? esc_html(stripslashes($tagline)) : ''; ?></p>
-                                                        <?php /* todo: Shahadat -> new markup implemented */ ?>
-                                                        <div class="atbd_listing_meta">
-                                                            <?php
-                                                            /**
-                                                             * Fires after the title and sub title of the listing is rendered
-                                                             *
-                                                             *
-                                                             * @since 1.0.0
-                                                             */
+                                                        <div class="atbd_dashboard_tittle_metas">
+                                                            <h4 class="atbd_listing_title">
+                                                                <a href="<?= get_post_permalink($listing->ID); ?>">
+                                                                    <?= !empty($listing->post_title) ? esc_html(stripslashes($listing->post_title)) : ''; ?>
+                                                                </a>
+                                                            </h4>
 
-                                                            do_action('atbdp_after_listing_tagline');
-                                                            /*@todo: Shahadat -> added new markup, Average pricing */ ?>
-                                                        </div><!-- End atbd listing meta -->
+                                                            <?php /* todo: Shahadat -> new markup implemented */ ?>
+                                                            <div class="atbd_listing_meta">
+                                                                <?php
+                                                                /**
+                                                                 * Fires after the title and sub title of the listing is rendered
+                                                                 *
+                                                                 *
+                                                                 * @since 1.0.0
+                                                                 */
+
+                                                                do_action('atbdp_after_listing_tagline');
+                                                                /*@todo: Shahadat -> added new markup, Average pricing */ ?>
+                                                            </div><!-- End atbd listing meta -->
+                                                        </div>
 
                                                         <div class="db_btn_area">
                                                             <?php
@@ -129,7 +130,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                                 // featured available but the listing is not featured, show promotion button
                                                                 if ($featured_active && empty($featured)) {
                                                                     ?>
-                                                                    <div>
+                                                                    <div class="atbd_promote_btn_wrapper">
                                                                         <a href="<?= esc_url(ATBDP_Permalink::get_checkout_page_link($listing->ID)) ?>"
                                                                            id="directorist-promote"
                                                                            data-listing_id="<?= $listing->ID; ?>"
@@ -142,7 +143,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
 
                                                             <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($listing->ID)); ?>"
                                                                id="edit_listing"
-                                                               class="directory_edit_btn btn btn-outline-primary"><?php _e('Edit Listing', ATBDP_TEXTDOMAIN); ?></a>
+                                                               class="directory_edit_btn btn btn-outline-primary"><?php _e('Edit', ATBDP_TEXTDOMAIN); ?></a>
                                                             <a href="#" id="remove_listing"
                                                                data-listing_id="<?= $listing->ID; ?>"
                                                                class="directory_remove_btn btn btn-outline-danger"><?php _e('Delete', ATBDP_TEXTDOMAIN); ?></a>
@@ -151,7 +152,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     </div><!-- end ./atbd_content_upper -->
 
                                                     <div class="atbd_listing_bottom_content">
-                                                        <div class="listing-meta db_btn_area">
+                                                        <div class="listing-meta">
                                                             <?php
                                                             $exp_date = get_post_meta($listing->ID, '_expiry_date', true);
                                                             $never_exp = get_post_meta($listing->ID, '_never_expire', true);
@@ -176,47 +177,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 </div>
                                             </article>
                                         </div>
-
-                                        <div class="single_directory_post dashboard_listing <?php echo $featured_active ? (!empty($featured) ? 'featured' : '') : '' ?>">
-                                            <article>
-                                                <?php if (!is_empty_v($listing_img)) { ?>
-                                                    <figure>
-                                                        <div class="post_img_wrapper">
-                                                            <?= (!empty($listing_img[0]))
-                                                                ? '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(340, 227))) . '" alt="listing image">'
-                                                                : '' ?>
-                                                        </div>
-                                                    </figure> <!--ends figure-->
-                                                <?php } ?>
-
-                                                <div class="article_content">
-                                                    <div class="content_upper">
-                                                        <h4 class="post_title">
-
-                                                        </h4>
-                                                        <p><?= (!empty($tagline)) ? esc_html(stripslashes($tagline)) : '' ?></p>
-                                                        <?php
-
-                                                        /**
-                                                         * Fires after the title and sub title of the listing is rendered on the single listing page
-                                                         *
-                                                         *
-                                                         * @since 1.0.0
-                                                         */
-
-                                                        do_action('atbdp_after_listing_tagline');
-
-                                                        echo $featured_active ? (!empty($featured) ? '<p class="featured_ribbon">' . esc_html__('Featured', ATBDP_TEXTDOMAIN) . '</p>' : '') : '';
-                                                        ?>
-
-                                                    </div> <!--ends .content_upper-->
-
-
-
-
-                                                </div> <!--ends .article_content-->
-                                            </article> <!--ends article-->
-                                        </div> <!--ends .single_directory_post-->
                                     </div> <!--ends . col-lg-3 col-sm-6-->
                                     <?php
                                 }
@@ -229,109 +189,131 @@ $is_disable_price = get_directorist_option('disable_list_price');
                         </div> <!--ends #my_listings-->
                         <div role="tabpanel" class="tab-pane " id="profile">
                             <form action="#" id="user_profile_form" method="post">
-                                <div class="col-md-4">
-                                    <div class="user_pro_img_area">
-                                        <div class="user_img" id="profile_pic_container">
-                                            <div class="cross" id="remove_pro_pic"><span class="fa fa-times"></span>
-                                            </div>
-                                            <div class="choose_btn">
-                                                <input type="hidden" name="user[pro_pic]" id="pro_pic"
-                                                       value="<?= !empty($u_pro_pic) ? esc_url($u_pro_pic) : ''; ?>">
-                                                <label for="pro_pic"
-                                                       id="upload_pro_pic"><?php _e('Change', ATBDP_TEXTDOMAIN); ?></label>
-                                            </div> <!--ends .choose_btn-->
-                                            <img src="<?= !empty($u_pro_pic) ? esc_url($u_pro_pic) : esc_url(ATBDP_PUBLIC_ASSETS . 'images/no-image.jpg'); ?>"
-                                                 id="pro_img" alt="">
-                                        </div> <!--ends .user_img-->
-                                    </div> <!--ends .user_pro_img_area-->
-                                </div> <!--ends .col-md-4-->
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="user_pro_img_area">
+                                            <div class="user_img" id="profile_pic_container">
+                                                <div class="cross" id="remove_pro_pic"><span class="fa fa-times"></span>
+                                                </div>
+                                                <div class="choose_btn">
+                                                    <input type="hidden" name="user[pro_pic]" id="pro_pic"
+                                                           value="<?= !empty($u_pro_pic) ? esc_url($u_pro_pic) : ''; ?>">
+                                                    <label for="pro_pic"
+                                                           id="upload_pro_pic"><?php _e('Change', ATBDP_TEXTDOMAIN); ?></label>
+                                                </div> <!--ends .choose_btn-->
+                                                <img src="<?= !empty($u_pro_pic) ? esc_url($u_pro_pic) : esc_url(ATBDP_PUBLIC_ASSETS . 'images/no-image.jpg'); ?>"
+                                                     id="pro_img" alt="">
+                                            </div> <!--ends .user_img-->
+                                        </div> <!--ends .user_pro_img_area-->
+                                    </div> <!--ends .col-md-4-->
 
-                                <div class="col-md-8">
-                                    <div class="profile_title"><h4><?php _e('My Profile', ATBDP_TEXTDOMAIN); ?></h4>
-                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="profile_title"><h4><?php _e('My Profile', ATBDP_TEXTDOMAIN); ?></h4>
+                                        </div>
 
-                                    <div class="user_info_wrap">
-                                        <!--hidden inputs-->
-                                        <input type="hidden" name="ID" value="<?= get_current_user_id(); ?>">
-                                        <!--Full name-->
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="full_name">Full Name</label>
-                                                <input class="directory_field" type="text" name="user[full_name]"
-                                                       value="<?= !empty($c_user->display_name) ? esc_attr($c_user->display_name) : ''; ?>"
-                                                       placeholder="Enter your full name">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="user_name">User Name</label>
-                                                <input class="directory_field" id="user_name" type="text"
-                                                       disabled="disabled" name="user[user_name]"
-                                                       value="<?= !empty($c_user->user_login) ? esc_attr($c_user->user_login) : ''; ?>"> <?php _e('(username can not be changed)', ATBDP_TEXTDOMAIN); ?>
-                                            </div>
-                                        </div> <!--ends .row-->
-                                        <!--First Name-->
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="first_name"><?php _e('First Name', ATBDP_TEXTDOMAIN); ?></label>
-                                                <input class="directory_field" id="first_name" type="text"
-                                                       name="user[first_name]"
-                                                       value="<?= !empty($c_user->first_name) ? esc_attr($c_user->first_name) : ''; ?>">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="last_name"><?php _e('Last Name', ATBDP_TEXTDOMAIN); ?></label>
-                                                <input class="directory_field" id="last_name" type="text"
-                                                       name="user[last_name]"
-                                                       value="<?= !empty($c_user->last_name) ? esc_attr($c_user->last_name) : ''; ?>">
-                                            </div>
-                                        </div> <!--ends .row-->
-                                        <!--Email-->
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="req_email"><?php _e('Email (required)', ATBDP_TEXTDOMAIN); ?></label>
-                                                <input class="directory_field" id="req_email" type="text"
-                                                       name="user[user_email]"
-                                                       value="<?= !empty($c_user->user_email) ? esc_attr($c_user->user_email) : ''; ?>"
-                                                       required>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="phone"><?php _e('Cell Number', ATBDP_TEXTDOMAIN); ?></label>
-                                                <input class="directory_field" type="tel" name="user[phone]"
-                                                       value="<?= !empty($u_phone) ? esc_attr($u_phone) : ''; ?>"
-                                                       placeholder="Enter your phone number">
-                                            </div>
-                                        </div> <!--ends .row-->
-                                        <!--Website-->
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="website"><?php _e('Website', ATBDP_TEXTDOMAIN); ?></label>
-                                                <input class="directory_field" id="website" type="text"
-                                                       name="user[website]"
-                                                       value="<?= !empty($u_website) ? esc_url($u_website) : ''; ?>">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="address"><?php _e('Address', ATBDP_TEXTDOMAIN); ?></label>
-                                                <input class="directory_field" id="address" type="text"
-                                                       name="user[address]"
-                                                       value="<?= !empty($u_address) ? esc_attr($u_address) : ''; ?>">
-                                            </div>
-                                        </div> <!--ends .row-->
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="new_pass"><?php _e('New Password', ATBDP_TEXTDOMAIN); ?></label>
-                                                <input class="directory_field" type="password" name="user[new_pass]"
-                                                       value="<?= !empty($new_pass) ? esc_attr($new_pass) : ''; ?>"
-                                                       placeholder="Enter a new password">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="confirm_pass"><?php _e('Confirm New Password', ATBDP_TEXTDOMAIN); ?></label>
-                                                <input class="directory_field" type="password" name="user[confirm_pass]"
-                                                       value="<?= !empty($confirm_pass) ? esc_attr($confirm_pass) : ''; ?>"
-                                                       placeholder="Confirm your new password">
-                                            </div>
-                                        </div><!--ends .row-->
+                                        <div class="user_info_wrap">
+                                            <!--hidden inputs-->
+                                            <input type="hidden" name="ID" value="<?= get_current_user_id(); ?>">
+                                            <!--Full name-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="full_name">Full Name</label>
+                                                        <input class="form-control" type="text" name="user[full_name]"
+                                                               value="<?= !empty($c_user->display_name) ? esc_attr($c_user->display_name) : ''; ?>"
+                                                               placeholder="Enter your full name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="user_name">User Name</label>
+                                                        <input class="form-control" id="user_name" type="text"
+                                                               disabled="disabled" name="user[user_name]"
+                                                               value="<?= !empty($c_user->user_login) ? esc_attr($c_user->user_login) : ''; ?>"> <?php _e('(username can not be changed)', ATBDP_TEXTDOMAIN); ?>
+                                                    </div>
+                                                </div>
+                                            </div> <!--ends .row-->
+                                            <!--First Name-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="first_name"><?php _e('First Name', ATBDP_TEXTDOMAIN); ?></label>
+                                                        <input class="form-control" id="first_name" type="text"
+                                                               name="user[first_name]"
+                                                               value="<?= !empty($c_user->first_name) ? esc_attr($c_user->first_name) : ''; ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="last_name"><?php _e('Last Name', ATBDP_TEXTDOMAIN); ?></label>
+                                                        <input class="form-control" id="last_name" type="text"
+                                                               name="user[last_name]"
+                                                               value="<?= !empty($c_user->last_name) ? esc_attr($c_user->last_name) : ''; ?>">
+                                                    </div>
+                                                </div>
+                                            </div> <!--ends .row-->
+                                            <!--Email-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="req_email"><?php _e('Email (required)', ATBDP_TEXTDOMAIN); ?></label>
+                                                        <input class="form-control" id="req_email" type="text"
+                                                               name="user[user_email]"
+                                                               value="<?= !empty($c_user->user_email) ? esc_attr($c_user->user_email) : ''; ?>"
+                                                               required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="phone"><?php _e('Cell Number', ATBDP_TEXTDOMAIN); ?></label>
+                                                        <input class="form-control" type="tel" name="user[phone]"
+                                                               value="<?= !empty($u_phone) ? esc_attr($u_phone) : ''; ?>"
+                                                               placeholder="Enter your phone number">
+                                                    </div>
+                                                </div>
+                                            </div> <!--ends .row-->
+                                            <!--Website-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="website"><?php _e('Website', ATBDP_TEXTDOMAIN); ?></label>
+                                                        <input class="form-control" id="website" type="text"
+                                                               name="user[website]"
+                                                               value="<?= !empty($u_website) ? esc_url($u_website) : ''; ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="address"><?php _e('Address', ATBDP_TEXTDOMAIN); ?></label>
+                                                        <input class="form-control" id="address" type="text"
+                                                               name="user[address]"
+                                                               value="<?= !empty($u_address) ? esc_attr($u_address) : ''; ?>">
+                                                    </div>
+                                                </div>
+                                            </div> <!--ends .row-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="new_pass"><?php _e('New Password', ATBDP_TEXTDOMAIN); ?></label>
+                                                        <input class="form-control" type="password" name="user[new_pass]"
+                                                               value="<?= !empty($new_pass) ? esc_attr($new_pass) : ''; ?>"
+                                                               placeholder="Enter a new password">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="confirm_pass"><?php _e('Confirm New Password', ATBDP_TEXTDOMAIN); ?></label>
+                                                        <input class="form-control" type="password" name="user[confirm_pass]"
+                                                               value="<?= !empty($confirm_pass) ? esc_attr($confirm_pass) : ''; ?>"
+                                                               placeholder="Confirm your new password">
+                                                    </div>
+                                                </div>
+                                            </div><!--ends .row-->
 
 
-                                        <button type="submit" class="btn btn-primary"
-                                                id="update_user_profile"><?php _e('Save Changes', ATBDP_TEXTDOMAIN); ?></button>
+                                            <button type="submit" class="btn btn-primary"
+                                                    id="update_user_profile"><?php _e('Save Changes', ATBDP_TEXTDOMAIN); ?></button>
+                                        </div>
                                     </div>
                                 </div>
                             </form>

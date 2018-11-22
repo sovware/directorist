@@ -434,7 +434,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                         </div>
                         <div class="directory_open_hours">
                             <?php
-                            var_dump($enable247hour);
                             // if 24 hours 7 days open then show it only, otherwise, show the days and its opening time.
                             if (!empty($enable247hour)) {
                                 echo '<p>' . esc_html($text247) . '</p>';

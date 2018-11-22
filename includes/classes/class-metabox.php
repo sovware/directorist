@@ -136,7 +136,7 @@ class ATBDP_Metabox {
         $listing_contact_info['manual_lat']             = get_post_meta($post->ID, '_manual_lat', true);
         $listing_contact_info['manual_lng']            = get_post_meta($post->ID, '_manual_lng', true);
         $listing_contact_info['bdbh']                  = get_post_meta($post->ID, '_bdbh', true);
-        $listing_contact_info['bdbh_settings']         = get_post_meta($post->ID, '_bdbh_settings', true);
+        $listing_contact_info['enable247hour']         = get_post_meta($post->ID, '_enable247hour', true);
         $listing_contact_info['listing_img']            = get_post_meta($post->ID, '_listing_img', true);
         $listing_contact_info['hide_contact_info']      = get_post_meta($post->ID, '_hide_contact_info', true);
 
@@ -225,7 +225,7 @@ class ATBDP_Metabox {
         $metas['_email']             = !empty($p['email'])? sanitize_text_field($p['email']) : '';
         $metas['_website']           = !empty($p['website'])? sanitize_text_field($p['website']) : '';
         $metas['_social']            = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
-        $metas['_bdbh_settings']     = !empty($p['bdbh_settings']) ? atbdp_sanitize_array($p['bdbh_settings']) : array(); // we are expecting array value
+        $metas['_enable247hour']     = !empty($p['enable247hour']) ? sanitize_text_field($p['enable247hour']) : ''; // we are expecting array value
         $metas['_bdbh']              = !empty($p['bdbh']) ? atbdp_sanitize_array($p['bdbh']) : array(); // we are expecting array value
         $metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
         $metas['_manual_lng']        = !empty($p['manual_lng'])? sanitize_text_field($p['manual_lng']) : '';

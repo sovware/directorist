@@ -1812,6 +1812,21 @@ The Administrator of ==SITE_NAME==
                     'description' => __('You can show popular category on search page or you can hide it here.', ATBDP_TEXTDOMAIN),
                     'default' => '0',
                 ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'show_connector',
+                    'label' => __('Show connector', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can show a connector between searchable field and popular category on search page or you can hide it here.', ATBDP_TEXTDOMAIN),
+                    'default' => '0',
+                ),
+
+                array(
+                    'type' => 'textbox',
+                    'name' => 'connectors_title',
+                    'label' => __('Set connector', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Enter the title for connector between searchable field and popular category', ATBDP_TEXTDOMAIN ),
+                    'default' => __('Or', ATBDP_TEXTDOMAIN),
+                ),
 
                 array(
                     'type' => 'textbox',
@@ -1820,6 +1835,7 @@ The Administrator of ==SITE_NAME==
                     'description' => __( 'Enter the title for popular category on listing search page eg. Browse by popular categories', ATBDP_TEXTDOMAIN ),
                     'default' => __('Browse by popular categories', ATBDP_TEXTDOMAIN),
                 ),
+
 
                 array(
                     'type' => 'slider',

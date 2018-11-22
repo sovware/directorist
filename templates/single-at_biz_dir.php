@@ -435,6 +435,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                         </div>
                         <div class="directory_open_hours">
                             <?php
+                            var_dump($enable247hour);
                             // if 24 hours 7 days open then show it only, otherwise, show the days and its opening time.
                             if (!empty($enable247hour)) {
                                 echo '<p>' . esc_html($text247) . '</p>';
@@ -454,7 +455,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                 <?php foreach ($social as $link) {
                                     $n = esc_attr($link['id']);
                                     $l = esc_url($link['url']);
-                                    echo "<li><a href='{$l}'><span class='fa fa-{$n}'></span></a></li>";
+                                    echo "<li><a target='_blank' href='{$l}'><span class='fa fa-{$n}'></span></a></li>";
                                     ?>
                                 <?php } ?>
                             </ul>

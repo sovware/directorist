@@ -9,6 +9,10 @@ $disable_map = get_directorist_option('disable_map');
 $disable_price = get_directorist_option('disable_list_price');
 $disable_contact_info = get_directorist_option('disable_contact_info');
 $currency = get_directorist_option('g_currency', 'USD');
+$info_content = "<div class='map_info_window'> <h3>{$t}</h3>";
+$info_content .= "<p> {$tg}</p>";
+$info_content .= $image ; // add the image if available
+$info_content .= "<p> {$ad}</p></div>";
 
 ?>
 <div id="directorist" class="directorist atbd_wrapper">

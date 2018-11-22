@@ -9,7 +9,9 @@ $search_subtitle = get_directorist_option('search_subtitle', '');
 $search_placeholder = get_directorist_option('search_placeholder', __('What are you looking for?', ATBDP_TEXTDOMAIN));
 
 $show_popular_category = get_directorist_option('show_popular_category', 1);
+$show_connector = get_directorist_option('show_connector', 1);
 
+$connectors_title = get_directorist_option('connectors_title', __('Or', ATBDP_TEXTDOMAIN));
 $popular_cat_title = get_directorist_option('popular_cat_title', __('Browse by popular categories', ATBDP_TEXTDOMAIN));
 $popular_cat_num = get_directorist_option('popular_cat_num', 10);
 ?>
@@ -90,8 +92,14 @@ $popular_cat_num = get_directorist_option('popular_cat_num', 10);
                         if (!empty($top_categories)){
                         ?>
                             <div class="directory_home_category_area">
+                                <?php
+                                if ($show_connector == '1'){
+                                    ?>
+                                    <span><?php echo $connectors_title; ?></span>
+                                    <?php
+                                }
+                                ?>
 
-                                <span><?php _e('Or', ATBDP_TEXTDOMAIN); ?></span>
                                 <p><?php echo esc_html($popular_cat_title); ?></p>
 
                                 <ul class="categories">

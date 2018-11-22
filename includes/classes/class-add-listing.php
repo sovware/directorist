@@ -98,7 +98,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $metas['_website']           = !empty($p['website'])? sanitize_text_field($p['website']) : '';
                     $metas['_social']            = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
                     $metas['_bdbh']              = !empty($p['bdbh'])? atbdp_sanitize_array($p['bdbh']) : array();
-                    $metas['_bdbh_settings']      = !empty($p['bdbh_settings'])? atbdp_sanitize_array($p['bdbh_settings']) : array();
+                    $metas['_enable247hour']      = !empty($p['enable247hour'])? sanitize_text_field($p['enable247hour']) : '';
                     $metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
                     $metas['_manual_lng']        = !empty($p['manual_lng'])? sanitize_text_field($p['manual_lng']) : '';
                     $metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();

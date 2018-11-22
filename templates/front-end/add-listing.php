@@ -454,6 +454,16 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                             </div>
                         </div><!-- end .atbd_general_information_module -->
 
+                        <?php
+                        /**
+                         * It fires before social information fields
+                         * @param string $type Page type.
+                         * @param array $listing_info Information of the current listing
+                         * @since 1.1.1
+                         **/
+                        do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_frontend', $listing_info);
+                        ?>
+
                         <div class="atbd_content_module atbd_location_map_setting">
                             <div class="atbd_content_module__tittle_area">
                                 <div class="atbd_area_title">

@@ -6,10 +6,6 @@ $t = !empty($t)? $t : __('No Title', ATBDP_TEXTDOMAIN);
 $tg = !empty($tagline)? esc_html($tagline) : '';
 $ad = !empty($address)? esc_html($address) : '';
 $image = (!empty($attachment_id[0])) ? "<img src='". esc_url(wp_get_attachment_image_url($attachment_id[0], 'thumbnail'))."'>": '';
-$info_content = "<div class='map_info_window'> <h3>{$t}</h3>";
-$info_content .= "<p> {$tg}</p>";
-$info_content .= $image ; // add the image if available
-$info_content .= "<p> {$ad}</p></div>";
 $post_ID = $post->ID;
 // grab social information
 $disable_price = get_directorist_option('disable_list_price');

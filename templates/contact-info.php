@@ -79,13 +79,14 @@ $info_content .= "<p> {$ad}</p></div>";
             ATBDP()->load_template('meta-partials/social', array('social_info' => $social_info));
 
             /**
-             * It fires after social information fields
-             * @param string $type Page type.
-             * @param array $listing_contact_info Information of the current listing
-             * @since 1.1.1
-             **/
-            do_action('atbdp_edit_after_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
-            ?>
+    * It fires after social information fields
+    * @param string $type Page type.
+    * @param array $listing_contact_info Information of the current listing
+    * @since 1.1.1
+    **/
+    do_action('atbdp_edit_after_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
+    do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
+    ?>
 
     <?php if (!$disable_map) { ?>
     <div class="form-group">

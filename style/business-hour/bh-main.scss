@@ -1,0 +1,32 @@
+@import "../../bootstrap/config.bs";
+@import "../mixins/colors";
+
+#directorist.atbd_wrapper {
+  .business-hour {
+    .business-hour-title {
+      margin-bottom: 10px;
+      .module_title {
+        font-size: 15px;
+      }
+      p {
+        font-size: 13px;
+      }
+    }
+  }
+  .enable247hour {
+    input, label {
+      display: inline-block;
+      font-weight: 400;
+    }
+  }
+  .atbd_day_label {
+    font-weight: 500;
+  }
+  .atbd_row_bg label {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+  .enable247hour{
+    margin-bottom: 15px;
+  }
+}

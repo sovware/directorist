@@ -198,6 +198,7 @@ h6, .h6 {
 
 #directorist.atbd_wrapper label {
   color: #202428;
+  font-size: 14px;
 }
 
 #directorist.atbd_wrapper label label {
@@ -1081,10 +1082,31 @@ h6, .h6 {
   font-size: 18px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .business-hour .business-hour-title {
+  margin-bottom: 10px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .business-hour .business-hour-title .module_title {
+  font-size: 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .business-hour .business-hour-title p {
+  font-size: 13px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .enable247hour input, .atbd_content_active #directorist.atbd_wrapper .enable247hour label {
+  display: inline-block;
+  font-weight: 400;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_day_label {
+  font-weight: 500;
+}
+
 #directorist.atbd_wrapper .atbd_user_dashboard_nav {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  padding-bottom: 30px;
 }
 
 #directorist.atbd_wrapper.dashboard_area .db_btn_area {

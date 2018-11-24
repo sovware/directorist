@@ -67,6 +67,7 @@ $video_label = get_directorist_option('atbd_video_title');
 $p_lnk = get_the_permalink();
 $p_title = get_the_title();
 $featured = get_post_meta(get_the_ID(), '_featured', true);
+$cats = get_the_terms($post->ID, ATBDP_CATEGORY);
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col-md-12';
 ?>
@@ -255,7 +256,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
 
                         <ul class="directory_tags">
                             <?php
-                            $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
+
                             if (!empty($cats)) {
                                 foreach ($cats as $cat) {
 
@@ -391,7 +392,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                         <div class="atbd_info_title"><span
                                                     class="fa fa-phone"></span><?php _e('Phone', ATBDP_TEXTDOMAIN); ?>
                                         </div>
-                                        <div class="atbd_info"><?= esc_html($phone[0]); ?></div>
+                                        <div class="atbd_info"><?= esc_html($phone); ?></div>
                                     </li>
                                 <?php } ?>
 
@@ -453,7 +454,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                 <?php foreach ($social as $link) {
                                     $n = esc_attr($link['id']);
                                     $l = esc_url($link['url']);
-                                    echo "<li><a href='{$l}'><span class='fa fa-{$n}'></span></a></li>";
+                                    echo "<li><a target='_blank' href='{$l}'><span class='fa fa-{$n}'></span></a></li>";
                                     ?>
                                 <?php } ?>
                             </ul>

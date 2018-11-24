@@ -454,15 +454,25 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                             </div>
                         </div><!-- end .atbd_general_information_module -->
 
-                        <?php
-                        /**
-                         * It fires before social information fields
-                         * @param string $type Page type.
-                         * @param array $listing_info Information of the current listing
-                         * @since 1.1.1
-                         **/
-                        do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_frontend', $listing_info);
-                        ?>
+                        <div class="atbd_content_module">
+                            <div class="atbd_content_module__tittle_area">
+                                <div class="atbd_area_title">
+                                    <h4><?php _e('Opening/Business Hour Information', BDBH_TEXTDOMAIN); ?></h4>
+                                </div>
+                            </div>
+
+                            <div class="atbdb_content_module_contents">
+                                <?php
+                                /**
+                                 * It fires before social information fields
+                                 * @param string $type Page type.
+                                 * @param array $listing_info Information of the current listing
+                                 * @since 1.1.1
+                                 **/
+                                do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_frontend', $listing_info);
+                                ?>
+                            </div>
+                        </div>
 
                         <div class="atbd_content_module atbd_location_map_setting">
                             <div class="atbd_content_module__tittle_area">
@@ -575,7 +585,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                         <input id="listing_t" type="checkbox" name="t_c_check">
                         <label for="listing_t"><?php echo __('I Agree with all ',ATBDP_TEXTDOMAIN);?><a style="color: red" href="" id="listing_t_c" "><?php echo __('terms & conditions',ATBDP_TEXTDOMAIN);?></a></label>
                         <div id="tc_container" style="display: none">
-                            <p style='padding:25px; border-radius: 10px; border:1px solid brown; font-size:13px; text-align:justify' class='alert-danger'><?php _e($listing_terms_condition_text, ATBDP_TEXTDOMAIN);?></p>
+                            <p><?php _e($listing_terms_condition_text, ATBDP_TEXTDOMAIN);?></p>
                         </div>
                     </div>
 

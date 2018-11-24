@@ -96,14 +96,9 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                         $hide_contact_info = get_post_meta(get_the_ID(), '_hide_contact_info', true);
                         $disable_contact_info = get_directorist_option('disable_contact_info', 0);
                         /*Code for Business Hour Extensions*/
-                        $enable_bh_on_page      = get_directorist_option('enable_bh_on_page', 0 ); // yes or no
-                        $text247                = get_directorist_option('text247',  __('Open 24/7', ATBDP_TEXTDOMAIN)); // text for 24/7 type listing
-                        $business_hour_title    = get_directorist_option('business_hour_title',  __('Business Hour', ATBDP_TEXTDOMAIN)); // text Business Hour Title
-
                         $bdbh                   = get_post_meta(get_the_ID(), '_bdbh', true);
-                        $bdbh_ops               = get_post_meta(get_the_ID(), '_bdbh_settings', true);
+                        $enable247hour               = get_post_meta(get_the_ID(), '_enable247hour', true);
                         $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
-                        $bdbh_settings          = !empty($bdbh_ops) ? extract(atbdp_sanitize_array($bdbh_ops)) : array();
                         /*Code for Business Hour Extensions*/
                         ?>
                         <div class="col-md-4 col-sm-6">
@@ -118,15 +113,14 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                             <?php if (class_exists('BD_Business_Hour')){
                                                 //lets check is it 24/7
                                                 if (!empty($enable247hour)) {
-                                                    var_dump($bdbh_ops)
                                                     ?>
                                                     <div class="atbd_upper_badge">
                                                         <span class="atbd_badge atbd_badge_open">Open Now</span>
                                                     </div><!-- END /.atbd_upper_badge -->
                                                     <?php
-                                                }}?>
-
-
+                                                }else {
+                                                    BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list
+                                                } }?>
                                             <div class="atbd_lower_badge">
                                                 <?php
                                                 if ($featured){ printf(

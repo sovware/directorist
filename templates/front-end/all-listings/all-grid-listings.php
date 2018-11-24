@@ -86,6 +86,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                         $locs              =  get_the_terms(get_the_ID(), ATBDP_LOCATION);
                         $featured          = get_post_meta(get_the_ID(), '_featured', true);
                         $price             = get_post_meta(get_the_ID(), '_price', true);
+                        $price_range       = get_post_meta(get_the_ID(), '_price_range', true);
                         $listing_img       = get_post_meta(get_the_ID(), '_listing_img', true);
                         $excerpt           = get_post_meta(get_the_ID(), '_excerpt', true);
                         $tagline           = get_post_meta(get_the_ID(), '_tagline', true);
@@ -127,9 +128,17 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                     '<span class="atbd_badge atbd_badge_featured">Featured</span>',
                                                     esc_html__('Featured', ATBDP_TEXTDOMAIN)
                                                 );}
+
+                                                $popular_listings = ATBDP()->get_popular_listings($count);
+                                                if ($popular_listings->have_posts()) {
+
+                                                    foreach ($popular_listings->posts as $pop_post) {
+                                                        if ($pop_post->ID == get_the_ID()){
+                                                            echo ' <span class="atbd_badge atbd_badge_popular">Popular</span>';
+                                                        }
+                                                    }
+                                                }
                                                 ?>
-                                                <?php /*todo: Shahadat -> It needs dynamization */?>
-                                                <span class="atbd_badge atbd_badge_popular">Popular</span>
                                             </div>
                                         </figcaption>
                                     </figure>
@@ -154,14 +163,11 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                  */
 
                                                 do_action('atbdp_after_listing_tagline');
-                                                /*@todo: Shahadat -> added new markup, Average pricing */?>
-                                                <span class="atbd_meta atbd_listing_average_pricing">
-                                                    <span class="atbd_active">$</span>
-                                                    <span class="atbd_active">$</span>
-                                                    <span>$</span>
-                                                    <span>$</span>
-                                                </span>
-                                                <?php
+
+                                                if(empty($price) && !empty($price_range)) {
+                                                 atbdp_display_price_range($price_range);
+                                                }
+
                                                 atbdp_display_price($price, $is_disable_price);
 
                                                 /**

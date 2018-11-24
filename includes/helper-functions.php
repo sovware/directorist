@@ -1345,6 +1345,59 @@ function atbdp_display_price($price='', $disable_price=false, $currency='', $sym
 }
 
 /**
+ * Print formatted Price inside a p tag
+ *
+ *
+ * @return mixed
+ */
+function atbdp_display_price_range($price_range){
+   if(empty($price_range)) return null;
+    if('skimming' == $price_range) {
+        ?>
+        <span class="atbd_meta atbd_listing_average_pricing">
+            <span class="atbd_active">$</span>
+            <span class="atbd_active">$</span>
+            <span class="atbd_active">$</span>
+            <span class="atbd_active">$</span>
+        </span>
+        <?php
+    }elseif ('moderate' == $price_range) {
+        ?>
+        <span class="atbd_meta atbd_listing_average_pricing">
+            <span class="atbd_active">$</span>
+            <span class="atbd_active">$</span>
+            <span class="atbd_active">$</span>
+            <span>$</span>
+        </span>
+        <?php
+    }elseif ('economy' == $price_range) {
+        ?>
+        <span class="atbd_meta atbd_listing_average_pricing">
+            <span class="atbd_active">$</span>
+            <span class="atbd_active">$</span>
+            <span>$</span>
+            <span>$</span>
+        </span>
+        <?php
+    }elseif('bellow_economy' == $price_range) {
+        ?>
+        <span class="atbd_meta atbd_listing_average_pricing">
+            <span class="atbd_active">$</span>
+            <span>$</span>
+            <span>$</span>
+            <span>$</span>
+        </span>
+        <?php
+    }
+   ?>
+
+
+    <?php
+
+}
+
+
+/**
  * Get total listings count.
  *
  * @since    4.0.0

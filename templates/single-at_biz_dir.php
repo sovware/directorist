@@ -4,6 +4,7 @@
 $listing_info['never_expire']       = get_post_meta($post->ID, '_never_expire', true);
 $listing_info['featured']           = get_post_meta($post->ID, '_featured', true);
 $listing_info['price']              = get_post_meta($post->ID, '_price', true);
+$listing_info['price_range']        = get_post_meta($post->ID, '_price_range', true);
 $listing_info['videourl']           = get_post_meta($post->ID, '_videourl', true);
 $listing_info['listing_status']     = get_post_meta($post->ID, '_listing_status', true);
 $listing_info['tagline']            = get_post_meta($post->ID, '_tagline', true);
@@ -34,9 +35,8 @@ $text247                = get_directorist_option('text247',  __('Open 24/7', ATB
 $business_hour_title    = get_directorist_option('business_hour_title',  __('Business Hour', ATBDP_TEXTDOMAIN)); // text Business Hour Title
 
 $bdbh                   = get_post_meta($post->ID, '_bdbh', true);
-$bdbh_ops               = get_post_meta($post->ID, '_bdbh_settings', true);
+$enable247hour               = get_post_meta($post->ID, '_enable247hour', true);
 $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
-$bdbh_settings          = !empty($bdbh_ops) ? extract(atbdp_sanitize_array($bdbh_ops)) : array();
 /*Code for Business Hour Extensions*/
 
 

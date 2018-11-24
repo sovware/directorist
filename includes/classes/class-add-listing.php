@@ -89,7 +89,8 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     $metas['_listing_type']      = !empty($p['listing_type']) ? sanitize_text_field($p['listing_type']) : 0;
                     $metas['_price']             = !empty($p['price'])? (float) $p['price'] : 0;
-                    $metas['_videourl']           = !empty($p['videourl'])? sanitize_text_field($p['videourl']) : '';
+                    $metas['_price_range']       = !empty($p['price_range'])?  $p['price_range'] : '';
+                    $metas['_videourl']          = !empty($p['videourl'])? sanitize_text_field($p['videourl']) : '';
                     $metas['_tagline']           = !empty($p['tagline'])? sanitize_text_field($p['tagline']) : '';
                     $metas['_excerpt']           = !empty($p['excerpt'])? sanitize_text_field($p['excerpt']) : '';
                     $metas['_address']           = !empty($p['address'])? sanitize_text_field($p['address']) : '';

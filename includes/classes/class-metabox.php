@@ -111,6 +111,7 @@ class ATBDP_Metabox {
         $listing_info['never_expire']           = get_post_meta($post->ID, '_never_expire', true);
         $listing_info['featured']               = get_post_meta($post->ID, '_featured', true);
         $listing_info['price']                  = get_post_meta($post->ID, '_price', true);
+        $listing_info['price_range']            = get_post_meta($post->ID, '_price_range', true);
         $listing_info['listing_status']         = get_post_meta($post->ID, '_listing_status', true);
         $listing_info['tagline']                = get_post_meta($post->ID, '_tagline', true);
         $listing_info['excerpt']                = get_post_meta($post->ID, '_excerpt', true);
@@ -216,6 +217,7 @@ class ATBDP_Metabox {
         $metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
         $metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
         $metas['_price']             = !empty($p['price'])? (float) $p['price'] : 0;
+        $metas['_price_range']       = !empty($p['price_range'])?  $p['price_range'] : '';
         $metas['_videourl']          = !empty($p['videourl']) ?  sanitize_text_field($p['videourl']) : '';
         $metas['_listing_status']    = !empty($p['listing_status'])? sanitize_text_field($p['listing_status']) : 'post_status';
         $metas['_tagline']           = !empty($p['tagline'])? sanitize_text_field($p['tagline']) : '';
@@ -341,6 +343,7 @@ class ATBDP_Metabox {
         $listing_info['never_expire']           = get_post_meta($id, '_never_expire', true);
         $listing_info['featured']               = get_post_meta($id, '_featured', true);
         $listing_info['price']                  = get_post_meta($id, '_price', true);
+        $listing_info['price_range']            = get_post_meta($id, '_price_range', true);
         $listing_info['videourl']               = get_post_meta($id, '_videourl', true);
         $listing_info['listing_status']         = get_post_meta($id, '_listing_status', true);
         $listing_info['tagline']                = get_post_meta($id, '_tagline', true);

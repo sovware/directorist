@@ -4,6 +4,12 @@
         $(this).toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
     });
 
+    //price range
+    $('#pricerange').hide();
+    $('#price_range_option').on('click',function () {
+        $('#pricerange').show();
+    });
+
     /*
     Externel Library init
     ------------------------*/
@@ -580,7 +586,10 @@ jQuery(function($){
 
         });
 
+
+
     });
+
 
 })( jQuery );
 

@@ -150,14 +150,10 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                  */
 
                                                 do_action('atbdp_after_listing_tagline');
-                                                /*@todo: Shahadat -> added new markup, Average pricing */?>
-                                                <span class="atbd_meta atbd_listing_average_pricing">
-                                                    <span class="atbd_active">$</span>
-                                                    <span class="atbd_active">$</span>
-                                                    <span>$</span>
-                                                    <span>$</span>
-                                                </span>
-                                                <?php
+                                                if(empty($price) && !empty($price_range)) {
+                                                 atbdp_display_price_range($price_range);
+                                                }
+                                               
                                                 atbdp_display_price($price, $is_disable_price);
 
                                                 /**

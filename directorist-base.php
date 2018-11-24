@@ -866,9 +866,11 @@ final class Directorist_Base
         <div class="atbd_content_module atbd_review_module">
             <div class="atbd_content_module__tittle_area">
                 <div class="atbd_area_title">
-                    <h4><span class="fa fa-star atbd_area_icon"></span><?php _e('Reviews', ATBDP_TEXTDOMAIN); ?></h4>
+                    <h4><span class="fa fa-star atbd_area_icon"></span><?php _e($reviews_count . ' Reviews', ATBDP_TEXTDOMAIN); ?></h4>
                 </div>
+                <?php if (is_user_logged_in()) { ?>
                 <a href="#" class="btn btn-primary btn-sm">Add a review</a>
+                <?php } ?>
             </div>
 
             <div class="atbdb_content_module_contents">
@@ -885,7 +887,8 @@ final class Directorist_Base
                                                     alt="Avatar Image"></div>
                                         <div class="atbd_name_time">
                                             <p><?= esc_html($review->name); ?></p>
-                                            <span class="review_time"><?= date("d/m/Y", strtotime($review->date_created)) ?></span>
+                                            <span class="review_time"><?php
+                                                printf( __( '%s ago', ATBDP_TEXTDOMAIN ), human_time_diff( strtotime($review->date_created), current_time( 'timestamp' ) ) );?></span>
                                         </div>
                                     </div>
                                     <div class="atbd_rated_stars">

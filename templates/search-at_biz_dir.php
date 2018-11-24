@@ -62,13 +62,17 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             $l_ID = get_the_ID(); // cache it, save several functions calls.
                             $cats =  get_the_terms($l_ID, ATBDP_CATEGORY);
                             $locs =  get_the_terms($l_ID, ATBDP_LOCATION);
-
-                            $featured = get_post_meta($l_ID, '_featured', true);
-                            $price = get_post_meta($l_ID, '_price', true);
+                            $address              = get_post_meta(get_the_ID(), '_address', true);
+                            $phone_number         = get_post_meta(get_the_Id(), '_phone', true);
+                            $featured             = get_post_meta($l_ID, '_featured', true);
+                            $price                = get_post_meta($l_ID, '_price', true);
                             /*@todo; As listings on search page and the all listing page, and user dashboard is nearly the same, so try to refactor them to a function later using some condition to show some extra fields on the listing on user dashboard*/
-                            $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
-                            $excerpt = get_post_meta(get_the_ID(), '_excerpt', true);
-                            $tagline = get_post_meta(get_the_ID(), '_tagline', true);
+                            $listing_img          = get_post_meta(get_the_ID(), '_listing_img', true);
+                            $excerpt              = get_post_meta(get_the_ID(), '_excerpt', true);
+                            $tagline              = get_post_meta(get_the_ID(), '_tagline', true);
+                            $hide_contact_info    = get_post_meta(get_the_ID(), '_hide_contact_info', true);
+                            $disable_contact_info = get_directorist_option('disable_contact_info', 0);
+                            $category             = get_post_meta(get_the_Id(), '_admin_category_select', true);
                             ?>
                             <?php /*@todo shahadat - > updated search results page */?>
                             <div class="col-md-4 col-sm-6">
@@ -139,31 +143,50 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <?php /* @todo: Shahadat -> please implement this */?>
                                                 <div class="atbd_listing_data_list">
                                                     <ul>
-                                                        <li><p><span class="fa fa-location-arrow"></span>House -24C, Road -113A, Gulshan -2, Dhaka</p></li>
-                                                        <li><p><span class="fa fa-phone"></span>(415) 796-3633</p></li>
-                                                        <li><p><span class="fa fa-clock-o"></span>Posted 2 months ago</p></li>
+                                                        <?php
+
+                                                            if( !empty( $address )) { ?>
+                                                                <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
+                                                            <?php } ?>
+                                                            <?php if( !empty( $phone_number )) {?>
+                                                                <li><p><span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number));?></p></li>
+                                                                <?php
+                                                            } ?>
+                                                        <li><p><span class="fa fa-clock-o"></span><?php
+                                                                printf( __( 'Posted %s ago', ATBDP_TEXTDOMAIN ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
+                                                                ?></p></li>
                                                     </ul>
                                                 </div><!-- End atbd listing meta -->
                                                 <?php
                                                 //show category and location info
                                                 /* @todo: Shahadat -> Please fetch location, phone number and listing addition info here */
                                                 /*ATBDP()->helper->output_listings_taxonomy_info($top_category, $deepest_location);*/?>
-                                                <p><?= !empty($excerpt) ? esc_html(stripslashes($excerpt)) : ''; ?></p>
-
+                                                <?php if(!empty($excerpt))  {?>
+                                                <p><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
+                                                <?php } ?>
                                                 <?php /* @todo: deleted the read more link */ ?>
                                             </div><!-- end ./atbd_content_upper -->
 
                                             <div class="atbd_listing_bottom_content">
-                                                <div class="atbd_content_left">
-                                                    <div class="atbd_listting_category">
-                                                        <a href="#"><span class="fa fa-glass"></span>Restaurant</a>
+                                                <?php if(!empty($category)) {?>
+                                                    <div class="atbd_content_left">
+                                                        <div class="atbd_listting_category">
+                                                            <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span><?php  echo $cats[0]->name;?></a>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                <?php }else{
+                                                    ?>
+                                                    <div class="atbd_content_left">
+                                                        <div class="atbd_listting_category">
+                                                            <a href=""><span class="fa fa fa-square-o"></span><?php  echo __('Uncategorized', ATBDP_TEXTDOMAIN);?></a>
+                                                        </div>
+                                                    </div>
 
+                                                <?php    } ?>
                                                 <ul class="atbd_content_right">
-                                                    <li class="atbd_count"><span class="fa fa-eye"></span>900+</li>
+                                                    <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li>
                                                     <li class="atbd_save"><span class="fa fa-heart"></span></li>
-                                                    <li class="atbd_author"><a href="#"><img src="<?php echo ATBDP_PUBLIC_ASSETS.'images/avtr.png'?>" alt=""></a></li>
+                                                    <li class="atbd_author"><a href=""><?php echo get_avatar( get_the_author_meta( 'ID' ) , 32 ); ?></a></li>
                                                 </ul>
                                             </div><!-- end ./atbd_listing_bottom_content -->
                                         </div>

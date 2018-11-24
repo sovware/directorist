@@ -1084,7 +1084,7 @@ h6, .h6 {
 #directorist.atbd_wrapper .atbd_user_dashboard_nav {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  padding-bottom: 30px;
 }
 
 #directorist.atbd_wrapper.dashboard_area .db_btn_area {

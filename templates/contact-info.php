@@ -85,8 +85,10 @@ $info_content .= "<p> {$ad}</p></div>";
     * @since 1.1.1
     **/
     do_action('atbdp_edit_after_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
-    do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
     ?>
+    <div class="atbd_backend_business_hour">
+        <?php do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_backend', $args['listing_contact_info']); ?>
+    </div>
 
     <?php if (!$disable_map) { ?>
     <div class="form-group">

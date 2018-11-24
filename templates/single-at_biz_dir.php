@@ -34,9 +34,8 @@ $text247                = get_directorist_option('text247',  __('Open 24/7', ATB
 $business_hour_title    = get_directorist_option('business_hour_title',  __('Business Hour', ATBDP_TEXTDOMAIN)); // text Business Hour Title
 
 $bdbh                   = get_post_meta($post->ID, '_bdbh', true);
-$bdbh_ops               = get_post_meta($post->ID, '_bdbh_settings', true);
+$enable247hour               = get_post_meta($post->ID, '_enable247hour', true);
 $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
-$bdbh_settings          = !empty($bdbh_ops) ? extract(atbdp_sanitize_array($bdbh_ops)) : array();
 /*Code for Business Hour Extensions*/
 
 

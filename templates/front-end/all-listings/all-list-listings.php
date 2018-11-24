@@ -115,8 +115,17 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     esc_html__('Featured', ATBDP_TEXTDOMAIN)
                                                 );}
                                                 ?>
-                                                <?php /*todo: Shahadat -> It needs dynamization */?>
-                                                <span class="atbd_badge atbd_badge_popular">Popular</span>
+                                                <?php
+                                                $popular_listings = ATBDP()->get_popular_listings($count);
+                                                if ($popular_listings->have_posts()) {
+
+                                                    foreach ($popular_listings->posts as $pop_post) {
+                                                        if ($pop_post->ID == get_the_ID()){
+                                                            echo ' <span class="atbd_badge atbd_badge_popular">Popular</span>';
+                                                        }
+                                                    }
+                                                }
+                                                ?>
                                             </div>
                                         </figcaption>
                                     </figure>

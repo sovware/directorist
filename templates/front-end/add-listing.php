@@ -13,7 +13,7 @@ if (!empty($p_id)) {
     $listing_info['featured']               = get_post_meta($p_id, '_featured', true);
     $listing_info['listing_type']           = get_post_meta($p_id, '_listing_type', true);
     $listing_info['price']                  = get_post_meta($p_id, '_price', true);
-    $listing_info['videourl']               = get_post_meta($p_id, '_videourl', true);
+    $listing_info['price_range']           = get_post_meta($p_id, '_price_range', true);
     $listing_info['listing_status']         = get_post_meta($p_id, '_listing_status', true);
     $listing_info['tagline']                = get_post_meta($p_id, '_tagline', true);
     $listing_info['excerpt']                = get_post_meta($p_id, '_excerpt', true);
@@ -358,11 +358,22 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 </select>
                             </div>
 
-                            <?php if (!$disable_price) { ?>
+                            <?php
+                            $price_range = !empty($price_range) ? $price_range : '';
+                            if (!$disable_price) { ?>
                                 <div class="form-group">
                                     <!--@todo; Add currency Name near price-->
-                                    <label for="price"><?php esc_html_e('Price ( Optional---Leave it blank to hide it)', ATBDP_TEXTDOMAIN) ?></label>
+                                    <label for="price"><?php esc_html_e('Price ( Optional---Leave it blank to hide it)', ATBDP_TEXTDOMAIN) ?><a id='price_range_option'><?php echo __( ' Or Price Range', ATBDP_TEXTDOMAIN); ?></a></label>
                                     <input type="text" id="price" name="price" value="<?= !empty($price) ? esc_attr($price): ''; ?>" class="form-control directory_field" placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
+                                    <?php if($price_range) {?>
+                                    <select class="form-control directory_field" id="pricerange" name="price_range">
+                                        <option value="">Select Price Range</option>
+                                        <option value="skimming" <?php selected($price_range,'skimming');?>>Skimming ($$$$)</option>
+                                        <option value="moderate" <?php selected($price_range,'moderate');?>>Moderate ($$$)</option>
+                                        <option value="economy" <?php selected($price_range,'economy');?>>Economy ($$)</option>
+                                        <option value="bellow_economy" <?php selected($price_range,'economy');?>>Bellow Economy ($)</option>
+                                    </select>
+                                    <?php } ?>
                                 </div>
                             <?php } ?>
 
@@ -457,7 +468,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                         <div class="atbd_content_module">
                             <div class="atbd_content_module__tittle_area">
                                 <div class="atbd_area_title">
-                                    <h4><?php _e('Opening/Business Hour Information', BDBH_TEXTDOMAIN); ?></h4>
+                                    <h4><?php _e('Opening/Business Hour Information', ATBDP_TEXTDOMAIN); ?></h4>
                                 </div>
                             </div>
 

@@ -18,8 +18,11 @@
         }
     });
 
-
-
+    //price range
+    $('#pricerange').hide();
+    $('#price_range_option').on('click',function () {
+        $('#pricerange').show();
+    });
 
     // enable sorting if only the container has any social or skill field
     const $s_wrap = $("#social_info_sortable_container"); // cache it

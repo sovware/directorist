@@ -4,6 +4,7 @@
 $listing_info['never_expire']       = get_post_meta($post->ID, '_never_expire', true);
 $listing_info['featured']           = get_post_meta($post->ID, '_featured', true);
 $listing_info['price']              = get_post_meta($post->ID, '_price', true);
+$listing_info['price_range']        = get_post_meta($post->ID, '_price_range', true);
 $listing_info['videourl']           = get_post_meta($post->ID, '_videourl', true);
 $listing_info['listing_status']     = get_post_meta($post->ID, '_listing_status', true);
 $listing_info['tagline']            = get_post_meta($post->ID, '_tagline', true);

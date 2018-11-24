@@ -12,7 +12,6 @@ $date_format = get_option('date_format');
 $featured_active = get_directorist_option('enable_featured_listing');
 $is_disable_price = get_directorist_option('disable_list_price');
 /*@todo; later show featured listing first on the user dashboard maybe??? */
-
 ?>
 <div id="directorist" class="directorist atbd_wrapper dashboard_area">
     <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
@@ -52,16 +51,16 @@ $is_disable_price = get_directorist_option('disable_list_price');
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active row" data-uk-grid id="my_listings">
                             <?php if ($listings->have_posts()) {
-                                foreach ($listings->posts as $listing) {
+                                foreach ($listings->posts as $post) {
                                     // get only one parent or high level term object
-                                    $top_category = ATBDP()->taxonomy->get_one_high_level_term($listing->ID, ATBDP_CATEGORY);
-                                    $price = get_post_meta($listing->ID, '_price', true);
-                                    $featured = get_post_meta($listing->ID, '_featured', true);
-                                    $listing_img = get_post_meta($listing->ID, '_listing_img', true);
-                                    $tagline = get_post_meta($listing->ID, '_tagline', true);
+                                    $top_category = ATBDP()->taxonomy->get_one_high_level_term($post->ID, ATBDP_CATEGORY);
+                                    $price = get_post_meta($post->ID, '_price', true);
+                                    $featured = get_post_meta($post->ID, '_featured', true);
+                                    $listing_img = get_post_meta($post->ID, '_listing_img', true);
+                                    $tagline = get_post_meta($post->ID, '_tagline', true);
 
                                     ?>
-                                    <div class="col-lg-4 col-sm-6" id="listing_id_<?= $listing->ID; ?>">
+                                    <div class="col-lg-4 col-sm-6" id="listing_id_<?= $post->ID; ?>">
                                         <div class="atbd_single_listing atbd_listing_card">
                                             <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                                 <figure class="atbd_listing_thumbnail_area">
@@ -90,8 +89,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     <div class="atbd_content_upper">
                                                         <div class="atbd_dashboard_tittle_metas">
                                                             <h4 class="atbd_listing_title">
-                                                                <a href="<?= get_post_permalink($listing->ID); ?>">
-                                                                    <?= !empty($listing->post_title) ? esc_html(stripslashes($listing->post_title)) : ''; ?>
+                                                                <a href="<?= get_post_permalink($post->ID); ?>">
+                                                                    <?= !empty($post->post_title) ? esc_html(stripslashes($post->post_title)) : ''; ?>
                                                                 </a>
                                                             </h4>
 
@@ -112,15 +111,15 @@ $is_disable_price = get_directorist_option('disable_list_price');
 
                                                         <div class="db_btn_area">
                                                             <?php
-                                                            $lstatus = get_post_meta($listing->ID, '_listing_status', true);
+                                                            $lstatus = get_post_meta($post->ID, '_listing_status', true);
                                                             // If the listing needs renewal then there is no need to show promote button
                                                             if ('renewal' == $lstatus || 'expired' == $lstatus) {
                                                                 $can_renew = get_directorist_option('can_renew_listing');
                                                                 if (!$can_renew) return false;// vail if renewal option is turned off on the site.
                                                                 ?>
-                                                                <a href="<?= esc_url(ATBDP_Permalink::get_renewal_page_link($listing->ID)) ?>"
+                                                                <a href="<?= esc_url(ATBDP_Permalink::get_renewal_page_link($post->ID)) ?>"
                                                                    id="directorist-renew"
-                                                                   data-listing_id="<?= $listing->ID; ?>"
+                                                                   data-listing_id="<?= $post->ID; ?>"
                                                                    class="directory_btn btn btn-default">
                                                                     <?php _e('Renew', ATBDP_TEXTDOMAIN); ?>
                                                                 </a>
@@ -131,9 +130,9 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                                 if ($featured_active && empty($featured)) {
                                                                     ?>
                                                                     <div class="atbd_promote_btn_wrapper">
-                                                                        <a href="<?= esc_url(ATBDP_Permalink::get_checkout_page_link($listing->ID)) ?>"
+                                                                        <a href="<?= esc_url(ATBDP_Permalink::get_checkout_page_link($post->ID)) ?>"
                                                                            id="directorist-promote"
-                                                                           data-listing_id="<?= $listing->ID; ?>"
+                                                                           data-listing_id="<?= $post->ID; ?>"
                                                                            class="directory_btn btn btn-primary">
                                                                             <?php _e('Promote Your listing', ATBDP_TEXTDOMAIN); ?>
                                                                         </a>
@@ -141,11 +140,11 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                                 <?php }
                                                             } ?>
 
-                                                            <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($listing->ID)); ?>"
+                                                            <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
                                                                id="edit_listing"
                                                                class="directory_edit_btn btn btn-outline-primary"><?php _e('Edit', ATBDP_TEXTDOMAIN); ?></a>
                                                             <a href="#" id="remove_listing"
-                                                               data-listing_id="<?= $listing->ID; ?>"
+                                                               data-listing_id="<?= $post->ID; ?>"
                                                                class="directory_remove_btn btn btn-outline-danger"><?php _e('Delete', ATBDP_TEXTDOMAIN); ?></a>
                                                         </div> <!--ends .db_btn_area-->
                                                         <?php /* @todo: deleted the read more link */ ?>
@@ -154,13 +153,13 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     <div class="atbd_listing_bottom_content">
                                                         <div class="listing-meta">
                                                             <?php
-                                                            $exp_date = get_post_meta($listing->ID, '_expiry_date', true);
-                                                            $never_exp = get_post_meta($listing->ID, '_never_expire', true);
+                                                            $exp_date = get_post_meta($post->ID, '_expiry_date', true);
+                                                            $never_exp = get_post_meta($post->ID, '_never_expire', true);
                                                             $exp_text = !empty($never_exp)
                                                                 ? __('Never Expires', ATBDP_TEXTDOMAIN)
                                                                 : date_i18n($date_format, strtotime($exp_date)); ?>
                                                             <p><?php printf(__('<span>Expiration:</span> %s', ATBDP_TEXTDOMAIN), $exp_text); ?></p>
-                                                            <p><?php printf(__('<span>Listing Status:</span> %s', ATBDP_TEXTDOMAIN), get_post_status_object($listing->post_status)->label); ?></p>
+                                                            <p><?php printf(__('<span>Listing Status:</span> %s', ATBDP_TEXTDOMAIN), get_post_status_object($post->post_status)->label); ?></p>
                                                             <?php
                                                             atbdp_display_price($price, $is_disable_price);
                                                             /**

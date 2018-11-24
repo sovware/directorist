@@ -32,13 +32,23 @@ $currency = get_directorist_option('g_currency', 'USD');
                         <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt(eg. Text shown on Image Hover in grid layout):', ATBDP_TEXTDOMAIN) ?></label>
                         <textarea name="excerpt" id="atbdp_excerpt"  class="form-control directory_field" cols="30" rows="5" placeholder="<?= __('Short Description or Excerpt', ATBDP_TEXTDOMAIN); ?>"><?= !empty($excerpt) ?esc_textarea( stripslashes($excerpt)): ''; ?></textarea>
                     </div>
-                    <?php if (!$disable_price){ ?>
+                    <?php
+                    $price_range = !empty($price_range) ? $price_range : '';
+
+                    if (!$disable_price){ ?>
                         <div class="form-group">
                             <!--@todo; Add currency Name near price-->
                             <label for="price"><?php
                                 /*Translator: % is the name of the currency such eg. USD etc.*/
-                                printf(esc_html__('Price [%s] ( Optional---Leave it blank to hide it)', ATBDP_TEXTDOMAIN), $currency); ?></label>
+                                printf(esc_html__('Price [%s] ( Optional---Leave it blank to hide it)', ATBDP_TEXTDOMAIN), $currency); ?><a id='price_range_option'><?php echo __( ' Or Price Range', ATBDP_TEXTDOMAIN); ?></a> </label>
                             <input type="text" id="price" name="price" value="<?= !empty($price) ? esc_attr($price): ''; ?>" class="form-control directory_field" placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
+                            <select class="form-control directory_field" id="pricerange" name="price_range">
+                                <option value="">Select Price Range</option>
+                                <option value="skimming" <?php selected($price_range,'skimming');?>>Skimming ($$$$)</option>
+                                <option value="moderate" <?php selected($price_range,'moderate');?>>Moderate ($$$)</option>
+                                <option value="economy" <?php selected($price_range,'economy');?>>Economy ($$)</option>
+                                <option value="bellow_economy" <?php selected($price_range,'economy');?>>Bellow Economy ($)</option>
+                            </select>
                         </div>
                     <?php } ?>
 

@@ -87,6 +87,11 @@ $info_content .= "<p> {$ad}</p></div>";
     do_action('atbdp_edit_after_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
     ?>
     <div class="atbd_backend_business_hour">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="atbd_backend_area_title">Enter information about Businss/Opening hours</h3>
+            </div>
+        </div>
         <?php do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_backend', $args['listing_contact_info']); ?>
     </div>
 

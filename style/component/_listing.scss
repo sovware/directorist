@@ -163,6 +163,16 @@
               border: 1px solid $border-color;
             }
           }
+          .atbd_author{
+            a{
+              display: inline-block;
+              width: 35px;
+              height: 35px;
+              img{
+                border-radius: 50%;
+              }
+            }
+          }
         }
       }
     }

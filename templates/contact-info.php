@@ -9,6 +9,11 @@ $disable_map = get_directorist_option('disable_map');
 $disable_price = get_directorist_option('disable_list_price');
 $disable_contact_info = get_directorist_option('disable_contact_info');
 $currency = get_directorist_option('g_currency', 'USD');
+$t = get_the_title();
+$t = !empty( $t ) ? esc_html($t) : __('No Title ', ATBDP_TEXTDOMAIN);
+$tg = !empty( $tagline ) ? esc_html($tagline) : '';
+$ad = !empty( $address ) ? esc_html($address) : '';
+$image = (!empty($attachment_id[0])) ? "<img src='". esc_url(wp_get_attachment_image_url($attachment_id[0], 'thumbnail'))."'>": '';
 $info_content = "<div class='map_info_window'> <h3>{$t}</h3>";
 $info_content .= "<p> {$tg}</p>";
 $info_content .= $image ; // add the image if available

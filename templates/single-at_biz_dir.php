@@ -265,6 +265,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                     esc_html__('Featured', ATBDP_TEXTDOMAIN)
                                 );
                             }
+                            $count = !empty($count) ? $count : '';
                             $popular_listings = ATBDP()->get_popular_listings($count);
                             if ($popular_listings->have_posts()) {
 

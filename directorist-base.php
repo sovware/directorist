@@ -683,7 +683,7 @@ final class Directorist_Base
                                     <div class="atbd_listing_info">
                                         <div class="atbd_content_upper">
                                             <h4 class="atbd_listing_title">
-                                                <a href="<?= esc_url(get_post_permalink($r_post->ID)); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
+                                                <a href="<?= esc_url(get_post_permalink($r_post->ID)); ?>"><?php echo esc_html(stripslashes(get_the_title($r_post->ID))); ?></a>
                                             </h4>
                                             <?php if(!empty($tagline)) {?>
                                                 <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
@@ -912,7 +912,9 @@ final class Directorist_Base
         <div class="atbd_content_module atbd_review_module">
             <div class="atbd_content_module__tittle_area">
                 <div class="atbd_area_title">
-                    <h4><span class="fa fa-star atbd_area_icon"></span><?php _e($reviews_count . ' Reviews', ATBDP_TEXTDOMAIN); ?></h4>
+                    <h4><span class="fa fa-star atbd_area_icon"></span><?php echo $reviews_count;
+                        _e($reviews_count>1 ? ' Reviews': ' Review', ATBDP_TEXTDOMAIN);
+                        ?></h4>
                 </div>
                 <?php if (is_user_logged_in()) { ?>
                 <a href="#" class="btn btn-primary btn-sm">Add a review</a>

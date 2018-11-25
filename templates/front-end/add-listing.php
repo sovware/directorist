@@ -167,13 +167,12 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                             //// get all the custom field that has posted by admin ane return the field
                             $custom_fields  = new WP_Query( array(
                                 'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
-                                  'posts_per_page' => -1,
+                                'posts_per_page' => -1,
                                 'post_status'    => 'publish',
                                 'meta_key'       => 'associate',
                                 'meta_value'     => 'form'
                             ) );
                             $fields = $custom_fields->posts;
-
                             foreach ($fields as $post){
                                 setup_postdata($post);
                                 $post_id = $post->ID;

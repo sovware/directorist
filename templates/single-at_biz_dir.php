@@ -1,5 +1,5 @@
 <?php
-
+$listing_id = $post->ID;
 /*store all data in an array so that we can pass it to filters for extension to get this value*/
 $listing_info['never_expire']       = get_post_meta($post->ID, '_never_expire', true);
 $listing_info['featured']           = get_post_meta($post->ID, '_featured', true);
@@ -38,8 +38,6 @@ $bdbh                   = get_post_meta($post->ID, '_bdbh', true);
 $enable247hour               = get_post_meta($post->ID, '_enable247hour', true);
 $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
 /*Code for Business Hour Extensions*/
-
-
 $manual_lat = (!empty($manual_lat)) ? floatval($manual_lat) : false;
 $manual_lng = (!empty($manual_lng)) ? floatval($manual_lng) : false;
 $hide_contact_info = !empty($hide_contact_info) ? $hide_contact_info : false;
@@ -68,6 +66,7 @@ $p_lnk = get_the_permalink();
 $p_title = get_the_title();
 $featured = get_post_meta(get_the_ID(), '_featured', true);
 $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
+$reviews_count = ATBDP()->review->db->count(array('post_id' => $listing_id)); // get total review count for this post
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col-md-12';
 ?>
@@ -228,10 +227,33 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                 ?>
                             </div>
                             <div class="atbd_rating_count">
-                                <p>26 <span>Reviews</span></p>
+                                <p><?php echo $reviews_count;
+                                    _e($reviews_count>1 ? ' Reviews': ' Review', ATBDP_TEXTDOMAIN);
+                                ?>
+                                </p>
                             </div>
                             <div class="atbd_listting_category">
-                                <a href="#"><span class="fa fa-glass"></span>Restaurant</a>
+                                <ul class="directory_tags">
+                                    <?php
+
+                                    if (!empty($cats)) {
+                                        foreach ($cats as $cat) {
+                                            ?>
+                                            <li>
+                                                <p class="directory_tag">
+                                            <span class="fa <?= esc_attr(get_cat_icon($cat->term_id)); ?>"
+                                                  aria-hidden="true"></span>
+                                                    <span>
+                                                    <a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>">
+                                                                <?= $cat->name; ?>
+                                                    </a>
+                                                </span>
+                                                </p>
+                                            </li>
+                                        <?php }
+                                    }
+                                    ?>
+                                </ul>
                             </div>
 
                             <?php
@@ -243,8 +265,16 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                     esc_html__('Featured', ATBDP_TEXTDOMAIN)
                                 );
                             }
+                            $popular_listings = ATBDP()->get_popular_listings($count);
+                            if ($popular_listings->have_posts()) {
+
+                                foreach ($popular_listings->posts as $pop_post) {
+                                    if ($pop_post->ID == get_the_ID()){
+                                        echo ' <span class="atbd_badge atbd_badge_popular">Popular</span>';
+                                    }
+                                }
+                            }
                             ?>
-                            <span class="atbd_badge atbd_badge_popular">Popular</span>
                         </div>
 
                         <div class="atbd_listing_title">
@@ -252,31 +282,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             <p class="atbd_sub_title"><?= (!empty($tagline)) ? esc_html(stripslashes($tagline)) : ''; ?></p>
                             <!--@todo: style the price and Add the Currency Symbol or letter, Show the price in the search and all listing pages, and dashboard-->
                         </div>
-
-
-                        <ul class="directory_tags">
-                            <?php
-
-                            if (!empty($cats)) {
-                                foreach ($cats as $cat) {
-
-                                    ?>
-                                    <li>
-                                        <p class="directory_tag">
-                                            <span class="fa <?= esc_attr(get_cat_icon($cat->term_id)); ?>"
-                                                  aria-hidden="true"></span>
-                                            <span>
-                                                    <a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>">
-                                                                <?= $cat->name; ?>
-                                                    </a>
-                                                </span>
-                                        </p>
-                                    </li>
-                                <?php }
-                            }
-                            ?>
-
-                        </ul>
 
                         <div class="about_detail">
                             <?php
@@ -300,30 +305,35 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
 
             <?php /* @todo: Shahadat -> added new contents */ ?>
             <div class="atbd_content_module atbd_custom_fields_contents">
-                <div class="atbd_content_module__tittle_area">
-                    <div class="atbd_area_title">
-                        <h4><span class="fa fa-bars atbd_area_icon"></span>Custom Field Style One</h4>
-                    </div>
-                </div>
 
                 <div class="atbdb_content_module_contents">
                     <ul class="atbd_custom_fields">
-                        <li>
-                            <div class="atbd_custom_field_title"><p>Custom Option One</p></div>
-                            <div class="atbd_custom_field_content"><p>Curabitur aliquet quam id dui posuere blandit.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="atbd_custom_field_title"><p>Custom Option Two</p></div>
-                            <div class="atbd_custom_field_content"><p>Curabitur aliquet quam id dui posuere blandit.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="atbd_custom_field_title"><p>Custom Option Three</p></div>
-                            <div class="atbd_custom_field_content"><p>Curabitur aliquet quam id dui posuere blandit.
-                                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia is
-                                    Curae; Donec velit neque, auctor sit amet aliquam.</p></div>
-                        </li>
+                      <!--  get data from custom field-->
+                        <?php
+
+                        $custom_fields  = new WP_Query( array(
+                            'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+                            'posts_per_page' => -1,
+                            'post_status'    => 'publish',
+                        ) );
+                        $fields = $custom_fields->posts;
+
+                        foreach ($fields as $post) {
+                            setup_postdata($post);
+                            $field_id = $post->ID;
+                            $field_details = get_post_meta($listing_id, $field_id, true);
+                            $field_title = get_the_title($field_id);
+                           ?>
+                            <li>
+                                <div class="atbd_custom_field_title"><p><?php echo esc_attr($field_title);?></p></div>
+
+                                <div class="atbd_custom_field_content"><p><?php echo esc_attr($field_details);?></p>
+                                </div>
+                            </li>
+                        <?php
+                        }
+                        wp_reset_postdata();
+                        ?>
                     </ul>
                 </div>
             </div><!-- end .atbd_custom_fields_contents -->

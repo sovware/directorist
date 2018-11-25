@@ -1,4 +1,8 @@
 /* typography */
+#directorist.atbd_wrapper * {
+  box-sizing: border-box;
+}
+
 #directorist.atbd_wrapper #gmap {
   height: 350px;
 }

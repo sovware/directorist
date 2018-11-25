@@ -435,25 +435,32 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
             // if business hour is active then add the following markup...
             if (is_business_hour_active() && $enable_bh_on_page && (!is_empty_v($business_hours) || !empty($enable247hour))) {
             ?>
-            <div class="row">
                 <!-- we need to add a row when business hour extension is active in order to divide the width in two columns-->
-                <div class="col-md-5">
-                    <!-- Opening/Business hour Information section-->
-                    <div class="opening_hours">
-                        <div class="directory_are_title">
-                            <h4><span class="fa fa-calendar-o"></span><?php echo esc_html($business_hour_title); ?></h4>
+                    <div class="atbd_content_module">
+                        <div class="atbd_content_module__tittle_area">
+                            <div class="atbd_area_title">
+                                <h4>
+                                    <span class="fa fa-calendar-o"></span><?php echo esc_html($business_hour_title); ?>
+                                </h4>
+                            </div>
+                            <?php /* @todo Shahadat -> conditionally render appropriate button */ ?>
+                            <a href="#" class="btn btn-success btn-sm">Open</a>
+                            <!--<a href="#" class="btn btn-danger btn-sm">Closed</a>-->
                         </div>
-                        <div class="directory_open_hours">
-                            <?php
-                            // if 24 hours 7 days open then show it only, otherwise, show the days and its opening time.
-                            if (!empty($enable247hour)) {
-                                echo '<p>' . esc_html($text247) . '</p>';
-                            } else {
-                                BD_Business_Hour()->show_business_hour($business_hours); // show the business hour in an unordered list
-                            } ?>
-                        </div> <!--ends .directory_open_hours -->
-                    </div> <!--ends. .opening hours-->
-                </div> <!--ends. .col-md-5-->
+
+                        <div class="atbdb_content_module_contents">
+                            <div class="atbd_directory_open_hours">
+                                <?php
+                                // if 24 hours 7 days open then show it only, otherwise, show the days and its opening time.
+                                if (!empty($enable247hour)) {
+                                    echo '<p>' . esc_html($text247) . '</p>';
+                                } else {
+                                    BD_Business_Hour()->show_business_hour($business_hours); // show the business hour in an unordered list
+                                } ?>
+                            </div> <!--ends .directory_open_hours -->
+                        </div>
+                    </div>
+
                 <!-- video -->
                 <div class="col-md-7">
                     <?php } ?>
@@ -474,7 +481,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                     <?php if (is_business_hour_active() && $enable_bh_on_page && (!is_empty_v($business_hours) || !empty($enable247hour))) {
                     ?>
                 </div> <!--ends. .col-md-7 wrapper before contact information-->
-            </div> <!-- ends .row-->
         <?php } ?>
 
 

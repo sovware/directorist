@@ -1,6 +1,9 @@
 @import "../../bootstrap/config.bs";
 
 #directorist.atbd_wrapper {
+  *{
+    box-sizing: border-box;
+  }
   #gmap {
     height: 350px;
   }

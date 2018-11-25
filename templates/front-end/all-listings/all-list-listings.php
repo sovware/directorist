@@ -91,7 +91,11 @@ $is_disable_price = get_directorist_option('disable_list_price');
                         $post_view         = get_post_meta(get_the_Id(),'_atbdp_post_views_count',true);
                         $hide_contact_info = get_post_meta(get_the_ID(), '_hide_contact_info', true);
                         $disable_contact_info = get_directorist_option('disable_contact_info', 0);
-
+                        /*Code for Business Hour Extensions*/
+                        $bdbh                   = get_post_meta(get_the_ID(), '_bdbh', true);
+                        $enable247hour               = get_post_meta(get_the_ID(), '_enable247hour', true);
+                        $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
+                        /*Code for Business Hour Extensions*/
                         ?>
 
                         <div class="col-md-8">
@@ -111,8 +115,17 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     esc_html__('Featured', ATBDP_TEXTDOMAIN)
                                                 );}
                                                 ?>
-                                                <?php /*todo: Shahadat -> It needs dynamization */?>
-                                                <span class="atbd_badge atbd_badge_popular">Popular</span>
+                                                <?php
+                                                $popular_listings = ATBDP()->get_popular_listings($count);
+                                                if ($popular_listings->have_posts()) {
+
+                                                    foreach ($popular_listings->posts as $pop_post) {
+                                                        if ($pop_post->ID == get_the_ID()){
+                                                            echo ' <span class="atbd_badge atbd_badge_popular">Popular</span>';
+                                                        }
+                                                    }
+                                                }
+                                                ?>
                                             </div>
                                         </figcaption>
                                     </figure>
@@ -153,7 +166,17 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 ?>
 
                                                 <?php /*@todo: Shahadat -> open close moved from thumbnail area to content area*/?>
-                                                <span class="atbd_meta atbd_close_now">Close Now</span>
+                                                <?php if (class_exists('BD_Business_Hour')){
+                                                    //lets check is it 24/7
+                                                    if (!empty($enable247hour)) {
+                                                        ?>
+                                                        <div class="atbd_upper_badge">
+                                                            <span class="atbd_badge atbd_badge_open">Open Now</span>
+                                                        </div><!-- END /.atbd_upper_badge -->
+                                                        <?php
+                                                    }else {
+                                                        BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list
+                                                    } }?>
                                             </div><!-- End atbd listing meta -->
 
                                             <?php /* @todo: Shahadat -> please implement this */?>

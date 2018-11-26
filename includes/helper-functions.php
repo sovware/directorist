@@ -1060,7 +1060,8 @@ if (!function_exists('is_business_hour_active')){
      * @return bool It returns true if the Directorist Business Hour Extension is active and enabled
      */
     function  is_business_hour_active(){
-        if (class_exists('BD_Business_Hour')){
+        $enable = get_directorist_option('enable_business_hour');
+        if ($enable && class_exists('BD_Business_Hour')){
             return true;
         }
     }

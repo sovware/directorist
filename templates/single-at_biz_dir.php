@@ -34,9 +34,10 @@ $enable_bh_on_page      = get_directorist_option('enable_bh_on_page', 0 ); // ye
 $text247                = get_directorist_option('text247',  __('Open 24/7', ATBDP_TEXTDOMAIN)); // text for 24/7 type listing
 $business_hour_title    = get_directorist_option('business_hour_title',  __('Business Hour', ATBDP_TEXTDOMAIN)); // text Business Hour Title
 
-$bdbh                   = get_post_meta($post->ID, '_bdbh', true);
-$enable247hour               = get_post_meta($post->ID, '_enable247hour', true);
+$bdbh                   = get_post_meta($listing_id, '_bdbh', true);
+$enable247hour          = get_post_meta($listing_id, '_enable247hour', true);
 $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
+
 /*Code for Business Hour Extensions*/
 $manual_lat = (!empty($manual_lat)) ? floatval($manual_lat) : false;
 $manual_lng = (!empty($manual_lng)) ? floatval($manual_lng) : false;
@@ -265,6 +266,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                     esc_html__('Featured', ATBDP_TEXTDOMAIN)
                                 );
                             }
+                            $count = !empty($count) ? $count : '';
                             $popular_listings = ATBDP()->get_popular_listings($count);
                             if ($popular_listings->have_posts()) {
 
@@ -303,31 +305,27 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                 </div>
             </div> <!-- end .atbd_listing_details -->
 
-            <?php /* @todo: Shahadat -> added new contents */ ?>
             <div class="atbd_content_module atbd_custom_fields_contents">
-
                 <div class="atbdb_content_module_contents">
                     <ul class="atbd_custom_fields">
                       <!--  get data from custom field-->
                         <?php
-
                         $custom_fields  = new WP_Query( array(
                             'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
                             'posts_per_page' => -1,
                             'post_status'    => 'publish',
                         ) );
                         $fields = $custom_fields->posts;
-
                         foreach ($fields as $post) {
                             setup_postdata($post);
                             $field_id = $post->ID;
                             $field_details = get_post_meta($listing_id, $field_id, true);
                             $field_title = get_the_title($field_id);
+                            $field_type = get_post_meta($field_id, 'type', true);
                            ?>
                             <li>
                                 <div class="atbd_custom_field_title"><p><?php echo esc_attr($field_title);?></p></div>
-
-                                <div class="atbd_custom_field_content"><p><?php echo esc_attr($field_details);?></p>
+                                <div class="atbd_custom_field_content"><p><?php if ('color' == $field_type){printf( '<div style="background-color: %s;padding: 25px; border-radius: 10px"></div>', $field_details );}else{echo esc_attr($field_details);}?></p>
                                 </div>
                             </li>
                         <?php
@@ -446,9 +444,16 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                     <span class="fa fa-calendar-o"></span><?php echo esc_html($business_hour_title); ?>
                                 </h4>
                             </div>
-                            <?php /* @todo Shahadat -> conditionally render appropriate button */ ?>
-                            <a href="#" class="btn btn-success btn-sm">Open</a>
-                            <!--<a href="#" class="btn btn-danger btn-sm">Closed</a>-->
+                            <?php //lets check is it 24/7
+                            if (!empty($enable247hour)) {
+                                ?>
+                                <div class="atbd_upper_badge">
+                                    <span class="atbd_badge atbd_badge_open">Open Now</span>
+                                </div><!-- END /.atbd_upper_badge -->
+                                <?php
+                            }else {
+                                    BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list
+                            }  ?>
                         </div>
 
                         <div class="atbdb_content_module_contents">
@@ -528,7 +533,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
 <script>
 
     jQuery(document).ready(function ($) {
-
         // Do not show map if lat long is empty or map is globally disabled.
         <?php if (!$disable_map && (!empty($manual_lat) && !empty($manual_lng))){ ?>
         // initialize all vars here to avoid hoisting related misunderstanding.

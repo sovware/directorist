@@ -1090,6 +1090,22 @@ h6, .h6 {
   font-size: 18px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_type {
+  padding-bottom: 20px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_type h4 {
+  margin-bottom: 25px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_type > label {
+  display: inline-block;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_type > label + label {
+  margin-left: 25px;
+}
+
 #directorist.atbd_wrapper .atbd_user_dashboard_nav {
   display: flex;
   justify-content: space-between;

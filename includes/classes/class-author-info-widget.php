@@ -36,9 +36,74 @@ if (!class_exists('BD_Author_Info_Widget')) {
                 echo $args['before_widget'];
 
                 echo $args['before_title'] . esc_html(apply_filters('widget_submit_item_title', $title)) . $args['after_title'];
-
                 ?>
                 <div class="directorist">
+
+                    <div class="atbd_avatar_wrapper">
+                        <?php
+                        $author_id = get_current_user_id();
+                        $author_data = get_userdata($author_id);
+                        $avata_img = get_avatar(get_current_user_id() , 32 ); ?>                                        <div class="atbd_review_avatar"><?php if ($avata_img){echo $avata_img;}else{?><img
+                                src="<?php echo ATBDP_PUBLIC_ASSETS . 'images/revav.png' ?>"
+                                alt="Avatar Image"><?php }?></div>
+                        <div class="atbd_name_time">
+                            <p><?= esc_html($author_data->display_name); ?></p>
+                            <span class="review_time"><?php
+                                printf( __( '%s ago', ATBDP_TEXTDOMAIN ), human_time_diff( strtotime($author_data->user_registered), current_time( 'timestamp' ) ) );?></span>
+                        </div>
+                    </div>
+
+                    <div class="atbd_contact_info">
+                        <ul>
+                            <?php
+                            global $post;
+                            $address         = esc_attr(get_user_meta($author_id, 'address', true));
+                            $phone         = esc_attr(get_user_meta($author_id, 'phone', true));
+                            $email           = esc_attr($author_data->user_email);
+                            $website         = esc_attr($author_data->user_url);
+
+                            if (!empty($address)) { ?>
+                                <li>
+                                    <div class="atbd_info_title"><span
+                                            class="fa fa-map-marker"></span><?php _e('Address', ATBDP_TEXTDOMAIN); ?>
+                                    </div>
+                                    <div class="atbd_info"><?= esc_html($address); ?></div>
+                                </li>
+                            <?php } ?>
+
+                            <?php
+                            if (isset($phone) && !is_empty_v($phone)) { ?>
+                                <!-- In Future, We will have to use a loop to print more than 1 number-->
+                                <li>
+                                    <div class="atbd_info_title"><span
+                                            class="fa fa-phone"></span><?php _e('Phone', ATBDP_TEXTDOMAIN); ?>
+                                    </div>
+                                    <div class="atbd_info"><?= esc_html($phone); ?></div>
+                                </li>
+                            <?php } ?>
+
+                            <?php if (!empty($email)) { ?>
+                                <li>
+                                    <div class="atbd_info_title"><span
+                                            class="fa fa-envelope"></span><?php _e('Email', ATBDP_TEXTDOMAIN); ?>
+                                    </div>
+                                    <span class="atbd_info"><?= esc_html($email); ?></span>
+                                </li>
+                            <?php } ?>
+
+                            <?php if (!empty($website)) { ?>
+                                <li>
+                                    <div class="atbd_info_title"><span
+                                            class="fa fa-globe"></span><?php _e('Website', ATBDP_TEXTDOMAIN); ?>
+                                    </div>
+                                    <a href="<?= esc_url($website); ?>"
+                                       class="atbd_info"><?= esc_html($website); ?></a>
+                                </li>
+                            <?php } ?>
+
+                        </ul>
+                    </div>
+
                     <a href="<?= esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
                        class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', ATBDP_TEXTDOMAIN); ?></a>
                 </div>

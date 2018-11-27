@@ -399,19 +399,18 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 <input type="hidden" id="value_selected" value="<?php echo $term_id_selected?>">
                             </div>
                         </div>
-
-                        <div  id="atbdp-custom-fields-list" data-post_id="<?php echo $post_ID; ?>">
+                        <div  id="atbdp-custom-fields-list" data-post_id="<?php echo $p_id; ?>">
                             <?php
                             $selected_category = !empty($selected_category) ? $selected_category : '';
-                            do_action( 'wp_ajax_atbdp_custom_fields_listings', $post_ID, $selected_category ); ?>
+                            do_action( 'wp_ajax_atbdp_custom_fields_listings', $p_id, $selected_category ); ?>
                         </div>
                         <?php
                         if ($term_id_selected){
                             ?>
-                            <div  id="atbdp-custom-fields-list-selected" data-post_id="<?php echo $post_ID; ?>">
+                            <div  id="atbdp-custom-fields-list-selected" data-post_id="<?php echo $p_id; ?>">
                                 <?php
                                 $selected_category = !empty($selected_category) ? $selected_category : '';
-                                do_action( 'wp_ajax_atbdp_custom_fields_listings_selected', $post_ID, $selected_category ); ?>
+                                do_action( 'wp_ajax_atbdp_custom_fields_listings_selected', $p_id, $selected_category ); ?>
                             </div>
                             <?php
                         }

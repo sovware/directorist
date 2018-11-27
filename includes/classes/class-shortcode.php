@@ -103,7 +103,6 @@ class ATBDP_Shortcode {
                     {
                         $('#atbdp-custom-fields-list' ).empty();
                     }
-
             </script>
             <?php
         }

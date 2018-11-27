@@ -289,6 +289,25 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     </div>
                                                 </div>
                                             </div> <!--ends .row-->
+                                            <div class="row"><!--div for social profile-->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="website"><?php _e('Website', ATBDP_TEXTDOMAIN); ?></label>
+                                                        <p><?php _e('Leave blank to hide it.', ATBDP_TEXTDOMAIN)?></p>
+                                                        <input class="form-control" id="website" type="text"
+                                                               name="user[website]"
+                                                               value="<?= !empty($u_website) ? esc_url($u_website) : ''; ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="address"><?php _e('Address', ATBDP_TEXTDOMAIN); ?></label>
+                                                        <input class="form-control" id="address" type="text"
+                                                               name="user[address]"
+                                                               value="<?= !empty($u_address) ? esc_attr($u_address) : ''; ?>">
+                                                    </div>
+                                                </div>
+                                            </div> <!--ends .row-->
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">

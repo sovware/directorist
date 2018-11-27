@@ -41,26 +41,28 @@ if (!class_exists('BD_Author_Info_Widget')) {
 
                     <div class="atbd_avatar_wrapper">
                         <?php
-                        $author_id = get_current_user_id();
-                        $author_data = get_userdata($author_id);
-                        $avata_img = get_avatar(get_current_user_id() , 32 ); ?>                                        <div class="atbd_review_avatar"><?php if ($avata_img){echo $avata_img;}else{?><img
+                        $listing_id = get_the_ID();
+                        $author_id = get_post_field ('post_author', $listing_id);
+                        $author_name = get_the_author_meta( 'display_name' , $author_id );
+                        $user_registered = get_the_author_meta( 'user_registered' , $author_id );
+
+                        $avata_img = get_avatar($author_id , 32 ); ?>                                        <div class="atbd_review_avatar"><?php if ($avata_img){echo $avata_img;}else{?><img
                                 src="<?php echo ATBDP_PUBLIC_ASSETS . 'images/revav.png' ?>"
                                 alt="Avatar Image"><?php }?></div>
                         <div class="atbd_name_time">
-                            <p><?= esc_html($author_data->display_name); ?></p>
+                            <p><?= esc_html($author_name); ?></p>
                             <span class="review_time"><?php
-                                printf( __( '%s ago', ATBDP_TEXTDOMAIN ), human_time_diff( strtotime($author_data->user_registered), current_time( 'timestamp' ) ) );?></span>
+                                printf( __( '%s ago', ATBDP_TEXTDOMAIN ), human_time_diff( strtotime($user_registered), current_time( 'timestamp' ) ) );?></span>
                         </div>
                     </div>
 
                     <div class="atbd_contact_info">
                         <ul>
                             <?php
-                            global $post;
                             $address         = esc_attr(get_user_meta($author_id, 'address', true));
                             $phone         = esc_attr(get_user_meta($author_id, 'phone', true));
-                            $email           = esc_attr($author_data->user_email);
-                            $website         = esc_attr($author_data->user_url);
+                            $email           = get_the_author_meta( 'user_email' , $author_id );
+                            $website         = get_the_author_meta( 'user_url' , $author_id );;
 
                             if (!empty($address)) { ?>
                                 <li>

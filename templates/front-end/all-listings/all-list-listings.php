@@ -116,6 +116,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 );}
                                                 ?>
                                                 <?php
+                                                $count = !empty($count)?$count:'';
                                                 $popular_listings = ATBDP()->get_popular_listings($count);
                                                 if ($popular_listings->have_posts()) {
 
@@ -214,7 +215,15 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                         <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span><?php  echo $cats[0]->name;?></a>
                                                     </div>
                                                 </div>
-                                            <?php } ?>
+                                            <?php }else{
+                                                ?>
+                                                <div class="atbd_content_left">
+                                                    <div class="atbd_listting_category">
+                                                        <a href=""><span class="fa fa fa-square-o"></span><?php  echo __('Uncategorized', ATBDP_TEXTDOMAIN);?></a>
+                                                    </div>
+                                                </div>
+
+                                            <?php    } ?>
 
                                             <ul class="atbd_content_right">
                                                 <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li>

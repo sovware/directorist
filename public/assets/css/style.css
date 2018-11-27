@@ -212,7 +212,7 @@ h6, .h6 {
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module {
   border: 1px solid #e3e6ef;
   margin-bottom: 35px;
-  background: #fff;
+  background: #ffffff;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area {
@@ -717,6 +717,15 @@ h6, .h6 {
   border-radius: 50%;
   text-align: center;
   border: 1px solid #e3e6ef;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right .atbd_author a {
+  width: 35px;
+  height: 35px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right .atbd_author a img {
+  border-radius: 50%;
 }
 
 .atbd_content_active .widget.atbd_widget {

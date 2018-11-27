@@ -16,7 +16,7 @@ function compileSass(src, dest){
 
 // compile bootstrap
 gulp.task('bs', compileSass('bootstrap/bootstrap.scss','public/assets/css/'));
-gulp.task('style', compileSass('style/bh-main.scss','public/assets/css/'));
+gulp.task('style', compileSass('style/style.scss','public/assets/css/'));
 gulp.task('admin', compileSass('style/admin/bh-main.scss','admin/assets/css/'));
 gulp.task('bsHour', compileSass('style/business-hour/bh-main.scss', '../directorist-business-hour/assets/css/'));
 

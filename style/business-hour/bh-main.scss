@@ -21,6 +21,8 @@
   }
   .atbd_day_label {
     font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 15px;
   }
   .atbd_row_bg label {
     font-size: 13px;
@@ -56,5 +58,9 @@
         @extend .atbd_color-success;
       }
     }
+  }
+  .atbd_mark_as_closed{
+    font-weight: 400;
+    margin-top: 12px;
   }
 }

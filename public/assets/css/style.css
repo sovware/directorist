@@ -720,7 +720,6 @@ h6, .h6 {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right .atbd_author a {
-  display: inline-block;
   width: 35px;
   height: 35px;
 }

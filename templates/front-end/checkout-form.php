@@ -20,13 +20,12 @@ $symbol = atbdp_currency_symbol($currency);
                 foreach ($form_data as $op){
                     /*Display header type item in a bold style*/
                     if ('header' == $op['type']){ ?>
-                        <tr>
+                        <th>
                             <td colspan="2">
-                                <h3 class="no-margin"><?php if( !empty( $op['title'] ) ) echo esc_html($op['title']); ?></h3>
-                                <?php if( !empty( $op['desc'] ) ) echo $op['desc']; ?>
+                                <h3 class="no-margin">Plan Details<?php //if( !empty( $op['title'] ) ) echo esc_html($op['title']); ?></h3>
                             </td>
                             <td><strong><?php printf(__('Price [%s]', ATBDP_TEXTDOMAIN), $currency); ?></strong></td>
-                        </tr>
+                        </th>
                     <?php } else { /*Display other type of item here*/ ?>
                         <tr>
                             <td>

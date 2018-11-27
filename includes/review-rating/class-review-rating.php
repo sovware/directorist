@@ -116,7 +116,7 @@ class ATBDP_Review_Rating{
         $star_dividend = (5*$s_5 + 4*$s_4 + 3*$s_3 + 2*$s_2 + 1*$s_1); // add up all value of all starts together
         $star_divisor= ($s_5 + $s_4 + $s_3 + $s_2 + $s_1); // add up the count of of all stars
         $average = (!empty($star_dividend) && !empty($star_divisor)) ? ($star_dividend / $star_divisor) : 0;
-
+        $average = substr($average, '0', '3');
         return $average;
     }
 

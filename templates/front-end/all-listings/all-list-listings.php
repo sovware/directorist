@@ -176,7 +176,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                         <?php
                                                     }else {
                                                         BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list
-                                                    } }?>
+                                                    }
+                                                }?>
                                             </div><!-- End atbd listing meta -->
 
                                             <?php /* @todo: Shahadat -> please implement this */?>

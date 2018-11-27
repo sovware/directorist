@@ -398,9 +398,25 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 ?>
                                 <input type="hidden" id="value_selected" value="<?php echo $term_id_selected?>">
                             </div>
-
-
                         </div>
+
+                        <div  id="atbdp-custom-fields-list" data-post_id="<?php echo $post_ID; ?>">
+                            <?php
+                            $selected_category = !empty($selected_category) ? $selected_category : '';
+                            do_action( 'wp_ajax_atbdp_custom_fields_listings', $post_ID, $selected_category ); ?>
+                        </div>
+                        <?php
+                        if ($term_id_selected){
+                            ?>
+                            <div  id="atbdp-custom-fields-list-selected" data-post_id="<?php echo $post_ID; ?>">
+                                <?php
+                                $selected_category = !empty($selected_category) ? $selected_category : '';
+                                do_action( 'wp_ajax_atbdp_custom_fields_listings_selected', $post_ID, $selected_category ); ?>
+                            </div>
+                            <?php
+                        }
+                        ?>
+
                     </div><!-- end .atbd_custom_fields_contents -->
 
                     <?php if (!$disable_contact_info){ ?>
@@ -640,7 +656,6 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
         // Load custom fields of the selected category in the custom post type "atbdp_listings"
         $( '#cat-type' ).on( 'change', function() {
             $( '#atbdp-custom-fields-list' ).html( '<div class="spinner"></div>' );
-
             var data = {
                 'action'  : 'atbdp_custom_fields_listings_front',
                 'post_id' : $( '#atbdp-custom-fields-list' ).data('post_id'),
@@ -651,6 +666,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
             });
             $('#atbdp-custom-fields-list-selected').hide();
         });
+
         var selected_cat = $('#value_selected').val();
         if(!selected_cat){
 

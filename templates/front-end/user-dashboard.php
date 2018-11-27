@@ -79,7 +79,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                                 );
                                                             }
                                                             ?>
-                                                            <?php /*todo: Shahadat -> It needs dynamization */ ?>
                                                         </div>
                                                     </figcaption>
                                                 </figure>

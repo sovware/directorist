@@ -305,31 +305,27 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                 </div>
             </div> <!-- end .atbd_listing_details -->
 
-            <?php /* @todo: Shahadat -> added new contents */ ?>
             <div class="atbd_content_module atbd_custom_fields_contents">
-
                 <div class="atbdb_content_module_contents">
                     <ul class="atbd_custom_fields">
                       <!--  get data from custom field-->
                         <?php
-
                         $custom_fields  = new WP_Query( array(
                             'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
                             'posts_per_page' => -1,
                             'post_status'    => 'publish',
                         ) );
                         $fields = $custom_fields->posts;
-
                         foreach ($fields as $post) {
                             setup_postdata($post);
                             $field_id = $post->ID;
                             $field_details = get_post_meta($listing_id, $field_id, true);
                             $field_title = get_the_title($field_id);
+                            $field_type = get_post_meta($field_id, 'type', true);
                            ?>
                             <li>
                                 <div class="atbd_custom_field_title"><p><?php echo esc_attr($field_title);?></p></div>
-
-                                <div class="atbd_custom_field_content"><p><?php echo esc_attr($field_details);?></p>
+                                <div class="atbd_custom_field_content"><p><?php if ('color' == $field_type){printf( '<div style="background-color: %s;padding: 25px; border-radius: 10px"></div>', $field_details );}else{echo esc_attr($field_details);}?></p>
                                 </div>
                             </li>
                         <?php
@@ -533,7 +529,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
 <script>
 
     jQuery(document).ready(function ($) {
-
         // Do not show map if lat long is empty or map is globally disabled.
         <?php if (!$disable_map && (!empty($manual_lat) && !empty($manual_lng))){ ?>
         // initialize all vars here to avoid hoisting related misunderstanding.

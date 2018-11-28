@@ -43,10 +43,8 @@
   }
 
   .close{
-    float: none;
     padding: 0;
     top: 50%;
-    transform: translateY(-50%);
     right: 10px;
     font-size: 20px;
     &:hover{

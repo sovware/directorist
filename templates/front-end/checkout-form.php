@@ -8,79 +8,93 @@ $currency = atbdp_get_payment_currency();
 $symbol = atbdp_currency_symbol($currency);
 //displaying data for checkout
 ?>
-<div class="directorist directorist-checkout-form">
+<div id="directorist" class="atbd_wrapper directorist directorist-checkout-form">
     <?php do_action('atbdp_before_checkout_form_start'); ?>
     <form id="atbdp-checkout-form" class="form-vertical clearfix" method="post" action="" role="form">
         <?php do_action('atbdp_after_checkout_form_start'); ?>
-        <p><?php esc_html_e('Your order details are given below. Please review it and click on Proceed to Payment to complete this order.', ATBDP_TEXTDOMAIN); ?></p>
-            <table id="directorist-checkout-table" class="table table-bordered table-striped">
-                <?php
+        <div class="alert alert-info alert-dismissable fade show" role="alert">
+            <span class="fa fa-info-circle"></span>
+            <?php esc_html_e('Your order details are given below. Please review it and click on Proceed to Payment to complete this order.', ATBDP_TEXTDOMAIN); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <table id="directorist-checkout-table" class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th colspan="2">
+                        Details<?php //if( !empty( $op['title'] ) ) echo esc_html($op['title']);?>
+                    </th>
+                    <th><strong><?php printf(__('Price [%s]', ATBDP_TEXTDOMAIN), $currency); ?></strong></th>
+                </tr>
+            </thead>
 
+            <tbody>
+                <?php
                 // $args is auto available available through the load_template().
-                foreach ($form_data as $op){
-                    /*Display header type item in a bold style*/
-                    if ('header' == $op['type']){ ?>
-                        <th>
-                            <td colspan="2">
-                                <h3 class="no-margin">Plan Details<?php //if( !empty( $op['title'] ) ) echo esc_html($op['title']); ?></h3>
-                            </td>
-                            <td><strong><?php printf(__('Price [%s]', ATBDP_TEXTDOMAIN), $currency); ?></strong></td>
-                        </th>
+                foreach ($form_data as $op) {
+                    /*Display header type item in a bold style
+                    * @todo Shahadat ->  this header checking is obsolete now please refactor it
+                    */
+                    if ('header' == $op['type']) { ?>
+
                     <?php } else { /*Display other type of item here*/ ?>
                         <tr>
                             <td>
                                 <?php
                                 /*display proper type of checkbox/radio etc*/
-                                $checked = isset($op['selected']) ? checked(1, $op['selected'], false): '';
-                                $input_field = sprintf( '<input type="checkbox" name="%s" class="atbdp_checkout_item_field" value="%s" data-price="%s" %s/>', esc_attr($op['name']), esc_attr($op['value']), esc_attr($op['price']), $checked );
+                                $checked = isset($op['selected']) ? checked(1, $op['selected'], false) : '';
+                                $input_field = sprintf('<input type="checkbox" name="%s" class="atbdp_checkout_item_field" value="%s" data-price="%s" %s/>', esc_attr($op['name']), esc_attr($op['value']), esc_attr($op['price']), $checked);
 
-                               echo str_replace('checkbox', $op['type'], $input_field);
+                                echo str_replace('checkbox', $op['type'], $input_field);
                                 ?>
                             </td>
-
                             <td>
-                                <?php if(!empty($op['title'])) echo "<h4>".esc_html($op['title'])."</h4>"; ?>
-                                <?php if(!empty($op['desc'])) echo esc_html($op['desc']) ; ?>
+                                <?php if (!empty($op['title'])) echo "<h4>" . esc_html($op['title']) . "</h4>"; ?>
+                                <?php if (!empty($op['desc'])) echo esc_html($op['desc']); ?>
                             </td>
-
                             <td align="right" class="text-right">
-                                <?php if( !empty( $op['price'] ) ){
-                                    $before = ''; $after = '';
-                                     ('after' == $c_position) ? $after = $symbol : $before = $symbol;
-                                     echo $before.esc_html(atbdp_format_payment_amount($op['price'])).$after;
-                                }?>
+                                <?php if (!empty($op['price'])) {
+                                    $before = '';
+                                    $after = '';
+                                    ('after' == $c_position) ? $after = $symbol : $before = $symbol;
+                                    echo $before . esc_html(atbdp_format_payment_amount($op['price'])) . $after;
+                                } ?>
                             </td>
                         </tr>
                     <?php }
                 } ?>
                 <tr>
                     <td colspan="2" class="text-right vertical-middle">
-                        <strong><?php printf( __( 'Total amount [%s]', ATBDP_TEXTDOMAIN ), $currency ); ?></strong>
+                        <strong><?php printf(__('Total amount [%s]', ATBDP_TEXTDOMAIN), $currency); ?></strong>
                     </td>
                     <td class="text-right vertical-middle">
                         <div id="atbdp_checkout_total_amount"></div><!--total amount will be populated by JS-->
                     </td>
                 </tr>
-            </table> <!--ends table-->
-            <div id="directorist_payment_gateways" class="panel panel-default">
-                <div class="panel-heading"><?php esc_html_e( 'Choose a payment method', ATBDP_TEXTDOMAIN ); ?></div>
-                <?php echo ATBDP_Gateway::gateways_markup(); ?>
-            </div> <!--ends #directorist_payment_gateways-->
+            </tbody>
+        </table> <!--ends table-->
+        <div id="directorist_payment_gateways" class="panel panel-default">
+            <div class="panel-heading"><?php esc_html_e('Choose a payment method', ATBDP_TEXTDOMAIN); ?></div>
+            <?php echo ATBDP_Gateway::gateways_markup(); ?>
+        </div> <!--ends #directorist_payment_gateways-->
 
-            <?php
-            do_action('atbdp_before_cc_form');/*Hook for dev*/
-            do_action('atbdp_cc_form'); // placeholder action for credit card form
-            do_action('atbdp_after_cc_form'); /*Hook for dev*/
-            ?>
+        <?php
+        do_action('atbdp_before_cc_form');/*Hook for dev*/
+        do_action('atbdp_cc_form'); // placeholder action for credit card form
+        do_action('atbdp_after_cc_form'); /*Hook for dev*/
+        ?>
 
-            <p id="atbdp_checkout_errors" class="text-danger"></p>
+        <p id="atbdp_checkout_errors" class="text-danger"></p>
 
-            <?php wp_nonce_field( 'checkout_action', 'checkout_nonce' ); ?>
-            <input type="hidden" name="listing_id" value="<?php echo $listing_id; ?>" />
-            <div class="pull-right">
-                <a href="<?php echo ATBDP_Permalink::get_dashboard_page_link(); ?>" class="btn btn-default"><?php _e( 'Not Now', ATBDP_TEXTDOMAIN ); ?></a>
-                <input type="submit" id="atbdp_checkout_submit_btn" class="btn btn-primary" value="<?php _e( 'Pay Now', ATBDP_TEXTDOMAIN ); ?>" />
-            </div> <!--ends pull-right-->
+        <?php wp_nonce_field('checkout_action', 'checkout_nonce'); ?>
+        <input type="hidden" name="listing_id" value="<?php echo $listing_id; ?>"/>
+        <div class="pull-right">
+            <a href="<?php echo ATBDP_Permalink::get_dashboard_page_link(); ?>"
+               class="btn btn-default"><?php _e('Not Now', ATBDP_TEXTDOMAIN); ?></a>
+            <input type="submit" id="atbdp_checkout_submit_btn" class="btn btn-primary"
+                   value="<?php _e('Pay Now', ATBDP_TEXTDOMAIN); ?>"/>
+        </div> <!--ends pull-right-->
 
         <?php do_action('atbdp_before_checkout_form_end'); ?>
 

@@ -20,6 +20,9 @@
     &.atbd_badge_popular {
       @extend .atbd_bg-badge-popular;
     }
+    &.atbd_badge_close{
+      @extend .atbd_bg-danger;
+    }
   }
   .atbd_listing_meta {
     .atbd_meta {

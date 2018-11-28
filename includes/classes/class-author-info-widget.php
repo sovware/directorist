@@ -45,9 +45,12 @@ if (!class_exists('BD_Author_Info_Widget')) {
                         $author_id = get_post_field ('post_author', $listing_id);
                         $author_name = get_the_author_meta( 'display_name' , $author_id );
                         $user_registered = get_the_author_meta( 'user_registered' , $author_id );
+                        $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+                        $avata_img = get_avatar($author_id , 32 );
 
-                        $avata_img = get_avatar($author_id , 32 ); ?>                                        <div class="atbd_review_avatar"><?php if ($avata_img){echo $avata_img;}else{?><img
-                                src="<?php echo ATBDP_PUBLIC_ASSETS . 'images/revav.png' ?>"
+                        ?>
+                                <div class="atbd_review_avatar"><?php if (empty($u_pro_pic)){echo $avata_img;}if(!empty($u_pro_pic)){?><img
+                                src="<?php echo esc_url($u_pro_pic);?>"
                                 alt="Avatar Image"><?php }?></div>
                         <div class="atbd_name_time">
                             <p><?= esc_html($author_name); ?></p>
@@ -63,7 +66,11 @@ if (!class_exists('BD_Author_Info_Widget')) {
                             $phone         = esc_attr(get_user_meta($author_id, 'phone', true));
                             $email           = get_the_author_meta( 'user_email' , $author_id );
                             $website         = get_the_author_meta( 'user_url' , $author_id );;
-
+                            $facebook = get_user_meta($author_id, 'facebook', true);
+                            $twitter = get_user_meta($author_id, 'twitter', true);
+                            $google = get_user_meta($author_id, 'google', true);
+                            $linkedIn = get_user_meta($author_id, 'linkedIn', true);
+                            $youtube = get_user_meta($author_id, 'youtube', true);
                             if (!empty($address)) { ?>
                                 <li>
                                     <div class="atbd_info_title"><span
@@ -105,7 +112,25 @@ if (!class_exists('BD_Author_Info_Widget')) {
 
                         </ul>
                     </div>
-
+                    <div class="director_social_wrap">
+                        <?php
+                        if ($facebook){
+                            printf('<p><a target="_blank" href="%s"><span class="fa fa-facebook"></span></a></p>', $facebook);
+                        }
+                        if ($twitter){
+                            printf('<p><a target="_blank" href="%s"><span class="fa fa-twitter"></span></a></p>', $twitter);
+                        }
+                        if ($google){
+                            printf('<p><a target="_blank" href="%s"><span class="fa fa-google-plus"></span></a></p>', $google);
+                        }
+                        if ($linkedIn){
+                            printf('<p><a target="_blank" href="%s"><span class="fa fa-linkedin"></span></a></p>', $linkedIn);
+                        }
+                        if ($youtube){
+                            printf('<p><a target="_blank" href="%s"><span class="fa fa-youtube"></span></a></p>', $youtube);
+                        }
+                        ?>
+                    </div>
                     <a href="<?= esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
                        class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', ATBDP_TEXTDOMAIN); ?></a>
                 </div>

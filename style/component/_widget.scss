@@ -111,4 +111,20 @@
   .embed-responsive-item{
     border: 0;
   }
+
+  .directory_open_hours{
+    ul{
+      li{
+        span{
+          display: inline-block;
+          margin-bottom: 7px;
+          font-weight: 500;
+        }
+        .atbd_open_close_time{
+          font-weight: 400;
+        }
+        border-bottom: 1px solid $border-color;
+      }
+    }
+  }
 }

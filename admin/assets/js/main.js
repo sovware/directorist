@@ -117,13 +117,13 @@
 
     /*This function handles all ajax request*/
     function atbdp_do_ajax( ElementToShowLoadingIconAfter, ActionName, arg, CallBackHandler){
-        let data;
+        var data;
         if(ActionName) data = "action=" + ActionName;
         if(arg)    data = arg + "&action=" + ActionName;
         if(arg && !ActionName) data = arg;
         //data = data ;
 
-        let n = data.search(atbdp_admin_data.nonceName);
+        var n = data.search(atbdp_admin_data.nonceName);
         if(n<0){
             data = data + "&"+atbdp_admin_data.nonceName+"=" + atbdp_admin_data.nonce;
         }
@@ -151,7 +151,7 @@ jQuery(function($){
     // Set all variables to be used in scope
     var frame,
         selection,
-        multiple_image= false,
+        multiple_image= true,
         metaBox = $('#_listing_gallery'), // meta box id here
         addImgLink = metaBox.find('#listing_image_btn'),
         delImgLink = metaBox.find( '#delete-custom-img'),

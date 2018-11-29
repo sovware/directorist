@@ -149,7 +149,7 @@ class ATBDP_Settings_Manager {
 
     /**
      * Get all the submenus for listings
-     * @since 4.0.0 
+     * @since 4.0.0
      * @return array It returns an array of submenus
      */
     public function get_listings_settings_submenus() {

@@ -142,7 +142,7 @@ h6, .h6 {
 .atbd_content_active #directorist.atbd_wrapper {
   color: #7a82a6;
   font-size: 15px;
-  font-family: "Roboto", Sans-serif !important;
+  font-family: 'Roboto', Sans-serif !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper p {
@@ -205,8 +205,55 @@ h6, .h6 {
   margin-bottom: 8px;
 }
 
+#directorist.atbd_wrapper .atbd_payment_recipt {
+  background: #fff;
+  padding: 30px;
+  border: 1px solid #ededed;
+  border-radius: 2px;
+  margin-bottom: 35px;
+}
+
+#directorist.atbd_wrapper .atbd_payment_recipt .atbd_thank_you {
+  text-align: center;
+  font-size: 24px;
+  color: #202428;
+  margin-bottom: 40px;
+}
+
+#directorist.atbd_wrapper .atbd_payment_recipt .atbd_payment_instructions {
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #e3e6ef;
+}
+
+#directorist.atbd_wrapper .atbd_payment_recipt .atbd_payment_summary_wrapper {
+  border-bottom: 1px solid #e3e6ef;
+  margin-bottom: 20px;
+  padding-bottom: 17px;
+}
+
+#directorist.atbd_wrapper .atbd_payment_recipt .atbd_payment_summary {
+  text-align: center;
+  font-size: 18px;
+  color: #202428;
+  margin-bottom: 20px;
+}
+
+#directorist.atbd_wrapper #atbdp_checkout_total_amount, #directorist.atbd_wrapper .atbd_tottal {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+#directorist.atbd_wrapper #directorist-checkout-table {
+  margin-bottom: 35px;
+}
+
 .atbd_rating_color, #directorist.atbd_wrapper .atbd_rated_stars ul li span.rate_active, #directorist.atbd_wrapper .atbd_rating_stars .br-widget a.br-selected:before, #directorist.atbd_wrapper .atbd_rating_stars .br-widget a.br-active:before {
   color: #fa8b0c;
+}
+
+.text-center {
+  text-align: center;
 }
 
 #directorist.atbd_wrapper .atbd_search_result_header {

@@ -1,7 +1,8 @@
 /* Common styles across whole plugin */
-body.atbd_content_active{
+body.atbd_content_active {
   line-height: 24px;
 }
+
 .atbd_content_active #directorist.atbd_wrapper h1, .atbd_content_active #directorist.atbd_wrapper h2, .atbd_content_active #directorist.atbd_wrapper h3, .atbd_content_active #directorist.atbd_wrapper h4, .atbd_content_active #directorist.atbd_wrapper h5, .atbd_content_active #directorist.atbd_wrapper h6,
 .atbd_content_active #directorist.atbd_wrapper .h1, .atbd_content_active #directorist.atbd_wrapper .h2, .atbd_content_active #directorist.atbd_wrapper .h3, .atbd_content_active #directorist.atbd_wrapper .h4, .atbd_content_active #directorist.atbd_wrapper .h5, .atbd_content_active #directorist.atbd_wrapper .h6 {
   margin-bottom: $headings-margin-bottom;
@@ -10,51 +11,69 @@ body.atbd_content_active{
   line-height: $headings-line-height;
   color: $headings-color;
   letter-spacing: normal;
-  a{
+  a {
     -webkit-transition: 0.3s;
     -moz-transition: 0.3s;
     -ms-transition: 0.3s;
     -o-transition: 0.3s;
     transition: 0.3s;
     color: $headings-color;
-    &:hover{
+    &:hover {
       @extend .atbd_color-primary;
     }
   }
 }
 
+h1, .h1 {
+  font-size: $h1-font-size;
+}
 
+h2, .h2 {
+  font-size: $h2-font-size;
+}
 
-h1, .h1 { font-size: $h1-font-size; }
-h2, .h2 { font-size: $h2-font-size; }
-h3, .h3 { font-size: $h3-font-size; }
-h4, .h4 { font-size: $h4-font-size; }
-h5, .h5 { font-size: $h5-font-size; }
-h6, .h6 { font-size: $h6-font-size; }
+h3, .h3 {
+  font-size: $h3-font-size;
+}
 
-.atbd_content_active #directorist.atbd_wrapper{
+h4, .h4 {
+  font-size: $h4-font-size;
+}
+
+h5, .h5 {
+  font-size: $h5-font-size;
+}
+
+h6, .h6 {
+  font-size: $h6-font-size;
+}
+
+.atbd_content_active #directorist.atbd_wrapper {
   color: $text-color;
   font-size: 15px;
-  font-family: 'Roboto', Sans-serif!important;
-  p{
+  font-family: 'Roboto', Sans-serif !important;
+  p {
     font-size: 15px;
     color: $text-color;
     line-height: 24px;
   }
-  ul{
+  ul {
     list-style: none;
     margin: 0;
     padding: 0;
   }
 }
+
 .shadow-lg-2 {
   -webkit-box-shadow: 0 5px 30px rgba(105, 106, 119, 0.1) !important;
   box-shadow: 0 5px 30px rgba(105, 106, 119, 0.1) !important;
 }
-.border-color{
+
+.border-color {
   border-color: $border-color;
 }
-#directorist.atbd_wrapper{
+
+#directorist.atbd_wrapper {
   .atbd_rated_stars {
     ul li {
       display: inline-block;
@@ -72,19 +91,19 @@ h6, .h6 { font-size: $h6-font-size; }
     }
   }
 
-  .atbd_rating_stars{
-    .br-widget{
-      .br-current-rating{
+  .atbd_rating_stars {
+    .br-widget {
+      .br-current-rating {
         display: inline-block;
         margin-left: 20px;
       }
-      a{
-        &:before{
+      a {
+        &:before {
           content: "\f005";
           font-size: 14px;
           font-family: 'Fontawesome', Sans-serif;
           color: #d4d3f3;
-          &.br-selected , &.br-active{
+          &.br-selected, &.br-active {
             @extend .atbd_rating_color;
           }
         }
@@ -92,17 +111,59 @@ h6, .h6 { font-size: $h6-font-size; }
     }
   }
 
-  .atbd_upload_btn_wrap label{
+  .atbd_upload_btn_wrap label {
     display: inline-block;
   }
-  label{
+  label {
     color: $dark;
     label {
       display: inline-block;
       margin-bottom: $label-margin-bottom;
     }
   }
+
+  .atbd_payment_recipt {
+    background: #fff;
+    padding: 30px;
+    border: 1px solid #ededed;
+    border-radius: 2px;
+    margin-bottom: 35px;
+    .atbd_thank_you {
+      text-align: center;
+      font-size: 24px;
+      color: $dark;
+      margin-bottom: 40px;
+    }
+    .atbd_payment_instructions {
+      padding-bottom: 25px;
+      margin-bottom: 25px;
+      border-bottom: 1px solid $border-color;
+    }
+    .atbd_payment_summary_wrapper{
+      border-bottom: 1px solid $border-color;
+      margin-bottom: 20px;
+      padding-bottom: 17px;
+    }
+    .atbd_payment_summary{
+      text-align: center;
+      font-size: 18px;
+      color: $dark;
+      margin-bottom: 20px;
+    }
+  }
+
+  #atbdp_checkout_total_amount,.atbd_tottal{
+    font-size: 20px;
+    font-weight: 500;
+  }
+  #directorist-checkout-table{
+    margin-bottom: 35px;
+  }
 }
-.atbd_rating_color{
+
+.atbd_rating_color {
   color: #fa8b0c;
+}
+.text-center{
+  text-align: center;
 }

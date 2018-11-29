@@ -430,8 +430,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
             <?php } ?>
 
             <?php
+
             // if business hour is active then add the following markup...
+
             if (is_business_hour_active() && $enable_bh_on_page && (!is_empty_v($business_hours) || !empty($enable247hour))) {
+
             ?>
                 <!-- we need to add a row when business hour extension is active in order to divide the width in two columns-->
                     <div class="atbd_content_module">
@@ -457,6 +460,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             <div class="atbd_directory_open_hours">
                                 <?php
                                 // if 24 hours 7 days open then show it only, otherwise, show the days and its opening time.
+
                                 if (!empty($enable247hour)) {
                                     echo '<p>' . esc_html($text247) . '</p>';
                                 } else {

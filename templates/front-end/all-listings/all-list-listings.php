@@ -154,7 +154,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 if(empty($price) && !empty($price_range)) {
                                                  atbdp_display_price_range($price_range);
                                                 }
-                                               
+
                                                 atbdp_display_price($price, $is_disable_price);
 
                                                 /**

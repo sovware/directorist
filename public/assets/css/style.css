@@ -907,6 +907,20 @@ h6, .h6 {
   border: 0;
 }
 
+.atbd_content_active .widget.atbd_widget .directory_open_hours ul li {
+  border-bottom: 1px solid #e3e6ef;
+}
+
+.atbd_content_active .widget.atbd_widget .directory_open_hours ul li span {
+  display: inline-block;
+  margin-bottom: 7px;
+  font-weight: 500;
+}
+
+.atbd_content_active .widget.atbd_widget .directory_open_hours ul li .atbd_open_close_time {
+  font-weight: 400;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_pricing_header {
   text-align: center;
 }

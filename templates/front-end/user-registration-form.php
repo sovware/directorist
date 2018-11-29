@@ -8,13 +8,19 @@
                     <h2><?php _e('Register', ATBDP_TEXTDOMAIN); ?></h2>
                     <?php if(!empty($_GET['success']) && true == $_GET['success']){ ?>
                         <!--registration succeeded, so show notification -->
-                        <p><span class="fa fa-check"></span><?php _e('Registration completed. Please check your inbox and activate your account.', ATBDP_TEXTDOMAIN); ?></p>
+                        <p style="padding: 20px" class="alert-success"><span class="fa fa-check"></span><?php _e('Registration completed. Please check your inbox and activate your account.', ATBDP_TEXTDOMAIN); ?></p>
+                        <p>
+                            <?php
+                            printf(__('Or click %s to login now.', ATBDP_TEXTDOMAIN), "<a href='".wp_login_url()."'><span style='color: red'> ". __('Here', ATBDP_TEXTDOMAIN)."</span></a>");
+                            ?>
+                        </p>
                         <?php
+                        exit();
                     }
                     ?>
                     <!--Registration failed, so show notification.-->
                     <?php
-                    $errors = $_GET['errors'];
+                    $errors = !empty($_GET['errors']) ? $_GET['errors'] : '';
                     switch ($errors) {
                         case '1':
                             ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation"></span><?php _e('Registration failed. Please make sure you filed up all the necessary fields marked with <span style="color: red">*</span>', ATBDP_TEXTDOMAIN); ?></p><?php

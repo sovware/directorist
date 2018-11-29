@@ -432,9 +432,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
             <?php
 
             // if business hour is active then add the following markup...
-            var_dump(is_business_hour_active());
+
             if (is_business_hour_active() && $enable_bh_on_page && (!is_empty_v($business_hours) || !empty($enable247hour))) {
-            var_dump($enable247hour);
+
             ?>
                 <!-- we need to add a row when business hour extension is active in order to divide the width in two columns-->
                     <div class="atbd_content_module">

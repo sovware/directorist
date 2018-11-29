@@ -119,16 +119,20 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                         <span class="atbd_badge atbd_badge_open">Open Now</span>
                                                     </div><!-- END /.atbd_upper_badge -->
                                                     <?php
-                                                }else {
-                                                    BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list
-                                                } }?>
+                                                }else {?>
+                                                    <div class="atbd_upper_badge">
+                                                        <?php BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list ?>
+                                                    </div>
+
+                                               <?php }
+                                            }?>
                                             <div class="atbd_lower_badge">
                                                 <?php
                                                 if ($featured){ printf(
                                                     '<span class="atbd_badge atbd_badge_featured">Featured</span>',
                                                     esc_html__('Featured', ATBDP_TEXTDOMAIN)
                                                 );}
-
+                                                    $count = !empty($count)?$count:'';
                                                 $popular_listings = ATBDP()->get_popular_listings($count);
                                                 if ($popular_listings->have_posts()) {
 

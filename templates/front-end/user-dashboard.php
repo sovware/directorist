@@ -7,10 +7,17 @@ $u_website = $c_user->user_url;
 $avatar = get_user_meta($uid, 'avatar', true);
 $u_phone = get_user_meta($uid, 'phone', true);
 $u_pro_pic = get_user_meta($uid, 'pro_pic', true);
+$facebook = get_user_meta($uid, 'facebook', true);
+$twitter = get_user_meta($uid, 'twitter', true);
+$google = get_user_meta($uid, 'google', true);
+$linkedIn = get_user_meta($uid, 'linkedIn', true);
+$youtube = get_user_meta($uid, 'youtube', true);
 $u_address = get_user_meta($uid, 'address', true);
 $date_format = get_option('date_format');
 $featured_active = get_directorist_option('enable_featured_listing');
 $is_disable_price = get_directorist_option('disable_list_price');
+
+
 /*@todo; later show featured listing first on the user dashboard maybe??? */
 ?>
 <div id="directorist" class="directorist atbd_wrapper dashboard_area">
@@ -79,7 +86,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                                 );
                                                             }
                                                             ?>
-                                                            <?php /*todo: Shahadat -> It needs dynamization */ ?>
                                                         </div>
                                                     </figcaption>
                                                 </figure>
@@ -202,6 +208,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 </div> <!--ends .choose_btn-->
                                                 <img src="<?= !empty($u_pro_pic) ? esc_url($u_pro_pic) : esc_url(ATBDP_PUBLIC_ASSETS . 'images/no-image.jpg'); ?>"
                                                      id="pro_img" alt="">
+
                                             </div> <!--ends .user_img-->
                                         </div> <!--ends .user_pro_img_area-->
                                     </div> <!--ends .col-md-4-->
@@ -290,11 +297,13 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     </div>
                                                 </div>
                                             </div> <!--ends .row-->
+
+
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="new_pass"><?php _e('New Password', ATBDP_TEXTDOMAIN); ?></label>
-                                                        <input class="form-control" type="password" name="user[new_pass]"
+                                                        <input id="new_pass" class="form-control" type="password" name="user[new_pass]"
                                                                value="<?= !empty($new_pass) ? esc_attr($new_pass) : ''; ?>"
                                                                placeholder="Enter a new password">
                                                     </div>
@@ -302,12 +311,60 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="confirm_pass"><?php _e('Confirm New Password', ATBDP_TEXTDOMAIN); ?></label>
-                                                        <input class="form-control" type="password" name="user[confirm_pass]"
+                                                        <input id="confirm_pass" class="form-control" type="password" name="user[confirm_pass]"
                                                                value="<?= !empty($confirm_pass) ? esc_attr($confirm_pass) : ''; ?>"
                                                                placeholder="Confirm your new password">
                                                     </div>
                                                 </div>
                                             </div><!--ends .row-->
+                                            <!--social info-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="facebook"><?php _e('Facebook', ATBDP_TEXTDOMAIN); ?></label>
+                                                        <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN)?></p>
+                                                        <input id="facebook" class="form-control" type="url" name="user[facebook]"
+                                                               value="<?= !empty($facebook) ? esc_attr($facebook) : ''; ?>"
+                                                               placeholder="Enter your facebook url">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="twitter"><?php _e('Twitter', ATBDP_TEXTDOMAIN); ?></label>
+                                                        <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN)?></p>
+                                                        <input id="twitter" class="form-control" type="url" name="user[twitter]"
+                                                               value="<?= !empty($twitter) ? esc_attr($twitter) : ''; ?>"
+                                                               placeholder="Enter your twitter url">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="google"><?php _e('Google+', ATBDP_TEXTDOMAIN); ?></label>
+                                                        <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN)?></p>
+                                                        <input id="google" class="form-control" type="url" name="user[google]"
+                                                               value="<?= !empty($google) ? esc_attr($google) : ''; ?>"
+                                                               placeholder="Enter google+ url">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="linkedIn"><?php _e('LinkedIn', ATBDP_TEXTDOMAIN); ?></label>
+                                                        <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN)?></p>
+                                                        <input id="linkedIn" class="form-control" type="url" name="user[linkedIn]"
+                                                               value="<?= !empty($linkedIn) ? esc_attr($linkedIn) : ''; ?>"
+                                                               placeholder="Enter linkedIn url">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="youtube"><?php _e('Youtube', ATBDP_TEXTDOMAIN); ?></label>
+                                                        <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN)?></p>
+                                                        <input id="youtube" class="form-control" type="url" name="user[youtube]"
+                                                               value="<?= !empty($youtube) ? esc_attr($youtube) : ''; ?>"
+                                                               placeholder="Enter youtube url">
+                                                    </div>
+                                                </div>
+                                            </div><!--ends social info .row-->
 
 
                                             <button type="submit" class="btn btn-primary"

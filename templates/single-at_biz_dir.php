@@ -325,7 +325,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                            ?>
                             <li>
                                 <div class="atbd_custom_field_title"><p><?php echo esc_attr($field_title);?></p></div>
-                                <div class="atbd_custom_field_content"><p><?php if ('color' == $field_type){printf( '<div style="background-color: %s;padding: 25px; border-radius: 10px"></div>', $field_details );}else{echo esc_attr($field_details);}?></p>
+                                <div class="atbd_custom_field_content"><p><?php if ('color' == $field_type){printf( '<div style="background-color: %s;padding: 25px; border-radius: 10px"></div>', $field_details );}else{echo esc_attr(ucwords($field_details));}?></p>
                                 </div>
                             </li>
                         <?php
@@ -476,14 +476,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                     <?php if (!empty($social) && is_array($social)) { ?>
                         <div class="director_social_wrap">
                             <p><?php _e('Social Link', ATBDP_TEXTDOMAIN); ?></p>
-                            <ul>
                                 <?php foreach ($social as $link) {
                                     $n = esc_attr($link['id']);
                                     $l = esc_url($link['url']);
-                                    echo "<li><a target='_blank' href='{$l}'><span class='fa fa-{$n}'></span></a></li>";
                                     ?>
+                                    <p><a target='_blank' href="<?php echo $l;?>"><span class="fa fa-<?php echo $n;?>"></span></a></p>
                                 <?php } ?>
-                            </ul>
                         </div>
                     <?php } ?>
                     <!--We need to close the row and col div when we have business hour enabled. We used negative checking so that they can show by default if the setting is not set by the user after adding the plugin.-->

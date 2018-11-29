@@ -586,10 +586,7 @@ jQuery(function($){
 
         });
 
-
-
     });
-
 
 })( jQuery );
 

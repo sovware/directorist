@@ -13,13 +13,13 @@ $in_cat_text = !empty($in_cat) ? sprintf(__(' from "%s" Category', ATBDP_TEXTDOM
 $in_loc_text = !empty($in_loc) ? sprintf(__(' in "%s" Location', ATBDP_TEXTDOMAIN), $in_loc) : '';
 $is_disable_price = get_directorist_option('disable_list_price');
 ?>
-    <div id="directorist" class="directorist atbd_wrapper directory_wrapper single_area">
+    <div id="directorist" class="directorist atbd_wrapper directory_wrapper search_area">
         <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
 
             <div class="header_bar">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="header_form_wrapper">
+                            <div class="atbd_search_result_header">
                                 <div class="directory_title">
                                     <h3>
                                         <?php
@@ -28,7 +28,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             echo $in_s_string_text, $in_tag_text, $in_cat_text, $in_loc_text;
                                         }else{
                                             if (!empty($s_string)){
-                                                printf(__('Search Result for: "%s" from All categories and locations', ATBDP_TEXTDOMAIN), $s_string);
+                                                printf(__('Search Result for: %s from All categories and locations', ATBDP_TEXTDOMAIN), '<span>'."'$s_string'".'</span>');
                                             }else{
                                                 _e('Showing Result from all categories and locations.', ATBDP_TEXTDOMAIN);
                                             }

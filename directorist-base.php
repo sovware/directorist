@@ -318,6 +318,7 @@ final class Directorist_Base
         register_widget('BD_Search_Widget');
         register_widget('BD_Map_Widget');
         register_widget('BD_Similar_Listings_Widget');
+        register_widget('BD_Author_Info_Widget');
 
     }
 
@@ -884,7 +885,7 @@ final class Directorist_Base
 
         ?>
         <span class="atbd_meta atbd_listing_rating">
-            <?= $average /*ATBDP()->review->print_static_rating($average);*/ ?><i class="fa fa-star"></i>
+            <?php echo $average;?><i class="fa fa-star"></i>
         </span>
         <?php /*todo: Shahadat -> I have deleted a chunk of code from here as it was unnecessary from the perspective of UI*/
         ?>
@@ -917,7 +918,8 @@ final class Directorist_Base
                         ?></h4>
                 </div>
                 <?php if (is_user_logged_in()) { ?>
-                <a href="#" class="btn btn-primary btn-sm">Add a review</a>
+                    <label for="review_content" class="btn btn-primary btn-sm">Add a review</label>
+
                 <?php } ?>
             </div>
 
@@ -925,14 +927,14 @@ final class Directorist_Base
                 <div id="client_review_list">
                     <?php if (!empty($reviews)) {
                         ?>
-                        <?php foreach ($reviews as $review) { ?>
+                        <?php foreach ($reviews as $review) {
+                            ?>
                             <div class="atbd_single_review" id="single_review_<?= $review->id; ?>">
                                 <div class="atbd_review_top">
                                     <div class="atbd_avatar_wrapper">
-                                        <?php /* @todo -> Shahadat, Please show user avatar or if usr avatar isn't available show this static image */ ?>
-                                        <div class="atbd_review_avatar"><img
+                                        <?php $avata_img = get_avatar($review->by_user_id , 32 ); ?>                                        <div class="atbd_review_avatar"><?php if ($avata_img){echo $avata_img;}else{?><img
                                                     src="<?php echo ATBDP_PUBLIC_ASSETS . 'images/revav.png' ?>"
-                                                    alt="Avatar Image"></div>
+                                                    alt="Avatar Image"><?php }?></div>
                                         <div class="atbd_name_time">
                                             <p><?= esc_html($review->name); ?></p>
                                             <span class="review_time"><?php
@@ -945,7 +947,7 @@ final class Directorist_Base
                                 </div>
                                 <div class="review_content">
                                     <p><?= esc_html($review->content); ?></p>
-                                    <a href="#"><span class="fa fa-mail-reply-all"></span>Reply</a>
+                                    <!--<a href="#"><span class="fa fa-mail-reply-all"></span>Reply</a>-->
                                 </div>
                             </div>
                         <?php }
@@ -1021,7 +1023,7 @@ final class Directorist_Base
                             </div>
 
                             <?php /* @todo  Shahadat -> Added new upload button*/ ?>
-                            <div class="form-group">
+                           <!-- <div class="form-group">
                                 <div id="atbd_up_preview"></div>
                                 <div class="atbd_upload_btn_wrap">
                                     <label for="atbd_review_attachment">
@@ -1029,7 +1031,7 @@ final class Directorist_Base
                                         <span class="btn atbd_upload_btn"><span class="fa fa-upload"></span>Upload Photo</span>
                                     </label>
                                 </div>
-                            </div>
+                            </div>-->
 
                             <!--If current user has a review then show him update and delete button-->
                             <?php if (!empty($cur_user_review)) { ?>

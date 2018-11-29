@@ -54,7 +54,7 @@
   color: #e23636;
 }
 
-.atbd_bg-danger, .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area #atbd_up_preview .atbd_up_prev .rmrf:hover {
+.atbd_bg-danger, .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area #atbd_up_preview .atbd_up_prev .rmrf:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_close {
   background: #e23636;
 }
 
@@ -82,7 +82,7 @@
   background: #fa8b0c;
 }
 
-.atbd_color-badge-popular {
+.atbd_color-badge-popular, #directorist.atbd_wrapper .atbd_search_result_header .directory_title h3 span {
   color: #f51957;
 }
 
@@ -209,10 +209,21 @@ h6, .h6 {
   color: #fa8b0c;
 }
 
+#directorist.atbd_wrapper .atbd_search_result_header {
+  background: #f6f9ff;
+  padding: 30px 35px;
+  margin-bottom: 35px;
+  border-radius: 5px;
+}
+
+#directorist.atbd_wrapper .atbd_search_result_header .directory_title h3 p {
+  font-size: 14px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module {
   border: 1px solid #e3e6ef;
   margin-bottom: 35px;
-  background: #fff;
+  background: #ffffff;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area {
@@ -719,6 +730,15 @@ h6, .h6 {
   border: 1px solid #e3e6ef;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right .atbd_author a {
+  width: 35px;
+  height: 35px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right .atbd_author a img {
+  border-radius: 50%;
+}
+
 .atbd_content_active .widget.atbd_widget {
   background: #ffffff;
   border: 1px solid #e3e6ef;
@@ -1007,10 +1027,8 @@ h6, .h6 {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .close {
-  float: none;
   padding: 0;
   top: 50%;
-  transform: translateY(-50%);
   right: 10px;
   font-size: 20px;
 }
@@ -1079,6 +1097,22 @@ h6, .h6 {
   line-height: 32px;
   padding: 9px 40px;
   font-size: 18px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_type {
+  padding-bottom: 20px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_type h4 {
+  margin-bottom: 25px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_type > label {
+  display: inline-block;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_type > label + label {
+  margin-left: 25px;
 }
 
 #directorist.atbd_wrapper .atbd_user_dashboard_nav {

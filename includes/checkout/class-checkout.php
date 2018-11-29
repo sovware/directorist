@@ -83,11 +83,25 @@ class ATBDP_Checkout
                 $form_data[] = array(
                         'type' => 'header',
                         'title' => $title,
+                        'name' => 'feature',
+                        'value' => 1,
+                        'selected' => 1,
+                        'desc' => $desc,
+                        'price' => $price,
                 );
 
-                if (class_exists('ATBDP_Fee_Manager'))
-
                 $form_data[] = array(
+                    'type' => 'checkbox',
+                    'name' => 'feature',
+                    'value' => 1,
+                    'selected' => 1,
+                    'title' => $title,
+                    'desc' => $desc,
+                    'price' => $price,
+                );
+
+           /*     if (class_exists('ATBDP_Fee_Manager')){
+                    $form_data[] = array(
                         'type' => 'checkbox',
                         'name' => 'feature',
                         'value' => 1,
@@ -95,7 +109,8 @@ class ATBDP_Checkout
                         'title' => $title,
                         'desc' => $desc,
                         'price' => $price,
-                );
+                    );
+                }*/
             }
 
             // if data is empty then vail,

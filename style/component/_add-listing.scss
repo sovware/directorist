@@ -43,10 +43,8 @@
   }
 
   .close{
-    float: none;
     padding: 0;
     top: 50%;
-    transform: translateY(-50%);
     right: 10px;
     font-size: 20px;
     &:hover{
@@ -106,6 +104,18 @@
         line-height: 32px;
         padding: 9px 40px;
         font-size: 18px;
+      }
+    }
+  }
+  .atbd_listing_type{
+    h4{
+      margin-bottom: 25px;
+    }
+    padding-bottom: 20px;
+    >label{
+      display: inline-block;
+      &+label{
+        margin-left: 25px;
       }
     }
   }

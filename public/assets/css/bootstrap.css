@@ -2317,6 +2317,301 @@
   display: block;
 }
 
+#directorist.atbd_wrapper .table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+
+#directorist.atbd_wrapper .table th,
+#directorist.atbd_wrapper .table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+#directorist.atbd_wrapper .table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+}
+
+#directorist.atbd_wrapper .table tbody + tbody {
+  border-top: 2px solid #dee2e6;
+}
+
+#directorist.atbd_wrapper .table .table {
+  background-color: #fff;
+}
+
+#directorist.atbd_wrapper .table-sm th,
+#directorist.atbd_wrapper .table-sm td {
+  padding: 0.3rem;
+}
+
+#directorist.atbd_wrapper .table-bordered {
+  border: 1px solid #dee2e6;
+}
+
+#directorist.atbd_wrapper .table-bordered th,
+#directorist.atbd_wrapper .table-bordered td {
+  border: 1px solid #dee2e6;
+}
+
+#directorist.atbd_wrapper .table-bordered thead th,
+#directorist.atbd_wrapper .table-bordered thead td {
+  border-bottom-width: 2px;
+}
+
+#directorist.atbd_wrapper .table-borderless th,
+#directorist.atbd_wrapper .table-borderless td,
+#directorist.atbd_wrapper .table-borderless thead th,
+#directorist.atbd_wrapper .table-borderless tbody + tbody {
+  border: 0;
+}
+
+#directorist.atbd_wrapper .table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+#directorist.atbd_wrapper .table-hover tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+#directorist.atbd_wrapper .table-primary,
+#directorist.atbd_wrapper .table-primary > th,
+#directorist.atbd_wrapper .table-primary > td {
+  background-color: #c3c4ca;
+}
+
+#directorist.atbd_wrapper .table-hover .table-primary:hover {
+  background-color: #b5b7be;
+}
+
+#directorist.atbd_wrapper .table-hover .table-primary:hover > td,
+#directorist.atbd_wrapper .table-hover .table-primary:hover > th {
+  background-color: #b5b7be;
+}
+
+#directorist.atbd_wrapper .table-secondary,
+#directorist.atbd_wrapper .table-secondary > th,
+#directorist.atbd_wrapper .table-secondary > td {
+  background-color: #bdc1d5;
+}
+
+#directorist.atbd_wrapper .table-hover .table-secondary:hover {
+  background-color: #adb2cb;
+}
+
+#directorist.atbd_wrapper .table-hover .table-secondary:hover > td,
+#directorist.atbd_wrapper .table-hover .table-secondary:hover > th {
+  background-color: #adb2cb;
+}
+
+#directorist.atbd_wrapper .table-success,
+#directorist.atbd_wrapper .table-success > th,
+#directorist.atbd_wrapper .table-success > td {
+  background-color: #c6f1d7;
+}
+
+#directorist.atbd_wrapper .table-hover .table-success:hover {
+  background-color: #b2ecc9;
+}
+
+#directorist.atbd_wrapper .table-hover .table-success:hover > td,
+#directorist.atbd_wrapper .table-hover .table-success:hover > th {
+  background-color: #b2ecc9;
+}
+
+#directorist.atbd_wrapper .table-info,
+#directorist.atbd_wrapper .table-info > th,
+#directorist.atbd_wrapper .table-info > td {
+  background-color: #c6e0fa;
+}
+
+#directorist.atbd_wrapper .table-hover .table-info:hover {
+  background-color: #afd3f8;
+}
+
+#directorist.atbd_wrapper .table-hover .table-info:hover > td,
+#directorist.atbd_wrapper .table-hover .table-info:hover > th {
+  background-color: #afd3f8;
+}
+
+#directorist.atbd_wrapper .table-warning,
+#directorist.atbd_wrapper .table-warning > th,
+#directorist.atbd_wrapper .table-warning > td {
+  background-color: #ffe9b8;
+}
+
+#directorist.atbd_wrapper .table-hover .table-warning:hover {
+  background-color: #ffe19f;
+}
+
+#directorist.atbd_wrapper .table-hover .table-warning:hover > td,
+#directorist.atbd_wrapper .table-hover .table-warning:hover > th {
+  background-color: #ffe19f;
+}
+
+#directorist.atbd_wrapper .table-danger,
+#directorist.atbd_wrapper .table-danger > th,
+#directorist.atbd_wrapper .table-danger > td {
+  background-color: #f7c7c7;
+}
+
+#directorist.atbd_wrapper .table-hover .table-danger:hover {
+  background-color: #f4b1b1;
+}
+
+#directorist.atbd_wrapper .table-hover .table-danger:hover > td,
+#directorist.atbd_wrapper .table-hover .table-danger:hover > th {
+  background-color: #f4b1b1;
+}
+
+#directorist.atbd_wrapper .table-light,
+#directorist.atbd_wrapper .table-light > th,
+#directorist.atbd_wrapper .table-light > td {
+  background-color: white;
+}
+
+#directorist.atbd_wrapper .table-hover .table-light:hover {
+  background-color: #f2f2f2;
+}
+
+#directorist.atbd_wrapper .table-hover .table-light:hover > td,
+#directorist.atbd_wrapper .table-hover .table-light:hover > th {
+  background-color: #f2f2f2;
+}
+
+#directorist.atbd_wrapper .table-dark,
+#directorist.atbd_wrapper .table-dark > th,
+#directorist.atbd_wrapper .table-dark > td {
+  background-color: #c1c2c3;
+}
+
+#directorist.atbd_wrapper .table-hover .table-dark:hover {
+  background-color: #b4b5b6;
+}
+
+#directorist.atbd_wrapper .table-hover .table-dark:hover > td,
+#directorist.atbd_wrapper .table-hover .table-dark:hover > th {
+  background-color: #b4b5b6;
+}
+
+#directorist.atbd_wrapper .table-active,
+#directorist.atbd_wrapper .table-active > th,
+#directorist.atbd_wrapper .table-active > td {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+#directorist.atbd_wrapper .table-hover .table-active:hover {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+#directorist.atbd_wrapper .table-hover .table-active:hover > td,
+#directorist.atbd_wrapper .table-hover .table-active:hover > th {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+#directorist.atbd_wrapper .table .thead-dark th {
+  color: #fff;
+  background-color: #212529;
+  border-color: #32383e;
+}
+
+#directorist.atbd_wrapper .table .thead-light th {
+  color: #495057;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+
+#directorist.atbd_wrapper .table-dark {
+  color: #fff;
+  background-color: #212529;
+}
+
+#directorist.atbd_wrapper .table-dark th,
+#directorist.atbd_wrapper .table-dark td,
+#directorist.atbd_wrapper .table-dark thead th {
+  border-color: #32383e;
+}
+
+#directorist.atbd_wrapper .table-dark.table-bordered {
+  border: 0;
+}
+
+#directorist.atbd_wrapper .table-dark.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+#directorist.atbd_wrapper .table-dark.table-hover tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.075);
+}
+
+@media (max-width: 575.98px) {
+  #directorist.atbd_wrapper .table-responsive-sm {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+  #directorist.atbd_wrapper .table-responsive-sm > .table-bordered {
+    border: 0;
+  }
+}
+
+@media (max-width: 767.98px) {
+  #directorist.atbd_wrapper .table-responsive-md {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+  #directorist.atbd_wrapper .table-responsive-md > .table-bordered {
+    border: 0;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #directorist.atbd_wrapper .table-responsive-lg {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+  #directorist.atbd_wrapper .table-responsive-lg > .table-bordered {
+    border: 0;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  #directorist.atbd_wrapper .table-responsive-xl {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+  #directorist.atbd_wrapper .table-responsive-xl > .table-bordered {
+    border: 0;
+  }
+}
+
+#directorist.atbd_wrapper .table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+#directorist.atbd_wrapper .table-responsive > .table-bordered {
+  border: 0;
+}
+
 .modal-open {
   overflow: hidden;
 }

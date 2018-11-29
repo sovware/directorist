@@ -1046,10 +1046,8 @@ if (!function_exists('is_multiple_images_active')){
      * @return bool It returns true if the Directorist Multiple images Extension is active and enabled
      */
     function  is_multiple_images_active(){
-        $enable = get_directorist_option('enable_multiple_image', 0);
-        $active = in_array( 'directorist-multiple-image/bd-multiple-image.php', (array) get_option( 'active_plugins', array() ) ) ;
 
-        return ((1==$enable) && $active); // plugin is active and enabled
+        return true; // plugin is active and enabled
     }
 }
 

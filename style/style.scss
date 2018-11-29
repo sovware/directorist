@@ -3,8 +3,10 @@
 
 //mixins
 @import "mixins/colors";
+
 //components
 @import "component/general";
+@import "component/search-result";
 @import "component/listing-details";
 @import "component/listing";
 @import "component/widget";

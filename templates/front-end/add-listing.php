@@ -302,7 +302,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                     $_checked = '';
                                                     if (in_array($_value, $values)) $_checked = ' checked="checked"';
 
-                                                    printf('<li><label><input type="hidden" name="custom_field[%s][]" value="" /><input type="checkbox" name="custom_field[%d][]" value="%s"%s>%s</label></li>', $post->ID, $post->ID, $_value, $_checked, $_label);
+                                                    printf('<li><label><input type="hidden" name="custom_field[%s][]" value="" /><input type="checkbox" name="custom_field[%d][]" value="%s"%s> %s</label></li>', $post->ID, $post->ID, $_value, $_checked, $_label);
                                                 }
                                                 echo '</ul>';
                                                 break;

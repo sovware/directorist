@@ -1,5 +1,5 @@
 
-<div class="directorist  single_area">
+<div id="directorist" class="atbd_wrapper directorist  single_area">
     <div class="<?php echo is_directoria_active() ? 'container': ' container-fluid'; ?>">
         <div class="row">
             <div class="col-md-12">
@@ -8,7 +8,7 @@
                     <h2><?php _e('Register', ATBDP_TEXTDOMAIN); ?></h2>
                     <?php if(!empty($_GET['success']) && true == $_GET['success']){ ?>
                         <!--registration succeeded, so show notification -->
-                        <p style="padding: 20px" class="alert-success"><span class="fa fa-check"></span><?php _e('Registration completed. Please check your inbox and activate your account.', ATBDP_TEXTDOMAIN); ?></p>
+                        <p><span class="fa fa-check"></span><?php _e('Registration completed. Please check your inbox and activate your account.', ATBDP_TEXTDOMAIN); ?></p>
                         <?php
                     }
                     ?>
@@ -37,13 +37,6 @@
 
                     }
                   ?>
-
-
-
-
-
-
-
                 </div>
 
                 <div class="row">
@@ -52,43 +45,43 @@
                             <form action="<?= esc_url(get_the_permalink()); ?>" method="post">
                                 <div class="form-group">
                                     <label for="username"><?php _e('Username', ATBDP_TEXTDOMAIN); ?> <strong>*</strong></label>
-                                    <input id="username" class="directory_field" type="text" name="username" value="<?= ( isset( $_POST['username'] ) ? esc_attr($_POST['username']) : null ); ?>">
+                                    <input id="username" class="form-control" type="text" name="username" value="<?= ( isset( $_POST['username'] ) ? esc_attr($_POST['username']) : null ); ?>">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="password"><?php _e('Password', ATBDP_TEXTDOMAIN); ?> <strong>*</strong></label>
-                                    <input id="password" class="directory_field" type="password" name="password" value="<?= ( isset( $_POST['password'] ) ? esc_attr($_POST['password']) : null ); ?>">
+                                    <input id="password" class="form-control" type="password" name="password" value="<?= ( isset( $_POST['password'] ) ? esc_attr($_POST['password']) : null ); ?>">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="email"><?php _e('Email', ATBDP_TEXTDOMAIN); ?> <strong>*</strong></label>
-                                    <input id="email" class="directory_field" type="text" name="email" value="<?= ( isset( $_POST['email']) ? $_POST['email'] : null ); ?>">
+                                    <input id="email" class="form-control" type="text" name="email" value="<?= ( isset( $_POST['email']) ? $_POST['email'] : null ); ?>">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="website"><?php _e('Website', ATBDP_TEXTDOMAIN); ?></label>
-                                    <input id="website" class="directory_field" type="text" name="website" value="<?= ( isset( $_POST['website']) ? esc_url($_POST['website']) : null ); ?>">
+                                    <input id="website" class="form-control" type="text" name="website" value="<?= ( isset( $_POST['website']) ? esc_url($_POST['website']) : null ); ?>">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="fname"><?php _e('First Name', ATBDP_TEXTDOMAIN); ?></label>
-                                    <input id="fname" class="directory_field" type="text" name="fname" value="<?= ( isset( $_POST['fname']) ? esc_attr($_POST['fname']) : null ); ?>">
+                                    <input id="fname" class="form-control" type="text" name="fname" value="<?= ( isset( $_POST['fname']) ? esc_attr($_POST['fname']) : null ); ?>">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="lname"><?php _e('Last Name', ATBDP_TEXTDOMAIN); ?></label>
-                                    <input class="directory_field" id="lname" type="text" name="lname" value="<?= ( isset( $_POST['lname']) ? esc_attr($_POST['lname']) : null ); ?>">
+                                    <input class="form-control" id="lname" type="text" name="lname" value="<?= ( isset( $_POST['lname']) ? esc_attr($_POST['lname']) : null ); ?>">
                                 </div>
 
 
                                 <div class="form-group">
                                     <label for="bio"><?php _e('About/bio', ATBDP_TEXTDOMAIN); ?></label>
-                                    <textarea id="bio" class="directory_field" name="bio" rows="10"><?= ( isset( $_POST['bio']) ? esc_textarea($_POST['bio']) : null ); ?></textarea>
+                                    <textarea id="bio" class="form-control" name="bio" rows="10"><?= ( isset( $_POST['bio']) ? esc_textarea($_POST['bio']) : null ); ?></textarea>
 
                                 </div>
 
                                 <div class="directory_regi_btn">
-                                    <button type="submit" class="btn btn-default" name="atbdp_user_submit"><?php _e('Sign Up', ATBDP_TEXTDOMAIN); ?></button>
+                                    <button type="submit" class="btn btn-primary btn-lg" name="atbdp_user_submit"><?php _e('Sign Up', ATBDP_TEXTDOMAIN); ?></button>
                                 </div>
 
                                 <div class="directory_regi_btn">

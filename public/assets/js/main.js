@@ -46,6 +46,20 @@
         }
     }
 
+    /* initialize slick  */
+    var $listingGallerySlider = $('.atbd_directory_gallery');
+    var $listingGalleryThumbnail = $('.atbd_directory_image_thumbnail');
+
+    $listingGallerySlider.slick({
+        slidesToShow: 1,
+        slidesToScroll: 1
+    });
+
+    $listingGalleryThumbnail.slick({
+        slidesToShow: 5,
+        slidesToScroll: 1
+    });
+
     $('#atbd_review_attachment').on('change', function (e) {
         handleFiles(this.files);
         console.log(this.files);

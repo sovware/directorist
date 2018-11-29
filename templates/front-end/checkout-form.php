@@ -74,10 +74,17 @@ $symbol = atbdp_currency_symbol($currency);
                 </tr>
             </tbody>
         </table> <!--ends table-->
-        <div id="directorist_payment_gateways" class="panel panel-default">
-            <div class="panel-heading"><?php esc_html_e('Choose a payment method', ATBDP_TEXTDOMAIN); ?></div>
-            <?php echo ATBDP_Gateway::gateways_markup(); ?>
-        </div> <!--ends #directorist_payment_gateways-->
+        <div class="atbd_content_module" id="directorist_payment_gateways">
+            <div class="atbd_content_module__tittle_area">
+                <div class="atbd_area_title">
+                    <h4><?php esc_html_e('Choose a payment method', ATBDP_TEXTDOMAIN); ?></h4>
+                </div>
+            </div>
+
+            <div class="atbdb_content_module_contents">
+                <?php echo ATBDP_Gateway::gateways_markup(); ?>
+            </div>
+        </div>
 
         <?php
         do_action('atbdp_before_cc_form');/*Hook for dev*/
@@ -91,7 +98,7 @@ $symbol = atbdp_currency_symbol($currency);
         <input type="hidden" name="listing_id" value="<?php echo $listing_id; ?>"/>
         <div class="pull-right">
             <a href="<?php echo ATBDP_Permalink::get_dashboard_page_link(); ?>"
-               class="btn btn-default"><?php _e('Not Now', ATBDP_TEXTDOMAIN); ?></a>
+               class="btn btn-danger"><?php _e('Not Now', ATBDP_TEXTDOMAIN); ?></a>
             <input type="submit" id="atbdp_checkout_submit_btn" class="btn btn-primary"
                    value="<?php _e('Pay Now', ATBDP_TEXTDOMAIN); ?>"/>
         </div> <!--ends pull-right-->

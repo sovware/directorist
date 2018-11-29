@@ -199,7 +199,7 @@ class ATBDP_Helper {
         $t = apply_filters('atbdp_unauthorized_access_message', $t);
         ?>
         <div class="notice_wrapper">
-            <p class="notice"><span class="fa fa-info" aria-hidden="true"></span><?php echo $t; ?></p>
+            <div class="alert alert-warning"><span class="fa fa-info-circle" aria-hidden="true"></span> <?php echo $t; ?></div>
         </div>
     <?php
     }

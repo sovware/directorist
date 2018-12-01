@@ -267,6 +267,13 @@ jQuery(function($){
 
         }
     });
+
+
+    $('.atbd_tagline_moto_field').fadeOut();
+
+    $('#atbd_optional_field_check').on('change', function () {
+        $(this).is(':checked') ? $('.atbd_tagline_moto_field').fadeIn() : $('.atbd_tagline_moto_field').fadeOut()
+    });
 });
 
 

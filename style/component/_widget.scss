@@ -69,9 +69,9 @@
   }
   .atbdp-widget-categories {
     ul li {
-     &+li{
-       margin-top: 10px;
-     }
+      & + li {
+        margin-top: 10px;
+      }
       a {
         span {
           font-size: 15px;
@@ -87,13 +87,13 @@
       }
     }
   }
-  #loginform{
+  #loginform {
     text-align: left;
-    p{
-      &.login-username, &.login-password{
+    p {
+      &.login-username, &.login-password {
         margin-bottom: 12px;
       }
-      input[type='text'], input[type='password']{
+      input[type='text'], input[type='password'] {
         display: block;
         width: 100%;
         padding: 0.375rem 0.75rem;
@@ -108,22 +108,92 @@
       }
     }
   }
-  .embed-responsive-item{
+  .embed-responsive-item {
     border: 0;
   }
 
-  .directory_open_hours{
-    ul{
-      li{
-        span{
+  .directory_open_hours {
+    ul {
+      li {
+        border-bottom: 1px solid #e3e6ef;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        > span {
           display: inline-block;
           margin-bottom: 7px;
+          margin-right: 15px;
           font-weight: 500;
+          color: #614b4b;
         }
-        .atbd_open_close_time{
+        span.atbd_open_close_time {
           font-weight: 400;
         }
-        border-bottom: 1px solid $border-color;
+      }
+    }
+  }
+
+  .atbd_author_info_widget {
+    .atbd_avatar_wrapper {
+      display: block;
+      .atbd_review_avatar {
+        height: 50px;
+        width: 50px;
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: top;
+        img {
+          border-radius: 50%;
+          width: 100%;
+          height: 50px;
+        }
+      }
+      .atbd_name_time {
+        display: inline-block;
+        vertical-align: top;
+        margin-left: 7px;
+      }
+    }
+    .atbd_name_time {
+      display: inline-block;
+    }
+    .atbd_widget_contact_info {
+      padding-top: 15px;
+      padding-bottom: 25px;
+      ul li {
+        margin-bottom: 6px;
+        .atbd_info{
+          padding-left: 10px;
+          width: calc(100% - 43px);
+          display: inline-block;
+        }
+        span.fa {
+          background: #f1f3f8;
+          line-height: 35px;
+          width: 35px;
+          text-align: center;
+          border-radius: 50%;
+          color: #7a82a6;
+          font-size: 14px;
+        }
+      }
+    }
+    .atbd_social_wrap{
+      p{
+        display: inline-block;
+        &+p{
+          margin-left: 10px;
+        }
+        a{
+          line-height: 34px;
+          width: 34px;
+          text-align: center;
+          background: #f1f3f8;
+          display: inline-block;
+          border-radius: 5px;
+        }
       }
     }
   }

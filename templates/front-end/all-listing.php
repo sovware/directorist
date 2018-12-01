@@ -12,18 +12,18 @@ $is_disable_price = get_directorist_option('disable_list_price');
             <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="header_form_wrapper">
-                            <div class="directory_title">
+                        <div class="atbd_generic_header">
+                            <div class="atbd_generic_header_title">
                                 <h3>
                                     <?php echo esc_html($all_listing_title); ?>
                                 </h3>
                                 <?php
-                                    _e('Total Listing Found: ', ATBDP_TEXTDOMAIN);
-                                    if ($paginate){
-                                        echo $all_listings->found_posts;
-                                    }else{
-                                        echo count($all_listings->posts);
-                                    }
+                                _e('Total Listing Found: ', ATBDP_TEXTDOMAIN);
+                                if ($paginate){
+                                    echo $all_listings->found_posts;
+                                }else{
+                                    echo count($all_listings->posts);
+                                }
                                 ?>
                             </div>
                         </div>

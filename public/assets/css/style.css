@@ -82,7 +82,7 @@
   background: #fa8b0c;
 }
 
-.atbd_color-badge-popular, #directorist.atbd_wrapper .atbd_search_result_header .directory_title h3 span {
+.atbd_color-badge-popular, .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title h3 span {
   color: #f51957;
 }
 
@@ -155,6 +155,25 @@ h6, .h6 {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_generic_header {
+  background: #ffffff;
+  padding: 20px 30px;
+  margin-bottom: 35px;
+  border-radius: 5px;
+  border: 1px solid #e3e6ef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title h3 {
+  font-size: 20px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title h3 p {
+  font-size: 14px;
 }
 
 .shadow-lg-2 {
@@ -254,17 +273,6 @@ h6, .h6 {
 
 .text-center {
   text-align: center;
-}
-
-#directorist.atbd_wrapper .atbd_search_result_header {
-  background: #f6f9ff;
-  padding: 30px 35px;
-  margin-bottom: 35px;
-  border-radius: 5px;
-}
-
-#directorist.atbd_wrapper .atbd_search_result_header .directory_title h3 p {
-  font-size: 14px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module {
@@ -786,6 +794,10 @@ h6, .h6 {
   border-radius: 50%;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_action_btn .dropdown + .dropdown {
+  margin-left: 10px;
+}
+
 .atbd_content_active .widget.atbd_widget {
   background: #ffffff;
   border: 1px solid #e3e6ef;
@@ -909,16 +921,93 @@ h6, .h6 {
 
 .atbd_content_active .widget.atbd_widget .directory_open_hours ul li {
   border-bottom: 1px solid #e3e6ef;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
 }
 
-.atbd_content_active .widget.atbd_widget .directory_open_hours ul li span {
+.atbd_content_active .widget.atbd_widget .directory_open_hours ul li > span {
   display: inline-block;
   margin-bottom: 7px;
+  margin-right: 15px;
   font-weight: 500;
+  color: #614b4b;
 }
 
-.atbd_content_active .widget.atbd_widget .directory_open_hours ul li .atbd_open_close_time {
+.atbd_content_active .widget.atbd_widget .directory_open_hours ul li span.atbd_open_close_time {
   font-weight: 400;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_author_info_widget .atbd_avatar_wrapper {
+  display: block;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_author_info_widget .atbd_avatar_wrapper .atbd_review_avatar {
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_author_info_widget .atbd_avatar_wrapper .atbd_review_avatar img {
+  border-radius: 50%;
+  width: 100%;
+  height: 50px;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_author_info_widget .atbd_avatar_wrapper .atbd_name_time {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 7px;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_author_info_widget .atbd_name_time {
+  display: inline-block;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_author_info_widget .atbd_widget_contact_info {
+  padding-top: 15px;
+  padding-bottom: 25px;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_author_info_widget .atbd_widget_contact_info ul li {
+  margin-bottom: 6px;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_author_info_widget .atbd_widget_contact_info ul li .atbd_info {
+  padding-left: 10px;
+  width: calc(100% - 43px);
+  display: inline-block;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_author_info_widget .atbd_widget_contact_info ul li span.fa {
+  background: #f1f3f8;
+  line-height: 35px;
+  width: 35px;
+  text-align: center;
+  border-radius: 50%;
+  color: #7a82a6;
+  font-size: 14px;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p {
+  display: inline-block;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p + p {
+  margin-left: 10px;
+}
+
+.atbd_content_active .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p a {
+  line-height: 34px;
+  width: 34px;
+  text-align: center;
+  background: #f1f3f8;
+  display: inline-block;
+  border-radius: 5px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_pricing_header {

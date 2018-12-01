@@ -52,17 +52,21 @@
 
     $listingGallerySlider.slick({
         slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        arrows: false,
+        asNavFor: '.atbd_directory_image_thumbnail'
     });
 
     $listingGalleryThumbnail.slick({
         slidesToShow: 5,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        arrows: false,
+        asNavFor: '.atbd_directory_gallery',
+        focusOnSelect: true
     });
 
     $('#atbd_review_attachment').on('change', function (e) {
         handleFiles(this.files);
-        console.log(this.files);
     });
 
     /* Add review to the database using ajax*/

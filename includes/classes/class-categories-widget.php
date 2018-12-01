@@ -236,14 +236,12 @@ if (!class_exists('BD_Categories_Widget')) {
             );
 
             $terms = get_terms( ATBDP_CATEGORY, $args );
-
+            $parent = $args['parent'];
+            $child_class = !empty($parent) ? 'atbdp_child_category' : 'atbdp_parent_category';
             $html = '';
             if( count( $terms ) > 0 ) {
-
+                $html .= '<ul class="' .$child_class. '">';
                 foreach( $terms as $term ) {
-                    $parent = $term->parent;
-                    $child_class = !empty($parent) ? 'atbdp_child_category' : 'atbdp_parent_category';
-                    $html .= '<ul class="' .$child_class. '">';
                     $icon = get_term_meta($term->term_id,'category_icon',true);
                     $settings['term_id'] = $term->term_id;
 
@@ -263,9 +261,9 @@ if (!class_exists('BD_Categories_Widget')) {
                     $html .= '</a>';
                     $html .= $this->atbdp_categories_list( $settings );
                     $html .= '</li>';
-                    $html .= '</ul>';
-                }
 
+                }
+                $html .= '</ul>';
 
             }
 

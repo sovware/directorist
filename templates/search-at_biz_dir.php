@@ -19,8 +19,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
             <div class="header_bar">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="atbd_search_result_header">
-                                <div class="directory_title">
+                            <div class="atbd_generic_header">
+                                <div class="atbd_generic_header_title">
                                     <h3>
                                         <?php
                                         // show appropriate text for the search

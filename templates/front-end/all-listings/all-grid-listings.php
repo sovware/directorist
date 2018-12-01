@@ -14,61 +14,65 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
             <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="header_form_wrapper">
-                            <div class="directory_title pull-left">
+                        <div class="atbd_generic_header">
+                            <div class="atbd_generic_header_title">
                                 <h3>
                                     <?php echo esc_html($all_listing_title); ?>
                                 </h3>
-                                <?php
-                                _e('Total Listing Found: ', ATBDP_TEXTDOMAIN);
-                                if ($paginate){
-                                    echo $all_listings->found_posts;
-                                }else{
-                                    echo count($all_listings->posts);
-                                }
-                                ?>
+                                <p>
+                                    <?php
+                                    _e('Total Listing Found: ', ATBDP_TEXTDOMAIN);
+                                    if ($paginate){
+                                        echo $all_listings->found_posts;
+                                    }else{
+                                        echo count($all_listings->posts);
+                                    }
+                                    ?>
+                                </p>
                             </div>
                             <?php if($display_viewas_dropdown || $display_sortby_dropdown) {?>
-                            <div class="btn-toolbar pull-right" role="toolbar">
-                                <!-- Views dropdown -->
-                                <?php if($display_viewas_dropdown) { ?>
-                                <div class="btn-group" role="group">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <?php _e( "View as", ATBDP_TEXTDOMAIN ); ?> <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <?php
-                                        $views = atbdp_get_listings_view_options();
+                                <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
+                                    <!-- Views dropdown -->
+                                    <?php if($display_viewas_dropdown) { ?>
+                                        <div class="dropdown">
+                                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <?php _e( "View as", ATBDP_TEXTDOMAIN ); ?> <span class="caret"></span>
+                                            </a>
 
-                                        foreach( $views as $value => $label ) {
-                                            $active_class = ( $view == $value ) ? ' active' : '';
-                                            printf( '<li class="dropdown-item%s"><a href="%s">%s</a></li>', $active_class, add_query_arg( 'view', $value ), $label );
-                                        }
-                                        ?>
-                                    </ul>
-                                </div>
-                                <?php } ?>
-                                <!-- Orderby dropdown -->
-                                <?php
-                                if($display_sortby_dropdown) {
-                                ?>
-                                <div class="btn-group" role="group">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <?php _e( "Sort by", ATBDP_TEXTDOMAIN ); ?> <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <?php
-                                        $options = atbdp_get_listings_orderby_options();
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                <?php
+                                                $views = atbdp_get_listings_view_options();
 
-                                        foreach( $options as $value => $label ) {
-                                            $active_class = ( $value == $current_order ) ? ' active' : '';
-                                            printf( '<li class="dropdown-item%s"><a href="%s">%s</a></li>', $active_class, add_query_arg( 'sort', $value ), $label );
-                                        }
+                                                foreach( $views as $value => $label ) {
+                                                    $active_class = ( $view == $value ) ? ' active' : '';
+                                                    printf( '<li class="dropdown-item%s"><a href="%s">%s</a></li>', $active_class, add_query_arg( 'view', $value ), $label );
+                                                }
+                                                ?>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                    <!-- Orderby dropdown -->
+                                    <?php
+                                    if($display_sortby_dropdown) {
                                         ?>
-                                    </ul>
+                                        <div class="dropdown">
+                                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <?php _e( "Sort by", ATBDP_TEXTDOMAIN ); ?> <span class="caret"></span>
+                                            </a>
+
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
+                                                <?php
+                                                $views = atbdp_get_listings_view_options();
+
+                                                foreach( $views as $value => $label ) {
+                                                    $active_class = ( $view == $value ) ? ' active' : '';
+                                                    printf( '<li class="dropdown-item%s"><a href="%s">%s</a></li>', $active_class, add_query_arg( 'view', $value ), $label );
+                                                }
+                                                ?>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
                                 </div>
-                                <?php } ?>
-                            </div>
                             <?php } ?>
                         </div>
                     </div>

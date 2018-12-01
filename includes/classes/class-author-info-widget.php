@@ -8,7 +8,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
         /**
          * Register widget with WordPress.
          */
-        function __construct ()
+        function __construct()
         {
             $widget_options = array(
                 'classname' => 'listings',
@@ -31,41 +31,44 @@ if (!class_exists('BD_Author_Info_Widget')) {
          */
         public function widget($args, $instance)
         {
-            if( is_singular(ATBDP_POST_TYPE)) {
+            if (is_singular(ATBDP_POST_TYPE)) {
                 $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Title', ATBDP_TEXTDOMAIN);
                 echo $args['before_widget'];
 
                 echo $args['before_title'] . esc_html(apply_filters('widget_submit_item_title', $title)) . $args['after_title'];
                 ?>
-                <div class="directorist">
+                <div class="atbdp atbd_author_info_widget">
 
                     <div class="atbd_avatar_wrapper">
                         <?php
                         $listing_id = get_the_ID();
-                        $author_id = get_post_field ('post_author', $listing_id);
-                        $author_name = get_the_author_meta( 'display_name' , $author_id );
-                        $user_registered = get_the_author_meta( 'user_registered' , $author_id );
+                        $author_id = get_post_field('post_author', $listing_id);
+                        $author_name = get_the_author_meta('display_name', $author_id);
+                        $user_registered = get_the_author_meta('user_registered', $author_id);
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-                        $avata_img = get_avatar($author_id , 32 );
+                        $avata_img = get_avatar($author_id, 32);
 
                         ?>
-                                <div class="atbd_review_avatar"><?php if (empty($u_pro_pic)){echo $avata_img;}if(!empty($u_pro_pic)){?><img
-                                src="<?php echo esc_url($u_pro_pic);?>"
-                                alt="Avatar Image"><?php }?></div>
+                        <div class="atbd_review_avatar"><?php if (empty($u_pro_pic)) {
+                                echo $avata_img;
+                            }
+                            if (!empty($u_pro_pic)) { ?><img
+                                src="<?php echo esc_url($u_pro_pic); ?>"
+                                alt="Avatar Image"><?php } ?></div>
                         <div class="atbd_name_time">
-                            <p><?= esc_html($author_name); ?></p>
+                            <h4><?= esc_html($author_name); ?></h4>
                             <span class="review_time"><?php
-                                printf( __( '%s ago', ATBDP_TEXTDOMAIN ), human_time_diff( strtotime($user_registered), current_time( 'timestamp' ) ) );?></span>
+                                printf(__('%s ago', ATBDP_TEXTDOMAIN), human_time_diff(strtotime($user_registered), current_time('timestamp'))); ?></span>
                         </div>
                     </div>
 
-                    <div class="atbd_contact_info">
+                    <div class="atbd_widget_contact_info">
                         <ul>
                             <?php
-                            $address         = esc_attr(get_user_meta($author_id, 'address', true));
-                            $phone         = esc_attr(get_user_meta($author_id, 'phone', true));
-                            $email           = get_the_author_meta( 'user_email' , $author_id );
-                            $website         = get_the_author_meta( 'user_url' , $author_id );;
+                            $address = esc_attr(get_user_meta($author_id, 'address', true));
+                            $phone = esc_attr(get_user_meta($author_id, 'phone', true));
+                            $email = get_the_author_meta('user_email', $author_id);
+                            $website = get_the_author_meta('user_url', $author_id);;
                             $facebook = get_user_meta($author_id, 'facebook', true);
                             $twitter = get_user_meta($author_id, 'twitter', true);
                             $google = get_user_meta($author_id, 'google', true);
@@ -73,10 +76,8 @@ if (!class_exists('BD_Author_Info_Widget')) {
                             $youtube = get_user_meta($author_id, 'youtube', true);
                             if (!empty($address)) { ?>
                                 <li>
-                                    <div class="atbd_info_title"><span
-                                            class="fa fa-map-marker"></span><?php _e('Address', ATBDP_TEXTDOMAIN); ?>
-                                    </div>
-                                    <div class="atbd_info"><?= esc_html($address); ?></div>
+                                    <span class="fa fa-map-marker"></span>
+                                    <span class="atbd_info"><?= esc_html($address); ?></span>
                                 </li>
                             <?php } ?>
 
@@ -84,49 +85,42 @@ if (!class_exists('BD_Author_Info_Widget')) {
                             if (isset($phone) && !is_empty_v($phone)) { ?>
                                 <!-- In Future, We will have to use a loop to print more than 1 number-->
                                 <li>
-                                    <div class="atbd_info_title"><span
-                                            class="fa fa-phone"></span><?php _e('Phone', ATBDP_TEXTDOMAIN); ?>
-                                    </div>
-                                    <div class="atbd_info"><?= esc_html($phone); ?></div>
+                                    <span class="fa fa-phone"></span>
+                                    <span class="atbd_info"><?= esc_html($phone); ?></span>
                                 </li>
                             <?php } ?>
 
                             <?php if (!empty($email)) { ?>
                                 <li>
-                                    <div class="atbd_info_title"><span
-                                            class="fa fa-envelope"></span><?php _e('Email', ATBDP_TEXTDOMAIN); ?>
-                                    </div>
+                                    <span class="fa fa-envelope"></span>
                                     <span class="atbd_info"><?= esc_html($email); ?></span>
                                 </li>
                             <?php } ?>
 
                             <?php if (!empty($website)) { ?>
                                 <li>
-                                    <div class="atbd_info_title"><span
-                                            class="fa fa-globe"></span><?php _e('Website', ATBDP_TEXTDOMAIN); ?>
-                                    </div>
-                                    <a href="<?= esc_url($website); ?>"
-                                       class="atbd_info"><?= esc_html($website); ?></a>
+                                    <span class="fa fa-globe"></span>
+                                    <a href="<?= esc_url($website); ?>" class="atbd_info"><?= esc_html($website); ?></a>
                                 </li>
                             <?php } ?>
 
                         </ul>
                     </div>
-                    <div class="director_social_wrap">
+                    <div class="atbd_social_wrap">
                         <?php
-                        if ($facebook){
+                        if ($facebook) {
                             printf('<p><a target="_blank" href="%s"><span class="fa fa-facebook"></span></a></p>', $facebook);
                         }
-                        if ($twitter){
+                        if ($twitter) {
                             printf('<p><a target="_blank" href="%s"><span class="fa fa-twitter"></span></a></p>', $twitter);
                         }
-                        if ($google){
+                        if ($google) {
                             printf('<p><a target="_blank" href="%s"><span class="fa fa-google-plus"></span></a></p>', $google);
                         }
-                        if ($linkedIn){
+                        if ($linkedIn) {
                             printf('<p><a target="_blank" href="%s"><span class="fa fa-linkedin"></span></a></p>', $linkedIn);
                         }
-                        if ($youtube){
+                        if ($youtube) {
                             printf('<p><a target="_blank" href="%s"><span class="fa fa-youtube"></span></a></p>', $youtube);
                         }
                         ?>

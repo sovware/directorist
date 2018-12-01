@@ -425,6 +425,16 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
 
                             </ul>
                         </div>
+                        <?php if (!empty($social) && is_array($social)) { ?>
+                            <div class="atbd_director_social_wrap">
+                                <?php foreach ($social as $link) {
+                                    $n = esc_attr($link['id']);
+                                    $l = esc_url($link['url']);
+                                    ?>
+                                    <a target='_blank' href="<?php echo $l;?>"><span class="fa fa-<?php echo $n;?>"></span></a>
+                                <?php } ?>
+                            </div>
+                        <?php } ?>
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php } ?>
@@ -469,26 +479,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             </div> <!--ends .directory_open_hours -->
                         </div>
                     </div>
-
-                <!-- video -->
-                <div class="col-md-7">
-                    <?php } ?>
-                    <?php if (!empty($social) && is_array($social)) { ?>
-                        <div class="director_social_wrap">
-                            <p><?php _e('Social Link', ATBDP_TEXTDOMAIN); ?></p>
-                                <?php foreach ($social as $link) {
-                                    $n = esc_attr($link['id']);
-                                    $l = esc_url($link['url']);
-                                    ?>
-                                    <p><a target='_blank' href="<?php echo $l;?>"><span class="fa fa-<?php echo $n;?>"></span></a></p>
-                                <?php } ?>
-                        </div>
-                    <?php } ?>
-                    <!--We need to close the row and col div when we have business hour enabled. We used negative checking so that they can show by default if the setting is not set by the user after adding the plugin.-->
-                    <?php if (is_business_hour_active() && $enable_bh_on_page && (!is_empty_v($business_hours) || !empty($enable247hour))) {
-                    ?>
-                </div> <!--ends. .col-md-7 wrapper before contact information-->
-        <?php } ?>
+            <?php } ?>
 
 
 

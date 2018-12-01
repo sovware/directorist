@@ -244,7 +244,7 @@ if (!class_exists('BD_Categories_Widget')) {
                 foreach( $terms as $term ) {
                     $icon = get_term_meta($term->term_id,'category_icon',true);
                     $settings['term_id'] = $term->term_id;
-
+                    $span = empty($parent) ? '<span class="fa '.$icon.'"></span>' : '';
                     $count = 0;
                     if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
                         $count = atbdp_listings_count_by_category( $term->term_id );
@@ -253,7 +253,7 @@ if (!class_exists('BD_Categories_Widget')) {
                     }
 
                     $html .= '<li>';
-                    $html .= '<a href="' . ATBDP_Permalink::get_category_archive( $term ) . '"><span class="fa '.$icon.'"></span>';
+                    $html .= '<a href="' . ATBDP_Permalink::get_category_archive( $term ) . '">'. $span .'';
                     $html .= $term->name;
                     if( ! empty( $settings['show_count'] ) ) {
                         $html .= ' (' . $count . ')';

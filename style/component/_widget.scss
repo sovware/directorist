@@ -1,4 +1,5 @@
-.atbd_content_active .widget.atbd_widget {
+.atbd_content_active .widget.atbd_widget ,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget {
   background: $light;
   border: 1px solid $border-color;
   margin-bottom: 30px;
@@ -68,6 +69,13 @@
     }
   }
   .atbdp-widget-categories {
+    .atbdp_child_category{
+      padding-left: 35px;
+      li:before{
+        content: "-";
+        margin-right: 5px;
+      }
+    }
     >ul.atbdp_parent_category >li {
       & + li {
         margin-top: 10px;
@@ -187,6 +195,7 @@
       }
     }
     .atbd_social_wrap{
+      margin-bottom: 30px;
       p{
         display: inline-block;
         &+p{
@@ -199,6 +208,11 @@
           background: #f1f3f8;
           display: inline-block;
           border-radius: 5px;
+          transition: 0.3s;
+          &:hover{
+            @extend .atbd_bg-primary;
+            color: $light;
+          }
         }
       }
     }

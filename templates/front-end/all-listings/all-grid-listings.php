@@ -147,6 +147,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                     }
                                                 }
                                                 ?>
+                                                <span class="atbd_badge atbd_badge_new">New</span>
                                             </div>
                                         </figcaption>
                                     </figure>

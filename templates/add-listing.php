@@ -60,6 +60,9 @@ $currency = get_directorist_option('g_currency', 'USD');
                 <input type="text" id="price" name="price" value="<?= !empty($price) ? esc_attr($price) : ''; ?>"
                        class="form-control directory_field"
                        placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
+            </div>
+
+            <div class="form-group">
                 <select class="form-control directory_field" id="pricerange" name="price_range">
                     <option value="">Select Price Range</option>
                     <option value="skimming" <?php selected($price_range, 'skimming'); ?>>Skimming ($$$$)</option>

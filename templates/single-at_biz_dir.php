@@ -297,7 +297,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             global $wp_embed;
                             $cont = $wp_embed->autoembed($wp_embed->run_shortcode($post->post_content));
                             echo do_shortcode($cont);
-
                             ?>
 
                         </div>
@@ -372,7 +371,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
 
             <?php /* @todo: Shahadat -> added new contents */ ?>
             <?php if (!$disable_contact_info || !$hide_contact_info) { ?>
-                <div class="atbd_content_module atbd_custom_fields_contents">
+                <div class="atbd_content_module atbd_contact_information_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
@@ -425,6 +424,16 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
 
                             </ul>
                         </div>
+                        <?php if (!empty($social) && is_array($social)) { ?>
+                            <div class="atbd_director_social_wrap">
+                                <?php foreach ($social as $link) {
+                                    $n = esc_attr($link['id']);
+                                    $l = esc_url($link['url']);
+                                    ?>
+                                    <a target='_blank' href="<?php echo $l;?>"><span class="fa fa-<?php echo $n;?>"></span></a>
+                                <?php } ?>
+                            </div>
+                        <?php } ?>
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php } ?>
@@ -434,61 +443,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
             // if business hour is active then add the following markup...
 
             if (is_business_hour_active() && $enable_bh_on_page && (!is_empty_v($business_hours) || !empty($enable247hour))) {
-
-            ?>
-                <!-- we need to add a row when business hour extension is active in order to divide the width in two columns-->
-                    <div class="atbd_content_module">
-                        <div class="atbd_content_module__tittle_area">
-                            <div class="atbd_area_title">
-                                <h4>
-                                    <span class="fa fa-calendar-o"></span><?php echo esc_html($business_hour_title); ?>
-                                </h4>
-                            </div>
-                            <?php //lets check is it 24/7
-                            if (!empty($enable247hour)) {
-                                ?>
-                                <div class="atbd_upper_badge">
-                                    <span class="atbd_badge atbd_badge_open">Open Now</span>
-                                </div><!-- END /.atbd_upper_badge -->
-                                <?php
-                            }else {
-                                    BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list
-                            }  ?>
-                        </div>
-
-                        <div class="atbdb_content_module_contents">
-                            <div class="atbd_directory_open_hours">
-                                <?php
-                                // if 24 hours 7 days open then show it only, otherwise, show the days and its opening time.
-
-                                if (!empty($enable247hour)) {
-                                    echo '<p>' . esc_html($text247) . '</p>';
-                                } else {
-                                    BD_Business_Hour()->show_business_hour($business_hours); // show the business hour in an unordered list
-                                } ?>
-                            </div> <!--ends .directory_open_hours -->
-                        </div>
-                    </div>
-
-                <!-- video -->
-                <div class="col-md-7">
-                    <?php } ?>
-                    <?php if (!empty($social) && is_array($social)) { ?>
-                        <div class="director_social_wrap">
-                            <p><?php _e('Social Link', ATBDP_TEXTDOMAIN); ?></p>
-                                <?php foreach ($social as $link) {
-                                    $n = esc_attr($link['id']);
-                                    $l = esc_url($link['url']);
-                                    ?>
-                                    <p><a target='_blank' href="<?php echo $l;?>"><span class="fa fa-<?php echo $n;?>"></span></a></p>
-                                <?php } ?>
-                        </div>
-                    <?php } ?>
-                    <!--We need to close the row and col div when we have business hour enabled. We used negative checking so that they can show by default if the setting is not set by the user after adding the plugin.-->
-                    <?php if (is_business_hour_active() && $enable_bh_on_page && (!is_empty_v($business_hours) || !empty($enable247hour))) {
-                    ?>
-                </div> <!--ends. .col-md-7 wrapper before contact information-->
-        <?php } ?>
+                BD_Business_Hour()->show_business_hour_module($business_hours, $business_hour_title, $enable247hour); // show the business hour in an unordered list
+             } ?>
 
 
 

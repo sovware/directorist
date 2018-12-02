@@ -68,7 +68,7 @@
     }
   }
   .atbdp-widget-categories {
-    ul li {
+    >ul.atbdp_parent_category >li {
       & + li {
         margin-top: 10px;
       }
@@ -80,9 +80,15 @@
           line-height: 35px;
           width: 35px;
           text-align: center;
-          color: #ffffff;
-          @extend .atbd_bg-primary;
+          background: #f1f3f8;
+          color: #9299b8;
           border-radius: 50%;
+        }
+        &:hover{
+          span{
+            @extend .atbd_bg-primary;
+            color: $light;
+          }
         }
       }
     }

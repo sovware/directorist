@@ -177,6 +177,21 @@
       }
     }
   }
+  .atbd_director_social_wrap {
+    margin-top: 20px;
+    a {
+      display: inline-block;
+      line-height: 34px;
+      width: 34px;
+      text-align: center;
+      @extend .atbd_bg-primary;
+      border-radius: 4px;
+      color: $light;
+      &+a{
+        margin-left: 5px;
+      }
+    }
+  }
   .atbd_directry_gallery_wrapper {
     border-bottom: 1px solid $border-color;
     position: relative;

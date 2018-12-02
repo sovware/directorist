@@ -443,7 +443,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
             // if business hour is active then add the following markup...
 
             if (is_business_hour_active() && $enable_bh_on_page && (!is_empty_v($business_hours) || !empty($enable247hour))) {
-                BD_Business_Hour()->show_business_hour($business_hours, $business_hour_title, $enable247hour); // show the business hour in an unordered list
+                BD_Business_Hour()->show_business_hour_module($business_hours, $business_hour_title, $enable247hour); // show the business hour in an unordered list
              } ?>
 
 

@@ -297,7 +297,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             global $wp_embed;
                             $cont = $wp_embed->autoembed($wp_embed->run_shortcode($post->post_content));
                             echo do_shortcode($cont);
-
                             ?>
 
                         </div>
@@ -372,7 +371,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
 
             <?php /* @todo: Shahadat -> added new contents */ ?>
             <?php if (!$disable_contact_info || !$hide_contact_info) { ?>
-                <div class="atbd_content_module atbd_custom_fields_contents">
+                <div class="atbd_content_module atbd_contact_information_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
@@ -444,42 +443,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
             // if business hour is active then add the following markup...
 
             if (is_business_hour_active() && $enable_bh_on_page && (!is_empty_v($business_hours) || !empty($enable247hour))) {
-
-            ?>
-                <!-- we need to add a row when business hour extension is active in order to divide the width in two columns-->
-                    <div class="atbd_content_module">
-                        <div class="atbd_content_module__tittle_area">
-                            <div class="atbd_area_title">
-                                <h4>
-                                    <span class="fa fa-calendar-o"></span><?php echo esc_html($business_hour_title); ?>
-                                </h4>
-                            </div>
-                            <?php //lets check is it 24/7
-                            if (!empty($enable247hour)) {
-                                ?>
-                                <div class="atbd_upper_badge">
-                                    <span class="atbd_badge atbd_badge_open">Open Now</span>
-                                </div><!-- END /.atbd_upper_badge -->
-                                <?php
-                            }else {
-                                    BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list
-                            }  ?>
-                        </div>
-
-                        <div class="atbdb_content_module_contents">
-                            <div class="atbd_directory_open_hours">
-                                <?php
-                                // if 24 hours 7 days open then show it only, otherwise, show the days and its opening time.
-
-                                if (!empty($enable247hour)) {
-                                    echo '<p>' . esc_html($text247) . '</p>';
-                                } else {
-                                    BD_Business_Hour()->show_business_hour($business_hours); // show the business hour in an unordered list
-                                } ?>
-                            </div> <!--ends .directory_open_hours -->
-                        </div>
-                    </div>
-            <?php } ?>
+                BD_Business_Hour()->show_business_hour($business_hours, $business_hour_title, $enable247hour); // show the business hour in an unordered list
+             } ?>
 
 
 

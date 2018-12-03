@@ -14,7 +14,14 @@
       padding-bottom: 27px;
     }
   }
-
+  #tc_container{
+    height: 350px;
+    border: 1px solid #ededed;
+    padding: 30px;
+    text-align: left;
+    overflow-y: scroll;
+    margin-bottom: 30px;
+  }
   #gmap{
     height: 350px;
   }

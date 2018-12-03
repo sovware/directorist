@@ -14,6 +14,8 @@ class ATBDP_Shortcode {
 
         //add_shortcode( 'test_listing', array( $this, 'test_listing' ) );
 
+        add_shortcode('public_profile', array($this, 'public_profile'));
+
         add_shortcode( 'add_listing', array( $this, 'add_listing' ) );
 
         add_shortcode( 'custom_registration', array( $this, 'user_registration' ) );
@@ -575,6 +577,12 @@ class ATBDP_Shortcode {
         ob_start();
         ATBDP()->load_template('listing-home');
         ATBDP()->enquirer->search_listing_scripts_styles();
+        return ob_get_clean();
+    }
+
+    public function public_profile(){
+        ob_start();
+        ATBDP()->load_template('front-end/public-profile');
         return ob_get_clean();
     }
 

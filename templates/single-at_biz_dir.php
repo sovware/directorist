@@ -328,7 +328,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                            ?>
                             <li>
                                 <div class="atbd_custom_field_title"><p><?php echo esc_attr($field_title);?></p></div>
-                                <div class="atbd_custom_field_content"><p><?php if ('color' == $field_type){printf( '<div style="background-color: %s;padding: 25px; border-radius: 10px"></div>', $field_details );}else{echo esc_attr(ucwords($field_details));}?></p>
+                                <div class="atbd_custom_field_content"><p><?php if ('color' == $field_type){printf( '<div class="atbd_field_type_color" style="background-color: %s;"></div>', $field_details );}else{echo esc_attr(ucwords($field_details));}?></p>
                                 </div>
                             </li>
                         <?php

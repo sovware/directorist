@@ -232,7 +232,8 @@ if (!class_exists('BD_Categories_Widget')) {
                 'order'        => $settings['order'],
                 'hide_empty'   => $settings['hide_empty'],
                 'parent'       => $settings['term_id'],
-                'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false
+                'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false,
+                'child_of'=>0
             );
 
             $terms = get_terms( ATBDP_CATEGORY, $args );
@@ -242,10 +243,14 @@ if (!class_exists('BD_Categories_Widget')) {
             if( count( $terms ) > 0 ) {
                 $html .= '<ul class="' .$child_class. '">';
                 foreach( $terms as $term ) {
+                    $child_category = get_term_children($term->term_id,ATBDP_CATEGORY);
+                    $plus_icon = (!empty($child_category) && empty($parent) )? '<span class="fa fa-plus"></span>' : '';
+
+
                     $icon = get_term_meta($term->term_id,'category_icon',true);
                     $settings['term_id'] = $term->term_id;
-                    $span = empty($parent) ? '<span class="fa '.$icon.'"></span>' : '';
-                    $plus_icon = empty($parent) ? '<span class="fa fa-plus"></span>' : '';
+                    $span = empty($parent)  ? '<span class="fa '.$icon.'"></span>' : '';
+
                     $count = 0;
                     if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
                         $count = atbdp_listings_count_by_category( $term->term_id );
@@ -288,18 +293,19 @@ if (!class_exists('BD_Categories_Widget')) {
                 'order'        => $settings['order'],
                 'hide_empty'   => $settings['hide_empty'],
                 'parent'       => $settings['term_id'],
-                'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false
+                'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false,
             );
 
             $terms = get_terms( ATBDP_CATEGORY, $args );
-
+            echo '<pre>';
+            var_dump($terms);
+            echo '</pre>';
             $html = '';
 
             if( count( $terms ) > 0 ) {
 
                 foreach( $terms as $term ) {
                     $settings['term_id'] = $term->term_id;
-
                     $count = 0;
                     if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
                         $count = atbdp_listings_count_by_category( $term->term_id );

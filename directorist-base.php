@@ -589,7 +589,7 @@ final class Directorist_Base
             'meta_query' =>
                 array(
                     'key' => '_atbdp_post_views_count',
-                    'value' => 5,
+                    'value' => 10,
                     'compare' => '>=',
                 )
                 /*@todo; later sort by featured listings*/

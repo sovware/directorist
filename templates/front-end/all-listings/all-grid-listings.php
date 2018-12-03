@@ -147,7 +147,9 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                     }
                                                 }
                                                $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
-                                                if ($is_old<2){
+                                                $enable_new_listing = get_directorist_option('enable_new_listing');
+                                                $new_listing_day = get_directorist_option('new_listing_day');
+                                                if (($is_old<$new_listing_day) && ($enable_new_listing)){
                                                     echo '<span class="atbd_badge atbd_badge_new">New</span>';
                                                 }
                                                 ?>

@@ -268,14 +268,18 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             }
                             $count = !empty($count) ? $count : '';
                             $popular_listings = ATBDP()->get_popular_listings($count);
-                            if ($popular_listings->have_posts()) {
+                            $enable_pop_listing = get_directorist_option('enable_pop_listing');
+                            if ($enable_pop_listing){
+                                if ($popular_listings->have_posts()) {
 
-                                foreach ($popular_listings->posts as $pop_post) {
-                                    if ($pop_post->ID == get_the_ID()){
-                                        echo ' <span class="atbd_badge atbd_badge_popular">Popular</span>';
+                                    foreach ($popular_listings->posts as $pop_post) {
+                                        if ($pop_post->ID == get_the_ID()){
+                                            echo ' <span class="atbd_badge atbd_badge_popular">Popular</span>';
+                                        }
                                     }
                                 }
                             }
+
                             ?>
                         </div>
 

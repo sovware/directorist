@@ -111,7 +111,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                 <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                     <figure class="atbd_listing_thumbnail_area">
                                         <div class="atbd_listing_image">
-                                            <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(432,400))).'" alt="listing image">' : '' ?>
+                                            <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(432,400))).'" alt="listing image">' : '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">' ?>
                                         </div>
 
                                         <figcaption class="atbd_thumbnail_overlay_content">
@@ -146,11 +146,14 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                         }
                                                     }
                                                 }
-                                               $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
+                                                $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
                                                 $enable_new_listing = get_directorist_option('enable_new_listing');
                                                 $new_listing_day = get_directorist_option('new_listing_day');
-                                                if (($is_old<$new_listing_day) && ($enable_new_listing)){
-                                                    echo '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                $is_weeks = substr($is_old, -5);
+                                                if ('weeks' != $is_weeks){
+                                                    if (($is_old<=$new_listing_day) && ($enable_new_listing)){
+                                                        echo '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                    }
                                                 }
                                                 ?>
                                             </div>

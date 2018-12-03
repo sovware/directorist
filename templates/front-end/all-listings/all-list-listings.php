@@ -102,7 +102,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             <div class="atbd_single_listing atbd_listing_list">
                                 <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                     <figure class="atbd_listing_thumbnail_area">
-                                        <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(432,400))).'" alt="listing image">' : '' ?>
+                                        <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(432,400))).'" alt="listing image">' : '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/list.jpg'.'" alt="listing image">' ?>
 
 
                                         <figcaption class="atbd_thumbnail_overlay_content">

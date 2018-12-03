@@ -1465,6 +1465,10 @@ h6, .h6 {
   right: 10px;
 }
 
+#directorist.atbd_wrapper .select2-container--default .select2-selection--single .select2-selection__placeholder {
+  color: #7a82a6;
+}
+
 #directorist.atbd_wrapper .atbd_search_title_area {
   text-align: center;
   margin-bottom: 30px;
@@ -1480,6 +1484,47 @@ h6, .h6 {
 
 #directorist.atbd_wrapper .single_search_field .search_fields {
   line-height: 35px;
+}
+
+#directorist.atbd_wrapper .atbd_submit_btn {
+  text-align: center;
+  margin-top: 25px;
+}
+
+#directorist.atbd_wrapper .atbd_submit_btn .btn_search {
+  padding: 13px 20px;
+}
+
+#directorist.atbd_wrapper .atbd_submit_btn .btn_search span {
+  margin-right: 7px;
+}
+
+#directorist.atbd_wrapper .atbd_seach_fields_wrapper {
+  padding: 30px;
+  border: 1px solid #e3e6ef;
+  background: #ffffff;
+}
+
+#directorist.atbd_wrapper .directory_home_category_area {
+  text-align: center;
+  margin-top: 60px;
+}
+
+#directorist.atbd_wrapper .directory_home_category_area > p {
+  margin-bottom: 25px;
+  font-size: 18px;
+}
+
+#directorist.atbd_wrapper .directory_home_category_area .categories li {
+  display: inline-block;
+  border: 1px solid #e3e6ef;
+  text-align: center;
+  border-radius: 3px;
+  padding: 10px 20px;
+}
+
+#directorist.atbd_wrapper .directory_home_category_area .categories li + li {
+  margin-left: 15px;
 }
 
 /*# sourceMappingURL=map/style.css.map */

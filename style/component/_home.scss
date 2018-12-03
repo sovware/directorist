@@ -28,6 +28,9 @@
     height: 35px;
     right: 10px;
   }
+  .select2-container--default .select2-selection--single .select2-selection__placeholder{
+    color: $text-color;
+  }
   .atbd_search_title_area{
     text-align: center;
     margin-bottom: 30px;
@@ -41,6 +44,41 @@
   .single_search_field{
     .search_fields{
       line-height: 35px;
+    }
+  }
+  .atbd_submit_btn{
+    text-align: center;
+    margin-top: 25px;
+    .btn_search{
+      padding: 13px 20px;
+      span{
+        margin-right: 7px;
+      }
+    }
+  }
+  .atbd_seach_fields_wrapper{
+    padding: 30px;
+    border: 1px solid $border-color;
+    background: $light;
+  }
+  .directory_home_category_area{
+    text-align: center;
+    margin-top: 60px;
+    >p{
+      margin-bottom: 25px;
+      font-size: 18px;
+    }
+    .categories{
+       li{
+         display: inline-block;
+         border: 1px solid $border-color;
+         text-align: center;
+         border-radius: 3px;
+         padding: 10px 20px;
+         &+li{
+           margin-left: 15px;
+         }
+       }
     }
   }
 }

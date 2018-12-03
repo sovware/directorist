@@ -1,5 +1,6 @@
 (function ($) {
     "use strict";
+
     // Category icon selection
     $('#category_icon').select2({
         placeholder: atbdp_admin_data.i18n_text.icon_choose_text,

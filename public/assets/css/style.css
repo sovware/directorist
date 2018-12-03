@@ -646,6 +646,12 @@ h6, .h6 {
   margin-bottom: 20px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_field_type_color {
+  height: 20px;
+  width: 20px;
+  border-radius: 3px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper p {
   margin: 0;
   padding: 0;
@@ -1241,6 +1247,15 @@ h6, .h6 {
   padding-bottom: 27px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper #tc_container {
+  height: 350px;
+  border: 1px solid #ededed;
+  padding: 30px;
+  text-align: left;
+  overflow-y: scroll;
+  margin-bottom: 30px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper #gmap {
   height: 350px;
 }
@@ -1416,6 +1431,55 @@ h6, .h6 {
   margin-bottom: 0;
   color: #ffffff;
   padding: 8px 20px;
+}
+
+#directorist.atbd_wrapper .select2-selection {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #dbdaf7;
+  border-radius: 0.25rem;
+  height: 36px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+#directorist.atbd_wrapper.directory_search_area .select2-selection {
+  height: 49px;
+}
+
+#directorist.atbd_wrapper.directory_search_area .select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 47px;
+}
+
+#directorist.atbd_wrapper .select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 35px;
+}
+
+#directorist.atbd_wrapper .select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 35px;
+  right: 10px;
+}
+
+#directorist.atbd_wrapper .atbd_search_title_area {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#directorist.atbd_wrapper .atbd_search_title_area h2.title {
+  font-size: 28px;
+}
+
+#directorist.atbd_wrapper .atbd_search_title_area p.sub_title {
+  font-size: 18px;
+}
+
+#directorist.atbd_wrapper .single_search_field .search_fields {
+  line-height: 35px;
 }
 
 /*# sourceMappingURL=map/style.css.map */

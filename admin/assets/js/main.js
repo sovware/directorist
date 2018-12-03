@@ -94,10 +94,7 @@
                         timer: 200,
                         showConfirmButton: false });
                 }
-
             });
-
-
     });
 
 

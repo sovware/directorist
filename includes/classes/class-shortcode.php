@@ -277,16 +277,16 @@ class ATBDP_Shortcode {
 
         $tax_queries=array(); // initiate the tax query var to append to it different tax query
 
-        if( !empty($atts['category']) || !empty($atts['location']) || !empty($atts['tag'])) {
+        if( !empty($atts['category']) && !empty($atts['location']) && !empty($atts['tag'])) {
 
             $tax_queries['tax_query'] = array(
-                    'relation' => 'OR',
+                    'relation' => 'AND',
                      array(
-                                'taxonomy'         => ATBDP_CATEGORY,
-                                'field'            => 'slug',
-                                'terms'            => !empty($atts['category']) ? $atts['category'] : array(),
-                                'include_children' => true, /*@todo; Add option to include children or exclude it*/
-                            ),
+                        'taxonomy'         => ATBDP_CATEGORY,
+                        'field'            => 'slug',
+                        'terms'            => !empty($atts['category']) ? $atts['category'] : array(),
+                        'include_children' => true, /*@todo; Add option to include children or exclude it*/
+                    ),
                     array(
                         'taxonomy'         => ATBDP_LOCATION,
                         'field'            => 'slug',
@@ -300,7 +300,24 @@ class ATBDP_Shortcode {
                         'include_children' => true, /*@todo; Add option to include children or exclude it*/
                     ),
 
-        );
+            );
+        } elseif(!empty($atts['category']) && !empty($atts['tag'])) {
+            $tax_queries['tax_query'] = array(
+                'relation' => 'AND',
+                array(
+                    'taxonomy'         => ATBDP_CATEGORY,
+                    'field'            => 'slug',
+                    'terms'            => !empty($atts['category']) ? $atts['category'] : array(),
+                    'include_children' => true, /*@todo; Add option to include children or exclude it*/
+                ),
+                array(
+                    'taxonomy'         => ATBDP_TAGS,
+                    'field'            => 'slug',
+                    'terms'            => !empty($atts['tag']) ? $atts['tag'] : array(),
+                    'include_children' => true, /*@todo; Add option to include children or exclude it*/
+                ),
+
+            );
         }
         $args['tax_query'] = $tax_queries;
 

@@ -248,9 +248,11 @@ class ATBDP_Shortcode {
             'order'             => !empty($listing_order) ? $listing_order : 'asc',
             'listings_per_page' => (int) get_directorist_option('all_listing_page_items', 6),
             'pagination'        => 1,
-            'header'            => 1
+            'header'            => 1,
+            'category'          => '',
+            'location'          => '',
+            'tag'               => ''
         ), $atts );
-
         //for pagination
         $paged = atbdp_get_paged_num();
         $paginate = get_directorist_option('paginate_all_listings');
@@ -272,6 +274,35 @@ class ATBDP_Shortcode {
             'paged'          => $paged,
         );
 
+
+        $tax_queries=array(); // initiate the tax query var to append to it different tax query
+
+        if( !empty($atts['category']) || !empty($atts['location']) || !empty($atts['tag'])) {
+
+            $tax_queries['tax_query'] = array(
+                    'relation' => 'OR',
+                     array(
+                                'taxonomy'         => ATBDP_CATEGORY,
+                                'field'            => 'slug',
+                                'terms'            => !empty($atts['category']) ? $atts['category'] : array(),
+                                'include_children' => true, /*@todo; Add option to include children or exclude it*/
+                            ),
+                    array(
+                        'taxonomy'         => ATBDP_LOCATION,
+                        'field'            => 'slug',
+                        'terms'            => !empty($atts['location']) ? $atts['location'] : array(),
+                        'include_children' => true, /*@todo; Add option to include children or exclude it*/
+                    ),
+                    array(
+                        'taxonomy'         => ATBDP_TAGS,
+                        'field'            => 'slug',
+                        'terms'            => !empty($atts['tag']) ? $atts['tag'] : array(),
+                        'include_children' => true, /*@todo; Add option to include children or exclude it*/
+                    ),
+
+        );
+        }
+        $args['tax_query'] = $tax_queries;
 
         $meta_queries = array();
 
@@ -413,6 +444,7 @@ class ATBDP_Shortcode {
         }
 
         $all_listings = new WP_Query($args);
+
         $all_listing_title = get_directorist_option('all_listing_title', __('All Items', ATBDP_TEXTDOMAIN));
         $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
 

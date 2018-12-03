@@ -15,7 +15,7 @@ class ATBDP_Settings_Manager {
      * It displays the settings page of the plugin using VafPress framework
      * @since 3.0.0
      * @return void
-     */
+     **/
     public function display_plugin_settings()
     {
          $atbdp_options = array(
@@ -1857,6 +1857,7 @@ The Administrator of ==SITE_NAME==
                     'default' => atbdp_yes_to_bool($e_p_list),
                 ),
 
+
                 array(
                     'type' => 'slider',
                     'name' => 'pop_listing_num',
@@ -1866,6 +1867,24 @@ The Administrator of ==SITE_NAME==
                     'max' => '30',
                     'step' => '1',
                     'default' => '5',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'enable_new_listing',
+                    'label' => __('Enable New Listings on Single Listing page', ATBDP_TEXTDOMAIN),
+                    'description' => __('Choose whether you want to display new listings on Single listing details page or not. Default is YES.', ATBDP_TEXTDOMAIN),
+                    'default' => atbdp_yes_to_bool($e_p_list),
+                ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'new_listing_day',
+                    'label' => __('Number of Days for New Listings', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Set how many days would like to show on your listings New. Eg. 5. Default is 3.', ATBDP_TEXTDOMAIN),
+                    'min' => '0',
+                    'max' => '30',
+                    'step' => '1',
+                    'default' => '3',
                     'validation' => 'numeric|minlength[1]',
                 ),
 

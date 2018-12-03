@@ -136,18 +136,21 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                     '<span class="atbd_badge atbd_badge_featured">Featured</span>',
                                                     esc_html__('Featured', ATBDP_TEXTDOMAIN)
                                                 );}
-                                                    $count = !empty($count)?$count:'';
-                                                $popular_listings = ATBDP()->get_popular_listings($count);
-                                                if ($popular_listings->have_posts()) {
+                                                    $count = !empty($count)?$count:5;
+                                                $popular_listings = ATBDP()->get_popular_listings($count = 5);
 
+                                                if ($popular_listings->have_posts()) {
                                                     foreach ($popular_listings->posts as $pop_post) {
                                                         if ($pop_post->ID == get_the_ID()){
                                                             echo ' <span class="atbd_badge atbd_badge_popular">Popular</span>';
                                                         }
                                                     }
                                                 }
+                                               $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
+                                                if ($is_old<2){
+                                                    echo '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                }
                                                 ?>
-                                                <span class="atbd_badge atbd_badge_new">New</span>
                                             </div>
                                         </figcaption>
                                     </figure>

@@ -530,26 +530,39 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     </div>
                                 </div>
                             </div><!-- end .atbd_general_information_module -->
+                            <?php
+                            if (is_business_hour_active()){
+                                ?>
+                                <div class="atbd_content_module">
+                                    <div class="atbd_content_module__tittle_area">
+                                        <div class="atbd_area_title">
+                                            <h4><?php _e('Opening/Business Hour Information', ATBDP_TEXTDOMAIN); ?></h4>
+                                        </div>
+                                    </div>
 
-                            <div class="atbd_content_module">
-                                <div class="atbd_content_module__tittle_area">
-                                    <div class="atbd_area_title">
-                                        <h4><?php _e('Opening/Business Hour Information', ATBDP_TEXTDOMAIN); ?></h4>
+                                    <div class="atbdb_content_module_contents">
+                                        <?php
+                                        /**
+                                         * It fires before social information fields
+                                         * @param string $type Page type.
+                                         * @param array $listing_info Information of the current listing
+                                         * @since 1.1.1
+                                         **/
+                                        do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_frontend', $listing_info);
+                                        ?>
                                     </div>
                                 </div>
+                            <?php
+                            }
+                            /**
+                             * It fires before map
+                             * @param string $type Page type.
+                             * @param array $listing_info Information of the current listing
+                             * @since 4.0
+                             **/
+                            do_action('atbdp_edit_after_business_hour_fields', 'add_listing_page_frontend', $listing_info);
+                            ?>
 
-                                <div class="atbdb_content_module_contents">
-                                    <?php
-                                    /**
-                                     * It fires before social information fields
-                                     * @param string $type Page type.
-                                     * @param array $listing_info Information of the current listing
-                                     * @since 1.1.1
-                                     **/
-                                    do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_frontend', $listing_info);
-                                    ?>
-                                </div>
-                            </div>
 
                             <div class="atbd_content_module atbd_location_map_setting">
                                 <div class="atbd_content_module__tittle_area">

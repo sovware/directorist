@@ -3,7 +3,7 @@
 
         <!--Google reCAPTCHA-->
         <div class="single_extension">
-            <img src="" alt="">
+            <img src="<?php echo ATBDP_ADMIN_ASSETS.'/images/Directorist_Google_Re-Captcha.jpg'?>" alt="Google reCAPTCHA">
 
             <div class="extension_detail">
                 <a href="https://aazztech.com/product/google-recaptcha" target="_blank" class="ext_title"><h4> Directorist - Google reCAPTCHA </h4></a>

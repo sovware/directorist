@@ -9,28 +9,77 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
+                <?php
+                $listing_id = get_the_ID();
+                $author_id = get_post_field('post_author', $listing_id);
+                $author_name = get_the_author_meta('display_name', $author_id);
+                $user_registered = get_the_author_meta('user_registered', $author_id);
+                $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+                $bio = get_user_meta($author_id, 'bio', true);
+                $avata_img = get_avatar($author_id, 32);
+                $address = esc_attr(get_user_meta($author_id, 'address', true));
+                $phone = esc_attr(get_user_meta($author_id, 'phone', true));
+                $email = get_the_author_meta('user_email', $author_id);
+                $website = get_the_author_meta('user_url', $author_id);;
+                $facebook = get_user_meta($author_id, 'facebook', true);
+                $twitter = get_user_meta($author_id, 'twitter', true);
+                $google = get_user_meta($author_id, 'google', true);
+                $linkedIn = get_user_meta($author_id, 'linkedIn', true);
+                $youtube = get_user_meta($author_id, 'youtube', true);
+                ?>
                 <div class="atbd_auhor_profile_area">
                     <div class="atbd_author_avatar">
-                        <img src="<?php echo ATBDP_PUBLIC_ASSETS . '/images/big-auth.png' ?>"/>
+                        <?php if (empty($u_pro_pic)) {
+                            echo $avata_img;
+                        }
+                        if (!empty($u_pro_pic)) { ?><img
+                            src="<?php echo esc_url($u_pro_pic); ?>"
+                            alt="Author Image"><?php } ?>
                         <div class="atbd_auth_nd">
-                            <h2>Kenneth Frazier</h2>
-                            <p>Joined in March 2014</p>
+                            <h2><?= esc_html($author_name); ?></h2>
+                            <p><?php
+                                printf(__('Member since %s ago', ATBDP_TEXTDOMAIN), human_time_diff(strtotime($user_registered), current_time('timestamp'))); ?></p>
                         </div>
                     </div>
 
                     <div class="atbd_author_meta">
+                        <?php
+                        $args = array(
+                            'post_type' => ATBDP_POST_TYPE,
+                            'post_status' => 'publish',
+                            'author'        =>  $author_id,
+                            'orderby'       =>  'post_date',
+                            'order'         =>  'ASC',
+                            'posts_per_page' => -1 // no limit
+                        );
+                        $current_user_posts = get_posts( $args );
+                        $total_listing = count($current_user_posts);
+                        $review_in_post = 0;
+                        foreach ($current_user_posts as $post){
+                            $average = ATBDP()->review->get_average($post->ID);
+                            if (!empty($average)){
+                                $averagee = array($average);
+                                foreach ($averagee as $key){
+                                    $all_reviews+= $key;
+                                }
+                                $review_in_post++;
+                            }
+                        }
+                        $author_rating = (!empty($all_reviews) && !empty($review_in_post)) ? ($all_reviews / $review_in_post) : 0;
+                        $author_rating = substr($author_rating, '0', '3');
+                        ?>
                         <div class="atbd_listing_meta">
                             <span class="atbd_meta atbd_listing_rating">
-                                4.5<i class="fa fa-star"></i>
+                                <?php echo $author_rating;?><i class="fa fa-star"></i>
                             </span>
                         </div>
                         <p class="meta-info">
-                            <span>23</span>
-                            Reviews
+                            <span><?php echo !empty($review_in_post)?$review_in_post:'0'?></span>
+                            <?php echo ($review_in_post>1)?'Reviews':'Review'?>
                         </p>
                         <p class="meta-info">
-                            <span>68</span>
-                            Listings
+                            <span><?php echo !empty($total_listing)?$total_listing:'0'?></span>
+                            <?php echo ($total_listing>1)?'Listings':'Listing'?>
                         </p>
                     </div>
                 </div>
@@ -49,18 +98,7 @@
 
                         <div class="atbdb_content_module_contents">
                             <p>
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa kequi officia deserunt
-                                mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit
-                                voluptatem accusan tium doloremque laudantium, totam rem aperiam the eaque ipsa quae
-                                abillo was inventore veritatis keret quasi aperiam architecto beatae vitae dicta sunt
-                                explicabo. Nemo ucxqui officia voluptatem accusantium doloremque laudan tium, totam rem
-                                ape dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas.
-                            </p>
-
-                            <p>
-                                Nemo enim ipsam voluptatem quia voluptas cupidatat non proident, sunt culpa qui officia
-                                dese runt mollit anim id est laborum. Sedu perspi sunt explicabo. Nemo ucxqui officia
-                                voluptatem hscia unde omnis proident.
+                                <?php echo esc_html($bio); ?>
                             </p>
 
                         </div>
@@ -75,35 +113,48 @@
                             <ul>
                                 <li>
                                     <span class="fa fa-map-marker"></span>
-                                    <span class="atbd_info">Dhaka,Bangladesh</span>
+                                    <span class="atbd_info"><?= !empty($address)?esc_html($address):''; ?></span>
                                 </li>
 
                                 <!-- In Future, We will have to use a loop to print more than 1 number-->
                                 <li>
                                     <span class="fa fa-phone"></span>
-                                    <span class="atbd_info">015585894416</span>
+                                    <span class="atbd_info"><?= !empty($phone)?esc_html($phone):''; ?></span>
                                 </li>
 
                                 <li>
                                     <span class="fa fa-envelope"></span>
-                                    <span class="atbd_info">jilani.pable@gmail.com</span>
+                                    <span class="atbd_info"><?= !empty($email)?esc_html($email):''; ?></span>
                                 </li>
 
                                 <li>
                                     <span class="fa fa-globe"></span>
-                                    <a href="http://website.site" class="atbd_info">http://website.site</a>
+                                    <span class="atbd_info"><?= !empty($website)?esc_html($website):''; ?></span>
                                 </li>
 
                             </ul>
                         </div>
                         <div class="atbd_social_wrap">
-                            <p><a target="_blank" href="https://www.facebook.com/"><span class="fa fa-facebook"></span></a>
-                            </p>
-                            <p><a target="_blank" href="https://twitter.com/login?lang=en"><span
-                                            class="fa fa-twitter"></span></a></p>
-                            <p><a target="_blank" href="https://bd.linkedin.com/"><span
-                                            class="fa fa-linkedin"></span></a></p></div>
-                        <a href="http://localhost/martplace/add-listing/" class="btn btn-primary">View Profile</a>
+                            <?php
+                            if ($facebook) {
+                                printf('<p><a target="_blank" href="%s"><span class="fa fa-facebook"></span></a></p>', $facebook);
+                            }
+                            if ($twitter) {
+                                printf('<p><a target="_blank" href="%s"><span class="fa fa-twitter"></span></a></p>', $twitter);
+                            }
+                            if ($google) {
+                                printf('<p><a target="_blank" href="%s"><span class="fa fa-google-plus"></span></a></p>', $google);
+                            }
+                            if ($linkedIn) {
+                                printf('<p><a target="_blank" href="%s"><span class="fa fa-linkedin"></span></a></p>', $linkedIn);
+                            }
+                            if ($youtube) {
+                                printf('<p><a target="_blank" href="%s"><span class="fa fa-youtube"></span></a></p>', $youtube);
+                            }
+                            ?>
+                        </div>
+                        <a href="<?= esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
+                           class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Send Massage', ATBDP_TEXTDOMAIN); ?></a>
                     </div>
                 </div>
             </div>

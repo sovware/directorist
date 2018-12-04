@@ -169,7 +169,6 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                             <?php if(!empty($tagline)) {?>
                                             <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                             <?php } ?>
-                                            <?php /* todo: Shahadat -> new markup implemented */?>
                                             <div class="atbd_listing_meta">
                                                 <?php
                                                 /**
@@ -214,14 +213,9 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                             ?></p></li>
                                                 </ul>
                                             </div><!-- End atbd listing meta -->
-                                            <?php
-                                            //show category and location info
-                                            /* @todo: Shahadat -> Please fetch location, phone number and listing addition info here */
-                                            /*ATBDP()->helper->output_listings_taxonomy_info($top_category, $deepest_location);*/?>
                                             <?php if( !empty($excerpt) ) {?>
                                             <p><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
                                             <?php } ?>
-                                            <?php /* @todo: deleted the read more link */ ?>
                                         </div><!-- end ./atbd_content_upper -->
 
                                         <div class="atbd_listing_bottom_content">

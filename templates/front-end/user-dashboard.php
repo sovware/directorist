@@ -369,19 +369,15 @@ $is_disable_price = get_directorist_option('disable_list_price');
 
                                             <button type="submit" class="btn btn-primary"
                                                     id="update_user_profile"><?php _e('Save Changes', ATBDP_TEXTDOMAIN); ?></button>
+
+                                            <div id="pro_notice" style="padding: 20px"></div>
                                         </div>
                                     </div>
                                 </div>
                             </form>
-                            <div id="pro_notice" style="display: inline-block; padding: 20px">
-
-                            </div>
-
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>

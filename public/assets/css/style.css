@@ -279,6 +279,11 @@ h6, .h6 {
   text-align: center;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
+  text-align: right;
+  margin-bottom: 15px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module {
   border: 1px solid #e3e6ef;
   margin-bottom: 35px;
@@ -1442,6 +1447,12 @@ h6, .h6 {
   margin-bottom: 0;
   color: #ffffff;
   padding: 8px 20px;
+}
+
+#directorist.atbd_wrapper.dashboard_area #pro_notice {
+  display: block;
+  margin-top: 25px;
+  padding: 0 !important;
 }
 
 #directorist.atbd_wrapper .select2-selection {

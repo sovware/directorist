@@ -1,6 +1,7 @@
 #directorist.atbd_wrapper{
   a{
     text-decoration: none;
+    box-shadow: none;
   }
   ul{
     padding-left: 0;
@@ -17,5 +18,15 @@
   }
   img{
     box-shadow: 0 0 0;
+  }
+  .btn{
+    position: relative;
+    width: auto;
+    height: auto;
+  }
+  .dropdown-toggle:after{
+    width: auto;
+    height: auto;
+    font-size: inherit;
   }
 }

@@ -259,6 +259,25 @@
         color: #7a82a6;
       }
     }
+    .about_detail{
+      ul{
+        padding: 15px 0 15px 30px;
+        li{
+          list-style: disc;
+        }
+      }
+      code{
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow: scroll;
+      }
+      ol{
+        padding-top: 15px;
+        li{
+          list-style: decimal;
+        }
+      }
+    }
   }
 
   .atbd_custom_fields {

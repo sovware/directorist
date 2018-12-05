@@ -580,9 +580,32 @@ class ATBDP_Shortcode {
         return ob_get_clean();
     }
 
-    public function public_profile(){
+    public function public_profile($atts){
+        //for pagination
+        $author_id = !empty($_GET['author_id'])?$_GET['author_id']:'';
+        $paged = atbdp_get_paged_num();
+        $paginate = get_directorist_option('paginate_all_listings');
+        $category = 'new';
+        if (!$paginate) $args['no_found_rows'] = true;
+        $args = array(
+            'post_type'      => ATBDP_POST_TYPE,
+            'post_status'    => 'publish',
+            'posts_per_page' => 9,
+            'paged'          => $paged,
+            'author'         => $author_id,
+            'tax_query'      => array(
+                'taxonomy'         => ATBDP_CATEGORY,
+                'field'            => 'slug',
+                'terms'            => !empty($category) ? esc_attr($category) : '',
+                'include_children' => true, /*@todo; Add option to include children or exclude it*/
+            )
+        );
+
+
+        $all_listings = new WP_Query($args);
+        $data_for_template = compact('all_listings', 'paged', 'paginate', 'author_id');
         ob_start();
-        ATBDP()->load_template('front-end/public-profile');
+        ATBDP()->load_template('front-end/public-profile', array( 'data' => $data_for_template ));
         return ob_get_clean();
     }
 

@@ -5,7 +5,6 @@ $all_listing_title = !empty($all_listing_title) ? $all_listing_title : __('All I
 $is_disable_price = get_directorist_option('disable_list_price');
 $display_sortby_dropdown = get_directorist_option('display_sort_by',1);
 $display_viewas_dropdown = get_directorist_option('display_view_as',1);
-
 ?>
 
 
@@ -127,7 +126,6 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                     <div class="atbd_upper_badge">
                                                         <?php BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list ?>
                                                     </div>
-
                                                <?php }
                                             }?>
                                             <div class="atbd_lower_badge">

@@ -2178,6 +2178,17 @@ The Administrator of ==SITE_NAME==
 
                     ),
 
+                array(
+                        'type' => 'select',
+                        'name' => 'user_profile',
+                        'label' =>  __( 'Add user profile page ID', ATBDP_TEXTDOMAIN ),
+                        'items' => $this->get_pages_vl_arrays(),
+                        'description' => sprintf(__( 'Select your profile page ( where you used %s shortcode ) ID here', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[public_profile]</strong>'),
+                        'default' => atbdp_get_option('public_profile', 'atbdp_general'),
+                        'validation' => 'required|numeric',
+
+                    ),
+
                     array(
                         'type' => 'select',
                         'name' => 'all_categories_page',

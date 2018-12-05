@@ -125,8 +125,8 @@ if (!class_exists('BD_Author_Info_Widget')) {
                         }
                         ?>
                     </div>
-                    <a href="<?= esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
-                       class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', ATBDP_TEXTDOMAIN); ?></a>
+                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', ATBDP_TEXTDOMAIN); ?>
+                       </a>
                 </div>
                 <?php
 

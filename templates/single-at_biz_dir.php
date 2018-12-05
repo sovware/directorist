@@ -71,7 +71,6 @@ $reviews_count = ATBDP()->review->db->count(array('post_id' => $listing_id)); //
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col-md-12';
 ?>
-
 <section id="directorist" class="directorist atbd_wrapper">
     <div class="row">
         <div class="<?php echo esc_attr($main_col_size); ?>">

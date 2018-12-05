@@ -1,85 +1,184 @@
 <?php
 !empty($args['data']) ? extract($args['data']) : array(); // data array contains all required var.
 $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
-$all_listing_title = !empty($all_listing_title) ? $all_listing_title : __('All Items', ATBDP_TEXTDOMAIN);
-$is_disable_price = get_directorist_option('disable_list_price');
-$display_sortby_dropdown = get_directorist_option('display_sort_by',1);
-$display_viewas_dropdown = get_directorist_option('display_view_as',1);
 ?>
-
-
-    <div id="directorist" class="atbd_wrapper">
-        <div class="header_bar">
-            <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="atbd_generic_header">
-                            <div class="atbd_generic_header_title">
-                                <h3>
-                                    <?php echo esc_html($all_listing_title); ?>
-                                </h3>
-                                <p>
-                                    <?php
-                                    _e('Total Listing Found: ', ATBDP_TEXTDOMAIN);
-                                    if ($paginate){
-                                        echo $all_listings->found_posts;
-                                    }else{
-                                        echo count($all_listings->posts);
-                                    }
-                                    ?>
-                                </p>
-                            </div>
-                            <?php if($display_viewas_dropdown || $display_sortby_dropdown) {?>
-                                <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
-                                    <!-- Views dropdown -->
-                                    <?php if($display_viewas_dropdown) { ?>
-                                        <div class="dropdown">
-                                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <?php _e( "View as", ATBDP_TEXTDOMAIN ); ?> <span class="caret"></span>
-                                            </a>
-
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <?php
-                                                $views = atbdp_get_listings_view_options();
-
-                                                foreach( $views as $value => $label ) {
-                                                    $active_class = ( $view == $value ) ? ' active' : '';
-                                                    printf( '<li class="dropdown-item%s"><a href="%s">%s</a></li>', $active_class, add_query_arg( 'view', $value ), $label );
-                                                }
-                                                ?>
-                                            </div>
-                                        </div>
-                                    <?php } ?>
-                                    <!-- Orderby dropdown -->
-                                    <?php
-                                    if($display_sortby_dropdown) {
-                                        ?>
-                                        <div class="dropdown">
-                                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <?php _e( "Sort by", ATBDP_TEXTDOMAIN ); ?> <span class="caret"></span>
-                                            </a>
-
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
-                                                <?php
-                                                $views = atbdp_get_listings_view_options();
-
-                                                foreach( $views as $value => $label ) {
-                                                    $active_class = ( $view == $value ) ? ' active' : '';
-                                                    printf( '<li class="dropdown-item%s"><a href="%s">%s</a></li>', $active_class, add_query_arg( 'view', $value ), $label );
-                                                }
-                                                ?>
-                                            </div>
-                                        </div>
-                                    <?php } ?>
-                                </div>
-                            <?php } ?>
+<div id="directorist" class="atbd_wrapper atbd_public_profile">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <?php
+                $author_id = !empty($author_id) ? $author_id : '';
+                $author_id = rtrim($author_id, '/');
+                $author_name = get_the_author_meta('display_name', $author_id);
+                $user_registered = get_the_author_meta('user_registered', $author_id);
+                $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+                $bio = get_user_meta($author_id, 'bio', true);
+                $avata_img = get_avatar($author_id, 32);
+                $address = esc_attr(get_user_meta($author_id, 'address', true));
+                $phone = esc_attr(get_user_meta($author_id, 'phone', true));
+                $email = get_the_author_meta('user_email', $author_id);
+                $website = get_the_author_meta('user_url', $author_id);;
+                $facebook = get_user_meta($author_id, 'facebook', true);
+                $twitter = get_user_meta($author_id, 'twitter', true);
+                $google = get_user_meta($author_id, 'google', true);
+                $linkedIn = get_user_meta($author_id, 'linkedIn', true);
+                $youtube = get_user_meta($author_id, 'youtube', true);
+                $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
+                ?>
+                <div class="atbd_auhor_profile_area">
+                    <div class="atbd_author_avatar">
+                        <?php if (empty($u_pro_pic)) {
+                            echo $avata_img;
+                        }
+                        if (!empty($u_pro_pic)) { ?><img
+                            src="<?php echo esc_url($u_pro_pic); ?>"
+                            alt="Author Image"><?php } ?>
+                        <div class="atbd_auth_nd">
+                            <h2><?= esc_html($author_name); ?></h2>
+                            <p><?php
+                                printf(__('Member since %s ago', ATBDP_TEXTDOMAIN), human_time_diff(strtotime($user_registered), current_time('timestamp'))); ?></p>
                         </div>
+                    </div>
+
+                    <div class="atbd_author_meta">
+                        <?php
+                        $args = array(
+                            'post_type' => ATBDP_POST_TYPE,
+                            'post_status' => 'publish',
+                            'author'        =>  $author_id,
+                            'orderby'       =>  'post_date',
+                            'order'         =>  'ASC',
+                            'posts_per_page' => -1 // no limit
+                        );
+                        $current_user_posts = get_posts( $args );
+                        $total_listing = count($current_user_posts);
+                        $review_in_post = 0;
+                        $all_reviews =0;
+                        foreach ($current_user_posts as $post){
+                            $average = ATBDP()->review->get_average($post->ID);
+                            if (!empty($average)){
+                                $averagee = array($average);
+                                foreach ($averagee as $key){
+                                    $all_reviews+= $key;
+                                }
+                                $review_in_post++;
+                            }
+                        }
+                        $author_rating = (!empty($all_reviews) && !empty($review_in_post)) ? ($all_reviews / $review_in_post) : 0;
+                        $author_rating = substr($author_rating, '0', '3');
+                        ?>
+                        <div class="atbd_listing_meta">
+                            <span class="atbd_meta atbd_listing_rating">
+                                <?php echo $author_rating;?><i class="fa fa-star"></i>
+                            </span>
+                        </div>
+                        <p class="meta-info">
+                            <span><?php echo !empty($review_in_post)?$review_in_post:'0'?></span>
+                            <?php echo ($review_in_post>1)?'Reviews':'Review'?>
+                        </p>
+                        <p class="meta-info">
+                            <span><?php echo !empty($total_listing)?$total_listing:'0'?></span>
+                            <?php echo ($total_listing>1)?'Listings':'Listing'?>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="atbd_author_module">
+                    <div class="atbd_content_module">
+                        <div class="atbd_content_module__tittle_area">
+                            <div class="atbd_area_title">
+                                <h4><span class="fa fa-user"></span>About Seller</h4>
+                            </div>
+                        </div>
+
+                        <div class="atbdb_content_module_contents">
+                            <p>
+                                <?php echo esc_html($bio); ?>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="widget atbd_widget">
+                    <div class="atbd_widget_title"><h4>Contact Info</h4></div>
+                    <div class="atbdp atbd_author_info_widget">
+                        <div class="atbd_widget_contact_info">
+                            <ul>
+                                <li>
+                                    <span class="fa fa-map-marker"></span>
+                                    <span class="atbd_info"><?= !empty($address)?esc_html($address):''; ?></span>
+                                </li>
+
+                                <!-- In Future, We will have to use a loop to print more than 1 number-->
+                                <li>
+                                    <span class="fa fa-phone"></span>
+                                    <span class="atbd_info"><?= !empty($phone)?esc_html($phone):''; ?></span>
+                                </li>
+
+                                <li>
+                                    <span class="fa fa-envelope"></span>
+                                    <span class="atbd_info"><?= !empty($email)?esc_html($email):''; ?></span>
+                                </li>
+
+                                <li>
+                                    <span class="fa fa-globe"></span>
+                                    <span class="atbd_info"><?= !empty($website)?esc_html($website):''; ?></span>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="atbd_social_wrap">
+                            <?php
+                            if ($facebook) {
+                                printf('<p><a target="_blank" href="%s"><span class="fa fa-facebook"></span></a></p>', $facebook);
+                            }
+                            if ($twitter) {
+                                printf('<p><a target="_blank" href="%s"><span class="fa fa-twitter"></span></a></p>', $twitter);
+                            }
+                            if ($google) {
+                                printf('<p><a target="_blank" href="%s"><span class="fa fa-google-plus"></span></a></p>', $google);
+                            }
+                            if ($linkedIn) {
+                                printf('<p><a target="_blank" href="%s"><span class="fa fa-linkedin"></span></a></p>', $linkedIn);
+                            }
+                            if ($youtube) {
+                                printf('<p><a target="_blank" href="%s"><span class="fa fa-youtube"></span></a></p>', $youtube);
+                            }
+                            ?>
+                        </div>
+                        <a href="<?= esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
+                           class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('+ Become an Author', ATBDP_TEXTDOMAIN); ?></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="atbd_author_listings_area">
+                    <h1><?php echo !empty($total_listing)?$total_listing:'0'?>
+                        <?php echo ($total_listing>1)?'Listings found':'Listing found'?></h1>
+                    <div class="atbd_author_filter_area">
+                        <select class="form-control" name="category" id="selectCategory">
+                            <option value=""><?php _e('Select a category', ATBDP_TEXTDOMAIN); ?></option>
+                            <?php
+                            foreach ($categories as $category) {
+                                echo "<option id='atbdp_category' value='$category->slug'>$category->name</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="atbd_authors_listing">
             <div class="row" data-uk-grid>
 
 
@@ -127,7 +226,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                         <?php BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list ?>
                                                     </div>
 
-                                               <?php }
+                                                <?php }
                                             }?>
                                             <div class="atbd_lower_badge">
                                                 <?php
@@ -135,7 +234,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                     '<span class="atbd_badge atbd_badge_featured">Featured</span>',
                                                     esc_html__('Featured', ATBDP_TEXTDOMAIN)
                                                 );}
-                                                    $count = !empty($count)?$count:5;
+                                                $count = !empty($count)?$count:5;
                                                 $popular_listings = ATBDP()->get_popular_listings($count = 5);
 
                                                 if ($popular_listings->have_posts()) {
@@ -166,7 +265,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                 <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                             </h4>
                                             <?php if(!empty($tagline)) {?>
-                                            <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
+                                                <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                             <?php } ?>
                                             <div class="atbd_listing_meta">
                                                 <?php
@@ -180,7 +279,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                 do_action('atbdp_after_listing_tagline');
 
                                                 if(empty($price) && !empty($price_range)) {
-                                                 atbdp_display_price_range($price_range);
+                                                    atbdp_display_price_range($price_range);
                                                 }
 
                                                 atbdp_display_price($price, $is_disable_price);
@@ -201,11 +300,11 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                     <?php
                                                     if (!$disable_contact_info && !$hide_contact_info) {
                                                         if( !empty( $address )) { ?>
-                                                        <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
+                                                            <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
                                                         <?php } ?>
                                                         <?php if( !empty( $phone_number )) {?>
-                                                        <li><p><span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number));?></p></li>
-                                                    <?php
+                                                            <li><p><span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number));?></p></li>
+                                                            <?php
                                                         } }?>
                                                     <li><p><span class="fa fa-clock-o"></span><?php
                                                             printf( __( 'Posted %s ago', ATBDP_TEXTDOMAIN ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
@@ -213,17 +312,17 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                 </ul>
                                             </div><!-- End atbd listing meta -->
                                             <?php if( !empty($excerpt) ) {?>
-                                            <p><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
+                                                <p><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
                                             <?php } ?>
                                         </div><!-- end ./atbd_content_upper -->
 
                                         <div class="atbd_listing_bottom_content">
                                             <?php if(!empty($category)) {?>
-                                            <div class="atbd_content_left">
-                                                <div class="atbd_listting_category">
-                                                    <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span><?php  echo $cats[0]->name;?></a>
+                                                <div class="atbd_content_left">
+                                                    <div class="atbd_listting_category">
+                                                        <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span><?php  echo $cats[0]->name;?></a>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             <?php }else{
                                                 ?>
                                                 <div class="atbd_content_left">
@@ -232,7 +331,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                     </div>
                                                 </div>
 
-                                        <?php    } ?>
+                                            <?php    } ?>
                                             <ul class="atbd_content_right">
                                                 <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li>
                                                 <li class="atbd_save"><span class="fa fa-heart"></span></li>
@@ -262,9 +361,5 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                 </div>
             </div>
         </div>
-
-
     </div>
-<?php
-?>
-<?php //get_footer(); ?>
+</div>

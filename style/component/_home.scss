@@ -1,0 +1,84 @@
+#directorist.atbd_wrapper{
+  .select2-selection{
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #dbdaf7;
+    border-radius: 0.25rem;
+    height: 36px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  &.directory_search_area{
+    .select2-selection{
+      height: 49px;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered{
+      line-height: 47px;
+    }
+  }
+  .select2-container--default .select2-selection--single .select2-selection__rendered{
+    line-height: 35px;
+  }
+  .select2-container--default .select2-selection--single .select2-selection__arrow{
+    height: 35px;
+    right: 10px;
+  }
+  .select2-container--default .select2-selection--single .select2-selection__placeholder{
+    color: $text-color;
+  }
+  .atbd_search_title_area{
+    text-align: center;
+    margin-bottom: 30px;
+    h2.title{
+      font-size: 28px;
+    }
+    p.sub_title{
+      font-size: 18px;
+    }
+  }
+  .single_search_field{
+    .search_fields{
+      line-height: 35px;
+    }
+  }
+  .atbd_submit_btn{
+    text-align: center;
+    margin-top: 25px;
+    .btn_search{
+      padding: 13px 20px;
+      span{
+        margin-right: 7px;
+      }
+    }
+  }
+  .atbd_seach_fields_wrapper{
+    padding: 30px;
+    border: 1px solid $border-color;
+    background: $light;
+  }
+  .directory_home_category_area{
+    text-align: center;
+    margin-top: 60px;
+    >p{
+      margin-bottom: 25px;
+      font-size: 18px;
+    }
+    .categories{
+       li{
+         display: inline-block;
+         border: 1px solid $border-color;
+         text-align: center;
+         border-radius: 3px;
+         padding: 10px 20px;
+         &+li{
+           margin-left: 15px;
+         }
+       }
+    }
+  }
+}

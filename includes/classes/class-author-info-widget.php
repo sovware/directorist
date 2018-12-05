@@ -58,7 +58,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
                         <div class="atbd_name_time">
                             <h4><?= esc_html($author_name); ?></h4>
                             <span class="review_time"><?php
-                                printf(__('%s ago', ATBDP_TEXTDOMAIN), human_time_diff(strtotime($user_registered), current_time('timestamp'))); ?></span>
+                                printf(__('Member since %s ago', ATBDP_TEXTDOMAIN), human_time_diff(strtotime($user_registered), current_time('timestamp'))); ?></span>
                         </div>
                     </div>
 
@@ -77,7 +77,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
                             if (!empty($address)) { ?>
                                 <li>
                                     <span class="fa fa-map-marker"></span>
-                                    <span class="atbd_info"><?= esc_html($address); ?></span>
+                                    <span class="atbd_info"><?= !empty($address)?esc_html($address):''; ?></span>
                                 </li>
                             <?php } ?>
 
@@ -125,8 +125,8 @@ if (!class_exists('BD_Author_Info_Widget')) {
                         }
                         ?>
                     </div>
-                    <a href="<?= esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
-                       class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', ATBDP_TEXTDOMAIN); ?></a>
+                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', ATBDP_TEXTDOMAIN); ?>
+                       </a>
                 </div>
                 <?php
 

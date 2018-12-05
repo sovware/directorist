@@ -586,14 +586,13 @@ final class Directorist_Base
             'orderby' => 'meta_value_num',
             'order' => 'DESC',
             'posts_per_page' => (int)$p_count,
-            'meta_query' => array(
+            'meta_query' =>
                 array(
                     'key' => '_atbdp_post_views_count',
-                    'value' => 0,
-                    'compare' => '>',
-                ),
+                    'value' => 10,
+                    'compare' => '>=',
+                )
                 /*@todo; later sort by featured listings*/
-            ),
         );
         return new WP_Query(apply_filters('atbdp_popular_listing_args', $args));
 

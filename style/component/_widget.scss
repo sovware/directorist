@@ -77,10 +77,20 @@
       }
     }
     >ul.atbdp_parent_category >li {
+      &:hover{
+          >a {
+            span{
+            @extend .atbd_bg-primary;
+            color: $light;
+          }
+        }
+      }
       & + li {
         margin-top: 10px;
       }
-      a {
+      > a {
+        margin-right: 10px;
+        display: inline-block;
         span {
           font-size: 15px;
           display: inline-block;
@@ -92,12 +102,10 @@
           color: #9299b8;
           border-radius: 50%;
         }
-        &:hover{
-          span{
-            @extend .atbd_bg-primary;
-            color: $light;
-          }
-        }
+        
+      }
+      >span{
+        cursor: pointer;
       }
     }
   }

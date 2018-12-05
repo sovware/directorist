@@ -9,7 +9,15 @@
     $('#price_range_option').on('click',function () {
         $('#pricerange').show();
     });
-
+    /* image gallery slider */
+    function sliderNavigation(slider, prevArrow, nextArrow){
+        $(prevArrow).on('click', function () {
+            slider.slick('slickPrev');
+        });
+        $(nextArrow).on('click', function () {
+            slider.slick('slickNext');
+        });
+    }
     /*
     Externel Library init
     ------------------------*/
@@ -56,6 +64,9 @@
         arrows: false,
         asNavFor: '.atbd_directory_image_thumbnail'
     });
+
+    /* image gallery slider */
+    sliderNavigation($listingGallerySlider, '.atbd_directry_gallery_wrapper .prev', '.atbd_directry_gallery_wrapper .next');
 
     $listingGalleryThumbnail.slick({
         slidesToShow: 5,
@@ -335,6 +346,11 @@
 
         // send an ajax request to the ajax-handler.php and then delete the review of the given id
 
+    });
+
+    $('.atbdp_child_category').hide();
+    $('.atbdp_parent_category >li >span').on('click', function () {
+        $(this).siblings('.atbdp_child_category').slideToggle();
     });
 
     $('#user_profile_form').on('submit', function (e) {

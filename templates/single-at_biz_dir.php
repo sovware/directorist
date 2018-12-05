@@ -71,7 +71,6 @@ $reviews_count = ATBDP()->review->db->count(array('post_id' => $listing_id)); //
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col-md-12';
 ?>
-
 <section id="directorist" class="directorist atbd_wrapper">
     <div class="row">
         <div class="<?php echo esc_attr($main_col_size); ?>">
@@ -268,14 +267,18 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             }
                             $count = !empty($count) ? $count : '';
                             $popular_listings = ATBDP()->get_popular_listings($count);
-                            if ($popular_listings->have_posts()) {
+                            $enable_pop_listing = get_directorist_option('enable_pop_listing');
+                            if ($enable_pop_listing){
+                                if ($popular_listings->have_posts()) {
 
-                                foreach ($popular_listings->posts as $pop_post) {
-                                    if ($pop_post->ID == get_the_ID()){
-                                        echo ' <span class="atbd_badge atbd_badge_popular">Popular</span>';
+                                    foreach ($popular_listings->posts as $pop_post) {
+                                        if ($pop_post->ID == get_the_ID()){
+                                            echo ' <span class="atbd_badge atbd_badge_popular">Popular</span>';
+                                        }
                                     }
                                 }
                             }
+
                             ?>
                         </div>
 
@@ -324,7 +327,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                            ?>
                             <li>
                                 <div class="atbd_custom_field_title"><p><?php echo esc_attr($field_title);?></p></div>
-                                <div class="atbd_custom_field_content"><p><?php if ('color' == $field_type){printf( '<div style="background-color: %s;padding: 25px; border-radius: 10px"></div>', $field_details );}else{echo esc_attr(ucwords($field_details));}?></p>
+                                <div class="atbd_custom_field_content"><p><?php if ('color' == $field_type){printf( '<div class="atbd_field_type_color" style="background-color: %s;"></div>', $field_details );}else{echo esc_attr(ucwords($field_details));}?></p>
                                 </div>
                             </li>
                         <?php

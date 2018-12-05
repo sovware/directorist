@@ -1,5 +1,6 @@
 (function ($) {
     "use strict";
+
     // Category icon selection
     $('#category_icon').select2({
         placeholder: atbdp_admin_data.i18n_text.icon_choose_text,
@@ -19,9 +20,13 @@
     });
 
     //price range
-    $('#pricerange').hide();
+    var pricerange = $('#pricerange_val').val();
+    if (pricerange){
+        $('#pricerange').fadeIn(100);
+    }
     $('#price_range_option').on('click',function () {
-        $('#pricerange').show();
+        $('#pricerange').fadeIn(500);
+
     });
 
     // enable sorting if only the container has any social or skill field
@@ -93,10 +98,7 @@
                         timer: 200,
                         showConfirmButton: false });
                 }
-
             });
-
-
     });
 
 

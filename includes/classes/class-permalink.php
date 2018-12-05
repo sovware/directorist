@@ -35,6 +35,26 @@ class ATBDP_Permalink{
      * It returns the link to the custom search archive page of ATBDP
      * @return string
      */
+    public static function get_user_profile_page_link($author_id)
+    {
+        $link = home_url();
+        $id = get_directorist_option('user_profile');
+        if( $id ) {
+            $link = get_permalink( $id );
+            if( '' != get_option( 'permalink_structure' ) ) {
+                $link = user_trailingslashit( trailingslashit( $link ) .'?author_id='. $author_id );
+            } else {
+                $link = add_query_arg( array( 'atbdp_action' => 'edit', 'atbdp_author_id ' => $author_id ), $link );
+            }
+        }
+        return apply_filters('atbdp_edit_listing_page_url', $link );
+
+        }
+
+    /**
+     * It returns the link to the custom search archive page of ATBDP
+     * @return string
+     */
     public static function get_dashboard_page_link()
     {
         $link = home_url();

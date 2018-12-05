@@ -382,15 +382,19 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 $price_range = !empty($price_range) ? $price_range : '';
                                 if (!$disable_price) { ?>
                                     <div class="form-group">
-                                        <!--@todo; Add currency Name near price-->
-                                        <label for="price"><?php esc_html_e('Price ( Optional---Leave it blank to hide it)', ATBDP_TEXTDOMAIN) ?>
-                                            <a id='price_range_option'><?php echo __(' Or Price Range', ATBDP_TEXTDOMAIN); ?></a></label>
+                                        <label for="price"><?php
+                                            $currency = get_directorist_option('g_currency', 'USD');
+                                            /*Translator: % is the name of the currency such eg. USD etc.*/
+                                            printf(esc_html__('Price [%s] ( Optional---Leave it blank to hide it)', ATBDP_TEXTDOMAIN), $currency); ?>
+                                            <label for="price_range"><a id='price_range_option'><?php echo __(' Or Price Range', ATBDP_TEXTDOMAIN); ?></a></label> </label>
+                                        <input type="hidden" id="price_range_val" value="<?php echo $price_range;?>">
+
                                         <input type="text" id="price" name="price"
                                                value="<?= !empty($price) ? esc_attr($price) : ''; ?>"
                                                class="form-control directory_field"
                                                placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
-                                        <?php if ($price_range) { ?>
-                                            <select class="form-control directory_field" id="pricerange"
+                                        <div class="form-group">
+                                            <select class="form-control directory_field" style="display: none" id="price_range"
                                                     name="price_range">
                                                 <option value="">Select Price Range</option>
                                                 <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
@@ -406,7 +410,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                     Bellow Economy ($)
                                                 </option>
                                             </select>
-                                        <?php } ?>
+                                        </div>
                                     </div>
                                 <?php } ?>
 
@@ -530,26 +534,39 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     </div>
                                 </div>
                             </div><!-- end .atbd_general_information_module -->
+                            <?php
+                            if (is_business_hour_active()){
+                                ?>
+                                <div class="atbd_content_module">
+                                    <div class="atbd_content_module__tittle_area">
+                                        <div class="atbd_area_title">
+                                            <h4><?php _e('Opening/Business Hour Information', ATBDP_TEXTDOMAIN); ?></h4>
+                                        </div>
+                                    </div>
 
-                            <div class="atbd_content_module">
-                                <div class="atbd_content_module__tittle_area">
-                                    <div class="atbd_area_title">
-                                        <h4><?php _e('Opening/Business Hour Information', ATBDP_TEXTDOMAIN); ?></h4>
+                                    <div class="atbdb_content_module_contents">
+                                        <?php
+                                        /**
+                                         * It fires before social information fields
+                                         * @param string $type Page type.
+                                         * @param array $listing_info Information of the current listing
+                                         * @since 1.1.1
+                                         **/
+                                        do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_frontend', $listing_info);
+                                        ?>
                                     </div>
                                 </div>
+                            <?php
+                            }
+                            /**
+                             * It fires before map
+                             * @param string $type Page type.
+                             * @param array $listing_info Information of the current listing
+                             * @since 4.0
+                             **/
+                            do_action('atbdp_edit_after_business_hour_fields', 'add_listing_page_frontend', $listing_info);
+                            ?>
 
-                                <div class="atbdb_content_module_contents">
-                                    <?php
-                                    /**
-                                     * It fires before social information fields
-                                     * @param string $type Page type.
-                                     * @param array $listing_info Information of the current listing
-                                     * @since 1.1.1
-                                     **/
-                                    do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_frontend', $listing_info);
-                                    ?>
-                                </div>
-                            </div>
 
                             <div class="atbd_content_module atbd_location_map_setting">
                                 <div class="atbd_content_module__tittle_area">
@@ -694,12 +711,22 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
 
     jQuery(document).ready(function ($) {
+
         <?php if(class_exists('ATBDP_Fee_Manager') ) { ?>
 //        $('#fm_plans_container').on('click', function(){
 //            $('.atbdp-form-fields').fadeIn(1000);
 //            $('#fm_plans_container').fadeOut(300)
 //        });
         <?php } ?>
+        //price range
+        var price_range = $('#price_range_val').val();
+
+        if (price_range){
+            $('#price_range').fadeIn(100);
+        }
+        $('#price_range_option').on('click',function () {
+            $('#price_range').fadeIn(500);
+        });
         $(function () {
             $('#color_code2').wpColorPicker();
         });

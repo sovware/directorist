@@ -368,7 +368,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="bio"><?php _e('Bio', ATBDP_TEXTDOMAIN); ?></label>
-                                                        <textarea class="wp-editor-area" style="height: 200px" autocomplete="off" cols="40" name="user[bio]" id="bio"><?= !empty($bio) ? esc_attr($bio) : ''; ?></textarea>
+                                                        <p><?php _e('Info About you, your organization or service', ATBDP_TEXTDOMAIN)?></p>
+                                                        <textarea class="wp-editor-area form-control" style="height: 200px" autocomplete="off" cols="40" name="user[bio]" id="bio"><?= !empty($bio) ? esc_attr($bio) : ''; ?></textarea>
                                                     </div>
                                                 </div>
                                             </div><!--ends social info .row-->
@@ -376,19 +377,15 @@ $is_disable_price = get_directorist_option('disable_list_price');
 
                                             <button type="submit" class="btn btn-primary"
                                                     id="update_user_profile"><?php _e('Save Changes', ATBDP_TEXTDOMAIN); ?></button>
+
+                                            <div id="pro_notice" style="padding: 20px"></div>
                                         </div>
                                     </div>
                                 </div>
                             </form>
-                            <div id="pro_notice" style="display: inline-block; padding: 20px">
-
-                            </div>
-
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>

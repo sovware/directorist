@@ -99,4 +99,38 @@
   margin-bottom: 15px;
 }
 
+#directorist.atbd_wrapper .ext_title {
+  text-decoration: none;
+}
+
+#directorist.atbd_wrapper .ext_title:hover h4 {
+  color: #6e63ff;
+}
+
+#directorist.atbd_wrapper .ext_title h4 {
+  font-weight: 500;
+  font-size: 18px;
+  color: #202428;
+  transition: 0.3s;
+}
+
+#directorist.atbd_wrapper .attc_extension_wrapper {
+  margin-top: 30px;
+}
+
+#directorist.atbd_wrapper .attc_extension_wrapper .single_extension {
+  margin-bottom: 30px;
+  background: #ffffff;
+  box-shadow: 0px 5px 10px #e1e7f7;
+  padding: 25px;
+}
+
+#directorist.atbd_wrapper .attc_extension_wrapper .single_extension img {
+  width: 100%;
+}
+
+#directorist.atbd_wrapper .btn_wrapper a + a {
+  margin-left: 10px;
+}
+
 /*# sourceMappingURL=map/style.css.map */

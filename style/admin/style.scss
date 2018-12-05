@@ -84,4 +84,35 @@
   .atbd_optional_field{
     margin-bottom: 15px;
   }
+  .ext_title{
+    text-decoration: none;
+    &:hover{
+      h4{
+        color: #6e63ff;
+      }
+    }
+    h4{
+      font-weight: 500;
+      font-size: 18px;
+      color: $dark;
+      transition: 0.3s;
+    }
+  }
+  .attc_extension_wrapper{
+    margin-top: 30px;
+    .single_extension{
+      margin-bottom: 30px;
+      background: #ffffff;
+      box-shadow: 0px 5px 10px #e1e7f7;
+      padding: 25px;
+      img{
+        width: 100%;
+      }
+    }
+  }
+  .btn_wrapper{
+    a+a{
+      margin-left: 10px;
+    }
+  }
 }

@@ -44,7 +44,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
 
                                                 foreach( $views as $value => $label ) {
                                                     $active_class = ( $view == $value ) ? ' active' : '';
-                                                    printf( '<li class="dropdown-item%s"><a href="%s">%s</a></li>', $active_class, add_query_arg( 'view', $value ), $label );
+                                                    printf( '<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg( 'view', $value ), $label );
                                                 }
                                                 ?>
                                             </div>
@@ -65,7 +65,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
 
                                                 foreach( $views as $value => $label ) {
                                                     $active_class = ( $view == $value ) ? ' active' : '';
-                                                    printf( '<li class="dropdown-item%s"><a href="%s">%s</a></li>', $active_class, add_query_arg( 'view', $value ), $label );
+                                                    printf( '<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg( 'view', $value ), $label );
                                                 }
                                                 ?>
                                             </div>
@@ -126,7 +126,6 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                     <div class="atbd_upper_badge">
                                                         <?php BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list ?>
                                                     </div>
-
                                                <?php }
                                             }?>
                                             <div class="atbd_lower_badge">
@@ -213,7 +212,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                 </ul>
                                             </div><!-- End atbd listing meta -->
                                             <?php if( !empty($excerpt) ) {?>
-                                            <p><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
+                                            <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
                                             <?php } ?>
                                         </div><!-- end ./atbd_content_upper -->
 

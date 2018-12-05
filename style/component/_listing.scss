@@ -25,6 +25,7 @@
     }
     &.atbd_badge_new{
       background: #009fff;
+      margin-left: 5px;
     }
   }
   .atbd_listing_meta {
@@ -115,8 +116,12 @@
     .atbd_listing_info {
       .atbd_content_upper {
         padding: 20px;
+        .atbd_excerpt_content{
+          margin-top: 15px;
+        }
         .atbd_listing_title {
           font-size: 18px;
+          text-transform: capitalize;
           line-height: 28px;
         }
         .atbd_listing_tagline {
@@ -127,8 +132,12 @@
         }
         .atbd_listing_data_list {
           margin-top: 16px;
-          margin-bottom: 12px;
           ul li {
+            &:last-child{
+              p{
+                margin-bottom: 0;
+              }
+            }
             p {
               margin-bottom: 7px;
               font-size: 14px;
@@ -184,6 +193,9 @@
   }
 
   .atbd_listing_action_btn{
+    .dropdown{
+      display: inline-block;
+    }
     .dropdown+.dropdown{
       margin-left: 10px;
     }

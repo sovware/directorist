@@ -1,19 +1,32 @@
 #directorist.atbd_wrapper{
-  //a {
-  //  color: $link-color;
-  //  text-decoration: $link-decoration;
-  //  -webkit-text-decoration-skip: objects; // Remove gaps in links underline in iOS 8+ and Safari 8+.
-  //
-  //  @include hover {
-  //    color: $link-hover-color;
-  //  }
-  //}
-
+  a{
+    text-decoration: none;
+    box-shadow: none;
+  }
   ul{
     padding-left: 0;
     list-style-type: none;
     li{
       list-style: none;
+      margin-left: 0;
     }
+  }
+  article{
+    margin-bottom: 0;
+    border: 0;
+    padding-bottom: 0;
+  }
+  img{
+    box-shadow: 0 0 0;
+  }
+  .btn{
+    position: relative;
+    width: auto;
+    height: auto;
+  }
+  .dropdown-toggle:after{
+    width: auto;
+    height: auto;
+    font-size: inherit;
   }
 }

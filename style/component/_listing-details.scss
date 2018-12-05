@@ -1,4 +1,8 @@
 .atbd_content_active #directorist.atbd_wrapper {
+  .edit_btn_wrap{
+    text-align: right;
+    margin-bottom: 15px;
+  }
   .atbd_content_module {
     border: 1px solid $border-color;
     margin-bottom: 35px;
@@ -253,6 +257,25 @@
       .atbd_sub_title {
         font-size: 16px;
         color: #7a82a6;
+      }
+    }
+    .about_detail{
+      ul{
+        padding: 15px 0 15px 30px;
+        li{
+          list-style: disc;
+        }
+      }
+      code{
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow: scroll;
+      }
+      ol{
+        padding-top: 15px;
+        li{
+          list-style: decimal;
+        }
       }
     }
   }

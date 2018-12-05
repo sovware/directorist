@@ -1,4 +1,4 @@
-#directorist.atbd_wrapper{
+.atbd_content_active #directorist.atbd_wrapper{
   .select2-selection{
     display: block;
     width: 100%;
@@ -44,6 +44,10 @@
   .single_search_field{
     .search_fields{
       line-height: 35px;
+      height: 49px;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow{
+      height: 48px;
     }
   }
   .atbd_submit_btn{

@@ -74,8 +74,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
 <section id="directorist" class="directorist atbd_wrapper">
     <div class="row">
         <div class="<?php echo esc_attr($main_col_size); ?>">
+            <div class="edit_btn_wrap">
+                <a href="#" class="btn btn-success"><span class="fa fa-edit"></span> Edit Listing</a>
+            </div>
             <div class="atbd_content_module atbd_listing_details">
-
                 <?php /* @todo: Shahadat -> New markup implementation */ ?>
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">

@@ -5,18 +5,19 @@
                 <div class="col-md-4">
                     <!--Google reCAPTCHA-->
                     <div class="single_extension">
-                        <img src="" alt="">
+                        <img src="<?php echo ATBDP_ADMIN_ASSETS . '/images/Directorist_Google_Re-Captcha.jpg' ?>"
+                             alt="Google reCAPTCHA">
 
                         <div class="extension_detail">
-                            <a href="https://aazztech.com/product/google-recaptcha" target="_blank" class="ext_title"><h4>
-                                    Directorist - Google reCAPTCHA </h4></a>
+                            <a href="https://aazztech.com/product/google-recaptcha" target="_blank" class="ext_title">
+                                <h4> Directorist - Google reCAPTCHA </h4></a>
                             <p><?php esc_html_e('No longer chance of spammer to slow down your site by blocking them.', ATBDP_TEXTDOMAIN); ?></p>
 
                             <div class="btn_wrapper">
                                 <a href="https://aazztech.com/product/google-recaptcha/#screenshots" target="_blank"
-                                   class="btn btn-primary demo"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
+                                   class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
                                 <a href="https://aazztech.com/product/google-recaptcha" target="_blank"
-                                   class="btn btn-success get"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
+                                   class="btn get btn-success"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
                             </div>
                         </div>
                     </div>

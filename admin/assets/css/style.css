@@ -122,7 +122,15 @@
   margin-bottom: 30px;
   background: #ffffff;
   box-shadow: 0px 5px 10px #e1e7f7;
-  padding: 20px;
+  padding: 25px;
+}
+
+#directorist.atbd_wrapper .attc_extension_wrapper .single_extension img {
+  width: 100%;
+}
+
+#directorist.atbd_wrapper .btn_wrapper a + a {
+  margin-left: 10px;
 }
 
 /*# sourceMappingURL=map/style.css.map */

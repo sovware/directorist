@@ -104,7 +104,15 @@
       margin-bottom: 30px;
       background: #ffffff;
       box-shadow: 0px 5px 10px #e1e7f7;
-      padding: 20px;
+      padding: 25px;
+      img{
+        width: 100%;
+      }
+    }
+  }
+  .btn_wrapper{
+    a+a{
+      margin-left: 10px;
     }
   }
 }

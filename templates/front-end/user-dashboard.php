@@ -12,6 +12,7 @@ $twitter = get_user_meta($uid, 'twitter', true);
 $google = get_user_meta($uid, 'google', true);
 $linkedIn = get_user_meta($uid, 'linkedIn', true);
 $youtube = get_user_meta($uid, 'youtube', true);
+$bio = get_user_meta($uid, 'bio', true);
 $u_address = get_user_meta($uid, 'address', true);
 $date_format = get_option('date_format');
 $featured_active = get_directorist_option('enable_featured_listing');
@@ -227,7 +228,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                         <label for="full_name">Full Name</label>
                                                         <input class="form-control" type="text" name="user[full_name]"
                                                                value="<?= !empty($c_user->display_name) ? esc_attr($c_user->display_name) : ''; ?>"
-                                                               placeholder="Enter your full name">
+                                                               placeholder="<?php _e('Enter your full name',ATBDP_TEXTDOMAIN); ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -274,7 +275,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                         <label for="phone"><?php _e('Cell Number', ATBDP_TEXTDOMAIN); ?></label>
                                                         <input class="form-control" type="tel" name="user[phone]"
                                                                value="<?= !empty($u_phone) ? esc_attr($u_phone) : ''; ?>"
-                                                               placeholder="Enter your phone number">
+                                                               placeholder="<?php _e('Enter your phone number', ATBDP_TEXTDOMAIN); ?>">
                                                     </div>
                                                 </div>
                                             </div> <!--ends .row-->
@@ -305,7 +306,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                         <label for="new_pass"><?php _e('New Password', ATBDP_TEXTDOMAIN); ?></label>
                                                         <input id="new_pass" class="form-control" type="password" name="user[new_pass]"
                                                                value="<?= !empty($new_pass) ? esc_attr($new_pass) : ''; ?>"
-                                                               placeholder="Enter a new password">
+                                                               placeholder="<?php _e('Enter a new password', ATBDP_TEXTDOMAIN); ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -313,7 +314,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                         <label for="confirm_pass"><?php _e('Confirm New Password', ATBDP_TEXTDOMAIN); ?></label>
                                                         <input id="confirm_pass" class="form-control" type="password" name="user[confirm_pass]"
                                                                value="<?= !empty($confirm_pass) ? esc_attr($confirm_pass) : ''; ?>"
-                                                               placeholder="Confirm your new password">
+                                                               placeholder="<?php _e('Confirm your new password', ATBDP_TEXTDOMAIN); ?>">
                                                     </div>
                                                 </div>
                                             </div><!--ends .row-->
@@ -325,7 +326,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                         <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN)?></p>
                                                         <input id="facebook" class="form-control" type="url" name="user[facebook]"
                                                                value="<?= !empty($facebook) ? esc_attr($facebook) : ''; ?>"
-                                                               placeholder="Enter your facebook url">
+                                                               placeholder="<?php _e('Enter your facebook url', ATBDP_TEXTDOMAIN); ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -334,7 +335,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                         <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN)?></p>
                                                         <input id="twitter" class="form-control" type="url" name="user[twitter]"
                                                                value="<?= !empty($twitter) ? esc_attr($twitter) : ''; ?>"
-                                                               placeholder="Enter your twitter url">
+                                                               placeholder="<?php _e('Enter your twitter url', ATBDP_TEXTDOMAIN); ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -343,7 +344,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                         <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN)?></p>
                                                         <input id="google" class="form-control" type="url" name="user[google]"
                                                                value="<?= !empty($google) ? esc_attr($google) : ''; ?>"
-                                                               placeholder="Enter google+ url">
+                                                               placeholder="<?php _e('Enter google+ url', ATBDP_TEXTDOMAIN); ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -352,16 +353,23 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                         <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN)?></p>
                                                         <input id="linkedIn" class="form-control" type="url" name="user[linkedIn]"
                                                                value="<?= !empty($linkedIn) ? esc_attr($linkedIn) : ''; ?>"
-                                                               placeholder="Enter linkedIn url">
+                                                               placeholder="<?php _e('Enter linkedIn url', ATBDP_TEXTDOMAIN); ?>">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="youtube"><?php _e('Youtube', ATBDP_TEXTDOMAIN); ?></label>
                                                         <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN)?></p>
                                                         <input id="youtube" class="form-control" type="url" name="user[youtube]"
                                                                value="<?= !empty($youtube) ? esc_attr($youtube) : ''; ?>"
-                                                               placeholder="Enter youtube url">
+                                                               placeholder="<?php _e('Enter youtube url', ATBDP_TEXTDOMAIN); ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="bio"><?php _e('Bio', ATBDP_TEXTDOMAIN); ?></label>
+                                                        <p><?php _e('Info About you, your organization or service', ATBDP_TEXTDOMAIN)?></p>
+                                                        <textarea class="wp-editor-area form-control" style="height: 200px" autocomplete="off" cols="40" name="user[bio]" id="bio"><?= !empty($bio) ? esc_attr($bio) : ''; ?></textarea>
                                                     </div>
                                                 </div>
                                             </div><!--ends social info .row-->

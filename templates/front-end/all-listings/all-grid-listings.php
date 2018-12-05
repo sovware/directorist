@@ -45,7 +45,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
 
                                                 foreach( $views as $value => $label ) {
                                                     $active_class = ( $view == $value ) ? ' active' : '';
-                                                    printf( '<li class="dropdown-item%s"><a href="%s">%s</a></li>', $active_class, add_query_arg( 'view', $value ), $label );
+                                                    printf( '<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg( 'view', $value ), $label );
                                                 }
                                                 ?>
                                             </div>
@@ -66,7 +66,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
 
                                                 foreach( $views as $value => $label ) {
                                                     $active_class = ( $view == $value ) ? ' active' : '';
-                                                    printf( '<li class="dropdown-item%s"><a href="%s">%s</a></li>', $active_class, add_query_arg( 'view', $value ), $label );
+                                                    printf( '<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg( 'view', $value ), $label );
                                                 }
                                                 ?>
                                             </div>
@@ -111,7 +111,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                 <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                     <figure class="atbd_listing_thumbnail_area">
                                         <div class="atbd_listing_image">
-                                            <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(432,400))).'" alt="listing image">' : '' ?>
+                                            <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(432,400))).'" alt="listing image">' : '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">' ?>
                                         </div>
 
                                         <figcaption class="atbd_thumbnail_overlay_content">
@@ -146,11 +146,14 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                         }
                                                     }
                                                 }
-                                               $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
+                                                $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
                                                 $enable_new_listing = get_directorist_option('enable_new_listing');
                                                 $new_listing_day = get_directorist_option('new_listing_day');
-                                                if (($is_old<$new_listing_day) && ($enable_new_listing)){
-                                                    echo '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                $is_weeks = substr($is_old, -5);
+                                                if ('weeks' != $is_weeks){
+                                                    if (($is_old<=$new_listing_day) && ($enable_new_listing)){
+                                                        echo '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                    }
                                                 }
                                                 ?>
                                             </div>
@@ -166,7 +169,6 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                             <?php if(!empty($tagline)) {?>
                                             <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                             <?php } ?>
-                                            <?php /* todo: Shahadat -> new markup implemented */?>
                                             <div class="atbd_listing_meta">
                                                 <?php
                                                 /**
@@ -211,14 +213,9 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                             ?></p></li>
                                                 </ul>
                                             </div><!-- End atbd listing meta -->
-                                            <?php
-                                            //show category and location info
-                                            /* @todo: Shahadat -> Please fetch location, phone number and listing addition info here */
-                                            /*ATBDP()->helper->output_listings_taxonomy_info($top_category, $deepest_location);*/?>
                                             <?php if( !empty($excerpt) ) {?>
-                                            <p><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
+                                            <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
                                             <?php } ?>
-                                            <?php /* @todo: deleted the read more link */ ?>
                                         </div><!-- end ./atbd_content_upper -->
 
                                         <div class="atbd_listing_bottom_content">

@@ -96,6 +96,9 @@ h6, .h6 {
 }
 
 #directorist.atbd_wrapper {
+  *{
+    box-sizing: border-box;
+  }
   .atbd_rated_stars {
     ul li {
       display: inline-block;

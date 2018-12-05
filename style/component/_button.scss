@@ -1,7 +1,10 @@
-#directorist.atbd_wrapper{
+.atbd_content_active #directorist.atbd_wrapper{
   .btn{
     font-size: 14px;
     text-transform: capitalize;
+    &:hover{
+      background-image: none;
+    }
   }
   .atbd_upload_btn{
     line-height: 48px;

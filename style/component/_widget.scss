@@ -143,6 +143,11 @@
         flex-wrap: wrap;
         margin-bottom: 10px;
         padding-bottom: 10px;
+        &.atbd_closed{
+          span{
+            @extend .atbd_color-danger;
+          }
+        }
         > span {
           display: inline-block;
           margin-bottom: 7px;
@@ -176,6 +181,7 @@
         display: inline-block;
         vertical-align: top;
         margin-left: 7px;
+        width: calc(100% - 61px);
       }
     }
     .atbd_name_time {

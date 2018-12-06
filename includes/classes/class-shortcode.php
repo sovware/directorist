@@ -244,7 +244,7 @@ class ATBDP_Shortcode {
         $listing_order   = get_directorist_option('sort_listing_by');
         $atts = shortcode_atts( array(
             'view'              => !empty($listing_view) ? $listing_view : 'grid',
-            '_featured'          => 1,
+            '_featured'         => 1,
             'filterby'          => '',
             'orderby'           => !empty($listing_orderby) ? $listing_orderby : 'title',
             'order'             => !empty($listing_order) ? $listing_order : 'asc',
@@ -253,8 +253,16 @@ class ATBDP_Shortcode {
             'header'            => 1,
             'category'          => '',
             'location'          => '',
-            'tag'               => ''
+            'tag'               => '',
+            'ids'               => '',
         ), $atts );
+
+
+        $categories = !empty($atts['category'] ) ? explode(',', $atts['category'] ) : '';
+        $tags = !empty($atts['tag'] ) ? explode(',', $atts['tag'] ) : '';
+        $locations = !empty($atts['location'] ) ? explode(',', $atts['location'] ) : '';
+        $listing_id = !empty($atts['ids'] ) ? explode(',', $atts['ids'] ) : '';
+
         //for pagination
         $paged = atbdp_get_paged_num();
         $paginate = get_directorist_option('paginate_all_listings');
@@ -267,7 +275,7 @@ class ATBDP_Shortcode {
         }
 
         $current_order       = atbdp_get_listings_current_order( $atts['orderby'].'-'.$atts['order'] );
-        $view = atbdp_get_listings_current_view_name( $atts['view'] );
+        $view                = atbdp_get_listings_current_view_name( $atts['view'] );
 
         $args = array(
             'post_type'      => ATBDP_POST_TYPE,
@@ -276,49 +284,126 @@ class ATBDP_Shortcode {
             'paged'          => $paged,
         );
 
+        $listingbyid_arg = array();
+
+        if( !empty($listing_id)) {
+            $listingbyid_arg = $listing_id;
+            $args['post__in'] = $listingbyid_arg;
+        }
+        $args['post__in'] = $listingbyid_arg;
+
+        $with_pics_only = array();
+        if('true' == $atts['with_pics_only']) {
+            $with_pics_only = array(
+                'key'=>'_listing_img',
+                'compare'=>'EXISTS'
+            );
+            $args['meta_query'] = $with_pics_only;
+        }
 
         $tax_queries=array(); // initiate the tax query var to append to it different tax query
 
-        if( !empty($atts['category']) && !empty($atts['location']) && !empty($atts['tag'])) {
+        if( !empty($categories) && !empty($locations) && !empty($tags)) {
 
             $tax_queries['tax_query'] = array(
                     'relation' => 'AND',
                      array(
                         'taxonomy'         => ATBDP_CATEGORY,
                         'field'            => 'slug',
-                        'terms'            => !empty($atts['category']) ? $atts['category'] : array(),
+                        'terms'            => !empty($categories) ? $categories : array(),
                         'include_children' => true, /*@todo; Add option to include children or exclude it*/
                     ),
                     array(
                         'taxonomy'         => ATBDP_LOCATION,
                         'field'            => 'slug',
-                        'terms'            => !empty($atts['location']) ? $atts['location'] : array(),
+                        'terms'            => !empty($locations) ? $locations : array(),
                         'include_children' => true, /*@todo; Add option to include children or exclude it*/
                     ),
                     array(
                         'taxonomy'         => ATBDP_TAGS,
                         'field'            => 'slug',
-                        'terms'            => !empty($atts['tag']) ? $atts['tag'] : array(),
+                        'terms'            => !empty($tags) ? $tags : array(),
                         'include_children' => true, /*@todo; Add option to include children or exclude it*/
                     ),
 
             );
-        } elseif(!empty($atts['category']) && !empty($atts['tag'])) {
+        } elseif(!empty($categories) && !empty($tags)) {
             $tax_queries['tax_query'] = array(
                 'relation' => 'AND',
                 array(
                     'taxonomy'         => ATBDP_CATEGORY,
                     'field'            => 'slug',
-                    'terms'            => !empty($atts['category']) ? $atts['category'] : array(),
+                    'terms'            => !empty($categories) ? $categories : array(),
                     'include_children' => true, /*@todo; Add option to include children or exclude it*/
                 ),
                 array(
                     'taxonomy'         => ATBDP_TAGS,
                     'field'            => 'slug',
-                    'terms'            => !empty($atts['tag']) ? $atts['tag'] : array(),
+                    'terms'            => !empty($tags) ? $tags : array(),
                     'include_children' => true, /*@todo; Add option to include children or exclude it*/
                 ),
 
+            );
+        } elseif(!empty($categories) && !empty($locations)) {
+            $tax_queries['tax_query'] = array(
+                'relation' => 'AND',
+                array(
+                    'taxonomy'         => ATBDP_CATEGORY,
+                    'field'            => 'slug',
+                    'terms'            => !empty($categories) ? $categories : array(),
+                    'include_children' => true, /*@todo; Add option to include children or exclude it*/
+                ),
+                array(
+                    'taxonomy'         => ATBDP_LOCATION,
+                    'field'            => 'slug',
+                    'terms'            => !empty($locations) ? $locations : array(),
+                    'include_children' => true, /*@todo; Add option to include children or exclude it*/
+                ),
+
+            );
+        } elseif(!empty($tags) && !empty($locations)) {
+            $tax_queries['tax_query'] = array(
+                'relation' => 'AND',
+                array(
+                    'taxonomy'         => ATBDP_TAGS,
+                    'field'            => 'slug',
+                    'terms'            => !empty($tags) ? $tags : array(),
+                    'include_children' => true, /*@todo; Add option to include children or exclude it*/
+                ),
+                array(
+                    'taxonomy'         => ATBDP_LOCATION,
+                    'field'            => 'slug',
+                    'terms'            => !empty($locations) ? $locations : array(),
+                    'include_children' => true, /*@todo; Add option to include children or exclude it*/
+                ),
+
+            );
+        } elseif(!empty($categories)) {
+            $tax_queries['tax_query'] = array(
+                array(
+                    'taxonomy'         => ATBDP_CATEGORY,
+                    'field'            => 'slug',
+                    'terms'            => !empty($categories) ? $categories : array(),
+                    'include_children' => true, /*@todo; Add option to include children or exclude it*/
+                )
+            );
+        } elseif(!empty($tags)) {
+            $tax_queries['tax_query'] = array(
+                array(
+                    'taxonomy'         => ATBDP_TAGS,
+                    'field'            => 'slug',
+                    'terms'            => !empty($tags) ? $tags : array(),
+                    'include_children' => true, /*@todo; Add option to include children or exclude it*/
+                )
+            );
+        } elseif(!empty($locations)) {
+            $tax_queries['tax_query'] = array(
+                array(
+                    'taxonomy'         => ATBDP_LOCATION,
+                    'field'            => 'slug',
+                    'terms'            => !empty($locations) ? $locations : array(),
+                    'include_children' => true, /*@todo; Add option to include children or exclude it*/
+                )
             );
         }
         $args['tax_query'] = $tax_queries;

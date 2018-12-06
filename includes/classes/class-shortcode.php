@@ -254,13 +254,15 @@ class ATBDP_Shortcode {
             'category'          => '',
             'location'          => '',
             'tag'               => '',
-            'ids'               => ''
+            'ids'               => '',
         ), $atts );
+
 
         $categories = !empty($atts['category'] ) ? explode(',', $atts['category'] ) : '';
         $tags = !empty($atts['tag'] ) ? explode(',', $atts['tag'] ) : '';
         $locations = !empty($atts['location'] ) ? explode(',', $atts['location'] ) : '';
         $listing_id = !empty($atts['ids'] ) ? explode(',', $atts['ids'] ) : '';
+
         //for pagination
         $paged = atbdp_get_paged_num();
         $paginate = get_directorist_option('paginate_all_listings');
@@ -282,14 +284,24 @@ class ATBDP_Shortcode {
             'paged'          => $paged,
         );
 
+        $listingbyid_arg = array();
+
+        if( !empty($listing_id)) {
+            $listingbyid_arg = $listing_id;
+            $args['post__in'] = $listingbyid_arg;
+        }
+        $args['post__in'] = $listingbyid_arg;
+
+        $with_pics_only = array();
+        if('true' == $atts['with_pics_only']) {
+            $with_pics_only = array(
+                'key'=>'_listing_img',
+                'compare'=>'EXISTS'
+            );
+            $args['meta_query'] = $with_pics_only;
+        }
 
         $tax_queries=array(); // initiate the tax query var to append to it different tax query
-        if( !empty($listing_id)) {
-            $listingbyid_arg = array(
-                'post__in' => !empty($listing_id) ? $listing_id : array(),
-            ) ;
-            array_merge($args,$listingbyid_arg);
-        }
 
         if( !empty($categories) && !empty($locations) && !empty($tags)) {
 

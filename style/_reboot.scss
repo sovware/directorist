@@ -2,6 +2,10 @@
   a{
     text-decoration: none;
     box-shadow: none;
+    border: none;
+    &:before,&:after{
+      position: initial;
+    }
   }
   ul{
     padding-left: 0;
@@ -25,8 +29,6 @@
     height: auto;
   }
   .dropdown-toggle:after{
-    width: auto;
-    height: auto;
     font-size: inherit;
   }
 }

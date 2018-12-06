@@ -30,54 +30,59 @@ $popular_cat_num = get_directorist_option('popular_cat_num', 10);
                 <?php } ?>
             </div>
         </div>
-        <!-- start search area -->
-        <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
-            <!-- @todo; if the input fields break in different themes, use bootstrap form inputs then -->
-            <div class="atbd_seach_fields_wrapper">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="single_search_field search_query">
-                            <input class="form-control search_fields" type="text" name="q" placeholder="<?php echo esc_html($search_placeholder); ?>">
-                        </div>
-                    </div>
 
-                    <div class="col-md-4">
-                        <div class="single_search_field search_category">
-                            <select name="in_cat" class="search_fields form-control" id="at_biz_dir-category">
-                                <option value=""><?php _e('Select a category', ATBDP_TEXTDOMAIN); ?></option>
-
-                                <?php
-                                foreach ($categories as $category) {
-                                    echo "<option id='atbdp_category' value='$category->slug'>$category->name</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="single_search_field search_location">
-                            <select name="in_loc" class="search_fields form-control" id="at_biz_dir-location">
-                                <!--This text comes from js, translate them later @todo; translate js text-->
-                                <option value=""><?php _e('Select a location', ATBDP_TEXTDOMAIN); ?></option>
-
-                                <?php foreach ($locations as $location) {
-                                    echo "<option id='atbdp_location' value='$location->slug'>$location->name</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="row">
             <div class="col-md-12">
-                <div class="atbd_submit_btn">
-                    <button type="submit" class="btn btn-primary btn-lg btn_search">
-                        <span class="fa fa-search"></span> Search Listing
-                    </button>
-                </div>
+                <!-- start search area -->
+                <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
+                    <!-- @todo; if the input fields break in different themes, use bootstrap form inputs then -->
+                    <div class="atbd_seach_fields_wrapper">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="single_search_field search_query">
+                                    <input class="form-control search_fields" type="text" name="q"
+                                           placeholder="<?php echo esc_html($search_placeholder); ?>">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="single_search_field search_category">
+                                    <select name="in_cat" class="search_fields form-control" id="at_biz_dir-category">
+                                        <option value=""><?php _e('Select a category', ATBDP_TEXTDOMAIN); ?></option>
+
+                                        <?php
+                                        foreach ($categories as $category) {
+                                            echo "<option id='atbdp_category' value='$category->slug'>$category->name</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="single_search_field search_location">
+                                    <select name="in_loc" class="search_fields form-control" id="at_biz_dir-location">
+                                        <!--This text comes from js, translate them later @todo; translate js text-->
+                                        <option value=""><?php _e('Select a location', ATBDP_TEXTDOMAIN); ?></option>
+
+                                        <?php foreach ($locations as $location) {
+                                            echo "<option id='atbdp_location' value='$location->slug'>$location->name</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="atbd_submit_btn">
+                        <button type="submit" class="btn btn-primary btn-lg btn_search">
+                            <span class="fa fa-search"></span> Search Listing
+                        </button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
+
 
         <div class="row">
             <div class="col-md-12">

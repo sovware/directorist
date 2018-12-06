@@ -7,9 +7,8 @@
             $count = atbdp_listings_count_by_location($term->term_id);
 
             if(!empty($locations_settings['hide_empty']) && 0 == $count) continue;
-        }
+        } ?>
 
-        ?>
         <div class="col-md-2">
             <a href="<?php  echo ATBDP_Permalink::get_location_archive($term) ?>" class=""> <?php echo $term->name;?>
                 <?php
@@ -18,7 +17,6 @@
                 }
                 ?>
             </a>
-
         </div>
     <?php } ?>
 </div>

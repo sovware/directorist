@@ -94,10 +94,12 @@ h6, .h6 {
 .border-color {
   border-color: $border-color;
 }
-
 #directorist.atbd_wrapper {
   *{
     box-sizing: border-box;
+  }
+  .fa{
+    font: normal normal normal 14px/1 FontAwesome;
   }
   .atbd_rated_stars {
     ul li {

@@ -2,6 +2,11 @@
 #directorist.atbd_wrapper a {
   text-decoration: none;
   box-shadow: none;
+  border: none;
+}
+
+#directorist.atbd_wrapper a:before, #directorist.atbd_wrapper a:after {
+  position: initial;
 }
 
 #directorist.atbd_wrapper ul {
@@ -31,8 +36,6 @@
 }
 
 #directorist.atbd_wrapper .dropdown-toggle:after {
-  width: auto;
-  height: auto;
   font-size: inherit;
 }
 
@@ -220,6 +223,10 @@ h6, .h6 {
 
 #directorist.atbd_wrapper * {
   box-sizing: border-box;
+}
+
+#directorist.atbd_wrapper .fa {
+  font: normal normal normal 14px/1 FontAwesome;
 }
 
 #directorist.atbd_wrapper .atbd_rated_stars ul li {
@@ -894,6 +901,10 @@ h6, .h6 {
   border-radius: 50%;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .select2-selection__clear {
+  padding-right: 10px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_action_btn .dropdown {
   display: inline-block;
 }
@@ -1163,6 +1174,7 @@ h6, .h6 {
   border-radius: 50%;
   color: #7a82a6;
   font-size: 14px;
+  vertical-align: top;
 }
 
 .atbd_content_active .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap,
@@ -1343,6 +1355,7 @@ h6, .h6 {
   text-align: left;
   overflow-y: scroll;
   margin-bottom: 30px;
+  background: #ffffff;
 }
 
 .atbd_content_active #directorist.atbd_wrapper #gmap {
@@ -1522,6 +1535,10 @@ h6, .h6 {
   padding: 8px 20px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area #profile_pic_container img {
+  width: 100%;
+}
+
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area #pro_notice {
   display: block;
   margin-top: 25px;
@@ -1539,7 +1556,7 @@ h6, .h6 {
   background-clip: padding-box;
   border: 1px solid #dbdaf7;
   border-radius: 0.25rem;
-  height: 36px;
+  min-height: 36px;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 

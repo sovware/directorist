@@ -27,7 +27,7 @@
 				echo '<div class="row atbdp-no-margin">';
 			}
 
-			echo '<div class="' . $span . '">';
+			echo '<div class="' . $span . '"><div class="atbd_category_wrapper">';
 			echo '<a href=" ' .ATBDP_Permalink::get_category_archive($term) . ' ">';
 			echo '<strong>' . $term->name . '</strong>';
 			if( ! empty( $categories_settings['show_count'] ) ) {
@@ -35,13 +35,12 @@
 			}
 			echo '</a>';
 			echo atbdp_list_categories( $categories_settings );
-			echo '</div>';
+			echo '</div></div>';
 
 			$i++;
 			if( $i % $categories_settings['columns'] == 0 || $i == count( $terms ) ) {
 				echo '</div>';
 			}
-
 		}
 	?>
 </div>

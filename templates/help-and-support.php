@@ -1,6 +1,6 @@
 <?php
 ?>
-<div class="atbdp_support_wrapper">
+<div id="directorist" class="atbd_wrapper atbdp_support_wrapper atbd_help_support">
     <!--Support Block-->
     <div class="wrap wrap_left">
         <div class="postbox wpcs-admin-extra">

@@ -162,17 +162,22 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
         <div class="row">
             <div class="col-md-12">
                 <div class="atbd_author_listings_area">
-                    <h1><?php echo !empty($total_listing)?$total_listing:'0'?>
-                        <?php echo ($total_listing>1)?'Listings found':'Listing found'?></h1>
+                    <h1><?php _e( "Author Listings", ATBDP_TEXTDOMAIN ); ?></h1>
                     <div class="atbd_author_filter_area">
-                        <select class="form-control" name="category" id="selectCategory">
-                            <option value=""><?php _e('Select a category', ATBDP_TEXTDOMAIN); ?></option>
-                            <?php
-                            foreach ($categories as $category) {
-                                echo "<option id='atbdp_category' value='$category->slug'>$category->name</option>";
-                            }
-                            ?>
-                        </select>
+                        <div class="dropdown">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <?php _e( "Filter by category", ATBDP_TEXTDOMAIN ); ?> <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <?php
+                                foreach( $categories as $category ) {
+                                    //$active_class = ( $view == $value ) ? ' active' : '';
+                                    printf( '<a class="dropdown-item" href="%s">%s</a>', add_query_arg( 'category', $category->slug ), $category->name );
+                                }
+                                ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -247,11 +252,15 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                                                 $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
                                                 $enable_new_listing = get_directorist_option('enable_new_listing');
                                                 $new_listing_day = get_directorist_option('new_listing_day');
-                                                $is_weeks = substr($is_old, -5);
-                                                if ('weeks' != $is_weeks){
-                                                    if (($is_old<=$new_listing_day) && ($enable_new_listing)){
+                                                $is_day_or_days = substr($is_old, -4);
+                                                if (($is_old<=$new_listing_day) && ($enable_new_listing)){
+                                                switch ($is_day_or_days){
+                                                    case ' day':
                                                         echo '<span class="atbd_badge atbd_badge_new">New</span>';
-                                                    }
+                                                        break;
+                                                    case 'days':
+                                                        echo '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                }
                                                 }
                                                 ?>
                                             </div>

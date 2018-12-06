@@ -1216,7 +1216,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'select',
                     'name' => 'sort_listing_by',
-                    'label' => __( 'Categories Sort By', ATBDP_TEXTDOMAIN ),
+                    'label' => __( 'Listing Sort By', ATBDP_TEXTDOMAIN ),
                     'items' => array(
                         array(
                             'value' => 'asc',
@@ -1228,8 +1228,8 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                     'default' => array(
-                        'value' => 'asc',
-                        'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                        'value' => 'desc',
+                        'label' => __('Descending', ATBDP_TEXTDOMAIN),
                     ),
                 ),
 
@@ -1879,10 +1879,10 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'new_listing_day',
-                    'label' => __('Number of Days for New Listings', ATBDP_TEXTDOMAIN),
+                    'label' => __('Number of Days for New Badge', ATBDP_TEXTDOMAIN),
                     'description' => __( 'Set how many days would like to show on your listings New. Eg. 5. Default is 3.', ATBDP_TEXTDOMAIN),
                     'min' => '0',
-                    'max' => '30',
+                    'max' => '6',
                     'step' => '1',
                     'default' => '3',
                     'validation' => 'numeric|minlength[1]',

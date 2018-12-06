@@ -147,10 +147,14 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                 $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
                                                 $enable_new_listing = get_directorist_option('enable_new_listing');
                                                 $new_listing_day = get_directorist_option('new_listing_day');
-                                                $is_weeks = substr($is_old, -5);
-                                                if ('weeks' != $is_weeks){
-                                                    if (($is_old<=$new_listing_day) && ($enable_new_listing)){
-                                                        echo '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                $is_day_or_days = substr($is_old, -4);
+                                                if (($is_old<=$new_listing_day) && ($enable_new_listing)){
+                                                    switch ($is_day_or_days){
+                                                        case ' day':
+                                                            echo '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                            break;
+                                                        case 'days':
+                                                            echo '<span class="atbd_badge atbd_badge_new">New</span>';
                                                     }
                                                 }
                                                 ?>
@@ -158,7 +162,8 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                         </figcaption>
                                     </figure>
 
-                                    <?php /*todo: Shahadat -> please implement the current markup*/?>
+                                    <?php
+                                    /*todo: Shahadat -> please implement the current markup*/?>
                                     <div class="atbd_listing_info">
                                         <div class="atbd_content_upper">
                                             <h4 class="atbd_listing_title">

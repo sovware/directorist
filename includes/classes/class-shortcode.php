@@ -583,9 +583,9 @@ class ATBDP_Shortcode {
     public function public_profile($atts){
         //for pagination
         $author_id = !empty($_GET['author_id'])?$_GET['author_id']:'';
+        $category = !empty($_GET['category'])?$_GET['category']:'';
         $paged = atbdp_get_paged_num();
         $paginate = get_directorist_option('paginate_all_listings');
-        $category = 'new';
         if (!$paginate) $args['no_found_rows'] = true;
         $args = array(
             'post_type'      => ATBDP_POST_TYPE,
@@ -594,10 +594,13 @@ class ATBDP_Shortcode {
             'paged'          => $paged,
             'author'         => $author_id,
             'tax_query'      => array(
-                'taxonomy'         => ATBDP_CATEGORY,
-                'field'            => 'slug',
-                'terms'            => !empty($category) ? esc_attr($category) : '',
-                'include_children' => true, /*@todo; Add option to include children or exclude it*/
+                    array(
+                        'taxonomy'         => ATBDP_CATEGORY,
+                        'field'            => 'slug',
+                        'terms'            => !empty($category)?$category:'',
+                        'include_children' => true, /*@todo; Add option to include children or exclude it*/
+                    )
+
             )
         );
 

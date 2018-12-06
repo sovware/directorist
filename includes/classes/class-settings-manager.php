@@ -1216,7 +1216,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'select',
                     'name' => 'sort_listing_by',
-                    'label' => __( 'Categories Sort By', ATBDP_TEXTDOMAIN ),
+                    'label' => __( 'Listing Sort By', ATBDP_TEXTDOMAIN ),
                     'items' => array(
                         array(
                             'value' => 'asc',
@@ -1228,8 +1228,8 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                     'default' => array(
-                        'value' => 'asc',
-                        'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                        'value' => 'desc',
+                        'label' => __('Descending', ATBDP_TEXTDOMAIN),
                     ),
                 ),
 

@@ -10,7 +10,7 @@
     background-clip: padding-box;
     border: 1px solid #dbdaf7;
     border-radius: 0.25rem;
-    height: 36px;
+    min-height: 36px;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
   &.directory_search_area{

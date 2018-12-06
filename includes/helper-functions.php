@@ -1448,14 +1448,13 @@ function atbdp_list_categories( $settings ) {
     );
 
     $terms = get_terms( ATBDP_CATEGORY, $args );
-
     $html = '';
 
     if( count( $terms ) > 0 ) {
 
         --$settings['depth'];
 
-        $html .= '<ul class="list-unstyled">';
+        $html .= '<ul class="list-unstyled atbdp_child_category">';
 
         foreach( $terms as $term ) {
             $settings['term_id'] = $term->term_id;

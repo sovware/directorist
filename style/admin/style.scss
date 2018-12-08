@@ -120,8 +120,20 @@
     .wrap_left {
       width: 70%;
     }
+    h3{
+      font-size: 24px;
+    }
+    a{
+      color: #387dff;
+      &:hover{
+        text-decoration: underline;
+      }
+    }
     .postbox {
       padding: 30px;
+      h3{
+        margin-bottom: 20px;
+      }
     }
     .wrap {
       display: inline-block;
@@ -139,6 +151,10 @@
         }
       }
     }
+  }
+  .shortcode_table td {
+    font-size: 14px;
+    line-height: 22px;
   }
   ul.atbdp_pro_features {
     li {

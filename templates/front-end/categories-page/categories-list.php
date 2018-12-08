@@ -13,8 +13,11 @@
 		$i = 0;
 
 		foreach( $terms as $term ) {
+            $parent = $args['parent'];
             $categories_settings['term'] = $term;
 			$categories_settings['term_id'] = $term->term_id;
+            $child_category = get_term_children($term->term_id,ATBDP_CATEGORY);
+            $plus_icon = !empty($child_category) && empty($parent)? '<span class="fa fa-plus"></span>' : '';
 
 			$count = 0;
 			if( ! empty( $categories_settings['hide_empty'] ) || ! empty( $categories_settings['show_count'] ) ) {
@@ -33,11 +36,12 @@
 			if( ! empty( $categories_settings['show_count'] ) ) {
 				echo ' (' .  $count . ')';
 			}
-			echo '</a>';
+			echo "</a>$plus_icon";
 			echo atbdp_list_categories( $categories_settings );
 			echo '</div></div>';
 
 			$i++;
+
 			if( $i % $categories_settings['columns'] == 0 || $i == count( $terms ) ) {
 				echo '</div>';
 			}

@@ -61,7 +61,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
 
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
                                                 <?php
-                                                $views = atbdp_get_listings_view_options();
+                                                $views = atbdp_get_listings_orderby_options();
 
                                                 foreach( $views as $value => $label ) {
                                                     $active_class = ( $view == $value ) ? ' active' : '';

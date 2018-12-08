@@ -1,8 +1,13 @@
 .atbd_content_active .widget.atbd_widget ,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget {
+  padding: 0;
   background: $light;
   border: 1px solid $border-color;
   margin-bottom: 30px;
+  ul li{
+    border: none;
+    padding: 0;
+  }
   .atbd_widget_title {
     border-bottom: 1px solid $border-color;
     h4 {

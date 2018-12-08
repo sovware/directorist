@@ -17,6 +17,7 @@
 #directorist.atbd_wrapper ul li {
   list-style: none;
   margin-left: 0;
+  padding-left: 0;
 }
 
 #directorist.atbd_wrapper article {
@@ -915,9 +916,16 @@ h6, .h6 {
 
 .atbd_content_active .widget.atbd_widget,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget {
+  padding: 0;
   background: #ffffff;
   border: 1px solid #e3e6ef;
   margin-bottom: 30px;
+}
+
+.atbd_content_active .widget.atbd_widget ul li,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget ul li {
+  border: none;
+  padding: 0;
 }
 
 .atbd_content_active .widget.atbd_widget .atbd_widget_title,
@@ -1712,6 +1720,10 @@ h6, .h6 {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_authors_listing {
   margin-top: 30px;
+}
+
+.atbd_category_wrapper .atbdp_child_category {
+  padding-left: 10px;
 }
 
 /*# sourceMappingURL=map/style.css.map */

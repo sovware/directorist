@@ -160,8 +160,6 @@ class ATBDP_Permalink{
             self::get_search_result_page_link()
         );
         return apply_filters('atbdp_category_archive_url', $link);
-
-
     }
 
     /**

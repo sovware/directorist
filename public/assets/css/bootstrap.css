@@ -1502,6 +1502,7 @@
 }
 
 #directorist.atbd_wrapper select.form-control:not([size]):not([multiple]) {
+  height: 38px;
 }
 
 #directorist.atbd_wrapper select.form-control:focus::-ms-value {

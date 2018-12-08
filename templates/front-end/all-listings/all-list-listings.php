@@ -100,6 +100,9 @@ $is_disable_price = get_directorist_option('disable_list_price');
                         $enable247hour = get_post_meta(get_the_ID(), '_enable247hour', true);
                         $business_hours = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
                         /*Code for Business Hour Extensions*/
+                        $author_id = get_the_author_meta( 'ID' );
+                        $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+                        $avata_img = get_avatar($author_id, 32);
                         ?>
 
                         <div class="col-md-8">
@@ -246,8 +249,12 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                             class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0; ?>
                                                 </li>
                                                 <li class="atbd_save"><span class="fa fa-heart"></span></li>
-                                                <li class="atbd_author"><a
-                                                            href=""><?php echo get_avatar(get_the_author_meta('ID'), 32); ?></a>
+                                                <li class="atbd_author">
+                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                            <img
+                                                            src="<?php echo esc_url($u_pro_pic); ?>"
+                                                            alt="Author Image"><?php } ?>
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </div><!-- end ./atbd_listing_bottom_content -->

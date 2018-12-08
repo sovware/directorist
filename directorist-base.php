@@ -624,6 +624,7 @@ final class Directorist_Base
                         $locs =  get_the_terms($r_post->ID, ATBDP_LOCATION);
                         $featured = get_post_meta($r_post->ID, '_featured', true);
                         $price = get_post_meta($r_post->ID, '_price', true);
+                        $price_range = get_post_meta($r_post->ID, '_price_range', true);
                         $listing_img = get_post_meta($r_post->ID, '_listing_img', true);
                         $excerpt = get_post_meta($r_post->ID, '_excerpt', true);
                         $tagline = get_post_meta($r_post->ID, '_tagline', true);
@@ -638,6 +639,9 @@ final class Directorist_Base
                         $enable247hour          = get_post_meta($r_post->ID, '_enable247hour', true);
                         $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
                         /*Code for Business Hour Extensions*/
+                        $author_id = get_the_author_meta( 'ID' );
+                        $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+                        $avata_img = get_avatar($author_id, 32);
                         ?>
                         <div class="col-md-4 col-sm-6">
                             <div class="atbd_single_listing atbd_listing_card">
@@ -700,15 +704,12 @@ final class Directorist_Base
                                                  */
 
                                                 do_action('atbdp_after_listing_tagline');
-                                                /*@todo: Shahadat -> added new markup, Average pricing */?>
-                                                <span class="atbd_meta atbd_listing_average_pricing">
-                                                    <span class="atbd_active">$</span>
-                                                    <span class="atbd_active">$</span>
-                                                    <span>$</span>
-                                                    <span>$</span>
-                                                </span>
-                                                <?php
-                                                atbdp_display_price($price, $is_disable_price);
+                                                if(!empty($price_range)) {
+                                                    $output = atbdp_display_price_range($price_range);
+                                                    echo $output;
+                                                }else{
+                                                    atbdp_display_price($price, $is_disable_price);
+                                                }
 
                                                 /**
                                                  * Fires after the price of the listing is rendered
@@ -766,7 +767,13 @@ final class Directorist_Base
                                             <ul class="atbd_content_right">
                                                 <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li>
                                                 <li class="atbd_save"><span class="fa fa-heart"></span></li>
-                                                <li class="atbd_author"><a href=""><?php echo get_avatar( get_the_author_meta( 'ID' ) , 32 ); ?></a></li>
+                                                <li class="atbd_author">
+                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                            <img
+                                                            src="<?php echo esc_url($u_pro_pic); ?>"
+                                                            alt="Author Image"><?php } ?>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div><!-- end ./atbd_listing_bottom_content -->
                                     </div>

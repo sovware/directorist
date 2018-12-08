@@ -1639,6 +1639,31 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Published', ATBDP_TEXTDOMAIN),
                 ),
             ),
+
+
+            array(
+                'type' => 'select',
+                'name' => 'edit_listing_redirect',
+                'label' => __( 'Redirect after Editing a Listing', ATBDP_TEXTDOMAIN ),
+                'items' => array(
+                    array(
+                        'value' => 'view_listing',
+                        'label' => __('Frontend of the Listing', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'value' => 'dashboard',
+                        'label' => __('User Dashboard', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                'description' => __( 'Select a page where user will be redirected after editing a listing on the front end.', ATBDP_TEXTDOMAIN ),
+
+                'default' => array(
+                    'value' => 'view_listing',
+                    'label' => __('View Listing', ATBDP_TEXTDOMAIN),
+                ),
+            ),
+
+
             array(
                 'type' => 'toggle',
                 'name' => 'enable_report_abuse',

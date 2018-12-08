@@ -1351,47 +1351,44 @@ function atbdp_display_price($price='', $disable_price=false, $currency='', $sym
  */
 function atbdp_display_price_range($price_range){
    if(empty($price_range)) return null;
+   $output = '';
     if('skimming' == $price_range) {
-        ?>
-        <span class="atbd_meta atbd_listing_average_pricing">
+        $output =
+        '<span class="atbd_meta atbd_listing_average_pricing">
             <span class="atbd_active">$</span>
             <span class="atbd_active">$</span>
             <span class="atbd_active">$</span>
             <span class="atbd_active">$</span>
-        </span>
-        <?php
+        </span>';
+
     }elseif ('moderate' == $price_range) {
-        ?>
-        <span class="atbd_meta atbd_listing_average_pricing">
+        $output =
+            '<span class="atbd_meta atbd_listing_average_pricing">
             <span class="atbd_active">$</span>
             <span class="atbd_active">$</span>
             <span class="atbd_active">$</span>
             <span>$</span>
-        </span>
-        <?php
+            </span>';
     }elseif ('economy' == $price_range) {
-        ?>
-        <span class="atbd_meta atbd_listing_average_pricing">
+        $output =
+        '<span class="atbd_meta atbd_listing_average_pricing">
             <span class="atbd_active">$</span>
             <span class="atbd_active">$</span>
             <span>$</span>
             <span>$</span>
-        </span>
-        <?php
+        </span>';
     }elseif('bellow_economy' == $price_range) {
-        ?>
-        <span class="atbd_meta atbd_listing_average_pricing">
+
+        $output =
+            '<span class="atbd_meta atbd_listing_average_pricing">
             <span class="atbd_active">$</span>
             <span>$</span>
             <span>$</span>
             <span>$</span>
-        </span>
-        <?php
+        </span>';
+
     }
-   ?>
-
-
-    <?php
+    return $output;
 
 }
 

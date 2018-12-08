@@ -372,11 +372,16 @@ if (!class_exists('ATBDP_Add_Listing')):
                             exit;
                         }else{
                             $featured_enabled = get_directorist_option('enable_featured_listing');
-                            if (get_directorist_option('enable_monetization') && $featured_enabled){
+                            if (get_directorist_option('enable_monetization') && !$_POST['listing_id'] && $featured_enabled){
                                 wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
                                 exit;
                             }
-                            wp_redirect(get_permalink($post_id));
+                            $redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
+                            if ('view_listing' == $redirect_page){
+                                wp_redirect(get_permalink($post_id));
+                            }else{
+                                wp_redirect(ATBDP_Permalink::get_dashboard_page_link());
+                            }
                             exit;
                         }
 

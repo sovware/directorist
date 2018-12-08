@@ -190,7 +190,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             <div class="atbd_directory_gallery">
                                 <?php foreach ($image_links as $image_link) { ?>
                                     <div class="single_image">
-                                        <img src="<?= esc_url($image_link); ?>"
+                                        <img src="<?= !empty($image_link)?esc_url($image_link): ''; ?>"
                                              alt="<?php esc_attr_e('Details Image', ATBDP_TEXTDOMAIN); ?>">
                                     </div>
 
@@ -218,13 +218,25 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                 <span class="next fa fa-angle-right"></span>
                             <?php } ?>
                         </div>
-                    <?php } ?>
+                    <?php }else{
+                        ?>
+                        <div class="single_image">
+                            <img src="<?= ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'; ?>"
+                                 alt="<?php esc_attr_e('Details Image', ATBDP_TEXTDOMAIN); ?>">
+                        </div>
+                    <?php
+                    } ?>
                     <div class="atbd_listing_detail">
                         <?php /* @todo: Shahadat -> */ ?>
                         <div class="atbd_data_info">
                             <div class="atbd_listing_meta">
                                 <?php
-                                atbdp_display_price($price, $is_disable_price);
+                                if(!empty($price_range)) {
+                                    $output = atbdp_display_price_range($price_range);
+                                    echo $output;
+                                }else{
+                                    atbdp_display_price($price, $is_disable_price);
+                                }
                                 do_action('atbdp_after_listing_price');
                                 /**
                                  * Fires after the title and sub title of the listing is rendered on the single listing page
@@ -332,13 +344,15 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             $field_details = get_post_meta($listing_id, $field_id, true);
                             $field_title = get_the_title($field_id);
                             $field_type = get_post_meta($field_id, 'type', true);
-                           ?>
-                            <li>
-                                <div class="atbd_custom_field_title"><p><?php echo esc_attr($field_title);?></p></div>
-                                <div class="atbd_custom_field_content"><p><?php if ('color' == $field_type){printf( '<div class="atbd_field_type_color" style="background-color: %s;"></div>', $field_details );}else{echo esc_attr(ucwords($field_details));}?></p>
-                                </div>
-                            </li>
+                           if (!empty($field_details)){
+                               ?>
+                               <li>
+                                   <div class="atbd_custom_field_title"><p><?php echo esc_attr($field_title);?></p></div>
+                                   <div class="atbd_custom_field_content"><p><?php if ('color' == $field_type){printf( '<div class="atbd_field_type_color" style="background-color: %s;"></div>', $field_details );}else{echo esc_attr(ucwords($field_details));}?></p>
+                                   </div>
+                               </li>
                         <?php
+                           }
                         }
                         wp_reset_postdata();
                         ?>
@@ -380,8 +394,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
             <?php } ?>
 
 
-            <?php /* @todo: Shahadat -> added new contents */ ?>
-            <?php if (!$disable_contact_info || !$hide_contact_info) { ?>
+            <?php if ((!$disable_contact_info || !$hide_contact_info) && !empty($address||$phone||$email||$website||$social) ) { ?>
                 <div class="atbd_content_module atbd_contact_information_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">

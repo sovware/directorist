@@ -103,6 +103,9 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                         $bdbh                   = get_post_meta(get_the_ID(), '_bdbh', true);
                         $enable247hour               = get_post_meta(get_the_ID(), '_enable247hour', true);
                         $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
+                        $author_id = get_the_author_meta( 'ID' );
+                        $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+                        $avata_img = get_avatar($author_id, 32);
                         /*Code for Business Hour Extensions*/
                         ?>
                         <div class="col-md-4 col-sm-6">
@@ -148,13 +151,30 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                 $enable_new_listing = get_directorist_option('enable_new_listing');
                                                 $new_listing_day = get_directorist_option('new_listing_day');
                                                 $is_day_or_days = substr($is_old, -4);
+                                                $is_other = substr($is_old, -5);
                                                 if (($is_old<=$new_listing_day) && ($enable_new_listing)){
+                                                    $new = '<span class="atbd_badge atbd_badge_new">New</span>';
                                                     switch ($is_day_or_days){
                                                         case ' day':
-                                                            echo '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                            echo $new;
                                                             break;
                                                         case 'days':
-                                                            echo '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                            echo $new;
+                                                            break;
+                                                            case 'mins':
+                                                            echo $new;
+                                                            break;
+                                                            case ' min':
+                                                            echo $new;
+                                                            break;
+                                                            case 'hour':
+                                                            echo $new;
+                                                            break;
+                                                    }
+                                                    switch ($is_other){
+                                                        case 'hours':
+                                                            echo $new;
+                                                            break;
                                                     }
                                                 }
                                                 ?>
@@ -183,12 +203,12 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
 
                                                 do_action('atbdp_after_listing_tagline');
 
-                                                if(empty($price) && !empty($price_range)) {
-                                                 atbdp_display_price_range($price_range);
+                                                if(!empty($price_range)) {
+                                                 $output = atbdp_display_price_range($price_range);
+                                                 echo $output;
+                                                }else{
+                                                    atbdp_display_price($price, $is_disable_price);
                                                 }
-
-                                                atbdp_display_price($price, $is_disable_price);
-
                                                 /**
                                                  * Fires after the price of the listing is rendered
                                                  *
@@ -240,7 +260,13 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                             <ul class="atbd_content_right">
                                                 <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li>
                                                 <li class="atbd_save"><span class="fa fa-heart"></span></li>
-                                                <li class="atbd_author"><a href=""><?php echo get_avatar( get_the_author_meta( 'ID' ) , 32 ); ?></a></li>
+                                                <li class="atbd_author">
+                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                            <img
+                                                            src="<?php echo esc_url($u_pro_pic); ?>"
+                                                            alt="Author Image"><?php } ?>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div><!-- end ./atbd_listing_bottom_content -->
                                     </div>

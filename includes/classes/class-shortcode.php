@@ -678,16 +678,21 @@ class ATBDP_Shortcode {
             'posts_per_page' => 9,
             'paged'          => $paged,
             'author'         => $author_id,
-            'tax_query'      => array(
-                    array(
-                        'taxonomy'         => ATBDP_CATEGORY,
-                        'field'            => 'slug',
-                        'terms'            => !empty($category)?$category:'',
-                        'include_children' => true, /*@todo; Add option to include children or exclude it*/
-                    )
-
-            )
         );
+        if (!empty($category)){
+            $category = array(
+                array(
+                    'taxonomy'         => ATBDP_CATEGORY,
+                    'field'            => 'slug',
+                    'terms'            => !empty($category)?$category:'',
+                    'include_children' => true, /*@todo; Add option to include children or exclude it*/
+                )
+
+            );
+        }
+        if (!empty($category)){
+            $args['tax_query'] = $category;
+        }
 
 
         $all_listings = new WP_Query($args);

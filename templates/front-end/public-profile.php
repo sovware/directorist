@@ -110,48 +110,68 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                     <div class="atbdp atbd_author_info_widget">
                         <div class="atbd_widget_contact_info">
                             <ul>
-                                <li>
-                                    <span class="fa fa-map-marker"></span>
-                                    <span class="atbd_info"><?= !empty($address)?esc_html($address):''; ?></span>
-                                </li>
-
-                                <!-- In Future, We will have to use a loop to print more than 1 number-->
-                                <li>
-                                    <span class="fa fa-phone"></span>
-                                    <span class="atbd_info"><?= !empty($phone)?esc_html($phone):''; ?></span>
-                                </li>
-
-                                <li>
-                                    <span class="fa fa-envelope"></span>
-                                    <span class="atbd_info"><?= !empty($email)?esc_html($email):''; ?></span>
-                                </li>
-
-                                <li>
-                                    <span class="fa fa-globe"></span>
-                                    <span class="atbd_info"><?= !empty($website)?esc_html($website):''; ?></span>
-                                </li>
-
+                                <?php
+                                if (!empty($address)){
+                                  ?>
+                                    <li>
+                                        <span class="fa fa-map-marker"></span>
+                                        <span class="atbd_info"><?= !empty($address)?esc_html($address):''; ?></span>
+                                    </li>
+                                <?php
+                                }
+                                if (!empty($phone)){
+                                    ?>
+                                    <!-- In Future, We will have to use a loop to print more than 1 number-->
+                                    <li>
+                                        <span class="fa fa-phone"></span>
+                                        <span class="atbd_info"><?= !empty($phone)?esc_html($phone):''; ?></span>
+                                    </li>
+                                <?php
+                                }
+                                if (!empty($email)){
+                                    ?>
+                                    <li>
+                                        <span class="fa fa-envelope"></span>
+                                        <span class="atbd_info"><?= !empty($email)?esc_html($email):''; ?></span>
+                                    </li>
+                                <?php
+                                }
+                                if (!empty($website)){
+                                    ?>
+                                    <li>
+                                        <span class="fa fa-globe"></span>
+                                        <span class="atbd_info"><?= !empty($website)?esc_html($website):''; ?></span>
+                                    </li>
+                                <?php
+                                }
+                                ?>
                             </ul>
                         </div>
-                        <div class="atbd_social_wrap">
-                            <?php
-                            if ($facebook) {
-                                printf('<p><a target="_blank" href="%s"><span class="fa fa-facebook"></span></a></p>', $facebook);
-                            }
-                            if ($twitter) {
-                                printf('<p><a target="_blank" href="%s"><span class="fa fa-twitter"></span></a></p>', $twitter);
-                            }
-                            if ($google) {
-                                printf('<p><a target="_blank" href="%s"><span class="fa fa-google-plus"></span></a></p>', $google);
-                            }
-                            if ($linkedIn) {
-                                printf('<p><a target="_blank" href="%s"><span class="fa fa-linkedin"></span></a></p>', $linkedIn);
-                            }
-                            if ($youtube) {
-                                printf('<p><a target="_blank" href="%s"><span class="fa fa-youtube"></span></a></p>', $youtube);
-                            }
+                        <?php
+                        if (!empty($facebook || $twitter || $google || $linkedIn || $youtube)){
                             ?>
-                        </div>
+                            <div class="atbd_social_wrap">
+                                <?php
+                                if ($facebook) {
+                                    printf('<p><a target="_blank" href="%s"><span class="fa fa-facebook"></span></a></p>', $facebook);
+                                }
+                                if ($twitter) {
+                                    printf('<p><a target="_blank" href="%s"><span class="fa fa-twitter"></span></a></p>', $twitter);
+                                }
+                                if ($google) {
+                                    printf('<p><a target="_blank" href="%s"><span class="fa fa-google-plus"></span></a></p>', $google);
+                                }
+                                if ($linkedIn) {
+                                    printf('<p><a target="_blank" href="%s"><span class="fa fa-linkedin"></span></a></p>', $linkedIn);
+                                }
+                                if ($youtube) {
+                                    printf('<p><a target="_blank" href="%s"><span class="fa fa-youtube"></span></a></p>', $youtube);
+                                }
+                                ?>
+                            </div>
+                        <?php
+                        }
+                        ?>
                         <a href="<?= esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
                            class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('+ Become an Author', ATBDP_TEXTDOMAIN); ?></a>
                     </div>
@@ -208,6 +228,8 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                         $enable247hour               = get_post_meta(get_the_ID(), '_enable247hour', true);
                         $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
                         /*Code for Business Hour Extensions*/
+                        $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+                        $avata_img = get_avatar($author_id, 32);
                         ?>
                         <div class="col-md-4 col-sm-6">
                             <div class="atbd_single_listing atbd_listing_card">
@@ -253,14 +275,31 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                                                 $enable_new_listing = get_directorist_option('enable_new_listing');
                                                 $new_listing_day = get_directorist_option('new_listing_day');
                                                 $is_day_or_days = substr($is_old, -4);
+                                                $is_other = substr($is_old, -5);
                                                 if (($is_old<=$new_listing_day) && ($enable_new_listing)){
-                                                switch ($is_day_or_days){
-                                                    case ' day':
-                                                        echo '<span class="atbd_badge atbd_badge_new">New</span>';
-                                                        break;
-                                                    case 'days':
-                                                        echo '<span class="atbd_badge atbd_badge_new">New</span>';
-                                                }
+                                                    $new = '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                    switch ($is_day_or_days){
+                                                        case ' day':
+                                                            echo $new;
+                                                            break;
+                                                        case 'days':
+                                                            echo $new;
+                                                            break;
+                                                        case 'mins':
+                                                            echo $new;
+                                                            break;
+                                                        case ' min':
+                                                            echo $new;
+                                                            break;
+                                                        case 'hour':
+                                                            echo $new;
+                                                            break;
+                                                    }
+                                                    switch ($is_other){
+                                                        case 'hours':
+                                                            echo $new;
+                                                            break;
+                                                    }
                                                 }
                                                 ?>
                                             </div>
@@ -287,11 +326,12 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
 
                                                 do_action('atbdp_after_listing_tagline');
 
-                                                if(empty($price) && !empty($price_range)) {
-                                                    atbdp_display_price_range($price_range);
+                                                if(!empty($price_range)) {
+                                                    $output = atbdp_display_price_range($price_range);
+                                                    echo $output;
+                                                }else{
+                                                    atbdp_display_price($price, $is_disable_price);
                                                 }
-
-                                                atbdp_display_price($price, $is_disable_price);
 
                                                 /**
                                                  * Fires after the price of the listing is rendered
@@ -344,7 +384,13 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                                             <ul class="atbd_content_right">
                                                 <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li>
                                                 <li class="atbd_save"><span class="fa fa-heart"></span></li>
-                                                <li class="atbd_author"><a href=""><?php echo get_avatar( get_the_author_meta( 'ID' ) , 32 ); ?></a></li>
+                                                <li class="atbd_author">
+                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                            <img
+                                                            src="<?php echo esc_url($u_pro_pic); ?>"
+                                                            alt="Author Image"><?php } ?>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div><!-- end ./atbd_listing_bottom_content -->
                                     </div>

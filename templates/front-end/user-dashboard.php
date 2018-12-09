@@ -65,6 +65,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                     $price = get_post_meta($post->ID, '_price', true);
                                     $featured = get_post_meta($post->ID, '_featured', true);
                                     $listing_img = get_post_meta($post->ID, '_listing_img', true);
+                                    $listing_prv_img   = get_post_meta($post->ID, '_listing_prv_img', true);
                                     $tagline = get_post_meta($post->ID, '_tagline', true);
 
                                     ?>
@@ -73,7 +74,13 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                                 <figure class="atbd_listing_thumbnail_area">
                                                     <div class="atbd_listing_image">
-                                                        <?= (!empty($listing_img[0])) ? '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(432, 400))) . '" alt="listing image">' : '' ?>
+                                                        <?php if(!empty($listing_prv_img)){
+                                                            echo '<img src="'.esc_url($listing_prv_img).'" alt="listing image">';
+                                                        }if(!empty($listing_img[0]) && empty($listing_prv_img)){
+                                                            echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(432, 400))) . '" alt="listing image">';
+                                                        }if (empty($listing_img[0]) && empty($listing_prv_img)){
+                                                            echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
+                                                        } ?>
                                                     </div>
 
                                                     <figcaption class="atbd_thumbnail_overlay_content">

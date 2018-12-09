@@ -17,6 +17,7 @@ $listing_info['social']             = get_post_meta($post->ID, '_social', true);
 $listing_info['manual_lat']         = get_post_meta($post->ID, '_manual_lat', true);
 $listing_info['manual_lng']         = get_post_meta($post->ID, '_manual_lng', true);
 $listing_info['listing_img']        = get_post_meta($post->ID, '_listing_img', true);
+$listing_info['listing_prv_img']    = get_post_meta($post->ID, '_listing_prv_img', true);
 $listing_info['hide_contact_info']  = get_post_meta($post->ID, '_hide_contact_info', true);
 $listing_info['expiry_date']        = get_post_meta($post->ID, '_expiry_date', true);
 extract($listing_info);
@@ -185,6 +186,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
 
                 <div class="atbdb_content_module_contents">
                     <?php if (!empty($image_links)) {
+                        if (!empty($listing_prv_img)){
+                            array_unshift($image_links, $listing_prv_img);
+                        }
                         ?>
                         <div class="atbd_directry_gallery_wrapper">
                             <div class="atbd_directory_gallery">

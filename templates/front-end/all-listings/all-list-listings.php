@@ -87,6 +87,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                         $featured = get_post_meta(get_the_ID(), '_featured', true);
                         $price = get_post_meta(get_the_ID(), '_price', true);
                         $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
+                        $listing_prv_img   = get_post_meta(get_the_ID(), '_listing_prv_img', true);
                         $excerpt = get_post_meta(get_the_ID(), '_excerpt', true);
                         $tagline = get_post_meta(get_the_ID(), '_tagline', true);
                         $address = get_post_meta(get_the_ID(), '_address', true);
@@ -110,9 +111,13 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                 <article
                                         class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                     <figure class="atbd_listing_thumbnail_area">
-                                        <?= (!empty($listing_img[0])) ? '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(432, 400))) . '" alt="listing image">' : '<img src="' . ATBDP_PUBLIC_ASSETS . 'images/list.jpg' . '" alt="listing image">' ?>
-
-
+                                        <?php if(!empty($listing_prv_img)){
+                                            echo '<img src="'.esc_url($listing_prv_img).'" alt="listing image">';
+                                        }if(!empty($listing_img[0]) && empty($listing_prv_img)){
+                                            echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(432, 400))) . '" alt="listing image">';
+                                        }if (empty($listing_img[0]) && empty($listing_prv_img)){
+                                            echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/list.jpg'.'" alt="listing image">';
+                                        } ?>
                                         <figcaption class="atbd_thumbnail_overlay_content">
                                             <?php /*todo: Shahadat -> It needs dynamization */ ?>
 

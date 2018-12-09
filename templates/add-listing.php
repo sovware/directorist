@@ -25,7 +25,6 @@ $currency = get_directorist_option('g_currency', 'USD');
     ?>
 
     <div class="atbd_">
-        <!--@todo; add toggle for the moto and excerpt later. -->
         <div class="atbd_optional_field">
             <label for="atbd_optional_field_check">
                 <input id="atbd_optional_field_check" type="checkbox"> Tagline/Motto

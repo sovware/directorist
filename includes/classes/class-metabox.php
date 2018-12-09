@@ -160,8 +160,9 @@ class ATBDP_Metabox {
     public function listing_gallery($post )
     {
 
-        $listing_img= get_post_meta($post->ID, '_listing_img', true);?>
-        <div id="directorist" class="atbd_wrapper"><?php  ATBDP()->load_template('media-upload', compact('listing_img') );?></div>
+        $listing_img= get_post_meta($post->ID, '_listing_img', true);
+        $listing_prv_img= get_post_meta($post->ID, '_listing_prv_img', true);?>
+        <div id="directorist" class="atbd_wrapper"><?php  ATBDP()->load_template('media-upload', compact('listing_img', 'listing_prv_img') );?></div>
 
    <?php }
 
@@ -242,6 +243,7 @@ class ATBDP_Metabox {
         $metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
         $metas['_manual_lng']        = !empty($p['manual_lng'])? sanitize_text_field($p['manual_lng']) : '';
         $metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();
+        $metas['_listing_prv_img']   = !empty($p['listing_prv_img'])? sanitize_text_field($p['listing_prv_img']) : '';
         $metas['_hide_contact_info'] = !empty($p['hide_contact_info'])? sanitize_text_field($p['hide_contact_info']) : 0;
 
         //$listing_info = (!empty($p['listing'])) ? aazztech_enc_serialize($p['listing']) : aazztech_enc_serialize(array());

@@ -14,7 +14,7 @@
     });
 
     $("[data-toggle='tooltip']").tooltip();
-    $(document).ready(function () {
+    $(window).load(function () {
         $("[data-toggle='tooltip']").tooltip();
     });
 
@@ -278,4 +278,36 @@ jQuery(function($){
     $('#atbd_optional_field_check').on('change', function () {
         $(this).is(':checked') ? $('.atbd_tagline_moto_field').fadeIn() : $('.atbd_tagline_moto_field').fadeOut()
     });
+
+
+    var imageUpload;
+    if(imageUpload){
+        imageUpload.open();
+        return;
+    }
+    var hsa_image = $('.listing_prv_img').val();
+    if (hsa_image) {
+        $('.default_img').hide();
+    }
+    $('.upload-header').on('click', function (element) {
+        element.preventDefault();
+
+        imageUpload = wp.media.frames.file_frame = wp.media({
+            'title' : 'Select Preview Image',
+            'button' : {
+                'text' : 'Insert Preview Image'
+            }
+        });
+        imageUpload.open();
+        imageUpload.on('select', function () {
+            prv_image = imageUpload.state().get('selection').first().toJSON();
+            prv_url = prv_image.url;
+            $('.listing_prv_img').val(prv_url);
+            $('.change_listing_prv_img').attr('src', prv_url);
+
+        });
+
+        imageUpload.open();
+    });
+
 });

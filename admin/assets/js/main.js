@@ -303,7 +303,6 @@ jQuery(function($){
             $('.listing_prv_img').val(prv_url);
             $('.change_listing_prv_img').attr('src', prv_url);
             $('.upload-header').val('Change Preview image');
-
         });
 
         imageUpload.open();

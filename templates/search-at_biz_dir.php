@@ -85,7 +85,9 @@ $is_disable_price = get_directorist_option('disable_list_price');
 
                                             <figcaption class="atbd_thumbnail_overlay_content">
                                                 <?php /*todo: Shahadat -> It needs dynamization */?>
+
                                                 <div class="atbd_upper_badge">
+                                                    <span class="atbd_badge atbd_badge_new">New</span>
                                                     <span class="atbd_badge atbd_badge_open">Open Now</span>
                                                 </div><!-- END /.atbd_upper_badge -->
 

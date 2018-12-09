@@ -143,6 +143,7 @@ h6, .h6 {
   }
   label {
     color: $dark;
+    text-transform: capitalize;
     label {
       display: inline-block;
       margin-bottom: $label-margin-bottom;

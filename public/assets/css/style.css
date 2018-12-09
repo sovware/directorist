@@ -262,6 +262,7 @@ h6, .h6 {
 
 #directorist.atbd_wrapper label {
   color: #202428;
+  text-transform: capitalize;
 }
 
 #directorist.atbd_wrapper label label {
@@ -896,6 +897,8 @@ h6, .h6 {
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right .atbd_author a {
   width: 35px;
   height: 35px;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right .atbd_author a img {

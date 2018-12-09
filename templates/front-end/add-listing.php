@@ -27,6 +27,7 @@ if (!empty($p_id)) {
     $listing_info['bdbh'] = get_post_meta($p_id, '_bdbh', true);
     $listing_info['bdbh_settings'] = get_post_meta($p_id, '_bdbh_settings', true);
     $listing_info['listing_img'] = get_post_meta($p_id, '_listing_img', true);
+    $listing_info['listing_prv_img'] = get_post_meta($p_id, '_listing_prv_img', true);
     $listing_info['hide_contact_info'] = get_post_meta($p_id, '_hide_contact_info', true);
     $listing_info['expiry_date'] = get_post_meta($p_id, '_expiry_date', true);
 
@@ -658,7 +659,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 <div class="atbdb_content_module_contents">
                                     <!--Image Uploader-->
                                     <div id="_listing_gallery">
-                                        <?php ATBDP()->load_template('media-upload', array('listing_img' => $listing_img)); ?>
+                                        <?php ATBDP()->load_template('media-upload', compact('listing_img', 'listing_prv_img') );?>
                                     </div>
                                     <?php
                                     if ($enable_video_url) {

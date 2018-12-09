@@ -66,6 +66,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             $phone_number         = get_post_meta(get_the_Id(), '_phone', true);
                             $featured             = get_post_meta($l_ID, '_featured', true);
                             $price                = get_post_meta($l_ID, '_price', true);
+                            $price_range          = get_post_meta($l_ID, '_price_range', true);
+
                             /*@todo; As listings on search page and the all listing page, and user dashboard is nearly the same, so try to refactor them to a function later using some condition to show some extra fields on the listing on user dashboard*/
                             $listing_img          = get_post_meta(get_the_ID(), '_listing_img', true);
                             $excerpt              = get_post_meta(get_the_ID(), '_excerpt', true);
@@ -73,6 +75,14 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             $hide_contact_info    = get_post_meta(get_the_ID(), '_hide_contact_info', true);
                             $disable_contact_info = get_directorist_option('disable_contact_info', 0);
                             $category             = get_post_meta(get_the_Id(), '_admin_category_select', true);
+                            /*Code for Business Hour Extensions*/
+                            $bdbh                   = get_post_meta(get_the_ID(), '_bdbh', true);
+                            $enable247hour               = get_post_meta(get_the_ID(), '_enable247hour', true);
+                            $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
+                            $author_id = get_the_author_meta( 'ID' );
+                            $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+                            $avata_img = get_avatar($author_id, 32);
+                            /*Code for Business Hour Extensions*/
                             ?>
                             <?php /*@todo shahadat - > updated search results page */?>
                             <div class="col-md-4 col-sm-6">
@@ -84,20 +94,67 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             </div>
 
                                             <figcaption class="atbd_thumbnail_overlay_content">
-                                                <?php /*todo: Shahadat -> It needs dynamization */?>
-                                                <div class="atbd_upper_badge">
-                                                    <span class="atbd_badge atbd_badge_open">Open Now</span>
-                                                </div><!-- END /.atbd_upper_badge -->
-
+                                                <?php if (class_exists('BD_Business_Hour')){
+                                                    //lets check is it 24/7
+                                                    if (!empty($enable247hour)) {
+                                                        ?>
+                                                        <div class="atbd_upper_badge">
+                                                            <span class="atbd_badge atbd_badge_open">Open Now</span>
+                                                        </div><!-- END /.atbd_upper_badge -->
+                                                        <?php
+                                                    }else {?>
+                                                        <div class="atbd_upper_badge">
+                                                            <?php BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list ?>
+                                                        </div>
+                                                    <?php }
+                                                }?>
                                                 <div class="atbd_lower_badge">
                                                     <?php
                                                     if ($featured){ printf(
                                                         '<span class="atbd_badge atbd_badge_featured">Featured</span>',
                                                         esc_html__('Featured', ATBDP_TEXTDOMAIN)
                                                     );}
+                                                    $count = !empty($count)?$count:5;
+                                                    $popular_listings = ATBDP()->get_popular_listings($count = 5);
+
+                                                    if ($popular_listings->have_posts()) {
+                                                        foreach ($popular_listings->posts as $pop_post) {
+                                                            if ($pop_post->ID == get_the_ID()){
+                                                                echo ' <span class="atbd_badge atbd_badge_popular">Popular</span>';
+                                                            }
+                                                        }
+                                                    }
+                                                    $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
+                                                    $enable_new_listing = get_directorist_option('enable_new_listing');
+                                                    $new_listing_day = get_directorist_option('new_listing_day');
+                                                    $is_day_or_days = substr($is_old, -4);
+                                                    $is_other = substr($is_old, -5);
+                                                    if (($is_old<=$new_listing_day) && ($enable_new_listing)){
+                                                        $new = '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                        switch ($is_day_or_days){
+                                                            case ' day':
+                                                                echo $new;
+                                                                break;
+                                                            case 'days':
+                                                                echo $new;
+                                                                break;
+                                                            case 'mins':
+                                                                echo $new;
+                                                                break;
+                                                            case ' min':
+                                                                echo $new;
+                                                                break;
+                                                            case 'hour':
+                                                                echo $new;
+                                                                break;
+                                                        }
+                                                        switch ($is_other){
+                                                            case 'hours':
+                                                                echo $new;
+                                                                break;
+                                                        }
+                                                    }
                                                     ?>
-                                                    <?php /*todo: Shahadat -> It needs dynamization */?>
-                                                    <span class="atbd_badge atbd_badge_popular">Popular</span>
                                                 </div>
                                             </figcaption>
                                         </figure>
@@ -120,15 +177,12 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                      */
 
                                                     do_action('atbdp_after_listing_tagline');
-                                                    /*@todo: Shahadat -> added new markup, Average pricing */?>
-                                                    <span class="atbd_meta atbd_listing_average_pricing">
-                                                    <span class="atbd_active">$</span>
-                                                    <span class="atbd_active">$</span>
-                                                    <span>$</span>
-                                                    <span>$</span>
-                                                </span>
-                                                    <?php
-                                                    atbdp_display_price($price, $is_disable_price);
+                                                    if(!empty($price_range)) {
+                                                        $output = atbdp_display_price_range($price_range);
+                                                        echo $output;
+                                                    }else{
+                                                        atbdp_display_price($price, $is_disable_price);
+                                                    }
 
                                                     /**
                                                      * Fires after the price of the listing is rendered
@@ -186,7 +240,13 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <ul class="atbd_content_right">
                                                     <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li>
                                                     <li class="atbd_save"><span class="fa fa-heart"></span></li>
-                                                    <li class="atbd_author"><a href=""><?php echo get_avatar( get_the_author_meta( 'ID' ) , 32 ); ?></a></li>
+                                                    <li class="atbd_author">
+                                                        <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                                <img
+                                                                src="<?php echo esc_url($u_pro_pic); ?>"
+                                                                alt="Author Image"><?php } ?>
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div><!-- end ./atbd_listing_bottom_content -->
                                         </div>

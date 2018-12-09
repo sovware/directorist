@@ -232,6 +232,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             <div class="atbd_listing_meta">
                                 <?php
                                 if(!empty($price_range)) {
+                                    //is range selected then print it
                                     $output = atbdp_display_price_range($price_range);
                                     echo $output;
                                 }else{

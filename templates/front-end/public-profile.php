@@ -192,7 +192,6 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <?php
                                 foreach( $categories as $category ) {
-                                    //$active_class = ( $view == $value ) ? ' active' : '';
                                     printf( '<a class="dropdown-item" href="%s">%s</a>', add_query_arg( 'category', $category->slug ), $category->name );
                                 }
                                 ?>
@@ -223,6 +222,7 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                         $post_view         = get_post_meta(get_the_Id(),'_atbdp_post_views_count',true);
                         $hide_contact_info = get_post_meta(get_the_ID(), '_hide_contact_info', true);
                         $disable_contact_info = get_directorist_option('disable_contact_info', 0);
+                        $is_disable_price = get_directorist_option('disable_list_price');
                         /*Code for Business Hour Extensions*/
                         $bdbh                   = get_post_meta(get_the_ID(), '_bdbh', true);
                         $enable247hour               = get_post_meta(get_the_ID(), '_enable247hour', true);

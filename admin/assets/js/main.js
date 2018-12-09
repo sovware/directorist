@@ -302,7 +302,7 @@ jQuery(function($){
             prv_url = prv_image.url;
             $('.listing_prv_img').val(prv_url);
             $('.change_listing_prv_img').attr('src', prv_url);
-            $('.upload-header').val('Change Preview image');
+            $('.default_img').hide();
         });
 
         imageUpload.open();

@@ -45,6 +45,10 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                                         aria-controls="profile" role="tab"
                                                                         data-toggle="tab"><?php _e('My Profile', ATBDP_TEXTDOMAIN); ?></a>
                             </li>
+                            <li role="presentation" class="nav-item"><a href="#saved_items" class="nav-link"
+                                                                        aria-controls="profile" role="tab"
+                                                                        data-toggle="tab"><?php _e('Saved Items', ATBDP_TEXTDOMAIN); ?></a>
+                            </li>
                         </ul>
 
                         <div class="nav_button">
@@ -67,7 +71,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                     $listing_img = get_post_meta($post->ID, '_listing_img', true);
                                     $listing_prv_img   = get_post_meta($post->ID, '_listing_prv_img', true);
                                     $tagline = get_post_meta($post->ID, '_tagline', true);
-
                                     ?>
                                     <div class="col-lg-4 col-sm-6" id="listing_id_<?= $post->ID; ?>">
                                         <div class="atbd_single_listing atbd_listing_card">
@@ -390,6 +393,20 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="saved_items">
+                            <div class="atbd_saved_items_wrapper">
+                                <div class="atbd_single_saved_item">
+                                    <div class="thumb_title">
+                                        <img src="" alt="">
+                                        <h4>Makhtoom International</h4>
+                                    </div>
+
+                                    <div class="saved_item_category">
+                                        <a href="#"><span class="fa fa-motorcycle"></span></a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

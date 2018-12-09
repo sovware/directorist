@@ -110,7 +110,6 @@ $popular_cat_num = get_directorist_option('popular_cat_num', 10);
                                 <?php
                             }
                             ?>
-
                             <p><?php echo esc_html($popular_cat_title); ?></p>
 
                             <ul class="categories">
@@ -126,7 +125,6 @@ $popular_cat_num = get_directorist_option('popular_cat_num', 10);
 
                                 <?php }
                                 ?>
-
                             </ul>
                         </div><!-- End category area -->
                     <?php }

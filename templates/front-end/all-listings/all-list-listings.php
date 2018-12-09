@@ -219,8 +219,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             </div><!-- End atbd listing meta -->
                                             <?php
                                             //show category and location info
-                                            /* @todo: Shahadat -> Please fetch location, phone number and listing addition info here */
-                                            /*ATBDP()->helper->output_listings_taxonomy_info($top_category, $deepest_location);*/ ?>
+                                             ?>
                                             <?php if (!empty($excerpt)) { ?>
                                                 <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
                                             <?php } ?>

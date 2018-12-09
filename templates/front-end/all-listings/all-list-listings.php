@@ -122,6 +122,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             <?php /*todo: Shahadat -> It needs dynamization */ ?>
 
                                             <div class="atbd_lower_badge">
+                                                <span class="atbd_badge atbd_badge_new">New</span>
                                                 <?php
                                                 if ($featured) {
                                                     printf(

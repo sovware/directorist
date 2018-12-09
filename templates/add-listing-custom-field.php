@@ -14,7 +14,12 @@
                         });
                     </script>
 
-                    <label for=""><?php the_title(); ?><?php if($cf_required){echo '<span style="color: red"> *</span>'; }?></label>
+                    <label for=""><?php the_title(); ?><?php if($cf_required){echo '<span style="color: red"> *</span>'; }?>
+                        <span class="fa fa-question-circle"></span>
+                        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+                            Tooltip on top
+                        </button>
+                    </label>
                     <?php
                     $value = ['default_value'][0];
                     $cf_meta_default_val = get_post_meta(get_the_ID(), 'default_value', true);

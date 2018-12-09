@@ -280,7 +280,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                     ?>
                                 </ul>
                             </div>
-
+                            <span class="atbd_badge atbd_badge_new">New</span>
                             <?php
                             /* @todo: Shahadat -> Moved featured */
                             /*Print Featured ribbon if it is featured*/

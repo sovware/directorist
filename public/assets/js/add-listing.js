@@ -274,7 +274,7 @@ jQuery(function($){
     $('.atbd_tagline_moto_field').fadeOut();
 
     $('#atbd_optional_field_check').on('change', function () {
-        $(this).is(':checked') ? $('.atbd_tagline_moto_field').fadeIn() : $('.atbd_tagline_moto_field').fadeOut()
+        $(this).is(':checked') ? $('.atbd_tagline_moto_field').fadeIn() : $('.atbd_tagline_moto_field').fadeOut();
     });
 
 
@@ -302,6 +302,7 @@ jQuery(function($){
             prv_url = prv_image.url;
             $('.listing_prv_img').val(prv_url);
             $('.change_listing_prv_img').attr('src', prv_url);
+            $('.default_img').hide();
 
         });
 

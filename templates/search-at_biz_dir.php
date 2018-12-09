@@ -101,6 +101,15 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             </div>
 
                                             <figcaption class="atbd_thumbnail_overlay_content">
+<<<<<<< HEAD
+                                                <?php /*todo: Shahadat -> It needs dynamization */?>
+
+                                                <div class="atbd_upper_badge">
+                                                    <span class="atbd_badge atbd_badge_new">New</span>
+                                                    <span class="atbd_badge atbd_badge_open">Open Now</span>
+                                                </div><!-- END /.atbd_upper_badge -->
+
+=======
                                                 <?php if (class_exists('BD_Business_Hour')){
                                                     //lets check is it 24/7
                                                     if (!empty($enable247hour)) {
@@ -115,6 +124,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                         </div>
                                                     <?php }
                                                 }?>
+>>>>>>> 780cf9d0b3d40dfce0eefca382812ea28efa3db3
                                                 <div class="atbd_lower_badge">
                                                     <?php
                                                     if ($featured){ printf(

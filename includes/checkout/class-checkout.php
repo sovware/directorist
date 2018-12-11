@@ -76,7 +76,7 @@ class ATBDP_Checkout
             $form_data = apply_filters( 'atbdp_checkout_form_data', array(), $listing_id ); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
             // let's add featured listing data
             $featured_active = get_directorist_option('enable_featured_listing');
-            if ($featured_active){
+            if ($featured_active && !class_exists('ATBDP_Fee_Manager')){
                 $title = get_directorist_option('featured_listing_title', __('Featured', ATBDP_TEXTDOMAIN));
                 $desc = get_directorist_option('featured_listing_desc');
                 $price = get_directorist_option('featured_listing_price');

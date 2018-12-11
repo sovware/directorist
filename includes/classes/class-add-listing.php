@@ -373,10 +373,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                             exit;
                         }else{
                             $featured_enabled = get_directorist_option('enable_featured_listing');
-                            if (get_directorist_option('enable_monetization') && !$_POST['listing_id'] && $featured_enabled){
+                            if (get_directorist_option('enable_monetization') && !$_POST['listing_id'] && $featured_enabled && (!class_exists('ATBDP_Fee_Manager'))){
                                 wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
                                 exit;
                             }
+                            //yep! listing is saved to db and redirect user to admin panel or listing itself
                             $redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
                             if ('view_listing' == $redirect_page){
                                 wp_redirect(get_permalink($post_id));

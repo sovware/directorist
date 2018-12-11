@@ -74,6 +74,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             $excerpt              = get_post_meta(get_the_ID(), '_excerpt', true);
                             $tagline              = get_post_meta(get_the_ID(), '_tagline', true);
                             $hide_contact_info    = get_post_meta(get_the_ID(), '_hide_contact_info', true);
+                            $post_view            = get_post_meta(get_the_Id(), '_atbdp_post_views_count', true);
                             $disable_contact_info = get_directorist_option('disable_contact_info', 0);
                             $category             = get_post_meta(get_the_Id(), '_admin_category_select', true);
                             /*Code for Business Hour Extensions*/
@@ -101,15 +102,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             </div>
 
                                             <figcaption class="atbd_thumbnail_overlay_content">
-<<<<<<< HEAD
-                                                <?php /*todo: Shahadat -> It needs dynamization */?>
-
                                                 <div class="atbd_upper_badge">
-                                                    <span class="atbd_badge atbd_badge_new">New</span>
-                                                    <span class="atbd_badge atbd_badge_open">Open Now</span>
                                                 </div><!-- END /.atbd_upper_badge -->
-
-=======
                                                 <?php if (class_exists('BD_Business_Hour')){
                                                     //lets check is it 24/7
                                                     if (!empty($enable247hour)) {
@@ -124,23 +118,24 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                         </div>
                                                     <?php }
                                                 }?>
->>>>>>> 780cf9d0b3d40dfce0eefca382812ea28efa3db3
                                                 <div class="atbd_lower_badge">
                                                     <?php
                                                     if ($featured){ printf(
                                                         '<span class="atbd_badge atbd_badge_featured">Featured</span>',
                                                         esc_html__('Featured', ATBDP_TEXTDOMAIN)
                                                     );}
-                                                    $count = !empty($count)?$count:5;
-                                                    $popular_listings = ATBDP()->get_popular_listings($count = 5);
 
-                                                    if ($popular_listings->have_posts()) {
-                                                        foreach ($popular_listings->posts as $pop_post) {
-                                                            if ($pop_post->ID == get_the_ID()){
-                                                                echo ' <span class="atbd_badge atbd_badge_popular">Popular</span>';
-                                                            }
+                                                $count = !empty($count) ? $count : '';
+                                                $popular_listings = ATBDP()->get_popular_listings($count);
+                                                if ($popular_listings->have_posts()) {
+
+                                                    foreach ($popular_listings->posts as $pop_post) {
+                                                        if ($pop_post->ID == get_the_ID()) {
+                                                            echo ' <span class="atbd_badge atbd_badge_popular">Popular</span>';
                                                         }
                                                     }
+                                                }
+
                                                     $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
                                                     $enable_new_listing = get_directorist_option('enable_new_listing');
                                                     $new_listing_day = get_directorist_option('new_listing_day');
@@ -228,10 +223,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                                 ?></p></li>
                                                     </ul>
                                                 </div><!-- End atbd listing meta -->
-                                                <?php
-                                                //show category and location info
-                                                /* @todo: Shahadat -> Please fetch location, phone number and listing addition info here */
-                                                /*ATBDP()->helper->output_listings_taxonomy_info($top_category, $deepest_location);*/?>
                                                 <?php if(!empty($excerpt))  {?>
                                                 <p><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
                                                 <?php } ?>

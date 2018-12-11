@@ -97,7 +97,7 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
 
                         <div class="atbdb_content_module_contents">
                             <p>
-                                <?php echo esc_html($bio); ?>
+                                <?php !empty($bio)?_e(esc_html($bio), ATBDP_TEXTDOMAIN):_e('Nothing to show!', ATBDP_TEXTDOMAIN); ?>
                             </p>
 
                         </div>

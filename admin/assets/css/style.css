@@ -118,6 +118,7 @@
   font-size: 18px;
   color: #202428;
   transition: 0.3s;
+  margin-top: 10px;
 }
 
 #directorist.atbd_wrapper .attc_extension_wrapper {
@@ -202,3 +203,43 @@
 }
 
 /*# sourceMappingURL=map/style.css.map */
+/***********************************************************
+************************************************************
+					css for Custom Field
+*************************************************************
+**************************************************************/
+.postbox table.widefat {
+  box-shadow: none;
+  background: #eff2f5;
+}
+
+#atbdp-field-details td {
+  color: #555;
+  font-size: 17px;
+  width: 8%;
+}
+#atbdp-field-options td {
+  color: #555;
+  font-size: 17px;
+  width: 8%;
+}
+.atbdp-tick-cross{
+  margin-left: 18px;
+}
+.atbdp-tick-cross2{
+  margin-left: 25px;
+  color: #bc0b0b;
+}
+
+/*
+for shortable field*/
+.ui-sortable tr:hover {
+  cursor: move;
+}
+.ui-sortable tr.alternate {
+  background-color: #F9F9F9;
+}
+.ui-sortable tr.ui-sortable-helper {
+  background-color: #F9F9F9;
+  border-top: 1px solid #DFDFDF;
+}

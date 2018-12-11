@@ -172,7 +172,7 @@ class ATBDP_Custom_Field {
 
         $objects = $this->get_scporder_options_objects();
 
-        if (empty($objects) && empty($tags))
+        if (empty($objects))
             return false;
 
         if (isset($_GET['orderby']) || strstr($_SERVER['REQUEST_URI'], 'action=edit') || strstr($_SERVER['REQUEST_URI'], 'wp-admin/post-new.php'))

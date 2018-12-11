@@ -5,6 +5,27 @@
                 <div class="col-md-4">
                     <!--Google reCAPTCHA-->
                     <div class="single_extension">
+                        <img src="<?php echo ATBDP_ADMIN_ASSETS . '/images/Free_Manager.jpg' ?>"
+                             alt="Directorist - Free Manager">
+
+                        <div class="extension_detail">
+                            <a href="https://aazztech.com/product/directorist-fee-manager" target="_blank" class="ext_title">
+                                <h4> Directorist - Free Manager </h4></a>
+                            <p><?php esc_html_e('Create,modify and sell subscription packages to make your directory profitable', ATBDP_TEXTDOMAIN); ?></p>
+
+                            <div class="btn_wrapper">
+                                <a href="https://aazztech.com/product/directorist-fee-manager/#screenshots" target="_blank"
+                                   class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
+                                <a href="https://aazztech.com/product/directorist-fee-manager" target="_blank"
+                                   class="btn get btn-success"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <!--Google reCAPTCHA-->
+                    <div class="single_extension">
                         <img src="<?php echo ATBDP_ADMIN_ASSETS . '/images/Directorist_Google_Re-Captcha.jpg' ?>"
                              alt="Google reCAPTCHA">
 
@@ -26,7 +47,7 @@
                 <div class="col-md-4">
                     <!--Stripe Gateway-->
                     <div class="single_extension">
-                        <img src="" alt="">
+                        <img src="<?php echo ATBDP_ADMIN_ASSETS . '/images/Directorist_Stripe.jpg' ?>" alt="Directorist - Stripe">
 
                         <div class="extension_detail">
                             <a href="https://aazztech.com/product/directorist-stripe" target="_blank" class="ext_title"><h4>
@@ -46,7 +67,7 @@
                 <div class="col-md-4">
                     <!--Paypal Gateway-->
                     <div class="single_extension">
-                        <img src="" alt="">
+                        <img src="<?php echo ATBDP_ADMIN_ASSETS . '/images/Directorist_PayPal.jpg' ?>" alt="Directorist - PayPal">
 
                         <div class="extension_detail">
                             <a href="https://aazztech.com/product/directorist-paypal" target="_blank" class="ext_title"><h4>
@@ -66,7 +87,7 @@
                 <div class="col-md-4">
                     <!--Business hour-->
                     <div class="single_extension">
-                        <img src="" alt="">
+                        <img src="<?php echo ATBDP_ADMIN_ASSETS . '/images/Directorist_Business_Hours.jpg' ?>" alt="Directorist - Business Hours">
 
                         <div class="extension_detail">
                             <a href="https://aazztech.com/product/directorist-business-hour/" target="_blank"
@@ -83,25 +104,6 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <!--Multiple Image Upload-->
-                    <div class="single_extension">
-                        <img src="" alt="">
-
-                        <div class="extension_detail">
-                            <a href="https://aazztech.com/product/directorist-multiple-image" target="_blank"
-                               class="ext_title"><h4> Directorist - Multiple Images/Slider </h4></a>
-                            <p><?php esc_html_e('You can enable multiple image uploading feature in your listing adding page using this extension.', ATBDP_TEXTDOMAIN); ?></p>
-
-                            <div class="btn_wrapper">
-                                <a href="https://aazztech.com/product/directorist-multiple-image/#screenshots"
-                                   target="_blank" class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
-                                <a href="https://aazztech.com/product/directorist-multiple-image" target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

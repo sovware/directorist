@@ -122,8 +122,38 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             <?php /*todo: Shahadat -> It needs dynamization */ ?>
 
                                             <div class="atbd_lower_badge">
-                                                <span class="atbd_badge atbd_badge_new">New</span>
                                                 <?php
+                                                $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
+                                                $enable_new_listing = get_directorist_option('enable_new_listing');
+                                                $new_listing_day = get_directorist_option('new_listing_day');
+                                                $is_day_or_days = substr($is_old, -4);
+                                                $is_other = substr($is_old, -5);
+                                                if (($is_old<=$new_listing_day) && ($enable_new_listing)){
+                                                    $new = '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                    switch ($is_day_or_days){
+                                                        case ' day':
+                                                            echo $new;
+                                                            break;
+                                                        case 'days':
+                                                            echo $new;
+                                                            break;
+                                                        case 'mins':
+                                                            echo $new;
+                                                            break;
+                                                        case ' min':
+                                                            echo $new;
+                                                            break;
+                                                        case 'hour':
+                                                            echo $new;
+                                                            break;
+                                                    }
+                                                    switch ($is_other){
+                                                        case 'hours':
+                                                            echo $new;
+                                                            break;
+                                                    }
+                                                }
+
                                                 if ($featured) {
                                                     printf(
                                                         '<span class="atbd_badge atbd_badge_featured">Featured</span>',

@@ -240,6 +240,15 @@ jQuery(function($){
         frame.open();
     });
 
+    //price range
+    $("#price_range").hide();
+    $('.atbd_pricing_options label').on('click', function () {
+        var $this = $(this);
+        $this.children('input[type=checkbox]').prop('checked')==true ? $('#'+$this.data('option')).show(): $('#'+$this.data('option')).hide();
+        var $sibling= $this.siblings('label');
+        $sibling.children('input[type=checkbox]').prop('checked', false);
+        $('#'+$sibling.data('option')).hide();
+    });
 
     // DELETE ALL IMAGES LINK
     delImgLink.on( 'click', function( event ){

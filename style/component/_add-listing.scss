@@ -14,6 +14,9 @@
       padding-bottom: 27px;
     }
   }
+  label[data-option] {
+    color: #505058;
+  }
   #tc_container{
     height: 350px;
     border: 1px solid #ededed;

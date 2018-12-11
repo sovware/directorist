@@ -230,6 +230,7 @@
     .atbd_data_info {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       .atbd_rating_count {
         margin-right: 10px;
         p {

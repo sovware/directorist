@@ -69,6 +69,8 @@ $p_title = get_the_title();
 $featured = get_post_meta(get_the_ID(), '_featured', true);
 $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
 $reviews_count = ATBDP()->review->db->count(array('post_id' => $listing_id)); // get total review count for this post
+$listing_author_id = get_post_field( 'post_author', $listing_id );
+
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col-md-12';
 ?>
@@ -76,7 +78,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
     <div class="row">
         <div class="<?php echo esc_attr($main_col_size); ?>">
             <?php
-            if (is_user_logged_in()){
+            //is current user is logged in and the original author of the listing
+            if (is_user_logged_in() && $listing_author_id == get_current_user_id()){
+                //ok show the edit option
                 ?>
                 <div class="edit_btn_wrap">
                     <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>" class="btn btn-success"><span class="fa fa-edit"></span> Edit Listing</a>
@@ -280,9 +284,38 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                     ?>
                                 </ul>
                             </div>
-                            <span class="atbd_badge atbd_badge_new">New</span>
+
                             <?php
-                            /* @todo: Shahadat -> Moved featured */
+                            $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
+                            $enable_new_listing = get_directorist_option('enable_new_listing');
+                            $new_listing_day = get_directorist_option('new_listing_day');
+                            $is_day_or_days = substr($is_old, -4);
+                            $is_other = substr($is_old, -5);
+                            if (($is_old<=$new_listing_day) && ($enable_new_listing)){
+                                $new = '<span class="atbd_badge atbd_badge_new">New</span>';
+                                switch ($is_day_or_days){
+                                    case ' day':
+                                        echo $new;
+                                        break;
+                                    case 'days':
+                                        echo $new;
+                                        break;
+                                    case 'mins':
+                                        echo $new;
+                                        break;
+                                    case ' min':
+                                        echo $new;
+                                        break;
+                                    case 'hour':
+                                        echo $new;
+                                        break;
+                                }
+                                switch ($is_other){
+                                    case 'hours':
+                                        echo $new;
+                                        break;
+                                }
+                            }
                             /*Print Featured ribbon if it is featured*/
                             if ($featured) {
                                 printf(

@@ -3,6 +3,12 @@
   box-sizing: border-box;
 }
 
+#directorist.atbd_wrapper .iris-picker, #directorist.atbd_wrapper .iris-picker * {
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
 #directorist.atbd_wrapper #gmap {
   height: 350px;
 }

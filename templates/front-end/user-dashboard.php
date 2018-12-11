@@ -69,20 +69,23 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                     $price = get_post_meta($post->ID, '_price', true);
                                     $featured = get_post_meta($post->ID, '_featured', true);
                                     $listing_img = get_post_meta($post->ID, '_listing_img', true);
-                                    $listing_prv_img   = get_post_meta($post->ID, '_listing_prv_img', true);
+                                    $listing_prv_img = get_post_meta($post->ID, '_listing_prv_img', true);
                                     $tagline = get_post_meta($post->ID, '_tagline', true);
                                     ?>
                                     <div class="col-lg-4 col-sm-6" id="listing_id_<?= $post->ID; ?>">
                                         <div class="atbd_single_listing atbd_listing_card">
-                                            <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
+                                            <article
+                                                    class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                                 <figure class="atbd_listing_thumbnail_area">
                                                     <div class="atbd_listing_image">
-                                                        <?php if(!empty($listing_prv_img)){
-                                                            echo '<img src="'.esc_url($listing_prv_img).'" alt="listing image">';
-                                                        }if(!empty($listing_img[0]) && empty($listing_prv_img)){
+                                                        <?php if (!empty($listing_prv_img)) {
+                                                            echo '<img src="' . esc_url($listing_prv_img) . '" alt="listing image">';
+                                                        }
+                                                        if (!empty($listing_img[0]) && empty($listing_prv_img)) {
                                                             echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(432, 400))) . '" alt="listing image">';
-                                                        }if (empty($listing_img[0]) && empty($listing_prv_img)){
-                                                            echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
+                                                        }
+                                                        if (empty($listing_img[0]) && empty($listing_prv_img)) {
+                                                            echo '<img src="' . ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' . '" alt="listing image">';
                                                         } ?>
                                                     </div>
 
@@ -238,7 +241,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                         <label for="full_name">Full Name</label>
                                                         <input class="form-control" type="text" name="user[full_name]"
                                                                value="<?= !empty($c_user->display_name) ? esc_attr($c_user->display_name) : ''; ?>"
-                                                               placeholder="<?php _e('Enter your full name',ATBDP_TEXTDOMAIN); ?>">
+                                                               placeholder="<?php _e('Enter your full name', ATBDP_TEXTDOMAIN); ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -314,7 +317,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="new_pass"><?php _e('New Password', ATBDP_TEXTDOMAIN); ?></label>
-                                                        <input id="new_pass" class="form-control" type="password" name="user[new_pass]"
+                                                        <input id="new_pass" class="form-control" type="password"
+                                                               name="user[new_pass]"
                                                                value="<?= !empty($new_pass) ? esc_attr($new_pass) : ''; ?>"
                                                                placeholder="<?php _e('Enter a new password', ATBDP_TEXTDOMAIN); ?>">
                                                     </div>
@@ -322,7 +326,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="confirm_pass"><?php _e('Confirm New Password', ATBDP_TEXTDOMAIN); ?></label>
-                                                        <input id="confirm_pass" class="form-control" type="password" name="user[confirm_pass]"
+                                                        <input id="confirm_pass" class="form-control" type="password"
+                                                               name="user[confirm_pass]"
                                                                value="<?= !empty($confirm_pass) ? esc_attr($confirm_pass) : ''; ?>"
                                                                placeholder="<?php _e('Confirm your new password', ATBDP_TEXTDOMAIN); ?>">
                                                     </div>
@@ -333,8 +338,9 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="facebook"><?php _e('Facebook', ATBDP_TEXTDOMAIN); ?></label>
-                                                        <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN)?></p>
-                                                        <input id="facebook" class="form-control" type="url" name="user[facebook]"
+                                                        <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN) ?></p>
+                                                        <input id="facebook" class="form-control" type="url"
+                                                               name="user[facebook]"
                                                                value="<?= !empty($facebook) ? esc_attr($facebook) : ''; ?>"
                                                                placeholder="<?php _e('Enter your facebook url', ATBDP_TEXTDOMAIN); ?>">
                                                     </div>
@@ -342,8 +348,9 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="twitter"><?php _e('Twitter', ATBDP_TEXTDOMAIN); ?></label>
-                                                        <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN)?></p>
-                                                        <input id="twitter" class="form-control" type="url" name="user[twitter]"
+                                                        <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN) ?></p>
+                                                        <input id="twitter" class="form-control" type="url"
+                                                               name="user[twitter]"
                                                                value="<?= !empty($twitter) ? esc_attr($twitter) : ''; ?>"
                                                                placeholder="<?php _e('Enter your twitter url', ATBDP_TEXTDOMAIN); ?>">
                                                     </div>
@@ -351,8 +358,9 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="google"><?php _e('Google+', ATBDP_TEXTDOMAIN); ?></label>
-                                                        <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN)?></p>
-                                                        <input id="google" class="form-control" type="url" name="user[google]"
+                                                        <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN) ?></p>
+                                                        <input id="google" class="form-control" type="url"
+                                                               name="user[google]"
                                                                value="<?= !empty($google) ? esc_attr($google) : ''; ?>"
                                                                placeholder="<?php _e('Enter google+ url', ATBDP_TEXTDOMAIN); ?>">
                                                     </div>
@@ -360,8 +368,9 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="linkedIn"><?php _e('LinkedIn', ATBDP_TEXTDOMAIN); ?></label>
-                                                        <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN)?></p>
-                                                        <input id="linkedIn" class="form-control" type="url" name="user[linkedIn]"
+                                                        <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN) ?></p>
+                                                        <input id="linkedIn" class="form-control" type="url"
+                                                               name="user[linkedIn]"
                                                                value="<?= !empty($linkedIn) ? esc_attr($linkedIn) : ''; ?>"
                                                                placeholder="<?php _e('Enter linkedIn url', ATBDP_TEXTDOMAIN); ?>">
                                                     </div>
@@ -369,8 +378,9 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="youtube"><?php _e('Youtube', ATBDP_TEXTDOMAIN); ?></label>
-                                                        <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN)?></p>
-                                                        <input id="youtube" class="form-control" type="url" name="user[youtube]"
+                                                        <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN) ?></p>
+                                                        <input id="youtube" class="form-control" type="url"
+                                                               name="user[youtube]"
                                                                value="<?= !empty($youtube) ? esc_attr($youtube) : ''; ?>"
                                                                placeholder="<?php _e('Enter youtube url', ATBDP_TEXTDOMAIN); ?>">
                                                     </div>
@@ -378,8 +388,11 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="bio"><?php _e('Bio', ATBDP_TEXTDOMAIN); ?></label>
-                                                        <p><?php _e('Info About you, your organization or service', ATBDP_TEXTDOMAIN)?></p>
-                                                        <textarea class="wp-editor-area form-control" style="height: 200px" autocomplete="off" cols="40" name="user[bio]" id="bio"><?= !empty($bio) ? esc_attr($bio) : ''; ?></textarea>
+                                                        <p><?php _e('Info About you, your organization or service', ATBDP_TEXTDOMAIN) ?></p>
+                                                        <textarea class="wp-editor-area form-control"
+                                                                  style="height: 200px" autocomplete="off" cols="40"
+                                                                  name="user[bio]"
+                                                                  id="bio"><?= !empty($bio) ? esc_attr($bio) : ''; ?></textarea>
                                                     </div>
                                                 </div>
                                             </div><!--ends social info .row-->
@@ -396,16 +409,61 @@ $is_disable_price = get_directorist_option('disable_list_price');
                         </div>
                         <div role="tabpanel" class="tab-pane" id="saved_items">
                             <div class="atbd_saved_items_wrapper">
-                                <div class="atbd_single_saved_item">
-                                    <div class="thumb_title">
-                                        <img src="" alt="">
-                                        <h4>Makhtoom International</h4>
-                                    </div>
+                                <table class="table table-bordered atbd_single_saved_item">
+                                    <thead>
+                                        <tr>
+                                            <th>Listing Name</th>
+                                            <th>Category</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="thumb_title">
+                                                <div class="img_wrapper"><img
+                                                            src="http://localhost/martplace/wp-content/uploads/2018/11/IMG_20180816_123021.jpg"
+                                                            alt=""></div>
+                                                <h4>Makhtoom International</h4>
+                                            </td>
 
-                                    <div class="saved_item_category">
-                                        <a href="#"><span class="fa fa-motorcycle"></span></a>
-                                    </div>
-                                </div>
+                                            <td class="saved_item_category">
+                                                <a href="#"><span class="fa fa-motorcycle"></span>Bike</a>
+                                            </td>
+
+                                            <td class="text-center"><a class="btn btn-danger" href="#">Remove</a></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="thumb_title">
+                                                <div class="img_wrapper"><img
+                                                            src="http://localhost/martplace/wp-content/uploads/2018/11/IMG_20180816_123021.jpg"
+                                                            alt=""></div>
+                                                <h4>Makhtoom International</h4>
+                                            </td>
+
+                                            <td class="saved_item_category">
+                                                <a href="#"><span class="fa fa-motorcycle"></span>Bike</a>
+                                            </td>
+
+                                            <td class="text-center"><a class="btn btn-danger" href="#">Remove</a></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="thumb_title">
+                                                <div class="img_wrapper"><img
+                                                            src="http://localhost/martplace/wp-content/uploads/2018/11/IMG_20180816_123021.jpg"
+                                                            alt=""></div>
+                                                <h4>Makhtoom International</h4>
+                                            </td>
+
+                                            <td class="saved_item_category">
+                                                <a href="#"><span class="fa fa-motorcycle"></span>Bike</a>
+                                            </td>
+
+                                            <td class="text-center"><a class="btn btn-danger" href="#">Remove</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

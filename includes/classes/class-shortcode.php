@@ -107,7 +107,11 @@ class ATBDP_Shortcode {
                     }
             </script>
             <?php
+            if( $ajax ) {
+                wp_die();
+            }
         }
+
     }
 
 

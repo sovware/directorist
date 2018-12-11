@@ -431,7 +431,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
             <?php } ?>
 
 
-            <?php if ((!$disable_contact_info || !$hide_contact_info) && !empty($address||$phone||$email||$website||$social) ) { ?>
+            <?php if ((!$hide_contact_info) && !empty($address||$phone||$email||$website||$social) ) { ?>
                 <div class="atbd_content_module atbd_contact_information_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">

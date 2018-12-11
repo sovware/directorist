@@ -4,6 +4,11 @@
   * {
     box-sizing: border-box;
   }
+  .iris-picker, .iris-picker * {
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+  }
   #gmap {
     height: 350px;
   }

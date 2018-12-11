@@ -1,5 +1,5 @@
 /* Common styles across whole plugin */
-body.atbd_content_active {
+body.atbd_content_active #directorist.atbd_wrapper{
   line-height: 24px;
 }
 
@@ -52,10 +52,12 @@ h6, .h6 {
   color: $text-color;
   font-size: 15px;
   font-family: 'Roboto', Sans-serif !important;
+  text-align: initial;
   p {
     font-size: 15px;
     color: $text-color;
     line-height: 24px;
+    text-align: left;
   }
   ul {
     list-style: none;
@@ -97,6 +99,11 @@ h6, .h6 {
 #directorist.atbd_wrapper {
   *{
     box-sizing: border-box;
+  }
+  .iris-picker, .iris-picker *{
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
   }
   .fa{
     font: normal normal normal 14px/1 FontAwesome;

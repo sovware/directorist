@@ -1556,6 +1556,43 @@ h6, .h6 {
   padding: 0 !important;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_saved_items_wrapper .atbd_single_saved_item {
+  border-bottom: 1px solid #e3e6ef;
+  padding: 20px 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_saved_items_wrapper .thumb_title .img_wrapper {
+  width: 72px;
+  height: 72px;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_saved_items_wrapper .thumb_title .img_wrapper img {
+  width: 100%;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_saved_items_wrapper .thumb_title h4 {
+  display: inline-block;
+  vertical-align: middle;
+  margin-bottom: 0;
+  margin-left: 10px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_saved_items_wrapper td {
+  vertical-align: middle;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_saved_items_wrapper .saved_item_category {
+  vertical-align: middle;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_saved_items_wrapper .saved_item_category a span {
+  font-size: 16px;
+  margin-right: 6px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .select2-selection {
   display: block;
   width: 100%;

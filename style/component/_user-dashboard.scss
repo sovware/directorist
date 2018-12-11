@@ -63,4 +63,40 @@
       padding: 0!important;
     }
   }
+  .atbd_saved_items_wrapper {
+    .atbd_single_saved_item {
+      border-bottom: 1px solid $border-color;
+      padding: 20px 0;
+    }
+    .thumb_title {
+      .img_wrapper {
+        width: 72px;
+        height: 72px;
+        display: inline-block;
+        vertical-align: middle;
+        overflow: hidden;
+        img {
+          width: 100%;
+        }
+      }
+      h4{
+        display: inline-block;
+        vertical-align: middle;
+        margin-bottom: 0;
+        margin-left: 10px;
+      }
+    }
+    td{
+      vertical-align: middle;
+    }
+    .saved_item_category{
+      vertical-align: middle;
+      a{
+        span{
+          font-size: 16px;
+          margin-right: 6px;
+        }
+      }
+    }
+  }
 }

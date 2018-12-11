@@ -407,7 +407,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                     </div>
 
                     <div class="atbdb_content_module_contents">
-                        <iframe class="atbd_embeded_video embed-responsive-item" src="<?php echo $videourl; ?>"
+                        <iframe class="atbd_embeded_video embed-responsive-item" src="<?php echo esc_attr(ATBDP()->atbdp_parse_videos($videourl)) ?>"
                                 allowfullscreen></iframe>
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->

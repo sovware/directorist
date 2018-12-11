@@ -17,6 +17,7 @@
 #directorist.atbd_wrapper ul li {
   list-style: none;
   margin-left: 0;
+  margin-bottom: 0;
   padding-left: 0;
 }
 
@@ -128,7 +129,7 @@
 }
 
 /* Common styles across whole plugin */
-body.atbd_content_active {
+body.atbd_content_active #directorist.atbd_wrapper {
   line-height: 24px;
 }
 
@@ -180,12 +181,14 @@ h6, .h6 {
   color: #7a82a6;
   font-size: 15px;
   font-family: 'Roboto', Sans-serif !important;
+  text-align: initial;
 }
 
 .atbd_content_active #directorist.atbd_wrapper p {
   font-size: 15px;
   color: #7a82a6;
   line-height: 24px;
+  text-align: initial;
 }
 
 .atbd_content_active #directorist.atbd_wrapper ul {
@@ -224,6 +227,12 @@ h6, .h6 {
 
 #directorist.atbd_wrapper * {
   box-sizing: border-box;
+}
+
+#directorist.atbd_wrapper .iris-picker, #directorist.atbd_wrapper .iris-picker * {
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
 }
 
 #directorist.atbd_wrapper .fa {
@@ -330,6 +339,7 @@ h6, .h6 {
   border: 1px solid #e3e6ef;
   margin-bottom: 35px;
   background: #ffffff;
+  text-align: left;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area {
@@ -571,6 +581,7 @@ h6, .h6 {
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_rating_count {
@@ -792,6 +803,7 @@ h6, .h6 {
   background: #ffffff;
   border-radius: 4px;
   border: 1px solid #e3e6ef;
+  text-align: left;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbd_single_listing_wrapper {
@@ -857,6 +869,7 @@ h6, .h6 {
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p {
   margin-bottom: 7px;
   font-size: 14px;
+  text-align: left;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p span {
@@ -929,6 +942,7 @@ h6, .h6 {
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget ul li {
   border: none;
   padding: 0;
+  text-align: left;
 }
 
 .atbd_content_active .widget.atbd_widget .atbd_widget_title,

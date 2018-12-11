@@ -142,7 +142,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             <div class="atbd_action atbd_report">
                             <?php if (is_user_logged_in()) { ?>
 
-                                <span class="fa fa-flag"></span><a href="javascript:void(0)" data-toggle="modal" data-target="#atbdp-report-abuse-modal"><?php _e( 'Report abuse', ATBDP_TEXTDOMAIN ); ?></a>
+                                <span class="fa fa-flag"></span><a href="javascript:void(0)" data-toggle="modal" data-target="#atbdp-report-abuse-modal"><?php _e( 'Report', ATBDP_TEXTDOMAIN ); ?></a>
                                 <!-- Modal (report abuse form) -->
 
                             <?php } else { ?>

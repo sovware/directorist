@@ -120,7 +120,9 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                 echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(432, 400))) . '" alt="listing image">';
                                             }if (empty($listing_img[0]) && empty($listing_prv_img)){
                                                 echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
-                                            } ?>
+                                            }
+                                            var_dump($listing_prv_img);
+                                            ?>
                                         </div>
 
                                         <figcaption class="atbd_thumbnail_overlay_content">

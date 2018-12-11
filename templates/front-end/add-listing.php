@@ -166,10 +166,10 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                             <input type="text" name="tagline"
                                                    value="<?= !empty($tagline) ? esc_attr($tagline) : ''; ?>"
                                                    class="form-control directory_field"
-                                                   placeholder="<?= __('Your Organization\'s motto or tag-line', ATBDP_TEXTDOMAIN); ?>"/>
+                                                   placeholder="<?= __('Your Listing\'s motto or tag-line', ATBDP_TEXTDOMAIN); ?>"/>
                                         </div>
                                         <div class="form-group">
-                                            <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt(eg. Text shown on Image Hover in grid layout):', ATBDP_TEXTDOMAIN) ?></label>
+                                            <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN) ?></label>
                                             <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
                                             <textarea name="excerpt" id="atbdp_excerpt"
                                                       class="form-control directory_field" cols="30" rows="5"

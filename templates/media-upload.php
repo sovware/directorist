@@ -2,6 +2,8 @@
 $listing_imgs = (!empty($args['listing_img'])) ? $args['listing_img'] : array();
 $listing_prv_img = (!empty($args['listing_prv_img'])) ? $args['listing_prv_img'] : '';
 $image_links = []; // define a link placeholder variable
+var_dump($listing_prv_img);
+var_dump($listing_imgs);
 foreach ($listing_imgs as $id) {
     $image_links[$id] = wp_get_attachment_image_src($id)[0]; // store the attachment id and url
 }

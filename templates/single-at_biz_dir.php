@@ -398,17 +398,16 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                 </div>
             </div><!-- end .atbd_custom_fields_contents -->
 
-            <?php /* @todo: Shahadat -> added new contents */ ?>
-            <?php if ($enable_video_url && !empty($video_url)) { ?>
+            <?php if ($enable_video_url && !empty($videourl)) { ?>
                 <div class="atbd_content_module atbd_custom_fields_contents">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
-                            <h4><span class="fa fa-video-camera atbd_area_icon"></span>See Our Video</h4>
+                            <h4><span class="fa fa-video-camera atbd_area_icon"></span><?php _e($video_label, ATBDP_TEXTDOMAIN)?></h4>
                         </div>
                     </div>
 
                     <div class="atbdb_content_module_contents">
-                        <iframe class="atbd_embeded_video embed-responsive-item" src="<?php echo $video_url; ?>"
+                        <iframe class="atbd_embeded_video embed-responsive-item" src="<?php echo $videourl; ?>"
                                 allowfullscreen></iframe>
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->

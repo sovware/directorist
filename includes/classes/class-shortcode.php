@@ -296,14 +296,6 @@ class ATBDP_Shortcode {
         }
         $args['post__in'] = $listingbyid_arg;
 
-        $with_pics_only = array();
-        if('true' == $atts['with_pics_only']) {
-            $with_pics_only = array(
-                'key'=>'_listing_img',
-                'compare'=>'EXISTS'
-            );
-            $args['meta_query'] = $with_pics_only;
-        }
 
         $tax_queries=array(); // initiate the tax query var to append to it different tax query
 

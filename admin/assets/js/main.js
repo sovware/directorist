@@ -305,10 +305,13 @@ jQuery(function($){
 
         imageUpload.on('select', function () {
             prv_image = imageUpload.state().get('selection').first().toJSON();
-            prv_url = prv_image.url;
+            prv_url = prv_image.id;
+            prv_img_url = prv_image.url;
+            console.log(prv_img_url);
             $('.listing_prv_img').val(prv_url);
-            $('.change_listing_prv_img').attr('src', prv_url);
+            $('.change_listing_prv_img').attr('src', prv_img_url);
             $('.default_img').hide();
+
         });
 
         imageUpload.open();

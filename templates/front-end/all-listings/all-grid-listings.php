@@ -100,7 +100,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                         $author_id = get_the_author_meta( 'ID' );
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                         $avata_img = get_avatar($author_id, 32);
-                        /*Code for Business Hour Extensions*/
+
                         ?>
                         <div class="col-md-4 col-sm-6">
                             <div class="atbd_single_listing atbd_listing_card">
@@ -108,12 +108,13 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                     <figure class="atbd_listing_thumbnail_area">
                                         <div class="atbd_listing_image">
                                             <?php if(!empty($listing_prv_img)){
-                                                echo '<img src="'.esc_url($listing_prv_img).'" alt="listing image">';
+                                                echo '<img src="'.esc_url(wp_get_attachment_image_url($listing_prv_img, 'directory-image')).'" alt="listing image">';
                                             }if(!empty($listing_img[0]) && empty($listing_prv_img)){
-                                                echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(432, 400))) . '" alt="listing image">';
+                                                echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], 'directory-image')) . '" alt="listing image">';
                                             }if (empty($listing_img[0]) && empty($listing_prv_img)){
                                                 echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
-                                            } ?>
+                                            }
+                                            ?>
                                         </div>
 
                                         <figcaption class="atbd_thumbnail_overlay_content">

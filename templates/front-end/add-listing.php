@@ -96,8 +96,10 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                      type="radio" <?php echo ($listing_type == 'featured') ? 'checked' : ''; ?>
                                                      name="listing_type" value="featured"> Featured listing</label>
 
-                        <label for="regular"><input id="regular" <?php echo ($listing_type == 'regular') ? 'checked' : ''; ?> type="radio"
-                                                    name="listing_type" value="regular"> Regular listing</label>
+                        <label for="regular"><input
+                                    id="regular" <?php echo ($listing_type == 'regular') ? 'checked' : ''; ?>
+                                    type="radio"
+                                    name="listing_type" value="regular"> Regular listing</label>
 
                     </div>
                     <?php
@@ -153,7 +155,8 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                             'editor_height' => 200
                                         )); ?>
                                 </div>
-                                <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+                                <button type="button" class="btn btn-secondary" data-toggle="tooltip"
+                                        data-placement="top" title="Tooltip on top">
                                     Tooltip on top
                                 </button>
                                 <div class="atbd_optional_field">
@@ -385,19 +388,34 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 $price_range = !empty($price_range) ? $price_range : '';
                                 if (!$disable_price) { ?>
                                     <div class="form-group">
-                                        <label for="price"><?php
-                                            $currency = get_directorist_option('g_currency', 'USD');
-                                            /*Translator: % is the name of the currency such eg. USD etc.*/
-                                            printf(esc_html__('Price [%s] ( Optional---Leave it blank to hide it)', ATBDP_TEXTDOMAIN), $currency); ?>
-                                            <label for="price_range"><a id='price_range_option'><?php echo __(' Or Price Range', ATBDP_TEXTDOMAIN); ?></a></label> </label>
-                                        <input type="hidden" id="price_range_val" value="<?php echo $price_range;?>">
+                                        <label for="#">Pricing</label>
+                                        <div class="atbd_pricing_options">
+                                            <label for="price_selected" data-option="price">
+                                                <input type="checkbox" id="price_selected" name="atbd_listing_pricing" checked>
+                                                <?php
+                                                $currency = get_directorist_option('g_currency', 'USD');
+                                                /*Translator: % is the name of the currency such eg. USD etc.*/
+                                                printf(esc_html__('Price [%s]', ATBDP_TEXTDOMAIN), $currency); ?>
+                                            </label>
+                                            <span>Or</span>
+                                            <label for="price_range_selected" data-option="price_range">
+                                                <input type="checkbox" id="price_range_selected" name="atbd_listing_pricing">
+                                                <?php echo __('Price Range', ATBDP_TEXTDOMAIN); ?>
+                                                <!--<p id='price_range_option'><?php /*echo __('Price Range', ATBDP_TEXTDOMAIN); */ ?></p></label>-->
+                                            </label>
 
-                                        <input type="text" id="price" name="price"
-                                               value="<?= !empty($price) ? esc_attr($price) : ''; ?>"
-                                               class="form-control directory_field"
-                                               placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
-                                        <div class="form-group">
-                                            <select class="form-control directory_field" style="display: none" id="price_range"
+                                            <small> (Optional --- Uncheck both to hide pricing for this listing)</small>
+                                        </div>
+
+                                            <input type="hidden" id="price_range_val"
+                                                   value="<?php echo $price_range; ?>">
+
+                                            <input type="text" id="price" name="price"
+                                                   value="<?= !empty($price) ? esc_attr($price) : ''; ?>"
+                                                   class="form-control directory_field"
+                                                   placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
+
+                                            <select class="form-control directory_field" id="price_range"
                                                     name="price_range">
                                                 <option value="">Select Price Range</option>
                                                 <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
@@ -413,7 +431,6 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                     Bellow Economy ($)
                                                 </option>
                                             </select>
-                                        </div>
                                     </div>
                                 <?php } ?>
 
@@ -538,7 +555,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 </div>
                             </div><!-- end .atbd_general_information_module -->
                             <?php
-                            if (is_business_hour_active()){
+                            if (is_business_hour_active()) {
                                 ?>
                                 <div class="atbd_content_module">
                                     <div class="atbd_content_module__tittle_area">
@@ -559,7 +576,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         ?>
                                     </div>
                                 </div>
-                            <?php
+                                <?php
                             }
                             /**
                              * It fires before map
@@ -661,7 +678,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 <div class="atbdb_content_module_contents">
                                     <!--Image Uploader-->
                                     <div id="_listing_gallery">
-                                        <?php ATBDP()->load_template('media-upload', compact('listing_img', 'listing_prv_img') );?>
+                                        <?php ATBDP()->load_template('media-upload', compact('listing_img', 'listing_prv_img')); ?>
                                     </div>
                                     <?php
                                     if ($enable_video_url) {
@@ -724,10 +741,10 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
         //price range
         var price_range = $('#price_range_val').val();
 
-        if (price_range){
+        if (price_range) {
             $('#price_range').fadeIn(100);
         }
-        $('#price_range_option').on('click',function () {
+        $('#price_range_option').on('click', function () {
             $('#price_range').fadeIn(500);
         });
         $(function () {

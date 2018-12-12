@@ -610,6 +610,8 @@ class ATBDP_Shortcode {
             }elseif ('list' == $atts['view']) {
                 include ATBDP_TEMPLATES_DIR . 'front-end/categories-page/categories-list.php';
             }
+        }else{
+            _e('<p>No Results found!</p>', ATBDP_TEXTDOMAIN);
         }
         return ob_get_clean();
 
@@ -649,6 +651,8 @@ class ATBDP_Shortcode {
             }elseif ('list' == $atts['view']) {
                 include ATBDP_TEMPLATES_DIR . 'front-end/locations-page/locations-list.php';
             }
+        }else{
+            _e('<p>No Results found!</p>', ATBDP_TEXTDOMAIN);
         }
         return ob_get_clean();
 

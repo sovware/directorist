@@ -271,10 +271,16 @@ jQuery(function($){
     });
 
 
-    $('.atbd_tagline_moto_field').fadeOut();
+    var has_tagline = $('#has_tagline').val();
+    var has_excerpt = $('#has_excerpt').val();
+    if (has_excerpt && has_tagline){
+        $('.atbd_tagline_moto_field').fadeIn();
+    }else {
+        $('.atbd_tagline_moto_field').fadeOut();
+    }
 
     $('#atbd_optional_field_check').on('change', function () {
-        $(this).is(':checked') ? $('.atbd_tagline_moto_field').fadeIn() : $('.atbd_tagline_moto_field').fadeOut()
+        $(this).is(':checked') ? $('.atbd_tagline_moto_field').fadeIn() : $('.atbd_tagline_moto_field').fadeOut();
     });
 
     var imageUpload;

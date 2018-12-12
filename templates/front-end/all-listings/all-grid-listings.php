@@ -9,9 +9,10 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
 
 
     <div id="directorist" class="atbd_wrapper">
-        <div class="header_bar">
-            <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
-                <div class="row">
+        <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
+            <div class="row" data-uk-grid>
+                <?php if ( $all_listings->have_posts() ) {
+                    ?>
                     <div class="col-md-12">
                         <div class="atbd_generic_header">
                             <div class="atbd_generic_header_title">
@@ -75,15 +76,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                             <?php } ?>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
-            <div class="row" data-uk-grid>
-
-
-                <?php if ( $all_listings->have_posts() ) {
+                <?php
                     while ( $all_listings->have_posts() ) { $all_listings->the_post();
                         $cats              =  get_the_terms(get_the_ID(), ATBDP_CATEGORY);
                         $locs              =  get_the_terms(get_the_ID(), ATBDP_LOCATION);

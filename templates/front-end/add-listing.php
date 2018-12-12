@@ -161,12 +161,14 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 </button>
                                 <div class="atbd_optional_field">
                                     <label for="atbd_optional_field_check"><input id="atbd_optional_field_check"
-                                                                                  type="checkbox"> Tagline/Motto of your
+                                                                                  type="checkbox" <?php
+                                        echo !empty($tagline || $excerpt) ? 'checked' : ''?>> Tagline/Motto of your
                                         business or listing (optional)</label>
                                     <div class="atbd_tagline_moto_field">
                                         <div class="form-group">
                                             <label for="atbdp_excerpt"><?php esc_html_e('Tag-line/Motto', ATBDP_TEXTDOMAIN); ?></label>
                                             <input type="text" name="tagline"
+                                                   id="has_tagline"
                                                    value="<?= !empty($tagline) ? esc_attr($tagline) : ''; ?>"
                                                    class="form-control directory_field"
                                                    placeholder="<?= __('Your Listing\'s motto or tag-line', ATBDP_TEXTDOMAIN); ?>"/>
@@ -174,6 +176,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         <div class="form-group">
                                             <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN) ?></label>
                                             <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
+                                            <input type="hidden" id="has_excerpt" value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
                                             <textarea name="excerpt" id="atbdp_excerpt"
                                                       class="form-control directory_field" cols="30" rows="5"
                                                       placeholder="<?= __('Short Description or Excerpt', ATBDP_TEXTDOMAIN); ?>"> <?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?> </textarea>

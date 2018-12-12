@@ -8,9 +8,10 @@ $is_disable_price = get_directorist_option('disable_list_price');
 
 
     <div id="directorist" class="atbd_wrapper">
-        <div class="header_bar">
-            <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
-                <div class="row">
+        <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
+            <div class="row" data-uk-grid>
+                <?php if ($all_listings->have_posts()) {
+                    ?>
                     <div class="col-md-12">
                         <div class="atbd_generic_header">
                             <div class="atbd_generic_header_title">
@@ -68,17 +69,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-
-        <?php /* @todo: Shahadat -> atbd listing list style */ ?>
-        <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
-            <div class="row" data-uk-grid>
-
-
-                <?php if ($all_listings->have_posts()) {
+                <?php
                     while ($all_listings->have_posts()) {
                         $all_listings->the_post(); ?>
                         <?php

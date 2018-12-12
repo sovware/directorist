@@ -627,8 +627,8 @@ class ATBDP_Custom_Field {
                 <td class="label">
                     <label><?php _e( 'Multiple Options', ATBDP_TEXTDOMAIN ); ?></label>
                     <p class="description">
-                        <?php _e( 'For more just make a new line like: ', ATBDP_TEXTDOMAIN ); ?><br /><br />
-                        <?php _e( '<strong> Value : Label </strong>', ATBDP_TEXTDOMAIN ); ?><br />
+                        <?php _e( 'For more options just make a new line: ', ATBDP_TEXTDOMAIN ); ?><br /><br />
+                        <?php _e( '<strong> For Example</strong>', ATBDP_TEXTDOMAIN ); ?><br />
                         <?php _e( 'male : Male', ATBDP_TEXTDOMAIN ); ?><br />
                         <?php _e( 'female : Female', ATBDP_TEXTDOMAIN ); ?><br />
                         <?php _e( 'other : Other', ATBDP_TEXTDOMAIN ); ?>

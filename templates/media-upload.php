@@ -2,6 +2,7 @@
 $listing_imgs = (!empty($args['listing_img'])) ? $args['listing_img'] : array();
 $listing_prv_img_id = (!empty($args['listing_prv_img'])) ? $args['listing_prv_img'] : '';
 $listing_prv_img = wp_get_attachment_image_src($listing_prv_img_id);
+var_dump($listing_prv_img_id);
 $image_links = []; // define a link placeholder variable
 foreach ($listing_imgs as $id) {
     $image_links[$id] = wp_get_attachment_image_src($id)[0]; // store the attachment id and url
@@ -15,18 +16,14 @@ $active_mi_ext = is_multiple_images_active(); // default is no
     <div class="form-group">
         <!-- image container, which can be manipulated with js -->
         <div class="listing-prv-img-container">
-
-            <div class="single_prv_attachment">
-                <input class="listing_prv_img" name="listing_prv_img" type="hidden"
-                       value="<?php echo esc_url($listing_prv_img[0]) ?>">
-                <img style="max-height: 150px;max-width: 150px" class="change_listing_prv_img"
-                     src="<?php echo esc_url($listing_prv_img[0]) ?>">
-            </div>
-            <div class="default_img">
-                <img src="<?= esc_url(ATBDP_ADMIN_ASSETS . 'images/no-image.png'); ?>"
-                     alt="<?php esc_attr_e('No Image Found', ATBDP_TEXTDOMAIN); ?>">
-                <p>No images</p>
-                <small>(recommended size 300*200 and allowed formats jpeg. png. gif)</small>
+                <div class="single_prv_attachment">
+                    <input class="listing_prv_img" name="listing_prv_img" type="hidden"
+                           value="<?php echo esc_url($listing_prv_img[0]) ?>">
+                    <img style="max-height: 150px;max-width: 150px" class="change_listing_prv_img"
+                         src="<?php echo esc_url($listing_prv_img[0]) ?>">
+                </div>
+                <div class="default_img">
+                <small>(recommended size 670*420 and allowed formats jpeg. png. gif)</small>
             </div>
         </div>
         <!--  add & remove image links -->

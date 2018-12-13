@@ -4,7 +4,16 @@
         $(this).toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
     });
 
-    alert('hoa');
+    /* multi level hierarchy content */
+    $('.atbdp_child_category').hide();
+    $('.atbd_category_wrapper > .expander').on('click', function () {
+        $(this).siblings('.atbdp_child_category').slideToggle();
+    });
+
+    $('.atbdp_child_category li .expander').on('click', function () {
+        $(this).siblings('.atbdp_child_category').slideToggle();
+        $(this).parent('li').siblings('li').children('.atbdp_child_category').slideUp();
+    });
 
     /* image gallery slider */
     function sliderNavigation(slider, prevArrow, nextArrow){
@@ -15,13 +24,15 @@
             slider.slick('slickNext');
         });
     }
-    /*
-    Externel Library init
+    /* Externel Library init
     ------------------------*/
     //Star rating
-    $(".stars").barrating({
-        theme: 'fontawesome-stars'
-    });
+    if($.barrating){
+        $(".stars").barrating({
+            theme: 'fontawesome-stars'
+        });
+    }
+
 
     function handleFiles(files) {
         var preview = document.getElementById('atbd_up_preview');
@@ -619,11 +630,6 @@ jQuery(function($){
         });
 
     });
-
-    /* multi level hierarchy content */
-    $('.atbdp_child_category').hide();
-
-
 })( jQuery );
 
 

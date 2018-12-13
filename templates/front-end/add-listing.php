@@ -162,7 +162,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 <div class="atbd_optional_field">
                                     <label for="atbd_optional_field_check"><input id="atbd_optional_field_check"
                                                                                   type="checkbox" <?php
-                                        echo !empty($tagline || $excerpt) ? 'checked' : ''?>> Tagline/Motto of your
+                                        echo !empty($tagline) || !empty($excerpt) ? 'checked' : ''?>> Tagline/Motto of your
                                         business or listing (optional)</label>
                                     <div class="atbd_tagline_moto_field">
                                         <div class="form-group">

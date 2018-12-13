@@ -15,7 +15,7 @@ $currency = get_directorist_option('g_currency', 'USD');
 ?>
 <div id="directorist" class="directorist atbd_wrapper directory_wrapper">
     <?php
-    /**
+    /*
      * It fires before the listing tagline
      * @param string $type Page type.
      * @param array $args Current listing details.
@@ -27,7 +27,7 @@ $currency = get_directorist_option('g_currency', 'USD');
     <div class="atbd_">
         <div class="atbd_optional_field">
             <label for="atbd_optional_field_check"><input id="atbd_optional_field_check"
-                                                          type="checkbox" <?php echo !empty($tagline || $excerpt) ? 'checked' : ''?>> Tagline/Motto of your
+                                                          type="checkbox" <?php echo !empty($tagline) || !empty($excerpt) ? 'checked' : ''?>> Tagline/Motto of your
                 business or listing (optional)</label>
             <div class="atbd_tagline_moto_field">
                 <div class="form-group">

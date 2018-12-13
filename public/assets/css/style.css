@@ -1793,8 +1793,27 @@ h6, .h6 {
   margin-top: 30px;
 }
 
-.atbd_category_wrapper .atbdp_child_category {
-  padding-left: 10px;
+#directorist.atbd_wrapper .atbd_category_wrapper span.fa {
+  cursor: pointer;
+  margin-left: 7px;
+  font-size: 12px;
+}
+
+#directorist.atbd_wrapper .atbd_category_wrapper .atbdp_child_category {
+  padding-left: 15px;
+}
+
+#directorist.atbd_wrapper span.expander {
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 5px;
+  line-height: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#directorist.atbd_wrapper .atbdp_child_category li {
+  margin-bottom: 7px;
 }
 
 /*# sourceMappingURL=map/style.css.map */

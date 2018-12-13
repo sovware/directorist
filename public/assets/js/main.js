@@ -4,6 +4,7 @@
         $(this).toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
     });
 
+
     /* multi level hierarchy content */
     $('.atbdp_child_category').hide();
     $('.atbd_category_wrapper > .expander').on('click', function () {

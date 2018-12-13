@@ -1804,6 +1804,64 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Move to Trash', ATBDP_TEXTDOMAIN),
                     ),
                 ),
+
+                array(
+                    'type' => 'toggle',
+                    'name' => 'crop_image',
+                    'label' => __('Cropping', ATBDP_TEXTDOMAIN),
+                    'description' => __('Yes to crop image', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+
+                array(
+                    'type' => 'slider',
+                    'name' => 'crop_width',
+                    'label' => __('Use Custom Width', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Custom width for images', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '1200',
+                    'step' => '1',
+                    'default' => '0',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+
+                array(
+                    'type' => 'slider',
+                    'name' => 'crop_height',
+                    'label' => __('Use Custom Height', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Custom height for images', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '700',
+                    'step' => '1',
+                    'default' => '0',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+
+                array(
+                    'type' => 'select',
+                    'name' => 'image_size',
+                    'label' => __( 'Use Build-in Size', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'full',
+                            'label' => __('500*500', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'large',
+                            'label' => __('400*400', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'medium',
+                            'label' => __('360*300', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'description' => __( 'Image size for all listing gallery preview images', ATBDP_TEXTDOMAIN ),
+                    'default' =>  array(
+                        'value' => 'medium',
+                        'label' => __('360*300', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+
                 array(
                     'type' => 'textbox',
                     'name' => 'all_listing_title',
@@ -1811,6 +1869,9 @@ The Administrator of ==SITE_NAME==
                     'description' => __( 'Enter a title for the page where all listings will be shown using the shortcode [all_listing] . Eg. All Listings/ Items.', ATBDP_TEXTDOMAIN ),
                     'default' => atbdp_get_option('all_listing_title', 'atbdp_general'),
                 ),
+
+
+
                 array(
                     'type' => 'toggle',
                     'name' => 'paginate_all_listings',

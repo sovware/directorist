@@ -206,8 +206,6 @@ class ATBDP_Enqueuer {
 
         // we need select2 js on taxonomy edit screen to let the use to select the fonts-awesome icons ans search the icons easily
         // @TODO; make the styles and the scripts specific to the scripts where they are used specifically. For example. load select2js scripts and styles in
-        wp_enqueue_script('adminmainassets');
-
         wp_enqueue_style('select2style');
         wp_enqueue_script('select2script');
         wp_enqueue_script('atbdp_validator');

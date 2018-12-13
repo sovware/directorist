@@ -300,10 +300,6 @@ jQuery(function($){
         imageUpload.open();
         return;
     }
-    var hsa_image = $('.listing_prv_img').val();
-    if (hsa_image) {
-        $('.default_img').hide();
-    }
     $('.upload-header').on('click', function (element) {
         element.preventDefault();
 
@@ -318,10 +314,10 @@ jQuery(function($){
             prv_image = imageUpload.state().get('selection').first().toJSON();
             prv_url = prv_image.id;
             prv_img_url = prv_image.url;
-            console.log(prv_img_url);
+            console.log(prv_url);
             $('.listing_prv_img').val(prv_url);
             $('.change_listing_prv_img').attr('src', prv_img_url);
-            $('.default_img').hide();
+            $('.upload-header').html('<p>Change Preview Image</p>');
 
         });
 

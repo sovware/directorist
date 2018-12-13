@@ -5,6 +5,7 @@
     });
 
 
+
     /* image gallery slider */
     function sliderNavigation(slider, prevArrow, nextArrow){
         $(prevArrow).on('click', function () {
@@ -618,6 +619,10 @@ jQuery(function($){
         });
 
     });
+
+    /* multi level hierarchy content */
+    $('.atbdp_child_category').hide();
+
 
 })( jQuery );
 

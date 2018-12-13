@@ -392,9 +392,7 @@ final class Directorist_Base
 
     public static function prepare_plugin()
     {
-        add_image_size('directory-image',360,300,true);
-        add_image_size('directory-medium',460,400,true);
-        add_image_size('directory-large',560,500,true);
+
         include ATBDP_INC_DIR . 'classes/class-installation.php';
         ATBDP_Installation::install();
     }
@@ -1249,5 +1247,9 @@ function ATBDP()
 
 // Get ATBDP ( AazzTech Business Directory Plugin) Running.
 ATBDP();
+add_image_size('directory-image',360,300,true);
+add_image_size('directory-small',400,300,true);
+add_image_size('directory-medium',600,500,true);
+add_image_size('directory-large',700,600,true);
 
 register_activation_hook(__FILE__, array('Directorist_Base', 'prepare_plugin'));

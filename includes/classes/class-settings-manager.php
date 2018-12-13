@@ -1804,6 +1804,74 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Move to Trash', ATBDP_TEXTDOMAIN),
                     ),
                 ),
+
+                array(
+                    'type' => 'toggle',
+                    'name' => 'thumbnail_cropping',
+                    'label' => __('Thumbnail Cropping', ATBDP_TEXTDOMAIN),
+                    'description' => __('Yes to cropping image', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+
+                array(
+                    'type' => 'select',
+                    'name' => 'image_size',
+                    'label' => __( 'Thumbnail Cropping Size', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'directory-image',
+                            'label' => __('360*300', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'directory-small',
+                            'label' => __('400*300', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'directory-medium',
+                            'label' => __('600*500', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'directory-large',
+                            'label' => __('700*500', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'directory-custom',
+                            'label' => __('Custom Cropping', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'description' => __( 'Select ', ATBDP_TEXTDOMAIN ),
+                    'default' =>  array(
+                        'value' => 'directory-image',
+                        'label' => __('360*300', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+
+                array(
+                    'type' => 'slider',
+                    'name' => 'crop_width',
+                    'label' => __('Custom Width', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Thumbnail cropping width. NOTE: You must be selected custom cropping for using custom width and regenerate all thumbnails.', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '1200',
+                    'step' => '1',
+                    'default' => '360',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+
+                array(
+                    'type' => 'slider',
+                    'name' => 'crop_height',
+                    'label' => __('Custom Height', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Thumbnail cropping height. NOTE: You must be selected custom cropping for using custom height and regenerate all thumbnails', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '700',
+                    'step' => '1',
+                    'default' => '300',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+
+
+
                 array(
                     'type' => 'textbox',
                     'name' => 'all_listing_title',
@@ -1811,6 +1879,9 @@ The Administrator of ==SITE_NAME==
                     'description' => __( 'Enter a title for the page where all listings will be shown using the shortcode [all_listing] . Eg. All Listings/ Items.', ATBDP_TEXTDOMAIN ),
                     'default' => atbdp_get_option('all_listing_title', 'atbdp_general'),
                 ),
+
+
+
                 array(
                     'type' => 'toggle',
                     'name' => 'paginate_all_listings',

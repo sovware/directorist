@@ -155,10 +155,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                             'editor_height' => 200
                                         )); ?>
                                 </div>
-                                <button type="button" class="btn btn-secondary" data-toggle="tooltip"
-                                        data-placement="top" title="Tooltip on top">
-                                    Tooltip on top
-                                </button>
+
                                 <div class="atbd_optional_field">
                                     <label for="atbd_optional_field_check"><input id="atbd_optional_field_check"
                                                                                   type="checkbox" <?php
@@ -771,6 +768,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
             };
             $.post(ajaxurl, data, function (response) {
                 $('#atbdp-custom-fields-list').html(response);
+                $("[data-toggle='tooltip']").tooltip();
             });
             $('#atbdp-custom-fields-list-selected').hide();
         });

@@ -4,6 +4,7 @@
         $(this).toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
     });
 
+    alert('hoa');
 
     /* image gallery slider */
     function sliderNavigation(slider, prevArrow, nextArrow){

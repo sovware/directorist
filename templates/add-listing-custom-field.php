@@ -15,10 +15,7 @@
                     </script>
 
                     <label for=""><?php the_title(); ?><?php if($cf_required){echo '<span style="color: red"> *</span>'; }?>
-                        <span class="fa fa-question-circle"></span>
-                        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                            Tooltip on top
-                        </button>
+                        <span class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="<?php echo get_post_meta(get_the_ID(), 'instructions', true); ?>"></span>
                     </label>
                     <?php
                     $value = ['default_value'][0];
@@ -35,20 +32,18 @@
 
                         case 'text' :
                             echo '<div>';
-                            printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
 
                             printf( '<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="" value="%s"/>', $post->ID, esc_attr( $value ) );
                             echo '</div>';
                             break;
                         case 'textarea' :
-                            printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
 
                             printf( '<textarea class="form-control directory_field" name="custom_field[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $post->ID, (int) $cf_rows,esc_attr( $cf_placeholder ), esc_textarea( $value ) );
                             break;
                         case 'radio':
                             $choices = get_post_meta(get_the_ID(), 'choices', true);
                             $choices = explode( "\n", $choices );
-                            printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
+
                             echo '<ul class="atbdp-radio-list radio vertical">';
                             foreach( $choices as $choice ) {
                                 if( strpos( $choice, ':' ) !== false ) {
@@ -73,7 +68,7 @@
                         case 'select' :
                             $choices = get_post_meta(get_the_ID(), 'choices', true);
                             $choices = explode( "\n", $choices );
-                            printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
+
                             printf( '<select name="custom_field[%d]" class="form-control directory_field">', $post->ID );
                             if( ! empty( $field_meta['allow_null'][0] ) ) {
                                 printf( '<option value="">%s</option>', '- '.__( 'Select an Option', 'advanced-classifieds-and-directory-pro' ).' -' );
@@ -104,7 +99,7 @@
 
                             $values = explode( "\n", $value );
                             $values = array_map( 'trim', $values );
-                            printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
+
                             echo '<ul class="atbdp-checkbox-list checkbox vertical">';
 
                             foreach( $choices as $choice ) {
@@ -128,21 +123,21 @@
                             break;
                         case 'url'  :
                             echo '<div>';
-                            printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
+
                             printf( '<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_url( $value ) );
                             echo '</div>';
                             break;
 
                         case 'date'  :
                             echo '<div>';
-                            printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
+
                             printf( '<input type="date" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_attr( $value ) );
                             echo '</div>';
                             break;
 
                         case 'color'  :
                             echo '<div>';
-                            printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
+
                             printf( '<input type="text" name="custom_field[%d]" id="color_code" class="my-color-field" value="%s"/>', $post->ID, $value );
                             echo '</div>';
                             break;

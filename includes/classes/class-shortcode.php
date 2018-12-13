@@ -203,43 +203,6 @@ class ATBDP_Shortcode {
         return ob_get_clean();
     }
 
-    /*public function all_listing()
-    {
-        ob_start();
-        //for pagination
-        $paged = atbdp_get_paged_num();
-        $paginate = get_directorist_option('paginate_all_listings');
-        $args = array(
-            'post_type'=> ATBDP_POST_TYPE,
-            'post_status'=> 'publish',
-            'posts_per_page' => (int) get_directorist_option('all_listing_page_items', 6),
-            'paged' => $paged
-        );
-        if (!$paginate) $args['no_found_rows'] = true;
-        $meta_queries = array();
-        $featured_active = get_directorist_option('enable_featured_listing');
-        if ($featured_active){
-            $meta_queries[] = array(
-                'key'     => '_featured',
-                'type'    => 'NUMERIC',
-                'compare' => 'EXISTS',
-            );
-
-            $args['orderby']  = array(
-                'meta_value_num' => 'DESC',
-                //'date'           => 'ASC',
-            );
-        }
-        if (!is_empty_v($meta_queries)){
-            $args['meta_query'] = $meta_queries;
-        }
-        $all_listings = new WP_Query($args);
-        $all_listing_title = get_directorist_option('all_listing_title', __('All Items', ATBDP_TEXTDOMAIN));
-        $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
-
-        ATBDP()->load_template('front-end/all-listing', array('data' => $data_for_template));
-        return ob_get_clean();
-    }*/
 
     public function all_listing( $atts )
     {

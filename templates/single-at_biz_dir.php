@@ -189,7 +189,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                 </div>
 
                 <div class="atbdb_content_module_contents">
-                    <?php if (!empty($image_links)) {
+                    <?php
+                    $listing_prv_imgurl = wp_get_attachment_image_url($listing_prv_img, 'medium');
+                    if (!empty($image_links)) {
                         if (!empty($listing_prv_img)){
                             $listing_prv_imgurl = wp_get_attachment_image_url($listing_prv_img, 'directory-image');
                             array_unshift($image_links, $listing_prv_imgurl);
@@ -230,7 +232,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                     <?php }else{
                         ?>
                         <div class="single_image">
-                            <img src="<?= ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'; ?>"
+                            <img src="<?= !empty($listing_prv_img) ? esc_url($listing_prv_imgurl) : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'; ?>"
                                  alt="<?php esc_attr_e('Details Image', ATBDP_TEXTDOMAIN); ?>">
                         </div>
                     <?php

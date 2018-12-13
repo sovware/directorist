@@ -25,7 +25,9 @@ extract($listing_info);
 $listing_imgs= (!empty($listing_img)) ? $listing_img : array();
 $image_links = array(); // define a link placeholder variable
 foreach ($listing_imgs as $id){
-    $image_links[$id]= wp_get_attachment_image_src($id, 'full')[0]; // store the attachment id and url
+    $image_sizes = 'directory-image';
+    $image_links[$id]= wp_get_attachment_image_src($id, $image_sizes)[0]; // store the attachment id and url
+    $image_links_thumbnails[$id]= wp_get_attachment_image_src($id, 'thumbnail')[0]; // store the attachment id and url
     //@todo; instead of getting a full size image, define a an image size and then fetch that size and let the user change that image size via a hook.
 }
 
@@ -189,9 +191,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                 </div>
 
                 <div class="atbdb_content_module_contents">
-                    <?php if (!empty($image_links)) {
+                    <?php
+                    $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'medium')['0'];
+                    if (!empty($image_links)) {
                         if (!empty($listing_prv_img)){
-                            $listing_prv_imgurl = wp_get_attachment_image_url($listing_prv_img, 'directory-image');
+                          $image_size = 'directory-image';
+                            $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'directory-image')['0'];
                             array_unshift($image_links, $listing_prv_imgurl);
                         }
                         ?>
@@ -210,9 +215,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             </div>
 
                             <div class="atbd_directory_image_thumbnail">
-                                <?php foreach ($image_links as $image_link) { ?>
+                                <?php foreach ($image_links_thumbnails as $image_links_thumbnail) { ?>
                                     <div class="single_image">
-                                        <img src="<?= esc_url($image_link); ?>"
+                                        <img src="<?= esc_url($image_links_thumbnail); ?>"
                                              alt="<?php esc_attr_e('Details Image', ATBDP_TEXTDOMAIN); ?>">
                                     </div>
 
@@ -230,7 +235,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                     <?php }else{
                         ?>
                         <div class="single_image">
-                            <img src="<?= ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'; ?>"
+                            <img src="<?= !empty($listing_prv_img) ? esc_url($listing_prv_imgurl) : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'; ?>"
                                  alt="<?php esc_attr_e('Details Image', ATBDP_TEXTDOMAIN); ?>">
                         </div>
                     <?php

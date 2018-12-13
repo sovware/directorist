@@ -14,6 +14,7 @@
     $('.atbdp_child_category li .expander').on('click', function () {
         $(this).siblings('.atbdp_child_category').slideToggle();
         $(this).parent('li').siblings('li').children('.atbdp_child_category').slideUp();
+        
     });
 
     /* image gallery slider */

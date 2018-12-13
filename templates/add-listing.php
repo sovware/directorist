@@ -66,10 +66,17 @@ $currency = get_directorist_option('g_currency', 'USD');
             <div class="form-group">
                 <select class="form-control directory_field" id="pricerange" style="display: none" name="price_range">
                     <option value="">Select Price Range</option>
-                    <option value="skimming" <?php selected($price_range, 'skimming'); ?>>Skimming ($$$$)</option>
-                    <option value="moderate" <?php selected($price_range, 'moderate'); ?>>Moderate ($$$)</option>
-                    <option value="economy" <?php selected($price_range, 'economy'); ?>>Economy ($$)</option>
-                    <option value="bellow_economy" <?php selected($price_range, 'bellow_economy'); ?>>Bellow Economy ($)
+                    <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
+                        Ultra High ($$$$)
+                    </option>
+                    <option value="moderate" <?php selected($price_range, 'moderate'); ?>>
+                        Expensive ($$$)
+                    </option>
+                    <option value="economy" <?php selected($price_range, 'economy'); ?>>
+                        Moderate ($$)
+                    </option>
+                    <option value="bellow_economy" <?php selected($price_range, 'economy'); ?>>
+                        Cheap ($)
                     </option>
                 </select>
             </div>

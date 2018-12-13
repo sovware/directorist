@@ -1663,6 +1663,71 @@ The Administrator of ==SITE_NAME==
                 ),
             ),
 
+            array(
+                'type' => 'toggle',
+                'name' => 'gallery_cropping',
+                'label' => __('Gallery Image Cropping', ATBDP_TEXTDOMAIN),
+                'description' => __('Yes to gallery cropping image', ATBDP_TEXTDOMAIN),
+                'default' => 1,
+            ),
+
+            array(
+                'type' => 'select',
+                'name' => 'gallery_image_size',
+                'label' => __( 'Gallery Image Cropping Size', ATBDP_TEXTDOMAIN ),
+                'items' => array(
+                    array(
+                        'value' => 'gallery-image',
+                        'label' => __('360*300', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'value' => 'gallery-small',
+                        'label' => __('400*300', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'value' => 'gallery-medium',
+                        'label' => __('600*500', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'value' => 'gallery-large',
+                        'label' => __('700*600', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'value' => 'gallery-custom',
+                        'label' => __('Custom Cropping', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                'description' => __( 'Select ', ATBDP_TEXTDOMAIN ),
+                'default' =>  array(
+                    'value' => 'gallery-medium',
+                    'label' => __('600*500', ATBDP_TEXTDOMAIN),
+                ),
+            ),
+
+            array(
+                'type' => 'slider',
+                'name' => 'gallery_crop_width',
+                'label' => __('Custom Width', ATBDP_TEXTDOMAIN),
+                'description' => __( 'Gallery image cropping width. NOTE: You must be selected custom cropping for using custom width and regenerate all thumbnails.', ATBDP_TEXTDOMAIN),
+                'min' => '1',
+                'max' => '1200',
+                'step' => '1',
+                'default' => '670',
+                'validation' => 'numeric|minlength[1]',
+            ),
+
+            array(
+                'type' => 'slider',
+                'name' => 'gallery_crop_height',
+                'label' => __('Custom Height', ATBDP_TEXTDOMAIN),
+                'description' => __( 'Gallery image cropping height. NOTE: You must be selected custom cropping for using custom height and regenerate all thumbnails', ATBDP_TEXTDOMAIN),
+                'min' => '1',
+                'max' => '700',
+                'step' => '1',
+                'default' => '420',
+                'validation' => 'numeric|minlength[1]',
+            ),
+
 
             array(
                 'type' => 'toggle',

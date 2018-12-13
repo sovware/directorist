@@ -541,6 +541,7 @@ class ATBDP_Shortcode {
 
     public function all_categories ( $atts )
     {
+        wp_enqueue_script('loc_cat_assets');
         ob_start();
         $display_categories_as   = get_directorist_option('display_categories_as','grid');
         $categories_settings = array();
@@ -582,6 +583,7 @@ class ATBDP_Shortcode {
 
     public function all_locations ($atts)
     {
+        wp_enqueue_script('loc_cat_assets');
         ob_start();
         $display_locations_as              = get_directorist_option('display_locations_as','grid');
         $locations_settings                = array();

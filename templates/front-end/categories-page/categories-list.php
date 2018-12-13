@@ -5,7 +5,7 @@
  */
 ?>
 
-    <div class="atbdp atbdp-categories atbdp-text-list">
+    <div id="directorist" class="atbd_wrapper atbdp atbdp-categories atbdp-text-list">
     <?php
 		$span = 'col-md-' . floor( 12 /  $categories_settings['columns'] );
 		--$categories_settings['depth'];
@@ -15,7 +15,7 @@
             $categories_settings['term'] = $term;
 			$categories_settings['term_id'] = $term->term_id;
             $child_category = get_term_children($term->term_id,ATBDP_CATEGORY);
-            $plus_icon = !empty($child_category) ? '<span class="fa fa-plus"></span>' : '';
+            $plus_icon = !empty($child_category) ? '<span class="expander">+</span>' : '';
 
 			$count = 0;
 			if( ! empty( $categories_settings['hide_empty'] ) || ! empty( $categories_settings['show_count'] ) ) {

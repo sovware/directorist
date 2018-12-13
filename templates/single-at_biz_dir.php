@@ -25,8 +25,22 @@ extract($listing_info);
 $listing_imgs= (!empty($listing_img)) ? $listing_img : array();
 $image_links = array(); // define a link placeholder variable
 foreach ($listing_imgs as $id){
-    $image_sizes = 'directory-image';
-    $image_links[$id]= wp_get_attachment_image_src($id, $image_sizes)[0]; // store the attachment id and url
+    $thumbnail_cropping = get_directorist_option('gallery_cropping',1);
+
+        if($thumbnail_cropping) {
+
+            $image_sizes = get_directorist_option('gallery_image_size','gallery-image');
+            $image_links[$id]= wp_get_attachment_image_src($id, $image_sizes)[0]; // store the attachment id and url
+
+        }else{
+            $image_links[$id]= wp_get_attachment_image_src($id, 'large')[0]; // store the attachment id and url
+        }
+
+
+
+
+
+
     $image_links_thumbnails[$id]= wp_get_attachment_image_src($id, 'thumbnail')[0]; // store the attachment id and url
     //@todo; instead of getting a full size image, define a an image size and then fetch that size and let the user change that image size via a hook.
 }

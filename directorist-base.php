@@ -370,6 +370,24 @@ final class Directorist_Base
 
     public function load_textdomain()
     {
+        add_image_size('directory-image',360,300,true);
+        add_image_size('directory-small',400,300,true);
+        add_image_size('directory-medium',600,500,true);
+        add_image_size('directory-large',700,600,true);
+
+        $custom_img_width = get_directorist_option('crop_width',670);
+        $custom_img_height = get_directorist_option('crop_height',420);
+        add_image_size('directory-custom',$custom_img_width,$custom_img_height,true);
+
+        add_image_size('gallery-image',360,300,true);
+        add_image_size('gallery-small',400,300,true);
+        add_image_size('gallery-medium',600,500,true);
+        add_image_size('gallery-large',700,600,true);
+
+        $custom_gl_width = get_directorist_option('gallery_crop_width',670);
+        $custom_gl_height = get_directorist_option('gallery_crop_height',420);
+        add_image_size('gallery-custom',$custom_gl_width,$custom_gl_height,true);
+
         load_plugin_textdomain(ATBDP_TEXTDOMAIN, false, ATBDP_LANG_DIR);
     }
 
@@ -1276,13 +1294,6 @@ function ATBDP()
 
 // Get ATBDP ( AazzTech Business Directory Plugin) Running.
 ATBDP();
-add_image_size('directory-image',360,300,true);
-add_image_size('directory-small',400,300,true);
-add_image_size('directory-medium',600,500,true);
-add_image_size('directory-large',700,600,true);
 
-$custom_img_width = get_directorist_option('crop_width',670);
-$custom_img_height = get_directorist_option('crop_height',420);
-add_image_size('directory-custom',$custom_img_width,$custom_img_height,true);
 
 register_activation_hook(__FILE__, array('Directorist_Base', 'prepare_plugin'));

@@ -2,7 +2,6 @@
 $listing_imgs = (!empty($args['listing_img'])) ? $args['listing_img'] : array();
 $listing_prv_img_id = (!empty($args['listing_prv_img'])) ? $args['listing_prv_img'] : '';
 $listing_prv_img = wp_get_attachment_image_src($listing_prv_img_id);
-var_dump($listing_prv_img_id);
 $image_links = []; // define a link placeholder variable
 foreach ($listing_imgs as $id) {
     $image_links[$id] = wp_get_attachment_image_src($id)[0]; // store the attachment id and url
@@ -31,7 +30,6 @@ $active_mi_ext = is_multiple_images_active(); // default is no
             <a href="#" class="upload-header button button-secondary">Upload Preview Image</a>
         </p>
     </div>
-
     <div class="form-group">
         <!-- image container, which can be manipulated with js -->
         <div class="listing-img-container">

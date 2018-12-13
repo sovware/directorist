@@ -619,6 +619,10 @@ jQuery(function($){
 
     });
 
+    /* multi level hierarchy content */
+    $('.atbdp_child_category').hide();
+
+
 })( jQuery );
 
 

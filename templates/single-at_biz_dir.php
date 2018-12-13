@@ -189,9 +189,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                 </div>
 
                 <div class="atbdb_content_module_contents">
-                    <?php if (!empty($image_links)) {
+                    <?php
+                    $listing_prv_imgurl = wp_get_attachment_image_url($listing_prv_img, 'medium');
+                    if (!empty($image_links)) {
                         if (!empty($listing_prv_img)){
-                            array_unshift($image_links, $listing_prv_img);
+                            $listing_prv_imgurl = wp_get_attachment_image_url($listing_prv_img, 'directory-image');
+                            array_unshift($image_links, $listing_prv_imgurl);
                         }
                         ?>
                         <div class="atbd_directry_gallery_wrapper">
@@ -229,7 +232,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                     <?php }else{
                         ?>
                         <div class="single_image">
-                            <img src="<?= ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'; ?>"
+                            <img src="<?= !empty($listing_prv_img) ? esc_url($listing_prv_imgurl) : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'; ?>"
                                  alt="<?php esc_attr_e('Details Image', ATBDP_TEXTDOMAIN); ?>">
                         </div>
                     <?php
@@ -398,17 +401,16 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                 </div>
             </div><!-- end .atbd_custom_fields_contents -->
 
-            <?php /* @todo: Shahadat -> added new contents */ ?>
-            <?php if ($enable_video_url && !empty($video_url)) { ?>
+            <?php if ($enable_video_url && !empty($videourl)) { ?>
                 <div class="atbd_content_module atbd_custom_fields_contents">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
-                            <h4><span class="fa fa-video-camera atbd_area_icon"></span>See Our Video</h4>
+                            <h4><span class="fa fa-video-camera atbd_area_icon"></span><?php _e($video_label, ATBDP_TEXTDOMAIN)?></h4>
                         </div>
                     </div>
 
                     <div class="atbdb_content_module_contents">
-                        <iframe class="atbd_embeded_video embed-responsive-item" src="<?php echo $video_url; ?>"
+                        <iframe class="atbd_embeded_video embed-responsive-item" src="<?php echo esc_attr(ATBDP()->atbdp_parse_videos($videourl)) ?>"
                                 allowfullscreen></iframe>
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
@@ -432,7 +434,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
             <?php } ?>
 
 
-            <?php if ((!$disable_contact_info || !$hide_contact_info) && !empty($address||$phone||$email||$website||$social) ) { ?>
+            <?php if ((!$hide_contact_info) && !empty($address||$phone||$email||$website||$social) ) { ?>
                 <div class="atbd_content_module atbd_contact_information_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">

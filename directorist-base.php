@@ -1246,5 +1246,5 @@ function ATBDP()
 
 // Get ATBDP ( AazzTech Business Directory Plugin) Running.
 ATBDP();
-
+add_image_size('directory-image',360,240,true);
 register_activation_hook(__FILE__, array('Directorist_Base', 'prepare_plugin'));

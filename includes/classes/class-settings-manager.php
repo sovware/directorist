@@ -1722,7 +1722,7 @@ The Administrator of ==SITE_NAME==
                 'type' => 'toggle',
                 'name' => 'disable_contact_info',
                 'label' => __( 'Disable Contact Information', ATBDP_TEXTDOMAIN ),
-                'description' => __( 'Set it YES to disable Contact Information on a Single Listing Details page.', ATBDP_TEXTDOMAIN ),
+                'description' => __( 'Set it YES to disable Contact Information on add listing form.', ATBDP_TEXTDOMAIN ),
                 'default' => 0,
             ),
             array(

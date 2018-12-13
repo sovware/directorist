@@ -282,7 +282,13 @@ jQuery(function($){
         }
     });
 
-    $('.atbd_tagline_moto_field').fadeOut();
+    var has_tagline = $('#has_tagline').val();
+    var has_excerpt = $('#has_excerpt').val();
+    if (has_excerpt && has_tagline){
+        $('.atbd_tagline_moto_field').fadeIn();
+    }else {
+        $('.atbd_tagline_moto_field').fadeOut();
+    }
 
     $('#atbd_optional_field_check').on('change', function () {
         $(this).is(':checked') ? $('.atbd_tagline_moto_field').fadeIn() : $('.atbd_tagline_moto_field').fadeOut();
@@ -310,9 +316,11 @@ jQuery(function($){
         imageUpload.open();
         imageUpload.on('select', function () {
             prv_image = imageUpload.state().get('selection').first().toJSON();
-            prv_url = prv_image.url;
+            prv_url = prv_image.id;
+            prv_img_url = prv_image.url;
+            console.log(prv_img_url);
             $('.listing_prv_img').val(prv_url);
-            $('.change_listing_prv_img').attr('src', prv_url);
+            $('.change_listing_prv_img').attr('src', prv_img_url);
             $('.default_img').hide();
 
         });

@@ -7,7 +7,6 @@
 
 <div class="atbdp atbdp-categories atbdp-text-list">
     <?php
-
 		$span = 'col-md-' . floor( 12 /  $locations_settings['columns'] );
 		--$locations_settings['depth'];
 		$i = 0;

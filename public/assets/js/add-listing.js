@@ -327,5 +327,4 @@ jQuery(function($){
 
         imageUpload.open();
     });
-
 });

@@ -225,6 +225,13 @@
       }
     }
   }
+  .single_image{
+    img{
+      float: none;
+      width: 100%;
+      margin: 0;
+    }
+  }
   .atbd_listing_detail {
     padding-top: 30px;
     .atbd_data_info {

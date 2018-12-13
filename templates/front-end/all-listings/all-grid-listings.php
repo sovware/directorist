@@ -107,10 +107,10 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                         $author_id = get_the_author_meta( 'ID' );
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                         $avata_img = get_avatar($author_id, 32);
-                        $thumbnail_croppting = get_directorist_option('thumbnail_cropping',1);
+                        $thumbnail_cropping = get_directorist_option('thumbnail_cropping',1);
                         if(!empty($listing_prv_img)) {
 
-                          if($thumbnail_croppting) {
+                          if($thumbnail_cropping) {
 
                             $image_size = get_directorist_option('image_size','directory-image');
                             $prv_image   = wp_get_attachment_image_src($listing_prv_img, $image_size);
@@ -121,7 +121,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
 
                         }
                         if(!empty($listing_img[0])) {
-                          if( $thumbnail_croppting ) {
+                          if( $thumbnail_cropping ) {
                               $gallery_img_size = get_directorist_option('image_size','directory-image');
                               $gallery_img = wp_get_attachment_image_src($listing_img[0], $gallery_img_size);
                           }else{

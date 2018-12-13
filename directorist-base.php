@@ -644,19 +644,48 @@ final class Directorist_Base
                         $author_id = get_the_author_meta( 'ID' );
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                         $avata_img = get_avatar($author_id, 32);
+                        $thumbnail_cropping = get_directorist_option('thumbnail_cropping',1);
+                        if(!empty($listing_prv_img)) {
+
+                            if($thumbnail_cropping) {
+
+                                $image_size = get_directorist_option('image_size','directory-image');
+                                $prv_image   = wp_get_attachment_image_src($listing_prv_img, $image_size);
+
+                            }else{
+                                $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large');
+                            }
+
+                        }
+                        if(!empty($listing_img[0])) {
+                            if( $thumbnail_cropping ) {
+                                $gallery_img_size = get_directorist_option('image_size','directory-image');
+                                $gallery_img = wp_get_attachment_image_src($listing_img[0], $gallery_img_size);
+                            }else{
+                                $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium');
+                            }
+
+                        }
                         ?>
                         <div class="col-md-6 col-sm-6">
                             <div class="atbd_single_listing atbd_listing_card">
                                 <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                     <figure class="atbd_listing_thumbnail_area">
                                         <div class="atbd_listing_image">
-                                            <?php if(!empty($listing_prv_img)){
-                                                echo '<img src="'.esc_url($listing_prv_img).'" alt="listing image">';
-                                            }if(!empty($listing_img[0]) && empty($listing_prv_img)){
-                                                echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(432, 400))) . '" alt="listing image">';
+                                           <?php if(!empty($listing_prv_img)){
+
+                                                echo '<img src="'.esc_url($prv_image['0']).'" alt="listing image">';
+
+                                            } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
+
+                                                echo '<img src="' . esc_url($gallery_img['0']) . '" alt="listing image">';
+
                                             }if (empty($listing_img[0]) && empty($listing_prv_img)){
+
                                                 echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
-                                            } ?>
+
+                                            }
+                                            ?>
                                         </div>
 
                                         <figcaption class="atbd_thumbnail_overlay_content">
@@ -1251,5 +1280,9 @@ add_image_size('directory-image',360,300,true);
 add_image_size('directory-small',400,300,true);
 add_image_size('directory-medium',600,500,true);
 add_image_size('directory-large',700,600,true);
+
+$custom_img_width = get_directorist_option('crop_width',670);
+$custom_img_height = get_directorist_option('crop_height',420);
+add_image_size('directory-custom',$custom_img_width,$custom_img_height,true);
 
 register_activation_hook(__FILE__, array('Directorist_Base', 'prepare_plugin'));

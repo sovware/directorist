@@ -1832,7 +1832,7 @@ The Administrator of ==SITE_NAME==
                         ),
                         array(
                             'value' => 'directory-large',
-                            'label' => __('700*500', ATBDP_TEXTDOMAIN),
+                            'label' => __('700*600', ATBDP_TEXTDOMAIN),
                         ),
                         array(
                             'value' => 'directory-custom',
@@ -1854,7 +1854,7 @@ The Administrator of ==SITE_NAME==
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
-                    'default' => '360',
+                    'default' => '670',
                     'validation' => 'numeric|minlength[1]',
                 ),
 
@@ -1866,7 +1866,7 @@ The Administrator of ==SITE_NAME==
                     'min' => '1',
                     'max' => '700',
                     'step' => '1',
-                    'default' => '300',
+                    'default' => '420',
                     'validation' => 'numeric|minlength[1]',
                 ),
 

@@ -319,5 +319,4 @@ jQuery(function($){
 
         imageUpload.open();
     });
-
 });

@@ -10,7 +10,6 @@
 		$span = 'col-md-' . floor( 12 /  $categories_settings['columns'] );
 		--$categories_settings['depth'];
 		$i = 0;
-
 		foreach( $terms as $term ) {
             $parent = $args['parent'];
             $categories_settings['term'] = $term;

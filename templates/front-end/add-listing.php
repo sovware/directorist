@@ -419,16 +419,16 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                     name="price_range">
                                                 <option value="">Select Price Range</option>
                                                 <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
-                                                    Skimming ($$$$)
+                                                    Ultra High ($$$$)
                                                 </option>
                                                 <option value="moderate" <?php selected($price_range, 'moderate'); ?>>
-                                                    Moderate ($$$)
+                                                    Expensive ($$$)
                                                 </option>
                                                 <option value="economy" <?php selected($price_range, 'economy'); ?>>
-                                                    Economy ($$)
+                                                    Moderate ($$)
                                                 </option>
                                                 <option value="bellow_economy" <?php selected($price_range, 'economy'); ?>>
-                                                    Bellow Economy ($)
+                                                    Cheap ($)
                                                 </option>
                                             </select>
                                     </div>

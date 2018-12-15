@@ -44,8 +44,8 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         add_action( 'wp_ajax_atbdp_public_add_remove_favorites', array($this, 'atbdp_public_add_remove_favorites') );
         add_action( 'wp_ajax_nopriv_atbdp_public_add_remove_favorites', array($this, 'atbdp_public_add_remove_favorites') );
 
-        add_action( 'wp_ajax_atbdp_public_add_remove_favorites_all', array($this, 'atbdp_public_add_remove_favorites_all') );
-        add_action( 'wp_ajax_nopriv_atbdp_public_add_remove_favorites_all', array($this, 'atbdp_public_add_remove_favorites_all') );
+        //add_action( 'wp_ajax_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all') );
+        //add_action( 'wp_ajax_nopriv_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all') );
     }
 
 
@@ -58,6 +58,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         public function atbdp_public_add_remove_favorites_all() {
 
             $post_id = (int) $_POST['post_id'];
+            var_dump($post_id);
 
             $favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
 
@@ -77,7 +78,6 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
             the_atbdp_favourites_all_listing( $post_id );
 
-            wp_die();
 
         }
 

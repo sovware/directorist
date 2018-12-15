@@ -1839,6 +1839,7 @@ function the_atbdp_favourites_all_listing( $post_id = 0 ) {
             echo '<a href="javascript:void(0)" class="atbdp-favourites-all-listing" data-post_id="'.$post_id.'"><span style="color: red" class="fa fa-heart"></span></a>';
         } else {
             echo '<a href="javascript:void(0)" class="atbdp-favourites-all-listing" data-post_id="'.$post_id.'"><span class="fa fa-heart"></span></a>';
+
         }
 
     } else {

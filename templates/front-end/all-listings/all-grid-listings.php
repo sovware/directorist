@@ -296,7 +296,17 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                         <?php    } ?>
                                             <ul class="atbd_content_right">
                                                 <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li>
-                                                <li class="atbd_save" id="atbdp-favourites-all-listing"><?php the_atbdp_favourites_all_listing(); ?></span></li>
+
+
+                                                <li class="atbd_save">
+                                                    <div id="atbdp-favourites-all-listing">
+                                                        <input type="hidden" id="listing_ids" value="<?php echo get_the_ID(); ?>">
+                                                        <?php
+                                                       // do_action('wp_ajax_atbdp-favourites-all-listing', get_the_ID()); ?>
+                                                    </div>
+                                                </li>
+
+
                                                 <li class="atbd_author">
                                                     <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
                                                             <img

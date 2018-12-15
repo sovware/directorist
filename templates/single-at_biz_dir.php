@@ -27,14 +27,14 @@ $image_links = array(); // define a link placeholder variable
 foreach ($listing_imgs as $id){
     $thumbnail_cropping = get_directorist_option('gallery_cropping',1);
 
-        if($thumbnail_cropping) {
+    if($thumbnail_cropping) {
 
-            $image_sizes = get_directorist_option('gallery_image_size','gallery-image');
-            $image_links[$id]= wp_get_attachment_image_src($id, $image_sizes)[0]; // store the attachment id and url
+        $image_sizes = get_directorist_option('gallery_image_size','gallery-image');
+        $image_links[$id]= wp_get_attachment_image_src($id, $image_sizes)[0]; // store the attachment id and url
 
-        }else{
-            $image_links[$id]= wp_get_attachment_image_src($id, 'large')[0]; // store the attachment id and url
-        }
+    }else{
+        $image_links[$id]= wp_get_attachment_image_src($id, 'large')[0]; // store the attachment id and url
+    }
 
     $image_links_thumbnails[$id]= wp_get_attachment_image_src($id, 'thumbnail')[0]; // store the attachment id and url
     //@todo; instead of getting a full size image, define a an image size and then fetch that size and let the user change that image size via a hook.
@@ -96,7 +96,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                 <div class="edit_btn_wrap">
                     <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>" class="btn btn-success"><span class="fa fa-edit"></span> Edit Listing</a>
                 </div>
-            <?php
+                <?php
             }
             ?>
             <div class="atbd_content_module atbd_listing_details">
@@ -151,16 +151,16 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                         <?php
                         if ($enable_report_abuse) { ?>
                             <div class="atbd_action atbd_report">
-                            <?php if (is_user_logged_in()) { ?>
+                                <?php if (is_user_logged_in()) { ?>
 
-                                <span class="fa fa-flag"></span><a href="javascript:void(0)" data-toggle="modal" data-target="#atbdp-report-abuse-modal"><?php _e( 'Report', ATBDP_TEXTDOMAIN ); ?></a>
-                                <!-- Modal (report abuse form) -->
+                                    <span class="fa fa-flag"></span><a href="javascript:void(0)" data-toggle="modal" data-target="#atbdp-report-abuse-modal"><?php _e( 'Report', ATBDP_TEXTDOMAIN ); ?></a>
+                                    <!-- Modal (report abuse form) -->
 
-                            <?php } else { ?>
-                                <a href="javascript:void(0)"
-                                   class="atbdp-require-login"><span class="fa fa-flag"></span><?php _e('Report', ATBDP_TEXTDOMAIN); ?></a>
-                            <?php } ?>
-                            <input type="hidden" id="atbdp-post-id" value="<?php echo get_the_ID(); ?>"/>
+                                <?php } else { ?>
+                                    <a href="javascript:void(0)"
+                                       class="atbdp-require-login"><span class="fa fa-flag"></span><?php _e('Report', ATBDP_TEXTDOMAIN); ?></a>
+                                <?php } ?>
+                                <input type="hidden" id="atbdp-post-id" value="<?php echo get_the_ID(); ?>"/>
                             </div>
                         <?php } ?>
                         <div class="modal fade" id="atbdp-report-abuse-modal" tabindex="-1" role="dialog"
@@ -204,7 +204,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                     $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'medium')['0'];
                     if (!empty($image_links)) {
                         if (!empty($listing_prv_img)){
-                          $image_size = 'directory-image';
+                            $image_size = 'directory-image';
                             $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'directory-image')['0'];
                             array_unshift($image_links, $listing_prv_imgurl);
                         }
@@ -247,7 +247,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             <img src="<?= !empty($listing_prv_img) ? esc_url($listing_prv_imgurl) : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'; ?>"
                                  alt="<?php esc_attr_e('Details Image', ATBDP_TEXTDOMAIN); ?>">
                         </div>
-                    <?php
+                        <?php
                     } ?>
                     <div class="atbd_listing_detail">
                         <?php /* @todo: Shahadat -> */ ?>
@@ -273,7 +273,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             <div class="atbd_rating_count">
                                 <p><?php echo $reviews_count;
                                     _e($reviews_count>1 ? ' Reviews': ' Review', ATBDP_TEXTDOMAIN);
-                                ?>
+                                    ?>
                                 </p>
                             </div>
                             <div class="atbd_listting_category">
@@ -383,7 +383,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
             <div class="atbd_content_module atbd_custom_fields_contents">
                 <div class="atbdb_content_module_contents">
                     <ul class="atbd_custom_fields">
-                      <!--  get data from custom field-->
+                        <!--  get data from custom field-->
                         <?php
                         $custom_fields  = new WP_Query( array(
                             'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
@@ -397,15 +397,15 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             $field_details = get_post_meta($listing_id, $field_id, true);
                             $field_title = get_the_title($field_id);
                             $field_type = get_post_meta($field_id, 'type', true);
-                           if (!empty($field_details)){
-                               ?>
-                               <li>
-                                   <div class="atbd_custom_field_title"><p><?php echo esc_attr($field_title);?></p></div>
-                                   <div class="atbd_custom_field_content"><p><?php if ('color' == $field_type){printf( '<div class="atbd_field_type_color" style="background-color: %s;"></div>', $field_details );}else{echo esc_attr(ucwords($field_details));}?></p>
-                                   </div>
-                               </li>
-                        <?php
-                           }
+                            if (!empty($field_details)){
+                                ?>
+                                <li>
+                                    <div class="atbd_custom_field_title"><p><?php echo esc_attr($field_title);?></p></div>
+                                    <div class="atbd_custom_field_content"><p><?php if ('color' == $field_type){printf( '<div class="atbd_field_type_color" style="background-color: %s;"></div>', $field_details );}else{echo esc_attr(ucwords($field_details));}?></p>
+                                    </div>
+                                </li>
+                                <?php
+                            }
                         }
                         wp_reset_postdata();
                         ?>
@@ -520,7 +520,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
 
             if (is_business_hour_active() && $enable_bh_on_page && (!is_empty_v($business_hours) || !empty($enable247hour))) {
                 BD_Business_Hour()->show_business_hour_module($business_hours, $business_hour_title, $enable247hour); // show the business hour in an unordered list
-             } ?>
+            } ?>
 
 
 

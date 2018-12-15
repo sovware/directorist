@@ -448,6 +448,10 @@ final class Directorist_Base
                 'title'   => __( 'All Locations', ATBDP_TEXTDOMAIN ),
                 'content' => '[all_locations]'
             ),
+            'author_profile_page' => array(
+                'title'   => __( 'Author Profile', ATBDP_TEXTDOMAIN ),
+                'content' => '[author_profile]'
+            ),
             'user_dashboard' => array(
                 'title' => __('Dashboard', ATBDP_TEXTDOMAIN),
                 'content' => '[user_dashboard]'

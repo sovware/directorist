@@ -37,32 +37,88 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         /*CONTACT FORM*/
         add_action( 'wp_ajax_atbdp_public_send_contact_email', array($this, 'ajax_callback_send_contact_email') );
         add_action( 'wp_ajax_nopriv_atbdp_public_send_contact_email', array($this, 'ajax_callback_send_contact_email') );
+
+        /*
+         * stuff for handling add to favourites
+         */
+        add_action( 'wp_ajax_atbdp_public_add_remove_favorites', array($this, 'atbdp_public_add_remove_favorites') );
+        add_action( 'wp_ajax_nopriv_atbdp_public_add_remove_favorites', array($this, 'atbdp_public_add_remove_favorites') );
+
+        add_action( 'wp_ajax_atbdp_public_add_remove_favorites_all', array($this, 'atbdp_public_add_remove_favorites_all') );
+        add_action( 'wp_ajax_nopriv_atbdp_public_add_remove_favorites_all', array($this, 'atbdp_public_add_remove_favorites_all') );
     }
 
+
+        /**
+         * Add or Remove favourites.
+         *
+         * @since    4.0
+         * @access   public
+         */
+        public function atbdp_public_add_remove_favorites_all() {
+
+            $post_id = (int) $_POST['post_id'];
+
+            $favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
+
+            if( in_array( $post_id, $favourites ) ) {
+                if( ( $key = array_search( $post_id, $favourites ) ) !== false ) {
+                    unset( $favourites[ $key ] );
+                }
+            } else {
+                $favourites[] = $post_id;
+            }
+
+            $favourites = array_filter( $favourites );
+            $favourites = array_values( $favourites );
+
+            delete_user_meta( get_current_user_id(), 'atbdp_favourites' );
+            update_user_meta( get_current_user_id(), 'atbdp_favourites', $favourites );
+
+            the_atbdp_favourites_all_listing( $post_id );
+
+            wp_die();
+
+        }
+
+
+        /**
+         * Add or Remove favourites.
+         *
+         * @since    4.0
+         * @access   public
+         */
+        public function atbdp_public_add_remove_favorites() {
+
+            $post_id = (int) $_POST['post_id'];
+
+            $favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
+
+            if( in_array( $post_id, $favourites ) ) {
+                if( ( $key = array_search( $post_id, $favourites ) ) !== false ) {
+                    unset( $favourites[ $key ] );
+                }
+            } else {
+                $favourites[] = $post_id;
+            }
+
+            $favourites = array_filter( $favourites );
+            $favourites = array_values( $favourites );
+
+            delete_user_meta( get_current_user_id(), 'atbdp_favourites' );
+            update_user_meta( get_current_user_id(), 'atbdp_favourites', $favourites );
+
+            the_atbdp_favourites_link( $post_id );
+
+            wp_die();
+
+        }
 
     /**
      * It update user from from the front end dashboard using ajax
      */
     public function update_user_profile()
     {
-        /*
-         * Sample data
-         * array (size=3)
-          'user' =>
-            array (size=10)
-              'full_name' =>  'Kamal Ahmed' ,
-              'first_name' =>  'Kamal' ,
-              'last_name' =>  'Ahmed' ,
-              'req_email' =>  'kamalacca@gmail.com' ,
-              'phone' =>  '8937-4958-5905' ,
-              'website' =>  '' ,
-              'address' =>  '' ,
-              'current_pass' =>  '' ,
-              'new_pass' =>  '' ,
-              'confirm_pass' =>  '' ,
-          'action' =>  'update_user_profile' ,
-          'atbdp_nonce_js' =>  'b49cc5b8dd' ,
-        */
 
         // process the data and the return a success
 

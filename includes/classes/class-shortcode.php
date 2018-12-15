@@ -206,6 +206,7 @@ class ATBDP_Shortcode {
 
     public function all_listing( $atts )
     {
+        wp_enqueue_script('adminmainassets');
         $listing_orderby = get_directorist_option('order_listing_by');
         $listing_view    = get_directorist_option('default_listing_view');
         $listing_order   = get_directorist_option('sort_listing_by');

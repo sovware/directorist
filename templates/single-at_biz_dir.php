@@ -108,11 +108,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                 <?php /* @todo: Shahadat -> New markup implementation */ ?>
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">
-                        <h4><span class="fa fa-file-text atbd_area_icon"></span>Listing Details</h4>
+                        <h4><span class="fa fa-file-text atbd_area_icon"></span><?php _e('Listing Details', ATBDP_TEXTDOMAIN)?></h4>
                     </div>
 
                     <div class="atbd_listing_action_area">
-                        <div class="atbd_action atbd_save"><span class="fa fa-heart"></span>Save</div>
+                        <div class="atbd_action atbd_save" id="atbdp-favourites"><?php the_atbdp_favourites_link(); ?></div>
 
                         <div class="atbd_action atbd_share">
                             <span class="fa fa-share-alt"></span>Share

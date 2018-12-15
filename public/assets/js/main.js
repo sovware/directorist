@@ -618,6 +618,42 @@ jQuery(function($){
 
         });
 
+        // Add or Remove from favourites
+        $( '#atbdp-favourites' ).on( 'click', 'a.atbdp-favourites', function( e ) {
+
+            e.preventDefault();
+
+            var $this = $( this );
+
+            var data = {
+                'action'  : 'atbdp_public_add_remove_favorites',
+                'post_id' : $this.data('post_id')
+            };
+
+            $.post( atbdp_public_data.ajaxurl, data, function( response ) {
+                $( '#atbdp-favourites' ).html( response );
+            });
+
+        });
+
+        // Add or Remove from favourites
+        $( '#atbdp-favourites-all-listing' ).on( 'click', 'a.atbdp-favourites-all-listing', function( e ) {
+            e.preventDefault();
+
+            var $this = $( this );
+
+            var data = {
+                'action'  : 'atbdp_public_add_remove_favorites_all',
+                'post_id' : $this.data('post_id')
+            };
+            console.log(data['action']);
+            $.post( atbdp_public_data.ajaxurl, data, function( response ) {
+                $( '#atbdp-favourites-all-listing' ).html( response );
+            });
+
+        });
+
+
     });
 })( jQuery );
 

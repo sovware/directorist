@@ -297,9 +297,6 @@ if (!class_exists('BD_Categories_Widget')) {
             );
 
             $terms = get_terms( ATBDP_CATEGORY, $args );
-            echo '<pre>';
-            var_dump($terms);
-            echo '</pre>';
             $html = '';
 
             if( count( $terms ) > 0 ) {

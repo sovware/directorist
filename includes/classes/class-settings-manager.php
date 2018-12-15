@@ -1663,6 +1663,71 @@ The Administrator of ==SITE_NAME==
                 ),
             ),
 
+            array(
+                'type' => 'toggle',
+                'name' => 'gallery_cropping',
+                'label' => __('Gallery Image Cropping', ATBDP_TEXTDOMAIN),
+                'description' => __('Yes to gallery cropping image', ATBDP_TEXTDOMAIN),
+                'default' => 1,
+            ),
+
+            array(
+                'type' => 'select',
+                'name' => 'gallery_image_size',
+                'label' => __( 'Gallery Image Cropping Size', ATBDP_TEXTDOMAIN ),
+                'items' => array(
+                    array(
+                        'value' => 'gallery-image',
+                        'label' => __('360*300', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'value' => 'gallery-small',
+                        'label' => __('400*300', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'value' => 'gallery-medium',
+                        'label' => __('600*500', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'value' => 'gallery-large',
+                        'label' => __('700*600', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'value' => 'gallery-custom',
+                        'label' => __('Custom Cropping', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                'description' => __( 'Select ', ATBDP_TEXTDOMAIN ),
+                'default' =>  array(
+                    'value' => 'gallery-medium',
+                    'label' => __('600*500', ATBDP_TEXTDOMAIN),
+                ),
+            ),
+
+            array(
+                'type' => 'slider',
+                'name' => 'gallery_crop_width',
+                'label' => __('Custom Width', ATBDP_TEXTDOMAIN),
+                'description' => __( 'Gallery image cropping width. NOTE: You must be selected custom cropping for using custom width and regenerate all thumbnails.', ATBDP_TEXTDOMAIN),
+                'min' => '1',
+                'max' => '1200',
+                'step' => '1',
+                'default' => '670',
+                'validation' => 'numeric|minlength[1]',
+            ),
+
+            array(
+                'type' => 'slider',
+                'name' => 'gallery_crop_height',
+                'label' => __('Custom Height', ATBDP_TEXTDOMAIN),
+                'description' => __( 'Gallery image cropping height. NOTE: You must be selected custom cropping for using custom height and regenerate all thumbnails', ATBDP_TEXTDOMAIN),
+                'min' => '1',
+                'max' => '700',
+                'step' => '1',
+                'default' => '420',
+                'validation' => 'numeric|minlength[1]',
+            ),
+
 
             array(
                 'type' => 'toggle',
@@ -1807,60 +1872,70 @@ The Administrator of ==SITE_NAME==
 
                 array(
                     'type' => 'toggle',
-                    'name' => 'crop_image',
-                    'label' => __('Cropping', ATBDP_TEXTDOMAIN),
-                    'description' => __('Yes to crop image', ATBDP_TEXTDOMAIN),
+                    'name' => 'thumbnail_cropping',
+                    'label' => __('Thumbnail Cropping', ATBDP_TEXTDOMAIN),
+                    'description' => __('Yes to cropping image', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                ),
+
+                array(
+                    'type' => 'select',
+                    'name' => 'image_size',
+                    'label' => __( 'Thumbnail Cropping Size', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'directory-image',
+                            'label' => __('360*300', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'directory-small',
+                            'label' => __('400*300', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'directory-medium',
+                            'label' => __('600*500', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'directory-large',
+                            'label' => __('700*600', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'directory-custom',
+                            'label' => __('Custom Cropping', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'description' => __( 'Select ', ATBDP_TEXTDOMAIN ),
+                    'default' =>  array(
+                        'value' => 'directory-image',
+                        'label' => __('360*300', ATBDP_TEXTDOMAIN),
+                    ),
                 ),
 
                 array(
                     'type' => 'slider',
                     'name' => 'crop_width',
-                    'label' => __('Use Custom Width', ATBDP_TEXTDOMAIN),
-                    'description' => __( 'Custom width for images', ATBDP_TEXTDOMAIN),
+                    'label' => __('Custom Width', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Thumbnail cropping width. NOTE: You must be selected custom cropping for using custom width and regenerate all thumbnails.', ATBDP_TEXTDOMAIN),
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
-                    'default' => '0',
+                    'default' => '670',
                     'validation' => 'numeric|minlength[1]',
                 ),
 
                 array(
                     'type' => 'slider',
                     'name' => 'crop_height',
-                    'label' => __('Use Custom Height', ATBDP_TEXTDOMAIN),
-                    'description' => __( 'Custom height for images', ATBDP_TEXTDOMAIN),
+                    'label' => __('Custom Height', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Thumbnail cropping height. NOTE: You must be selected custom cropping for using custom height and regenerate all thumbnails', ATBDP_TEXTDOMAIN),
                     'min' => '1',
                     'max' => '700',
                     'step' => '1',
-                    'default' => '0',
+                    'default' => '420',
                     'validation' => 'numeric|minlength[1]',
                 ),
 
-                array(
-                    'type' => 'select',
-                    'name' => 'image_size',
-                    'label' => __( 'Use Build-in Size', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'full',
-                            'label' => __('500*500', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'large',
-                            'label' => __('400*400', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'medium',
-                            'label' => __('360*300', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'description' => __( 'Image size for all listing gallery preview images', ATBDP_TEXTDOMAIN ),
-                    'default' =>  array(
-                        'value' => 'medium',
-                        'label' => __('360*300', ATBDP_TEXTDOMAIN),
-                    ),
-                ),
+
 
                 array(
                     'type' => 'textbox',

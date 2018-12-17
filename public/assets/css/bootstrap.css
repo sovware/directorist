@@ -2808,7 +2808,7 @@
 
 #directorist.atbd_wrapper label {
   display: inline-block;
-  margin-bottom: 8px;
+  margin-bottom: 0;
 }
 
 #directorist.atbd_wrapper button {

@@ -297,9 +297,9 @@ jQuery(function($){
         imageUpload.open();
         return;
     }
+
     $('.upload-header').on('click', function (element) {
         element.preventDefault();
-
         imageUpload = wp.media.frames.file_frame = wp.media({
             'title' : 'Select Preview Image',
             'button' : {
@@ -314,7 +314,7 @@ jQuery(function($){
             console.log(prv_url);
             $('.listing_prv_img').val(prv_url);
             $('.change_listing_prv_img').attr('src', prv_img_url);
-            $('.upload-header').html('<p>Change Preview Image</p>');
+            $('.upload-header').html('Change Preview Image');
 
         });
 

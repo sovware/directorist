@@ -53,6 +53,14 @@ h6, .h6 {
   font-size: 15px;
   font-family: 'Roboto', Sans-serif !important;
   text-align: initial;
+  .modal-footer{
+    .btn+.btn{
+      margin-left: 10px;
+    }
+  }
+  .modal-content{
+    padding: 0;
+  }
   p {
     font-size: 15px;
     color: $text-color;

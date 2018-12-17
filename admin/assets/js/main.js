@@ -19,6 +19,8 @@
         }
     });
 
+    $("[data-toggle='tooltip']").tooltip();
+
     //price range
     var pricerange = $('#pricerange_val').val();
     if (pricerange){
@@ -26,7 +28,6 @@
     }
     $('#price_range_option').on('click',function () {
         $('#pricerange').fadeIn(500);
-
     });
 
     // enable sorting if only the container has any social or skill field
@@ -141,8 +142,6 @@
             }
         });
     }
-
-
 })(jQuery);
 
 
@@ -307,14 +306,21 @@ jQuery(function($){
             console.log(prv_url);
             $('.listing_prv_img').val(prv_url);
             $('.change_listing_prv_img').attr('src', prv_img_url);
-            $('.upload-header').html('<p>Change Preview Image</p>');
+            $('.upload-header').html('Change Preview Image');
 
         });
 
         imageUpload.open();
     });
 
-
+    $("#price_range").hide();
+    $('.atbd_pricing_options label').on('click', function () {
+        var $this = $(this);
+        $this.children('input[type=checkbox]').prop('checked')==true ? $('#'+$this.data('option')).show(): $('#'+$this.data('option')).hide();
+        var $sibling= $this.siblings('label');
+        $sibling.children('input[type=checkbox]').prop('checked', false);
+        $('#'+$sibling.data('option')).hide();
+    });
 });
 
 

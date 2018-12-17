@@ -1,6 +1,7 @@
 @import "../../bootstrap/config.bs";
 
 #directorist.atbd_wrapper {
+  padding: 18px 20px;
   * {
     box-sizing: border-box;
   }
@@ -16,7 +17,9 @@
     margin-bottom: $label-margin-bottom;
     display: inline-block;
     font-weight: 500;
+    font-size: 15px;
     color: $dark;
+    text-transform: capitalize;
   }
   .map_wrapper {
     position: relative;
@@ -31,8 +34,40 @@
   a.btn {
     text-decoration: none;
   }
+  [data-toggle="tooltip"]{
+    color: #a1a1a7;
+    font-size: 12px;
+    &:hover{
+      color: $dark;
+    }
+  }
+  .single_prv_attachment{
+    text-align: center;
+  }
   #listing_image_btn span {
     vertical-align: text-bottom;
+  }
+  .default_img {
+    margin-bottom: 10px;
+    text-align: center;
+    margin-top: 10px;
+    small {
+      color: $text-color;
+      font-size: 13px;
+    }
+  }
+  .atbd_pricing_options{
+    margin-bottom: 15px;
+    label{
+      font-size: 13px;
+    }
+    .bor{
+      margin: 0 7px;
+    }
+    small{
+      font-size: 12px;
+      vertical-align: top;
+    }
   }
   .listing-img-container {
     text-align: center;
@@ -169,6 +204,19 @@
         color: #ededed;
         &:hover{
           color: #fff;
+        }
+      }
+    }
+  }
+
+  .atbdp-radio-list,
+  .atbdp-checkbox-list{
+    li{
+      label{
+        text-transform: capitalize;
+        font-size: 13px;
+        input{
+          margin-right: 7px;
         }
       }
     }

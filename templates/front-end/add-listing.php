@@ -204,7 +204,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     <div class="form-group">
                                         <label for=""><?php the_title(); ?><?php if ($cf_required) {
                                                 echo '<span style="color: red"> *</span>';
-                                            } ?></label>
+                                            } ?> <span class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="<?php echo get_post_meta(get_the_ID(), 'instructions', true); ?>"></span></label>
                                         <?php
                                         if (isset($post_meta[$post->ID])) {
                                             $value = $post_meta[0];
@@ -222,19 +222,15 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         switch ($cf_meta_val) {
                                             case 'text' :
                                                 echo '<div>';
-                                                printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
                                                 printf('<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post_id, $cf_placeholder, $value);
                                                 echo '</div>';
                                                 break;
                                             case 'textarea' :
-                                                printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
-
                                                 printf('<textarea  class="form-control directory_field" name="custom_field[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $post->ID, (int)$cf_rows, esc_attr($cf_placeholder), esc_textarea($value));
                                                 break;
                                             case 'radio':
                                                 $choices = get_post_meta(get_the_ID(), 'choices', true);
                                                 $choices = explode("\n", $choices);
-                                                printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
                                                 echo '<ul class="atbdp-radio-list radio vertical">';
                                                 foreach ($choices as $choice) {
                                                     if (strpos($choice, ':') !== false) {
@@ -259,7 +255,6 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                             case 'select' :
                                                 $choices = get_post_meta(get_the_ID(), 'choices', true);
                                                 $choices = explode("\n", $choices);
-                                                printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
                                                 printf('<select name="custom_field[%d]" class="form-control directory_field">', $post->ID);
                                                 if (!empty($field_meta['allow_null'][0])) {
                                                     printf('<option value="">%s</option>', '- ' . __('Select an Option', 'advanced-classifieds-and-directory-pro') . ' -');
@@ -290,7 +285,6 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                                                 $values = explode("\n", $value);
                                                 $values = array_map('trim', $values);
-                                                printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
                                                 echo '<ul class="atbdp-checkbox-list checkbox vertical">';
 
                                                 foreach ($choices as $choice) {
@@ -314,27 +308,23 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                 break;
                                             case 'url'  :
                                                 echo '<div>';
-                                                printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
                                                 printf('<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_url($value));
                                                 echo '</div>';
                                                 break;
 
                                             case 'date'  :
                                                 echo '<div>';
-                                                printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
                                                 printf('<input type="date" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
                                                 echo '</div>';
                                                 break;
 
                                             case 'email'  :
                                                 echo '<div>';
-                                                printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
                                                 printf('<input type="email" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
                                                 echo '</div>';
                                                 break;
                                             case 'color'  :
                                                 echo '<div>';
-                                                printf('<p style="font-style: italic">%s</p>', get_post_meta(get_the_ID(), 'instructions', true));
                                                 printf('<input type="text" name="custom_field[%d]" id="color_code2" class="my-color-field" value="%s"/>', $post->ID, $value);
                                                 echo '</div>';
                                                 break;
@@ -404,7 +394,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                 <!--<p id='price_range_option'><?php /*echo __('Price Range', ATBDP_TEXTDOMAIN); */ ?></p></label>-->
                                             </label>
 
-                                            <small> (Optional --- Uncheck both to hide pricing for this listing)</small>
+                                            <small>(Optional --- Uncheck both to hide pricing for this listing)</small>
                                         </div>
 
                                             <input type="hidden" id="price_range_val"
@@ -442,17 +432,24 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                                     <label for="atbdp_select_cat"><?php esc_html_e('Select Category', ATBDP_TEXTDOMAIN) ?></label>
                                     <?php
-
+                                    $category = wp_get_object_terms( $p_id, ATBDP_CATEGORY, array( 'fields' => 'ids' ) );
+                                    $selected_category = count( $category ) ? $category[0] : -1;
+                                    $args = array(
+                                        'show_option_none' => '-- '.__( 'Select Category', ATBDP_TEXTDOMAIN ).' --',
+                                        'taxonomy'         => ATBDP_CATEGORY,
+                                        'id'               => 'cat-type',
+                                        'class'            => 'form-control directory_field',
+                                        'name' 			   => 'admin_category_select',
+                                        'orderby'          => 'name',
+                                        'selected'         => $selected_category,
+                                        'hierarchical'     => true,
+                                        'depth'            => 10,
+                                        'show_count'       => false,
+                                        'hide_empty'       => false,
+                                    );
+                                    wp_dropdown_categories( $args );
                                     $current_val = esc_attr(get_post_meta($p_id, '_admin_category_select', true));
-                                    $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
-                                    echo '<select class="form-control directory_field" id="cat-type" name="admin_category_select">';
-                                    echo '<option value="">' . __("--Select a Category--", ATBDP_TEXTDOMAIN) . '</option>';
-                                    foreach ($categories as $key => $cat_title) {
-                                        $term_id = $cat_title->term_id;
-                                        printf('<option value="%s" %s>%s</option>', $term_id, selected($term_id, $current_val), $cat_title->name);
-                                    }
-                                    echo '</select>';
-                                    $term_id_selected = $current_val;
+                                    $term_id_selected = !empty($current_val) ? $current_val: '';
                                     ?>
                                     <input type="hidden" id="value_selected" value="<?php echo $term_id_selected ?>">
                                 </div>

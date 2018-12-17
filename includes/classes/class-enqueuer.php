@@ -73,6 +73,7 @@ class ATBDP_Enqueuer {
                 'wp-color-picker',
                 'sweetalert',
                 'select2script',
+                'bs-tooltip'
             );
             $disable_map = get_directorist_option('disable_map');
             if (!$disable_map){
@@ -90,15 +91,14 @@ class ATBDP_Enqueuer {
             wp_register_style( 'sweetalertcss', ATBDP_PUBLIC_ASSETS.'css/sweetalert.min.css', false, ATBDP_VERSION );
             wp_register_style( 'select2style', ATBDP_PUBLIC_ASSETS.'css/select2.min.css', false, ATBDP_VERSION );
             wp_register_style( 'atbdp-admin-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION);
-
             wp_register_style( 'atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', array( 'atbdp-font-awesome', 'select2style'), ATBDP_VERSION);
-
 
 
             wp_register_script( 'sweetalert', ATBDP_PUBLIC_ASSETS . 'js/sweetalert.min.js', array( 'jquery' ), ATBDP_VERSION, true );
             /*Public Common Asset: */
             wp_register_script( 'select2script', ATBDP_PUBLIC_ASSETS . 'js/select2.min.js', array( 'jquery' ), ATBDP_VERSION, true );
-
+            wp_register_script('popper', ATBDP_ADMIN_ASSETS.'js/popper.min.js', array('jquery'), ATBDP_VERSION, true);
+            wp_register_script('bs-tooltip', ATBDP_ADMIN_ASSETS.'js/tooltip.js', array('jquery', 'popper'), ATBDP_VERSION, true);
 
 
 

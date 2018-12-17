@@ -1817,6 +1817,24 @@ function the_atbdp_favourites_link( $post_id = 0 ) {
 }
 
 
+
+/**
+ * Generate a permalink to remove from favourites.
+ *
+ * @since    1.0.0
+ *
+ * @param    int       $listing_id    Listing ID.
+ * @return   string                   URL to remove from favourites.
+ */
+function atbdp_get_remove_favourites_page_link( $listing_id ) {
+
+    $link = add_query_arg( array( 'atbdp_action' => 'remove-favourites', 'atbdp_listing' => $listing_id ) );
+
+    return $link;
+
+}
+
+
 /**
  * Display the favourites link.
  *
@@ -1834,7 +1852,7 @@ function the_atbdp_favourites_all_listing( $post_id = 0 ) {
         }
 
         $favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
-
+var_dump($favourites);
         if( in_array( $post_id, $favourites ) ) {
             echo '<a href="javascript:void(0)" class="atbdp-favourites-all-listing" data-post_id="'.$post_id.'"><span style="color: red" class="fa fa-heart"></span></a>';
         } else {

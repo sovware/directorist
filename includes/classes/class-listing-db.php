@@ -79,7 +79,7 @@ class ATBDP_Listing_DB {
     public function get_favourites($user_id=0)
     {
         $user_id = !empty($user_id) ? absint($user_id) :  get_current_user_id();
-        $fav_listing = get_user_meta($user_id, 'atbdp_favourites', true);
+        //$fav_listing = get_user_meta($user_id, 'atbdp_favourites', true);
         /*@Todo; Add pagination later, better use ajax pagination*/
         $args = array(
             'author'=> $user_id,
@@ -87,6 +87,10 @@ class ATBDP_Listing_DB {
             'posts_per_page' => -1, //@todo; Add pagination in future.
             'order'=> 'DESC',
             'orderby' => 'date',
+            'meta_query' => array(
+                'key' => 'atbdp_favourites',
+                'compare' => 'EXISTS'
+            )
 
         );
         return new WP_Query($args);

@@ -270,6 +270,16 @@ class ATBDP_User {
     }
 
     /**
+     * It returns all the favraites listing of the current user
+     * @return WP_Query   it returns an object of the WP_Query class with the items/listings on success and false on failure.
+
+     */
+    public function current_user_fav_listings()
+    {
+        return ATBDP()->listing->db->get_favourites(); // it returns all the listing of the current user.
+    }
+
+    /**
      * It updates the user profile and meta data
      * @param array $data the user data to update.
      * @return bool It returns true on success and false on failure

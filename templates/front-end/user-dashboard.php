@@ -1,5 +1,6 @@
 <?php
 $listings = ATBDP()->user->current_user_listings();
+$fav_listings = ATBDP()->user->current_user_fav_listings();
 $uid = get_current_user_id();
 $c_user = get_userdata($uid);
 
@@ -445,50 +446,32 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                    <?php
+                                    if ($fav_listings->have_posts()){
+                                        foreach ($fav_listings->posts as $post){
+                                            $title = !empty($post->post_title)?$post->post_title:__('Untitled',ATBDP_TEXTDOMAIN);
+                                            $cats      =  get_the_terms($post->ID, ATBDP_CATEGORY);
+                                            $category  = get_post_meta($post->ID, '_admin_category_select', true);
+                                            $category_name = !empty($category)?$cats[0]->name:'Uncategorized';
+                                            $category_icon = !empty($category)?esc_attr(get_cat_icon($cats[0]->term_id)):'fa fa-square-o';
+                                            $category_link = !empty($category)?esc_url(ATBDP_Permalink::get_category_archive($cats[0])):'#';
+                                            printf(' <tr>
                                             <td class="thumb_title">
                                                 <div class="img_wrapper"><img
                                                             src="http://localhost/martplace/wp-content/uploads/2018/11/IMG_20180816_123021.jpg"
                                                             alt=""></div>
-                                                <h4>Makhtoom International</h4>
+                                                <h4>%s</h4>
                                             </td>
 
                                             <td class="saved_item_category">
-                                                <a href="#"><span class="fa fa-motorcycle"></span>Bike</a>
+                                                <a href="%s"><span class="fa %s"></span>%s</a>
                                             </td>
-
-                                            <td class="text-center"><a class="btn btn-danger" href="#">Remove</a></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="thumb_title">
-                                                <div class="img_wrapper"><img
-                                                            src="http://localhost/martplace/wp-content/uploads/2018/11/IMG_20180816_123021.jpg"
-                                                            alt=""></div>
-                                                <h4>Makhtoom International</h4>
-                                            </td>
-
-                                            <td class="saved_item_category">
-                                                <a href="#"><span class="fa fa-motorcycle"></span>Bike</a>
-                                            </td>
-
-                                            <td class="text-center"><a class="btn btn-danger" href="#">Remove</a></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="thumb_title">
-                                                <div class="img_wrapper"><img
-                                                            src="http://localhost/martplace/wp-content/uploads/2018/11/IMG_20180816_123021.jpg"
-                                                            alt=""></div>
-                                                <h4>Makhtoom International</h4>
-                                            </td>
-
-                                            <td class="saved_item_category">
-                                                <a href="#"><span class="fa fa-motorcycle"></span>Bike</a>
-                                            </td>
-
-                                            <td class="text-center"><a class="btn btn-danger" href="#">Remove</a></td>
-                                        </tr>
+                                            
+                                            <td class="text-center"><a href="%s">%s</a></td>
+                                        </tr>',$title, $category_link, $category_icon, $category_name, atbdp_get_remove_favourites_page_link( $post->ID ), __('Remove',ATBDP_TEXTDOMAIN));
+                                        }
+                                    }
+                                    ?>
                                     </tbody>
                                 </table>
                             </div>

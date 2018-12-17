@@ -107,6 +107,28 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                         $author_id = get_the_author_meta( 'ID' );
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                         $avata_img = get_avatar($author_id, 32);
+                        $thumbnail_cropping = get_directorist_option('thumbnail_cropping',1);
+                        if(!empty($listing_prv_img)) {
+
+                          if($thumbnail_cropping) {
+
+                            $image_size = get_directorist_option('image_size','directory-image');
+                            $prv_image   = wp_get_attachment_image_src($listing_prv_img, $image_size);
+
+                            }else{
+                              $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large');
+                            }
+
+                        }
+                        if(!empty($listing_img[0])) {
+                          if( $thumbnail_cropping ) {
+                              $gallery_img_size = get_directorist_option('image_size','directory-image');
+                              $gallery_img = wp_get_attachment_image_src($listing_img[0], $gallery_img_size);
+                          }else{
+                              $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium');
+                          }
+
+                        }
 
                         /*Code for Business Hour Extensions*/
                         ?>
@@ -117,16 +139,11 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                         <div class="atbd_listing_image">
                                             <?php if(!empty($listing_prv_img)){
 
-                                             $prv_image   = wp_get_attachment_image_url($listing_prv_img, 'directory-image');                                                 $prv_without_crop = wp_get_attachment_image_url($listing_prv_img, array(432, 400));
-
-                                                echo '<img src="'.esc_url($prv_image).'" alt="listing image">';
+                                                echo '<img src="'.esc_url($prv_image['0']).'" alt="listing image">';
 
                                             } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                             $gallery_img = wp_get_attachment_image_url($listing_img[0], 'directory-image');
-                                             $gallery_without_crop = wp_get_attachment_image_url($listing_img[0], array(432, 400));
-
-                                                echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
+                                                echo '<img src="' . esc_url($gallery_img['0']) . '" alt="listing image">';
 
                                             }if (empty($listing_img[0]) && empty($listing_prv_img)){
 
@@ -279,7 +296,17 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                         <?php    } ?>
                                             <ul class="atbd_content_right">
                                                 <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li>
-                                                <li class="atbd_save"><span class="fa fa-heart"></span></li>
+
+
+                                                <li class="atbd_save">
+                                                    <div id="atbdp-favourites-all-listing">
+                                                        <input type="hidden" id="listing_ids" value="<?php echo get_the_ID(); ?>">
+                                                        <?php
+                                                       // do_action('wp_ajax_atbdp-favourites-all-listing', get_the_ID()); ?>
+                                                    </div>
+                                                </li>
+
+
                                                 <li class="atbd_author">
                                                     <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
                                                             <img

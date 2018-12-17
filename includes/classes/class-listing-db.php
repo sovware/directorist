@@ -76,6 +76,25 @@ class ATBDP_Listing_DB {
     }
     //@TODO; methods to add: delete all listing by user
 
+    public function get_favourites($user_id=0)
+    {
+        $user_id = !empty($user_id) ? absint($user_id) :  get_current_user_id();
+        //$fav_listing = get_user_meta($user_id, 'atbdp_favourites', true);
+        /*@Todo; Add pagination later, better use ajax pagination*/
+        $args = array(
+            'author'=> $user_id,
+            'post_type'=> ATBDP_POST_TYPE,
+            'posts_per_page' => -1, //@todo; Add pagination in future.
+            'order'=> 'DESC',
+            'orderby' => 'date',
+            'meta_query' => array(
+                'key' => 'atbdp_favourites',
+                'compare' => 'EXISTS'
+            )
+
+        );
+        return new WP_Query($args);
+    }
 
 } // ends class ATBDP_Listing_DB
 

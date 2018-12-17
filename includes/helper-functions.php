@@ -1783,3 +1783,87 @@ function directorist_clean( $var ) {
         return is_scalar( $var ) ? sanitize_text_field( $var ) : $var;
     }
 }
+
+/**
+ * Display the favourites link.
+ *
+ * @since    4.0
+ *
+ * @param    int      $post_id    Post ID.
+ */
+function the_atbdp_favourites_link( $post_id = 0 ) {
+
+    if( is_user_logged_in() ) {
+
+        if( $post_id == 0 ) {
+            global $post;
+            $post_id = $post->ID;
+        }
+
+        $favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
+
+        if( in_array( $post_id, $favourites ) ) {
+            echo '<span class="fa fa-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="'.$post_id.'">'.__( 'Remove from favorites', ATBDP_TEXTDOMAIN ).'</a>';
+        } else {
+            echo '<span class="fa fa-heart"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="'.$post_id.'">'.__( 'Add to favorites', ATBDP_TEXTDOMAIN ).'</a>';
+        }
+
+    } else {
+
+        echo '<span class="fa fa-heart"></span><a href="javascript:void(0)" class="atbdp-require-login">'.__( 'Add to favorites', ATBDP_TEXTDOMAIN ).'</a>';
+
+    }
+
+}
+
+
+
+/**
+ * Generate a permalink to remove from favourites.
+ *
+ * @since    1.0.0
+ *
+ * @param    int       $listing_id    Listing ID.
+ * @return   string                   URL to remove from favourites.
+ */
+function atbdp_get_remove_favourites_page_link( $listing_id ) {
+
+    $link = add_query_arg( array( 'atbdp_action' => 'remove-favourites', 'atbdp_listing' => $listing_id ) );
+
+    return $link;
+
+}
+
+
+/**
+ * Display the favourites link.
+ *
+ * @since    4.0
+ *
+ * @param    int      $post_id    Post ID.
+ */
+function the_atbdp_favourites_all_listing( $post_id = 0 ) {
+
+    if( is_user_logged_in() ) {
+
+        if( $post_id == 0 ) {
+            global $post;
+            $post_id = $post->ID;
+        }
+
+        $favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
+var_dump($favourites);
+        if( in_array( $post_id, $favourites ) ) {
+            echo '<a href="javascript:void(0)" class="atbdp-favourites-all-listing" data-post_id="'.$post_id.'"><span style="color: red" class="fa fa-heart"></span></a>';
+        } else {
+            echo '<a href="javascript:void(0)" class="atbdp-favourites-all-listing" data-post_id="'.$post_id.'"><span class="fa fa-heart"></span></a>';
+
+        }
+
+    } else {
+
+        echo '<a href="javascript:void(0)" class="atbdp-require-login"><span class="fa fa-heart"></span></a>';
+
+    }
+
+}

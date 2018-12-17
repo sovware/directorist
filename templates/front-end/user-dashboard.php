@@ -1,5 +1,6 @@
 <?php
 $listings = ATBDP()->user->current_user_listings();
+$fav_listings = ATBDP()->user->current_user_fav_listings();
 $uid = get_current_user_id();
 $c_user = get_userdata($uid);
 
@@ -71,6 +72,28 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                     $listing_img = get_post_meta($post->ID, '_listing_img', true);
                                     $listing_prv_img = get_post_meta($post->ID, '_listing_prv_img', true);
                                     $tagline = get_post_meta($post->ID, '_tagline', true);
+                                    $thumbnail_cropping = get_directorist_option('thumbnail_cropping',1);
+                                    if(!empty($listing_prv_img)) {
+
+                                        if($thumbnail_cropping) {
+
+                                            $image_size = get_directorist_option('image_size','directory-image');
+                                            $prv_image   = wp_get_attachment_image_src($listing_prv_img, $image_size);
+
+                                        }else{
+                                            $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large');
+                                        }
+
+                                    }
+                                    if(!empty($listing_img[0])) {
+                                        if( $thumbnail_cropping ) {
+                                            $gallery_img_size = get_directorist_option('image_size','directory-image');
+                                            $gallery_img = wp_get_attachment_image_src($listing_img[0], $gallery_img_size);
+                                        }else{
+                                            $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium');
+                                        }
+
+                                    }
                                     ?>
                                     <div class="col-lg-4 col-sm-6" id="listing_id_<?= $post->ID; ?>">
                                         <div class="atbd_single_listing atbd_listing_card">
@@ -78,15 +101,20 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                                 <figure class="atbd_listing_thumbnail_area">
                                                     <div class="atbd_listing_image">
-                                                        <?php if (!empty($listing_prv_img)) {
-                                                            echo '<img src="' . esc_url($listing_prv_img) . '" alt="listing image">';
-                                                        }
-                                                        if (!empty($listing_img[0]) && empty($listing_prv_img)) {
-                                                            echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(432, 400))) . '" alt="listing image">';
-                                                        }
-                                                        if (empty($listing_img[0]) && empty($listing_prv_img)) {
-                                                            echo '<img src="' . ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' . '" alt="listing image">';
-                                                        } ?>
+                                                        <?php if(!empty($listing_prv_img)){
+
+                                                echo '<img src="'.esc_url($prv_image['0']).'" alt="listing image">';
+
+                                            } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
+
+                                                echo '<img src="' . esc_url($gallery_img['0']) . '" alt="listing image">';
+
+                                            }if (empty($listing_img[0]) && empty($listing_prv_img)){
+
+                                                echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
+
+                                            }
+                                            ?>
                                                     </div>
 
                                                     <figcaption class="atbd_thumbnail_overlay_content">
@@ -418,50 +446,32 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                    <?php
+                                    if ($fav_listings->have_posts()){
+                                        foreach ($fav_listings->posts as $post){
+                                            $title = !empty($post->post_title)?$post->post_title:__('Untitled',ATBDP_TEXTDOMAIN);
+                                            $cats      =  get_the_terms($post->ID, ATBDP_CATEGORY);
+                                            $category  = get_post_meta($post->ID, '_admin_category_select', true);
+                                            $category_name = !empty($category)?$cats[0]->name:'Uncategorized';
+                                            $category_icon = !empty($category)?esc_attr(get_cat_icon($cats[0]->term_id)):'fa fa-square-o';
+                                            $category_link = !empty($category)?esc_url(ATBDP_Permalink::get_category_archive($cats[0])):'#';
+                                            printf(' <tr>
                                             <td class="thumb_title">
                                                 <div class="img_wrapper"><img
                                                             src="http://localhost/martplace/wp-content/uploads/2018/11/IMG_20180816_123021.jpg"
                                                             alt=""></div>
-                                                <h4>Makhtoom International</h4>
+                                                <h4>%s</h4>
                                             </td>
 
                                             <td class="saved_item_category">
-                                                <a href="#"><span class="fa fa-motorcycle"></span>Bike</a>
+                                                <a href="%s"><span class="fa %s"></span>%s</a>
                                             </td>
-
-                                            <td class="text-center"><a class="btn btn-danger" href="#">Remove</a></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="thumb_title">
-                                                <div class="img_wrapper"><img
-                                                            src="http://localhost/martplace/wp-content/uploads/2018/11/IMG_20180816_123021.jpg"
-                                                            alt=""></div>
-                                                <h4>Makhtoom International</h4>
-                                            </td>
-
-                                            <td class="saved_item_category">
-                                                <a href="#"><span class="fa fa-motorcycle"></span>Bike</a>
-                                            </td>
-
-                                            <td class="text-center"><a class="btn btn-danger" href="#">Remove</a></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="thumb_title">
-                                                <div class="img_wrapper"><img
-                                                            src="http://localhost/martplace/wp-content/uploads/2018/11/IMG_20180816_123021.jpg"
-                                                            alt=""></div>
-                                                <h4>Makhtoom International</h4>
-                                            </td>
-
-                                            <td class="saved_item_category">
-                                                <a href="#"><span class="fa fa-motorcycle"></span>Bike</a>
-                                            </td>
-
-                                            <td class="text-center"><a class="btn btn-danger" href="#">Remove</a></td>
-                                        </tr>
+                                            
+                                            <td class="text-center"><a href="%s">%s</a></td>
+                                        </tr>',$title, $category_link, $category_icon, $category_name, atbdp_get_remove_favourites_page_link( $post->ID ), __('Remove',ATBDP_TEXTDOMAIN));
+                                        }
+                                    }
+                                    ?>
                                     </tbody>
                                 </table>
                             </div>

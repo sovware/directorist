@@ -8,7 +8,6 @@ foreach ($listing_imgs as $id) {
 }
 // is multiple image upload extension is active  ?
 $active_mi_ext = is_multiple_images_active(); // default is no
-
 ?>
 
 <div class="add_listing_form_wrapper" id="gallery_upload">
@@ -17,7 +16,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
         <div class="listing-prv-img-container">
                 <div class="single_prv_attachment">
                     <input class="listing_prv_img" name="listing_prv_img" type="hidden"
-                           value="<?php echo esc_url($listing_prv_img[0]) ?>">
+                           value="<?php echo $listing_prv_img_id; ?>">
                     <img style="max-height: 150px;max-width: 150px" class="change_listing_prv_img"
                          src="<?php echo esc_url($listing_prv_img[0]) ?>">
                 </div>

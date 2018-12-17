@@ -14,7 +14,7 @@ class ATBDP_Shortcode {
 
         //add_shortcode( 'test_listing', array( $this, 'test_listing' ) );
 
-        add_shortcode('public_profile', array($this, 'public_profile'));
+        add_shortcode('author_profile', array($this, 'author_profile'));
 
         add_shortcode( 'add_listing', array( $this, 'add_listing' ) );
 
@@ -206,6 +206,7 @@ class ATBDP_Shortcode {
 
     public function all_listing( $atts )
     {
+        wp_enqueue_script('adminmainassets');
         $listing_orderby = get_directorist_option('order_listing_by');
         $listing_view    = get_directorist_option('default_listing_view');
         $listing_order   = get_directorist_option('sort_listing_by');
@@ -630,7 +631,7 @@ class ATBDP_Shortcode {
         return ob_get_clean();
     }
 
-    public function public_profile($atts){
+    public function author_profile($atts){
         //for pagination
         $author_id = !empty($_GET['author_id'])?$_GET['author_id']:'';
         $category = !empty($_GET['category'])?$_GET['category']:'';

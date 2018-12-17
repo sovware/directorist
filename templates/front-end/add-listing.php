@@ -442,17 +442,24 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                                     <label for="atbdp_select_cat"><?php esc_html_e('Select Category', ATBDP_TEXTDOMAIN) ?></label>
                                     <?php
-
+                                    $category = wp_get_object_terms( $p_id, ATBDP_CATEGORY, array( 'fields' => 'ids' ) );
+                                    $selected_category = count( $category ) ? $category[0] : -1;
+                                    $args = array(
+                                        'show_option_none' => '-- '.__( 'Select Category', ATBDP_TEXTDOMAIN ).' --',
+                                        'taxonomy'         => ATBDP_CATEGORY,
+                                        'id'               => 'cat-type',
+                                        'class'            => 'form-control directory_field',
+                                        'name' 			   => 'admin_category_select',
+                                        'orderby'          => 'name',
+                                        'selected'         => $selected_category,
+                                        'hierarchical'     => true,
+                                        'depth'            => 10,
+                                        'show_count'       => false,
+                                        'hide_empty'       => false,
+                                    );
+                                    wp_dropdown_categories( $args );
                                     $current_val = esc_attr(get_post_meta($p_id, '_admin_category_select', true));
-                                    $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
-                                    echo '<select class="form-control directory_field" id="cat-type" name="admin_category_select">';
-                                    echo '<option value="">' . __("--Select a Category--", ATBDP_TEXTDOMAIN) . '</option>';
-                                    foreach ($categories as $key => $cat_title) {
-                                        $term_id = $cat_title->term_id;
-                                        printf('<option value="%s" %s>%s</option>', $term_id, selected($term_id, $current_val), $cat_title->name);
-                                    }
-                                    echo '</select>';
-                                    $term_id_selected = $current_val;
+                                    $term_id_selected = !empty($current_val) ? $current_val: '';
                                     ?>
                                     <input type="hidden" id="value_selected" value="<?php echo $term_id_selected ?>">
                                 </div>

@@ -273,7 +273,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                 $category = wp_get_object_terms( $post_ID, ATBDP_CATEGORY, array( 'fields' => 'ids' ) );
                 $selected_category = count( $category ) ? $category[0] : -1;
                 $args = array(
-                    'show_option_none' => '-- '.__( 'Select a Category', 'advanced-classifieds-and-directory-pro' ).' --',
+                    'show_option_none' => '-- '.__( 'Select Category', ATBDP_TEXTDOMAIN ).' --',
                     'taxonomy'         => ATBDP_CATEGORY,
                     'id'               => 'cat-type',
                     'class'            => 'form-control directory_field',

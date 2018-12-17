@@ -54,17 +54,33 @@ $currency = get_directorist_option('g_currency', 'USD');
 
         if (!$disable_price) { ?>
             <div class="form-group">
-                <label for="price"><?php
-                    /*Translator: % is the name of the currency such eg. USD etc.*/
-                    printf(esc_html__('Price [%s] ( Optional---Leave it blank to hide it)', ATBDP_TEXTDOMAIN), $currency); ?>
-                    <label for="pricerange"><a id='price_range_option'><?php echo __(' Or Price Range', ATBDP_TEXTDOMAIN); ?></a></label> </label>
+                <label for="#">Pricing</label>
+                <div class="atbd_pricing_options">
+                    <label for="price_selected" data-option="price">
+                        <input type="checkbox" id="price_selected" name="atbd_listing_pricing" checked>
+                        <?php
+                        $currency = get_directorist_option('g_currency', 'USD');
+                        /*Translator: % is the name of the currency such eg. USD etc.*/
+                        printf(esc_html__('Price [%s]', ATBDP_TEXTDOMAIN), $currency); ?>
+                    </label>
+                    <span class="bor">Or</span>
+                    <label for="price_range_selected" data-option="price_range">
+                        <input type="checkbox" id="price_range_selected" name="atbd_listing_pricing">
+                        <?php echo __('Price Range', ATBDP_TEXTDOMAIN); ?>
+                        <!--<p id='price_range_option'><?php /*echo __('Price Range', ATBDP_TEXTDOMAIN); */ ?></p></label>-->
+                    </label>
+
+                    <small> (Optional --- Uncheck both to hide pricing for this listing)</small>
+                </div>
+
+
+
+                <input type="hidden" id="pricerange_val" value="<?php echo $price_range;?>">
                 <input type="text" id="price" name="price" value="<?= !empty($price) ? esc_attr($price) : ''; ?>"
                        class="form-control directory_field"
                        placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
-            </div>
-            <input type="hidden" id="pricerange_val" value="<?php echo $price_range;?>">
-            <div class="form-group">
-                <select class="form-control directory_field" id="pricerange" style="display: none" name="price_range">
+
+                <select class="form-control directory_field" id="price_range" style="display: none" name="price_range">
                     <option value="">Select Price Range</option>
                     <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
                         Ultra High ($$$$)
@@ -112,7 +128,7 @@ $currency = get_directorist_option('g_currency', 'USD');
             <div class="form-group">
                 <label for=""><?php the_title(); ?><?php if ($cf_required) {
                         echo '<span style="color: red"> *</span>';
-                    } ?></label>
+                    } ?>  <span class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="<?php echo get_post_meta(get_the_ID(), 'instructions', true); ?>"></span></label>
                 <?php
                 if (isset($post_meta[$post->ID])) {
                     $value = $post_meta[0];
@@ -130,19 +146,15 @@ $currency = get_directorist_option('g_currency', 'USD');
                 switch ($cf_meta_val) {
                     case 'text' :
                         echo '<div>';
-                        printf('<p style="font-style: italic">%s</p>', $post_meta['instructions'][0]);
                         printf('<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post_id, $cf_placeholder, esc_attr($value));
                         echo '</div>';
                         break;
                     case 'textarea' :
-                        printf('<p style="font-style: italic">%s</p>', $post_meta['instructions'][0]);
-
                         printf('<textarea  class="form-control directory_field" name="custom_field[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $post->ID, (int)$cf_rows, esc_attr($cf_placeholder), esc_textarea($value));
                         break;
                     case 'radio':
                         $choices = get_post_meta($post_id, 'choices', true);
                         $choices = explode("\n", $choices);
-                        printf('<p style="font-style: italic">%s</p>', $value);
                         echo '<ul class="atbdp-radio-list radio vertical">';
                         foreach ($choices as $choice) {
                             if (strpos($choice, ':') !== false) {
@@ -167,7 +179,6 @@ $currency = get_directorist_option('g_currency', 'USD');
                     case 'select' :
                         $choices = get_post_meta($post_id, 'choices', true);
                         $choices = explode("\n", $choices);
-                        printf('<p style="font-style: italic">%s</p>', get_post_meta($post_id, 'instructions', true));
                         printf('<select name="custom_field[%d]" class="form-control directory_field">', $post->ID);
                         if (!empty($field_meta['allow_null'][0])) {
                             printf('<option value="">%s</option>', '- ' . __('Select an Option', ATBDP_TEXTDOMAIN) . ' -');
@@ -198,7 +209,6 @@ $currency = get_directorist_option('g_currency', 'USD');
 
                         $values = explode("\n", $value);
                         $values = array_map('trim', $values);
-                        printf('<p style="font-style: italic">%s</p>', $post_meta['instructions'][0]);
                         echo '<ul class="atbdp-checkbox-list checkbox vertical">';
 
                         foreach ($choices as $choice) {
@@ -222,21 +232,18 @@ $currency = get_directorist_option('g_currency', 'USD');
                         break;
                     case 'url'  :
                         echo '<div>';
-                        printf('<p style="font-style: italic">%s</p>', $post_meta['instructions'][0]);
                         printf('<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_url($value));
                         echo '</div>';
                         break;
 
                     case 'date'  :
                         echo '<div>';
-                        printf('<p style="font-style: italic">%s</p>', $post_meta['instructions'][0]);
                         printf('<input type="date" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
                         echo '</div>';
                         break;
 
                     case 'email'  :
                         echo '<div>';
-                        printf('<p style="font-style: italic">%s</p>', $post_meta['instructions'][0]);
                         printf('<input type="email" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
                         echo '</div>';
                         break;
@@ -250,7 +257,6 @@ $currency = get_directorist_option('g_currency', 'USD');
                             });
                         </script>
                         <?php
-                        printf('<p style="font-style: italic">%s</p>', $post_meta['instructions'][0]);
                         printf('<input type="color" name="custom_field[%d]" class="my-color-field2" value="%s" />', $post->ID, $value);
                         echo '</div>';
                         break;
@@ -341,6 +347,7 @@ $currency = get_directorist_option('g_currency', 'USD');
 
             $.post(ajaxurl, data, function (response) {
                 $('#atbdp-custom-fields-list').html(response);
+                $('[data-toggle="tooltip"]').tooltip();
             });
             $('#atbdp-custom-fields-list-selected').hide();
 

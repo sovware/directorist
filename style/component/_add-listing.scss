@@ -14,6 +14,16 @@
       padding-bottom: 27px;
     }
   }
+  #wp-listing_content-wrap .mce-container{
+    .mce-btn button{
+      padding: 0;
+      min-width: initial;
+      min-height: initial;
+      background-color: initial;
+      border-color: inherit;
+      color: initial;
+    }
+  }
   label[data-option] {
     color: #505058;
   }
@@ -52,7 +62,15 @@
       margin: 0 5px;
     }
   }
-
+  .atbdp-radio-list,.atbdp-checkbox-list{
+    li{
+      label input{
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 6px;
+      }
+    }
+  }
   .close{
     padding: 0;
     top: 50%;
@@ -72,6 +90,11 @@
     .listing-img-container{
       text-align: center;
       padding-bottom: 15px;
+      img{
+        display: inline-block;
+        height: auto;
+        width: auto;
+      }
       .single_attachment{
         width: 205px;
         display: inline-block;
@@ -98,9 +121,19 @@
         margin-top: 10px;
         font-size: 16px;
         font-weight: 500;
+        text-align: center;
       }
       small{
         font-size: 13px;
+      }
+    }
+    .default_img{
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .single_prv_attachment{
+      img{
+        margin-bottom: 15px;
       }
     }
     .atbd_term_and_condition_area{

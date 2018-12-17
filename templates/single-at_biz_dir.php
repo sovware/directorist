@@ -165,14 +165,14 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                         <?php } ?>
                         <div class="modal fade" id="atbdp-report-abuse-modal" tabindex="-1" role="dialog"
                              aria-labelledby="atbdp-report-abuse-modal-label" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content modal-dialog-centered">
                                     <form id="atbdp-report-abuse-form" class="form-vertical" role="form">
                                         <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal"><span
-                                                        aria-hidden="true">&times;</span></button>
                                             <h3 class="modal-title"
                                                 id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', ATBDP_TEXTDOMAIN); ?></h3>
+                                            <button type="button" class="close" data-dismiss="modal"><span
+                                                        aria-hidden="true">&times;</span></button>
                                         </div>
                                         <div class="modal-body">
                                             <div class="form-group">
@@ -187,7 +187,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                             <div id="atbdp-report-abuse-message-display"></div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-default"
+                                            <button type="button" class="btn btn-danger"
                                                     data-dismiss="modal"><?php _e('Close', ATBDP_TEXTDOMAIN); ?></button>
                                             <button type="submit"
                                                     class="btn btn-primary"><?php _e('Submit', ATBDP_TEXTDOMAIN); ?></button>

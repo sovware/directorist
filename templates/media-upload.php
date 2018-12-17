@@ -27,7 +27,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
         </div>
         <!--  add & remove image links -->
         <p class="hide-if-no-js">
-            <a href="#" class="upload-header button button-secondary">Upload Preview Image</a>
+            <a href="#" class="upload-header btn btn-secondary">Upload Preview Image</a>
         </p>
     </div>
     <div class="form-group">

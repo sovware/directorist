@@ -1,4 +1,8 @@
 /* typography */
+#directorist.atbd_wrapper {
+  padding: 18px 20px;
+}
+
 #directorist.atbd_wrapper * {
   box-sizing: border-box;
 }
@@ -17,7 +21,9 @@
   margin-bottom: 8px;
   display: inline-block;
   font-weight: 500;
+  font-size: 15px;
   color: #202428;
+  text-transform: capitalize;
 }
 
 #directorist.atbd_wrapper .map_wrapper {
@@ -35,8 +41,49 @@
   text-decoration: none;
 }
 
+#directorist.atbd_wrapper [data-toggle="tooltip"] {
+  color: #a1a1a7;
+  font-size: 12px;
+}
+
+#directorist.atbd_wrapper [data-toggle="tooltip"]:hover {
+  color: #202428;
+}
+
+#directorist.atbd_wrapper .single_prv_attachment {
+  text-align: center;
+}
+
 #directorist.atbd_wrapper #listing_image_btn span {
   vertical-align: text-bottom;
+}
+
+#directorist.atbd_wrapper .default_img {
+  margin-bottom: 10px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+#directorist.atbd_wrapper .default_img small {
+  color: #7a82a6;
+  font-size: 13px;
+}
+
+#directorist.atbd_wrapper .atbd_pricing_options {
+  margin-bottom: 15px;
+}
+
+#directorist.atbd_wrapper .atbd_pricing_options label {
+  font-size: 13px;
+}
+
+#directorist.atbd_wrapper .atbd_pricing_options .bor {
+  margin: 0 7px;
+}
+
+#directorist.atbd_wrapper .atbd_pricing_options small {
+  font-size: 12px;
+  vertical-align: top;
 }
 
 #directorist.atbd_wrapper .listing-img-container {
@@ -199,6 +246,17 @@
 
 #directorist.atbd_wrapper ul.atbdp_pro_features li a:hover {
   color: #fff;
+}
+
+#directorist.atbd_wrapper .atbdp-radio-list li label,
+#directorist.atbd_wrapper .atbdp-checkbox-list li label {
+  text-transform: capitalize;
+  font-size: 13px;
+}
+
+#directorist.atbd_wrapper .atbdp-radio-list li label input,
+#directorist.atbd_wrapper .atbdp-checkbox-list li label input {
+  margin-right: 7px;
 }
 
 /*# sourceMappingURL=map/style.css.map */

@@ -303,7 +303,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <li class="atbd_count"><span
                                                             class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0; ?>
                                                 </li>
-                                                <li class="atbd_save"><span class="fa fa-heart"></span></li>
+                                                <!--<li class="atbd_save"><span class="fa fa-heart"></span></li>-->
                                                 <li class="atbd_author">
                                                     <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
                                                             <img

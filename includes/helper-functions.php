@@ -1803,14 +1803,14 @@ function the_atbdp_favourites_link( $post_id = 0 ) {
         $favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
 
         if( in_array( $post_id, $favourites ) ) {
-            echo '<span class="fa fa-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="'.$post_id.'">'.__( 'Remove from favorites', ATBDP_TEXTDOMAIN ).'</a>';
+            echo '<span class="fa fa-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="'.$post_id.'">'.__( 'Favorite', ATBDP_TEXTDOMAIN ).'</a>';
         } else {
-            echo '<span class="fa fa-heart"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="'.$post_id.'">'.__( 'Add to favorites', ATBDP_TEXTDOMAIN ).'</a>';
+            echo '<span class="fa fa-heart"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="'.$post_id.'">'.__( 'Favorite', ATBDP_TEXTDOMAIN ).'</a>';
         }
 
     } else {
 
-        echo '<span class="fa fa-heart"></span><a href="javascript:void(0)" class="atbdp-require-login">'.__( 'Add to favorites', ATBDP_TEXTDOMAIN ).'</a>';
+        echo '<span class="fa fa-heart"></span><a href="javascript:void(0)" class="atbdp-require-login">'.__( 'Favorite', ATBDP_TEXTDOMAIN ).'</a>';
 
     }
 
@@ -1852,7 +1852,6 @@ function the_atbdp_favourites_all_listing( $post_id = 0 ) {
         }
 
         $favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
-var_dump($favourites);
         if( in_array( $post_id, $favourites ) ) {
             echo '<a href="javascript:void(0)" class="atbdp-favourites-all-listing" data-post_id="'.$post_id.'"><span style="color: red" class="fa fa-heart"></span></a>';
         } else {

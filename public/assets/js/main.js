@@ -442,7 +442,6 @@
 
 })(jQuery);
 
-
 // Custom Image uploader for user dashboard page
 jQuery(function ($) {
     // Set all variables to be used in scope
@@ -648,20 +647,21 @@ jQuery(function ($) {
 
         });
 
-        // Add or Remove from favourites all listing
+        $('#atbdp_tabs a').click(function(e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
 
+// store the currently selected tab in the hash value
+        $("ul.nav-tabs > li > a").on("show.bs.tab", function(e) {
+            var id = $(e.target).attr("href").substr(1);
+            window.location.hash = id;
+        });
 
-        /*$('#atbdp-favourites-all-listing').on('click', function () {
-         var data = {
-         'action': 'atbdp-favourites-all-listing',
-         'post_id': $('#listing_ids').val()
-         };
-         $.post(ajaxurl, data, function (response) {
-         $('#atbdp-favourites-all-listing').html(response);
-         });
-         });*/
-
-
+// on load of the page: switch to the currently selected tab
+        console.log(window.location);
+        var hash = window.location.hash;
+        $('#atbdp_tabs a[href="' + hash + '"]').tab('show');
     });
 })(jQuery);
 

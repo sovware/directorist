@@ -58,7 +58,6 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         public function atbdp_public_add_remove_favorites_all() {
 
             $post_id = (int) $_POST['post_id'];
-            var_dump($post_id);
 
             $favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
 

@@ -325,7 +325,7 @@ $currency = get_directorist_option('g_currency', 'USD');
      * @param array $listing_info Information of the current listing
      * @since 1.1.1
      **/
-    do_action('atbdp_edit_after_googlemap_preview', 'add_listing_page_backend', $args['listing_info'], get_the_ID());
+    do_action('atbdp_edit_after_googlemap_preview', 'add_listing_page_backend', 'listing_info', get_the_ID());
     ?>
 </div>
 <script>

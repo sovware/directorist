@@ -279,7 +279,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                         </div><!-- end ./atbd_content_upper -->
 
                                         <div class="atbd_listing_bottom_content">
-                                            <?php if (!empty($category)) { ?>
+                                            <?php if (!empty($cats)) { ?>
                                                 <div class="atbd_content_left">
                                                     <div class="atbd_listting_category">
                                                         <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));; ?>"><span

@@ -14,7 +14,8 @@
 		foreach( $terms as $term ) {
             $locations_settings['term'] = $term;
 			$locations_settings['term_id'] = $term->term_id;
-
+			$child_location = get_term_children($term->term_id,ATBDP_LOCATION);
+            $plus_icon = !empty($child_location) ? '<span class="expander">+</span>' : '';
 			$count = 0;
 			if( ! empty( $locations_settings['hide_empty'] ) || ! empty( $locations_settings['show_count'] ) ) {
 				$count = atbdp_listings_count_by_location( $term->term_id );
@@ -32,7 +33,7 @@
 			if( ! empty( $locations_settings['show_count'] ) ) {
 				echo ' (' .  $count . ')';
 			}
-			echo '</a>';
+			echo "</a>$plus_icon";
 			echo atbdp_list_locations( $locations_settings );
 			echo '</div>';
 

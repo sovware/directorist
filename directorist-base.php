@@ -236,6 +236,7 @@ final class Directorist_Base
             // Attempt to create listing related custom pages with plugin's custom shortcode to give user best experience.
             // we can check the database if our custom pages have been installed correctly or not here first.
             // This way we can minimize the adding of our custom function to the WordPress hooks.
+
             if (get_option('atbdp_pages_version') < 1) {
                 add_action('wp_loaded', array(self::$instance, 'add_custom_directorist_pages'));
             }
@@ -409,39 +410,39 @@ final class Directorist_Base
         $directorist_pages = array(
             'search_listing' => array(
                 'title' => __('Search Home', ATBDP_TEXTDOMAIN),
-                'content' => '[search_listing]'
+                'content' => '[directorist_search_listing]'
             ),
             'search_result_page' => array(
                 'title' => __('Search Result', ATBDP_TEXTDOMAIN),
-                'content' => '[search_result]'
+                'content' => '[directorist_search_result]'
             ),
             'add_listing_page' => array(
                 'title' => __('Add Listing', ATBDP_TEXTDOMAIN),
-                'content' => '[add_listing]'
+                'content' => '[directorist_add_listing]'
             ),
             'all_listing_page' => array(
                 'title' => __('All Listings', ATBDP_TEXTDOMAIN),
-                'content' => '[all_listing]'
+                'content' => '[directorist_all_listing]'
             ),
             'all_categories_page' => array(
-                'title' => __('All Categories', ATBDP_TEXTDOMAIN),
-                'content' => '[all_categories]'
+                'title'   => __( 'All Categories', ATBDP_TEXTDOMAIN ),
+                'content' => '[directorist_all_categories]'
             ),
             'all_locations_page' => array(
-                'title' => __('All Locations', ATBDP_TEXTDOMAIN),
-                'content' => '[all_locations]'
+                'title'   => __( 'All Locations', ATBDP_TEXTDOMAIN ),
+                'content' => '[directorist_all_locations]'
             ),
             'author_profile_page' => array(
-                'title' => __('Author Profile', ATBDP_TEXTDOMAIN),
-                'content' => '[author_profile]'
+                'title'   => __( 'Author Profile', ATBDP_TEXTDOMAIN ),
+                'content' => '[directorist_author_profile]'
             ),
             'user_dashboard' => array(
                 'title' => __('Dashboard', ATBDP_TEXTDOMAIN),
-                'content' => '[user_dashboard]'
+                'content' => '[directorist_user_dashboard]'
             ),
             'custom_registration' => array(
                 'title' => __('Registration', ATBDP_TEXTDOMAIN),
-                'content' => '[custom_registration]'
+                'content' => '[directorist_custom_registration]'
             ),
             'checkout_page' => array(
                 'title' => __('Checkout', ATBDP_TEXTDOMAIN),
@@ -453,7 +454,7 @@ final class Directorist_Base
             ),
             'transaction_failure_page' => array(
                 'title' => __('Transaction Failure', ATBDP_TEXTDOMAIN),
-                'content' => '[transaction_failure]'
+                'content' => '[directorist_transaction_failure]'
             ),
         );
         $new_settings = 0; // lets keep track of new settings so that we do not update option unnecessarily.
@@ -463,6 +464,7 @@ final class Directorist_Base
             // if we do not have the page id assigned in the settings with the given page option name, then create an page
             // and update the option.
             if (empty($options[$op_name])) {
+
                 $id = wp_insert_post(
                     array(
                         'post_title' => $page_settings['title'],
@@ -495,8 +497,21 @@ final class Directorist_Base
 
                 }
                 $new_settings++;
+            }else{
+                $replace_shortcode = wp_update_post(
+                    array(
+                            'ID'  => $options[$op_name],
+                        'post_title' => $page_settings['title'],
+                        'post_content' => $page_settings['content'],
+                        'post_status' => 'publish',
+                        'post_type' => 'page',
+                        'comment_status' => 'closed'
+                    ),true
+                );
+                if (!is_wp_error($replace_shortcode)){
+                    update_user_meta( get_current_user_id(), '_atbdp_shortcode_regenerate_notice', 'true' );
+                }
             }
-
             // if we have new options then lets update the options with new option values.
             if ($new_settings) {
                 update_option('atbdp_option', $options);
@@ -505,6 +520,7 @@ final class Directorist_Base
         }
 
     }
+
 
 
     /**

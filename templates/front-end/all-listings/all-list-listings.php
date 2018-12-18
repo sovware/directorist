@@ -3,7 +3,7 @@
 $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
 $all_listing_title = !empty($all_listing_title) ? $all_listing_title : __('All Items', ATBDP_TEXTDOMAIN);
 $is_disable_price = get_directorist_option('disable_list_price');
-
+$main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col-md-12';
 ?>
 
 

@@ -14,26 +14,8 @@ class ATBDP_Helper {
         if ( ! defined('ABSPATH') ) { return; }
         add_action('init', array( $this, 'check_req_php_version' ), 100 );
 
-        //todo;need to remove those 2 function when all the user will moved to the new update
-        add_action('admin_init', array( $this, 'check_need_to_upgrade_database' ), 100 );
-        add_action('admin_notices', array( $this, 'upgrade_notice' ), 100 );
-    }
-    public function check_need_to_upgrade_database( ){
-        $user_id = get_current_user_id();
-        if ( isset( $_GET['my-plugin-dismissed'] ) )
-            add_user_meta( $user_id, 'my_plugin_notice_dismissed', 'true', true );
     }
 
-    public function upgrade_notice() {
-        $l = admin_url().'/edit.php?post_type=at_biz_dir&page=directorist-upgrade';
-        $link = '<a href="'.$l.'">please upgrade</a>';
-        $user_id = get_current_user_id();
-        if ( !get_user_meta( $user_id, 'my_plugin_notice_dismissed' ) ){
-            echo '<div id="message" class="notice notice-info" style="display: flex; justify-content: space-between;"><p>';
-            printf(__('If you are an old user of the %s plugin, %s your database as we have restructured the data storing system.', ATBDP_TEXTDOMAIN), ATBDP_NAME, $link);
-            echo '</p><p><a href="?my-plugin-dismissed">Hide Forever</a></p></div>';
-        }
-    }
     public function check_req_php_version( ){
         if ( version_compare( PHP_VERSION, '5.4', '<' )) {
             add_action( 'admin_notices', array($this, 'notice'), 100 );

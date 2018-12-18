@@ -94,7 +94,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                 //ok show the edit option
                 ?>
                 <div class="edit_btn_wrap">
-                    <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>" class="btn btn-success"><span class="fa fa-edit"></span> Edit Listing</a>
+                    <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>" class="btn btn-success"><span class="fa fa-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN)?></a>
                 </div>
                 <?php
             }
@@ -123,22 +123,22 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                     <ul>
                                         <li>
                                             <a href="<?php echo esc_url($fb_lnk); ?>" target="_blank">
-                                                <span class="fa fa-facebook"></span>Facebook
+                                                <span class="fa fa-facebook"></span><?PHP _e('Facebook', ATBDP_TEXTDOMAIN)?>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="<?php echo esc_url($twt_lnk); ?>" target="_blank">
-                                                <span class="fa fa-twitter"></span>Twitter
+                                                <span class="fa fa-twitter"></span><?PHP _e('Twitter', ATBDP_TEXTDOMAIN)?>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="<?php echo esc_url($g_lnk); ?>" target="_blank">
-                                                <span class="fa fa-google-plus"></span>Google Plus
+                                                <span class="fa fa-google-plus"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN)?>Google Plus
                                             </a>
                                         </li>
                                         <li>
                                             <a href="<?php echo esc_url($in_link); ?>" target="_blank">
-                                                <span class="fa fa-linkedin"></span>LinkedIn
+                                                <span class="fa fa-linkedin"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN)?>LinkedIn
                                             </a>
                                         </li>
                                     </ul>

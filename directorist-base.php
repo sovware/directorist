@@ -446,11 +446,11 @@ final class Directorist_Base
             ),
             'checkout_page' => array(
                 'title' => __('Checkout', ATBDP_TEXTDOMAIN),
-                'content' => '[directorist_directorist_checkout]'
+                'content' => '[directorist_checkout]'
             ),
             'payment_receipt_page' => array(
                 'title' => __('Payment Receipt', ATBDP_TEXTDOMAIN),
-                'content' => '[directorist_directorist_payment_receipt]'
+                'content' => '[directorist_payment_receipt]'
             ),
             'transaction_failure_page' => array(
                 'title' => __('Transaction Failure', ATBDP_TEXTDOMAIN),
@@ -640,7 +640,7 @@ final class Directorist_Base
                 <div class="atbd_related_listing_title">
                     <h3><?php _e('Related Items', ATBDP_TEXTDOMAIN); ?></h3>
                 </div>
-                <div class="row">
+                <div class="row" data-uk-grid>
                     <?php foreach ($related_listings->posts as $r_post) {
                         $cats =  get_the_terms($r_post->ID, ATBDP_CATEGORY);
                         $locs =  get_the_terms($r_post->ID, ATBDP_LOCATION);
@@ -1298,7 +1298,7 @@ function ATBDP()
 // Get ATBDP ( AazzTech Business Directory Plugin) Running.
 ATBDP();
 
-add_image_size('directory-image',360,300,true);
+add_image_size('directory-image',310,190,true);
 add_image_size('directory-small',400,300,true);
 add_image_size('directory-medium',600,500,true);
 add_image_size('directory-large',700,600,true);

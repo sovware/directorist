@@ -1,21 +1,21 @@
-.atbd_content_active #directorist.atbd_wrapper{
-  .select2-container--default.select2-container--focus .select2-selection--multiple,
-  .select2-container--default .select2-selection--multiple{
+.atbd_content_active #directorist.atbd_wrapper {
+  .select2-container--default.select2-container--focus .select2-selection--multiple
+  /*.select2-container--default .select2-selection--multiple*/ {
     border-color: $border-color;
   }
-  .select2-container--default .select2-selection{
+  .select2-container--default .select2-selection {
     padding: 0 20px;
   }
-  .atbd_add_listing_title{
+  .atbd_add_listing_title {
     text-align: center;
-    h3{
+    h3 {
       margin: 0;
       font-size: 28px;
       padding-bottom: 27px;
     }
   }
-  #wp-listing_content-wrap .mce-container{
-    .mce-btn button{
+  #wp-listing_content-wrap .mce-container {
+    .mce-btn button {
       padding: 0;
       min-width: initial;
       min-height: initial;
@@ -24,10 +24,18 @@
       color: initial;
     }
   }
+  [data-toggle="tooltip"] {
+    margin-left: 4px;
+    color: #85889a;
+    font-size: 12px;
+    &:hover{
+      color: $primary;
+    }
+  }
   label[data-option] {
     color: #505058;
   }
-  #tc_container{
+  #tc_container {
     height: 350px;
     border: 1px solid #ededed;
     padding: 30px;
@@ -36,72 +44,78 @@
     margin-bottom: 30px;
     background: $light;
   }
-  #gmap{
+  #gmap {
     height: 350px;
   }
-  #hide_if_no_manual_cor{
+  #hide_if_no_manual_cor {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
   }
-  .map_wrapper{
+  .map_wrapper {
     position: relative;
-    #floating-panel{
+    #floating-panel {
       position: absolute;
       top: 10px;
       right: 58px;
       z-index: 1;
     }
   }
-  .atbd_plan_alert{
-    a.btn{
+  .atbd_plan_alert {
+    a.btn {
       margin-left: 10px;
     }
-    strong{
+    strong {
       display: inline-block;
       margin: 0 5px;
     }
   }
-  .atbdp-radio-list,.atbdp-checkbox-list{
-    li{
-      label input{
-        display: inline-block;
-        vertical-align: middle;
-        margin-right: 6px;
+  .atbdp-radio-list, .atbdp-checkbox-list {
+    li {
+      label {
+        font-size: 13px;
+        input {
+          display: inline-block;
+          vertical-align: middle;
+          margin-right: 6px;
+        }
       }
     }
   }
-  .close{
+  input.select2-search__field{
+    margin-top: 6px;
+  }
+  .close {
     padding: 0;
     top: 50%;
     right: 10px;
     font-size: 20px;
-    &:hover{
+    &:hover {
       background: none;
     }
   }
-  &.atbd_add_listing_wrapper{
-    .atbd_plan_alert{
+  &.atbd_add_listing_wrapper {
+    .atbd_plan_alert {
       margin-bottom: 30px;
     }
-    .hide-if-no-js{
+    .hide-if-no-js {
       text-align: center;
     }
-    .listing-img-container{
+    .listing-img-container {
       text-align: center;
       padding-bottom: 15px;
-      img{
+      img {
         display: inline-block;
         height: auto;
         width: auto;
       }
-      .single_attachment{
+      .single_attachment {
         width: 205px;
         display: inline-block;
         vertical-align: top;
         padding: 10px;
         position: relative;
-        .remove_image{
+        .remove_image {
           cursor: pointer;
           position: absolute;
           top: 0;
@@ -112,37 +126,38 @@
           line-height: 20px;
           font-size: 13px;
           border-radius: 50%;
-          &:hover{
-            @extend  .atbd_color-danger;
+          &:hover {
+            @extend .atbd_color-danger;
           }
         }
       }
-      p{
+      p {
         margin-top: 10px;
         font-size: 16px;
         font-weight: 500;
         text-align: center;
       }
-      small{
+      small {
         font-size: 13px;
       }
     }
-    .default_img{
+    .default_img {
       text-align: center;
       margin-bottom: 15px;
     }
-    .single_prv_attachment{
-      img{
+    .single_prv_attachment {
+      text-align: center;
+      img {
         margin-bottom: 15px;
       }
     }
-    .atbd_term_and_condition_area{
+    .atbd_term_and_condition_area {
       text-align: center;
-      > label{
+      > label {
         display: inline-block;
       }
     }
-    .btn_wrap.list_submit{
+    .btn_wrap.list_submit {
       text-align: center;
       .listing_submit_btn {
         line-height: 32px;
@@ -151,14 +166,14 @@
       }
     }
   }
-  .atbd_listing_type{
-    h4{
+  .atbd_listing_type {
+    h4 {
       margin-bottom: 25px;
     }
     padding-bottom: 20px;
-    >label{
+    > label {
       display: inline-block;
-      &+label{
+      & + label {
         margin-left: 25px;
       }
     }

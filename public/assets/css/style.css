@@ -342,6 +342,11 @@ h6, .h6 {
   text-align: center;
 }
 
+.atbd_content_active .media-frame-title h1:before {
+  margin-top: 0;
+  display: none;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   text-align: right;
   margin-bottom: 15px;
@@ -1387,8 +1392,7 @@ h6, .h6 {
   margin-right: 6px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .select2-container--default.select2-container--focus .select2-selection--multiple,
-.atbd_content_active #directorist.atbd_wrapper .select2-container--default .select2-selection--multiple {
+.atbd_content_active #directorist.atbd_wrapper .select2-container--default.select2-container--focus .select2-selection--multiple {
   border-color: #e3e6ef;
 }
 
@@ -1413,6 +1417,16 @@ h6, .h6 {
   background-color: initial;
   border-color: inherit;
   color: initial;
+}
+
+.atbd_content_active #directorist.atbd_wrapper [data-toggle="tooltip"] {
+  margin-left: 4px;
+  color: #85889a;
+  font-size: 12px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper [data-toggle="tooltip"]:hover {
+  color: #272b41;
 }
 
 .atbd_content_active #directorist.atbd_wrapper label[data-option] {
@@ -1459,10 +1473,18 @@ h6, .h6 {
   margin: 0 5px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbdp-radio-list li label, .atbd_content_active #directorist.atbd_wrapper .atbdp-checkbox-list li label {
+  font-size: 13px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbdp-radio-list li label input, .atbd_content_active #directorist.atbd_wrapper .atbdp-checkbox-list li label input {
   display: inline-block;
   vertical-align: middle;
   margin-right: 6px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper input.select2-search__field {
+  margin-top: 6px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .close {
@@ -1530,6 +1552,10 @@ h6, .h6 {
 .atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .default_img {
   text-align: center;
   margin-bottom: 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .single_prv_attachment {
+  text-align: center;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .single_prv_attachment img {
@@ -1664,6 +1690,7 @@ h6, .h6 {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_saved_items_wrapper td {
   vertical-align: middle;
+  text-align: left;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_saved_items_wrapper .saved_item_category {
@@ -1846,23 +1873,54 @@ h6, .h6 {
   margin-top: 30px;
 }
 
-#directorist.atbd_wrapper .atbd_category_wrapper span.fa {
+.atbd_content_active #directorist.atbd_wrapper .atbd_category_wrapper span.fa {
   cursor: pointer;
   margin-left: 7px;
   font-size: 12px;
 }
 
-#directorist.atbd_wrapper .atbd_category_wrapper .atbdp_child_category {
+.atbd_content_active #directorist.atbd_wrapper .atbd_category_wrapper .atbdp_child_category {
   padding-left: 15px;
 }
 
-#directorist.atbd_wrapper span.expander {
+.atbd_content_active #directorist.atbd_wrapper span.expander {
   font-size: 16px;
   font-weight: 500;
   margin-left: 5px;
   line-height: 15px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories {
+  text-align: center;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories li {
+  display: inline-block;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories a {
+  display: block;
+  padding: 20px 15px;
+  border: 1px solid #ededed;
+  margin: 0 5px 10px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories a:hover {
+  color: #272b41;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories a:hover p {
+  color: #272b41;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories a span {
+  font-size: 18px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories a p {
+  font-size: 14px;
 }
 
 #directorist.atbd_wrapper .atbdp_child_category li {

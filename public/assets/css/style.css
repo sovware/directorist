@@ -1414,6 +1414,16 @@ h6, .h6 {
   color: initial;
 }
 
+.atbd_content_active #directorist.atbd_wrapper [data-toggle="tooltip"] {
+  margin-left: 4px;
+  color: #85889a;
+  font-size: 12px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper [data-toggle="tooltip"]:hover {
+  color: #272b41;
+}
+
 .atbd_content_active #directorist.atbd_wrapper label[data-option] {
   color: #505058;
 }

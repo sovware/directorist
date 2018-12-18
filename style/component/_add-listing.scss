@@ -24,6 +24,14 @@
       color: initial;
     }
   }
+  [data-toggle="tooltip"] {
+    margin-left: 4px;
+    color: #85889a;
+    font-size: 12px;
+    &:hover{
+      color: $primary;
+    }
+  }
   label[data-option] {
     color: #505058;
   }

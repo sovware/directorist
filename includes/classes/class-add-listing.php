@@ -147,6 +147,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         }
                     }
 
+
                     if (class_exists('ATBDP_Fee_Manager')){
                         $user_id = get_current_user_id();
                         $subscribed_package_id = get_user_meta($user_id, '_subscribed_users_plan_id', true);

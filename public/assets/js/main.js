@@ -100,6 +100,7 @@
             var name= $form.find("#reviewer_name").val();
             var content= $form.find("#review_content").val();
             var rating= $form.find("#review_rating").val();
+            var ava_img= $form.find("#atbd_review_avatar").val();
 
             if (response.success){
                 d = new Date(); // parse mysql date string to js date object
@@ -108,7 +109,7 @@
                 output += '<div class="atbd_single_review" id="single_review_'+response.data.id+'">' +
                     '<div class="atbd_review_top"> ' +
                     '<div class="atbd_avatar_wrapper"> ' +
-                    '<div class="atbd_review_avatar"><img src="http://localhost/martplace/wp-content/plugins/directorist-business-directory-plugin/public/assets/images/revav.png" alt="Avatar Image"></div> ' +
+                    '<div class="atbd_review_avatar"><img src="" alt="Image"></div> ' +
                     '<div class="atbd_name_time"> ' +
                     '<p>'+name+'</p>' +
                     '<span class="review_time">'+d+'</span> ' + '</div> ' + '</div> ' +

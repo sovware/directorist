@@ -342,6 +342,11 @@ h6, .h6 {
   text-align: center;
 }
 
+.atbd_content_active .media-frame-title h1:before {
+  margin-top: 0;
+  display: none;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   text-align: right;
   margin-bottom: 15px;

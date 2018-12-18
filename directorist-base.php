@@ -624,7 +624,7 @@ final class Directorist_Base
                 <div class="atbd_related_listing_title">
                     <h3><?php _e('Related Items', ATBDP_TEXTDOMAIN); ?></h3>
                 </div>
-                <div class="row">
+                <div class="row" data-uk-grid>
                     <?php foreach ($related_listings->posts as $r_post) {
                         $cats =  get_the_terms($r_post->ID, ATBDP_CATEGORY);
                         $locs =  get_the_terms($r_post->ID, ATBDP_LOCATION);

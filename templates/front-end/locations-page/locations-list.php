@@ -5,13 +5,14 @@
  */
 ?>
 
-<div class="atbdp atbdp-categories atbdp-text-list">
-    <?php
-		$span = 'col-md-' . floor( 12 /  $locations_settings['columns'] );
-		--$locations_settings['depth'];
-		$i = 0;
+<div id="directorist" class="atbd_wrapper">
+    <div class="atbdp atbdp-categories atbdp-text-list">
+        <?php
+        $span = 'col-md-' . floor( 12 /  $locations_settings['columns'] );
+        --$locations_settings['depth'];
+        $i = 0;
 
-		foreach( $terms as $term ) {
+        foreach( $terms as $term ) {
             $locations_settings['term'] = $term;
 			$locations_settings['term_id'] = $term->term_id;
 			$child_location = get_term_children($term->term_id,ATBDP_LOCATION);
@@ -45,3 +46,4 @@
 		}
 	?>
 </div>
+

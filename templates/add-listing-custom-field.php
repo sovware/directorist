@@ -6,6 +6,7 @@
                 setup_postdata($post);
                 $post_id = $post->ID;
                 $cf_required = get_post_meta(get_the_ID(), 'required', true);
+                $instructions = get_post_meta(get_the_ID(), 'instructions', true);
                 ?>
                 <div class="form-group" id="custom_field_for_cat">
                     <script>
@@ -14,8 +15,12 @@
                         });
                     </script>
 
-                    <label for=""><?php the_title(); ?><?php if($cf_required){echo '<span style="color: red"> *</span>'; }?>
-                        <span class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="<?php echo get_post_meta(get_the_ID(), 'instructions', true); ?>"></span>
+                    <label for=""><?php the_title(); ?><?php if($cf_required){echo '<span style="color: red"> *</span>'; }
+                        if (!empty($instructions)){
+                            printf('<span class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="%s"></span></label>', $instructions);
+                        }
+                    ?>
+
                     </label>
                     <?php
                     $value = ['default_value'][0];

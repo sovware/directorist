@@ -1,3 +1,4 @@
+.atbd_content_active
 #directorist.atbd_wrapper {
   .atbd_category_wrapper {
     span.fa {
@@ -9,7 +10,7 @@
       padding-left: 15px;
     }
   }
-  span.expander{
+  span.expander {
     font-size: 16px;
     font-weight: 500;
     margin-left: 5px;
@@ -17,7 +18,32 @@
     border-radius: 5px;
     cursor: pointer;
   }
+  .atbd_all_categories {
+    text-align: center;
+    li{
+      display: inline-block;
+    }
+    a {
+      display: block;
+      padding: 20px 15px;
+      border: 1px solid #ededed;
+      margin: 0 5px 10px;
+      &:hover {
+        color: $primary;
+        p {
+          color: $primary;
+        }
+      }
+      span {
+        font-size: 18px;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+  }
 }
+
 #directorist.atbd_wrapper .atbdp_child_category li {
   margin-bottom: 7px;
 }

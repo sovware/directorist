@@ -1545,7 +1545,8 @@ function atbdp_list_locations( $settings ) {
 
         foreach( $terms as $term ) {
             $settings['term_id'] = $term->term_id;
-
+            $child_category = get_term_children($term->term_id,ATBDP_LOCATION);
+            $plus_icon = !empty($child_category) ? '<span class="expander">+</span>' : '';
             $count = 0;
             if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
                 $count = atbdp_listings_count_by_location( $term->term_id );
@@ -1559,7 +1560,7 @@ function atbdp_list_locations( $settings ) {
             if( ! empty( $settings['show_count'] ) ) {
                 $html .= ' (' . $count . ')';
             }
-            $html .= '</a>';
+            $html .= "</a>$plus_icon";
             $html .= atbdp_list_locations( $settings );
             $html .= '</li>';
         }
@@ -1803,14 +1804,14 @@ function the_atbdp_favourites_link( $post_id = 0 ) {
         $favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
 
         if( in_array( $post_id, $favourites ) ) {
-            echo '<span class="fa fa-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="'.$post_id.'">'.__( 'Remove from favorites', ATBDP_TEXTDOMAIN ).'</a>';
+            echo '<span class="fa fa-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="'.$post_id.'">'.__( 'Favorite', ATBDP_TEXTDOMAIN ).'</a>';
         } else {
-            echo '<span class="fa fa-heart"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="'.$post_id.'">'.__( 'Add to favorites', ATBDP_TEXTDOMAIN ).'</a>';
+            echo '<span class="fa fa-heart"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="'.$post_id.'">'.__( 'Favorite', ATBDP_TEXTDOMAIN ).'</a>';
         }
 
     } else {
 
-        echo '<span class="fa fa-heart"></span><a href="javascript:void(0)" class="atbdp-require-login">'.__( 'Add to favorites', ATBDP_TEXTDOMAIN ).'</a>';
+        echo '<span class="fa fa-heart"></span><a href="javascript:void(0)" class="atbdp-require-login">'.__( 'Favorite', ATBDP_TEXTDOMAIN ).'</a>';
 
     }
 
@@ -1852,7 +1853,6 @@ function the_atbdp_favourites_all_listing( $post_id = 0 ) {
         }
 
         $favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
-var_dump($favourites);
         if( in_array( $post_id, $favourites ) ) {
             echo '<a href="javascript:void(0)" class="atbdp-favourites-all-listing" data-post_id="'.$post_id.'"><span style="color: red" class="fa fa-heart"></span></a>';
         } else {

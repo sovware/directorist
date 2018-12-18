@@ -200,11 +200,16 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     $post_id = $post->ID;
                                     $cf_required = get_post_meta(get_the_ID(), 'required', true);
                                     $post_meta = get_post_meta($post_id);
+                                    $instructions = get_post_meta(get_the_ID(), 'instructions', true);
                                     ?>
                                     <div class="form-group">
                                         <label for=""><?php the_title(); ?><?php if ($cf_required) {
                                                 echo '<span style="color: red"> *</span>';
-                                            } ?> <span class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="<?php echo get_post_meta(get_the_ID(), 'instructions', true); ?>"></span></label>
+                                            }
+                                            if (!empty($instructions)){
+                                                printf('<span class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="%s"></span></label>', $instructions);
+                                            }
+                                            ?>
                                         <?php
                                         if (isset($post_meta[$post->ID])) {
                                             $value = $post_meta[0];
@@ -231,7 +236,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                             case 'radio':
                                                 $choices = get_post_meta(get_the_ID(), 'choices', true);
                                                 $choices = explode("\n", $choices);
-                                                echo '<ul class="atbdp-radio-list radio vertical">';
+                                                echo '<ul class="atbdp-radio-list vertical">';
                                                 foreach ($choices as $choice) {
                                                     if (strpos($choice, ':') !== false) {
                                                         $_choice = explode(':', $choice);
@@ -285,7 +290,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                                                 $values = explode("\n", $value);
                                                 $values = array_map('trim', $values);
-                                                echo '<ul class="atbdp-checkbox-list checkbox vertical">';
+                                                echo '<ul class="atbdp-checkbox-list vertical">';
 
                                                 foreach ($choices as $choice) {
                                                     if (strpos($choice, ':') !== false) {

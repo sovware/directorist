@@ -1282,7 +1282,7 @@ function ATBDP()
 // Get ATBDP ( AazzTech Business Directory Plugin) Running.
 ATBDP();
 
-add_image_size('directory-image',360,300,true);
+add_image_size('directory-image',310,190,true);
 add_image_size('directory-small',400,300,true);
 add_image_size('directory-medium',600,500,true);
 add_image_size('directory-large',700,600,true);

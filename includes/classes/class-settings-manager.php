@@ -1885,7 +1885,7 @@ The Administrator of ==SITE_NAME==
                     'items' => array(
                         array(
                             'value' => 'directory-image',
-                            'label' => __('360*300', ATBDP_TEXTDOMAIN),
+                            'label' => __('310*190', ATBDP_TEXTDOMAIN),
                         ),
                         array(
                             'value' => 'directory-small',
@@ -2341,7 +2341,7 @@ The Administrator of ==SITE_NAME==
 
                 array(
                         'type' => 'select',
-                        'name' => 'user_profile',
+                        'name' => 'author_profile_page',
                         'label' =>  __( 'Add user profile page ID', ATBDP_TEXTDOMAIN ),
                         'items' => $this->get_pages_vl_arrays(),
                         'description' => sprintf(__( 'Select your profile page ( where you used %s shortcode ) ID here', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[author_profile]</strong>'),

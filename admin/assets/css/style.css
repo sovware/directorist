@@ -1,6 +1,13 @@
 /* typography */
 #directorist.atbd_wrapper {
   padding: 18px 20px;
+  /***********************************************************
+************************************************************
+css for Custom Field
+*************************************************************
+**************************************************************/
+  /*
+  for shortable field*/
 }
 
 #directorist.atbd_wrapper * {
@@ -152,6 +159,10 @@
   margin-bottom: 15px;
 }
 
+#directorist.atbd_wrapper .extension_detail {
+  margin-top: 20px;
+}
+
 #directorist.atbd_wrapper .ext_title {
   text-decoration: none;
 }
@@ -259,44 +270,42 @@
   margin-right: 7px;
 }
 
-/*# sourceMappingURL=map/style.css.map */
-
-/***********************************************************
-************************************************************
-					css for Custom Field
-*************************************************************
-**************************************************************/
-.postbox table.widefat {
+#directorist.atbd_wrapper .postbox table.widefat {
   box-shadow: none;
   background: #eff2f5;
 }
 
-#atbdp-field-details td {
+#directorist.atbd_wrapper #atbdp-field-details td {
   color: #555;
   font-size: 17px;
   width: 8%;
 }
-#atbdp-field-options td {
+
+#directorist.atbd_wrapper #atbdp-field-options td {
   color: #555;
   font-size: 17px;
   width: 8%;
 }
-.atbdp-tick-cross{
+
+#directorist.atbd_wrapper .atbdp-tick-cross {
   margin-left: 18px;
 }
-.atbdp-tick-cross2{
+
+#directorist.atbd_wrapper .atbdp-tick-cross2 {
   margin-left: 25px;
 }
 
-/*
-for shortable field*/
-.ui-sortable tr:hover {
+#directorist.atbd_wrapper .ui-sortable tr:hover {
   cursor: move;
 }
-.ui-sortable tr.alternate {
+
+#directorist.atbd_wrapper .ui-sortable tr.alternate {
   background-color: #F9F9F9;
 }
-.ui-sortable tr.ui-sortable-helper {
+
+#directorist.atbd_wrapper .ui-sortable tr.ui-sortable-helper {
   background-color: #F9F9F9;
   border-top: 1px solid #DFDFDF;
 }
+
+/*# sourceMappingURL=map/style.css.map */

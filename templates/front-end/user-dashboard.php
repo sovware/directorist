@@ -238,7 +238,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             <div role="tabpanel" class="tab-pane" id="profile">
                                 <form action="#" id="user_profile_form" method="post">
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 col-sm-6 offset-sm-3 offset-md-0">
                                             <div class="user_pro_img_area">
                                                 <div class="user_img" id="profile_pic_container">
                                                     <div class="cross" id="remove_pro_pic"><span class="fa fa-times"></span>
@@ -440,7 +440,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
 
                         <div role="tabpanel" class="tab-pane" id="saved_items">
                             <div class="atbd_saved_items_wrapper">
-                                <table class="table table-bordered atbd_single_saved_item">
+                                <table class="table table-bordered atbd_single_saved_item table-responsive-sm">
                                     <?php
                                     if ($fav_listings->have_posts()) {
                                         ?>

@@ -1071,6 +1071,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget#bdpl_widget-2 .atbd_categorized_listings .listings > li .atbd_right_content .cate_title h4,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings .listings > li .atbd_right_content .cate_title h4 {
   font-weight: 400;
+  font-size: 16px;
 }
 
 .atbd_content_active .widget#bdpl_widget-2 .atbd_categorized_listings .listings > li .atbd_left_img + .atbd_right_content, .atbd_content_active .widget .atbd_categorized_listings .listings > li .atbd_left_img + .atbd_right_content,

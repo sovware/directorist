@@ -365,6 +365,7 @@ h6, .h6 {
   justify-content: space-between;
   padding: 20px 30px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area h4 {
@@ -776,8 +777,8 @@ h6, .h6 {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_meta {
-  font-size: 16px;
-  line-height: 30px;
+  font-size: 14px;
+  line-height: 24px;
   padding: 0 8px;
   color: #ffffff;
   display: inline-block;
@@ -834,7 +835,12 @@ h6, .h6 {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbd_single_listing_wrapper .atbd_listing_thumbnail_area {
   flex: 1;
-  height: auto;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbd_single_listing_wrapper .atbd_listing_thumbnail_area img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbd_single_listing_wrapper .atbd_listing_info {
@@ -1491,7 +1497,10 @@ h6, .h6 {
   padding: 0;
   top: 50%;
   right: 10px;
-  font-size: 20px;
+  position: absolute;
+  transform: translateY(-50%);
+  background: none;
+  color: #000;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .close:hover {
@@ -1600,6 +1609,11 @@ h6, .h6 {
   display: flex;
   justify-content: space-between;
   padding-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .nav.nav-tabs, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .nav_button {
+  margin: 10px 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area {
@@ -1645,6 +1659,7 @@ h6, .h6 {
   position: absolute;
   width: 100%;
   bottom: 0;
+  z-index: 1;
   text-align: center;
 }
 
@@ -1797,6 +1812,7 @@ h6, .h6 {
   text-align: center;
   border-radius: 3px;
   padding: 10px 20px;
+  margin-bottom: 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .directory_home_category_area .categories li + li {
@@ -1883,6 +1899,23 @@ h6, .h6 {
   padding-left: 15px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap a.atbd_location_grid {
+  border: 1px solid #ededed;
+  text-align: center;
+  border-radius: 3px;
+  padding: 13px 17px;
+  margin: 0 15px 15px;
+  background: #fafcfd;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
 .atbd_content_active #directorist.atbd_wrapper span.expander {
   font-size: 16px;
   font-weight: 500;
@@ -1925,6 +1958,37 @@ h6, .h6 {
 
 #directorist.atbd_wrapper .atbdp_child_category li {
   margin-bottom: 7px;
+}
+
+/*responsive css */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .atbd_content_active .widget.atbd_widget .atbd_categorized_listings,
+  .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings {
+    padding: 0 20px;
+  }
+  .atbd_content_active .widget.atbd_widget .atbd_categorized_listings .cate_title h4,
+  .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings .cate_title h4 {
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+  }
+  .atbd_content_active .widget.atbd_widget .atbdp, .atbd_content_active .widget.atbd_widget .directorist,
+  .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp,
+  .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directorist {
+    padding: 20px 20px 15px;
+  }
+}
+
+@media (max-width: 991px) {
+  #directorist .single_search_field {
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 767px) {
+  #directorist .atbd_listing_details .atbd_area_title {
+    margin-bottom: 15px;
+  }
 }
 
 /*# sourceMappingURL=map/style.css.map */

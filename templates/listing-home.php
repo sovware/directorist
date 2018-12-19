@@ -38,14 +38,14 @@ $popular_cat_num = get_directorist_option('popular_cat_num', 10);
                     <!-- @todo; if the input fields break in different themes, use bootstrap form inputs then -->
                     <div class="atbd_seach_fields_wrapper">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_query">
                                     <input class="form-control search_fields" type="text" name="q"
                                            placeholder="<?php echo esc_html($search_placeholder); ?>">
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_category">
                                     <select name="in_cat" class="search_fields form-control" id="at_biz_dir-category">
                                         <option value=""><?php _e('Select a category', ATBDP_TEXTDOMAIN); ?></option>
@@ -59,7 +59,7 @@ $popular_cat_num = get_directorist_option('popular_cat_num', 10);
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-12 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_location">
                                     <select name="in_loc" class="search_fields form-control" id="at_biz_dir-location">
                                         <!--This text comes from js, translate them later @todo; translate js text-->

@@ -1497,7 +1497,10 @@ h6, .h6 {
   padding: 0;
   top: 50%;
   right: 10px;
-  font-size: 20px;
+  position: absolute;
+  transform: translateY(-50%);
+  background: none;
+  color: #000;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .close:hover {
@@ -1896,15 +1899,21 @@ h6, .h6 {
   padding-left: 15px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper a.atbd_location_grid {
+.atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap a.atbd_location_grid {
   border: 1px solid #ededed;
-  display: inline-block;
-  width: 100%;
   text-align: center;
   border-radius: 3px;
   padding: 13px 17px;
-  margin-bottom: 15px;
+  margin: 0 15px 15px;
   background: #fafcfd;
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
 .atbd_content_active #directorist.atbd_wrapper span.expander {

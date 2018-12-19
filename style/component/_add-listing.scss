@@ -89,7 +89,10 @@
     padding: 0;
     top: 50%;
     right: 10px;
-    font-size: 20px;
+    position: absolute;
+    transform: translateY(-50%);
+    background: none;
+    color: #000;
     &:hover {
       background: none;
     }

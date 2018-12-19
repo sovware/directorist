@@ -10,15 +10,20 @@
       padding-left: 15px;
     }
   }
-  a.atbd_location_grid {
-    border: 1px solid #ededed;
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-    border-radius: 3px;
-    padding: 13px 17px;
-    margin-bottom: 15px;
-    background: #fafcfd;
+  .atbd_location_grid_wrap{
+    display: flex;
+    flex-wrap: wrap;
+    a.atbd_location_grid {
+      border: 1px solid #ededed;
+      text-align: center;
+      border-radius: 3px;
+      padding: 13px 17px;
+      margin: 0 15px 15px;
+      background: #fafcfd;
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
   }
   span.expander {
     font-size: 16px;

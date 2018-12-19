@@ -19,7 +19,7 @@ $symbol = atbdp_currency_symbol($currency);
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-        <table id="directorist-checkout-table" class="table table-bordered">
+        <table id="directorist-checkout-table" class="table table-bordered table-responsive-sm">
             <thead class="thead-light">
                 <tr>
                     <th colspan="2">

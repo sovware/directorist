@@ -10,6 +10,7 @@ $search_placeholder = get_directorist_option('search_placeholder', __('What are 
 
 $show_popular_category = get_directorist_option('show_popular_category', 1);
 $show_connector = get_directorist_option('show_connector', 1);
+$search_border = get_directorist_option('search_border', 1);
 
 $connectors_title = get_directorist_option('connectors_title', __('Or', ATBDP_TEXTDOMAIN));
 $popular_cat_title = get_directorist_option('popular_cat_title', __('Browse by popular categories', ATBDP_TEXTDOMAIN));
@@ -36,7 +37,7 @@ $popular_cat_num = get_directorist_option('popular_cat_num', 10);
                 <!-- start search area -->
                 <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
                     <!-- @todo; if the input fields break in different themes, use bootstrap form inputs then -->
-                    <div class="atbd_seach_fields_wrapper">
+                    <div class="atbd_seach_fields_wrapper"<?php echo empty($search_border)?'style="border: none;"':'';?>>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="single_search_field search_query">

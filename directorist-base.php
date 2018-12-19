@@ -443,6 +443,9 @@ final class Directorist_Base
             'custom_registration' => array(
                 'title' => __('Registration', ATBDP_TEXTDOMAIN),
                 'content' => '[directorist_custom_registration]'
+            ), 'user_login' => array(
+                'title' => __('Login', ATBDP_TEXTDOMAIN),
+                'content' => '[directorist_user_login]'
             ),
             'checkout_page' => array(
                 'title' => __('Checkout', ATBDP_TEXTDOMAIN),

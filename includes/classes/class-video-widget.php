@@ -14,7 +14,7 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
         function __construct()
         {
             $widget_options = array(
-                'classname' => 'atbd_video',
+                'classname' => 'atbd_widget',
                 'description' => esc_html__('You can show video by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(

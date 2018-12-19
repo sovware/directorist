@@ -15,7 +15,7 @@ if (!class_exists('BD_Categories_Widget')) {
         function __construct()
         {
             $widget_options = array(
-                'classname' => 'atbd_category',
+                'classname' => 'atbd_widget',
                 'description' => esc_html__('You can show Categories by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(

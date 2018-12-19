@@ -33,7 +33,7 @@ foreach ($listing_imgs as $id){
         $image_links[$id]= wp_get_attachment_image_src($id, $image_sizes)[0]; // store the attachment id and url
 
     }else{
-        $image_links[$id]= wp_get_attachment_image_src($id, 'large')[0]; // store the attachment id and url
+        $image_links[$id]= wp_get_attachment_image_src($id, 'medium')[0]; // store the attachment id and url
     }
 
     $image_links_thumbnails[$id]= wp_get_attachment_image_src($id, 'thumbnail')[0]; // store the attachment id and url
@@ -204,8 +204,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                     $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'medium')['0'];
                     if (!empty($image_links)) {
                         if (!empty($listing_prv_img)){
-                            $image_size = 'directory-image';
-                            $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'directory-image')['0'];
+
+                            $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, $image_sizes)['0'];
                             array_unshift($image_links, $listing_prv_imgurl);
                         }
                         ?>

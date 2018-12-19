@@ -38,7 +38,7 @@ class ATBDP_Permalink{
     public static function get_user_profile_page_link($author_id)
     {
         $link = home_url();
-        $id = get_directorist_option('user_profile');
+        $id = get_directorist_option('author_profile_page');
         if( $id ) {
             $link = get_permalink( $id );
             if( '' != get_option( 'permalink_structure' ) ) {

@@ -61,11 +61,11 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
 
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
                                                 <?php
-                                                $views = atbdp_get_listings_orderby_options();
+                                                $options = atbdp_get_listings_orderby_options();
 
-                                                foreach( $views as $value => $label ) {
-                                                    $active_class = ( $view == $value ) ? ' active' : '';
-                                                    printf( '<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg( 'view', $value ), $label );
+                                                foreach( $options as $value => $label ) {
+                                                    $options = ( $value == $current_order ) ? ' active' : '';
+                                                    printf( '<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg( 'sort', $value ), $label );
                                                 }
                                                 ?>
                                             </div>
@@ -100,6 +100,9 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                         $post_view         = get_post_meta(get_the_Id(),'_atbdp_post_views_count',true);
                         $hide_contact_info = get_post_meta(get_the_ID(), '_hide_contact_info', true);
                         $disable_contact_info = get_directorist_option('disable_contact_info', 0);
+                        $display_title     = get_directorist_option('display_title',1);
+                        $display_review     = get_directorist_option('display_review',1);
+                        $display_price    = get_directorist_option('display_price',1);
                         /*Code for Business Hour Extensions*/
                         $bdbh                   = get_post_meta(get_the_ID(), '_bdbh', true);
                         $enable247hour               = get_post_meta(get_the_ID(), '_enable247hour', true);
@@ -132,7 +135,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
 
                         /*Code for Business Hour Extensions*/
                         ?>
-                        <div class="col-md-4 col-sm-6">
+                        <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="atbd_single_listing atbd_listing_card">
                                 <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                     <figure class="atbd_listing_thumbnail_area">
@@ -223,10 +226,11 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                     /*todo: Shahadat -> please implement the current markup*/?>
                                     <div class="atbd_listing_info">
                                         <div class="atbd_content_upper">
+                                            <?php if(!empty($display_title)) {?>
                                             <h4 class="atbd_listing_title">
                                                 <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                             </h4>
-                                            <?php if(!empty($tagline)) {?>
+                                            <?php } if(!empty($tagline)) {?>
                                             <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                             <?php } ?>
                                             <div class="atbd_listing_meta">
@@ -237,14 +241,16 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                  *
                                                  * @since 1.0.0
                                                  */
-
+                                                if(!empty($display_review)) {
                                                 do_action('atbdp_after_listing_tagline');
-
-                                                if(!empty($price_range)) {
-                                                 $output = atbdp_display_price_range($price_range);
-                                                 echo $output;
-                                                }else{
-                                                    atbdp_display_price($price, $is_disable_price);
+                                                }
+                                                if(!empty($display_price)) {
+                                                    if(!empty($price_range)) {
+                                                     $output = atbdp_display_price_range($price_range);
+                                                     echo $output;
+                                                    }else{
+                                                        atbdp_display_price($price, $is_disable_price);
+                                                    }
                                                 }
                                                 /**
                                                  * Fires after the price of the listing is rendered

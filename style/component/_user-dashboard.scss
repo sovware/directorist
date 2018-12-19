@@ -3,6 +3,10 @@
     display: flex;
     justify-content: space-between;
     padding-bottom: 30px;
+    flex-wrap: wrap;
+    .nav.nav-tabs, .nav_button{
+      margin: 10px 0;
+    }
   }
   &.dashboard_area{
     .db_btn_area{
@@ -42,6 +46,7 @@
           position: absolute;
           width: 100%;
           bottom: 0;
+          z-index: 1;
           text-align: center;
           #upload_pro_pic{
             margin-bottom: 0;

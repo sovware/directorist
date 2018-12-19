@@ -238,7 +238,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             <div role="tabpanel" class="tab-pane" id="profile">
                                 <form action="#" id="user_profile_form" method="post">
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 col-sm-6 offset-sm-3 offset-md-0">
                                             <div class="user_pro_img_area">
                                                 <div class="user_img" id="profile_pic_container">
                                                     <div class="cross" id="remove_pro_pic"><span class="fa fa-times"></span>
@@ -440,7 +440,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
 
                         <div role="tabpanel" class="tab-pane" id="saved_items">
                             <div class="atbd_saved_items_wrapper">
-                                <table class="table table-bordered atbd_single_saved_item">
+                                <table class="table table-bordered atbd_single_saved_item table-responsive-sm">
                                     <?php
                                     if ($fav_listings->have_posts()) {
                                         ?>
@@ -457,9 +457,9 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             $title = !empty($post->post_title) ? $post->post_title : __('Untitled', ATBDP_TEXTDOMAIN);
                                             $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
                                             $category = get_post_meta($post->ID, '_admin_category_select', true);
-                                            $category_name = !empty($category) ? $cats[0]->name : 'Uncategorized';
-                                            $category_icon = !empty($category) ? esc_attr(get_cat_icon($cats[0]->term_id)) : 'fa fa-square-o';
-                                            $category_link = !empty($category) ? esc_url(ATBDP_Permalink::get_category_archive($cats[0])) : '#';
+                                            $category_name = !empty($cats) ? $cats[0]->name : 'Uncategorized';
+                                            $category_icon = !empty($cats) ? esc_attr(get_cat_icon($cats[0]->term_id)) : 'fa fa-square-o';
+                                            $category_link = !empty($cats) ? esc_url(ATBDP_Permalink::get_category_archive($cats[0])) : '#';
                                             $post_link = esc_url(get_post_permalink($post->ID));
 
                                             printf(' <tr>

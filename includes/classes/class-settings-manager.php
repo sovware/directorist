@@ -2055,8 +2055,6 @@ The Administrator of ==SITE_NAME==
                     'default' => '3',
                     'validation' => 'numeric|minlength[1]',
                 ),
-
-
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_rel_listing',
@@ -2064,7 +2062,6 @@ The Administrator of ==SITE_NAME==
                     'description' => __('Choose whether you want to display related listings on Single listing details page or not. Default is YES.', ATBDP_TEXTDOMAIN),
                     'default' => atbdp_yes_to_bool($e_r_list),
                 ),
-
                 array(
                     'type' => 'slider',
                     'name' => 'rel_listing_num',
@@ -2076,8 +2073,55 @@ The Administrator of ==SITE_NAME==
                     'default' => '2',
                     'validation' => 'numeric|minlength[1]',
                 ),
-
-
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_title',
+                    'label' => __('Display Title', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can display/hide the title on All listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_review',
+                    'label' => __('Display Review', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can display/hide the review on All listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_price',
+                    'label' => __('Display Price', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can display/hide the price on All listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_publish_date',
+                    'label' => __('Display Publish date', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can display/hide the publish date or time on All listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_category',
+                    'label' => __('Display Category', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can display/hide the category on All listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_view_count',
+                    'label' => __('Display View Count', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can display/hide the view count on All listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_author_image',
+                    'label' => __('Display Author Image', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can display/hide the author image on All listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
+                ),
             )
         );
     }

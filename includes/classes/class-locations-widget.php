@@ -15,7 +15,7 @@ if (!class_exists('BD_Locations_Widget')) {
         function __construct()
         {
             $widget_options = array(
-                'classname' => 'listings',
+                'classname' => 'atbd_location',
                 'description' => esc_html__('You can show Locations by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
@@ -72,9 +72,9 @@ if (!class_exists('BD_Locations_Widget')) {
                 $categories = $this->list_locations( $query_args );
             }
             echo $args['before_widget'];
-
+            echo '<div class="atbd_widget">';
             echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
-
+            echo '</div>';
             ?>
 
             <div class="atbdp atbdp-widget-categories">

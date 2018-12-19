@@ -24,7 +24,7 @@ $symbol = atbdp_currency_symbol($currency);
                 <div class="col-md-12">
                     <p class="atbd_payment_summary"><?php _e( 'Here is your order summery:', ATBDP_TEXTDOMAIN ); ?></p>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <table class="table table-bordered">
                         <tr>
                             <td><?php _e( 'ORDER', ATBDP_TEXTDOMAIN ); ?> #</td>
@@ -61,7 +61,7 @@ $symbol = atbdp_currency_symbol($currency);
                     </table>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <table class="table table-bordered">
                         <tr>
                             <td><?php _e( 'Payment Method', ATBDP_TEXTDOMAIN ); ?></td>

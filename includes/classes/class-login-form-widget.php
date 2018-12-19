@@ -11,7 +11,7 @@ if (!class_exists('BD_Login_Form_Widget')) {
         function __construct ()
         {
             $widget_options = array(
-                'classname' => 'listings',
+                'classname' => 'atbd_login_form',
                 'description' => esc_html__('When user will not log in, then you can show login form by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
@@ -35,8 +35,9 @@ if (!class_exists('BD_Login_Form_Widget')) {
                 if (!is_user_logged_in()) {
                     $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Title', ATBDP_TEXTDOMAIN);
                     echo $args['before_widget'];
-
+                    echo '<div class="atbd_widget">';
                     echo $args['before_title'] . esc_html(apply_filters('widget_submit_item_title', $title)) . $args['after_title'];
+                    echo '</div>';
                     ?>
                     <div class="directorist">
                     <?php

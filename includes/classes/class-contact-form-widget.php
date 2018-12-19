@@ -14,13 +14,14 @@ if ( !class_exists('BD_contact_form_Widget')) {
         function __construct()
         {
             $widget_options = array(
-                'classname' => 'listings',
+                'classname' => 'atbd_contact_form',
                 'description' => esc_html__('You can show "contact the listing owner" by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
                 'bdco_widget', // Base ID
                 esc_html__('Directorist - Listing Contact', ATBDP_TEXTDOMAIN), // Name
-                $widget_options // Args
+                $widget_options, // Args
+                    'fdgfdg'
             );
         }
 
@@ -37,8 +38,9 @@ if ( !class_exists('BD_contact_form_Widget')) {
                 global $post;
                 $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact Form', ATBDP_TEXTDOMAIN);
                 echo $args['before_widget'];
-
+                echo '<div class="atbd_widget">';
                 echo $args['before_title'] . esc_html(apply_filters('widget_contact_form_title', $title)) . $args['after_title'];
+                echo '</div>';
                 ?>
                 <div class="atbdp directorist atbdp-widget-listing-contact">
                     <form id="atbdp-contact-form" class="form-vertical" role="form">

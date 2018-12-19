@@ -259,7 +259,7 @@ class ATBDP_Shortcode {
             $listingbyid_arg = $listing_id;
             $args['post__in'] = $listingbyid_arg;
         }
-        $args['post__in'] = $listingbyid_arg;
+
 
 
         $tax_queries=array(); // initiate the tax query var to append to it different tax query

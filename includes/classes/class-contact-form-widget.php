@@ -14,7 +14,7 @@ if ( !class_exists('BD_contact_form_Widget')) {
         function __construct()
         {
             $widget_options = array(
-                'classname' => 'atbd_contact_form',
+                'classname' => 'atbd_widget',
                 'description' => esc_html__('You can show "contact the listing owner" by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(

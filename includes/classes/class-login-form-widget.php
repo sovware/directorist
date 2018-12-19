@@ -11,7 +11,7 @@ if (!class_exists('BD_Login_Form_Widget')) {
         function __construct ()
         {
             $widget_options = array(
-                'classname' => 'atbd_login_form',
+                'classname' => 'atbd_widget',
                 'description' => esc_html__('When user will not log in, then you can show login form by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(

@@ -6,31 +6,32 @@ class ATBDP_Shortcode {
     public function __construct()
     {
 
-        add_shortcode( 'search_listing', array( $this, 'search_listing' ) );
+        add_shortcode( 'directorist_search_listing', array( $this, 'search_listing' ) );
 
-        add_shortcode( 'search_result', array( $this, 'search_result' ) );
+        add_shortcode( 'directorist_search_result', array( $this, 'search_result' ) );
 
-        add_shortcode( 'all_listing', array( $this, 'all_listing' ) );
 
         //add_shortcode( 'test_listing', array( $this, 'test_listing' ) );
 
-        add_shortcode('author_profile', array($this, 'author_profile'));
+        add_shortcode('directorist_author_profile', array($this, 'author_profile'));
 
-        add_shortcode( 'add_listing', array( $this, 'add_listing' ) );
+        add_shortcode( 'directorist_add_listing', array( $this, 'add_listing' ) );
 
-        add_shortcode( 'custom_registration', array( $this, 'user_registration' ) );
+        add_shortcode( 'directorist_custom_registration', array( $this, 'user_registration' ) );
 
-        add_shortcode( 'user_login', array( $this, 'custom_user_login' ) );
+        add_shortcode( 'directorist_user_login', array( $this, 'custom_user_login' ) );
 
-        add_shortcode( 'user_dashboard', array( $this, 'user_dashboard' ) );
+        add_shortcode( 'directorist_user_dashboard', array( $this, 'user_dashboard' ) );
 
-        add_shortcode( 'all_categories', array( $this, 'all_categories' ) );
+        add_shortcode( 'directorist_all_listing', array( $this, 'all_listing' ) );
 
-        add_shortcode( 'all_locations', array( $this, 'all_locations' ) );
+        add_shortcode( 'directorist_all_categories', array( $this, 'all_categories' ) );
+
+        add_shortcode( 'directorist_all_locations', array( $this, 'all_locations' ) );
         $checkout = new ATBDP_Checkout;
         add_shortcode('directorist_checkout', array($checkout, 'display_checkout_content'));
         add_shortcode('directorist_payment_receipt', array($checkout, 'payment_receipt'));
-        add_shortcode('transaction_failure', array($checkout, 'transaction_failure'));
+        add_shortcode('directorist_transaction_failure', array($checkout, 'transaction_failure'));
 
         add_action('wp_ajax_atbdp_custom_fields_listings_front', array($this, 'ajax_callback_custom_fields'), 10, 2 );
         add_action('wp_ajax_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2 );
@@ -258,7 +259,7 @@ class ATBDP_Shortcode {
             $listingbyid_arg = $listing_id;
             $args['post__in'] = $listingbyid_arg;
         }
-        $args['post__in'] = $listingbyid_arg;
+
 
 
         $tax_queries=array(); // initiate the tax query var to append to it different tax query

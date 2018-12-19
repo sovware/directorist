@@ -457,9 +457,9 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             $title = !empty($post->post_title) ? $post->post_title : __('Untitled', ATBDP_TEXTDOMAIN);
                                             $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
                                             $category = get_post_meta($post->ID, '_admin_category_select', true);
-                                            $category_name = !empty($category) ? $cats[0]->name : 'Uncategorized';
-                                            $category_icon = !empty($category) ? esc_attr(get_cat_icon($cats[0]->term_id)) : 'fa fa-square-o';
-                                            $category_link = !empty($category) ? esc_url(ATBDP_Permalink::get_category_archive($cats[0])) : '#';
+                                            $category_name = !empty($cats) ? $cats[0]->name : 'Uncategorized';
+                                            $category_icon = !empty($cats) ? esc_attr(get_cat_icon($cats[0]->term_id)) : 'fa fa-square-o';
+                                            $category_link = !empty($cats) ? esc_url(ATBDP_Permalink::get_category_archive($cats[0])) : '#';
                                             $post_link = esc_url(get_post_permalink($post->ID));
 
                                             printf(' <tr>

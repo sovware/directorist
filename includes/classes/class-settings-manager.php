@@ -1941,7 +1941,7 @@ The Administrator of ==SITE_NAME==
                     'type' => 'textbox',
                     'name' => 'all_listing_title',
                     'label' => __('Title for all listing page', ATBDP_TEXTDOMAIN),
-                    'description' => __( 'Enter a title for the page where all listings will be shown using the shortcode [all_listing] . Eg. All Listings/ Items.', ATBDP_TEXTDOMAIN ),
+                    'description' => __( 'Enter a title for the page where all listings will be shown using the shortcode [directorist_all_listing] . Eg. All Listings/ Items.', ATBDP_TEXTDOMAIN ),
                     'default' => atbdp_get_option('all_listing_title', 'atbdp_general'),
                 ),
 
@@ -2048,8 +2048,6 @@ The Administrator of ==SITE_NAME==
                     'default' => '3',
                     'validation' => 'numeric|minlength[1]',
                 ),
-
-
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_rel_listing',
@@ -2057,7 +2055,6 @@ The Administrator of ==SITE_NAME==
                     'description' => __('Choose whether you want to display related listings on Single listing details page or not. Default is YES.', ATBDP_TEXTDOMAIN),
                     'default' => atbdp_yes_to_bool($e_r_list),
                 ),
-
                 array(
                     'type' => 'slider',
                     'name' => 'rel_listing_num',
@@ -2069,8 +2066,55 @@ The Administrator of ==SITE_NAME==
                     'default' => '2',
                     'validation' => 'numeric|minlength[1]',
                 ),
-
-
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_title',
+                    'label' => __('Display Title', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can display/hide the title on All listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_review',
+                    'label' => __('Display Review', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can display/hide the review on All listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_price',
+                    'label' => __('Display Price', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can display/hide the price on All listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_publish_date',
+                    'label' => __('Display Publish date', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can display/hide the publish date or time on All listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_category',
+                    'label' => __('Display Category', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can display/hide the category on All listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_view_count',
+                    'label' => __('Display View Count', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can display/hide the view count on All listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_author_image',
+                    'label' => __('Display Author Image', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can display/hide the author image on All listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
+                ),
             )
         );
     }
@@ -2311,7 +2355,7 @@ The Administrator of ==SITE_NAME==
                             'name' => 'add_listing_page',
                             'label' => __('Add Listing Page ID', ATBDP_TEXTDOMAIN),
                             'items' => $this->get_pages_vl_arrays(), // eg. array( array('value'=> 123, 'label'=> 'page_name') );
-                            'description' => sprintf(__( 'Select your add listing page ( where you used %s shortcode ) ID here', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[add_listing]</strong>'),
+                            'description' => sprintf(__( 'Select your add listing page ( where you used %s shortcode ) ID here', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_add_listing]</strong>'),
                             'default' => atbdp_get_option('add_listing_page', 'atbdp_general'),
                             'validation' => 'required|numeric',
 
@@ -2322,7 +2366,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'all_listing_page',
                         'label' => __( 'Add All Listings Page ID', ATBDP_TEXTDOMAIN ),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Select your All Listings  page ( where you used %s shortcode ) ID here.', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[all_listing]</strong>'),
+                        'description' => sprintf(__( 'Select your All Listings  page ( where you used %s shortcode ) ID here.', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_all_listing]</strong>'),
 
                         'default' => atbdp_get_option('all_listing_page', 'atbdp_general'),
                         'validation' => 'required|numeric',
@@ -2333,7 +2377,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'user_dashboard',
                         'label' =>  __( 'Add dashboard page ID', ATBDP_TEXTDOMAIN ),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Select your add dashboard page ( where you used %s shortcode ) ID here', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[user_dashboard]</strong>'),
+                        'description' => sprintf(__( 'Select your add dashboard page ( where you used %s shortcode ) ID here', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_user_dashboard]</strong>'),
                         'default' => atbdp_get_option('user_dashboard', 'atbdp_general'),
                         'validation' => 'required|numeric',
 
@@ -2344,7 +2388,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'author_profile_page',
                         'label' =>  __( 'Add user profile page ID', ATBDP_TEXTDOMAIN ),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Select your profile page ( where you used %s shortcode ) ID here', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[author_profile]</strong>'),
+                        'description' => sprintf(__( 'Select your profile page ( where you used %s shortcode ) ID here', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_author_profile]</strong>'),
                         'default' => atbdp_get_option('author_profile', 'atbdp_general'),
                         'validation' => 'required|numeric',
 
@@ -2355,7 +2399,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'all_categories_page',
                         'label' => __( 'Add All Categories Page ID', ATBDP_TEXTDOMAIN ),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Select your All Categories  page ( where you used %s shortcode ) ID here.', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[all_categories]</strong>'),
+                        'description' => sprintf(__( 'Select your All Categories  page ( where you used %s shortcode ) ID here.', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_all_categories]</strong>'),
 
                         'default' => atbdp_get_option('all_categories', 'atbdp_general'),
                         'validation' => 'required|numeric',
@@ -2366,7 +2410,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'all_locations_page',
                         'label' => __( 'Add All Locations Page ID', ATBDP_TEXTDOMAIN ),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Select your All Locations  page ( where you used %s shortcode ) ID here.', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[all_locations]</strong>'),
+                        'description' => sprintf(__( 'Select your All Locations  page ( where you used %s shortcode ) ID here.', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_all_locations]</strong>'),
 
                         'default' => atbdp_get_option('all_locations', 'atbdp_general'),
                         'validation' => 'required|numeric',
@@ -2377,7 +2421,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'custom_registration',
                         'label' =>  __(  'Add registration page ID', ATBDP_TEXTDOMAIN ),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Select your registration page ( where you used %s  shortcode ) ID here', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[custom_registration]</strong>'),
+                        'description' => sprintf(__( 'Select your registration page ( where you used %s  shortcode ) ID here', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_custom_registration]</strong>'),
                         'default' => atbdp_get_option('custom_registration', 'atbdp_general'),
                         'validation' => 'required|numeric',
 
@@ -2388,7 +2432,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'search_listing',
                         'label' =>  __( 'Add Listing Search page ID', ATBDP_TEXTDOMAIN ),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Select your Listing Search page ( where you used %s shortcode ) ID here. This is generally used in a home page.', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[search_listing]</strong>'),
+                        'description' => sprintf(__( 'Select your Listing Search page ( where you used %s shortcode ) ID here. This is generally used in a home page.', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_search_listing]</strong>'),
                         'default' => atbdp_get_option('search_listing', 'atbdp_general'),
                         'validation' => 'required|numeric',
                     ),
@@ -2398,7 +2442,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'search_result_page',
                         'label' =>  __( 'Add Listing Search Result page ID', ATBDP_TEXTDOMAIN ),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Please Select your Listing Search Result page ( where you used %s shortcode ) ID here. This page is used to show listing search results but this page generally should be excluded from the menu.', ATBDP_TEXTDOMAIN ),'<strong style="color: #ff4500;">[search_result]</strong>'),
+                        'description' => sprintf(__( 'Please Select your Listing Search Result page ( where you used %s shortcode ) ID here. This page is used to show listing search results but this page generally should be excluded from the menu.', ATBDP_TEXTDOMAIN ),'<strong style="color: #ff4500;">[directorist_search_result]</strong>'),
                         'default' => atbdp_get_option('search_result_page', 'atbdp_general'),
                         'validation' => 'required|numeric',
                     ),
@@ -2426,7 +2470,7 @@ The Administrator of ==SITE_NAME==
                     'name' => 'transaction_failure_page',
                     'label' =>  __( 'Add Transaction Failure page ID', ATBDP_TEXTDOMAIN ),
                     'items' => $this->get_pages_vl_arrays(),
-                    'description' => sprintf(__( 'Please Select your Transaction Failure page ( where you used %s shortcode ) ID here. This page is used to show Transaction Failure information but this page generally should be excluded from the menu.', ATBDP_TEXTDOMAIN ),'<strong style="color: #ff4500;">[transaction_failure]</strong>'),
+                    'description' => sprintf(__( 'Please Select your Transaction Failure page ( where you used %s shortcode ) ID here. This page is used to show Transaction Failure information but this page generally should be excluded from the menu.', ATBDP_TEXTDOMAIN ),'<strong style="color: #ff4500;">[directorist_transaction_failure]</strong>'),
                     'default' => '',
                     'validation' => 'numeric',
                 ),

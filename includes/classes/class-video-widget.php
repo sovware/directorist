@@ -14,7 +14,7 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
         function __construct()
         {
             $widget_options = array(
-                'classname' => 'listings',
+                'classname' => 'atbd_video',
                 'description' => esc_html__('You can show video by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
@@ -42,8 +42,9 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
                 $videourl   = !empty($videourl) ? esc_attr(ATBDP()->atbdp_parse_videos($videourl)) : '';
                 $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Listing Video', ATBDP_TEXTDOMAIN);
                 echo $args['before_widget'];
-
+                echo '<div class="atbd_widget">';
                 echo $args['before_title'] . esc_html(apply_filters('widget_video_title', $title)) . $args['after_title'];
+                echo '</div>';
                 ?>
                 <div class="atbdp">
                     <iframe class="embed-responsive-item" src="<?php echo $videourl; ?>"

@@ -38,7 +38,7 @@ if ( !class_exists('BD_contact_form_Widget')) {
                 global $post;
                 $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact Form', ATBDP_TEXTDOMAIN);
                 echo $args['before_widget'];
-                echo '<div class="atbd_widget">';
+                echo '<div class="atbd_widget_title">';
                 echo $args['before_title'] . esc_html(apply_filters('widget_contact_form_title', $title)) . $args['after_title'];
                 echo '</div>';
                 ?>

@@ -42,7 +42,7 @@ if ( !class_exists('BD_Map_Widget')) {
                 $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Map', ATBDP_TEXTDOMAIN);
                 $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 16;
                 echo $args['before_widget'];
-                echo '<div class="atbd_widget">';
+                echo '<div class="atbd_widget_title">';
                 echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
                 echo '</div>';
 

@@ -35,7 +35,7 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
             $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Similar Listings', ATBDP_TEXTDOMAIN);
             $sim_listing_num = !empty($instance['sim_listing_num']) ? $instance['sim_listing_num'] : 5;
             echo $args['before_widget'];
-            echo '<div class="atbd_widget">';
+            echo '<div class="atbd_widget_title">';
             echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
             echo '</div>';
             global $post;

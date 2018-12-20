@@ -72,7 +72,7 @@ if (!class_exists('BD_Locations_Widget')) {
                 $categories = $this->list_locations( $query_args );
             }
             echo $args['before_widget'];
-            echo '<div class="atbd_widget">';
+            echo '<div class="atbd_widget_title">';
             echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
             echo '</div>';
             ?>

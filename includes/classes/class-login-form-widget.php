@@ -35,7 +35,7 @@ if (!class_exists('BD_Login_Form_Widget')) {
                 if (!is_user_logged_in()) {
                     $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Title', ATBDP_TEXTDOMAIN);
                     echo $args['before_widget'];
-                    echo '<div class="atbd_widget">';
+                    echo '<div class="atbd_widget_title">';
                     echo $args['before_title'] . esc_html(apply_filters('widget_submit_item_title', $title)) . $args['after_title'];
                     echo '</div>';
                     ?>

@@ -725,8 +725,9 @@ final class Directorist_Base
                                                     <?php
                                                 } else {
                                                     BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list
-                                                }} ?>
+                                                }?>
                                             </div><!-- END /.atbd_upper_badge -->
+                                            <?php  } ?>
                                             <div class="atbd_lower_badge">
                                                 <?php
                                                 if ($featured) {

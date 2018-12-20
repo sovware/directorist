@@ -91,8 +91,7 @@
   background: #ffaf00;
 }
 
-.atbd_color-danger, .atbd_content_active .widget.atbd_widget[id^='bd']#bdbh_widget-2 .directory_open_hours ul li.atbd_closed span, .atbd_content_active .widget.atbd_widget[id^='bd'] .directory_open_hours ul li.atbd_closed span,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget#bdbh_widget-2 .directory_open_hours ul li.atbd_closed span,
+.atbd_color-danger, .atbd_content_active .widget.atbd_widget[id^='bd'] .directory_open_hours ul li.atbd_closed span,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directory_open_hours ul li.atbd_closed span, .atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .listing-img-container .single_attachment .remove_image:hover {
   color: #e23636;
 }
@@ -235,6 +234,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper .atbd_rated_stars ul li {
   display: inline-block;
+}
+
+#directorist.atbd_wrapper .atbd_rated_stars ul li:before {
+  display: none;
 }
 
 #directorist.atbd_wrapper .atbd_rated_stars ul li span {
@@ -856,9 +859,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_title {
-  font-size: 18px;
   text-transform: capitalize;
   line-height: 28px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_title a {
+  font-size: 18px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_tagline {
@@ -957,7 +963,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   background: #ffffff;
   border: 1px solid #e3e6ef;
   margin-bottom: 30px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: "Roboto", sans-serif;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] ul li,
@@ -965,6 +971,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   border: none;
   padding: 0;
   text-align: left;
+}
+
+.atbd_content_active .widget.atbd_widget[id^='bd'] ul li:before,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget ul li:before {
+  display: none;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_widget_title,
@@ -999,6 +1010,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 5px;
 }
 
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp.atbdp-widget-tags ul li:before, .atbd_content_active .widget.atbd_widget[id^='bd'] .directorist.atbdp-widget-tags ul li:before,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp.atbdp-widget-tags ul li:before,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directorist.atbdp-widget-tags ul li:before {
+  display: none;
+}
+
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp.atbdp-widget-tags ul li a, .atbd_content_active .widget.atbd_widget[id^='bd'] .directorist.atbdp-widget-tags ul li a,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directorist.atbdp-widget-tags ul li a {
@@ -1025,6 +1042,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_categorized_listings .listings > li,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings .listings > li {
   padding: 15px 0;
+}
+
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_categorized_listings .listings > li:before,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings .listings > li:before {
+  display: none;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_categorized_listings .listings > li + li,
@@ -1058,7 +1080,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings .listings > li .atbd_right_content .cate_title h4 {
   font-weight: 400;
   font-size: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: "Roboto", sans-serif;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_categorized_listings .listings > li .atbd_left_img + .atbd_right_content,
@@ -1148,8 +1170,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   width: 100%;
 }
 
-.atbd_content_active .widget.atbd_widget[id^='bd']#bdbh_widget-2 .directory_open_hours ul li, .atbd_content_active .widget.atbd_widget[id^='bd'] .directory_open_hours ul li,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget#bdbh_widget-2 .directory_open_hours ul li,
+.atbd_content_active .widget.atbd_widget[id^='bd'] .directory_open_hours ul li,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directory_open_hours ul li {
   border-bottom: 1px solid #e3e6ef;
   display: flex;
@@ -1159,8 +1180,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding-bottom: 10px;
 }
 
-.atbd_content_active .widget.atbd_widget[id^='bd']#bdbh_widget-2 .directory_open_hours ul li > span, .atbd_content_active .widget.atbd_widget[id^='bd'] .directory_open_hours ul li > span,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget#bdbh_widget-2 .directory_open_hours ul li > span,
+.atbd_content_active .widget.atbd_widget[id^='bd'] .directory_open_hours ul li:before,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directory_open_hours ul li:before {
+  display: none;
+}
+
+.atbd_content_active .widget.atbd_widget[id^='bd'] .directory_open_hours ul li > span,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directory_open_hours ul li > span {
   display: inline-block;
   margin-bottom: 7px;
@@ -1169,8 +1194,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #614b4b;
 }
 
-.atbd_content_active .widget.atbd_widget[id^='bd']#bdbh_widget-2 .directory_open_hours ul li span.atbd_open_close_time, .atbd_content_active .widget.atbd_widget[id^='bd'] .directory_open_hours ul li span.atbd_open_close_time,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget#bdbh_widget-2 .directory_open_hours ul li span.atbd_open_close_time,
+.atbd_content_active .widget.atbd_widget[id^='bd'] .directory_open_hours ul li span.atbd_open_close_time,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directory_open_hours ul li span.atbd_open_close_time {
   font-weight: 400;
 }

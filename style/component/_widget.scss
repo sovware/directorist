@@ -4,11 +4,14 @@
   background: $light;
   border: 1px solid $border-color;
   margin-bottom: 30px;
-  font-family: $font-family-base;
+  font-family: $atbd-font-family;
   ul li{
     border: none;
     padding: 0;
     text-align: left;
+    &:before{
+      display: none;
+    }
   }
 
   .atbd_widget_title {
@@ -30,6 +33,9 @@
         display: inline-block;
         margin-right: 5px;
         margin-bottom: 5px;
+        &:before{
+          display: none;
+        }
         a {
           border: 1px solid $border-color;
           color: #5d658c;
@@ -51,6 +57,9 @@
     .listings {
       > li {
         padding: 15px 0;
+        &:before{
+          display: none;
+        }
         & + li {
           border-top: 1px solid $border-color;
         }
@@ -72,7 +81,7 @@
           .cate_title h4{
             font-weight: 400;
             font-size: 16px;
-            font-family: $font-family-base;
+            font-family: $atbd-font-family;
           }
         }
         .atbd_left_img + .atbd_right_content {
@@ -149,7 +158,7 @@
   iframe{
     width: 100%;
   }
-  &#bdbh_widget-2 .directory_open_hours, .directory_open_hours{
+  .directory_open_hours{
     ul {
       li {
         border-bottom: 1px solid #e3e6ef;
@@ -158,6 +167,9 @@
         flex-wrap: wrap;
         margin-bottom: 10px;
         padding-bottom: 10px;
+        &:before{
+          display: none;
+        }
         &.atbd_closed{
           span{
             @extend .atbd_color-danger;

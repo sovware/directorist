@@ -1,15 +1,41 @@
-.atbd_content_active .widget,
+.atbd_content_active .widget.atbd_widget[id^='bd'],
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget{
   padding: 0;
   background: $light;
   border: 1px solid $border-color;
   margin-bottom: 30px;
+  font-family: $atbd-font-family;
   ul li{
     border: none;
     padding: 0;
     text-align: left;
+    &:before{
+      display: none;
+    }
   }
-  &[id^='bd'] .atbd_widget_title, .atbd_widget_title {
+  .atbdp-search{
+    .submit_btn{
+      margin-top: 20px;
+      .btn-primary{
+        display: inline-block;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        user-select: none;
+        padding: 0.375rem 0.75rem;
+        font-size: 15px;
+        line-height: 27px;
+        border-radius: 0.25rem;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        color: #fff;
+        @extend .atbd_bg-primary;
+        border-color: #272b41;
+        cursor: pointer;
+      }
+    }
+  }
+  .atbd_widget_title {
     border-bottom: 1px solid $border-color;
     h4 {
       margin: 0 !important;
@@ -21,13 +47,16 @@
   .directorist {
     text-align: center;
   }
-  &[id^='bdtw_widget'] .atbdp, .atbdp, .directorist {
+  .atbdp, .directorist {
     padding: 20px 30px 15px;
     &.atbdp-widget-tags {
       ul li {
         display: inline-block;
         margin-right: 5px;
         margin-bottom: 5px;
+        &:before{
+          display: none;
+        }
         a {
           border: 1px solid $border-color;
           color: #5d658c;
@@ -44,11 +73,14 @@
       }
     }
   }
-  &#bdpl_widget-2 .atbd_categorized_listings, .atbd_categorized_listings {
+  .atbd_categorized_listings {
     padding: 0px 30px;
     .listings {
       > li {
         padding: 15px 0;
+        &:before{
+          display: none;
+        }
         & + li {
           border-top: 1px solid $border-color;
         }
@@ -70,6 +102,7 @@
           .cate_title h4{
             font-weight: 400;
             font-size: 16px;
+            font-family: $atbd-font-family;
           }
         }
         .atbd_left_img + .atbd_right_content {
@@ -78,7 +111,7 @@
       }
     }
   }
-  &#bdcw_widget-2 .atbdp-widget-categories, .atbdp-widget-categories{
+.atbdp-widget-categories{
     .atbdp_child_category{
       padding-left: 35px;
       li:before{
@@ -146,7 +179,7 @@
   iframe{
     width: 100%;
   }
-  &#bdbh_widget-2 .directory_open_hours, .directory_open_hours{
+  .directory_open_hours{
     ul {
       li {
         border-bottom: 1px solid #e3e6ef;
@@ -155,6 +188,9 @@
         flex-wrap: wrap;
         margin-bottom: 10px;
         padding-bottom: 10px;
+        &:before{
+          display: none;
+        }
         &.atbd_closed{
           span{
             @extend .atbd_color-danger;

@@ -386,7 +386,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                             'post_status'    => 'publish',
                         ) );
                         $fields = $custom_fields->posts;
-                        if ($fields) {
+                        foreach ($fields as $f){
+                            $field_details = get_post_meta($listing_id, $f->ID, true);
+                        }
+                        if ($field_details) { //show the are if custom field has data
+
                             ?>
                             <div class="atbd_content_module atbd_custom_fields_contents">
                                 <div class="atbdb_content_module_contents">

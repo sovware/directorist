@@ -1550,7 +1550,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'search_border',
                         'label' => __('Allow Search Bar Border', ATBDP_TEXTDOMAIN),
                         'description' => __( 'A border around the search field', ATBDP_TEXTDOMAIN ),
-                        'default' => atbdp_get_option('search_border', 'atbdp_general'),
+                        'default' => 1,
                     ),
                     array(
                         'type' => 'textbox',

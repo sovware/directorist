@@ -15,7 +15,7 @@ if ( !class_exists('BD_Map_Widget')) {
         public function __construct ()
         {
             $widget_options = array(
-                'classname' => 'atbd_map',
+                'classname' => 'atbd_widget',
                 'description' => esc_html__('You can show map by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
@@ -42,7 +42,7 @@ if ( !class_exists('BD_Map_Widget')) {
                 $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Map', ATBDP_TEXTDOMAIN);
                 $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 16;
                 echo $args['before_widget'];
-                echo '<div class="atbd_widget">';
+                echo '<div class="atbd_widget_title">';
                 echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
                 echo '</div>';
 

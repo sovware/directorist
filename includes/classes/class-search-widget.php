@@ -15,7 +15,7 @@ if ( !class_exists('BD_Search_Widget')) {
         public function __construct ()
         {
             $widget_options = array(
-                'classname' => 'listings',
+                'classname' => 'atbd_widget',
                 'description' => esc_html__('You can show search listing by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
@@ -40,8 +40,9 @@ if ( !class_exists('BD_Search_Widget')) {
             $search_placeholder = get_directorist_option('search_placeholder', __('What are you looking for?', ATBDP_TEXTDOMAIN));
             $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Search Listings', ATBDP_TEXTDOMAIN);
             echo $args['before_widget'];
+            echo '<div class="atbd_widget_title">';
             echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
-
+            echo '</div>';
             ?>
             <div class="directorist atbdp-search atbdp-search-vertical">
                 <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" class="form-vertical" role="form">

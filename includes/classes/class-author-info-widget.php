@@ -11,7 +11,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
         function __construct()
         {
             $widget_options = array(
-                'classname' => 'listings',
+                'classname' => 'atbd_widget',
                 'description' => esc_html__('You can show submit item  listing link by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
@@ -34,8 +34,9 @@ if (!class_exists('BD_Author_Info_Widget')) {
             if (is_singular(ATBDP_POST_TYPE)) {
                 $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Title', ATBDP_TEXTDOMAIN);
                 echo $args['before_widget'];
-
+                echo '<div class="atbd_widget_title">';
                 echo $args['before_title'] . esc_html(apply_filters('widget_submit_item_title', $title)) . $args['after_title'];
+                echo '</div>';
                 ?>
                 <div class="atbdp atbd_author_info_widget">
 

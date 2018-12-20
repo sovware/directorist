@@ -108,7 +108,7 @@ if(!class_exists('ATBDP_Custom_Post')):
                 'description'         => __( 'Directory listings', 'directorist' ),
                 'labels'              => $labels,
                 'supports'            => array('title', 'editor', 'author'),
-                'taxonomies'          => array(),
+                'taxonomies'          => array(ATBDP_CATEGORY),
                 'hierarchical'        => false,
                 'public'              => true,
                 'show_ui'             => current_user_can( 'edit_others_at_biz_dirs' ) ? true : false, // show the menu only to the admin

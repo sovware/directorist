@@ -154,6 +154,11 @@ class ATBDP_Enqueuer {
 
 
         }
+
+        if (ATBDP_CUSTOM_FIELD_POST_TYPE == $typenow){
+            wp_enqueue_style( 'atbdp-custom-field', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION);
+
+        }
         // lets add a small stylesheet for order listing page
         if ((ATBDP_ORDER_POST_TYPE || ATBDP_CUSTOM_FIELD_POST_TYPE)  == $typenow){
             wp_enqueue_style( 'atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', false, ATBDP_VERSION);

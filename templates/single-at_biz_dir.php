@@ -379,41 +379,54 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                     </div>
                 </div>
             </div> <!-- end .atbd_listing_details -->
-
-            <div class="atbd_content_module atbd_custom_fields_contents">
-                <div class="atbdb_content_module_contents">
-                    <ul class="atbd_custom_fields">
-                        <!--  get data from custom field-->
-                        <?php
+            <?php
                         $custom_fields  = new WP_Query( array(
                             'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
                             'posts_per_page' => -1,
                             'post_status'    => 'publish',
                         ) );
                         $fields = $custom_fields->posts;
-                        foreach ($fields as $post) {
-                            setup_postdata($post);
-                            $field_id = $post->ID;
-                            $field_details = get_post_meta($listing_id, $field_id, true);
-                            $field_title = get_the_title($field_id);
-                            $field_type = get_post_meta($field_id, 'type', true);
-                            if (!empty($field_details)){
-                                ?>
-                                <li>
-                                    <div class="atbd_custom_field_title"><p><?php echo esc_attr($field_title);?></p></div>
-                                    <div class="atbd_custom_field_content"><p><?php if ('color' == $field_type){printf( '<div class="atbd_field_type_color" style="background-color: %s;"></div>', $field_details );}else{echo esc_attr(ucwords($field_details));}?></p>
-                                    </div>
-                                </li>
-                                <?php
-                            }
+                        foreach ($fields as $f){
+                            $field_details = get_post_meta($listing_id, $f->ID, true);
                         }
-                        wp_reset_postdata();
-                        ?>
-                    </ul>
-                </div>
-            </div><!-- end .atbd_custom_fields_contents -->
+                        if ($field_details) { //show the are if custom field has data
 
-            <?php if ($enable_video_url && !empty($videourl)) { ?>
+                            ?>
+                            <div class="atbd_content_module atbd_custom_fields_contents">
+                                <div class="atbdb_content_module_contents">
+                                    <ul class="atbd_custom_fields">
+                                        <!--  get data from custom field-->
+                                        <?php
+                                        foreach ($fields as $post) {
+                                            setup_postdata($post);
+                                            $field_id = $post->ID;
+                                            $field_details = get_post_meta($listing_id, $field_id, true);
+                                            $field_title = get_the_title($field_id);
+                                            $field_type = get_post_meta($field_id, 'type', true);
+                                            if (!empty($field_details)) {
+                                                ?>
+                                                <li>
+                                                    <div class="atbd_custom_field_title">
+                                                        <p><?php echo esc_attr($field_title); ?></p></div>
+                                                    <div class="atbd_custom_field_content">
+                                                        <p><?php if ('color' == $field_type) {
+                                                                printf('<div class="atbd_field_type_color" style="background-color: %s;"></div>', $field_details);
+                                                            } else {
+                                                                echo esc_attr(ucwords($field_details));
+                                                            } ?></p>
+                                                    </div>
+                                                </li>
+                                                <?php
+                                            }
+                                        }
+                                        wp_reset_postdata();
+                                        ?>
+                                    </ul>
+                                </div>
+                            </div><!-- end .atbd_custom_fields_contents -->
+                            <?php
+                        }//end if for field check
+            if ($enable_video_url && !empty($videourl)) { ?>
                 <div class="atbd_content_module atbd_custom_fields_contents">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">

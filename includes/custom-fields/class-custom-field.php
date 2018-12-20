@@ -583,8 +583,6 @@ class ATBDP_Custom_Field
                         });
                     }).change();
                 });
-
-
             })(jQuery);
         </script>
 

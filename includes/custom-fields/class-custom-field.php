@@ -519,7 +519,7 @@ class ATBDP_Custom_Field
                         <?php
                         $current_val = isset($post_meta['category_pass']) ? esc_attr($post_meta['category_pass'][0]) : '';
                         $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
-                        echo '<select name="category_pass">';
+                        echo '<select name="category_pass" class="form-control">';
                         echo '<option>' . __("Categories", ATBDP_TEXTDOMAIN) . '</option>';
                         foreach ($categories as $key => $cat_title) {
                             printf('<option value="%s" %s>%s</option>', $cat_title->term_id, selected($cat_title->term_id, $current_val), $cat_title->name);
@@ -606,7 +606,7 @@ class ATBDP_Custom_Field
                     </div>
                 </div>
 
-                <div class="field-instructions">
+                <div class="field-instructions form-group">
                     <label><?php _e('Field Description', ATBDP_TEXTDOMAIN); ?></label>
                     <p class="description"><?php _e('Instructions for authors. Shown when submitting data', ATBDP_TEXTDOMAIN); ?></p>
                     <textarea class="textarea form-control" name="instructions"
@@ -619,12 +619,12 @@ class ATBDP_Custom_Field
                     <ul class="atbdp-radio-list radio horizontal">
                         <li>
                             <label>
-                                <input type="radio" class="form-control" name="required" value="1" <?php echo checked($selected_required, 1, false); ?>><?php _e('Yes', ATBDP_TEXTDOMAIN); ?>
+                                <input type="radio" name="required" value="1" <?php echo checked($selected_required, 1, false); ?>><?php _e('Yes', ATBDP_TEXTDOMAIN); ?>
                             </label>
                         </li>
                         <li>
                             <label>
-                                <input type="radio" class="form-control" name="required" value="0" <?php echo checked($selected_required, 0, false); ?>><?php _e('No', ATBDP_TEXTDOMAIN); ?>
+                                <input type="radio" name="required" value="0" <?php echo checked($selected_required, 0, false); ?>><?php _e('No', ATBDP_TEXTDOMAIN); ?>
                             </label>
                         </li>
                     </ul>

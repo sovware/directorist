@@ -72,7 +72,7 @@ if (!class_exists('BD_Locations_Widget')) {
                 $categories = $this->list_locations( $query_args );
             }
             echo $args['before_widget'];
-            echo '<div class="atbd_widget">';
+            echo '<div class="atbd_widget_title">';
             echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
             echo '</div>';
             ?>
@@ -245,6 +245,8 @@ if (!class_exists('BD_Locations_Widget')) {
                 $html .= '<ul>';
 
                 foreach( $terms as $term ) {
+                    $child_category = get_term_children($term->term_id,ATBDP_LOCATION);
+                    $plus_icon = (!empty($child_category) && empty($parent) ) ? '<span class="fa fa-plus"></span>' : '';
                     $settings['term_id'] = $term->term_id;
 
                     $count = 0;
@@ -260,7 +262,7 @@ if (!class_exists('BD_Locations_Widget')) {
                     if( ! empty( $settings['show_count'] ) ) {
                         $html .= ' (' . $count . ')';
                     }
-                    $html .= '</a>';
+                    $html .= '</a>'. $plus_icon . '';
                     $html .= $this->list_locations( $settings );
                     $html .= '</li>';
                 }

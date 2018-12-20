@@ -106,6 +106,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                         $display_category    = get_directorist_option('display_category',1);
                         $display_view_count    = get_directorist_option('display_view_count',1);
                         $display_author_image    = get_directorist_option('display_author_image',1);
+                        $display_publish_date    = get_directorist_option('display_publish_date',1);
                         /*Code for Business Hour Extensions*/
                         $bdbh                   = get_post_meta(get_the_ID(), '_bdbh', true);
                         $enable247hour               = get_post_meta(get_the_ID(), '_enable247hour', true);
@@ -276,10 +277,13 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                         <?php if( !empty( $phone_number )) {?>
                                                         <li><p><span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number));?></p></li>
                                                     <?php
-                                                        } }?>
+                                                        } }
+
+                                                      if(!empty($display_publish_date)) { ?>
                                                     <li><p><span class="fa fa-clock-o"></span><?php
                                                             printf( __( 'Posted %s ago', ATBDP_TEXTDOMAIN ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
                                                             ?></p></li>
+                                                    <?php } ?>
                                                 </ul>
                                             </div><!-- End atbd listing meta -->
                                             <?php if( !empty($excerpt) ) {?>

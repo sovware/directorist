@@ -1,15 +1,16 @@
-.atbd_content_active .widget,
+.atbd_content_active .widget.atbd_widget[id^='bd'],
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget{
   padding: 0;
   background: $light;
   border: 1px solid $border-color;
   margin-bottom: 30px;
+  font-family: $font-family-base;
   ul li{
     border: none;
     padding: 0;
     text-align: left;
   }
-  &[id^='bd'] .atbd_widget_title, .atbd_widget_title {
+  .atbd_widget_title {
     border-bottom: 1px solid $border-color;
     h4 {
       margin: 0 !important;
@@ -21,7 +22,7 @@
   .directorist {
     text-align: center;
   }
-  &[id^='bdtw_widget'] .atbdp, .atbdp, .directorist {
+  .atbdp, .directorist {
     padding: 20px 30px 15px;
     &.atbdp-widget-tags {
       ul li {
@@ -44,7 +45,7 @@
       }
     }
   }
-  &#bdpl_widget-2 .atbd_categorized_listings, .atbd_categorized_listings {
+  .atbd_categorized_listings {
     padding: 0px 30px;
     .listings {
       > li {
@@ -70,6 +71,7 @@
           .cate_title h4{
             font-weight: 400;
             font-size: 16px;
+            font-family: $font-family-base;
           }
         }
         .atbd_left_img + .atbd_right_content {
@@ -78,7 +80,7 @@
       }
     }
   }
-  &#bdcw_widget-2 .atbdp-widget-categories, .atbdp-widget-categories{
+.atbdp-widget-categories{
     .atbdp_child_category{
       padding-left: 35px;
       li:before{

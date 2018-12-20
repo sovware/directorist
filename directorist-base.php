@@ -312,7 +312,7 @@ final class Directorist_Base
         register_widget('BD_Popular_Listing_Widget');
         register_widget('BD_video_Widget');
         register_widget('BD_contact_form_Widget');
-        register_widget('BD_Submit_Widget');
+        register_widget('BD_Submit_Item_Widget');
         register_widget('BD_Login_Form_Widget');
         register_widget('BD_Categories_Widget');
         register_widget('BD_Locations_Widget');
@@ -503,7 +503,7 @@ final class Directorist_Base
             }else{
                 $replace_shortcode = wp_update_post(
                     array(
-                            'ID'  => $options[$op_name],
+                        'ID'  => $options[$op_name],
                         'post_title' => $page_settings['title'],
                         'post_content' => $page_settings['content'],
                         'post_status' => 'publish',
@@ -693,7 +693,8 @@ final class Directorist_Base
                         ?>
                         <div class="col-md-6 col-sm-6">
                             <div class="atbd_single_listing atbd_listing_card">
-                                <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
+                                <article
+                                        class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                     <figure class="atbd_listing_thumbnail_area">
                                         <div class="atbd_listing_image">
                                             <?php if (!empty($listing_prv_img)) {

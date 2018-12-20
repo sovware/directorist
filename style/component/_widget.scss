@@ -36,11 +36,15 @@
     }
   }
   .atbd_widget_title {
+    padding: 15px 30px;
     border-bottom: 1px solid $border-color;
+    .atbd_widget_title{
+      padding: 0;
+      border: 0;
+    }
     h4 {
       margin: 0 !important;
       font-size: 18px;
-      padding: 15px 30px;
       font-weight: 400 !important;
     }
   }

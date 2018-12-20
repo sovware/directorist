@@ -137,6 +137,10 @@ css for Custom Field
   color: #e23636;
 }
 
+#directorist.atbd_wrapper .field-options {
+  margin-bottom: 15px;
+}
+
 #directorist.atbd_wrapper .hide-if-no-js {
   text-align: center;
 }

@@ -52,7 +52,7 @@ if ( !class_exists('BD_Search_Widget')) {
 
 
                     <div class="form-group single_search_field search_category" >
-                        <select name="in_cat" class="directory_field" id="at_biz_dir-category">
+                        <select name="in_cat" class="directory_field form-control" id="at_biz_dir-category">
                             <option value=""><?php _e('Select a category', ATBDP_TEXTDOMAIN ); ?></option>
 
                             <?php
@@ -64,7 +64,7 @@ if ( !class_exists('BD_Search_Widget')) {
                     </div>
 
                     <div class="form-group single_search_field search_location">
-                        <select name="in_loc" class="directory_field" id="at_biz_dir-location">
+                        <select name="in_loc" class="directory_field form-control" id="at_biz_dir-location">
                             <!--This text comes from js, translate them later @todo; translate js text-->
                             <option value=""><?php _e('Select a location', ATBDP_TEXTDOMAIN); ?></option>
 
@@ -76,7 +76,7 @@ if ( !class_exists('BD_Search_Widget')) {
                     </div>
 
                     <div class="form-group submit_btn">
-                        <button type="submit"><?php _e( 'Search Listings', ATBDP_TEXTDOMAIN ); ?></button>
+                        <button type="submit" class="btn btn-primary"><?php _e( 'Search Listings', ATBDP_TEXTDOMAIN ); ?></button>
                     </div>
                 </form>
             </div>

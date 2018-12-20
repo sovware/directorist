@@ -3083,6 +3083,125 @@
   }
 }
 
+#directorist.atbd_wrapper h1, #directorist.atbd_wrapper h2, #directorist.atbd_wrapper h3, #directorist.atbd_wrapper h4, #directorist.atbd_wrapper h5, #directorist.atbd_wrapper h6,
+#directorist.atbd_wrapper .h1, #directorist.atbd_wrapper .h2, #directorist.atbd_wrapper .h3, #directorist.atbd_wrapper .h4, #directorist.atbd_wrapper .h5, #directorist.atbd_wrapper .h6 {
+  margin-bottom: 0.5rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #272b41;
+}
+
+#directorist.atbd_wrapper h1, #directorist.atbd_wrapper .h1 {
+  font-size: 2.5rem;
+}
+
+#directorist.atbd_wrapper h2, #directorist.atbd_wrapper .h2 {
+  font-size: 30px;
+}
+
+#directorist.atbd_wrapper h3, #directorist.atbd_wrapper .h3 {
+  font-size: 1.75rem;
+}
+
+#directorist.atbd_wrapper h4, #directorist.atbd_wrapper .h4 {
+  font-size: 18px;
+}
+
+#directorist.atbd_wrapper h5, #directorist.atbd_wrapper .h5 {
+  font-size: 1.25rem;
+}
+
+#directorist.atbd_wrapper h6, #directorist.atbd_wrapper .h6 {
+  font-size: 1rem;
+}
+
+#directorist.atbd_wrapper .lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+#directorist.atbd_wrapper .display-1 {
+  font-size: 6rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+#directorist.atbd_wrapper .display-2 {
+  font-size: 5.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+#directorist.atbd_wrapper .display-3 {
+  font-size: 4.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+#directorist.atbd_wrapper .display-4 {
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+#directorist.atbd_wrapper hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#directorist.atbd_wrapper small,
+#directorist.atbd_wrapper .small {
+  font-size: 80%;
+  font-weight: 400;
+}
+
+#directorist.atbd_wrapper mark,
+#directorist.atbd_wrapper .mark {
+  padding: 0.2em;
+  background-color: #fcf8e3;
+}
+
+#directorist.atbd_wrapper .list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+#directorist.atbd_wrapper .list-inline {
+  padding-left: 0;
+  list-style: none;
+}
+
+#directorist.atbd_wrapper .list-inline-item {
+  display: inline-block;
+}
+
+#directorist.atbd_wrapper .list-inline-item:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+#directorist.atbd_wrapper .initialism {
+  font-size: 90%;
+  text-transform: uppercase;
+}
+
+#directorist.atbd_wrapper .blockquote {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+#directorist.atbd_wrapper .blockquote-footer {
+  display: block;
+  font-size: 80%;
+  color: #6c757d;
+}
+
+#directorist.atbd_wrapper .blockquote-footer::before {
+  content: "\2014 \00A0";
+}
+
 .tooltip {
   position: absolute;
   z-index: 1070;

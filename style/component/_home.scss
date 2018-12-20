@@ -64,7 +64,6 @@
   .atbd_seach_fields_wrapper{
     padding: 30px;
     border: 1px solid $border-color;
-    background: $light;
   }
   .directory_home_category_area{
     text-align: center;
@@ -81,6 +80,7 @@
          text-align: center;
          border-radius: 3px;
          padding: 10px 20px;
+         margin-bottom: 15px;
          &+li{
            margin-left: 15px;
          }

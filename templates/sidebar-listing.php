@@ -9,7 +9,7 @@
 
  if (  is_active_sidebar( 'right-sidebar-listing' ) ) { ?>
 <!-- start col-md-4  -->
-<div class="directorist col-md-4">
+<div class="directorist col-lg-4 col-md-12">
     <div class="directorist atbd_sidebar">
         <!-- start search -->
         <?php dynamic_sidebar('right-sidebar-listing'); ?>

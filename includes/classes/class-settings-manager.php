@@ -1546,6 +1546,13 @@ The Administrator of ==SITE_NAME==
                         'default' => atbdp_get_option('search_placeholder', 'atbdp_general'),
                     ),
                     array(
+                        'type' => 'toggle',
+                        'name' => 'search_border',
+                        'label' => __('Allow Search Bar Border', ATBDP_TEXTDOMAIN),
+                        'description' => __( 'A border around the search field', ATBDP_TEXTDOMAIN ),
+                        'default' => atbdp_get_option('search_border', 'atbdp_general'),
+                    ),
+                    array(
                         'type' => 'textbox',
                         'name' => 'no_result_found_text',
                         'label' => __('Text For "Search - No Result Found"', ATBDP_TEXTDOMAIN),
@@ -2357,7 +2364,7 @@ The Administrator of ==SITE_NAME==
                             'items' => $this->get_pages_vl_arrays(), // eg. array( array('value'=> 123, 'label'=> 'page_name') );
                             'description' => sprintf(__( 'Select your add listing page ( where you used %s shortcode ) ID here', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_add_listing]</strong>'),
                             'default' => atbdp_get_option('add_listing_page', 'atbdp_general'),
-                            'validation' => 'required|numeric',
+                            'validation' => 'numeric',
 
                         ),
 
@@ -2369,7 +2376,7 @@ The Administrator of ==SITE_NAME==
                         'description' => sprintf(__( 'Select your All Listings  page ( where you used %s shortcode ) ID here.', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_all_listing]</strong>'),
 
                         'default' => atbdp_get_option('all_listing_page', 'atbdp_general'),
-                        'validation' => 'required|numeric',
+                        'validation' => 'numeric',
                     ),
 
                     array(
@@ -2379,7 +2386,7 @@ The Administrator of ==SITE_NAME==
                         'items' => $this->get_pages_vl_arrays(),
                         'description' => sprintf(__( 'Select your add dashboard page ( where you used %s shortcode ) ID here', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_user_dashboard]</strong>'),
                         'default' => atbdp_get_option('user_dashboard', 'atbdp_general'),
-                        'validation' => 'required|numeric',
+                        'validation' => 'numeric',
 
                     ),
 
@@ -2390,7 +2397,7 @@ The Administrator of ==SITE_NAME==
                         'items' => $this->get_pages_vl_arrays(),
                         'description' => sprintf(__( 'Select your profile page ( where you used %s shortcode ) ID here', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_author_profile]</strong>'),
                         'default' => atbdp_get_option('author_profile', 'atbdp_general'),
-                        'validation' => 'required|numeric',
+                        'validation' => 'numeric',
 
                     ),
 
@@ -2402,7 +2409,7 @@ The Administrator of ==SITE_NAME==
                         'description' => sprintf(__( 'Select your All Categories  page ( where you used %s shortcode ) ID here.', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_all_categories]</strong>'),
 
                         'default' => atbdp_get_option('all_categories', 'atbdp_general'),
-                        'validation' => 'required|numeric',
+                        'validation' => 'numeric',
                     ),
 
                     array(
@@ -2413,7 +2420,7 @@ The Administrator of ==SITE_NAME==
                         'description' => sprintf(__( 'Select your All Locations  page ( where you used %s shortcode ) ID here.', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_all_locations]</strong>'),
 
                         'default' => atbdp_get_option('all_locations', 'atbdp_general'),
-                        'validation' => 'required|numeric',
+                        'validation' => 'numeric',
                     ),
 
                     array(
@@ -2423,7 +2430,18 @@ The Administrator of ==SITE_NAME==
                         'items' => $this->get_pages_vl_arrays(),
                         'description' => sprintf(__( 'Select your registration page ( where you used %s  shortcode ) ID here', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_custom_registration]</strong>'),
                         'default' => atbdp_get_option('custom_registration', 'atbdp_general'),
-                        'validation' => 'required|numeric',
+                        'validation' => 'numeric',
+
+                    ),
+
+                array(
+                        'type' => 'select',
+                        'name' => 'user_login',
+                        'label' =>  __(  'Add login page ID', ATBDP_TEXTDOMAIN ),
+                        'items' => $this->get_pages_vl_arrays(),
+                        'description' => sprintf(__( 'Select your login page ( where you used %s  shortcode ) ID here', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_user_login]</strong>'),
+                        'default' => atbdp_get_option('custom_registration', 'atbdp_general'),
+                        'validation' => 'numeric',
 
                     ),
 
@@ -2434,7 +2452,7 @@ The Administrator of ==SITE_NAME==
                         'items' => $this->get_pages_vl_arrays(),
                         'description' => sprintf(__( 'Select your Listing Search page ( where you used %s shortcode ) ID here. This is generally used in a home page.', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_search_listing]</strong>'),
                         'default' => atbdp_get_option('search_listing', 'atbdp_general'),
-                        'validation' => 'required|numeric',
+                        'validation' => 'numeric',
                     ),
 
                     array(
@@ -2444,7 +2462,7 @@ The Administrator of ==SITE_NAME==
                         'items' => $this->get_pages_vl_arrays(),
                         'description' => sprintf(__( 'Please Select your Listing Search Result page ( where you used %s shortcode ) ID here. This page is used to show listing search results but this page generally should be excluded from the menu.', ATBDP_TEXTDOMAIN ),'<strong style="color: #ff4500;">[directorist_search_result]</strong>'),
                         'default' => atbdp_get_option('search_result_page', 'atbdp_general'),
-                        'validation' => 'required|numeric',
+                        'validation' => 'numeric',
                     ),
                     array(
                         'type' => 'select',

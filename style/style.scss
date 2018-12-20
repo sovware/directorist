@@ -1,9 +1,7 @@
 @import "../bootstrap/config.bs";
 @import "reboot";
-
 //mixins
 @import "mixins/colors";
-
 //components
 @import "component/general";
 @import "component/search-result";
@@ -17,3 +15,43 @@
 @import "component/home";
 @import "component/public-profile";
 @import "component/location-category";
+
+/*responsive css */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .atbd_content_active .widget.atbd_widget,
+  .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget {
+    .atbd_categorized_listings {
+      .cate_title {
+        h4 {
+          overflow: hidden;
+          -ms-text-overflow: ellipsis;
+          text-overflow: ellipsis;
+        }
+      }
+      padding: 0 20px;
+    }
+    .atbdp, .directorist {
+      padding: 20px 20px 15px;
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+@media (max-width: 991px) {
+  #directorist {
+    .single_search_field {
+      margin-bottom: 15px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  #directorist {
+    .atbd_listing_details .atbd_area_title {
+      margin-bottom: 15px;
+    }
+  }
+}

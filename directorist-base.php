@@ -1,15 +1,15 @@
 <?php
 /**
-Plugin Name: Directorist - Business Directory Plugin
-Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
-Description: Create a professional directory listing website like Yelp by a few clicks only. You can list place, any business etc.  with this plugin very easily.
-Version: 3.2
-Author: AazzTech
-Author URI: https://aazztech.com
-License: GPLv2 or later
-Text Domain: directorist
-Domain Path: /languages
-*/
+ * Plugin Name: Directorist - Business Directory Plugin
+ * Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
+ * Description: Create a professional directory listing website like Yelp by a few clicks only. You can list place, any business etc.  with this plugin very easily.
+ * Version: 3.2
+ * Author: AazzTech
+ * Author URI: https://aazztech.com
+ * License: GPLv2 or later
+ * Text Domain: directorist
+ * Domain Path: /languages
+ */
 /*
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -227,7 +227,7 @@ final class Directorist_Base
             add_filter('map_meta_cap', array(self::$instance->roles, 'meta_caps'), 10, 4);
 
             //add dtbdp custom body class
-            add_filter('body_class', array(self::$instance, 'atbdp_body_class') );
+            add_filter('body_class', array(self::$instance, 'atbdp_body_class'));
             // display related listings
             add_action('atbdp_after_single_listing', array(self::$instance, 'show_related_listing'));
             //review and rating
@@ -443,6 +443,9 @@ final class Directorist_Base
             'custom_registration' => array(
                 'title' => __('Registration', ATBDP_TEXTDOMAIN),
                 'content' => '[directorist_custom_registration]'
+            ), 'user_login' => array(
+                'title' => __('Login', ATBDP_TEXTDOMAIN),
+                'content' => '[directorist_user_login]'
             ),
             'checkout_page' => array(
                 'title' => __('Checkout', ATBDP_TEXTDOMAIN),
@@ -530,7 +533,7 @@ final class Directorist_Base
      * Count variable is handy if we want to show different number of popular listings on different pages. For example, on different widgets place
      * @todo Try to move popular listings related functionalities to a dedicated listing related class that handles popular listings, related listings etc. when have time.
      */
-    public function show_popular_listing($count=5)
+    public function show_popular_listing($count = 5)
     {
         $popular_listings = $this->get_popular_listings($count);
 
@@ -544,7 +547,7 @@ final class Directorist_Base
                         ?>
                         <li>
                             <div class="atbd_left_img">
-                                <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(90,90))).'" alt="listing image">' : '' ?>
+                                <?= (!empty($listing_img[0])) ? '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="listing image">' : '' ?>
                             </div>
                             <div class="atbd_right_content">
                                 <div class="cate_title">
@@ -590,7 +593,7 @@ final class Directorist_Base
      *                   For example, on different widgets place. Default 5.
      * @return WP_Query It returns the popular listings if found.
      */
-    public function get_popular_listings($count=5)
+    public function get_popular_listings($count = 5)
     {
         /*Popular post related stuff*/
         $p_count = !empty($count) ? $count : 5;
@@ -614,7 +617,7 @@ final class Directorist_Base
                     'value' => 10,
                     'compare' => '>=',
                 )
-                /*@todo; later sort by featured listings*/
+            /*@todo; later sort by featured listings*/
         );
         return new WP_Query(apply_filters('atbdp_popular_listing_args', $args));
 
@@ -642,47 +645,47 @@ final class Directorist_Base
                 </div>
                 <div class="row" data-uk-grid>
                     <?php foreach ($related_listings->posts as $r_post) {
-                        $cats =  get_the_terms($r_post->ID, ATBDP_CATEGORY);
-                        $locs =  get_the_terms($r_post->ID, ATBDP_LOCATION);
+                        $cats = get_the_terms($r_post->ID, ATBDP_CATEGORY);
+                        $locs = get_the_terms($r_post->ID, ATBDP_LOCATION);
                         $featured = get_post_meta($r_post->ID, '_featured', true);
                         $price = get_post_meta($r_post->ID, '_price', true);
                         $price_range = get_post_meta($r_post->ID, '_price_range', true);
                         $listing_img = get_post_meta($r_post->ID, '_listing_img', true);
-                        $listing_prv_img   = get_post_meta($r_post->ID, '_listing_prv_img', true);
+                        $listing_prv_img = get_post_meta($r_post->ID, '_listing_prv_img', true);
                         $excerpt = get_post_meta($r_post->ID, '_excerpt', true);
                         $tagline = get_post_meta($r_post->ID, '_tagline', true);
-                        $address           = get_post_meta($r_post->ID, '_address', true);
-                        $phone_number      = get_post_meta($r_post->ID, '_phone', true);
-                        $category          = get_post_meta($r_post->ID, '_admin_category_select', true);
-                        $post_view         = get_post_meta($r_post->ID,'_atbdp_post_views_count',true);
+                        $address = get_post_meta($r_post->ID, '_address', true);
+                        $phone_number = get_post_meta($r_post->ID, '_phone', true);
+                        $category = get_post_meta($r_post->ID, '_admin_category_select', true);
+                        $post_view = get_post_meta($r_post->ID, '_atbdp_post_views_count', true);
                         $hide_contact_info = get_post_meta($r_post->ID, '_hide_contact_info', true);
                         $disable_contact_info = get_directorist_option('disable_contact_info', 0);
                         /*Code for Business Hour Extensions*/
-                        $bdbh                   = get_post_meta($r_post->ID, '_bdbh', true);
-                        $enable247hour          = get_post_meta($r_post->ID, '_enable247hour', true);
-                        $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
+                        $bdbh = get_post_meta($r_post->ID, '_bdbh', true);
+                        $enable247hour = get_post_meta($r_post->ID, '_enable247hour', true);
+                        $business_hours = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
                         /*Code for Business Hour Extensions*/
-                        $author_id = get_the_author_meta( 'ID' );
+                        $author_id = get_the_author_meta('ID');
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                         $avata_img = get_avatar($author_id, 32);
-                        $thumbnail_cropping = get_directorist_option('thumbnail_cropping',1);
-                        if(!empty($listing_prv_img)) {
+                        $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
+                        if (!empty($listing_prv_img)) {
 
-                            if($thumbnail_cropping) {
+                            if ($thumbnail_cropping) {
 
-                                $image_size = get_directorist_option('image_size','directory-image');
-                                $prv_image   = wp_get_attachment_image_src($listing_prv_img, $image_size);
+                                $image_size = get_directorist_option('image_size', 'directory-image');
+                                $prv_image = wp_get_attachment_image_src($listing_prv_img, $image_size);
 
-                            }else{
-                                $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large');
+                            } else {
+                                $prv_image = wp_get_attachment_image_src($listing_prv_img, 'large');
                             }
 
                         }
-                        if(!empty($listing_img[0])) {
-                            if( $thumbnail_cropping ) {
-                                $gallery_img_size = get_directorist_option('image_size','directory-image');
+                        if (!empty($listing_img[0])) {
+                            if ($thumbnail_cropping) {
+                                $gallery_img_size = get_directorist_option('image_size', 'directory-image');
                                 $gallery_img = wp_get_attachment_image_src($listing_img[0], $gallery_img_size);
-                            }else{
+                            } else {
                                 $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium');
                             }
 
@@ -690,49 +693,54 @@ final class Directorist_Base
                         ?>
                         <div class="col-md-6 col-sm-6">
                             <div class="atbd_single_listing atbd_listing_card">
-                                <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
+                                <article
+                                        class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                     <figure class="atbd_listing_thumbnail_area">
                                         <div class="atbd_listing_image">
-                                           <?php if(!empty($listing_prv_img)){
+                                            <?php if (!empty($listing_prv_img)) {
 
-                                                echo '<img src="'.esc_url($prv_image['0']).'" alt="listing image">';
+                                                echo '<img src="' . esc_url($prv_image['0']) . '" alt="listing image">';
 
-                                            } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
+                                            }
+                                            if (!empty($listing_img[0]) && empty($listing_prv_img)) {
 
                                                 echo '<img src="' . esc_url($gallery_img['0']) . '" alt="listing image">';
 
-                                            }if (empty($listing_img[0]) && empty($listing_prv_img)){
+                                            }
+                                            if (empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                                echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
+                                                echo '<img src="' . ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' . '" alt="listing image">';
 
                                             }
                                             ?>
                                         </div>
 
                                         <figcaption class="atbd_thumbnail_overlay_content">
-                                            <?php if (class_exists('BD_Business_Hour')){
-                                                //lets check is it 24/7
+                                            <?php if (class_exists('BD_Business_Hour')){ ?>
+                                            <div class="atbd_upper_badge">
+                                                <?php //lets check is it 24/7
                                                 if (!empty($enable247hour)) {
                                                     ?>
-                                                    <div class="atbd_upper_badge">
-                                                        <span class="atbd_badge atbd_badge_open">Open Now</span>
-                                                    </div><!-- END /.atbd_upper_badge -->
+                                                    <span class="atbd_badge atbd_badge_open">Open Now</span>
                                                     <?php
-                                                }else {
+                                                } else {
                                                     BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list
-                                                } }?>
+                                                }} ?>
+                                            </div><!-- END /.atbd_upper_badge -->
                                             <div class="atbd_lower_badge">
                                                 <?php
-                                                if ($featured){ printf(
-                                                    '<span class="atbd_badge atbd_badge_featured">Featured</span>',
-                                                    esc_html__('Featured', ATBDP_TEXTDOMAIN)
-                                                );}
+                                                if ($featured) {
+                                                    printf(
+                                                        '<span class="atbd_badge atbd_badge_featured">Featured</span>',
+                                                        esc_html__('Featured', ATBDP_TEXTDOMAIN)
+                                                    );
+                                                }
                                                 $count = !empty($count) ? $count : '';
                                                 $popular_listings = ATBDP()->get_popular_listings($count);
                                                 if ($popular_listings->have_posts()) {
 
                                                     foreach ($popular_listings->posts as $pop_post) {
-                                                        if ($pop_post->ID == $r_post->ID){
+                                                        if ($pop_post->ID == $r_post->ID) {
                                                             echo ' <span class="atbd_badge atbd_badge_popular">Popular</span>';
                                                         }
                                                     }
@@ -742,16 +750,16 @@ final class Directorist_Base
                                         </figcaption>
                                     </figure>
 
-                                    <?php /*todo: Shahadat -> please implement the current markup*/?>
+                                    <?php /*todo: Shahadat -> please implement the current markup*/ ?>
                                     <div class="atbd_listing_info">
                                         <div class="atbd_content_upper">
                                             <h4 class="atbd_listing_title">
                                                 <a href="<?= esc_url(get_post_permalink($r_post->ID)); ?>"><?php echo esc_html(stripslashes(get_the_title($r_post->ID))); ?></a>
                                             </h4>
-                                            <?php if(!empty($tagline)) {?>
+                                            <?php if (!empty($tagline)) { ?>
                                                 <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                             <?php } ?>
-                                            <?php /* todo: Shahadat -> new markup implemented */?>
+                                            <?php /* todo: Shahadat -> new markup implemented */ ?>
                                             <div class="atbd_listing_meta">
                                                 <?php
                                                 /**
@@ -762,10 +770,10 @@ final class Directorist_Base
                                                  */
 
                                                 do_action('atbdp_after_listing_tagline');
-                                                if(!empty($price_range)) {
+                                                if (!empty($price_range)) {
                                                     $output = atbdp_display_price_range($price_range);
                                                     echo $output;
-                                                }else{
+                                                } else {
                                                     atbdp_display_price($price, $is_disable_price);
                                                 }
 
@@ -779,54 +787,68 @@ final class Directorist_Base
                                                 ?>
                                             </div><!-- End atbd listing meta -->
 
-                                            <?php /* @todo: Shahadat -> please implement this */?>
+                                            <?php /* @todo: Shahadat -> please implement this */ ?>
                                             <div class="atbd_listing_data_list">
                                                 <ul>
                                                     <?php
                                                     if (!$disable_contact_info && !$hide_contact_info) {
-                                                        if( !empty( $address )) { ?>
-                                                            <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
+                                                        if (!empty($address)) { ?>
+                                                            <li><p>
+                                                                    <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
+                                                                </p></li>
                                                         <?php } ?>
-                                                        <?php if( !empty( $phone_number )) {?>
-                                                            <li><p><span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number));?></p></li>
+                                                        <?php if (!empty($phone_number)) { ?>
+                                                            <li><p>
+                                                                    <span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number)); ?>
+                                                                </p></li>
                                                             <?php
-                                                        } }?>
+                                                        }
+                                                    } ?>
                                                     <li><p><span class="fa fa-clock-o"></span><?php
-                                                            printf( __( 'Posted %s ago', ATBDP_TEXTDOMAIN ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
+                                                            printf(__('Posted %s ago', ATBDP_TEXTDOMAIN), human_time_diff(get_the_time('U'), current_time('timestamp')));
                                                             ?></p></li>
                                                 </ul>
                                             </div><!-- End atbd listing meta -->
                                             <?php
                                             //show category and location info
                                             /* @todo: Shahadat -> Please fetch location, phone number and listing addition info here */
-                                            /*ATBDP()->helper->output_listings_taxonomy_info($top_category, $deepest_location);*/?>
-                                            <?php if( !empty($excerpt) ) {?>
+                                            /*ATBDP()->helper->output_listings_taxonomy_info($top_category, $deepest_location);*/ ?>
+                                            <?php if (!empty($excerpt)) { ?>
                                                 <p><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
                                             <?php } ?>
                                             <?php /* @todo: deleted the read more link */ ?>
                                         </div><!-- end ./atbd_content_upper -->
 
                                         <div class="atbd_listing_bottom_content">
-                                            <?php if(!empty($category)) {?>
+                                            <?php if (!empty($category)) { ?>
                                                 <div class="atbd_content_left">
                                                     <div class="atbd_listting_category">
-                                                        <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span><?php  echo $cats[0]->name;?></a>
+                                                        <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));; ?>"><span
+                                                                    class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span><?php echo $cats[0]->name; ?>
+                                                        </a>
                                                     </div>
                                                 </div>
-                                            <?php }else{
+                                            <?php } else {
                                                 ?>
                                                 <div class="atbd_content_left">
                                                     <div class="atbd_listting_category">
-                                                        <a href=""><span class="fa fa fa-square-o"></span><?php  echo __('Uncategorized', ATBDP_TEXTDOMAIN);?></a>
+                                                        <a href=""><span
+                                                                    class="fa fa fa-square-o"></span><?php echo __('Uncategorized', ATBDP_TEXTDOMAIN); ?>
+                                                        </a>
                                                     </div>
                                                 </div>
 
-                                            <?php    } ?>
+                                            <?php } ?>
                                             <ul class="atbd_content_right">
-                                                <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li>
+                                                <li class="atbd_count"><span
+                                                            class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0; ?>
+                                                </li>
                                                 <!--<li class="atbd_save"><span class="fa fa-heart"></span></li>-->
                                                 <li class="atbd_author">
-                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {
+                                                            echo $avata_img;
+                                                        }
+                                                        if (!empty($u_pro_pic)) { ?>
                                                             <img
                                                             src="<?php echo esc_url($u_pro_pic); ?>"
                                                             alt="Author Image"><?php } ?>
@@ -898,7 +920,7 @@ final class Directorist_Base
      * @param object|WP_Post $post The WP Post Object of whose related listing we would like to show
      * @return object|WP_Query It returns the related listings if found.
      */
-    public function get_related_listings_widget($post,$count)
+    public function get_related_listings_widget($post, $count)
     {
         $rel_listing_num = !empty($count) ? $count : 5;
         $atbd_cats = get_the_terms($post, ATBDP_CATEGORY);
@@ -950,7 +972,7 @@ final class Directorist_Base
 
         ?>
         <span class="atbd_meta atbd_listing_rating">
-            <?php echo $average;?><i class="fa fa-star"></i>
+            <?php echo $average; ?><i class="fa fa-star"></i>
         </span>
         <?php /*todo: Shahadat -> I have deleted a chunk of code from here as it was unnecessary from the perspective of UI*/
         ?>
@@ -979,7 +1001,7 @@ final class Directorist_Base
             <div class="atbd_content_module__tittle_area">
                 <div class="atbd_area_title">
                     <h4><span class="fa fa-star atbd_area_icon"></span><?php echo $reviews_count;
-                        _e($reviews_count>1 ? ' Reviews': ' Review', ATBDP_TEXTDOMAIN);
+                        _e($reviews_count > 1 ? ' Reviews' : ' Review', ATBDP_TEXTDOMAIN);
                         ?></h4>
                 </div>
                 <?php if (is_user_logged_in()) { ?>
@@ -997,13 +1019,16 @@ final class Directorist_Base
                             <div class="atbd_single_review" id="single_review_<?= $review->id; ?>">
                                 <div class="atbd_review_top">
                                     <div class="atbd_avatar_wrapper">
-                                        <?php $avata_img = get_avatar($review->by_user_id , 32 ); ?>                                        <div class="atbd_review_avatar"><?php if ($avata_img){echo $avata_img;}else{?><img
-                                                    src="<?php echo ATBDP_PUBLIC_ASSETS . 'images/revav.png' ?>"
-                                                    alt="Avatar Image"><?php }?></div>
+                                        <?php $avata_img = get_avatar($review->by_user_id, 32); ?>
+                                        <div class="atbd_review_avatar"><?php if ($avata_img) {
+                                                echo $avata_img;
+                                            } else { ?><img
+                                                src="<?php echo ATBDP_PUBLIC_ASSETS . 'images/revav.png' ?>"
+                                                alt="Avatar Image"><?php } ?></div>
                                         <div class="atbd_name_time">
                                             <p><?= esc_html($review->name); ?></p>
                                             <span class="review_time"><?php
-                                                printf( __( '%s ago', ATBDP_TEXTDOMAIN ), human_time_diff( strtotime($review->date_created), current_time( 'timestamp' ) ) );?></span>
+                                                printf(__('%s ago', ATBDP_TEXTDOMAIN), human_time_diff(strtotime($review->date_created), current_time('timestamp'))); ?></span>
                                         </div>
                                     </div>
                                     <div class="atbd_rated_stars">
@@ -1061,12 +1086,12 @@ final class Directorist_Base
                                 <?php
                                 // color the stars if user has rating
                                 if (!empty($cur_user_review)) { ?>
-                                   <div class="atbd_review_current_rating">
-                                       <p class="atbd_rating_label"><?php _e('Current Rating:', ATBDP_TEXTDOMAIN); ?></p>
-                                       <div class="atbd_rated_stars">
-                                           <?= ATBDP()->review->print_static_rating($cur_user_review->rating); ?>
-                                       </div>
-                                   </div>
+                                    <div class="atbd_review_current_rating">
+                                        <p class="atbd_rating_label"><?php _e('Current Rating:', ATBDP_TEXTDOMAIN); ?></p>
+                                        <div class="atbd_rated_stars">
+                                            <?= ATBDP()->review->print_static_rating($cur_user_review->rating); ?>
+                                        </div>
+                                    </div>
                                 <?php } ?>
 
                                 <div class="atbd_review_update_rating">
@@ -1087,16 +1112,16 @@ final class Directorist_Base
                                           placeholder="<?= !empty($cur_user_review) ? __('Update your review.....', ATBDP_TEXTDOMAIN) : __('Write your review.....', ATBDP_TEXTDOMAIN); ?>"><?= !empty($cur_user_review) ? $cur_user_review->content : ''; ?></textarea>
                             </div>
 
-                            <?php /* @todo  Shahadat -> Added new upload button*/ ?>
-                           <!-- <div class="form-group">
-                                <div id="atbd_up_preview"></div>
-                                <div class="atbd_upload_btn_wrap">
-                                    <label for="atbd_review_attachment">
-                                        <input type="file" id="atbd_review_attachment" hidden multiple>
-                                        <span class="btn atbd_upload_btn"><span class="fa fa-upload"></span>Upload Photo</span>
-                                    </label>
-                                </div>
-                            </div>-->
+                            <?php /* @todo  Shahadat -> Added new upload button */ ?>
+                            <!-- <div class="form-group">
+                                 <div id="atbd_up_preview"></div>
+                                 <div class="atbd_upload_btn_wrap">
+                                     <label for="atbd_review_attachment">
+                                         <input type="file" id="atbd_review_attachment" hidden multiple>
+                                         <span class="btn atbd_upload_btn"><span class="fa fa-upload"></span>Upload Photo</span>
+                                     </label>
+                                 </div>
+                             </div>-->
 
                             <!--If current user has a review then show him update and delete button-->
                             <?php if (!empty($cur_user_review)) { ?>
@@ -1235,7 +1260,8 @@ final class Directorist_Base
     /**
      * Parse the video URL and determine it's valid embeddable URL for usage.
      */
-    public function atbdp_parse_videos( $url ) {
+    public function atbdp_parse_videos($url)
+    {
 
         $embeddable_url = '';
 
@@ -1266,14 +1292,13 @@ final class Directorist_Base
 
     }
 
-    public function atbdp_body_class($c_classes){
+    public function atbdp_body_class($c_classes)
+    {
         $c_classes[] = 'atbd_content_active';//class name goes here
         return $c_classes;
     }
-    
+
 } // ends Directorist_Base
-
-
 
 
 /**
@@ -1298,21 +1323,21 @@ function ATBDP()
 // Get ATBDP ( AazzTech Business Directory Plugin) Running.
 ATBDP();
 
-add_image_size('directory-image',310,190,true);
-add_image_size('directory-small',400,300,true);
-add_image_size('directory-medium',600,500,true);
-add_image_size('directory-large',700,600,true);
+add_image_size('directory-image', 310, 190, true);
+add_image_size('directory-small', 400, 300, true);
+add_image_size('directory-medium', 600, 500, true);
+add_image_size('directory-large', 700, 600, true);
 
-$custom_img_width = get_directorist_option('crop_width',670);
-$custom_img_height = get_directorist_option('crop_height',420);
-add_image_size('directory-custom',$custom_img_width,$custom_img_height,true);
+$custom_img_width = get_directorist_option('crop_width', 670);
+$custom_img_height = get_directorist_option('crop_height', 420);
+add_image_size('directory-custom', $custom_img_width, $custom_img_height, true);
 
-add_image_size('gallery-image',360,300,true);
-add_image_size('gallery-small',400,300,true);
-add_image_size('gallery-medium',600,500,true);
-add_image_size('gallery-large',700,600,true);
+add_image_size('gallery-image', 360, 300, true);
+add_image_size('gallery-small', 400, 300, true);
+add_image_size('gallery-medium', 600, 500, true);
+add_image_size('gallery-large', 700, 600, true);
 
-$custom_gl_width = get_directorist_option('gallery_crop_width',670);
-$custom_gl_height = get_directorist_option('gallery_crop_height',420);
-add_image_size('gallery-custom',$custom_gl_width,$custom_gl_height,true);
+$custom_gl_width = get_directorist_option('gallery_crop_width', 670);
+$custom_gl_height = get_directorist_option('gallery_crop_height', 420);
+add_image_size('gallery-custom', $custom_gl_width, $custom_gl_height, true);
 register_activation_hook(__FILE__, array('Directorist_Base', 'prepare_plugin'));

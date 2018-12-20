@@ -10,6 +10,7 @@ $search_placeholder = get_directorist_option('search_placeholder', __('What are 
 
 $show_popular_category = get_directorist_option('show_popular_category', 1);
 $show_connector = get_directorist_option('show_connector', 1);
+$search_border = get_directorist_option('search_border', 1);
 
 $connectors_title = get_directorist_option('connectors_title', __('Or', ATBDP_TEXTDOMAIN));
 $popular_cat_title = get_directorist_option('popular_cat_title', __('Browse by popular categories', ATBDP_TEXTDOMAIN));
@@ -36,16 +37,16 @@ $popular_cat_num = get_directorist_option('popular_cat_num', 10);
                 <!-- start search area -->
                 <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
                     <!-- @todo; if the input fields break in different themes, use bootstrap form inputs then -->
-                    <div class="atbd_seach_fields_wrapper">
+                    <div class="atbd_seach_fields_wrapper"<?php echo empty($search_border)?'style="border: none;"':'';?>>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_query">
                                     <input class="form-control search_fields" type="text" name="q"
                                            placeholder="<?php echo esc_html($search_placeholder); ?>">
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_category">
                                     <select name="in_cat" class="search_fields form-control" id="at_biz_dir-category">
                                         <option value=""><?php _e('Select a category', ATBDP_TEXTDOMAIN); ?></option>
@@ -59,7 +60,7 @@ $popular_cat_num = get_directorist_option('popular_cat_num', 10);
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-12 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_location">
                                     <select name="in_loc" class="search_fields form-control" id="at_biz_dir-location">
                                         <!--This text comes from js, translate them later @todo; translate js text-->

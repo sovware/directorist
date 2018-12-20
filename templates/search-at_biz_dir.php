@@ -109,7 +109,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             /*Code for Business Hour Extensions*/
                             ?>
                             <?php /*@todo shahadat - > updated search results page */?>
-                            <div class="col-md-4 col-sm-6">
+                            <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="atbd_single_listing atbd_listing_card">
                                     <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                         <figure class="atbd_listing_thumbnail_area">
@@ -286,7 +286,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     </li>
                                                 </ul>
                                             </div><!-- end ./atbd_listing_bottom_content -->
-                                        </div>
+                                        </div>f
                                     </article>
                                 </div>
                             </div>

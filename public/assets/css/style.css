@@ -1004,14 +1004,20 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_widget_title,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_widget_title {
+  padding: 15px 30px;
   border-bottom: 1px solid #e3e6ef;
+}
+
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_widget_title .atbd_widget_title,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_widget_title .atbd_widget_title {
+  padding: 0;
+  border: 0;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_widget_title h4,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_widget_title h4 {
   margin: 0 !important;
   font-size: 18px;
-  padding: 15px 30px;
   font-weight: 400 !important;
 }
 

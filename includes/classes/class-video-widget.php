@@ -34,7 +34,8 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
          */
         public function widget($args, $instance)
         {
-            if( is_singular(ATBDP_POST_TYPE)) {
+            $videourl   = !empty($videourl) ? esc_attr(ATBDP()->atbdp_parse_videos($videourl)) : '';
+            if( is_singular(ATBDP_POST_TYPE) && !empty($videourl)) {
                 global $post;
                 $listing_info = ATBDP()->metabox->get_listing_info( $post->ID);
                 $listing      =  !empty($listing_info) ? $listing_info : array();

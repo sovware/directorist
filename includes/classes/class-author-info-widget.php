@@ -12,7 +12,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
         {
             $widget_options = array(
                 'classname' => 'atbd_widget',
-                'description' => esc_html__('You can show submit item  listing link by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show author info by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
                 'bdsi_widget', // Base ID

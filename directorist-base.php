@@ -312,7 +312,7 @@ final class Directorist_Base
         register_widget('BD_Popular_Listing_Widget');
         register_widget('BD_video_Widget');
         register_widget('BD_contact_form_Widget');
-        register_widget('BD_Submit_Item_Widget');
+        register_widget('BD_Submit_Widget');
         register_widget('BD_Login_Form_Widget');
         register_widget('BD_Categories_Widget');
         register_widget('BD_Locations_Widget');

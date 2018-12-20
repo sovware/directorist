@@ -286,7 +286,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     </li>
                                                 </ul>
                                             </div><!-- end ./atbd_listing_bottom_content -->
-                                        </div>f
+                                        </div>
                                     </article>
                                 </div>
                             </div>

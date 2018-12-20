@@ -1,9 +1,9 @@
 <?php
-if (!class_exists('BD_Submit_Item_Widget')) {
+if (!class_exists('BD_Submit_Widget')) {
     /**
      * Adds BD_Popular_Listing_Widget widget.
      */
-    class BD_Submit_Item_Widget extends WP_Widget
+    class BD_Submit_Widget extends WP_Widget
     {
         /**
          * Register widget with WordPress.

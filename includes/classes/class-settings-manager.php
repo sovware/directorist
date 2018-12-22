@@ -1209,8 +1209,8 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                     'default' => array(
-                        'value' => 'title',
-                        'label' => __('Title', ATBDP_TEXTDOMAIN),
+                        'value' => 'date',
+                        'label' => __('Date', ATBDP_TEXTDOMAIN),
                     ),
                 ),
                 array(
@@ -1719,8 +1719,8 @@ The Administrator of ==SITE_NAME==
                 ),
                 'description' => __( 'Select ', ATBDP_TEXTDOMAIN ),
                 'default' =>  array(
-                    'value' => 'gallery-medium',
-                    'label' => __('600*500', ATBDP_TEXTDOMAIN),
+                    'value' => 'gallery-small',
+                    'label' => __('400*300', ATBDP_TEXTDOMAIN),
                 ),
             ),
 

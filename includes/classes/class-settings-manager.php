@@ -1209,8 +1209,8 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                     'default' => array(
-                        'value' => 'title',
-                        'label' => __('Title', ATBDP_TEXTDOMAIN),
+                        'value' => 'date',
+                        'label' => __('Date', ATBDP_TEXTDOMAIN),
                     ),
                 ),
                 array(
@@ -1577,7 +1577,20 @@ The Administrator of ==SITE_NAME==
                         'default' => atbdp_get_option('search_posts_num', 'atbdp_general', 6),
                         'validation' => 'numeric|minlength[1]',
                     ),
-
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_category_field',
+                        'label' => __('Display Category Field', ATBDP_TEXTDOMAIN),
+                        'description' => __('If you do not want to hide category field on search home page, turn it off.', ATBDP_TEXTDOMAIN),
+                        'default' => 1,
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_location_field',
+                        'label' => __('Display Location Field', ATBDP_TEXTDOMAIN),
+                        'description' => __('If you do not want to hide location field on search home page, turn it off.', ATBDP_TEXTDOMAIN),
+                        'default' => 1,
+                    ),
                 )
             );
         }
@@ -1706,8 +1719,8 @@ The Administrator of ==SITE_NAME==
                 ),
                 'description' => __( 'Select ', ATBDP_TEXTDOMAIN ),
                 'default' =>  array(
-                    'value' => 'gallery-medium',
-                    'label' => __('600*500', ATBDP_TEXTDOMAIN),
+                    'value' => 'gallery-small',
+                    'label' => __('400*300', ATBDP_TEXTDOMAIN),
                 ),
             ),
 

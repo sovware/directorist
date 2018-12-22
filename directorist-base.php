@@ -746,6 +746,37 @@ final class Directorist_Base
                                                         }
                                                     }
                                                 }
+                                                $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
+                                                $enable_new_listing = get_directorist_option('enable_new_listing',1);
+                                                $new_listing_day = get_directorist_option('new_listing_day',3);
+                                                $is_day_or_days = substr($is_old, -4);
+                                                $is_other = substr($is_old, -5);
+                                                if (($enable_new_listing) && (($is_day_or_days<=$new_listing_day) || ($is_other<=$new_listing_day))){
+                                                    $new = '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                    switch ($is_day_or_days){
+                                                        case ' day':
+                                                            echo $new;
+                                                            break;
+                                                        case 'days':
+                                                            echo $new;
+                                                            break;
+                                                        case 'mins':
+                                                            echo $new;
+                                                            break;
+                                                        case ' min':
+                                                            echo $new;
+                                                            break;
+                                                        case 'hour':
+                                                            echo $new;
+                                                            break;
+                                                    }
+                                                    switch ($is_other){
+                                                        case 'hours':
+                                                            echo $new;
+                                                            break;
+                                                    }
+                                                }
+
                                                 ?>
                                             </div>
                                         </figcaption>

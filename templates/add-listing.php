@@ -113,7 +113,6 @@ $currency = get_directorist_option('g_currency', 'USD');
             'meta_value' => 'form'
         ));
         $fields = $custom_fields->posts;
-
         foreach ($fields as $post) {
             setup_postdata($post);
             $post_id = $post->ID;
@@ -290,6 +289,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                     'depth'            => 10,
                     'show_count'       => false,
                     'hide_empty'       => false,
+
                 );
                 wp_dropdown_categories( $args );
                 $current_val = esc_attr(get_post_meta($post_ID, '_admin_category_select', true));

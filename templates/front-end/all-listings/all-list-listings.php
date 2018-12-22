@@ -153,11 +153,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                             <div class="atbd_lower_badge">
                                                 <?php
                                                 $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
-                                                $enable_new_listing = get_directorist_option('enable_new_listing');
-                                                $new_listing_day = get_directorist_option('new_listing_day');
+                                                $enable_new_listing = get_directorist_option('enable_new_listing',1);
+                                                $new_listing_day = get_directorist_option('new_listing_day',3);
                                                 $is_day_or_days = substr($is_old, -4);
                                                 $is_other = substr($is_old, -5);
-                                                if (($is_old<=$new_listing_day) && ($enable_new_listing)){
+                                                if (($enable_new_listing) && (($is_day_or_days<=$new_listing_day) || ($is_other<=$new_listing_day))){
                                                     $new = '<span class="atbd_badge atbd_badge_new">New</span>';
                                                     switch ($is_day_or_days){
                                                         case ' day':

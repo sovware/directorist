@@ -15,6 +15,8 @@ $search_border = get_directorist_option('search_border', 1);
 $connectors_title = get_directorist_option('connectors_title', __('Or', ATBDP_TEXTDOMAIN));
 $popular_cat_title = get_directorist_option('popular_cat_title', __('Browse by popular categories', ATBDP_TEXTDOMAIN));
 $popular_cat_num = get_directorist_option('popular_cat_num', 10);
+$display_category_field = get_directorist_option('display_category_field', 1);
+$display_location_field = get_directorist_option('display_location_field', 1);
 ?>
 <!-- start search section -->
 <div id="directorist" class="directorist atbd_wrapper directory_search_area single_area"
@@ -45,7 +47,7 @@ $popular_cat_num = get_directorist_option('popular_cat_num', 10);
                                            placeholder="<?php echo esc_html($search_placeholder); ?>">
                                 </div>
                             </div>
-
+                            <?php if(!empty($display_category_field)) {?>
                             <div class="col-md-6 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_category">
                                     <select name="in_cat" class="search_fields form-control" id="at_biz_dir-category">
@@ -59,7 +61,8 @@ $popular_cat_num = get_directorist_option('popular_cat_num', 10);
                                     </select>
                                 </div>
                             </div>
-
+                            <?php }
+                            if(!empty($display_location_field)) { ?>
                             <div class="col-md-12 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_location">
                                     <select name="in_loc" class="search_fields form-control" id="at_biz_dir-location">
@@ -73,6 +76,7 @@ $popular_cat_num = get_directorist_option('popular_cat_num', 10);
                                     </select>
                                 </div>
                             </div>
+                            <?php } ?>
                         </div>
                     </div>
                     <div class="atbd_submit_btn">

@@ -1577,7 +1577,20 @@ The Administrator of ==SITE_NAME==
                         'default' => atbdp_get_option('search_posts_num', 'atbdp_general', 6),
                         'validation' => 'numeric|minlength[1]',
                     ),
-
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_category_field',
+                        'label' => __('Display Category Field', ATBDP_TEXTDOMAIN),
+                        'description' => __('If you do not want to hide category field on search home page, turn it off.', ATBDP_TEXTDOMAIN),
+                        'default' => 1,
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_location_field',
+                        'label' => __('Display Location Field', ATBDP_TEXTDOMAIN),
+                        'description' => __('If you do not want to hide location field on search home page, turn it off.', ATBDP_TEXTDOMAIN),
+                        'default' => 1,
+                    ),
                 )
             );
         }

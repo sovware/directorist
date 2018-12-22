@@ -660,6 +660,13 @@ final class Directorist_Base
                         $post_view = get_post_meta($r_post->ID, '_atbdp_post_views_count', true);
                         $hide_contact_info = get_post_meta($r_post->ID, '_hide_contact_info', true);
                         $disable_contact_info = get_directorist_option('disable_contact_info', 0);
+                        $display_title        = get_directorist_option('display_title',1);
+                        $display_review       = get_directorist_option('display_review',1);
+                        $display_price        = get_directorist_option('display_price',1);
+                        $display_category     = get_directorist_option('display_category',1);
+                        $display_view_count   = get_directorist_option('display_view_count',1);
+                        $display_author_image = get_directorist_option('display_author_image',1);
+                        $display_publish_date = get_directorist_option('display_publish_date',1);
                         /*Code for Business Hour Extensions*/
                         $bdbh = get_post_meta($r_post->ID, '_bdbh', true);
                         $enable247hour = get_post_meta($r_post->ID, '_enable247hour', true);
@@ -784,10 +791,11 @@ final class Directorist_Base
                                     <?php /*todo: Shahadat -> please implement the current markup*/ ?>
                                     <div class="atbd_listing_info">
                                         <div class="atbd_content_upper">
+                                            <?php if(!empty($display_title)) {?>
                                             <h4 class="atbd_listing_title">
                                                 <a href="<?= esc_url(get_post_permalink($r_post->ID)); ?>"><?php echo esc_html(stripslashes(get_the_title($r_post->ID))); ?></a>
                                             </h4>
-                                            <?php if (!empty($tagline)) { ?>
+                                            <?php } if (!empty($tagline)) { ?>
                                                 <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                             <?php } ?>
                                             <?php /* todo: Shahadat -> new markup implemented */ ?>
@@ -800,12 +808,16 @@ final class Directorist_Base
                                                  * @since 1.0.0
                                                  */
 
+                                               if(!empty($display_review)) {
                                                 do_action('atbdp_after_listing_tagline');
-                                                if (!empty($price_range)) {
-                                                    $output = atbdp_display_price_range($price_range);
-                                                    echo $output;
-                                                } else {
-                                                    atbdp_display_price($price, $is_disable_price);
+                                                }
+                                                if(!empty($display_price)) {
+                                                    if(!empty($price_range)) {
+                                                     $output = atbdp_display_price_range($price_range);
+                                                     echo $output;
+                                                    }else{
+                                                        atbdp_display_price($price, $is_disable_price);
+                                                    }
                                                 }
 
                                                 /**
@@ -851,7 +863,9 @@ final class Directorist_Base
                                         </div><!-- end ./atbd_content_upper -->
 
                                         <div class="atbd_listing_bottom_content">
-                                            <?php if (!empty($category)) { ?>
+                                            <?php
+                                            if(!empty($display_category)) {
+                                            if (!empty($category)) { ?>
                                                 <div class="atbd_content_left">
                                                     <div class="atbd_listting_category">
                                                         <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));; ?>"><span
@@ -869,12 +883,12 @@ final class Directorist_Base
                                                     </div>
                                                 </div>
 
-                                            <?php } ?>
+                                            <?php } }?>
                                             <ul class="atbd_content_right">
-                                                <li class="atbd_count"><span
-                                                            class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0; ?>
-                                                </li>
+                                                <?php if(!empty($display_view_count)) {?>
+                                                    <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li> <?php } ?>
                                                 <!--<li class="atbd_save"><span class="fa fa-heart"></span></li>-->
+                                                <?php if(!empty($display_author_image)) {?>
                                                 <li class="atbd_author">
                                                     <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {
                                                             echo $avata_img;
@@ -885,6 +899,7 @@ final class Directorist_Base
                                                             alt="Author Image"><?php } ?>
                                                     </a>
                                                 </li>
+                                                <?php } ?>
                                             </ul>
                                         </div><!-- end ./atbd_listing_bottom_content -->
                                     </div>

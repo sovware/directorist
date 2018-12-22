@@ -693,8 +693,7 @@ final class Directorist_Base
                         ?>
                         <div class="col-md-6 col-sm-6">
                             <div class="atbd_single_listing atbd_listing_card">
-                                <article
-                                        class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
+                                <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                     <figure class="atbd_listing_thumbnail_area">
                                         <div class="atbd_listing_image">
                                             <?php if (!empty($listing_prv_img)) {

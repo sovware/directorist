@@ -13,6 +13,7 @@ if (!empty($p_id)) {
     $listing_info['featured'] = get_post_meta($p_id, '_featured', true);
     $listing_info['listing_type'] = get_post_meta($p_id, '_listing_type', true);
     $listing_info['price'] = get_post_meta($p_id, '_price', true);
+    $listing_info['videourl'] = get_post_meta($p_id, '_videourl', true);
     $listing_info['price_range'] = get_post_meta($p_id, '_price_range', true);
     $listing_info['listing_status'] = get_post_meta($p_id, '_listing_status', true);
     $listing_info['tagline'] = get_post_meta($p_id, '_tagline', true);

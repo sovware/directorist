@@ -2212,7 +2212,8 @@
 }
 
 #directorist.atbd_wrapper .dropdown-menu.show {
-  display: block;
+  display: block!important;
+  width: 100%;
 }
 
 #directorist.atbd_wrapper .dropdown-header {

@@ -229,6 +229,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   box-sizing: content-box;
 }
 
+#directorist.atbd_wrapper .dropdown .dropdown-toggle span.caret {
+  display: none;
+}
+
 #directorist.atbd_wrapper .fa {
   font: normal normal normal 14px/1 FontAwesome;
 }
@@ -1867,6 +1871,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .directory_home_category_area .categories li + li {
   margin-left: 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .directory_home_category_area .categories li a p {
+  text-align: center;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_author_module .atbd_content_module p {

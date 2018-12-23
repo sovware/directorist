@@ -389,9 +389,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                         ) );
                         $fields = $custom_fields->posts;
                         foreach ($fields as $f){
-                            $field_details = get_post_meta($listing_id, $f->ID, true);
+                            $has_details = get_post_meta($listing_id, $f->ID, true);
+
                         }
-                        if (!empty($field_details)) { //show the are if custom field has data
+                        if (!empty($has_details)) { //show the are if custom field has data
 
                             ?>
                             <div class="atbd_content_module atbd_custom_fields_contents">
@@ -399,6 +400,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                     <ul class="atbd_custom_fields">
                                         <!--  get data from custom field-->
                                         <?php
+                                        $custom_fields  = new WP_Query( array(
+                                            'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+                                            'posts_per_page' => -1,
+                                            'post_status'    => 'publish',
+                                        ) );
+                                        $fields = $custom_fields->posts;
                                         foreach ($fields as $post) {
                                             setup_postdata($post);
                                             $field_id = $post->ID;

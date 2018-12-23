@@ -70,7 +70,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                         </div>
                     </div>
 
-                    <div class="<?php echo $main_col_size?>">
+                    <div class="col-md-12">
                         <?php
                         while ($all_listings->have_posts()) {
                             $all_listings->the_post(); ?>

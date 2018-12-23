@@ -3,7 +3,7 @@
 <div class="container directorist-upgrade-wrap" style="width: 50%; margin-top: 30px;">
     <h2><?php _e('Upgrade Pages', ATBDP_TEXTDOMAIN)?></h2>
     <p style="background:#ffffff; padding: 20px; line-height: 24px;"><?php _e('If you are an existing user of the directorist we recommanded you to upgrade your pages shortcode as we have changed Directorist shortcode.', ATBDP_TEXTDOMAIN)?></p>
-            <button type="button" id="shortcode-updated" class="button button-primary"><?php _e('Upgrade Directorist old/existing Pages', ATBDP_TEXTDOMAIN)?></button>
+            <button type="button" id="shortcode-updated" class="button button-primary"><?php _e('Upgrade/Regenerate Pages', ATBDP_TEXTDOMAIN)?></button>
 
 
     <h2><?php _e('Upgrade Database', ATBDP_TEXTDOMAIN)?></h2>

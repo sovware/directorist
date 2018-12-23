@@ -209,6 +209,7 @@ class ATBDP_Custom_Field
     public function load_script_css()
     {
         if ($this->_check_load_script_css()) {
+            wp_enqueue_style('custom-field-css',ATBDP_ADMIN_ASSETS . 'css/drag_drop.css');
             wp_enqueue_script('jquery');
             wp_enqueue_script('jquery-ui-sortable');
             wp_enqueue_script('custom-field-js', ATBDP_ADMIN_ASSETS . 'js/custom-field.js', array('jquery'), null, true);

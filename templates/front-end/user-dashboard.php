@@ -448,7 +448,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                         <tr>
                                             <th><?php _e('Listing Name', ATBDP_TEXTDOMAIN) ?></th>
                                             <th><?php _e('Category', ATBDP_TEXTDOMAIN) ?></th>
-                                            <th><?php _e('Action', ATBDP_TEXTDOMAIN) ?></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -474,7 +473,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <a href="%s"><span class="fa %s"></span>%s</a>
                                             </td>
                                             
-                                            <td class="text-center"><a class="btn btn-danger" href="%s">%s</a></td>
+                                            
                                         </tr>', $post_link, $title, $category_link, $category_icon, $category_name, atbdp_get_remove_favourites_page_link($post->ID), __('Remove', ATBDP_TEXTDOMAIN));
                                         }
                                         ?>

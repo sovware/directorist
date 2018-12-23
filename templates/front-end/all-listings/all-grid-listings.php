@@ -250,7 +250,6 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                 do_action('atbdp_after_listing_tagline');
                                                 }
                                                 if(!empty($display_price)) {
-                                                    var_dump($atbd_listing_pricing);
                                                     if(!empty($price_range)) {
                                                      $output = atbdp_display_price_range($price_range);
                                                      echo $output;

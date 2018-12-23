@@ -2212,8 +2212,7 @@
 }
 
 #directorist.atbd_wrapper .dropdown-menu.show {
-  display: block!important;
-  width: 100%;
+  display: block;
 }
 
 #directorist.atbd_wrapper .dropdown-header {

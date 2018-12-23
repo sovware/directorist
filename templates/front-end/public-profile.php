@@ -402,7 +402,7 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                                         </div><!-- end ./atbd_content_upper -->
 
                                         <div class="atbd_listing_bottom_content">
-                                            <?php if(!empty($category)) {?>
+                                            <?php if(!empty($cats)) {?>
                                                 <div class="atbd_content_left">
                                                     <div class="atbd_listting_category">
                                                         <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span><?php  echo $cats[0]->name;?></a>

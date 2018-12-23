@@ -1,9 +1,9 @@
 
-<div id="directorist" class="atbd_wrapper directorist  single_area">
+<div id="directorist" class="atbd_wrapper directorist">
     <div class="<?php echo is_directoria_active() ? 'container': ' container-fluid'; ?>">
         <div class="row">
             <div class="col-md-12">
-                <div class="add_listing_title">
+                <div class="add_listing_title atbd_success_mesage">
 
                     <h2><?php _e('Register', ATBDP_TEXTDOMAIN); ?></h2>
                     <?php if(!empty($_GET['success']) && true == $_GET['success']){ ?>

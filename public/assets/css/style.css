@@ -223,6 +223,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
   box-sizing: border-box;
 }
 
+#directorist.atbd_wrapper .list-group-item {
+  padding-left: 10px;
+}
+
+#directorist.atbd_wrapper .gateway_list label input {
+  margin-right: 10px;
+}
+
 #directorist.atbd_wrapper .iris-picker, #directorist.atbd_wrapper .iris-picker * {
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
@@ -809,8 +817,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-size: 14px;
   display: inline-block;
   margin-right: 7px;
-  line-height: 28px;
-  width: 28px;
+  line-height: 32px;
+  width: 32px;
   text-align: center;
   color: #ffffff;
   border-radius: 50%;
@@ -933,8 +941,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right .atbd_author a {
-  width: 35px;
-  height: 35px;
+  width: 32px;
+  height: 32px;
   display: inline-block;
   vertical-align: middle;
 }

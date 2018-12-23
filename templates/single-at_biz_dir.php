@@ -88,6 +88,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 <section id="directorist" class="directorist atbd_wrapper">
     <div class="row">
         <div class="<?php echo esc_attr($main_col_size); ?> col-md-12">
+
             <?php
             //is current user is logged in and the original author of the listing
             if (is_user_logged_in() && $listing_author_id == get_current_user_id()){
@@ -96,6 +97,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                 <div class="edit_btn_wrap">
                     <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>" class="btn btn-success"><span class="fa fa-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN)?></a>
                 </div>
+
                 <?php
             }
             ?>
@@ -133,12 +135,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                         </li>
                                         <li>
                                             <a href="<?php echo esc_url($g_lnk); ?>" target="_blank">
-                                                <span class="fa fa-google-plus"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN)?>Google Plus
+                                                <span class="fa fa-google-plus"></span><?PHP _e('Google Plus', ATBDP_TEXTDOMAIN)?>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="<?php echo esc_url($in_link); ?>" target="_blank">
-                                                <span class="fa fa-linkedin"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN)?>LinkedIn
+                                                <span class="fa fa-linkedin"></span><?PHP _e('LinkedIn', ATBDP_TEXTDOMAIN)?>
                                             </a>
                                         </li>
                                     </ul>

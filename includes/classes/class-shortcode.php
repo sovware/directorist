@@ -225,7 +225,7 @@ class ATBDP_Shortcode {
             'view'              => !empty($listing_view) ? $listing_view : 'grid',
             '_featured'         => 1,
             'filterby'          => '',
-            'orderby'           => !empty($listing_orderby) ? $listing_orderby : 'title',
+            'orderby'           => !empty($listing_orderby) ? $listing_orderby : 'date',
             'order'             => !empty($listing_order) ? $listing_order : 'asc',
             'listings_per_page' => (int) get_directorist_option('all_listing_page_items', 6),
             'pagination'        => 1,

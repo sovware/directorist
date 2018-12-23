@@ -24,7 +24,7 @@
       @extend .atbd_bg-danger;
     }
     &.atbd_badge_new{
-      background: #009fff;
+      background: #122069;
       margin-left: 5px;
     }
   }
@@ -41,7 +41,7 @@
       }
     }
     .atbd_listing_rating {
-      @extend .atbd_bg-success;
+      @extend .atbd_bg-primary;
       i.fa {
         font-size: 12px;
         margin-left: 5px;
@@ -213,6 +213,9 @@
     display: flex;
     .dropdown{
       display: inline-block;
+      .dropdown-toggle .caret{
+        display: none;
+      }
     }
     .dropdown+.dropdown{
       margin-left: 10px;

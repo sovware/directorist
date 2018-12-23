@@ -93,6 +93,11 @@ body.atbd_content_active #directorist.atbd_wrapper{
     -webkit-box-sizing: content-box;
     box-sizing: content-box;
   }
+  .dropdown{
+    .dropdown-toggle span.caret{
+      display: none;
+    }
+  }
   .fa{
     font: normal normal normal 14px/1 FontAwesome;
   }

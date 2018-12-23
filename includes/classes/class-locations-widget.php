@@ -262,7 +262,7 @@ if (!class_exists('BD_Locations_Widget')) {
                     if( ! empty( $settings['show_count'] ) ) {
                         $html .= ' (' . $count . ')';
                     }
-                    $html .= '</a>'. $plus_icon . '';
+                    $html .= '</a>';
                     $html .= $this->list_locations( $settings );
                     $html .= '</li>';
                 }

@@ -238,6 +238,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                             <?php } if(!empty($tagline)) {?>
                                             <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                             <?php } ?>
+                                            <?php if(!empty($display_review) && !empty($display_price)) {?>
                                             <div class="atbd_listing_meta">
                                                 <?php
                                                 /**
@@ -267,8 +268,8 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                 ?>
                                             </div><!-- End atbd listing meta -->
 
-                                            <?php /* @todo: Shahadat -> please implement this */?>
-                                            <?php if($disable_contact_info && empty($display_publish_date)) {?>
+                                            <?php } /* @todo: Shahadat -> please implement this */?>
+                                            <?php if(!$disable_contact_info && !empty($display_publish_date)) {?>
                                             <div class="atbd_listing_data_list">
                                                 <ul>
                                                     <?php

@@ -1698,7 +1698,7 @@ function atbdp_get_listings_orderby_options() {
         'title-desc' => __( "Z to A ( title )", ATBDP_TEXTDOMAIN ),
         'date-desc'  => __( "Latest listings", ATBDP_TEXTDOMAIN ),
         'date-asc'   => __( "Oldest listings", ATBDP_TEXTDOMAIN ),
-        'popular' => __( "Popular listings", ATBDP_TEXTDOMAIN ),
+        'views-desc' => __( "Popular listings", ATBDP_TEXTDOMAIN ),
         'price-asc' => __( "Price ( low to high )",ATBDP_TEXTDOMAIN ),
         'price-desc' => __( "Price ( high to low )",ATBDP_TEXTDOMAIN ),
         'rand' => __( "Random listings",ATBDP_TEXTDOMAIN ),

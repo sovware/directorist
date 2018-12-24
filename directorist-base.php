@@ -566,7 +566,7 @@ final class Directorist_Base
                                                 <a href="<?= ATBDP_Permalink::get_category_archive($cats[0]); ?>">
                                                                      <?= esc_html($cats[0]->name); ?>
                                                 </a>
-                                            
+
                                         </span>
                                     </p>
                                 <?php }

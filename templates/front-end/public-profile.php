@@ -7,7 +7,7 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
         <div class="row">
             <div class="col-md-12">
                 <?php
-                $author_id = !empty($author_id) ? $author_id : '';
+                $author_id = !empty($author_id) ? $author_id : get_current_user_id();
                 $author_id = rtrim($author_id, '/');
                 $author_name = get_the_author_meta('display_name', $author_id);
                 $user_registered = get_the_author_meta('user_registered', $author_id);

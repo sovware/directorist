@@ -37,6 +37,7 @@ foreach ($listing_imgs as $id){
     }
 
     $image_links_thumbnails[$id]= wp_get_attachment_image_src($id, 'thumbnail')[0]; // store the attachment id and url
+
     //@todo; instead of getting a full size image, define a an image size and then fetch that size and let the user change that image size via a hook.
 }
 
@@ -226,7 +227,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                             </div>
 
                             <div class="atbd_directory_image_thumbnail">
-                                <?php foreach ($image_links_thumbnails as $image_links_thumbnail) { ?>
+                                <?php
+                                array_unshift($image_links_thumbnails, $listing_prv_imgurl);
+                                foreach ($image_links_thumbnails as $image_links_thumbnail) { ?>
                                     <div class="single_image">
                                         <img src="<?= esc_url($image_links_thumbnail); ?>"
                                              alt="<?php esc_attr_e('Details Image', ATBDP_TEXTDOMAIN); ?>">

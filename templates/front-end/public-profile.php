@@ -32,7 +32,7 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                         }
                         if (!empty($u_pro_pic)) { ?><img
                             src="<?php echo esc_url($u_pro_pic); ?>"
-                            alt="Author Image"><?php } ?>
+                            alt="Author Image" ><?php } ?>
                         <div class="atbd_auth_nd">
                             <h2><?= esc_html($author_name); ?></h2>
                             <p><?php

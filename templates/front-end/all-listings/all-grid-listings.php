@@ -268,6 +268,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                             </div><!-- End atbd listing meta -->
 
                                             <?php /* @todo: Shahadat -> please implement this */?>
+                                            <?php if($disable_contact_info && empty($display_publish_date)) {?>
                                             <div class="atbd_listing_data_list">
                                                 <ul>
                                                     <?php
@@ -287,7 +288,9 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                     <?php } ?>
                                                 </ul>
                                             </div><!-- End atbd listing meta -->
-                                            <?php if( !empty($excerpt) ) {?>
+                                            <?php
+                                            }
+                                            if( !empty($excerpt) ) {?>
                                             <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
                                             <?php } ?>
                                         </div><!-- end ./atbd_content_upper -->

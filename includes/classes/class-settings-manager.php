@@ -110,15 +110,11 @@ class ATBDP_Settings_Manager {
             ),
             /*Main Menu 6*/
             'categories_menu' => array(
-                'title' => __('Categories Page', ATBDP_TEXTDOMAIN),
+                'title' => __('Categories & Locations Page', ATBDP_TEXTDOMAIN),
                 'name' => 'categories_menu',
                 'icon' => 'font-awesome:fa-list-alt',
                 'controls'=>apply_filters('atbdp_categories_settings_controls',array(
-                    'all_listing_section' => array(
-                        'type' => 'section',
-                        'title'=> __('Listings Page Setting',ATBDP_TEXTDOMAIN),
-                        'fields'=> $this->get_listings_page_settings_fields(),
-                    ),
+
                     'category_section' => array(
                         'type' => 'section',
                         'title'=> __('Categories Page Setting',ATBDP_TEXTDOMAIN),
@@ -160,12 +156,17 @@ class ATBDP_Settings_Manager {
                 'name' => 'general_listings',
                 'icon' => 'font-awesome:fa-sliders',
                 'controls' => apply_filters('atbdp_general_listings_controls', array(
+                    'all_listing_section' => array(
+                        'type' => 'section',
+                        'title'=> __('All Listings Page Setting',ATBDP_TEXTDOMAIN),
+                        'fields'=> $this->get_listings_page_settings_fields(),
+                    ),
                     'emails' => array(
                         'type' => 'section',
                         'title' => __('General Listings', ATBDP_TEXTDOMAIN),
                         'description' => __('You can Customize all Listings related settings here', ATBDP_TEXTDOMAIN),
                         'fields' => $this->get_general_listings_settings_fields(),
-                    ),
+                    )
                 )),
             ),
 

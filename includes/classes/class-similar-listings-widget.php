@@ -44,19 +44,32 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
                 <ul class="listings">
                 <?php
                     foreach ($related_listings->posts as $related_listing) {
+
                     // get only one parent or high level term object
                     $top_category = ATBDP()->taxonomy->get_one_high_level_term($related_listing->ID, ATBDP_CATEGORY);
                     $listing_img = get_post_meta($related_listing->ID, '_listing_img', true);
+                    $price             = get_post_meta($related_listing->ID, '_price', true);
+                    $cats              =  get_the_terms($related_listing->ID, ATBDP_CATEGORY);
                     ?>
                         <li>
                             <div class="atbd_left_img">
-                                <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(90,90))).'" alt="listing image">' : '' ?>
+                                <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(90,90))).'" alt="listing image">' : '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">' ?>
                             </div>
                             <div class="atbd_right_content">
                                 <div class="cate_title">
                                     <h4>
                                         <a href="<?= esc_url(get_post_permalink($related_listing->ID)); ?>"><?= esc_html($related_listing->post_title); ?></a>
                                     </h4>
+                                    <?php if(!empty($price)) {?>
+                                    <span><?php echo $price?></span>
+                                    <?php if(!empty($cats) ) {?>
+                                    <div class="atbd_content_left">
+                                        <div class="atbd_listting_category">
+                                            <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span><?php  echo $cats[0]->name;?></a>
+                                        </div>
+                                    </div>
+                        <?php }
+                                     } ?>
                                 </div>
 
                                 <?php if (!empty($top_category)) { ?>

@@ -1,8 +1,6 @@
 <?php
 $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
 $locations = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
-// get bg image if our directorist theme is active else, use the default bg.
-$bgimg = get_theme_mod('directoria_home_bg');
 // get search page title and sub title from the plugin settings page
 $search_title = get_directorist_option('search_title', '');
 $search_subtitle = get_directorist_option('search_subtitle', '');
@@ -19,8 +17,7 @@ $display_category_field = get_directorist_option('display_category_field', 1);
 $display_location_field = get_directorist_option('display_location_field', 1);
 ?>
 <!-- start search section -->
-<div id="directorist" class="directorist atbd_wrapper directory_search_area single_area"
-     style="<?php echo !empty($bgimg) ? 'background-image: url(\'' . esc_url($bgimg) . '\')' : ''; ?>">
+<div id="directorist" class="directorist atbd_wrapper directory_search_area single_area">
     <!-- start search area container -->
     <div class="<?php echo is_directoria_active() ? 'container' : ' container-fluid'; ?>">
         <div class="row">

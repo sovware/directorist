@@ -549,7 +549,7 @@ final class Directorist_Base
                         ?>
                         <li>
                             <div class="atbd_left_img">
-                                <?= (!empty($listing_img[0])) ? '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="listing image">' : '' ?>
+                                <?= (!empty($listing_img[0])) ? '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="listing image">' : '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">' ?>
                             </div>
                             <div class="atbd_right_content">
                                 <div class="cate_title">
@@ -799,6 +799,7 @@ final class Directorist_Base
                                                 <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                             <?php } ?>
                                             <?php /* todo: Shahadat -> new markup implemented */ ?>
+                                            <?php if(!empty($display_review) && !empty($display_price)) {?>
                                             <div class="atbd_listing_meta">
                                                 <?php
                                                 /**
@@ -830,29 +831,29 @@ final class Directorist_Base
                                                 ?>
                                             </div><!-- End atbd listing meta -->
 
-                                            <?php /* @todo: Shahadat -> please implement this */ ?>
-                                            <div class="atbd_listing_data_list">
-                                                <ul>
-                                                    <?php
-                                                    if (!$disable_contact_info && !$hide_contact_info) {
-                                                        if (!empty($address)) { ?>
-                                                            <li><p>
-                                                                    <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
-                                                                </p></li>
+                                            <?php }/* @todo: Shahadat -> please implement this */ ?>
+                                            <?php if(!$disable_contact_info && !empty($display_publish_date)) {?>
+                                                <div class="atbd_listing_data_list">
+                                                    <ul>
+                                                        <?php
+                                                        if (!$disable_contact_info && !$hide_contact_info) {
+                                                            if( !empty( $address )) { ?>
+                                                                <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
+                                                            <?php } ?>
+                                                            <?php if( !empty( $phone_number )) {?>
+                                                                <li><p><span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number));?></p></li>
+                                                                <?php
+                                                            } }
+
+                                                        if(!empty($display_publish_date)) { ?>
+                                                            <li><p><span class="fa fa-clock-o"></span><?php
+                                                                    printf( __( 'Posted %s ago', ATBDP_TEXTDOMAIN ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
+                                                                    ?></p></li>
                                                         <?php } ?>
-                                                        <?php if (!empty($phone_number)) { ?>
-                                                            <li><p>
-                                                                    <span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number)); ?>
-                                                                </p></li>
-                                                            <?php
-                                                        }
-                                                    } ?>
-                                                    <li><p><span class="fa fa-clock-o"></span><?php
-                                                            printf(__('Posted %s ago', ATBDP_TEXTDOMAIN), human_time_diff(get_the_time('U'), current_time('timestamp')));
-                                                            ?></p></li>
-                                                </ul>
-                                            </div><!-- End atbd listing meta -->
-                                            <?php
+                                                    </ul>
+                                                </div><!-- End atbd listing meta -->
+                                                <?php
+                                            }
                                             //show category and location info
                                             /* @todo: Shahadat -> Please fetch location, phone number and listing addition info here */
                                             /*ATBDP()->helper->output_listings_taxonomy_info($top_category, $deepest_location);*/ ?>

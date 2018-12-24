@@ -193,6 +193,9 @@
       @extend .atbd_bg-primary;
       border-radius: 4px;
       color: $light;
+      span.fa{
+        line-height: inherit;
+      }
       &+a{
         margin-left: 5px;
       }

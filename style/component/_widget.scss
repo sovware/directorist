@@ -89,8 +89,8 @@
           border-top: 1px solid $border-color;
         }
         .atbd_left_img {
-          height: 70px;
-          width: 70px;
+          max-height: 70px;
+          max-width: 70px;
           display: inline-block;
           vertical-align: top;
           img {

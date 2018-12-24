@@ -240,6 +240,7 @@ class ATBDP_Metabox {
         $metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
         $metas['_price']             = !empty($p['price'])? (float) $p['price'] : 0;
         $metas['_price_range']       = !empty($p['price_range'])?  $p['price_range'] : '';
+        $metas['_atbd_listing_pricing'] = !empty($p['atbd_listing_pricing'])?  $p['atbd_listing_pricing'] : '';
         $metas['_videourl']          = !empty($p['videourl']) ?  sanitize_text_field($p['videourl']) : '';
         $metas['_listing_status']    = !empty($p['listing_status'])? sanitize_text_field($p['listing_status']) : 'post_status';
         $metas['_tagline']           = !empty($p['tagline'])? sanitize_text_field($p['tagline']) : '';

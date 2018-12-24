@@ -537,6 +537,7 @@ final class Directorist_Base
     {
         $popular_listings = $this->get_popular_listings($count);
 
+
         if ($popular_listings->have_posts()) { ?>
             <div class="atbd_categorized_listings">
                 <ul class="listings">
@@ -544,6 +545,7 @@ final class Directorist_Base
                         // get only one parent or high level term object
                         $top_category = ATBDP()->taxonomy->get_one_high_level_term($pop_post->ID, ATBDP_CATEGORY);
                         $listing_img = get_post_meta($pop_post->ID, '_listing_img', true);
+                        $cats              =  get_the_terms($pop_post->ID, ATBDP_CATEGORY);
                         ?>
                         <li>
                             <div class="atbd_left_img">
@@ -556,18 +558,16 @@ final class Directorist_Base
                                     </h4>
                                 </div>
 
-                                <?php if (!empty($top_category)) { ?>
+                                    <?php if (!empty($cats)){ ?>
 
                                     <p class="directory_tag">
-                                        <span class="fa <?= esc_attr(get_cat_icon(@$top_category->term_id)); ?>"
-                                              aria-hidden="true"></span>
-                                        <span> <?php if (is_object($top_category)) { ?>
-                                                <a href="<?= ATBDP_Permalink::get_category_archive($top_category); ?>">
-                                                 <?= esc_html($top_category->name); ?>
-                                            </a>
-                                            <?php } ?>
-
-                                    </span>
+                                        <span class="fa <?= esc_attr(get_cat_icon(@$cats[0]->term_id)); ?>" aria-hidden="true"></span>
+                                        <span>
+                                                <a href="<?= ATBDP_Permalink::get_category_archive($cats[0]); ?>">
+                                                                     <?= esc_html($cats[0]->name); ?>
+                                                </a>
+                                            
+                                        </span>
                                     </p>
                                 <?php }
                                 ATBDP()->show_static_rating($pop_post);

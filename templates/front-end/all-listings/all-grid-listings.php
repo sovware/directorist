@@ -90,6 +90,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                         $featured          = get_post_meta(get_the_ID(), '_featured', true);
                         $price             = get_post_meta(get_the_ID(), '_price', true);
                         $price_range       = get_post_meta(get_the_ID(), '_price_range', true);
+                        $atbd_listing_pricing = get_post_meta(get_the_ID(), '_atbd_listing_pricing', true);
                         $listing_img       = get_post_meta(get_the_ID(), '_listing_img', true);
                         $listing_prv_img   = get_post_meta(get_the_ID(), '_listing_prv_img', true);
                         $excerpt           = get_post_meta(get_the_ID(), '_excerpt', true);

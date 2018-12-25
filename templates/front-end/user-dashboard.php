@@ -3,7 +3,6 @@ $listings = ATBDP()->user->current_user_listings();
 $fav_listings = ATBDP()->user->current_user_fav_listings();
 $uid = get_current_user_id();
 $c_user = get_userdata($uid);
-
 $u_website = $c_user->user_url;
 $avatar = get_user_meta($uid, 'avatar', true);
 $u_phone = get_user_meta($uid, 'phone', true);

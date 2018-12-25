@@ -667,6 +667,7 @@ final class Directorist_Base
                         $display_view_count   = get_directorist_option('display_view_count',1);
                         $display_author_image = get_directorist_option('display_author_image',1);
                         $display_publish_date = get_directorist_option('display_publish_date',1);
+                        $display_contact_info    = get_directorist_option('display_contact_info',1);
                         /*Code for Business Hour Extensions*/
                         $bdbh = get_post_meta($r_post->ID, '_bdbh', true);
                         $enable247hour = get_post_meta($r_post->ID, '_enable247hour', true);
@@ -834,11 +835,11 @@ final class Directorist_Base
                                             </div><!-- End atbd listing meta -->
 
                                             <?php }/* @todo: Shahadat -> please implement this */ ?>
-                                            <?php if(!$disable_contact_info && !empty($display_publish_date)) {?>
+                                            <?php if(!empty($display_contact_info) || !empty($display_publish_date)) {?>
                                                 <div class="atbd_listing_data_list">
                                                     <ul>
                                                         <?php
-                                                        if (!$disable_contact_info && !$hide_contact_info) {
+                                                        if (!empty($display_contact_info)) {
                                                             if( !empty( $address )) { ?>
                                                                 <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
                                                             <?php } ?>
@@ -864,11 +865,11 @@ final class Directorist_Base
                                             <?php } ?>
                                             <?php /* @todo: deleted the read more link */ ?>
                                         </div><!-- end ./atbd_content_upper -->
-
+                                        <?php if(!empty($display_category) || !empty($$display_view_count) || !empty($display_author_image)) {?>
                                         <div class="atbd_listing_bottom_content">
                                             <?php
                                             if(!empty($display_category)) {
-                                            if (!empty($category)) { ?>
+                                            if (!empty($cats)) { ?>
                                                 <div class="atbd_content_left">
                                                     <div class="atbd_listting_category">
                                                         <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));; ?>"><span
@@ -887,24 +888,32 @@ final class Directorist_Base
                                                 </div>
 
                                             <?php } }?>
-                                            <ul class="atbd_content_right">
-                                                <?php if(!empty($display_view_count)) {?>
-                                                    <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li> <?php } ?>
-                                                <!--<li class="atbd_save"><span class="fa fa-heart"></span></li>-->
-                                                <?php if(!empty($display_author_image)) {?>
-                                                <li class="atbd_author">
-                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {
-                                                            echo $avata_img;
-                                                        }
-                                                        if (!empty($u_pro_pic)) { ?>
-                                                            <img
-                                                            src="<?php echo esc_url($u_pro_pic); ?>"
-                                                            alt="Author Image"><?php } ?>
-                                                    </a>
-                                                </li>
-                                                <?php } ?>
-                                            </ul>
+                                            <?php if(!empty($display_view_count) || !empty($display_author_image)) {?>
+                                                <ul class="atbd_content_right">
+                                                    <?php if(!empty($display_view_count)) {?>
+                                                        <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li> <?php } ?>
+
+
+                                                    <li class="atbd_save">
+                                                        <div id="atbdp-favourites-all-listing">
+                                                            <input type="hidden" id="listing_ids" value="<?php echo get_the_ID(); ?>">
+                                                            <?php
+                                                            // do_action('wp_ajax_atbdp-favourites-all-listing', get_the_ID()); ?>
+                                                        </div>
+                                                    </li>
+                                                    <?php if(!empty($display_author_image)) {?>
+                                                        <li class="atbd_author">
+                                                            <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                                    <img
+                                                                    src="<?php echo esc_url($u_pro_pic); ?>"
+                                                                    alt="Author Image"><?php } ?>
+                                                            </a>
+                                                        </li>
+                                                    <?php } ?>
+                                                </ul>
+                                            <?php } ?>
                                         </div><!-- end ./atbd_listing_bottom_content -->
+                                        <?php } ?>
                                     </div>
                                 </article>
                             </div>

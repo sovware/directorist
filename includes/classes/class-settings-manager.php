@@ -2144,6 +2144,13 @@ The Administrator of ==SITE_NAME==
                     'description' => __('You can display/hide the author image on All listing page.', ATBDP_TEXTDOMAIN),
                     'default' => '1',
                 ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_contact_info',
+                    'label' => __('Display Contact Information', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can display/hide the contact Information on All listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
+                ),
             )
         );
     }

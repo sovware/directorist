@@ -213,25 +213,30 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                         }
                         ?>
                         <div class="atbd_directry_gallery_wrapper">
-                            <div class="atbd_directory_gallery">
-                                <?php foreach ($image_links as $image_link) { ?>
-                                    <div class="single_image">
-                                        <img src="<?= !empty($image_link)?esc_url($image_link): ''; ?>"
-                                             alt="<?php esc_attr_e('Details Image', ATBDP_TEXTDOMAIN); ?>">
-                                    </div>
+                            <div class="atbd_big_gallery">
+                                <div class="atbd_directory_gallery">
+                                    <?php foreach ($image_links as $image_link) { ?>
+                                        <div class="single_image">
+                                            <img src="<?= !empty($image_link)?esc_url($image_link): ''; ?>"
+                                                 alt="<?php esc_attr_e('Details Image', ATBDP_TEXTDOMAIN); ?>">
+                                        </div>
 
-                                    <?php
-                                    // do not output more than one image if the MI extension is not active
-                                    if (!is_multiple_images_active()) break;
-                                } ?>
+                                        <?php
+                                        // do not output more than one image if the MI extension is not active
+                                        if (!is_multiple_images_active()) break;
+                                    } ?>
+                                </div>
+                                <?php if (count($image_links) > 1 && is_multiple_images_active()) { ?>
+                                    <span class="prev fa fa-angle-left"></span>
+                                    <span class="next fa fa-angle-right"></span>
+                                <?php } ?>
                             </div>
-
                             <div class="atbd_directory_image_thumbnail">
                                 <?php
                                 $listing_prv_imgurl_thumb = wp_get_attachment_image_src($listing_prv_img, 'thumbnail')['0'];
                                 array_unshift($image_links_thumbnails, $listing_prv_imgurl_thumb);
                                 foreach ($image_links_thumbnails as $image_links_thumbnail) { ?>
-                                    <div class="single_image">
+                                    <div class="single_thumbnail">
                                         <img src="<?= esc_url($image_links_thumbnail); ?>"
                                              alt="<?php esc_attr_e('Details Image', ATBDP_TEXTDOMAIN); ?>">
                                     </div>
@@ -241,11 +246,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                     if (!is_multiple_images_active()) break;
                                 } ?>
                             </div><!-- end /.atbd_directory_image_wrapper -->
-
-                            <?php if (count($image_links) > 1 && is_multiple_images_active()) { ?>
-                                <span class="prev fa fa-angle-left"></span>
-                                <span class="next fa fa-angle-right"></span>
-                            <?php } ?>
                         </div>
                     <?php }else{
                         ?>

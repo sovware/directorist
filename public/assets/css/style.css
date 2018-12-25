@@ -357,6 +357,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
   text-align: left;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_directory_image_thumbnail {
+  margin-top: 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_directory_image_thumbnail .single_thumbnail + .single_thumbnail {
+  margin-left: 15px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area {
   border-bottom: 1px solid #e3e6ef;
   display: flex;
@@ -563,8 +571,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_directry_gallery_wrapper {
   border-bottom: 1px solid #e3e6ef;
-  position: relative;
   padding-bottom: 30px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_directry_gallery_wrapper .atbd_big_gallery {
+  position: relative;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_directry_gallery_wrapper .prev {
@@ -771,6 +782,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-weight: 500;
   display: inline-block;
   line-height: 22px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_badge .atbd_badge + .atbd_badge {
+  margin-left: 10px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new {
@@ -987,6 +1002,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-family: "Roboto", sans-serif;
 }
 
+.atbd_content_active .widget.atbd_widget[id^='bd'] > ul, .atbd_content_active .widget.atbd_widget[id^='bd'] > form,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget > ul,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget > form {
+  padding: 20px;
+}
+
 .atbd_content_active .widget.atbd_widget[id^='bd'] ul li,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget ul li {
   border: none;
@@ -1141,12 +1162,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_category,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_category {
   padding-left: 35px;
-}
-
-.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_category li:before,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_category li:before {
-  content: "-";
-  margin-right: 5px;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories > ul.atbdp_parent_category > li:hover > a span,
@@ -1907,6 +1922,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar {
   display: flex;
   align-items: center;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar img {
+  max-wisdth: 150px;
+  max-height: 100%;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar .atbd_auth_nd {

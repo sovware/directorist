@@ -188,12 +188,14 @@ class ATBDP_Metabox {
         $videourl = get_post_meta($post->ID, '_videourl', true);
         $enable_video_url = get_directorist_option('atbd_video_url',1);
         if($enable_video_url) {?>
-            <div class="form-group">
-                <!--@todo; Add currency Name near price-->
-                <label for="videourl"><?php
-                    /*Translator: % is the name of the currency such eg. USD etc.*/
-                    printf(esc_html__('Video URL', ATBDP_TEXTDOMAIN)); ?></label>
-                <input type="text" id="videourl" name="videourl" value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
+            <div id="directorist" class="atbd_wrapper">
+                <div class="form-group">
+                    <!--@todo; Add currency Name near price-->
+                    <label for="videourl"><?php
+                        /*Translator: % is the name of the currency such eg. USD etc.*/
+                        printf(esc_html__('Video URL', ATBDP_TEXTDOMAIN)); ?></label>
+                    <input type="text" id="videourl"  name="videourl" value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
+                </div>
             </div>
         <?php }
     }

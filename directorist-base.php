@@ -1100,11 +1100,11 @@ final class Directorist_Base
                             </div>
                         <?php }
                     } else { ?>
-                        <p class="notice" id="review_notice">
+                        <div class="notice alert alert-secondary" role="alert" id="review_notice">
                             <span class="fa fa-info" aria-hidden="true"></span>
                             <?php _e('No reviews found. Be the first to post a review !', ATBDP_TEXTDOMAIN);
                             ?>
-                        </p>
+                        </div>
                     <?php } ?>
                 </div>
             </div>
@@ -1196,8 +1196,8 @@ final class Directorist_Base
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php };
         } else { ?>
-            <p class="atbd_notice">
-                <span class="fa fa-info" aria-hidden="true"></span>
+            <div class="atbd_notice alert alert-info" role="alert">
+                <span class="fa fa-info-circle" aria-hidden="true"></span>
                 <?php
                 // get the custom registration page id from the db and create a permalink
                 $reg_link_custom = ATBDP_Permalink::get_registration_page_link();
@@ -1209,7 +1209,7 @@ final class Directorist_Base
 
                 printf(__('You need to %s or %s to submit a review', ATBDP_TEXTDOMAIN), $login_url, $register_url);
                 ?>
-            </p>
+            </div>
         <?php } ?>
         <?php
 

@@ -9,6 +9,12 @@
     background: $light;
     text-align: left;
   }
+  .atbd_directory_image_thumbnail{
+    margin-top: 15px;
+    .single_thumbnail + .single_thumbnail{
+      margin-left: 15px;
+    }
+  }
   .atbd_content_module__tittle_area {
     border-bottom: 1px solid $border-color;
     display: flex;
@@ -203,7 +209,9 @@
   }
   .atbd_directry_gallery_wrapper {
     border-bottom: 1px solid $border-color;
-    position: relative;
+    .atbd_big_gallery{
+      position: relative;
+    }
     padding-bottom: 30px;
     .prev {
       left: 10px;

@@ -14,6 +14,10 @@
     .atbd_author_avatar {
       display: flex;
       align-items: center;
+      img{
+        max-wisdth: 150px;
+        max-height: 100%;
+      }
       .atbd_auth_nd{
         margin-left: 20px;
       }

@@ -47,14 +47,14 @@ if (!class_exists('BD_Author_Info_Widget')) {
                         $author_name = get_the_author_meta('display_name', $author_id);
                         $user_registered = get_the_author_meta('user_registered', $author_id);
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+                        $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
                         $avata_img = get_avatar($author_id, 32);
-
                         ?>
                         <div class="atbd_review_avatar"><?php if (empty($u_pro_pic)) {
                                 echo $avata_img;
                             }
                             if (!empty($u_pro_pic)) { ?><img
-                                src="<?php echo esc_url($u_pro_pic); ?>"
+                                src="<?php echo esc_url($u_pro_pic[0]); ?>"
                                 alt="Avatar Image"><?php } ?></div>
                         <div class="atbd_name_time">
                             <h4><?= esc_html($author_name); ?></h4>

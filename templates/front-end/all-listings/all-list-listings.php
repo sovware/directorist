@@ -97,6 +97,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             $display_author_image    = get_directorist_option('display_author_image',1);
                             $display_publish_date    = get_directorist_option('display_publish_date',1);
                             $display_contact_info    = get_directorist_option('display_contact_info',1);
+                            $display_feature_badge_cart     = get_directorist_option('display_feature_badge_cart',1);
+                            $display_popular_badge_cart     = get_directorist_option('display_popular_badge_cart',1);
+                            $popular_badge_text             = get_directorist_option('popular_badge_text','Popular');
+                            $feature_badge_text             = get_directorist_option('feature_badge_text','Feature');
+                            $new_badge_text                 = get_directorist_option('new_badge_text','New');
+                            $enable_new_listing             = get_directorist_option('display_new_badge_cart',1);
                             /*Code for Business Hour Extensions*/
                             $bdbh = get_post_meta(get_the_ID(), '_bdbh', true);
                             $enable247hour = get_post_meta(get_the_ID(), '_enable247hour', true);
@@ -104,6 +110,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             /*Code for Business Hour Extensions*/
                             $author_id = get_the_author_meta( 'ID' );
                             $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+                            $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
                             $avata_img = get_avatar($author_id, 32);
                             $thumbnail_cropping = get_directorist_option('thumbnail_cropping',1);
                             if(!empty($listing_prv_img)) {
@@ -158,7 +165,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                                 $new_listing_day = get_directorist_option('new_listing_day',3);
                                                 $is_day_or_days = substr($is_old, -4);
                                                 $is_other = substr($is_old, -5);
-                                                    $new = '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                     $new = '<span class="atbd_badge atbd_badge_new">'.$new_badge_text.'</span>';
                                                 if ($enable_new_listing){
                                                     switch ($is_day_or_days){
                                                         case ' day':
@@ -187,21 +194,18 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                                     }
                                                 }
 
-                                                if ($featured) {
-                                                    printf(
-                                                        '<span class="atbd_badge atbd_badge_featured">Featured</span>',
-                                                        esc_html__('Featured', ATBDP_TEXTDOMAIN)
-                                                    );
-                                                }
+                                                if ($featured && !empty($display_feature_badge_cart)){ printf(
+                                                    '<span class="atbd_badge atbd_badge_featured">%s</span>',
+                                                    $feature_badge_text
+                                                );}
                                                 ?>
                                                 <?php
                                                 $count = !empty($count) ? $count : '';
                                                 $popular_listings = ATBDP()->get_popular_listings($count);
-                                                if ($popular_listings->have_posts()) {
-
+                                                if ($popular_listings->have_posts() && !empty($display_popular_badge_cart)) {
                                                     foreach ($popular_listings->posts as $pop_post) {
-                                                        if ($pop_post->ID == get_the_ID()) {
-                                                            echo ' <span class="atbd_badge atbd_badge_popular">Popular</span>';
+                                                        if ($pop_post->ID == get_the_ID()){
+                                                            echo ' <span class="atbd_badge atbd_badge_popular">'. $popular_badge_text .'</span>';
                                                         }
                                                     }
                                                 }
@@ -337,7 +341,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                                         <li class="atbd_author">
                                                             <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
                                                                     <img
-                                                                    src="<?php echo esc_url($u_pro_pic); ?>"
+                                                                    src="<?php echo esc_url($u_pro_pic[0]); ?>"
                                                                     alt="Author Image"><?php } ?>
                                                             </a>
                                                         </li>

@@ -112,12 +112,12 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                             <ul>
                                 <?php
                                 if (!empty($address)){
-                                  ?>
+                                    ?>
                                     <li>
                                         <span class="fa fa-map-marker"></span>
                                         <span class="atbd_info"><?= !empty($address)?esc_html($address):''; ?></span>
                                     </li>
-                                <?php
+                                    <?php
                                 }
                                 if (!empty($phone)){
                                     ?>
@@ -126,7 +126,7 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                                         <span class="fa fa-phone"></span>
                                         <span class="atbd_info"><?= !empty($phone)?esc_html($phone):''; ?></span>
                                     </li>
-                                <?php
+                                    <?php
                                 }
                                 if (!empty($email)){
                                     ?>
@@ -134,7 +134,7 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                                         <span class="fa fa-envelope"></span>
                                         <span class="atbd_info"><?= !empty($email)?esc_html($email):''; ?></span>
                                     </li>
-                                <?php
+                                    <?php
                                 }
                                 if (!empty($website)){
                                     ?>
@@ -142,7 +142,7 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                                         <span class="fa fa-globe"></span>
                                         <span class="atbd_info"><?= !empty($website)?esc_html($website):''; ?></span>
                                     </li>
-                                <?php
+                                    <?php
                                 }
                                 ?>
                             </ul>
@@ -169,7 +169,7 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                                 }
                                 ?>
                             </div>
-                        <?php
+                            <?php
                         }
                         ?>
                         <a href="<?= esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
@@ -362,7 +362,7 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                                                 <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                             <?php } ?>
                                             <?php if(!empty($display_review) || !empty($display_price)) {?>
-                                            <div class="atbd_listing_meta">
+                                                <div class="atbd_listing_meta">
                                                 <?php
                                                 /**
                                                  * Fires after the title and sub title of the listing is rendered
@@ -419,48 +419,48 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                                             <?php } ?>
                                         </div><!-- end ./atbd_content_upper -->
                                         <?php if(!empty($display_category) || !empty($$display_view_count) || !empty($display_author_image)) {?>
-                                        <div class="atbd_listing_bottom_content">
-                                        <?php if(!empty($display_category)) {
-                                             if(!empty($cats)) {?>
-                                                <div class="atbd_content_left">
-                                                    <div class="atbd_listting_category">
-                                                        <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span><?php  echo $cats[0]->name;?></a>
-                                                    </div>
-                                                </div>
-                                            <?php }else{
-                                                ?>
-                                                <div class="atbd_content_left">
-                                                    <div class="atbd_listting_category">
-                                                        <a href=""><span class="fa fa fa-square-o"></span><?php  echo __('Uncategorized', ATBDP_TEXTDOMAIN);?></a>
-                                                    </div>
-                                                </div>
-
-                                            <?php   } } ?>
-                                            <?php if(!empty($display_view_count) || !empty($display_author_image)) {?>
-                                                <ul class="atbd_content_right">
-                                                    <?php if(!empty($display_view_count)) {?>
-                                                        <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li> <?php } ?>
-
-
-                                                    <li class="atbd_save">
-                                                        <div id="atbdp-favourites-all-listing">
-                                                            <input type="hidden" id="listing_ids" value="<?php echo get_the_ID(); ?>">
-                                                            <?php
-                                                            // do_action('wp_ajax_atbdp-favourites-all-listing', get_the_ID()); ?>
+                                            <div class="atbd_listing_bottom_content">
+                                                <?php if(!empty($display_category)) {
+                                                    if(!empty($cats)) {?>
+                                                        <div class="atbd_content_left">
+                                                            <div class="atbd_listting_category">
+                                                                <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span><?php  echo $cats[0]->name;?></a>
+                                                            </div>
                                                         </div>
-                                                    </li>
-                                                    <?php if(!empty($display_author_image)) {?>
-                                                        <li class="atbd_author">
-                                                            <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
-                                                                    <img
-                                                                    src="<?php echo esc_url($u_pro_pic); ?>"
-                                                                    alt="Author Image"><?php } ?>
-                                                            </a>
+                                                    <?php }else{
+                                                        ?>
+                                                        <div class="atbd_content_left">
+                                                            <div class="atbd_listting_category">
+                                                                <a href=""><span class="fa fa fa-square-o"></span><?php  echo __('Uncategorized', ATBDP_TEXTDOMAIN);?></a>
+                                                            </div>
+                                                        </div>
+
+                                                    <?php   } } ?>
+                                                <?php if(!empty($display_view_count) || !empty($display_author_image)) {?>
+                                                    <ul class="atbd_content_right">
+                                                        <?php if(!empty($display_view_count)) {?>
+                                                            <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li> <?php } ?>
+
+
+                                                        <li class="atbd_save">
+                                                            <div id="atbdp-favourites-all-listing">
+                                                                <input type="hidden" id="listing_ids" value="<?php echo get_the_ID(); ?>">
+                                                                <?php
+                                                                // do_action('wp_ajax_atbdp-favourites-all-listing', get_the_ID()); ?>
+                                                            </div>
                                                         </li>
-                                                    <?php } ?>
-                                                </ul>
-                                            <?php } ?>
-                                        </div><!-- end ./atbd_listing_bottom_content -->
+                                                        <?php if(!empty($display_author_image)) {?>
+                                                            <li class="atbd_author">
+                                                                <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                                        <img
+                                                                        src="<?php echo esc_url($u_pro_pic); ?>"
+                                                                        alt="Author Image"><?php } ?>
+                                                                </a>
+                                                            </li>
+                                                        <?php } ?>
+                                                    </ul>
+                                                <?php } ?>
+                                            </div><!-- end ./atbd_listing_bottom_content -->
                                         <?php } ?>
                                     </div>
                                 </article>

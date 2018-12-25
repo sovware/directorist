@@ -483,7 +483,7 @@ jQuery(function ($) {
                 // we have got an image attachment so lets proceed.
                 // target the input field and then assign the current id of the attachment to an array.
                 imgTag.attr('src', selection.url); // set the preview image url
-                imgIdInput.attr('value', selection.url); // set the value of input field
+                imgIdInput.attr('value', selection.id); // set the value of input field
             }
 
 

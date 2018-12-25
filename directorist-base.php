@@ -727,8 +727,9 @@ final class Directorist_Base
                                             <div class="atbd_upper_badge">
                                                 <?php //lets check is it 24/7
                                                 if (!empty($enable247hour)) {
+                                                    $open =  get_directorist_option('open_badge_text');
                                                     ?>
-                                                    <span class="atbd_badge atbd_badge_open">Open Now</span>
+                                                        <span class="atbd_badge atbd_badge_open"><?php echo $open;?>></span>
                                                     <?php
                                                 } else {
                                                     BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list

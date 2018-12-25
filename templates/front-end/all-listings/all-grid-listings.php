@@ -166,9 +166,10 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                             <?php if (class_exists('BD_Business_Hour')){
                                                 //lets check is it 24/7
                                                 if (!empty($enable247hour)) {
+                                                    $open =  get_directorist_option('open_badge_text');
                                                     ?>
                                                     <div class="atbd_upper_badge">
-                                                        <span class="atbd_badge atbd_badge_open">Open Now</span>
+                                                        <span class="atbd_badge atbd_badge_open"><?php echo $open;?>></span>
                                                     </div><!-- END /.atbd_upper_badge -->
                                                     <?php
                                                 }else {?>

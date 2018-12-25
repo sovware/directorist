@@ -138,8 +138,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             </div>
 
                                             <figcaption class="atbd_thumbnail_overlay_content">
-                                                <div class="atbd_upper_badge">
-                                                </div><!-- END /.atbd_upper_badge -->
                                                 <?php if (class_exists('BD_Business_Hour')){
                                                     //lets check is it 24/7
                                                     if (!empty($enable247hour)) {

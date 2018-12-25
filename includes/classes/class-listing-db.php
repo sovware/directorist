@@ -80,6 +80,7 @@ class ATBDP_Listing_DB {
     {
         $user_id = !empty($user_id) ? absint($user_id) :  get_current_user_id();
         $fav_listing = get_user_meta($user_id, 'atbdp_favourites', true);
+        $fav_listing = !empty($fav_listing)?$fav_listing:'';
         /*@Todo; Add pagination later, better use ajax pagination*/
         if (!empty($_GET['atbdp_action'])?$_GET['atbdp_action']:''){
 
@@ -99,16 +100,21 @@ class ATBDP_Listing_DB {
             delete_user_meta( get_current_user_id(), 'atbdp_favourites' );
             update_user_meta( get_current_user_id(), 'atbdp_favourites', $fav_listing );
         }
+        if (!empty($fav_listing)){
+            $args = array(
+                'author'=> $user_id,
+                'post_type'=> ATBDP_POST_TYPE,
+                'posts_per_page' => -1, //@todo; Add pagination in future.
+                'order'=> 'DESC',
+                'post__in' => $fav_listing,
+                'orderby' => 'date'
 
-        $args = array(
-            'author'=> $user_id,
-            'post_type'=> ATBDP_POST_TYPE,
-            'posts_per_page' => -1, //@todo; Add pagination in future.
-            'order'=> 'DESC',
-            'post__in' => $fav_listing,
-            'orderby' => 'date'
+            );
+        }else{
+            $args = array();
+        }
 
-        );
+
         return new WP_Query($args);
     }
 

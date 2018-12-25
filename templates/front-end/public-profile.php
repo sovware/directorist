@@ -12,6 +12,7 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                 $author_name = get_the_author_meta('display_name', $author_id);
                 $user_registered = get_the_author_meta('user_registered', $author_id);
                 $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+                $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
                 $bio = get_user_meta($author_id, 'bio', true);
                 $avata_img = get_avatar($author_id, 32);
                 $address = esc_attr(get_user_meta($author_id, 'address', true));
@@ -31,7 +32,7 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                             echo $avata_img;
                         }
                         if (!empty($u_pro_pic)) { ?><img
-                            src="<?php echo esc_url($u_pro_pic); ?>"
+                            src="<?php echo esc_url($u_pro_pic[0]); ?>"
                             alt="Author Image" ><?php } ?>
                         <div class="atbd_auth_nd">
                             <h2><?= esc_html($author_name); ?></h2>

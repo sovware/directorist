@@ -3,11 +3,11 @@ $listings = ATBDP()->user->current_user_listings();
 $fav_listings = ATBDP()->user->current_user_fav_listings();
 $uid = get_current_user_id();
 $c_user = get_userdata($uid);
-
 $u_website = $c_user->user_url;
 $avatar = get_user_meta($uid, 'avatar', true);
 $u_phone = get_user_meta($uid, 'phone', true);
 $u_pro_pic = get_user_meta($uid, 'pro_pic', true);
+$u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'directory-large');
 $facebook = get_user_meta($uid, 'facebook', true);
 $twitter = get_user_meta($uid, 'twitter', true);
 $google = get_user_meta($uid, 'google', true);
@@ -234,7 +234,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             ?>
 
                         </div> <!--ends #my_listings-->
-
                             <div role="tabpanel" class="tab-pane" id="profile">
                                 <form action="#" id="user_profile_form" method="post">
                                     <div class="row">
@@ -249,7 +248,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                         <label for="pro_pic"
                                                                id="upload_pro_pic"><?php _e('Change', ATBDP_TEXTDOMAIN); ?></label>
                                                     </div> <!--ends .choose_btn-->
-                                                    <img src="<?= !empty($u_pro_pic) ? esc_url($u_pro_pic) : esc_url(ATBDP_PUBLIC_ASSETS . 'images/no-image.jpg'); ?>"
+                                                    <img src="<?= !empty($u_pro_pic) ? esc_url($u_pro_pic[0]) : esc_url(ATBDP_PUBLIC_ASSETS . 'images/no-image.jpg'); ?>"
                                                          id="pro_img" alt="">
 
                                                 </div> <!--ends .user_img-->

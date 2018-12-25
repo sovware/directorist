@@ -228,7 +228,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
                             <div class="atbd_directory_image_thumbnail">
                                 <?php
-                                array_unshift($image_links_thumbnails, $listing_prv_imgurl);
+                                $listing_prv_imgurl_thumb = wp_get_attachment_image_src($listing_prv_img, 'thumbnail')['0'];
+                                array_unshift($image_links_thumbnails, $listing_prv_imgurl_thumb);
                                 foreach ($image_links_thumbnails as $image_links_thumbnail) { ?>
                                     <div class="single_image">
                                         <img src="<?= esc_url($image_links_thumbnail); ?>"

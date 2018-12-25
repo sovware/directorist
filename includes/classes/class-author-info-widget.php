@@ -101,7 +101,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
                             <?php if (!empty($website)) { ?>
                                 <li>
                                     <span class="fa fa-globe"></span>
-                                    <a href="<?= esc_url($website); ?>" class="atbd_info"><?= esc_html($website); ?></a>
+                                    <a href="<?= esc_url($website); ?>" class="atbd_info" <?php echo is_directoria_active() ? 'style="text-transform: none;"': '';?>><?= esc_url($website); ?></a>
                                 </li>
                             <?php } ?>
 

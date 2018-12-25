@@ -108,6 +108,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                         $display_view_count    = get_directorist_option('display_view_count',1);
                         $display_author_image    = get_directorist_option('display_author_image',1);
                         $display_publish_date    = get_directorist_option('display_publish_date',1);
+                        $display_contact_info    = get_directorist_option('display_contact_info',1);
                         /*Code for Business Hour Extensions*/
                         $bdbh                   = get_post_meta(get_the_ID(), '_bdbh', true);
                         $enable247hour               = get_post_meta(get_the_ID(), '_enable247hour', true);
@@ -238,7 +239,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                             <?php } if(!empty($tagline)) {?>
                                             <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                             <?php } ?>
-                                            <?php if(!empty($display_review) && !empty($display_price)) {?>
+                                            <?php if(!empty($display_review) || !empty($display_price)) {?>
                                             <div class="atbd_listing_meta">
                                                 <?php
                                                 /**
@@ -269,11 +270,11 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                             </div><!-- End atbd listing meta -->
 
                                             <?php } /* @todo: Shahadat -> please implement this */?>
-                                            <?php if(!$disable_contact_info && !empty($display_publish_date)) {?>
+                                            <?php if(!empty($display_contact_info) || !empty($display_publish_date)) {?>
                                             <div class="atbd_listing_data_list">
                                                 <ul>
                                                     <?php
-                                                    if (!$disable_contact_info && !$hide_contact_info) {
+                                                    if (!empty($display_contact_info)) {
                                                         if( !empty( $address )) { ?>
                                                         <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
                                                         <?php } ?>
@@ -295,7 +296,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                             <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
                                             <?php } ?>
                                         </div><!-- end ./atbd_content_upper -->
-
+                                        <?php if(!empty($display_category) || !empty($$display_view_count) || !empty($display_author_image)) {?>
                                         <div class="atbd_listing_bottom_content">
                                             <?php
                                             if(!empty($display_category)) {
@@ -313,9 +314,8 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                     </div>
                                                 </div>
 
-                                        <?php    } }
-
-                                        ?>
+                                        <?php    } } ?>
+                                        <?php if(!empty($display_view_count) || !empty($display_author_image)) {?>
                                             <ul class="atbd_content_right">
                                                 <?php if(!empty($display_view_count)) {?>
                                                 <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li> <?php } ?>
@@ -338,7 +338,9 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                 </li>
                                                  <?php } ?>
                                             </ul>
+                                            <?php } ?>
                                         </div><!-- end ./atbd_listing_bottom_content -->
+                                        <?php } ?>
                                     </div>
                                 </article>
                             </div>

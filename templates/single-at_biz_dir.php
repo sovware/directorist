@@ -82,6 +82,12 @@ $featured = get_post_meta(get_the_ID(), '_featured', true);
 $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
 $reviews_count = ATBDP()->review->db->count(array('post_id' => $listing_id)); // get total review count for this post
 $listing_author_id = get_post_field( 'post_author', $listing_id );
+$display_feature_badge_single     = get_directorist_option('display_feature_badge_single',1);
+$display_popular_badge_single     = get_directorist_option('display_popular_badge_single',1);
+$popular_badge_text             = get_directorist_option('popular_badge_text','Popular');
+$feature_badge_text             = get_directorist_option('feature_badge_text','Feature');
+$new_badge_text                 = get_directorist_option('new_badge_text','New');
+$enable_new_listing             = get_directorist_option('display_new_badge_single',1);
 
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col-lg-12';
@@ -308,11 +314,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
                             <?php
                             $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
-                            $enable_new_listing = get_directorist_option('enable_new_listing');
                             $new_listing_day = get_directorist_option('new_listing_day');
                             $is_day_or_days = substr($is_old, -4);
                             $is_other = substr($is_old, -5);
-                                $new = '<span class="atbd_badge atbd_badge_new">New</span>';
+                            $new = '<span class="atbd_badge atbd_badge_new">'.$new_badge_text.'</span>';
                             if ($enable_new_listing){
                                 switch ($is_day_or_days){
                                     case ' day':
@@ -341,16 +346,15 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                 }
                             }
                             /*Print Featured ribbon if it is featured*/
-                            if ($featured) {
+                            if ($featured && !empty($display_feature_badge_single)) {
                                 printf(
                                     '<span class="atbd_badge atbd_badge_featured">%s</span>',
-                                    esc_html__('Featured', ATBDP_TEXTDOMAIN)
+                                    $feature_badge_text
                                 );
                             }
                             $count = !empty($count) ? $count : '';
                             $popular_listings = ATBDP()->get_popular_listings($count);
-                            $enable_pop_listing = get_directorist_option('enable_pop_listing');
-                            if ($enable_pop_listing){
+                            if ($display_popular_badge_single){
                                 if ($popular_listings->have_posts()) {
 
                                     foreach ($popular_listings->posts as $pop_post) {

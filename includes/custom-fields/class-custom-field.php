@@ -47,7 +47,7 @@ class ATBDP_Custom_Field
     {
         global $wpdb;
         $objects = ATBDP_CUSTOM_FIELD_POST_TYPE;
-        $objects = array($objects, 'atbdp_fee_manager');
+        $objects = array($objects, 'atbdp_fee_manager', ATBDP_POST_TYPE);
 
         if (!empty($objects)) {
             foreach ($objects as $object) {
@@ -129,7 +129,7 @@ class ATBDP_Custom_Field
     function get_scporder_options_objects()
     {
         $atbdp_options = ATBDP_CUSTOM_FIELD_POST_TYPE;
-        $objects = array($atbdp_options, 'atbdp_fee_manager');
+        $objects = array($atbdp_options, 'atbdp_fee_manager', ATBDP_POST_TYPE);
         return $objects;
     }
 
@@ -317,9 +317,6 @@ class ATBDP_Custom_Field
                     $field_default_value = sanitize_text_field($_POST['default_value']);
                 }
                 update_post_meta($post_id, 'default_value', $field_default_value);
-
-                $field_placeholder = sanitize_text_field($_POST['placeholder']);
-                update_post_meta($post_id, 'placeholder', $field_placeholder);
 
                 $field_rows = (int)$_POST['rows'];
                 update_post_meta($post_id, 'rows', $field_rows);
@@ -645,14 +642,6 @@ class ATBDP_Custom_Field
                     </p>
                     <textarea class="textarea form-control" name="choices"
                               rows="8"><?php if (isset($post_meta['choices'])) echo esc_attr($post_meta['choices'][0]); ?></textarea>
-                </div>
-
-                <div class="field-options field-option-text field-option-textarea field-option-url field-option-email">
-                    <label><?php _e('Placeholder Text', ATBDP_TEXTDOMAIN); ?></label>
-                    <p class="description"><?php _e('Appears within the input', ATBDP_TEXTDOMAIN); ?></p>
-                    <div class="atbdp-input-wrap">
-                        <input type="text" class="text form-control" name="placeholder" value="<?php if (isset($post_meta['placeholder'])) echo esc_attr($post_meta['placeholder'][0]); ?>"/>
-                    </div>
                 </div>
 
                 <div class="field-options field-option-textarea" style="display:none;">

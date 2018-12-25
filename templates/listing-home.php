@@ -15,14 +15,15 @@ $popular_cat_title = get_directorist_option('popular_cat_title', __('Browse by p
 $popular_cat_num = get_directorist_option('popular_cat_num', 10);
 $display_category_field = get_directorist_option('display_category_field', 1);
 $display_location_field = get_directorist_option('display_location_field', 1);
-$theme_home_bg_image = get_theme_mod('directoria_home_bg', get_template_directory_uri().'/images/home_page_bg.jpg');
+
+$default = get_template_directory_uri().'/images/home_page_bg.jpg';
+$theme_home_bg_image = get_theme_mod('directoria_home_bg');
 $search_home_bg = get_directorist_option('search_home_bg');
-
-$frong_bg_image = (!empty($theme_home_bg_image)) ? $theme_home_bg_image : $search_home_bg;
-
+$front_bg_image = (!empty($theme_home_bg_image)) ? $theme_home_bg_image : $search_home_bg;
 ?>
 <!-- start search section -->
-<div id="directorist" class="directorist atbd_wrapper directory_search_area single_area" style="background-image: url('<?php echo esc_url($frong_bg_image); ?>')">
+<div id="directorist" class="directorist atbd_wrapper directory_search_area single_area"
+     style="background-image: url('<?php echo (!empty($front_bg_image)) ? esc_url($front_bg_image) : esc_url($default); ?>')">
     <!-- start search area container -->
     <div class="<?php echo is_directoria_active() ? 'container' : ' container-fluid'; ?>">
         <div class="row">

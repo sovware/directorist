@@ -85,36 +85,43 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
 
                 <?php if ( $all_listings->have_posts() ) {
                     while ( $all_listings->have_posts() ) { $all_listings->the_post();
-                        $cats              =  get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-                        $locs              =  get_the_terms(get_the_ID(), ATBDP_LOCATION);
-                        $featured          = get_post_meta(get_the_ID(), '_featured', true);
-                        $price             = get_post_meta(get_the_ID(), '_price', true);
-                        $price_range       = get_post_meta(get_the_ID(), '_price_range', true);
-                        $atbd_listing_pricing = get_post_meta(get_the_ID(), '_atbd_listing_pricing', true);
-                        $listing_img       = get_post_meta(get_the_ID(), '_listing_img', true);
-                        $listing_prv_img   = get_post_meta(get_the_ID(), '_listing_prv_img', true);
-                        $excerpt           = get_post_meta(get_the_ID(), '_excerpt', true);
-                        $tagline           = get_post_meta(get_the_ID(), '_tagline', true);
-                        $address           = get_post_meta(get_the_ID(), '_address', true);
-                        $phone_number      = get_post_meta(get_the_Id(), '_phone', true);
-                        $category          = get_post_meta(get_the_Id(), '_admin_category_select', true);
-                        $post_view         = get_post_meta(get_the_Id(),'_atbdp_post_views_count',true);
-                        $hide_contact_info = get_post_meta(get_the_ID(), '_hide_contact_info', true);
-                        $disable_contact_info = get_directorist_option('disable_contact_info', 0);
-                        $display_title     = get_directorist_option('display_title',1);
-                        $display_review     = get_directorist_option('display_review',1);
-                        $display_price    = get_directorist_option('display_price',1);
-                        $display_category    = get_directorist_option('display_category',1);
-                        $display_view_count    = get_directorist_option('display_view_count',1);
-                        $display_author_image    = get_directorist_option('display_author_image',1);
-                        $display_publish_date    = get_directorist_option('display_publish_date',1);
-                        $display_contact_info    = get_directorist_option('display_contact_info',1);
+                        $cats                           =  get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+                        $locs                           =  get_the_terms(get_the_ID(), ATBDP_LOCATION);
+                        $featured                       = get_post_meta(get_the_ID(), '_featured', true);
+                        $price                          = get_post_meta(get_the_ID(), '_price', true);
+                        $price_range                    = get_post_meta(get_the_ID(), '_price_range', true);
+                        $atbd_listing_pricing           = get_post_meta(get_the_ID(), '_atbd_listing_pricing', true);
+                        $listing_img                    = get_post_meta(get_the_ID(), '_listing_img', true);
+                        $listing_prv_img                = get_post_meta(get_the_ID(), '_listing_prv_img', true);
+                        $excerpt                        = get_post_meta(get_the_ID(), '_excerpt', true);
+                        $tagline                        = get_post_meta(get_the_ID(), '_tagline', true);
+                        $address                        = get_post_meta(get_the_ID(), '_address', true);
+                        $phone_number                   = get_post_meta(get_the_Id(), '_phone', true);
+                        $category                       = get_post_meta(get_the_Id(), '_admin_category_select', true);
+                        $post_view                      = get_post_meta(get_the_Id(),'_atbdp_post_views_count',true);
+                        $hide_contact_info              = get_post_meta(get_the_ID(), '_hide_contact_info', true);
+                        $disable_contact_info           = get_directorist_option('disable_contact_info', 0);
+                        $display_title                  = get_directorist_option('display_title',1);
+                        $display_review                 = get_directorist_option('display_review',1);
+                        $display_price                  = get_directorist_option('display_price',1);
+                        $display_category               = get_directorist_option('display_category',1);
+                        $display_view_count             = get_directorist_option('display_view_count',1);
+                        $display_author_image           = get_directorist_option('display_author_image',1);
+                        $display_publish_date           = get_directorist_option('display_publish_date',1);
+                        $display_contact_info           = get_directorist_option('display_contact_info',1);
+                        $display_feature_badge_cart     = get_directorist_option('display_feature_badge_cart',1);
+                        $display_popular_badge_cart     = get_directorist_option('display_popular_badge_cart',1);
+                        $popular_badge_text             = get_directorist_option('popular_badge_text','Popular');
+                        $feature_badge_text             = get_directorist_option('feature_badge_text','Feature');
+                        $new_badge_text                 = get_directorist_option('new_badge_text','New');
+                        $enable_new_listing             = get_directorist_option('display_new_badge_cart',1);
                         /*Code for Business Hour Extensions*/
                         $bdbh                   = get_post_meta(get_the_ID(), '_bdbh', true);
                         $enable247hour               = get_post_meta(get_the_ID(), '_enable247hour', true);
                         $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
                         $author_id = get_the_author_meta( 'ID' );
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+                        $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
                         $avata_img = get_avatar($author_id, 32);
                         $thumbnail_cropping = get_directorist_option('thumbnail_cropping',1);
                         if(!empty($listing_prv_img)) {
@@ -166,9 +173,10 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                             <?php if (class_exists('BD_Business_Hour')){
                                                 //lets check is it 24/7
                                                 if (!empty($enable247hour)) {
+                                                    $open =  get_directorist_option('open_badge_text');
                                                     ?>
                                                     <div class="atbd_upper_badge">
-                                                        <span class="atbd_badge atbd_badge_open">Open Now</span>
+                                                        <span class="atbd_badge atbd_badge_open"><?php echo $open;?>></span>
                                                     </div><!-- END /.atbd_upper_badge -->
                                                     <?php
                                                 }else {?>
@@ -179,26 +187,28 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                             }?>
                                             <div class="atbd_lower_badge">
                                                 <?php
-                                                if ($featured){ printf(
-                                                    '<span class="atbd_badge atbd_badge_featured">Featured</span>',
-                                                    esc_html__('Featured', ATBDP_TEXTDOMAIN)
+
+                                                if ($featured && !empty($display_feature_badge_cart)){ printf(
+                                                    '<span class="atbd_badge atbd_badge_featured">%s</span>',
+                                                    $feature_badge_text
                                                 );}
                                                     $count = !empty($count)?$count:5;
                                                 $popular_listings = ATBDP()->get_popular_listings($count = 5);
 
-                                                if ($popular_listings->have_posts()) {
+                                                if ($popular_listings->have_posts() && !empty($display_popular_badge_cart)) {
                                                     foreach ($popular_listings->posts as $pop_post) {
                                                         if ($pop_post->ID == get_the_ID()){
-                                                            echo ' <span class="atbd_badge atbd_badge_popular">Popular</span>';
+                                                            echo ' <span class="atbd_badge atbd_badge_popular">'. $popular_badge_text .'</span>';
                                                         }
                                                     }
                                                 }
                                                 $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
-                                                $enable_new_listing = get_directorist_option('enable_new_listing');
+
+
                                                 $new_listing_day = get_directorist_option('new_listing_day');
                                                 $is_day_or_days = substr($is_old, -4);
                                                 $is_other = substr($is_old, -5);
-                                                    $new = '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                    $new = '<span class="atbd_badge atbd_badge_new">'.$new_badge_text.'</span>';
                                                 if ($enable_new_listing){
                                                     switch ($is_day_or_days){
                                                         case ' day':
@@ -335,7 +345,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                 <li class="atbd_author">
                                                     <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
                                                             <img
-                                                            src="<?php echo esc_url($u_pro_pic); ?>"
+                                                            src="<?php echo esc_url($u_pro_pic[0]); ?>"
                                                             alt="Author Image"><?php } ?>
                                                     </a>
                                                 </li>

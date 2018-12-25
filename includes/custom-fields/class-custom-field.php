@@ -47,7 +47,7 @@ class ATBDP_Custom_Field
     {
         global $wpdb;
         $objects = ATBDP_CUSTOM_FIELD_POST_TYPE;
-        $objects = array($objects, 'atbdp_fee_manager');
+        $objects = array($objects, 'atbdp_fee_manager', ATBDP_POST_TYPE);
 
         if (!empty($objects)) {
             foreach ($objects as $object) {

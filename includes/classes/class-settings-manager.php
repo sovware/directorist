@@ -2137,15 +2137,6 @@ The Administrator of ==SITE_NAME==
                 ),
 
                 array(
-                    'type' => 'toggle',
-                    'name' => 'enable_pop_listing',
-                    'label' => __('Enable popular listings on Single Listing page', ATBDP_TEXTDOMAIN),
-                    'description' => __('Choose whether you want to display popular listings on Single listing details page or not. Default is YES.', ATBDP_TEXTDOMAIN),
-                    'default' => atbdp_yes_to_bool($e_p_list),
-                ),
-
-
-                array(
                     'type' => 'slider',
                     'name' => 'pop_listing_num',
                     'label' => __('Number of Popular Listings', ATBDP_TEXTDOMAIN),
@@ -2413,14 +2404,6 @@ The Administrator of ==SITE_NAME==
                     ),
 
                     array(
-                        'type' => 'toggle',
-                        'name' => 'enable_pop_listing',
-                        'label' => __('Enable popular listings on Single Listing page', ATBDP_TEXTDOMAIN),
-                        'description' => __('Choose whether you want to display popular listings on Single listing details page or not. Default is YES.', ATBDP_TEXTDOMAIN),
-                        'default' => atbdp_yes_to_bool($e_p_list),
-                    ),
-
-                    array(
                         'type' => 'slider',
                         'name' => 'pop_listing_num',
                         'label' => __('Number of Popular Listings', ATBDP_TEXTDOMAIN),
@@ -2431,7 +2414,6 @@ The Administrator of ==SITE_NAME==
                         'default' => '5',
                         'validation' => 'numeric|minlength[1]',
                     ),
-
 
                     array(
                         'type' => 'toggle',

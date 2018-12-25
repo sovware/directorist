@@ -41,7 +41,7 @@ $display_location_field = get_directorist_option('display_location_field', 1);
                             <div class="col-md-6 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_query">
                                     <input class="form-control search_fields" type="text" name="q"
-                                           placeholder="<?php  echo esc_html($search_placeholder); ?>">
+                                           placeholder="<?php echo esc_html($search_placeholder); ?>">
                                 </div>
                             </div>
                             <?php if(!empty($display_category_field)) {?>

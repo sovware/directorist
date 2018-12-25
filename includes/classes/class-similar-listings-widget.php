@@ -61,27 +61,20 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
                                         <a href="<?= esc_url(get_post_permalink($related_listing->ID)); ?>"><?= esc_html($related_listing->post_title); ?></a>
                                     </h4>
                                     <?php if(!empty($price)) {?>
-                                    <span><?php echo $price?></span>
-                                    <?php if(!empty($cats) ) {?>
-                                    <div class="atbd_content_left">
-                                        <div class="atbd_listting_category">
-                                            <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span><?php  echo $cats[0]->name;?></a>
-                                        </div>
-                                    </div>
-                        <?php }
-                                     } ?>
+                                    <span><?php atbdp_display_price($price);?></span>
+
+                                    <?php  } ?>
                                 </div>
 
-                                <?php if (!empty($top_category)) { ?>
+                                <?php if (!empty($cats)) { ?>
 
                                 <p class="directory_tag">
-                                    <span class="fa <?= esc_attr(get_cat_icon(@$top_category->term_id)); ?>"
+                                    <span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"
                                       aria-hidden="true"></span>
-                                    <span> <?php if (is_object($top_category)) { ?>
-                                            <a href="<?= ATBDP_Permalink::get_category_archive($top_category); ?>">
-                                         <?= esc_html($top_category->name); ?>
+                                    <span><a href="<?= ATBDP_Permalink::get_category_archive($cats[0]); ?>">
+                                         <?= esc_html($cats[0]->name); ?>
                                     </a>
-                                        <?php } ?>
+
                                     </span>
                                 </p>
                                 <?php } ?>

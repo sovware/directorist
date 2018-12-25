@@ -184,6 +184,21 @@ class ATBDP_Settings_Manager {
                     ),
                 )),
             ),
+
+            /*Submenu : Badge Management */
+            array(
+                'title' => __('Badge Setting', ATBDP_TEXTDOMAIN),
+                'name' => 'badge_management',
+                'icon' => 'font-awesome:fa-wpforms',
+                'controls' => apply_filters('atbdp_badge_controls', array(
+                    'emails' => array(
+                        'type' => 'section',
+                        'title' => __('Badge Management', ATBDP_TEXTDOMAIN),
+                        'description' => __('You can Customize Badge here', ATBDP_TEXTDOMAIN),
+                        'fields' => $this->get_badge_settings_fields(),
+                    ),
+                )),
+            ),
         ));
     }
 
@@ -1603,7 +1618,89 @@ The Administrator of ==SITE_NAME==
                 )
             );
         }
-
+    /**
+     * Get all the settings fields for the listings settings section
+     * @since 4.0.0
+     * @return array
+     */
+    function get_badge_settings_fields() {
+        return apply_filters('atbdp_badge_settings_fields' , array(
+            array(
+                'type' => 'toggle',
+                'name' => 'display_new_badge_cart',
+                'label' => __('Display New Badge', ATBDP_TEXTDOMAIN),
+                'description' => __('Choose whether you want to display new  badge on cart page or not. Default is YES.', ATBDP_TEXTDOMAIN),
+                'default' => 1,
+            ),
+            array(
+                'type' => 'toggle',
+                'name' => 'display_feature_badge_cart',
+                'label' => __('Display Feature Badge', ATBDP_TEXTDOMAIN),
+                'description' => __('Choose whether you want to display feature badge on cart page or not. Default is YES.', ATBDP_TEXTDOMAIN),
+                'default' => 1,
+            ),
+            array(
+                'type' => 'toggle',
+                'name' => 'display_popular_badge_cart',
+                'label' => __('Display Popular Badge', ATBDP_TEXTDOMAIN),
+                'description' => __('Choose whether you want to popular feature badge on cart page or not. Default is YES.', ATBDP_TEXTDOMAIN),
+                'default' => 1,
+            ),
+            array(
+                'type' => 'toggle',
+                'name' => 'display_new_badge_single',
+                'label' => __('Display New Badge', ATBDP_TEXTDOMAIN),
+                'description' => __('Choose whether you want to display new  badge on cart page or not. Default is YES.', ATBDP_TEXTDOMAIN),
+                'default' => 1,
+            ),
+            array(
+                'type' => 'toggle',
+                'name' => 'display_feature_badge_single',
+                'label' => __('Display Feature Badge', ATBDP_TEXTDOMAIN),
+                'description' => __('Choose whether you want to display feature badge on cart page or not. Default is YES.', ATBDP_TEXTDOMAIN),
+                'default' => 1,
+            ),
+            array(
+                'type' => 'toggle',
+                'name' => 'display_popular_badge_single',
+                'label' => __('Display Popular Badge', ATBDP_TEXTDOMAIN),
+                'description' => __('Choose whether you want to popular feature badge on cart page or not. Default is YES.', ATBDP_TEXTDOMAIN),
+                'default' => 1,
+            ),
+            array(
+                'type' => 'textbox',
+                'name' => 'new_badge_text',
+                'label' => __('New Badge Text', ATBDP_TEXTDOMAIN),
+                'description' => __( 'Enter the new badge text that you would like to display on all listing', ATBDP_TEXTDOMAIN ),
+                'default' => __( 'New', ATBDP_TEXTDOMAIN ),
+            ),
+            array(
+                'type' => 'slider',
+                'name' => 'new_listing_day',
+                'label' => __('Number of Days for New Badge', ATBDP_TEXTDOMAIN),
+                'description' => __( 'Set how many days would like to show on your listings New. Eg. 5. Default is 3.', ATBDP_TEXTDOMAIN),
+                'min' => '0',
+                'max' => '6',
+                'step' => '1',
+                'default' => '3',
+                'validation' => 'numeric|minlength[1]',
+            ),
+            array(
+                'type' => 'textbox',
+                'name' => 'feature_badge_text',
+                'label' => __('Feature Badge Text', ATBDP_TEXTDOMAIN),
+                'description' => __( 'Enter the feature badge text that you would like to display', ATBDP_TEXTDOMAIN ),
+                'default' => __( 'Feature', ATBDP_TEXTDOMAIN ),
+            ),
+            array(
+                'type' => 'textbox',
+                'name' => 'popular_badge_text',
+                'label' => __('Popular Badge Text', ATBDP_TEXTDOMAIN),
+                'description' => __( 'Enter the popular badge text that you would like to display', ATBDP_TEXTDOMAIN ),
+                'default' => __( 'Popular', ATBDP_TEXTDOMAIN ),
+            ),
+        ) );
+    }
 
     /**
      * Get all the settings fields for the listings settings section
@@ -2040,15 +2137,6 @@ The Administrator of ==SITE_NAME==
                 ),
 
                 array(
-                    'type' => 'toggle',
-                    'name' => 'enable_pop_listing',
-                    'label' => __('Enable popular listings on Single Listing page', ATBDP_TEXTDOMAIN),
-                    'description' => __('Choose whether you want to display popular listings on Single listing details page or not. Default is YES.', ATBDP_TEXTDOMAIN),
-                    'default' => atbdp_yes_to_bool($e_p_list),
-                ),
-
-
-                array(
                     'type' => 'slider',
                     'name' => 'pop_listing_num',
                     'label' => __('Number of Popular Listings', ATBDP_TEXTDOMAIN),
@@ -2057,24 +2145,6 @@ The Administrator of ==SITE_NAME==
                     'max' => '30',
                     'step' => '1',
                     'default' => '5',
-                    'validation' => 'numeric|minlength[1]',
-                ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'enable_new_listing',
-                    'label' => __('Enable New Listings on Single Listing page', ATBDP_TEXTDOMAIN),
-                    'description' => __('Choose whether you want to display new listings on Single listing details page or not. Default is YES.', ATBDP_TEXTDOMAIN),
-                    'default' => atbdp_yes_to_bool($e_p_list),
-                ),
-                array(
-                    'type' => 'slider',
-                    'name' => 'new_listing_day',
-                    'label' => __('Number of Days for New Badge', ATBDP_TEXTDOMAIN),
-                    'description' => __( 'Set how many days would like to show on your listings New. Eg. 5. Default is 3.', ATBDP_TEXTDOMAIN),
-                    'min' => '0',
-                    'max' => '6',
-                    'step' => '1',
-                    'default' => '3',
                     'validation' => 'numeric|minlength[1]',
                 ),
                 array(
@@ -2334,14 +2404,6 @@ The Administrator of ==SITE_NAME==
                     ),
 
                     array(
-                        'type' => 'toggle',
-                        'name' => 'enable_pop_listing',
-                        'label' => __('Enable popular listings on Single Listing page', ATBDP_TEXTDOMAIN),
-                        'description' => __('Choose whether you want to display popular listings on Single listing details page or not. Default is YES.', ATBDP_TEXTDOMAIN),
-                        'default' => atbdp_yes_to_bool($e_p_list),
-                    ),
-
-                    array(
                         'type' => 'slider',
                         'name' => 'pop_listing_num',
                         'label' => __('Number of Popular Listings', ATBDP_TEXTDOMAIN),
@@ -2352,7 +2414,6 @@ The Administrator of ==SITE_NAME==
                         'default' => '5',
                         'validation' => 'numeric|minlength[1]',
                     ),
-
 
                     array(
                         'type' => 'toggle',

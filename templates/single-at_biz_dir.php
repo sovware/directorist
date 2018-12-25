@@ -228,7 +228,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
                             <div class="atbd_directory_image_thumbnail">
                                 <?php
-                                array_unshift($image_links_thumbnails, $listing_prv_imgurl);
+                                $listing_prv_imgurl_thumb = wp_get_attachment_image_src($listing_prv_img, 'thumbnail')['0'];
+                                array_unshift($image_links_thumbnails, $listing_prv_imgurl_thumb);
                                 foreach ($image_links_thumbnails as $image_links_thumbnail) { ?>
                                     <div class="single_image">
                                         <img src="<?= esc_url($image_links_thumbnail); ?>"
@@ -311,14 +312,17 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                             $new_listing_day = get_directorist_option('new_listing_day');
                             $is_day_or_days = substr($is_old, -4);
                             $is_other = substr($is_old, -5);
-                            if (($is_old<=$new_listing_day) && ($enable_new_listing)){
                                 $new = '<span class="atbd_badge atbd_badge_new">New</span>';
+                            if ($enable_new_listing){
                                 switch ($is_day_or_days){
                                     case ' day':
                                         echo $new;
                                         break;
                                     case 'days':
-                                        echo $new;
+                                        //if it is more than 1 day let check the option value is grater than or equal
+                                        if (substr($is_old, 0, 1)<=$new_listing_day){
+                                            echo $new;
+                                        }
                                         break;
                                     case 'mins':
                                         echo $new;

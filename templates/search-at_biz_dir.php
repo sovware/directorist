@@ -177,31 +177,34 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     $new_listing_day = get_directorist_option('new_listing_day');
                                                     $is_day_or_days = substr($is_old, -4);
                                                     $is_other = substr($is_old, -5);
-                                                    if (($enable_new_listing) && (($is_day_or_days<=$new_listing_day) || ($is_other<=$new_listing_day))){
                                                         $new = '<span class="atbd_badge atbd_badge_new">New</span>';
-                                                        switch ($is_day_or_days){
-                                                            case ' day':
-                                                                echo $new;
-                                                                break;
-                                                            case 'days':
-                                                                echo $new;
-                                                                break;
-                                                            case 'mins':
-                                                                echo $new;
-                                                                break;
-                                                            case ' min':
-                                                                echo $new;
-                                                                break;
-                                                            case 'hour':
-                                                                echo $new;
-                                                                break;
+                                                        if ($enable_new_listing){
+                                                            switch ($is_day_or_days){
+                                                                case ' day':
+                                                                    echo $new;
+                                                                    break;
+                                                                case 'days':
+                                                                    //if it is more than 1 day let check the option value is grater than or equal
+                                                                    if (substr($is_old, 0, 1)<=$new_listing_day){
+                                                                        echo $new;
+                                                                    }
+                                                                    break;
+                                                                case 'mins':
+                                                                    echo $new;
+                                                                    break;
+                                                                case ' min':
+                                                                    echo $new;
+                                                                    break;
+                                                                case 'hour':
+                                                                    echo $new;
+                                                                    break;
+                                                            }
+                                                            switch ($is_other){
+                                                                case 'hours':
+                                                                    echo $new;
+                                                                    break;
+                                                            }
                                                         }
-                                                        switch ($is_other){
-                                                            case 'hours':
-                                                                echo $new;
-                                                                break;
-                                                        }
-                                                    }
                                                     ?>
                                                 </div>
                                             </figcaption>
@@ -217,6 +220,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <?php } if(!empty($tagline)) {?>
                                                 <p class="atbd_listing_tagline"><?= esc_html(stripslashes($tagline)); ?></p>
                                                 <?php } /* todo: Shahadat -> new markup implemented */?>
+                                                 <?php if(!empty($display_review) && !empty($display_price)) {?>
                                                 <div class="atbd_listing_meta">
                                                     <?php
                                                     /**
@@ -247,26 +251,29 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     ?>
                                                 </div><!-- End atbd listing meta -->
 
-                                                <?php /* @todo: Shahadat -> please implement this */?>
-                                                <div class="atbd_listing_data_list">
-                                                    <ul>
-                                                        <?php
+                                                <?php } /* @todo: Shahadat -> please implement this */?>
+                                                <?php if(!$disable_contact_info && !empty($display_publish_date)) {?>
+                                                    <div class="atbd_listing_data_list">
+                                                        <ul>
+                                                            <?php
+                                                            if (!$disable_contact_info && !$hide_contact_info) {
+                                                                if( !empty( $address )) { ?>
+                                                                    <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
+                                                                <?php } ?>
+                                                                <?php if( !empty( $phone_number )) {?>
+                                                                    <li><p><span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number));?></p></li>
+                                                                    <?php
+                                                                } }
 
-                                                            if( !empty( $address )) { ?>
-                                                                <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
-                                                            <?php } ?>
-                                                            <?php if( !empty( $phone_number )) {?>
-                                                                <li><p><span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number));?></p></li>
-                                                                <?php
-                                                            }
                                                             if(!empty($display_publish_date)) { ?>
-                                                        <li><p><span class="fa fa-clock-o"></span><?php
-                                                                printf( __( 'Posted %s ago', ATBDP_TEXTDOMAIN ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
-                                                                ?></p></li>
-                                                              <?php } ?>
-                                                    </ul>
-                                                </div><!-- End atbd listing meta -->
-                                                <?php if(!empty($excerpt))  {?>
+                                                                <li><p><span class="fa fa-clock-o"></span><?php
+                                                                        printf( __( 'Posted %s ago', ATBDP_TEXTDOMAIN ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
+                                                                        ?></p></li>
+                                                            <?php } ?>
+                                                        </ul>
+                                                    </div><!-- End atbd listing meta -->
+                                                    <?php
+                                                } if(!empty($excerpt))  {?>
                                                 <p><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
                                                 <?php } ?>
                                                 <?php /* @todo: deleted the read more link */ ?>

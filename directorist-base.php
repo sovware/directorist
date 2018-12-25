@@ -549,7 +549,7 @@ final class Directorist_Base
                         ?>
                         <li>
                             <div class="atbd_left_img">
-                                <?= (!empty($listing_img[0])) ? '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="listing image">' : '' ?>
+                                <?= (!empty($listing_img[0])) ? '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="listing image">' : '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">' ?>
                             </div>
                             <div class="atbd_right_content">
                                 <div class="cate_title">
@@ -566,7 +566,7 @@ final class Directorist_Base
                                                 <a href="<?= ATBDP_Permalink::get_category_archive($cats[0]); ?>">
                                                                      <?= esc_html($cats[0]->name); ?>
                                                 </a>
-                                            
+
                                         </span>
                                     </p>
                                 <?php }
@@ -667,6 +667,7 @@ final class Directorist_Base
                         $display_view_count   = get_directorist_option('display_view_count',1);
                         $display_author_image = get_directorist_option('display_author_image',1);
                         $display_publish_date = get_directorist_option('display_publish_date',1);
+                        $display_contact_info    = get_directorist_option('display_contact_info',1);
                         /*Code for Business Hour Extensions*/
                         $bdbh = get_post_meta($r_post->ID, '_bdbh', true);
                         $enable247hour = get_post_meta($r_post->ID, '_enable247hour', true);
@@ -757,14 +758,17 @@ final class Directorist_Base
                                                 $new_listing_day = get_directorist_option('new_listing_day',3);
                                                 $is_day_or_days = substr($is_old, -4);
                                                 $is_other = substr($is_old, -5);
-                                                if (($enable_new_listing) && (($is_day_or_days<=$new_listing_day) || ($is_other<=$new_listing_day))){
                                                     $new = '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                if ($enable_new_listing){
                                                     switch ($is_day_or_days){
                                                         case ' day':
                                                             echo $new;
                                                             break;
                                                         case 'days':
-                                                            echo $new;
+                                                            //if it is more than 1 day let check the option value is grater than or equal
+                                                            if (substr($is_old, 0, 1)<=$new_listing_day){
+                                                                echo $new;
+                                                            }
                                                             break;
                                                         case 'mins':
                                                             echo $new;
@@ -782,7 +786,6 @@ final class Directorist_Base
                                                             break;
                                                     }
                                                 }
-
                                                 ?>
                                             </div>
                                         </figcaption>
@@ -799,6 +802,7 @@ final class Directorist_Base
                                                 <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                             <?php } ?>
                                             <?php /* todo: Shahadat -> new markup implemented */ ?>
+                                            <?php if(!empty($display_review) && !empty($display_price)) {?>
                                             <div class="atbd_listing_meta">
                                                 <?php
                                                 /**
@@ -830,29 +834,29 @@ final class Directorist_Base
                                                 ?>
                                             </div><!-- End atbd listing meta -->
 
-                                            <?php /* @todo: Shahadat -> please implement this */ ?>
-                                            <div class="atbd_listing_data_list">
-                                                <ul>
-                                                    <?php
-                                                    if (!$disable_contact_info && !$hide_contact_info) {
-                                                        if (!empty($address)) { ?>
-                                                            <li><p>
-                                                                    <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
-                                                                </p></li>
+                                            <?php }/* @todo: Shahadat -> please implement this */ ?>
+                                            <?php if(!empty($display_contact_info) || !empty($display_publish_date)) {?>
+                                                <div class="atbd_listing_data_list">
+                                                    <ul>
+                                                        <?php
+                                                        if (!empty($display_contact_info)) {
+                                                            if( !empty( $address )) { ?>
+                                                                <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
+                                                            <?php } ?>
+                                                            <?php if( !empty( $phone_number )) {?>
+                                                                <li><p><span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number));?></p></li>
+                                                                <?php
+                                                            } }
+
+                                                        if(!empty($display_publish_date)) { ?>
+                                                            <li><p><span class="fa fa-clock-o"></span><?php
+                                                                    printf( __( 'Posted %s ago', ATBDP_TEXTDOMAIN ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
+                                                                    ?></p></li>
                                                         <?php } ?>
-                                                        <?php if (!empty($phone_number)) { ?>
-                                                            <li><p>
-                                                                    <span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number)); ?>
-                                                                </p></li>
-                                                            <?php
-                                                        }
-                                                    } ?>
-                                                    <li><p><span class="fa fa-clock-o"></span><?php
-                                                            printf(__('Posted %s ago', ATBDP_TEXTDOMAIN), human_time_diff(get_the_time('U'), current_time('timestamp')));
-                                                            ?></p></li>
-                                                </ul>
-                                            </div><!-- End atbd listing meta -->
-                                            <?php
+                                                    </ul>
+                                                </div><!-- End atbd listing meta -->
+                                                <?php
+                                            }
                                             //show category and location info
                                             /* @todo: Shahadat -> Please fetch location, phone number and listing addition info here */
                                             /*ATBDP()->helper->output_listings_taxonomy_info($top_category, $deepest_location);*/ ?>
@@ -861,11 +865,11 @@ final class Directorist_Base
                                             <?php } ?>
                                             <?php /* @todo: deleted the read more link */ ?>
                                         </div><!-- end ./atbd_content_upper -->
-
+                                        <?php if(!empty($display_category) || !empty($$display_view_count) || !empty($display_author_image)) {?>
                                         <div class="atbd_listing_bottom_content">
                                             <?php
                                             if(!empty($display_category)) {
-                                            if (!empty($category)) { ?>
+                                            if (!empty($cats)) { ?>
                                                 <div class="atbd_content_left">
                                                     <div class="atbd_listting_category">
                                                         <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));; ?>"><span
@@ -884,24 +888,32 @@ final class Directorist_Base
                                                 </div>
 
                                             <?php } }?>
-                                            <ul class="atbd_content_right">
-                                                <?php if(!empty($display_view_count)) {?>
-                                                    <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li> <?php } ?>
-                                                <!--<li class="atbd_save"><span class="fa fa-heart"></span></li>-->
-                                                <?php if(!empty($display_author_image)) {?>
-                                                <li class="atbd_author">
-                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {
-                                                            echo $avata_img;
-                                                        }
-                                                        if (!empty($u_pro_pic)) { ?>
-                                                            <img
-                                                            src="<?php echo esc_url($u_pro_pic); ?>"
-                                                            alt="Author Image"><?php } ?>
-                                                    </a>
-                                                </li>
-                                                <?php } ?>
-                                            </ul>
+                                            <?php if(!empty($display_view_count) || !empty($display_author_image)) {?>
+                                                <ul class="atbd_content_right">
+                                                    <?php if(!empty($display_view_count)) {?>
+                                                        <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li> <?php } ?>
+
+
+                                                    <li class="atbd_save">
+                                                        <div id="atbdp-favourites-all-listing">
+                                                            <input type="hidden" id="listing_ids" value="<?php echo get_the_ID(); ?>">
+                                                            <?php
+                                                            // do_action('wp_ajax_atbdp-favourites-all-listing', get_the_ID()); ?>
+                                                        </div>
+                                                    </li>
+                                                    <?php if(!empty($display_author_image)) {?>
+                                                        <li class="atbd_author">
+                                                            <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                                    <img
+                                                                    src="<?php echo esc_url($u_pro_pic); ?>"
+                                                                    alt="Author Image"><?php } ?>
+                                                            </a>
+                                                        </li>
+                                                    <?php } ?>
+                                                </ul>
+                                            <?php } ?>
                                         </div><!-- end ./atbd_listing_bottom_content -->
+                                        <?php } ?>
                                     </div>
                                 </article>
                             </div>

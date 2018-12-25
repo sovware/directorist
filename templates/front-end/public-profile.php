@@ -12,6 +12,7 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                 $author_name = get_the_author_meta('display_name', $author_id);
                 $user_registered = get_the_author_meta('user_registered', $author_id);
                 $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+                $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
                 $bio = get_user_meta($author_id, 'bio', true);
                 $avata_img = get_avatar($author_id, 32);
                 $address = esc_attr(get_user_meta($author_id, 'address', true));
@@ -31,8 +32,8 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                             echo $avata_img;
                         }
                         if (!empty($u_pro_pic)) { ?><img
-                            src="<?php echo esc_url($u_pro_pic); ?>"
-                            alt="Author Image"><?php } ?>
+                            src="<?php echo esc_url($u_pro_pic[0]); ?>"
+                            alt="Author Image" ><?php } ?>
                         <div class="atbd_auth_nd">
                             <h2><?= esc_html($author_name); ?></h2>
                             <p><?php
@@ -208,22 +209,29 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
 
                 <?php if ( $all_listings->have_posts() ) {
                     while ( $all_listings->have_posts() ) { $all_listings->the_post();
-                        $cats              =  get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-                        $locs              =  get_the_terms(get_the_ID(), ATBDP_LOCATION);
-                        $featured          = get_post_meta(get_the_ID(), '_featured', true);
-                        $price             = get_post_meta(get_the_ID(), '_price', true);
-                        $price_range       = get_post_meta(get_the_ID(), '_price_range', true);
-                        $listing_img       = get_post_meta(get_the_ID(), '_listing_img', true);
-                        $listing_prv_img   = get_post_meta(get_the_ID(), '_listing_prv_img', true);
-                        $excerpt           = get_post_meta(get_the_ID(), '_excerpt', true);
-                        $tagline           = get_post_meta(get_the_ID(), '_tagline', true);
-                        $address           = get_post_meta(get_the_ID(), '_address', true);
-                        $phone_number      = get_post_meta(get_the_Id(), '_phone', true);
-                        $category          = get_post_meta(get_the_Id(), '_admin_category_select', true);
-                        $post_view         = get_post_meta(get_the_Id(),'_atbdp_post_views_count',true);
-                        $hide_contact_info = get_post_meta(get_the_ID(), '_hide_contact_info', true);
-                        $disable_contact_info = get_directorist_option('disable_contact_info', 0);
-                        $is_disable_price = get_directorist_option('disable_list_price');
+                        $cats                        =  get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+                        $locs                        =  get_the_terms(get_the_ID(), ATBDP_LOCATION);
+                        $featured                    = get_post_meta(get_the_ID(), '_featured', true);
+                        $price                       = get_post_meta(get_the_ID(), '_price', true);
+                        $price_range                 = get_post_meta(get_the_ID(), '_price_range', true);
+                        $listing_img                 = get_post_meta(get_the_ID(), '_listing_img', true);
+                        $listing_prv_img             = get_post_meta(get_the_ID(), '_listing_prv_img', true);
+                        $excerpt                     = get_post_meta(get_the_ID(), '_excerpt', true);
+                        $tagline                     = get_post_meta(get_the_ID(), '_tagline', true);
+                        $address                     = get_post_meta(get_the_ID(), '_address', true);
+                        $phone_number            = get_post_meta(get_the_Id(), '_phone', true);
+                        $category                = get_post_meta(get_the_Id(), '_admin_category_select', true);
+                        $post_view               = get_post_meta(get_the_Id(),'_atbdp_post_views_count',true);
+                        $hide_contact_info       = get_post_meta(get_the_ID(), '_hide_contact_info', true);
+                        $disable_contact_info    = get_directorist_option('disable_contact_info', 0);
+                        $is_disable_price        = get_directorist_option('disable_list_price');
+                        $display_review          = get_directorist_option('display_review',1);
+                        $display_price           = get_directorist_option('display_price',1);
+                        $display_category        = get_directorist_option('display_category',1);
+                        $display_view_count      = get_directorist_option('display_view_count',1);
+                        $display_author_image    = get_directorist_option('display_author_image',1);
+                        $display_publish_date    = get_directorist_option('display_publish_date',1);
+                        $display_contact_info    = get_directorist_option('display_contact_info',1);
                         /*Code for Business Hour Extensions*/
                         $bdbh                   = get_post_meta(get_the_ID(), '_bdbh', true);
                         $enable247hour               = get_post_meta(get_the_ID(), '_enable247hour', true);
@@ -312,14 +320,17 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                                                 $new_listing_day = get_directorist_option('new_listing_day');
                                                 $is_day_or_days = substr($is_old, -4);
                                                 $is_other = substr($is_old, -5);
-                                                if (($enable_new_listing) && (($is_day_or_days<=$new_listing_day) || ($is_other<=$new_listing_day))){
                                                     $new = '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                if ($enable_new_listing){
                                                     switch ($is_day_or_days){
                                                         case ' day':
                                                             echo $new;
                                                             break;
                                                         case 'days':
-                                                            echo $new;
+                                                            //if it is more than 1 day let check the option value is grater than or equal
+                                                            if (substr($is_old, 0, 1)<=$new_listing_day){
+                                                                echo $new;
+                                                            }
                                                             break;
                                                         case 'mins':
                                                             echo $new;
@@ -351,6 +362,7 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                                             <?php if(!empty($tagline)) {?>
                                                 <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                             <?php } ?>
+                                            <?php if(!empty($display_review) || !empty($display_price)) {?>
                                             <div class="atbd_listing_meta">
                                                 <?php
                                                 /**
@@ -360,12 +372,14 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                                                  * @since 1.0.0
                                                  */
 
+                                                if(!empty($display_review)) {
                                                 do_action('atbdp_after_listing_tagline');
+                                                }
 
-                                                if(!empty($price_range)) {
-                                                    $output = atbdp_display_price_range($price_range);
-                                                    echo $output;
-                                                }else{
+                                                if(!empty($display_price)) {
+                                                    if (empty($price) && !empty($price_range)) {
+                                                        atbdp_display_price_range($price_range);
+                                                    }
                                                     atbdp_display_price($price, $is_disable_price);
                                                 }
 
@@ -378,31 +392,37 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                                                 do_action('atbdp_after_listing_price');
                                                 ?>
                                             </div><!-- End atbd listing meta -->
-
+                                            <?php } ?>
                                             <?php /* @todo: Shahadat -> please implement this */?>
-                                            <div class="atbd_listing_data_list">
-                                                <ul>
-                                                    <?php
-                                                    if (!$disable_contact_info && !$hide_contact_info) {
-                                                        if( !empty( $address )) { ?>
-                                                            <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
+                                            <?php if(!empty($display_contact_info) || !empty($display_publish_date)) {?>
+                                                <div class="atbd_listing_data_list">
+                                                    <ul>
+                                                        <?php
+                                                        if (!empty($display_contact_info)) {
+                                                            if( !empty( $address )) { ?>
+                                                                <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
+                                                            <?php } ?>
+                                                            <?php if( !empty( $phone_number )) {?>
+                                                                <li><p><span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number));?></p></li>
+                                                                <?php
+                                                            } }
+
+                                                        if(!empty($display_publish_date)) { ?>
+                                                            <li><p><span class="fa fa-clock-o"></span><?php
+                                                                    printf( __( 'Posted %s ago', ATBDP_TEXTDOMAIN ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
+                                                                    ?></p></li>
                                                         <?php } ?>
-                                                        <?php if( !empty( $phone_number )) {?>
-                                                            <li><p><span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number));?></p></li>
-                                                            <?php
-                                                        } }?>
-                                                    <li><p><span class="fa fa-clock-o"></span><?php
-                                                            printf( __( 'Posted %s ago', ATBDP_TEXTDOMAIN ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
-                                                            ?></p></li>
-                                                </ul>
-                                            </div><!-- End atbd listing meta -->
-                                            <?php if( !empty($excerpt) ) {?>
+                                                    </ul>
+                                                </div><!-- End atbd listing meta -->
+                                                <?php
+                                            } if( !empty($excerpt) ) {?>
                                                 <p><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
                                             <?php } ?>
                                         </div><!-- end ./atbd_content_upper -->
-
+                                        <?php if(!empty($display_category) || !empty($$display_view_count) || !empty($display_author_image)) {?>
                                         <div class="atbd_listing_bottom_content">
-                                            <?php if(!empty($cats)) {?>
+                                        <?php if(!empty($display_category)) {
+                                             if(!empty($cats)) {?>
                                                 <div class="atbd_content_left">
                                                     <div class="atbd_listting_category">
                                                         <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span><?php  echo $cats[0]->name;?></a>
@@ -416,19 +436,33 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                                                     </div>
                                                 </div>
 
-                                            <?php    } ?>
-                                            <ul class="atbd_content_right">
-                                                <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li>
-                                            <!--    <li class="atbd_save"><span class="fa fa-heart"></span></li>-->
-                                                <li class="atbd_author">
-                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
-                                                            <img
-                                                            src="<?php echo esc_url($u_pro_pic); ?>"
-                                                            alt="Author Image"><?php } ?>
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                            <?php   } } ?>
+                                            <?php if(!empty($display_view_count) || !empty($display_author_image)) {?>
+                                                <ul class="atbd_content_right">
+                                                    <?php if(!empty($display_view_count)) {?>
+                                                        <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li> <?php } ?>
+
+
+                                                    <li class="atbd_save">
+                                                        <div id="atbdp-favourites-all-listing">
+                                                            <input type="hidden" id="listing_ids" value="<?php echo get_the_ID(); ?>">
+                                                            <?php
+                                                            // do_action('wp_ajax_atbdp-favourites-all-listing', get_the_ID()); ?>
+                                                        </div>
+                                                    </li>
+                                                    <?php if(!empty($display_author_image)) {?>
+                                                        <li class="atbd_author">
+                                                            <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                                    <img
+                                                                    src="<?php echo esc_url($u_pro_pic); ?>"
+                                                                    alt="Author Image"><?php } ?>
+                                                            </a>
+                                                        </li>
+                                                    <?php } ?>
+                                                </ul>
+                                            <?php } ?>
                                         </div><!-- end ./atbd_listing_bottom_content -->
+                                        <?php } ?>
                                     </div>
                                 </article>
                             </div>

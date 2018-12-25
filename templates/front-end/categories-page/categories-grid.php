@@ -1,4 +1,4 @@
-
+<?php $span = 'col-md-' . floor( 12 /  $categories_settings['columns'] );?>
 <div id="directorist" class="atbd_wrapper">
     <div class="container-fluid">
         <div class="col-md-12">

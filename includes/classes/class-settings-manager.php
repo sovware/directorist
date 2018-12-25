@@ -1532,6 +1532,14 @@ The Administrator of ==SITE_NAME==
                         'description' => __( 'Enter the title for search bar on Home Page. Eg. Find the Best Places to Be', ATBDP_TEXTDOMAIN ),
                         'default' => atbdp_get_option('search_title', 'atbdp_general'),
                     ),
+
+                    array(
+                        'type' => 'upload',
+                        'name' => 'search_home_bg',
+                        'label' => __('Upload Background', ATBDP_TEXTDOMAIN),
+                        'description' => __('Background image for search home page', ATBDP_TEXTDOMAIN),
+                    ),
+
                     array(
                         'type' => 'textbox',
                         'name' => 'search_subtitle',
@@ -2134,6 +2142,13 @@ The Administrator of ==SITE_NAME==
                     'name' => 'display_author_image',
                     'label' => __('Display Author Image', ATBDP_TEXTDOMAIN),
                     'description' => __('You can display/hide the author image on All listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_contact_info',
+                    'label' => __('Display Contact Information', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can display/hide the contact Information on All listing page.', ATBDP_TEXTDOMAIN),
                     'default' => '1',
                 ),
             )

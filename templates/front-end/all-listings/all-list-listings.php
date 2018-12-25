@@ -96,6 +96,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             $display_view_count    = get_directorist_option('display_view_count',1);
                             $display_author_image    = get_directorist_option('display_author_image',1);
                             $display_publish_date    = get_directorist_option('display_publish_date',1);
+                            $display_contact_info    = get_directorist_option('display_contact_info',1);
                             /*Code for Business Hour Extensions*/
                             $bdbh = get_post_meta(get_the_ID(), '_bdbh', true);
                             $enable247hour = get_post_meta(get_the_ID(), '_enable247hour', true);
@@ -157,14 +158,17 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                                 $new_listing_day = get_directorist_option('new_listing_day',3);
                                                 $is_day_or_days = substr($is_old, -4);
                                                 $is_other = substr($is_old, -5);
-                                                if (($enable_new_listing) && (($is_day_or_days<=$new_listing_day) || ($is_other<=$new_listing_day))){
                                                     $new = '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                if ($enable_new_listing){
                                                     switch ($is_day_or_days){
                                                         case ' day':
                                                             echo $new;
                                                             break;
                                                         case 'days':
-                                                            echo $new;
+                                                            //if it is more than 1 day let check the option value is grater than or equal
+                                                            if (substr($is_old, 0, 1)<=$new_listing_day){
+                                                                echo $new;
+                                                            }
                                                             break;
                                                         case 'mins':
                                                             echo $new;
@@ -218,6 +222,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                                 <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                             <?php } ?>
                                             <?php /* todo: Shahadat -> new markup implemented */ ?>
+                                            <?php if(!empty($display_review) || !empty($display_price) || class_exists('BD_Business_Hour')) { ?>
                                             <div class="atbd_listing_meta">
                                                 <?php
                                                 /**
@@ -259,30 +264,29 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                                 } ?>
                                             </div><!-- End atbd listing meta -->
 
-                                            <?php /* @todo: Shahadat -> please implement this */ ?>
-                                            <div class="atbd_listing_data_list">
-                                                <ul>
-                                                    <?php
-                                                    if (!$disable_contact_info && !$hide_contact_info) {
-                                                        if (!empty($address)) { ?>
-                                                            <li><p>
-                                                                    <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
-                                                                </p></li>
-                                                        <?php }
-                                                        if (!empty($phone_number)) { ?>
-                                                            <li><p>
-                                                                    <span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number)); ?>
-                                                                </p></li>
-                                                        <?php }
-                                                    }
-                                                    if(!empty($display_publish_date)) { ?>
-                                                        <li><p><span class="fa fa-clock-o"></span><?php
-                                                                printf(__('Posted %s ago', ATBDP_TEXTDOMAIN), human_time_diff(get_the_time('U'), current_time('timestamp')));
-                                                                ?></p></li>
-                                                    <?php } ?>
-                                                </ul>
-                                            </div><!-- End atbd listing meta -->
+                                            <?php }/* @todo: Shahadat -> please implement this */ ?>
+                                            <?php if(!empty($display_contact_info) || !empty($display_publish_date)) {?>
+                                                <div class="atbd_listing_data_list">
+                                                    <ul>
+                                                        <?php
+                                                        if (!empty($display_contact_info)) {
+                                                            if( !empty( $address )) { ?>
+                                                                <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
+                                                            <?php } ?>
+                                                            <?php if( !empty( $phone_number )) {?>
+                                                                <li><p><span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number));?></p></li>
+                                                                <?php
+                                                            } }
+
+                                                        if(!empty($display_publish_date)) { ?>
+                                                            <li><p><span class="fa fa-clock-o"></span><?php
+                                                                    printf( __( 'Posted %s ago', ATBDP_TEXTDOMAIN ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
+                                                                    ?></p></li>
+                                                        <?php } ?>
+                                                    </ul>
+                                                </div><!-- End atbd listing meta -->
                                             <?php
+                                            }
                                             //show category and location info
                                             ?>
                                             <?php if (!empty($excerpt)) { ?>
@@ -291,7 +295,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
 
                                             <?php /* @todo: deleted the read more link */ ?>
                                         </div><!-- end ./atbd_content_upper -->
-
+                                        <?php if(!empty($display_category) || !empty($$display_view_count) || !empty($display_author_image)) {?>
                                         <div class="atbd_listing_bottom_content">
                                             <?php
                                             if(!empty($display_category)) {
@@ -315,24 +319,32 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
 
                                                 <?php } }?>
 
-                                            <ul class="atbd_content_right">
-                                                <?php if(!empty($display_view_count)) {?>
-                                                    <li class="atbd_count"><span
-                                                                class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0; ?>
+                                            <?php if(!empty($display_view_count) || !empty($display_author_image)) {?>
+                                                <ul class="atbd_content_right">
+                                                    <?php if(!empty($display_view_count)) {?>
+                                                        <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li> <?php } ?>
+
+
+                                                    <li class="atbd_save">
+                                                        <div id="atbdp-favourites-all-listing">
+                                                            <input type="hidden" id="listing_ids" value="<?php echo get_the_ID(); ?>">
+                                                            <?php
+                                                            // do_action('wp_ajax_atbdp-favourites-all-listing', get_the_ID()); ?>
+                                                        </div>
                                                     </li>
-                                                <?php } ?>
-                                                <!--<li class="atbd_save"><span class="fa fa-heart"></span></li>-->
-                                                <?php if(!empty($display_author_image)) {?>
-                                                    <li class="atbd_author">
-                                                        <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
-                                                                <img
-                                                                src="<?php echo esc_url($u_pro_pic); ?>"
-                                                                alt="Author Image"><?php } ?>
-                                                        </a>
-                                                    </li>
-                                                <?php } ?>
-                                            </ul>
+                                                    <?php if(!empty($display_author_image)) {?>
+                                                        <li class="atbd_author">
+                                                            <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                                    <img
+                                                                    src="<?php echo esc_url($u_pro_pic); ?>"
+                                                                    alt="Author Image"><?php } ?>
+                                                            </a>
+                                                        </li>
+                                                    <?php } ?>
+                                                </ul>
+                                            <?php } ?>
                                         </div><!-- end ./atbd_listing_bottom_content -->
+                                        <?php } ?>
                                     </div>
                                 </article>
                             </div>

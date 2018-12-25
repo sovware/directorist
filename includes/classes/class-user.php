@@ -294,7 +294,7 @@ class ATBDP_User {
         $userdata['user_email'] = !empty($data['user_email']) ? sanitize_email($data['user_email'] ): '';
         $userdata['user_url'] = !empty($data['website']) ? esc_url_raw(trim($data['website'] )): '';
         $phone = !empty($data['phone']) ? sanitize_text_field(trim($data['phone'] )): '';
-        $pro_pic = !empty($data['pro_pic']) ? esc_url_raw(trim($data['pro_pic'] )): '';
+        $pro_pic = !empty($data['pro_pic']) ? sanitize_text_field(trim($data['pro_pic'] )): '';
         $first_name = !empty($data['first_name']) ? sanitize_text_field(trim($data['first_name'])) : '';
         $last_name = !empty($data['last_name']) ? sanitize_text_field(trim($data['last_name'] )): '';
         $address = !empty($data['address']) ? sanitize_text_field(trim($data['address'] )): '';

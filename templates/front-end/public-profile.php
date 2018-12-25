@@ -173,8 +173,6 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                             <?php
                         }
                         ?>
-                        <a href="<?= esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
-                           class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('+ Become an Author', ATBDP_TEXTDOMAIN); ?></a>
                     </div>
                 </div>
             </div>
@@ -294,9 +292,10 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                                             <?php if (class_exists('BD_Business_Hour')){
                                                 //lets check is it 24/7
                                                 if (!empty($enable247hour)) {
+                                                    $open =  get_directorist_option('open_badge_text');
                                                     ?>
                                                     <div class="atbd_upper_badge">
-                                                        <span class="atbd_badge atbd_badge_open">Open Now</span>
+                                                        <span class="atbd_badge atbd_badge_open"><?php echo $open;?>></span>
                                                     </div><!-- END /.atbd_upper_badge -->
                                                     <?php
                                                 }else {?>

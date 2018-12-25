@@ -758,14 +758,17 @@ final class Directorist_Base
                                                 $new_listing_day = get_directorist_option('new_listing_day',3);
                                                 $is_day_or_days = substr($is_old, -4);
                                                 $is_other = substr($is_old, -5);
-                                                if (($enable_new_listing) && (($is_day_or_days<=$new_listing_day) || ($is_other<=$new_listing_day))){
                                                     $new = '<span class="atbd_badge atbd_badge_new">New</span>';
+                                                if ($enable_new_listing){
                                                     switch ($is_day_or_days){
                                                         case ' day':
                                                             echo $new;
                                                             break;
                                                         case 'days':
-                                                            echo $new;
+                                                            //if it is more than 1 day let check the option value is grater than or equal
+                                                            if (substr($is_old, 0, 1)<=$new_listing_day){
+                                                                echo $new;
+                                                            }
                                                             break;
                                                         case 'mins':
                                                             echo $new;
@@ -783,7 +786,6 @@ final class Directorist_Base
                                                             break;
                                                     }
                                                 }
-
                                                 ?>
                                             </div>
                                         </figcaption>

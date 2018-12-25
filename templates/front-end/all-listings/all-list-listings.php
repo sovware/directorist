@@ -265,11 +265,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                             </div><!-- End atbd listing meta -->
 
                                             <?php }/* @todo: Shahadat -> please implement this */ ?>
-                                            <?php if(!$disable_contact_info || !empty($display_publish_date)) {?>
+                                            <?php if(!empty($display_contact_info) || !empty($display_publish_date)) {?>
                                                 <div class="atbd_listing_data_list">
                                                     <ul>
                                                         <?php
-                                                        if (!$disable_contact_info && !$hide_contact_info) {
+                                                        if (!empty($display_contact_info)) {
                                                             if( !empty( $address )) { ?>
                                                                 <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
                                                             <?php } ?>

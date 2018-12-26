@@ -160,7 +160,8 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 <div class="atbd_optional_field">
                                     <label for="atbd_optional_field_check"><input id="atbd_optional_field_check"
                                                                                   type="checkbox" <?php
-                                        echo !empty($tagline) || !empty($excerpt) ? 'checked' : ''?>> Tagline/Motto of your
+                                        echo !empty($tagline) || !empty($excerpt) ? 'checked' : '' ?>> Tagline/Motto of
+                                        your
                                         business or listing (optional)</label>
                                     <div class="atbd_tagline_moto_field">
                                         <div class="form-group">
@@ -174,14 +175,14 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         <div class="form-group">
                                             <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN) ?></label>
                                             <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
-                                            <input type="hidden" id="has_excerpt" value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
+                                            <input type="hidden" id="has_excerpt"
+                                                   value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
                                             <textarea name="excerpt" id="atbdp_excerpt"
                                                       class="form-control directory_field" cols="30" rows="5"
                                                       placeholder="<?= __('Short Description or Excerpt', ATBDP_TEXTDOMAIN); ?>"> <?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?> </textarea>
                                         </div>
                                     </div>
                                 </div>
-
                                 <!--***********************************************************************
                                      Run the custom field loop to show all published custom fields asign to form
                                      **************************************************************************-->
@@ -207,16 +208,16 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         <label for=""><?php the_title(); ?><?php if ($cf_required) {
                                                 echo '<span style="color: red"> *</span>';
                                             }
-                                            if (!empty($instructions)){
+                                            if (!empty($instructions)) {
                                                 printf('<span class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="%s"></span></label>', $instructions);
                                             }
                                             ?>
-                                        <?php
-                                        if (isset($post_meta[$post->ID])) {
-                                            $value = $post_meta[0];
-                                        }
-                                        $value = get_post_meta($p_id, $post_id, true); ///store the value for the db
-                                        $cf_meta_default_val = get_post_meta(get_the_ID(), 'default_value', true);
+                                            <?php
+                                            if (isset($post_meta[$post->ID])) {
+                                                $value = $post_meta[0];
+                                            }
+                                            $value = get_post_meta($p_id, $post_id, true); ///store the value for the db
+                                            $cf_meta_default_val = get_post_meta(get_the_ID(), 'default_value', true);
 
                                         if (isset($post_id)) {
                                             $cf_meta_default_val = $post_id[0];
@@ -249,99 +250,92 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                         $_value = trim($choice);
                                                         $_label = $_value;
                                                     }
+                                                    echo '</ul>';
+                                                    break;
 
-                                                    $_checked = '';
-                                                    if (trim($value) == $_value) $_checked = ' checked="checked"';
-
-                                                    printf('<li><label><input type="radio" name="custom_field[%d]" value="%s"%s>%s</label></li>', $post->ID, $_value, $_checked, $_label);
-                                                }
-                                                echo '</ul>';
-                                                break;
-
-                                            case 'select' :
-                                                $choices = get_post_meta(get_the_ID(), 'choices', true);
-                                                $choices = explode("\n", $choices);
-                                                printf('<select name="custom_field[%d]" class="form-control directory_field">', $post->ID);
-                                                if (!empty($field_meta['allow_null'][0])) {
-                                                    printf('<option value="">%s</option>', '- ' . __('Select an Option', 'advanced-classifieds-and-directory-pro') . ' -');
-                                                }
-                                                foreach ($choices as $choice) {
-                                                    if (strpos($choice, ':') !== false) {
-                                                        $_choice = explode(':', $choice);
-                                                        $_choice = array_map('trim', $_choice);
-
-                                                        $_value = $_choice[0];
-                                                        $_label = $_choice[1];
-                                                    } else {
-                                                        $_value = trim($choice);
-                                                        $_label = $_value;
+                                                case 'select' :
+                                                    $choices = get_post_meta(get_the_ID(), 'choices', true);
+                                                    $choices = explode("\n", $choices);
+                                                    printf('<select name="custom_field[%d]" class="form-control directory_field">', $post->ID);
+                                                    if (!empty($field_meta['allow_null'][0])) {
+                                                        printf('<option value="">%s</option>', '- ' . __('Select an Option', 'advanced-classifieds-and-directory-pro') . ' -');
                                                     }
+                                                    foreach ($choices as $choice) {
+                                                        if (strpos($choice, ':') !== false) {
+                                                            $_choice = explode(':', $choice);
+                                                            $_choice = array_map('trim', $_choice);
 
-                                                    $_selected = '';
-                                                    if (trim($value) == $_value) $_selected = ' selected="selected"';
+                                                            $_value = $_choice[0];
+                                                            $_label = $_choice[1];
+                                                        } else {
+                                                            $_value = trim($choice);
+                                                            $_label = $_value;
+                                                        }
 
-                                                    printf('<option value="%s"%s>%s</option>', $_value, $_selected, $_label);
-                                                }
-                                                echo '</select>';
-                                                break;
+                                                        $_selected = '';
+                                                        if (trim($value) == $_value) $_selected = ' selected="selected"';
 
-                                            case 'checkbox' :
-                                                $choices = get_post_meta(get_the_ID(), 'choices', true);
-                                                $choices = explode("\n", $choices);
-
-                                                $values = explode("\n", $value);
-                                                $values = array_map('trim', $values);
-                                                echo '<ul class="atbdp-checkbox-list vertical">';
-
-                                                foreach ($choices as $choice) {
-                                                    if (strpos($choice, ':') !== false) {
-                                                        $_choice = explode(':', $choice);
-                                                        $_choice = array_map('trim', $_choice);
-
-                                                        $_value = $_choice[0];
-                                                        $_label = $_choice[1];
-                                                    } else {
-                                                        $_value = trim($choice);
-                                                        $_label = $_value;
+                                                        printf('<option value="%s"%s>%s</option>', $_value, $_selected, $_label);
                                                     }
+                                                    echo '</select>';
+                                                    break;
 
-                                                    $_checked = '';
-                                                    if (in_array($_value, $values)) $_checked = ' checked="checked"';
+                                                case 'checkbox' :
+                                                    $choices = get_post_meta(get_the_ID(), 'choices', true);
+                                                    $choices = explode("\n", $choices);
 
-                                                    printf('<li><label><input type="hidden" name="custom_field[%s][]" value="" /><input type="checkbox" name="custom_field[%d][]" value="%s"%s> %s</label></li>', $post->ID, $post->ID, $_value, $_checked, $_label);
-                                                }
-                                                echo '</ul>';
-                                                break;
-                                            case 'url'  :
-                                                echo '<div>';
-                                                printf('<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_url($value));
-                                                echo '</div>';
-                                                break;
+                                                    $values = explode("\n", $value);
+                                                    $values = array_map('trim', $values);
+                                                    echo '<ul class="atbdp-checkbox-list vertical">';
 
-                                            case 'date'  :
-                                                echo '<div>';
-                                                printf('<input type="date" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
-                                                echo '</div>';
-                                                break;
+                                                    foreach ($choices as $choice) {
+                                                        if (strpos($choice, ':') !== false) {
+                                                            $_choice = explode(':', $choice);
+                                                            $_choice = array_map('trim', $_choice);
 
-                                            case 'email'  :
-                                                echo '<div>';
-                                                printf('<input type="email" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
-                                                echo '</div>';
-                                                break;
-                                            case 'color'  :
-                                                echo '<div>';
-                                                printf('<input type="text" name="custom_field[%d]" id="color_code2" class="my-color-field" value="%s"/>', $post->ID, $value);
-                                                echo '</div>';
-                                                break;
-                                        }
-                                        ?>
+                                                            $_value = $_choice[0];
+                                                            $_label = $_choice[1];
+                                                        } else {
+                                                            $_value = trim($choice);
+                                                            $_label = $_value;
+                                                        }
+
+                                                        $_checked = '';
+                                                        if (in_array($_value, $values)) $_checked = ' checked="checked"';
+
+                                                        printf('<li><label><input type="hidden" name="custom_field[%s][]" value="" /><input type="checkbox" name="custom_field[%d][]" value="%s"%s> %s</label></li>', $post->ID, $post->ID, $_value, $_checked, $_label);
+                                                    }
+                                                    echo '</ul>';
+                                                    break;
+                                                case 'url'  :
+                                                    echo '<div>';
+                                                    printf('<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_url($value));
+                                                    echo '</div>';
+                                                    break;
+
+                                                case 'date'  :
+                                                    echo '<div>';
+                                                    printf('<input type="date" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
+                                                    echo '</div>';
+                                                    break;
+
+                                                case 'email'  :
+                                                    echo '<div>';
+                                                    printf('<input type="email" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
+                                                    echo '</div>';
+                                                    break;
+                                                case 'color'  :
+                                                    echo '<div>';
+                                                    printf('<input type="text" name="custom_field[%d]" id="color_code2" class="my-color-field" value="%s"/>', $post->ID, $value);
+                                                    echo '</div>';
+                                                    break;
+                                            }
+                                            ?>
                                     </div>
                                     <?php
                                 }
                                 wp_reset_postdata();
                                 ?>
-
                                 <div class="form-group">
                                     <label for="at_biz_dir-location"><?php esc_html_e('Location:', ATBDP_TEXTDOMAIN); ?></label>
                                     <?php if (!empty($p_locations)) {
@@ -387,7 +381,8 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         <label for="#">Pricing</label>
                                         <div class="atbd_pricing_options">
                                             <label for="price_selected" data-option="price">
-                                                <input type="checkbox" id="price_selected" name="atbd_listing_pricing" checked>
+                                                <input type="checkbox" id="price_selected" name="atbd_listing_pricing"
+                                                       checked>
                                                 <?php
                                                 $currency = get_directorist_option('g_currency', 'USD');
                                                 /*Translator: % is the name of the currency such eg. USD etc.*/
@@ -395,7 +390,8 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                             </label>
                                             <span>Or</span>
                                             <label for="price_range_selected" data-option="price_range">
-                                                <input type="checkbox" id="price_range_selected" name="atbd_listing_pricing">
+                                                <input type="checkbox" id="price_range_selected"
+                                                       name="atbd_listing_pricing">
                                                 <?php echo __('Price Range', ATBDP_TEXTDOMAIN); ?>
                                                 <!--<p id='price_range_option'><?php /*echo __('Price Range', ATBDP_TEXTDOMAIN); */ ?></p></label>-->
                                             </label>
@@ -403,30 +399,30 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                             <small>(Optional --- Uncheck both to hide pricing for this listing)</small>
                                         </div>
 
-                                            <input type="hidden" id="price_range_val"
-                                                   value="<?php echo $price_range; ?>">
+                                        <input type="hidden" id="price_range_val"
+                                               value="<?php echo $price_range; ?>">
 
-                                            <input type="text" id="price" name="price"
-                                                   value="<?= !empty($price) ? esc_attr($price) : ''; ?>"
-                                                   class="form-control directory_field"
-                                                   placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
+                                        <input type="text" id="price" name="price"
+                                               value="<?= !empty($price) ? esc_attr($price) : ''; ?>"
+                                               class="form-control directory_field"
+                                               placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
 
-                                            <select class="form-control directory_field" id="price_range"
-                                                    name="price_range">
-                                                <option value="">Select Price Range</option>
-                                                <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
-                                                    Ultra High ($$$$)
-                                                </option>
-                                                <option value="moderate" <?php selected($price_range, 'moderate'); ?>>
-                                                    Expensive ($$$)
-                                                </option>
-                                                <option value="economy" <?php selected($price_range, 'economy'); ?>>
-                                                    Moderate ($$)
-                                                </option>
-                                                <option value="bellow_economy" <?php selected($price_range, 'economy'); ?>>
-                                                    Cheap ($)
-                                                </option>
-                                            </select>
+                                        <select class="form-control directory_field" id="price_range"
+                                                name="price_range">
+                                            <option value="">Select Price Range</option>
+                                            <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
+                                                Ultra High ($$$$)
+                                            </option>
+                                            <option value="moderate" <?php selected($price_range, 'moderate'); ?>>
+                                                Expensive ($$$)
+                                            </option>
+                                            <option value="economy" <?php selected($price_range, 'economy'); ?>>
+                                                Moderate ($$)
+                                            </option>
+                                            <option value="bellow_economy" <?php selected($price_range, 'economy'); ?>>
+                                                Cheap ($)
+                                            </option>
+                                        </select>
                                     </div>
                                 <?php } ?>
 
@@ -438,24 +434,24 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                                     <label for="atbdp_select_cat"><?php esc_html_e('Select Category', ATBDP_TEXTDOMAIN) ?></label>
                                     <?php
-                                    $category = wp_get_object_terms( $p_id, ATBDP_CATEGORY, array( 'fields' => 'ids' ) );
-                                    $selected_category = count( $category ) ? $category[0] : -1;
+                                    $category = wp_get_object_terms($p_id, ATBDP_CATEGORY, array('fields' => 'ids'));
+                                    $selected_category = count($category) ? $category[0] : -1;
                                     $args = array(
-                                        'show_option_none' => '-- '.__( 'Select Category', ATBDP_TEXTDOMAIN ).' --',
-                                        'taxonomy'         => ATBDP_CATEGORY,
-                                        'id'               => 'cat-type',
-                                        'class'            => 'form-control directory_field',
-                                        'name' 			   => 'admin_category_select',
-                                        'orderby'          => 'name',
-                                        'selected'         => $selected_category,
-                                        'hierarchical'     => true,
-                                        'depth'            => 10,
-                                        'show_count'       => false,
-                                        'hide_empty'       => false,
+                                        'show_option_none' => '-- ' . __('Select Category', ATBDP_TEXTDOMAIN) . ' --',
+                                        'taxonomy' => ATBDP_CATEGORY,
+                                        'id' => 'cat-type',
+                                        'class' => 'form-control directory_field',
+                                        'name' => 'admin_category_select',
+                                        'orderby' => 'name',
+                                        'selected' => $selected_category,
+                                        'hierarchical' => true,
+                                        'depth' => 10,
+                                        'show_count' => false,
+                                        'hide_empty' => false,
                                     );
-                                    wp_dropdown_categories( $args );
+                                    wp_dropdown_categories($args);
                                     $current_val = esc_attr(get_post_meta($p_id, '_admin_category_select', true));
-                                    $term_id_selected = !empty($current_val) ? $current_val: '';
+                                    $term_id_selected = !empty($current_val) ? $current_val : '';
                                     ?>
                                     <input type="hidden" id="value_selected" value="<?php echo $term_id_selected ?>">
                                 </div>
@@ -726,10 +722,13 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                             <div class="clearfix"></div>
                         </div> <!--ends col-md-12 -->
-                    </div><!--ends .row--></div>
+                    </div><!--ends .row-->
+                </div>
+            </div>
         </form>
     </div> <!--ends container-fluid-->
 </div>
+
 <script>
 
 

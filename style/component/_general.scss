@@ -88,6 +88,12 @@ body.atbd_content_active #directorist.atbd_wrapper{
   *{
     box-sizing: border-box;
   }
+  .list-group-item{
+    padding-left: 10px;
+  }
+  .gateway_list label input{
+    margin-right: 10px;
+  }
   .iris-picker, .iris-picker *{
     -moz-box-sizing: content-box;
     -webkit-box-sizing: content-box;

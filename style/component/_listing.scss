@@ -11,6 +11,9 @@
     font-weight: 500;
     display: inline-block;
     line-height: 22px;
+    & + .atbd_badge {
+      margin-left: 10px;
+    } 
     &.atbd_badge_open {
       @extend .atbd_bg-success;
     }
@@ -182,8 +185,8 @@
           }
           .atbd_author{
             a{
-              width: 35px;
-              height: 35px;
+              width: 28px;
+              height: 28px;
               display: inline-block;
               vertical-align: middle;
               img{

@@ -364,6 +364,7 @@ if (!function_exists('get_fa_icons')){
 if (!function_exists('get_fa_icons_full')){
     function get_fa_icons_full() {
         return array(
+            'none'                                   => '',
             'fa-glass'                               => 'f000',
             'fa-music'                               => 'f001',
             'fa-search'                              => 'f002',

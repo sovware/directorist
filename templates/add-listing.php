@@ -139,7 +139,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                 }
                 $cf_meta_val = $post_meta['type'][0];
                 $cf_rows = $post_meta['rows'][0];
-                $cf_placeholder = $post_meta['placeholder'][0];
+                $cf_placeholder = '';
                 $value = get_post_meta($post_ID, $post_id, true); ///store the value for the db
 
                 switch ($cf_meta_val) {

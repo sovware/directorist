@@ -13,10 +13,17 @@
                         if(!empty($categories_settings['hide_empty']) && 0 == $count) continue;
                     }
                     $icon = get_term_meta($term->term_id,'category_icon',true);
+                    $icon = !empty($icon)?$icon:'';
                     ?>
                     <li>
                         <a href="<?php  echo ATBDP_Permalink::get_category_archive($term) ?>">
-                            <span class="fa <?php echo !empty($icon) ? $icon : '';?>"></span>
+                            <?php
+                            if ('none' != $icon){
+                               ?>
+                                <span class="fa <?php echo !empty($icon) ? $icon : '';?>"></span>
+                            <?php
+                            }
+                            ?>
                             <p><?php echo $term->name;?>
                                 <?php
                                 if(!empty($categories_settings['show_count'])){

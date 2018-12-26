@@ -432,14 +432,15 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                                                     if(!empty($cats)) {?>
                                                         <div class="atbd_content_left">
                                                             <div class="atbd_listting_category">
-                                                                <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span><?php  echo $cats[0]->name;?></a>
+                                                                <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
+                                                                        <span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span> <?php }?><?php  echo $cats[0]->name;?></a>
                                                             </div>
                                                         </div>
                                                     <?php }else{
                                                         ?>
                                                         <div class="atbd_content_left">
                                                             <div class="atbd_listting_category">
-                                                                <a href=""><span class="fa fa fa-square-o"></span><?php  echo __('Uncategorized', ATBDP_TEXTDOMAIN);?></a>
+                                                                <a href=""><?php  echo __('Uncategorized', ATBDP_TEXTDOMAIN);?></a>
                                                             </div>
                                                         </div>
 

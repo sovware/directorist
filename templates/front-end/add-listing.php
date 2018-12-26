@@ -223,7 +223,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         }
                                         $cf_meta_val = get_post_meta(get_the_ID(), 'type', true);
                                         $cf_rows = get_post_meta(get_the_ID(), 'rows', true);
-                                        $cf_placeholder = get_post_meta(get_the_ID(), 'placeholder', true);
+                                        $cf_placeholder = '';
 
                                         switch ($cf_meta_val) {
                                             case 'text' :

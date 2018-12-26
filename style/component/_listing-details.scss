@@ -63,7 +63,7 @@
           .atbd_director_social_wrap {
             ul li {
               a {
-                padding: 15px 20px;
+                padding: 11px 20px;
                 display: block;
                 > span {
                   @extend .atbd_color-primary;
@@ -253,9 +253,7 @@
       .atbd_rating_count {
         margin-right: 10px;
         p {
-          font-weight: 500;
           line-height: 20px;
-          color: $dark;
           span {
             display: block;
             font-weight: 400;
@@ -267,11 +265,19 @@
       .atbd_listing_meta, .atbd_badge_featured, .atbd_listting_category {
         margin-right: 10px;
       }
-      .atbd_listting_category .directory_tags li{
+      .atbd_listting_category .directory_tags {
+        li{
         display: inline-block;
+        .directory_tag, .directory_tag span a{
+          color: $dark;
+          &:hover{
+            color: $primary;
+          }
+        }
         &+li{
           margin-left: 8px;
         }
+      }
       }
     }
     .atbd_listing_title {

@@ -267,6 +267,12 @@
       .atbd_listing_meta, .atbd_badge_featured, .atbd_listting_category {
         margin-right: 10px;
       }
+      .atbd_listting_category .directory_tags li{
+        display: inline-block;
+        &+li{
+          margin-left: 8px;
+        }
+      }
     }
     .atbd_listing_title {
       padding-bottom: 18px;

@@ -219,42 +219,36 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                             $value = get_post_meta($p_id, $post_id, true); ///store the value for the db
                                             $cf_meta_default_val = get_post_meta(get_the_ID(), 'default_value', true);
 
-                                            if (isset($post_id)) {
-                                                $cf_meta_default_val = $post_id[0];
-                                            }
-                                            $cf_meta_val = get_post_meta(get_the_ID(), 'type', true);
-                                            $cf_rows = get_post_meta(get_the_ID(), 'rows', true);
-                                            $cf_placeholder = get_post_meta(get_the_ID(), 'placeholder', true);
+                                        if (isset($post_id)) {
+                                            $cf_meta_default_val = $post_id[0];
+                                        }
+                                        $cf_meta_val = get_post_meta(get_the_ID(), 'type', true);
+                                        $cf_rows = get_post_meta(get_the_ID(), 'rows', true);
+                                        $cf_placeholder = '';
 
-                                            switch ($cf_meta_val) {
-                                                case 'text' :
-                                                    echo '<div>';
-                                                    printf('<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post_id, $cf_placeholder, $value);
-                                                    echo '</div>';
-                                                    break;
-                                                case 'textarea' :
-                                                    printf('<textarea  class="form-control directory_field" name="custom_field[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $post->ID, (int)$cf_rows, esc_attr($cf_placeholder), esc_textarea($value));
-                                                    break;
-                                                case 'radio':
-                                                    $choices = get_post_meta(get_the_ID(), 'choices', true);
-                                                    $choices = explode("\n", $choices);
-                                                    echo '<ul class="atbdp-radio-list vertical">';
-                                                    foreach ($choices as $choice) {
-                                                        if (strpos($choice, ':') !== false) {
-                                                            $_choice = explode(':', $choice);
-                                                            $_choice = array_map('trim', $_choice);
+                                        switch ($cf_meta_val) {
+                                            case 'text' :
+                                                echo '<div>';
+                                                printf('<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post_id, $cf_placeholder, $value);
+                                                echo '</div>';
+                                                break;
+                                            case 'textarea' :
+                                                printf('<textarea  class="form-control directory_field" name="custom_field[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $post->ID, (int)$cf_rows, esc_attr($cf_placeholder), esc_textarea($value));
+                                                break;
+                                            case 'radio':
+                                                $choices = get_post_meta(get_the_ID(), 'choices', true);
+                                                $choices = explode("\n", $choices);
+                                                echo '<ul class="atbdp-radio-list vertical">';
+                                                foreach ($choices as $choice) {
+                                                    if (strpos($choice, ':') !== false) {
+                                                        $_choice = explode(':', $choice);
+                                                        $_choice = array_map('trim', $_choice);
 
-                                                            $_value = $_choice[0];
-                                                            $_label = $_choice[1];
-                                                        } else {
-                                                            $_value = trim($choice);
-                                                            $_label = $_value;
-                                                        }
-
-                                                        $_checked = '';
-                                                        if (trim($value) == $_value) $_checked = ' checked="checked"';
-
-                                                        printf('<li><label><input type="radio" name="custom_field[%d]" value="%s"%s>%s</label></li>', $post->ID, $_value, $_checked, $_label);
+                                                        $_value = $_choice[0];
+                                                        $_label = $_choice[1];
+                                                    } else {
+                                                        $_value = trim($choice);
+                                                        $_label = $_value;
                                                     }
                                                     echo '</ul>';
                                                     break;

@@ -21,37 +21,37 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td><strong><?php _e('[add_listing]', ATBDP_TEXTDOMAIN)?></strong></td>
+                    <td><strong><?php _e('[directorist_add_listing]', ATBDP_TEXTDOMAIN)?></strong></td>
                     <td><?php _e('enables users to submit listing from the front end.', ATBDP_TEXTDOMAIN)?></td>
                 </tr>
 
                 <tr>
-                    <td><strong><?php _e('[all_listing]', ATBDP_TEXTDOMAIN)?></strong></td>
+                    <td><strong><?php _e('[directorist_all_listing]', ATBDP_TEXTDOMAIN)?></strong></td>
                     <td><?php _e('show all the listings filtering with attributes', ATBDP_TEXTDOMAIN)?></td>
                 </tr>
                 <tr>
-                    <td><strong><?php _e('[all_locations]', ATBDP_TEXTDOMAIN)?></strong></td>
+                    <td><strong><?php _e('[directorist_all_locations]', ATBDP_TEXTDOMAIN)?></strong></td>
                     <td><?php _e('show all the locations filtering with attributes', ATBDP_TEXTDOMAIN)?></td>
                 </tr>
 
                 <tr>
-                    <td><strong><?php _e('[all_categories]', ATBDP_TEXTDOMAIN)?></strong></td>
+                    <td><strong><?php _e('[directorist_all_categories]', ATBDP_TEXTDOMAIN)?></strong></td>
                     <td><?php _e('show all the categories filtering with attributes', ATBDP_TEXTDOMAIN)?></td>
                 </tr>
                 <tr>
-                    <td><strong><?php _e('[user_dashboard]', ATBDP_TEXTDOMAIN)?></strong></td>
+                    <td><strong><?php _e('[directorist_user_dashboard]', ATBDP_TEXTDOMAIN)?></strong></td>
                     <td><?php _e('enable users to see and edit his
                         profile and listing
                         items from the front end', ATBDP_TEXTDOMAIN)?>
                     </td>
                 </tr>
                 <tr>
-                    <td><strong><?php _e('[author_profile]', ATBDP_TEXTDOMAIN)?></strong></td>
+                    <td><strong><?php _e('[directorist_author_profile]', ATBDP_TEXTDOMAIN)?></strong></td>
                     <td><?php _e('Display the author information with listing for visitors', ATBDP_TEXTDOMAIN)?>
                     </td>
                 </tr>
                 <tr>
-                    <td><strong><?php _e('[custom_registration]', ATBDP_TEXTDOMAIN)?></strong></td>
+                    <td><strong><?php _e('[directorist_custom_registration]', ATBDP_TEXTDOMAIN)?></strong></td>
                     <td><?php _e('enable users to register from
                         the front end using
                         custom forms.', ATBDP_TEXTDOMAIN)?>
@@ -59,14 +59,14 @@
                 </tr>
 
                 <tr>
-                    <td><strong><?php _e('[user_login]', ATBDP_TEXTDOMAIN)?></strong></td>
+                    <td><strong><?php _e('[directorist_user_login]', ATBDP_TEXTDOMAIN)?></strong></td>
                     <td><?php _e('enable users to login from
                         the front end.', ATBDP_TEXTDOMAIN)?>
                     </td>
                 </tr>
 
                 <tr>
-                    <td><strong><?php _e('[search_listing]', ATBDP_TEXTDOMAIN)?></strong></td>
+                    <td><strong><?php _e('[directorist_search_listing]', ATBDP_TEXTDOMAIN)?></strong></td>
                     <td><?php _e('Use this shortcode on any page to enable users to search all the listing. This shortcode
                         should probably be used on your front page if you are making a directory listing
                         website.', ATBDP_TEXTDOMAIN)?>
@@ -74,7 +74,7 @@
                 </tr>
 
                 <tr>
-                    <td><strong><?php _e('[search_result]', ATBDP_TEXTDOMAIN)?></strong></td>
+                    <td><strong><?php _e('[directorist_search_result]', ATBDP_TEXTDOMAIN)?></strong></td>
                     <td><?php _e('display listing search result', ATBDP_TEXTDOMAIN)?></td>
                 </tr>
 
@@ -94,7 +94,7 @@
                 </tr>
 
                 <tr>
-                    <td><strong><?php _e('[transaction_failure]', ATBDP_TEXTDOMAIN)?></strong></td>
+                    <td><strong><?php _e('[directorist_transaction_failure]', ATBDP_TEXTDOMAIN)?></strong></td>
                     <td><?php _e('display transaction error of
                         directorist
                         (recommended if you use monetization).', ATBDP_TEXTDOMAIN)?>

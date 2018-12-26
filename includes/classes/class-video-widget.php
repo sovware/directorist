@@ -34,12 +34,12 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
          */
         public function widget($args, $instance)
         {
-            $videourl   = !empty($videourl) ? esc_attr(ATBDP()->atbdp_parse_videos($videourl)) : '';
+            global $post;
+            $listing_info = ATBDP()->metabox->get_listing_info( $post->ID);
+            $listing      =  !empty($listing_info) ? $listing_info : array();
+            extract($listing);
             if( is_singular(ATBDP_POST_TYPE) && !empty($videourl)) {
-                global $post;
-                $listing_info = ATBDP()->metabox->get_listing_info( $post->ID);
-                $listing      =  !empty($listing_info) ? $listing_info : array();
-                extract($listing);
+
                 $videourl   = !empty($videourl) ? esc_attr(ATBDP()->atbdp_parse_videos($videourl)) : '';
                 $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Listing Video', ATBDP_TEXTDOMAIN);
                 echo $args['before_widget'];

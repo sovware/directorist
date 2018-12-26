@@ -15,7 +15,7 @@ if (!class_exists('BD_Submit_Item_Widget')) {
                 'description' => esc_html__('You can show submit item  listing link by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
-                'bdsi_widget', // Base ID
+                'bdsb_widget', // Base ID
                 esc_html__('Directorist - Submit Item', ATBDP_TEXTDOMAIN), // Name
                 $widget_options // Args
             );

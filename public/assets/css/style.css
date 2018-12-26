@@ -68,7 +68,9 @@
   background: #122069;
 }
 
-.atbd_color-success {
+.atbd_color-success, .atbd_content_active .widget.atbd_widget[id^='bd'] .directory_open_hours ul li.atbd_today, .atbd_content_active .widget.atbd_widget[id^='bd'] .directory_open_hours ul li.atbd_today .day,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directory_open_hours ul li.atbd_today,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directory_open_hours ul li.atbd_today .day {
   color: #32cc6f;
 }
 

@@ -195,6 +195,9 @@
         &:before {
           display: none;
         }
+        &.atbd_today, &.atbd_today .day{
+          @extend .atbd_color-success;
+        }
         &.atbd_closed {
           span {
             @extend .atbd_color-danger;

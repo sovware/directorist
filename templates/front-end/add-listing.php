@@ -250,6 +250,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                         $_value = trim($choice);
                                                         $_label = $_value;
                                                     }
+                                                }
                                                     echo '</ul>';
                                                     break;
 

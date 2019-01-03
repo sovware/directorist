@@ -7,7 +7,7 @@
 $font-size-base: 15px;
 // theme color
 $light-gray: #9192a3;
-$primary: #272b41;
+$primary: #444752;
 $secondary: #122069;
 $success: #32cc6f;
 $info: #3590ec;
@@ -43,6 +43,9 @@ $other-colors: (
         'badge-feature': $badge-feature,
         'badge-popular': $badge-popular
 );
+
+$btn-padding-y:               5px;
+$btn-padding-x:               15px;
 
 // forms
 $input-height: 38px;

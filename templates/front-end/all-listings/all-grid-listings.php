@@ -34,7 +34,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                     <!-- Views dropdown -->
                                     <?php if($display_viewas_dropdown) { ?>
                                         <div class="dropdown">
-                                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <?php _e( "View as", ATBDP_TEXTDOMAIN ); ?> <span class="caret"></span>
                                             </a>
 
@@ -55,7 +55,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                     if($display_sortby_dropdown) {
                                         ?>
                                         <div class="dropdown">
-                                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <?php _e( "Sort by", ATBDP_TEXTDOMAIN ); ?> <span class="caret"></span>
                                             </a>
 

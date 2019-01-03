@@ -1103,8 +1103,8 @@ final class Directorist_Base
                             </div>
                         <?php }
                     } else { ?>
-                        <div class="notice alert alert-secondary" role="alert" id="review_notice">
-                            <span class="fa fa-info" aria-hidden="true"></span>
+                        <div class="notice alert alert-info" role="alert" id="review_notice">
+                            <span class="fa fa-info-circle" aria-hidden="true"></span>
                             <?php _e('No reviews found. Be the first to post a review !', ATBDP_TEXTDOMAIN);
                             ?>
                         </div>

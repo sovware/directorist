@@ -3,6 +3,7 @@
   text-decoration: none;
   box-shadow: none;
   border: none;
+  font-weight: 400;
 }
 
 #directorist.atbd_wrapper a:before, #directorist.atbd_wrapper a:after {
@@ -48,7 +49,7 @@
 /* typography */
 .atbd_color-primary, .atbd_content_active #directorist.atbd_wrapper h1 a:hover, .atbd_content_active #directorist.atbd_wrapper h2 a:hover, .atbd_content_active #directorist.atbd_wrapper h3 a:hover, .atbd_content_active #directorist.atbd_wrapper h4 a:hover, .atbd_content_active #directorist.atbd_wrapper h5 a:hover, .atbd_content_active #directorist.atbd_wrapper h6 a:hover,
 .atbd_content_active #directorist.atbd_wrapper .h1 a:hover, .atbd_content_active #directorist.atbd_wrapper .h2 a:hover, .atbd_content_active #directorist.atbd_wrapper .h3 a:hover, .atbd_content_active #directorist.atbd_wrapper .h4 a:hover, .atbd_content_active #directorist.atbd_wrapper .h5 a:hover, .atbd_content_active #directorist.atbd_wrapper .h6 a:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area h4 span, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action a:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_director_social_wrap ul li a > span, .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title span, .atbd_content_active #directorist.atbd_wrapper #client_review_list .atbd_single_review .review_content a, .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p span, .atbd_content_active #directorist.atbd_wrapper .atbd_upload_btn span {
-  color: #272b41;
+  color: #444752;
 }
 
 .atbd_bg-primary, .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_rating, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_price, .atbd_content_active #directorist.atbd_wrapper .atbd_listting_category a span, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-search .submit_btn .btn-primary,
@@ -57,7 +58,7 @@
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directorist.atbdp-widget-tags ul li a:hover, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories > ul.atbdp_parent_category > li:hover > a span,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li:hover > a span, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_author_info_widget .atbd_social_wrap p a:hover,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p a:hover, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic {
-  background: #272b41;
+  background: #444752;
 }
 
 .atbd_color-secondary {
@@ -436,7 +437,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_director_social_wrap ul li a {
-  padding: 15px 20px;
+  padding: 11px 20px;
   display: block;
 }
 
@@ -604,7 +605,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_directry_gallery_wrapper .prev:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_directry_gallery_wrapper .next:hover {
   color: #ffffff;
-  background: #272b41;
+  background: #444752;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .single_image img {
@@ -628,9 +629,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_rating_count p {
-  font-weight: 500;
   line-height: 20px;
-  color: #202428;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_rating_count p span {
@@ -646,6 +645,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listting_category .directory_tags li {
   display: inline-block;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listting_category .directory_tags li .directory_tag, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listting_category .directory_tags li .directory_tag span a {
+  color: #202428;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listting_category .directory_tags li .directory_tag:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listting_category .directory_tags li .directory_tag span a:hover {
+  color: #444752;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listting_category .directory_tags li + li {
@@ -1524,7 +1531,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper [data-toggle="tooltip"]:hover {
-  color: #272b41;
+  color: #444752;
 }
 
 .atbd_content_active #directorist.atbd_wrapper label[data-option] {
@@ -1727,7 +1734,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_listing_bottom_content .listing-meta p span {
   font-weight: 500;
-  color: #272b41;
+  color: #444752;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_info .atbd_content_upper {
@@ -2041,11 +2048,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories a:hover {
-  color: #272b41;
+  color: #444752;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories a:hover p {
-  color: #272b41;
+  color: #444752;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories a span {

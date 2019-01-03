@@ -184,7 +184,7 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
                     <h1><?php _e( "Author Listings", ATBDP_TEXTDOMAIN ); ?></h1>
                     <div class="atbd_author_filter_area">
                         <div class="dropdown">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <?php _e( "Filter by category", ATBDP_TEXTDOMAIN ); ?> <span class="caret"></span>
                             </a>
 

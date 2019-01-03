@@ -29,7 +29,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                             </div>
                             <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
                                 <div class="dropdown">
-                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
+                                    <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button"
                                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                                        aria-expanded="false">
                                         <?php _e("View as", ATBDP_TEXTDOMAIN); ?> <span class="caret"></span>
@@ -49,7 +49,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
 
                                 <!-- Orderby dropdown -->
                                 <div class="dropdown">
-                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
+                                    <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button"
                                        id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true"
                                        aria-expanded="false">
                                         <?php _e("Sort by", ATBDP_TEXTDOMAIN); ?> <span class="caret"></span>

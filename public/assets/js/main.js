@@ -71,7 +71,8 @@
         slidesToScroll: 1,
         arrows: false,
         asNavFor: '.atbd_directory_gallery',
-        focusOnSelect: true
+        focusOnSelect: true,
+        variableWidth: true
     });
 
     $('#atbd_review_attachment').on('change', function (e) {

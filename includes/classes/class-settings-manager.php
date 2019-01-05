@@ -50,7 +50,7 @@ class ATBDP_Settings_Manager {
             /*Main Menu 1*/
             'listings' => array(
                 'name' => 'listings',
-                'title' => __('Listings settings', ATBDP_TEXTDOMAIN),
+                'title' => __('Listing settings', ATBDP_TEXTDOMAIN),
                 'icon' => 'font-awesome:fa-list',
                 'menus' => $this->get_listings_settings_submenus(),
             ),
@@ -172,7 +172,7 @@ class ATBDP_Settings_Manager {
 
             /*Submenu : Listing form */
             array(
-                'title' => __('Single Listings', ATBDP_TEXTDOMAIN),
+                'title' => __('Single Listing', ATBDP_TEXTDOMAIN),
                 'name' => 'listings_form',
                 'icon' => 'font-awesome:fa-wpforms',
                 'controls' => apply_filters('atbdp_listings_form_controls', array(

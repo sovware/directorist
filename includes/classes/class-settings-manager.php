@@ -1177,14 +1177,12 @@ The Administrator of ==SITE_NAME==
                     'type' => 'toggle',
                     'name' => 'display_sort_by',
                     'label' => __('Display "Sort By" Dropdown', ATBDP_TEXTDOMAIN),
-                    'description' => __('If you do not want to display "sort by" dropdown on all listing page, turn it off.', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_view_as',
                     'label' => __('Display "View As" Dropdown', ATBDP_TEXTDOMAIN),
-                    'description' => __('If you do not want to display "View As" dropdown on all listing page, turn it off.', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
              array(
@@ -1209,7 +1207,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'select',
                     'name' => 'order_listing_by',
-                    'label' => __( 'Listing Order By', ATBDP_TEXTDOMAIN ),
+                    'label' => __( 'Listings Order By', ATBDP_TEXTDOMAIN ),
                     'items' => array(
                         array(
                             'value' => 'title',
@@ -1232,7 +1230,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'select',
                     'name' => 'sort_listing_by',
-                    'label' => __( 'Listing Sort By', ATBDP_TEXTDOMAIN ),
+                    'label' => __( 'Listings Sort By', ATBDP_TEXTDOMAIN ),
                     'items' => array(
                         array(
                             'value' => 'asc',
@@ -1615,6 +1613,50 @@ The Administrator of ==SITE_NAME==
                         'description' => __('If you do not want to hide location field on search home page, turn it off.', ATBDP_TEXTDOMAIN),
                         'default' => 1,
                     ),
+
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'show_popular_category',
+                        'label' => __('Show popular category on the search page', ATBDP_TEXTDOMAIN),
+                        'description' => __('You can show popular category on search page or you can hide it here.', ATBDP_TEXTDOMAIN),
+                        'default' => '0',
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'show_connector',
+                        'label' => __('Show connector', ATBDP_TEXTDOMAIN),
+                        'description' => __('You can show a connector between searchable field and popular category on search page or you can hide it here.', ATBDP_TEXTDOMAIN),
+                        'default' => '0',
+                    ),
+
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'connectors_title',
+                        'label' => __('Set connector', ATBDP_TEXTDOMAIN),
+                        'description' => __( 'Enter the title for connector between searchable field and popular category', ATBDP_TEXTDOMAIN ),
+                        'default' => __('Or', ATBDP_TEXTDOMAIN),
+                    ),
+
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'popular_cat_title',
+                        'label' => __('Popular Category Title', ATBDP_TEXTDOMAIN),
+                        'description' => __( 'Enter the title for popular category on listing search page eg. Browse by popular categories', ATBDP_TEXTDOMAIN ),
+                        'default' => __('Browse by popular categories', ATBDP_TEXTDOMAIN),
+                    ),
+
+
+                    array(
+                        'type' => 'slider',
+                        'name' => 'popular_cat_num',
+                        'label' => __('Number of Popular Category', ATBDP_TEXTDOMAIN),
+                        'description' => __( 'Set how many popular categories you would like to show on your listing main search page. Eg. 10. Default is 10', ATBDP_TEXTDOMAIN),
+                        'min' => '1',
+                        'max' => '30',
+                        'step' => '1',
+                        'default' => '10',
+                        'validation' => 'numeric|minlength[1]',
+                    ),
                 )
             );
         }
@@ -1924,6 +1966,24 @@ The Administrator of ==SITE_NAME==
                 'default' => 0,
             ),
 
+            array(
+                'type' => 'toggle',
+                'name' => 'enable_rel_listing',
+                'label' => __('Enable Related Listings', ATBDP_TEXTDOMAIN),
+                'default' => 4,
+            ),
+
+            array(
+                'type' => 'slider',
+                'name' => 'rel_listing_num',
+                'label' => __('Number of Related Listings', ATBDP_TEXTDOMAIN),
+                'min' => '1',
+                'max' => '10',
+                'step' => '1',
+                'default' => '2',
+                'validation' => 'numeric|minlength[1]',
+            ),
+
         ));
     }
     /**
@@ -1942,7 +2002,7 @@ The Administrator of ==SITE_NAME==
                     'type' => 'slider',
                     'name' => 'listing_expire_in_days',
                     'label' => __('Default Listing Expires in Days', ATBDP_TEXTDOMAIN),
-                    'description' => __( 'Set how many days after publishing a listing, you would like to expire a listing by default ? Set it to 0 to keep it alive forever.', ATBDP_TEXTDOMAIN ),
+                    'description' => __( 'Set it to 0 to keep it alive forever.', ATBDP_TEXTDOMAIN ),
                     'min' => '0',
                     'max' => '730',
                     'step' => '1',
@@ -1953,21 +2013,19 @@ The Administrator of ==SITE_NAME==
                     'type' => 'toggle',
                     'name' => 'can_renew_listing',
                     'label' => __('Can User Renew Listing?', ATBDP_TEXTDOMAIN),
-                    'description' => __('Here YES means users can renew their listings. NO means users can not renew their listings. Default is YES.', ATBDP_TEXTDOMAIN),
+                    'description' => __('Here YES means users can renew their listings.', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'delete_expired_listing',
                     'label' => __('Delete/Trash Expired Listings', ATBDP_TEXTDOMAIN),
-                    'description' => __('Here YES means expired listings will be deleted (after threshold of course). NO means expired listings will not be deleted. Default is YES.', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'slider',
                     'name' => 'delete_expired_listings_after',
                     'label' => __('Delete/Trash Expired Listings After (days) of Expiration', ATBDP_TEXTDOMAIN),
-                    'description' => __( 'Set how many days after the expiration of a listing you would like the listings gets tashed/deleted. Set it 0 to delete/trash expired listings immediately.(N.B. This option depends on the "Delete/Trash Expired Listings" option', ATBDP_TEXTDOMAIN ),
                     'min' => '0',
                     'max' => '180',
                     'step' => '1',
@@ -1988,7 +2046,7 @@ The Administrator of ==SITE_NAME==
                             'label' => __('Move to Trash', ATBDP_TEXTDOMAIN),
                         ),
                     ),
-                    'description' => __( 'Choose the Default actions after a listing reaches its deletion threshold. Default action is to trash them.', ATBDP_TEXTDOMAIN ),
+                    'description' => __( 'Choose the Default actions after a listing reaches its deletion threshold.', ATBDP_TEXTDOMAIN ),
                     /*@todo; later add option to make listing status hidden or invalid for expired listing, so that admin may retain expired listings without having them deleted after the deletion threshold */
                     'default' => array(
                         'value' => 'trash',
@@ -1999,8 +2057,8 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'thumbnail_cropping',
-                    'label' => __('Thumbnail Cropping', ATBDP_TEXTDOMAIN),
-                    'description' => __('Yes to cropping image', ATBDP_TEXTDOMAIN),
+                    'label' => __('Preview Image Cropping', ATBDP_TEXTDOMAIN),
+                    'description' => __('If the preview images are not in the same size, it helps automatically resizing.', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
 
@@ -2030,7 +2088,6 @@ The Administrator of ==SITE_NAME==
                             'label' => __('Custom Cropping', ATBDP_TEXTDOMAIN),
                         ),
                     ),
-                    'description' => __( 'Select ', ATBDP_TEXTDOMAIN ),
                     'default' =>  array(
                         'value' => 'directory-image',
                         'label' => __('360*300', ATBDP_TEXTDOMAIN),
@@ -2067,7 +2124,6 @@ The Administrator of ==SITE_NAME==
                     'type' => 'textbox',
                     'name' => 'all_listing_title',
                     'label' => __('Title for all listing page', ATBDP_TEXTDOMAIN),
-                    'description' => __( 'Enter a title for the page where all listings will be shown using the shortcode [directorist_all_listing] . Eg. All Listings/ Items.', ATBDP_TEXTDOMAIN ),
                     'default' => atbdp_get_option('all_listing_title', 'atbdp_general'),
                 ),
 
@@ -2076,89 +2132,31 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'paginate_all_listings',
-                    'label' => __('Paginate Listings On "All listings" Page', ATBDP_TEXTDOMAIN),
-                    'description' => __('If you do not want to show pagination on all listings page, turn it off.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Pagination', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
 
                 array(
                     'type' => 'slider',
                     'name' => 'all_listing_page_items',
-                    'label' => __('Listings Per Page on All listing page', ATBDP_TEXTDOMAIN),
-                    'description' => __( 'Set how many listings you would like to show per page on the All Listings page. Eg. 6. Default is 6. If pagination is off, then this number will be the total listings to show.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Listings Per Page', ATBDP_TEXTDOMAIN),
                     'min' => '1',
                     'max' => '30',
                     'step' => '1',
                     'default' => '6',
                     'validation' => 'numeric|minlength[1]',
                 ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'show_popular_category',
-                    'label' => __('Show popular category on the search page', ATBDP_TEXTDOMAIN),
-                    'description' => __('You can show popular category on search page or you can hide it here.', ATBDP_TEXTDOMAIN),
-                    'default' => '0',
-                ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'show_connector',
-                    'label' => __('Show connector', ATBDP_TEXTDOMAIN),
-                    'description' => __('You can show a connector between searchable field and popular category on search page or you can hide it here.', ATBDP_TEXTDOMAIN),
-                    'default' => '0',
-                ),
 
-                array(
-                    'type' => 'textbox',
-                    'name' => 'connectors_title',
-                    'label' => __('Set connector', ATBDP_TEXTDOMAIN),
-                    'description' => __( 'Enter the title for connector between searchable field and popular category', ATBDP_TEXTDOMAIN ),
-                    'default' => __('Or', ATBDP_TEXTDOMAIN),
-                ),
-
-                array(
-                    'type' => 'textbox',
-                    'name' => 'popular_cat_title',
-                    'label' => __('Popular Category Title', ATBDP_TEXTDOMAIN),
-                    'description' => __( 'Enter the title for popular category on listing search page eg. Browse by popular categories', ATBDP_TEXTDOMAIN ),
-                    'default' => __('Browse by popular categories', ATBDP_TEXTDOMAIN),
-                ),
-
-
-                array(
-                    'type' => 'slider',
-                    'name' => 'popular_cat_num',
-                    'label' => __('Number of Popular Category', ATBDP_TEXTDOMAIN),
-                    'description' => __( 'Set how many popular categories you would like to show on your listing main search page. Eg. 10. Default is 10', ATBDP_TEXTDOMAIN),
-                    'min' => '1',
-                    'max' => '30',
-                    'step' => '1',
-                    'default' => '10',
-                    'validation' => 'numeric|minlength[1]',
-                ),
-
-                array(
-                    'type' => 'slider',
-                    'name' => 'pop_listing_num',
-                    'label' => __('Number of Popular Listings', ATBDP_TEXTDOMAIN),
-                    'description' => __( 'Set how many popular listings you would like to show on your website. Eg. 5. Default is 5.', ATBDP_TEXTDOMAIN),
-                    'min' => '1',
-                    'max' => '30',
-                    'step' => '1',
-                    'default' => '5',
-                    'validation' => 'numeric|minlength[1]',
-                ),
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_rel_listing',
-                    'label' => __('Enable related listings on Single Listing page', ATBDP_TEXTDOMAIN),
-                    'description' => __('Choose whether you want to display related listings on Single listing details page or not. Default is YES.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable Related Listings', ATBDP_TEXTDOMAIN),
                     'default' => atbdp_yes_to_bool($e_r_list),
                 ),
                 array(
                     'type' => 'slider',
                     'name' => 'rel_listing_num',
                     'label' => __('Number of Related Listings', ATBDP_TEXTDOMAIN),
-                    'description' => __( 'Set how many related listings you would like to show on your website. Eg. 2. Default is 2.', ATBDP_TEXTDOMAIN),
                     'min' => '1',
                     'max' => '10',
                     'step' => '1',
@@ -2169,56 +2167,48 @@ The Administrator of ==SITE_NAME==
                     'type' => 'toggle',
                     'name' => 'display_title',
                     'label' => __('Display Title', ATBDP_TEXTDOMAIN),
-                    'description' => __('You can display/hide the title on All listing page.', ATBDP_TEXTDOMAIN),
                     'default' => '1',
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_review',
                     'label' => __('Display Review', ATBDP_TEXTDOMAIN),
-                    'description' => __('You can display/hide the review on All listing page.', ATBDP_TEXTDOMAIN),
                     'default' => '1',
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_price',
                     'label' => __('Display Price', ATBDP_TEXTDOMAIN),
-                    'description' => __('You can display/hide the price on All listing page.', ATBDP_TEXTDOMAIN),
                     'default' => '1',
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_publish_date',
                     'label' => __('Display Publish date', ATBDP_TEXTDOMAIN),
-                    'description' => __('You can display/hide the publish date or time on All listing page.', ATBDP_TEXTDOMAIN),
                     'default' => '1',
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_category',
                     'label' => __('Display Category', ATBDP_TEXTDOMAIN),
-                    'description' => __('You can display/hide the category on All listing page.', ATBDP_TEXTDOMAIN),
                     'default' => '1',
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_view_count',
                     'label' => __('Display View Count', ATBDP_TEXTDOMAIN),
-                    'description' => __('You can display/hide the view count on All listing page.', ATBDP_TEXTDOMAIN),
                     'default' => '1',
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_author_image',
                     'label' => __('Display Author Image', ATBDP_TEXTDOMAIN),
-                    'description' => __('You can display/hide the author image on All listing page.', ATBDP_TEXTDOMAIN),
                     'default' => '1',
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_contact_info',
                     'label' => __('Display Contact Information', ATBDP_TEXTDOMAIN),
-                    'description' => __('You can display/hide the contact Information on All listing page.', ATBDP_TEXTDOMAIN),
                     'default' => '1',
                 ),
             )
@@ -2300,7 +2290,7 @@ The Administrator of ==SITE_NAME==
                                 'label' => __('Move to Trash', ATBDP_TEXTDOMAIN),
                             ),
                         ),
-                        'description' => __( 'Choose the Default actions after a listing reaches its deletion threshold. Default action is to trash them.', ATBDP_TEXTDOMAIN ),
+                        'description' => __( 'Choose the Default actions after a listing reaches its deletion threshold.', ATBDP_TEXTDOMAIN ),
 /*@todo; later add option to make listing status hidden or invalid for expired listing, so that admin may retain expired listings without having them deleted after the deletion threshold */
                         'default' => array(
                             'value' => 'trash',
@@ -2414,28 +2404,6 @@ The Administrator of ==SITE_NAME==
                         'default' => '5',
                         'validation' => 'numeric|minlength[1]',
                     ),
-
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'enable_rel_listing',
-                        'label' => __('Enable related listings on Single Listing page', ATBDP_TEXTDOMAIN),
-                        'description' => __('Choose whether you want to display related listings on Single listing details page or not. Default is YES.', ATBDP_TEXTDOMAIN),
-                        'default' => atbdp_yes_to_bool($e_r_list),
-                    ),
-
-                    array(
-                        'type' => 'slider',
-                        'name' => 'rel_listing_num',
-                        'label' => __('Number of Related Listings', ATBDP_TEXTDOMAIN),
-                        'description' => __( 'Set how many related listings you would like to show on your website. Eg. 2. Default is 2.', ATBDP_TEXTDOMAIN),
-                        'min' => '1',
-                        'max' => '10',
-                        'step' => '1',
-                        'default' => '2',
-                        'validation' => 'numeric|minlength[1]',
-                    ),
-
-
             )
         );
     }

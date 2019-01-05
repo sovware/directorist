@@ -64,7 +64,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                 $options = atbdp_get_listings_orderby_options();
 
                                                 foreach( $options as $value => $label ) {
-                                                    $options = ( $value == $current_order ) ? ' active' : '';
+                                                    $active_class = ( $value == $current_order ) ? ' active' : '';
                                                     printf( '<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg( 'sort', $value ), $label );
                                                 }
                                                 ?>

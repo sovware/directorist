@@ -259,9 +259,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
                                                     if (!empty($enable247hour)) {
                                                         $open =  get_directorist_option('open_badge_text');
                                                         ?>
-                                                        <div class="atbd_upper_badge">
-                                                            <span class="atbd_badge atbd_badge_open"><?php echo $open;?></span>
-                                                        </div><!-- END /.atbd_upper_badge -->
+                                                        <span class="atbd_badge atbd_badge_open"><?php echo $open;?></span>
                                                         <?php
                                                     } else {
                                                         BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list

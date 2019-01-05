@@ -176,7 +176,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
                                                     $open =  get_directorist_option('open_badge_text');
                                                     ?>
                                                     <div class="atbd_upper_badge">
-                                                        <span class="atbd_badge atbd_badge_open"><?php echo $open;?>></span>
+                                                        <span class="atbd_badge atbd_badge_open"><?php echo $open;?></span>
                                                     </div><!-- END /.atbd_upper_badge -->
                                                     <?php
                                                 }else {?>

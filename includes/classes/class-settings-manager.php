@@ -1644,8 +1644,7 @@ The Administrator of ==SITE_NAME==
                         'description' => __( 'Enter the title for popular category on listing search page eg. Browse by popular categories', ATBDP_TEXTDOMAIN ),
                         'default' => __('Browse by popular categories', ATBDP_TEXTDOMAIN),
                     ),
-
-
+                    
                     array(
                         'type' => 'slider',
                         'name' => 'popular_cat_num',

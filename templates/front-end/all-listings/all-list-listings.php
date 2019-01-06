@@ -162,7 +162,6 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                             <div class="atbd_lower_badge">
                                                 <?php
                                                 $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
-                                                $enable_new_listing = get_directorist_option('enable_new_listing',1);
                                                 $new_listing_day = get_directorist_option('new_listing_day',3);
                                                 $is_day_or_days = substr($is_old, -4);
                                                 $is_other = substr($is_old, -5);

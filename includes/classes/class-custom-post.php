@@ -23,7 +23,23 @@ if(!class_exists('ATBDP_Custom_Post')):
             add_filter( 'enter_title_here', array($this, 'change_title_text') );
             add_filter('post_row_actions', array($this, 'add_row_actions_for_quick_view'), 10, 2);
             add_filter('load-edit.php', array($this, 'work_row_actions_for_quick_view'), 10, 2);
+            //hook for polylang competeblity
+            //add_filter('pll_get_post_types', array($this, 'add_cpt_to_pll'), 10, 2);
 
+
+        }
+
+        public function add_cpt_to_pll($post_types, $hide) {
+           /* echo '<pre>';
+            var_dump($post_types);
+            echo '</pre>';*/
+            if ($hide)
+                // hides 'my_cpt' from the list of custom post types in Polylang settings
+                unset($post_types[ATBDP_POST_TYPE]);
+            else
+                // enables language and translation management for ATBDP_POST_TYPE
+                $post_types[ATBDP_POST_TYPE] = ATBDP_POST_TYPE;
+            return $post_types;
 
         }
 

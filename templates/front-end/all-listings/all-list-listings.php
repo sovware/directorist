@@ -4,6 +4,7 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
 $all_listing_title = !empty($all_listing_title) ? $all_listing_title : __('All Items', ATBDP_TEXTDOMAIN);
 $is_disable_price = get_directorist_option('disable_list_price');
 $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col-md-12';
+$pagenation = get_directorist_option('paginate_all_listings',1);
 ?>
 
 
@@ -361,13 +362,17 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-md-8' : 'col
 
             </div> <!--ends .row -->
 
-            <div class="row">
-                <div class="col-md-12">
-                    <?php
-                    echo atbdp_pagination($all_listings, $paged);
-                    ?>
+            <?php
+            if (1 == $pagenation){
+                ?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php
+                        echo atbdp_pagination($all_listings, $paged);
+                        ?>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
         </div>
     </div>
 <?php

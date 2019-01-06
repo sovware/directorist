@@ -90,6 +90,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             $feature_badge_text             = get_directorist_option('feature_badge_text','Feature');
                             $new_badge_text                 = get_directorist_option('new_badge_text','New');
                             $enable_new_listing             = get_directorist_option('display_new_badge_cart',1);
+                            $pagination                     = get_directorist_option('paginate_search_results', 1);
                             /*Code for Business Hour Extensions*/
                             $bdbh                   = get_post_meta(get_the_ID(), '_bdbh', true);
                             $enable247hour               = get_post_meta(get_the_ID(), '_enable247hour', true);
@@ -335,11 +336,13 @@ $is_disable_price = get_directorist_option('disable_list_price');
                 <div class="row">
                     <div class="col-md-12">
                         <?php
-                        the_posts_pagination(
+                        if('1' == $pagination){
+                            the_posts_pagination(
                                 array('mid_size'  => 2,
-                                'prev_text' => '<span class="fa fa-chevron-left"></span>',
-                                'next_text' => '<span class="fa fa-chevron-right"></span>',
-                            ));
+                                    'prev_text' => '<span class="fa fa-chevron-left"></span>',
+                                    'next_text' => '<span class="fa fa-chevron-right"></span>',
+                                ));
+                        }
                         //atbdp_pagination($listings, $paged);
                         wp_reset_postdata();
                         $wp_query   = NULL;

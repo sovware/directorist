@@ -1719,8 +1719,7 @@ The Administrator of ==SITE_NAME==
             array(
                 'type' => 'slider',
                 'name' => 'new_listing_day',
-                'label' => __('Number of Days for New Badge', ATBDP_TEXTDOMAIN),
-                'description' => __( 'Set how many days would like to show on your listings New. Eg. 5. Default is 3.', ATBDP_TEXTDOMAIN),
+                'label' => __('New Badge Duration in Days', ATBDP_TEXTDOMAIN),
                 'min' => '0',
                 'max' => '6',
                 'step' => '1',
@@ -1754,21 +1753,22 @@ The Administrator of ==SITE_NAME==
             array(
                 'type' => 'toggle',
                 'name' => 'listing_terms_condition',
-                'label' => __('Required Terms & Conditions', ATBDP_TEXTDOMAIN),
-                'description' => __('Here YES means restrict user to submit listing from front end without checking it.', ATBDP_TEXTDOMAIN),
+                'label' => __('Enable Terms & Conditions', ATBDP_TEXTDOMAIN),
+                'description' => __('Here YES means users must agree to before submitting a listing from frontend.
+
+', ATBDP_TEXTDOMAIN),
                 'default' => 1,
             ),
             array(
                 'type' => 'textarea',
                 'name' => 'listing_terms_condition_text',
-                'label' => __('Custom Terms & Conditions', ATBDP_TEXTDOMAIN),
-                'description' => __('You may include and any of your business policy here.', ATBDP_TEXTDOMAIN),
-                'default' => 'Replace it with your own Terms and Conditions',
+                'label' => __('Terms & Conditions Text', ATBDP_TEXTDOMAIN),
+                'description' => __('If Terms & Conditions is enabled, enter the agreement terms and conditions here.', ATBDP_TEXTDOMAIN),
             ),
             array(
                 'type' => 'select',
                 'name' => 'new_listing_status',
-                'label' => __( 'New Listing\'s Default status', ATBDP_TEXTDOMAIN ),
+                'label' => __( 'New Listing\'s Default Status', ATBDP_TEXTDOMAIN ),
                 'items' => array(
                     array(
                         'value' => 'publish',
@@ -1779,8 +1779,6 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Pending', ATBDP_TEXTDOMAIN),
                     ),
                 ),
-                'description' => __( 'Choose the Default Listing Status for a new listing when a user submits it from the Front End', ATBDP_TEXTDOMAIN ),
-
                 'default' => array(
                     'value' => 'publish',
                     'label' => __('Published', ATBDP_TEXTDOMAIN),
@@ -1800,8 +1798,6 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Pending', ATBDP_TEXTDOMAIN),
                     ),
                 ),
-                'description' => __( 'Select the Default Listing Status for Edited listing when a user edits it on the front end.', ATBDP_TEXTDOMAIN ),
-
                 'default' => array(
                     'value' => 'publish',
                     'label' => __('Published', ATBDP_TEXTDOMAIN),
@@ -1823,7 +1819,7 @@ The Administrator of ==SITE_NAME==
                         'label' => __('User Dashboard', ATBDP_TEXTDOMAIN),
                     ),
                 ),
-                'description' => __( 'Select a page where user will be redirected after editing a listing on the front end.', ATBDP_TEXTDOMAIN ),
+                'description' => __( 'Select where user will be redirected after editing a listing on the frontend.', ATBDP_TEXTDOMAIN ),
 
                 'default' => array(
                     'value' => 'view_listing',
@@ -1834,15 +1830,17 @@ The Administrator of ==SITE_NAME==
             array(
                 'type' => 'toggle',
                 'name' => 'gallery_cropping',
-                'label' => __('Gallery Image Cropping', ATBDP_TEXTDOMAIN),
-                'description' => __('Yes to gallery cropping image', ATBDP_TEXTDOMAIN),
+                'label' => __('Slider Images Cropping', ATBDP_TEXTDOMAIN),
+                'description' => __('If the slider images are not in the same size, it helps automatically resizing.
+
+', ATBDP_TEXTDOMAIN),
                 'default' => 1,
             ),
 
             array(
                 'type' => 'select',
                 'name' => 'gallery_image_size',
-                'label' => __( 'Gallery Image Cropping Size', ATBDP_TEXTDOMAIN ),
+                'label' => __( 'Slider Image Cropping Size', ATBDP_TEXTDOMAIN ),
                 'items' => array(
                     array(
                         'value' => 'gallery-image',
@@ -1872,36 +1870,33 @@ The Administrator of ==SITE_NAME==
                 'type' => 'toggle',
                 'name' => 'enable_report_abuse',
                 'label' => __('Enable Report Abuse', ATBDP_TEXTDOMAIN),
-                'description' => __('Check this to enable Report Abuse.', ATBDP_TEXTDOMAIN),
                 'default' => 1,
             ),
             array(
                 'type' => 'toggle',
                 'name' => 'atbd_video_url',
-                'label' => __('Enable Video', ATBDP_TEXTDOMAIN),
-                'description' => __('Allow users to add videos for their listings.', ATBDP_TEXTDOMAIN),
+                'label' => __('Enable Listing Video', ATBDP_TEXTDOMAIN),
                 'default' => 1,
             ),
             array(
                 'type' => 'textbox',
                 'name' => 'atbd_video_title',
                 'label' => __('Video Label', ATBDP_TEXTDOMAIN),
-                'description' => __('Enter video label for the single listing page.', ATBDP_TEXTDOMAIN),
                 'default' => __('Video', ATBDP_TEXTDOMAIN),
             ),
             array(
                 'type' => 'textbox',
                 'name' => 'map_api_key',
                 'label' => __( 'Google Map API key', ATBDP_TEXTDOMAIN ),
-                'description' => sprintf(__( 'You need to enter your google map api key in order to display google map. You can find your map api key and detailed information %s. or you can search in google', ATBDP_TEXTDOMAIN ), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                'description' => sprintf(__( 'It\'s required to use Google Map. You can find detailed information %s.', ATBDP_TEXTDOMAIN ), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
                 'default' => atbdp_get_option('map_api_key', 'atbdp_general'),
             ),
 
             array(
                 'type' => 'slider',
                 'name' => 'map_zoom_level',
-                'label' => __( 'Google Map Zoom Level', ATBDP_TEXTDOMAIN ),
-                'description' => __( 'You can adjust the zoom level of the map. 0 means 100% zoom-out. 22 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22. Default is 16. ', ATBDP_TEXTDOMAIN ),
+                'label' => __( 'Adjust Map Zoom Level', ATBDP_TEXTDOMAIN ),
+                'description' => __( 'Here 0 means 100% zoom-out. 22 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22.', ATBDP_TEXTDOMAIN ),
                 'min' => '1',
                 'max' => '22',
                 'step' => '1',
@@ -1912,28 +1907,24 @@ The Administrator of ==SITE_NAME==
                 'type' => 'toggle',
                 'name' => 'disable_map',
                 'label' => __( 'Disable Google Map', ATBDP_TEXTDOMAIN ),
-                'description' => __( 'Set it YES to disable Google map on your website. If you leave it off, then you or your user can disable google map on individual listing too.', ATBDP_TEXTDOMAIN ),
                 'default' => 0,
             ),
             array(
                 'type' => 'toggle',
                 'name' => 'disable_sharing',
-                'label' => __( 'Disable Social Sharing links', ATBDP_TEXTDOMAIN ),
-                'description' => __( 'Set it YES to disable Social Sharing links on a Single Listing Details Page.', ATBDP_TEXTDOMAIN ),
+                'label' => __( 'Disable Social Sharing Links', ATBDP_TEXTDOMAIN ),
                 'default' => 0,
             ),
             array(
                 'type' => 'toggle',
                 'name' => 'disable_contact_info',
                 'label' => __( 'Disable Contact Information', ATBDP_TEXTDOMAIN ),
-                'description' => __( 'Set it YES to disable Contact Information on add listing form.', ATBDP_TEXTDOMAIN ),
                 'default' => 0,
             ),
             array(
                 'type' => 'toggle',
                 'name' => 'disable_list_price',
                 'label' => __( 'Disable Listing Price', ATBDP_TEXTDOMAIN ),
-                'description' => __( 'Set it YES to disable Price field. However, if you do not disable price globally here, you can also disable pricing per listing during adding a listing.', ATBDP_TEXTDOMAIN ),
                 'default' => 0,
             ),
 

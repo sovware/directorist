@@ -5,6 +5,7 @@ $all_listing_title = !empty($all_listing_title) ? $all_listing_title : __('All I
 $is_disable_price = get_directorist_option('disable_list_price');
 $display_sortby_dropdown = get_directorist_option('display_sort_by',1);
 $display_viewas_dropdown = get_directorist_option('display_view_as',1);
+$pagenation = get_directorist_option('paginate_all_listings',1);
 ?>
 
 
@@ -370,14 +371,17 @@ $display_viewas_dropdown = get_directorist_option('display_view_as',1);
 
 
             </div> <!--ends .row -->
-
-            <div class="row">
-                <div class="col-md-12">
-                    <?php
-                    echo atbdp_pagination($all_listings, $paged);
-                    ?>
+            <?php
+            if (1 == $pagenation){
+                ?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php
+                        echo atbdp_pagination($all_listings, $paged);
+                        ?>
+                    </div>
                 </div>
-            </div>
+                <?php } ?>
         </div>
 
 

@@ -2070,8 +2070,15 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'paginate_all_listings',
-                    'label' => __('Pagination', ATBDP_TEXTDOMAIN),
-                    'default' => 1,
+                    'label' => __('Paginate All Listings', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
+                ),
+
+                array(
+                    'type' => 'toggle',
+                    'name' => 'paginate_author_listings',
+                    'label' => __('Paginate Author Listings', ATBDP_TEXTDOMAIN),
+                    'default' => '1',
                 ),
 
                 array(
@@ -2082,23 +2089,6 @@ The Administrator of ==SITE_NAME==
                     'max' => '30',
                     'step' => '1',
                     'default' => '6',
-                    'validation' => 'numeric|minlength[1]',
-                ),
-
-                array(
-                    'type' => 'toggle',
-                    'name' => 'enable_rel_listing',
-                    'label' => __('Enable Related Listings', ATBDP_TEXTDOMAIN),
-                    'default' => atbdp_yes_to_bool($e_r_list),
-                ),
-                array(
-                    'type' => 'slider',
-                    'name' => 'rel_listing_num',
-                    'label' => __('Number of Related Listings', ATBDP_TEXTDOMAIN),
-                    'min' => '1',
-                    'max' => '10',
-                    'step' => '1',
-                    'default' => '2',
                     'validation' => 'numeric|minlength[1]',
                 ),
                 array(

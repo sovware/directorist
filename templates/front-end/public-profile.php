@@ -1,6 +1,7 @@
 <?php
 !empty($args['data']) ? extract($args['data']) : array(); // data array contains all required var.
 $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
+$pagenation = get_directorist_option('paginate_author_listings',1);
 ?>
 <div id="directorist" class="atbd_wrapper atbd_author_profile">
     <div class="container-fluid">
@@ -486,13 +487,17 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
 
             </div> <!--ends .row -->
 
-            <div class="row">
-                <div class="col-md-12">
-                    <?php
-                    echo atbdp_pagination($all_listings, $paged);
-                    ?>
+            <?php
+            if (1 == $pagenation){
+                ?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php
+                        echo atbdp_pagination($all_listings, $paged);
+                        ?>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
         </div>
     </div>
 </div>

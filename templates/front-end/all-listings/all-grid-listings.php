@@ -114,8 +114,6 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                         $display_popular_badge_cart     = get_directorist_option('display_popular_badge_cart',1);
                         $popular_badge_text             = get_directorist_option('popular_badge_text','Popular');
                         $feature_badge_text             = get_directorist_option('feature_badge_text','Feature');
-                        $new_badge_text                 = get_directorist_option('new_badge_text','New');
-                        $enable_new_listing             = get_directorist_option('display_new_badge_cart',1);
                         /*Code for Business Hour Extensions*/
                         $bdbh                   = get_post_meta(get_the_ID(), '_bdbh', true);
                         $enable247hour               = get_post_meta(get_the_ID(), '_enable247hour', true);
@@ -203,40 +201,8 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                                         }
                                                     }
                                                 }
-                                                $is_old = human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) );
-
-
-                                                $new_listing_day = get_directorist_option('new_listing_day');
-                                                $is_day_or_days = substr($is_old, -4);
-                                                $is_other = substr($is_old, -5);
-                                                    $new = '<span class="atbd_badge atbd_badge_new">'.$new_badge_text.'</span>';
-                                                if ($enable_new_listing){
-                                                    switch ($is_day_or_days){
-                                                        case ' day':
-                                                            echo $new;
-                                                            break;
-                                                        case 'days':
-                                                            //if it is more than 1 day let check the option value is grater than or equal
-                                                            if (substr($is_old, 0, 1)<=$new_listing_day){
-                                                                echo $new;
-                                                            }
-                                                            break;
-                                                        case 'mins':
-                                                            echo $new;
-                                                            break;
-                                                        case ' min':
-                                                            echo $new;
-                                                            break;
-                                                        case 'hour':
-                                                            echo $new;
-                                                            break;
-                                                    }
-                                                    switch ($is_other){
-                                                        case 'hours':
-                                                            echo $new;
-                                                            break;
-                                                    }
-                                                }
+                                                //print the new badge
+                                                echo new_badge();
                                                 ?>
                                             </div>
                                         </figcaption>

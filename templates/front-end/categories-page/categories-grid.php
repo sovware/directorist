@@ -2,7 +2,7 @@
 <div id="directorist" class="atbd_wrapper">
     <div class="container-fluid">
         <div class="col-md-12">
-            <ul class="atbd_all_categories">
+            <ul class="atbd_all_categories row">
                 <?php
                 $terms = is_array($terms) ? $terms : array();
                 foreach($terms as $term) {
@@ -15,7 +15,7 @@
                     $icon = get_term_meta($term->term_id,'category_icon',true);
                     $icon = !empty($icon)?$icon:'';
                     ?>
-                    <li>
+                    <li class="<?php echo $span;?>">
                         <a href="<?php  echo ATBDP_Permalink::get_category_archive($term) ?>">
                             <?php
                             if ('none' != $icon){

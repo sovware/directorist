@@ -59,7 +59,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
         <p class="hide-if-no-js">
             <a href="#" id="listing_image_btn" class="btn btn-primary">
                 <span class="dashicons dashicons-format-image"></span>
-                <?php _e('Upload Gallery Images', ATBDP_TEXTDOMAIN); ?>
+                <?php _e('Upload Slider Images', ATBDP_TEXTDOMAIN); ?>
             </a>
             <a id="delete-custom-img" class="btn btn-danger <?= (!empty($image_links)) ? '' : 'hidden' ?>"
                href="#"> <?php echo (1 == $active_mi_ext) ? esc_html__('Remove Images') : esc_html__('Remove Image'); ?></a>

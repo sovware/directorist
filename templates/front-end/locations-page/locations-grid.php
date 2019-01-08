@@ -1,5 +1,6 @@
+<?php $span = 'col-md-' . floor( 12 /  $locations_settings['columns'] );?>
 <div id="directorist" class="atbd_wrapper">
-    <div class="atbd_location_grid_wrap">
+    <div class="atbd_location_grid_wrap row">
         <?php
         $terms = is_array($terms) ? $terms : array();
         foreach ($terms as $term) {
@@ -9,8 +10,7 @@
 
                 if (!empty($locations_settings['hide_empty']) && 0 == $count) continue;
             } ?>
-
-            <!--                <div class="col-lg-2 col-md-3">-->
+            <div class="<?php echo $span;?>">
             <a class="atbd_location_grid" href="<?php echo ATBDP_Permalink::get_location_archive($term) ?>"
                class=""> <?php echo $term->name; ?>
                 <?php
@@ -19,6 +19,7 @@
                 }
                 ?>
             </a>
+            </div>
             <!--                </div>-->
         <?php } ?>
     </div>

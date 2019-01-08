@@ -76,6 +76,11 @@ class ATBDP_Gateway{
                         'description'   => __('You can Customize featured listing related settings here', ATBDP_TEXTDOMAIN),
                         'fields'        => $this->get_featured_listing_settings_fields(),
                     ), // ends monetization settings section
+                    'monetize_by_subscription' => array(
+                        'type'          => 'section',
+                        'title'         => __('Monetize by Selling Subscription', ATBDP_TEXTDOMAIN),
+                        'fields'        => $this->get_monetize_by_subscription_fields(),
+                    ), // ends monetization settings section
 
                 )),
             ),
@@ -150,6 +155,24 @@ class ATBDP_Gateway{
                     'default' => 1,
                 ),
 
+            )
+        );
+    }
+
+
+    /**
+     * It registers the settings fields of promoting subscription
+     * @return array It returns an array of promoting subscription settings fields arrays
+     */
+    public function get_monetize_by_subscription_fields()
+    {
+        $fee_manager = '<a style="color: red" href="https://aazztech.com/product/directorist-fee-manager">Fee Manager</a>';
+        return apply_filters('atbdp_monetization_by_subscription_settings_fields', array(
+                array(
+                    'type' => 'notebox',
+                    'name' => 'monetization_promotion',
+                    'description' => sprintf(__('Monetize your website by selling subscriptions packages using %s extension.', ATBDP_TEXTDOMAIN), $fee_manager),
+                ),
             )
         );
     }

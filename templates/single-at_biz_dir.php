@@ -84,10 +84,10 @@ $reviews_count = ATBDP()->review->db->count(array('post_id' => $listing_id)); //
 $listing_author_id = get_post_field( 'post_author', $listing_id );
 $display_feature_badge_single     = get_directorist_option('display_feature_badge_cart',1);
 $display_popular_badge_single     = get_directorist_option('display_popular_badge_cart',1);
-$popular_badge_text             = get_directorist_option('popular_badge_text','Popular');
-$feature_badge_text             = get_directorist_option('feature_badge_text','Feature');
-$new_badge_text                 = get_directorist_option('new_badge_text','New');
-$enable_new_listing             = get_directorist_option('display_new_badge_cart',1);
+$popular_badge_text               = get_directorist_option('popular_badge_text','Popular');
+$feature_badge_text               = get_directorist_option('feature_badge_text','Feature');
+$new_badge_text                   = get_directorist_option('new_badge_text','New');
+$enable_new_listing               = get_directorist_option('display_new_badge_cart',1);
 
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col-lg-12';

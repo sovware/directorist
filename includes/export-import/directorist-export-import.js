@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
 	
 	function SelectText(element) {
-		let doc = document
+		var doc = document
 			, text = doc.getElementById(element)
 			, range, selection
 		;    
@@ -56,7 +56,7 @@ jQuery(document).ready(function($) {
 				}			
 			});
 			
-			let data_filter_ready = []; //prepares data for pdata filter
+			var data_filter_ready = []; //prepares data for pdata filter
 			$.each($( 'input[name="data_filter[]"]:checked' ), function() {
 				data_filter_ready.push($(this).val());
 			});	

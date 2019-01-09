@@ -1622,7 +1622,6 @@ The Administrator of ==SITE_NAME==
                         'default' => __('Browse by popular categories', ATBDP_TEXTDOMAIN),
                     ),
 
-
                     array(
                         'type' => 'slider',
                         'name' => 'popular_cat_num',

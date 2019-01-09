@@ -106,6 +106,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();
                     $metas['_listing_prv_img']   = !empty($p['listing_prv_img'])? sanitize_text_field($p['listing_prv_img']) :'';
                     $metas['_hide_contact_info'] = !empty($p['hide_contact_info'])? sanitize_text_field($p['hide_contact_info']) : 0;
+                    $metas['_t_c_check']         = !empty($p['t_c_check'])? sanitize_text_field($p['t_c_check']) : 0;
                     /**
                      * It applies a filter to the meta values that are going to be saved with the listing submitted from the front end
                      * @param array $metas the array of meta keys and meta values

@@ -178,7 +178,7 @@ class ATBDP_Settings_Manager {
                 'controls' => apply_filters('atbdp_listings_form_controls', array(
                     'emails' => array(
                         'type' => 'section',
-                        'title' => __('Listing Form', ATBDP_TEXTDOMAIN),
+                        'title' => __('Single Listing', ATBDP_TEXTDOMAIN),
                         'description' => __('You can Customize Listings Form related settings here', ATBDP_TEXTDOMAIN),
                         'fields' => $this->get_listings_form_settings_fields(),
                     ),
@@ -1306,7 +1306,7 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Number of  Columns', ATBDP_TEXTDOMAIN),
                     'description' => __( 'Set how many columns to display on categories page.', ATBDP_TEXTDOMAIN),
                     'min' => '1',
-                    'max' => '5',
+                    'max' => '10',
                     'step' => '1',
                     'default' => '3',
                     'validation' => 'numeric|minlength[1]',
@@ -1417,7 +1417,7 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Number of  Columns', ATBDP_TEXTDOMAIN),
                     'description' => __( 'Set how many columns to display on categories page.', ATBDP_TEXTDOMAIN),
                     'min' => '1',
-                    'max' => '5',
+                    'max' => '10',
                     'step' => '1',
                     'default' => '3',
                     'validation' => 'numeric|minlength[1]',
@@ -1870,10 +1870,36 @@ The Administrator of ==SITE_NAME==
                 'label' => __('Enable Report Abuse', ATBDP_TEXTDOMAIN),
                 'default' => 1,
             ),
+
+            array(
+                'type' => 'toggle',
+                'name' => 'enable_tagline',
+                'label' => __('Enable Tagline', ATBDP_TEXTDOMAIN),
+                'default' => 0,
+            ),
+            array(
+                'type' => 'toggle',
+                'name' => 'enable_excerpt',
+                'label' => __('Enable Excerpt', ATBDP_TEXTDOMAIN),
+                'default' => 0,
+            ),
             array(
                 'type' => 'toggle',
                 'name' => 'disable_list_price',
                 'label' => __( 'Disable Listing Price', ATBDP_TEXTDOMAIN ),
+                'default' => 0,
+            ),
+
+            array(
+                'type' => 'toggle',
+                'name' => 'disable_sharing',
+                'label' => __( 'Disable Social Sharing Links', ATBDP_TEXTDOMAIN ),
+                'default' => 0,
+            ),
+            array(
+                'type' => 'toggle',
+                'name' => 'disable_contact_info',
+                'label' => __( 'Disable Contact Information', ATBDP_TEXTDOMAIN ),
                 'default' => 0,
             ),
             array(
@@ -1899,18 +1925,6 @@ The Administrator of ==SITE_NAME==
                 'type' => 'toggle',
                 'name' => 'disable_map',
                 'label' => __( 'Disable Google Map', ATBDP_TEXTDOMAIN ),
-                'default' => 0,
-            ),
-            array(
-                'type' => 'toggle',
-                'name' => 'disable_sharing',
-                'label' => __( 'Disable Social Sharing Links', ATBDP_TEXTDOMAIN ),
-                'default' => 0,
-            ),
-            array(
-                'type' => 'toggle',
-                'name' => 'disable_contact_info',
-                'label' => __( 'Disable Contact Information', ATBDP_TEXTDOMAIN ),
                 'default' => 0,
             ),
 

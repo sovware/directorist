@@ -21,7 +21,6 @@ $active_mi_ext = is_multiple_images_active(); // default is no
                          src="<?php echo esc_url($listing_prv_img[0]) ?>">
                 </div>
                 <div class="default_img">
-                <small>(recommended size 670*420 and allowed formats jpeg. png. gif)</small>
             </div>
         </div>
         <!--  add & remove image links -->
@@ -47,8 +46,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
             } else { ?>
                 <img src="<?= esc_url(ATBDP_ADMIN_ASSETS . 'images/no-image.png'); ?>"
                      alt="<?php esc_attr_e('No Image Found', ATBDP_TEXTDOMAIN); ?>">
-                <p>No images</p>
-                <small>(allowed formats jpeg. png. gif)</small>
+                <p>No Images</p>
             <?php } //  ends if statement  ?>
         </div>
         <?php

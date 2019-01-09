@@ -284,7 +284,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper label {
   color: #202428;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
 }
 
 #directorist.atbd_wrapper label label {

@@ -17,7 +17,7 @@ class ATBDP_Upgrade{
         $user_id = get_current_user_id();
 
         if ( true != get_user_meta( $user_id, '_atbdp_shortcode_regenerate_notice',true )){
-            echo '<div id="message" class="notice notice-info" style="display: flex; background: #c1bb5d;  justify-content: space-between;"><p>';
+            echo '<div id="message" class="notice notice-info" style="display: flex; background: #ffc733;  justify-content: space-between;"><p>';
             printf(__('If you are an old user of the %s plugin, %s your shortcodes as we have restructured our shortcodes.', ATBDP_TEXTDOMAIN), ATBDP_NAME, $link);
             echo '</p><p><a href="?my-plugin-dismissed">Hide Forever</a></p></div>';
         }
@@ -38,7 +38,7 @@ class ATBDP_Upgrade{
      */
     public function add_upgrade_submenu()
     {
-        add_submenu_page('edit.php?post_type=at_biz_dir', __('Upgrade', ATBDP_TEXTDOMAIN), __('<span style="color: #ffc733;">Upgrade</span>', ATBDP_TEXTDOMAIN), 'manage_options', 'directorist-upgrade', array($this, 'display_upgrade_menu'));
+        add_submenu_page('edit.php?post_type=at_biz_dir', __('Upgrade', ATBDP_TEXTDOMAIN), __('<span>Upgrade</span>', ATBDP_TEXTDOMAIN), 'manage_options', 'directorist-upgrade', array($this, 'display_upgrade_menu'));
     }
 
     /**

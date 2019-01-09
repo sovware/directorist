@@ -25,30 +25,6 @@ $currency = get_directorist_option('g_currency', 'USD');
     ?>
 
     <div class="atbd_">
-        <div class="atbd_optional_field">
-            <label for="atbd_optional_field_check"><input id="atbd_optional_field_check"
-                                                          type="checkbox" <?php echo !empty($tagline) || !empty($excerpt) ? 'checked' : ''?>> Tagline/Motto of your
-                business or listing (optional)</label>
-            <div class="atbd_tagline_moto_field">
-                <div class="form-group">
-                    <label for="atbdp_excerpt"><?php esc_html_e('Tag-line/Motto', ATBDP_TEXTDOMAIN); ?></label>
-                    <input type="text" name="tagline"
-                           id="has_tagline"
-                           value="<?= !empty($tagline) ? esc_attr($tagline) : ''; ?>"
-                           class="form-control directory_field"
-                           placeholder="<?= __('Your Listing\'s motto or tag-line', ATBDP_TEXTDOMAIN); ?>"/>
-                </div>
-                <div class="form-group">
-                    <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN) ?></label>
-                    <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
-                    <input type="hidden" id="has_excerpt" value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
-                    <textarea name="excerpt" id="atbdp_excerpt"
-                              class="form-control directory_field" cols="30" rows="5"
-                              placeholder="<?= __('Short Description or Excerpt', ATBDP_TEXTDOMAIN); ?>"> <?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?> </textarea>
-                </div>
-            </div>
-        </div>
-
         <?php
         $price_range = !empty($price_range) ? $price_range : '';
 
@@ -315,6 +291,26 @@ $currency = get_directorist_option('g_currency', 'USD');
             <?php
         }
         ?>
+                <?php if (get_directorist_option('enable_tagline')){ ?>
+                <div class="form-group">
+                    <label for="atbdp_excerpt"><?php esc_html_e('Tagline', ATBDP_TEXTDOMAIN); ?></label>
+                    <input type="text" name="tagline"
+                           id="has_tagline"
+                           value="<?= !empty($tagline) ? esc_attr($tagline) : ''; ?>"
+                           class="form-control directory_field"
+                           placeholder="<?= __('Your Listing\'s motto or tag-line', ATBDP_TEXTDOMAIN); ?>"/>
+                </div>
+        <?php }?>
+        <?php if (get_directorist_option('enable_excerpt')){ ?>
+                <div class="form-group">
+                    <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN) ?></label>
+                    <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
+                    <input type="hidden" id="has_excerpt" value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
+                    <textarea name="excerpt" id="atbdp_excerpt"
+                              class="form-control directory_field" cols="30" rows="5"
+                              placeholder="<?= __('Short Description or Excerpt', ATBDP_TEXTDOMAIN); ?>"> <?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?> </textarea>
+                </div>
+        <?php }?>
     </div>
 
 

@@ -105,13 +105,13 @@ class ATBDP_Metabox {
         'normal', 'high' );
 
         add_meta_box( '_listing_gallery',
-        __( 'Upload Image for the listing', ATBDP_TEXTDOMAIN ),
+        __( 'Upload Preview & Slider Images for the Listing', ATBDP_TEXTDOMAIN ),
         array($this, 'listing_gallery'),
         ATBDP_POST_TYPE,
         'normal', 'high' );
 
         add_meta_box( '_listing_video_gallery',
-        __( 'Upload Video for the listing', ATBDP_TEXTDOMAIN ),
+        __( 'Add Video for the Listing', ATBDP_TEXTDOMAIN ),
         array($this, 'listing_video_gallery'),
         ATBDP_POST_TYPE,
         'normal', 'high' );
@@ -157,6 +157,7 @@ class ATBDP_Metabox {
         $listing_contact_info['social']                = get_post_meta($post->ID, '_social', true);
         $listing_contact_info['manual_lat']             = get_post_meta($post->ID, '_manual_lat', true);
         $listing_contact_info['manual_lng']            = get_post_meta($post->ID, '_manual_lng', true);
+        $listing_contact_info['hide_map']               = get_post_meta($post->ID, '_hide_map', true);
         $listing_contact_info['bdbh']                  = get_post_meta($post->ID, '_bdbh', true);
         $listing_contact_info['enable247hour']         = get_post_meta($post->ID, '_enable247hour', true);
         $listing_contact_info['listing_img']            = get_post_meta($post->ID, '_listing_img', true);
@@ -256,6 +257,7 @@ class ATBDP_Metabox {
         $metas['_bdbh']              = !empty($p['bdbh']) ? atbdp_sanitize_array($p['bdbh']) : array(); // we are expecting array value
         $metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
         $metas['_manual_lng']        = !empty($p['manual_lng'])? sanitize_text_field($p['manual_lng']) : '';
+        $metas['_hide_map']          = !empty($p['hide_map'])? sanitize_text_field($p['hide_map']) : '';
         $metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();
         $metas['_listing_prv_img']   = !empty($p['listing_prv_img'])? sanitize_text_field($p['listing_prv_img']) : '';
         $metas['_hide_contact_info'] = !empty($p['hide_contact_info'])? sanitize_text_field($p['hide_contact_info']) : 0;

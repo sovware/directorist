@@ -410,7 +410,7 @@ class ATBDP_Custom_Field
         remove_meta_box('cf_metabox', 'atbdp_fields', 'normal');
 
         add_meta_box('atbdp-field-details', __('Field Details', ATBDP_TEXTDOMAIN), array($this, 'atbdp_meta_box_field_details'), 'atbdp_fields', 'normal', 'high');
-        add_meta_box('atbdp-field-options', __('Screen Options', ATBDP_TEXTDOMAIN), array($this, 'atbdp_display_meta_box_field_options'), 'atbdp_fields', 'normal', 'high');
+        add_meta_box('atbdp-field-options', __('Display Options', ATBDP_TEXTDOMAIN), array($this, 'atbdp_display_meta_box_field_options'), 'atbdp_fields', 'normal', 'high');
 
     }
 
@@ -466,7 +466,7 @@ class ATBDP_Custom_Field
             </tr>-->
 
 
-                <label><?php _e('Assigned to', ATBDP_TEXTDOMAIN); ?></label>
+                <label><?php _e('Assign to', ATBDP_TEXTDOMAIN); ?></label>
 
                 <?php
                 $associate = isset($post_meta['associate']) ? esc_attr($post_meta['associate'][0]) : 'form'; ?>
@@ -476,8 +476,7 @@ class ATBDP_Custom_Field
                         <label>
                             <input id="custom_cat_tohide" type="radio" name="associate"
                                    value="form" <?php echo checked($associate, 'form', false); ?>>
-                            <?php _e('Form', ATBDP_TEXTDOMAIN); ?>
-                            <small class="atbdp-muted">( <?php _e('All Categories', ATBDP_TEXTDOMAIN); ?> )</small>
+                            <?php _e('Listing Form', ATBDP_TEXTDOMAIN); ?>
                         </label>
                     </li>
                     <script>
@@ -505,8 +504,7 @@ class ATBDP_Custom_Field
                         <label>
                             <input id="custom_cat" type="radio" name="associate"
                                    value="categories" <?php echo checked($associate, 'categories', false); ?>>
-                            <?php _e('Categories', ATBDP_TEXTDOMAIN); ?>
-                            <small class="atbdp-muted">( <?php _e('Selective', ATBDP_TEXTDOMAIN); ?> )</small>
+                            <?php _e('Specific Category', ATBDP_TEXTDOMAIN); ?>
                         </label>
                     </li>
                 </ul>
@@ -518,7 +516,7 @@ class ATBDP_Custom_Field
                         $current_val = isset($post_meta['category_pass']) ? esc_attr($post_meta['category_pass'][0]) : '';
                         $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
                         echo '<select name="category_pass" class="form-control">';
-                        echo '<option>' . __("Categories", ATBDP_TEXTDOMAIN) . '</option>';
+                        echo '<option>' . __("-Select a category-", ATBDP_TEXTDOMAIN) . '</option>';
                         foreach ($categories as $key => $cat_title) {
                             printf('<option value="%s" %s>%s</option>', $cat_title->term_id, selected($cat_title->term_id, $current_val), $cat_title->name);
                         }
@@ -606,7 +604,7 @@ class ATBDP_Custom_Field
 
                 <div class="field-instructions form-group">
                     <label><?php _e('Field Description', ATBDP_TEXTDOMAIN); ?></label>
-                    <p class="description"><?php _e('Instructions for authors. Shown when submitting data', ATBDP_TEXTDOMAIN); ?></p>
+                    <p class="description"><?php _e('Tooltip instructions for author', ATBDP_TEXTDOMAIN); ?></p>
                     <textarea class="textarea form-control" name="instructions"
                               rows="6"><?php if (isset($post_meta['instructions'])) echo esc_textarea($post_meta['instructions'][0]); ?></textarea>
                 </div>
@@ -631,13 +629,12 @@ class ATBDP_Custom_Field
 
                 <div class="field-options field-option-select field-option-checkbox field-option-radio"
                      style="display:none;">
-                    <label><?php _e('Multiple Options', ATBDP_TEXTDOMAIN); ?></label>
+                    <label><?php _e('Options', ATBDP_TEXTDOMAIN); ?></label>
                     <p class="description">
-                        <?php _e('For more options just make a new line: ', ATBDP_TEXTDOMAIN); ?><br/><br/>
-                        <?php _e('<strong> For Example</strong>', ATBDP_TEXTDOMAIN); ?><br/>
-                        <?php _e('male : Male', ATBDP_TEXTDOMAIN); ?><br/>
-                        <?php _e('female : Female', ATBDP_TEXTDOMAIN); ?><br/>
-                        <?php _e('other : Other', ATBDP_TEXTDOMAIN); ?>
+                        <?php _e('Each on a new line, for example,', ATBDP_TEXTDOMAIN); ?><br/>
+                        <?php _e('male: Male', ATBDP_TEXTDOMAIN); ?><br/>
+                        <?php _e('female: Female', ATBDP_TEXTDOMAIN); ?><br/>
+                        <?php _e('other: Other', ATBDP_TEXTDOMAIN); ?>
 
                     </p>
                     <textarea class="textarea form-control" name="choices"
@@ -646,7 +643,7 @@ class ATBDP_Custom_Field
 
                 <div class="field-options field-option-textarea" style="display:none;">
                     <label><?php _e('Rows', ATBDP_TEXTDOMAIN); ?></label>
-                    <p class="description"><?php _e('Sets the textarea height', ATBDP_TEXTDOMAIN); ?></p>
+                    <p class="description"><?php _e('Textarea height', ATBDP_TEXTDOMAIN); ?></p>
                     <div class="atbdp-input-wrap">
                         <input type="text" class="text form-control" name="rows" placeholder="8" value="<?php if (isset($post_meta['rows'])) echo esc_attr($post_meta['rows'][0]); ?>"/>
                     </div>

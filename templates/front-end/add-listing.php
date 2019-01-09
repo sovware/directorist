@@ -31,6 +31,7 @@ if (!empty($p_id)) {
     $listing_info['listing_prv_img'] = get_post_meta($p_id, '_listing_prv_img', true);
     $listing_info['hide_contact_info'] = get_post_meta($p_id, '_hide_contact_info', true);
     $listing_info['expiry_date'] = get_post_meta($p_id, '_expiry_date', true);
+    $listing_info['t_c_check'] = get_post_meta($p_id, '_t_c_check', true);
 
     extract($listing_info);
     //for editing page
@@ -92,7 +93,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                         <?php
                         $listing_type = !empty($listing_type) ? $listing_type : '';
                         ?>
-                        <h4>Choose listing type</h4>
+                        <h4>Choose listing type<span style="color: red"> *</span></h4>
                         <label for="featured"><input id="featured"
                                                      type="radio" <?php echo ($listing_type == 'featured') ? 'checked' : ''; ?>
                                                      name="listing_type" value="featured"> Featured listing</label>
@@ -155,33 +156,6 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                             'quicktags' => true,
                                             'editor_height' => 200
                                         )); ?>
-                                </div>
-
-                                <div class="atbd_optional_field">
-                                    <label for="atbd_optional_field_check"><input id="atbd_optional_field_check"
-                                                                                  type="checkbox" <?php
-                                        echo !empty($tagline) || !empty($excerpt) ? 'checked' : '' ?>> Tagline/Motto of
-                                        your
-                                        business or listing (optional)</label>
-                                    <div class="atbd_tagline_moto_field">
-                                        <div class="form-group">
-                                            <label for="atbdp_excerpt"><?php esc_html_e('Tag-line/Motto', ATBDP_TEXTDOMAIN); ?></label>
-                                            <input type="text" name="tagline"
-                                                   id="has_tagline"
-                                                   value="<?= !empty($tagline) ? esc_attr($tagline) : ''; ?>"
-                                                   class="form-control directory_field"
-                                                   placeholder="<?= __('Your Listing\'s motto or tag-line', ATBDP_TEXTDOMAIN); ?>"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN) ?></label>
-                                            <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
-                                            <input type="hidden" id="has_excerpt"
-                                                   value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
-                                            <textarea name="excerpt" id="atbdp_excerpt"
-                                                      class="form-control directory_field" cols="30" rows="5"
-                                                      placeholder="<?= __('Short Description or Excerpt', ATBDP_TEXTDOMAIN); ?>"> <?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?> </textarea>
-                                        </div>
-                                    </div>
                                 </div>
                                 <!--***********************************************************************
                                      Run the custom field loop to show all published custom fields asign to form
@@ -456,11 +430,32 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     ?>
                                     <input type="hidden" id="value_selected" value="<?php echo $term_id_selected ?>">
                                 </div>
+
                                 <div id="atbdp-custom-fields-list" data-post_id="<?php echo $p_id; ?>">
                                     <?php
                                     $selected_category = !empty($selected_category) ? $selected_category : '';
                                     do_action('wp_ajax_atbdp_custom_fields_listings', $p_id, $selected_category); ?>
                                 </div>
+                                <?php if (get_directorist_option('enable_tagline')){ ?>
+                                    <div class="form-group">
+                                        <label for="atbdp_excerpt"><?php esc_html_e('Tagline', ATBDP_TEXTDOMAIN); ?></label>
+                                        <input type="text" name="tagline"
+                                               id="has_tagline"
+                                               value="<?= !empty($tagline) ? esc_attr($tagline) : ''; ?>"
+                                               class="form-control directory_field"
+                                               placeholder="<?= __('Your Listing\'s motto or tag-line', ATBDP_TEXTDOMAIN); ?>"/>
+                                    </div>
+                                <?php }?>
+                                <?php if (get_directorist_option('enable_excerpt')){ ?>
+                                    <div class="form-group">
+                                        <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN) ?></label>
+                                        <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
+                                        <input type="hidden" id="has_excerpt" value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
+                                        <textarea name="excerpt" id="atbdp_excerpt"
+                                                  class="form-control directory_field" cols="30" rows="5"
+                                                  placeholder="<?= __('Short Description or Excerpt', ATBDP_TEXTDOMAIN); ?>"> <?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?> </textarea>
+                                    </div>
+                                <?php }?>
                             </div>
 
 
@@ -477,7 +472,6 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                             ?>
 
                         </div><!-- end .atbd_custom_fields_contents -->
-
                         <?php if (!$disable_contact_info) { ?>
                             <div class="atbd_content_module atbd_contact_information">
                                 <div class="atbd_content_module__tittle_area">
@@ -671,7 +665,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                             <div class="atbd_content_module">
                                 <div class="atbd_content_module__tittle_area">
                                     <div class="atbd_area_title">
-                                        <h4><?php esc_html_e('Imges & Video', ATBDP_TEXTDOMAIN) ?></h4>
+                                        <h4><?php esc_html_e('Iamges & Video', ATBDP_TEXTDOMAIN) ?></h4>
                                     </div>
                                 </div>
 
@@ -701,7 +695,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     printf('<span style="color: red"> *</span>');
                                 }
                                 ?>
-                                <input id="listing_t" type="checkbox" name="t_c_check">
+                                <input id="listing_t" type="checkbox"  name="t_c_check" <?php if(!empty($t_c_check))if('on' == $t_c_check){echo 'checked';} ?>>
                                 <label for="listing_t"><?php echo __('I Agree with all ', ATBDP_TEXTDOMAIN); ?><a
                                             style="color: red" href="" id="listing_t_c"
                                     "><?php echo __('terms & conditions', ATBDP_TEXTDOMAIN); ?></a></label>

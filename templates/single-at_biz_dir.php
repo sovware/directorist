@@ -16,6 +16,7 @@ $listing_info['website']            = get_post_meta($post->ID, '_website', true)
 $listing_info['social']             = get_post_meta($post->ID, '_social', true);
 $listing_info['manual_lat']         = get_post_meta($post->ID, '_manual_lat', true);
 $listing_info['manual_lng']         = get_post_meta($post->ID, '_manual_lng', true);
+$listing_info['hide_map']           = get_post_meta($post->ID, '_hide_map', true);
 $listing_info['listing_img']        = get_post_meta($post->ID, '_listing_img', true);
 $listing_info['listing_prv_img']    = get_post_meta($post->ID, '_listing_prv_img', true);
 $listing_info['hide_contact_info']  = get_post_meta($post->ID, '_hide_contact_info', true);
@@ -448,7 +449,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
             <?php /* @todo: Shahadat -> added new contents */ ?>
             <!--Google map section-->
             <?php /*@todo; add a settings to toggle the display of map for individual listing or all listings.*/
-            if (!$disable_map && (!empty($manual_lat) && !empty($manual_lng))) { ?>
+            if (!$disable_map && (empty($hide_map))) {?>
                 <div class="atbd_content_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">

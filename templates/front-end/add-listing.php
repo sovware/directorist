@@ -25,6 +25,7 @@ if (!empty($p_id)) {
     $listing_info['social'] = get_post_meta($p_id, '_social', true);
     $listing_info['manual_lat'] = get_post_meta($p_id, '_manual_lat', true);
     $listing_info['manual_lng'] = get_post_meta($p_id, '_manual_lng', true);
+    $listing_info['hide_map'] = get_post_meta($p_id, '_hide_map', true);
     $listing_info['bdbh'] = get_post_meta($p_id, '_bdbh', true);
     $listing_info['enable247hour'] = get_post_meta($p_id, '_enable247hour', true);
     $listing_info['listing_img'] = get_post_meta($p_id, '_listing_img', true);
@@ -157,6 +158,77 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                             'editor_height' => 200
                                         )); ?>
                                 </div>
+                                <?php if (get_directorist_option('enable_tagline')){ ?>
+                                    <div class="form-group">
+                                        <label for="atbdp_excerpt"><?php esc_html_e('Tagline', ATBDP_TEXTDOMAIN); ?></label>
+                                        <input type="text" name="tagline"
+                                               id="has_tagline"
+                                               value="<?= !empty($tagline) ? esc_attr($tagline) : ''; ?>"
+                                               class="form-control directory_field"
+                                               placeholder="<?= __('Your Listing\'s motto or tag-line', ATBDP_TEXTDOMAIN); ?>"/>
+                                    </div>
+                                <?php }?>
+                                <?php
+                                $price_range = !empty($price_range) ? $price_range : '';
+                                if (!$disable_price) { ?>
+                                    <div class="form-group">
+                                        <label for="#">Pricing</label>
+                                        <div class="atbd_pricing_options">
+                                            <label for="price_selected" data-option="price">
+                                                <input type="checkbox" id="price_selected" name="atbd_listing_pricing"
+                                                       checked>
+                                                <?php
+                                                $currency = get_directorist_option('g_currency', 'USD');
+                                                /*Translator: % is the name of the currency such eg. USD etc.*/
+                                                printf(esc_html__('Price [%s]', ATBDP_TEXTDOMAIN), $currency); ?>
+                                            </label>
+                                            <span>Or</span>
+                                            <label for="price_range_selected" data-option="price_range">
+                                                <input type="checkbox" id="price_range_selected"
+                                                       name="atbd_listing_pricing">
+                                                <?php echo __('Price Range', ATBDP_TEXTDOMAIN); ?>
+                                                <!--<p id='price_range_option'><?php /*echo __('Price Range', ATBDP_TEXTDOMAIN); */ ?></p></label>-->
+                                            </label>
+
+                                            <small>(Optional --- Uncheck both to hide pricing for this listing)</small>
+                                        </div>
+
+                                        <input type="hidden" id="price_range_val"
+                                               value="<?php echo $price_range; ?>">
+
+                                        <input type="text" id="price" name="price"
+                                               value="<?= !empty($price) ? esc_attr($price) : ''; ?>"
+                                               class="form-control directory_field"
+                                               placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
+
+                                        <select class="form-control directory_field" id="price_range"
+                                                name="price_range">
+                                            <option value="">Select Price Range</option>
+                                            <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
+                                                Ultra High ($$$$)
+                                            </option>
+                                            <option value="moderate" <?php selected($price_range, 'moderate'); ?>>
+                                                Expensive ($$$)
+                                            </option>
+                                            <option value="economy" <?php selected($price_range, 'economy'); ?>>
+                                                Moderate ($$)
+                                            </option>
+                                            <option value="bellow_economy" <?php selected($price_range, 'economy'); ?>>
+                                                Cheap ($)
+                                            </option>
+                                        </select>
+                                    </div>
+                                <?php } ?>
+                                <?php if (get_directorist_option('enable_excerpt')){ ?>
+                                    <div class="form-group">
+                                        <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN) ?></label>
+                                        <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
+                                        <input type="hidden" id="has_excerpt" value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
+                                        <textarea name="excerpt" id="atbdp_excerpt"
+                                                  class="form-control directory_field" cols="30" rows="5"
+                                                  placeholder="<?= __('Short Description or Excerpt', ATBDP_TEXTDOMAIN); ?>"> <?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?> </textarea>
+                                    </div>
+                                <?php }?>
                                 <!--***********************************************************************
                                      Run the custom field loop to show all published custom fields asign to form
                                      **************************************************************************-->
@@ -348,59 +420,6 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         <?php } ?>
                                     </select>
                                 </div>
-
-                                <?php
-                                $price_range = !empty($price_range) ? $price_range : '';
-                                if (!$disable_price) { ?>
-                                    <div class="form-group">
-                                        <label for="#">Pricing</label>
-                                        <div class="atbd_pricing_options">
-                                            <label for="price_selected" data-option="price">
-                                                <input type="checkbox" id="price_selected" name="atbd_listing_pricing"
-                                                       checked>
-                                                <?php
-                                                $currency = get_directorist_option('g_currency', 'USD');
-                                                /*Translator: % is the name of the currency such eg. USD etc.*/
-                                                printf(esc_html__('Price [%s]', ATBDP_TEXTDOMAIN), $currency); ?>
-                                            </label>
-                                            <span>Or</span>
-                                            <label for="price_range_selected" data-option="price_range">
-                                                <input type="checkbox" id="price_range_selected"
-                                                       name="atbd_listing_pricing">
-                                                <?php echo __('Price Range', ATBDP_TEXTDOMAIN); ?>
-                                                <!--<p id='price_range_option'><?php /*echo __('Price Range', ATBDP_TEXTDOMAIN); */ ?></p></label>-->
-                                            </label>
-
-                                            <small>(Optional --- Uncheck both to hide pricing for this listing)</small>
-                                        </div>
-
-                                        <input type="hidden" id="price_range_val"
-                                               value="<?php echo $price_range; ?>">
-
-                                        <input type="text" id="price" name="price"
-                                               value="<?= !empty($price) ? esc_attr($price) : ''; ?>"
-                                               class="form-control directory_field"
-                                               placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
-
-                                        <select class="form-control directory_field" id="price_range"
-                                                name="price_range">
-                                            <option value="">Select Price Range</option>
-                                            <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
-                                                Ultra High ($$$$)
-                                            </option>
-                                            <option value="moderate" <?php selected($price_range, 'moderate'); ?>>
-                                                Expensive ($$$)
-                                            </option>
-                                            <option value="economy" <?php selected($price_range, 'economy'); ?>>
-                                                Moderate ($$)
-                                            </option>
-                                            <option value="bellow_economy" <?php selected($price_range, 'economy'); ?>>
-                                                Cheap ($)
-                                            </option>
-                                        </select>
-                                    </div>
-                                <?php } ?>
-
                                 <!--***********************************************************************
                                     Run the custom field loop to show all published custom fields asign to Category
                                  **************************************************************************-->
@@ -436,26 +455,6 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     $selected_category = !empty($selected_category) ? $selected_category : '';
                                     do_action('wp_ajax_atbdp_custom_fields_listings', $p_id, $selected_category); ?>
                                 </div>
-                                <?php if (get_directorist_option('enable_tagline')){ ?>
-                                    <div class="form-group">
-                                        <label for="atbdp_excerpt"><?php esc_html_e('Tagline', ATBDP_TEXTDOMAIN); ?></label>
-                                        <input type="text" name="tagline"
-                                               id="has_tagline"
-                                               value="<?= !empty($tagline) ? esc_attr($tagline) : ''; ?>"
-                                               class="form-control directory_field"
-                                               placeholder="<?= __('Your Listing\'s motto or tag-line', ATBDP_TEXTDOMAIN); ?>"/>
-                                    </div>
-                                <?php }?>
-                                <?php if (get_directorist_option('enable_excerpt')){ ?>
-                                    <div class="form-group">
-                                        <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN) ?></label>
-                                        <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
-                                        <input type="hidden" id="has_excerpt" value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
-                                        <textarea name="excerpt" id="atbdp_excerpt"
-                                                  class="form-control directory_field" cols="30" rows="5"
-                                                  placeholder="<?= __('Short Description or Excerpt', ATBDP_TEXTDOMAIN); ?>"> <?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?> </textarea>
-                                    </div>
-                                <?php }?>
                             </div>
 
 
@@ -581,7 +580,8 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                             do_action('atbdp_edit_after_business_hour_fields', 'add_listing_page_frontend', $listing_info);
                             ?>
 
-
+                            <?php if (!$disable_map) { ?>
+                                <!--Show map only if it is not disabled in the settings-->
                             <div class="atbd_content_module atbd_location_map_setting">
                                 <div class="atbd_content_module__tittle_area">
                                     <div class="atbd_area_title">
@@ -590,49 +590,9 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 </div>
 
                                 <div class="atbdb_content_module_contents">
-                                    <div class="cor-wrap form-group">
-                                        <?php $map_guide = sprintf("<span class='color:#c71585;'>%s</span>", __('SET 0 to LAT & LONG Field to HIDE MAP FOR THIS LISTING', ATBDP_TEXTDOMAIN)); ?>
-                                        <label for="manual_coordinate"><input type="checkbox" name="manual_coordinate"
-                                                                              value="1"
-                                                                              id="manual_coordinate" <?= (!empty($manual_coordinate)) ? 'checked' : ''; ?> > <?php
-                                            printf(__('Enter Coordinates ( latitude and longitude) Manually ? or set the marker on the map anywhere by clicking on the map. %s', ATBDP_TEXTDOMAIN), $map_guide)
-                                            ?>
-                                        </label>
-                                    </div>
+                                    <label><?php _e('Set the Marker by clicking anywhere on the Map', ATBDP_TEXTDOMAIN); ?></label>
 
-                                    <?php if (!$disable_map) { ?>
-                                        <!--Show map only if it is not disabled in the settings-->
-                                        <div class="row">
-                                            <div id="hide_if_no_manual_cor" class="clearfix">
-                                                <div class="col-md-6 col-sm-12">
-                                                    <div class="form-group">
-                                                        <label for="manual_lat"> <?php _e('Latitude', ATBDP_TEXTDOMAIN); ?>  </label>
-                                                        <input type="text" name="manual_lat" id="manual_lat"
-                                                               value="<?= !empty($manual_lat) ? esc_attr($manual_lat) : ''; ?>"
-                                                               class="form-control directory_field"
-                                                               placeholder="<?php esc_attr_e('Enter Latitude eg. 24.89904', ATBDP_TEXTDOMAIN); ?>"/>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6 col-sm-12">
-                                                    <div class="form-group">
-                                                        <label for="manual_lng"> <?php _e('Longitude', ATBDP_TEXTDOMAIN); ?> </label>
-                                                        <input type="text" name="manual_lng" id="manual_lng"
-                                                               value="<?= !empty($manual_lng) ? esc_attr($manual_lng) : ''; ?>"
-                                                               class="form-control directory_field"
-                                                               placeholder="<?php esc_attr_e('Enter Longitude eg. 91.87198', ATBDP_TEXTDOMAIN); ?>"/>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-3 col-sm-12">
-                                                    <div class="form-group lat_btn_wrap">
-                                                        <button class="btn btn-primary"
-                                                                id="generate_admin_map"><?php _e('Generate on Map', ATBDP_TEXTDOMAIN); ?></button>
-                                                    </div>
-                                                </div> <!-- ends #hide_if_no_manual_cor-->
-                                            </div> <!--ends .row -->
-                                        </div> <!--ends .row-->
-                                               <!--Google map will be generated here using js-->
+                                    <!--Google map will be generated here using js-->
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="map_wrapper">
@@ -645,10 +605,60 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                 </div>
                                             </div> <!--ends .col-md-12-->
                                         </div><!--ends .row-->
+                                    <div class="cor-wrap form-group">
+                                        <?php $map_guide = sprintf("<span class='color:#c71585;'>%s</span>", __('SET 0 to LAT & LONG Field to HIDE MAP FOR THIS LISTING', ATBDP_TEXTDOMAIN)); ?>
+                                        <label for="manual_coordinate"><input type="checkbox" name="manual_coordinate"
+                                                                              value="1"
+                                                                              id="manual_coordinate" <?= (!empty($manual_coordinate)) ? 'checked' : ''; ?> > <?php
+                                            printf(__('Or Enter Coordinates (latitude and longitude) Manually.', ATBDP_TEXTDOMAIN), $map_guide)
+                                            ?>
+                                        </label>
+                                    </div>
 
-                                    <?php } ?>
+
+                                    <div class="row">
+                                        <div id="hide_if_no_manual_cor" class="clearfix">
+                                            <div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="manual_lat"> <?php _e('Latitude', ATBDP_TEXTDOMAIN); ?>  </label>
+                                                    <input type="text" name="manual_lat" id="manual_lat"
+                                                           value="<?= !empty($manual_lat) ? esc_attr($manual_lat) : ''; ?>"
+                                                           class="form-control directory_field"
+                                                           placeholder="<?php esc_attr_e('Enter Latitude eg. 24.89904', ATBDP_TEXTDOMAIN); ?>"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="manual_lng"> <?php _e('Longitude', ATBDP_TEXTDOMAIN); ?> </label>
+                                                    <input type="text" name="manual_lng" id="manual_lng"
+                                                           value="<?= !empty($manual_lng) ? esc_attr($manual_lng) : ''; ?>"
+                                                           class="form-control directory_field"
+                                                           placeholder="<?php esc_attr_e('Enter Longitude eg. 91.87198', ATBDP_TEXTDOMAIN); ?>"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3 col-sm-12">
+                                                <div class="form-group lat_btn_wrap">
+                                                    <button class="btn btn-primary"
+                                                            id="generate_admin_map"><?php _e('Generate on Map', ATBDP_TEXTDOMAIN); ?></button>
+                                                </div>
+                                            </div> <!-- ends #hide_if_no_manual_cor-->
+
+                                        </div> <!--ends .row -->
+                                        <div class="col-md-3 col-sm-12">
+                                            <div class="form-group">
+                                                <input type="checkbox" name="hide_map" value="1"
+                                                       id="hide_map" <?= (!empty($hide_map)) ? 'checked' : ''; ?> >
+                                                <label for="hide_map"> <?php _e('Hide map for this listing.', ATBDP_TEXTDOMAIN); ?> </label>
+                                            </div>
+                                        </div>
+                                    </div> <!--ends .row-->
                                 </div>
                             </div> <!--./end atbd_location_map_setting-->
+                            <?php } ?>
                         <?php } ?>
 
                         <div class="directorist-contact-fields atbdp_info_module">

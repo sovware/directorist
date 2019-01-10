@@ -103,6 +103,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $metas['_enable247hour']      = !empty($p['enable247hour'])? sanitize_text_field($p['enable247hour']) : '';
                     $metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
                     $metas['_manual_lng']        = !empty($p['manual_lng'])? sanitize_text_field($p['manual_lng']) : '';
+                    $metas['_hide_map']          = !empty($p['hide_map'])? sanitize_text_field($p['hide_map']) : '';
                     $metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();
                     $metas['_listing_prv_img']   = !empty($p['listing_prv_img'])? sanitize_text_field($p['listing_prv_img']) :'';
                     $metas['_hide_contact_info'] = !empty($p['hide_contact_info'])? sanitize_text_field($p['hide_contact_info']) : 0;

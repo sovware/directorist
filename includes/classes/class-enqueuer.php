@@ -137,7 +137,7 @@ class ATBDP_Enqueuer {
                 'confirm_delete' => __('Yes, Delete it!', ATBDP_TEXTDOMAIN),
                 'deleted' => __('Deleted!', ATBDP_TEXTDOMAIN),
                 'icon_choose_text' => __('Select an icon', ATBDP_TEXTDOMAIN),
-                'upload_image' => __('Select or Upload Listing Image', ATBDP_TEXTDOMAIN),
+                'upload_image' => __('Select or Upload Slider Image', ATBDP_TEXTDOMAIN),
                 'choose_image' => __('Use this Image', ATBDP_TEXTDOMAIN),
             );
             // is MI extension enabled and active?
@@ -292,7 +292,7 @@ class ATBDP_Enqueuer {
             'location_selection' => __('Select a location', ATBDP_TEXTDOMAIN),
             'category_selection' => __('Select a category', ATBDP_TEXTDOMAIN),
             'tag_selection' => __('Select or insert new tags separated by a comma, or space', ATBDP_TEXTDOMAIN),
-            'upload_image' => __('Select or Upload Listing Image', ATBDP_TEXTDOMAIN),
+            'upload_image' => __('Select or Upload Slider Image', ATBDP_TEXTDOMAIN),
             'choose_image' => __('Use this Image', ATBDP_TEXTDOMAIN),
         );
 

@@ -111,7 +111,7 @@ $info_content .= "<p> {$ad}</p></div>";
 
 
     <!--Google map will be generated here using js-->
-        <p><?php _e('You can drag pinpoint to place the correct address manually.', ATBDP_TEXTDOMAIN); ?></p>
+        <label><?php _e('You can drag pinpoint to place the correct address manually.', ATBDP_TEXTDOMAIN); ?></label>
     <div class="map_wrapper">
         <div id="floating-panel">
             <button class="btn btn-danger"
@@ -123,14 +123,13 @@ $info_content .= "<p> {$ad}</p></div>";
         <div class="form-group">
             <div class="cor-wrap map_cor">
                 <input type="checkbox" name="manual_coordinate" value="1"
-                       id="manual_coordinate" <?= (!empty($manual_coordinate) || !empty($hide_map)) ? 'checked' : ''; ?> >
-                <label for="manual_coordinate"> <?php _e('Advance Options', ATBDP_TEXTDOMAIN); ?> </label>
+                       id="manual_coordinate" <?= (!empty($manual_coordinate)) ? 'checked' : ''; ?> >
+                <label for="manual_coordinate"> <?php _e('Or Enter Coordinates (latitude and longitude) Manually.', ATBDP_TEXTDOMAIN); ?> </label>
             </div>
         </div>
 
         <div id="hide_if_no_manual_cor">
             <div class="form-group">
-                <p><?php _e('Or Enter Coordinates ( latitude and longitude) Manually.',ATBDP_TEXTDOMAIN)?></p>
                 <div class="row">
                     <div class="col-md-5 col-sm-12 v_middle">
                         <div class="form-group">
@@ -157,13 +156,12 @@ $info_content .= "<p> {$ad}</p></div>";
                             id="generate_admin_map"><?php _e('Generate on Map', ATBDP_TEXTDOMAIN); ?></button>
                 </div>
             </div>
-            <div class="form-group">
-                <input type="checkbox" name="hide_map" value="1"
-                       id="hide_map" <?= (!empty($hide_map)) ? 'checked' : ''; ?> >
-                <label for="hide_map"> <?php _e('Hide map for this listing.', ATBDP_TEXTDOMAIN); ?> </label>
-            </div>
-
         </div> <!--ends #hide_if_no_manual_cor -->
+        <div class="form-group">
+            <input type="checkbox" name="hide_map" value="1"
+                   id="hide_map" <?= (!empty($hide_map)) ? 'checked' : ''; ?> >
+            <label for="hide_map"> <?php _e('Hide map for this listing.', ATBDP_TEXTDOMAIN); ?> </label>
+        </div>
 
 
 

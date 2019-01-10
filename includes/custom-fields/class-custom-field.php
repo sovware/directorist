@@ -246,6 +246,7 @@ class ATBDP_Custom_Field
     {
         $current_val = esc_attr(get_post_meta($post_id, 'category_pass', true));
         $all_term = get_term_by('term_id', $current_val, ATBDP_CATEGORY);
+        $selected_cat = !empty($all_term)?$all_term->name:'';
         echo '</select>';
         switch ($column) {
             case 'type' :
@@ -257,7 +258,7 @@ class ATBDP_Custom_Field
             case 'asign' :
 
                 $value = esc_attr(get_post_meta($post_id, 'associate', true));
-                echo ('form' == $value) ? __('Form', ATBDP_TEXTDOMAIN) : $all_term->name . __(' Category', ATBDP_TEXTDOMAIN);
+                echo ('form' == $value) ? __('Form', ATBDP_TEXTDOMAIN) : $selected_cat . __(' Category', ATBDP_TEXTDOMAIN);
 
                 break;
             case 'require' :

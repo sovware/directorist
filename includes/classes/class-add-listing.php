@@ -103,7 +103,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $metas['_enable247hour']      = !empty($p['enable247hour'])? sanitize_text_field($p['enable247hour']) : '';
                     $metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
                     $metas['_manual_lng']        = !empty($p['manual_lng'])? sanitize_text_field($p['manual_lng']) : '';
-                    $metas['_hide_map']          = !empty($p['hide_map'])? sanitize_text_field($p['hide_map']) : '';
+                    $metas['_hide_map']             = !empty($p['hide_map'])? sanitize_text_field($p['hide_map']) : '';
+                    $metas['_hide_map']             = !empty($p['hide_map'])? sanitize_text_field($p['hide_map']) : '';
                     $metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();
                     $metas['_listing_prv_img']   = !empty($p['listing_prv_img'])? sanitize_text_field($p['listing_prv_img']) :'';
                     $metas['_hide_contact_info'] = !empty($p['hide_contact_info'])? sanitize_text_field($p['hide_contact_info']) : 0;
@@ -312,7 +313,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 update_post_meta( $post_id, '_listing_status', 'post_status' );
                                 update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
                                 $term_by_id =  get_term_by('term_id', $admin_category_select, ATBDP_CATEGORY);
-                                wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
+                                $term_by_id = !empty($term_by_id)?$term_by_id->name:'';
+                                wp_set_object_terms($post_id, $term_by_id, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
                                 /*
                                   * It fires before processing a listing from the front end
                                   * @param array $_POST the array containing the submitted fee data.
@@ -367,7 +369,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                         }
 
                     }
-
+var_dump($remaining_days);
+                    die();
                     if (!empty($post_id)){
                         // Redirect to avoid duplicate form submissions
                         // if monetization on, redirect to checkout page

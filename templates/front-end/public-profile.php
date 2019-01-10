@@ -326,8 +326,6 @@ $pagenation = get_directorist_option('paginate_author_listings',1);
                                             </div>
                                         </figcaption>
                                     </figure>
-
-                                    <?php /*todo: Shahadat -> please implement the current markup*/?>
                                     <div class="atbd_listing_info">
                                         <div class="atbd_content_upper">
                                             <h4 class="atbd_listing_title">
@@ -367,7 +365,6 @@ $pagenation = get_directorist_option('paginate_author_listings',1);
                                                 ?>
                                             </div><!-- End atbd listing meta -->
                                             <?php } ?>
-                                            <?php /* @todo: Shahadat -> please implement this */?>
                                             <?php if(!empty($display_contact_info) || !empty($display_publish_date)) {?>
                                                 <div class="atbd_listing_data_list">
                                                     <ul>

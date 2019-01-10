@@ -155,8 +155,6 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                         }
                                         ?>
                                         <figcaption class="atbd_thumbnail_overlay_content">
-                                            <?php /*todo: Shahadat -> It needs dynamization */ ?>
-
                                             <div class="atbd_lower_badge">
                                                 <?php
                                                 //print the new badge
@@ -181,8 +179,6 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                             </div>
                                         </figcaption>
                                     </figure>
-
-                                    <?php /*todo: Shahadat -> please implement the current markup*/ ?>
                                     <div class="atbd_listing_info">
                                         <div class="atbd_content_upper">
                                             <?php if(!empty($display_title)) {?>
@@ -193,7 +189,6 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                             <?php if (!empty($tagline)) { ?>
                                                 <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                             <?php } ?>
-                                            <?php /* todo: Shahadat -> new markup implemented */ ?>
                                             <?php if(!empty($display_review) || !empty($display_price) || class_exists('BD_Business_Hour')) { ?>
                                             <div class="atbd_listing_meta">
                                                 <?php
@@ -221,7 +216,6 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                                 do_action('atbdp_after_listing_price');
                                                 ?>
 
-                                                <?php /*@todo: Shahadat -> open close moved from thumbnail area to content area*/ ?>
                                                 <?php if (class_exists('BD_Business_Hour')) {
                                                     //lets check is it 24/7
                                                     if (!empty($enable247hour)) {
@@ -235,7 +229,7 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                                 } ?>
                                             </div><!-- End atbd listing meta -->
 
-                                            <?php }/* @todo: Shahadat -> please implement this */ ?>
+                                            <?php } ?>
                                             <?php if(!empty($display_contact_info) || !empty($display_publish_date)) {?>
                                                 <div class="atbd_listing_data_list">
                                                     <ul>

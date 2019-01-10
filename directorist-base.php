@@ -761,7 +761,6 @@ final class Directorist_Base
                                         </figcaption>
                                     </figure>
 
-                                    <?php /*todo: Shahadat -> please implement the current markup*/ ?>
                                     <div class="atbd_listing_info">
                                         <div class="atbd_content_upper">
                                             <?php if(!empty($display_title)) {?>
@@ -771,7 +770,6 @@ final class Directorist_Base
                                             <?php } if (!empty($tagline)) { ?>
                                                 <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                             <?php } ?>
-                                            <?php /* todo: Shahadat -> new markup implemented */ ?>
                                             <?php if(!empty($display_review) && !empty($display_price)) {?>
                                             <div class="atbd_listing_meta">
                                                 <?php
@@ -804,7 +802,7 @@ final class Directorist_Base
                                                 ?>
                                             </div><!-- End atbd listing meta -->
 
-                                            <?php }/* @todo: Shahadat -> please implement this */ ?>
+                                            <?php } ?>
                                             <?php if(!empty($display_contact_info) || !empty($display_publish_date)) {?>
                                                 <div class="atbd_listing_data_list">
                                                     <ul>
@@ -828,7 +826,6 @@ final class Directorist_Base
                                                 <?php
                                             }
                                             //show category and location info
-                                            /* @todo: Shahadat -> Please fetch location, phone number and listing addition info here */
                                             /*ATBDP()->helper->output_listings_taxonomy_info($top_category, $deepest_location);*/ ?>
                                             <?php if (!empty($excerpt)) { ?>
                                                 <p><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
@@ -1000,8 +997,6 @@ final class Directorist_Base
         <span class="atbd_meta atbd_listing_rating">
             <?php echo $average; ?><i class="fa fa-star"></i>
         </span>
-        <?php /*todo: Shahadat -> I have deleted a chunk of code from here as it was unnecessary from the perspective of UI*/
-        ?>
         <?php
     }
 
@@ -1138,7 +1133,6 @@ final class Directorist_Base
                                           placeholder="<?= !empty($cur_user_review) ? __('Update your review.....', ATBDP_TEXTDOMAIN) : __('Write your review.....', ATBDP_TEXTDOMAIN); ?>"><?= !empty($cur_user_review) ? $cur_user_review->content : ''; ?></textarea>
                             </div>
 
-                            <?php /* @todo  Shahadat -> Added new upload button */ ?>
                             <!-- <div class="form-group">
                                  <div id="atbd_up_preview"></div>
                                  <div class="atbd_upload_btn_wrap">

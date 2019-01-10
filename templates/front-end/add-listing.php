@@ -74,7 +74,6 @@ $disable_contact_info = get_directorist_option('disable_contact_info');
 // get the custom terms and conditions
 $listing_terms_condition_text = get_directorist_option('listing_terms_condition_text');
 
-/* @todo: Shahadat -> this page heavily modified, please test it better */
 ?>
 
 <div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">

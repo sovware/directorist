@@ -109,7 +109,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
             }
             ?>
             <div class="atbd_content_module atbd_listing_details">
-                <?php /* @todo: Shahadat -> New markup implementation */ ?>
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">
                         <h4><span class="fa fa-file-text atbd_area_icon"></span><?php _e('Listing Details', ATBDP_TEXTDOMAIN)?></h4>
@@ -155,7 +154,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                             <?php } ?>
                         </div>
 
-                        <?php /* @todo: Shahadat -> moved report abuse from bottom */ ?>
                         <!-- Report Abuse-->
                         <?php
                         if ($enable_report_abuse) { ?>
@@ -262,7 +260,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                         <?php
                     } ?>
                     <div class="atbd_listing_detail">
-                        <?php /* @todo: Shahadat -> */ ?>
                         <div class="atbd_data_info">
                             <div class="atbd_listing_meta">
                                 <?php
@@ -446,7 +443,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php } ?>
 
-            <?php /* @todo: Shahadat -> added new contents */ ?>
             <!--Google map section-->
             <?php /*@todo; add a settings to toggle the display of map for individual listing or all listings.*/
             if (!$disable_map && (empty($hide_map))) {?>

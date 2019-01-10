@@ -33,9 +33,6 @@ $symbol = atbdp_currency_symbol($currency);
                 <?php
                 // $args is auto available available through the load_template().
                 foreach ($form_data as $op) {
-                    /*Display header type item in a bold style
-                    * @todo Shahadat ->  this header checking is obsolete now please refactor it
-                    */
                     if ('header' == $op['type']) { ?>
 
                     <?php } else { /*Display other type of item here*/ ?>

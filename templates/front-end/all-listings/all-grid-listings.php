@@ -207,9 +207,6 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                             </div>
                                         </figcaption>
                                     </figure>
-
-                                    <?php
-                                    /*todo: Shahadat -> please implement the current markup*/?>
                                     <div class="atbd_listing_info">
                                         <div class="atbd_content_upper">
                                             <?php if(!empty($display_title)) {?>
@@ -249,7 +246,7 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                                 ?>
                                             </div><!-- End atbd listing meta -->
 
-                                            <?php } /* @todo: Shahadat -> please implement this */?>
+                                            <?php } ?>
                                             <?php if(!empty($display_contact_info) || !empty($display_publish_date)) {?>
                                             <div class="atbd_listing_data_list">
                                                 <ul>

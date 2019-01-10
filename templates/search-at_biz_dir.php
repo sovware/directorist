@@ -181,7 +181,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             </figcaption>
                                         </figure>
 
-                                        <?php /*todo: Shahadat -> please implement the current markup*/?>
                                         <div class="atbd_listing_info">
                                             <div class="atbd_content_upper">
                                                 <?php if(!empty($display_title)) {?>
@@ -190,7 +189,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 </h4>
                                                 <?php } if(!empty($tagline)) {?>
                                                 <p class="atbd_listing_tagline"><?= esc_html(stripslashes($tagline)); ?></p>
-                                                <?php } /* todo: Shahadat -> new markup implemented */?>
+                                                <?php } ?>
                                                  <?php if(!empty($display_review) && !empty($display_price)) {?>
                                                 <div class="atbd_listing_meta">
                                                     <?php
@@ -222,7 +221,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     ?>
                                                 </div><!-- End atbd listing meta -->
 
-                                                <?php } /* @todo: Shahadat -> please implement this */?>
+                                                <?php } ?>
                                                 <?php if(!$disable_contact_info && !empty($display_publish_date)) {?>
                                                     <div class="atbd_listing_data_list">
                                                         <ul>

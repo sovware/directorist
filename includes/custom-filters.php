@@ -8,7 +8,6 @@
  * @return string it returns the names of the classed that should be added to a button.
  */
 
-/* @todo: Shahadat -> Updated default button value and updatd btn class */
 function atbdp_directorist_button_classes($type='primary'){
      /**
       * It lets you modify button classes used by the directorist plugin. You can add your custom class or modify existing ones.

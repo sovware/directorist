@@ -132,7 +132,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     </figcaption>
                                                 </figure>
 
-                                                <?php /*todo: Shahadat -> please implement the current markup*/ ?>
                                                 <div class="atbd_listing_info">
                                                     <div class="atbd_content_upper">
                                                         <div class="atbd_dashboard_tittle_metas">
@@ -142,7 +141,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                                 </a>
                                                             </h4>
 
-                                                            <?php /* todo: Shahadat -> new markup implemented */ ?>
                                                             <div class="atbd_listing_meta">
                                                                 <?php
                                                                 /**
@@ -153,7 +151,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                                  */
 
                                                                 do_action('atbdp_after_listing_tagline');
-                                                                /*@todo: Shahadat -> added new markup, Average pricing */ ?>
+                                                               ?>
                                                             </div><!-- End atbd listing meta -->
                                                         </div>
 

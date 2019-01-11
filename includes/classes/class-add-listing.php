@@ -176,8 +176,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                         }
                     }
 
-
-                    
                     // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
                     if (!empty($_POST['listing_id'])){
                         $edit_l_status = get_directorist_option('edit_listing_status');
@@ -369,13 +367,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                         }
 
                     }
-var_dump($remaining_days);
-                    die();
                     if (!empty($post_id)){
                         // Redirect to avoid duplicate form submissions
                         // if monetization on, redirect to checkout page
 // vail if monetization is not active.
-                        if (class_exists('ATBDP_Fee_Manager') && $remaining_days < 1){
+                        if ((class_exists('ATBDP_Fee_Manager')) && ($remaining_days < 1)){
                             wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
                             exit;
                         }else{

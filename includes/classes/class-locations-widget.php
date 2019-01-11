@@ -107,7 +107,7 @@ if (!class_exists('BD_Locations_Widget')) {
         public function form($instance)
         {
             $values = array(
-                'title' => __('Directories Locations', ATBDP_TEXTDOMAIN),
+                'title' => __('Locations', ATBDP_TEXTDOMAIN),
                 'display_as'=>'list',
                 'hide_empty'=> 0,
                 'show_count'=> 0,
@@ -130,7 +130,7 @@ if (!class_exists('BD_Locations_Widget')) {
 
 
             <p>
-                <label for="<?php echo $this->get_field_id( 'display_as' ); ?>"><?php _e( 'Locations Display As', ATBDP_TEXTDOMAIN ); ?></label>
+                <label for="<?php echo $this->get_field_id( 'display_as' ); ?>"><?php _e( 'View as', ATBDP_TEXTDOMAIN ); ?></label>
                 <select class="widefat" id="<?php echo $this->get_field_id( 'display_as' ); ?>" name="<?php echo $this->get_field_name( 'display_as' ); ?>">
                     <option value="list" <?php selected( $instance['display_as'], 'list' ); ?>><?php _e( 'List', ATBDP_TEXTDOMAIN ); ?></option>
                     <option value="dropdown" <?php selected( $instance['display_as'], 'dropdown' ); ?>><?php _e( 'Dropdown', ATBDP_TEXTDOMAIN ); ?></option>
@@ -157,7 +157,7 @@ if (!class_exists('BD_Locations_Widget')) {
             </p>
 
             <p>
-                <label for="<?php echo $this->get_field_id( 'order_by' ); ?>"><?php _e( 'Locations Order By', ATBDP_TEXTDOMAIN ); ?></label>
+                <label for="<?php echo $this->get_field_id( 'order_by' ); ?>"><?php _e( 'Order By', ATBDP_TEXTDOMAIN ); ?></label>
                 <select class="widefat" id="<?php echo $this->get_field_id( 'order_by' ); ?>" name="<?php echo $this->get_field_name( 'order_by' ); ?>">
                     <option value="id" <?php selected( $instance['order_by'], 'id' ); ?>><?php _e( 'Id', ATBDP_TEXTDOMAIN ); ?></option>
                     <option value="count" <?php selected( $instance['order_by'], 'count' ); ?>><?php _e( 'Count', ATBDP_TEXTDOMAIN ); ?></option>
@@ -167,7 +167,7 @@ if (!class_exists('BD_Locations_Widget')) {
             </p>
 
             <p>
-                <label for="<?php echo $this->get_field_id( 'order' ); ?>"><?php _e( 'Locations Sord By', ATBDP_TEXTDOMAIN ); ?></label>
+                <label for="<?php echo $this->get_field_id( 'order' ); ?>"><?php _e( 'Sord By', ATBDP_TEXTDOMAIN ); ?></label>
                 <select class="widefat" id="<?php echo $this->get_field_id( 'order' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>">
                     <option value="asc" <?php selected( $instance['order'], 'asc' ); ?>><?php _e( 'Ascending', ATBDP_TEXTDOMAIN ); ?></option>
                     <option value="desc" <?php selected( $instance['order'], 'desc' ); ?>><?php _e( 'Descending', ATBDP_TEXTDOMAIN ); ?></option>
@@ -181,12 +181,12 @@ if (!class_exists('BD_Locations_Widget')) {
 
             <p>
                 <input <?php checked( $instance['hide_empty'],1 ); ?> id="<?php echo $this->get_field_id( 'hide_empty' ); ?>" name="<?php echo $this->get_field_name( 'hide_empty' ); ?>" value="1" type="checkbox" />
-                <label for="<?php echo $this->get_field_id( 'hide_empty' ); ?>"><?php _e( 'Hide Empty Locations', ATBDP_TEXTDOMAIN ); ?></label>
+                <label for="<?php echo $this->get_field_id( 'hide_empty' ); ?>"><?php _e( 'Hide empty locations', ATBDP_TEXTDOMAIN ); ?></label>
             </p>
 
             <p>
                 <input <?php checked( $instance['show_count'],1 ); ?> id="<?php echo $this->get_field_id( 'show_count' ); ?>" name="<?php echo $this->get_field_name( 'show_count' ); ?>" value="1" type="checkbox" />
-                <label for="<?php echo $this->get_field_id( 'show_count' ); ?>"><?php _e( 'Display Listing Counts', ATBDP_TEXTDOMAIN ); ?></label>
+                <label for="<?php echo $this->get_field_id( 'show_count' ); ?>"><?php _e( 'Display listing counts', ATBDP_TEXTDOMAIN ); ?></label>
             </p>
             <?php
         }

@@ -5,6 +5,7 @@
             <ul class="atbd_all_categories row">
                 <?php
                 $terms = is_array($terms) ? $terms : array();
+                $i = 0;
                 foreach($terms as $term) {
                     $count = 0;
                     if(!empty($categories_settings['hide_empty']) || !empty($categories_settings['show_count'])) {
@@ -14,6 +15,9 @@
                     }
                     $icon = get_term_meta($term->term_id,'category_icon',true);
                     $icon = !empty($icon)?$icon:'';
+                    if( $i % $categories_settings['columns'] == 0 ) {
+                        echo '<div class="row atbdp-no-margin">';
+                    }
                     ?>
                     <li class="<?php echo $span;?>">
                         <a href="<?php  echo ATBDP_Permalink::get_category_archive($term) ?>">
@@ -32,7 +36,14 @@
                                 ?></p>
                         </a>
                     </li>
-                <?php } ?>
+
+                <?php
+                    $i++;
+
+                    if( $i % $categories_settings['columns'] == 0 || $i == count( $terms ) ) {
+                        echo '</div>';
+                    }
+                } ?>
             </ul>
         </div>
     </div>

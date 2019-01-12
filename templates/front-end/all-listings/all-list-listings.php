@@ -255,7 +255,7 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                             //show category and location info
                                             ?>
                                             <?php if (!empty($excerpt)) { ?>
-                                                <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
+                                                <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20))); ?></p>
                                             <?php } ?>
 
                                             <?php /* @todo: deleted the read more link */ ?>

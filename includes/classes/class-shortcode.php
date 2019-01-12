@@ -737,9 +737,5 @@ class ATBDP_Shortcode {
 
         return ob_get_clean();
     }
-
-
 }
-
-
 endif;

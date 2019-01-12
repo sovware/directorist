@@ -78,7 +78,7 @@ class ATBDP_Gateway{
                     ), // ends monetization settings section
                     'monetize_by_subscription' => array(
                         'type'          => 'section',
-                        'title'         => __('Monetize by Selling Subscription', ATBDP_TEXTDOMAIN),
+                        'title'         => __('Monetize by Listing Plans', ATBDP_TEXTDOMAIN),
                         'fields'        => $this->get_monetize_by_subscription_fields(),
                     ), // ends monetization settings section
 
@@ -171,7 +171,7 @@ class ATBDP_Gateway{
                 array(
                     'type' => 'notebox',
                     'name' => 'monetization_promotion',
-                    'description' => sprintf(__('Monetize your website by selling subscriptions packages using %s extension.', ATBDP_TEXTDOMAIN), $fee_manager),
+                    'description' => sprintf(__('Monetize your website by selling listing plans using %s extension.', ATBDP_TEXTDOMAIN), $fee_manager),
                 ),
             )
         );

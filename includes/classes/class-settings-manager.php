@@ -1890,6 +1890,13 @@ The Administrator of ==SITE_NAME==
             ),
 
             array(
+                'type' => 'textbox',
+                'name' => 'custom_section_lable',
+                'label' => __( 'Section Title of Custom Fields', ATBDP_TEXTDOMAIN ),
+                'default' => __('Features', ATBDP_TEXTDOMAIN),
+            ),
+
+            array(
                 'type' => 'toggle',
                 'name' => 'disable_sharing',
                 'label' => __( 'Disable Social Sharing Links', ATBDP_TEXTDOMAIN ),

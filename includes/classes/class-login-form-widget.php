@@ -12,7 +12,7 @@ if (!class_exists('BD_Login_Form_Widget')) {
         {
             $widget_options = array(
                 'classname' => 'atbd_widget',
-                'description' => esc_html__('When user will not log in, then you can show login form by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show login form for logged out users by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
                 'bdlf_widget', // Base ID

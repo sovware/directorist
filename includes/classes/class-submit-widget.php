@@ -12,11 +12,11 @@ if (!class_exists('BD_Submit_Item_Widget')) {
         {
             $widget_options = array(
                 'classname' => 'atbd_widget',
-                'description' => esc_html__('You can show submit item  listing link by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show submit listing button by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
                 'bdsb_widget', // Base ID
-                esc_html__('Directorist - Submit Item', ATBDP_TEXTDOMAIN), // Name
+                esc_html__('Directorist - Submit Listing', ATBDP_TEXTDOMAIN), // Name
                 $widget_options // Args
             );
         }
@@ -59,7 +59,7 @@ if (!class_exists('BD_Submit_Item_Widget')) {
          */
         public function form($instance)
         {
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Submit Your Item', ATBDP_TEXTDOMAIN);
+            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Submit a Listing', ATBDP_TEXTDOMAIN);
             ?>
             <p>
                 <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', ATBDP_TEXTDOMAIN); ?></label>

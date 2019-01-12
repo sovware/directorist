@@ -16,7 +16,7 @@ if ( !class_exists('BD_Search_Widget')) {
         {
             $widget_options = array(
                 'classname' => 'atbd_widget',
-                'description' => esc_html__('You can show search listing by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show search listing form by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
                 'bdsw_widget', // Base ID

@@ -65,7 +65,7 @@ if (!class_exists('BD_Popular_Listing_Widget')) {
             </p>
 
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('pop_listing_num')); ?>"><?php esc_attr_e('No of Listings:', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="<?php echo esc_attr($this->get_field_id('pop_listing_num')); ?>"><?php esc_attr_e('Number of Listings:', ATBDP_TEXTDOMAIN); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('pop_listing_num')); ?>"
                        name="<?php echo esc_attr($this->get_field_name('pop_listing_num')); ?>" type="text"
                        value="<?php echo esc_attr($pop_listing_num); ?>">

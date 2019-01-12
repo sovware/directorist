@@ -15,7 +15,7 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
         {
             $widget_options = array(
                 'classname' => 'atbd_widget',
-                'description' => esc_html__('You can show video by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show listing video by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
                 'bdvd_widget', // Base ID

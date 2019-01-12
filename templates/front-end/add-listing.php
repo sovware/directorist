@@ -674,7 +674,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                             <div class="atbd_content_module">
                                 <div class="atbd_content_module__tittle_area">
                                     <div class="atbd_area_title">
-                                        <h4><?php esc_html_e('Iamges & Video', ATBDP_TEXTDOMAIN) ?></h4>
+                                        <h4><?php esc_html_e('Images & Video', ATBDP_TEXTDOMAIN) ?></h4>
                                     </div>
                                 </div>
 

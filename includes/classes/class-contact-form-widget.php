@@ -15,11 +15,11 @@ if ( !class_exists('BD_contact_form_Widget')) {
         {
             $widget_options = array(
                 'classname' => 'atbd_widget',
-                'description' => esc_html__('You can show "contact the listing owner" by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show a form to contact the listing owners by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
                 'bdco_widget', // Base ID
-                esc_html__('Directorist - Listing Contact', ATBDP_TEXTDOMAIN), // Name
+                esc_html__('Directorist - Contact Listing Owner', ATBDP_TEXTDOMAIN), // Name
                 $widget_options, // Args
                     'fdgfdg'
             );
@@ -36,7 +36,7 @@ if ( !class_exists('BD_contact_form_Widget')) {
         public function widget($args, $instance) {
             if( is_singular(ATBDP_POST_TYPE)) {
                 global $post;
-                $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact Form', ATBDP_TEXTDOMAIN);
+                $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact Listing Owner', ATBDP_TEXTDOMAIN);
                 echo $args['before_widget'];
                 echo '<div class="atbd_widget_title">';
                 echo $args['before_title'] . esc_html(apply_filters('widget_contact_form_title', $title)) . $args['after_title'];
@@ -76,7 +76,7 @@ if ( !class_exists('BD_contact_form_Widget')) {
          */
         public function form($instance)
         {
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact Form', ATBDP_TEXTDOMAIN);
+            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact the listing owner', ATBDP_TEXTDOMAIN);
             ?>
             <p>
                 <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', ATBDP_TEXTDOMAIN); ?></label>

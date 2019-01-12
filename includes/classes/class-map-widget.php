@@ -125,7 +125,7 @@ if ( !class_exists('BD_Map_Widget')) {
             </p>
 
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('zoom')); ?>"><?php esc_attr_e('Google Map Zoom Level:', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="<?php echo esc_attr($this->get_field_id('zoom')); ?>"><?php esc_attr_e('Map zoom level:', ATBDP_TEXTDOMAIN); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('zoom')); ?>"
                        name="<?php echo esc_attr($this->get_field_name('zoom')); ?>" type="number"
                        value="<?php echo esc_attr($map_zoom_level); ?>">

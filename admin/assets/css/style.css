@@ -30,7 +30,7 @@ css for Custom Field
   font-weight: 500;
   font-size: 15px;
   color: #202428;
-  /*text-transform: capitalize;*/
+  text-transform: capitalize;
 }
 
 #directorist.atbd_wrapper .map_wrapper {
@@ -206,12 +206,7 @@ css for Custom Field
 }
 
 #directorist.atbd_wrapper.atbd_help_support h3 {
-  font-size: 21px;
-}
-.atbdp_pro_features .request_feature a {
-  border: 1px solid #ffffff;
-  padding: 10px 20px;
-  display: inline-block;
+  font-size: 24px;
 }
 
 #directorist.atbd_wrapper.atbd_help_support a {

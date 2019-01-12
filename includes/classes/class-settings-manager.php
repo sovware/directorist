@@ -1296,8 +1296,8 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                     'default' => array(
-                        'value' => 'grid',
-                        'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                        'value' => 'list',
+                        'label' => __('List', ATBDP_TEXTDOMAIN),
                     ),
                 ),
                 array(
@@ -1407,8 +1407,8 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                     'default' => array(
-                        'value' => 'grid',
-                        'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                        'value' => 'list',
+                        'label' => __('List', ATBDP_TEXTDOMAIN),
                     ),
                 ),
                 array(

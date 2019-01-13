@@ -81,7 +81,7 @@ $popular_badge_text               = get_directorist_option('popular_badge_text',
 $feature_badge_text               = get_directorist_option('feature_badge_text','Feature');
 $new_badge_text                   = get_directorist_option('new_badge_text','New');
 $enable_new_listing               = get_directorist_option('display_new_badge_cart',1);
-$custom_section_lable             = get_directorist_option('custom_section_lable','Features');
+$custom_section_lable             = get_directorist_option('custom_section_lable', __('Details', ATBDP_TEXTDOMAIN));
 
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col-lg-12';

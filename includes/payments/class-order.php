@@ -538,6 +538,8 @@ class ATBDP_Order {
     public function set_payment_receipt_link($actions, WP_Post $post ) {
         if ( $post->post_type != 'atbdp_orders' ) return $actions;
         $actions['view'] = sprintf("<a href='%s'>%s</a>", ATBDP_Permalink::get_payment_receipt_page_link($post->ID), __('View', ATBDP_TEXTDOMAIN));
+        unset( $actions['edit'] );
+        unset( $actions['inline hide-if-no-js'] );
         return $actions;
     }
 

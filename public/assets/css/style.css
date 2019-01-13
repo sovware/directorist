@@ -3,7 +3,6 @@
   text-decoration: none;
   box-shadow: none;
   border: none;
-  font-weight: 400;
 }
 
 #directorist.atbd_wrapper a:before, #directorist.atbd_wrapper a:after {
@@ -143,7 +142,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper h1, .atbd_content_active #directorist.atbd_wrapper h2, .atbd_content_active #directorist.atbd_wrapper h3, .atbd_content_active #directorist.atbd_wrapper h4, .atbd_content_active #directorist.atbd_wrapper h5, .atbd_content_active #directorist.atbd_wrapper h6,
 .atbd_content_active #directorist.atbd_wrapper .h1, .atbd_content_active #directorist.atbd_wrapper .h2, .atbd_content_active #directorist.atbd_wrapper .h3, .atbd_content_active #directorist.atbd_wrapper .h4, .atbd_content_active #directorist.atbd_wrapper .h5, .atbd_content_active #directorist.atbd_wrapper .h6 {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
   font-family: "Roboto", sans-serif;
   font-weight: 500;
   line-height: 1.2;
@@ -171,6 +170,28 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper div, .atbd_content_active #directorist.atbd_wrapper p, .atbd_content_active #directorist.atbd_wrapper a, .atbd_content_active #directorist.atbd_wrapper li {
   font-family: 'Roboto', Sans-serif !important;
   font-size: 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper div.atbd_listing_meta{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.atbd_content_active #directorist.atbd_wrapper div.atbd_listing_meta span{
+    margin-right: 8px;
+}
+.atbd_content_active #directorist.atbd_wrapper div.atbd_listing_meta span:last-child{
+    margin-right: 0;
+}
+.atbd_content_active #directorist.atbd_wrapper .atbd_lower_badge{
+    display: flex;
+}
+.atbd_content_active #directorist.atbd_wrapper .atbd_lower_badge span{
+    margin-right: 6px;
+}
+.atbd_content_active #directorist.atbd_wrapper .atbd_lower_badge span:last-child{
+    margin-right: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .modal-footer .btn + .btn {
@@ -284,7 +305,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper label {
   color: #202428;
-  /*text-transform: capitalize;*/
+  text-transform: capitalize;
 }
 
 #directorist.atbd_wrapper label label {
@@ -801,13 +822,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   line-height: 22px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_badge + .atbd_badge {
-  margin-left: 10px;
-}
+
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new {
   background: #122069;
-  margin-left: 5px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_meta {
@@ -920,7 +938,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #7a82a6;
   line-height: 26px;
   font-size: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+    margin-top: 3px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list {
@@ -983,6 +1002,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   border-radius: 50%;
   width: 100%;
   height: 100%;
+}
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right .atbd_author .tooltip .tooltip-inner {
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 10px;
+    display: block;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd_listing_image img {
@@ -1882,6 +1907,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn .btn_search {
   padding: 13px 20px;
+    border: 0 none;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn .btn_search span {
@@ -2065,6 +2091,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper .atbdp_child_category li {
   margin-bottom: 7px;
+}
+
+#directorist .pagination .current{
+    border-radius: 300px;
+    background: #2F3131;
 }
 
 /*responsive css */

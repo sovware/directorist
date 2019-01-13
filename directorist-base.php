@@ -1349,10 +1349,5 @@ add_image_size('directory-medium', 600, 500, true);
 add_image_size('directory-large', 700, 600, true);
 
 
-add_image_size('gallery-image', 360, 300, true);
-add_image_size('gallery-small', 400, 300, true);
-add_image_size('gallery-medium', 600, 500, true);
-add_image_size('gallery-large', 700, 600, true);
-
 
 register_activation_hook(__FILE__, array('Directorist_Base', 'prepare_plugin'));

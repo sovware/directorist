@@ -28,14 +28,7 @@ $image_links = array(); // define a link placeholder variable
 foreach ($listing_imgs as $id){
     $thumbnail_cropping = get_directorist_option('gallery_cropping',1);
 
-    if($thumbnail_cropping) {
-
-        $image_sizes = get_directorist_option('gallery_image_size','gallery-image');
-        $image_links[$id]= wp_get_attachment_image_src($id, $image_sizes)[0]; // store the attachment id and url
-
-    }else{
-        $image_links[$id]= wp_get_attachment_image_src($id, 'medium')[0]; // store the attachment id and url
-    }
+    $image_links[$id]= wp_get_attachment_image_src($id, 'large')[0]; // store the attachment id and url
 
     $image_links_thumbnails[$id]= wp_get_attachment_image_src($id, 'thumbnail')[0]; // store the attachment id and url
 
@@ -88,7 +81,7 @@ $popular_badge_text               = get_directorist_option('popular_badge_text',
 $feature_badge_text               = get_directorist_option('feature_badge_text','Feature');
 $new_badge_text                   = get_directorist_option('new_badge_text','New');
 $enable_new_listing               = get_directorist_option('display_new_badge_cart',1);
-$custom_section_lable               = get_directorist_option('custom_section_lable', __('Details', ATBDP_TEXTDOMAIN));
+$custom_section_lable             = get_directorist_option('custom_section_lable', __('Details', ATBDP_TEXTDOMAIN));
 
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col-lg-12';
@@ -209,11 +202,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
                 <div class="atbdb_content_module_contents">
                     <?php
-                    $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'medium')['0'];
+                    $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
                     if (!empty($image_links)) {
                         if (!empty($listing_prv_img)){
 
-                            $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, $image_sizes)['0'];
+                            $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
                             array_unshift($image_links, $listing_prv_imgurl);
                         }
                         ?>

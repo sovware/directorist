@@ -49,6 +49,11 @@
       margin: 0 !important;
       font-size: 18px;
       font-weight: 400 !important;
+      display: flex;
+      flex-wrap: wrap;
+      .atbd_badge_close{
+        margin-left: auto;
+      }
     }
   }
   .directorist {

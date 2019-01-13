@@ -11,8 +11,9 @@
     font-weight: 500;
     display: inline-block;
     line-height: 22px;
+    margin-right: 6px;
     & + .atbd_badge {
-      margin-left: 10px;
+      margin-left: 0;
     } 
     &.atbd_badge_open {
       @extend .atbd_bg-success;
@@ -28,10 +29,17 @@
     }
     &.atbd_badge_new{
       background: #122069;
-      margin-left: 5px;
+      margin-left: 0;
+      margin-right: 2px;
     }
   }
+  .atbd_listing_list{
+
+  }
   .atbd_listing_meta {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
     .atbd_meta {
       font-size: 14px;
       line-height: 24px;
@@ -39,8 +47,9 @@
       color: $light;
       display: inline-block;
       border-radius: 3px;
-      & + .atbd_meta {
-        margin-left: 5px;
+      margin-right: 6px;
+      &:last-child{
+        margin-right: 0;
       }
     }
     .atbd_listing_rating {
@@ -119,7 +128,7 @@
     }
     .atbd_listing_info {
       .atbd_content_upper {
-        padding: 20px;
+        padding: 20px 20px 15px;
         .atbd_excerpt_content{
           margin-top: 15px;
         }
@@ -127,6 +136,7 @@
           a{font-size: 18px;}
           text-transform: capitalize;
           line-height: 28px;
+          margin-bottom: 0;
         }
         .atbd_listing_tagline {
           color: #7a82a6;

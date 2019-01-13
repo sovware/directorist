@@ -29,8 +29,8 @@
 			}
 
 			echo '<div class="' . $span . '"><div class="atbd_category_wrapper">';
-			echo '<a href=" ' .ATBDP_Permalink::get_category_archive($term) . ' ">';
-			echo '<strong>' . $term->name . '</strong>';
+			echo '<a href=" ' .ATBDP_Permalink::get_category_archive($term) . ' " class="atbd_parent_cat">';
+			echo '<span>' . $term->name . '</span>';
 			if( ! empty( $categories_settings['show_count'] ) ) {
 				echo ' (' .  $count . ')';
 			}

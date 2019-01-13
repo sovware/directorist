@@ -24,6 +24,8 @@
     flex-wrap: wrap;
     h4 {
       margin-bottom: 0;
+      display: flex;
+      align-items: center;
       span {
         margin-right: 10px;
         display: inline-block;
@@ -250,8 +252,12 @@
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      .atbd_rating_count {
+      .atbd_listing_meta{
+        margin-top:0;
         margin-right: 10px;
+      }
+      .atbd_rating_count {
+        margin-right: 20px;
         p {
           line-height: 20px;
           span {
@@ -262,8 +268,11 @@
           }
         }
       }
-      .atbd_listing_meta, .atbd_badge_featured, .atbd_listting_category {
-        margin-right: 10px;
+      .atbd_listting_category{
+        margin-right: 20px;
+      }
+      .atbd_listing_average_pricing{
+        margin-right: 15px;
       }
       .atbd_listting_category .directory_tags {
         li{

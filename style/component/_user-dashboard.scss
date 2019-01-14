@@ -7,6 +7,22 @@
     .nav.nav-tabs, .nav_button{
       margin: 10px 0;
     }
+    .nav-item{
+      &.active{
+        .nav-link{
+          background: #fff;
+          border: 1px solid transparent;
+          border-color: #e3e6ef #e3e6ef #e3e6ef;
+        }
+      }
+    }
+    .nav-link{
+      padding: 10px 15px;
+      &.active{
+        background: none;
+        border: 0 none;
+      }
+    }
   }
   &.dashboard_area{
     .db_btn_area{

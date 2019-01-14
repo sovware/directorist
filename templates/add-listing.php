@@ -55,7 +55,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                         <!--<p id='price_range_option'><?php /*echo __('Price Range', ATBDP_TEXTDOMAIN); */ ?></p></label>-->
                     </label>
 
-                    <small> (Optional --- Uncheck both to hide pricing for this listing)</small>
+                    <small> (Optional - Uncheck both to hide pricing for this listing)</small>
                 </div>
 
 

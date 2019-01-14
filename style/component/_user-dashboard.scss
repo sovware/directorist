@@ -7,11 +7,28 @@
     .nav.nav-tabs, .nav_button{
       margin: 10px 0;
     }
+    .nav-item{
+      &.active{
+        .nav-link{
+          background: #fff;
+          border: 1px solid transparent;
+          border-color: #e3e6ef #e3e6ef #e3e6ef;
+        }
+      }
+    }
+    .nav-link{
+      padding: 10px 15px;
+      &.active{
+        background: none;
+        border: 0 none;
+      }
+    }
   }
   &.dashboard_area{
     .db_btn_area{
       padding: 20px;
       border-top: 1px solid $border-color;
+      margin-top: 0;
     }
     .atbd_dashboard_tittle_metas{
       padding: 15px 20px;
@@ -103,6 +120,17 @@
           margin-right: 6px;
         }
       }
+    }
+  }
+}
+#directorist.atbd_wrapper .user_info_wrap{
+  .form-group{
+    margin-bottom: 25px;
+    label{
+      margin-bottom: 4px;
+    }
+    .form-control{
+      padding: 20px 15px;
     }
   }
 }

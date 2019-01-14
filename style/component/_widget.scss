@@ -142,7 +142,18 @@
   }
   .atbdp-widget-categories {
     .atbdp_child_category {
-      padding-left: 35px;
+      padding-left: 50px;
+      li a{
+        position: relative;
+        &:before{
+          position: absolute;
+          content: '-';
+          left: -10px;
+          top: 50%;
+          font-size: 20px;
+          transform: translateY(-50%);
+        }
+      }
     }
     > ul.atbdp_parent_category > li {
       &:hover {

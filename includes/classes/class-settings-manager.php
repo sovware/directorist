@@ -1824,44 +1824,6 @@ The Administrator of ==SITE_NAME==
                 ),
             ),
 
-            array(
-                'type' => 'toggle',
-                'name' => 'gallery_cropping',
-                'label' => __('Slider Images Cropping', ATBDP_TEXTDOMAIN),
-                'description' => __('If the slider images are not in the same size, it helps automatically resizing.
-
-', ATBDP_TEXTDOMAIN),
-                'default' => 1,
-            ),
-
-            array(
-                'type' => 'select',
-                'name' => 'gallery_image_size',
-                'label' => __( 'Slider Image Cropping Size', ATBDP_TEXTDOMAIN ),
-                'items' => array(
-                    array(
-                        'value' => 'gallery-image',
-                        'label' => __('360*300', ATBDP_TEXTDOMAIN),
-                    ),
-                    array(
-                        'value' => 'gallery-small',
-                        'label' => __('400*300', ATBDP_TEXTDOMAIN),
-                    ),
-                    array(
-                        'value' => 'gallery-medium',
-                        'label' => __('600*500', ATBDP_TEXTDOMAIN),
-                    ),
-                    array(
-                        'value' => 'gallery-large',
-                        'label' => __('700*600', ATBDP_TEXTDOMAIN),
-                    ),
-                ),
-                'description' => __( 'Select ', ATBDP_TEXTDOMAIN ),
-                'default' =>  array(
-                    'value' => 'gallery-small',
-                    'label' => __('400*300', ATBDP_TEXTDOMAIN),
-                ),
-            ),
             
             array(
                 'type' => 'toggle',

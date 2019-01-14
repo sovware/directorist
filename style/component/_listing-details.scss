@@ -22,6 +22,9 @@
     padding: 20px 30px;
     align-items: center;
     flex-wrap: wrap;
+    label{
+      margin-bottom: 0;
+    }
     h4 {
       margin-bottom: 0;
       display: flex;
@@ -350,6 +353,13 @@
       padding-bottom: 26px;
       padding-top: 30px;
       border-bottom: 1px solid $border-color;
+      &:first-child{
+        padding-top: 0;
+      }
+      &:last-child{
+        padding-bottom: 0;
+        border-bottom: 0;
+      }
       .atbd_review_top {
         display: flex;
         justify-content: space-between;
@@ -376,6 +386,7 @@
           }
           .review_time {
             font-size: 13px;
+            margin-left: 0;
           }
         }
       }
@@ -395,6 +406,9 @@
   .atbd_related_listings {
     .atbd_related_listing_title {
       margin-bottom: 20px;
+      h3{
+        font-size: 20px;
+      }
     }
   }
 

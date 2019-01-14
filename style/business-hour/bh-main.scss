@@ -44,12 +44,21 @@
     }
   }
   .atbd_directory_open_hours{
+    margin-top: -10px;
+    margin-bottom: -10px;
     ul li{
       border-bottom: 1px solid #ededed;
       display: flex;
       justify-content: space-between;
       padding: 10px 0;
       font-size: 15px;
+      &:first-child{
+        padding-top: 0;
+      }
+      &:last-child{
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
       .atbd_day{
         font-weight: 500;
       }

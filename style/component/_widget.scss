@@ -17,8 +17,15 @@
     }
   }
   .atbdp-search {
+    input.form-control{
+      padding: 19px 15px;
+    }
+    .form-control{
+      box-shadow: none;
+    }
     .submit_btn {
       margin-top: 20px;
+      margin-bottom: 0;
       .btn-primary {
         display: inline-block;
         font-weight: 400;
@@ -33,7 +40,7 @@
         transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         color: #fff;
         @extend .atbd_bg-primary;
-        border-color: #272b41;
+        border: 0 none;
         cursor: pointer;
       }
     }
@@ -53,6 +60,7 @@
       flex-wrap: wrap;
       .atbd_badge_close{
         margin-left: auto;
+        margin-right: 0;
       }
     }
   }
@@ -60,8 +68,9 @@
     text-align: center;
   }
   .atbdp, .directorist {
-    padding: 20px 30px 15px;
+    padding: 20px 30px;
     &.atbdp-widget-tags {
+      margin-bottom: -12px;
       ul li {
         display: inline-block;
         margin-right: 5px;
@@ -90,6 +99,12 @@
     .listings {
       > li {
         padding: 15px 0;
+        &:first-child{
+          padding-top: 25px;
+        }
+        &:last-child{
+          padding-bottom: 25px;
+        }
         &:before {
           display: none;
         }
@@ -116,6 +131,7 @@
             font-weight: 400;
             font-size: 16px;
             font-family: $atbd-font-family;
+            margin-bottom: 0;
           }
         }
         .atbd_left_img + .atbd_right_content {
@@ -141,7 +157,8 @@
         margin-top: 10px;
       }
       > a {
-        margin-right: 10px;
+        margin-right: 7px;
+        margin-bottom: 0;
         display: inline-block;
         span {
           font-size: 12px;
@@ -158,6 +175,7 @@
       }
       > span {
         cursor: pointer;
+        font-size: 10px;
       }
     }
   }
@@ -197,6 +215,11 @@
         flex-wrap: wrap;
         margin-bottom: 10px;
         padding-bottom: 10px;
+        &:last-child{
+          margin-bottom: 0;
+          padding-bottom: 0;
+          border-bottom: 0;
+        }
         &:before {
           display: none;
         }
@@ -206,12 +229,14 @@
         &.atbd_closed {
           span {
             @extend .atbd_color-danger;
+            margin: 0;
+            &:last-child{
+              margin-right: 0;
+            }
           }
         }
         > span {
           display: inline-block;
-          margin-bottom: 7px;
-          margin-right: 15px;
           font-weight: 500;
           color: #614b4b;
         }
@@ -242,6 +267,9 @@
         vertical-align: top;
         margin-left: 7px;
         width: calc(100% - 61px);
+        .review_time{
+          margin-left: 0;
+        }
       }
     }
     .atbd_name_time {
@@ -249,7 +277,7 @@
     }
     .atbd_widget_contact_info {
       padding-top: 15px;
-      padding-bottom: 25px;
+      padding-bottom: 0;
       ul li {
         margin-bottom: 6px;
         .atbd_info {
@@ -270,7 +298,8 @@
       }
     }
     .atbd_social_wrap {
-      margin-bottom: 30px;
+      margin-bottom: 0;
+      padding:12px 0 0;
       p {
         display: inline-block;
         & + p {
@@ -289,6 +318,20 @@
             color: $light;
           }
         }
+      }
+    }
+    .btn{
+      margin-top: 20px;
+    }
+  }
+  .atbdp-widget-listing-contact{
+    form{
+      .form-control{
+        padding: 19px 15px;
+        box-shadow: none;
+      }
+      textarea.form-control{
+        padding-top: 10px;
       }
     }
   }

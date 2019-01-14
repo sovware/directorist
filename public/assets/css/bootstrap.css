@@ -863,36 +863,36 @@
 
 #directorist.atbd_wrapper .btn-primary {
   color: #fff;
-  background-color: #81869b;
-  border-color: #81869b;
+  background-color: #444752;
+  border-color: #444752;
 }
 
 #directorist.atbd_wrapper .btn-primary:hover {
   color: #fff;
-  background-color: #6d7289;
-  border-color: #676c82;
+  background-color: #33353d;
+  border-color: #2d2f36;
 }
 
 #directorist.atbd_wrapper .btn-primary:focus, #directorist.atbd_wrapper .btn-primary.focus {
-  box-shadow: 0 0 0 0.2rem rgba(129, 134, 155, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(68, 71, 82, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-primary.disabled, #directorist.atbd_wrapper .btn-primary:disabled {
   color: #fff;
-  background-color: #81869b;
-  border-color: #81869b;
+  background-color: #444752;
+  border-color: #444752;
 }
 
 #directorist.atbd_wrapper .btn-primary:not(:disabled):not(.disabled):active, #directorist.atbd_wrapper .btn-primary:not(:disabled):not(.disabled).active,
 .show > #directorist.atbd_wrapper .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #676c82;
-  border-color: #61667b;
+  background-color: #2d2f36;
+  border-color: #27292f;
 }
 
 #directorist.atbd_wrapper .btn-primary:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-primary:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-primary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(129, 134, 155, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(68, 71, 82, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-secondary {
@@ -1134,37 +1134,37 @@
 }
 
 #directorist.atbd_wrapper .btn-outline-primary {
-  color: #81869b;
+  color: #444752;
   background-color: transparent;
   background-image: none;
-  border-color: #81869b;
+  border-color: #444752;
 }
 
 #directorist.atbd_wrapper .btn-outline-primary:hover {
   color: #fff;
-  background-color: #81869b;
-  border-color: #81869b;
+  background-color: #444752;
+  border-color: #444752;
 }
 
 #directorist.atbd_wrapper .btn-outline-primary:focus, #directorist.atbd_wrapper .btn-outline-primary.focus {
-  box-shadow: 0 0 0 0.2rem rgba(129, 134, 155, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(68, 71, 82, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-primary.disabled, #directorist.atbd_wrapper .btn-outline-primary:disabled {
-  color: #81869b;
+  color: #444752;
   background-color: transparent;
 }
 
 #directorist.atbd_wrapper .btn-outline-primary:not(:disabled):not(.disabled):active, #directorist.atbd_wrapper .btn-outline-primary:not(:disabled):not(.disabled).active,
 .show > #directorist.atbd_wrapper .btn-outline-primary.dropdown-toggle {
   color: #fff;
-  background-color: #81869b;
-  border-color: #81869b;
+  background-color: #444752;
+  border-color: #444752;
 }
 
 #directorist.atbd_wrapper .btn-outline-primary:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-outline-primary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(129, 134, 155, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(68, 71, 82, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-secondary {
@@ -1412,7 +1412,7 @@
 }
 
 #directorist.atbd_wrapper .btn-link:hover {
-  color: #81869b;
+  color: #444752;
   text-decoration: none;
   background-color: transparent;
   border-color: transparent;
@@ -1915,17 +1915,17 @@
 }
 
 #directorist.atbd_wrapper .alert-primary {
-  color: #434651;
-  background-color: #e6e7eb;
-  border-color: #dcdde3;
+  color: #23252b;
+  background-color: #dadadc;
+  border-color: #cbcbcf;
 }
 
 #directorist.atbd_wrapper .alert-primary hr {
-  border-top-color: #cecfd8;
+  border-top-color: #bebec3;
 }
 
 #directorist.atbd_wrapper .alert-primary .alert-link {
-  color: #2c2e35;
+  color: #0c0d0f;
 }
 
 #directorist.atbd_wrapper .alert-secondary {
@@ -2381,16 +2381,16 @@
 #directorist.atbd_wrapper .table-primary,
 #directorist.atbd_wrapper .table-primary > th,
 #directorist.atbd_wrapper .table-primary > td {
-  background-color: #dcdde3;
+  background-color: #cbcbcf;
 }
 
 #directorist.atbd_wrapper .table-hover .table-primary:hover {
-  background-color: #cecfd8;
+  background-color: #bebec3;
 }
 
 #directorist.atbd_wrapper .table-hover .table-primary:hover > td,
 #directorist.atbd_wrapper .table-hover .table-primary:hover > th {
-  background-color: #cecfd8;
+  background-color: #bebec3;
 }
 
 #directorist.atbd_wrapper .table-secondary,
@@ -2744,7 +2744,7 @@
 }
 
 #directorist.atbd_wrapper a:hover {
-  color: #81869b;
+  color: #444752;
   text-decoration: none;
 }
 

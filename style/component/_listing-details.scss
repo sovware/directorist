@@ -22,8 +22,13 @@
     padding: 20px 30px;
     align-items: center;
     flex-wrap: wrap;
+    label{
+      margin-bottom: 0;
+    }
     h4 {
       margin-bottom: 0;
+      display: flex;
+      align-items: center;
       span {
         margin-right: 10px;
         display: inline-block;
@@ -250,8 +255,12 @@
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      .atbd_rating_count {
+      .atbd_listing_meta{
+        margin-top:0;
         margin-right: 10px;
+      }
+      .atbd_rating_count {
+        margin-right: 20px;
         p {
           line-height: 20px;
           span {
@@ -262,8 +271,11 @@
           }
         }
       }
-      .atbd_listing_meta, .atbd_badge_featured, .atbd_listting_category {
-        margin-right: 10px;
+      .atbd_listting_category{
+        margin-right: 20px;
+      }
+      .atbd_listing_average_pricing{
+        margin-right: 15px;
       }
       .atbd_listting_category .directory_tags {
         li{
@@ -341,6 +353,13 @@
       padding-bottom: 26px;
       padding-top: 30px;
       border-bottom: 1px solid $border-color;
+      &:first-child{
+        padding-top: 0;
+      }
+      &:last-child{
+        padding-bottom: 0;
+        border-bottom: 0;
+      }
       .atbd_review_top {
         display: flex;
         justify-content: space-between;
@@ -367,6 +386,7 @@
           }
           .review_time {
             font-size: 13px;
+            margin-left: 0;
           }
         }
       }
@@ -386,6 +406,9 @@
   .atbd_related_listings {
     .atbd_related_listing_title {
       margin-bottom: 20px;
+      h3{
+        font-size: 20px;
+      }
     }
   }
 

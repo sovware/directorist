@@ -20,7 +20,7 @@
                class=""> <?php echo $term->name; ?>
                 <?php
                 if (!empty($locations_settings['show_count'])) {
-                    echo "( " . $count . " )";
+                    echo "(" . $count . ")";
                 }
                 ?>
             </a>

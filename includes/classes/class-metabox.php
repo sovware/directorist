@@ -174,7 +174,7 @@ class ATBDP_Metabox {
 
         $listing_img= get_post_meta($post->ID, '_listing_img', true);
         $listing_prv_img= get_post_meta($post->ID, '_listing_prv_img', true);?>
-        <div id="directorist" class="atbd_wrapper"><?php  ATBDP()->load_template('media-upload', compact('listing_img', 'listing_prv_img') );?></div>
+        <div id="directorist" class="directorist atbd_wrapper"><?php  ATBDP()->load_template('media-upload', compact('listing_img', 'listing_prv_img') );?></div>
 
    <?php }
 
@@ -189,7 +189,7 @@ class ATBDP_Metabox {
         $videourl = get_post_meta($post->ID, '_videourl', true);
         $enable_video_url = get_directorist_option('atbd_video_url',1);
         if($enable_video_url) {?>
-            <div id="directorist" class="atbd_wrapper">
+            <div id="directorist" class="directorist atbd_wrapper">
                 <div class="form-group">
                     <!--@todo; Add currency Name near price-->
                     <label for="videourl"><?php

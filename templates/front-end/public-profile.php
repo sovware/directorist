@@ -294,7 +294,7 @@ $pagenation = get_directorist_option('paginate_author_listings',1);
                                                     $open =  get_directorist_option('open_badge_text');
                                                     ?>
                                                     <div class="atbd_upper_badge">
-                                                        <span class="atbd_badge atbd_badge_open"><?php echo $open;?>></span>
+                                                        <span class="atbd_badge atbd_badge_open"><?php echo $open;?></span>
                                                     </div><!-- END /.atbd_upper_badge -->
                                                     <?php
                                                 }else {?>

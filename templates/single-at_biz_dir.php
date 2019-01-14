@@ -31,6 +31,7 @@ foreach ($listing_imgs as $id){
     if($thumbnail_cropping) {
 
         $image_sizes = get_directorist_option('gallery_image_size','gallery-image');
+
         $image_links[$id]= wp_get_attachment_image_src($id, $image_sizes)[0]; // store the attachment id and url
 
     }else{
@@ -215,6 +216,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
                             $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, $image_sizes)['0'];
                             array_unshift($image_links, $listing_prv_imgurl);
+
                         }
                         ?>
                         <div class="atbd_directry_gallery_wrapper">
@@ -239,7 +241,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                             <div class="atbd_directory_image_thumbnail">
                                 <?php
                                 $listing_prv_imgurl_thumb = wp_get_attachment_image_src($listing_prv_img, 'thumbnail')['0'];
-                                array_unshift($image_links_thumbnails, $listing_prv_imgurl_thumb);
+                                if (!empty($listing_prv_imgurl_thumb)){
+                                    array_unshift($image_links_thumbnails, $listing_prv_imgurl_thumb);
+                                }
                                 foreach ($image_links_thumbnails as $image_links_thumbnail) { ?>
                                     <div class="single_thumbnail">
                                         <img src="<?= esc_url($image_links_thumbnail); ?>"

@@ -99,19 +99,18 @@ class ATBDP_Checkout
                     'desc' => $desc,
                     'price' => $price,
                 );
-
-           /*     if (class_exists('ATBDP_Fee_Manager')){
-                    $form_data[] = array(
-                        'type' => 'checkbox',
-                        'name' => 'feature',
-                        'value' => 1,
-                        'selected' => 1,
-                        'title' => $title,
-                        'desc' => $desc,
-                        'price' => $price,
-                    );
-                }*/
             }
+       /*   if (class_exists('ATBDP_Fee_Manager')){
+                   $form_data[] = array(
+                       'type' => 'checkbox',
+                       'name' => 'feature',
+                       'value' => 1,
+                       'selected' => 1,
+                       'title' => $title,
+                       'desc' => $desc,
+                       'price' => $price,
+                   );
+               }*/
 
             // if data is empty then vail,
             if (empty($form_data)) { return __('Sorry, Nothing is available to buy. Please try again.', ATBDP_TEXTDOMAIN); }
@@ -197,6 +196,7 @@ class ATBDP_Checkout
             'comment_status' => false,
         ) );
         // if order is created successfully then process the order
+        apply_filters( 'atbdp_before_order_recipt', array(), $listing_id);
         if ($order_id){
 
             /*@todo; Find a better way to search for a order with a given ID*/
@@ -223,8 +223,6 @@ class ATBDP_Checkout
 
             /*Lowercase alphanumeric characters, dashes and underscores are allowed.*/
             $gateway = ! empty( $amount ) && !empty($data['payment_gateway']) ? sanitize_key( $data['payment_gateway'] ) : 'free';
-
-
             // save required data as order post meta
             update_post_meta( $order_id, '_listing_id', $listing_id);
             update_post_meta( $order_id, '_amount', $amount);

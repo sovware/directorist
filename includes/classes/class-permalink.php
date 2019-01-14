@@ -106,6 +106,18 @@ class ATBDP_Permalink{
     }
 
     /**
+     * It returns the link to the dashbord manage fees
+     * @return string
+     */
+    public static function get_manage_fees_page_link()
+    {
+        $link = home_url();
+        $id = get_directorist_option('user_dashboard'); // get the page id of the dashboard page.
+        if( $id )  $link = get_permalink( $id );
+        return apply_filters('atbdp_dashboard_page_url', $link.'#manage_fees' );
+    }
+
+    /**
      * It returns the link to the custom edit listing page
      * @param int $listing_id Listing ID
      * @since 3.1.0
@@ -238,6 +250,36 @@ class ATBDP_Permalink{
      * @return   string                   It returns Checkout page URL.
      */
     public static function get_checkout_page_link($listing_id) {
+        $link = home_url(); // default url
+        $id = get_directorist_option('checkout_page');
+        if( $id ) {
+            $link = get_permalink( $id );
+
+            if( '' != get_option( 'permalink_structure' ) ) {
+                $link = user_trailingslashit( trailingslashit( $link ) . 'submit/' . $listing_id );
+            } else {
+                $link = add_query_arg(
+                    array(
+                        'atbdp_action' => 'submission',
+                        'atbdp_listing_id' => $listing_id
+                    ),
+                    $link
+                );
+            }
+        }
+
+        return apply_filters('atbdp_checkout_page_url', $link);
+    }
+
+    /**
+     * Generate a permalink for Checkout page
+     *
+     * @since    3.1.0
+     *
+     * @param    int       $listing_id    Listing ID.
+     * @return   string                   It returns Checkout page URL.
+     */
+    public static function get_fee_renewal_checkout_page_link($listing_id) {
         $link = home_url(); // default url
         $id = get_directorist_option('checkout_page');
         if( $id ) {

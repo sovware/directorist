@@ -28,6 +28,7 @@
     .db_btn_area{
       padding: 20px;
       border-top: 1px solid $border-color;
+      margin-top: 0;
     }
     .atbd_dashboard_tittle_metas{
       padding: 15px 20px;
@@ -119,6 +120,17 @@
           margin-right: 6px;
         }
       }
+    }
+  }
+}
+#directorist.atbd_wrapper .user_info_wrap{
+  .form-group{
+    margin-bottom: 25px;
+    label{
+      margin-bottom: 4px;
+    }
+    .form-control{
+      padding: 20px 15px;
     }
   }
 }

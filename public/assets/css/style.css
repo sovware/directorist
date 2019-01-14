@@ -1668,6 +1668,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_add_listing_title {
   text-align: center;
+  margin-top: 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_add_listing_title h3 {
@@ -1741,6 +1742,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbdp-radio-list li label, .atbd_content_active #directorist.atbd_wrapper .atbdp-checkbox-list li label {
   font-size: 13px;
+  margin: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbdp-radio-list li label input, .atbd_content_active #directorist.atbd_wrapper .atbdp-checkbox-list li label input {
@@ -1833,6 +1835,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .atbd_term_and_condition_area {
   text-align: center;
+  margin-bottom: 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .atbd_term_and_condition_area > label {
@@ -1854,7 +1857,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_type h4 {
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_type > label {
@@ -1863,6 +1866,60 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_type > label + label {
   margin-left: 25px;
+}
+
+.atbd_general_information_module .not_empty select {
+  margin-top: 6px;
+}
+
+.atbd_general_information_module .form-group {
+  margin-bottom: 25px !important;
+}
+
+.atbd_general_information_module .form-group:nth-last-child(2) {
+  margin-bottom: 0 !important;
+}
+
+.atbd_general_information_module .form-group .form-control {
+  box-shadow: none;
+}
+
+.atbd_general_information_module .form-group .atbd_pricing_options span {
+  padding: 0 15px;
+}
+
+#directorist.atbd_wrapper .atbd_contact_information .form-check {
+  margin-bottom: 10px;
+}
+
+#directorist.atbd_wrapper .atbd_contact_information .form-group {
+  margin-bottom: 25px;
+}
+
+#directorist.atbd_wrapper .atbd_contact_information .form-group:last-child {
+  margin-bottom: 0;
+}
+
+#directorist.atbd_wrapper .atbd_location_map_setting .atbdb_content_module_contents > label {
+  margin-bottom: 15px;
+}
+
+#directorist.atbd_wrapper .atbd_location_map_setting .atbdb_content_module_contents .cor-wrap {
+  margin: 20px 0 10px;
+}
+
+#directorist.atbd_wrapper .atbd_location_map_setting .atbdb_content_module_contents .cor-wrap label {
+  margin-bottom: 0;
+}
+
+#directorist.atbd_wrapper .atbd_location_map_setting .atbdb_content_module_contents .form-group label {
+  margin-left: 0;
+  margin-bottom: 0;
+}
+
+#_listing_gallery #gallery_upload {
+  padding-top: 0;
+  margin-top: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav {
@@ -1894,6 +1951,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area {
   padding: 20px;
   border-top: 1px solid #e3e6ef;
+  margin-top: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_dashboard_tittle_metas {
@@ -1990,6 +2048,18 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbd_saved_items_wrapper .saved_item_category a span {
   font-size: 16px;
   margin-right: 6px;
+}
+
+#directorist.atbd_wrapper .user_info_wrap .form-group {
+  margin-bottom: 25px;
+}
+
+#directorist.atbd_wrapper .user_info_wrap .form-group label {
+  margin-bottom: 4px;
+}
+
+#directorist.atbd_wrapper .user_info_wrap .form-group .form-control {
+  padding: 20px 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-selection {

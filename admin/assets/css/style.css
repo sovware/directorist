@@ -143,6 +143,7 @@ css for Custom Field
 
 #directorist.atbd_wrapper .hide-if-no-js {
   text-align: center;
+  margin: 0;
 }
 
 #directorist.atbd_wrapper .form-check {

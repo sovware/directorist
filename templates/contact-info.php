@@ -178,7 +178,7 @@ $info_content .= "<p> {$ad}</p></div>";
 do_action('atbdp_edit_after_googlemap_preview', 'add_listing_page_backend', $args['listing_contact_info'], get_the_ID());
 
 ?>
-
+</div>
 
 <script>
 

@@ -160,11 +160,13 @@ class ATBDP_Checkout
 
         }
         $selected_plan_id = get_post_meta($listing_id[0], '_fm_plans', true);
-        if (class_exists('ATBDP_Fee_Manager') && !empty($selected_plan_id)){
-            $p_title = get_the_title($selected_plan_id);
-            $p_description = get_post_meta($selected_plan_id, 'fm_description', true);
-            $fm_price = get_post_meta($selected_plan_id, 'fm_price', true);
-            $price_decimal = get_post_meta($selected_plan_id, 'price_decimal', true);
+        $updated_plan_id = get_user_meta(get_current_user_id(), '_plan_to_active', true);
+        $_plan_id = !empty($updated_plan_id)?$updated_plan_id:$selected_plan_id;
+        if (class_exists('ATBDP_Fee_Manager') && !empty($_plan_id)){
+            $p_title = get_the_title($_plan_id);
+            $p_description = get_post_meta($_plan_id, 'fm_description', true);
+            $fm_price = get_post_meta($_plan_id, 'fm_price', true);
+            $price_decimal = get_post_meta($_plan_id, 'price_decimal', true);
             $decimal = $price_decimal ? '.'.$price_decimal : '';
             $order_items[] = array(
                 'title' => $p_title,

@@ -12,17 +12,28 @@
         font-size: 13px;
       }
     }
+    .form-group{
+      margin-bottom: 20px;
+    }
   }
   .enable247hour {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     input, label {
-      display: inline-block;
       font-weight: 400;
+      margin: 0;
+    }
+    label{
+      margin-left: 8px;
     }
   }
   .atbd_day_label {
     font-weight: 500;
     font-size: 16px;
-    margin-bottom: 15px;
+    margin-bottom: 3px;
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+    padding-bottom: 3px;
   }
   .atbd_row_bg label {
     font-size: 13px;
@@ -38,9 +49,7 @@
     border-top: 1px solid $border-color;
     .atbd_backend_area_title{
       margin-top: 0;
-    }
-    .business-hour{
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
   }
   .atbd_directory_open_hours{
@@ -73,5 +82,37 @@
   .atbd_mark_as_closed{
     font-weight: 400;
     margin-top: 12px;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    input{
+      margin-right: 4px;
+    }
+  }
+  .atbd_map_title{
+    margin-bottom: 15px;
+  }
+  .map-coordinate{
+    margin-top: 30px;
+    margin-bottom: 15px;
+    label{
+      margin-bottom: 0;
+    }
+  }
+  #hide_if_no_manual_cor{
+   .form-group .form-group{
+     margin-bottom: 20px;
+   }
+  }
+  .atbd_map_hide{
+    margin-bottom: 0;
+    label{
+      margin-bottom: 0;
+    }
+  }
+}
+#_listing_video_gallery #directorist.atbd_wrapper{
+  .form-group{
+    margin-bottom: 0;
   }
 }

@@ -208,3 +208,38 @@ body.atbd_content_active #directorist.atbd_wrapper{
   margin-top: 0;
   display: none;
 }
+
+//pagination css
+#directorist.atbd_wrapper .pagination .nav-links{
+  .current, .page-numbers{
+    padding: 0;
+    line-height: normal;
+    height: 35px;
+    width: 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #d8d8d8;
+    border-radius: 300px;
+    background: #fff;
+    transition: 0.3s;
+    color: #7a82a6;
+    text-align: center;
+    margin-right: 2px;
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+  .current{
+    border-radius: 300px;
+    background: $primary;
+    box-shadow: none;
+    border-color: transparent;
+    color: #fff;
+  }
+  .page-numbers{
+    span{
+      font-size: 10px;
+    }
+  }
+}

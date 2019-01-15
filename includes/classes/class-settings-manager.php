@@ -1839,7 +1839,7 @@ The Administrator of ==SITE_NAME==
                 'min' => '1',
                 'max' => '1200',
                 'step' => '1',
-                'default' => '670',
+                'default' => '740',
 
             ),
 
@@ -1850,7 +1850,7 @@ The Administrator of ==SITE_NAME==
                 'min' => '1',
                 'max' => '1200',
                 'step' => '1',
-                'default' => '750',
+                'default' => '580',
 
             ),
             
@@ -2005,7 +2005,7 @@ The Administrator of ==SITE_NAME==
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
-                    'default' => '360',
+                    'default' => '350',
 
                 ),
 
@@ -2016,7 +2016,7 @@ The Administrator of ==SITE_NAME==
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
-                    'default' => '300',
+                    'default' => '260',
 
                 ),
                 array(

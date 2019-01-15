@@ -23,7 +23,7 @@
 
 			echo '<div class="' . $span . '"><div class="atbd_category_wrapper">';
 			echo '<a href=" ' .ATBDP_Permalink::get_location_archive($term) . ' ">';
-			echo '<strong>' . $term->name . '</strong>';
+			echo '<span>' . $term->name . '</span>';
 			if( ! empty( $locations_settings['show_count'] ) ) {
 				echo ' (' .  $count . ')';
 			}

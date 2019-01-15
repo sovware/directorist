@@ -1,8 +1,9 @@
-<?php $span = 'col-md-' . floor( 12 /  $locations_settings['columns'] );?>
+
 <div id="directorist" class="atbd_wrapper">
     <div class="atbd_location_grid_wrap">
         <?php
         $terms = is_array($terms) ? $terms : array();
+        $span = 'col-md-' . floor( 12 /  $locations_settings['columns'] );
         $i = 0;
         foreach ($terms as $term) {
             $count = 0;
@@ -30,7 +31,7 @@
             if( $i % $locations_settings['columns'] == 0 || $i == count( $terms ) ) {
         echo '</div>';
     } ?>
-            <!--                </div>-->
+
         <?php } ?>
     </div>
 

@@ -1,10 +1,3 @@
-<?php
-
-/**
- * This template displays the ACADP categories list.
- */
-?>
-
 <div id="directorist" class="atbd_wrapper">
     <div class="atbdp atbdp-categories atbdp-text-list">
         <?php

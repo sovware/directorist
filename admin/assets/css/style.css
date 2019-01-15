@@ -347,4 +347,10 @@ css for Custom Field
   margin-bottom: 0;
 }
 
+@media (min-width: 1199px) and (max-width: 1510px) {
+  #directorist.atbd_wrapper .btn.demo, #directorist.atbd_wrapper .btn.get {
+    display: block;
+  }
+}
+
 /*# sourceMappingURL=map/style.css.map */

@@ -2,7 +2,7 @@
     <div class="attc_extension_wrapper">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--Google reCAPTCHA-->
                     <div class="single_extension">
                         <img src="<?php echo ATBDP_ADMIN_ASSETS . '/images/Free_Manager.jpg' ?>"
@@ -23,7 +23,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--Google reCAPTCHA-->
                     <div class="single_extension">
                         <img src="<?php echo ATBDP_ADMIN_ASSETS . '/images/Directorist_Google_Re-Captcha.jpg' ?>"
@@ -44,7 +44,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--Stripe Gateway-->
                     <div class="single_extension">
                         <img src="<?php echo ATBDP_ADMIN_ASSETS . '/images/Directorist_Stripe.jpg' ?>" alt="Stripe">
@@ -64,7 +64,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--Paypal Gateway-->
                     <div class="single_extension">
                         <img src="<?php echo ATBDP_ADMIN_ASSETS . '/images/Directorist_PayPal.jpg' ?>" alt="PayPal">
@@ -84,7 +84,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--Business hour-->
                     <div class="single_extension">
                         <img src="<?php echo ATBDP_ADMIN_ASSETS . '/images/Directorist_Business_Hours.jpg' ?>" alt="Business Hours">

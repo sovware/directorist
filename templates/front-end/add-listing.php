@@ -652,7 +652,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                             </div> <!-- ends #hide_if_no_manual_cor-->
 
                                         </div> <!--ends .row -->
-                                        <div class="col-md-3 col-sm-12">
+                                        <div class="col-sm-12">
                                             <div class="form-group">
                                                 <input type="checkbox" name="hide_map" value="1"
                                                        id="hide_map" <?= (!empty($hide_map)) ? 'checked' : ''; ?> >

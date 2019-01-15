@@ -60,8 +60,7 @@
         slidesToShow: 1,
         slidesToScroll: 1,
         arrows: false,
-        asNavFor: '.atbd_directory_image_thumbnail',
-        adaptiveHeight : true
+        asNavFor: '.atbd_directory_image_thumbnail'
     });
 
     /* image gallery slider */

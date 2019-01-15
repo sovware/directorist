@@ -21,14 +21,20 @@ $listing_info['listing_img']        = get_post_meta($post->ID, '_listing_img', t
 $listing_info['listing_prv_img']    = get_post_meta($post->ID, '_listing_prv_img', true);
 $listing_info['hide_contact_info']  = get_post_meta($post->ID, '_hide_contact_info', true);
 $listing_info['expiry_date']        = get_post_meta($post->ID, '_expiry_date', true);
+$gallery_cropping                   = get_directorist_option('gallery_cropping',1);
+$custom_gl_width                    = get_directorist_option('gallery_crop_width', 670);
+$custom_gl_height                   = get_directorist_option('gallery_crop_height', 750);
 extract($listing_info);
 /*Prepare Listing Image links*/
 $listing_imgs= (!empty($listing_img)) ? $listing_img : array();
 $image_links = array(); // define a link placeholder variable
 foreach ($listing_imgs as $id){
-    $thumbnail_cropping = get_directorist_option('gallery_cropping',1);
 
-    $image_links[$id]= wp_get_attachment_image_src($id, 'large')[0]; // store the attachment id and url
+    if(!empty($gallery_cropping)) {
+        $image_links[$id] = atbdp_image_cropping($id, $custom_gl_width, $custom_gl_height, true, 100)['url'];
+    } else {
+        $image_links[$id] = wp_get_attachment_image_src($id, 'large')[0];
+    }
 
     $image_links_thumbnails[$id]= wp_get_attachment_image_src($id, 'thumbnail')[0]; // store the attachment id and url
 
@@ -205,15 +211,18 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                     $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
                     if (!empty($image_links)) {
                         if (!empty($listing_prv_img)){
-
-                            $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
+                            if(!empty($gallery_cropping)) {
+                                $listing_prv_imgurl = atbdp_image_cropping($listing_prv_img, $custom_gl_width, $custom_gl_height, true, 100)['url'];
+                            } else {
+                                $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
+                            }
                             array_unshift($image_links, $listing_prv_imgurl);
                         }
                         ?>
                         <div class="atbd_directry_gallery_wrapper">
                             <div class="atbd_big_gallery">
                                 <div class="atbd_directory_gallery">
-                                    <?php foreach ($image_links as $image_link) { ?>
+                                    <?php foreach ($image_links as $image_link) {?>
                                         <div class="single_image">
                                             <img src="<?= !empty($image_link)?esc_url($image_link): ''; ?>"
                                                  alt="<?php esc_attr_e('Details Image', ATBDP_TEXTDOMAIN); ?>">

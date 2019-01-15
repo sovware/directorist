@@ -615,7 +615,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-size: 15px;
   width: 35px;
   line-height: 35px;
-  background: #ffffff;
+  background: #81869b;
+  color: #ffffff;
   border-radius: 50%;
   display: inline-block;
   text-align: center;
@@ -626,7 +627,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_directry_gallery_wrapper .prev:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_directry_gallery_wrapper .next:hover {
   color: #ffffff;
-  background: #444752;
+  background: #6d7289;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .single_image img {

@@ -661,7 +661,7 @@ jQuery(function ($) {
         });
 
 // on load of the page: switch to the currently selected tab
-        console.log(window.location);
+        //console.log(window.location);
         var hash = window.location.hash;
         $('#atbdp_tabs a[href="' + hash + '"]').tab('show');
     });

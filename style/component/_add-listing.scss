@@ -8,6 +8,7 @@
   }
   .atbd_add_listing_title {
     text-align: center;
+    margin-top: 15px;
     h3 {
       margin: 0;
       font-size: 28px;
@@ -74,6 +75,7 @@
     li {
       label {
         font-size: 13px;
+        margin:0;
         input {
           display: inline-block;
           vertical-align: middle;
@@ -156,6 +158,7 @@
     }
     .atbd_term_and_condition_area {
       text-align: center;
+      margin-bottom: 15px;
       > label {
         display: inline-block;
       }
@@ -171,7 +174,7 @@
   }
   .atbd_listing_type {
     h4 {
-      margin-bottom: 25px;
+      margin-bottom: 15px;
     }
     padding-bottom: 20px;
     > label {
@@ -180,5 +183,63 @@
         margin-left: 25px;
       }
     }
+  }
+}
+.atbd_general_information_module{
+  .not_empty{
+    select{
+      margin-top: 6px;
+    }
+  }
+  .form-group{
+    margin-bottom: 25px !important;
+    &:nth-last-child(2){
+      margin-bottom: 0 !important;
+    }
+    .form-control{
+      box-shadow: none;
+    }
+    .atbd_pricing_options{
+      span{
+        padding: 0 15px;
+      }
+    }
+  }
+}
+#directorist.atbd_wrapper .atbd_contact_information{
+  .form-check{
+    margin-bottom: 10px;
+  }
+  .form-group{
+    margin-bottom: 25px;
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+}
+#directorist.atbd_wrapper .atbd_location_map_setting{
+  .atbdb_content_module_contents{
+    & > label{
+      margin-bottom: 15px;
+    }
+    .cor-wrap{
+      margin: 20px 0 10px;
+      label{
+        margin-bottom: 0;
+      }
+    }
+    .form-group{
+      label{
+        margin-left: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+#_listing_gallery{
+  #gallery_upload{
+    padding-top: 0;
+    margin-top: 0;
   }
 }

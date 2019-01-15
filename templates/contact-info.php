@@ -91,14 +91,14 @@ $info_content .= "<p> {$ad}</p></div>";
     **/
     do_action('atbdp_edit_after_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
     ?>
-    <div class="atbd_backend_business_hour">
+    <div class="atbd_backend_business_hours">
         <?php
         if (class_exists('BD_Business_Hour') && get_directorist_option('enable_business_hour') ==1){
         ?>
         <div class="atbd_backend_business_hour">
                 <div class="row">
                     <div class="col-md-12">
-                        <h3 class="atbd_backend_area_title"><?php _e('Enter information about Businss/Opening hours', ATBDP_TEXTDOMAIN); ?></h3>
+                        <h6 class="atbd_backend_area_title"><?php _e('Enter information about Businss/Opening hours', ATBDP_TEXTDOMAIN); ?></h3>
                     </div>
                 </div>
         <?php do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_backend', $args['listing_contact_info']); ?>
@@ -111,7 +111,7 @@ $info_content .= "<p> {$ad}</p></div>";
 
 
     <!--Google map will be generated here using js-->
-        <label><?php _e('You can drag pinpoint to place the correct address manually.', ATBDP_TEXTDOMAIN); ?></label>
+        <label class="atbd_map_title"><?php _e('You can drag pinpoint to place the correct address manually.', ATBDP_TEXTDOMAIN); ?></label>
     <div class="map_wrapper">
         <div id="floating-panel">
             <button class="btn btn-danger"
@@ -120,7 +120,7 @@ $info_content .= "<p> {$ad}</p></div>";
 
         <div id="gmap"></div>
     </div>
-        <div class="form-group">
+        <div class="map-coordinate form-group">
             <div class="cor-wrap map_cor">
                 <input type="checkbox" name="manual_coordinate" value="1"
                        id="manual_coordinate" <?= (!empty($manual_coordinate)) ? 'checked' : ''; ?> >
@@ -157,7 +157,7 @@ $info_content .= "<p> {$ad}</p></div>";
                 </div>
             </div>
         </div> <!--ends #hide_if_no_manual_cor -->
-        <div class="form-group">
+        <div class="atbd_map_hide form-group">
             <input type="checkbox" name="hide_map" value="1"
                    id="hide_map" <?= (!empty($hide_map)) ? 'checked' : ''; ?> >
             <label for="hide_map"> <?php _e('Hide map for this listing.', ATBDP_TEXTDOMAIN); ?> </label>
@@ -178,7 +178,7 @@ $info_content .= "<p> {$ad}</p></div>";
 do_action('atbdp_edit_after_googlemap_preview', 'add_listing_page_backend', $args['listing_contact_info'], get_the_ID());
 
 ?>
-
+</div>
 
 <script>
 

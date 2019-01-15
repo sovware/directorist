@@ -189,7 +189,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                 <!--<p id='price_range_option'><?php /*echo __('Price Range', ATBDP_TEXTDOMAIN); */ ?></p></label>-->
                                             </label>
 
-                                            <small>(Optional --- Uncheck both to hide pricing for this listing)</small>
+                                            <small>(Optional - Uncheck both to hide pricing for this listing)</small>
                                         </div>
 
                                         <input type="hidden" id="price_range_val"
@@ -254,9 +254,10 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                 echo '<span style="color: red"> *</span>';
                                             }
                                             if (!empty($instructions)) {
-                                                printf('<span class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="%s"></span></label>', $instructions);
+                                                printf('<span class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="%s"></span>', $instructions);
                                             }
                                             ?>
+                                            </label>
                                             <?php
                                             if (isset($post_meta[$post->ID])) {
                                                 $value = $post_meta[0];
@@ -295,6 +296,10 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                         $_value = trim($choice);
                                                         $_label = $_value;
                                                     }
+                                                     $_checked = '';
+                                                                                    if( trim( $value ) == $_value ) $_checked = ' checked="checked"';
+
+                                                                                    printf( '<li><label><input type="radio" name="custom_field[%d]" value="%s"%s>%s</label></li>', $post->ID, $_value, $_checked, $_label );
                                                 }
                                                     echo '</ul>';
                                                     break;

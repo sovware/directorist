@@ -85,7 +85,7 @@ css for Custom Field
 }
 
 #directorist.atbd_wrapper .atbd_pricing_options .bor {
-  margin: 0 7px;
+  margin: 0 15px;
 }
 
 #directorist.atbd_wrapper .atbd_pricing_options small {
@@ -143,11 +143,11 @@ css for Custom Field
 
 #directorist.atbd_wrapper .hide-if-no-js {
   text-align: center;
+  margin: 0;
 }
 
 #directorist.atbd_wrapper .form-check {
   margin-bottom: 25px;
-  padding-top: 15px;
 }
 
 #directorist.atbd_wrapper .form-check input {
@@ -310,6 +310,41 @@ css for Custom Field
 #directorist.atbd_wrapper .ui-sortable tr.ui-sortable-helper {
   background-color: #F9F9F9;
   border-top: 1px solid #DFDFDF;
+}
+
+#directorist.atbd_wrapper .business-hour label {
+  margin-bottom: 0;
+}
+
+#directorist.atbd_wrapper .form-group {
+  margin-bottom: 30px;
+}
+
+#directorist.atbd_wrapper .form-group > label {
+  margin-bottom: 10px;
+}
+
+#directorist.atbd_wrapper .form-group .atbd_pricing_options {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#directorist.atbd_wrapper .form-group .atbd_pricing_options label {
+  margin-bottom: 0;
+}
+
+#directorist.atbd_wrapper .form-group .atbd_pricing_options small {
+  margin-left: 5px;
+}
+
+#directorist.atbd_wrapper .form-group .atbd_pricing_options input[type="checkbox"] {
+  position: relative;
+  top: -2px;
+}
+
+#directorist.atbd_wrapper #category_container .form-group {
+  margin-bottom: 0;
 }
 
 /*# sourceMappingURL=map/style.css.map */

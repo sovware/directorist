@@ -212,10 +212,10 @@ class ATBDP_Order {
             'transaction_id' => __( 'Transaction ID', ATBDP_TEXTDOMAIN ),
             'customer'       => __( 'Customer', ATBDP_TEXTDOMAIN ),
             'date'           => __( 'Date', ATBDP_TEXTDOMAIN ),
-            'status'         => __( 'Status', ATBDP_TEXTDOMAIN ),
+            'status'         => __( 'Order Status', ATBDP_TEXTDOMAIN ),
         );
 
-        return $columns;
+        return $columns = apply_filters('atbdp_add_new_order_column', $columns);
 
     }
 
@@ -231,6 +231,7 @@ class ATBDP_Order {
     public function manage_order_columns( $column, $post_id ) {
 
         global $post;
+        $listing_id = get_post_meta( $post_id, '_listing_id', true );
         switch ( $column ) {
             case 'ID' :
                 printf( '<a href="%s" target="_blank">Order #%d</a>', ATBDP_Permalink::get_payment_receipt_page_link( $post_id ), $post_id );
@@ -241,7 +242,7 @@ class ATBDP_Order {
 
                 $order_details = apply_filters( 'atbdp_order_details', array(), $post_id, $listing_id);
                 foreach( $order_details as $order_detail ) {
-                    echo '<div>#Short Notes: '.$order_detail['label'].'</div>';
+                    echo '<div>#Order for: '.$order_detail['label'].'</div>';
                 }
 
                 $featured = get_post_meta( $post_id, '_featured', true ); // is this listing featured ?
@@ -285,7 +286,13 @@ class ATBDP_Order {
                 $value = get_post_meta( $post_id, '_payment_status', true );
                 echo atbdp_get_payment_status_i18n( $value );
                 break;
+
         }
+        /*
+         * since 4.0
+         *
+         */
+        do_action('atbdp_custom_order_column_content', $column, $post_id, $listing_id);
 
     }
 
@@ -307,8 +314,7 @@ class ATBDP_Order {
             'date' 	    => 'date',
             'status'    => 'status',
         );
-
-        return $columns;
+        return $columns = apply_filters('atbdp_order_table_shortable_colums', $columns);
 
     }
 

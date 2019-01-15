@@ -50,11 +50,22 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                                         aria-controls="profile" role="tab"
                                                                         data-toggle="tab"><?php _e('Favorite Listings', ATBDP_TEXTDOMAIN); ?></a>
                             </li>
+                            <?php
+                            if (class_exists('ATBDP_Fee_Manager')){
+                                ?>
+                                <li role="presentation" class="nav-item"><a href="#manage_fees" class="nav-link"
+                                                                            aria-controls="profile" role="tab"
+                                                                            data-toggle="tab"><?php _e('Manage Fees', ATBDP_TEXTDOMAIN); ?></a>
+                                </li>
+                                <?php
+                            }
+                            ?>
+
                         </ul>
 
                         <div class="nav_button">
                             <a href="<?= esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
-                               class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Submit New Listing', ATBDP_TEXTDOMAIN); ?></a>
+                               class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Submit Listing', ATBDP_TEXTDOMAIN); ?></a>
                             <a href="<?= esc_url(wp_logout_url()); ?>"
                                class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Log Out', ATBDP_TEXTDOMAIN); ?></a>
                         </div>
@@ -483,6 +494,125 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                 </table>
                             </div>
                         </div>
+                        <?php
+                        if (class_exists('ATBDP_Fee_Manager')){
+                            ?>
+                            <div role="tabpanel" class="tab-pane" id="manage_fees">
+                                <div class="atbd_manage_fees_wrapper">
+                                    <table class="table table-bordered atbd_single_saved_item table-responsive-sm">
+                                        <div id="fm_plans_container">
+                                            <?php
+                                            ATBDP_Fee_Manager()->atfm_fees_for_listing_submit_frontend();
+                                            ?>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="atbd_pricing_header">
+                                                        <?php printf('<h3>%s</h3>', __('Upgrade/Downgrade your plan', ATBDP_TEXTDOMAIN)); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <?php
+                                                $args = array(
+                                                    'post_type'      => 'atbdp_fee_manager',
+                                                    'posts_per_page' => -1,
+                                                    'status'         => 'publish'
+                                                );
+                                                $atbdp_query = new WP_Query( $args );
+
+                                                if ($atbdp_query->have_posts()){
+                                                    global $post;
+                                                    $plans = $atbdp_query->posts;
+                                                    foreach ($plans as $key => $value){
+                                                        $plan_id = $value->ID;
+                                                        $unl = __( 'Unlimited', ATBDP_TEXTDOMAIN );
+                                                        $fm_price = esc_attr(get_post_meta($plan_id, 'fm_price', true));
+                                                        $price_decimal = esc_attr(get_post_meta($plan_id, 'price_decimal', true));
+                                                        $fm_length = esc_attr(get_post_meta( $plan_id, 'fm_length', true ));
+                                                        $fm_length_unl = esc_attr(get_post_meta( $plan_id, 'fm_length_unl', true ));
+                                                        $num_regular = esc_attr(get_post_meta($plan_id, 'num_regular', true));
+                                                        $num_regular_unl = esc_attr(get_post_meta($plan_id, 'num_regular_unl', true));
+                                                        $num_featured = esc_attr(get_post_meta($plan_id, 'num_featured', true));
+                                                        $num_featured_unl = esc_attr(get_post_meta($plan_id, 'num_featured_unl', true));
+                                                        $price_range = esc_attr(get_post_meta($plan_id, 'price_range', true));
+                                                        $price_range_unl = esc_attr(get_post_meta($plan_id, 'price_range_unl', true));
+                                                        $num_image = esc_attr(get_post_meta($plan_id, 'num_image', true));
+                                                        $num_image_unl = esc_attr(get_post_meta($plan_id, 'num_image_unl', true));
+                                                        $fm_trail_p = esc_attr(get_post_meta($plan_id, 'fm_trail_p', true));
+                                                        $fm_trail_p_unl = esc_attr(get_post_meta($plan_id, 'fm_trail_p_unl', true));
+                                                        $business_hrs = esc_attr(get_post_meta($plan_id, 'business_hrs', true));
+                                                        $stf_form = esc_attr(get_post_meta($plan_id, 'stf_form', true));
+                                                        $l_video = esc_attr(get_post_meta($plan_id, 'l_video', true));
+                                                        $cf_owner = esc_attr(get_post_meta($plan_id, 'cf_owner', true));
+                                                        $fm_email = esc_attr(get_post_meta($plan_id, 'fm_email', true));
+                                                        $fm_phone = esc_attr(get_post_meta($plan_id, 'fm_phone', true));
+                                                        $fm_web_link = esc_attr(get_post_meta($plan_id, 'fm_web_link', true));
+                                                        $fm_social_network = esc_attr(get_post_meta($plan_id, 'fm_social_network', true));
+                                                        $fm_cs_review = esc_attr(get_post_meta($plan_id, 'fm_cs_review', true));
+                                                        $fm_listing_faq = esc_attr(get_post_meta($plan_id, 'fm_listing_faq', true));
+                                                        $exclude_cat = array(get_post_meta($plan_id, 'exclude_cat', true));
+                                                        $fm_custom_field = esc_attr(get_post_meta($plan_id, 'fm_custom_field', true));
+                                                        $fm_coupon_code = esc_attr(get_post_meta($plan_id, 'fm_coupon_code', true));
+                                                        $default_pln = esc_attr(get_post_meta($plan_id, 'default_pln', true));
+                                                        ?>
+
+                                                        <div class="col-lg-4 col-md-6">
+                                                            <div class="pricing pricing--1 <?php if ($default_pln == 'yes'){echo 'atbd_pricing_special';}?> shadow-lg-2">
+                                                                <div class="pricing__title">
+                                                                    <h4><?php echo $value->post_title; ?><?php if ($default_pln == 'yes'){_e(' (Popular)', ATBDP_TEXTDOMAIN);}?></h4>
+                                                                </div>
+
+                                                                <div class="pricing__price rounded">
+                                                                    <p><sup><?php echo atbdp_get_payment_currency(); ?></sup><?php echo $fm_price;if ($price_decimal)echo '.'.$price_decimal?><small>/<?php echo ($fm_length_unl) ? $unl : $fm_length;?> days</small></p>
+                                                                </div>
+                                                                <div class="pricing__features">
+                                                                    <ul>
+                                                                        <li><span class="fa fa-<?php if (($num_regular > 0) || $num_regular_unl ){echo 'check';}else{echo 'times';}?>"></span><?php echo $num_regular_unl ? '<span class="atbd_color-success">'.$unl.'</span>' : $num_regular; ?> Regular Listings</li>
+                                                                        <li><span class="fa fa-<?php if (($num_featured > 0) || $num_featured_unl){echo 'check';}else{echo 'times';}?>"></span><?php echo $num_featured_unl ? '<span class="atbd_color-success">'.$unl.'</span>' : $num_featured; ?> Featured Listings</li>
+                                                                        <li><span class="fa fa-<?php if (($price_range > 0) || $price_range_unl){echo 'check';}else{echo 'times';}?>"></span><?php echo $price_range_unl ? '<span class="atbd_color-success">'.$unl.'</span>' : $price_range; ?> Price Range</li>
+                                                                        <li><span class="fa fa-<?php if (($num_image > 0) || $num_image_unl){echo 'check';}else{echo 'times';}?>"></span><?php echo $num_image_unl ? '<span class="atbd_color-success">'.$unl.'</span>' : $num_image; ?> Listing Image</li>
+                                                                        <li><span class="fa fa-<?php if (($fm_trail_p > 0) || $fm_trail_p_unl){echo 'check';}else{echo 'times';}?>"></span><?php echo $fm_trail_p_unl ? '<span class="atbd_color-success">'.$unl.'</span>' : $fm_trail_p; ?> Days Trail</li>
+                                                                        <?php
+                                                                        if (class_exists('BD_Business_Hour')){
+                                                                            ?>
+                                                                            <li><span class="fa fa-<?php if ($business_hrs == 'yes'){echo 'check';}else{echo 'times';}?>"> </span>Allow business hours</li>
+                                                                        <?php } ?>
+                                                                        <li><span class="fa fa-<?php if ($stf_form == 'yes'){echo 'check';}else{echo 'times';}?>"> </span>Allow send to friend</li>
+                                                                        <li><span class="fa fa-<?php if ($l_video == 'yes'){echo 'check';}else{echo 'times';}?>"> </span>Listing video</li>
+                                                                        <li><span class="fa fa-<?php if ($cf_owner == 'yes'){echo 'check';}else{echo 'times';}?>"> </span>Contact owner</li>
+                                                                        <li><span class="fa fa-<?php if ($fm_email == 'yes'){echo 'check';}else{echo 'times';}?>"> </span>Show email</li>
+                                                                        <li><span class="fa fa-<?php if ($fm_phone == 'yes'){echo 'check';}else{echo 'times';}?>"> </span>Show contact number</li>
+                                                                        <li><span class="fa fa-<?php if ($fm_web_link == 'yes'){echo 'check';}else{echo 'times';}?>"> </span>Show web link</li>
+                                                                        <li><span class="fa fa-<?php if ($fm_social_network == 'yes'){echo 'check';}else{echo 'times';}?>"> </span>Show social network</li>
+                                                                        <li><span class="fa fa-<?php if ($fm_cs_review == 'yes'){echo 'check';}else{echo 'times';}?>"> </span>Allow customer review</li>
+                                                                        <li><span class="fa fa-<?php if ($fm_listing_faq == 'yes'){echo 'check';}else{echo 'times';}?>"> </span>Listing FAQs</li>
+                                                                        <li><span class="fa fa-<?php if (empty($exclude_cat[0])){echo 'check';}else{echo 'times';}?>"> </span>All categories</li>
+                                                                        <li><span class="fa fa-<?php if ($fm_custom_field == 'yes'){echo 'check';}else{echo 'times';}?>"> </span>Custom field</li>
+                                                                        <li><span class="fa fa-<?php if ($fm_coupon_code == 'yes'){echo 'check';}else{echo 'times';}?>"> </span>Promo coupon</li>
+
+                                                                    </ul>
+                                                                    <div>
+                                                                        <form method="post" action="<?= esc_url(ATBDP_Permalink::get_fee_renewal_checkout_page_link($post->ID)) ?>">
+                                                                            <input id="fee_plans[<?php echo $value->ID; ?>]" type="hidden" value="<?php echo $value->ID; ?>" name="fm_plan_id_updated">
+                                                                            <label  for="fee_plans[<?php echo $value->ID; ?>]"><input type="submit" name="fm_plans_updated" value="<?php _e('Get This Plan', ATBDP_TEXTDOMAIN) ?>"></label>
+
+                                                                        </form>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <?php
+                                                    }}
+                                                ?>
+                                            </div> <!--ends. row-->
+                                        </div> <!--ends. fm_plans_container-->
+                                    </table>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </div>

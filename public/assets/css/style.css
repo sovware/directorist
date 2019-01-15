@@ -380,6 +380,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-size: 10px;
 }
 
+#directorist.atbd_wrapper .form-control {
+  padding: 10px 15px;
+}
+
+#directorist.atbd_wrapper textarea.form-control {
+  padding-top: 0;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   text-align: right;
   margin-bottom: 15px;

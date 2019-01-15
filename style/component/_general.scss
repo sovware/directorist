@@ -243,3 +243,11 @@ body.atbd_content_active #directorist.atbd_wrapper{
     }
   }
 }
+#directorist.atbd_wrapper{
+  .form-control{
+    padding: 10px 15px;
+  }
+  textarea.form-control{
+    padding-top: 0;
+  }
+}

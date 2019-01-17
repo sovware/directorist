@@ -603,8 +603,7 @@ jQuery(function ($) {
             });
 
 
-        }
-        ;
+        };
 
         // Report abuse [on modal closed]
         $('#atbdp-report-abuse-modal').on('hidden.bs.modal', function (e) {

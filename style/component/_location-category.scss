@@ -11,8 +11,6 @@
     }
   }
   .atbd_location_grid_wrap{
-    display: flex;
-    flex-wrap: wrap;
     a.atbd_location_grid {
       border: 1px solid #ededed;
       text-align: center;
@@ -20,9 +18,15 @@
       padding: 13px 17px;
       margin: 0 15px 15px;
       background: #fafcfd;
-      flex: 1 1 20%;
-      display: flex;
+      display: block;
       align-items: center;
+    }
+    .col-md-1{
+      a.atbd_location_grid {
+        padding: 5px;
+        margin: 0;
+        word-wrap: break-word;
+      }
     }
   }
   span.expander {
@@ -62,6 +66,8 @@
   }
 }
 
-#directorist.atbd_wrapper .atbdp_child_category li {
-  margin-bottom: 7px;
+#directorist.atbd_wrapper{
+  .atbdp_child_category li {
+    margin-bottom: 7px;
+  }
 }

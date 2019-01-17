@@ -243,3 +243,62 @@ body.atbd_content_active #directorist.atbd_wrapper{
     }
   }
 }
+#directorist.atbd_wrapper{
+  .form-control{
+    padding: 10px 15px;
+  }
+  textarea.form-control{
+    padding-top: 0;
+  }
+}
+ .modal.fade.show{
+   opacity: 1;
+   background: rgba(#000, 0.6);
+
+ }
+.atbd_content_active #directorist.atbd_wrapper{
+  .modal-content{
+    box-shadow: 0 5px 20px rgba($primary,0.2);
+    #atbdp-report-abuse-form{
+      width: 100%;
+      padding: 30px;
+    }
+  }
+  .modal-dialog{
+    .modal-body{
+      padding: 15px 0 10px;
+      label{
+        margin-bottom: 8px;
+      }
+      textarea{
+        box-shadow: none;
+        padding-top: 8px;
+      }
+    }
+    .modal-header{
+      padding-left: 0;
+      .close{
+        padding: 2px 10px;
+        top: 20px;
+        right: 20px;
+        position: absolute;
+        transform: none;
+        background: $primary;
+        color: #fff;
+        border-radius: 300px;
+        opacity: 1;
+        font-weight: 300;
+        span{
+          margin: 0;
+          position: relative;
+          top: -1px;
+        }
+      }
+    }
+    .modal-footer{
+      border: 0;
+      padding-bottom: 0;
+      padding-right: 0;
+    }
+  }
+}

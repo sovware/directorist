@@ -2,7 +2,7 @@
 <div id="directorist" class="atbd_wrapper">
     <div class="container-fluid">
         <div class="col-md-12">
-            <ul class="atbd_all_categories row">
+            <ul class="atbd_all_categories">
                 <?php
                 $terms = is_array($terms) ? $terms : array();
                 $i = 0;

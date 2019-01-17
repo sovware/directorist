@@ -679,25 +679,26 @@ final class Directorist_Base
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                         $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
                         $avata_img = get_avatar($author_id, 32);
-                        $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
-                        if (!empty($listing_prv_img)) {
+                        $thumbnail_cropping = get_directorist_option('thumbnail_cropping',1);
+                        $crop_width                    = get_directorist_option('crop_width', 360);
+                        $crop_height                   = get_directorist_option('crop_height', 300);
+                        if(!empty($listing_prv_img)) {
 
-                            if ($thumbnail_cropping) {
+                            if($thumbnail_cropping) {
 
-                                $image_size = get_directorist_option('image_size', 'directory-image');
-                                $prv_image = wp_get_attachment_image_src($listing_prv_img, $image_size);
+                                $prv_image = atbdp_image_cropping($listing_prv_img, $crop_width, $crop_height, true, 100)['url'];
 
-                            } else {
-                                $prv_image = wp_get_attachment_image_src($listing_prv_img, 'large');
+                            }else{
+                                $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
                             }
 
                         }
-                        if (!empty($listing_img[0])) {
-                            if ($thumbnail_cropping) {
-                                $gallery_img_size = get_directorist_option('image_size', 'directory-image');
-                                $gallery_img = wp_get_attachment_image_src($listing_img[0], $gallery_img_size);
-                            } else {
-                                $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium');
+                        if(!empty($listing_img[0])) {
+                            if( $thumbnail_cropping ) {
+                                $prv_image = atbdp_image_cropping($listing_prv_img, $crop_width, $crop_height, true, 100)['url'];
+
+                            }else{
+                                $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
                             }
 
                         }
@@ -709,12 +710,12 @@ final class Directorist_Base
                                         <div class="atbd_listing_image">
                                             <?php if (!empty($listing_prv_img)) {
 
-                                                echo '<img src="' . esc_url($prv_image['0']) . '" alt="listing image">';
+                                                echo '<img src="' . esc_url($prv_image) . '" alt="listing image">';
 
                                             }
                                             if (!empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                                echo '<img src="' . esc_url($gallery_img['0']) . '" alt="listing image">';
+                                                echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
 
                                             }
                                             if (empty($listing_img[0]) && empty($listing_prv_img)) {
@@ -1342,12 +1343,5 @@ function ATBDP()
 
 // Get ATBDP ( AazzTech Business Directory Plugin) Running.
 ATBDP();
-
-add_image_size('directory-image', 310, 190, true);
-add_image_size('directory-small', 400, 300, true);
-add_image_size('directory-medium', 600, 500, true);
-add_image_size('directory-large', 700, 600, true);
-
-
 
 register_activation_hook(__FILE__, array('Directorist_Base', 'prepare_plugin'));

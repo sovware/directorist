@@ -299,3 +299,15 @@ css for Custom Field
 #directorist.atbd_wrapper #category_container .form-group{
   margin-bottom: 0;
 }
+
+@media (min-width: 1199px) and (max-width: 1510px), (min-width: 768px) and (max-width: 1187px), (min-width: 576px) and (max-width: 694px), (min-width: 320px) and (max-width: 373px){
+  #directorist.atbd_wrapper{
+    .btn.demo, .btn.get{
+      display: block;
+      margin: 0;
+    }
+    .btn.get{
+      margin-top: 10px;
+    }
+  }
+}

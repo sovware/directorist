@@ -11,8 +11,26 @@
   }
   .atbd_directory_image_thumbnail{
     margin-top: 15px;
-    .single_thumbnail + .single_thumbnail{
-      margin-left: 15px;
+    .single_thumbnail{
+      margin: 0 10px;
+      position: relative;
+      cursor: pointer;
+      outline: 0;
+      img{
+        width: 100%;
+      }
+      &.slick-current{
+        &:before{
+          position: absolute;
+          content: '';
+          width: 100%;
+          height: 100%;
+          background: rgba(#000, 0.5);
+          left: 0;
+          top: 0;
+          transition: $transition-base;
+        }
+      }
     }
   }
   .atbd_content_module__tittle_area {
@@ -216,6 +234,32 @@
     border-bottom: 1px solid $border-color;
     .atbd_big_gallery{
       position: relative;
+      img{
+        width:auto;
+        display: inline-block;
+      }
+      .slick-track{
+        display: flex;
+        align-items: center;
+      }
+      .single_image{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:before{
+          content: none;
+        }
+      }
+    }
+    .atbd_directory_image_thumbnail{
+      .slick-track{
+      }
+      .single_thumbnail{
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
     padding-bottom: 30px;
     .prev {
@@ -228,17 +272,22 @@
       position: absolute;
       font-size: 15px;
       width: 35px;
-      line-height: 35px;
-      background: $light;
+      height: 35px;
+      background: rgba(#fff, 0.7);
       border-radius: 50%;
-      display: inline-block;
-      text-align: center;
       top: 50%;
       transition: $transition-base;
       cursor: pointer;
+      border: 1px solid #e3e6ef;
+      color: $dark;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       &:hover {
         color: $light;
         background: $primary;
+        border-color: transparent;
       }
     }
   }

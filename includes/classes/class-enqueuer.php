@@ -184,7 +184,7 @@ class ATBDP_Enqueuer {
         // but the inclusion should be limited to the scope of the page user viewing.
         // This way,  we can just enqueue any styles and scripts in side the shortcode or any other functions.
 
-        //@Todo; make unminified css minified then enqueue them.
+        // @Todo; make unminified css minified then enqueue them.
         wp_register_style( 'atbdp-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION);
         wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false, ATBDP_VERSION);
         wp_register_style( 'sweetalertcss', ATBDP_PUBLIC_ASSETS.'css/sweetalert.min.css', false, ATBDP_VERSION );

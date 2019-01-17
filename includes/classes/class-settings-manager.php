@@ -1824,6 +1824,35 @@ The Administrator of ==SITE_NAME==
                 ),
             ),
 
+            array(
+                'type' => 'toggle',
+                'name' => 'gallery_cropping',
+                'label' => __('Gallery Image Cropping', ATBDP_TEXTDOMAIN),
+                'description' => __('If the slider images are not in the same size, it helps automatically resizing.', ATBDP_TEXTDOMAIN),
+                'default' => 1,
+            ),
+
+            array(
+                'type' => 'slider',
+                'name' => 'gallery_crop_width',
+                'label' => __( 'Custom Width', ATBDP_TEXTDOMAIN ),
+                'min' => '1',
+                'max' => '1200',
+                'step' => '1',
+                'default' => '740',
+
+            ),
+
+            array(
+                'type' => 'slider',
+                'name' => 'gallery_crop_height',
+                'label' => __( 'Custom Height', ATBDP_TEXTDOMAIN ),
+                'min' => '1',
+                'max' => '1200',
+                'step' => '1',
+                'default' => '580',
+
+            ),
             
             array(
                 'type' => 'toggle',
@@ -1970,31 +1999,25 @@ The Administrator of ==SITE_NAME==
                     'default' => 1,
                 ),
                 array(
-                    'type' => 'select',
-                    'name' => 'image_size',
-                    'label' => __( 'Thumbnail Cropping Size', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'directory-image',
-                            'label' => __('310*190', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'directory-small',
-                            'label' => __('400*300', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'directory-medium',
-                            'label' => __('600*500', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'directory-large',
-                            'label' => __('700*600', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' =>  array(
-                        'value' => 'directory-image',
-                        'label' => __('360*300', ATBDP_TEXTDOMAIN),
-                    ),
+                    'type' => 'slider',
+                    'name' => 'crop_width',
+                    'label' => __( 'Custom Width', ATBDP_TEXTDOMAIN ),
+                    'min' => '1',
+                    'max' => '1200',
+                    'step' => '1',
+                    'default' => '350',
+
+                ),
+
+                array(
+                    'type' => 'slider',
+                    'name' => 'crop_height',
+                    'label' => __( 'Custom Height', ATBDP_TEXTDOMAIN ),
+                    'min' => '1',
+                    'max' => '1200',
+                    'step' => '1',
+                    'default' => '260',
+
                 ),
                 array(
                     'type' => 'toggle',

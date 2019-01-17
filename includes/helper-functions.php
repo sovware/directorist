@@ -1911,3 +1911,22 @@ if(!function_exists('new_badge')){
         }
     }
 }
+
+/**
+ * Generate image crop.
+ *
+ * @since    4.0.0
+ *
+ * @param    string    $attachmentId    Image Url.
+ * @param    int       $width           Image Width.
+ * @param    int       $height          Image Height.
+ * @param    bool      $crop            cropping condition.
+ * @param    int       $quality         Quality.
+ * @return   string                     return resize.
+ */
+function atbdp_image_cropping($attachmentId, $width, $height, $crop = true, $quality = 100)
+{
+    $resizer = new Atbdp_Image_resizer($attachmentId);
+
+    return $resizer->resize($width, $height, $crop, $quality);
+}

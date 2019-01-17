@@ -1,10 +1,3 @@
-<?php
-
-/**
- * This template displays the ACADP categories list.
- */
-?>
-
 <div id="directorist" class="atbd_wrapper">
     <div class="atbdp atbdp-categories atbdp-text-list">
         <?php
@@ -30,7 +23,7 @@
 
 			echo '<div class="' . $span . '"><div class="atbd_category_wrapper">';
 			echo '<a href=" ' .ATBDP_Permalink::get_location_archive($term) . ' ">';
-			echo '<strong>' . $term->name . '</strong>';
+			echo '<span>' . $term->name . '</span>';
 			if( ! empty( $locations_settings['show_count'] ) ) {
 				echo ' (' .  $count . ')';
 			}

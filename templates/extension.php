@@ -128,17 +128,17 @@
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <!--WooCommerce Fee Manager-->
                     <div class="single_extension">
-                        <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Listing_Slider__Carousal.jpg" alt="WooCommerce Fee Manager">
+                        <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Listing_Slider__Carousal.jpg" alt="Listings Slider">
 
                         <div class="extension_detail">
-                            <a href="https://aazztech.com/product/directorist-woocommerce-fee-manager" target="_blank" class="ext_title"><h4>
-                                    Listings Slider </h4></a>
+                            <a href="https://aazztech.com/product/directorist-listings-slider-and-carousel" target="_blank" class="ext_title"><h4>
+                                    Listings Slider and Carousel </h4></a>
                             <p><?php esc_html_e('Display listings slider anywhere on your website using this extension.', ATBDP_TEXTDOMAIN); ?></p>
 
                             <div class="btn_wrapper">
-                                <a href="https://aazztech.com/product/directorist-woocommerce-fee-manager/#screenshots" target="_blank"
+                                <a href="https://aazztech.com/product/directorist-listings-slider-and-carousel/#screenshots" target="_blank"
                                    class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
-                                <a href="https://aazztech.com/product/directorist-woocommerce-fee-manager" target="_blank"
+                                <a href="https://aazztech.com/product/directorist-listings-slider-and-carousel" target="_blank"
                                    class="btn get btn-success"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
                             </div>
                         </div>

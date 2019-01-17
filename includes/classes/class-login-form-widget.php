@@ -33,6 +33,7 @@ if (!class_exists('BD_Login_Form_Widget')) {
         {
             if( is_singular(ATBDP_POST_TYPE)) {
                 if (!is_user_logged_in()) {
+
                     $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Title', ATBDP_TEXTDOMAIN);
                     echo $args['before_widget'];
                     echo '<div class="atbd_widget_title">';
@@ -43,6 +44,7 @@ if (!class_exists('BD_Login_Form_Widget')) {
                     <?php
                         wp_login_form();
                         wp_register();
+                    printf(__('<p>Don\'t have an account? %s</p>', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign up', ATBDP_TEXTDOMAIN)."</a>");
                     ?>
                     </div>
                     <?php

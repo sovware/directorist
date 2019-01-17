@@ -145,7 +145,7 @@ class ATBDP_Checkout
         ));
 
         // we need to provide payment receipt shortcode with the order details array as we passed in the order checkout form page.
-        $order_items = apply_filters( 'atbdp_order_items', array(), $order_id); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
+        $order_items = apply_filters( 'atbdp_order_items', array(), $order_id, $listing_id, $data); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
         // let's add featured listing data if the order has featured listing in it
         $featured_active = get_directorist_option('enable_featured_listing');
         if ($featured_active && !empty($meta['_featured'])){
@@ -158,21 +158,6 @@ class ATBDP_Checkout
                 'price' => $price,
             );
 
-        }
-        $selected_plan_id = get_post_meta($listing_id[0], '_fm_plans', true);
-        $updated_plan_id = get_user_meta(get_current_user_id(), '_plan_to_active', true);
-        $_plan_id = !empty($updated_plan_id)?$updated_plan_id:$selected_plan_id;
-        if (class_exists('ATBDP_Fee_Manager') && !empty($_plan_id)){
-            $p_title = get_the_title($_plan_id);
-            $p_description = get_post_meta($_plan_id, 'fm_description', true);
-            $fm_price = get_post_meta($_plan_id, 'fm_price', true);
-            $price_decimal = get_post_meta($_plan_id, 'price_decimal', true);
-            $decimal = $price_decimal ? '.'.$price_decimal : '';
-            $order_items[] = array(
-                'title' => $p_title,
-                'desc' => $p_description,
-                'price' => $fm_price.$decimal,
-            );
         }
 
         $data['order_items'] = $order_items;

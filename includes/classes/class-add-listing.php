@@ -371,7 +371,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                         // Redirect to avoid duplicate form submissions
                         // if monetization on, redirect to checkout page
 // vail if monetization is not active.
-                        if ((class_exists('ATBDP_Fee_Manager')) && ($remaining_days < 1)){
+                        $remaining_days = !empty($remaining_days)?$remaining_days:'0';
+                        if ((class_exists('ATBDP_Fee_Manager')) && ($remaining_days <= 1)){
                             wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
                             exit;
                         }else{

@@ -539,12 +539,7 @@ class ATBDP_Shortcode {
             // user not logged in;
             $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), "<a href='".wp_login_url()."'> ". __('Here', ATBDP_TEXTDOMAIN)."</a>","<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign up', ATBDP_TEXTDOMAIN)."</a>"); ?>
             <section class="directory_wrapper single_area">
-                <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
-                    <div class="row">
-                        <div class="col-md-12">
                             <?php  ATBDP()->helper->show_login_message($error_message); ?>
-                        </div>
-                    </div>
             </section>
 <?php
         }
@@ -691,13 +686,7 @@ class ATBDP_Shortcode {
 
 
             <section class="directory_wrapper single_area">
-                <div class="<?php echo is_directoria_active() ? 'container': ' container-fluid'; ?>">
-                    <div class="row">
-                        <div class="col-md-12">
                             <?php  ATBDP()->helper->show_login_message($error_message); ?>
-                        </div>
-                    </div>
-                </div> <!--ends container-fluid-->
             </section>
 <?php
 
@@ -707,7 +696,10 @@ class ATBDP_Shortcode {
     public function custom_user_login()
     {
         ob_start();
+        echo '<div class="atbdp_login_form_shortcode">';
         wp_login_form();
+        printf(__('<p>Don\'t have an account? %s</p>', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign up', ATBDP_TEXTDOMAIN)."</a>");
+        echo '</div>';
         return ob_get_clean();
     }
 
@@ -722,15 +714,8 @@ class ATBDP_Shortcode {
         }else{
             $error_message = sprintf(__('Registration page is only for unregistered user. <a href="%s">Go Back To Home</a>', ATBDP_TEXTDOMAIN), esc_url(get_home_url()));
             ?>
-            <div class="single_area">
-                <div class="<?php echo is_directoria_active() ? 'container': ' container-fluid'; ?>">
-                    <div class="row">
-                        <div class="col-md-12">
                             <?php ATBDP()->helper->show_login_message($error_message);  ?>
-                        </div>
-                    </div> <!--ends .row-->
-                </div>
-            </div>
+
         <?php
         }
 

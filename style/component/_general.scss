@@ -302,3 +302,26 @@ body.atbd_content_active #directorist.atbd_wrapper{
     }
   }
 }
+.atbdp_login_form_shortcode{
+  &>p{
+    font-size: 14px;
+  }
+  .login-username label, .login-password label, .login-remember label{
+    font-size: 14px;
+    font-weight: 600;
+  }
+  #loginform{
+    p{
+      margin-bottom: 10px;
+      input{
+        background: #FEF7E0;
+        padding: 5px 15px;
+        &[type="submit"]{
+          background: #ddd;
+          color: #202428;
+          padding: 8px 13px;
+        }
+      }
+    }
+  }
+}

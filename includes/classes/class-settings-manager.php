@@ -1860,19 +1860,6 @@ The Administrator of ==SITE_NAME==
                 'label' => __('Enable Report Abuse', ATBDP_TEXTDOMAIN),
                 'default' => 1,
             ),
-
-            array(
-                'type' => 'toggle',
-                'name' => 'enable_tagline',
-                'label' => __('Enable Tagline', ATBDP_TEXTDOMAIN),
-                'default' => 0,
-            ),
-            array(
-                'type' => 'toggle',
-                'name' => 'enable_excerpt',
-                'label' => __('Enable Excerpt', ATBDP_TEXTDOMAIN),
-                'default' => 0,
-            ),
             array(
                 'type' => 'toggle',
                 'name' => 'disable_list_price',
@@ -2024,6 +2011,18 @@ The Administrator of ==SITE_NAME==
                     'name' => 'display_title',
                     'label' => __('Display Title', ATBDP_TEXTDOMAIN),
                     'default' => '1',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'enable_tagline',
+                    'label' => __('Enable Tagline', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'enable_excerpt',
+                    'label' => __('Enable Excerpt', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',

@@ -133,32 +133,33 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     break;
                             }
                             if (empty($Check_require)){
-                                $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span style="color:                            red">*</span></strong></div>';
+                                $msg = '<div class="alert alert-danger"><strong>'.__('Please fill up the require field marked with ', ATBDP_TEXTDOMAIN).'<span style="color:                            red">*</span></strong></div>';
                                 return $msg;
                             }
                         }
                     }
                     //check the title is empty or not
                     if (empty($title)){
-                        $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span                                          style="color: red">*</span></strong></div>';
+                        $msg = '<div class="alert alert-danger"><strong>'.__('Please fill up the require field marked with ', ATBDP_TEXTDOMAIN).'<span style="color: red">*</span></strong></div>';
                         return $msg;
                     }
 
                     if(get_directorist_option('listing_terms_condition') == 1){
                         if ($t_c_check == ''){
-                            $msg = '<div class="alert alert-danger"><strong>Please fill up the require field marked with <span                                          style="color: red">*</span></strong></div>';
+                            $msg = '<div class="alert alert-danger"><strong>'.__('Please fill up the require field marked with ', ATBDP_TEXTDOMAIN).'<span style="color: red">*</span></strong></div>';
                             return $msg;
                         }
                     }
-
-
+                    //@todo need to shift FM validation code to extension itself
                     if (class_exists('ATBDP_Fee_Manager')){
                         $user_id = get_current_user_id();
                         $subscribed_package_id = get_user_meta($user_id, '_subscribed_users_plan_id', true);
+
                         $subscribed_date = get_user_meta($user_id, '_subscribed_time', true);
                         $package_length = get_post_meta($subscribed_package_id, 'fm_length', true);
                         $is_never_expaired = get_post_meta($subscribed_package_id, 'fm_length_unl', true);
                         $package_length = $package_length ? $package_length : '1';
+
                         // Current time
                         $start_date = !empty($subscribed_date) ? $subscribed_date : '';
                         // Calculate new date
@@ -167,28 +168,38 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $expired_date = $date->format( 'Y-m-d H:i:s' );
                         $current_d = current_time('mysql');
                         $remaining_days = ($expired_date > $current_d) ? (floor(strtotime($expired_date)/(60*60*24)) - floor(strtotime($current_d)/(60*60*24))) : 0; //calculate the number of days remaining in a plan
-                        $listing_type = !empty($p['listing_type'])? sanitize_text_field($p['listing_type']) : '';
-                        $num_regular_unl = get_post_meta($subscribed_package_id, 'num_regular_unl', true);
-                        $num_featured_unl = get_post_meta($subscribed_package_id, 'num_featured_unl', true);
-                        $_general_type = get_user_meta($user_id, '_general_type',true) ? (int)get_user_meta($user_id, '_general_type',true) : 1;// find the user has subscribed or not
-                        $has_featured_type = get_user_meta($user_id, '_featured_type',true) ? (int) get_user_meta($user_id, '_featured_type',true) : 0;
+                    }
+                    $listing_type = !empty($_POST['listing_type'])? sanitize_text_field($_POST['listing_type']) : '';
+                    $num_regular_unl = get_post_meta($subscribed_package_id, 'num_regular_unl', true);
+                    $num_featured_unl = get_post_meta($subscribed_package_id, 'num_featured_unl', true);
+                    $_general_type = get_user_meta($user_id, '_general_type',true) ? (int)get_user_meta($user_id, '_general_type',true) : 1;// find the user has subscribed or not
+                    $has_featured_type = get_user_meta($user_id, '_featured_type',true) ? (int) get_user_meta($user_id, '_featured_type',true) : 0;
 
-                        $num_regular = get_post_meta($subscribed_package_id, 'num_regular', true);
-                        $num_featured = get_post_meta($subscribed_package_id, 'num_featured', true);
+                    $num_regular = get_post_meta($subscribed_package_id, 'num_regular', true);
+                    $num_featured = get_post_meta($subscribed_package_id, 'num_featured', true);
 
+                    if ((empty($subscribed_package_id)) && empty($_POST['listing_id'])){
+                        if (empty($_POST['fm_plans'])){
+                            $msg = '<div class="alert alert-danger"><strong>'.__('You need to select a plan in order to submit a listing', ATBDP_TEXTDOMAIN).'</strong></div>';
+                            return $msg;
 
-                        if ((empty($subscribed_package_id)) && empty($_POST['listing_id'])){
-                            if (empty($p['fm_plans'])){
-                                $msg = '<div class="alert alert-danger"><strong>You need to select a plan in order to submit a listing</strong></div>';
-                                return $msg;
-                            }
                         }
+                    }
+
+                    if ('regular' === $listing_type){
                         if(($num_regular<$_general_type) && empty($num_regular_unl)){
-                            $msg = '<div class="alert alert-danger"><strong>'.__('You have already exited your allowances!').'</strong></div>';
+                            $msg = '<div class="alert alert-danger"><strong>'.__('You have already exited your allowances!', ATBDP_TEXTDOMAIN).'</strong></div>';
                             return $msg;
                         }
-
                     }
+                    if ('featured' === $listing_type){
+                        if(($num_featured<$has_featured_type) && empty($num_featured_unl)){
+                            $msg = '<div class="alert alert-danger"><strong>'.__('You have already exited your allowances for featured listing!', ATBDP_TEXTDOMAIN).'</strong></div>';
+                            return $msg;
+
+                        }
+                    }
+
 
                     // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
                     if (!empty($_POST['listing_id'])){
@@ -297,6 +308,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
                             }
 
+
                             // for dev
                             do_action('atbdp_listing_updated', $post_id);//for sending email notification
                         }else{
@@ -385,7 +397,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                         // Redirect to avoid duplicate form submissions
                         // if monetization on, redirect to checkout page
 // vail if monetization is not active.
+
                         $remaining_days = !empty($remaining_days)?$remaining_days:'0';
+                        //var_dump($remaining_days);die();
                         if ((class_exists('ATBDP_Fee_Manager')) && ($remaining_days <= 1)){
                             wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
                             exit;

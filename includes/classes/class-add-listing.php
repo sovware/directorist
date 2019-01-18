@@ -185,7 +185,6 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                         }
                     }
-
                     if ('regular' === $listing_type){
                         if(($num_regular<$_general_type) && empty($num_regular_unl)){
                             $msg = '<div class="alert alert-danger"><strong>'.__('You have already exited your allowances!', ATBDP_TEXTDOMAIN).'</strong></div>';

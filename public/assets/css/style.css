@@ -444,6 +444,30 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding-right: 0;
 }
 
+.atbdp_login_form_shortcode > p {
+  font-size: 14px;
+}
+
+.atbdp_login_form_shortcode .login-username label, .atbdp_login_form_shortcode .login-password label, .atbdp_login_form_shortcode .login-remember label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.atbdp_login_form_shortcode #loginform p {
+  margin-bottom: 10px;
+}
+
+.atbdp_login_form_shortcode #loginform p input {
+  background: #FEF7E0;
+  padding: 5px 15px;
+}
+
+.atbdp_login_form_shortcode #loginform p input[type="submit"] {
+  background: #ddd;
+  color: #202428;
+  padding: 8px 13px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   text-align: right;
   margin-bottom: 15px;
@@ -2035,8 +2059,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-top: 0;
 }
 
-#directorist.atbd_wrapper .form-group {
-  margin-bottom: 30px;
+#directorist.atbd_wrapper #atbdp-custom-fields-list {
+  margin: 13px 0 0 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav {

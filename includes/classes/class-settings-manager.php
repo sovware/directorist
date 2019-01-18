@@ -1212,8 +1212,8 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                     'default' => array(
-                        'value' => 'list',
-                        'label' => __('List', ATBDP_TEXTDOMAIN),
+                        'value' => 'grid',
+                        'label' => __('Grid', ATBDP_TEXTDOMAIN),
                     ),
                 ),
                 array(

@@ -259,7 +259,6 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                                 <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20))); ?></p>
                                             <?php } ?>
 
-                                            <?php /* @todo: deleted the read more link */ ?>
                                         </div><!-- end ./atbd_content_upper -->
                                         <?php if(!empty($display_category) || !empty($$display_view_count) || !empty($display_author_image)) {?>
                                         <div class="atbd_listing_bottom_content">
@@ -298,7 +297,7 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                                     </li>
                                                     <?php if(!empty($display_author_image)) {?>
                                                         <li class="atbd_author">
-                                                            <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" data-toggle="tooltip" data-placement="top" title="Author name"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                            <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" data-toggle="tooltip" data-placement="top" title="<?php the_author();?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
                                                                     <img
                                                                     src="<?php echo esc_url($u_pro_pic[0]); ?>"
                                                                     alt="Author Image"><?php } ?>

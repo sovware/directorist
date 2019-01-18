@@ -115,9 +115,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                 <?php
                 //to show validation notification @todo;letter need to validate with ajax action and identify the required field with color
                 $all_validation = ATBDP()->listing->add_listing->add_listing_to_db();
-                $all_validation2 = ATBDP_Fee_Manager()->atfm_before_submitted_data();
                 echo $all_validation;
-                echo $all_validation2;
                 ?>
                 <div class="row">
                     <div class="col-md-12">

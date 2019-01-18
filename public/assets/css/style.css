@@ -2035,6 +2035,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-top: 0;
 }
 
+#directorist.atbd_wrapper .form-group {
+  margin-bottom: 30px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav {
   display: flex;
   justify-content: space-between;

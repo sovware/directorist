@@ -423,9 +423,11 @@ $pagenation = get_directorist_option('paginate_author_listings',1);
                                                                 // do_action('wp_ajax_atbdp-favourites-all-listing', get_the_ID()); ?>
                                                             </div>
                                                         </li>
-                                                        <?php if(!empty($display_author_image)) {?>
+                                                        <?php if(!empty($display_author_image)) {
+                                                            $author = get_userdata(get_current_user_id());
+                                                            ?>
                                                             <li class="atbd_author">
-                                                                <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                                <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $author->first_name.' '.$author->last_name;?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
                                                                         <img
                                                                         src="<?php echo esc_url($u_pro_pic[0]); ?>"
                                                                         alt="Author Image"><?php } ?>

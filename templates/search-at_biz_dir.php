@@ -274,9 +274,11 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li>
                                                     <?php } ?>
                                                     <!--<li class="atbd_save"><span class="fa fa-heart"></span></li>-->
-                                                    <?php if(!empty($display_author_image)) {?>
+                                                    <?php if(!empty($display_author_image)) {
+                                                        $author = get_userdata(get_current_user_id());
+                                                        ?>
                                                     <li class="atbd_author">
-                                                        <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                        <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $author->first_name.' '.$author->last_name;?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
                                                                 <img
                                                                 src="<?php echo esc_url($u_pro_pic[0]); ?>"
                                                                 alt="Author Image"><?php } ?>

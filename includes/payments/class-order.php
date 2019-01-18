@@ -407,8 +407,8 @@ class ATBDP_Order {
                 update_post_meta( $listing_id, '_featured', 1 );
             }
         }
-
         // Update new status
+
         update_post_meta( $post_id, '_payment_status', $new_status );
 
         // Email listing owner when his/her set to completed

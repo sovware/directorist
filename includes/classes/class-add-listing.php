@@ -167,13 +167,27 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $expired_date = $date->format( 'Y-m-d H:i:s' );
                         $current_d = current_time('mysql');
                         $remaining_days = ($expired_date > $current_d) ? (floor(strtotime($expired_date)/(60*60*24)) - floor(strtotime($current_d)/(60*60*24))) : 0; //calculate the number of days remaining in a plan
-// find the user has subscribed or not
+                        $listing_type = !empty($p['listing_type'])? sanitize_text_field($p['listing_type']) : '';
+                        $num_regular_unl = get_post_meta($subscribed_package_id, 'num_regular_unl', true);
+                        $num_featured_unl = get_post_meta($subscribed_package_id, 'num_featured_unl', true);
+                        $_general_type = get_user_meta($user_id, '_general_type',true) ? (int)get_user_meta($user_id, '_general_type',true) : 1;// find the user has subscribed or not
+                        $has_featured_type = get_user_meta($user_id, '_featured_type',true) ? (int) get_user_meta($user_id, '_featured_type',true) : 0;
+
+                        $num_regular = get_post_meta($subscribed_package_id, 'num_regular', true);
+                        $num_featured = get_post_meta($subscribed_package_id, 'num_featured', true);
+
+
                         if ((empty($subscribed_package_id)) && empty($_POST['listing_id'])){
                             if (empty($p['fm_plans'])){
                                 $msg = '<div class="alert alert-danger"><strong>You need to select a plan in order to submit a listing</strong></div>';
                                 return $msg;
                             }
                         }
+                        if(($num_regular<$_general_type) && empty($num_regular_unl)){
+                            $msg = '<div class="alert alert-danger"><strong>'.__('You have already exited your allowances!').'</strong></div>';
+                            return $msg;
+                        }
+
                     }
 
                     // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
@@ -371,7 +385,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                         // Redirect to avoid duplicate form submissions
                         // if monetization on, redirect to checkout page
 // vail if monetization is not active.
-                        if ((class_exists('ATBDP_Fee_Manager')) && ($remaining_days < 1)){
+                        $remaining_days = !empty($remaining_days)?$remaining_days:'0';
+                        if ((class_exists('ATBDP_Fee_Manager')) && ($remaining_days <= 1)){
                             wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
                             exit;
                         }else{

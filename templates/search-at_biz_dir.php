@@ -302,6 +302,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                 <div class="row">
                     <div class="col-md-12">
                         <?php
+
                         if(!empty($pagination)){
                             the_posts_pagination(
                                 array('mid_size'  => 2,

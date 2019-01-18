@@ -1073,7 +1073,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area .atbd_thumbnail_overlay_content {
   position: absolute;
   top: 0;
-  background: rgba(32, 35, 46, 0.2);
   height: 100%;
   width: 100%;
   z-index: 3;

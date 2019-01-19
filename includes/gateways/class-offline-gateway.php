@@ -63,11 +63,11 @@ class ATBDP_Offline_Gateway {
 Please make your payment directly to our bank account and use your ORDER ID (#==ORDER_ID==) as a Reference. Our bank account information is given below.
 
 Account details :
-------------------
+
 Account Name : [Enter your Account Name]
 Account Number : [Enter your Account Number]
 Bank Name : [Enter your Bank Name]
-------------------
+
 Please remember that your order may be canceled if you do not make your payment within next 72 hours.
 KAMAL;
 

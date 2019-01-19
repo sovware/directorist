@@ -253,7 +253,7 @@ class ATBDP_Custom_Field
                 $types = $this->atbdp_get_custom_field_types();
 
                 $value = esc_attr(get_post_meta($post_id, 'type', true));
-                echo $types[$value];
+                echo !empty($types[$value])?$types[$value]:'';
                 break;
             case 'asign' :
 

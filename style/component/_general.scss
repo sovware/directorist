@@ -210,36 +210,47 @@ body.atbd_content_active #directorist.atbd_wrapper{
 }
 
 //pagination css
-#directorist.atbd_wrapper .pagination .nav-links{
-  .current, .page-numbers{
-    padding: 0;
-    line-height: normal;
-    height: 35px;
-    width: 35px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #d8d8d8;
-    border-radius: 300px;
-    background: #fff;
-    transition: 0.3s;
-    color: #7a82a6;
-    text-align: center;
-    margin-right: 2px;
-    &:last-child{
-      margin-right: 0;
+#directorist.atbd_wrapper .pagination{
+  .next{
+    &:before{
+    content: none;
+  }
+    right: auto;
+  }
+  text-align: center;
+  box-shadow: none;
+  .nav-links{
+    background: none;
+    .current, .page-numbers{
+      padding: 0;
+      line-height: normal;
+      height: 35px;
+      width: 35px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #d8d8d8;
+      border-radius: 300px;
+      background: #fff;
+      transition: 0.3s;
+      color: #7a82a6;
+      text-align: center;
+      margin-right: 2px;
+      &:last-child{
+        margin-right: 0;
+      }
     }
-  }
-  .current{
-    border-radius: 300px;
-    background: $primary;
-    box-shadow: none;
-    border-color: transparent;
-    color: #fff;
-  }
-  .page-numbers{
-    span{
-      font-size: 10px;
+    .current{
+      border-radius: 300px;
+      background: $primary;
+      box-shadow: none;
+      border-color: transparent;
+      color: #fff;
+    }
+    .page-numbers{
+      span{
+        font-size: 10px;
+      }
     }
   }
 }
@@ -313,15 +324,37 @@ body.atbd_content_active #directorist.atbd_wrapper{
   #loginform{
     p{
       margin-bottom: 10px;
+      label{
+        display: block;
+      }
       input{
         background: #FEF7E0;
         padding: 5px 15px;
+        box-shadow: none;
+        border: 1px solid #e3e6ef;
+        width: 100%;
         &[type="submit"]{
           background: #ddd;
           color: #202428;
-          padding: 8px 13px;
+          padding: 8px 13px !important;
+          width: auto;
+          line-height: normal;
         }
       }
     }
+  }
+  .login-remember{
+    label{
+      display: inline-block;
+      input{
+        width: auto !important;
+      }
+    }
+  }
+}
+
+#directorist.atbd_wrapper .atbd_related_listings .atbd_listing_info .atbd_content_upper{
+  &>p{
+    margin-top: 13px;
   }
 }

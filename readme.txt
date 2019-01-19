@@ -120,31 +120,27 @@ Note: It is best to use it in a page with full-width template if possible for th
 
 == Screenshots ==
 
-1. Home page
-2. Search result page
-3. Single listing
-4. Registration page
-5. User dashboard
-6. User profile
-7. Add New listing (Backend)
-8. Add New listing (Frontend)
-9. Checkout page 
-10. Payment Receipt page
-11. All Listings
-12. All listings List (Backend)
-13. General Settings
-14. Permalink Settings
-15. Search Settings
-16. Listing Settings
-17. Page Settings
-18. Extension General
-19. Email General Settings
-20. Email templates Settings
-21. Monetization Settings
-22. Gateway settings
-23. Offline Gateway Settings
-24. Export & Import Settings
-25. Order History
+1. Home Page
+2. Search Result Page
+3. Single Listing
+4. All Listings Page
+5. All Categories Page
+6. All Locations Page
+7. Author Profile Page
+8. Registration Page
+9. Login Page
+10. User Dashboard
+11. Checkout Page
+12. Payment Receipt Page
+13. Add New Listing (Frontend)
+14. Add New Listing (Backend)
+15. Directorist Listings (Backend)
+16. The Directorist Settings Panel
+17. Order History
+18. Add New Custom Field
+
+
+
 
 == Changelog ==
 

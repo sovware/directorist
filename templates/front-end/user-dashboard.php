@@ -376,7 +376,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="facebook"><?php _e('Facebook', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN) ?></p>
+                                                            <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
                                                             <input id="facebook" class="form-control" type="url"
                                                                    name="user[facebook]"
                                                                    value="<?= !empty($facebook) ? esc_attr($facebook) : ''; ?>"
@@ -386,7 +386,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="twitter"><?php _e('Twitter', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN) ?></p>
+                                                            <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
                                                             <input id="twitter" class="form-control" type="url"
                                                                    name="user[twitter]"
                                                                    value="<?= !empty($twitter) ? esc_attr($twitter) : ''; ?>"
@@ -396,7 +396,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="google"><?php _e('Google+', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN) ?></p>
+                                                            <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
                                                             <input id="google" class="form-control" type="url"
                                                                    name="user[google]"
                                                                    value="<?= !empty($google) ? esc_attr($google) : ''; ?>"
@@ -406,7 +406,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="linkedIn"><?php _e('LinkedIn', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN) ?></p>
+                                                            <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
                                                             <input id="linkedIn" class="form-control" type="url"
                                                                    name="user[linkedIn]"
                                                                    value="<?= !empty($linkedIn) ? esc_attr($linkedIn) : ''; ?>"
@@ -416,7 +416,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="youtube"><?php _e('Youtube', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <p><?php _e('Keep blank to hide it', ATBDP_TEXTDOMAIN) ?></p>
+                                                            <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
                                                             <input id="youtube" class="form-control" type="url"
                                                                    name="user[youtube]"
                                                                    value="<?= !empty($youtube) ? esc_attr($youtube) : ''; ?>"
@@ -425,8 +425,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="bio"><?php _e('Bio', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <p><?php _e('Info About you, your organization or service', ATBDP_TEXTDOMAIN) ?></p>
+                                                            <label for="bio"><?php _e('About Author', ATBDP_TEXTDOMAIN); ?></label>
                                                             <textarea class="wp-editor-area form-control"
                                                                       style="height: 200px" autocomplete="off" cols="40"
                                                                       name="user[bio]"

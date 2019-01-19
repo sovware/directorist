@@ -93,7 +93,7 @@ $pagenation = get_directorist_option('paginate_author_listings',1);
                     <div class="atbd_content_module">
                         <div class="atbd_content_module__tittle_area">
                             <div class="atbd_area_title">
-                                <h4><span class="fa fa-user"></span>About Seller</h4>
+                                <h4><span class="fa fa-user"></span><?php _e('About', ATBDP_TEXTDOMAIN); ?></h4>
                             </div>
                         </div>
 
@@ -108,7 +108,7 @@ $pagenation = get_directorist_option('paginate_author_listings',1);
             </div>
             <div class="col-md-4">
                 <div class="widget atbd_widget">
-                    <div class="atbd_widget_title"><h4>Contact Info</h4></div>
+                    <div class="atbd_widget_title"><h4><?php _e('Contact Info', ATBDP_TEXTDOMAIN); ?></h4></div>
                     <div class="atbdp atbd_author_info_widget">
                         <div class="atbd_widget_contact_info">
                             <ul>

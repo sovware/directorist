@@ -1827,7 +1827,7 @@ The Administrator of ==SITE_NAME==
             array(
                 'type' => 'toggle',
                 'name' => 'gallery_cropping',
-                'label' => __('Gallery Image Cropping', ATBDP_TEXTDOMAIN),
+                'label' => __('Slider Image Cropping', ATBDP_TEXTDOMAIN),
                 'description' => __('If the slider images are not in the same size, it helps automatically resizing.', ATBDP_TEXTDOMAIN),
                 'default' => 1,
             ),

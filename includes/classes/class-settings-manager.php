@@ -2238,8 +2238,8 @@ The Administrator of ==SITE_NAME==
                         'description' => __( 'Choose the Default Listing Status for a new listing when a user submits it from the Front End', ATBDP_TEXTDOMAIN ),
 
                         'default' => array(
-                            'value' => 'publish',
-                            'label' => __('Published', ATBDP_TEXTDOMAIN),
+                            'value' => 'pending',
+                            'label' => __('Pending', ATBDP_TEXTDOMAIN),
                         ),
                     ),
                     array(

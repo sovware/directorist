@@ -259,7 +259,7 @@ $pagenation = get_directorist_option('paginate_author_listings',1);
                         }
                         if(!empty($listing_img[0])) {
                             if( $thumbnail_cropping ) {
-                                $prv_image = atbdp_image_cropping($listing_prv_img, $crop_width, $crop_height, true, 100)['url'];
+                                $gallery_img = atbdp_image_cropping($listing_img[0], $crop_width, $crop_height, true, 100)['url'];
 
                             }else{
                                 $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];

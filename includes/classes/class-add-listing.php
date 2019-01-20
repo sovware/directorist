@@ -176,6 +176,8 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                         $num_regular = get_post_meta($subscribed_package_id, 'num_regular', true);
                         $num_featured = get_post_meta($subscribed_package_id, 'num_featured', true);
+                        $price_range = get_post_meta($subscribed_package_id, 'price_range', true);
+                        $price_range_unl = get_post_meta($subscribed_package_id, 'price_range_unl', true);
 
                         if ((empty($subscribed_package_id)) && empty($_POST['listing_id'])) {
                             if (empty($_POST['fm_plans'])) {
@@ -186,15 +188,21 @@ if (!class_exists('ATBDP_Add_Listing')):
                         }
                         if ('regular' === $listing_type) {
                             if (($num_regular < $_general_type) && empty($num_regular_unl)) {
-                                $msg = '<div class="alert alert-danger"><strong>' . __('You have already exited your allowances!', ATBDP_TEXTDOMAIN) . '</strong></div>';
+                                $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for regular listing!', ATBDP_TEXTDOMAIN) . '</strong></div>';
                                 return $msg;
                             }
                         }
                         if ('featured' === $listing_type) {
                             if (($num_featured < $has_featured_type) && empty($num_featured_unl)) {
-                                $msg = '<div class="alert alert-danger"><strong>' . __('You have already exited your allowances for featured listing!', ATBDP_TEXTDOMAIN) . '</strong></div>';
+                                $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for featured listing!', ATBDP_TEXTDOMAIN) . '</strong></div>';
                                 return $msg;
 
+                            }
+                        }
+                        if (empty($price_range_unl)){
+                            if ($metas['_price']>$price_range){
+                                $msg = '<div class="alert alert-danger"><strong>' . __('Given price is not included in this plan!', ATBDP_TEXTDOMAIN) . '</strong></div>';
+                                return $msg;
                             }
                         }
                     }

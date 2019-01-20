@@ -1,19 +1,18 @@
-=== Directorist - Business Directory Plugin ===
+=== Directorist - Build Any Directory ===
 Contributors: AazzTech
-Tags: business directory, directory, listings, classifieds, listing, ads
+Donate link: https://aazztech.com/product/category/extensions/
+Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
-Tested up to:  4.9.8
-Stable tag: 3.2.0
+Tested up to:  5.0.3
+Stable tag: 4.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Create a classified website, business directory website like Yelp, foursquare etc with this plugin very easily without getting lost in complexity like in other plugins. Try it, you will love it.
+Create a classified website, business directory website like Yelp, foursquare etc with this plugin very easily. Try it, you will love it.
 
 == Description ==
 
-[Live Demo](https://aazztech.com/demos/plugins/directorist-business-directory-plugin) | [Free Directory Theme](https://aazztech.com/product/directoria-wordpress-theme/) | [Video Overview](https://www.youtube.com/watch?v=NqtQCzpYRRI)
-
-[youtube https://www.youtube.com/watch?v=NqtQCzpYRRI]
+[Live Demo](https://aazztech.com/demos/plugins/directorist) | [Free Directory Theme](https://aazztech.com/product/directoria-wordpress-theme/) | [Extensions](https://aazztech.com/product/category/extensions/)
 
 The Directorist plugin has just got even better with a new update. Meet New Directorist. It is now updated with a lot of new features like featured listings, basic monetization, listing expiration, improved design, email notifications, ability to add price field to a listing, ability to toggle any options and much more. Best directory plugin just got even better than before.
 
@@ -50,7 +49,7 @@ Users can renew their listings now after listings expire
 You can send email notifications to your users in different situations. You can control everything about email notification. You can edit all email templates according to your choice. You build your own email template too.
 
 = CUSTOMIZABLE OPTIONS =
-You can enable and disabled almost all options. Therefore, you get high customizable possibility with this plugin. For example, you can show or hide map on the front end etc. 
+You can enable and disabled almost all options. Therefore, you get high customizable possibility with this plugin. For example, you can show or hide map on the front end etc.
 
 = BUILT FOR ANY BUSINESS DIRECTORY OR CLASSIFIED SITE =
 You can make any business directory site using this plugin. You can also make classified websites like a car selling a website or a land selling website etc.
@@ -70,10 +69,10 @@ You can build an amazing directory site like this plugin demo site. Download it 
 You can extend the functionality of this plugin using free & premium extensions. It is also developer-friendly. Any developer can extend this plugin using different actions and filters provided by this plugin.
 
 = BUILT BY A TEAM AND BACKED BY COMPANY =
-Directorist is not developed by a single person. A team of dedicated developers and designers spent countless hours to make this plugin and they are working on it constantly to improve it and to add new features. Therefore, you get the most professional directory plugin from us. As it is backed by a company, you will get premium support now and upcoming years without any worries. 
+Directorist is not developed by a single person. A team of dedicated developers and designers spent countless hours to make this plugin and they are working on it constantly to improve it and to add new features. Therefore, you get the most professional directory plugin from us. As it is backed by a company, you will get premium support now and upcoming years without any worries.
 
 = OTHER FEATURES =
-* Front-end listing submission ( can be disabled if you wish) 
+* Front-end listing submission ( can be disabled if you wish)
 * Front-end listing submission ( can be disabled if you wish)
 * Front-end user dashboard ( can be disabled if you wish)
 * Basic Monetization by featured listings
@@ -109,8 +108,8 @@ This plugin provides 9 shortcodes. You can see these shortcode names on the dire
 Note: It is best to use it in a page with full-width template if possible for the best output.
 1. Use this shortcode  [search_listing]  on any page to enable users to search all the listing. This shortcode should probably be used on your front page if you are making a directory listing website.
 2. Use this shortcode  [all_listing]  on any page to show all the listings.
-3. Use this shortcode [add_listing] on any page to enable users to submit listing from the front end. 
-4. Use this shortcode  [user_dashboard]  on any page to enable users to see and edit his profile and listing items from the front end. 
+3. Use this shortcode [add_listing] on any page to enable users to submit listing from the front end.
+4. Use this shortcode  [user_dashboard]  on any page to enable users to see and edit his profile and listing items from the front end.
 5. Use this shortcode  [custom_registration]  on any page to enable users to register from the front end using custom forms.
 6. Use this shortcode  [search_result]  on any page to display listing search result.
 7. Use this shortcode  [directorist_checkout]  on any page to display directorist checkout functionality (required if you use monetization).
@@ -139,11 +138,67 @@ Note: It is best to use it in a page with full-width template if possible for th
 17. Order History
 18. Add New Custom Field
 
-
-
-
 == Changelog ==
 
+= 4.0.0 - JANUARY 19, 2019 =
+* Add - Completely changed the design to get rid of all the limitation the old design had and make it more attractive, professional and adaptive.
+* Add - Custom Field
+* Add - Single listing Slider
+* Add - Listing approval system
+* Add - Option to add listing video on single listing page and widget
+* Add - Author Profile page for visitors
+* Add - Categories page and widget
+* Add - Locations page and widget
+* Add - Add to Favorites, Report Abuse and Share buttons
+* Add - List & Gird view features for All Listings, Location and Category page
+* Add - Login form shortcode and widget
+* Add - Terms & Conditions feature on frontend Add Listing form
+* Add - Order by & Sort by features
+* Add - Image Cropping feature
+* Add - A button to regenerate Directorist pages
+* Add - New and Popular badges
+* Add - Edit button on single listing
+* Add - Documentation Menu
+* Add - Author Information widget
+* Add - Submit Listing widget
+* Add - Contact Listing Owner widget
+* Add - Map widget
+* Add - Listing Search widget
+* Add - Tags widget
+* Add - Similar Listings widget
+* Add - About author field and Social Media links
+* Add - Parameters for All listings shortcode
+* Add - Display/hide option for Search fields
+* Remove - Export & Import feature
+* Remove -  Default sidebar from single listing page
+* Tweak - Prefixed all the shortcodes by 'directorist_'
+* Tweak - Option to change/assign author from Bulk Editor
+* Tweak - Let admin to create category without icon
+* Tweak - Show/hide connector "Or"  from Search Home page
+* Tweak - Business Hour extension compatibility
+* Tweek - Improved the Add Listing form
+* Tweak - Offline Gateway's Bank Information
+* Tweak - Rearranged Settings panel
+* Tweak - Preview image
+* Tweak - Category selection system for a listing
+* Tweak - Updated term relationship for search page
+* Tweak - Featured badge
+* Fix - Error notification for Sign Up form
+* Fix - Email notifications
+* Fix - Frontend user profile
+* Fix - Design relating all issues
+* Fix - Poplular listings
+* Fix - Validate the frontend listing submission form
+
+= 3.3.0 - DECEMBER 1, 2018 =
+* Feature - Options to choose redirection after editing a listing on the frontend
+* Fixed - Edit page redirection
+
+= 3.2.2 - NOVEMBER 12, 2018 =
+* Fixed - Business Hours extension compatibility
+
+= 3.2.1 - OCTOBER 31, 2018 =
+* Fix - Website link displaying issue
 
 = 3.2.0 - OCTOBER 14, 2018 =
 * Feature - Import and export

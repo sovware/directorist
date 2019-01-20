@@ -38,7 +38,7 @@ class ATBDP_Upgrade{
      */
     public function add_upgrade_submenu()
     {
-        add_submenu_page('edit.php?post_type=at_biz_dir', __('Upgrade', ATBDP_TEXTDOMAIN), __('<span>Upgrade</span>', ATBDP_TEXTDOMAIN), 'manage_options', 'directorist-upgrade', array($this, 'display_upgrade_menu'));
+        add_submenu_page('edit.php?post_type=at_biz_dir', __('Database Upgrade', ATBDP_TEXTDOMAIN), __('<span>Database Upgrade</span>', ATBDP_TEXTDOMAIN), 'manage_options', 'directorist-upgrade', array($this, 'display_upgrade_menu'));
     }
 
     /**

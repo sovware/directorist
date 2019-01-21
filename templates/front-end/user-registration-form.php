@@ -2,7 +2,7 @@
 <div id="directorist" class="atbd_wrapper directorist">
     <div class="<?php echo is_directoria_active() ? 'container': ' container-fluid'; ?>">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8 offset-md-2">
                 <div class="add_listing_title atbd_success_mesage">
 
                     <h2><?php _e('Register', ATBDP_TEXTDOMAIN); ?></h2>
@@ -44,9 +44,8 @@
                     }
                   ?>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-12">
+            </div>
+                    <div class="col-md-8 offset-md-2">
                         <div class="directory_register_form_wrap">
                             <form action="<?= esc_url(get_the_permalink()); ?>" method="post">
                                 <div class="form-group">
@@ -101,8 +100,7 @@
                             </form>
                         </div>
                     </div>
-                </div>
-            </div>
+
         </div> <!--ends .row-->
     </div>
 </div>

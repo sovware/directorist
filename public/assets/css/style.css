@@ -461,6 +461,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding-right: 0;
 }
 
+.atbdp_login_form_shortcode {
+  width: 450px;
+}
+
+
 .atbdp_login_form_shortcode > p {
   font-size: 14px;
 }

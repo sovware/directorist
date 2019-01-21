@@ -50,14 +50,14 @@ class ATBDP_Settings_Manager {
             /*Main Menu 1*/
             'listings' => array(
                 'name' => 'listings',
-                'title' => __('Listing settings', ATBDP_TEXTDOMAIN),
+                'title' => __('Listing Settings', ATBDP_TEXTDOMAIN),
                 'icon' => 'font-awesome:fa-list',
                 'menus' => $this->get_listings_settings_submenus(),
             ),
             /*Main Menu 2*/
             'permalink_menu' => array(
                 'name' => 'permalinks',
-                'title' => __('Permalinks settings', ATBDP_TEXTDOMAIN),
+                'title' => __('Permalinks Settings', ATBDP_TEXTDOMAIN),
                 'icon' => 'font-awesome:fa-link',
                 'controls' => apply_filters('atbdp_permalink_settings_controls', array(
                     'permalink_section' => array(
@@ -70,7 +70,7 @@ class ATBDP_Settings_Manager {
             /*Main Menu 3*/
             'search' => array(
                 'name' => 'search',
-                'title' => __('Search settings', ATBDP_TEXTDOMAIN),
+                'title' => __('Search Settings', ATBDP_TEXTDOMAIN),
                 'icon' => 'font-awesome:fa-search',
                 'controls' => apply_filters('atbdp_search_settings_controls', array(
                     'search_section' => array(
@@ -84,7 +84,7 @@ class ATBDP_Settings_Manager {
             /*Main Menu 4*/
             'pages' => array(
                 'name' => 'pages',
-                'title' => __('Pages, links & views', ATBDP_TEXTDOMAIN),
+                'title' => __('Pages, Links & Views', ATBDP_TEXTDOMAIN),
                 'icon' => 'font-awesome:fa-line-chart',
                 'controls' => apply_filters('atbdp_pages_settings_controls', array(
                     'search_section' => array(
@@ -97,7 +97,7 @@ class ATBDP_Settings_Manager {
             ),
             /*Main Menu 5*/
             'general_menu' => array(
-                'title' => __('Currency settings', ATBDP_TEXTDOMAIN),
+                'title' => __('Currency Settings', ATBDP_TEXTDOMAIN),
                 'name' => 'currency_settings',
                 'icon' => 'font-awesome:fa-money',
                 'controls'=>apply_filters('atbdp_currency_settings_controls',array(

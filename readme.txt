@@ -1,10 +1,10 @@
-=== Directorist - Build Any Directory ===
+=== Directorist - Business Directory Plugin ===
 Contributors: AazzTech
 Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.0.3
-Stable tag: 4.0.0
+Stable tag: 4.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -139,6 +139,13 @@ Note: It is best to use it in a page with full-width template if possible for th
 18. Add New Custom Field
 
 == Changelog ==
+
+= 4.0.2 - JANUARY 20, 2019 =
+* Fix - Admin redirection after login
+
+= 4.0.1 - JANUARY 20, 2019 =
+* Fix - Preview image issue for old users
+* Tweak - Clean up code
 
 = 4.0.0 - JANUARY 19, 2019 =
 * Add - Completely changed the design to get rid of all the limitation the old design had and make it more attractive, professional and adaptive.

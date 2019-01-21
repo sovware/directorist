@@ -205,6 +205,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 return $msg;
                             }
                         }
+                        //var_dump(count($metas['_listing_img']),$metas['_listing_prv_img']);die();
                     }
 
 

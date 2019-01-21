@@ -274,15 +274,15 @@ $pagenation = get_directorist_option('paginate_author_listings',1);
                                         <div class="atbd_listing_image">
                                             <?php if(!empty($listing_prv_img)){
 
-                                                echo '<img src="'.esc_url($prv_image).'" alt="listing image">';
+                                                echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="'.esc_url($prv_image).'" alt="listing image"></a>';
 
                                             } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                                echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
+                                                echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="' . esc_url($gallery_img) . '" alt="listing image"></a>';
 
                                             }if (empty($listing_img[0]) && empty($listing_prv_img)){
 
-                                                echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
+                                                echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image"></a>';
 
                                             }
                                             ?>

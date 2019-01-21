@@ -144,22 +144,22 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             ?>
                                             </div>
 
-                                            <figcaption class="atbd_thumbnail_overlay_content">
+                                            <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>" class="atbd_thumbnail_overlay_content">
                                                 <?php if (class_exists('BD_Business_Hour')){
                                                     //lets check is it 24/7
                                                     if (!empty($enable247hour)) {
                                                         ?>
-                                                        <div class="atbd_upper_badge">
+                                                        <span class="atbd_upper_badge">
                                                             <span class="atbd_badge atbd_badge_open">Open Now</span>
-                                                        </div><!-- END /.atbd_upper_badge -->
+                                                        </span><!-- END /.atbd_upper_badge -->
                                                         <?php
                                                     }else {?>
-                                                        <div class="atbd_upper_badge">
+                                                        <span class="atbd_upper_badge">
                                                             <?php BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list ?>
-                                                        </div>
+                                                        </span>
                                                     <?php }
                                                 }?>
-                                                <div class="atbd_lower_badge">
+                                                <span class="atbd_lower_badge">
                                                     <?php
                                                      if ($featured && !empty($display_feature_badge_cart)){ printf(
                                                     '<span class="atbd_badge atbd_badge_featured">%s</span>',
@@ -178,8 +178,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     //print the new badge
                                                     echo new_badge();
                                                     ?>
-                                                </div>
-                                            </figcaption>
+                                                </span>
+                                            </a>
                                         </figure>
 
                                         <div class="atbd_listing_info">

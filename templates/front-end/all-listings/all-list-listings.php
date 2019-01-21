@@ -143,20 +143,20 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                     <figure class="atbd_listing_thumbnail_area">
                                         <?php if(!empty($listing_prv_img)){
 
-                                            echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="'.esc_url($prv_image).'" alt="listing image"></a>';
+                                            echo '<img src="'.esc_url($prv_image).'" alt="listing image">';
 
                                         } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                            echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="' . esc_url($gallery_img) . '" alt="listing image"></a>';
+                                            echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
 
                                         }if (empty($listing_img[0]) && empty($listing_prv_img)){
 
-                                            echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image"></a>';
+                                            echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
 
                                         }
                                         ?>
-                                        <figcaption class="atbd_thumbnail_overlay_content">
-                                            <div class="atbd_lower_badge">
+                                        <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>" class="atbd_thumbnail_overlay_content">
+                                            <span class="atbd_lower_badge">
                                                 <?php
                                                 //print the new badge
                                                 echo new_badge();
@@ -177,8 +177,8 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                                     }
                                                 }
                                                 ?>
-                                            </div>
-                                        </figcaption>
+                                            </span>
+                                        </a>
                                     </figure>
                                     <div class="atbd_listing_info">
                                         <div class="atbd_content_upper">

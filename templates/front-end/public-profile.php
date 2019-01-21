@@ -274,38 +274,38 @@ $pagenation = get_directorist_option('paginate_author_listings',1);
                                         <div class="atbd_listing_image">
                                             <?php if(!empty($listing_prv_img)){
 
-                                                echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="'.esc_url($prv_image).'" alt="listing image"></a>';
+                                                echo '<img src="'.esc_url($prv_image).'" alt="listing image">';
 
                                             } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                                echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="' . esc_url($gallery_img) . '" alt="listing image"></a>';
+                                                echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
 
                                             }if (empty($listing_img[0]) && empty($listing_prv_img)){
 
-                                                echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image"></a>';
+                                                echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
 
                                             }
                                             ?>
                                         </div>
 
-                                        <figcaption class="atbd_thumbnail_overlay_content">
+                                        <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>" class="atbd_thumbnail_overlay_content">
                                             <?php if (class_exists('BD_Business_Hour')){
                                                 //lets check is it 24/7
                                                 if (!empty($enable247hour)) {
                                                     $open =  get_directorist_option('open_badge_text');
                                                     ?>
-                                                    <div class="atbd_upper_badge">
+                                                    <span class="atbd_upper_badge">
                                                         <span class="atbd_badge atbd_badge_open"><?php echo $open;?></span>
-                                                    </div><!-- END /.atbd_upper_badge -->
+                                                    </span><!-- END /.atbd_upper_badge -->
                                                     <?php
                                                 }else {?>
-                                                    <div class="atbd_upper_badge">
+                                                    <span class="atbd_upper_badge">
                                                         <?php BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list ?>
-                                                    </div>
+                                                    </span>
 
                                                 <?php }
                                             }?>
-                                            <div class="atbd_lower_badge">
+                                            <span class="atbd_lower_badge">
                                                 <?php
                                                  if ($featured && !empty($display_feature_badge_cart)){ printf(
                                                     '<span class="atbd_badge atbd_badge_featured">%s</span>',
@@ -324,8 +324,8 @@ $pagenation = get_directorist_option('paginate_author_listings',1);
                                                 //print the new badge
                                                 echo new_badge();
                                                 ?>
-                                            </div>
-                                        </figcaption>
+                                            </span>
+                                        </a>
                                     </figure>
                                     <div class="atbd_listing_info">
                                         <div class="atbd_content_upper">

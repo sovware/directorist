@@ -366,20 +366,23 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                 </div>
             </div> <!-- end .atbd_listing_details -->
             <?php
-                        $custom_fields  = new WP_Query( array(
-                            'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
-                            'posts_per_page' => -1,
-                            'post_status'    => 'publish',
-                        ) );
-                        $fields = $custom_fields->posts;
-                        $has_field_value = array();
-                        foreach ($fields as $post) {
-                            setup_postdata($post);
-                            $field_id = $post->ID;
-                            $field_details = get_post_meta($listing_id, $field_id,true);
-                            $has_field_value[] = $field_details;
-                        }
-                        if(!empty($has_field_value)){
+
+            $custom_fields  = new WP_Query( array(
+                'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+                'posts_per_page' => -1,
+                'post_status'    => 'publish',
+            ) );
+            $custom_fields_posts = $custom_fields->posts;
+            $has_field_value = array();
+            foreach ($custom_fields_posts as $custom_fields_post) {
+                setup_postdata($custom_fields_post);
+                $has_field_id = $custom_fields_post->ID;
+                $has_field_details = get_post_meta($listing_id, $has_field_id, true);
+                $has_field_value[] = $has_field_details;
+            }
+            $has_field = join($has_field_value);
+
+                        if(!empty($has_field)){
                             ?>
                             <div class="atbd_content_module atbd_custom_fields_contents">
                                 <div class="atbd_content_module__tittle_area">
@@ -391,16 +394,13 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                     <ul class="atbd_custom_fields">
                                         <!--  get data from custom field-->
                                         <?php
-                                        $custom_fields  = new WP_Query( array(
-                                            'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
-                                            'posts_per_page' => -1,
-                                            'post_status'    => 'publish',
-                                        ) );
-                                        $fields = $custom_fields->posts;
-                                        foreach ($fields as $post) {
+
+                                        foreach ($custom_fields_posts as $post) {
                                             setup_postdata($post);
                                             $field_id = $post->ID;
                                             $field_details = get_post_meta($listing_id, $field_id, true);
+                                            $has_field_value[] = $field_details;
+
                                             $field_title = get_the_title($field_id);
                                             $field_type = get_post_meta($field_id, 'type', true);
                                             if (!empty($field_details)) {
@@ -427,8 +427,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                         <?php
                         }
                         ?>
-
-
 
                             <?php
             if ($enable_video_url && !empty($videourl)) { ?>

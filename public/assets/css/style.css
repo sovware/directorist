@@ -532,6 +532,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbd_directory_image_thumbnail .single_thumbnail img {
   width: 100%;
 }
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_thumbnail_area .atbd_listing_image a {
+  display: block;
+}
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_directory_image_thumbnail .single_thumbnail.slick-current:before {
   position: absolute;

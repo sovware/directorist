@@ -2533,5 +2533,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
     margin-bottom: 15px;
   }
 }
+@media (max-width: 480px){
+    .atbdp_login_form_shortcode {
+        width: 100%;
+    }
+}
 
 /*# sourceMappingURL=map/style.css.map */

@@ -25,7 +25,7 @@ $front_bg_image = (!empty($theme_home_bg_image)) ? $theme_home_bg_image : $searc
 <div id="directorist" class="directorist atbd_wrapper directory_search_area single_area"
      style="background-image: url('<?php echo (!empty($front_bg_image)) ? esc_url($front_bg_image) : esc_url($default); ?>')">
     <!-- start search area container -->
-    <div class="<?php echo is_directoria_active() ? 'container' : ' container-fluid'; ?>">
+    <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
         <div class="row">
             <div class="col-md-12">
                 <?php if (!empty($search_title) || !empty($search_subtitle)) { ?>

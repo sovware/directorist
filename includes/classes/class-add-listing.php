@@ -169,15 +169,10 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $current_d = current_time('mysql');
                         $remaining_days = ($expired_date > $current_d) ? (floor(strtotime($expired_date) / (60 * 60 * 24)) - floor(strtotime($current_d) / (60 * 60 * 24))) : 0; //calculate the number of days remaining in a plan
                         $listing_type = !empty($_POST['listing_type']) ? sanitize_text_field($_POST['listing_type']) : '';
-                        $num_regular_unl = get_post_meta($subscribed_package_id, 'num_regular_unl', true);
-                        $num_featured_unl = get_post_meta($subscribed_package_id, 'num_featured_unl', true);
                         $_general_type = get_user_meta($user_id, '_general_type', true) ? (int)get_user_meta($user_id, '_general_type', true) : 1;// find the user has subscribed or not
                         $has_featured_type = get_user_meta($user_id, '_featured_type', true) ? (int)get_user_meta($user_id, '_featured_type', true) : 0;
-
-                        $num_regular = get_post_meta($subscribed_package_id, 'num_regular', true);
-                        $num_featured = get_post_meta($subscribed_package_id, 'num_featured', true);
-                        $price_range = get_post_meta($subscribed_package_id, 'price_range', true);
-                        $price_range_unl = get_post_meta($subscribed_package_id, 'price_range_unl', true);
+                        //store the plan meta
+                        $plan_meta = get_post_meta($subscribed_package_id);
 
                         if ((empty($subscribed_package_id)) && empty($_POST['listing_id'])) {
                             if (empty($_POST['fm_plans'])) {
@@ -187,25 +182,31 @@ if (!class_exists('ATBDP_Add_Listing')):
                             }
                         }
                         if ('regular' === $listing_type) {
-                            if (($num_regular < $_general_type) && empty($num_regular_unl)) {
+                            if (($plan_meta['num_regular'][0] < $_general_type) && empty($plan_meta['num_regular_unl'][0])) {
                                 $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for regular listing!', ATBDP_TEXTDOMAIN) . '</strong></div>';
                                 return $msg;
                             }
                         }
                         if ('featured' === $listing_type) {
-                            if (($num_featured < $has_featured_type) && empty($num_featured_unl)) {
+                            if (($plan_meta['num_featured'][0] < $has_featured_type) && empty($plan_meta['num_featured_unl'][0])) {
                                 $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for featured listing!', ATBDP_TEXTDOMAIN) . '</strong></div>';
                                 return $msg;
 
                             }
                         }
-                        if (empty($price_range_unl)){
-                            if ($metas['_price']>$price_range){
+                        if (empty($plan_meta['price_range_unl'][0])){
+                            if ($metas['_price']>$plan_meta['price_range'][0]){
                                 $msg = '<div class="alert alert-danger"><strong>' . __('Given price is not included in this plan!', ATBDP_TEXTDOMAIN) . '</strong></div>';
                                 return $msg;
                             }
                         }
-                        //var_dump(count($metas['_listing_img']),$metas['_listing_prv_img']);die();
+                        $prev = !empty($metas['_listing_prv_img'])?1:0;
+                        $totat_image = count($metas['_listing_img'])+$prev;
+                       if ($plan_meta['num_image'][0]<$totat_image && empty($plan_meta['num_image_unl'][0])){
+                           $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_image'][0].' image(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
+                           return $msg;
+                       }
+
                     }
 
 

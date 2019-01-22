@@ -445,7 +445,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
             <?php } ?>
 
             <!--Google map section-->
-            <?php /*@todo; add a settings to toggle the display of map for individual listing or all listings.*/
+            <?php
             if (!$disable_map && (empty($hide_map))) {?>
                 <div class="atbd_content_module">
                     <div class="atbd_content_module__tittle_area">

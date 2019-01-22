@@ -2210,8 +2210,8 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price){
 
 function listing_view_by_list($all_listings, $view, $current_order){
     $paginate = '';
-    $is_disable_price = get_directorist_option('disable_list_price');
     $all_listing_title = !empty($all_listing_title) ? $all_listing_title : __('All Items', ATBDP_TEXTDOMAIN);
+    $is_disable_price = get_directorist_option('disable_list_price');
     $pagenation = get_directorist_option('paginate_all_listings',1);
     ?>
     <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">

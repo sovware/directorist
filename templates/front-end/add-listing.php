@@ -550,7 +550,11 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 </div>
                             </div><!-- end .atbd_general_information_module -->
                             <?php
-                            if (is_business_hour_active()) {
+                            $plan_hours = true;
+                            if (class_exists('ATBDP_Fee_Manager') && is_plan_allowed_business_hours()){
+                                $plan_hours = is_plan_allowed_business_hours();
+                            }
+                            if (is_business_hour_active() && $plan_hours) {
                                 ?>
                                 <div class="atbd_content_module">
                                     <div class="atbd_content_module__tittle_area">

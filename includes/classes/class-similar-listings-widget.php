@@ -48,7 +48,7 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
                     // get only one parent or high level term object
                     $top_category           = ATBDP()->taxonomy->get_one_high_level_term($related_listing->ID, ATBDP_CATEGORY);
                     $listing_img            = get_post_meta($related_listing->ID, '_listing_img', true);
-                    $listing_prv_img        = get_post_meta(get_the_ID(), '_listing_prv_img', true);
+                    $listing_prv_img        = get_post_meta($related_listing->ID, '_listing_prv_img', true);
                     $price                  = get_post_meta($related_listing->ID, '_price', true);
                     $cats                   =  get_the_terms($related_listing->ID, ATBDP_CATEGORY);
                     ?>

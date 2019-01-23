@@ -1296,8 +1296,8 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                     'default' => array(
-                        'value' => 'list',
-                        'label' => __('List', ATBDP_TEXTDOMAIN),
+                        'value' => 'grid',
+                        'label' => __('Grid', ATBDP_TEXTDOMAIN),
                     ),
                 ),
                 array(
@@ -1415,7 +1415,7 @@ The Administrator of ==SITE_NAME==
                     'type' => 'slider',
                     'name' => 'locations_column_number',
                     'label' => __('Number of  Columns', ATBDP_TEXTDOMAIN),
-                    'description' => __( 'Set how many columns to display on categories page.', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Set how many columns to display on locations page.', ATBDP_TEXTDOMAIN),
                     'min' => '1',
                     'max' => '10',
                     'step' => '1',

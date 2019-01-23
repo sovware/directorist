@@ -113,16 +113,15 @@
     .atbd_listing_thumbnail_area {
       margin: 0;
       position: relative;
-      .atbd_thumbnail_overlay_content {
+      .atbd_upper_badge{
         position: absolute;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        z-index: 3;
-        padding: 15px 20px;
-        display: flex;
-        flex-flow: column;
-        justify-content: space-between;
+        top: 15px;
+        left: 15px;
+      }
+      .atbd_lower_badge{
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
       }
     }
     .atbd_listing_info {

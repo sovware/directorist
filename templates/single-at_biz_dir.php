@@ -67,20 +67,22 @@ $info_content .= $image ; // add the image if available
 $info_content .= "<address>{$ad}</address>";
 $info_content .= "<a href='http://www.google.com/maps/place/{$manual_lat},{$manual_lng}' target='_blank'> ".__('View On Google Maps', ATBDP_TEXTDOMAIN)."</a></div>";
 /*END INFO WINDOW CONTENT*/
-$map_zoom_level = get_directorist_option('map_zoom_level', 16);
-$disable_map = get_directorist_option('disable_map', 0);
-$disable_sharing = get_directorist_option('disable_sharing', 0);
-$disable_contact_info = get_directorist_option('disable_contact_info', 0);
-$is_disable_price = get_directorist_option('disable_list_price');
-$enable_report_abuse = get_directorist_option('enable_report_abuse', 1);
-$enable_video_url = get_directorist_option('atbd_video_url', 1);
-$video_label = get_directorist_option('atbd_video_title');
-$p_lnk = get_the_permalink();
-$p_title = get_the_title();
-$featured = get_post_meta(get_the_ID(), '_featured', true);
-$cats = get_the_terms($post->ID, ATBDP_CATEGORY);
-$reviews_count = ATBDP()->review->db->count(array('post_id' => $listing_id)); // get total review count for this post
-$listing_author_id = get_post_field( 'post_author', $listing_id );
+$map_zoom_level                   = get_directorist_option('map_zoom_level', 16);
+$disable_map                      = get_directorist_option('disable_map', 0);
+$disable_sharing                  = get_directorist_option('disable_sharing', 0);
+$disable_contact_info             = get_directorist_option('disable_contact_info', 0);
+$is_disable_price                 = get_directorist_option('disable_list_price');
+$enable_social_share              = get_directorist_option('enable_social_share', 1);
+$enable_favourite                 = get_directorist_option('enable_favourite', 1);
+$enable_report_abuse              = get_directorist_option('enable_report_abuse', 1);
+$enable_video_url                 = get_directorist_option('atbd_video_url', 1);
+$video_label                      = get_directorist_option('atbd_video_title');
+$p_lnk                            = get_the_permalink();
+$p_title                          = get_the_title();
+$featured                         = get_post_meta(get_the_ID(), '_featured', true);
+$cats                             = get_the_terms($post->ID, ATBDP_CATEGORY);
+$reviews_count                    = ATBDP()->review->db->count(array('post_id' => $listing_id)); // get total review count for this post
+$listing_author_id                = get_post_field( 'post_author', $listing_id );
 $display_feature_badge_single     = get_directorist_option('display_feature_badge_cart',1);
 $display_popular_badge_single     = get_directorist_option('display_popular_badge_cart',1);
 $popular_badge_text               = get_directorist_option('popular_badge_text','Popular');
@@ -115,11 +117,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                     </div>
 
                     <div class="atbd_listing_action_area">
+                        <?php if($enable_favourite) {?>
                         <div class="atbd_action atbd_save" id="atbdp-favourites"><?php the_atbdp_favourites_link(); ?></div>
-
+                        <?php } ?>
+                        <?php if($enable_social_share) {?>
                         <div class="atbd_action atbd_share">
                             <span class="fa fa-share-alt"></span>Share
-                            <?php if (!$disable_sharing) { ?>
                                 <div class="atbd_director_social_wrap">
                                     <?php
                                     //prepare the data for the links because links needs to be escaped
@@ -151,9 +154,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                         </li>
                                     </ul>
                                 </div> <!--Ends social share-->
-                            <?php } ?>
-                        </div>
 
+                        </div>
+                        <?php } ?>
                         <!-- Report Abuse-->
                         <?php
                         if ($enable_report_abuse) { ?>

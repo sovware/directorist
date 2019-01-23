@@ -46,14 +46,24 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
                     foreach ($related_listings->posts as $related_listing) {
 
                     // get only one parent or high level term object
-                    $top_category = ATBDP()->taxonomy->get_one_high_level_term($related_listing->ID, ATBDP_CATEGORY);
-                    $listing_img = get_post_meta($related_listing->ID, '_listing_img', true);
-                    $price             = get_post_meta($related_listing->ID, '_price', true);
-                    $cats              =  get_the_terms($related_listing->ID, ATBDP_CATEGORY);
+                    $top_category           = ATBDP()->taxonomy->get_one_high_level_term($related_listing->ID, ATBDP_CATEGORY);
+                    $listing_img            = get_post_meta($related_listing->ID, '_listing_img', true);
+                    $listing_prv_img        = get_post_meta($related_listing->ID, '_listing_prv_img', true);
+                    $price                  = get_post_meta($related_listing->ID, '_price', true);
+                    $cats                   =  get_the_terms($related_listing->ID, ATBDP_CATEGORY);
                     ?>
                         <li>
                             <div class="atbd_left_img">
-                                <?= (!empty($listing_img[0])) ? '<img src="'.esc_url(wp_get_attachment_image_url($listing_img[0],  array(90,90))).'" alt="listing image">' : '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">' ?>
+                                <?php
+                                if(!empty($listing_prv_img)) {
+                                    echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_prv_img, array(90, 90))).'" alt="listing image">';
+                                } elseif(!empty($listing_img[0]) && empty($listing_prv_img)) {
+                                    echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="listing image">';
+                                } else{
+                                    echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
+                                }
+
+                                ?>
                             </div>
                             <div class="atbd_right_content">
                                 <div class="cate_title">

@@ -1132,16 +1132,16 @@ body.atbd_content_active #directorist.atbd_wrapper {
   position: relative;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area .atbd_thumbnail_overlay_content {
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area .atbd_upper_badge {
   position: absolute;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 3;
-  padding: 15px 20px;
-  display: flex;
-  flex-flow: column;
-  justify-content: space-between;
+  top: 15px;
+  left: 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area .atbd_lower_badge {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper {
@@ -1338,8 +1338,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   flex-wrap: wrap;
 }
 
-.atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_widget_title h4 .atbd_badge_close,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_widget_title h4 .atbd_badge_close {
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_widget_title h4 .atbd_badge,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_widget_title h4 .atbd_badge {
   margin-left: auto;
   margin-right: 0;
 }

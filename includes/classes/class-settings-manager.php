@@ -1296,8 +1296,8 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                     'default' => array(
-                        'value' => 'list',
-                        'label' => __('List', ATBDP_TEXTDOMAIN),
+                        'value' => 'grid',
+                        'label' => __('Grid', ATBDP_TEXTDOMAIN),
                     ),
                 ),
                 array(
@@ -1415,7 +1415,7 @@ The Administrator of ==SITE_NAME==
                     'type' => 'slider',
                     'name' => 'locations_column_number',
                     'label' => __('Number of  Columns', ATBDP_TEXTDOMAIN),
-                    'description' => __( 'Set how many columns to display on categories page.', ATBDP_TEXTDOMAIN),
+                    'description' => __( 'Set how many columns to display on locations page.', ATBDP_TEXTDOMAIN),
                     'min' => '1',
                     'max' => '10',
                     'step' => '1',
@@ -1579,6 +1579,12 @@ The Administrator of ==SITE_NAME==
                         'type' => 'toggle',
                         'name' => 'search_border',
                         'label' => __('Search Bar Border', ATBDP_TEXTDOMAIN),
+                        'default' => 1,
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_text_field',
+                        'label' => __('Display Text Search Field', ATBDP_TEXTDOMAIN),
                         'default' => 1,
                     ),
                     array(
@@ -1853,7 +1859,18 @@ The Administrator of ==SITE_NAME==
                 'default' => '580',
 
             ),
-            
+            array(
+                'type' => 'toggle',
+                'name' => 'enable_social_share',
+                'label' => __('Enable Social Share Button', ATBDP_TEXTDOMAIN),
+                'default' => 1,
+            ),
+            array(
+                'type' => 'toggle',
+                'name' => 'enable_favourite',
+                'label' => __('Enable Favourite Button', ATBDP_TEXTDOMAIN),
+                'default' => 1,
+            ),
             array(
                 'type' => 'toggle',
                 'name' => 'enable_report_abuse',
@@ -1874,12 +1891,6 @@ The Administrator of ==SITE_NAME==
                 'default' => __('Features', ATBDP_TEXTDOMAIN),
             ),
 
-            array(
-                'type' => 'toggle',
-                'name' => 'disable_sharing',
-                'label' => __( 'Disable Social Sharing Links', ATBDP_TEXTDOMAIN ),
-                'default' => 0,
-            ),
             array(
                 'type' => 'toggle',
                 'name' => 'disable_contact_info',

@@ -2007,20 +2007,22 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price){
                             <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                 <figure class="atbd_listing_thumbnail_area">
                                     <div class="atbd_listing_image">
-                                        <?php if(!empty($listing_prv_img)){
+                                        <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>">
+                                            <?php if(!empty($listing_prv_img)){
 
-                                            echo '<img src="'.esc_url($prv_image).'" alt="listing image">';
+                                                                                        echo '<img src="'.esc_url($prv_image).'" alt="listing image">';
 
-                                        } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
+                                                                                    } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                            echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
+                                                                                        echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
 
-                                        }if (empty($listing_img[0]) && empty($listing_prv_img)){
+                                                                                    }if (empty($listing_img[0]) && empty($listing_prv_img)){
 
-                                            echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
+                                                                                        echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
 
-                                        }
-                                        ?>
+                                                                                    }
+                                                                                    ?>
+                                        </a>
                                     </div>
 
                                     <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>" class="atbd_thumbnail_overlay_content">
@@ -2066,7 +2068,6 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price){
                                                 echo new_badge();
                                                 ?>
                                             </span>
-                                    </a>
                                 </figure>
                                 <div class="atbd_listing_info">
                                     <div class="atbd_content_upper">
@@ -2352,21 +2353,20 @@ function listing_view_by_list($all_listings, $view, $current_order){
                             <article
                                     class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                 <figure class="atbd_listing_thumbnail_area">
-                                    <?php if(!empty($listing_prv_img)){
+                                    <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>"><?php if(!empty($listing_prv_img)){
 
-                                        echo '<img src="'.esc_url($prv_image).'" alt="listing image">';
+                                                                               echo '<img src="'.esc_url($prv_image).'" alt="listing image">';
 
-                                    } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
+                                                                           } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                        echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
+                                                                               echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
 
-                                    }if (empty($listing_img[0]) && empty($listing_prv_img)){
+                                                                           }if (empty($listing_img[0]) && empty($listing_prv_img)){
 
-                                        echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
+                                                                               echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
 
-                                    }
-                                    ?>
-                                    <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>" class="atbd_thumbnail_overlay_content">
+                                                                           }
+                                                                           ?></a>
                                             <span class="atbd_lower_badge">
                                                 <?php
                                                 //print the new badge
@@ -2389,7 +2389,6 @@ function listing_view_by_list($all_listings, $view, $current_order){
                                                 }
                                                 ?>
                                             </span>
-                                    </a>
                                 </figure>
                                 <div class="atbd_listing_info">
                                     <div class="atbd_content_upper">

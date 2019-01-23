@@ -2101,6 +2101,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin: 13px 0 0 15px;
 }
 
+#directorist.atbd_wrapper .atbdp_social_field_wrapper {
+  margin-bottom: 15px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav {
   display: flex;
   justify-content: space-between;

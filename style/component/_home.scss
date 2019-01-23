@@ -64,6 +64,9 @@
   .atbd_seach_fields_wrapper{
     padding: 30px;
     border: 1px solid $border-color;
+    .atbdp-search-form{
+      justify-content: center;
+    }
   }
   .directory_home_category_area{
     text-align: center;

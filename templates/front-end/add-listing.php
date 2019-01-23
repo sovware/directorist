@@ -23,6 +23,7 @@ if (!empty($p_id)) {
     $listing_info['email'] = get_post_meta($p_id, '_email', true);
     $listing_info['website'] = get_post_meta($p_id, '_website', true);
     $listing_info['social'] = get_post_meta($p_id, '_social', true);
+    $listing_info['faqs'] = get_post_meta($p_id, '_faqs', true);
     $listing_info['manual_lat'] = get_post_meta($p_id, '_manual_lat', true);
     $listing_info['manual_lng'] = get_post_meta($p_id, '_manual_lng', true);
     $listing_info['hide_map'] = get_post_meta($p_id, '_hide_map', true);
@@ -498,7 +499,13 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                class="form-control directory_field"
                                                placeholder="<?php esc_html_e('Listing address eg. Houghton Street London WC2A 2AE UK', ATBDP_TEXTDOMAIN); ?>"/>
                                     </div>
-
+                                    <?php
+                                    $plan_phone = true;
+                                    if (class_exists('ATBDP_Fee_Manager')){
+                                        $plan_phone = is_plan_allowed_listing_phone();
+                                    }
+                                    if ($plan_phone){
+                                    ?>
                                     <div class="form-group">
                                         <label for="atbdp_phone_number"><?php esc_html_e('Phone Number:', ATBDP_TEXTDOMAIN); ?></label>
                                         <input type="tel" name="phone" id="atbdp_phone_number"
@@ -506,15 +513,27 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                class="form-control directory_field"
                                                placeholder="<?php esc_attr_e('Phone Number', ATBDP_TEXTDOMAIN); ?>"/>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label for="atbdp_email"><?php esc_html_e('Email:', ATBDP_TEXTDOMAIN); ?></label>
-                                        <input type="email" name="email" id="atbdp_email"
-                                               value="<?= !empty($email) ? esc_attr($email) : ''; ?>"
-                                               class="form-control directory_field"
-                                               placeholder="<?php esc_attr_e('Enter Email', ATBDP_TEXTDOMAIN); ?>"/>
-                                    </div>
-
+                                    <?php }
+                                    $plan_email = true;
+                                    if (class_exists('ATBDP_Fee_Manager')){
+                                        $plan_email = is_plan_allowed_listing_email();
+                                    }
+                                    if ($plan_email){
+                                        ?>
+                                        <div class="form-group">
+                                            <label for="atbdp_email"><?php esc_html_e('Email:', ATBDP_TEXTDOMAIN); ?></label>
+                                            <input type="email" name="email" id="atbdp_email"
+                                                   value="<?= !empty($email) ? esc_attr($email) : ''; ?>"
+                                                   class="form-control directory_field"
+                                                   placeholder="<?php esc_attr_e('Enter Email', ATBDP_TEXTDOMAIN); ?>"/>
+                                        </div>
+                                        <?php }
+                                        $plan_webLink = true;
+                                    if (class_exists('ATBDP_Fee_Manager')){
+                                        $plan_webLink = is_plan_allowed_listing_webLink();
+                                    }
+                                    if ($plan_webLink){
+                                    ?>
                                     <div class="form-group">
                                         <label for="atbdp_website"><?php esc_html_e('Website:', ATBDP_TEXTDOMAIN); ?></label>
 
@@ -523,7 +542,13 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                class="form-control directory_field"
                                                placeholder="<?php esc_attr_e('Listing website eg. http://example.com', ATBDP_TEXTDOMAIN); ?>"/>
                                     </div>
-
+                                    <?php }
+                                    $plan_social_networks = true;
+                                    if (class_exists('ATBDP_Fee_Manager')){
+                                        $plan_social_networks = is_plan_allowed_listing_social_networks();
+                                    }
+                                    if ($plan_social_networks){
+                                    ?>
                                     <div class="form-group">
                                         <?php
                                         /**
@@ -547,11 +572,12 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                                         ?>
                                     </div>
+                                    <?php } ?>
                                 </div>
                             </div><!-- end .atbd_general_information_module -->
                             <?php
                             $plan_hours = true;
-                            if (class_exists('ATBDP_Fee_Manager') && is_plan_allowed_business_hours()){
+                            if (class_exists('ATBDP_Fee_Manager')){
                                 $plan_hours = is_plan_allowed_business_hours();
                             }
                             if (is_business_hour_active() && $plan_hours) {
@@ -571,7 +597,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                          * @param array $listing_info Information of the current listing
                                          * @since 1.1.1
                                          **/
-                                        do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_frontend', $listing_info);
+                                        apply_filters('atbdp_edit_after_contact_info_fields', 'add_listing_page_frontend', $listing_info);
                                         ?>
                                     </div>
                                 </div>
@@ -584,6 +610,14 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                              * @since 4.0
                              **/
                             do_action('atbdp_edit_after_business_hour_fields', 'add_listing_page_frontend', $listing_info);
+
+                            /**
+                            * It fires before map
+                            * @param string $type Page type.
+                            * @param array $listing_info Information of the current listing
+                            * @since 4.0
+                            **/
+                            apply_filters('atbdp_before_map_section', 'add_listing_page_frontend', $listing_info);
                             ?>
 
                             <?php if (!$disable_map) { ?>
@@ -691,7 +725,11 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         <?php ATBDP()->load_template('media-upload', compact('listing_img', 'listing_prv_img')); ?>
                                     </div>
                                     <?php
-                                    if ($enable_video_url) {
+                                    $plan_video = true;
+                                    if (class_exists('ATBDP_Fee_Manager')){
+                                        $plan_video =is_plan_allowed_listing_video();
+                                    }
+                                    if ($enable_video_url && $plan_video) {
                                         ?>
                                         <div class="form-group">
                                             <label for="videourl"><?php esc_html_e('Video Url', ATBDP_TEXTDOMAIN) ?></label>

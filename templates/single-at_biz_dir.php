@@ -429,7 +429,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                         ?>
 
                             <?php
-            if ($enable_video_url && !empty($videourl)) { ?>
+                            $plan_video = true;
+                            if (class_exists('ATBDP_Fee_Manager')){
+                                $plan_video =is_plan_allowed_listing_video();
+                            }
+            if ($enable_video_url && $plan_video && !empty($videourl)) { ?>
                 <div class="atbd_content_module atbd_custom_fields_contents">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
@@ -532,8 +536,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
             <?php
 
             // if business hour is active then add the following markup...
-
-            if (is_business_hour_active() && (!is_empty_v($business_hours) || !empty($enable247hour))) {
+            $plan_hours = true;
+            if (class_exists('ATBDP_Fee_Manager')){
+                $plan_hours = is_plan_allowed_business_hours();
+            }
+            if (is_business_hour_active() && $plan_hours && (!is_empty_v($business_hours) || !empty($enable247hour))) {
                 BD_Business_Hour()->show_business_hour_module($business_hours, $business_hour_title, $enable247hour); // show the business hour in an unordered list
             } ?>
 
@@ -549,8 +556,13 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
              * @param object|WP_post $post The current post object which is our listing post
              * @param array $listing_info The meta information of the current listing
              */
-
-            do_action('atbdp_after_map', $post, $listing_info);
+            $plan_review = true;
+            if (class_exists('ATBDP_Fee_Manager')){
+                $plan_review = is_plan_allowed_listing_review();
+            }
+            if ($plan_review) {
+                do_action('atbdp_after_map', $post, $listing_info);
+            }
             ?>
 
 

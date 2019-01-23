@@ -2024,7 +2024,13 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price){
                                     </div>
 
                                     <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>" class="atbd_thumbnail_overlay_content">
-                                        <?php if (class_exists('BD_Business_Hour')){
+
+                                        <?php
+                                        $plan_hours = true;
+                                        if (class_exists('ATBDP_Fee_Manager')){
+                                            $plan_hours = is_plan_allowed_business_hours();
+                                        }
+                                        if (is_business_hour_active() && $plan_hours){
                                             //lets check is it 24/7
                                             if (!empty($enable247hour)) {
                                                 $open =  get_directorist_option('open_badge_text');
@@ -2422,7 +2428,12 @@ function listing_view_by_list($all_listings, $view, $current_order){
                                                 do_action('atbdp_after_listing_price');
                                                 ?>
 
-                                                <?php if (class_exists('BD_Business_Hour')) {
+                                                <?php
+                                                $plan_hours = true;
+                                                if (class_exists('ATBDP_Fee_Manager')){
+                                                    $plan_hours = is_plan_allowed_business_hours();
+                                                }
+                                                if (is_business_hour_active() && $plan_hours){
                                                     //lets check is it 24/7
                                                     if (!empty($enable247hour)) {
                                                         $open =  get_directorist_option('open_badge_text');

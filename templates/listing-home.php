@@ -1,25 +1,26 @@
 <?php
-$categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
-$locations = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
+$categories                  = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
+$locations                   = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
 // get search page title and sub title from the plugin settings page
-$search_title = get_directorist_option('search_title', '');
-$search_subtitle = get_directorist_option('search_subtitle', '');
-$search_placeholder = get_directorist_option('search_placeholder', __('What are you looking for?', ATBDP_TEXTDOMAIN));
+$search_title                = get_directorist_option('search_title', '');
+$search_subtitle             = get_directorist_option('search_subtitle', '');
+$search_placeholder          = get_directorist_option('search_placeholder', __('What are you looking for?', ATBDP_TEXTDOMAIN));
 
-$show_popular_category = get_directorist_option('show_popular_category', 1);
-$show_connector = get_directorist_option('show_connector', 1);
-$search_border = get_directorist_option('search_border', 1);
+$show_popular_category       = get_directorist_option('show_popular_category', 1);
+$show_connector              = get_directorist_option('show_connector', 1);
+$search_border               = get_directorist_option('search_border', 1);
 
-$connectors_title = get_directorist_option('connectors_title', __('Or', ATBDP_TEXTDOMAIN));
-$popular_cat_title = get_directorist_option('popular_cat_title', __('Browse by popular categories', ATBDP_TEXTDOMAIN));
-$popular_cat_num = get_directorist_option('popular_cat_num', 10);
-$display_category_field = get_directorist_option('display_category_field', 1);
-$display_location_field = get_directorist_option('display_location_field', 1);
+$connectors_title            = get_directorist_option('connectors_title', __('Or', ATBDP_TEXTDOMAIN));
+$popular_cat_title           = get_directorist_option('popular_cat_title', __('Browse by popular categories', ATBDP_TEXTDOMAIN));
+$popular_cat_num             = get_directorist_option('popular_cat_num', 10);
+$display_category_field      = get_directorist_option('display_category_field', 1);
+$display_location_field      = get_directorist_option('display_location_field', 1);
+$display_text_field          = get_directorist_option('display_text_field', 1);
 
-$default = get_template_directory_uri().'/images/home_page_bg.jpg';
-$theme_home_bg_image = get_theme_mod('directoria_home_bg');
-$search_home_bg = get_directorist_option('search_home_bg');
-$front_bg_image = (!empty($theme_home_bg_image)) ? $theme_home_bg_image : $search_home_bg;
+$default                     = get_template_directory_uri().'/images/home_page_bg.jpg';
+$theme_home_bg_image         = get_theme_mod('directoria_home_bg');
+$search_home_bg              = get_directorist_option('search_home_bg');
+$front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_image : $search_home_bg;
 ?>
 <!-- start search section -->
 <div id="directorist" class="directorist atbd_wrapper directory_search_area single_area"
@@ -43,13 +44,15 @@ $front_bg_image = (!empty($theme_home_bg_image)) ? $theme_home_bg_image : $searc
                 <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
                     <!-- @todo; if the input fields break in different themes, use bootstrap form inputs then -->
                     <div class="atbd_seach_fields_wrapper"<?php echo empty($search_border)?'style="border: none;"':'';?>>
-                        <div class="row">
+                        <div class="row atbdp-search-form">
+                            <?php if(!empty($display_text_field)) {?>
                             <div class="col-md-6 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_query">
                                     <input class="form-control search_fields" type="text" name="q"
                                            placeholder="<?php echo esc_html($search_placeholder); ?>">
                                 </div>
                             </div>
+                            <?php } ?>
                             <?php if(!empty($display_category_field)) {?>
                             <div class="col-md-6 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_category">

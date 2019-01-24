@@ -203,16 +203,16 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                 name="price_range">
                                             <option value="">Select Price Range</option>
                                             <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
-                                                Ultra High ($$$$)
+                                                <?= __('Ultra High ($$$$)', ATBDP_TEXTDOMAIN); ?>
                                             </option>
                                             <option value="moderate" <?php selected($price_range, 'moderate'); ?>>
-                                                Expensive ($$$)
+                                                <?= __('Expensive ($$$)', ATBDP_TEXTDOMAIN); ?>
                                             </option>
                                             <option value="economy" <?php selected($price_range, 'economy'); ?>>
-                                                Moderate ($$)
+                                                <?= __('Moderate ($$)', ATBDP_TEXTDOMAIN); ?>
                                             </option>
                                             <option value="bellow_economy" <?php selected($price_range, 'economy'); ?>>
-                                                Cheap ($)
+                                                <?= __('Cheap ($)', ATBDP_TEXTDOMAIN); ?>
                                             </option>
                                         </select>
                                     </div>
@@ -240,7 +240,15 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     'meta_key' => 'associate',
                                     'meta_value' => 'form'
                                 ));
-                                $fields = $custom_fields->posts;
+                                $plan_custom_field = true;
+                                if (class_exists('ATBDP_Fee_Manager')){
+                                    $plan_custom_field = is_plan_allowed_custom_fields();
+                                }
+                                if ($plan_custom_field){
+                                    $fields = $custom_fields->posts;
+                                }else{
+                                    $fields = array();
+                                }
                                 foreach ($fields as $post) {
                                     setup_postdata($post);
                                     $post_id = $post->ID;
@@ -433,6 +441,10 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     <?php
                                     $category = wp_get_object_terms($p_id, ATBDP_CATEGORY, array('fields' => 'ids'));
                                     $selected_category = count($category) ? $category[0] : -1;
+                                    $plan_cat = 0;
+                                    if (class_exists('ATBDP_Fee_Manager')){
+                                        $plan_cat = is_plan_allowed_category();
+                                    }
                                     $args = array(
                                         'show_option_none' => '-- ' . __('Select Category', ATBDP_TEXTDOMAIN) . ' --',
                                         'taxonomy' => ATBDP_CATEGORY,
@@ -443,9 +455,11 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         'selected' => $selected_category,
                                         'hierarchical' => true,
                                         'depth' => 10,
+                                        'exclude' => $plan_cat,
                                         'show_count' => false,
                                         'hide_empty' => false,
                                     );
+
                                     wp_dropdown_categories($args);
                                     $current_val = esc_attr(get_post_meta($p_id, '_admin_category_select', true));
                                     $term_id_selected = !empty($current_val) ? $current_val : '';

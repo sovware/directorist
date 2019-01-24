@@ -1,5 +1,14 @@
  <?php
- $fields = $atbdp_query->posts;
+ $plan_custom_field = true;
+ if (class_exists('ATBDP_Fee_Manager')){
+     $plan_custom_field = is_plan_allowed_custom_fields();
+ }
+ if ($plan_custom_field){
+     $fields = $atbdp_query->posts;
+ }else{
+     $fields = array();
+ }
+
 
             if (isset($_POST['term_id'])){
             foreach ($fields as $post){

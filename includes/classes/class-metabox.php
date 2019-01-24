@@ -116,6 +116,13 @@ class ATBDP_Metabox {
         ATBDP_POST_TYPE,
         'normal', 'high' );
 
+        /*
+         *
+         * It fires after the video metabox
+         * @since 4.0.3
+         */
+        do_action('atbdp_after_video_metabox_backend_add_listing');
+
     }
 
     /**
@@ -253,6 +260,7 @@ class ATBDP_Metabox {
         $metas['_email']             = !empty($p['email'])? sanitize_text_field($p['email']) : '';
         $metas['_website']           = !empty($p['website'])? sanitize_text_field($p['website']) : '';
         $metas['_social']            = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
+        $metas['_faqs']              = !empty($p['faqs']) ? atbdp_sanitize_array($p['faqs']) : array(); // we are expecting array value
         $metas['_enable247hour']     = !empty($p['enable247hour']) ? sanitize_text_field($p['enable247hour']) : ''; // we are expecting array value
         $metas['_bdbh']              = !empty($p['bdbh']) ? atbdp_sanitize_array($p['bdbh']) : array(); // we are expecting array value
         $metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
@@ -363,11 +371,7 @@ class ATBDP_Metabox {
     public function get_listing_info($id=0)
     {
         global $post;
-        //@todo;clean
-        //$lf= get_post_meta($id, '_listing_info', true);
-        //return (!empty($lf)) ? aazztech_enc_unserialize($lf) : array();
         $id = !empty($id) ? (int) $id : $post->ID;
-
         $listing_info['never_expire']           = get_post_meta($id, '_never_expire', true);
         $listing_info['featured']               = get_post_meta($id, '_featured', true);
         $listing_info['price']                  = get_post_meta($id, '_price', true);

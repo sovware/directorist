@@ -215,6 +215,10 @@ class ATBDP_Checkout
             update_post_meta( $order_id, '_amount', $amount);
             update_post_meta( $order_id, '_payment_gateway', $gateway );
             update_post_meta( $order_id, '_payment_status', 'created' );
+            $updated_plan_id = get_user_meta(get_current_user_id(), '_plan_to_active', true);
+            if (class_exists('ATBDP_Fee_Manager') && $updated_plan_id){
+                update_post_meta( $order_id, '_updated_plan_id', $updated_plan_id );
+            }
 
             // Hook for developer
             do_action( 'atbdp_order_created', $order_id, $listing_id ); /*@todo; do something to prevent multiple order creation when user try to repeat failed payment*/

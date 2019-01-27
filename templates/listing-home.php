@@ -87,7 +87,7 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                     </div>
                     <div class="atbd_submit_btn">
                         <button type="submit" class="btn btn-primary btn-lg btn_search">
-                            <span class="fa fa-search"></span> Search Listing
+                            <span class="fa fa-search"></span> <?php _e('Search Listing', ATBDP_TEXTDOMAIN)?>
                         </button>
                     </div>
                 </form>

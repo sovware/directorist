@@ -785,7 +785,7 @@ final class Directorist_Base
         <div class="atbd_content_module atbd_review_module">
             <div class="atbd_content_module__tittle_area">
                 <div class="atbd_area_title">
-                    <h4><span class="fa fa-star atbd_area_icon"></span><?php echo $reviews_count;
+                    <h4><span class="fa fa-star atbd_area_icon"></span><span id="reviewCounter"><?php echo $reviews_count;?></span><?php
                         _e($reviews_count > 1 ? ' Reviews' : ' Review', ATBDP_TEXTDOMAIN);
                         ?></h4>
                 </div>
@@ -801,10 +801,11 @@ final class Directorist_Base
                         ?>
                         <?php foreach ($reviews as $review) {
                             ?>
-                            <div class="atbd_single_review" id="single_review_<?= $review->id; ?>">
+                            <div class="atbd_single_review atbdp_static" id="single_review_<?= $review->id; ?>">
                                 <div class="atbd_review_top">
                                     <div class="atbd_avatar_wrapper">
-                                        <?php $avata_img = get_avatar($review->by_user_id, 32); ?>
+                                        <?php $avata_img = get_avatar($review->by_user_id, 32);
+                                        ?>
                                         <div class="atbd_review_avatar"><?php if ($avata_img) {
                                                 echo $avata_img;
                                             } else { ?><img
@@ -862,10 +863,17 @@ final class Directorist_Base
                         <form action="" id="atbdp_review_form" method="post">
                             <?php wp_nonce_field('atbdp_review_action_form', 'atbdp_review_nonce_form'); ?>
                             <input type="hidden" name="post_id" value="<?php the_ID(); ?>">
+
                             <!--<input type="email" name="email" class="directory_field" placeholder="Your email" required>-->
                             <input type="hidden" name="name" class="btn btn-default"
                                    value="<?= wp_get_current_user()->display_name; ?>"
                                    placeholder="<?php esc_attr_e('Your name', ATBDP_TEXTDOMAIN); ?>" id="reviewer_name">
+                            <?php $avata_img = get_avatar(wp_get_current_user()->ID, 32); ?>
+                            <input type="hidden" name="name" class="btn btn-default"
+                                   value="<?php if ($avata_img) {
+                                                echo $avata_img;
+                                            } else { echo ATBDP_PUBLIC_ASSETS . 'images/revav.png';}?>"
+                                   id="reviewer_img">
 
                             <div class="atbd_review_rating_area"> <!--It should be displayed on the left side -->
                                 <?php

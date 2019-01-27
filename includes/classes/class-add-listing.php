@@ -154,8 +154,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                     //@todo need to shift FM validation code to extension itself
                     if (class_exists('ATBDP_Fee_Manager')) {
                         $user_id = get_current_user_id();
+                        $midway_package_id = !empty($_POST['fm_plans'])?$_POST['fm_plans']:'';
                         $subscribed_package_id = get_user_meta($user_id, '_subscribed_users_plan_id', true);
-
+                        $subscribed_package_id = !empty($midway_package_id)?$midway_package_id:$subscribed_package_id;
                         $subscribed_date = get_user_meta($user_id, '_subscribed_time', true);
                         $package_length = get_post_meta($subscribed_package_id, 'fm_length', true);
                         $is_never_expaired = get_post_meta($subscribed_package_id, 'fm_length_unl', true);
@@ -409,8 +410,8 @@ if (!class_exists('ATBDP_Add_Listing')):
 // vail if monetization is not active.
 
                         $remaining_days = !empty($remaining_days)?$remaining_days:'0';
-                        //var_dump($remaining_days);die();
-                        if ((class_exists('ATBDP_Fee_Manager')) && ($remaining_days <= 1)){
+                        //var_dump($midway_package_id);die();
+                        if ((class_exists('ATBDP_Fee_Manager')) && ($midway_package_id || ($remaining_days <= 1)) ){
                             wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
                             exit;
                         }else{

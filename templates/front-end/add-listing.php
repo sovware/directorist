@@ -180,15 +180,25 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                 /*Translator: % is the name of the currency such eg. USD etc.*/
                                                 printf(esc_html__('Price [%s]', ATBDP_TEXTDOMAIN), $currency); ?>
                                             </label>
-                                            <span>Or</span>
-                                            <label for="price_range_selected" data-option="price_range">
-                                                <input type="checkbox" id="price_range_selected"
-                                                       name="atbd_listing_pricing">
-                                                <?php echo __('Price Range', ATBDP_TEXTDOMAIN); ?>
-                                                <!--<p id='price_range_option'><?php /*echo __('Price Range', ATBDP_TEXTDOMAIN); */ ?></p></label>-->
-                                            </label>
+                                            <?php
+                                            $plan_raverage_price = true;
+                                            if (class_exists('ATBDP_Fee_Manager')){
+                                                $plan_raverage_price = is_plan_allowed_average_price_range();
+                                            }
+                                            if ($plan_raverage_price) {
+                                                ?>
+                                                <span>Or</span>
+                                                <label for="price_range_selected" data-option="price_range">
+                                                    <input type="checkbox" id="price_range_selected"
+                                                           name="atbd_listing_pricing">
+                                                    <?php echo __('Price Range', ATBDP_TEXTDOMAIN); ?>
+                                                    <!--<p id='price_range_option'><?php /*echo __('Price Range', ATBDP_TEXTDOMAIN); */ ?></p></label>-->
+                                                </label>
+                                                <?php
+                                            }
+                                            ?>
 
-                                            <small>(Optional - Uncheck both to hide pricing for this listing)</small>
+                                            <small>(Optional - Uncheck to hide pricing for this listing)</small>
                                         </div>
 
                                         <input type="hidden" id="price_range_val"

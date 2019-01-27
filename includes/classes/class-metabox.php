@@ -115,13 +115,13 @@ class ATBDP_Metabox {
         array($this, 'listing_video_gallery'),
         ATBDP_POST_TYPE,
         'normal', 'high' );
-
+wp_reset_postdata();
         /*
          *
          * It fires after the video metabox
          * @since 4.0.3
          */
-        do_action('atbdp_after_video_metabox_backend_add_listing');
+        do_action('atbdp_after_video_metabox_backend_add_listing',$post);
 
     }
 

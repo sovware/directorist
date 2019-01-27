@@ -313,7 +313,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                                 </span>
                                                 </p>
                                             </li>
-                                        <?php }
+                                        <?php
+                                        }
                                     }
                                     ?>
                                 </ul>
@@ -370,11 +371,24 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                 </div>
             </div> <!-- end .atbd_listing_details -->
             <?php
-
+            $category_selected = get_post_meta($post->ID, '_admin_category_select', true);
             $custom_fields  = new WP_Query( array(
                 'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
                 'posts_per_page' => -1,
                 'post_status'    => 'publish',
+                'meta_query'  => array(
+                        'relation' => 'OR',
+                    array(
+                            'key'   => 'associated',
+                            'value' => 'form',
+                            'compare' => 'EXISTS'
+                    ),
+                    array(
+                            'key' => 'category_pass',
+                            'value' => !empty($category_selected)?$category_selected:'',
+                            'compare' => 'EXISTS'
+                    )
+                )
             ) );
             $custom_fields_posts = $custom_fields->posts;
             $has_field_value = array();
@@ -454,11 +468,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
             <!--Google map section-->
             <?php
-            if (!$disable_map && (empty($hide_map))) {?>
+            if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat)) {?>
                 <div class="atbd_content_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
-                            <h4><span class="fa fa fa-map atbd_area_icon"></span>Location</h4>
+                            <h4><span class="fa fa fa-map atbd_area_icon"></span><?php _e('Location', ATBDP_TEXTDOMAIN);?></h4>
                         </div>
                     </div>
 

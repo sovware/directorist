@@ -103,16 +103,17 @@
             var name= $form.find("#reviewer_name").val();
             var content= $form.find("#review_content").val();
             var rating= $form.find("#review_rating").val();
-            var ava_img= $form.find("#atbd_review_avatar").val();
-
+            var ava_img= $form.find("#reviewer_img").val();
             if (response.success) {
                 d = new Date(); // parse mysql date string to js date object
                 d = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear(); // build the date string, month is 0 based so add 1 to that to get real month.
 
-                output += '<div class="atbd_single_review" id="single_review_' + response.data.id + '">' +
+                output +=
+                    '<div class="atbd_single_review" id="single_review_' + response.data.id + '">' +
+                    '<input type="hidden" value="1" id="has_ajax">' +
                     '<div class="atbd_review_top"> ' +
                     '<div class="atbd_avatar_wrapper"> ' +
-                    '<div class="atbd_review_avatar"><img src="" alt="Image"></div> ' +
+                    '<div class="atbd_review_avatar">' + ava_img + '</div> ' +
                     '<div class="atbd_name_time"> ' +
                     '<p>' + name + '</p>' +
                     '<span class="review_time">' + d + '</span> ' + '</div> ' + '</div> ' +
@@ -140,6 +141,13 @@
                 $form.append(deleteBtn);
                 if (submit_count === 1) {
                     $('#client_review_list').prepend(output); // add the review if it's the first review of the user
+                }
+                var sectionToShow= $("#has_ajax").val();
+                var sectionToHide= $(".atbdp_static");
+                var sectionToHide2= $(".directory_btn");
+                if (sectionToShow){
+                    $(sectionToHide).hide();
+                    $(sectionToHide2).hide();
                 }
                 submit_count++;
                 // show success message
@@ -215,6 +223,7 @@
                 });
 
 
+
                 if (length < 3) {
                     $this.remove();
                 }
@@ -282,7 +291,10 @@
                             });
                             $("#single_review_" + id).slideUp();
                             $this.remove();
+                            $('#review_content').empty();
                             $("#atbdp_review_form_submit").remove();
+                            $(".atbd_review_rating_area").remove();
+                            $("#reviewCounter").hide();
                             delete_count++; // increase the delete counter so that we do not need to delete the review more than once.
                         } else {
                             // show error message

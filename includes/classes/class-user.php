@@ -68,9 +68,12 @@ class ATBDP_User {
             return $redirect_to;
         }
 
-                //all users will be redirected after successfully login or register
-                $redirect_to  = ATBDP_Permalink::get_dashboard_page_link();
-
+        /*@todo; redirect non admin users to their front-end dashboard. */
+        if ( ! in_array( 'administrator', (array) $user->roles ) ) {
+            $redirect_to  = ATBDP_Permalink::get_dashboard_page_link();
+        }else{
+            $redirect_to = admin_url();
+        }
         return wp_validate_redirect( $redirect_to, home_url() ); // return a safe redirect url between the site.
     }
 

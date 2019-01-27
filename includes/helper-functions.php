@@ -2005,7 +2005,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price){
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="atbd_single_listing atbd_listing_card">
                             <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
-                                <figure class="atbd_listing_thumbnail_area">
+                                <figure class="atbd_listing_thumbnail_area" style=" <?php echo empty(get_directorist_option('display_preview_image'))?'display:none':''?>">
                                     <div class="atbd_listing_image">
                                         <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>">
                                             <?php if(!empty($listing_prv_img)){
@@ -2220,6 +2220,8 @@ function listing_view_by_list($all_listings, $view, $current_order){
     $all_listing_title = !empty($all_listing_title) ? $all_listing_title : __('All Items', ATBDP_TEXTDOMAIN);
     $is_disable_price = get_directorist_option('disable_list_price');
     $pagenation = get_directorist_option('paginate_all_listings',1);
+    $display_sortby_dropdown = get_directorist_option('display_sort_by',1);
+    $display_viewas_dropdown = get_directorist_option('display_view_as',1);
     ?>
     <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
         <div class="row" data-uk-grid>
@@ -2240,7 +2242,9 @@ function listing_view_by_list($all_listings, $view, $current_order){
                             }
                             ?>
                         </div>
+                    <?php if($display_viewas_dropdown || $display_sortby_dropdown) { ?>
                         <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
+                    <?php if($display_viewas_dropdown) { ?>
                             <div class="dropdown">
                                 <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button"
                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
@@ -2259,8 +2263,10 @@ function listing_view_by_list($all_listings, $view, $current_order){
                                     ?>
                                 </div>
                             </div>
+                <?php } ?>
 
                             <!-- Orderby dropdown -->
+                        <?php if($display_sortby_dropdown) { ?>
                             <div class="dropdown">
                                 <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button"
                                    id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true"
@@ -2279,7 +2285,9 @@ function listing_view_by_list($all_listings, $view, $current_order){
                                     ?>
                                 </div>
                             </div>
+                        <?php } ?>
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
 
@@ -2352,7 +2360,7 @@ function listing_view_by_list($all_listings, $view, $current_order){
                         <div class="atbd_single_listing atbd_listing_list">
                             <article
                                     class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
-                                <figure class="atbd_listing_thumbnail_area">
+                                <figure class="atbd_listing_thumbnail_area" style=" <?php echo empty(get_directorist_option('display_preview_image'))?'display:none':''?>">
                                     <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>"><?php if(!empty($listing_prv_img)){
 
                                                                                echo '<img src="'.esc_url($prv_image).'" alt="listing image">';

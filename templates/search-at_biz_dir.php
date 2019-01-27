@@ -126,7 +126,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="atbd_single_listing atbd_listing_card">
                                     <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
-                                        <figure class="atbd_listing_thumbnail_area">
+                                        <figure class="atbd_listing_thumbnail_area" style=" <?php echo empty(get_directorist_option('display_preview_image'))?'display:none':''?>">
                                             <div class="atbd_listing_image">
                                                  <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>"><?php if(!empty($listing_prv_img)){
 

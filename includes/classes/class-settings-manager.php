@@ -1991,6 +1991,13 @@ The Administrator of ==SITE_NAME==
                 ),
                 array(
                     'type' => 'toggle',
+                    'name' => 'display_preview_image',
+                    'label' => __('Show Preview Image', ATBDP_TEXTDOMAIN),
+                    'description' => __('Hide/show preview image from all listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'thumbnail_cropping',
                     'label' => __('Preview Image Cropping', ATBDP_TEXTDOMAIN),
                     'description' => __('If the preview images are not in the same size, it helps automatically resizing.', ATBDP_TEXTDOMAIN),

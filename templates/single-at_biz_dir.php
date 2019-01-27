@@ -25,6 +25,7 @@ $listing_info['expiry_date']        = get_post_meta($post->ID, '_expiry_date', t
 $gallery_cropping                   = get_directorist_option('gallery_cropping',1);
 $custom_gl_width                    = get_directorist_option('gallery_crop_width', 670);
 $custom_gl_height                   = get_directorist_option('gallery_crop_height', 750);
+$disable_contact_info                   = get_directorist_option('disable_contact_info');
 extract($listing_info);
 /*Prepare Listing Image links*/
 $listing_imgs= (!empty($listing_img)) ? $listing_img : array();
@@ -468,7 +469,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                 <?php do_action('bdg_gallery_area');?>
             <!--Google map section-->
             <?php
-            if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat)) {?>
+            if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) ) {?>
                 <div class="atbd_content_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
@@ -483,7 +484,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
             <?php } ?>
 
 
-            <?php if ((!$hide_contact_info) && !empty($address||$phone||$email||$website||$social) ) { ?>
+            <?php if ((!$hide_contact_info) && !empty($address||$phone||$email||$website||$social) && empty($disable_contact_info) ) { ?>
                 <div class="atbd_content_module atbd_contact_information_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">

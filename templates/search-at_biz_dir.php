@@ -144,7 +144,13 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                                                                         ?></a>
                                             </div>
 
-                                                <?php if (class_exists('BD_Business_Hour')){
+                                            <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>" class="atbd_thumbnail_overlay_content">
+                                                <?php
+                                                $plan_hours = true;
+                                                if (class_exists('ATBDP_Fee_Manager')){
+                                                    $plan_hours = is_plan_allowed_business_hours();
+                                                }
+                                                if (is_business_hour_active() && $plan_hours){
                                                     //lets check is it 24/7
                                                     if (!empty($enable247hour)) {
                                                         ?>

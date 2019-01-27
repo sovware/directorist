@@ -144,6 +144,7 @@ Note: It is best to use it in a page with full-width template if possible for th
 * Fix - Custom Field issue
 * Tweak - Made preview image clickable
 * Tweak - Improved Login Form design
+* Fix - CSS issues of add listing form
 
 = 4.0.2 - JANUARY 20, 2019 =
 * Fix - Admin redirection after login

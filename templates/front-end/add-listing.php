@@ -23,6 +23,7 @@ if (!empty($p_id)) {
     $listing_info['email'] = get_post_meta($p_id, '_email', true);
     $listing_info['website'] = get_post_meta($p_id, '_website', true);
     $listing_info['social'] = get_post_meta($p_id, '_social', true);
+    $listing_info['faqs'] = get_post_meta($p_id, '_faqs', true);
     $listing_info['manual_lat'] = get_post_meta($p_id, '_manual_lat', true);
     $listing_info['manual_lng'] = get_post_meta($p_id, '_manual_lng', true);
     $listing_info['hide_map'] = get_post_meta($p_id, '_hide_map', true);
@@ -202,16 +203,16 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                 name="price_range">
                                             <option value="">Select Price Range</option>
                                             <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
-                                                Ultra High ($$$$)
+                                                <?= __('Ultra High ($$$$)', ATBDP_TEXTDOMAIN); ?>
                                             </option>
                                             <option value="moderate" <?php selected($price_range, 'moderate'); ?>>
-                                                Expensive ($$$)
+                                                <?= __('Expensive ($$$)', ATBDP_TEXTDOMAIN); ?>
                                             </option>
                                             <option value="economy" <?php selected($price_range, 'economy'); ?>>
-                                                Moderate ($$)
+                                                <?= __('Moderate ($$)', ATBDP_TEXTDOMAIN); ?>
                                             </option>
                                             <option value="bellow_economy" <?php selected($price_range, 'economy'); ?>>
-                                                Cheap ($)
+                                                <?= __('Cheap ($)', ATBDP_TEXTDOMAIN); ?>
                                             </option>
                                         </select>
                                     </div>
@@ -239,7 +240,15 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     'meta_key' => 'associate',
                                     'meta_value' => 'form'
                                 ));
-                                $fields = $custom_fields->posts;
+                                $plan_custom_field = true;
+                                if (class_exists('ATBDP_Fee_Manager')){
+                                    $plan_custom_field = is_plan_allowed_custom_fields();
+                                }
+                                if ($plan_custom_field){
+                                    $fields = $custom_fields->posts;
+                                }else{
+                                    $fields = array();
+                                }
                                 foreach ($fields as $post) {
                                     setup_postdata($post);
                                     $post_id = $post->ID;
@@ -432,6 +441,10 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     <?php
                                     $category = wp_get_object_terms($p_id, ATBDP_CATEGORY, array('fields' => 'ids'));
                                     $selected_category = count($category) ? $category[0] : -1;
+                                    $plan_cat = 0;
+                                    if (class_exists('ATBDP_Fee_Manager')){
+                                        $plan_cat = is_plan_allowed_category();
+                                    }
                                     $args = array(
                                         'show_option_none' => '-- ' . __('Select Category', ATBDP_TEXTDOMAIN) . ' --',
                                         'taxonomy' => ATBDP_CATEGORY,
@@ -442,9 +455,11 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         'selected' => $selected_category,
                                         'hierarchical' => true,
                                         'depth' => 10,
+                                        'exclude' => $plan_cat,
                                         'show_count' => false,
                                         'hide_empty' => false,
                                     );
+
                                     wp_dropdown_categories($args);
                                     $current_val = esc_attr(get_post_meta($p_id, '_admin_category_select', true));
                                     $term_id_selected = !empty($current_val) ? $current_val : '';
@@ -498,7 +513,13 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                class="form-control directory_field"
                                                placeholder="<?php esc_html_e('Listing address eg. Houghton Street London WC2A 2AE UK', ATBDP_TEXTDOMAIN); ?>"/>
                                     </div>
-
+                                    <?php
+                                    $plan_phone = true;
+                                    if (class_exists('ATBDP_Fee_Manager')){
+                                        $plan_phone = is_plan_allowed_listing_phone();
+                                    }
+                                    if ($plan_phone){
+                                    ?>
                                     <div class="form-group">
                                         <label for="atbdp_phone_number"><?php esc_html_e('Phone Number:', ATBDP_TEXTDOMAIN); ?></label>
                                         <input type="tel" name="phone" id="atbdp_phone_number"
@@ -506,15 +527,27 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                class="form-control directory_field"
                                                placeholder="<?php esc_attr_e('Phone Number', ATBDP_TEXTDOMAIN); ?>"/>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label for="atbdp_email"><?php esc_html_e('Email:', ATBDP_TEXTDOMAIN); ?></label>
-                                        <input type="email" name="email" id="atbdp_email"
-                                               value="<?= !empty($email) ? esc_attr($email) : ''; ?>"
-                                               class="form-control directory_field"
-                                               placeholder="<?php esc_attr_e('Enter Email', ATBDP_TEXTDOMAIN); ?>"/>
-                                    </div>
-
+                                    <?php }
+                                    $plan_email = true;
+                                    if (class_exists('ATBDP_Fee_Manager')){
+                                        $plan_email = is_plan_allowed_listing_email();
+                                    }
+                                    if ($plan_email){
+                                        ?>
+                                        <div class="form-group">
+                                            <label for="atbdp_email"><?php esc_html_e('Email:', ATBDP_TEXTDOMAIN); ?></label>
+                                            <input type="email" name="email" id="atbdp_email"
+                                                   value="<?= !empty($email) ? esc_attr($email) : ''; ?>"
+                                                   class="form-control directory_field"
+                                                   placeholder="<?php esc_attr_e('Enter Email', ATBDP_TEXTDOMAIN); ?>"/>
+                                        </div>
+                                        <?php }
+                                        $plan_webLink = true;
+                                    if (class_exists('ATBDP_Fee_Manager')){
+                                        $plan_webLink = is_plan_allowed_listing_webLink();
+                                    }
+                                    if ($plan_webLink){
+                                    ?>
                                     <div class="form-group">
                                         <label for="atbdp_website"><?php esc_html_e('Website:', ATBDP_TEXTDOMAIN); ?></label>
 
@@ -523,7 +556,13 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                class="form-control directory_field"
                                                placeholder="<?php esc_attr_e('Listing website eg. http://example.com', ATBDP_TEXTDOMAIN); ?>"/>
                                     </div>
-
+                                    <?php }
+                                    $plan_social_networks = true;
+                                    if (class_exists('ATBDP_Fee_Manager')){
+                                        $plan_social_networks = is_plan_allowed_listing_social_networks();
+                                    }
+                                    if ($plan_social_networks){
+                                    ?>
                                     <div class="form-group">
                                         <?php
                                         /**
@@ -547,11 +586,12 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                                         ?>
                                     </div>
+                                    <?php } ?>
                                 </div>
                             </div><!-- end .atbd_general_information_module -->
                             <?php
                             $plan_hours = true;
-                            if (class_exists('ATBDP_Fee_Manager') && is_plan_allowed_business_hours()){
+                            if (class_exists('ATBDP_Fee_Manager')){
                                 $plan_hours = is_plan_allowed_business_hours();
                             }
                             if (is_business_hour_active() && $plan_hours) {
@@ -571,7 +611,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                          * @param array $listing_info Information of the current listing
                                          * @since 1.1.1
                                          **/
-                                        do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_frontend', $listing_info);
+                                        apply_filters('atbdp_edit_after_contact_info_fields', 'add_listing_page_frontend', $listing_info);
                                         ?>
                                     </div>
                                 </div>
@@ -584,6 +624,14 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                              * @since 4.0
                              **/
                             do_action('atbdp_edit_after_business_hour_fields', 'add_listing_page_frontend', $listing_info);
+
+                            /**
+                            * It fires before map
+                            * @param string $type Page type.
+                            * @param array $listing_info Information of the current listing
+                            * @since 4.0
+                            **/
+                            apply_filters('atbdp_before_map_section', 'add_listing_page_frontend', $listing_info);
                             ?>
 
                             <?php if (!$disable_map) { ?>
@@ -691,7 +739,11 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         <?php ATBDP()->load_template('media-upload', compact('listing_img', 'listing_prv_img')); ?>
                                     </div>
                                     <?php
-                                    if ($enable_video_url) {
+                                    $plan_video = true;
+                                    if (class_exists('ATBDP_Fee_Manager')){
+                                        $plan_video =is_plan_allowed_listing_video();
+                                    }
+                                    if ($enable_video_url && $plan_video) {
                                         ?>
                                         <div class="form-group">
                                             <label for="videourl"><?php esc_html_e('Video Url', ATBDP_TEXTDOMAIN) ?></label>

@@ -1883,7 +1883,12 @@ The Administrator of ==SITE_NAME==
                 'label' => __( 'Disable Listing Price', ATBDP_TEXTDOMAIN ),
                 'default' => 0,
             ),
-
+            array(
+                'type' => 'toggle',
+                'name' => 'use_nofollow',
+                'label' => __( 'Use rel="nofollow" on Website link', ATBDP_TEXTDOMAIN ),
+                'default' => 0,
+            ),
             array(
                 'type' => 'textbox',
                 'name' => 'custom_section_lable',

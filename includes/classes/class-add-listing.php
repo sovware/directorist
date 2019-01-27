@@ -190,7 +190,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                             }
                         }
                         if ('featured' === $listing_type) {
-                            if (($plan_meta['num_featured'][0] < $has_featured_type) && empty($plan_meta['num_featured_unl'][0])) {
+                            //var_dump($has_featured_type);die();
+                            if (($plan_meta['num_featured'][0] <= $has_featured_type) && empty($plan_meta['num_featured_unl'][0])) {
                                 $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for featured listing!', ATBDP_TEXTDOMAIN) . '</strong></div>';
                                 return $msg;
 

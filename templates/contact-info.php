@@ -98,11 +98,11 @@ $info_content .= "<p> {$ad}</p></div>";
         <div class="atbd_backend_business_hour">
                 <div class="row">
                     <div class="col-md-12">
-                        <h6 class="atbd_backend_area_title"><?php _e('Enter information about Businss/Opening hours', ATBDP_TEXTDOMAIN); ?></h3>
+                        <h6 class="atbd_backend_area_title"><?php _e('Enter information about Businss/Opening hours', ATBDP_TEXTDOMAIN); ?></h6>
                     </div>
                 </div>
         <?php do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_backend', $args['listing_contact_info']); ?>
-    </div>
+        </div>
             <?php
         }
         ?>

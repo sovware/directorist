@@ -704,6 +704,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 </div>
                             </div>
 
+                            <?php do_action('atbdp_listing_gallery_font');?>
 
                             <div class="atbd_term_and_condition_area">
                                 <?php

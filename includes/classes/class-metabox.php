@@ -110,6 +110,8 @@ class ATBDP_Metabox {
         ATBDP_POST_TYPE,
         'normal', 'high' );
 
+        do_action('atbdp_add_gallery_image');
+
         add_meta_box( '_listing_video_gallery',
         __( 'Add Video for the Listing', ATBDP_TEXTDOMAIN ),
         array($this, 'listing_video_gallery'),
@@ -178,9 +180,8 @@ class ATBDP_Metabox {
 
    <?php }
 
-
     /**
-     * It displays meta box for uploading image from the backend editor of ATBDP_POST_TYPE
+     * It displays meta box for uploading video from the backend editor of ATBDP_POST_TYPE
      * @param WP_Post $post
      */
     public function listing_video_gallery($post )
@@ -191,7 +192,6 @@ class ATBDP_Metabox {
         if($enable_video_url) {?>
             <div id="directorist" class="directorist atbd_wrapper">
                 <div class="form-group">
-                    <!--@todo; Add currency Name near price-->
                     <label for="videourl"><?php
                         /*Translator: % is the name of the currency such eg. USD etc.*/
                         printf(esc_html__('Video URL', ATBDP_TEXTDOMAIN)); ?></label>

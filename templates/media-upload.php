@@ -65,3 +65,4 @@ $active_mi_ext = is_multiple_images_active(); // default is no
     </div>
 </div> <!--ends add_listing_form_wrapper-->
 
+

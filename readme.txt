@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.0.3
-Stable tag: 4.0.3
+Stable tag: 4.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -139,6 +139,15 @@ Note: It is best to use it in a page with full-width template if possible for th
 18. Add New Custom Field
 
 == Changelog ==
+= 4.1.0 - JANUARY 27, 2019 =
+* Fix - Listing review
+* Fix - Custom Field issue
+* Fix - Show/hide related issues
+* Fix - Location related minor issue
+* Fix - Admin redirection after login
+* Add - Show/hide option for preview image
+* Add - Option to add rel='nofollow' in listing's website link
+* Tweak - Settings panel
 
 = 4.0.3 - JANUARY 21, 2019 =
 * Fix - Custom Field issue

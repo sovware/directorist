@@ -110,7 +110,12 @@ class ATBDP_Metabox {
         ATBDP_POST_TYPE,
         'normal', 'high' );
 
-        do_action('atbdp_add_gallery_image');
+        /*
+         *
+         * It fires after the video metabox
+         * @since 4.0.3
+         */
+        do_action('atbdp_after_before_video_gallery_backend',$post);
 
         add_meta_box( '_listing_video_gallery',
         __( 'Add Video for the Listing', ATBDP_TEXTDOMAIN ),

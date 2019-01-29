@@ -164,6 +164,10 @@
 // Custom Image uploader for listing image
 jQuery(function($){
     // Set all variables to be used in scope
+    $('#at_biz_dir-location').select2({
+        placeholder: atbdp_admin_data.i18n_text.location_selection,
+        allowClear: true
+    });
     var frame,
         selection,
         multiple_image= true,

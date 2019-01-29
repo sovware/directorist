@@ -262,36 +262,39 @@ $currency = get_directorist_option('g_currency', 'USD');
         <!--***********************************************************************
        Run the custom field loop to show all published custom fields assign to Category
        **************************************************************************-->
-        <div id="category_container">
-            <!--@ Options for select the category.-->
 
-            <div class="form-group">
-                <label for="atbdp_select_cat"><?php esc_html_e('Select Category', ATBDP_TEXTDOMAIN) ?></label>
-                <?php
-                $category = wp_get_object_terms( $post_ID, ATBDP_CATEGORY, array( 'fields' => 'ids' ) );
-                $selected_category = count( $category ) ? $category[0] : -1;
-                $args = array(
-                    'show_option_none' => '-- '.__( 'Select Category', ATBDP_TEXTDOMAIN ).' --',
-                    'taxonomy'         => ATBDP_CATEGORY,
-                    'id'               => 'cat-type',
-                    'class'            => 'form-control directory_field',
-                    'name' 			   => 'admin_category_select',
-                    'orderby'          => 'name',
-                    'selected'         => $selected_category,
-                    'hierarchical'     => true,
-                    'depth'            => 10,
-                    'show_count'       => false,
-                    'hide_empty'       => false,
 
-                );
-                wp_dropdown_categories( $args );
-                $current_val = esc_attr(get_post_meta($post_ID, '_admin_category_select', true));
-                $term_id_selected = !empty($current_val) ? $current_val: '';
+        <?php
+        $p_categories = wp_get_post_terms($post_ID, ATBDP_CATEGORY);
+        $Categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
+        ?>
+        <div class="form-group">
+            <label for="at_biz_dir-location"><?php esc_html_e('Category:', ATBDP_TEXTDOMAIN); ?></label>
+            <?php if (!empty($p_categories)) {
+                $output = array();
+                foreach ($p_categories as $p_category) {
+
+                    $output[] = $p_category->name;
+                }
+
+                echo '<p class="c_cat_list">' . __('Category:', ATBDP_TEXTDOMAIN) . join(', ', $output) . '</p>';
+            } ?>
+            <select name="admin_category_select" class="form-control"
+                    id="at_biz_dir-location" multiple="multiple">
+
+                <?php foreach ($Categories as $category) {
+                    echo "<option id='atbdp_category' value='$category->term_id'>$category->name</option>";
+                }
                 ?>
-                <input type="hidden" id="value_selected" value="<?php echo $term_id_selected ?>">
-            </div>
-        </div>
+            </select>
+            <?php
+            $current_val = get_post_meta($post_ID, '_admin_category_select', true);
+            var_dump($current_val);
+            $term_id_selected = !empty($current_val) ? $current_val : '';
 
+            ?>
+            <input type="hidden" id="value_selected" value="<?php echo $term_id_selected ?>">
+        </div>
         <div id="atbdp-custom-fields-list" data-post_id="<?php echo $post_ID; ?>">
             <?php
             $selected_category = !empty($selected_category) ? $selected_category : '';

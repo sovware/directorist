@@ -78,7 +78,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             $disable_contact_info = get_directorist_option('disable_contact_info', 0);
                             $category             = get_post_meta(get_the_Id(), '_admin_category_select', true);
                             $display_title        = get_directorist_option('display_title',1);
-                            $display_review       = get_directorist_option('display_review',1);
+                            $display_review       = get_directorist_option('enable_review',1);
                             $display_price        = get_directorist_option('display_price',1);
                             $display_category     = get_directorist_option('display_category',1);
                             $display_view_count   = get_directorist_option('display_view_count',1);
@@ -195,7 +195,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <?php } if(!empty($tagline)) {?>
                                                 <p class="atbd_listing_tagline"><?= esc_html(stripslashes($tagline)); ?></p>
                                                 <?php } ?>
-                                                 <?php if(!empty($display_review) && !empty($display_price)) {?>
+                                                 <?php if(!empty($display_review) || !empty($display_price)) {?>
                                                 <div class="atbd_listing_meta">
                                                     <?php
                                                     /**

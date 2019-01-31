@@ -1691,17 +1691,35 @@ function atbdp_get_listings_orderby_options() {
 
 
     $options = array(
-        'title-asc'  => __( "A to Z ( title )", ATBDP_TEXTDOMAIN ),
-        'title-desc' => __( "Z to A ( title )", ATBDP_TEXTDOMAIN ),
-        'date-desc'  => __( "Latest listings", ATBDP_TEXTDOMAIN ),
-        'date-asc'   => __( "Oldest listings", ATBDP_TEXTDOMAIN ),
-        'views-desc' => __( "Popular listings", ATBDP_TEXTDOMAIN ),
-        'price-asc' => __( "Price ( low to high )",ATBDP_TEXTDOMAIN ),
-        'price-desc' => __( "Price ( high to low )",ATBDP_TEXTDOMAIN ),
-        'rand' => __( "Random listings",ATBDP_TEXTDOMAIN ),
+        'title-asc'     => __( "A to Z ( title )", ATBDP_TEXTDOMAIN ),
+        'title-desc'    => __( "Z to A ( title )", ATBDP_TEXTDOMAIN ),
+        'date-desc'     => __( "Latest listings", ATBDP_TEXTDOMAIN ),
+        'date-asc'      => __( "Oldest listings", ATBDP_TEXTDOMAIN ),
+        'views-desc'    => __( "Popular listings", ATBDP_TEXTDOMAIN ),
+        'price-asc'     => __( "Price ( low to high )",ATBDP_TEXTDOMAIN ),
+        'price-desc'    => __( "Price ( high to low )",ATBDP_TEXTDOMAIN ),
+        'rand'          => __( "Random listings",ATBDP_TEXTDOMAIN ),
     );
 
+    $args = array(
+        'post_type'      => ATBDP_POST_TYPE,
+        'post_status'    => 'publish',
+        'meta_key'       => '_price'
+    );
 
+    $values = new WP_Query($args);
+    if ( $values->have_posts() ) {
+        $prices=array();
+        while($values->have_posts()) { $values->the_post();
+            $prices[] = get_post_meta(get_the_ID(),'_price',true);
+        }
+        $has_price = join($prices);
+    }
+
+    if(empty($has_price)) {
+        unset($options['price-asc'],$options['price-desc']);
+    }
+    
     return apply_filters( 'atbdp_get_listings_orderby_options', $options );
 
 }
@@ -1742,6 +1760,7 @@ function atbdp_get_listings_current_view_name( $view ) {
  */
 function atbdp_get_listings_view_options() {
     $listing_view = get_directorist_option('default_listing_view');
+
     $listings_settings = !empty($listing_view) ? $listing_view : 'grid';
 
     $options   = array('grid','list');
@@ -1957,7 +1976,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price){
                     $hide_contact_info              = get_post_meta(get_the_ID(), '_hide_contact_info', true);
                     $disable_contact_info           = get_directorist_option('disable_contact_info', 0);
                     $display_title                  = get_directorist_option('display_title',1);
-                    $display_review                 = get_directorist_option('display_review',1);
+                    $display_review                 = get_directorist_option('enable_review',1);
                     $display_price                  = get_directorist_option('display_price',1);
                     $display_category               = get_directorist_option('display_category',1);
                     $display_view_count             = get_directorist_option('display_view_count',1);
@@ -2318,7 +2337,7 @@ function listing_view_by_list($all_listings, $view, $current_order){
                         $hide_contact_info = get_post_meta(get_the_ID(), '_hide_contact_info', true);
                         $disable_contact_info = get_directorist_option('disable_contact_info', 0);
                         $display_title     = get_directorist_option('display_title',1);
-                        $display_review     = get_directorist_option('display_review',1);
+                        $display_review     = get_directorist_option('enable_review',1);
                         $display_price    = get_directorist_option('display_price',1);
                         $display_category    = get_directorist_option('display_category',1);
                         $display_view_count    = get_directorist_option('display_view_count',1);

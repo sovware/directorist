@@ -113,9 +113,9 @@ class ATBDP_Metabox {
         /*
          *
          * It fires after the video metabox
-         * @since 4.0.3
+         * @since 1.0.0
          */
-        do_action('atbdp_after_before_video_gallery_backend',$post);
+        do_action('atbdp_before_video_gallery_backend',$post);
 
         add_meta_box( '_listing_video_gallery',
         __( 'Add Video for the Listing', ATBDP_TEXTDOMAIN ),
@@ -253,7 +253,7 @@ wp_reset_postdata();
         // if the posted data has info about never_expire, then use it, otherwise, use the data from the settings.
         $metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
         $metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
-        $metas['_price']             = !empty($p['price'])? (float) $p['price'] : 0;
+        $metas['_price']             = !empty($p['price'])? (float) $p['price'] : '';
         $metas['_price_range']       = !empty($p['price_range'])?  $p['price_range'] : '';
         $metas['_atbd_listing_pricing'] = !empty($p['atbd_listing_pricing'])?  $p['atbd_listing_pricing'] : '';
         $metas['_videourl']          = !empty($p['videourl']) ?  sanitize_text_field($p['videourl']) : '';

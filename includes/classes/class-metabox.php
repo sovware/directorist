@@ -248,7 +248,7 @@ wp_reset_postdata();
         $expire_in_days = get_directorist_option('listing_expire_in_days');
         $p = $_POST; // save some character
         $exp_dt = $p['exp_date']; // get expiry date from the $_POST and then later sanitize it.
-        $admin_category_select = !empty($p['admin_category_select'])? array($p['admin_category_select']) : array();
+        $admin_category_select = !empty($p['admin_category_select'])? (int) $p['admin_category_select'] : '';
         $custom_field = (!empty($p['custom_field'])) ? $p['custom_field'] : array();
         // if the posted data has info about never_expire, then use it, otherwise, use the data from the settings.
         $metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
@@ -333,13 +333,9 @@ wp_reset_postdata();
 
         }
 
+            update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
+            wp_set_object_terms($post_id, $admin_category_select, ATBDP_CATEGORY);
 
-        foreach ($admin_category_select as $admin_id ) {
-            var_dump($admin_id[0]);
-            die();
-            update_post_meta( $post_id, '_admin_category_select', $admin_id[0] );
-            wp_set_object_terms($post_id, $admin_id[0], ATBDP_CATEGORY);
-        }
 
 
 

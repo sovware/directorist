@@ -467,7 +467,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php } ?>
-                <?php do_action('atbdp_after_video_gallery');?>
+                <?php do_action('bdg_gallery_area');?>
             <!--Google map section-->
             <?php
             if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) ) {?>

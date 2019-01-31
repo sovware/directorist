@@ -15,9 +15,8 @@ class ATBDP_Upgrade{
         $update_link = admin_url().'/edit.php?post_type=at_biz_dir&page=directorist-upgrade';
         $link = '<a href="'.$update_link.'">please replace</a>';
         $user_id = get_current_user_id();
-        $bh_plugin_version = BDBH_VERSION;
 
-        if (class_exists('BD_Business_Hour') && empty(get_user_meta($user_id, '_atbdp_bh_notice', true)) && ($bh_plugin_version<'2.0.1')){
+        if (class_exists('BD_Business_Hour') && empty(get_user_meta($user_id, '_atbdp_bh_notice', true))){
             $BHlink = 'https://aazztech.com/product/directorist-business-hours/';
             $BHextension = sprintf('<a target="_blank" href="%s">%s</a>', $BHlink, __('Business Hours', ATBDP_TEXTDOMAIN));
             echo '<div id="message" class="notice notice-info" style="display: flex; background: #ffc733;  justify-content: space-between;"><p>';

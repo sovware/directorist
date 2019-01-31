@@ -121,6 +121,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         'post_type' => ATBDP_POST_TYPE,
                         'tax_input' =>!empty($_POST['tax_input'])? atbdp_sanitize_array( $_POST['tax_input'] ) : array(),
                         'meta_input'=>  $metas,
+
                     );
 
                     //let check all the required custom field

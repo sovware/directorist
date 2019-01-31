@@ -262,30 +262,34 @@ $currency = get_directorist_option('g_currency', 'USD');
         <!--***********************************************************************
        Run the custom field loop to show all published custom fields assign to Category
        **************************************************************************-->
-        <?php
-        $Categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
-        ?>
-        <div class="form-group">
-            <label for="at_biz_dir-location"><?php esc_html_e('Categories:', ATBDP_TEXTDOMAIN); ?></label>
+        <div id="category_container">
+            <!--@ Options for select the category.-->
+
+            <div class="form-group">
+                <label for="atbdp_select_cat"><?php esc_html_e('Select Category', ATBDP_TEXTDOMAIN) ?></label>
                 <?php
-                $current_val =  get_post_meta($post_ID, '_admin_category_select', true);
-//var_dump($current_val);
-                foreach ($Categories as $category) {
+                $category = wp_get_object_terms( $post_ID, ATBDP_CATEGORY, array( 'fields' => 'ids' ) );
+                $selected_category = count( $category ) ? $category[0] : -1;
+                $args = array(
+                    'show_option_none' => '-- '.__( 'Select Category', ATBDP_TEXTDOMAIN ).' --',
+                    'taxonomy'         => ATBDP_CATEGORY,
+                    'id'               => 'cat-type',
+                    'class'            => 'form-control directory_field',
+                    'name' 			   => 'admin_category_select',
+                    'orderby'          => 'name',
+                    'selected'         => $selected_category,
+                    'hierarchical'     => true,
+                    'depth'            => 10,
+                    'show_count'       => false,
+                    'hide_empty'       => false,
 
-                    $checked = in_array($category->term_id, (!empty($current_val)?$current_val[0]:array())) ? 'checked' : '';
-
-                    echo "<input id='atbdp_$category->term_id' class='selectedCat' value='$category->term_id' name='admin_category_select[]' $checked type='checkbox' ><span>   </span>";
-                    echo "<label for='atbdp_$category->term_id' >$category->name</label>";
-                }
-            $term_id_selected = !empty($current_val) ? $current_val : array();
-
-            ?>
-            <?php
-            foreach ($term_id_selected as $id){
-                //var_dump($term_id_selected);
-                echo "<input type='hidden' id='value_selected' value='$id[0]'>";
-            }
-            ?>
+                );
+                wp_dropdown_categories( $args );
+                $current_val = esc_attr(get_post_meta($post_ID, '_admin_category_select', true));
+                $term_id_selected = !empty($current_val) ? $current_val: '';
+                ?>
+                <input type="hidden" id="value_selected" value="<?php echo $term_id_selected ?>">
+            </div>
         </div>
 
         <div id="atbdp-custom-fields-list" data-post_id="<?php echo $post_ID; ?>">
@@ -293,10 +297,6 @@ $currency = get_directorist_option('g_currency', 'USD');
             $selected_category = !empty($selected_category) ? $selected_category : '';
             do_action('wp_ajax_atbdp_custom_fields_listings', $post_ID, $selected_category); ?>
         </div>
-
-
-
-
         <?php
         if ($term_id_selected) {
             ?>
@@ -327,35 +327,9 @@ $currency = get_directorist_option('g_currency', 'USD');
     // as supplied by the browser's 'navigator.geolocation' object.
 
     jQuery(document).ready(function ($) {
-        $('.selectedCat').on('click', function () {
-            $('#atbdp-custom-fields-list').html('<div class="spinner"></div>');
-
-            var postId = $('#atbdp-custom-fields-list').data('post_id');
-            var termId = $("input[type='checkbox'][name='admin_category_select[]']:checked").map(function() {
-                return this.value
-            }).get();
-            var termNumber = termId.length;
-            if (termId != undefined && termId != '') {
-                var data = {
-                    'action': 'atbdp_custom_fields_listings',
-                    'post_id': (postId),
-                    'term_id': (termId)
-                };
-                $.post(ajaxurl, data, function (data) {
-                            if (data != null) {
-                                $('#atbdp-custom-fields-list').append(data);
-                            } else {
-                                $('#atbdp-custom-fields-list').append(data)
-                            }
-
-                });
-                } else {
-                //staff if no category selected
-            }
-            });
 
         // Load custom fields of the selected category in the custom post type "atbdp_listings"
-       /* $('.selectedCat').on('click', function () {
+        $('#cat-type').on('change', function () {
             $('#atbdp-custom-fields-list').html('<div class="spinner"></div>');
 
             var data = {
@@ -367,28 +341,13 @@ $currency = get_directorist_option('g_currency', 'USD');
             $.post(ajaxurl, data, function (response) {
                 $('#atbdp-custom-fields-list').html(response);
                 $('[data-toggle="tooltip"]').tooltip();
-                var selectedVal = "";
-                var selected = $("input[type='checkbox'][name='admin_category_select[]']:checked");
-                if (selected.length > 0) {
-                    selectedVal = selected.val();
-                    console.log(selectedVal);
-
-                }
             });
-
-
             $('#atbdp-custom-fields-list-selected').hide();
 
-        });*/
-
-
-
-
-
-/*
-
+        });
         var selected_cat = $('#value_selected').val();
         if (!selected_cat) {
+
         } else {
             $(window).on("load", function () {
                 $('#atbdp-custom-fields-list-selected').html('<div class="spinner"></div>');
@@ -402,7 +361,6 @@ $currency = get_directorist_option('g_currency', 'USD');
                 });
             });
         }
-*/
 
 
     }); // ends jquery ready function.

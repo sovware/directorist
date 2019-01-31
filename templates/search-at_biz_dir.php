@@ -100,8 +100,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             $thumbnail_cropping = get_directorist_option('thumbnail_cropping',1);
                             $crop_width                    = get_directorist_option('crop_width', 360);
                             $crop_height                   = get_directorist_option('crop_height', 300);
-                            $enable_tagline                 = get_directorist_option('enable_tagline');
-                            $enable_excerpt                 = get_directorist_option('enable_excerpt');
                             if(!empty($listing_prv_img)) {
 
                                 if($thumbnail_cropping) {
@@ -194,7 +192,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <h4 class="atbd_listing_title">
                                                     <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                                 </h4>
-                                                <?php } if(!empty($tagline) && !empty($enable_tagline)) {?>
+                                                <?php } if(!empty($tagline)) {?>
                                                 <p class="atbd_listing_tagline"><?= esc_html(stripslashes($tagline)); ?></p>
                                                 <?php } ?>
                                                  <?php if(!empty($display_review) && !empty($display_price)) {?>
@@ -250,7 +248,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                         </ul>
                                                     </div><!-- End atbd listing meta -->
                                                     <?php
-                                                } if(!empty($excerpt) && !empty($enable_excerpt))  {?>
+                                                } if(!empty($excerpt))  {?>
                                                 <p><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
                                                 <?php } ?>
                                                 <?php /* @todo: deleted the read more link */ ?>

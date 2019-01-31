@@ -92,6 +92,7 @@ $feature_badge_text               = get_directorist_option('feature_badge_text',
 $new_badge_text                   = get_directorist_option('new_badge_text','New');
 $enable_new_listing               = get_directorist_option('display_new_badge_cart',1);
 $use_nofollow                     = get_directorist_option('use_nofollow');
+$enable_review                    = get_directorist_option('enable_review', 1);
 $custom_section_lable             = get_directorist_option('custom_section_lable', __('Details', ATBDP_TEXTDOMAIN));
 
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
@@ -291,12 +292,14 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                 do_action('atbdp_after_listing_tagline');
                                 ?>
                             </div>
+                            <?php if($enable_review) {?>
                             <div class="atbd_rating_count">
                                 <p><?php echo $reviews_count;
                                     _e($reviews_count>1 ? ' Reviews': ' Review', ATBDP_TEXTDOMAIN);
                                     ?>
                                 </p>
                             </div>
+                            <?php } ?>
                             <div class="atbd_listting_category">
                                 <ul class="directory_tags">
                                     <?php
@@ -467,10 +470,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php } ?>
-                <?php do_action('bdg_gallery_area');?>
+                <?php do_action('atbdp_after_video_gallery');?>
             <!--Google map section-->
             <?php
-            if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) ) {?>
+            if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) ) { ?>
                 <div class="atbd_content_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">

@@ -312,7 +312,7 @@ if (!function_exists('get_directorist_option')){
         if (is_null($v)) { return $default; }
         if ($force_default){
             // use the default value even if the value of $v is falsy value returned from the database
-            if(empty($v)) { return $default; }
+             if(empty($v)) { return $default; }
         }
         return (isset($v) ) ? $v : $default; // return the data if it is anything but NULL.
     }
@@ -1223,14 +1223,14 @@ if (!function_exists('get_date_in_mysql_format')){
      * @since    3.1.0
      *
      * @param    array    $date    Array of date values.
-    eg. array(
-    'year'  => 0,
-    'month' => 0,
-    'day'   => 0,
-    'hour'  => 0,
-    'min'   => 0,
-    'sec'   => 0
-    );
+        eg. array(
+                'year'  => 0,
+                'month' => 0,
+                'day'   => 0,
+                'hour'  => 0,
+                'min'   => 0,
+                'sec'   => 0
+        );
      * @return   string   $date    Formatted MySQL date string.
      */
     function get_date_in_mysql_format( $date ) {
@@ -1299,7 +1299,7 @@ if (!function_exists('currency_has_decimal')){
      * @param  string $currency
      * @return bool
      */
-    function currency_has_decimals( $currency ) {
+     function currency_has_decimals( $currency ) {
         if ( in_array( $currency, array( 'RIAL', 'SAR', 'HUF', 'JPY', 'TWD' ) ) ) {
             return false;
         }
@@ -1322,21 +1322,21 @@ if (!function_exists('currency_has_decimal')){
 function atbdp_display_price($price='', $disable_price=false, $currency='', $symbol='', $c_position='', $echo=true){
     if (empty($price) || $disable_price) return null; // vail if the price is empty or price display is disabled.
 
-    $before = ''; $after = '';
-    if(empty($c_position)){
-        $c_position = get_directorist_option('g_currency_position');
-    }
-    if(empty($currency)){
-        $currency = get_directorist_option('g_currency', 'USD');
-    }
-    if(empty($symbol)){
-        $symbol = atbdp_currency_symbol($currency);
-    }
+        $before = ''; $after = '';
+        if(empty($c_position)){
+            $c_position = get_directorist_option('g_currency_position');
+        }
+        if(empty($currency)){
+            $currency = get_directorist_option('g_currency', 'USD');
+        }
+        if(empty($symbol)){
+            $symbol = atbdp_currency_symbol($currency);
+        }
 
-    ('after' == $c_position) ? $after = $symbol : $before = $symbol;
-    $price = $before.atbdp_format_amount($price).$after;
-    $p = sprintf("<span class='atbd_meta atbd_listing_price'>%s</span>", $price );
-    if ($echo){ echo $p; }else{ return $p; }
+        ('after' == $c_position) ? $after = $symbol : $before = $symbol;
+        $price = $before.atbdp_format_amount($price).$after;
+        $p = sprintf("<span class='atbd_meta atbd_listing_price'>%s</span>", $price );
+        if ($echo){ echo $p; }else{ return $p; }
 
 }
 
@@ -1347,11 +1347,11 @@ function atbdp_display_price($price='', $disable_price=false, $currency='', $sym
  * @return mixed
  */
 function atbdp_display_price_range($price_range){
-    if(empty($price_range)) return null;
-    $output = '';
+   if(empty($price_range)) return null;
+   $output = '';
     if('skimming' == $price_range) {
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing">
+        '<span class="atbd_meta atbd_listing_average_pricing">
             <span class="atbd_active">$</span>
             <span class="atbd_active">$</span>
             <span class="atbd_active">$</span>
@@ -1368,7 +1368,7 @@ function atbdp_display_price_range($price_range){
             </span>';
     }elseif ('economy' == $price_range) {
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing">
+        '<span class="atbd_meta atbd_listing_average_pricing">
             <span class="atbd_active">$</span>
             <span class="atbd_active">$</span>
             <span>$</span>
@@ -1887,7 +1887,7 @@ if(!function_exists('new_badge')){
                     return $new;
                     break;
                 case 'days':
-                    return $new;
+                        return $new;
                     break;
                 case 'mins':
                     return $new;
@@ -2012,18 +2012,18 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price){
                                         <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>">
                                             <?php if(!empty($listing_prv_img)){
 
-                                                echo '<img src="'.esc_url($prv_image).'" alt="listing image">';
+                                                                                        echo '<img src="'.esc_url($prv_image).'" alt="listing image">';
 
-                                            } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
+                                                                                    } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                                echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
+                                                                                        echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
 
-                                            }if (empty($listing_img[0]) && empty($listing_prv_img)){
+                                                                                    }if (empty($listing_img[0]) && empty($listing_prv_img)){
 
-                                                echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
+                                                                                        echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
 
-                                            }
-                                            ?>
+                                                                                    }
+                                                                                    ?>
                                         </a>
                                     </div>
 
@@ -2216,7 +2216,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price){
             </div>
         <?php } ?>
     </div>
-    <?php
+<?php
     return true;
 }
 
@@ -2228,7 +2228,7 @@ function listing_view_by_list($all_listings, $view, $current_order){
     $pagenation = get_directorist_option('paginate_all_listings',1);
     $display_sortby_dropdown = get_directorist_option('display_sort_by',1);
     $display_viewas_dropdown = get_directorist_option('display_view_as',1);
-
+    
     ?>
     <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
         <div class="row" data-uk-grid>
@@ -2249,51 +2249,51 @@ function listing_view_by_list($all_listings, $view, $current_order){
                             }
                             ?>
                         </div>
-                        <?php if($display_viewas_dropdown || $display_sortby_dropdown) { ?>
-                            <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
-                                <?php if($display_viewas_dropdown) { ?>
-                                    <div class="dropdown">
-                                        <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button"
-                                           id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                           aria-expanded="false">
-                                            <?php _e("View as", ATBDP_TEXTDOMAIN); ?> <span class="caret"></span>
-                                        </a>
+                    <?php if($display_viewas_dropdown || $display_sortby_dropdown) { ?>
+                        <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
+                    <?php if($display_viewas_dropdown) { ?>
+                            <div class="dropdown">
+                                <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button"
+                                   id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <?php _e("View as", ATBDP_TEXTDOMAIN); ?> <span class="caret"></span>
+                                </a>
 
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <?php
-                                            $views = atbdp_get_listings_view_options();
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <?php
+                                    $views = atbdp_get_listings_view_options();
 
-                                            foreach ($views as $value => $label) {
-                                                $active_class = ($view == $value) ? ' active' : '';
-                                                printf('<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg('view', $value), $label);
-                                            }
-                                            ?>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-
-                                <!-- Orderby dropdown -->
-                                <?php if($display_sortby_dropdown) { ?>
-                                    <div class="dropdown">
-                                        <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button"
-                                           id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true"
-                                           aria-expanded="false">
-                                            <?php _e("Sort by", ATBDP_TEXTDOMAIN); ?> <span class="caret"></span>
-                                        </a>
-
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
-                                            <?php
-                                            $options = atbdp_get_listings_orderby_options();
-
-                                            foreach ($options as $value => $label) {
-                                                $active_class = ($value == $current_order) ? ' active' : '';
-                                                printf('<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg('sort', $value), $label);
-                                            }
-                                            ?>
-                                        </div>
-                                    </div>
-                                <?php } ?>
+                                    foreach ($views as $value => $label) {
+                                        $active_class = ($view == $value) ? ' active' : '';
+                                        printf('<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg('view', $value), $label);
+                                    }
+                                    ?>
+                                </div>
                             </div>
+                <?php } ?>
+
+                            <!-- Orderby dropdown -->
+                        <?php if($display_sortby_dropdown) { ?>
+                            <div class="dropdown">
+                                <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button"
+                                   id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <?php _e("Sort by", ATBDP_TEXTDOMAIN); ?> <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
+                                    <?php
+                                    $options = atbdp_get_listings_orderby_options();
+
+                                    foreach ($options as $value => $label) {
+                                        $active_class = ($value == $current_order) ? ' active' : '';
+                                        printf('<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg('sort', $value), $label);
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        <?php } ?>
+                        </div>
                         <?php } ?>
                     </div>
                 </div>
@@ -2372,19 +2372,19 @@ function listing_view_by_list($all_listings, $view, $current_order){
                                 <figure class="atbd_listing_thumbnail_area" style=" <?php echo empty(get_directorist_option('display_preview_image'))?'display:none':''?>">
                                     <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>"><?php if(!empty($listing_prv_img)){
 
-                                            echo '<img src="'.esc_url($prv_image).'" alt="listing image">';
+                                                                               echo '<img src="'.esc_url($prv_image).'" alt="listing image">';
 
-                                        } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
+                                                                           } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                            echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
+                                                                               echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
 
-                                        }if (empty($listing_img[0]) && empty($listing_prv_img)){
+                                                                           }if (empty($listing_img[0]) && empty($listing_prv_img)){
 
-                                            echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing imag">';
+                                                                               echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing imag">';
 
-                                        }
-                                        ?></a>
-                                    <span class="atbd_lower_badge">
+                                                                           }
+                                                                           ?></a>
+                                            <span class="atbd_lower_badge">
                                                 <?php
                                                 //print the new badge
                                                 echo new_badge();
@@ -2571,6 +2571,6 @@ function listing_view_by_list($all_listings, $view, $current_order){
         <?php } ?>
     </div>
 
-    <?php
+<?php
     return true;
 }

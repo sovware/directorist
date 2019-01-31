@@ -34,7 +34,7 @@ class ATBDP_Metabox {
         $ajax = false;
         if( isset( $_POST['term_id'] ) ) {
             $ajax = true;
-            $post_id = (int) $_POST['post_id'];
+            $post_ID = (int) $_POST['post_id'];
             $term_id = (int) $_POST['term_id'];
         }
         // Get custom fields
@@ -115,7 +115,7 @@ class ATBDP_Metabox {
          * It fires after the video metabox
          * @since 4.0.3
          */
-        do_action('atbdp_before_video_gallery_backend');
+        do_action('atbdp_after_before_video_gallery_backend',$post);
 
         add_meta_box( '_listing_video_gallery',
         __( 'Add Video for the Listing', ATBDP_TEXTDOMAIN ),

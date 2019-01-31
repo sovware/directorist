@@ -244,9 +244,6 @@ final class Directorist_Base
             if (get_option('atbdp_meta_version') < 1) {
                 add_action('init', array(self::$instance, 'add_custom_meta_keys_for_old_listings'));
             }
-            add_filter( 'wp_dropdown_cats', array(self::$instance,'willy_wp_dropdown_cats_multiple'), 10, 2 );
-
-
             // init offline gateway
             new ATBDP_Offline_Gateway;
             // Init Cron jobs to run some periodic tasks
@@ -261,13 +258,7 @@ final class Directorist_Base
         return self::$instance;
     }
 
-    function willy_wp_dropdown_cats_multiple( $output, $r ) {
-        if ( ! empty( $r['multiple'] ) ) {
-            $output = preg_replace( '/<select(.*?)>/i', '<select$1 multiple="multiple">', $output );
-            $output = preg_replace( '/name=([\'"]{1})(.*?)\1/i', 'name=$2[]', $output );
-        }
-        return $output;
-    }
+
     /**
      * Throw error on object clone.
      *

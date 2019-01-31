@@ -221,7 +221,6 @@ class ATBDP_Shortcode {
         $listing_orderby = get_directorist_option('order_listing_by');
         $listing_view    = get_directorist_option('default_listing_view');
         $listing_order   = get_directorist_option('sort_listing_by');
-        $listing_grid_columns   = get_directorist_option('all_listing_columns',3);
         $atts = shortcode_atts( array(
             'view'              => !empty($listing_view) ? $listing_view : 'grid',
             '_featured'         => 1,
@@ -235,14 +234,14 @@ class ATBDP_Shortcode {
             'location'          => '',
             'tag'               => '',
             'ids'               => '',
-            'columns'            => !empty($listing_grid_columns) ? $listing_grid_columns : 3
         ), $atts );
+
 
         $categories = !empty($atts['category'] ) ? explode(',', $atts['category'] ) : '';
         $tags = !empty($atts['tag'] ) ? explode(',', $atts['tag'] ) : '';
         $locations = !empty($atts['location'] ) ? explode(',', $atts['location'] ) : '';
         $listing_id = !empty($atts['ids'] ) ? explode(',', $atts['ids'] ) : '';
-        $columns = !empty($atts['columns']) ? $atts['columns'] : 3;
+
         //for pagination
         $paged = atbdp_get_paged_num();
         $paginate = get_directorist_option('paginate_all_listings');

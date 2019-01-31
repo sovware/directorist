@@ -32,30 +32,41 @@ class ATBDP_Metabox {
      */
     public function ajax_callback_custom_fields( $post_id = 0, $term_id = 0 ) {
         $ajax = false;
+        $idcounts = 1;
         if( isset( $_POST['term_id'] ) ) {
             $ajax = true;
-            $post_id = (int) $_POST['post_id'];
-            $term_id = (int) $_POST['term_id'];
+            $post_id = $_POST['post_id'];
+            $term_ids = !empty($_POST['term_id'])?$_POST['term_id']:array();
         }
-        // Get custom fields
-        $custom_field_ids = $term_id;
-        $args = array(
-            'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
-            'posts_per_page' => -1,
-            'meta_query'    => array(
-                'relation' => 'AND',
-                array(
-                    'key'       => 'category_pass',
-                    'value'     => $custom_field_ids,
-                    'compare'   => 'LIKE',
-                ),
-                array(
-                    'key'       => 'associate',
-                    'value'     => 'categories',
-                    'compare'   => 'LIKE',
-                )
-            )
-        );
+        if(!empty($term_ids)){
+            foreach($term_ids as $singleId){
+                if(!empty($singleId)){
+                    $fieldIDs[$idcounts] = $singleId;
+                    $idcounts++;
+                    $args = array(
+                        'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+                        'posts_per_page' => -1,
+                        'meta_query'    => array(
+                            'relation' => 'AND',
+                            array(
+                                'key'       => 'category_pass',
+                                'value'     => $singleId,
+                                'compare'   => 'EXISTS',
+                            ),
+                            array(
+                                'key'       => 'associate',
+                                'value'     => 'categories',
+                                'compare'   => 'EXISTS',
+                            )
+                        )
+                    );
+                }
+            }
+
+        }
+
+
+        $atbdp_query = null;
         $atbdp_query = new WP_Query( $args );
 
         if ($atbdp_query->have_posts()){
@@ -64,8 +75,8 @@ class ATBDP_Metabox {
             global $post;
             // Process output
             ob_start();
-
             include ATBDP_TEMPLATES_DIR . 'add-listing-custom-field.php';
+            //ATBDP()->load_template('add-listing-custom-field', array('idcounts' => $idcounts));
             wp_reset_postdata(); // Restore global post data stomped by the_post()
             $output = ob_get_clean();
 
@@ -248,7 +259,7 @@ wp_reset_postdata();
         $expire_in_days = get_directorist_option('listing_expire_in_days');
         $p = $_POST; // save some character
         $exp_dt = $p['exp_date']; // get expiry date from the $_POST and then later sanitize it.
-        $admin_category_select = !empty($p['admin_category_select'])? (int) $p['admin_category_select'] : 0;
+        $admin_category_select = !empty($p['admin_category_select'])? array($p['admin_category_select']) : array();
         $custom_field = (!empty($p['custom_field'])) ? $p['custom_field'] : array();
         // if the posted data has info about never_expire, then use it, otherwise, use the data from the settings.
         $metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
@@ -335,7 +346,10 @@ wp_reset_postdata();
 
         // save the meta data to the database
         update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
-        wp_set_object_terms($post_id, $admin_category_select, ATBDP_CATEGORY);
+        foreach ($admin_category_select as $terms => $term){
+            wp_set_object_terms($post_id, $admin_category_select, ATBDP_CATEGORY);
+        }
+
 
 
         $metas['_expiry_date']              = $exp_dt;

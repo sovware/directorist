@@ -262,44 +262,41 @@ $currency = get_directorist_option('g_currency', 'USD');
         <!--***********************************************************************
        Run the custom field loop to show all published custom fields assign to Category
        **************************************************************************-->
-
-
         <?php
-        $p_categories = wp_get_post_terms($post_ID, ATBDP_CATEGORY);
         $Categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
         ?>
         <div class="form-group">
-            <label for="at_biz_dir-location"><?php esc_html_e('Category:', ATBDP_TEXTDOMAIN); ?></label>
-            <?php if (!empty($p_categories)) {
-                $output = array();
-                foreach ($p_categories as $p_category) {
+            <label for="at_biz_dir-location"><?php esc_html_e('Categories:', ATBDP_TEXTDOMAIN); ?></label>
+                <?php
+                $current_val =  get_post_meta($post_ID, '_admin_category_select', true);
+//var_dump($current_val);
+                foreach ($Categories as $category) {
 
-                    $output[] = $p_category->name;
+                    $checked = in_array($category->term_id, (!empty($current_val)?$current_val[0]:array())) ? 'checked' : '';
+
+                    echo "<input id='atbdp_$category->term_id' class='selectedCat' value='$category->term_id' name='admin_category_select[]' $checked type='checkbox' ><span>   </span>";
+                    echo "<label for='atbdp_$category->term_id' >$category->name</label>";
                 }
-
-                echo '<p class="c_cat_list">' . __('Category:', ATBDP_TEXTDOMAIN) . join(', ', $output) . '</p>';
-            } ?>
-            <select name="admin_category_select" class="form-control"
-                    id="at_biz_dir-location" multiple="multiple">
-
-                <?php foreach ($Categories as $category) {
-                    echo "<option id='atbdp_category' value='$category->term_id'>$category->name</option>";
-                }
-                ?>
-            </select>
-            <?php
-            $current_val = get_post_meta($post_ID, '_admin_category_select', true);
-            var_dump($current_val);
-            $term_id_selected = !empty($current_val) ? $current_val : '';
+            $term_id_selected = !empty($current_val) ? $current_val : array();
 
             ?>
-            <input type="hidden" id="value_selected" value="<?php echo $term_id_selected ?>">
+            <?php
+            foreach ($term_id_selected as $id){
+                //var_dump($term_id_selected);
+                echo "<input type='hidden' id='value_selected' value='$id[0]'>";
+            }
+            ?>
         </div>
+
         <div id="atbdp-custom-fields-list" data-post_id="<?php echo $post_ID; ?>">
             <?php
             $selected_category = !empty($selected_category) ? $selected_category : '';
             do_action('wp_ajax_atbdp_custom_fields_listings', $post_ID, $selected_category); ?>
         </div>
+
+
+
+
         <?php
         if ($term_id_selected) {
             ?>
@@ -330,9 +327,35 @@ $currency = get_directorist_option('g_currency', 'USD');
     // as supplied by the browser's 'navigator.geolocation' object.
 
     jQuery(document).ready(function ($) {
+        $('.selectedCat').on('click', function () {
+            $('#atbdp-custom-fields-list').html('<div class="spinner"></div>');
+
+            var postId = $('#atbdp-custom-fields-list').data('post_id');
+            var termId = $("input[type='checkbox'][name='admin_category_select[]']:checked").map(function() {
+                return this.value
+            }).get();
+            var termNumber = termId.length;
+            if (termId != undefined && termId != '') {
+                var data = {
+                    'action': 'atbdp_custom_fields_listings',
+                    'post_id': (postId),
+                    'term_id': (termId)
+                };
+                $.post(ajaxurl, data, function (data) {
+                            if (data != null) {
+                                $('#atbdp-custom-fields-list').append(data);
+                            } else {
+                                $('#atbdp-custom-fields-list').append(data)
+                            }
+
+                });
+                } else {
+                //staff if no category selected
+            }
+            });
 
         // Load custom fields of the selected category in the custom post type "atbdp_listings"
-        $('#cat-type').on('change', function () {
+       /* $('.selectedCat').on('click', function () {
             $('#atbdp-custom-fields-list').html('<div class="spinner"></div>');
 
             var data = {
@@ -344,13 +367,28 @@ $currency = get_directorist_option('g_currency', 'USD');
             $.post(ajaxurl, data, function (response) {
                 $('#atbdp-custom-fields-list').html(response);
                 $('[data-toggle="tooltip"]').tooltip();
+                var selectedVal = "";
+                var selected = $("input[type='checkbox'][name='admin_category_select[]']:checked");
+                if (selected.length > 0) {
+                    selectedVal = selected.val();
+                    console.log(selectedVal);
+
+                }
             });
+
+
             $('#atbdp-custom-fields-list-selected').hide();
 
-        });
+        });*/
+
+
+
+
+
+/*
+
         var selected_cat = $('#value_selected').val();
         if (!selected_cat) {
-
         } else {
             $(window).on("load", function () {
                 $('#atbdp-custom-fields-list-selected').html('<div class="spinner"></div>');
@@ -364,6 +402,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                 });
             });
         }
+*/
 
 
     }); // ends jquery ready function.

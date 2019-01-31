@@ -279,7 +279,7 @@ $currency = get_directorist_option('g_currency', 'USD');
 
                 echo '<p class="c_cat_list">' . __('Category:', ATBDP_TEXTDOMAIN) . join(', ', $output) . '</p>';
             } ?>
-            <select name="admin_category_select" class="form-control"
+            <select name="admin_category_select[]" class="form-control"
                     id="at_biz_dir-location" multiple="multiple">
 
                 <?php foreach ($Categories as $category) {
@@ -289,7 +289,6 @@ $currency = get_directorist_option('g_currency', 'USD');
             </select>
             <?php
             $current_val = get_post_meta($post_ID, '_admin_category_select', true);
-            var_dump($current_val);
             $term_id_selected = !empty($current_val) ? $current_val : '';
 
             ?>

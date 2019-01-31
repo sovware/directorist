@@ -1217,6 +1217,16 @@ The Administrator of ==SITE_NAME==
                     ),
                 ),
                 array(
+                    'type' => 'slider',
+                    'name' => 'all_listing_columns',
+                    'label' => __('Number of Columns', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '10',
+                    'step' => '1',
+                    'default' => '3',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+                array(
                     'type' => 'select',
                     'name' => 'order_listing_by',
                     'label' => __( 'Listings Order By', ATBDP_TEXTDOMAIN ),

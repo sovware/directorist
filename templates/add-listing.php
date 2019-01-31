@@ -329,7 +329,7 @@ $currency = get_directorist_option('g_currency', 'USD');
     jQuery(document).ready(function ($) {
 
         // Load custom fields of the selected category in the custom post type "atbdp_listings"
-        $('#cat-type').on('change', function () {
+      /*  $('#cat-type').on('change', function () {
             $('#atbdp-custom-fields-list').html('<div class="spinner"></div>');
 
             var data = {
@@ -360,7 +360,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                     $('#atbdp-custom-fields-list-selected').html(response);
                 });
             });
-        }
+        }*/
 
 
     }); // ends jquery ready function.

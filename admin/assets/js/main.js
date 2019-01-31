@@ -335,6 +335,50 @@ jQuery(function($){
         $sibling.children('input[type=checkbox]').prop('checked', false);
         $('#'+$sibling.data('option')).hide();
     });
+/*
+***********  multiple category with custom fields  ***************
+ */
+    $('#at_biz_dir-categorychecklist').on('click', function(){
+        var listID = $('#post_ID').val();
+        var termID = $('#at_biz_dir-categorychecklist input:checked').map(function() {
+            return this.value
+        }).get();
+        console.log(termID);
+        if (termID != undefined && termID != '') {
+            $('.extrafieldsdiv').remove();
+            $('.editor-post-taxonomies__hierarchical-terms-list[aria-label="Available Categories"] input').attr("disabled", !0);
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: ajaxurl,
+                data: {
+                    'action': 'atbdp_custom_fields_listings',
+                    'term_id': termID,
+                    'list_id': listID,
+                },
+                success: function(data) {
+                    $('.editor-post-taxonomies__hierarchical-terms-list[aria-label="Available Categories"] input').removeAttr("disabled");
+                    if (data) {
+                        $output1 = "<div id='commentstatusdiv12' class='lp-metaboxes postbox extrafieldsdiv'><h2 class='hndle ui-sortable-handle'><span>Extra Fields</span></h2><div class='inside'><table class='form-table lp-metaboxes'><tbody>";
+                        $outputf = "<div id='commentstatusdiv' class='lp-metaboxes postbox extrafieldsdiv'><h2 class='hndle ui-sortable-handle'><span>Please select Features</span></h2><div class='inside'><table class='form-table lp-metaboxes'><tbody>";
+                        $output2 = "</tbody></table></div></div>";
+                        if (data.features != null) {
+                            $('#postbox-container-2').append($outputf + data.features + $output2)
+                        } else {
+                            $('#postbox-container-2').append($output1 + '<p>No Fields Associated</p>' + $output2)
+                        }
+                        if (data.fields != null) {
+                            $('#postbox-container-2').append($output1 + data.fields + $output2)
+                        } else {
+                            $('#postbox-container-2').append($output1 + '<p>No Fields Associated</p>' + $output2)
+                        }
+                    }
+                }
+            })
+        } else {
+            $('.extrafieldsdiv').remove()
+        }
+    });
 });
 
 

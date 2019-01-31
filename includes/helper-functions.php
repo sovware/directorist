@@ -2025,6 +2025,17 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price){
                                                                                     }
                                                                                     ?>
                                         </a>
+                                        <?php if(!empty($display_author_image)) {
+                                            $author = get_userdata(get_current_user_id());
+                                            ?>
+                                            <div class="atbd_author">
+                                                <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $author->first_name.' '.$author->last_name;?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                        <img
+                                                        src="<?php echo esc_url($u_pro_pic[0]); ?>"
+                                                        alt="Author Image"><?php } ?>
+                                                </a>
+                                            </div>
+                                        <?php } ?>
                                     </div>
 
                                     <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>" class="atbd_thumbnail_overlay_content">
@@ -2148,15 +2159,31 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price){
                                                     <div class="atbd_content_left">
                                                         <div class="atbd_listting_category">
                                                             <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
-                                                                    <span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span> <?php }?><?php  echo $cats[0]->name;?></a>
+                                                                    <span class="fa fa-folder-open"></span> <?php }?><?php  echo $cats[0]->name;?></a>
+                                                            <span class="atbd_cat_popup">  +3
+                                                                <span class="atbd_cat_popup_wrapper">
+                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
+                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
+                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
+                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
+                                                                </span>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 <?php }else{
                                                     ?>
                                                     <div class="atbd_content_left">
                                                         <div class="atbd_listting_category">
-                                                            <a href=""><?php  echo __('Uncategorized', ATBDP_TEXTDOMAIN);?>
+                                                            <a href="" class="atbd_cat"><?php  echo __('Uncategorized', ATBDP_TEXTDOMAIN);?>
                                                             </a>
+                                                            <span class="atbd_cat_popup">  +3
+                                                                <span class="atbd_cat_popup_wrapper">
+                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
+                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
+                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
+                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
+                                                                </span>
+                                                            </span>
                                                         </div>
                                                     </div>
 
@@ -2174,17 +2201,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price){
                                                             // do_action('wp_ajax_atbdp-favourites-all-listing', get_the_ID()); ?>
                                                         </div>
                                                     </li>
-                                                    <?php if(!empty($display_author_image)) {
-                                                        $author = get_userdata(get_current_user_id());
-                                                        ?>
-                                                        <li class="atbd_author">
-                                                            <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $author->first_name.' '.$author->last_name;?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
-                                                                    <img
-                                                                    src="<?php echo esc_url($u_pro_pic[0]); ?>"
-                                                                    alt="Author Image"><?php } ?>
-                                                            </a>
-                                                        </li>
-                                                    <?php } ?>
+
                                                 </ul>
                                             <?php } ?>
                                         </div><!-- end ./atbd_listing_bottom_content -->
@@ -2500,15 +2517,31 @@ function listing_view_by_list($all_listings, $view, $current_order){
                                                     <div class="atbd_content_left">
                                                         <div class="atbd_listting_category">
                                                             <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
-                                                                    <span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span> <?php }?><?php  echo $cats[0]->name;?></a>
+                                                                    <span class="fa fa-folder-open"></span> <?php }?><?php  echo $cats[0]->name;?></a>
+                                                            <span class="atbd_cat_popup">  +3
+                                                                <span class="atbd_cat_popup_wrapper">
+                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
+                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
+                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
+                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
+                                                                </span>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 <?php } else {
                                                     ?>
                                                     <div class="atbd_content_left">
                                                         <div class="atbd_listting_category">
-                                                            <a href=""><?php echo __('Uncategorized', ATBDP_TEXTDOMAIN); ?>
+                                                            <a href=""><span class="fa fa-folder-open"></span><?php echo __('Uncategorized', ATBDP_TEXTDOMAIN); ?>
                                                             </a>
+                                                            <span class="atbd_cat_popup">  +3
+                                                                <span class="atbd_cat_popup_wrapper">
+                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
+                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
+                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
+                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
+                                                                </span>
+                                                            </span>
                                                         </div>
                                                     </div>
 

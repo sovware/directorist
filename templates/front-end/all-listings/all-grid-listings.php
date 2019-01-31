@@ -301,18 +301,33 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                     <div class="atbd_listing_bottom_content">
                                         <?php
                                         if(!empty($display_category)) {
-                                            if(!empty($cats) ) {?>
+                                            if(!empty($cats) ) {
+                                                $totalTerm = count($cats);
+                                                ?>
                                                 <div class="atbd_content_left">
                                                     <div class="atbd_listting_category">
                                                         <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
-                                                                <span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span> <?php }?><?php  echo $cats[0]->name;?></a>
+                                                                <span class="fa fa-folder-open"></span> <?php }?><?php  echo $cats[0]->name;?></a>
+                                                        <?php
+                                                        if ($totalTerm>1){
+                                                            ?>
+                                                            <span class="atbd_cat_popup">  +<?php echo $totalTerm-1; ?>
+                                                                <span class="atbd_cat_popup_wrapper">
+                                                                    <?php
+                                                                    foreach (array_slice($cats,1) as $cat) {
+                                                                        ?>
+                                                                        <span><a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>"><?= $cat->name; ?>,</a></span>
+                                                                    <?php }?>
+                                                                </span>
+                                                            </span>
+                                                            <?php } ?>
                                                     </div>
                                                 </div>
                                             <?php }else{
                                                 ?>
                                                 <div class="atbd_content_left">
                                                     <div class="atbd_listting_category">
-                                                        <a href=""><?php  echo __('Uncategorized', ATBDP_TEXTDOMAIN);?>
+                                                        <a href=""><span class="fa fa-folder-open"></span><?php  echo __('Uncategorized', ATBDP_TEXTDOMAIN);?>
                                                         </a>
                                                     </div>
                                                 </div>

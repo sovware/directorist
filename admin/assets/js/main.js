@@ -337,13 +337,17 @@ jQuery(function($){
     });
 
     // Load custom fields of the selected category in the custom post type "atbdp_listings"
-    $('#cat-type').on('change', function () {
+    $('#at_biz_dir-categorychecklist').on('click', function (evt) {
+        evt.stopPropagation();
         $('#atbdp-custom-fields-list').html('<div class="spinner"></div>');
+        var termID = $('#at_biz_dir-categorychecklist input:checked').map(function() {
+            return this.value
+        }).get();
 
         var data = {
             'action': 'atbdp_custom_fields_listings',
             'post_id': $('#atbdp-custom-fields-list').data('post_id'),
-            'term_id': $(this).val()
+            'term_id': termID
         };
 
         $.post(ajaxurl, data, function (response) {

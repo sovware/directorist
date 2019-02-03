@@ -51,7 +51,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                                         data-toggle="tab"><?php _e('Favorite Listings', ATBDP_TEXTDOMAIN); ?></a>
                             </li>
                             <?php
-                            if (class_exists('ATBDP_Fee_Manager')){
+                            if (is_fee_manager_active()){
                                 ?>
                                 <li role="presentation" class="nav-item"><a href="#manage_fees" class="nav-link"
                                                                             aria-controls="profile" role="tab"
@@ -185,7 +185,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                             <?php } else {
                                                                 // show promotions if the featured is available
                                                                 // featured available but the listing is not featured, show promotion button
-                                                                if ($featured_active && empty($featured) && !class_exists('ATBDP_Fee_Manager')) {
+                                                                if ($featured_active && empty($featured) && !is_fee_manager_active()) {
                                                                     ?>
                                                                     <div class="atbd_promote_btn_wrapper">
                                                                         <a href="<?= esc_url(ATBDP_Permalink::get_checkout_page_link($post->ID)) ?>"

@@ -121,7 +121,7 @@
                     '</div> ' +
                     '<div class="review_content"> ' +
                     '<p>' + content + '</p> ' +
-                    '<a href="#"><span class="fa fa-mail-reply-all"></span>Reply</a> ' +
+                    //'<a href="#"><span class="fa fa-mail-reply-all"></span>Reply</a> ' +
                     '</div> ' +
                     '</div>';
 

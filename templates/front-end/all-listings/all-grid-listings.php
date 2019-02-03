@@ -80,14 +80,14 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
         </div>
     </div>
     <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
-
-
-
         <?php
-
         $columns_number = $columns;
+
         $span = 'col-md-' . floor( 12 / $columns_number );
         $i = 0;
+        if( $i % $columns_number == 0 ) : ?>
+        <div class="row" data-uk-grid>
+            <?php endif;
         if ( $all_listings->have_posts() ) {
             while ( $all_listings->have_posts() ) { $all_listings->the_post();
                 $cats                           = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
@@ -156,11 +156,6 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
 
                 ?>
 
-
-                <?php if( $i % $columns_number == 0 ) : ?>
-                    <div class="row" data-uk-grid>
-                <?php endif; ?>
-
                 <div class="<?php echo $span; ?>">
                     <div class="atbd_single_listing atbd_listing_card">
                         <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
@@ -188,7 +183,7 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
 
                                     <?php
                                     $plan_hours = true;
-                                    if (class_exists('ATBDP_Fee_Manager')){
+                                    if (is_fee_manager_active()){
                                         $plan_hours = is_plan_allowed_business_hours();
                                     }
                                     if (is_business_hour_active() && $plan_hours){
@@ -307,7 +302,7 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                                 <div class="atbd_content_left">
                                                     <div class="atbd_listting_category">
                                                         <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
-                                                                <span class="fa fa-folder-open"></span> <?php }?><?php  echo $cats[0]->name;?></a>
+                                                                <span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span> <?php }?><?php  echo $cats[0]->name;?></a>
                                                         <?php
                                                         if ($totalTerm>1){
                                                             ?>
@@ -347,10 +342,10 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                                     </div>
                                                 </li>
                                                 <?php if(!empty($display_author_image)) {
-                                                    $author = get_userdata(get_current_user_id());
+                                                    $author = get_userdata($author_id);
                                                     ?>
                                                     <li class="atbd_author">
-                                                        <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $author->first_name.' '.$author->last_name;?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                        <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" title="<?php echo $author->first_name.' '.$author->last_name;?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
                                                                 <img
                                                                 src="<?php echo esc_url($u_pro_pic[0]); ?>"
                                                                 alt="Author Image"><?php } ?>
@@ -365,17 +360,16 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                         </article>
                     </div>
                 </div>
-                <?php
-                $i++;
-                if( $i % $columns_number == 0  ) : ?>
-                    </div>
-                <?php endif; ?>
             <?php }
             wp_reset_postdata();
         } else {?>
             <p><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
         <?php } ?>
-
+            <?php
+            $i++;
+            if( $i % $columns_number == 0  ) : ?>
+        </div>
+    <?php endif; ?>
 
 
 

@@ -202,10 +202,12 @@ $is_disable_price = get_directorist_option('disable_list_price');
                 </div>
             </div>
         </div>
+<div class="atbd_authors_listing">
 
         <?php
         listing_view_by_grid($all_listings, $pagenation, $is_disable_price);
         ?>
 
+</div>
     </div>
 </div>

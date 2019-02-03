@@ -152,7 +152,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         }
                     }
                     //@todo need to shift FM validation code to extension itself
-                    if (class_exists('ATBDP_Fee_Manager')) {
+                    if (is_fee_manager_active()) {
                         $user_id = get_current_user_id();
                         $midway_package_id = selected_plan_id();
                         $subscribed_package_id = get_user_meta($user_id, '_subscribed_users_plan_id', true);
@@ -405,12 +405,12 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                         $remaining_days = !empty($remaining_days)?$remaining_days:'0';
                         //var_dump($midway_package_id);die();
-                        if ((class_exists('ATBDP_Fee_Manager')) && ($midway_package_id || ($remaining_days <= 1)) ){
+                        if ((is_fee_manager_active()) && ($midway_package_id || ($remaining_days <= 1)) ){
                             wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
                             exit;
                         }else{
                             $featured_enabled = get_directorist_option('enable_featured_listing');
-                            if (get_directorist_option('enable_monetization') && !$_POST['listing_id'] && $featured_enabled && (!class_exists('ATBDP_Fee_Manager'))){
+                            if (get_directorist_option('enable_monetization') && !$_POST['listing_id'] && $featured_enabled && (!is_fee_manager_active())){
                                 wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
                                 exit;
                             }

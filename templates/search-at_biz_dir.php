@@ -89,6 +89,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             $popular_badge_text             = get_directorist_option('popular_badge_text','Popular');
                             $feature_badge_text             = get_directorist_option('feature_badge_text','Feature');
                             $pagination                     = get_directorist_option('paginate_search_results', 1);
+                            $enable_tagline                 = get_directorist_option('enable_tagline');
+                            $enable_excerpt                 = get_directorist_option('enable_excerpt');
                             /*Code for Business Hour Extensions*/
                             $bdbh                   = get_post_meta(get_the_ID(), '_bdbh', true);
                             $enable247hour               = get_post_meta(get_the_ID(), '_enable247hour', true);
@@ -147,7 +149,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>" class="atbd_thumbnail_overlay_content">
                                                 <?php
                                                 $plan_hours = true;
-                                                if (class_exists('ATBDP_Fee_Manager')){
+                                                if (is_fee_manager_active()){
                                                     $plan_hours = is_plan_allowed_business_hours();
                                                 }
                                                 if (is_business_hour_active() && $plan_hours){
@@ -192,7 +194,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                 <h4 class="atbd_listing_title">
                                                     <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                                 </h4>
-                                                <?php } if(!empty($tagline)) {?>
+                                                <?php } if(!empty($tagline) && !empty($enable_tagline)) {?>
                                                 <p class="atbd_listing_tagline"><?= esc_html(stripslashes($tagline)); ?></p>
                                                 <?php } ?>
                                                  <?php if(!empty($display_review) || !empty($display_price)) {?>
@@ -248,7 +250,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                         </ul>
                                                     </div><!-- End atbd listing meta -->
                                                     <?php
-                                                } if(!empty($excerpt))  {?>
+                                                } if(!empty($excerpt) && !empty($enable_excerpt))  {?>
                                                 <p><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 30))); ?></p>
                                                 <?php } ?>
                                                 <?php /* @todo: deleted the read more link */ ?>
@@ -257,53 +259,37 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             <div class="atbd_listing_bottom_content">
                                                 <?php
                                                 if(!empty($display_category)) {
-                                                if(!empty($cats)) {?>
-                                                    <div class="atbd_content_left">
-                                                        <div class="atbd_listting_category">
-                                                            <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
-                                                                    <span class="fa fa-folder-open"></span> <?php }?><?php  echo $cats[0]->name;?></a>
-                                                            <span class="atbd_cat_popup">  +3
-                                                                <span class="atbd_cat_popup_wrapper">
-                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
-                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
-                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
-                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
-                                                                </span>
-                                                            </span>
+                                                    if(!empty($cats)) {?>
+                                                        <div class="atbd_content_left">
+                                                            <div class="atbd_listting_category">
+                                                                <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
+                                                                        <span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span> <?php }?><?php  echo $cats[0]->name;?></a>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                <?php }else{
-                                                    ?>
-                                                    <div class="atbd_content_left">
-                                                        <div class="atbd_listting_category">
-                                                            <a href=""><span class="fa fa-folder-open"></span><?php  echo __('Uncategorized', ATBDP_TEXTDOMAIN);?></a>
-                                                            <span class="atbd_cat_popup">  +3
-                                                                <span class="atbd_cat_popup_wrapper">
-                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
-                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
-                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
-                                                                    <span><a href="#">techfdgfdgfdg,</a></span>
-                                                                </span>
-                                                            </span>
+                                                    <?php }else{
+                                                        ?>
+                                                        <div class="atbd_content_left">
+                                                            <div class="atbd_listting_category">
+                                                                <a href=""><?php  echo __('Uncategorized', ATBDP_TEXTDOMAIN);?></a>
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                <?php    } }?>
+                                                    <?php    } }?>
                                                 <ul class="atbd_content_right">
                                                     <?php if(!empty($display_view_count)) {?>
                                                     <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li>
                                                     <?php } ?>
                                                     <!--<li class="atbd_save"><span class="fa fa-heart"></span></li>-->
                                                     <?php if(!empty($display_author_image)) {
-                                                        $author = get_userdata(get_current_user_id());
+                                                        $author = get_userdata($author_id);
                                                         ?>
-                                                    <li class="atbd_author">
-                                                        <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $author->first_name.' '.$author->last_name;?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
-                                                                <img
-                                                                src="<?php echo esc_url($u_pro_pic[0]); ?>"
-                                                                alt="Author Image"><?php } ?>
-                                                        </a>
-                                                    </li>
+                                                        <li class="atbd_author">
+                                                            <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $author->first_name.' '.$author->last_name;?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                                    <img
+                                                                    src="<?php echo esc_url($u_pro_pic[0]); ?>"
+                                                                    alt="Author Image"><?php } ?>
+                                                            </a>
+                                                        </li>
                                                     <?php } ?>
                                                 </ul>
                                             </div><!-- end ./atbd_listing_bottom_content -->

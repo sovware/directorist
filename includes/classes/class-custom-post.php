@@ -177,7 +177,7 @@ if(!class_exists('ATBDP_Custom_Post')):
             $num_featured = get_post_meta($subscribed_package_id, 'num_featured', true);
             $featured_submited = get_user_meta(get_current_user_id(), '_featured_type',true) ? (int)get_user_meta(get_current_user_id(), '_featured_type',true) : 1;
             $featured_available_in_plan = $num_featured - $featured_submited;
-            if (class_exists('ATBDP_Fee_Manager') && $featured_available_in_plan>1 || $num_featured_unl){
+            if (is_fee_manager_active() && $featured_available_in_plan>1 || $num_featured_unl){
                 $columns['atbdp_featured']   = __('Featured', ATBDP_TEXTDOMAIN);
             }
             $columns['atbdp_expiry_date']   = __('Expires on', ATBDP_TEXTDOMAIN);

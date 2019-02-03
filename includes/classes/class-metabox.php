@@ -35,37 +35,30 @@ class ATBDP_Metabox {
         if( isset( $_POST['term_id'] ) ) {
             $ajax = true;
             $post_ID = (int) $_POST['post_id'];
-            $term_ids = $_POST['term_id'];
+            $term_id = (int) $_POST['term_id'];
         }
-        $args = null;
-        if (!empty($term_ids)){
-            foreach ($term_ids as $term_id){
-                $args = array(
-                    'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
-                    'posts_per_page' => -1,
-                    'meta_query'    => array(
-                        'relation' => 'AND',
-                        array(
-                            'key'       => 'category_pass',
-                            'value'     => $term_id,
-                            'compare'   => 'EXISTS',
-                        ),
-                        array(
-                            'key'       => 'associate',
-                            'value'     => 'categories',
-                            'compare'   => 'LIKE',
-                        )
-                    )
-                );
-
-
-            }
-        }
-
+        // Get custom fields
+        $custom_field_ids = $term_id;
+        $args = array(
+            'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+            'posts_per_page' => -1,
+            'meta_query'    => array(
+                'relation' => 'AND',
+                array(
+                    'key'       => 'category_pass',
+                    'value'     => $custom_field_ids,
+                    'compare'   => 'LIKE',
+                ),
+                array(
+                    'key'       => 'associate',
+                    'value'     => 'categories',
+                    'compare'   => 'LIKE',
+                )
+            )
+        );
         $atbdp_query = new WP_Query( $args );
 
         if ($atbdp_query->have_posts()){
-
 
             // Start the Loop
             global $post;
@@ -342,8 +335,8 @@ wp_reset_postdata();
 
         // save the meta data to the database
         //@todo need to adjust the meta for old user
-        /*update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
-        wp_set_object_terms($post_id, $admin_category_select, ATBDP_CATEGORY);*/
+        update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
+        wp_set_object_terms($post_id, $admin_category_select, ATBDP_CATEGORY);
 
 
         $metas['_expiry_date']              = $exp_dt;

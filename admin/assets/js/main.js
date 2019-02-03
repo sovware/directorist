@@ -337,51 +337,24 @@ jQuery(function($){
     });
 
     // Load custom fields of the selected category in the custom post type "atbdp_listings"
-
-    // ekhane to apni ul e click event add korecen. eita add howa uchit checkbox e!  Ohh !
-    $('#at_biz_dir-categorychecklist').on('click', function (event) {
-        event.stopPropagation();
-        //event.preventDefault();
-        //event.stopImmediatePropagation()
-
+    // Load custom fields of the selected category in the custom post type "atbdp_listings"
+    $('#cat-type').on('change', function () {
         $('#atbdp-custom-fields-list').html('<div class="spinner"></div>');
-        var termID = $('#at_biz_dir-categorychecklist input:checked').map(function() {
-            return this.value
-        }).get();
-        console.log(termID);
-        var i;
-        var numberOfTermSelected = termID.length;
-        var container = $("<div>").addClass("container2").appendTo('#atbdp-custom-fields-list');
-        var text = "Hello World!";
-        var blockDiv;  // used in the for loop
-        for (i = 0; i<numberOfTermSelected; i++ ){
-            var substr = termID;
-            $.each(substr , function(index, val) {
-                blockDiv = $("<div>").addClass("block"+val.toString()).appendTo(container);
-                $('<span>').text(text).appendTo(blockDiv);
-            });
-
-        }
 
         var data = {
             'action': 'atbdp_custom_fields_listings',
             'post_id': $('#atbdp-custom-fields-list').data('post_id'),
-            'term_id': termID
+            'term_id': $(this).val()
         };
 
         $.post(ajaxurl, data, function (response) {
-            var substr = termID;
-            $.each(substr , function(index, val) {
-                $('.block'+val.toString()).html(response);
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-
-
+            $('#atbdp-custom-fields-list').html(response);
+            $('[data-toggle="tooltip"]').tooltip();
         });
         $('#atbdp-custom-fields-list-selected').hide();
-    });
 
-   /* var selected_cat = $('#value_selected').val();
+    });
+    var selected_cat = $('#value_selected').val();
     if (!selected_cat) {
 
     } else {
@@ -396,7 +369,7 @@ jQuery(function($){
                 $('#atbdp-custom-fields-list-selected').html(response);
             });
         });
-    }*/
+    }
 });
 
 

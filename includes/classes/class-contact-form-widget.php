@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             public function widget($args, $instance) {
                 if( is_singular(ATBDP_POST_TYPE)) {
                     $plan_permission = true;
-                    if (class_exists('ATBDP_Fee_Manager')){
+                    if (is_fee_manager_active()){
                         $plan_permission = is_plan_allowed_owner_contact_widget();
                     }
                     if ($plan_permission){

@@ -453,7 +453,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
                             <?php
                             $plan_video = true;
-                            if (class_exists('ATBDP_Fee_Manager')){
+                            if (is_fee_manager_active()){
                                 $plan_video =is_plan_allowed_listing_video();
                             }
             if ($enable_video_url && $plan_video && !empty($videourl)) { ?>
@@ -560,7 +560,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
             // if business hour is active then add the following markup...
             $plan_hours = true;
-            if (class_exists('ATBDP_Fee_Manager')){
+            if (is_fee_manager_active()){
                 $plan_hours = is_plan_allowed_business_hours();
             }
             if (is_business_hour_active() && $plan_hours && (!is_empty_v($business_hours) || !empty($enable247hour))) {
@@ -597,7 +597,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
              * @param array $listing_info The meta information of the current listing
              */
             $plan_review = true;
-            if (class_exists('ATBDP_Fee_Manager')){
+            if (is_fee_manager_active()){
                 $plan_review = is_plan_allowed_listing_review();
             }
             if ($plan_review) {

@@ -193,6 +193,8 @@ class ATBDP_Custom_Taxonomy {
             'query_var'         => true,
             'public'            => true,
             'show_in_nav_menus' => true,
+            'show_in_menu'      => true,
+            'meta_box_cb'      => false,
         );
 
         // get the rewrite slug from the user settings, if exist use it.

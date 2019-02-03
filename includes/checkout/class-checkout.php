@@ -215,9 +215,9 @@ class ATBDP_Checkout
             update_post_meta( $order_id, '_amount', $amount);
             update_post_meta( $order_id, '_payment_gateway', $gateway );
             update_post_meta( $order_id, '_payment_status', 'created' );
-            $updated_plan_id = get_user_meta(get_current_user_id(), '_plan_to_active', true);
+            $updated_plan_id = get_post_meta($listing_id, '_fm_plans', true);
             if (class_exists('ATBDP_Fee_Manager') && $updated_plan_id){
-                update_post_meta( $order_id, '_updated_plan_id', $updated_plan_id );
+                update_post_meta( $order_id, '_fm_plan_ordered', $updated_plan_id );
             }
 
             // Hook for developer
@@ -281,6 +281,7 @@ class ATBDP_Checkout
     }
 
 
+    /**
     /**
      * It completes order that are free of charge
      * @param array $order_data The array of order data

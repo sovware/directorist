@@ -106,15 +106,27 @@ class ATBDP_Permalink{
     }
 
     /**
+     * It returns the link to the add listing page
+     * @return string
+     */
+    public static function get_add_listing_page_link_with_plan($plan_id)
+    {
+        $link = home_url();
+        $id = get_directorist_option('add_listing_page');
+        if( $id ) $link = get_permalink( $id )."?plan=$plan_id";
+        return apply_filters('atbdp_add_listing_page_url', $link );
+    }
+
+    /**
      * It returns the link to the dashbord manage fees
      * @return string
      */
-    public static function get_manage_fees_page_link()
+    public static function get_fee_plan_page_link()
     {
         $link = home_url();
-        $id = get_directorist_option('user_dashboard'); // get the page id of the dashboard page.
+        $id = get_directorist_option('fee_plan_page'); // get the page id of the dashboard page.
         if( $id )  $link = get_permalink( $id );
-        return apply_filters('atbdp_dashboard_page_url', $link.'#manage_fees' );
+        return apply_filters('atbdp_fee_plan_page_url', $link );
     }
 
     /**

@@ -18,12 +18,6 @@
                 $instructions = get_post_meta(get_the_ID(), 'instructions', true);
                 ?>
                 <div class="form-group" id="custom_field_for_cat">
-                    <script>
-                        jQuery(document).ready(function($){
-                            $('.my-color-field').wpColorPicker();
-                        });
-                    </script>
-
                     <label for=""><?php the_title(); ?><?php if($cf_required){echo '<span style="color: red"> *</span>'; }
                         if (!empty($instructions)){
                             printf('<span class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="%s"></span>', $instructions);
@@ -162,3 +156,5 @@
             wp_reset_postdata();
             }
             wp_reset_postdata();
+ ?>
+ <script> jQuery(document).ready(function($){ $('.my-color-field').wpColorPicker(); }); </script>

@@ -154,12 +154,12 @@ if (!class_exists('ATBDP_Add_Listing')):
                     //@todo need to shift FM validation code to extension itself
                     if (class_exists('ATBDP_Fee_Manager')) {
                         $user_id = get_current_user_id();
-                        $midway_package_id = !empty($_POST['fm_plans'])?$_POST['fm_plans']:'';
+                        $midway_package_id = selected_plan_id();
                         $subscribed_package_id = get_user_meta($user_id, '_subscribed_users_plan_id', true);
                         $subscribed_package_id = !empty($midway_package_id)?$midway_package_id:$subscribed_package_id;
                         $subscribed_date = get_user_meta($user_id, '_subscribed_time', true);
                         $package_length = get_post_meta($subscribed_package_id, 'fm_length', true);
-                        $is_never_expaired = get_post_meta($subscribed_package_id, 'fm_length_unl', true);
+                        $plan_type = get_post_meta($subscribed_package_id, 'plan_type', true);
                         $package_length = $package_length ? $package_length : '1';
 
                         // Current time
@@ -176,20 +176,13 @@ if (!class_exists('ATBDP_Add_Listing')):
                         //store the plan meta
                         $plan_meta = get_post_meta($subscribed_package_id);
 
-                        if ((empty($subscribed_package_id)) && empty($_POST['listing_id'])) {
-                            if (empty($_POST['fm_plans'])) {
-                                $msg = '<div class="alert alert-danger"><strong>' . __('You need to select a plan in order to submit a listing', ATBDP_TEXTDOMAIN) . '</strong></div>';
-                                return $msg;
-
-                            }
-                        }
-                        if ('regular' === $listing_type) {
+                        if (('regular' === $listing_type) && ('package' === $plan_type)) {
                             if (($plan_meta['num_regular'][0] < $_general_type) && empty($plan_meta['num_regular_unl'][0])) {
                                 $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for regular listing!', ATBDP_TEXTDOMAIN) . '</strong></div>';
                                 return $msg;
                             }
                         }
-                        if ('featured' === $listing_type) {
+                        if (('featured' === $listing_type) && ('package' === $plan_type)) {
                             //var_dump($has_featured_type);die();
                             if (($plan_meta['num_featured'][0] <= $has_featured_type) && empty($plan_meta['num_featured_unl'][0])) {
                                 $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for featured listing!', ATBDP_TEXTDOMAIN) . '</strong></div>';

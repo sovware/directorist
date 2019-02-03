@@ -39,7 +39,7 @@ if (!class_exists('BD_Submit_Item_Widget')) {
                 echo '</div>';
                 ?>
                 <div class="directorist">
-                    <a href="<?= esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
+                    <a href="<?= (is_fee_manager_active())?esc_url(ATBDP_Permalink::get_fee_plan_page_link()):esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
                        class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Submit New Listing', ATBDP_TEXTDOMAIN); ?></a>
                 </div>
                 <?php

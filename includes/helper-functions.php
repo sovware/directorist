@@ -2724,3 +2724,13 @@ function listing_view_by_list($all_listings, $view, $current_order)
     <?php
     return true;
 }
+
+if (!function_exists('is_fee_manager_active')){
+    /**
+     * It check the Fee Manager is active or not .
+     * @return bool It returns true if the above mentioned exists.
+     */
+    function is_fee_manager_active(){
+        return (class_exists('ATBDP_Fee_Manager')) ? true : false;
+    }
+}

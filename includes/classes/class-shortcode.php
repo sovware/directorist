@@ -10,9 +10,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             add_shortcode( 'directorist_search_result', array( $this, 'search_result' ) );
 
-
-            //add_shortcode( 'test_listing', array( $this, 'test_listing' ) );
-
             add_shortcode('directorist_author_profile', array($this, 'author_profile'));
 
             add_shortcode( 'directorist_add_listing', array( $this, 'add_listing' ) );
@@ -678,9 +675,11 @@ if ( !class_exists('ATBDP_Shortcode') ):
         public function add_listing($atts, $content = null, $sc_name) {
             ob_start();
             if (is_user_logged_in()) {
+
                 ATBDP()->enquirer->add_listing_scripts_styles();
 
                 ATBDP()->load_template('front-end/add-listing');
+
             }else{
                 // user not logged in;
                 $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), "<a href='".wp_login_url()."'> ". __('Here', ATBDP_TEXTDOMAIN)."</a>","<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>"); ?>
@@ -692,6 +691,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 <?php
 
             }
+            return ob_get_clean();
         }
 
         public function custom_user_login()

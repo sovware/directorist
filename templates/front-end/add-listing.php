@@ -88,25 +88,11 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                     <h3><?= !empty($p_id) ? __('Update Listing', ATBDP_TEXTDOMAIN) : __('Add Listing', ATBDP_TEXTDOMAIN); ?></h3>
                 </div>
                 <?php
-                if (class_exists('ATBDP_Fee_Manager')) {
-                    ?>
-                    <div class="atbd_listing_type">
-                        <?php
-                        $listing_type = !empty($listing_type) ? $listing_type : '';
-                        ?>
-                        <h4>Choose listing type<span style="color: red"> *</span></h4>
-                        <label for="featured"><input id="featured"
-                                                     type="radio" <?php echo ($listing_type == 'featured') ? 'checked' : ''; ?>
-                                                     name="listing_type" value="featured"> Featured listing</label>
-
-                        <label for="regular"><input
-                                    id="regular" <?php echo ($listing_type == 'regular') ? 'checked' : ''; ?>
-                                    type="radio"
-                                    name="listing_type" value="regular"> Regular listing</label>
-
-                    </div>
-                    <?php
-                }
+                /*
+                 * if fires after
+                 * @since 4.0.4
+                 */
+                do_action('atbdp_listing_form_after_add_listing_title',$listing_info)
                 ?>
                 <!--add nonce field security -->
                 <?php ATBDP()->listing->add_listing->show_nonce_field(); ?>
@@ -181,11 +167,11 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                 printf(esc_html__('Price [%s]', ATBDP_TEXTDOMAIN), $currency); ?>
                                             </label>
                                             <?php
-                                            $plan_raverage_price = true;
+                                            $plan_average_price = true;
                                             if (class_exists('ATBDP_Fee_Manager')){
-                                                $plan_raverage_price = is_plan_allowed_average_price_range();
+                                                $plan_average_price = is_plan_allowed_average_price_range();
                                             }
-                                            if ($plan_raverage_price) {
+                                            if ($plan_average_price) {
                                                 ?>
                                                 <span>Or</span>
                                                 <label for="price_range_selected" data-option="price_range">
@@ -209,22 +195,30 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                class="form-control directory_field"
                                                placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
 
-                                        <select class="form-control directory_field" id="price_range"
-                                                name="price_range">
-                                            <option value="">Select Price Range</option>
-                                            <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
-                                                <?= __('Ultra High ($$$$)', ATBDP_TEXTDOMAIN); ?>
-                                            </option>
-                                            <option value="moderate" <?php selected($price_range, 'moderate'); ?>>
-                                                <?= __('Expensive ($$$)', ATBDP_TEXTDOMAIN); ?>
-                                            </option>
-                                            <option value="economy" <?php selected($price_range, 'economy'); ?>>
-                                                <?= __('Moderate ($$)', ATBDP_TEXTDOMAIN); ?>
-                                            </option>
-                                            <option value="bellow_economy" <?php selected($price_range, 'economy'); ?>>
-                                                <?= __('Cheap ($)', ATBDP_TEXTDOMAIN); ?>
-                                            </option>
-                                        </select>
+                                        <?php
+                                        if (class_exists('ATBDP_Fee_Manager')){
+                                            $plan_average_price = is_plan_allowed_average_price_range();
+                                        }
+                                        if ($plan_average_price) {
+                                            ?>
+                                            <select class="form-control directory_field" id="price_range"
+                                                    name="price_range">
+                                                <option value=""><?= __('Select Price Range', ATBDP_TEXTDOMAIN); ?></option>
+                                                <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
+                                                    <?= __('Ultra High ($$$$)', ATBDP_TEXTDOMAIN); ?>
+                                                </option>
+                                                <option value="moderate" <?php selected($price_range, 'moderate'); ?>>
+                                                    <?= __('Expensive ($$$)', ATBDP_TEXTDOMAIN); ?>
+                                                </option>
+                                                <option value="economy" <?php selected($price_range, 'economy'); ?>>
+                                                    <?= __('Moderate ($$)', ATBDP_TEXTDOMAIN); ?>
+                                                </option>
+                                                <option value="bellow_economy" <?php selected($price_range, 'economy'); ?>>
+                                                    <?= __('Cheap ($)', ATBDP_TEXTDOMAIN); ?>
+                                                </option>
+                                            </select>
+                                        <?php }
+                                        ?>
                                     </div>
                                 <?php } ?>
                                 <?php if (get_directorist_option('enable_excerpt')){ ?>
@@ -819,15 +813,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 //            $('#fm_plans_container').fadeOut(300)
 //        });
         <?php } ?>
-        //price range
-        var price_range = $('#price_range_val').val();
 
-        if (price_range) {
-            $('#price_range').fadeIn(100);
-        }
-        $('#price_range_option').on('click', function () {
-            $('#price_range').fadeIn(500);
-        });
         $(function () {
             $('#color_code2').wpColorPicker();
         });

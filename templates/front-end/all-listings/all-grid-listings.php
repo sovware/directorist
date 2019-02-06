@@ -6,7 +6,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
 $display_sortby_dropdown = get_directorist_option('display_sort_by',1);
 $display_viewas_dropdown = get_directorist_option('display_view_as',1);
 $pagenation = get_directorist_option('paginate_all_listings',1);
-$column_width = 100/$columns .'%';
 ?>
 
 
@@ -82,10 +81,13 @@ $column_width = 100/$columns .'%';
     </div>
     <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
         <?php
+        $columns_number = $columns;
 
-        ?>
-        <div class="row"  data-uk-grid>
-            <?php
+        $span = 'col-md-' . floor( 12 / $columns_number );
+        $i = 0;
+        if( $i % $columns_number == 0 ) : ?>
+        <div class="row" data-uk-grid>
+            <?php endif;
         if ( $all_listings->have_posts() ) {
             while ( $all_listings->have_posts() ) { $all_listings->the_post();
                 $cats                           = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
@@ -150,11 +152,11 @@ $column_width = 100/$columns .'%';
 
                 }
 
-
+                /*Code for Business Hour Extensions*/
 
                 ?>
 
-                <div class="col atbdp_column">
+                <div class="<?php echo $span; ?>">
                     <div class="atbd_single_listing atbd_listing_card">
                         <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                             <figure class="atbd_listing_thumbnail_area" style=" <?php echo empty(get_directorist_option('display_preview_image',1))?'display:none':''?>">
@@ -358,16 +360,16 @@ $column_width = 100/$columns .'%';
                         </article>
                     </div>
                 </div>
-
             <?php }
             wp_reset_postdata();
         } else {?>
             <p><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
         <?php } ?>
             <?php
-
-            ?>
+            $i++;
+            if( $i % $columns_number == 0  ) : ?>
         </div>
+    <?php endif; ?>
 
 
 
@@ -386,9 +388,3 @@ $column_width = 100/$columns .'%';
     </div>
 
 </div>
-
-<style>
-    .atbd_content_active #directorist.atbd_wrapper .atbdp_column {
-        width: <?php echo $column_width;?>;
-    }
-</style>

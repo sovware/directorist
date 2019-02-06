@@ -1,6 +1,31 @@
 ;(function ($) {
     "use strict";
+    // html element create here
+    var element = $('#at_biz_dir-categorychecklist li input[type="checkbox"]');
+    var container = $("<div>").addClass("container3").appendTo('#atbdp-custom-fields-list');
+    var blockDiv;
 
+    $.each(element, function(key, el){
+        var value = $(el).attr('value');
+        blockDiv = $("<div>").addClass("block"+value.toString()).appendTo(container);
+        $('<span>').appendTo(blockDiv);
+    });
+    // html element create end here
+
+    // html element create here for selected category
+    var element_selected = $('#at_biz_dir-categorychecklist li input[type="checkbox"]');
+    var container_selected = $("<div>").addClass("container3").appendTo('#atbdp-custom-fields-list-selected');
+    var blockDiv_selected;
+
+    $.each(element_selected, function(key, el){
+        var value = $(el).attr('value');
+        blockDiv_selected = $("<div>").addClass("block"+value.toString()).appendTo(container_selected);
+        $('<span>').appendTo(blockDiv_selected);
+
+    });
+    // html element create end here for selected category
+
+    var content = "";
     // Category icon selection
     $('#category_icon').select2({
         placeholder: atbdp_admin_data.i18n_text.icon_choose_text,
@@ -337,39 +362,119 @@ jQuery(function($){
     });
 
     // Load custom fields of the selected category in the custom post type "atbdp_listings"
-    // Load custom fields of the selected category in the custom post type "atbdp_listings"
-    $('#cat-type').on('change', function () {
-        $('#atbdp-custom-fields-list').html('<div class="spinner"></div>');
+
+
+    // ekhane to apni ul e click event add korecen. eita add howa uchit checkbox e!  Ohh !
+    $('#at_biz_dir-categorychecklist').on('click', function (event) {
+        //event.stopPropagation();
+        //event.preventDefault();
+        //event.stopImmediatePropagation();
+
+
+        $('#atbdp-custom-fields-list').append('<div class="spinner"></div>');
+        var termID = $('#at_biz_dir-categorychecklist input:checked').map(function() {
+            return this.value
+        }).get();
+
+        //console.log(termID);
+
+        // This is use for condition match
+        var getid = $('#at_biz_dir-categorychecklist input:checked').last().val();
+        var matchid = $('#at_biz_dir-categorychecklist input:checked').last().val();
+        // This is use for condition match
+
+        var i;
+        var numberOfTermSelected = termID.length;
+
+        for (i = 0; i<numberOfTermSelected; i++ ){
+            var substr = termID;
+        }
+
 
         var data = {
             'action': 'atbdp_custom_fields_listings',
             'post_id': $('#atbdp-custom-fields-list').data('post_id'),
-            'term_id': $(this).val()
+            'term_id': termID
         };
 
+        //console.log(data);
+
         $.post(ajaxurl, data, function (response) {
-            $('#atbdp-custom-fields-list').html(response);
-            $('[data-toggle="tooltip"]').tooltip();
+
+            var substr = termID;
+
+
+            $('#at_biz_dir-categorychecklist input[type="checkbox"]').on('click', function(){
+                if($(this).is(':checked')){
+
+                } else {
+                    var val = $(this).val();
+                    $('.block'+val).html(" ");
+                }
+            });
+
+            if(matchid === getid) {
+                if(response != 0) {
+                    $('.block'+getid).html(response);
+                    $('[data-toggle="tooltip"]').tooltip();
+                } else {
+                    $('.block'+getid).html("Data Not Found !");
+                    $('[data-toggle="tooltip"]').tooltip();
+                }
+            }
+
+
+
         });
-        $('#atbdp-custom-fields-list-selected').hide();
+
+        //$('#atbdp-custom-fields-list-selected').hide();
 
     });
-    var selected_cat = $('#value_selected').val();
-    if (!selected_cat) {
 
-    } else {
-        $(window).on("load", function () {
-            $('#atbdp-custom-fields-list-selected').html('<div class="spinner"></div>');
-            var data = {
-                'action': 'atbdp_custom_fields_listings_selected',
-                'post_id': $('#atbdp-custom-fields-list-selected').data('post_id'),
-                'term_id': selected_cat
-            };
-            $.post(ajaxurl, data, function (response) {
-                $('#atbdp-custom-fields-list-selected').html(response);
-            });
-        });
-    }
+    var selected_cat = $('#at_biz_dir-categorychecklist input:checked').map(function() {
+        return this.value
+    }).get();
+     if (!selected_cat) {
+
+     } else {
+         $(window).on("load", function () {
+
+             var getid = $('#at_biz_dir-categorychecklist input:checked').last().val();
+             var matchid = $('#at_biz_dir-categorychecklist input:checked').last().val();
+
+             $('#atbdp-custom-fields-list-selected').html('<div class="spinner"></div>');
+             var data = {
+                 'action': 'atbdp_custom_fields_listings_selected',
+                 'post_id': $('#atbdp-custom-fields-list-selected').data('post_id'),
+                 'term_id': selected_cat
+             };
+
+             $.post(ajaxurl, data, function (response) {
+
+                 $('#at_biz_dir-categorychecklist input[type="checkbox"]').on('click', function(){
+                     if($(this).is(':checked')){
+
+                     } else {
+                         var val = $(this).val();
+                         $('.block'+val).html(" ");
+                     }
+                 });
+
+                 if(matchid === getid) {
+                     if(response != 0) {
+                         $('.block'+getid).html(response);
+                         $('[data-toggle="tooltip"]').tooltip();
+                     } else {
+                         $('.block'+getid).html("Data Not Found !");
+                         $('[data-toggle="tooltip"]').tooltip();
+                     }
+                 }
+
+
+
+             });
+         });
+     }
 });
 
 

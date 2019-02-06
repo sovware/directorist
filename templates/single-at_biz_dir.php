@@ -302,18 +302,19 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                             <?php } ?>
                             <div class="atbd_listting_category">
                                 <ul class="directory_tags">
+                                    <span class="fa fa-folder-open"></span>
                                     <?php
 
                                     if (!empty($cats)) {
+                                        $numberOfCat = count($cats);
                                         foreach ($cats as $cat) {
                                             ?>
                                             <li>
                                                 <p class="directory_tag">
-                                            <span class="fa <?= esc_attr(get_cat_icon($cat->term_id)); ?>"
-                                                  aria-hidden="true"></span>
+
                                                     <span>
                                                     <a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>">
-                                                                <?= $cat->name; ?>
+                                                                <?= $cat->name; if ($numberOfCat>1){echo ', ';} ?>
                                                     </a>
                                                 </span>
                                                 </p>
@@ -380,7 +381,30 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                 </div>
             </div> <!-- end .atbd_listing_details -->
             <?php
-            $category_selected = get_post_meta($post->ID, '_admin_category_select', true);
+            $term_id = get_post_meta($post->ID, '_admin_category_select', true);
+            $meta_array = array('relation'=>'OR');
+            $meta_array =array(
+                    'key' => 'category_pass',
+                    'value' => $term_id,
+                    'compare' => 'LIKE'
+                );
+
+            if (('-1' === $term_id) || empty($term_id)){
+                $post_ids_array = array($cats); //this array will be dynamically generated
+                if (isset($post_ids_array)){
+                    $meta_array = array('relation'=>'AND');
+                    foreach ($post_ids_array as $key => $value) {
+                        array_push($meta_array,
+                            array(
+                                'key' => 'category_pass',
+                                'value' => $value->term_id,
+                                'compare' => 'LIKE'
+                            )
+                        );
+                    }
+                }
+
+            }
             $custom_fields  = new WP_Query( array(
                 'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
                 'posts_per_page' => -1,
@@ -392,13 +416,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                             'value' => 'form',
                             'compare' => 'EXISTS'
                     ),
-                    array(
-                            'key' => 'category_pass',
-                            'value' => !empty($category_selected)?$category_selected:'',
-                            'compare' => 'EXISTS'
-                    )
+                    $meta_array
                 )
             ) );
+            var_dump($expression)
             $custom_fields_posts = $custom_fields->posts;
             $has_field_value = array();
             foreach ($custom_fields_posts as $custom_fields_post) {

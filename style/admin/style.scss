@@ -1,0 +1,352 @@
+@import "../../bootstrap/config.bs";
+
+#directorist.atbd_wrapper {
+  padding: 18px 20px;
+
+  * {
+    box-sizing: border-box;
+  }
+  .iris-picker, .iris-picker * {
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+  }
+  #gmap {
+    height: 350px;
+  }
+  label {
+    margin-bottom: $label-margin-bottom;
+    display: inline-block;
+    font-weight: 500;
+    font-size: 15px;
+    color: $dark;
+    text-transform: capitalize;
+  }
+  .map_wrapper {
+    position: relative;
+    #floating-panel {
+      position: absolute;
+      z-index: 2;
+      right: 59px;
+      top: 10px;
+    }
+  }
+
+  a.btn {
+    text-decoration: none;
+  }
+  [data-toggle="tooltip"]{
+    color: #a1a1a7;
+    font-size: 12px;
+    &:hover{
+      color: $dark;
+    }
+  }
+  .single_prv_attachment{
+    text-align: center;
+  }
+  #listing_image_btn span {
+    vertical-align: text-bottom;
+  }
+  .default_img {
+    margin-bottom: 10px;
+    text-align: center;
+    margin-top: 10px;
+    small {
+      color: $text-color;
+      font-size: 13px;
+    }
+  }
+  .atbd_pricing_options{
+    margin-bottom: 15px;
+    label{
+      font-size: 13px;
+    }
+    .bor{
+      margin: 0 15px;
+    }
+    small{
+      font-size: 12px;
+      vertical-align: top;
+    }
+  }
+  .listing-img-container {
+    text-align: center;
+    padding: 10px 0 15px;
+    p {
+      margin-top: 15px;
+      margin-bottom: 4px;
+      color: #7a82a6;
+      font-size: 16px;
+    }
+    small {
+      color: $text-color;
+      font-size: 13px;
+    }
+    .single_attachment {
+      width: 208px;
+      display: inline-block;
+      position: relative;
+      .remove_image {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #d3d1ec;
+        line-height: 26px;
+        width: 26px;
+        border-radius: 50%;
+        -webkit-transition: 0.2s;
+        -moz-transition: 0.2s;
+        -ms-transition: 0.2s;
+        -o-transition: 0.2s;
+        transition: 0.2s;
+        cursor: pointer;
+        color: $light;
+        &:hover {
+          color: $danger;
+        }
+      }
+    }
+  }
+  .field-options {
+    margin-bottom: 15px;
+  }
+  .hide-if-no-js {
+    text-align: center;
+    margin: 0;
+  }
+  .form-check {
+    margin-bottom: 25px;
+    input {
+      vertical-align: top;
+    }
+    .form-check-label {
+      margin: 0;
+      font-size: 15px;
+    }
+  }
+  .atbd_optional_field {
+    margin-bottom: 15px;
+  }
+  .extension_detail{
+    margin-top: 20px;
+  }
+  .ext_title {
+    text-decoration: none;
+    &:hover {
+      h4 {
+        color: #6e63ff;
+      }
+    }
+    h4 {
+      font-weight: 500;
+      font-size: 18px;
+      color: $dark;
+      transition: 0.3s;
+    }
+  }
+  .attc_extension_wrapper {
+    margin-top: 30px;
+    .single_extension {
+      margin-bottom: 30px;
+      background: #ffffff;
+      box-shadow: 0px 5px 10px #e1e7f7;
+      padding: 25px;
+      img {
+        width: 100%;
+      }
+    }
+  }
+  .btn_wrapper {
+    a + a {
+      margin-left: 10px;
+    }
+  }
+  &.atbd_help_support {
+    .wrap_left {
+      width: 70%;
+    }
+    h3{
+      font-size: 24px;
+    }
+    a{
+      color: #387dff;
+      &:hover{
+        text-decoration: underline;
+      }
+    }
+    .postbox {
+      padding: 30px;
+      h3{
+        margin-bottom: 20px;
+      }
+    }
+    .wrap {
+      display: inline-block;
+      vertical-align: top;
+    }
+    .wrap_right {
+      width: 27%;
+      .postbox {
+        background: #0073aa;
+        border-radius: 3px;
+        box-shadow: 0 10px 20px rgba(103, 103, 103, 0.27);
+        h3{
+          color: #fff;
+          margin-bottom: 25px;
+        }
+      }
+    }
+  }
+  .shortcode_table td {
+    font-size: 14px;
+    line-height: 22px;
+  }
+  ul.atbdp_pro_features {
+    li {
+      font-size: 16px;
+      margin-bottom: 12px;
+      a{
+        color: #ededed;
+        &:hover{
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .atbdp-radio-list,
+  .atbdp-checkbox-list{
+    li{
+      label{
+        text-transform: capitalize;
+        font-size: 13px;
+        input{
+          margin-right: 7px;
+        }
+      }
+    }
+  }
+
+  /***********************************************************
+************************************************************
+css for Custom Field
+*************************************************************
+**************************************************************/
+  .postbox table.widefat {
+    box-shadow: none;
+    background: #eff2f5;
+  }
+
+  #atbdp-field-details td {
+    color: #555;
+    font-size: 17px;
+    width: 8%;
+  }
+  #atbdp-field-options td {
+    color: #555;
+    font-size: 17px;
+    width: 8%;
+  }
+  .atbdp-tick-cross{
+    margin-left: 18px;
+  }
+  .atbdp-tick-cross2{
+    margin-left: 25px;
+  }
+
+  /*
+  for shortable field*/
+  .ui-sortable tr:hover {
+    cursor: move;
+  }
+  .ui-sortable tr.alternate {
+    background-color: #F9F9F9;
+  }
+  .ui-sortable tr.ui-sortable-helper {
+    background-color: #F9F9F9;
+    border-top: 1px solid #DFDFDF;
+  }
+  .business-hour{
+    label{
+      margin-bottom: 0;
+    }
+  }
+}
+
+#directorist.atbd_wrapper .form-group {
+  margin-bottom: 30px;
+  & > label{
+    margin-bottom: 10px;
+  }
+  .atbd_pricing_options{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    label{
+      margin-bottom: 0;
+    }
+    small{
+      margin-left: 5px;
+    }
+    input[type="checkbox"]{
+      position: relative;
+      top: -2px;
+    }
+  }
+}
+
+#directorist.atbd_wrapper #category_container .form-group{
+  margin-bottom: 0;
+}
+#directorist.atbd_wrapper{
+  .atbd_map_title{
+    margin-bottom: 15px;
+  }
+  .map-coordinate{
+    margin-top: 30px;
+    margin-bottom: 15px;
+    label{
+      margin-bottom: 0;
+    }
+  }
+  #hide_if_no_manual_cor{
+    .form-group .form-group{
+      margin-bottom: 20px;
+    }
+  }
+  .atbd_map_hide{
+    margin-bottom: 0;
+    label{
+      margin-bottom: 0;
+    }
+  }
+  #atbdp-custom-fields-list{
+    margin: 13px 0 0 15px;
+  }
+}
+#_listing_video_gallery #directorist.atbd_wrapper{
+  .form-group{
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 1199px) and (max-width: 1510px), (min-width: 768px) and (max-width: 1187px), (min-width: 576px) and (max-width: 694px), (min-width: 320px) and (max-width: 373px){
+  #directorist.atbd_wrapper{
+    .btn.demo, .btn.get{
+      display: block;
+      margin: 0;
+    }
+    .btn.get{
+      margin-top: 10px;
+    }
+  }
+}
+
+#directorist.atbd_wrapper #addNewSocial{
+  margin-bottom: 15px;
+}
+
+#directorist.atbd_wrapper .atbdp_social_field_wrapper .form-group{
+   margin-bottom: 15px;
+}

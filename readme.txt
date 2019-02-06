@@ -1,4 +1,4 @@
-=== Directorist - Business Directory Plugin ===
+﻿=== Directorist - Business Directory Plugin ===
 Contributors: AazzTech
 Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate

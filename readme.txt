@@ -5,7 +5,7 @@ Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.0.3
 Stable tag: 4.2.0
-License: GPLv2 or laterdf sdf sdfsdf 
+License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Create a classified website, business directory website like Yelp, foursquare etc with this plugin very easily. Try it, you will love it.

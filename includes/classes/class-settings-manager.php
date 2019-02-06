@@ -1586,6 +1586,16 @@ The Administrator of ==SITE_NAME==
                         'default' => atbdp_get_option('search_placeholder', 'atbdp_general'),
                     ),
                     array(
+                        'type' => 'slider',
+                        'name' => 'search_listing_columns',
+                        'label' => __('Number of Columns', ATBDP_TEXTDOMAIN),
+                        'min' => '1',
+                        'max' => '10',
+                        'step' => '1',
+                        'default' => '3',
+                        'validation' => 'numeric|minlength[1]',
+                    ),
+                    array(
                         'type' => 'toggle',
                         'name' => 'search_border',
                         'label' => __('Search Bar Border', ATBDP_TEXTDOMAIN),

@@ -45,7 +45,7 @@ if (!empty($args['data']) ) extract($args['data']) ;
 </div>
 
 <!--Show featured option if it is enabled by the user-->
-<?php if( $f_active ) { ?>
+<?php if( $f_active || is_fee_manager_active()) { ?>
     <div class="misc-pub-section misc-pub-atbdp-featured">
         <label>
             <input type="checkbox" name="featured" value="1" <?php checked(1, $featured, true); ?>>

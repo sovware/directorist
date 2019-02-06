@@ -354,7 +354,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                         <div class="atbd_listing_title">
                             <h2><?php echo esc_html($p_title); ?></h2>
                             <p class="atbd_sub_title"><?= (!empty($tagline)) ? esc_html(stripslashes($tagline)) : ''; ?></p>
-                            <!--@todo: style the price and Add the Currency Symbol or letter, Show the price in the search and all listing pages, and dashboard-->
                         </div>
 
                         <div class="about_detail">
@@ -366,9 +365,14 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                              * and autoembed() will parse any embeddable url like https://youtube.com/?v=vidoecode etc.
                              * then do_shortcode() will parse the rest of the shortcodes
                              * */
+                            $post_object = get_page(get_the_ID());
+
+                            $content =  apply_filters('get_the_content',$post_object->post_content);
+                            echo wpautop($content);
+                            /*
                             global $wp_embed;
-                            $cont = $wp_embed->autoembed($wp_embed->run_shortcode($post->post_content));
-                            echo do_shortcode($cont);
+                            $cont = $wp_embed->autoembed($wp_embed->run_shortcode(wp_kses_post($post->post_content)));
+                            echo do_shortcode($cont);*/
                             ?>
 
                         </div>

@@ -51,14 +51,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                                         data-toggle="tab"><?php _e('Favorite Listings', ATBDP_TEXTDOMAIN); ?></a>
                             </li>
                             <?php
-                            if (is_fee_manager_active()){
-                                ?>
-                                <li role="presentation" class="nav-item"><a href="#manage_fees" class="nav-link"
-                                                                            aria-controls="profile" role="tab"
-                                                                            data-toggle="tab"><?php _e('Manage Fees', ATBDP_TEXTDOMAIN); ?></a>
-                                </li>
-                                <?php
-                            }
+                            do_action('atbdp_tab_after_favorite_listings');
                             ?>
 
                         </ul>
@@ -213,6 +206,11 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                             <?php
                                                             $exp_date = get_post_meta($post->ID, '_expiry_date', true);
                                                             $never_exp = get_post_meta($post->ID, '_never_expire', true);
+                                                            if (is_fee_manager_active()){
+                                                                $plan_id = get_post_meta($post->ID, '_fm_plans', true);
+                                                                $plan_name = get_the_title($plan_id);
+                                                                printf(__('<p><span>Plan Name:</span> %s</p>', ATBDP_TEXTDOMAIN), $plan_name);
+                                                            }
                                                             $exp_text = !empty($never_exp)
                                                                 ? __('Never Expires', ATBDP_TEXTDOMAIN)
                                                                 : date_i18n($date_format, strtotime($exp_date)); ?>

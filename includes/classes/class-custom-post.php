@@ -169,7 +169,7 @@ if(!class_exists('ATBDP_Custom_Post')):
             $columns['atbdp_category']   = __('Categories', ATBDP_TEXTDOMAIN);
             $columns['atbdp_author']   = __('Author', ATBDP_TEXTDOMAIN);
             $columns['atbdp_status']   = __('Status', ATBDP_TEXTDOMAIN);
-            if ($featured_active){
+            if ($featured_active || is_fee_manager_active()){
                 $columns['atbdp_featured']   = __('Featured', ATBDP_TEXTDOMAIN);
             }
             $subscribed_package_id = get_user_meta(get_current_user_id(), '_subscribed_users_plan_id', true);
@@ -182,7 +182,7 @@ if(!class_exists('ATBDP_Custom_Post')):
             }
             $columns['atbdp_expiry_date']   = __('Expires on', ATBDP_TEXTDOMAIN);
             $columns['atbdp_date']   = __('Created on', ATBDP_TEXTDOMAIN);
-            return $columns;
+            return (apply_filters('atbdp_add_new_listing_column', $columns));
         }
         public function manage_listing_columns( $column_name, $post_id ) {
             /*@TODO; Next time we can add image column too. */
@@ -248,7 +248,9 @@ if(!class_exists('ATBDP_Custom_Post')):
 
                 case 'atbdp_featured':
                     $featured = get_post_meta($post_id, '_featured', true);
+                    echo '<span style="margin-left: 15px">';
                     echo !empty($featured) ? '<i class="fa fa-check-circle"></i>' : '<i class="fa fa-times-circle"></i>';
+                    echo '</span>';
                     break;
 
                 case 'atbdp_expiry_date':
@@ -264,6 +266,10 @@ if(!class_exists('ATBDP_Custom_Post')):
                     break;
 
             }
+            /*
+             * since 4.2.0
+             */
+            apply_filters('atbdp_add_new_listing_column_content', $column_name, $post_id);
         }
 
         public function make_sortable_column( $columns)

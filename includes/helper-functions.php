@@ -2687,6 +2687,7 @@ if (!function_exists('is_fee_manager_active')){
      * @return bool It returns true if the above mentioned exists.
      */
     function is_fee_manager_active(){
-        return (class_exists('ATBDP_Fee_Manager')) ? true : false;
+        $FM_disabled_byAdmin = get_directorist_option('fee_manager_enable', 1);
+        return (class_exists('ATBDP_Fee_Manager') && $FM_disabled_byAdmin) ? true : false;
     }
 }

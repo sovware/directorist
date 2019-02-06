@@ -155,8 +155,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if (is_fee_manager_active()) {
                         $user_id = get_current_user_id();
                         $midway_package_id = selected_plan_id();
-                        $subscribed_package_id = get_user_meta($user_id, '_subscribed_users_plan_id', true);
-                        $subscribed_package_id = !empty($midway_package_id)?$midway_package_id:$subscribed_package_id;
+                        $plan_purchased = subscribed_package_or_PPL_plans($user_id, 'completed',$midway_package_id);
+                        $subscribed_package_id = $midway_package_id;
                         $subscribed_date = get_user_meta($user_id, '_subscribed_time', true);
                         $package_length = get_post_meta($subscribed_package_id, 'fm_length', true);
                         $plan_type = get_post_meta($subscribed_package_id, 'plan_type', true);
@@ -399,15 +399,27 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     }
                     if (!empty($post_id)){
+
                         // Redirect to avoid duplicate form submissions
                         // if monetization on, redirect to checkout page
-// vail if monetization is not active.
-
-                        $remaining_days = !empty($remaining_days)?$remaining_days:'0';
-                        //var_dump($midway_package_id);die();
-                        if ((is_fee_manager_active()) && ($midway_package_id || ($remaining_days <= 1)) ){
-                            wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
-                            exit;
+                        // vail if monetization is not active.
+                        if (is_fee_manager_active() ){
+                            if ('pay_per_listng' === package_or_PPL($plan=null)){
+                                wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
+                                exit;
+                            }elseif(('package' === package_or_PPL($plan=null)) && !$plan_purchased){
+                                    wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
+                                    exit;
+                                }else{
+                                    //yep! listing is saved to db and redirect user to admin panel or listing itself
+                                    $redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
+                                    if ('view_listing' == $redirect_page){
+                                        wp_redirect(get_permalink($post_id));
+                                    }else{
+                                        wp_redirect(ATBDP_Permalink::get_dashboard_page_link());
+                                    }
+                                    exit;
+                                }
                         }else{
                             $featured_enabled = get_directorist_option('enable_featured_listing');
                             if (get_directorist_option('enable_monetization') && !$_POST['listing_id'] && $featured_enabled && (!is_fee_manager_active())){

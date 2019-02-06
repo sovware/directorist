@@ -145,7 +145,6 @@ Note: It is best to use it in a page with full-width template if possible for th
 * Fix: Review Display/Hide option on single listing page
 * Fix - Add listing page edit issue
 
-== Changelog ==
 = 4.1.0 - JANUARY 27, 2019 =
 * Fix - Listing review
 * Fix - Custom Field issue

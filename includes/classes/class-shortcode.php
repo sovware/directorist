@@ -675,10 +675,20 @@ if ( !class_exists('ATBDP_Shortcode') ):
         public function add_listing($atts, $content = null, $sc_name) {
             ob_start();
             if (is_user_logged_in()) {
-
-                ATBDP()->enquirer->add_listing_scripts_styles();
-
-                ATBDP()->load_template('front-end/add-listing');
+                global $wp;
+                global $pagenow;
+                $current_url = home_url(add_query_arg(array(),$wp->request));
+                if (is_fee_manager_active() && !selected_plan_id()){
+                    if( (strpos( $current_url, '/edit/' ) !== false) && ($pagenow = 'at_biz_dir')) {
+                        ATBDP()->enquirer->add_listing_scripts_styles();
+                        ATBDP()->load_template('front-end/add-listing');
+                    }else{
+                        ATBDP_Fee_Manager()->load_template('fee-plans');
+                    }
+                }else{
+                    ATBDP()->enquirer->add_listing_scripts_styles();
+                    ATBDP()->load_template('front-end/add-listing');
+                }
 
             }else{
                 // user not logged in;
@@ -691,7 +701,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 <?php
 
             }
-            return ob_get_clean();
+            //return ob_get_clean();
         }
 
         public function custom_user_login()

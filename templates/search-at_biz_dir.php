@@ -12,10 +12,11 @@ $in_tag_text = !empty($in_tag) ? sprintf(__(' from "%s" Tag', ATBDP_TEXTDOMAIN),
 $in_cat_text = !empty($in_cat) ? sprintf(__(' from "%s" Category', ATBDP_TEXTDOMAIN), $in_cat) : '';
 $in_loc_text = !empty($in_loc) ? sprintf(__(' in "%s" Location', ATBDP_TEXTDOMAIN), $in_loc) : '';
 $is_disable_price = get_directorist_option('disable_list_price');
+$search_listing_columns = get_directorist_option('search_listing_columns',3);
+$column_width = 100/$search_listing_columns .'%';
 ?>
     <div id="directorist" class="directorist atbd_wrapper directory_wrapper search_area">
         <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
-
             <div class="header_bar">
                     <div class="row">
                         <div class="col-md-12">
@@ -51,10 +52,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                         </div>
                     </div>
             </div>
-            <!--maybe we should removed the parent container so that it can match perfectly -->
+                <!--maybe we should removed the parent container so that it can match perfectly -->
                 <div class="row" data-uk-grid>
-
-
                     <?php
                     if ( count($listings->posts) ) {
                         while ( $listings->have_posts() ) {
@@ -124,8 +123,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             }
                             /*Code for Business Hour Extensions*/
                             ?>
-                            <?php /*@todo shahadat - > updated search results page */?>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="col atbdp_column">
                                 <div class="atbd_single_listing atbd_listing_card">
                                     <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                         <figure class="atbd_listing_thumbnail_area" style=" <?php echo empty(get_directorist_option('display_preview_image'))?'display:none':''?>">
@@ -303,10 +301,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                 <p><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
                     <?php } ?>
 
-
-
-                </div> <!--ends .row -->
-
+                </div>
                 <div class="row">
                     <div class="col-md-12">
                         <?php
@@ -327,6 +322,9 @@ $is_disable_price = get_directorist_option('disable_list_price');
                 </div>
         </div>
     </div>
-<?php
-?>
+<style>
+    .atbd_content_active #directorist.atbd_wrapper .atbdp_column {
+        width: <?php echo $column_width;?>;
+    }
+</style>
 <?php include __DIR__.'/style.php'; ?>

@@ -740,7 +740,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 <div class="atbdb_content_module_contents">
                                     <!--Image Uploader-->
                                     <div id="_listing_gallery">
-                                        <?php ATBDP()->load_template('media-upload', compact('listing_img', 'listing_prv_img')); ?>
+                                        <?php ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img')); ?>
                                     </div>
                                     <?php
                                     $plan_video = true;

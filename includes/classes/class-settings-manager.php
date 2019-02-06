@@ -1852,6 +1852,22 @@ The Administrator of ==SITE_NAME==
 
                 array(
                     'type' => 'toggle',
+                    'name' => 'dsiplay_prv_single_page',
+                    'label' => __('Show Preview Image', ATBDP_TEXTDOMAIN),
+                    'description' => __('Hide/show preview image from single listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+
+                array(
+                    'type' => 'toggle',
+                    'name' => 'dsiplay_slider_single_page',
+                    'label' => __('Show Slider Image', ATBDP_TEXTDOMAIN),
+                    'description' => __('Hide/show slider image from single listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+
+                array(
+                    'type' => 'toggle',
                     'name' => 'gallery_cropping',
                     'label' => __('Slider Image Cropping', ATBDP_TEXTDOMAIN),
                     'description' => __('If the slider images are not in the same size, it helps automatically resizing.', ATBDP_TEXTDOMAIN),
@@ -1976,7 +1992,7 @@ The Administrator of ==SITE_NAME==
                     'min' => '1',
                     'max' => '10',
                     'step' => '1',
-                    'default' => '2',
+                    'default' => '3',
                     'validation' => 'numeric|minlength[1]',
                 ),
                 array(

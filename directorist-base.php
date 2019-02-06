@@ -701,7 +701,7 @@ final class Directorist_Base
      */
     public function get_related_listings($post)
     {
-        $rel_listing_num = get_directorist_option('rel_listing_num', 2);
+        $rel_listing_num = get_directorist_option('rel_listing_num', 3);
         $atbd_cats = get_the_terms($post, ATBDP_CATEGORY);
         $atbd_tags = get_the_terms($post, ATBDP_TAGS);
         // get the tag ids of the listing post type
@@ -733,7 +733,7 @@ final class Directorist_Base
                     'terms' => $atbd_tags_ids,
                 ),
             ),
-            'posts_per_page' => -1,
+            'posts_per_page' => (int)$rel_listing_num,
             'post__not_in' => array($post->ID),
         );
 

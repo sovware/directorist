@@ -302,7 +302,7 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                                 <div class="atbd_content_left">
                                                     <div class="atbd_listting_category">
                                                         <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
-                                                                <span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"></span> <?php }?><?php  echo $cats[0]->name;?></a>
+                                                                <span class="fa fa-folder-open"></span> <?php }?><?php  echo $cats[0]->name;?></a>
                                                         <?php
                                                         if ($totalTerm>1){
                                                             ?>

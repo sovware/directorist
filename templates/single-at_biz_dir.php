@@ -365,7 +365,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                              * and autoembed() will parse any embeddable url like https://youtube.com/?v=vidoecode etc.
                              * then do_shortcode() will parse the rest of the shortcodes
                              * */
-                            $post_object = get_page(get_the_ID());
+                            $post_object = get_post(get_the_ID());
 
                             $content =  apply_filters('get_the_content',$post_object->post_content);
                             echo wpautop($content);

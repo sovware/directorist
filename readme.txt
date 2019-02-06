@@ -139,10 +139,19 @@ Note: It is best to use it in a page with full-width template if possible for th
 18. Add New Custom Field
 
 == Changelog ==
+
+= 4.3.0 - FEBRUARY 6, 2019 =
+* Add - Multiple Categories support
+* Add - Search result columns control
+* Tweak - Grid design
+* Improved - All the columns
+* Fix - Text editor issue
+
+
 = 4.2.0 - FEBRUARY 3, 2019 =
 * Add - Control listings columns
 * Fix - Shorting in all listing
-* Fix: Review Display/Hide option on single listing page
+* Fix - Review Display/Hide option on single listing page
 * Fix - Add listing page edit issue
 
 = 4.1.0 - JANUARY 27, 2019 =

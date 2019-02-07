@@ -227,14 +227,14 @@ wp_reset_postdata();
     {
         if(ATBDP_POST_TYPE !=$post->post_type) return; // vail if it is not our post type
         // show expiration date and featured listing.
-        $expire_in_days = get_directorist_option('listing_expire_in_days');
+        $expire_in_days         = get_directorist_option('listing_expire_in_days');
         $f_active               = get_directorist_option('enable_featured_listing');
         $never_expire           = get_post_meta($post->ID, '_never_expire', true);
-        $never_expire = !empty($never_expire) ? (int) $never_expire : (empty($expire_in_days) ? 1 : 0);
+        $never_expire           = !empty($never_expire) ? (int) $never_expire : (empty($expire_in_days) ? 1 : 0);
 
-        $e_d            = get_post_meta($post->ID, '_expiry_date', true);
-        $e_d            = !empty($e_d) ? $e_d : calc_listing_expiry_date();
-        $expiry_date = atbdp_parse_mysql_date($e_d);
+        $e_d                    = get_post_meta($post->ID, '_expiry_date', true);
+        $e_d                    = !empty($e_d) ? $e_d : calc_listing_expiry_date();
+        $expiry_date            = atbdp_parse_mysql_date($e_d);
 
         $featured               = get_post_meta($post->ID, '_featured', true);
         $listing_status         = get_post_meta($post->ID, '_listing_status', true);

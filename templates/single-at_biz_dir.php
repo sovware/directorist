@@ -22,13 +22,15 @@ $listing_info['listing_img']        = get_post_meta($post->ID, '_listing_img', t
 $listing_info['listing_prv_img']    = get_post_meta($post->ID, '_listing_prv_img', true);
 $listing_info['hide_contact_info']  = get_post_meta($post->ID, '_hide_contact_info', true);
 $listing_info['expiry_date']        = get_post_meta($post->ID, '_expiry_date', true);
+$display_prv_image                  = get_directorist_option('dsiplay_prv_single_page',1);
+$display_slider_image               = get_directorist_option('dsiplay_slider_single_page',1);
 $gallery_cropping                   = get_directorist_option('gallery_cropping',1);
 $custom_gl_width                    = get_directorist_option('gallery_crop_width', 670);
 $custom_gl_height                   = get_directorist_option('gallery_crop_height', 750);
-$disable_contact_info                   = get_directorist_option('disable_contact_info');
+$disable_contact_info               = get_directorist_option('disable_contact_info');
 extract($listing_info);
 /*Prepare Listing Image links*/
-$listing_imgs= (!empty($listing_img)) ? $listing_img : array();
+$listing_imgs= (!empty($listing_img) && !empty($display_slider_image)) ? $listing_img : array();
 $image_links = array(); // define a link placeholder variable
 foreach ($listing_imgs as $id){
 
@@ -217,7 +219,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                     <?php
                     $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
                     if (!empty($image_links)) {
-                        if (!empty($listing_prv_img)){
+                        if (!empty($listing_prv_img) && !empty($display_prv_image)){
                             if(!empty($gallery_cropping)) {
                                 $listing_prv_imgurl = atbdp_image_cropping($listing_prv_img, $custom_gl_width, $custom_gl_height, true, 100)['url'];
                             } else {
@@ -249,7 +251,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                             <div class="atbd_directory_image_thumbnail">
                                 <?php
                                 $listing_prv_imgurl_thumb = wp_get_attachment_image_src($listing_prv_img, 'thumbnail')['0'];
-                                if (!empty($listing_prv_imgurl_thumb)){
+                                if (!empty($listing_prv_imgurl_thumb && !empty($display_prv_image))){
                                     array_unshift($image_links_thumbnails, $listing_prv_imgurl_thumb);
                                 }
                                 foreach ($image_links_thumbnails as $image_links_thumbnail) { ?>
@@ -257,14 +259,13 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                         <img src="<?= esc_url($image_links_thumbnail); ?>"
                                              alt="<?php esc_attr_e('Details Image', ATBDP_TEXTDOMAIN); ?>">
                                     </div>
-
                                     <?php
                                     // do not output more than one image if the MI extension is not active
                                     if (!is_multiple_images_active()) break;
                                 } ?>
                             </div><!-- end /.atbd_directory_image_wrapper -->
                         </div>
-                    <?php }else{
+                    <?php }elseif(!empty($display_prv_image)){
                         ?>
                         <div class="single_image">
                             <img src="<?= !empty($listing_prv_img) ? esc_url($listing_prv_imgurl) : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'; ?>"

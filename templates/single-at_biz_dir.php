@@ -302,7 +302,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                             </div>
                             <?php } ?>
                             <div class="atbd_listting_category">
-                                <ul class="directory_tags">
+                                <ul class="directory_cats">
                                     <span class="fa fa-folder-open"></span>
                                     <?php
 

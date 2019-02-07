@@ -642,6 +642,7 @@ final class Directorist_Base
         if (1 != $enable_rel_listing) return; // vail if related listing is not enabled
         $related_listings = $this->get_related_listings($post);
         $is_disable_price = get_directorist_option('disable_list_price');
+        $rel_listing_column = get_directorist_option('rel_listing_column',3);
 
 
         if ($related_listings->have_posts()) {
@@ -658,14 +659,14 @@ final class Directorist_Base
                   arrows: false,
                   infinite: false,
                   speed: 300,
-                  slidesToShow: 3,
+                  slidesToShow: <?php echo $rel_listing_column;?>,
                   slidesToScroll: 1,
                   autoplay: true,
                   responsive: [
                     {
                       breakpoint: 1024,
                       settings: {
-                        slidesToShow: 3,
+                        slidesToShow: <?php echo $rel_listing_column;?>,
                         slidesToScroll: 1,
                         infinite: true,
                         dots: true

@@ -76,7 +76,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                     <option value="economy" <?php selected($price_range, 'economy'); ?>>
                         Moderate ($$)
                     </option>
-                    <option value="bellow_economy" <?php selected($price_range, 'economy'); ?>>
+                    <option value="bellow_economy" <?php selected($price_range, 'bellow_economy'); ?>>
                         Cheap ($)
                     </option>
                 </select>

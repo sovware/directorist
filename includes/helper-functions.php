@@ -2312,7 +2312,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
             <div class="row">
                 <div class="col-md-12">
                     <?php
-                    $paged = '';
+
                     echo atbdp_pagination($all_listings, $paged);
                     ?>
                 </div>
@@ -2628,7 +2628,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
             <div class="row">
                 <div class="col-md-12">
                     <?php
-                    $paged = '';
+
                     echo atbdp_pagination($all_listings, $paged);
                     ?>
                 </div>
@@ -3001,7 +3001,7 @@ function listing_view_by_list($all_listings, $view, $current_order)
             <div class="row">
                 <div class="col-md-12">
                     <?php
-                    $paged = '';
+
                     echo atbdp_pagination($all_listings, $paged);
                     ?>
                 </div>

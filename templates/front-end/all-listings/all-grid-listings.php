@@ -379,7 +379,6 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
             <div class="col-md-12">
                 <div class="">
                     <?php
-                    $paged = '';
                     echo atbdp_pagination($all_listings, $paged);
                     ?>
                 </div>

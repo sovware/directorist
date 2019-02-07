@@ -303,18 +303,19 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                             <?php } ?>
                             <div class="atbd_listting_category">
                                 <ul class="directory_tags">
+                                    <span class="fa fa-folder-open"></span>
                                     <?php
 
                                     if (!empty($cats)) {
+                                        $numberOfCat = count($cats);
                                         foreach ($cats as $cat) {
                                             ?>
                                             <li>
                                                 <p class="directory_tag">
-                                            <span class="fa <?= esc_attr(get_cat_icon($cat->term_id)); ?>"
-                                                  aria-hidden="true"></span>
+
                                                     <span>
                                                     <a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>">
-                                                                <?= $cat->name; ?>
+                                                                <?= $cat->name; if ($numberOfCat>1){echo ',';} ?>
                                                     </a>
                                                 </span>
                                                 </p>
@@ -366,7 +367,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                              * and autoembed() will parse any embeddable url like https://youtube.com/?v=vidoecode etc.
                              * then do_shortcode() will parse the rest of the shortcodes
                              * */
-                            $post_object = get_page(get_the_ID());
+                            $post_object = get_post(get_the_ID());
 
                             $content =  apply_filters('get_the_content',$post_object->post_content);
                             echo wpautop($content);
@@ -381,7 +382,30 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                 </div>
             </div> <!-- end .atbd_listing_details -->
             <?php
-            $category_selected = get_post_meta($post->ID, '_admin_category_select', true);
+            $term_id = get_post_meta($post->ID, '_admin_category_select', true);
+            $meta_array = array('relation'=>'AND');
+            $meta_array =array(
+                    'key' => 'category_pass',
+                    'value' => $term_id,
+                    'compare' => 'LIKE'
+                );
+
+            if (('-1' === $term_id) || empty($term_id)){
+                $post_ids_array = $cats; //this array will be dynamically generated
+                if (isset($post_ids_array)){
+                    $meta_array = array('relation'=>'OR');
+                    foreach ($post_ids_array as $key => $value) {
+                        array_push($meta_array,
+                            array(
+                                'key' => 'category_pass',
+                                'value' => $value->term_id,
+                                'compare' => 'LIKE'
+                            )
+                        );
+                    }
+                }
+
+            }
             $custom_fields  = new WP_Query( array(
                 'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
                 'posts_per_page' => -1,
@@ -393,13 +417,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                             'value' => 'form',
                             'compare' => 'EXISTS'
                     ),
-                    array(
-                            'key' => 'category_pass',
-                            'value' => !empty($category_selected)?$category_selected:'',
-                            'compare' => 'EXISTS'
-                    )
+                    $meta_array
                 )
             ) );
+
             $custom_fields_posts = $custom_fields->posts;
             $has_field_value = array();
             foreach ($custom_fields_posts as $custom_fields_post) {

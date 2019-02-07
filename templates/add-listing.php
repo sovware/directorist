@@ -285,7 +285,7 @@ $currency = get_directorist_option('g_currency', 'USD');
 
                 );
                 wp_dropdown_categories( $args );
-                $current_val = esc_attr(get_post_meta($post_ID, '_admin_category_select', true));
+                $current_val = $category;
                 $term_id_selected = !empty($current_val) ? $current_val: '';
                 ?>
                 <input type="hidden" id="value_selected" value="<?php echo $term_id_selected ?>">
@@ -298,11 +298,12 @@ $currency = get_directorist_option('g_currency', 'USD');
             do_action('wp_ajax_atbdp_custom_fields_listings', $post_ID, $selected_category); ?>
         </div>
         <?php
+
         if ($term_id_selected) {
             ?>
             <div id="atbdp-custom-fields-list-selected" data-post_id="<?php echo $post_ID; ?>">
                 <?php
-                $selected_category = !empty($selected_category) ? $selected_category : '';
+                $selected_category = !empty($term_id_selected) ? $term_id_selected : '';
                 do_action('wp_ajax_atbdp_custom_fields_listings_selected', $post_ID, $selected_category); ?>
             </div>
             <?php

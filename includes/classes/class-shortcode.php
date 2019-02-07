@@ -701,7 +701,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 <?php
 
             }
-            //return ob_get_clean();
+            return ob_get_clean();
         }
 
         public function custom_user_login()

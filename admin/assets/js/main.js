@@ -418,7 +418,7 @@ jQuery(function($){
                     $('.block'+getid).html(response);
                     $('[data-toggle="tooltip"]').tooltip();
                 } else {
-                    $('.block'+getid).html("Data Not Found !");
+                    $('.block'+getid).html(" ");
                     $('[data-toggle="tooltip"]').tooltip();
                 }
             }
@@ -465,7 +465,7 @@ jQuery(function($){
                          $('.block'+getid).html(response);
                          $('[data-toggle="tooltip"]').tooltip();
                      } else {
-                         $('.block'+getid).html("Data Not Found !");
+                         $('.block'+getid).html(" ");
                          $('[data-toggle="tooltip"]').tooltip();
                      }
                  }

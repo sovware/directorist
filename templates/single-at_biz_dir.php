@@ -314,7 +314,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
                                                     <span>
                                                     <a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>">
-                                                                <?= $cat->name; if ($numberOfCat>1){echo ', ';} ?>
+                                                                <?= $cat->name; if ($numberOfCat>1){echo ',';} ?>
                                                     </a>
                                                 </span>
                                                 </p>
@@ -382,7 +382,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
             </div> <!-- end .atbd_listing_details -->
             <?php
             $term_id = get_post_meta($post->ID, '_admin_category_select', true);
-            $meta_array = array('relation'=>'OR');
+            $meta_array = array('relation'=>'AND');
             $meta_array =array(
                     'key' => 'category_pass',
                     'value' => $term_id,
@@ -390,9 +390,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                 );
 
             if (('-1' === $term_id) || empty($term_id)){
-                $post_ids_array = array($cats); //this array will be dynamically generated
+                $post_ids_array = $cats; //this array will be dynamically generated
                 if (isset($post_ids_array)){
-                    $meta_array = array('relation'=>'AND');
+                    $meta_array = array('relation'=>'OR');
                     foreach ($post_ids_array as $key => $value) {
                         array_push($meta_array,
                             array(
@@ -419,7 +419,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                     $meta_array
                 )
             ) );
-            var_dump($expression)
+
             $custom_fields_posts = $custom_fields->posts;
             $has_field_value = array();
             foreach ($custom_fields_posts as $custom_fields_post) {

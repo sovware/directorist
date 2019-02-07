@@ -1277,11 +1277,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
   height: 100%;
 }
 
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd_listing_image img {
   width: 100%;
   margin: 0;
 }
-
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd_listing_image img.avatar{
+  border-radius: 50%;
+}
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_image{
   position: relative;
 }

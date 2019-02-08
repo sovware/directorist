@@ -342,7 +342,7 @@ jQuery(function($){
             prv_image = imageUpload.state().get('selection').first().toJSON();
             prv_url = prv_image.id;
             prv_img_url = prv_image.url;
-            console.log(prv_url);
+
             $('.listing_prv_img').val(prv_url);
             $('.change_listing_prv_img').attr('src', prv_img_url);
             $('.upload-header').html('Change Preview Image');
@@ -397,7 +397,7 @@ jQuery(function($){
             'term_id': termID
         };
 
-        //console.log(data);
+
 
         $.post(ajaxurl, data, function (response) {
 
@@ -406,10 +406,12 @@ jQuery(function($){
 
             $('#at_biz_dir-categorychecklist input[type="checkbox"]').on('click', function(){
                 if($(this).is(':checked')){
-
+                    var val = $(this).val();
+                    $('.block'+val).css({display: "block"});
                 } else {
                     var val = $(this).val();
                     $('.block'+val).html(" ");
+                    $('.block'+val).css({display: "none"});
                 }
             });
 
@@ -448,31 +450,37 @@ jQuery(function($){
                  'post_id': $('#atbdp-custom-fields-list-selected').data('post_id'),
                  'term_id': selected_cat
              };
+             var i;
+             var numberOfTermSelected = selected_cat.length;
 
-             $.post(ajaxurl, data, function (response) {
+             for (i = 0; i<numberOfTermSelected; i++ ){
+                 $.post(ajaxurl, data, function (response) {
 
-                 $('#at_biz_dir-categorychecklist input[type="checkbox"]').on('click', function(){
-                     if($(this).is(':checked')){
+                     $('#at_biz_dir-categorychecklist input[type="checkbox"]').on('click', function(){
+                         if($(this).is(':checked')){
 
-                     } else {
-                         var val = $(this).val();
-                         $('.block'+val).html(" ");
+                         } else {
+                             var val = $(this).val();
+                             $('.block'+val).html(" ");
+                         }
+                     });
+
+                     if(matchid === getid) {
+                         if(response != 0) {
+                             $('.block'+getid).html(response);
+                             $('[data-toggle="tooltip"]').tooltip();
+                         } else {
+                             $('.block'+getid).html(" ");
+                             $('[data-toggle="tooltip"]').tooltip();
+                         }
                      }
+
+
+
                  });
-
-                 if(matchid === getid) {
-                     if(response != 0) {
-                         $('.block'+getid).html(response);
-                         $('[data-toggle="tooltip"]').tooltip();
-                     } else {
-                         $('.block'+getid).html(" ");
-                         $('[data-toggle="tooltip"]').tooltip();
-                     }
-                 }
+             }
 
 
-
-             });
          });
      }
 });

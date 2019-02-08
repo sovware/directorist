@@ -44,11 +44,11 @@ class ATBDP_Metabox {
                     'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
                     'posts_per_page' => -1,
                     'meta_query'    => array(
-                        'relation' => 'OR',
+                        'relation' => 'AND',
                         array(
                             'key'       => 'category_pass',
                             'value'     => $term_id,
-                            'compare'   => 'LIKE',
+                            'compare'   => 'EXISTS',
                         ),
                         array(
                             'key'       => 'associate',

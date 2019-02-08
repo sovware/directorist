@@ -302,7 +302,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                             </div>
                             <?php } ?>
                             <div class="atbd_listting_category">
-                                <ul class="directory_tags">
+                                <ul class="directory_cats">
                                     <span class="fa fa-folder-open"></span>
                                     <?php
 
@@ -392,7 +392,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
             if (('-1' === $term_id) || empty($term_id)){
                 $post_ids_array = $cats; //this array will be dynamically generated
-                if (isset($post_ids_array)){
+                if (!empty($post_ids_array)){
                     $meta_array = array('relation'=>'OR');
                     foreach ($post_ids_array as $key => $value) {
                         array_push($meta_array,

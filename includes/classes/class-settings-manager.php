@@ -1996,6 +1996,16 @@ The Administrator of ==SITE_NAME==
                     'validation' => 'numeric|minlength[1]',
                 ),
                 array(
+                    'type' => 'slider',
+                    'name' => 'rel_listing_column',
+                    'label' => __('Columns of Related Listings', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '10',
+                    'step' => '1',
+                    'default' => '3',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+                array(
                     'type' => 'toggle',
                     'name' => 'listing_terms_condition',
                     'label' => __('Enable Terms & Conditions', ATBDP_TEXTDOMAIN),

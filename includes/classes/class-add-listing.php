@@ -155,6 +155,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if (is_fee_manager_active()) {
                         $user_id = get_current_user_id();
                         $midway_package_id = selected_plan_id();
+                        $sub_plan_id = get_post_meta(get_the_ID(), '_fm_plans', true);
+                        $midway_package_id =!empty($midway_package_id)?$midway_package_id:$sub_plan_id;
                         $plan_purchased = subscribed_package_or_PPL_plans($user_id, 'completed',$midway_package_id);
                         $subscribed_package_id = $midway_package_id;
                         $subscribed_date = get_user_meta($user_id, '_subscribed_time', true);
@@ -190,8 +192,9 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                             }
                         }
-                        if (empty($plan_meta['price_range_unl'][0])){
+                        if (empty($plan_meta['price_range_unl'][0]) || !empty($plan_meta['price_range'][0])){
                             if ($metas['_price']>$plan_meta['price_range'][0]){
+                                //var_dump($plan_meta['price_range'][0]);die();
                                 $msg = '<div class="alert alert-danger"><strong>' . __('Given price is not included in this plan!', ATBDP_TEXTDOMAIN) . '</strong></div>';
                                 return $msg;
                             }

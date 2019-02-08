@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
  * Description: Create a professional directory listing website like Yelp by a few clicks only. You can list place, any business etc.  with this plugin very easily.
- * Version: 4.2.0
+ * Version: 4.3.0
  * Author: AazzTech
  * Author URI: https://aazztech.com
  * License: GPLv2 or later
@@ -640,8 +640,9 @@ final class Directorist_Base
 
         $enable_rel_listing = get_directorist_option('enable_rel_listing', 1);
         if (1 != $enable_rel_listing) return; // vail if related listing is not enabled
-        $related_listings = $this->get_related_listings($post);
-        $is_disable_price = get_directorist_option('disable_list_price');
+        $related_listings       = $this->get_related_listings($post);
+        $is_disable_price       = get_directorist_option('disable_list_price');
+        $rel_listing_column     = get_directorist_option('rel_listing_column',3);
 
 
         if ($related_listings->have_posts()) {
@@ -658,14 +659,14 @@ final class Directorist_Base
                   arrows: false,
                   infinite: false,
                   speed: 300,
-                  slidesToShow: 3,
+                  slidesToShow: <?php echo $rel_listing_column;?>,
                   slidesToScroll: 1,
                   autoplay: true,
                   responsive: [
                     {
                       breakpoint: 1024,
                       settings: {
-                        slidesToShow: 3,
+                        slidesToShow: <?php echo $rel_listing_column;?>,
                         slidesToScroll: 1,
                         infinite: true,
                         dots: true

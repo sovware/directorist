@@ -6,7 +6,7 @@
   .atbd_badge {
     color: $light;
     font-size: 11px;
-    padding: 0 5px;
+    padding: 0 7px;
     border-radius: 2px;
     font-weight: 500;
     display: inline-block;
@@ -82,11 +82,8 @@
       display: inline-block;
       margin-right: 7px;
       line-height: 28px;
-      width: 28px;
       text-align: center;
-      @extend .atbd_bg-primary;
-      color: $light;
-      border-radius: 50%;
+      color: #444752;
     }
   }
   .atbd_single_listing {
@@ -156,7 +153,7 @@
               span {
                 @extend .atbd_color-primary;
                 font-size: 15px;
-                margin-right: 10px;
+                margin-right: 8px;
               }
             }
           }
@@ -172,6 +169,7 @@
         .atbd_content_right{
           display: flex;
           align-items: center;
+          margin-left: 12px;
           li+li{
             margin-left: 6px;
           }
@@ -209,9 +207,34 @@
     }
     &.atbd_listing_card{
       .atbd_listing_image{
+        position: relative;
         img{
           width: 100%;
           margin: 0;
+          &.avatar{
+            border-radius: 50%;
+          }
+        }
+        .atbd_author{
+          position: absolute;
+          right: 15px;
+          bottom: -13px;
+          width: 42px;
+          height: 42px;
+          a{
+            border: 3px solid #fff;
+            display: block;
+            border-radius: 300px;
+          }
+          img{
+            height: auto;
+            -webkit-border-radius: 300px;
+            -moz-border-radius: 300px;
+            border-radius: 300px;
+          }
+          .tooltip{
+            min-width: 100px;
+          }
         }
       }
     }

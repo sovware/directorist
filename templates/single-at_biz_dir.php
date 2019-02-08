@@ -314,9 +314,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                                 <p class="directory_tag">
 
                                                     <span>
-                                                    <a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>">
-                                                                <?= $cat->name; if ($numberOfCat>1){echo ',';} ?>
-                                                    </a>
+                                                    <a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>"><?= $cat->name;?></a>
                                                 </span>
                                                 </p>
                                             </li>

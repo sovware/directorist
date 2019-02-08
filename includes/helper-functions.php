@@ -2011,7 +2011,7 @@ function atbdp_image_cropping($attachmentId, $width, $height, $crop = true, $qua
 function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
 {
     ?>
-    <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
+    <div class="col-lg-12">
         <div class="row" data-uk-grid>
 
 

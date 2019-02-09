@@ -38,11 +38,12 @@ if ( ! defined( 'ABSPATH' ) ) {
             public function widget($args, $instance) {
                 if( is_singular(ATBDP_POST_TYPE)) {
                     $plan_permission = true;
+                    global $post;
                     if (is_fee_manager_active()){
-                        $plan_permission = is_plan_allowed_owner_contact_widget();
+                        $plan_permission = is_plan_allowed_owner_contact_widget(get_post_meta($post->ID, '_fm_plans', true));
                     }
                     if ($plan_permission){
-                        global $post;
+
                         $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact Listing Owner', ATBDP_TEXTDOMAIN);
                         echo $args['before_widget'];
                         echo '<div class="atbd_widget_title">';

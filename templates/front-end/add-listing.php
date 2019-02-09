@@ -82,6 +82,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
         <form action="<?= esc_url($_SERVER['REQUEST_URI']); ?>" method="post">
             <?php
             do_action('atbdb_before_add_listing_from_frontend');//for dev purpose
+            $fm_plan = !empty(get_post_meta($p_id, '_fm_plans', true))?get_post_meta($p_id, '_fm_plans', true):'';
             ?>
             <div class="atbdp-form-fields">
                 <div class="atbd_add_listing_title">
@@ -169,7 +170,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                             <?php
                                             $plan_average_price = true;
                                             if (is_fee_manager_active()){
-                                                $plan_average_price = is_plan_allowed_average_price_range();
+                                                $plan_average_price = is_plan_allowed_average_price_range($fm_plan);
                                             }
                                             if ($plan_average_price) {
                                                 ?>
@@ -197,7 +198,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                                         <?php
                                         if (is_fee_manager_active()){
-                                            $plan_average_price = is_plan_allowed_average_price_range();
+                                            $plan_average_price = is_plan_allowed_average_price_range($fm_plan);
                                         }
                                         if ($plan_average_price) {
                                             ?>
@@ -246,7 +247,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 ));
                                 $plan_custom_field = true;
                                 if (is_fee_manager_active()){
-                                    $plan_custom_field = is_plan_allowed_custom_fields();
+                                    $plan_custom_field = is_plan_allowed_custom_fields($fm_plan);
                                 }
                                 if ($plan_custom_field){
                                     $fields = $custom_fields->posts;
@@ -447,7 +448,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     $selected_category = count($category) ? $category[0] : -1;
                                     $plan_cat = 0;
                                     if (is_fee_manager_active()){
-                                        $plan_cat = is_plan_allowed_category();
+                                        $plan_cat = is_plan_allowed_category($fm_plan);
                                     }
                                     $args = array(
                                         'show_option_none' => '-- ' . __('Select Category', ATBDP_TEXTDOMAIN) . ' --',
@@ -470,12 +471,22 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     ?>
                                     <input type="hidden" id="value_selected" value="<?php echo $term_id_selected ?>">
                                 </div>
+                                <?php
+                                $plan_custom_field = true;
+                                if (is_fee_manager_active()){
+                                    $plan_custom_field = is_plan_allowed_custom_fields($fm_plan);
+                                }
+                                if ($plan_custom_field){
+                                   ?>
+                                    <div id="atbdp-custom-fields-list" data-post_id="<?php echo $p_id; ?>">
+                                        <?php
+                                        $selected_category = !empty($selected_category) ? $selected_category : '';
+                                        do_action('wp_ajax_atbdp_custom_fields_listings', $p_id, $selected_category); ?>
+                                    </div>
+                                <?php
+                                }
+                                ?>
 
-                                <div id="atbdp-custom-fields-list" data-post_id="<?php echo $p_id; ?>">
-                                    <?php
-                                    $selected_category = !empty($selected_category) ? $selected_category : '';
-                                    do_action('wp_ajax_atbdp_custom_fields_listings', $p_id, $selected_category); ?>
-                                </div>
                             </div>
 
 
@@ -635,7 +646,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                             * @param array $listing_info Information of the current listing
                             * @since 4.0
                             **/
-                            apply_filters('atbdp_before_map_section', 'add_listing_page_frontend', $listing_info);
+                            apply_filters('atbdp_before_map_section', 'add_listing_page_frontend', $listing_info, $p_id);
                             ?>
 
                             <?php if (!$disable_map) { ?>

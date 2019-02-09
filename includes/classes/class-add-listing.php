@@ -155,10 +155,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if (is_fee_manager_active()) {
                         $user_id = get_current_user_id();
                         $midway_package_id = selected_plan_id();
-                        $sub_plan_id = get_post_meta(get_the_ID(), '_fm_plans', true);
+                        $sub_plan_id = get_post_meta($_POST['listing_id'], '_fm_plans', true);
                         $midway_package_id =!empty($midway_package_id)?$midway_package_id:$sub_plan_id;
                         $plan_purchased = subscribed_package_or_PPL_plans($user_id, 'completed',$midway_package_id);
                         $subscribed_package_id = $midway_package_id;
+
                         $subscribed_date = get_user_meta($user_id, '_subscribed_time', true);
                         $package_length = get_post_meta($subscribed_package_id, 'fm_length', true);
                         $plan_type = get_post_meta($subscribed_package_id, 'plan_type', true);
@@ -173,10 +174,17 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $current_d = current_time('mysql');
                         $remaining_days = ($expired_date > $current_d) ? (floor(strtotime($expired_date) / (60 * 60 * 24)) - floor(strtotime($current_d) / (60 * 60 * 24))) : 0; //calculate the number of days remaining in a plan
                         $listing_type = !empty($_POST['listing_type']) ? sanitize_text_field($_POST['listing_type']) : '';
-                        $_general_type = get_user_meta($user_id, '_general_type', true) ? (int)get_user_meta($user_id, '_general_type', true) : 1;// find the user has subscribed or not
-                        $has_featured_type = get_user_meta($user_id, '_featured_type', true) ? (int)get_user_meta($user_id, '_featured_type', true) : 0;
+                        $_general_type = listings_data_with_plan($user_id, '0', $subscribed_package_id, 'regular');// find the user has subscribed or not
+                        $has_featured_type = listings_data_with_plan($user_id, '1', $subscribed_package_id, 'featured');
                         //store the plan meta
                         $plan_meta = get_post_meta($subscribed_package_id);
+
+                        $tagcount = !empty($_POST['tax_input']['at_biz_dir-tags'])?(count($_POST['tax_input']['at_biz_dir-tags'])):'';
+                        //var_dump($tagcount,$plan_meta['fm_tag_limit_unl'][0]);die();
+                        if ($plan_meta['fm_tag_limit'][0]<$tagcount && empty($plan_meta['fm_tag_limit_unl'][0])){
+                            $msg = '<div class="alert alert-danger"><strong>' . __('You can use a maximum of '.$plan_meta['fm_tag_limit'][0].' tag(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
+                            return $msg;
+                        }
 
                         if (('regular' === $listing_type) && ('package' === $plan_type)) {
                             if (($plan_meta['num_regular'][0] < $_general_type) && empty($plan_meta['num_regular_unl'][0])) {

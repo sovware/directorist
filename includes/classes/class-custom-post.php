@@ -204,7 +204,9 @@ if(!class_exists('ATBDP_Custom_Post')):
                     break;
 
                      case 'atbdp_category':
-                         $cats       = get_the_terms($post_id, ATBDP_CATEGORY);
+                         $categories       = get_the_terms($post_id, ATBDP_CATEGORY);
+                         $cats = !empty($categories)?$categories:array();
+
                          foreach ($cats as $cat_title){
                                  ?>
                                  <a href="<?= ATBDP_Permalink::get_category_archive( $cat_title ); ?>">

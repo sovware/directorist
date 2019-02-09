@@ -1,14 +1,5 @@
  <?php
- $plan_custom_field = true;
- if (is_fee_manager_active()){
-     $plan_custom_field = is_plan_allowed_custom_fields();
- }
- if ($plan_custom_field){
      $fields = $atbdp_query->posts;
- }else{
-     $fields = array();
- }
-
 
             if (isset($_POST['term_id'])){
             foreach ($fields as $post){

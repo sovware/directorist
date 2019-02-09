@@ -166,7 +166,7 @@ $column_width = 100/$search_listing_columns .'%';
                                                     if (!empty($enable247hour)) {
                                                         ?>
                                                         <span class="atbd_upper_badge">
-                                                            <span class="atbd_badge atbd_badge_open">Open Now</span>
+                                                            <span class="atbd_badge atbd_badge_open"><?php echo __('Open Now', ATBDP_TEXTDOMAIN)?></span>
                                                         </span><!-- END /.atbd_upper_badge -->
                                                         <?php
                                                     }else {?>
@@ -283,7 +283,7 @@ $column_width = 100/$search_listing_columns .'%';
                                                                     <?php
                                                                     foreach (array_slice($cats,1) as $cat) {
                                                                         ?>
-                                                                        <span><a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>"><?= $cat->name; ?>,</a></span>
+                                                                        <span><a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>"><?= $cat->name; ?></a></span>
                                                                     <?php }?>
                                                                 </span>
                                                             </span>

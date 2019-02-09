@@ -204,18 +204,17 @@ if(!class_exists('ATBDP_Custom_Post')):
                     break;
 
                      case 'atbdp_category':
-                         $current_val = esc_attr(get_post_meta($post_id, '_admin_category_select', true) );
-                         $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
-                         foreach ($categories as $key => $cat_title){
-                             $term_id = $cat_title->term_id;
-                             if ($term_id == $current_val){
+                         $categories       = get_the_terms($post_id, ATBDP_CATEGORY);
+                         $cats = !empty($categories)?$categories:array();
+
+                         foreach ($cats as $cat_title){
                                  ?>
                                  <a href="<?= ATBDP_Permalink::get_category_archive( $cat_title ); ?>">
-                                     <i class="fa <?= get_cat_icon( $cat_title->term_id ); ?>" aria-hidden="true"></i>
+                                     <i class="fa <?= get_cat_icon( $cat_title->term_name ); ?>" aria-hidden="true"></i>
                                      <?= $cat_title->name; ?>
                                  </a>
                                  <?php
-                             }
+
                              }
 
                         break;

@@ -266,29 +266,13 @@ $currency = get_directorist_option('g_currency', 'USD');
             <!--@ Options for select the category.-->
 
             <div class="form-group">
-                <label for="atbdp_select_cat"><?php esc_html_e('Select Category', ATBDP_TEXTDOMAIN) ?></label>
                 <?php
                 $category = wp_get_object_terms( $post_ID, ATBDP_CATEGORY, array( 'fields' => 'ids' ) );
-                $selected_category = count( $category ) ? $category[0] : -1;
-                $args = array(
-                    'show_option_none' => '-- '.__( 'Select Category', ATBDP_TEXTDOMAIN ).' --',
-                    'taxonomy'         => ATBDP_CATEGORY,
-                    'id'               => 'cat-type',
-                    'class'            => 'form-control directory_field',
-                    'name' 			   => 'admin_category_select',
-                    'orderby'          => 'name',
-                    'selected'         => $selected_category,
-                    'hierarchical'     => true,
-                    'depth'            => 10,
-                    'show_count'       => false,
-                    'hide_empty'       => false,
 
-                );
-                wp_dropdown_categories( $args );
                 $current_val = $category;
-                $term_id_selected = !empty($current_val) ? $current_val: '';
+                $term_id_selected = !empty($current_val) ? array($current_val): array();
                 ?>
-                <input type="hidden" id="value_selected" value="<?php echo $term_id_selected ?>">
+                <input type="hidden" id="value_selected" value="<?php echo json_encode($term_id_selected) ?>">
             </div>
         </div>
 

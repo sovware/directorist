@@ -314,9 +314,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                                 <p class="directory_tag">
 
                                                     <span>
-                                                    <a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>">
-                                                                <?= $cat->name; if ($numberOfCat>1){echo ',';} ?>
-                                                    </a>
+                                                    <a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>"><?= $cat->name;?></a>
                                                 </span>
                                                 </p>
                                             </li>
@@ -392,7 +390,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
             if (('-1' === $term_id) || empty($term_id)){
                 $post_ids_array = $cats; //this array will be dynamically generated
-                if (isset($post_ids_array)){
+                if (!empty($post_ids_array)){
                     $meta_array = array('relation'=>'OR');
                     foreach ($post_ids_array as $key => $value) {
                         array_push($meta_array,

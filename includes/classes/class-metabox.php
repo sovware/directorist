@@ -17,10 +17,80 @@ class ATBDP_Metabox {
 
 
             add_action('wp_ajax_atbdp_custom_fields_listings', array($this, 'ajax_callback_custom_fields'), 10, 2 );
-            add_action('wp_ajax_atbdp_custom_fields_listings_selected', array($this, 'ajax_callback_custom_fields'), 10, 2 );
+            add_action('wp_ajax_atbdp_custom_fields_listings_selected', array($this, 'ajax_callback_custom_fields_selected'), 10, 2 );
 
         }
      }
+
+    /**
+     * Display custom fields.
+     *
+     * @since	 3.2
+     * @access   public
+     * @param	 int    $post_id	Post ID.
+     * @param	 int    $term_id    Category ID.
+     */
+    public function ajax_callback_custom_fields_selected( $post_id = 0, $term_id = 0 ) {
+        $ajax = false;
+        if( isset( $_POST['term_id'] ) ) {
+            $ajax = true;
+            $post_ID = (int) $_POST['post_id'];
+            $term_ids = $_POST['term_id'];
+        }
+        $args = null;
+        if (!empty($term_ids)){
+            foreach($term_ids as $term_id){
+                $args = array(
+                    'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+                    'posts_per_page' => -1,
+                    'meta_query'    => array(
+                        'relation' => 'AND',
+                        array(
+                            'key'       => 'category_pass',
+                            'value'     => $term_id,
+                            'compare'   => 'EXISTS',
+                        ),
+                        array(
+                            'key'       => 'associate',
+                            'value'     => 'categories',
+                            'compare'   => 'LIKE',
+                        )
+                    )
+                );
+            }
+        }
+
+        $atbdp_query = new WP_Query( $args );
+
+        if ($atbdp_query->have_posts()){
+
+
+            // Start the Loop
+            global $post;
+            // Process output
+            ob_start();
+
+            include ATBDP_TEMPLATES_DIR . 'add-listing-custom-field.php';
+            wp_reset_postdata(); // Restore global post data stomped by the_post()
+            $output = ob_get_clean();
+
+            print $output;
+
+            if( $ajax ) {
+                wp_die();
+            }
+        } else{
+            // Process empty output
+            ob_start();
+            ?>
+
+            <?php
+            $output = ob_get_clean();
+
+            print $output;
+            //print "No data found !";
+        }
+    }
 
     /**
      * Display custom fields.

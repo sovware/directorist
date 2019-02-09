@@ -144,6 +144,7 @@ Note: It is best to use it in a page with full-width template if possible for th
 * Add - Multiple Categories support
 * Add - Search result columns control
 * Tweak - Grid design
+* Tweak - Related listing design
 * Improved - All the columns
 * Fix - Text editor issue
 

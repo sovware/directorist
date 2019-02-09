@@ -816,183 +816,186 @@ final class Directorist_Base
         $review_num = get_directorist_option('review_num', 5); // how many reviews to show?
         $reviews = ATBDP()->_get_reviews($post, $review_num);
         $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
+        $plan_review = true;
+        if (is_fee_manager_active()){
+            $plan_review = is_plan_allowed_listing_review(get_post_meta($post->ID, '_fm_plans', true));
+        }
+        if ($plan_review) {
+            ?>
+            <div class="atbd_content_module atbd_review_module">
+                <div class="atbd_content_module__tittle_area">
+                    <div class="atbd_area_title">
+                        <h4><span class="fa fa-star atbd_area_icon"></span><span id="reviewCounter"><?php echo $reviews_count;?></span><?php
+                            _e($reviews_count > 1 ? ' Reviews' : ' Review', ATBDP_TEXTDOMAIN);
+                            ?></h4>
+                    </div>
+                    <?php if (is_user_logged_in()) { ?>
+                        <label for="review_content" class="btn btn-primary btn-sm">Add a review</label>
 
-        ?>
-
-        <!-- Review_area Section-->
-        <?php /*@todo shahadat -> restructured the review area*/
-        ?>
-        <div class="atbd_content_module atbd_review_module">
-            <div class="atbd_content_module__tittle_area">
-                <div class="atbd_area_title">
-                    <h4><span class="fa fa-star atbd_area_icon"></span><span id="reviewCounter"><?php echo $reviews_count;?></span><?php
-                        _e($reviews_count > 1 ? ' Reviews' : ' Review', ATBDP_TEXTDOMAIN);
-                        ?></h4>
-                </div>
-                <?php if (is_user_logged_in()) { ?>
-                    <label for="review_content" class="btn btn-primary btn-sm">Add a review</label>
-
-                <?php } ?>
-            </div>
-
-            <div class="atbdb_content_module_contents">
-                <div id="client_review_list">
-                    <?php if (!empty($reviews)) {
-                        ?>
-                        <?php foreach ($reviews as $review) {
-                            ?>
-                            <div class="atbd_single_review atbdp_static" id="single_review_<?= $review->id; ?>">
-                                <div class="atbd_review_top">
-                                    <div class="atbd_avatar_wrapper">
-                                        <?php $avata_img = get_avatar($review->by_user_id, 32);
-                                        ?>
-                                        <div class="atbd_review_avatar"><?php if ($avata_img) {
-                                                echo $avata_img;
-                                            } else { ?><img
-                                                src="<?php echo ATBDP_PUBLIC_ASSETS . 'images/revav.png' ?>"
-                                                alt="Avatar Image"><?php } ?></div>
-                                        <div class="atbd_name_time">
-                                            <p><?= esc_html($review->name); ?></p>
-                                            <span class="review_time"><?php
-                                                printf(__('%s ago', ATBDP_TEXTDOMAIN), human_time_diff(strtotime($review->date_created), current_time('timestamp'))); ?></span>
-                                        </div>
-                                    </div>
-                                    <div class="atbd_rated_stars">
-                                        <?= ATBDP()->review->print_static_rating($review->rating); ?>
-                                    </div>
-                                </div>
-                                <div class="review_content">
-                                    <p><?= esc_html($review->content); ?></p>
-                                    <!--<a href="#"><span class="fa fa-mail-reply-all"></span>Reply</a>-->
-                                </div>
-                            </div>
-                        <?php }
-                    } else { ?>
-                        <div class="notice alert alert-info" role="alert" id="review_notice">
-                            <span class="fa fa-info-circle" aria-hidden="true"></span>
-                            <?php _e('No reviews found. Be the first to post a review !', ATBDP_TEXTDOMAIN);
-                            ?>
-                        </div>
                     <?php } ?>
                 </div>
-            </div>
-        </div><!-- end .atbd_review_module -->
 
-
-        <?php
-        // check if the user is logged in and the current user is not the owner of this listing.
-        if (is_user_logged_in()) {
-            global $wpdb;
-            // if the current user is NOT the owner of the listing print review form
-            // get the settings of the admin whether to display review form even if the user is the owner of the listing.
-            if (get_current_user_id() != $post->post_author || $enable_owner_review) {
-
-                // if user has a review then fetch it.
-                $cur_user_review = ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), get_the_ID());
-                ?>
-                <div class="atbd_content_module">
-                    <div class="atbd_content_module__tittle_area">
-                        <div class="atbd_area_title">
-                            <h4><span class="fa fa-star"
-                                      aria-hidden="true"></span><?= !empty($cur_user_review) ? __('Update Review', ATBDP_TEXTDOMAIN) : __('Leave a Review', ATBDP_TEXTDOMAIN); ?>
-                            </h4>
-                        </div>
-                    </div>
-
-                    <div class="atbdb_content_module_contents atbd_give_review_area">
-                        <form action="" id="atbdp_review_form" method="post">
-                            <?php wp_nonce_field('atbdp_review_action_form', 'atbdp_review_nonce_form'); ?>
-                            <input type="hidden" name="post_id" value="<?php the_ID(); ?>">
-
-                            <!--<input type="email" name="email" class="directory_field" placeholder="Your email" required>-->
-                            <input type="hidden" name="name" class="btn btn-default"
-                                   value="<?= wp_get_current_user()->display_name; ?>"
-                                   placeholder="<?php esc_attr_e('Your name', ATBDP_TEXTDOMAIN); ?>" id="reviewer_name">
-                            <?php $avata_img = get_avatar(wp_get_current_user()->ID, 32); ?>
-                            <input type="hidden" name="name" class="btn btn-default"
-                                   value="<?php if ($avata_img) {
-                                                echo $avata_img;
-                                            } else { echo ATBDP_PUBLIC_ASSETS . 'images/revav.png';}?>"
-                                   id="reviewer_img">
-
-                            <div class="atbd_review_rating_area"> <!--It should be displayed on the left side -->
-                                <?php
-                                // color the stars if user has rating
-                                if (!empty($cur_user_review)) { ?>
-                                    <div class="atbd_review_current_rating">
-                                        <p class="atbd_rating_label"><?php _e('Current Rating:', ATBDP_TEXTDOMAIN); ?></p>
+                <div class="atbdb_content_module_contents">
+                    <div id="client_review_list">
+                        <?php if (!empty($reviews)) {
+                            ?>
+                            <?php foreach ($reviews as $review) {
+                                ?>
+                                <div class="atbd_single_review atbdp_static" id="single_review_<?= $review->id; ?>">
+                                    <div class="atbd_review_top">
+                                        <div class="atbd_avatar_wrapper">
+                                            <?php $avata_img = get_avatar($review->by_user_id, 32);
+                                            ?>
+                                            <div class="atbd_review_avatar"><?php if ($avata_img) {
+                                                    echo $avata_img;
+                                                } else { ?><img
+                                                    src="<?php echo ATBDP_PUBLIC_ASSETS . 'images/revav.png' ?>"
+                                                    alt="Avatar Image"><?php } ?></div>
+                                            <div class="atbd_name_time">
+                                                <p><?= esc_html($review->name); ?></p>
+                                                <span class="review_time"><?php
+                                                    printf(__('%s ago', ATBDP_TEXTDOMAIN), human_time_diff(strtotime($review->date_created), current_time('timestamp'))); ?></span>
+                                            </div>
+                                        </div>
                                         <div class="atbd_rated_stars">
-                                            <?= ATBDP()->review->print_static_rating($cur_user_review->rating); ?>
+                                            <?= ATBDP()->review->print_static_rating($review->rating); ?>
                                         </div>
                                     </div>
-                                <?php } ?>
-
-                                <div class="atbd_review_update_rating">
-                                    <p class="atbd_rating_label"><?= !empty($cur_user_review) ? __('Update Rating:', ATBDP_TEXTDOMAIN) : __('Your Rating:', ATBDP_TEXTDOMAIN); ?></p>
-                                    <div class="atbd_rating_stars">
-                                        <select class="stars" name="rating" id="review_rating">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
+                                    <div class="review_content">
+                                        <p><?= esc_html($review->content); ?></p>
+                                        <!--<a href="#"><span class="fa fa-mail-reply-all"></span>Reply</a>-->
                                     </div>
                                 </div>
+                            <?php }
+                        } else { ?>
+                            <div class="notice alert alert-info" role="alert" id="review_notice">
+                                <span class="fa fa-info-circle" aria-hidden="true"></span>
+                                <?php _e('No reviews found. Be the first to post a review !', ATBDP_TEXTDOMAIN);
+                                ?>
                             </div>
-                            <div class="form-group">
+                        <?php } ?>
+                    </div>
+                </div>
+            </div><!-- end .atbd_review_module -->
+            <?php
+            // check if the user is logged in and the current user is not the owner of this listing.
+            if (is_user_logged_in()) {
+                global $wpdb;
+                // if the current user is NOT the owner of the listing print review form
+                // get the settings of the admin whether to display review form even if the user is the owner of the listing.
+                if (get_current_user_id() != $post->post_author || $enable_owner_review) {
+
+                    // if user has a review then fetch it.
+                    $cur_user_review = ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), get_the_ID());
+                    ?>
+                    <div class="atbd_content_module">
+                        <div class="atbd_content_module__tittle_area">
+                            <div class="atbd_area_title">
+                                <h4><span class="fa fa-star"
+                                          aria-hidden="true"></span><?= !empty($cur_user_review) ? __('Update Review', ATBDP_TEXTDOMAIN) : __('Leave a Review', ATBDP_TEXTDOMAIN); ?>
+                                </h4>
+                            </div>
+                        </div>
+
+                        <div class="atbdb_content_module_contents atbd_give_review_area">
+                            <form action="" id="atbdp_review_form" method="post">
+                                <?php wp_nonce_field('atbdp_review_action_form', 'atbdp_review_nonce_form'); ?>
+                                <input type="hidden" name="post_id" value="<?php the_ID(); ?>">
+
+                                <!--<input type="email" name="email" class="directory_field" placeholder="Your email" required>-->
+                                <input type="hidden" name="name" class="btn btn-default"
+                                       value="<?= wp_get_current_user()->display_name; ?>"
+                                       placeholder="<?php esc_attr_e('Your name', ATBDP_TEXTDOMAIN); ?>" id="reviewer_name">
+                                <?php $avata_img = get_avatar(wp_get_current_user()->ID, 32); ?>
+                                <input type="hidden" name="name" class="btn btn-default"
+                                       value="<?php if ($avata_img) {
+                                           echo $avata_img;
+                                       } else { echo ATBDP_PUBLIC_ASSETS . 'images/revav.png';}?>"
+                                       id="reviewer_img">
+
+                                <div class="atbd_review_rating_area"> <!--It should be displayed on the left side -->
+                                    <?php
+                                    // color the stars if user has rating
+                                    if (!empty($cur_user_review)) { ?>
+                                        <div class="atbd_review_current_rating">
+                                            <p class="atbd_rating_label"><?php _e('Current Rating:', ATBDP_TEXTDOMAIN); ?></p>
+                                            <div class="atbd_rated_stars">
+                                                <?= ATBDP()->review->print_static_rating($cur_user_review->rating); ?>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+
+                                    <div class="atbd_review_update_rating">
+                                        <p class="atbd_rating_label"><?= !empty($cur_user_review) ? __('Update Rating:', ATBDP_TEXTDOMAIN) : __('Your Rating:', ATBDP_TEXTDOMAIN); ?></p>
+                                        <div class="atbd_rating_stars">
+                                            <select class="stars" name="rating" id="review_rating">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                 <textarea name="content" id="review_content" class="form-control" cols="20" rows="5"
                                           placeholder="<?= !empty($cur_user_review) ? __('Update your review.....', ATBDP_TEXTDOMAIN) : __('Write your review.....', ATBDP_TEXTDOMAIN); ?>"><?= !empty($cur_user_review) ? $cur_user_review->content : ''; ?></textarea>
-                            </div>
+                                </div>
 
-                            <!-- <div class="form-group">
-                                 <div id="atbd_up_preview"></div>
-                                 <div class="atbd_upload_btn_wrap">
-                                     <label for="atbd_review_attachment">
-                                         <input type="file" id="atbd_review_attachment" hidden multiple>
-                                         <span class="btn atbd_upload_btn"><span class="fa fa-upload"></span>Upload Photo</span>
-                                     </label>
-                                 </div>
-                             </div>-->
+                                <!-- <div class="form-group">
+                                     <div id="atbd_up_preview"></div>
+                                     <div class="atbd_upload_btn_wrap">
+                                         <label for="atbd_review_attachment">
+                                             <input type="file" id="atbd_review_attachment" hidden multiple>
+                                             <span class="btn atbd_upload_btn"><span class="fa fa-upload"></span>Upload Photo</span>
+                                         </label>
+                                     </div>
+                                 </div>-->
 
-                            <!--If current user has a review then show him update and delete button-->
-                            <?php if (!empty($cur_user_review)) { ?>
-                                <button class="<?= atbdp_directorist_button_classes(); ?>" type="submit"
-                                        id="atbdp_review_form_submit"><?php _e('Update', ATBDP_TEXTDOMAIN); ?></button> <!-- ends update  button -->
-                                <button class="btn btn-danger" type="button" id="atbdp_review_remove"
-                                        data-review_id="<?= $cur_user_review->id; ?>"><?php _e('Remove', ATBDP_TEXTDOMAIN); ?></button> <!-- ends delete button -->
-                            <?php } else { ?>
-                                <button class="btn btn-primary" type="submit"
-                                        id="atbdp_review_form_submit"><?php _e('Submit Review', ATBDP_TEXTDOMAIN); ?></button> <!-- submit button -->
-                            <?php } ?>
-                        </form>
-                    </div>
-                </div><!-- end .atbd_custom_fields_contents -->
-            <?php };
-        } else { ?>
-            <div class="atbd_notice alert alert-info" role="alert">
-                <span class="fa fa-info-circle" aria-hidden="true"></span>
-                <?php
-                // get the custom registration page id from the db and create a permalink
-                $reg_link_custom = ATBDP_Permalink::get_registration_page_link();
-                //if we have custom registration page, use it, else use the default registration url.
-                $reg_link = !empty($reg_link_custom) ? $reg_link_custom : wp_registration_url();
+                                <!--If current user has a review then show him update and delete button-->
+                                <?php if (!empty($cur_user_review)) { ?>
+                                    <button class="<?= atbdp_directorist_button_classes(); ?>" type="submit"
+                                            id="atbdp_review_form_submit"><?php _e('Update', ATBDP_TEXTDOMAIN); ?></button> <!-- ends update  button -->
+                                    <button class="btn btn-danger" type="button" id="atbdp_review_remove"
+                                            data-review_id="<?= $cur_user_review->id; ?>"><?php _e('Remove', ATBDP_TEXTDOMAIN); ?></button> <!-- ends delete button -->
+                                <?php } else { ?>
+                                    <button class="btn btn-primary" type="submit"
+                                            id="atbdp_review_form_submit"><?php _e('Submit Review', ATBDP_TEXTDOMAIN); ?></button> <!-- submit button -->
+                                <?php } ?>
+                            </form>
+                        </div>
+                    </div><!-- end .atbd_custom_fields_contents -->
+                <?php };
+            } else { ?>
+                <div class="atbd_notice alert alert-info" role="alert">
+                    <span class="fa fa-info-circle" aria-hidden="true"></span>
+                    <?php
+                    // get the custom registration page id from the db and create a permalink
+                    $reg_link_custom = ATBDP_Permalink::get_registration_page_link();
+                    //if we have custom registration page, use it, else use the default registration url.
+                    $reg_link = !empty($reg_link_custom) ? $reg_link_custom : wp_registration_url();
 
-                $login_url = '<a href="' . esc_url(wp_login_url()) . '">' . __('Login', ATBDP_TEXTDOMAIN) . '</a>';
-                $register_url = '<a href="' . esc_url($reg_link) . '">' . __('Register', ATBDP_TEXTDOMAIN) . '</a>';
+                    $login_url = '<a href="' . esc_url(wp_login_url()) . '">' . __('Login', ATBDP_TEXTDOMAIN) . '</a>';
+                    $register_url = '<a href="' . esc_url($reg_link) . '">' . __('Register', ATBDP_TEXTDOMAIN) . '</a>';
 
-                printf(__('You need to %s or %s to submit a review', ATBDP_TEXTDOMAIN), $login_url, $register_url);
-                ?>
-            </div>
-        <?php } ?>
-        <?php
+                    printf(__('You need to %s or %s to submit a review', ATBDP_TEXTDOMAIN), $login_url, $register_url);
+                    ?>
+                </div>
+            <?php } ?>
+            <?php
 
-        // if the count of review is more than the number of showing reviews then show the more review button, eg. here we will show the read more button  if the number of the review in the database is more than $review_num=5 default
-        if (!empty($reviews_count) && $reviews_count > $review_num) {
-            echo "<button class='directory_btn' type='button' id='load_more_review' data-id='{$post->ID}''>" . __('View More Review', ATBDP_TEXTDOMAIN) . "</button>";
-        }
-
+            // if the count of review is more than the number of showing reviews then show the more review button, eg. here we will show the read more button  if the number of the review in the database is more than $review_num=5 default
+            if (!empty($reviews_count) && $reviews_count > $review_num) {
+                echo "<button class='directory_btn' type='button' id='load_more_review' data-id='{$post->ID}''>" . __('View More Review', ATBDP_TEXTDOMAIN) . "</button>";
+            }
+             }
     }
+
+
+
+
+
 
 
     /**

@@ -531,7 +531,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     <?php
                                     $plan_phone = true;
                                     if (is_fee_manager_active()){
-                                        $plan_phone = is_plan_allowed_listing_phone();
+                                        $plan_phone = is_plan_allowed_listing_phone($fm_plan);
                                     }
                                     if ($plan_phone){
                                     ?>
@@ -545,7 +545,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     <?php }
                                     $plan_email = true;
                                     if (is_fee_manager_active()){
-                                        $plan_email = is_plan_allowed_listing_email();
+                                        $plan_email = is_plan_allowed_listing_email($fm_plan);
                                     }
                                     if ($plan_email){
                                         ?>
@@ -559,7 +559,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         <?php }
                                         $plan_webLink = true;
                                     if (is_fee_manager_active()){
-                                        $plan_webLink = is_plan_allowed_listing_webLink();
+                                        $plan_webLink = is_plan_allowed_listing_webLink($fm_plan);
                                     }
                                     if ($plan_webLink){
                                     ?>
@@ -571,13 +571,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                class="form-control directory_field"
                                                placeholder="<?php esc_attr_e('Listing website eg. http://example.com', ATBDP_TEXTDOMAIN); ?>"/>
                                     </div>
-                                    <?php }
-                                    $plan_social_networks = true;
-                                    if (is_fee_manager_active()){
-                                        $plan_social_networks = is_plan_allowed_listing_social_networks();
-                                    }
-                                    if ($plan_social_networks){
-                                    ?>
+                                    <?php } ?>
                                     <div class="form-group">
                                         <?php
                                         /**
@@ -587,10 +581,13 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                          * @since 1.1.1
                                          **/
                                         do_action('atbdp_edit_before_social_info_fields', 'add_listing_page_frontend', $listing_info);
-
-
-                                        ATBDP()->load_template('meta-partials/social', array('social_info' => $social_info));
-
+                                        $plan_social_networks = true;
+                                        if (is_fee_manager_active()){
+                                            $plan_social_networks = is_plan_allowed_listing_social_networks($fm_plan);
+                                        }
+                                        if ($plan_social_networks) {
+                                            ATBDP()->load_template('meta-partials/social', array('social_info' => $social_info));
+                                        }
                                         /**
                                          * It fires after social information fields
                                          * @param string $type Page type.
@@ -601,13 +598,12 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                                         ?>
                                     </div>
-                                    <?php } ?>
                                 </div>
                             </div><!-- end .atbd_general_information_module -->
                             <?php
                             $plan_hours = true;
                             if (is_fee_manager_active()){
-                                $plan_hours = is_plan_allowed_business_hours();
+                                $plan_hours = is_plan_allowed_business_hours($fm_plan);
                             }
                             if (is_business_hour_active() && $plan_hours) {
                                 ?>
@@ -756,7 +752,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     <?php
                                     $plan_video = true;
                                     if (is_fee_manager_active()){
-                                        $plan_video =is_plan_allowed_listing_video();
+                                        $plan_video =is_plan_allowed_listing_video($fm_plan);
                                     }
                                     if ($enable_video_url && $plan_video) {
                                         ?>

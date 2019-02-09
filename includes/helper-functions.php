@@ -2120,7 +2120,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                         <?php
                                         $plan_hours = true;
                                         if (class_exists('ATBDP_Fee_Manager')) {
-                                            $plan_hours = is_plan_allowed_business_hours();
+                                            $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(),'_fm_plans', true));
                                         }
                                         if (is_business_hour_active() && $plan_hours) {
                                             //lets check is it 24/7
@@ -2436,7 +2436,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                         <?php
                                         $plan_hours = true;
                                         if (class_exists('ATBDP_Fee_Manager')) {
-                                            $plan_hours = is_plan_allowed_business_hours();
+                                            $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(),'_fm_plans', true));
                                         }
                                         if (is_business_hour_active() && $plan_hours) {
                                             //lets check is it 24/7
@@ -2872,7 +2872,7 @@ function listing_view_by_list($all_listings, $view, $current_order)
                                                 <?php
                                                 $plan_hours = true;
                                                 if (class_exists('ATBDP_Fee_Manager')) {
-                                                    $plan_hours = is_plan_allowed_business_hours();
+                                                    $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(),'_fm_plans', true));
                                                 }
                                                 if (is_business_hour_active() && $plan_hours) {
                                                     //lets check is it 24/7

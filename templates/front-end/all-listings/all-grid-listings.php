@@ -195,7 +195,7 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                     <?php
                                     $plan_hours = true;
                                     if (is_fee_manager_active()){
-                                        $plan_hours = is_plan_allowed_business_hours();
+                                        $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(),'_fm_plans', true));
                                     }
                                     if (is_business_hour_active() && $plan_hours){
                                         //lets check is it 24/7

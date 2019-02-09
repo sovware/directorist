@@ -1,5 +1,6 @@
 <?php
 $listing_id = $post->ID;
+$fm_plan = get_post_meta($listing_id, '_fm_plans', true);
 /*store all data in an array so that we can pass it to filters for extension to get this value*/
 $listing_info['never_expire']       = get_post_meta($post->ID, '_never_expire', true);
 $listing_info['featured']           = get_post_meta($post->ID, '_featured', true);
@@ -476,11 +477,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                         ?>
 
                             <?php
-                            $plan_video = true;
-                            if (is_fee_manager_active()){
-                                $plan_video =is_plan_allowed_listing_video();
-                            }
-            if ($enable_video_url && $plan_video && !empty($videourl)) { ?>
+
+            if ($enable_video_url && !empty($videourl)) { ?>
                 <div class="atbd_content_module atbd_custom_fields_contents">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
@@ -585,7 +583,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
             // if business hour is active then add the following markup...
             $plan_hours = true;
             if (is_fee_manager_active()){
-                $plan_hours = is_plan_allowed_business_hours();
+                $plan_hours = is_plan_allowed_business_hours($fm_plan);
             }
             if (is_business_hour_active() && $plan_hours && (!is_empty_v($business_hours) || !empty($enable247hour))) {
                 BD_Business_Hour()->show_business_hour_module($business_hours, $business_hour_title, $enable247hour); // show the business hour in an unordered list
@@ -620,17 +618,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
              * @param object|WP_post $post The current post object which is our listing post
              * @param array $listing_info The meta information of the current listing
              */
-            $plan_review = true;
-            if (is_fee_manager_active()){
-                $plan_review = is_plan_allowed_listing_review();
-            }
-            if ($plan_review) {
+
                 do_action('atbdp_after_map', $post, $listing_info);
-            }
-            ?>
-
-
-            <?php
 
             /**
              * Fires after the single listing is rendered on single listing page

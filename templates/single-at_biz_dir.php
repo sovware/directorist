@@ -385,7 +385,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
             $meta_array =array(
                     'key' => 'category_pass',
                     'value' => $term_id,
-                    'compare' => 'LIKE'
+                    'compare' => 'EXISTS'
                 );
 
             if (('-1' === $term_id) || empty($term_id)){
@@ -397,7 +397,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                             array(
                                 'key' => 'category_pass',
                                 'value' => $value->term_id,
-                                'compare' => 'LIKE'
+                                'compare' => 'EXISTS'
                             )
                         );
                     }
@@ -411,7 +411,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                 'meta_query'  => array(
                         'relation' => 'OR',
                     array(
-                            'key'   => 'associated',
+                            'key'   => 'associate',
                             'value' => 'form',
                             'compare' => 'EXISTS'
                     ),

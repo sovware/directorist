@@ -53,6 +53,7 @@ $business_hour_title    = get_directorist_option('business_hour_title',  __('Bus
 
 $bdbh                   = get_post_meta($listing_id, '_bdbh', true);
 $enable247hour          = get_post_meta($listing_id, '_enable247hour', true);
+$disable_bz_hour_listing          = get_post_meta($listing_id, '_disable_bz_hour_listing', true);
 $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
 
 /*Code for Business Hour Extensions*/
@@ -589,7 +590,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
             if (is_fee_manager_active()){
                 $plan_hours = is_plan_allowed_business_hours($fm_plan);
             }
-            if (is_business_hour_active() && $plan_hours && (!is_empty_v($business_hours) || !empty($enable247hour))) {
+            if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing) && (!is_empty_v($business_hours) || !empty($enable247hour))) {
                 BD_Business_Hour()->show_business_hour_module($business_hours, $business_hour_title, $enable247hour); // show the business hour in an unordered list
             } ?>
 

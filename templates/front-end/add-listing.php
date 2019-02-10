@@ -29,6 +29,7 @@ if (!empty($p_id)) {
     $listing_info['hide_map'] = get_post_meta($p_id, '_hide_map', true);
     $listing_info['bdbh'] = get_post_meta($p_id, '_bdbh', true);
     $listing_info['enable247hour'] = get_post_meta($p_id, '_enable247hour', true);
+    $listing_info['disable_bz_hour_listing'] = get_post_meta($p_id, '_disable_bz_hour_listing', true);
     $listing_info['listing_img'] = get_post_meta($p_id, '_listing_img', true);
     $listing_info['listing_prv_img'] = get_post_meta($p_id, '_listing_prv_img', true);
     $listing_info['hide_contact_info'] = get_post_meta($p_id, '_hide_contact_info', true);

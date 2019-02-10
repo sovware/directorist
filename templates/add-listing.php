@@ -284,14 +284,14 @@ $currency = get_directorist_option('g_currency', 'USD');
         <?php
 
         if ($term_id_selected) {
+            foreach ($term_id_selected as $single_term){
             ?>
             <div id="atbdp-custom-fields-list-selected" data-post_id="<?php echo $post_ID; ?>">
                 <?php
-                $selected_category = !empty($term_id_selected) ? $term_id_selected : '';
-                do_action('wp_ajax_atbdp_custom_fields_listings_selected', $post_ID, $selected_category); ?>
+                do_action('wp_ajax_atbdp_custom_fields_listings_selected', $post_ID, $single_term); ?>
             </div>
             <?php
-        }
+        }}
         ?>
     </div>
 

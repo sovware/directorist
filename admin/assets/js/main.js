@@ -424,9 +424,6 @@ jQuery(function($){
                     $('[data-toggle="tooltip"]').tooltip();
                 }
             }
-
-
-
         });
 
         //$('#atbdp-custom-fields-list-selected').hide();
@@ -439,8 +436,7 @@ jQuery(function($){
      if (!selected_cat) {
 
      } else {
-         $(window).on("load", function () {
-
+         $(document).ready( function () {
              var getid = $('#at_biz_dir-categorychecklist input:checked').last().val();
              var matchid = $('#at_biz_dir-categorychecklist input:checked').last().val();
 
@@ -450,22 +446,8 @@ jQuery(function($){
                  'post_id': $('#atbdp-custom-fields-list-selected').data('post_id'),
                  'term_id': selected_cat
              };
-             var i;
-             var numberOfTermSelected = selected_cat.length;
 
-             for (i = 0; i<numberOfTermSelected; i++ ){
                  $.post(ajaxurl, data, function (response) {
-
-                     $('#at_biz_dir-categorychecklist input[type="checkbox"]').on('click', function(){
-                         if($(this).is(':checked')){
-
-                         } else {
-                             var val = $(this).val();
-                             $('.block'+val).html(" ");
-                         }
-                     });
-
-                     if(matchid === getid) {
                          if(response != 0) {
                              $('.block'+getid).html(response);
                              $('[data-toggle="tooltip"]').tooltip();
@@ -473,15 +455,11 @@ jQuery(function($){
                              $('.block'+getid).html(" ");
                              $('[data-toggle="tooltip"]').tooltip();
                          }
-                     }
-
-
-
                  });
-             }
-
 
          });
+
+
      }
 });
 

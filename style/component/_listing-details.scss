@@ -504,18 +504,17 @@
         color: #fff;
         a{
           color: rgba(#fff, 0.8);
-          &:after{
-            content: ',';
+          display: block;
+          &:last-child{
+            span{
+              display: none;
+            }
           }
           &:hover{
             color: #fff;
           }
-        }
-        &:last-child{
-          a{
-            &:after{
-              content: none;
-            }
+          span{
+            display: inline-block;
           }
         }
       }

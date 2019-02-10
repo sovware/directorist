@@ -57,39 +57,36 @@ class ATBDP_Metabox {
                         )
                     )
                 );
+                $atbdp_query = new WP_Query( $args );
+                if ($atbdp_query->have_posts()){
+
+                    // Start the Loop
+                    global $post;
+                    // Process output
+                    ob_start();
+
+                    include ATBDP_TEMPLATES_DIR . 'add-listing-custom-field.php';
+                    wp_reset_postdata(); // Restore global post data stomped by the_post()
+                    $output = ob_get_clean();
+
+                    print $output;
+
+                    if( $ajax ) {
+                        wp_die();
+                    }
+                } else{
+                    // Process empty output
+                    ob_start();
+                    ?>
+                    <?php
+                    $output = ob_get_clean();
+                    print $output;
+                    //print "No data found !";
+                }
             }
         }
 
-        $atbdp_query = new WP_Query( $args );
 
-        if ($atbdp_query->have_posts()){
-
-
-            // Start the Loop
-            global $post;
-            // Process output
-            ob_start();
-
-            include ATBDP_TEMPLATES_DIR . 'add-listing-custom-field.php';
-            wp_reset_postdata(); // Restore global post data stomped by the_post()
-            $output = ob_get_clean();
-
-            print $output;
-
-            if( $ajax ) {
-                wp_die();
-            }
-        } else{
-            // Process empty output
-            ob_start();
-            ?>
-
-            <?php
-            $output = ob_get_clean();
-
-            print $output;
-            //print "No data found !";
-        }
     }
 
     /**

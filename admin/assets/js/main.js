@@ -433,11 +433,10 @@ jQuery(function($){
     var selected_cat = $('#at_biz_dir-categorychecklist input:checked').map(function() {
         return this.value
     }).get();
-
      if (!selected_cat) {
 
      } else {
-         $(window).ready( function () {
+         $(document).ready( function () {
              var getid = $('#at_biz_dir-categorychecklist input:checked').last().val();
              var matchid = $('#at_biz_dir-categorychecklist input:checked').last().val();
 
@@ -449,17 +448,6 @@ jQuery(function($){
              };
 
                  $.post(ajaxurl, data, function (response) {
-
-                     if($('#at_biz_dir-categorychecklist input[type="checkbox"]').is(':checked')){
-                         var val = $(this).val();
-                         $('.block'+val).css({display: "block"});
-                     } else {
-                         var val = $(this).val();
-                         $('.block'+val).html(" ");
-                         $('.block'+val).css({display: "none"});
-                     }
-
-                     if(matchid === getid) {
                          if(response != 0) {
                              $('.block'+getid).html(response);
                              $('[data-toggle="tooltip"]').tooltip();
@@ -467,9 +455,6 @@ jQuery(function($){
                              $('.block'+getid).html(" ");
                              $('[data-toggle="tooltip"]').tooltip();
                          }
-                     }
-
-
                  });
 
          });

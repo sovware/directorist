@@ -679,7 +679,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                         ATBDP()->enquirer->add_listing_scripts_styles();
                         ATBDP()->load_template('front-end/add-listing');
                     }else{
-                        ATBDP_Fee_Manager()->load_template('fee-plans');
+                        ATBDP_Pricing_Plans()->load_template('fee-plans');
                     }
                 }else{
                     ATBDP()->enquirer->add_listing_scripts_styles();

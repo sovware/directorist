@@ -100,7 +100,7 @@ class ATBDP_Checkout
                     'price' => $price,
                 );
             }
-       /*   if (class_exists('ATBDP_Fee_Manager')){
+       /*   if (class_exists('ATBDP_Pricing_Plans')){
                    $form_data[] = array(
                        'type' => 'checkbox',
                        'name' => 'feature',

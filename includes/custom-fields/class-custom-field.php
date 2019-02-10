@@ -47,7 +47,7 @@ class ATBDP_Custom_Field
     {
         global $wpdb;
         $objects = ATBDP_CUSTOM_FIELD_POST_TYPE;
-        $objects = array($objects, 'atbdp_fee_manager');
+        $objects = array($objects, 'ATBDP_Pricing_Plans');
 
         if (!empty($objects)) {
             foreach ($objects as $object) {
@@ -129,7 +129,7 @@ class ATBDP_Custom_Field
     function get_scporder_options_objects()
     {
         $atbdp_options = ATBDP_CUSTOM_FIELD_POST_TYPE;
-        $objects = array($atbdp_options, 'atbdp_fee_manager');
+        $objects = array($atbdp_options, 'ATBDP_Pricing_Plans');
         return $objects;
     }
 

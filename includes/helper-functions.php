@@ -2257,9 +2257,9 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                                                     foreach (array_slice($cats,1) as $cat) {
                                                                         $link = ATBDP_Permalink::get_category_archive($cat);
                                                                         $space = str_repeat(' ', 1);
-                                                                        $output []= "{$space}<a href='{$link}'>{$cat->name}</a>";
+                                                                        $output []= "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
                                                                         }?>
-                                                                        <span><?php echo join(',',$output);?></span>
+                                                                        <span><?php echo join($output);?></span>
                                                                 </span>
                                                             </span>
                                                             <?php } ?>
@@ -2576,9 +2576,9 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                                     foreach (array_slice($cats,1) as $cat) {
                                                                         $link = ATBDP_Permalink::get_category_archive($cat);
                                                                         $space = str_repeat(' ', 1);
-                                                                        $output []= "{$space}<a href='{$link}'>{$cat->name}</a>";
+                                                                        $output []= "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
                                                                          }?>
-                                                                        <span><?php echo join(',',$output);?></span>
+                                                                        <span><?php echo join($output);?></span>
                                                                 </span>
                                                             </span>
                                                             <?php } ?>
@@ -2949,9 +2949,9 @@ function listing_view_by_list($all_listings, $view, $current_order)
                                                                     foreach (array_slice($cats,1) as $cat) {
                                                                         $link = ATBDP_Permalink::get_category_archive($cat);
                                                                         $space = str_repeat(' ', 1);
-                                                                        $output []= "{$space}<a href='{$link}'>{$cat->name}</a>";
+                                                                        $output []= "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
                                                                         }?>
-                                                                <span><?php echo join(',',$output);?></span>
+                                                                <span><?php echo join($output);?></span>
                                                                 </span>
                                                             </span>
                                                     <?php } ?>

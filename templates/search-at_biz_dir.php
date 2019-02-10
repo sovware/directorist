@@ -285,9 +285,9 @@ $column_width = 100/$search_listing_columns .'%';
                                                                     foreach (array_slice($cats,1) as $cat) {
                                                                         $link = ATBDP_Permalink::get_category_archive($cat);
                                                                         $space = str_repeat(' ', 1);
-                                                                        $output []= "{$space}<a href='{$link}'>{$cat->name}</a>";
+                                                                        $output []= "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
                                                                         }?>
-                                                                            <span><?php echo join(',',$output);?></span>
+                                                                            <span><?php echo join($output);?></span>
                                                                 </span>
                                                             </span>
                                                                 <?php } ?>

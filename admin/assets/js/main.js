@@ -424,9 +424,6 @@ jQuery(function($){
                     $('[data-toggle="tooltip"]').tooltip();
                 }
             }
-
-
-
         });
 
         //$('#atbdp-custom-fields-list-selected').hide();
@@ -436,11 +433,11 @@ jQuery(function($){
     var selected_cat = $('#at_biz_dir-categorychecklist input:checked').map(function() {
         return this.value
     }).get();
+
      if (!selected_cat) {
 
      } else {
-         $(window).on("load", function () {
-
+         $(window).ready( function () {
              var getid = $('#at_biz_dir-categorychecklist input:checked').last().val();
              var matchid = $('#at_biz_dir-categorychecklist input:checked').last().val();
 
@@ -450,20 +447,17 @@ jQuery(function($){
                  'post_id': $('#atbdp-custom-fields-list-selected').data('post_id'),
                  'term_id': selected_cat
              };
-             var i;
-             var numberOfTermSelected = selected_cat.length;
 
-             for (i = 0; i<numberOfTermSelected; i++ ){
                  $.post(ajaxurl, data, function (response) {
 
-                     $('#at_biz_dir-categorychecklist input[type="checkbox"]').on('click', function(){
-                         if($(this).is(':checked')){
-
-                         } else {
-                             var val = $(this).val();
-                             $('.block'+val).html(" ");
-                         }
-                     });
+                     if($('#at_biz_dir-categorychecklist input[type="checkbox"]').is(':checked')){
+                         var val = $(this).val();
+                         $('.block'+val).css({display: "block"});
+                     } else {
+                         var val = $(this).val();
+                         $('.block'+val).html(" ");
+                         $('.block'+val).css({display: "none"});
+                     }
 
                      if(matchid === getid) {
                          if(response != 0) {
@@ -476,12 +470,11 @@ jQuery(function($){
                      }
 
 
-
                  });
-             }
-
 
          });
+
+
      }
 });
 

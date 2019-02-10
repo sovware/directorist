@@ -2218,7 +2218,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 #directorist.atbd_wrapper #atbdp-custom-fields-list {
-  margin: 13px 0 0 15px;
+  margin: 13px 0 0 0;
 }
 
 #directorist.atbd_wrapper .atbdp_social_field_wrapper {

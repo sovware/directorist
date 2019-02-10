@@ -309,18 +309,22 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
                                     if (!empty($cats)) {
                                         $numberOfCat = count($cats);
+                                        $output = array();
                                         foreach ($cats as $cat) {
+                                            $link = get_category_link($cat->term_id);
+                                            $space = str_repeat('&nbsp;', 1);
+                                            $output [] = "{$space}{$cat->name}";
+                                        }
                                             ?>
                                             <li>
                                                 <p class="directory_tag">
 
                                                     <span>
-                                                    <a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>"><?= $cat->name;?></a>
+                                                    <a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>"><?php echo join(',',$output);?></a>
                                                 </span>
                                                 </p>
                                             </li>
                                         <?php
-                                        }
                                     }
                                     ?>
                                 </ul>

@@ -44,7 +44,7 @@ class ATBDP_Metabox {
                     'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
                     'posts_per_page' => -1,
                     'meta_query'    => array(
-                        'relation' => 'AND',
+                        'relation' => 'OR',
                         array(
                             'key'       => 'category_pass',
                             'value'     => $term_id,

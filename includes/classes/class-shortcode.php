@@ -126,14 +126,10 @@ if ( !class_exists('ATBDP_Shortcode') ):
         public function search_result()
         {
             ob_start();
-            if( !isset( $_GET['q'] ) ) {
-                $no_result = get_directorist_option('no_result_found_text', __( 'Sorry, No Matched Results Found !', ATBDP_TEXTDOMAIN ));
-                return apply_filters('atbdp_no_result_found_text', "<span class='no-result'>".esc_html($no_result)."</span>");
-            }
             $paged = atbdp_get_paged_num();
             $srch_p_num = get_directorist_option('search_posts_num', 6);
             $paginate = get_directorist_option('paginate_search_results');
-            $s_string = sanitize_text_field( $_GET['q'] );// get the searched query
+            $s_string = !empty($_GET['q']) ? sanitize_text_field($_GET['q']) : '';// get the searched query
             $in_cat = !empty($_GET['in_cat']) ? sanitize_text_field($_GET['in_cat']) : '';
             $in_loc = !empty($_GET['in_loc']) ? sanitize_text_field($_GET['in_loc']) : '';
             $in_tag = !empty($_GET['in_tag']) ? sanitize_text_field($_GET['in_tag']) : '';

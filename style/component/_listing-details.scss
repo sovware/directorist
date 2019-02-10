@@ -504,8 +504,17 @@
         color: #fff;
         a{
           color: rgba(#fff, 0.8);
+          display: block;
+          &:last-child{
+            span{
+              display: none;
+            }
+          }
           &:hover{
             color: #fff;
+          }
+          span{
+            display: inline-block;
           }
         }
       }

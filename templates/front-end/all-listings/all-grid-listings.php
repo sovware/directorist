@@ -320,10 +320,13 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                                             <span class="atbd_cat_popup">  +<?php echo $totalTerm-1; ?>
                                                                 <span class="atbd_cat_popup_wrapper">
                                                                     <?php
+                                                                    $output = array();
                                                                     foreach (array_slice($cats,1) as $cat) {
-                                                                        ?>
-                                                                        <span><a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>"><?= $cat->name; ?></a></span>
-                                                                    <?php }?>
+                                                                        $link = ATBDP_Permalink::get_category_archive($cat);
+                                                                        $space = str_repeat(' ', 1);
+                                                                        $output []= "{$space}<a href='{$link}'>{$cat->name}</a>";
+                                                                         }?>
+                                                                    <span><?php echo join(',',$output);?></span>
                                                                 </span>
                                                             </span>
                                                             <?php } ?>

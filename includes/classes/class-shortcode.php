@@ -351,7 +351,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'ids'               => '',
                 'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                 'feature_only'      => '',
-                'popular_only'           => ''
+                'popular_only'      => ''
             ), $atts );
 
             $categories          = !empty($atts['category'] ) ? explode(',', $atts['category'] ) : '';

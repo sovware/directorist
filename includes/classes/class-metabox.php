@@ -247,6 +247,7 @@ wp_reset_postdata();
         $listing_contact_info['hide_map']               = get_post_meta($post->ID, '_hide_map', true);
         $listing_contact_info['bdbh']                  = get_post_meta($post->ID, '_bdbh', true);
         $listing_contact_info['enable247hour']         = get_post_meta($post->ID, '_enable247hour', true);
+        $listing_contact_info['disable_bz_hour_listing']         = get_post_meta($post->ID, '_disable_bz_hour_listing', true);
         $listing_contact_info['listing_img']            = get_post_meta($post->ID, '_listing_img', true);
         $listing_contact_info['hide_contact_info']      = get_post_meta($post->ID, '_hide_contact_info', true);
 
@@ -340,6 +341,7 @@ wp_reset_postdata();
         $metas['_social']            = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
         $metas['_faqs']              = !empty($p['faqs']) ? atbdp_sanitize_array($p['faqs']) : array(); // we are expecting array value
         $metas['_enable247hour']     = !empty($p['enable247hour']) ? sanitize_text_field($p['enable247hour']) : ''; // we are expecting array value
+        $metas['_disable_bz_hour_listing']     = !empty($p['disable_bz_hour_listing']) ? sanitize_text_field($p['disable_bz_hour_listing']) : ''; // we are expecting array value
         $metas['_bdbh']              = !empty($p['bdbh']) ? atbdp_sanitize_array($p['bdbh']) : array(); // we are expecting array value
         $metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
         $metas['_manual_lng']        = !empty($p['manual_lng'])? sanitize_text_field($p['manual_lng']) : '';

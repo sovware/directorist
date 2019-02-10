@@ -75,9 +75,15 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                     'controls' => apply_filters('atbdp_search_settings_controls', array(
                         'search_section' => array(
                             'type' => 'section',
-                            'title' => __('Search Settings', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Listing Search related settings here. After switching any option, Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('Search Form Settings', ATBDP_TEXTDOMAIN),
+                            'description' => __('You can Customize Search Form related settings here. After switching any option, Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_search_settings_fields(),
+                        ), // ends 'search_settings' section
+                        'search_result' => array(
+                            'type' => 'section',
+                            'title' => __('Search Result Settings', ATBDP_TEXTDOMAIN),
+                            'description' => __('You can Customize Search Result related settings here. After switching any option, Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_search_form_settings_fields(),
                         ), // ends 'search_settings' section
                     ) ),
                 ),
@@ -158,7 +164,7 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                     'controls' => apply_filters('atbdp_general_listings_controls', array(
                         'all_listing_section' => array(
                             'type' => 'section',
-                            'title'=> __('All Listings Page Setting',ATBDP_TEXTDOMAIN),
+                            'title'=> __('Listings Page Setting',ATBDP_TEXTDOMAIN),
                             'fields'=> $this->get_listings_page_settings_fields(),
                         ),
                         'emails' => array(
@@ -1187,6 +1193,24 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_listings_settings_fields', array(
                     array(
                         'type' => 'toggle',
+                        'name' => 'display_listings_header',
+                        'label' => __('Display Header', ATBDP_TEXTDOMAIN),
+                        'default' => 1,
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'all_listing_title',
+                        'label' => __('Header Title', ATBDP_TEXTDOMAIN),
+                        'default' => __('All Items', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'listings_header_sub_title',
+                        'label' => __('Header Sub-Title', ATBDP_TEXTDOMAIN),
+                        'default' => __('Total Listing Found: ', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'type' => 'toggle',
                         'name' => 'display_sort_by',
                         'label' => __('Display "Sort By" Dropdown', ATBDP_TEXTDOMAIN),
                         'default' => 1,
@@ -1585,16 +1609,7 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Search Bar Placeholder', ATBDP_TEXTDOMAIN),
                         'default' => atbdp_get_option('search_placeholder', 'atbdp_general'),
                     ),
-                    array(
-                        'type' => 'slider',
-                        'name' => 'search_listing_columns',
-                        'label' => __('Number of Columns', ATBDP_TEXTDOMAIN),
-                        'min' => '1',
-                        'max' => '10',
-                        'step' => '1',
-                        'default' => '3',
-                        'validation' => 'numeric|minlength[1]',
-                    ),
+
                     array(
                         'type' => 'toggle',
                         'name' => 'search_border',
@@ -1659,15 +1674,102 @@ The Administrator of ==SITE_NAME==
                         'validation' => 'numeric|minlength[1]',
                     ),
                     array(
-                        'type' => 'textbox',
-                        'name' => 'no_result_found_text',
-                        'label' => __('Not Found Text', ATBDP_TEXTDOMAIN),
-                        'default' => __( 'Sorry, No Matched Results Found!', ATBDP_TEXTDOMAIN ),
-                    ),
-                    array(
                         'type' => 'upload',
                         'name' => 'search_home_bg',
                         'label' => __('Search Page Background', ATBDP_TEXTDOMAIN),
+                    ),
+
+                )
+            );
+        }
+        /**
+         * Get all the settings fields for the listings search result section
+         * @since 4.0.0
+         * @return array
+         */
+        function get_search_form_settings_fields() {
+            return apply_filters('atbdp_search_result_settings_fields', array(
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'search_header',
+                        'label' => __('Display Header', ATBDP_TEXTDOMAIN),
+                        'default' => 1,
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'search_header_title',
+                        'label' => __('Header Title', ATBDP_TEXTDOMAIN),
+                        'default' => __('Search Result: ', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'search_header_sub_title',
+                        'label' => __('Header Sub-Title', ATBDP_TEXTDOMAIN),
+                        'default' => __('Total Listing Found: ', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'search_sort_by',
+                        'label' => __('Display "Sort By" Dropdown', ATBDP_TEXTDOMAIN),
+                        'default' => 1,
+                    ),
+                    array(
+                        'type' => 'select',
+                        'name' => 'search_order_listing_by',
+                        'label' => __( 'Order By', ATBDP_TEXTDOMAIN ),
+                        'items' => array(
+                            array(
+                                'value' => 'title',
+                                'label' => __('Title', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'date',
+                                'label' => __('Date', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'price',
+                                'label' => __('Price', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'date',
+                            'label' => __('Date', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    array(
+                        'type' => 'select',
+                        'name' => 'search_sort_listing_by',
+                        'label' => __( 'Sort By', ATBDP_TEXTDOMAIN ),
+                        'items' => array(
+                            array(
+                                'value' => 'asc',
+                                'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'desc',
+                                'label' => __('Descending', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'desc',
+                            'label' => __('Descending', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    array(
+                        'type' => 'slider',
+                        'name' => 'search_listing_columns',
+                        'label' => __('Number of Columns', ATBDP_TEXTDOMAIN),
+                        'min' => '1',
+                        'max' => '10',
+                        'step' => '1',
+                        'default' => '3',
+                        'validation' => 'numeric|minlength[1]',
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'paginate_search_results',
+                        'label' => __('Paginate Search Result', ATBDP_TEXTDOMAIN),
+                        'default' => 1,
                     ),
                     array(
                         'type' => 'slider',
@@ -1678,12 +1780,6 @@ The Administrator of ==SITE_NAME==
                         'step' => '1',
                         'default' => atbdp_get_option('search_posts_num', 'atbdp_general', 6),
                         'validation' => 'numeric|minlength[1]',
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'paginate_search_results',
-                        'label' => __('Paginate Search Result', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
                     ),
                 )
             );
@@ -2035,12 +2131,6 @@ The Administrator of ==SITE_NAME==
             $e_r_list = atbdp_get_option('enable_rel_listing', 'atbdp_general', 'yes');
 
             return apply_filters('atbdp_listings_settings_fields', array(
-                    array(
-                        'type' => 'textbox',
-                        'name' => 'all_listing_title',
-                        'label' => __('Title for all listing page', ATBDP_TEXTDOMAIN),
-                        'default' => atbdp_get_option('all_listing_title', 'atbdp_general'),
-                    ),
                     array(
                         'type' => 'toggle',
                         'name' => 'display_preview_image',

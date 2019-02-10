@@ -1,27 +1,32 @@
 <?php
 !empty($args['data']) ? extract($args['data']) : array(); // data array contains all required var.
-$all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
-$all_listing_title = !empty($all_listing_title) ? $all_listing_title : __('All Items', ATBDP_TEXTDOMAIN);
-$is_disable_price = get_directorist_option('disable_list_price');
-$display_sortby_dropdown = get_directorist_option('display_sort_by',1);
-$display_viewas_dropdown = get_directorist_option('display_view_as',1);
-$pagenation = get_directorist_option('paginate_all_listings',1);
+$all_listings               = !empty($all_listings) ? $all_listings : new WP_Query;
+$is_disable_price           = get_directorist_option('disable_list_price');
+$display_sortby_dropdown    = get_directorist_option('display_sort_by',1);
+$display_viewas_dropdown    = get_directorist_option('display_view_as',1);
+$pagenation                 = get_directorist_option('paginate_all_listings',1);
+$display_header             = !empty($display_header) ? $display_header : '';
+$header_title               = !empty($header_title) ? $header_title : '';
+$header_sub_title           = !empty($header_sub_title) ? $header_sub_title : '';
 ?>
 
 
 <div id="directorist" class="atbd_wrapper">
+    <?php if( $display_header == 'yes'  ) { ?>
     <div class="header_bar">
         <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
             <div class="row">
                 <div class="col-md-12">
                     <div class="atbd_generic_header">
                         <div class="atbd_generic_header_title">
+                            <?php if(!empty($header_title)) {?>
                             <h3>
-                                <?php echo esc_html($all_listing_title); ?>
+                                <?php echo esc_html($header_title); ?>
                             </h3>
+                            <?php } ?>
                             <p>
                                 <?php
-                                _e('Total Listing Found: ', ATBDP_TEXTDOMAIN);
+                                echo esc_html($header_sub_title) . ' ';
                                 if ($paginate){
                                     echo $all_listings->found_posts;
                                 }else{
@@ -79,6 +84,7 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
             </div>
         </div>
     </div>
+    <?php } ?>
     <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
         <?php
         $columns_number = $columns;
@@ -123,6 +129,7 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                 /*Code for Business Hour Extensions*/
                 $bdbh                   = get_post_meta(get_the_ID(), '_bdbh', true);
                 $enable247hour               = get_post_meta(get_the_ID(), '_enable247hour', true);
+                $disable_bz_hour_listing               = get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true);
                 $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
                 $author_id = get_the_author_meta( 'ID' );
                 $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
@@ -197,10 +204,10 @@ $pagenation = get_directorist_option('paginate_all_listings',1);
                                     if (is_fee_manager_active()){
                                         $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(),'_fm_plans', true));
                                     }
-                                    if (is_business_hour_active() && $plan_hours){
+                                    if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)){
                                         //lets check is it 24/7
                                         if (!empty($enable247hour)) {
-                                            $open =  get_directorist_option('open_badge_text');
+                                            $open =  get_directorist_option('open_badge_text',__('Open Now', ATBDP_TEXTDOMAIN));
                                             ?>
                                             <span class="atbd_upper_badge">
                                                         <span class="atbd_badge atbd_badge_open"><?php echo $open;?></span>

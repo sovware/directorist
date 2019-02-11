@@ -2119,7 +2119,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
 
                                         <?php
                                         $plan_hours = true;
-                                        if (class_exists('ATBDP_Pricing_Plans')) {
+                                        if (class_exists('ATBDP_Fee_Manager')) {
                                             $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(),'_fm_plans', true));
                                         }
                                         if (is_business_hour_active() && $plan_hours) {
@@ -2438,7 +2438,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
 
                                         <?php
                                         $plan_hours = true;
-                                        if (class_exists('ATBDP_Pricing_Plans')) {
+                                        if (class_exists('ATBDP_Fee_Manager')) {
                                             $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(),'_fm_plans', true));
                                         }
                                         if (is_business_hour_active() && $plan_hours) {
@@ -2945,6 +2945,6 @@ if (!function_exists('is_fee_manager_active')){
      */
     function is_fee_manager_active(){
         $FM_disabled_byAdmin = get_directorist_option('fee_manager_enable', 1);
-        return (class_exists('ATBDP_Pricing_Plans') && $FM_disabled_byAdmin) ? true : false;
+        return (class_exists('ATBDP_Fee_Manager') && $FM_disabled_byAdmin) ? true : false;
     }
 }

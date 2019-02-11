@@ -350,7 +350,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'tag'               => '',
                 'ids'               => '',
                 'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
-                'feature_only'      => '',
+                'featured_only'     => '',
                 'popular_only'      => ''
             ), $atts );
 
@@ -362,7 +362,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $display_header      = !empty($atts['header']) ? $atts['header'] : '';
             $header_title        = !empty($atts['header_title']) ? $atts['header_title'] : '';
             $header_sub_title    = !empty($atts['header_sub_title']) ? $atts['header_sub_title'] : '';
-            $feature_only        = !empty($atts['feature_only']) ? $atts['feature_only'] : '';
+            $feature_only        = !empty($atts['featured_only']) ? $atts['featured_only'] : '';
             $popular_only        = !empty($atts['popular_only']) ? $atts['popular_only'] : '';
             //for pagination
             $paged               = atbdp_get_paged_num();

@@ -2947,3 +2947,58 @@ if (!function_exists('is_fee_manager_active')){
         return (class_exists('ATBDP_Fee_Manager') && $FM_disabled_byAdmin) ? true : false;
     }
 }
+
+if ( !function_exists('atbdp_deactivate_reasons') ) {
+    /**
+     * Reasons for deactivate plugin
+     * @since 4.4.0
+     */
+    function atbdp_deactivate_reasons() {
+        $reasons = array(
+            array(
+                'id'          => 'could-not-understand',
+                'text'        => 'I couldn\'t understand how to make it work',
+                'type'        => 'textarea',
+                'placeholder' => 'Would you like us to assist you?'
+            ),
+            array(
+                'id'          => 'found-better-plugin',
+                'text'        => 'I found a better plugin',
+                'type'        => 'text',
+                'placeholder' => 'Which plugin?'
+            ),
+            array(
+                'id'          => 'not-have-that-feature',
+                'text'        => 'The plugin is great, but I need specific feature that you don\'t support',
+                'type'        => 'textarea',
+                'placeholder' => 'Could you tell us more about that feature?'
+            ),
+            array(
+                'id'          => 'is-not-working',
+                'text'        => 'The plugin is not working',
+                'type'        => 'textarea',
+                'placeholder' => 'Could you tell us a bit more whats not working?'
+            ),
+            array(
+                'id'          => 'looking-for-other',
+                'text'        => 'It\'s not what I was looking for',
+                'type'        => '',
+                'placeholder' => ''
+            ),
+            array(
+                'id'          => 'did-not-work-as-expected',
+                'text'        => 'The plugin didn\'t work as expected',
+                'type'        => 'textarea',
+                'placeholder' => 'What did you expect?'
+            ),
+            array(
+                'id'          => 'other',
+                'text'        => 'Other',
+                'type'        => 'textarea',
+                'placeholder' => 'Could you tell us a bit more?'
+            ),
+        );
+
+        return $reasons;
+    }
+}

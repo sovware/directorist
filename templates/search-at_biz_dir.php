@@ -86,9 +86,9 @@ $column_width           = 100/$search_listing_columns .'%';
                 if ( count($listings->posts) ) {
                     while ( $listings->have_posts() ) {
                         $listings->the_post();
-                        $l_ID = get_the_ID(); // cache it, save several functions calls.
-                        $cats =  get_the_terms($l_ID, ATBDP_CATEGORY);
-                        $locs =  get_the_terms($l_ID, ATBDP_LOCATION);
+                        $l_ID                 = get_the_ID(); // cache it, save several functions calls.
+                        $cats                 =  get_the_terms($l_ID, ATBDP_CATEGORY);
+                        $locs                 =  get_the_terms($l_ID, ATBDP_LOCATION);
                         $address              = get_post_meta(get_the_ID(), '_address', true);
                         $phone_number         = get_post_meta(get_the_Id(), '_phone', true);
                         $featured             = get_post_meta($l_ID, '_featured', true);

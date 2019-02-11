@@ -44,6 +44,8 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         add_action( 'wp_ajax_atbdp_public_add_remove_favorites', array($this, 'atbdp_public_add_remove_favorites') );
         add_action( 'wp_ajax_nopriv_atbdp_public_add_remove_favorites', array($this, 'atbdp_public_add_remove_favorites') );
 
+        add_action( 'wp_ajax_atbdp_submit-uninstall-reason', array( $this, 'uninstall_reason_submission' ) );
+        add_action( 'wp_ajax_nopriv_atbdp_submit-uninstall-reason', array( $this, 'uninstall_reason_submission' ) );
         //add_action( 'wp_ajax_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all') );
         //add_action( 'wp_ajax_nopriv_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all') );
     }
@@ -486,6 +488,56 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
         echo wp_json_encode( $data );
         wp_die();
+
+    }
+
+
+    public function atbdp_diactivate_reason_mail () {
+        global $wpdb;
+
+        if ( ! isset( $_POST['reason_id'] ) ) {
+            wp_send_json_error();
+        }
+        $site_name      = get_bloginfo( 'name' );
+        $current_user = wp_get_current_user();
+
+        $data = array(
+            'reason_id'     => sanitize_text_field( $_POST['reason_id'] ),
+            'url'           => home_url(),
+            'user_email'    => $current_user->user_email,
+            'user_name'     => $current_user->display_name,
+            'reason_info'   => isset( $_REQUEST['reason_info'] ) ? trim( stripslashes( $_REQUEST['reason_info'] ) ) : '',
+            'software'      => $_SERVER['SERVER_SOFTWARE'],
+            'php_version'   => phpversion(),
+            'mysql_version' => $wpdb->db_version(),
+            'wp_version'    => get_bloginfo( 'version' ),
+            'locale'        => get_locale(),
+            'multisite'     => is_multisite() ? 'Yes' : 'No'
+        );
+        $to = 'aazztech4@gmail.com';
+        $subject = 'Deactivate directorist plugin';
+        $message = $data['reason_info'];
+        $headers = 'From '. $data['user_email'];
+        return ATBDP()->email->send_mail( $to, $subject, $message, $headers ) ? true : false;
+    }
+
+    public function uninstall_reason_submission () {
+
+        $data = array( 'error' => 0 );
+
+        if( $this->atbdp_diactivate_reason_mail() ) {
+
+
+
+            $data['message'] = __( 'Thanks for information', ATBDP_TEXTDOMAIN );
+
+        }
+
+
+        echo wp_json_encode( $data );
+        wp_die();
+
+
 
     }
 

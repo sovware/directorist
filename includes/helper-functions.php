@@ -2102,7 +2102,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                             ?>
                                         </a>
                                         <?php if(!empty($display_author_image)) {
-                                            $author = get_userdata(get_current_user_id());
+                                            $author = get_userdata($author_id);
                                             ?>
                                             <div class="atbd_author">
                                                 <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $author->first_name.' '.$author->last_name;?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
@@ -2420,7 +2420,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                             ?>
                                         </a>
                                         <?php if(!empty($display_author_image)) {
-                                            $author = get_userdata(get_current_user_id());
+                                            $author = get_userdata($author_id);
                                             ?>
                                             <div class="atbd_author">
                                                 <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $author->first_name.' '.$author->last_name;?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
@@ -2908,7 +2908,7 @@ function listing_view_by_list($all_listings)
                                             </div>
                                         </li>
                                         <?php if (!empty($display_author_image)) {
-                                            $author = get_userdata(get_current_user_id());
+                                            $author = get_userdata($author_id);
                                             ?>
                                             <li class="atbd_author">
                                                 <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"

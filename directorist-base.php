@@ -233,6 +233,10 @@ final class Directorist_Base
             //review and rating
             add_action('atbdp_after_listing_tagline', array(self::$instance, 'show_review_after_tagliine')); // show rating after the tagline of the normal post on single page and also the search result page.
             add_action('atbdp_after_map', array(self::$instance, 'show_review'));
+            // plugin deactivated popup
+            add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , array(self::$instance, 'atbdp_plugin_link') );
+            add_action( 'admin_footer', array( self::$instance, 'atbdp_deactivate_popup' ) );
+
             // Attempt to create listing related custom pages with plugin's custom shortcode to give user best experience.
             // we can check the database if our custom pages have been installed correctly or not here first.
             // This way we can minimize the adding of our custom function to the WordPress hooks.
@@ -803,6 +807,170 @@ final class Directorist_Base
         </span>
         <?php
     }
+
+    /**
+     * Plugin links
+     * @since 4.4.0
+     * */
+    public function atbdp_plugin_link ($links) {
+        if ( array_key_exists( 'deactivate', $links ) ) {
+            $links['deactivate'] = str_replace( '<a', '<a class="atbdp-deactivate-popup"', $links['deactivate'] );
+        }
+
+        return $links;
+    }
+
+    /**
+     * Deactivate Reasons
+     * @since 4.4.0
+     */
+    public function atbdp_deactivate_popup () {
+        global $pagenow;
+
+        if ( 'plugins.php' != $pagenow ) {
+            return;
+        }
+        $deactivate_reasons = atbdp_deactivate_reasons();
+        ?>
+
+        <div class="aazz-deactivate" id="atbdp-aazz-deactivate">
+            <div class="aazz-deactivate-wrap">
+                <div class="aazz-deactivate-header">
+                    <h3><?php _e( 'Thank you for using our plugin. If you have time, please let us know why you are deactivate our plugin.', ATBDP_TEXTDOMAIN ); ?></h3>
+                </div>
+
+                <div class="aazz-deactivate-body">
+                    <ul class="reasons">
+                        <?php foreach ($deactivate_reasons as $reason) { ?>
+                            <li data-type="<?php echo esc_attr( $reason['type'] ); ?>" data-placeholder="<?php echo esc_attr( $reason['placeholder'] ); ?>">
+                                <label><input type="radio" name="selected-reason" value="<?php echo $reason['id']; ?>"> <?php echo $reason['text']; ?></label>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+
+                <div class="aazz-deactivate-footer">
+                    <a href="#" class="atbdp-no-comment"><?php _e( 'Skip & Deactivate', ATBDP_TEXTDOMAIN ); ?></a>
+                    <button class="atbdp-reason-submit atbdp-reason-submit"><?php _e( 'Submit & Deactivate', ATBDP_TEXTDOMAIN ); ?></button>
+                    <button class="button-primary"><?php _e( 'Cancel', ATBDP_TEXTDOMAIN ); ?></button>
+                </div>
+            </div>
+        </div>
+
+        <style type="text/css">
+            .aazz-deactivate {
+                right: 0;
+                bottom: 0;
+                left: 0;
+                position: fixed;
+                z-index: 99999;
+                top: 0;
+                background: rgba(0,0,0,0.5);
+                display: none;
+            }
+            .aazz-deactivate.modal-active {
+                display: block;
+            }
+            .aazz-deactivate-wrap {
+                width: 475px;
+                position: relative;
+                margin: 10% auto;
+                background: #fff;
+            }
+            .aazz-deactivate-header {
+                border-bottom: 1px solid #eee;
+                padding: 8px 20px;
+            }
+            .aazz-deactivate-header h3 {
+                line-height: 150%;
+                margin: 0;
+            }
+            .aazz-deactivate-body .reason-input {
+                margin-top: 5px;
+                margin-left: 20px;
+            }
+            .aazz-deactivate-body {
+                padding: 5px 20px 20px 20px;
+            }
+            .aazz-deactivate-footer {
+                border-top: 1px solid #eee;
+                padding: 12px 20px;
+                text-align: right;
+            }
+        </style>
+
+        <script type="text/javascript">
+            (function($) {
+                $(function() {
+                    var modal = $( '#atbdp-aazz-deactivate' );
+                    var deactivateLink = '';
+
+                    $( '#the-list' ).on('click', 'a.atbdp-deactivate-popup', function(e) {
+                        e.preventDefault();
+
+                        modal.addClass('modal-active');
+                        deactivateLink = $(this).attr('href');
+                        modal.find('a.atbdp-no-comment').attr('href', deactivateLink).css('float', 'left');
+                    });
+
+                    modal.on('click', 'button.button-primary', function(e) {
+                        e.preventDefault();
+
+                        modal.removeClass('modal-active');
+                    });
+
+                    modal.on('click', 'input[type="radio"]', function () {
+                        var parent = $(this).parents('li:first');
+
+                        modal.find('.reason-input').remove();
+
+                        var inputType = parent.data('type'),
+                            inputPlaceholder = parent.data('placeholder'),
+                            reasonInputHtml = '<div class="reason-input">' + ( ( 'text' === inputType ) ? '<input type="text" size="40" />' : '<textarea rows="5" cols="45"></textarea>' ) + '</div>';
+
+                        if ( inputType !== '' ) {
+                            parent.append( $(reasonInputHtml) );
+                            parent.find('input, textarea').attr('placeholder', inputPlaceholder).focus();
+                        }
+                    });
+
+                    modal.on('click', 'button.atbdp-reason-submit', function(e) {
+                        e.preventDefault();
+
+                        var button = $(this);
+
+                        if ( button.hasClass('disabled') ) {
+                            return;
+                        }
+
+                        var $radio = $( 'input[type="radio"]:checked', modal );
+
+                        var $selected_reason = $radio.parents('li:first'),
+                            $input = $selected_reason.find('textarea, input[type="text"]');
+
+                        $.ajax({
+                            url: ajaxurl,
+                            type: 'POST',
+                            data: {
+                                action: 'atbdp_submit-uninstall-reason',
+                                reason_id: ( 0 === $radio.length ) ? 'none' : $radio.val(),
+                                reason_info: ( 0 !== $input.length ) ? $input.val().trim() : ''
+                            },
+                            beforeSend: function() {
+                                button.addClass('disabled');
+                                button.text('Processing...');
+                            },
+                            complete: function() {
+                                window.location.href = deactivateLink;
+                            }
+                        });
+                    });
+                });
+            }(jQuery));
+        </script>
+        <?php
+    }
+
 
     /**
      * It displays reviews of the given post

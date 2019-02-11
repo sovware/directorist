@@ -398,4 +398,50 @@ css for Custom Field
   margin-bottom: 15px;
 }
 
+.aazz-deactivate {
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+}
+
+.aazz-deactivate.modal-active {
+  display: block;
+}
+
+.aazz-deactivate-wrap {
+  width: 475px;
+  position: relative;
+  margin: 10% auto;
+  background: #fff;
+}
+
+.aazz-deactivate-header {
+  border-bottom: 1px solid #eee;
+  padding: 8px 20px;
+}
+
+.aazz-deactivate-header h3 {
+  line-height: 150%;
+  margin: 0;
+}
+
+.aazz-deactivate-body {
+  padding: 5px 20px 20px 20px;
+}
+
+.aazz-deactivate-body .reason-input {
+  margin-top: 5px;
+  margin-left: 20px;
+}
+.aazz-deactivate-footer {
+  border-top: 1px solid #eee;
+  padding: 12px 20px;
+  text-align: right;
+}
+
 /*# sourceMappingURL=map/style.css.map */

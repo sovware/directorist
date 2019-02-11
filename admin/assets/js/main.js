@@ -437,6 +437,7 @@ jQuery(function($){
 
      } else {
          $(document).ready( function () {
+
              var getid = $('#at_biz_dir-categorychecklist input:checked').last().val();
              var matchid = $('#at_biz_dir-categorychecklist input:checked').last().val();
 

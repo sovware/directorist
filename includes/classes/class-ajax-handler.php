@@ -44,8 +44,8 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         add_action( 'wp_ajax_atbdp_public_add_remove_favorites', array($this, 'atbdp_public_add_remove_favorites') );
         add_action( 'wp_ajax_nopriv_atbdp_public_add_remove_favorites', array($this, 'atbdp_public_add_remove_favorites') );
 
-        add_action( 'wp_ajax_atbdp_submit-uninstall-reason', array( $this, 'uninstall_reason_submission' ) );
-        add_action( 'wp_ajax_nopriv_atbdp_submit-uninstall-reason', array( $this, 'uninstall_reason_submission' ) );
+        add_action( 'wp_ajax_atbdp_submit-uninstall-reason', array( $this, 'atbdp_deactivate_reason' ) );
+        add_action( 'wp_ajax_nopriv_atbdp_submit-uninstall-reason', array( $this, 'atbdp_deactivate_reason' ) );
         //add_action( 'wp_ajax_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all') );
         //add_action( 'wp_ajax_nopriv_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all') );
     }
@@ -514,14 +514,14 @@ if(!class_exists('ATBDP_Ajax_Handler')):
             'locale'        => get_locale(),
             'multisite'     => is_multisite() ? 'Yes' : 'No'
         );
-        $to = 'aazztech4@gmail.com';
+        $to = 'contact@aazztech.com';
         $subject = 'Deactivate directorist plugin';
         $message = $data['reason_info'];
         $headers = 'From '. $data['user_email'];
         return ATBDP()->email->send_mail( $to, $subject, $message, $headers ) ? true : false;
     }
 
-    public function uninstall_reason_submission () {
+    public function atbdp_deactivate_reason () {
 
         $data = array( 'error' => 0 );
 

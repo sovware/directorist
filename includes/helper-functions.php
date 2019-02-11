@@ -2966,7 +2966,7 @@ if ( !function_exists('atbdp_deactivate_reasons') ) {
                 'id'          => 'found-better-plugin',
                 'text'        => 'I found a better plugin',
                 'type'        => 'text',
-                'placeholder' => 'Which plugin?'
+                'placeholder' => 'What\'s the plugin\'s name?'
             ),
             array(
                 'id'          => 'not-have-that-feature',
@@ -2976,7 +2976,7 @@ if ( !function_exists('atbdp_deactivate_reasons') ) {
             ),
             array(
                 'id'          => 'is-not-working',
-                'text'        => 'The plugin is not working',
+                'text'        => 'I couldn\'t get the plugin not to work ',
                 'type'        => 'textarea',
                 'placeholder' => 'Could you tell us a bit more whats not working?'
             ),

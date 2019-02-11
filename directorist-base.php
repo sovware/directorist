@@ -833,13 +833,13 @@ final class Directorist_Base
         $deactivate_reasons = atbdp_deactivate_reasons();
         ?>
 
-        <div class="wd-dr-modal" id="atbdp-wd-dr-modal">
-            <div class="wd-dr-modal-wrap">
-                <div class="wd-dr-modal-header">
-                    <h3><?php _e( 'If you have a moment, please let us know why you are deactivating:', ATBDP_TEXTDOMAIN ); ?></h3>
+        <div class="aazz-deactivate" id="atbdp-aazz-deactivate">
+            <div class="aazz-deactivate-wrap">
+                <div class="aazz-deactivate-header">
+                    <h3><?php _e( 'Thank you for using our plugin. If you have time, please let us know why you are deactivate our plugin.', ATBDP_TEXTDOMAIN ); ?></h3>
                 </div>
 
-                <div class="wd-dr-modal-body">
+                <div class="aazz-deactivate-body">
                     <ul class="reasons">
                         <?php foreach ($deactivate_reasons as $reason) { ?>
                             <li data-type="<?php echo esc_attr( $reason['type'] ); ?>" data-placeholder="<?php echo esc_attr( $reason['placeholder'] ); ?>">
@@ -849,56 +849,50 @@ final class Directorist_Base
                     </ul>
                 </div>
 
-                <div class="wd-dr-modal-footer">
-                    <a href="#" class="dont-bother-me"><?php _e( 'I rather wouldn\'t say', ATBDP_TEXTDOMAIN ); ?></a>
-                    <button class="button-secondary"><?php _e( 'Submit & Deactivate', ATBDP_TEXTDOMAIN ); ?></button>
+                <div class="aazz-deactivate-footer">
+                    <a href="#" class="atbdp-no-comment"><?php _e( 'Skip & Deactivate', ATBDP_TEXTDOMAIN ); ?></a>
+                    <button class="atbdp-reason-submit atbdp-reason-submit"><?php _e( 'Submit & Deactivate', ATBDP_TEXTDOMAIN ); ?></button>
                     <button class="button-primary"><?php _e( 'Cancel', ATBDP_TEXTDOMAIN ); ?></button>
                 </div>
             </div>
         </div>
 
         <style type="text/css">
-            .wd-dr-modal {
-                position: fixed;
-                z-index: 99999;
-                top: 0;
+            .aazz-deactivate {
                 right: 0;
                 bottom: 0;
                 left: 0;
+                position: fixed;
+                z-index: 99999;
+                top: 0;
                 background: rgba(0,0,0,0.5);
                 display: none;
             }
-
-            .wd-dr-modal.modal-active {
+            .aazz-deactivate.modal-active {
                 display: block;
             }
-
-            .wd-dr-modal-wrap {
+            .aazz-deactivate-wrap {
                 width: 475px;
                 position: relative;
                 margin: 10% auto;
                 background: #fff;
             }
-
-            .wd-dr-modal-header {
+            .aazz-deactivate-header {
                 border-bottom: 1px solid #eee;
                 padding: 8px 20px;
             }
-
-            .wd-dr-modal-header h3 {
+            .aazz-deactivate-header h3 {
                 line-height: 150%;
                 margin: 0;
             }
-
-            .wd-dr-modal-body {
-                padding: 5px 20px 20px 20px;
-            }
-
-            .wd-dr-modal-body .reason-input {
+            .aazz-deactivate-body .reason-input {
                 margin-top: 5px;
                 margin-left: 20px;
             }
-            .wd-dr-modal-footer {
+            .aazz-deactivate-body {
+                padding: 5px 20px 20px 20px;
+            }
+            .aazz-deactivate-footer {
                 border-top: 1px solid #eee;
                 padding: 12px 20px;
                 text-align: right;
@@ -908,7 +902,7 @@ final class Directorist_Base
         <script type="text/javascript">
             (function($) {
                 $(function() {
-                    var modal = $( '#atbdp-wd-dr-modal' );
+                    var modal = $( '#atbdp-aazz-deactivate' );
                     var deactivateLink = '';
 
                     $( '#the-list' ).on('click', 'a.atbdp-deactivate-popup', function(e) {
@@ -916,7 +910,7 @@ final class Directorist_Base
 
                         modal.addClass('modal-active');
                         deactivateLink = $(this).attr('href');
-                        modal.find('a.dont-bother-me').attr('href', deactivateLink).css('float', 'left');
+                        modal.find('a.atbdp-no-comment').attr('href', deactivateLink).css('float', 'left');
                     });
 
                     modal.on('click', 'button.button-primary', function(e) {
@@ -940,7 +934,7 @@ final class Directorist_Base
                         }
                     });
 
-                    modal.on('click', 'button.button-secondary', function(e) {
+                    modal.on('click', 'button.atbdp-reason-submit', function(e) {
                         e.preventDefault();
 
                         var button = $(this);

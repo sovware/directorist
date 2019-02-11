@@ -129,7 +129,7 @@ class ATBDP_Custom_Field
     function get_scporder_options_objects()
     {
         $atbdp_options = ATBDP_CUSTOM_FIELD_POST_TYPE;
-        $objects = array($atbdp_options, 'ATBDP_Pricing_Plans');
+        $objects = array($atbdp_options, 'atbdp_pricing_plans');
         return $objects;
     }
 

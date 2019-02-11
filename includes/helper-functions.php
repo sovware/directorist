@@ -2802,7 +2802,8 @@ function listing_view_by_list($all_listings)
 
                                     <?php
                                     $plan_hours = true;
-                                    if (class_exists('ATBDP_Fee_Manager')) {
+
+                                    if (is_fee_manager_active()) {
                                         $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(),'_fm_plans', true));
                                     }
                                     if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {

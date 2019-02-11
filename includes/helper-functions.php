@@ -2834,22 +2834,8 @@ function listing_view_by_list($all_listings)
                                                         <span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number)); ?>
                                                     </p></li>
                                                 <?php
-                                                $plan_hours = true;
-                                                if (class_exists('ATBDP_Pricing_Plans')) {
-                                                    $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(),'_fm_plans', true));
-                                                }
-                                                if (is_business_hour_active() && $plan_hours) {
-                                                    //lets check is it 24/7
-                                                    if (!empty($enable247hour)) {
-                                                        $open = get_directorist_option('open_badge_text');
-                                                        ?>
-                                                        <span class="atbd_badge atbd_badge_open"><?php echo $open; ?></span>
-                                                        <?php
-                                                    } else {
-                                                        BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list
-                                                    }
-                                                } ?>
-                                            </div><!-- End atbd listing meta -->
+                                            }
+                                        }
 
                                         if (!empty($display_publish_date)) { ?>
                                             <li><p><span class="fa fa-clock-o"></span><?php

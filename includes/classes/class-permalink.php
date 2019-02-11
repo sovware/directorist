@@ -114,7 +114,7 @@ class ATBDP_Permalink{
         $link = home_url();
         $id = get_directorist_option('add_listing_page');
         if( $id ) $link = get_permalink( $id )."?plan=$plan_id";
-        return apply_filters('atbdp_add_listing_page_url', $link );
+        return apply_filters('atbdp_add_listing_with_plan_page_url', $link );
     }
 
     /**

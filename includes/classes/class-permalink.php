@@ -124,7 +124,7 @@ class ATBDP_Permalink{
     public static function get_fee_plan_page_link()
     {
         $link = home_url();
-        $id = get_directorist_option('fee_plan_page'); // get the page id of the dashboard page.
+        $id = get_directorist_option('pricing_plans'); // get the page id of the dashboard page.
         if( $id )  $link = get_permalink( $id );
         return apply_filters('atbdp_fee_plan_page_url', $link );
     }

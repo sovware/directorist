@@ -166,12 +166,12 @@ class ATBDP_Gateway{
      */
     public function get_monetize_by_subscription_fields()
     {
-        $fee_manager = '<a style="color: red" href="https://aazztech.com/product/directorist-fee-manager" target="_blank">Fee Manager</a>';
+        $pricing_plan = '<a style="color: red" href="https://aazztech.com/product/directorist-fee-manager" target="_blank">Pricing Plans</a>';
         return apply_filters('atbdp_monetization_by_subscription_settings_fields', array(
                 array(
                     'type' => 'notebox',
                     'name' => 'monetization_promotion',
-                    'description' => sprintf(__('Monetize your website by selling listing plans using %s extension.', ATBDP_TEXTDOMAIN), $fee_manager),
+                    'description' => sprintf(__('Monetize your website by selling listing plans using %s extension.', ATBDP_TEXTDOMAIN), $pricing_plan),
                 ),
             )
         );

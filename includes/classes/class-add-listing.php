@@ -215,7 +215,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                        }
 
                     }
-
+                    /**
+                     * @since 4.4.0
+                     *
+                     */
+                    do_action('atbdp_after_add_listing_afrer_validation');
 
                     // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
                     if (!empty($_POST['listing_id'])){

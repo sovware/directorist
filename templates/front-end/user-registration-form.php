@@ -84,6 +84,12 @@
                                     <textarea id="bio" class="form-control" name="bio" rows="10"><?= ( isset( $_POST['bio']) ? esc_textarea($_POST['bio']) : null ); ?></textarea>
 
                                 </div>
+                                <?php
+                                /*
+                                 * @since 4.4.0
+                                 */
+                                do_action('atbdp_before_user_registration_submit');
+                                ?>
 
                                 <div class="directory_regi_btn">
                                     <button type="submit" class="btn btn-primary btn-lg" name="atbdp_user_submit"><?php _e('Sign Up', ATBDP_TEXTDOMAIN); ?></button>

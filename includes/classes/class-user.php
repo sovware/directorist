@@ -194,6 +194,13 @@ class ATBDP_User {
     public function handle_user_registration() {
         // if the form is submitted then save the form
         if ( isset($_POST['atbdp_user_submit'] ) ) {
+            /**
+             * It fires before processing a submitted registration from the front end
+             * @param array $_POST the array containing the submitted listing data.
+             * @since 4.4.0
+             * */
+            do_action('atbdp_before_processing_submitted_user_registration', $_POST);
+
                 $username = !empty($_POST['username']) ? $_POST[ 'username' ] : '';
                 $password = !empty($_POST['password']) ? $_POST[ 'password' ] : '';
                 $email = !empty($_POST['email']) ? $_POST[ 'email' ] : '';

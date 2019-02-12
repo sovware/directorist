@@ -61,7 +61,6 @@ if (!class_exists('ATBDP_Add_Listing')):
         /**
          * It inserts & Updates a listing to the database and redirects use to the checkout page
          * when a new post is saved & monetization is active
-         * @return void
          */
         public function add_listing_to_db() {
 

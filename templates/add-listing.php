@@ -252,6 +252,12 @@ $currency = get_directorist_option('g_currency', 'USD');
                         printf('<input type="color" name="custom_field[%d]" class="my-color-field2" value="%s" />', $post->ID, $value);
                         echo '</div>';
                         break;
+
+                    case 'time'  :
+                        echo '<div>';
+                        printf('<input type="time" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
+                        echo '</div>';
+                        break;
                 }
                 ?>
             </div>

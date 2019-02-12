@@ -63,8 +63,16 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 <div class="form-group">
                                     <textarea class="form-control" id="atbdp-contact-message" rows="3" placeholder="<?php _e( 'Message', ATBDP_TEXTDOMAIN ); ?>..." required ></textarea>
                                 </div>
+                                <?php
+                                /**
+                                 * It fires before contact form in the widget area
+                                 * @since 4.4.0
+                                 */
 
+                                do_action('atbdp_before_submit_contact_form_inWidget');
+                                ?>
                                 <p id="atbdp-contact-message-display"></p>
+
                                 <button type="submit" class="btn btn-primary"><?php _e( 'Submit', ATBDP_TEXTDOMAIN ); ?></button>
                             </form>
                         </div>

@@ -393,6 +393,12 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                     printf('<input type="text" name="custom_field[%d]" id="color_code2" class="my-color-field" value="%s"/>', $post->ID, $value);
                                                     echo '</div>';
                                                     break;
+
+                                            case 'time'  :
+                                                echo '<div>';
+                                                printf('<input type="time" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
+                                                echo '</div>';
+                                                break;
                                             }
                                             ?>
                                     </div>

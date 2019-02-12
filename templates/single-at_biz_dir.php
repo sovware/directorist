@@ -464,7 +464,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                                     <div class="atbd_custom_field_content">
                                                         <p><?php if ('color' == $field_type) {
                                                                 printf('<div class="atbd_field_type_color" style="background-color: %s;"></div>', $field_details);
-                                                            } else {
+                                                            } elseif($field_type === 'time'){
+                                                                echo date('h:i A', strtotime($field_details));
+                                                            }else {
                                                                 echo esc_attr(ucwords($field_details));
                                                             } ?></p>
                                                     </div>

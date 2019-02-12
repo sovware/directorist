@@ -551,7 +551,7 @@ class ATBDP_Custom_Field
             'url' => __('URL', ATBDP_TEXTDOMAIN),
             'date' => __('Date', ATBDP_TEXTDOMAIN),
             'color' => __('Color', ATBDP_TEXTDOMAIN),
-            'email' => __('Email', ATBDP_TEXTDOMAIN)
+            'time' => __('Time', ATBDP_TEXTDOMAIN)
         );
 
         // Return

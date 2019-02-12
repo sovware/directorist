@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.0.3
-Stable tag: 4.3.1
+Stable tag: 4.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -140,10 +140,17 @@ Note: It is best to use it in a page with full-width template if possible for th
 
 == Changelog ==
 
-= 4.4.0 - FEBRUARY 7, 2019 =
+= 4.4.0 - FEBRUARY 11, 2019 =
 * Add - Show/hide option for header area of listings page
 * Add - Header title & sub-title changing options
 * Add - 'Sort by' filter on search result page
+* Add – Two new parameters ‘featured_only’ and ‘popular_only’ in [directorist_all_listing] shortcode to display featured and popular listings anywhere
+
+= 4.3.1 - FEBRUARY 9, 2019 =
+Fix – Custom Fields issue
+Fix – Search result
+Fix – Some design related issues
+Fix – Category in listings
 
 = 4.3.0 - FEBRUARY 7, 2019 =
 * Add - Multiple Categories support

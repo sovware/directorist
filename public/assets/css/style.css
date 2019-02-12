@@ -1104,6 +1104,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   opacity: 1;
 }
 
+#directorist.atbd_wrapper .related__carousel .slick-track {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .atbd_content_active #directorist.atbd_wrapper p {
   margin: 0;
   padding: 0;

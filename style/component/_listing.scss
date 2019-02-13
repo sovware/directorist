@@ -104,6 +104,10 @@
         }
         .atbd_listing_info{
           flex: 2;
+          display: flex;
+          flex-direction: column;
+          align-content: space-between;
+          justify-content: space-between;
         }
       }
     }
@@ -218,7 +222,8 @@
         .atbd_author{
           position: absolute;
           right: 15px;
-          bottom: -13px;
+          bottom:0;
+          transform: translateY(50%);
           width: 42px;
           height: 42px;
           a{
@@ -253,6 +258,21 @@
     }
     .dropdown+.dropdown{
       margin-left: 10px;
+    }
+  }
+}
+
+#directorist.atbd_wrapper .atbd_single_line_card_info{
+  .atbd_listing_info{
+    .atbd_content_upper{
+      .atbd_listing_title,
+      .atbd_listing_tagline,
+      .atbd_listing_data_list ul li p,
+      .atbd_excerpt_content{
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
     }
   }
 }

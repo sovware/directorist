@@ -164,7 +164,7 @@ $header_sub_title           = !empty($header_sub_title) ? $header_sub_title : ''
                 ?>
 
                 <div class="<?php echo $span; ?>">
-                    <div class="atbd_single_listing atbd_listing_card">
+                    <div class="atbd_single_listing atbd_listing_card atbd_single_line_card_info">
                         <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                             <figure class="atbd_listing_thumbnail_area" style=" <?php echo empty(get_directorist_option('display_preview_image',1))?'display:none':''?>">
                                 <div class="atbd_listing_image">

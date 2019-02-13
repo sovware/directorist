@@ -2287,9 +2287,15 @@ The Administrator of ==SITE_NAME==
                     ),
                     array(
                         'type' => 'toggle',
+                        'name' => 'disable_masonry',
+                        'label' => __('Disable Masonry form Grid', ATBDP_TEXTDOMAIN),
+                        'default' => '0',
+                    ),
+                    array(
+                        'type' => 'toggle',
                         'name' => 'display_infoIn_oneLine',
                         'label' => __('Grid Info Show in Single Line', ATBDP_TEXTDOMAIN),
-                        'default' => '1',
+                        'default' => '0',
                     ),
                     array(
                         'type' => 'toggle',

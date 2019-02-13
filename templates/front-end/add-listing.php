@@ -126,7 +126,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                             <div class="atbdb_content_module_contents">
                                 <div class="form-group">
                                     <label for="listing_title"><?php esc_html_e('Title:', ATBDP_TEXTDOMAIN);
-                                        echo '<span style="color: red"> *</span>'; ?></label>
+                                        if(get_directorist_option('require_title',1)){echo '<span class="atbdp_make_str_red"> *</span>';} ?></label>
                                     <input type="text" name="listing_title"
                                            value="<?= !empty($listing->post_title) ? esc_attr($listing->post_title) : ''; ?>"
                                            class="form-control directory_field"
@@ -134,7 +134,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="listing_content"><?php esc_html_e('Long Description', ATBDP_TEXTDOMAIN) ?></label>
+                                    <label for="listing_content"><?php esc_html_e('Long Description', ATBDP_TEXTDOMAIN) ;if(get_directorist_option('require_long_details')){echo '<span class="atbdp_make_str_red"> *</span>';}?></label>
                                     <?php wp_editor(
                                         !empty($listing->post_content) ? wp_kses($listing->post_content, wp_kses_allowed_html('post')) : '',
                                         'listing_content',
@@ -146,7 +146,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 </div>
                                 <?php if (get_directorist_option('enable_tagline')){ ?>
                                     <div class="form-group">
-                                        <label for="atbdp_excerpt"><?php esc_html_e('Tagline', ATBDP_TEXTDOMAIN); ?></label>
+                                        <label for="atbdp_excerpt"><?php esc_html_e('Tagline', ATBDP_TEXTDOMAIN);if(get_directorist_option('require_tags')){echo '<span class="atbdp_make_str_red"> *</span>';} ?></label>
                                         <input type="text" name="tagline"
                                                id="has_tagline"
                                                value="<?= !empty($tagline) ? esc_attr($tagline) : ''; ?>"
@@ -166,7 +166,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                 <?php
                                                 $currency = get_directorist_option('g_currency', 'USD');
                                                 /*Translator: % is the name of the currency such eg. USD etc.*/
-                                                printf(esc_html__('Price [%s]', ATBDP_TEXTDOMAIN), $currency); ?>
+                                                printf(esc_html__('Price [%s]%s', ATBDP_TEXTDOMAIN), $currency,get_directorist_option('require_price')?'<span class="atbdp_make_str_red">*</span>':''); ?>
                                             </label>
                                             <?php
                                             $plan_average_price = true;
@@ -179,7 +179,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                 <label for="price_range_selected" data-option="price_range">
                                                     <input type="checkbox" id="price_range_selected"
                                                            name="atbd_listing_pricing">
-                                                    <?php echo __('Price Range', ATBDP_TEXTDOMAIN); ?>
+                                                    <?php echo __('Price Range', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_price_range')?'<span class="atbdp_make_str_red">*</span>':'';?>
                                                     <!--<p id='price_range_option'><?php /*echo __('Price Range', ATBDP_TEXTDOMAIN); */ ?></p></label>-->
                                                 </label>
                                                 <?php
@@ -225,7 +225,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 <?php } ?>
                                 <?php if (get_directorist_option('enable_excerpt')){ ?>
                                     <div class="form-group">
-                                        <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN) ?></label>
+                                        <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_excerpt')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
                                         <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
                                         <input type="hidden" id="has_excerpt" value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
                                         <textarea name="excerpt" id="atbdp_excerpt"
@@ -407,7 +407,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 wp_reset_postdata();
                                 ?>
                                 <div class="form-group">
-                                    <label for="at_biz_dir-location"><?php esc_html_e('Location:', ATBDP_TEXTDOMAIN); ?></label>
+                                    <label for="at_biz_dir-location"><?php esc_html_e('Location:', ATBDP_TEXTDOMAIN); echo get_directorist_option('require_location')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
                                     <?php if (!empty($p_locations)) {
                                         $output = array();
                                         foreach ($p_locations as $p_location) {
@@ -426,7 +426,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="at_biz_dir-tags"><?php esc_html_e('Tags:', ATBDP_TEXTDOMAIN); ?></label>
+                                    <label for="at_biz_dir-tags"><?php esc_html_e('Tags:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_tags')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
                                     <?php if (!empty($p_tags)) {
                                         $output = array();
                                         foreach ($p_tags as $p_tag) {
@@ -449,7 +449,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 <!--@ Options for select the category.-->
                                 <div class="form-group">
 
-                                    <label for="atbdp_select_cat"><?php esc_html_e('Select Category', ATBDP_TEXTDOMAIN) ?></label>
+                                    <label for="atbdp_select_cat"><?php esc_html_e('Select Category', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_category')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
                                     <?php
                                     $category = wp_get_object_terms($p_id, ATBDP_CATEGORY, array('fields' => 'ids'));
                                     $selected_category = count($category) ? $category[0] : -1;
@@ -529,7 +529,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="address"><?php esc_html_e('Address:', ATBDP_TEXTDOMAIN); ?></label>
+                                        <label for="address"><?php esc_html_e('Address:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_address')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
                                         <input type="text" name="address" id="address"
                                                value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
                                                class="form-control directory_field"
@@ -543,7 +543,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     if ($plan_phone){
                                     ?>
                                     <div class="form-group">
-                                        <label for="atbdp_phone_number"><?php esc_html_e('Phone Number:', ATBDP_TEXTDOMAIN); ?></label>
+                                        <label for="atbdp_phone_number"><?php esc_html_e('Phone Number:', ATBDP_TEXTDOMAIN); echo get_directorist_option('require_phone_number')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
                                         <input type="tel" name="phone" id="atbdp_phone_number"
                                                value="<?= !empty($phone) ? esc_attr($phone) : ''; ?>"
                                                class="form-control directory_field"
@@ -557,7 +557,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     if ($plan_email){
                                         ?>
                                         <div class="form-group">
-                                            <label for="atbdp_email"><?php esc_html_e('Email:', ATBDP_TEXTDOMAIN); ?></label>
+                                            <label for="atbdp_email"><?php esc_html_e('Email:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_email')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
                                             <input type="email" name="email" id="atbdp_email"
                                                    value="<?= !empty($email) ? esc_attr($email) : ''; ?>"
                                                    class="form-control directory_field"
@@ -571,7 +571,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     if ($plan_webLink){
                                     ?>
                                     <div class="form-group">
-                                        <label for="atbdp_website"><?php esc_html_e('Website:', ATBDP_TEXTDOMAIN); ?></label>
+                                        <label for="atbdp_website"><?php esc_html_e('Website:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_website')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
 
                                         <input type="text" id="atbdp_website" name="website"
                                                value="<?= !empty($website) ? esc_url($website) : ''; ?>"
@@ -764,7 +764,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     if ($enable_video_url && $plan_video) {
                                         ?>
                                         <div class="form-group">
-                                            <label for="videourl"><?php esc_html_e('Video Url', ATBDP_TEXTDOMAIN) ?></label>
+                                            <label for="videourl"><?php esc_html_e('Video Url', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_video')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
                                             <input type="text" id="videourl" name="videourl"
                                                    value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>"
                                                    class="form-control directory_field"
@@ -779,24 +779,31 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                             /*
                              * @since 4.1.0
                              */
-                            do_action('atbdp_before_terms_and_conditions_font');?>
+                            do_action('atbdp_before_terms_and_conditions_font');
 
-                            <div class="atbd_term_and_condition_area">
-                                <?php
-                                if (get_directorist_option('listing_terms_condition') == 1) {
-                                    printf('<span style="color: red"> *</span>');
-                                }
+                            if (!empty(get_directorist_option('listing_terms_condition'))) {
                                 ?>
-                                <input id="listing_t" type="checkbox"  name="t_c_check" <?php if(!empty($t_c_check))if('on' == $t_c_check){echo 'checked';} ?>>
-                                <label for="listing_t"><?php echo __('I Agree with all ', ATBDP_TEXTDOMAIN); ?><a
-                                            style="color: red" href="" id="listing_t_c"
-                                    "><?php echo __('terms & conditions', ATBDP_TEXTDOMAIN); ?></a></label>
-                                <div id="tc_container" style="display: none">
-                                    <p><?php _e($listing_terms_condition_text, ATBDP_TEXTDOMAIN); ?></p>
-                                </div>
-                            </div>
 
-                            <?php
+                                <div class="atbd_term_and_condition_area">
+                                    <?php
+                                    if (get_directorist_option('listing_terms_condition') == 1) {
+                                        printf('<span style="color: red"> *</span>');
+                                    }
+                                    ?>
+                                    <input id="listing_t" type="checkbox"
+                                           name="t_c_check" <?php if (!empty($t_c_check)) if ('on' == $t_c_check) {
+                                        echo 'checked';
+                                    } ?>>
+                                    <label for="listing_t"><?php echo __('I Agree with all ', ATBDP_TEXTDOMAIN); ?><a
+                                                style="color: red" href="" id="listing_t_c"
+                                        "><?php echo __('terms & conditions', ATBDP_TEXTDOMAIN); ?></a></label>
+                                    <div id="tc_container" style="display: none">
+                                        <p><?php _e($listing_terms_condition_text, ATBDP_TEXTDOMAIN); ?></p>
+                                    </div>
+                                </div>
+
+                                <?php
+                            }
                             /**
                              * It fires before rendering submit listing button on the front end.
                              */

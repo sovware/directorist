@@ -195,7 +195,7 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                 array(
                     'title' => __('Badge Setting', ATBDP_TEXTDOMAIN),
                     'name' => 'badge_management',
-                    'icon' => 'font-awesome:fa-wpforms',
+                    'icon' => 'font-awesome:fa-certificate',
                     'controls' => apply_filters('atbdp_badge_controls', array(
                         'emails' => array(
                             'type' => 'section',
@@ -205,7 +205,7 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                         ),
                     )),
                 ),
-                /*Submenu : Badge Management */
+                /*Submenu : Review */
                 array(
                     'title' => __('Review Setting', ATBDP_TEXTDOMAIN),
                     'name' => 'review_setting',
@@ -215,6 +215,21 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                             'type' => 'section',
                             'title' => __('Review Setting', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_review_settings_fields(),
+                        ),
+                    )),
+                ),
+
+                /*Submenu : Form */
+                array(
+                    'title' => __('Form Fields', ATBDP_TEXTDOMAIN),
+                    'name' => 'form_fields_setting',
+                    'icon' => 'font-awesome:fa-wpforms',
+                    'controls' => apply_filters('atbdp_review_controls', array(
+                        'emails' => array(
+                            'type' => 'section',
+                            'title' => __('Form Fields', ATBDP_TEXTDOMAIN),
+                            'description' => __('You can Customize form fields validation.', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_listings_form_fields_settings(),
                         ),
                     )),
                 ),
@@ -1845,6 +1860,110 @@ The Administrator of ==SITE_NAME==
          * @return array
          */
 
+        function get_listings_form_fields_settings(){
+            $req_title = atbdp_get_option('form_fields_setting', 'atbdp_general', 'yes');
+            return apply_filters('atbdp_form_fields_setting' , array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_title',
+                    'label' => __('Required Title', ATBDP_TEXTDOMAIN),
+                    'default' => atbdp_yes_to_bool($req_title),
+                ),
+
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_long_details',
+                    'label' => __('Required Long Description', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_price',
+                    'label' => __('Required Price', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_price_range',
+                    'label' => __('Required Price Range', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ), array(
+                    'type' => 'toggle',
+                    'name' => 'require_excerpt',
+                    'label' => __('Required Excerpt', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),array(
+                    'type' => 'toggle',
+                    'name' => 'require_location',
+                    'label' => __('Required Location', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),array(
+                    'type' => 'toggle',
+                    'name' => 'require_tags',
+                    'label' => __('Required Tags', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),array(
+                    'type' => 'toggle',
+                    'name' => 'require_category',
+                    'label' => __('Required Category', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),array(
+                    'type' => 'toggle',
+                    'name' => 'require_address',
+                    'label' => __('Required Address', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),array(
+                    'type' => 'toggle',
+                    'name' => 'require_phone_number',
+                    'label' => __('Required Phone Number', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),array(
+                    'type' => 'toggle',
+                    'name' => 'require_email',
+                    'label' => __('Required Email', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),array(
+                    'type' => 'toggle',
+                    'name' => 'require_website',
+                    'label' => __('Required Website', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),array(
+                    'type' => 'toggle',
+                    'name' => 'require_social_info',
+                    'label' => __('Required Social Info', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),array(
+                    'type' => 'toggle',
+                    'name' => 'require_preview_img',
+                    'label' => __('Required Preview Image', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),array(
+                    'type' => 'toggle',
+                    'name' => 'require_gallery_img',
+                    'label' => __('Required Gallery', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),array(
+                    'type' => 'toggle',
+                    'name' => 'require_video',
+                    'label' => __('Required Video', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),array(
+                    'type' => 'toggle',
+                    'name' => 'require_terms_conditions',
+                    'label' => __('Required Terms and Condition', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+            ));
+        }
+
+        /**
+         * Get all the settings fields for the listings settings section
+         * @since 4.0.0
+         * @return array
+         */
+
         function get_listings_review_settings_fields(){
             $e_review = atbdp_get_option('enable_review', 'atbdp_general', 'yes');
             return apply_filters('atbdp_review_settings_fields' , array(
@@ -2165,6 +2284,12 @@ The Administrator of ==SITE_NAME==
                         'step' => '1',
                         'default' => '260',
 
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_infoIn_oneLine',
+                        'label' => __('Grid Info Show in Single Line', ATBDP_TEXTDOMAIN),
+                        'default' => '1',
                     ),
                     array(
                         'type' => 'toggle',

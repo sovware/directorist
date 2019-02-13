@@ -141,6 +141,9 @@ Note: It is best to use it in a page with full-width template if possible for th
 == Changelog ==
 
 = 4.4.0 - FEBRUARY 11, 2019 =
+*
+
+= 4.4.0 - FEBRUARY 11, 2019 =
 * Add - Show/hide option for header area of listings page
 * Add - Header title & sub-title changing options
 * Add - 'Sort by' filter on search result page

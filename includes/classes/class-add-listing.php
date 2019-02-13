@@ -85,6 +85,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $p = $_POST; // save some character
                     $content = !empty($p['listing_content']) ? wp_kses($p['listing_content'], wp_kses_allowed_html('post')) : '';
                     $title= !empty($p['listing_title']) ? sanitize_text_field($p['listing_title']) : '';/*@todo; in future, do not let the user add a post without a title. Return here with an error shown to the user*/
+                    $tagcount = !empty($_POST['tax_input']['at_biz_dir-tags'])?(count($_POST['tax_input']['at_biz_dir-tags'])):'';
+                    $location = !empty($_POST['tax_input']['at_biz_dir-location'])?true:false;
 
                     $metas['_listing_type']      = !empty($p['listing_type']) ? sanitize_text_field($p['listing_type']) : 0;
                     $metas['_price']             = !empty($p['price'])? (float) $p['price'] : 0;
@@ -124,6 +126,8 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     );
 
+                    $msg = '<div class="alert alert-danger"><strong>'.__('Please fill up the require field marked with ', ATBDP_TEXTDOMAIN).'<span style="color: red">*</span></strong></div>';
+
                     //let check all the required custom field
                     foreach ($custom_field as $key => $value) {
                         $require = get_post_meta($key, 'required', true);
@@ -140,16 +144,41 @@ if (!class_exists('ATBDP_Add_Listing')):
                         }
                     }
                     //check the title is empty or not
-                    if (empty($title)){
-                        $msg = '<div class="alert alert-danger"><strong>'.__('Please fill up the require field marked with ', ATBDP_TEXTDOMAIN).'<span style="color: red">*</span></strong></div>';
-                        return $msg;
-                    }
 
-                    if(get_directorist_option('listing_terms_condition') == 1){
-                        if ($t_c_check == ''){
-                            $msg = '<div class="alert alert-danger"><strong>'.__('Please fill up the require field marked with ', ATBDP_TEXTDOMAIN).'<span style="color: red">*</span></strong></div>';
-                            return $msg;
-                        }
+                    if((get_directorist_option('require_terms_conditions') == 1) && empty($t_c_check)){
+                      return $msg;
+                    }if((get_directorist_option('require_terms_conditions') == 1) && empty($title)){
+                        return $msg;
+                    }if((get_directorist_option('require_terms_conditions') == 1) && empty($content)){
+                        return $msg;
+                    }if((get_directorist_option('require_terms_conditions') == 1) && empty($p['price'])){
+                        return $msg;
+                    }if((get_directorist_option('require_price_range') == 1) && empty($p['price_range'])){
+                        return $msg;
+                    }if((get_directorist_option('require_excerpt') == 1) && empty($p['excerpt'])){
+                        return $msg;
+                    }if((get_directorist_option('require_tags') == 1) && empty($tagcount)){
+                        return $msg;
+                    }if((get_directorist_option('require_location') == 1) && !$location){
+                        return $msg;
+                    }if((get_directorist_option('require_category') == 1) && empty($admin_category_select)){
+                        return $msg;
+                    }if((get_directorist_option('require_address') == 1) && empty($p['address'])){
+                        return $msg;
+                    }if((get_directorist_option('require_phone_number') == 1) && empty($p['phone'])){
+                        return $msg;
+                    }if((get_directorist_option('require_email') == 1) && empty($p['email'])){
+                        return $msg;
+                    }if((get_directorist_option('require_website') == 1) && empty($p['website'])){
+                        return $msg;
+                    }if((get_directorist_option('require_social_info') == 1) && empty($p['social'])){
+                        return $msg;
+                    }if((get_directorist_option('require_preview_img') == 1) && empty($p['listing_prv_img'])){
+                        return $msg;
+                    }if((get_directorist_option('require_gallery_img') == 1) && empty($p['listing_img'])){
+                        return $msg;
+                    }if((get_directorist_option('require_video') == 1) && empty($p['videourl'])){
+                        return $msg;
                     }
                     //@todo need to shift FM validation code to extension itself
                     if (is_fee_manager_active()) {
@@ -179,7 +208,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                         //store the plan meta
                         $plan_meta = get_post_meta($subscribed_package_id);
 
-                        $tagcount = !empty($_POST['tax_input']['at_biz_dir-tags'])?(count($_POST['tax_input']['at_biz_dir-tags'])):'';
                         //var_dump($tagcount,$plan_meta['fm_tag_limit_unl'][0]);die();
                         if ($plan_meta['fm_tag_limit'][0]<$tagcount && empty($plan_meta['fm_tag_limit_unl'][0])){
                             $msg = '<div class="alert alert-danger"><strong>' . __('You can use a maximum of '.$plan_meta['fm_tag_limit'][0].' tag(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';

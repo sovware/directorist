@@ -29,7 +29,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
         </div>
         <!--  add & remove image links -->
         <p class="hide-if-no-js">
-            <a href="#" class="upload-header btn btn-secondary">Upload Preview Image</a>
+            <a href="#" class="upload-header btn btn-secondary"><?php esc_attr_e('Upload Preview Image', ATBDP_TEXTDOMAIN); echo get_directorist_option('require_preview_img')?'<span class="atbdp_make_str_red"> *</span>':'';?></a>
         </p>
     </div>
     <?php } ?>
@@ -63,7 +63,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
         <p class="hide-if-no-js">
             <a href="#" id="listing_image_btn" class="btn btn-primary">
                 <span class="dashicons dashicons-format-image"></span>
-                <?php _e('Upload Slider Images', ATBDP_TEXTDOMAIN); ?>
+                <?php _e('Upload Slider Images', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_gallery_img')?'<span class="atbdp_make_str_red"> *</span>':''; ?>
             </a>
             <a id="delete-custom-img" class="btn btn-danger <?= (!empty($image_links)) ? '' : 'hidden' ?>"
                href="#"> <?php echo (1 == $active_mi_ext) ? esc_html__('Remove Images') : esc_html__('Remove Image'); ?></a>

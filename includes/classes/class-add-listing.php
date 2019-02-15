@@ -127,7 +127,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     );
 
                     $msg = '<div class="alert alert-danger"><strong>'.__('Please fill up the require field marked with ', ATBDP_TEXTDOMAIN).'<span style="color: red">*</span></strong></div>';
-
+//var_dump($admin_category_select);die();
                     //let check all the required custom field
                     foreach ($custom_field as $key => $value) {
                         $require = get_post_meta($key, 'required', true);
@@ -147,11 +147,11 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     if((get_directorist_option('require_terms_conditions') == 1) && empty($t_c_check)){
                       return $msg;
-                    }if((get_directorist_option('require_terms_conditions') == 1) && empty($title)){
+                    }if((get_directorist_option('require_title') == 1) && empty($title)){
                         return $msg;
-                    }if((get_directorist_option('require_terms_conditions') == 1) && empty($content)){
+                    }if((get_directorist_option('require_long_details') == 1) && empty($content)){
                         return $msg;
-                    }if((get_directorist_option('require_terms_conditions') == 1) && empty($p['price'])){
+                    }if((get_directorist_option('require_price') == 1) && empty($p['price'])){
                         return $msg;
                     }if((get_directorist_option('require_price_range') == 1) && empty($p['price_range'])){
                         return $msg;

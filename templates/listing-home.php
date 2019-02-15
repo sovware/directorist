@@ -56,30 +56,50 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                             <?php if(!empty($display_category_field)) {?>
                             <div class="col-md-6 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_category">
-                                    <select name="in_cat" class="search_fields form-control" id="at_biz_dir-category">
-                                        <option value=""><?php _e('Select a category', ATBDP_TEXTDOMAIN); ?></option>
+                                    <?php
+                                    $args = array(
+                                        'show_option_none' =>  __('Select a category', ATBDP_TEXTDOMAIN),
+                                        'taxonomy' => ATBDP_CATEGORY,
+                                        'id' => 'cat-type',
+                                        'option_none_value'  => '',
+                                        'class' => 'form-control directory_field',
+                                        'name' => 'in_cat',
+                                        'orderby' => 'name',
+                                        'selected' => '',
+                                        'hierarchical' => true,
+                                        'value_field'  => 'slug',
+                                        'depth' => 10,
+                                        'show_count' => false,
+                                        'hide_empty' => false,
+                                    );
 
-                                        <?php
-                                        foreach ($categories as $category) {
-                                            echo "<option id='atbdp_category' value='$category->slug'>$category->name</option>";
-                                        }
-                                        ?>
-                                    </select>
+                                    wp_dropdown_categories($args);
+                                    ?>
                                 </div>
                             </div>
                             <?php }
                             if(!empty($display_location_field)) { ?>
                             <div class="col-md-12 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_location">
-                                    <select name="in_loc" class="search_fields form-control" id="at_biz_dir-location">
-                                        <!--This text comes from js, translate them later @todo; translate js text-->
-                                        <option value=""><?php _e('Select a location', ATBDP_TEXTDOMAIN); ?></option>
+                                    <?php
+                                    $args = array(
+                                        'show_option_none' =>  __('Select a location', ATBDP_TEXTDOMAIN),
+                                        'taxonomy' => ATBDP_LOCATION,
+                                        'id' => 'cat-type',
+                                        'option_none_value'  => '',
+                                        'class' => 'form-control directory_field',
+                                        'name' => 'in_loc',
+                                        'orderby' => 'name',
+                                        'selected' => '',
+                                        'hierarchical' => true,
+                                        'value_field'  => 'slug',
+                                        'depth' => 10,
+                                        'show_count' => false,
+                                        'hide_empty' => false,
+                                    );
 
-                                        <?php foreach ($locations as $location) {
-                                            echo "<option id='atbdp_location' value='$location->slug'>$location->name</option>";
-                                        }
-                                        ?>
-                                    </select>
+                                    wp_dropdown_categories($args);
+                                    ?>
                                 </div>
                             </div>
                             <?php } ?>

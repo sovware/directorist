@@ -1256,6 +1256,25 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                     array(
+                        'type' => 'select',
+                        'name' => 'grid_view_as',
+                        'label' => __( 'Grid View', ATBDP_TEXTDOMAIN ),
+                        'items' => array(
+                            array(
+                                'value' => 'masonry_grid',
+                                'label' => __('Masonry', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'normal_grid',
+                                'label' => __('Normal', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'masonry_grid',
+                            'label' => __('Masonry', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    array(
                         'type' => 'slider',
                         'name' => 'all_listing_columns',
                         'label' => __('Number of Columns', ATBDP_TEXTDOMAIN),
@@ -1622,7 +1641,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'textbox',
                         'name' => 'search_placeholder',
                         'label' => __('Search Bar Placeholder', ATBDP_TEXTDOMAIN),
-                        'default' => atbdp_get_option('search_placeholder', 'atbdp_general'),
+                        'default' => __('What are you looking for?', ATBDP_TEXTDOMAIN),
                     ),
 
                     array(
@@ -1831,14 +1850,14 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_feature_badge_cart',
-                    'label' => __('Display Feature Badge', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display Featured Badge', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'feature_badge_text',
-                    'label' => __('Feature Badge Text', ATBDP_TEXTDOMAIN),
-                    'default' => __( 'Feature', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Featured Badge Text', ATBDP_TEXTDOMAIN),
+                    'default' => __( 'Featured', ATBDP_TEXTDOMAIN ),
                 ),
                 array(
                     'type' => 'toggle',
@@ -1904,12 +1923,12 @@ The Administrator of ==SITE_NAME==
                     'name' => 'require_tags',
                     'label' => __('Required Tags', ATBDP_TEXTDOMAIN),
                     'default' => 0,
-                ),array(
+                ),/*array(
                     'type' => 'toggle',
                     'name' => 'require_category',
                     'label' => __('Required Category', ATBDP_TEXTDOMAIN),
                     'default' => 0,
-                ),array(
+                )*/array(
                     'type' => 'toggle',
                     'name' => 'require_address',
                     'label' => __('Required Address', ATBDP_TEXTDOMAIN),
@@ -2092,7 +2111,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'gallery_crop_width',
-                    'label' => __( 'Custom Width', ATBDP_TEXTDOMAIN ),
+                    'label' => __( 'Image Cropping Width', ATBDP_TEXTDOMAIN ),
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
@@ -2103,7 +2122,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'gallery_crop_height',
-                    'label' => __( 'Custom Height', ATBDP_TEXTDOMAIN ),
+                    'label' => __( 'Image Cropping Height', ATBDP_TEXTDOMAIN ),
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
@@ -2267,7 +2286,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'slider',
                         'name' => 'crop_width',
-                        'label' => __( 'Custom Width', ATBDP_TEXTDOMAIN ),
+                        'label' => __( 'Image Cropping Width', ATBDP_TEXTDOMAIN ),
                         'min' => '1',
                         'max' => '1200',
                         'step' => '1',
@@ -2278,22 +2297,17 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'slider',
                         'name' => 'crop_height',
-                        'label' => __( 'Custom Height', ATBDP_TEXTDOMAIN ),
+                        'label' => __( 'Image Cropping Height', ATBDP_TEXTDOMAIN ),
                         'min' => '1',
                         'max' => '1200',
                         'step' => '1',
                         'default' => '260',
 
                     ),
+
                     array(
                         'type' => 'toggle',
-                        'name' => 'disable_masonry',
-                        'label' => __('Disable Masonry form Grid', ATBDP_TEXTDOMAIN),
-                        'default' => '0',
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'display_infoIn_oneLine',
+                        'name' => 'info_display_in_single_line',
                         'label' => __('Grid Info Show in Single Line', ATBDP_TEXTDOMAIN),
                         'default' => '0',
                     ),

@@ -305,10 +305,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                             <?php } ?>
                             <div class="atbd_listting_category">
                                 <ul class="directory_cats">
-                                    <span class="fa fa-folder-open"></span>
                                     <?php
-
                                     if (!empty($cats)) {
+                                        echo '<span class="fa fa-folder-open"></span>';
                                         $numberOfCat = count($cats);
                                         $output = array();
                                         foreach ($cats as $cat) {

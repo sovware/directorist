@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.0.3
-Stable tag: 4.4.0
+Stable tag: 4.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -140,8 +140,12 @@ Note: It is best to use it in a page with full-width template if possible for th
 
 == Changelog ==
 
-= 4.4.0 - FEBRUARY 11, 2019 =
-*
+= 4.5.0 - FEBRUARY 14, 2019 =
+* Add - Option to make listing form fields required
+* Add - Option to select how to display the Grids (Masonry/Normal)
+* Add - Option to display each info of Grids on one line
+* Add - Time field type in Custom Field
+* Tweak - Improved category and location search fields
 
 = 4.4.0 - FEBRUARY 11, 2019 =
 * Add - Show/hide option for header area of listings page

@@ -92,7 +92,7 @@ $header_sub_title           = !empty($header_sub_title) ? $header_sub_title : ''
         $span = 'col-md-' . floor( 12 / $columns_number );
         $i = 0;
         if( $i % $columns_number == 0 ) : ?>
-        <div class="row" data-uk-grid>
+        <div class="row" <?php echo (get_directorist_option('grid_view_as','masonry_grid') !== 'masonry_grid')?'':'data-uk-grid';?>>
             <?php endif;
         if ( $all_listings->have_posts() ) {
             while ( $all_listings->have_posts() ) { $all_listings->the_post();
@@ -123,7 +123,7 @@ $header_sub_title           = !empty($header_sub_title) ? $header_sub_title : ''
                 $display_feature_badge_cart     = get_directorist_option('display_feature_badge_cart',1);
                 $display_popular_badge_cart     = get_directorist_option('display_popular_badge_cart',1);
                 $popular_badge_text             = get_directorist_option('popular_badge_text','Popular');
-                $feature_badge_text             = get_directorist_option('feature_badge_text','Feature');
+                $feature_badge_text             = get_directorist_option('feature_badge_text','Featured');
                 $enable_tagline                 = get_directorist_option('enable_tagline');
                 $enable_excerpt                 = get_directorist_option('enable_excerpt');
                 /*Code for Business Hour Extensions*/
@@ -160,11 +160,10 @@ $header_sub_title           = !empty($header_sub_title) ? $header_sub_title : ''
                 }
 
                 /*Code for Business Hour Extensions*/
-
                 ?>
 
                 <div class="<?php echo $span; ?>">
-                    <div class="atbd_single_listing atbd_listing_card">
+                    <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line',0)?'atbd_single_line_card_info':'';?>">
                         <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                             <figure class="atbd_listing_thumbnail_area" style=" <?php echo empty(get_directorist_option('display_preview_image',1))?'display:none':''?>">
                                 <div class="atbd_listing_image">

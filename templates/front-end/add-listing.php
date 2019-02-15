@@ -786,8 +786,8 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                                 <div class="atbd_term_and_condition_area">
                                     <?php
-                                    if (get_directorist_option('listing_terms_condition') == 1) {
-                                        printf('<span style="color: red"> *</span>');
+                                    if (get_directorist_option('require_terms_conditions') == 1) {
+                                        printf('<span class="atbdp_make_str_red"> *</span>');
                                     }
                                     ?>
                                     <input id="listing_t" type="checkbox"

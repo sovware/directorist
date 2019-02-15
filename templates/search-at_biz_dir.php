@@ -81,7 +81,7 @@ $column_width           = 100/$search_listing_columns .'%';
             </div>
             <?php } ?>
             <!--maybe we should removed the parent container so that it can match perfectly -->
-            <div class="row" data-uk-grid>
+            <div class="row" <?php echo (get_directorist_option('grid_view_as','masonry_grid') !== 'masonry_grid')?'':'data-uk-grid';?>>
                 <?php
                 if ( count($listings->posts) ) {
                     while ( $listings->have_posts() ) {
@@ -114,7 +114,7 @@ $column_width           = 100/$search_listing_columns .'%';
                         $display_feature_badge_cart     = get_directorist_option('display_feature_badge_cart',1);
                         $display_popular_badge_cart     = get_directorist_option('display_popular_badge_cart',1);
                         $popular_badge_text             = get_directorist_option('popular_badge_text','Popular');
-                        $feature_badge_text             = get_directorist_option('feature_badge_text','Feature');
+                        $feature_badge_text             = get_directorist_option('feature_badge_text','Featured');
                         $pagination                     = get_directorist_option('paginate_search_results', 1);
                         $enable_tagline                 = get_directorist_option('enable_tagline');
                         $enable_excerpt                 = get_directorist_option('enable_excerpt');
@@ -153,7 +153,7 @@ $column_width           = 100/$search_listing_columns .'%';
                         /*Code for Business Hour Extensions*/
                         ?>
                         <div class="col atbdp_column">
-                            <div class="atbd_single_listing atbd_listing_card">
+                            <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line',0)?'atbd_single_line_card_info':'';?>">
                                 <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                     <figure class="atbd_listing_thumbnail_area" style=" <?php echo empty(get_directorist_option('display_preview_image'))?'display:none':''?>">
                                         <div class="atbd_listing_image">

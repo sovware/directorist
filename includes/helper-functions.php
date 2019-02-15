@@ -1998,7 +1998,7 @@ if (!function_exists('new_badge')) {
  * @param    int $height Image Height.
  * @param    bool $crop cropping condition.
  * @param    int $quality Quality.
- * @return   string                     return resize.
+ * @return   array  $resizer return resize.
  */
 function atbdp_image_cropping($attachmentId, $width, $height, $crop = true, $quality = 100)
 {
@@ -2012,7 +2012,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
 {
     ?>
     <div class="col-lg-12">
-        <div class="row" data-uk-grid>
+        <div class="row" <?php echo (get_directorist_option('grid_view_as','masonry_grid') !== 'masonry_grid')?'':'data-uk-grid';?>>
 
 
             <?php if ($all_listings->have_posts()) {
@@ -2045,7 +2045,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                     $display_feature_badge_cart = get_directorist_option('display_feature_badge_cart', 1);
                     $display_popular_badge_cart = get_directorist_option('display_popular_badge_cart', 1);
                     $popular_badge_text = get_directorist_option('popular_badge_text', 'Popular');
-                    $feature_badge_text = get_directorist_option('feature_badge_text', 'Feature');
+                    $feature_badge_text = get_directorist_option('feature_badge_text', 'Featured');
                     $enable_tagline = get_directorist_option('enable_tagline');
                     $enable_excerpt = get_directorist_option('enable_excerpt');
                     /*Code for Business Hour Extensions*/
@@ -2083,7 +2083,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                     /*Code for Business Hour Extensions*/
                     ?>
                     <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="atbd_single_listing atbd_listing_card">
+                        <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line',0)?'atbd_single_line_card_info':'';?>">
                             <article
                                     class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                 <figure class="atbd_listing_thumbnail_area"
@@ -2363,7 +2363,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                     $display_feature_badge_cart = get_directorist_option('display_feature_badge_cart', 1);
                     $display_popular_badge_cart = get_directorist_option('display_popular_badge_cart', 1);
                     $popular_badge_text = get_directorist_option('popular_badge_text', 'Popular');
-                    $feature_badge_text = get_directorist_option('feature_badge_text', 'Feature');
+                    $feature_badge_text = get_directorist_option('feature_badge_text', 'Featured');
                     $enable_tagline = get_directorist_option('enable_tagline');
                     $enable_excerpt = get_directorist_option('enable_excerpt');
                     /*Code for Business Hour Extensions*/
@@ -2678,7 +2678,7 @@ function listing_view_by_list($all_listings)
             $display_feature_badge_cart = get_directorist_option('display_feature_badge_cart', 1);
             $display_popular_badge_cart = get_directorist_option('display_popular_badge_cart', 1);
             $popular_badge_text = get_directorist_option('popular_badge_text', 'Popular');
-            $feature_badge_text = get_directorist_option('feature_badge_text', 'Feature');
+            $feature_badge_text = get_directorist_option('feature_badge_text', 'Featured');
             $enable_tagline = get_directorist_option('enable_tagline');
             $enable_excerpt = get_directorist_option('enable_excerpt');
             /*Code for Business Hour Extensions*/

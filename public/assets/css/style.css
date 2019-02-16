@@ -528,6 +528,15 @@ body.atbd_content_active #directorist.atbd_wrapper {
   text-align: left;
 }
 
+#directorist.atbd_wrapper #listing_image_btn {
+  display: inline-flex;
+  align-items: center;
+}
+
+#directorist.atbd_wrapper #listing_image_btn span {
+  margin-right: 8px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   text-align: right;
   margin-bottom: 15px;
@@ -1041,14 +1050,16 @@ body.atbd_content_active #directorist.atbd_wrapper {
   border-radius: 3px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat {
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat {
   position: relative;
   padding-left: 25px;
   display: inline-block;
   word-break: break-all;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat:before {
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat:before,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat:before {
   position: absolute;
   content: "\f07c";
   font-family: "FontAwesome";
@@ -1056,7 +1067,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   top: 0;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup {
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup {
   position: relative;
   display: inline-block;
   margin-left: 3px;
@@ -1065,7 +1077,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   cursor: pointer;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper {
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper {
   display: block;
   position: absolute;
   width: 120px;
@@ -1081,29 +1094,35 @@ body.atbd_content_active #directorist.atbd_wrapper {
   border-radius: 3px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper span {
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper span,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper span {
   display: block;
   color: #fff;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper span a {
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper span a,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper span a {
   color: rgba(255, 255, 255, 0.8);
   display: block;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper span a:last-child span {
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper span a:last-child span,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper span a:last-child span {
   display: none;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper span a:hover {
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper span a:hover,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper span a:hover {
   color: #fff;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper span a span {
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper span a span,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper span a span {
   display: inline-block;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup:hover .atbd_cat_popup_wrapper {
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup:hover .atbd_cat_popup_wrapper,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup:hover .atbd_cat_popup_wrapper {
   visibility: visible;
   opacity: 1;
 }

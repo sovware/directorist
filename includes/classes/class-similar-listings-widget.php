@@ -76,18 +76,36 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
                                     <?php  } ?>
                                 </div>
 
-                                <?php if (!empty($cats)) { ?>
+                                <?php if (!empty($cats)){
+                                $totalTerm = count($cats);
+                                ?>
 
                                 <p class="directory_tag">
-                                    <span class="fa <?php echo esc_attr(get_cat_icon($cats[0]->term_id)); ?>"
-                                      aria-hidden="true"></span>
-                                    <span><a href="<?= ATBDP_Permalink::get_category_archive($cats[0]); ?>">
-                                         <?= esc_html($cats[0]->name); ?>
-                                    </a>
+                                        <span class="fa fa-folder-open">
+                                        <span>
+                                                <a href="<?= ATBDP_Permalink::get_category_archive($cats[0]); ?>">
+                                                                     <?= esc_html($cats[0]->name); ?>
+                                                </a>
+                                            <?php
+                                            if ($totalTerm>1){
+                                                ?>
+                                                <span class="atbd_cat_popup">  +<?php echo $totalTerm-1; ?>
+                                                    <span class="atbd_cat_popup_wrapper">
+                                                                    <?php
+                                                                    $output = array();
+                                                                    foreach (array_slice($cats,1) as $cat) {
+                                                                        $link = ATBDP_Permalink::get_category_archive($cat);
+                                                                        $space = str_repeat(' ', 1);
+                                                                        $output []= "{$space}<a href='{$link}'>{$cat->name}</a>";
+                                                                    }?>
+                                                        <span><?php echo join(',',$output)?></span>
+                                                                </span>
+                                                            </span>
+                                            <?php } ?>
 
-                                    </span>
+                                        </span>
                                 </p>
-                                <?php } ?>
+                                <?php }?>
                             </div>
                         </li>
             <?php

@@ -186,7 +186,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             $meta_queries = array();
             // Show featured listing first. Eg. Order by Featured Listings eg.
-            $featured_active = get_directorist_option('enable_featured_listing');
+            $featured_active = (get_directorist_option('enable_featured_listing') || is_fee_manager_active());
             if ($featured_active){
                 $meta_queries[] = array(
                     'key'     => '_featured',
@@ -371,7 +371,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             if (!$paginate) $args['no_found_rows'] = true;
 
             $has_featured        = get_directorist_option('enable_featured_listing');
-            if( $has_featured ) {
+            if( $has_featured || is_fee_manager_active()) {
                 $has_featured    = $atts['_featured'];
             }
 

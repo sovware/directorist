@@ -547,7 +547,7 @@ final class Directorist_Base
                         // get only one parent or high level term object
                         $top_category           = ATBDP()->taxonomy->get_one_high_level_term($pop_post->ID, ATBDP_CATEGORY);
                         $listing_img            = get_post_meta($pop_post->ID, '_listing_img', true);
-                        $listing_prv_img        = get_post_meta(get_the_ID(), '_listing_prv_img', true);
+                        $listing_prv_img        = get_post_meta($pop_post->ID, '_listing_prv_img', true);
                         $cats                   =  get_the_terms($pop_post->ID, ATBDP_CATEGORY);
                         ?>
                         <li>
@@ -570,14 +570,32 @@ final class Directorist_Base
                                     </h4>
                                 </div>
 
-                                    <?php if (!empty($cats)){ ?>
+                                    <?php if (!empty($cats)){
+                                        $totalTerm = count($cats);
+                                        ?>
 
                                     <p class="directory_tag">
-                                        <span class="fa <?= esc_attr(get_cat_icon(@$cats[0]->term_id)); ?>" aria-hidden="true"></span>
+                                        <span class="fa fa-folder-open">
                                         <span>
                                                 <a href="<?= ATBDP_Permalink::get_category_archive($cats[0]); ?>">
                                                                      <?= esc_html($cats[0]->name); ?>
                                                 </a>
+                                            <?php
+                                            if ($totalTerm>1){
+                                                ?>
+                                                <span class="atbd_cat_popup">  +<?php echo $totalTerm-1; ?>
+                                                    <span class="atbd_cat_popup_wrapper">
+                                                                    <?php
+                                                                    $output = array();
+                                                                    foreach (array_slice($cats,1) as $cat) {
+                                                                        $link = ATBDP_Permalink::get_category_archive($cat);
+                                                                        $space = str_repeat(' ', 1);
+                                                                        $output []= "{$space}<a href='{$link}'>{$cat->name}</a>";
+                                                                    }?>
+                                                                    <span><?php echo join(',',$output)?></span>
+                                                                </span>
+                                                            </span>
+                                            <?php } ?>
 
                                         </span>
                                     </p>
@@ -1161,12 +1179,6 @@ final class Directorist_Base
              }
     }
 
-
-
-
-
-
-
     /**
      * It gets the reviews of the given listing/post
      * @param object|WP_Post $post The WP Post Object of whose review we would like to show
@@ -1178,7 +1190,6 @@ final class Directorist_Base
 
         return ATBDP()->review->db->get_reviews_by('post_id', $post->ID, 0, $review_number); // get the amount of reviews set by $review_number
     }
-
 
     /**
      * It displays static rating of the given post

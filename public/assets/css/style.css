@@ -1104,6 +1104,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper span a {
   color: rgba(255, 255, 255, 0.8);
   display: block;
+  line-height: normal;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper span a:last-child span,

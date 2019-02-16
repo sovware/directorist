@@ -8,6 +8,7 @@ $pagenation                 = get_directorist_option('paginate_all_listings',1);
 $display_header             = !empty($display_header) ? $display_header : '';
 $header_title               = !empty($header_title) ? $header_title : '';
 $header_sub_title           = !empty($header_sub_title) ? $header_sub_title : '';
+$column_width = 100/$columns .'%';
 ?>
 
 
@@ -86,14 +87,9 @@ $header_sub_title           = !empty($header_sub_title) ? $header_sub_title : ''
     </div>
     <?php } ?>
     <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
-        <?php
-        $columns_number = $columns;
 
-        $span = 'col-md-' . floor( 12 / $columns_number );
-        $i = 0;
-        if( $i % $columns_number == 0 ) : ?>
         <div class="row" <?php echo (get_directorist_option('grid_view_as','masonry_grid') !== 'masonry_grid')?'':'data-uk-grid';?>>
-            <?php endif;
+            <?php
         if ( $all_listings->have_posts() ) {
             while ( $all_listings->have_posts() ) { $all_listings->the_post();
                 $cats                           = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
@@ -162,7 +158,7 @@ $header_sub_title           = !empty($header_sub_title) ? $header_sub_title : ''
                 /*Code for Business Hour Extensions*/
                 ?>
 
-                <div class="<?php echo $span; ?>">
+                <div class="col atbdp_column">
                     <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line',0)?'atbd_single_line_card_info':'';?>">
                         <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                             <figure class="atbd_listing_thumbnail_area" style=" <?php echo empty(get_directorist_option('display_preview_image',1))?'display:none':''?>">
@@ -374,11 +370,8 @@ $header_sub_title           = !empty($header_sub_title) ? $header_sub_title : ''
         } else {?>
             <p><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
         <?php } ?>
-            <?php
-            $i++;
-            if( $i % $columns_number == 0  ) : ?>
+
         </div>
-    <?php endif; ?>
 
     </div>
     <div class="row atbd_listing_pagination">
@@ -397,3 +390,8 @@ $header_sub_title           = !empty($header_sub_title) ? $header_sub_title : ''
     </div>
 
 </div>
+<style>
+    .atbd_content_active #directorist.atbd_wrapper .atbdp_column {
+        width: <?php echo $column_width;?>;
+    }
+</style>

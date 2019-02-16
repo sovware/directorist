@@ -142,6 +142,9 @@ Note: It is best to use it in a page with full-width template if possible for th
 = 4.5.1 - FEBRUARY 16, 2019 =
 * Fix - Sub-category & sub-location url issue
 * Fix - Listings page columns issue
+* Fix - Show multi-category in similar and popular listing widget
+* Fix - Minor CSS issue in add listing form
+
 = 4.5.0 - FEBRUARY 14, 2019 =
 * Add - Option to make listing form fields required
 * Add - Option to select how to display the Grids (Masonry/Normal)

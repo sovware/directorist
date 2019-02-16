@@ -570,9 +570,9 @@ final class Directorist_Base
                                     </h4>
                                 </div>
 
-                                    <?php if (!empty($cats)){
-                                        $totalTerm = count($cats);
-                                        ?>
+                                <?php if (!empty($cats)){
+                                    $totalTerm = count($cats);
+                                    ?>
 
                                     <p class="directory_tag">
                                         <span class="fa fa-folder-open">
@@ -590,9 +590,9 @@ final class Directorist_Base
                                                                     foreach (array_slice($cats,1) as $cat) {
                                                                         $link = ATBDP_Permalink::get_category_archive($cat);
                                                                         $space = str_repeat(' ', 1);
-                                                                        $output []= "{$space}<a href='{$link}'>{$cat->name}</a>";
+                                                                        $output []= "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
                                                                     }?>
-                                                                    <span><?php echo join(',',$output)?></span>
+                                                        <span><?php echo join($output)?></span>
                                                                 </span>
                                                             </span>
                                             <?php } ?>

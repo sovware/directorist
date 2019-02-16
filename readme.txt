@@ -140,10 +140,11 @@ Note: It is best to use it in a page with full-width template if possible for th
 
 == Changelog ==
 = 4.5.1 - FEBRUARY 16, 2019 =
-* Fix - Sub-category & sub-location url issue
+* Fix - Sub-category & sub-location URL issue
 * Fix - Listings page columns issue
-* Fix - Show multi-category in similar and popular listing widget
-* Fix - Minor CSS issue in add listing form
+* Fix - Show multi-category on similar and popular listing widget
+* Fix - Preview image issue on popular listing widget
+* Fix - Add listing form's minor CSS issues
 
 = 4.5.0 - FEBRUARY 14, 2019 =
 * Add - Option to make listing form fields required

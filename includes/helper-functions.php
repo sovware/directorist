@@ -1506,7 +1506,7 @@ function atbdp_list_categories($settings)
             }
 
             $html .= '<li>';
-            $html .= '<a href=" ' . ATBDP_Permalink::get_category_archive($settings['term']) . ' ">';
+            $html .= '<a href=" ' . ATBDP_Permalink::get_category_archive($term) . ' ">';
             $html .= $term->name;
             if (!empty($settings['show_count'])) {
                 $html .= ' (' . $count . ')';
@@ -1598,7 +1598,7 @@ function atbdp_list_locations($settings)
             }
 
             $html .= '<li>';
-            $html .= '<a href=" ' . ATBDP_Permalink::get_location_archive($settings['term']) . ' ">';
+            $html .= '<a href=" ' . ATBDP_Permalink::get_location_archive($term) . ' ">';
             $html .= $term->name;
             if (!empty($settings['show_count'])) {
                 $html .= ' (' . $count . ')';

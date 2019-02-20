@@ -2236,7 +2236,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                             <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20))); ?></p>
                                         <?php } ?>
                                     </div><!-- end ./atbd_content_upper -->
-                                    <?php if (!empty($display_category) || !empty($display_view_count) || !empty($display_author_image)) { ?>
+                                    <?php if (!empty($display_category) || !empty($display_view_count)) { ?>
                                         <div class="atbd_listing_bottom_content">
                                             <?php
                                             if(!empty($display_category)) {
@@ -2275,7 +2275,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                                     </div>
 
                                                 <?php    } } ?>
-                                            <?php if (!empty($display_view_count) || !empty($display_author_image)) { ?>
+                                            <?php if (!empty($display_view_count) ) { ?>
                                                 <ul class="atbd_content_right">
                                                     <?php if (!empty($display_view_count)) { ?>
                                                         <li class="atbd_count"><span
@@ -2555,7 +2555,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                             <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20))); ?></p>
                                         <?php } ?>
                                     </div><!-- end ./atbd_content_upper -->
-                                    <?php if (!empty($display_category) || !empty($display_view_count) || !empty($display_author_image)) { ?>
+                                    <?php if (!empty($display_category) || !empty($display_view_count) ) { ?>
                                         <div class="atbd_listing_bottom_content">
                                             <?php
                                             if(!empty($display_category)) {
@@ -2594,7 +2594,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                     </div>
 
                                                 <?php    } } ?>
-                                            <?php if (!empty($display_view_count) || !empty($display_author_image)) { ?>
+                                            <?php if (!empty($display_view_count)) { ?>
                                                 <ul class="atbd_content_right">
                                                     <?php if (!empty($display_view_count)) { ?>
                                                         <li class="atbd_count"><span
@@ -2652,48 +2652,49 @@ function listing_view_by_list($all_listings)
         while ($all_listings->have_posts()) {
             $all_listings->the_post(); ?>
             <?php
-            $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-            $locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);
-            $featured = get_post_meta(get_the_ID(), '_featured', true);
-            $price = get_post_meta(get_the_ID(), '_price', true);
-            $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
-            $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
-            $excerpt = get_post_meta(get_the_ID(), '_excerpt', true);
-            $tagline = get_post_meta(get_the_ID(), '_tagline', true);
-            $address = get_post_meta(get_the_ID(), '_address', true);
-            $phone_number = get_post_meta(get_the_Id(), '_phone', true);
-            $category = get_post_meta(get_the_Id(), '_admin_category_select', true);
-            $post_view = get_post_meta(get_the_Id(), '_atbdp_post_views_count', true);
-            $hide_contact_info = get_post_meta(get_the_ID(), '_hide_contact_info', true);
-            $disable_contact_info = get_directorist_option('disable_contact_info', 0);
-            $display_title = get_directorist_option('display_title', 1);
-            $display_review = get_directorist_option('enable_review', 1);
-            $display_price = get_directorist_option('display_price', 1);
-            $is_disable_price = get_directorist_option('disable_list_price');
-            $display_category = get_directorist_option('display_category', 1);
-            $display_view_count = get_directorist_option('display_view_count', 1);
-            $display_author_image = get_directorist_option('display_author_image', 1);
-            $display_publish_date = get_directorist_option('display_publish_date', 1);
-            $display_contact_info = get_directorist_option('display_contact_info', 1);
+            $cats                       = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+            $locs                       = get_the_terms(get_the_ID(), ATBDP_LOCATION);
+            $featured                   = get_post_meta(get_the_ID(), '_featured', true);
+            $price                      = get_post_meta(get_the_ID(), '_price', true);
+            $listing_img                = get_post_meta(get_the_ID(), '_listing_img', true);
+            $listing_prv_img            = get_post_meta(get_the_ID(), '_listing_prv_img', true);
+            $excerpt                    = get_post_meta(get_the_ID(), '_excerpt', true);
+            $tagline                    = get_post_meta(get_the_ID(), '_tagline', true);
+            $address                    = get_post_meta(get_the_ID(), '_address', true);
+            $phone_number               = get_post_meta(get_the_Id(), '_phone', true);
+            $category                   = get_post_meta(get_the_Id(), '_admin_category_select', true);
+            $post_view                  = get_post_meta(get_the_Id(), '_atbdp_post_views_count', true);
+            $hide_contact_info          = get_post_meta(get_the_ID(), '_hide_contact_info', true);
+            $disable_contact_info       = get_directorist_option('disable_contact_info', 0);
+            $display_title              = get_directorist_option('display_title', 1);
+            $display_review             = get_directorist_option('enable_review', 1);
+            $display_price              = get_directorist_option('display_price', 1);
+            $is_disable_price           = get_directorist_option('disable_list_price');
+            $display_category           = get_directorist_option('display_category', 1);
+            $display_view_count         = get_directorist_option('display_view_count', 1);
+            $display_author_image       = get_directorist_option('display_author_image', 1);
+            $display_publish_date       = get_directorist_option('display_publish_date', 1);
+            $display_contact_info       = get_directorist_option('display_contact_info', 1);
             $display_feature_badge_cart = get_directorist_option('display_feature_badge_cart', 1);
             $display_popular_badge_cart = get_directorist_option('display_popular_badge_cart', 1);
-            $popular_badge_text = get_directorist_option('popular_badge_text', 'Popular');
-            $feature_badge_text = get_directorist_option('feature_badge_text', 'Featured');
-            $enable_tagline = get_directorist_option('enable_tagline');
-            $enable_excerpt = get_directorist_option('enable_excerpt');
+            $popular_badge_text         = get_directorist_option('popular_badge_text', 'Popular');
+            $feature_badge_text         = get_directorist_option('feature_badge_text', 'Featured');
+            $enable_tagline             = get_directorist_option('enable_tagline');
+            $enable_excerpt             = get_directorist_option('enable_excerpt');
+            $address_location           = get_directorist_option('address_location','location');
             /*Code for Business Hour Extensions*/
-            $bdbh = get_post_meta(get_the_ID(), '_bdbh', true);
-            $enable247hour = get_post_meta(get_the_ID(), '_enable247hour', true);
-            $disable_bz_hour_listing = get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true);
-            $business_hours = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
+            $bdbh                       = get_post_meta(get_the_ID(), '_bdbh', true);
+            $enable247hour              = get_post_meta(get_the_ID(), '_enable247hour', true);
+            $disable_bz_hour_listing    = get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true);
+            $business_hours             = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
             /*Code for Business Hour Extensions*/
-            $author_id = get_the_author_meta('ID');
-            $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-            $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
-            $avata_img = get_avatar($author_id, 32);
-            $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
-            $crop_width = get_directorist_option('crop_width', 360);
-            $crop_height = get_directorist_option('crop_height', 300);
+            $author_id                  = get_the_author_meta('ID');
+            $u_pro_pic                  = get_user_meta($author_id, 'pro_pic', true);
+            $u_pro_pic                  = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
+            $avata_img                  = get_avatar($author_id, 32);
+            $thumbnail_cropping         = get_directorist_option('thumbnail_cropping', 1);
+            $crop_width                 = get_directorist_option('crop_width', 360);
+            $crop_height                = get_directorist_option('crop_height', 300);
             if (!empty($listing_prv_img)) {
 
                 if ($thumbnail_cropping) {
@@ -2825,10 +2826,27 @@ function listing_view_by_list($all_listings)
                                     <ul>
                                         <?php
                                         if (!empty($display_contact_info)) {
-                                            if (!empty($address)) { ?>
+                                            if (!empty($address && 'contact' == $address_location)) { ?>
                                                 <li><p>
                                                         <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
                                                     </p></li>
+                                            <?php } elseif(!empty($locs) && 'location' == $address_location) {
+
+                                                $numberOfCat = count($locs);
+                                                $output = array();
+                                                foreach ($locs as $loc) {
+                                                    $link = ATBDP_Permalink::get_location_archive($loc);
+                                                    $space = str_repeat(' ', 1);
+                                                    $output []= "{$space}<a href='{$link}'>{$loc->name}</a>";
+                                                }?>
+                                                <li>
+                                                    <p>
+
+                                                    <span>
+                                                    <?php echo "<span class='fa fa-location-arrow'></span>" . join(',',$output);?>
+                                                </span>
+                                                    </p>
+                                                </li>
                                             <?php } ?>
                                             <?php if (!empty($phone_number)) { ?>
                                                 <li><p>

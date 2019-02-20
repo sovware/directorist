@@ -52,11 +52,10 @@ if ( !class_exists('BD_Search_Widget')) {
                         <input type="text" name="q" class="form-control" placeholder="<?php _e( 'Enter your keyword here ...', 'advanced-classifieds-and-directory-pro' ); ?>" value="">
                     </div>
 
-                    <?php if(empty($hide_category)) {?>
+                    <?php if(empty($hide_category)) { ?>
                     <div class="form-group single_search_field search_category" >
                         <select name="in_cat" class="directory_field form-control" id="at_biz_dir-category">
                             <option value=""><?php _e('Select a category', ATBDP_TEXTDOMAIN ); ?></option>
-
                             <?php
                             foreach ( $categories as $category ) {
                                 echo "<option id='atbdp_category' value='$category->slug'>$category->name</option>";

@@ -185,7 +185,16 @@ if ( !class_exists('ATBDP_Shortcode') ):
             }
 
             $meta_queries = array();
-
+            if( !empty($s_string) ) {
+                $meta_queries['custom_fields'] = array(
+                    array(
+                        'key' => '72',
+                        'value' => $s_string,
+                        'compare' => 'LIKE',
+                    )
+                );
+            }
+            $args['custom_fields'] = $meta_queries;
             $meta_queries['expired'] = array(
                 'relation' => 'OR',
                 array(
@@ -198,6 +207,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     'key'	  => '_never_expire',
                     'value' => 1,
                 )
+
             );
             $args['expired'] = $meta_queries;
             // Show featured listing first. Eg. Order by Featured Listings eg.

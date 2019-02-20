@@ -185,6 +185,21 @@ if ( !class_exists('ATBDP_Shortcode') ):
             }
 
             $meta_queries = array();
+
+            $meta_queries['expired'] = array(
+                'relation' => 'OR',
+                array(
+                    'key'	  => '_expiry_date',
+                    'value'	  => current_time( 'mysql' ),
+                    'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
+                    'type'    => 'DATETIME'
+                ),
+                array(
+                    'key'	  => '_never_expire',
+                    'value' => 1,
+                )
+            );
+            $args['expired'] = $meta_queries;
             // Show featured listing first. Eg. Order by Featured Listings eg.
             $featured_active = (get_directorist_option('enable_featured_listing') || is_fee_manager_active());
             if ($featured_active){
@@ -351,7 +366,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'ids'               => '',
                 'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                 'featured_only'     => '',
-                'popular_only'      => ''
+                'popular_only'      => '',
             ), $atts );
 
             $categories          = !empty($atts['category'] ) ? explode(',', $atts['category'] ) : '';
@@ -499,7 +514,23 @@ if ( !class_exists('ATBDP_Shortcode') ):
             }
             $args['tax_query'] = $tax_queries;
 
+
             $meta_queries = array();
+
+            $meta_queries['expired'] = array(
+                    'relation' => 'OR',
+                array(
+                    'key'	  => '_expiry_date',
+                    'value'	  => current_time( 'mysql' ),
+                    'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
+                    'type'    => 'DATETIME'
+                ),
+                array(
+                    'key'	  => '_never_expire',
+                    'value' => 1,
+                )
+            );
+            $args['expired'] = $meta_queries;
 
             if( $has_featured ) {
 
@@ -809,6 +840,20 @@ if ( !class_exists('ATBDP_Shortcode') ):
             if (!empty($category)){
                 $args['tax_query'] = $category;
             }
+
+            $args['meta_query'] = array(
+                'relation' => 'OR',
+                array(
+                    'key'	  => '_expiry_date',
+                    'value'	  => current_time( 'mysql' ),
+                    'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
+                    'type'    => 'DATETIME'
+                ),
+                array(
+                    'key'	  => '_never_expire',
+                    'value' => 1,
+                )
+            );
 
 
             $all_listings = new WP_Query($args);

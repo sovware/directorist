@@ -229,7 +229,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                             }
                         }
                         if (empty($plan_meta['price_range_unl'][0]) || !empty($plan_meta['price_range'][0])){
-                            if ($metas['_price']>$plan_meta['price_range'][0]){
+                            $price = !empty($metas['_price'])?$metas['_price']:'';
+                            if ($price>$plan_meta['price_range'][0]){
                                 //var_dump($plan_meta['price_range'][0]);die();
                                 $msg = '<div class="alert alert-danger"><strong>' . __('Given price is not included in this plan!', ATBDP_TEXTDOMAIN) . '</strong></div>';
                                 return $msg;
@@ -240,6 +241,13 @@ if (!class_exists('ATBDP_Add_Listing')):
                        if ($plan_meta['num_image'][0]<$totat_image && empty($plan_meta['num_image_unl'][0])){
                            $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_image'][0].' image(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
                            return $msg;
+                       }
+                       if (class_exists('BD_Gallery')){
+                           $_gallery_img = count($metas['_gallery_img']);
+                           if ($plan_meta['num_gallery_image'][0]<$_gallery_img && empty($plan_meta['num_gallery_image_unl'][0])){
+                               $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_gallery_image'][0].' gallery image(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
+                               return $msg;
+                           }
                        }
 
                     }

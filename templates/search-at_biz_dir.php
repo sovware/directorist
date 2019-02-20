@@ -276,6 +276,23 @@ $column_width           = 100/$search_listing_columns .'%';
                                                         if (!$disable_contact_info && !$hide_contact_info) {
                                                             if( !empty( $address && 'contact' == $address_location )) { ?>
                                                                 <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
+                                                            <?php } elseif(!empty($locs) && 'location' == $address_location) {
+
+                                                                $numberOfCat = count($locs);
+                                                                $output = array();
+                                                                foreach ($locs as $loc) {
+                                                                    $link = ATBDP_Permalink::get_location_archive($loc);
+                                                                    $space = str_repeat(' ', 1);
+                                                                    $output []= "{$space}<a href='{$link}'>{$loc->name}</a>";
+                                                                }?>
+                                                                <li>
+                                                                    <p>
+
+                                                    <span>
+                                                    <?php echo "<span class='fa fa-location-arrow'></span>" . join(',',$output);?>
+                                                </span>
+                                                                    </p>
+                                                                </li>
                                                             <?php } ?>
                                                             <?php if( !empty( $phone_number )) {?>
                                                                 <li><p><span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number));?></p></li>

@@ -2048,6 +2048,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                     $feature_badge_text = get_directorist_option('feature_badge_text', 'Featured');
                     $enable_tagline = get_directorist_option('enable_tagline');
                     $enable_excerpt = get_directorist_option('enable_excerpt');
+                    $address_location               = get_directorist_option('address_location','location');
                     /*Code for Business Hour Extensions*/
                     $bdbh = get_post_meta(get_the_ID(), '_bdbh', true);
                     $enable247hour = get_post_meta(get_the_ID(), '_enable247hour', true);
@@ -2210,10 +2211,27 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                                 <ul>
                                                     <?php
                                                     if (!empty($display_contact_info)) {
-                                                        if (!empty($address)) { ?>
+                                                        if (!empty($address && 'contact' == $address_location)) { ?>
                                                             <li><p>
                                                                     <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
                                                                 </p></li>
+                                                        <?php } elseif(!empty($locs) && 'location' == $address_location) {
+
+                                                            $numberOfCat = count($locs);
+                                                            $output = array();
+                                                            foreach ($locs as $loc) {
+                                                                $link = ATBDP_Permalink::get_location_archive($loc);
+                                                                $space = str_repeat(' ', 1);
+                                                                $output []= "{$space}<a href='{$link}'>{$loc->name}</a>";
+                                                            }?>
+                                                            <li>
+                                                                <p>
+
+                                                    <span>
+                                                    <?php echo "<span class='fa fa-location-arrow'></span>" . join(',',$output);?>
+                                                </span>
+                                                                </p>
+                                                            </li>
                                                         <?php } ?>
                                                         <?php if (!empty($phone_number)) { ?>
                                                             <li><p>
@@ -2366,6 +2384,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                     $feature_badge_text = get_directorist_option('feature_badge_text', 'Featured');
                     $enable_tagline = get_directorist_option('enable_tagline');
                     $enable_excerpt = get_directorist_option('enable_excerpt');
+                    $address_location               = get_directorist_option('address_location','location');
                     /*Code for Business Hour Extensions*/
                     $bdbh = get_post_meta(get_the_ID(), '_bdbh', true);
                     $enable247hour = get_post_meta(get_the_ID(), '_enable247hour', true);
@@ -2529,11 +2548,27 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                 <ul>
                                                     <?php
                                                     if (!empty($display_contact_info)) {
-                                                        if (!empty($address)) { ?>
+                                                        if (!empty($address && 'contact' == $address_location )) { ?>
                                                             <li><p>
                                                                     <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
                                                                 </p></li>
-                                                        <?php } ?>
+                                                        <?php } elseif(!empty($locs) && 'location' == $address_location) {
+
+                                                            $output = array();
+                                                            foreach ($locs as $loc) {
+                                                                $link = ATBDP_Permalink::get_location_archive($loc);
+                                                                $space = str_repeat(' ', 1);
+                                                                $output []= "{$space}<a href='{$link}'>{$loc->name}</a>";
+                                                            }?>
+                                                            <li>
+                                                                <p>
+
+                                                    <span>
+                                                    <?php echo "<span class='fa fa-location-arrow'></span>" . join(',',$output);?>
+                                                </span>
+                                                                </p>
+                                                            </li>
+                                                        <?php }?>
                                                         <?php if (!empty($phone_number)) { ?>
                                                             <li><p>
                                                                     <span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number)); ?>

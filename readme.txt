@@ -139,6 +139,9 @@ Note: It is best to use it in a page with full-width template if possible for th
 18. Add New Custom Field
 
 == Changelog ==
+= 4.5.2 - FEBRUARY 20, 2019 =
+* Fix - Hide/show issue on listings page
+
 = 4.5.1 - FEBRUARY 16, 2019 =
 * Fix - Sub-category & sub-location url issue
 * Fix - Listings page columns issue

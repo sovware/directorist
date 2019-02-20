@@ -2342,6 +2342,27 @@ The Administrator of ==SITE_NAME==
                         'default' => '1',
                     ),
                     array(
+                        'type' => 'select',
+                        'name' => 'address_location',
+                        'label' => __( 'Address', ATBDP_TEXTDOMAIN ),
+                        'items' => array(
+                            array(
+                                'value' => 'location',
+                                'label' => __('Display From Location', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'contact',
+                                'label' => __('Display From Contact Information', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'description' => __( 'Choose which address you want to show on listings page', ATBDP_TEXTDOMAIN ),
+                        /*@todo; later add option to make listing status hidden or invalid for expired listing, so that admin may retain expired listings without having them deleted after the deletion threshold */
+                        'default' => array(
+                            'value' => 'contact',
+                            'label' => __('Contact Information', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    array(
                         'type' => 'toggle',
                         'name' => 'display_publish_date',
                         'label' => __('Display Publish date', ATBDP_TEXTDOMAIN),

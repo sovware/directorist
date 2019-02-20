@@ -118,6 +118,7 @@ $column_width           = 100/$search_listing_columns .'%';
                         $pagination                     = get_directorist_option('paginate_search_results', 1);
                         $enable_tagline                 = get_directorist_option('enable_tagline');
                         $enable_excerpt                 = get_directorist_option('enable_excerpt');
+                        $address_location               = get_directorist_option('address_location','location');
                         /*Code for Business Hour Extensions*/
                         $bdbh                   = get_post_meta(get_the_ID(), '_bdbh', true);
                         $enable247hour               = get_post_meta(get_the_ID(), '_enable247hour', true);
@@ -273,7 +274,7 @@ $column_width           = 100/$search_listing_columns .'%';
                                                     <ul>
                                                         <?php
                                                         if (!$disable_contact_info && !$hide_contact_info) {
-                                                            if( !empty( $address )) { ?>
+                                                            if( !empty( $address && 'contact' == $address_location )) { ?>
                                                                 <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
                                                             <?php } ?>
                                                             <?php if( !empty( $phone_number )) {?>
@@ -294,7 +295,7 @@ $column_width           = 100/$search_listing_columns .'%';
                                             <?php } ?>
                                             <?php /* @todo: deleted the read more link */ ?>
                                         </div><!-- end ./atbd_content_upper -->
-
+                                        <?php if(!empty($display_view_count) || !empty($display_category)) {?>
                                         <div class="atbd_listing_bottom_content">
                                             <?php
                                             if(!empty($display_category)) {
@@ -340,6 +341,7 @@ $column_width           = 100/$search_listing_columns .'%';
                                                 <!--<li class="atbd_save"><span class="fa fa-heart"></span></li>-->
                                             </ul>
                                         </div><!-- end ./atbd_listing_bottom_content -->
+                                        <?php } ?>
                                     </div>
                                 </article>
                             </div>

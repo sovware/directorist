@@ -2091,14 +2091,16 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                         style=" <?php echo empty(get_directorist_option('display_preview_image', 1)) ? 'display:none' : '' ?>">
                                     <div class="atbd_listing_image">
                                         <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
-                                            <?php if (!empty($listing_prv_img)) {
+                                            <?php
+                                            $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+                                            if (!empty($listing_prv_img)) {
                                                 echo '<img src="' . esc_url($prv_image) . '" alt="listing image">';
                                             }
                                             if (!empty($listing_img[0]) && empty($listing_prv_img)) {
                                                 echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
                                             }
                                             if (empty($listing_img[0]) && empty($listing_prv_img)) {
-                                                echo '<img src="' . ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' . '" alt="listing image">';
+                                                echo '<img src="' . $default_image . '" alt="listing image">';
                                             }
                                             ?>
                                         </a>
@@ -2427,14 +2429,16 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                         style=" <?php echo empty(get_directorist_option('display_preview_image', 1)) ? 'display:none' : '' ?>">
                                     <div class="atbd_listing_image">
                                         <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
-                                            <?php if (!empty($listing_prv_img)) {
+                                            <?php
+                                            $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+                                            if (!empty($listing_prv_img)) {
                                                 echo '<img src="' . esc_url($prv_image) . '" alt="listing image">';
                                             }
                                             if (!empty($listing_img[0]) && empty($listing_prv_img)) {
                                                 echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
                                             }
                                             if (empty($listing_img[0]) && empty($listing_prv_img)) {
-                                                echo '<img src="' . ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' . '" alt="listing image">';
+                                                echo '<img src="' . $default_image . '" alt="listing image">';
                                             }
                                             ?>
                                         </a>
@@ -2758,7 +2762,10 @@ function listing_view_by_list($all_listings)
                         class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                     <figure class="atbd_listing_thumbnail_area"
                             style=" <?php echo empty(get_directorist_option('display_preview_image')) ? 'display:none' : '' ?>">
-                        <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"><?php if (!empty($listing_prv_img)) {
+                        <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
+                            <?php
+                            $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+                            if (!empty($listing_prv_img)) {
 
                                 echo '<img src="' . esc_url($prv_image) . '" alt="listing image">';
 
@@ -2770,7 +2777,7 @@ function listing_view_by_list($all_listings)
                             }
                             if (empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                echo '<img src="' . ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' . '" alt="listing imag">';
+                                echo '<img src="' . $default_image . '" alt="listing imag">';
 
                             }
                             ?></a>

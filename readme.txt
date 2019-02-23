@@ -143,6 +143,7 @@ Note: It is best to use it in a page with full-width template if possible for th
 * Fix - Hide/show issue on listings page
 * Fix - Expired listings
 * Add - Pricing Plans and Image Gallery extension's compatibility
+* Add - Option to set default location on Google Map
 
 = 4.5.1 - FEBRUARY 16, 2019 =
 * Fix - Sub-category & sub-location URL issue

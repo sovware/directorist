@@ -166,6 +166,7 @@ $column_width = 100/$columns .'%';
                                 <div class="atbd_listing_image">
                                     <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>">
                                         <?php
+                                        $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                                         if(!empty($listing_prv_img)){
 
                                             echo '<img src="'.esc_url($prv_image).'" alt="listing image">';
@@ -176,7 +177,7 @@ $column_width = 100/$columns .'%';
 
                                         }if (empty($listing_img[0]) && empty($listing_prv_img)){
 
-                                            echo '<img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image">';
+                                            echo '<img src="'.$default_image.'" alt="listing image">';
 
                                         }
                                         ?>

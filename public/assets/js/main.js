@@ -676,6 +676,23 @@ jQuery(function ($) {
         var hash = window.location.hash;
         $('#atbdp_tabs a[href="' + hash + '"]').tab('show');
     });
+
+    var $this = $("#directorist.atbd_wrapper");
+    console.log($this);
+    var columnLeft = $(".atbd_col_left.col-lg-8");
+    var columnRight = $(".directorist.col-lg-4");
+    var tabColumn = $(".atbd_dashboard_wrapper .tab-content .tab-pane .col-lg-4");
+    var size = $this.width();
+    if(size >= 500 && size <= 735){
+        columnLeft.toggleClass("col-lg-8");
+        columnRight.toggleClass("col-lg-4");
+    }
+    if(size <= 600){
+        $this.addClass("size-xs");
+        tabColumn.toggleClass("col-lg-4");
+    }
+
+
 })(jQuery);
 
 

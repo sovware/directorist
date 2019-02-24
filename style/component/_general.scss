@@ -1,6 +1,7 @@
 /* Common styles across whole plugin */
 body.atbd_content_active #directorist.atbd_wrapper{
   line-height: 24px;
+  max-width: 100%;
 }
 
 .atbd_content_active #directorist.atbd_wrapper h1, .atbd_content_active #directorist.atbd_wrapper h2, .atbd_content_active #directorist.atbd_wrapper h3, .atbd_content_active #directorist.atbd_wrapper h4, .atbd_content_active #directorist.atbd_wrapper h5, .atbd_content_active #directorist.atbd_wrapper h6,
@@ -24,6 +25,10 @@ body.atbd_content_active #directorist.atbd_wrapper{
   }
 }
 
+.atbd_content_active #directorist.atbd_wrapper.size-xs .atbdp_column{
+  width: 50%;
+}
+
 .atbd_content_active #directorist.atbd_wrapper {
   div, p, a, li{
     font-family: 'Roboto', Sans-serif !important;
@@ -45,7 +50,7 @@ body.atbd_content_active #directorist.atbd_wrapper{
     font-size: $font-size-base;
     color: $text-color;
     line-height: 24px;
-    text-align: left;
+    text-align: left !important;
   }
   ul {
     list-style: none;
@@ -211,6 +216,10 @@ body.atbd_content_active #directorist.atbd_wrapper{
 
 //pagination css
 #directorist.atbd_wrapper .pagination{
+  &:before, &:after{
+    content: none;
+  }
+  border-top: 0;
   .next{
     &:before{
     content: none;
@@ -236,6 +245,7 @@ body.atbd_content_active #directorist.atbd_wrapper{
       color: #7a82a6;
       text-align: center;
       margin-right: 2px;
+      margin-left: 0;
       &:last-child{
         margin-right: 0;
       }
@@ -251,6 +261,9 @@ body.atbd_content_active #directorist.atbd_wrapper{
       span{
         font-size: 10px;
       }
+    }
+    &:before, &:after{
+      content: none;
     }
   }
 }

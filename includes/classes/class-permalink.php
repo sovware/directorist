@@ -196,7 +196,7 @@ class ATBDP_Permalink{
      */
     public static function atbdp_get_category_page( $term ) {
 
-        $page_settings =  get_directorist_option('single_category_page');;
+        $page_settings =  get_directorist_option('single_category_page');
 
         $link = '/';
 
@@ -225,7 +225,7 @@ class ATBDP_Permalink{
      */
     public static function atbdp_get_location_page( $term ) {
 
-        $page_settings =  get_directorist_option('single_location_page');;
+        $page_settings =  get_directorist_option('single_location_page');
 
         $link = '/';
 

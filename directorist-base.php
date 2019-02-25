@@ -430,9 +430,17 @@ final class Directorist_Base
                 'title'   => __( 'All Categories', ATBDP_TEXTDOMAIN ),
                 'content' => '[directorist_all_categories]'
             ),
+            'single_category_page' => array(
+                'title'   => __( 'Category', ATBDP_TEXTDOMAIN ),
+                'content' => '[directorist_category]'
+            ),
             'all_locations_page' => array(
                 'title'   => __( 'All Locations', ATBDP_TEXTDOMAIN ),
                 'content' => '[directorist_all_locations]'
+            ),
+            'single_location_page' => array(
+                'title'   => __( 'Location', ATBDP_TEXTDOMAIN ),
+                'content' => '[directorist_location]'
             ),
             'author_profile_page' => array(
                 'title'   => __( 'Author Profile', ATBDP_TEXTDOMAIN ),
@@ -577,7 +585,7 @@ final class Directorist_Base
                                     <p class="directory_tag">
                                         <span class="fa fa-folder-open">
                                         <span>
-                                                <a href="<?= ATBDP_Permalink::get_category_archive($cats[0]); ?>">
+                                                <a href="<?= ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
                                                                      <?= esc_html($cats[0]->name); ?>
                                                 </a>
                                             <?php
@@ -588,7 +596,7 @@ final class Directorist_Base
                                                                     <?php
                                                                     $output = array();
                                                                     foreach (array_slice($cats,1) as $cat) {
-                                                                        $link = ATBDP_Permalink::get_category_archive($cat);
+                                                                        $link = ATBDP_Permalink::atbdp_get_category_page($cat);
                                                                         $space = str_repeat(' ', 1);
                                                                         $output []= "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
                                                                     }?>

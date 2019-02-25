@@ -195,7 +195,7 @@ if(!class_exists('ATBDP_Custom_Post')):
                         foreach ( $terms as $term ){
                             // link the tax term to the search page with custom query string so that plugin can show correct data from database
                             ?>
-                            <a href="<?= ATBDP_Permalink::get_location_archive( $term); ?>">
+                            <a href="<?= ATBDP_Permalink::atbdp_get_location_page( $term); ?>">
                                 <?= $term->name; ?>
                             </a>
                             <?php
@@ -209,7 +209,7 @@ if(!class_exists('ATBDP_Custom_Post')):
 
                          foreach ($cats as $cat_title){
                                  ?>
-                                 <a href="<?= ATBDP_Permalink::get_category_archive( $cat_title ); ?>">
+                                 <a href="<?= ATBDP_Permalink::atbdp_get_category_page( $cat_title ); ?>">
                                      <i class="fa <?= get_cat_icon( $cat_title->term_name ); ?>" aria-hidden="true"></i>
                                      <?= $cat_title->name; ?>
                                  </a>

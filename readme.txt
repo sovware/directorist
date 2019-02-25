@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.0.3
-Stable tag: 4.5.1
+Stable tag: 4.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -141,6 +141,10 @@ Note: It is best to use it in a page with full-width template if possible for th
 == Changelog ==
 = 4.5.2 - FEBRUARY 20, 2019 =
 * Fix - Hide/show issue on listings page
+* Fix - Listing tagline issue
+* Add - Single Category Page
+* Add - Single Location Page
+* Tweak - Category & location permalink change
 
 = 4.5.1 - FEBRUARY 16, 2019 =
 * Fix - Sub-category & sub-location url issue

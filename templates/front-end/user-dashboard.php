@@ -464,7 +464,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             $category = get_post_meta($post->ID, '_admin_category_select', true);
                                             $category_name = !empty($cats) ? $cats[0]->name : 'Uncategorized';
                                             $category_icon = !empty($cats) ? esc_attr(get_cat_icon($cats[0]->term_id)) : 'fa fa-square-o';
-                                            $category_link = !empty($cats) ? esc_url(ATBDP_Permalink::get_category_archive($cats[0])) : '#';
+                                            $category_link = !empty($cats) ? esc_url(ATBDP_Permalink::atbdp_get_category_page($cats[0])) : '#';
                                             $post_link = esc_url(get_post_permalink($post->ID));
 
                                             printf(' <tr>

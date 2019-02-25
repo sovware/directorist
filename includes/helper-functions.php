@@ -1506,7 +1506,7 @@ function atbdp_list_categories($settings)
             }
 
             $html .= '<li>';
-            $html .= '<a href=" ' . ATBDP_Permalink::get_category_archive($term) . ' ">';
+            $html .= '<a href=" ' . ATBDP_Permalink::atbdp_get_category_page($term) . ' ">';
             $html .= $term->name;
             if (!empty($settings['show_count'])) {
                 $html .= ' (' . $count . ')';
@@ -1598,7 +1598,7 @@ function atbdp_list_locations($settings)
             }
 
             $html .= '<li>';
-            $html .= '<a href=" ' . ATBDP_Permalink::get_location_archive($term) . ' ">';
+            $html .= '<a href=" ' . ATBDP_Permalink::atbdp_get_location_page($term) . ' ">';
             $html .= $term->name;
             if (!empty($settings['show_count'])) {
                 $html .= ' (' . $count . ')';
@@ -2216,11 +2216,10 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                                                     <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
                                                                 </p></li>
                                                         <?php } elseif(!empty($locs) && 'location' == $address_location) {
-
-                                                            $numberOfCat = count($locs);
+                                                            
                                                             $output = array();
                                                             foreach ($locs as $loc) {
-                                                                $link = ATBDP_Permalink::get_location_archive($loc);
+                                                                $link = ATBDP_Permalink::atbdp_get_location_page($loc);
                                                                 $space = str_repeat(' ', 1);
                                                                 $output []= "{$space}<a href='{$link}'>{$loc->name}</a>";
                                                             }?>
@@ -2263,7 +2262,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                                     ?>
                                                     <div class="atbd_content_left">
                                                         <div class="atbd_listting_category">
-                                                            <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
+                                                            <a href="<?php echo esc_url(ATBDP_Permalink::atbdp_get_category_page($cats[0]));?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
                                                                     <span class="fa fa-folder-open"></span> <?php }?><?php  echo $cats[0]->name;?></a>
                                                             <?php
                                                             if ($totalTerm>1){
@@ -2273,7 +2272,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                                                     <?php
                                                                     $output = array();
                                                                     foreach (array_slice($cats,1) as $cat) {
-                                                                        $link = ATBDP_Permalink::get_category_archive($cat);
+                                                                        $link = ATBDP_Permalink::atbdp_get_category_page($cat);
                                                                         $space = str_repeat(' ', 1);
                                                                         $output []= "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
                                                                         }?>
@@ -2556,7 +2555,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
 
                                                             $output = array();
                                                             foreach ($locs as $loc) {
-                                                                $link = ATBDP_Permalink::get_location_archive($loc);
+                                                                $link = ATBDP_Permalink::atbdp_get_location_page($loc);
                                                                 $space = str_repeat(' ', 1);
                                                                 $output []= "{$space}<a href='{$link}'>{$loc->name}</a>";
                                                             }?>
@@ -2599,7 +2598,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                     ?>
                                                     <div class="atbd_content_left">
                                                         <div class="atbd_listting_category">
-                                                            <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
+                                                            <a href="<?php echo esc_url(ATBDP_Permalink::atbdp_get_category_page($cats[0]));?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
                                                                     <span class="fa fa-folder-open"></span> <?php }?><?php  echo $cats[0]->name;?></a>
                                                             <?php
                                                             if ($totalTerm>1){
@@ -2609,7 +2608,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                                     <?php
                                                                     $output = array();
                                                                     foreach (array_slice($cats,1) as $cat) {
-                                                                        $link = ATBDP_Permalink::get_category_archive($cat);
+                                                                        $link = ATBDP_Permalink::atbdp_get_category_page($cat);
                                                                         $space = str_repeat(' ', 1);
                                                                         $output []= "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
                                                                          }?>
@@ -2870,7 +2869,7 @@ function listing_view_by_list($all_listings)
                                                 $numberOfCat = count($locs);
                                                 $output = array();
                                                 foreach ($locs as $loc) {
-                                                    $link = ATBDP_Permalink::get_location_archive($loc);
+                                                    $link = ATBDP_Permalink::atbdp_get_location_page($loc);
                                                     $space = str_repeat(' ', 1);
                                                     $output []= "{$space}<a href='{$link}'>{$loc->name}</a>";
                                                 }?>
@@ -2916,7 +2915,7 @@ function listing_view_by_list($all_listings)
                                         ?>
                                         <div class="atbd_content_left">
                                             <div class="atbd_listting_category">
-                                                <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));;?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
+                                                <a href="<?php echo esc_url(ATBDP_Permalink::atbdp_get_category_page($cats[0]));;?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
                                                         <span class="fa fa-folder-open"></span> <?php }?><?php  echo $cats[0]->name;?></a>
                                                 <?php
                                                 if ($totalTerm>1){
@@ -2926,7 +2925,7 @@ function listing_view_by_list($all_listings)
                                                         <?php
                                                         foreach (array_slice($cats,1) as $cat) {
                                                             ?>
-                                                            <span><a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>"><?= $cat->name; ?></a></span>
+                                                            <span><a href="<?= ATBDP_Permalink::atbdp_get_category_page($cat); ?>"><?= $cat->name; ?></a></span>
                                                         <?php }?>
                                                     </span>
                                                 </span>
@@ -3055,4 +3054,6 @@ if ( !function_exists('atbdp_deactivate_reasons') ) {
 
         return $reasons;
     }
+
+
 }

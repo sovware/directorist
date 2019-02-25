@@ -49,6 +49,27 @@ class ATBDP_Rewrite {
             add_rewrite_rule( "$link/([^/]+)/([0-9]{1,})/?$", 'index.php?page_id='.$id.'&atbdp_action=$matches[1]&atbdp_listing_id=$matches[2]', 'top' );
         }
 
+        // Single Category page
+        $cat = get_directorist_option('single_category_page'); // get the payment receipt page id.
+        if( $cat ) {
+            $link = str_replace( $home, '', get_permalink( $cat ) );
+            $link = trim( $link, '/' );
+
+
+            add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id='.$cat.'&atbdp_category=$matches[1]&paged=$matches[2]', 'top' );
+            add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id='.$cat.'&atbdp_category=$matches[1]', 'top' );
+        }
+
+        // Single Location page
+        $loc = get_directorist_option('single_location_page'); // get the payment receipt page id.
+        if( $loc ) {
+            $link = str_replace( $home, '', get_permalink( $loc ) );
+            $link = trim( $link, '/' );
+
+
+            add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id='.$loc.'&atbdp_category=$matches[1]&paged=$matches[2]', 'top' );
+            add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id='.$loc.'&atbdp_location=$matches[1]', 'top' );
+        }
 
         // Rewrite tags (Making custom query var available throughout the application
         // WordPress by default does not understand the unknown query vars. It needs to be registered with WP for using it.
@@ -59,6 +80,8 @@ class ATBDP_Rewrite {
         add_rewrite_tag( '%atbdp_action%', '([^/]+)' );
         add_rewrite_tag( '%atbdp_order_id%', '([0-9]{1,})' );
         add_rewrite_tag( '%atbdp_listing_id%', '([0-9]{1,})' );
+        add_rewrite_tag( '%atbdp_category%', '([^/]+)' );
+        add_rewrite_tag( '%atbdp_location%', '([^/]+)' );
     }
 
 

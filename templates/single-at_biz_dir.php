@@ -311,7 +311,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                         $numberOfCat = count($cats);
                                         $output = array();
                                         foreach ($cats as $cat) {
-                                            $link = ATBDP_Permalink::get_category_archive($cat);
+                                            $link = ATBDP_Permalink::atbdp_get_category_page($cat);
                                             $space = str_repeat(' ', 1);
                                             $output []= "{$space}<a href='{$link}'>{$cat->name}</a>";
                                         }
@@ -358,7 +358,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
                         <div class="atbd_listing_title">
                             <h2><?php echo esc_html($p_title); ?></h2>
+                            <?php if(!empty($tagline)) {?>
                             <p class="atbd_sub_title"><?= (!empty($tagline)) ? esc_html(stripslashes($tagline)) : ''; ?></p>
+                            <?php } ?>
                         </div>
 
                         <div class="about_detail">
@@ -373,12 +375,13 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                             $post_object = get_post(get_the_ID());
 
                             $content =  apply_filters('get_the_content',$post_object->post_content);
-                            echo wpautop($content);
+                            echo do_shortcode(wpautop($content));
                             /*
                             global $wp_embed;
                             $cont = $wp_embed->autoembed($wp_embed->run_shortcode(wp_kses_post($post->post_content)));
                             echo do_shortcode($cont);*/
                             ?>
+
 
                         </div>
                     </div>

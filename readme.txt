@@ -139,18 +139,24 @@ Note: It is best to use it in a page with full-width template if possible for th
 18. Add New Custom Field
 
 == Changelog ==
-= 4.5.2 - FEBRUARY 20, 2019 =
+= 4.6.0 - FEBRUARY 25, 2019 =
 * Fix - Hide/show issue on listings page
 * Fix - Listing tagline issue
+* Fix - Expired listings
+* Fix - Responsive issue
 * Add - Single Category Page
 * Add - Single Location Page
+* Add - Pricing Plans and Image Gallery extension's compatibility
+* Add - Option to set default location on Google Map
+* Add - Option to set default Preview Image
 * Tweak - Category & location permalink change
 
 = 4.5.1 - FEBRUARY 16, 2019 =
-* Fix - Sub-category & sub-location url issue
+* Fix - Sub-category & sub-location URL issue
 * Fix - Listings page columns issue
-* Fix - Show multi-category in similar and popular listing widget
-* Fix - Minor CSS issue in add listing form
+* Fix - Show multi-category on similar and popular listing widget
+* Fix - Preview image issue on popular listing widget
+* Fix - Add listing form's minor CSS issues
 
 = 4.5.0 - FEBRUARY 14, 2019 =
 * Add - Option to make listing form fields required

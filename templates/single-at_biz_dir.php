@@ -268,9 +268,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                             </div><!-- end /.atbd_directory_image_wrapper -->
                         </div>
                     <?php }elseif(!empty($display_prv_image)){
+                        $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                         ?>
                         <div class="single_image">
-                            <img src="<?= !empty($listing_prv_img) ? esc_url($listing_prv_imgurl) : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'; ?>"
+                            <img src="<?= !empty($listing_prv_img) ? esc_url($listing_prv_imgurl) : $default_image; ?>"
                                  alt="<?php esc_attr_e('Details Image', ATBDP_TEXTDOMAIN); ?>">
                         </div>
                         <?php
@@ -358,6 +359,13 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
                         <div class="atbd_listing_title">
                             <h2><?php echo esc_html($p_title); ?></h2>
+                            <?php
+                            /**
+                             * @since 4.5.2
+                             * It fires after the title in single listing
+                             */
+                            do_action('atbdp_single_listing_after_title');
+                            ?>
                             <?php if(!empty($tagline)) {?>
                             <p class="atbd_sub_title"><?= (!empty($tagline)) ? esc_html(stripslashes($tagline)) : ''; ?></p>
                             <?php } ?>

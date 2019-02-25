@@ -2121,6 +2121,20 @@ The Administrator of ==SITE_NAME==
                     'description' => sprintf(__( 'It\'s required to use Google Map. You can find detailed information %s.', ATBDP_TEXTDOMAIN ), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
                     'default' => atbdp_get_option('map_api_key', 'atbdp_general'),
                 ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'default_latitude',
+                    'label' => __( 'Default Latitude', ATBDP_TEXTDOMAIN ),
+                    'description' => sprintf(__( 'You can find it %s.', ATBDP_TEXTDOMAIN ), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'default' => atbdp_get_option('default_latitude', 'atbdp_general'),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'default_longitude',
+                    'label' => __( 'Default Longitude', ATBDP_TEXTDOMAIN ),
+                    'description' => sprintf(__( 'You can find it %s.', ATBDP_TEXTDOMAIN ), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'default' => atbdp_get_option('default_longitude', 'atbdp_general'),
+                ),
 
                 array(
                     'type' => 'slider',
@@ -2224,6 +2238,13 @@ The Administrator of ==SITE_NAME==
                         'description' => __('If the preview images are not in the same size, it helps automatically resizing.', ATBDP_TEXTDOMAIN),
                         'default' => 1,
                     ),
+                    array(
+                        'type' => 'upload',
+                        'name' => 'default_preview_image',
+                        'label' => __('Default Preview Image', ATBDP_TEXTDOMAIN),
+                        'default' => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
+                    ),
+
                     array(
                         'type' => 'slider',
                         'name' => 'crop_width',

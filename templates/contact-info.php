@@ -4,6 +4,8 @@ if (!empty($args['listing_contact_info'])) {
 }
 // grab social information
 $social_info = !empty($social) ? $social : array();
+$default_latitude = get_directorist_option('default_latitude', '51.5073509');
+$default_longitude = get_directorist_option('default_longitude', '-0.12775829999998223');
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map');
 $disable_price = get_directorist_option('disable_list_price');
@@ -195,8 +197,8 @@ do_action('atbdp_edit_after_googlemap_preview', 'add_listing_page_backend', $arg
         $manual_lat = $('#manual_lat');
         $manual_lng = $('#manual_lng');
         saved_lat_lng = {
-            lat:<?= (!empty($manual_lat)) ? floatval($manual_lat) : '51.5073509' ?>,
-            lng: <?= (!empty($manual_lng)) ? floatval($manual_lng) : '-0.12775829999998223' ?> }; // default is London city
+            lat:<?= (!empty($manual_lat)) ? floatval($manual_lat) : $default_latitude ?>,
+            lng: <?= (!empty($manual_lng)) ? floatval($manual_lng) : $default_longitude ?> }; // default is London city
         info_content = "<?= $info_content; ?>";
         markers = [];// initialize the array to keep track all the marker
         /*@todo; make the max width size customizable*/

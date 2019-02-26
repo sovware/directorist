@@ -182,6 +182,9 @@
   }
   .atbd_contact_info {
     ul li {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
       & + li {
         margin-top: 10px;
       }

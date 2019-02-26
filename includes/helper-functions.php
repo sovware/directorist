@@ -3005,7 +3005,15 @@ if (!function_exists('is_fee_manager_active')){
      */
     function is_fee_manager_active(){
         $FM_disabled_byAdmin = get_directorist_option('fee_manager_enable', 1);
-        return (class_exists('ATBDP_Pricing_Plans') && $FM_disabled_byAdmin) ? true : false;
+        $WFM_disabled_byAdmin = get_directorist_option('woo_pricing_plans_enable', 1);
+        if (class_exists('ATBDP_Pricing_Plans') && $FM_disabled_byAdmin){
+            return true;
+        }elseif(class_exists('DWPP_Pricing_Plans') && $WFM_disabled_byAdmin){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 }
 

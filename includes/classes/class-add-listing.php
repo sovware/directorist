@@ -455,10 +455,36 @@ if (!class_exists('ATBDP_Add_Listing')):
                         // if monetization on, redirect to checkout page
                         // vail if monetization is not active.
                         if (is_fee_manager_active() ){
-                            if ('pay_per_listng' === package_or_PPL($plan=null)){
-                                wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
-                                exit;
-                            }elseif(('package' === package_or_PPL($plan=null)) && !$plan_purchased){
+                            if(class_exists('DWPP_Pricing_Plans')){
+                                if ('pay_per_listng' === package_or_PPL($plan=null)){
+                                    global $woocommerce;
+                                    $woocommerce->cart->empty_cart();
+                                    $woocommerce->cart->add_to_cart( $subscribed_package_id );
+                                    wp_redirect( wc_get_checkout_url() );
+                                    exit;
+                                }elseif(('package' === package_or_PPL($plan=null)) && !$plan_purchased){
+                                    //lets redirect to woo checkout page
+                                  global $woocommerce;
+                                    $woocommerce->cart->empty_cart();
+                                    $woocommerce->cart->add_to_cart( $subscribed_package_id );
+                                    wp_redirect( wc_get_checkout_url() );
+                                    exit;
+                                }else{
+                                    //yep! listing is saved to db and redirect user to admin panel or listing itself
+                                    $redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
+                                    if ('view_listing' == $redirect_page){
+                                        wp_redirect(get_permalink($post_id));
+                                    }else{
+                                        wp_redirect(ATBDP_Permalink::get_dashboard_page_link());
+                                    }
+                                    exit;
+                                }
+                            }else{
+                                if ('pay_per_listng' === package_or_PPL($plan=null)){
+                                    wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
+                                    exit;
+                                }elseif(('package' === package_or_PPL($plan=null)) && !$plan_purchased){
+                                    //lets redirect to directorist checkout page
                                     wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
                                     exit;
                                 }else{
@@ -471,7 +497,10 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     }
                                     exit;
                                 }
+                            }
+
                         }else{
+                            //no pay extension own yet let treat as general user
                             $featured_enabled = get_directorist_option('enable_featured_listing');
                             if (get_directorist_option('enable_monetization') && !$_POST['listing_id'] && $featured_enabled && (!is_fee_manager_active())){
                                 wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));

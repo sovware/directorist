@@ -875,7 +875,12 @@ if ( !class_exists('ATBDP_Shortcode') ):
                         ATBDP()->enquirer->add_listing_scripts_styles();
                         ATBDP()->load_template('front-end/add-listing');
                     }else{
-                        ATBDP_Pricing_Plans()->load_template('fee-plans');
+                        if (class_exists('ATBDP_Pricing_Plans')){
+                            ATBDP_Pricing_Plans()->load_template('fee-plans');
+                        }else{
+                            DWPP_Pricing_Plans()->load_template('fee-plans');
+                        }
+
                     }
                 }else{
                     ATBDP()->enquirer->add_listing_scripts_styles();

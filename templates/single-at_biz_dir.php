@@ -63,6 +63,7 @@ $hide_contact_info = !empty($hide_contact_info) ? $hide_contact_info : false;
 
 /*INFO WINDOW CONTENT*/
 $t = get_the_title();
+var_dump($t);
 $t = !empty($t) ? $t : __('No Title', ATBDP_TEXTDOMAIN);
 $tg = !empty($tagline) ? esc_html($tagline) : '';
 $ad = !empty($address) ? esc_html($address) : '';

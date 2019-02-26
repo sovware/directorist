@@ -163,7 +163,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                         <div class="db_btn_area">
                                                             <?php
                                                             $lstatus = get_post_meta($post->ID, '_listing_status', true);
-                                                            var_dump(current_time(time()));
                                                             // If the listing needs renewal then there is no need to show promote button
                                                             if ('renewal' == $lstatus || 'expired' == $lstatus) {
                                                                 $can_renew = get_directorist_option('can_renew_listing');

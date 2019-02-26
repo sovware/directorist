@@ -147,7 +147,7 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                                 <?php
                                 foreach ($top_categories as $cat) { ?>
                                     <li>
-                                        <a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>">
+                                        <a href="<?= ATBDP_Permalink::atbdp_get_category_page($cat); ?>">
                                             <span class="fa <?= get_cat_icon($cat->term_id); ?>"
                                                   aria-hidden="true"></span>
                                             <p><?= $cat->name; ?></p>

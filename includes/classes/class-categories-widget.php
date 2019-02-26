@@ -259,7 +259,7 @@ if (!class_exists('BD_Categories_Widget')) {
                     }
 
                     $html .= '<li>';
-                    $html .= '<a href="' . ATBDP_Permalink::get_category_archive( $term ) . '">'. $span .'';
+                    $html .= '<a href="' . ATBDP_Permalink::atbdp_get_category_page( $term ) . '">'. $span .'';
                     $html .= $term->name;
                     if( ! empty( $settings['show_count'] ) ) {
                         $html .= ' (' . $count . ')';

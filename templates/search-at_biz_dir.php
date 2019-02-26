@@ -19,7 +19,7 @@ $in_cat_text            = !empty($in_cat) ? sprintf(__(' from "%s" Category', AT
 $in_loc_text            = !empty($in_loc) ? sprintf(__(' in "%s" Location', ATBDP_TEXTDOMAIN), $in_loc) : '';
 $column_width           = 100/$search_listing_columns .'%';
 ?>
-    <div id="directorist" class="directorist atbd_wrapper directory_wrapper search_area">
+    <div id="directorist" class="atbd_wrapper directorist directory_wrapper search_area">
         <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
             <?php if ( !empty($display_header) ) {?>
             <div class="header_bar">
@@ -208,7 +208,7 @@ $column_width           = 100/$search_listing_columns .'%';
                                                         <?php BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list ?>
                                                     </span>
                                                 <?php }
-                                            }?>
+                                            } ?>
                                             <span class="atbd_lower_badge">
                                                 <?php
                                                  if ($featured && !empty($display_feature_badge_cart)){ printf(
@@ -284,7 +284,7 @@ $column_width           = 100/$search_listing_columns .'%';
                                                                 $numberOfCat = count($locs);
                                                                 $output = array();
                                                                 foreach ($locs as $loc) {
-                                                                    $link = ATBDP_Permalink::get_location_archive($loc);
+                                                                    $link = ATBDP_Permalink::atbdp_get_location_page($loc);
                                                                     $space = str_repeat(' ', 1);
                                                                     $output []= "{$space}<a href='{$link}'>{$loc->name}</a>";
                                                                 }?>
@@ -324,7 +324,7 @@ $column_width           = 100/$search_listing_columns .'%';
                                                     ?>
                                                     <div class="atbd_content_left">
                                                         <div class="atbd_listting_category">
-                                                            <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
+                                                            <a href="<?php echo esc_url(ATBDP_Permalink::atbdp_get_category_page($cats[0]));?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
                                                                     <span class="fa fa-folder-open"></span> <?php }?><?php  echo $cats[0]->name;?></a>
                                                                     <?php
                                                            if ($totalTerm>1){
@@ -334,7 +334,7 @@ $column_width           = 100/$search_listing_columns .'%';
                                                                     <?php
                                                                     $output = array();
                                                                     foreach (array_slice($cats,1) as $cat) {
-                                                                        $link = ATBDP_Permalink::get_category_archive($cat);
+                                                                        $link = ATBDP_Permalink::atbdp_get_category_page($cat);
                                                                         $space = str_repeat(' ', 1);
                                                                         $output []= "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
                                                                          }?>
@@ -398,4 +398,13 @@ $column_width           = 100/$search_listing_columns .'%';
         width: <?php echo $column_width;?>;
     }
 </style>
+<script>
+    (function($){
+        var $this = $("#directorist.atbd_wrapper");
+        var size = $this.width();
+        if(size <= 600){
+            $this.addClass("size-xs");
+        }
+    })(jQuery);
+</script>
 <?php include __DIR__.'/style.php'; ?>

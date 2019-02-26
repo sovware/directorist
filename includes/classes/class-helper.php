@@ -217,7 +217,7 @@ class ATBDP_Helper {
                             <p class="directory_tag">
                                 <span class="fa <?= esc_attr(get_cat_icon(@$cat->term_id)); ?>" aria-hidden="true"></span>
                                 <span> <?php if (is_object($cat)) { ?>
-                                        <a href="<?= ATBDP_Permalink::get_category_archive($cat); ?>">
+                                        <a href="<?= ATBDP_Permalink::atbdp_get_category_page($cat); ?>">
                                                                 <?= esc_html($cat->name); ?>
                                          </a>
                                     <?php } ?>
@@ -227,7 +227,7 @@ class ATBDP_Helper {
                     <?php } if (!empty($loc)){ ?>
                         <li><p class="info_title"><?php _e('Location:', ATBDP_TEXTDOMAIN);?>
                                 <span><?php if (is_object($loc)) { ?>
-                                        <a href="<?= ATBDP_Permalink::get_location_archive($loc); ?>">
+                                        <a href="<?= ATBDP_Permalink::atbdp_get_location_page($loc); ?>">
                                                                 <?= esc_html($loc->name); ?>
                                         </a>
                                     <?php } ?>
@@ -283,7 +283,7 @@ class ATBDP_Helper {
                                     <p class="directory_tag">
                                         <span class="fa <?= esc_attr(get_cat_icon(@$cat->term_id)); ?>" aria-hidden="true"></span>
                                         <span> <?php if (is_object($cat)) { ?>
-                                                <a href="<?= esc_url(ATBDP_Permalink::get_category_archive($cat)); ?>">
+                                                <a href="<?= esc_url(ATBDP_Permalink::atbdp_get_category_page($cat)); ?>">
                                                   <?= esc_html($cat->name); ?>
                                                  </a>
                                             <?php } ?>
@@ -304,7 +304,7 @@ class ATBDP_Helper {
                                 <?php foreach ($locs as $loc) { $location_count--;// reduce count to display comma for the right item?>
                                     <li>
                                     <span><?php if (is_object($loc)) { ?>
-                                            <a href="<?= esc_url(ATBDP_Permalink::get_location_archive($loc)); ?>">
+                                            <a href="<?= esc_url(ATBDP_Permalink::atbdp_get_location_page($loc)); ?>">
                                                 <?= esc_html($loc->name); ?>
                                             </a>
                                         <?php } ?>

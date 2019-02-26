@@ -84,7 +84,7 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
                                 <p class="directory_tag">
                                         <span class="fa fa-folder-open">
                                         <span>
-                                                <a href="<?= ATBDP_Permalink::get_category_archive($cats[0]); ?>">
+                                                <a href="<?= ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
                                                                      <?= esc_html($cats[0]->name); ?>
                                                 </a>
                                             <?php
@@ -95,7 +95,7 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
                                                                     <?php
                                                                     $output = array();
                                                                     foreach (array_slice($cats,1) as $cat) {
-                                                                        $link = ATBDP_Permalink::get_category_archive($cat);
+                                                                        $link = ATBDP_Permalink::atbdp_get_category_page($cat);
                                                                         $space = str_repeat(' ', 1);
                                                                         $output []= "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
                                                                     }?>

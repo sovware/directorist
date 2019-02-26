@@ -230,7 +230,7 @@ $column_width = 100/$columns .'%';
                                                 if ($popular_listings->have_posts() && !empty($display_popular_badge_cart)) {
                                                     foreach ($popular_listings->posts as $pop_post) {
                                                         if ($pop_post->ID == get_the_ID()){
-                                                            echo ' <span class="atbd_badge atbd_badge_popular">'. $popular_badge_text .'</span>';
+                                                            echo '<span class="atbd_badge atbd_badge_popular">'. $popular_badge_text .'</span>';
                                                         }
                                                     }
                                                 }
@@ -294,7 +294,7 @@ $column_width = 100/$columns .'%';
                                                         $numberOfCat = count($locs);
                                                         $output = array();
                                                         foreach ($locs as $loc) {
-                                                            $link = ATBDP_Permalink::get_location_archive($loc);
+                                                            $link = ATBDP_Permalink::atbdp_get_location_page($loc);
                                                             $space = str_repeat(' ', 1);
                                                             $output []= "{$space}<a href='{$link}'>{$loc->name}</a>";
                                                         }?>
@@ -330,11 +330,14 @@ $column_width = 100/$columns .'%';
                                         <?php
                                         if(!empty($display_category)) {
                                             if(!empty($cats) ) {
+                                                global $post;
                                                 $totalTerm = count($cats);
+
+
                                                 ?>
                                                 <div class="atbd_content_left">
                                                     <div class="atbd_listting_category">
-                                                        <a href="<?php echo esc_url(ATBDP_Permalink::get_category_archive($cats[0]));?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
+                                                        <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cats[0]);?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)){ ?>
                                                                 <span class="fa fa-folder-open"></span><?php }?><?php  echo $cats[0]->name;?></a>
                                                         <?php
                                                         if ($totalTerm>1){
@@ -344,7 +347,7 @@ $column_width = 100/$columns .'%';
                                                                     <?php
                                                                     $output = array();
                                                                     foreach (array_slice($cats,1) as $cat) {
-                                                                        $link = ATBDP_Permalink::get_category_archive($cat);
+                                                                        $link = ATBDP_Permalink::atbdp_get_category_page($cat);
                                                                         $space = str_repeat(' ', 1);
                                                                         $output []= "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
                                                                          }?>

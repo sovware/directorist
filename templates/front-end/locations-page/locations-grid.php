@@ -17,7 +17,7 @@
             }
             ?>
             <div class="<?php echo $span;?>">
-            <a class="atbd_location_grid" href="<?php echo ATBDP_Permalink::get_location_archive($term) ?>"
+            <a class="atbd_location_grid" href="<?php echo ATBDP_Permalink::atbdp_get_location_page($term) ?>"
                class=""> <?php echo $term->name; ?>
                 <?php
                 if (!empty($locations_settings['show_count'])) {

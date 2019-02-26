@@ -187,6 +187,64 @@ class ATBDP_Permalink{
     }
 
     /**
+     * Generate a permalink for single category page.
+     *
+     * @since    4.5.3
+     *
+     * @param    object    $term    The term object.
+     * @return   string             Term link.
+     */
+    public static function atbdp_get_category_page( $term ) {
+
+        $page_settings =  get_directorist_option('single_category_page');
+
+        $link = '/';
+
+        if( $page_settings  ) {
+            $link = get_permalink( $page_settings );
+
+            if( '' != get_option( 'permalink_structure' ) ) {
+                $link = user_trailingslashit( trailingslashit( $link ) . $term->slug );
+
+            } else {
+                $link = add_query_arg( 'atbdp_category', $term->slug, $link );
+            }
+        }
+
+        return apply_filters('atbdp_single_category', $link);
+
+    }
+
+    /**
+     * Generate a permalink for single location page.
+     *
+     * @since    4.5.3
+     *
+     * @param    object    $term    The term object.
+     * @return   string             Term link.
+     */
+    public static function atbdp_get_location_page( $term ) {
+
+        $page_settings =  get_directorist_option('single_location_page');
+
+        $link = '/';
+
+        if( $page_settings  ) {
+            $link = get_permalink( $page_settings );
+
+            if( '' != get_option( 'permalink_structure' ) ) {
+                $link = user_trailingslashit( trailingslashit( $link ) . $term->slug );
+
+            } else {
+                $link = add_query_arg( 'atbdp_location', $term->slug, $link );
+            }
+        }
+
+        return apply_filters('atbdp_single_location', $link);
+
+    }
+
+    /**
      * It returns the link to the custom category archive page of ATBDP
      * @param $loc
      * @param string $field

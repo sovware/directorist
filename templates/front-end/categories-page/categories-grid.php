@@ -20,7 +20,7 @@
                     }
                     ?>
                     <li class="<?php echo $span;?>">
-                        <a href="<?php  echo ATBDP_Permalink::get_category_archive($term) ?>">
+                        <a href="<?php  echo atbdp_get_category_page($term) ?>">
                             <?php
                             if ('none' != $icon){
                                ?>

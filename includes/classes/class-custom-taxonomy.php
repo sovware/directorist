@@ -29,8 +29,47 @@ class ATBDP_Custom_Taxonomy {
         //to remove custom category metabox form add new listing page
         //add_action( 'admin_menu', array($this,'remove_custom_taxonomy') );
 
+        add_filter( 'term_link', array($this,'taxonomy_redirect_page'), 10, 3 );
+        add_action( 'template_redirect', array($this,'atbdp_template_redirect'));
+
+    }
+
+    public function atbdp_template_redirect () {
+        $redirect_url = '';
+
+        if( ! is_feed() ) {
 
 
+
+            // If ACADP Categories Page
+            if( is_tax( ATBDP_CATEGORY ) ) {
+
+                $term = get_queried_object();
+                $redirect_url = ATBDP_Permalink::atbdp_get_category_page( $term );
+
+            }
+
+
+        }
+
+        // Redirect
+        if( ! empty( $redirect_url ) ) {
+
+            wp_redirect( $redirect_url );
+            exit();
+
+        }
+    }
+
+    public function taxonomy_redirect_page ($url, $term, $taxonomy) {
+
+
+        // Categories
+        if ( ATBDP_CATEGORY == $taxonomy ) {
+            $url = ATBDP_Permalink::atbdp_get_category_page($term);
+        }
+
+        return $url;
     }
 
     public function edit_taxonomy_view_link($actions, $tag)
@@ -40,7 +79,7 @@ class ATBDP_Custom_Taxonomy {
             if ($actions['view']){
                 $actions['view'] = sprintf(
                     '<a href="%s" aria-label="%s">%s</a>',
-                    ATBDP_Permalink::get_category_archive($tag)
+                    ATBDP_Permalink::atbdp_get_category_page($tag)
                     ,
                     /* translators: %s: taxonomy term name */
                     esc_attr( sprintf( __( 'View &#8220;%s&#8221; archive', ATBDP_TEXTDOMAIN ), $tag->name ) ),
@@ -51,7 +90,7 @@ class ATBDP_Custom_Taxonomy {
             if ($actions['view']){
                 $actions['view'] = sprintf(
                     '<a href="%s" aria-label="%s">%s</a>',
-                    ATBDP_Permalink::get_location_archive($tag)
+                    ATBDP_Permalink::atbdp_get_location_page($tag)
                     ,
                     /* translators: %s: taxonomy term name */
                     esc_attr( sprintf( __( 'View &#8220;%s&#8221; archive', ATBDP_TEXTDOMAIN ), $tag->name ) ),
@@ -159,7 +198,7 @@ class ATBDP_Custom_Taxonomy {
 
 
         // get the rewrite slug from the user settings, if exist use it.
-        $slug = get_directorist_option('atbdp_loc_slug', ATBDP_LOCATION);
+        $slug = ATBDP_LOCATION;
         if (!empty($slug)) {
             $args['rewrite'] = array(
                 'slug'=> $slug,
@@ -190,11 +229,10 @@ class ATBDP_Custom_Taxonomy {
             'query_var'         => true,
             'public'            => true,
             'show_in_nav_menus' => true,
-
         );
 
         // get the rewrite slug from the user settings, if exist use it.
-        $slug = get_directorist_option('atbdp_cat_slug', ATBDP_CATEGORY);
+        $slug = ATBDP_CATEGORY;
         if (!empty($slug)) {
             $args2['rewrite'] = array(
                 'slug'=> $slug,
@@ -229,7 +267,7 @@ class ATBDP_Custom_Taxonomy {
         );
 
         // get the rewrite slug from the user settings, if exist use it.
-        $slug = get_directorist_option('atbdp_tag_slug', ATBDP_TAGS);
+        $slug = ATBDP_TAGS;
         if (!empty($slug)) {
             $args2['rewrite'] = array(
                 'slug'=> $slug,

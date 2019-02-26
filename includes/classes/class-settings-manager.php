@@ -54,19 +54,6 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                     'icon' => 'font-awesome:fa-list',
                     'menus' => $this->get_listings_settings_submenus(),
                 ),
-                /*Main Menu 2*/
-                'permalink_menu' => array(
-                    'name' => 'permalinks',
-                    'title' => __('Permalinks Settings', ATBDP_TEXTDOMAIN),
-                    'icon' => 'font-awesome:fa-link',
-                    'controls' => apply_filters('atbdp_permalink_settings_controls', array(
-                        'permalink_section' => array(
-                            'type' => 'section',
-                            'title' => __('Slugs & Permalinks', ATBDP_TEXTDOMAIN),
-                            'fields' => $this->get_permalink_settings_fields()
-                        ), // ends section
-                    ) ),
-                ),
                 /*Main Menu 3*/
                 'search' => array(
                     'name' => 'search',
@@ -1564,58 +1551,6 @@ The Administrator of ==SITE_NAME==
             );
         }
 
-        /**
-         * Get all the settings fields for the permalink settings section
-         * @since 3.0.0
-         * @return array
-         */
-        function get_permalink_settings_fields(){
-            return apply_filters('atbdp_permalink_settings_fields', array(
-                    array(
-                        'type' => 'notebox',
-                        'label' => __('Notice about slugs:', ATBDP_TEXTDOMAIN),
-                        'description' => __('Slugs must contain only alpha-numeric characters, underscores or dashes. All slugs must be unique and different.', ATBDP_TEXTDOMAIN),
-                        'status' => 'warning',
-                    ),
-                    array(
-                        'type' => 'textbox',
-                        'name' => 'atbdp_listing_slug',
-                        'label' => __('Listing Slug', ATBDP_TEXTDOMAIN),
-                        'default' => 'at_biz_dir',
-                        'validation' => 'required',
-                    ),
-                    array(
-                        'type' => 'textbox',
-                        'name' => 'atbdp_cat_slug',
-                        'label' => __('Category Slug', ATBDP_TEXTDOMAIN),
-                        'default' => ATBDP_CATEGORY,
-                        'validation' => 'required',
-                    ),
-                    array(
-                        'type' => 'textbox',
-                        'name' => 'atbdp_loc_slug',
-                        'label' => __('Location Slug', ATBDP_TEXTDOMAIN),
-                        'default' => ATBDP_LOCATION,
-                        'validation' => 'required',
-                    ),
-                    array(
-                        'type' => 'textbox',
-                        'name' => 'atbdp_tag_slug',
-                        'label' => __('Tag Slug', ATBDP_TEXTDOMAIN),
-                        'default' => ATBDP_TAGS,
-                        'validation' => 'required',
-                    ),
-
-                    array(
-                        'type' => 'notebox',
-                        'label' => __('Tips & Troubleshooting:', ATBDP_TEXTDOMAIN),
-                        'description' => __('NOTE: If changing this option does not work, then do not worry. Just go to "WordPress Dashboard>Settings>Permalinks" and just click save.', ATBDP_TEXTDOMAIN),
-                        'status' => 'info',
-                    ),
-
-                )
-            );
-        }
 
         /**
          * Get all the settings fields for the search settings section
@@ -2021,7 +1956,13 @@ The Administrator of ==SITE_NAME==
          */
         function get_listings_form_settings_fields() {
             return apply_filters('atbdp_listings_settings_fields' , array(
-
+                array(
+                    'type' => 'textbox',
+                    'name' => 'atbdp_listing_slug',
+                    'label' => __('Listing Slug', ATBDP_TEXTDOMAIN),
+                    'default' => 'at_biz_dir',
+                    'validation' => 'required',
+                ),
                 array(
                     'type' => 'select',
                     'name' => 'new_listing_status',
@@ -2737,12 +2678,34 @@ The Administrator of ==SITE_NAME==
 
                     array(
                         'type' => 'select',
+                        'name' => 'single_category_page',
+                        'label' => __( 'Single Category Page', ATBDP_TEXTDOMAIN ),
+                        'items' => $this->get_pages_vl_arrays(),
+                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_category]</strong>'),
+
+                        'default' => atbdp_get_option('single_category_page', 'atbdp_general'),
+                        'validation' => 'numeric',
+                    ),
+
+                    array(
+                        'type' => 'select',
                         'name' => 'all_locations_page',
                         'label' => __( 'All Locations Page', ATBDP_TEXTDOMAIN ),
                         'items' => $this->get_pages_vl_arrays(),
                         'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_all_locations]</strong>'),
 
                         'default' => atbdp_get_option('all_locations', 'atbdp_general'),
+                        'validation' => 'numeric',
+                    ),
+
+                    array(
+                        'type' => 'select',
+                        'name' => 'single_location_page',
+                        'label' => __( 'Single Location Page', ATBDP_TEXTDOMAIN ),
+                        'items' => $this->get_pages_vl_arrays(),
+                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_location]</strong>'),
+
+                        'default' => atbdp_get_option('single_location_page', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),
 

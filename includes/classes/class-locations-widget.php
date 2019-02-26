@@ -257,7 +257,7 @@ if (!class_exists('BD_Locations_Widget')) {
                     }
 
                     $html .= '<li>';
-                    $html .= '<a href="' . ATBDP_Permalink::get_location_archive( $term ) . '">';
+                    $html .= '<a href="' . ATBDP_Permalink::atbdp_get_location_page( $term ) . '">';
                     $html .= $term->name;
                     if( ! empty( $settings['show_count'] ) ) {
                         $html .= ' (' . $count . ')';

@@ -207,6 +207,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title h3 {
@@ -745,6 +746,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbd_google_map {
   height: 310px;
   width: 100%;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li + li {
@@ -2128,7 +2135,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .hide-if-no-js {
-  text-align: center;
+  text-align: center !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .listing-img-container {
@@ -2167,7 +2174,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-top: 10px;
   font-size: 16px;
   font-weight: 500;
-  text-align: center;
+  text-align: center !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .listing-img-container small {
@@ -2745,6 +2752,36 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar .atbd_auth_nd {
     margin-left: 0;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title {
+    margin-bottom: 10px;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields > li {
+    display: block;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_title p {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_title,
+  .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_content {
+    width: 100%;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_content {
+    border: 0 none;
+    padding-top: 0;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title,
+  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
+    width: 100%;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
+    padding-left: 45px;
   }
 }
 

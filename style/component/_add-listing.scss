@@ -104,7 +104,7 @@
       margin-bottom: 30px;
     }
     .hide-if-no-js {
-      text-align: center;
+      text-align: center !important;
     }
     .listing-img-container {
       text-align: center;
@@ -140,7 +140,7 @@
         margin-top: 10px;
         font-size: 16px;
         font-weight: 500;
-        text-align: center;
+        text-align: center !important;
       }
       small {
         font-size: 13px;

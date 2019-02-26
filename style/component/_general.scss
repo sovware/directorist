@@ -67,6 +67,7 @@ body.atbd_content_active #directorist.atbd_wrapper{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     .atbd_generic_header_title {
       h3 {
         font-size: 20px;

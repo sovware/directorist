@@ -230,7 +230,7 @@ $column_width = 100/$columns .'%';
                                                 if ($popular_listings->have_posts() && !empty($display_popular_badge_cart)) {
                                                     foreach ($popular_listings->posts as $pop_post) {
                                                         if ($pop_post->ID == get_the_ID()){
-                                                            echo ' <span class="atbd_badge atbd_badge_popular">'. $popular_badge_text .'</span>';
+                                                            echo '<span class="atbd_badge atbd_badge_popular">'. $popular_badge_text .'</span>';
                                                         }
                                                     }
                                                 }

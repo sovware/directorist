@@ -14,7 +14,10 @@
     margin-right: 6px;
     & + .atbd_badge {
       margin-left: 0;
-    } 
+    }
+    &:last-child{
+      margin-right: 0;
+    }
     &.atbd_badge_open {
       @extend .atbd_bg-success;
     }
@@ -30,7 +33,6 @@
     &.atbd_badge_new{
       background: #122069;
       margin-left: 0;
-      margin-right: 2px;
     }
   }
   .atbd_listing_list{
@@ -132,6 +134,7 @@
           margin-top: 15px;
         }
         .atbd_listing_title {
+          padding-top: 0;
           a{font-size: 18px;}
           text-transform: capitalize;
           line-height: 28px;

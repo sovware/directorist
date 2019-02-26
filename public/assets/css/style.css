@@ -138,6 +138,7 @@
 /* Common styles across whole plugin */
 body.atbd_content_active #directorist.atbd_wrapper {
   line-height: 24px;
+  max-width: 100%;
 }
 
 .atbd_content_active #directorist.atbd_wrapper h1, .atbd_content_active #directorist.atbd_wrapper h2, .atbd_content_active #directorist.atbd_wrapper h3, .atbd_content_active #directorist.atbd_wrapper h4, .atbd_content_active #directorist.atbd_wrapper h5, .atbd_content_active #directorist.atbd_wrapper h6,
@@ -158,6 +159,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   -o-transition: 0.3s;
   transition: 0.3s;
   color: #272b41;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.size-xs .atbdp_column {
+  width: 50%;
 }
 
 .atbd_content_active #directorist.atbd_wrapper {
@@ -184,7 +189,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-size: 15px;
   color: #7a82a6;
   line-height: 24px;
-  text-align: left;
+  text-align: left !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper ul {
@@ -348,8 +353,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 #directorist.atbd_wrapper .pagination {
+  border-top: 0;
   text-align: center;
   box-shadow: none;
+}
+
+#directorist.atbd_wrapper .pagination:before, #directorist.atbd_wrapper .pagination:after {
+  content: none;
 }
 
 #directorist.atbd_wrapper .pagination .next {
@@ -379,6 +389,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #7a82a6;
   text-align: center;
   margin-right: 2px;
+  margin-left: 0;
 }
 
 #directorist.atbd_wrapper .pagination .nav-links .current:last-child, #directorist.atbd_wrapper .pagination .nav-links .page-numbers:last-child {
@@ -395,6 +406,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper .pagination .nav-links .page-numbers span {
   font-size: 10px;
+}
+
+#directorist.atbd_wrapper .pagination .nav-links:before, #directorist.atbd_wrapper .pagination .nav-links:after {
+  content: none;
 }
 
 #directorist.atbd_wrapper .form-control {
@@ -889,6 +904,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #7a82a6;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_badges {
+  margin-right: 15px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listting_category {
   margin-right: 20px;
 }
@@ -1153,10 +1172,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-left: 0;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_badge:last-child {
+  margin-right: 0;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new {
   background: #122069;
   margin-left: 0;
-  margin-right: 2px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta {
@@ -1265,6 +1287,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_title {
+  padding-top: 0;
   text-transform: capitalize;
   line-height: 28px;
   margin-bottom: 0;
@@ -2526,6 +2549,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 35px;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
   margin-top: 30px;
 }
@@ -2681,6 +2705,15 @@ body.atbd_content_active #directorist.atbd_wrapper {
   .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directorist {
     padding: 20px 20px 15px;
   }
+  .atbd_content_active #directorist.atbd_wrapper .atbdp_column {
+    width: 33.3333% !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .atbd_content_active #directorist.atbd_wrapper .atbdp_column {
+    width: 50% !important;
+  }
 }
 
 @media (max-width: 991px) {
@@ -2692,6 +2725,26 @@ body.atbd_content_active #directorist.atbd_wrapper {
 @media (max-width: 767px) {
   #directorist .atbd_listing_details .atbd_area_title {
     margin-bottom: 15px;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbdp_column {
+    width: 100% !important;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_meta {
+    width: 100%;
+    justify-content: center;
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 575px) {
+  .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar {
+    flex-wrap: wrap;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar img {
+    margin-right: 15px;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar .atbd_auth_nd {
+    margin-left: 0;
   }
 }
 

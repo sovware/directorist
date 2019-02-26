@@ -19,7 +19,7 @@ $in_cat_text            = !empty($in_cat) ? sprintf(__(' from "%s" Category', AT
 $in_loc_text            = !empty($in_loc) ? sprintf(__(' in "%s" Location', ATBDP_TEXTDOMAIN), $in_loc) : '';
 $column_width           = 100/$search_listing_columns .'%';
 ?>
-    <div id="directorist" class="directorist atbd_wrapper directory_wrapper search_area">
+    <div id="directorist" class="atbd_wrapper directorist directory_wrapper search_area">
         <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
             <?php if ( !empty($display_header) ) {?>
             <div class="header_bar">
@@ -398,4 +398,13 @@ $column_width           = 100/$search_listing_columns .'%';
         width: <?php echo $column_width;?>;
     }
 </style>
+<script>
+    (function($){
+        var $this = $("#directorist.atbd_wrapper");
+        var size = $this.width();
+        if(size <= 600){
+            $this.addClass("size-xs");
+        }
+    })(jQuery);
+</script>
 <?php include __DIR__.'/style.php'; ?>

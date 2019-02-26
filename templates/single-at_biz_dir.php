@@ -104,7 +104,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 ?>
 <section id="directorist" class="directorist atbd_wrapper">
     <div class="row">
-        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12">
+        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
 
             <?php
             //is current user is logged in and the original author of the listing
@@ -304,6 +304,31 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                 </p>
                             </div>
                             <?php } ?>
+                            <div class="atbd_badges">
+                                <?php
+                                    //print the new badge
+                                    echo new_badge();
+                                    /*Print Featured ribbon if it is featured*/
+                                    if ($featured && !empty($display_feature_badge_single)) {
+                                        printf(
+                                            '<span class="atbd_badge atbd_badge_featured">%s</span>',
+                                            $feature_badge_text
+                                        );
+                                    }
+                                    $count = !empty($count) ? $count : '';
+                                    $popular_listings = ATBDP()->get_popular_listings($count);
+                                    if ($display_popular_badge_single){
+                                        if ($popular_listings->have_posts()) {
+
+                                            foreach ($popular_listings->posts as $pop_post) {
+                                                if ($pop_post->ID == get_the_ID()){
+                                                    echo '<span class="atbd_badge atbd_badge_popular">Popular</span>';
+                                                }
+                                            }
+                                        }
+                                    }
+                                ?>
+                            </div>
                             <div class="atbd_listting_category">
                                 <ul class="directory_cats">
                                     <?php
@@ -331,30 +356,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                 </ul>
                             </div>
 
-                            <?php
-                            //print the new badge
-                            echo new_badge();
-                            /*Print Featured ribbon if it is featured*/
-                            if ($featured && !empty($display_feature_badge_single)) {
-                                printf(
-                                    '<span class="atbd_badge atbd_badge_featured">%s</span>',
-                                    $feature_badge_text
-                                );
-                            }
-                            $count = !empty($count) ? $count : '';
-                            $popular_listings = ATBDP()->get_popular_listings($count);
-                            if ($display_popular_badge_single){
-                                if ($popular_listings->have_posts()) {
-
-                                    foreach ($popular_listings->posts as $pop_post) {
-                                        if ($pop_post->ID == get_the_ID()){
-                                            echo ' <span class="atbd_badge atbd_badge_popular">Popular</span>';
-                                        }
-                                    }
-                                }
-                            }
-
-                            ?>
                         </div>
 
                         <div class="atbd_listing_title">

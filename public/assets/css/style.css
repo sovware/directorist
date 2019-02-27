@@ -189,7 +189,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-size: 15px;
   color: #7a82a6;
   line-height: 24px;
-  text-align: left !important;
+  text-align: left;
 }
 
 .atbd_content_active #directorist.atbd_wrapper ul {

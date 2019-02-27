@@ -605,11 +605,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">
                         <h4>
-                            <span class="fa fa-envelope-o"></span><?php _e('Contact Listing Owner', ATBDP_TEXTDOMAIN); ?>
+                            <span class="fa fa-paper-plane"></span><?php _e('Contact Listing Owner', ATBDP_TEXTDOMAIN); ?>
                         </h4>
                     </div>
                 </div>
-                <form id="atbdp-contact-form" class="form-vertical" role="form">
+                <form id="atbdp-contact-form" class="form-vertical contact_listing_owner" role="form">
                     <div class="form-group">
                         <input type="text" class="form-control" id="atbdp-contact-name" placeholder="<?php _e( 'Name', ATBDP_TEXTDOMAIN ); ?>" required />
                     </div>

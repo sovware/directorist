@@ -1361,9 +1361,9 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Number of  Columns', ATBDP_TEXTDOMAIN),
                         'description' => __( 'Set how many columns to display on categories page.', ATBDP_TEXTDOMAIN),
                         'min' => '1',
-                        'max' => '10',
+                        'max' => '5',
                         'step' => '1',
-                        'default' => '3',
+                        'default' => '4',
                         'validation' => 'numeric|minlength[1]',
                     ),
                     array(
@@ -1472,9 +1472,9 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Number of  Columns', ATBDP_TEXTDOMAIN),
                         'description' => __( 'Set how many columns to display on locations page.', ATBDP_TEXTDOMAIN),
                         'min' => '1',
-                        'max' => '10',
+                        'max' => '5',
                         'step' => '1',
-                        'default' => '3',
+                        'default' => '4',
                         'validation' => 'numeric|minlength[1]',
                     ),
                     array(

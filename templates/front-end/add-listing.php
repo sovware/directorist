@@ -497,16 +497,6 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 <?php
                                 }
                                 ?>
-                                <?php if(!$disable_contact_owner) {?>
-                                    <div class="form-group">
-                                        <input type="checkbox" name="hide_contact_owner" class="form-check-input"
-                                               id="hide_contact_owner" value="1" <?php if (!empty($hide_contact_owner)) {
-                                            checked($hide_contact_owner);
-                                        } ?> >
-                                        <label class="form-check-label"
-                                               for="hide_contact_owner"><?php esc_html_e('Check it to hide Contact listing owner', ATBDP_TEXTDOMAIN); ?></label>
-                                    </div>
-                                <?php } ?>
                             </div>
 
 

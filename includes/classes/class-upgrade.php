@@ -12,9 +12,18 @@ class ATBDP_Upgrade{
     }
 
     public function upgrade_notice() {
+        $user_id = get_current_user_id();
         $update_link = admin_url().'/edit.php?post_type=at_biz_dir&page=directorist-upgrade';
         $link = '<a href="'.$update_link.'">please replace</a>';
-        $user_id = get_current_user_id();
+
+        //update notice for single category and location page.
+        if ( true != get_user_meta( $user_id, '_atbdp_location_category_page',true )){
+            echo '<div id="message" class="notice notice-info" style="display: flex; background: #ffc733;  justify-content: space-between;"><p>';
+            printf(__('If you are an old user of the %s plugin, %s your shortcodes as we have restructured our shortcodes.', ATBDP_TEXTDOMAIN), ATBDP_NAME, $link);
+            echo '</p><p><a href="?my-plugin-dismissed">Hide</a></p></div>';
+        }
+
+
         if (class_exists('BD_Business_Hour')){
             $businessH_version = BDBH_VERSION;
             if (empty(get_user_meta($user_id, '_atbdp_bh_notice', true)) && ($businessH_version<'2.0.1')){
@@ -42,7 +51,9 @@ class ATBDP_Upgrade{
             add_user_meta( $user_id, '_atbdp_shortcode_regenerate_notice', 'true', true );
         }if(isset( $_POST['shortcode-updated'] )){
             update_option('atbdp_pages_version', 0);
-
+        }
+        if ( isset( $_GET['location-category-page'] ) ){
+            add_user_meta( $user_id, '_atbdp_location_category_page', 'true', true );
         }
     }
 

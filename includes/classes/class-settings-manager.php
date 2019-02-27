@@ -1960,7 +1960,7 @@ The Administrator of ==SITE_NAME==
                     'type' => 'textbox',
                     'name' => 'atbdp_listing_slug',
                     'label' => __('Listing Slug', ATBDP_TEXTDOMAIN),
-                    'default' => 'at_biz_dir',
+                    'default' => 'directory',
                     'validation' => 'required',
                 ),
                 array(

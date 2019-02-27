@@ -477,9 +477,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                                                 printf('<div class="atbd_field_type_color" style="background-color: %s;"></div>', $field_details);
                                                             } elseif($field_type === 'time'){
                                                                 echo date('h:i A', strtotime($field_details));
-                                                            }else {
+                                                            }elseif($field_type === 'url') {
+                                                                printf('<a href="%s" target="_blank">%s</a>', esc_url($field_details), esc_url($field_details));
+                                                            } else {
                                                                 echo esc_attr(ucwords($field_details));
                                                             } ?></p>
+
                                                     </div>
                                                 </li>
                                                 <?php

@@ -3,8 +3,8 @@ Contributors: AazzTech
 Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
-Tested up to:  5.0.3
-Stable tag: 4.5.2
+Tested up to:  5.1.0
+Stable tag: 4.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Create a classified website, business directory website like Yelp, foursquare et
 
 == Description ==
 
-[Live Demo](https://aazztech.com/demos/plugins/directorist) | [Free Directory Theme](https://aazztech.com/product/directoria-wordpress-theme/) | [Extensions](https://aazztech.com/product/category/extensions/)
+[Live Demos](https://aazztech.com/demos/plugins/directorist) | [Free Directory Theme](https://aazztech.com/product/directoria-wordpress-theme/) | [Extensions](https://aazztech.com/product/category/extensions/)
 
 The Directorist plugin has just got even better with a new update. Meet New Directorist. It is now updated with a lot of new features like featured listings, basic monetization, listing expiration, improved design, email notifications, ability to add price field to a listing, ability to toggle any options and much more. Best directory plugin just got even better than before.
 
@@ -99,22 +99,8 @@ Directorist is not developed by a single person. A team of dedicated developers 
 2. Activate the plugin from the Plugins page.
 
 = Usage =
+[Click here](https://aazztech.com/demos/plugins/directorist) for the [Documentation](https://aazztech.com/demos/plugins/directorist).
 
-After successfully installing and activating the plugin, you will find "Directory Listings" menu on the left column of WordPress dashboard. Go to Directory Listings >> Directorist settings and make sure you have added all the pages with correct shortcodes to the settings under pages,links&views settings. (Note: if you install the plugin for the first time then the plugin should already create all the pages automatically for you and assign their ids to the settings automatically. In that case, you just need to click save changes) Then you can add google map api key if you want to display map on the listing. Checkout other settings and customize them as  you like. Then save the changes.
-
-Now Go to Directory Listings >> Add New Listing to add your listing items. After adding your desired number of listings, you can check your website. If you have any problem understanding anything, you can always contact us via our website or here on wordpress support forum. We will be happy to help you.
-
-This plugin provides 9 shortcodes. You can see these shortcode names on the directorist setting page > Pages, links & views settings.
-Note: It is best to use it in a page with full-width template if possible for the best output.
-1. Use this shortcode  [search_listing]  on any page to enable users to search all the listing. This shortcode should probably be used on your front page if you are making a directory listing website.
-2. Use this shortcode  [all_listing]  on any page to show all the listings.
-3. Use this shortcode [add_listing] on any page to enable users to submit listing from the front end.
-4. Use this shortcode  [user_dashboard]  on any page to enable users to see and edit his profile and listing items from the front end.
-5. Use this shortcode  [custom_registration]  on any page to enable users to register from the front end using custom forms.
-6. Use this shortcode  [search_result]  on any page to display listing search result.
-7. Use this shortcode  [directorist_checkout]  on any page to display directorist checkout functionality (required if you use monetization).
-8. Use this shortcode  [directorist_payment_receipt]  on any page to display directorist payment receipt information (recommended if you use monetization).
-9. Use this shortcode  [transaction_failure]  on any page to display transaction error of directorist (recommended if you use monetization).
 
 
 == Screenshots ==
@@ -139,17 +125,17 @@ Note: It is best to use it in a page with full-width template if possible for th
 18. Add New Custom Field
 
 == Changelog ==
-= 4.6.0 - FEBRUARY 25, 2019 =
-* Fix - Hide/show issue on listings page
+= 4.6.0 - FEBRUARY 26, 2019 =
+* Fix - Responsive issue
+* Fix - Hide/show issue on listings grid
 * Fix - Listing tagline issue
 * Fix - Expired listings
-* Fix - Responsive issue
 * Add - Single Category Page
 * Add - Single Location Page
-* Add - Pricing Plans and Image Gallery extension's compatibility
 * Add - Option to set default location on Google Map
 * Add - Option to set default Preview Image
 * Tweak - Category & location permalink change
+* Tweak - Custom field's URL type
 
 = 4.5.1 - FEBRUARY 16, 2019 =
 * Fix - Sub-category & sub-location URL issue

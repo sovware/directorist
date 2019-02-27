@@ -15,13 +15,14 @@ class ATBDP_Upgrade{
         $user_id = get_current_user_id();
         $update_link = admin_url().'/edit.php?post_type=at_biz_dir&page=directorist-upgrade';
 
-
+        //check the version of Directorist
         $directorist_header = get_plugins( '/' . explode( '/', plugin_basename( __FILE__ ) )[0] );
         $current_version = '';
         foreach ($directorist_header as $key => $val){
             $current_version = $val['Version'];
         }
-        if ($current_version<'4.0.0'){
+
+        if ('true' == get_user_meta( $user_id, '_atbdp_shortcode_regenerate_notice',true)){
             $link_regen = '<a href="'.$update_link.'">Regenerate Pages</a>';
             //update notice for single category and location page.
             if ( true != get_user_meta( $user_id, '_atbdp_location_category_page',true )){
@@ -30,8 +31,6 @@ class ATBDP_Upgrade{
                 echo '</p><p><a href="?location-category-page">Hide</a></p></div>';
             }
         }
-
-
 
         if (class_exists('BD_Business_Hour')){
             $businessH_version = BDBH_VERSION;
@@ -44,7 +43,8 @@ class ATBDP_Upgrade{
             }
         }
         $link = '<a href="'.$update_link.'">please replace</a>';
-        if ( true != get_user_meta( $user_id, '_atbdp_shortcode_regenerate_notice',true )){
+        $is_generated_pages = get_user_meta( $user_id, '_atbdp_shortcode_regenerate_notice',true );
+        if (empty($is_generated_pages)){
             echo '<div id="message" class="notice notice-info" style="display: flex; background: #ffc733;  justify-content: space-between;"><p>';
             printf(__('If you are an old user of the %s plugin, %s your shortcodes as we have restructured our shortcodes.', ATBDP_TEXTDOMAIN), ATBDP_NAME, $link);
             echo '</p><p><a href="?my-plugin-dismissed">Hide</a></p></div>';
@@ -57,12 +57,12 @@ class ATBDP_Upgrade{
             update_user_meta( $user_id, '_atbdp_bh_notice', 1);
         }
         if ( isset( $_GET['my-plugin-dismissed'] ) ){
-            add_user_meta( $user_id, '_atbdp_shortcode_regenerate_notice', 'true', true );
+            update_user_meta( $user_id, '_atbdp_shortcode_regenerate_notice', 'new_true' );
         }if(isset( $_POST['shortcode-updated'] )){
             update_option('atbdp_pages_version', 0);
         }
         if ( isset( $_GET['location-category-page'] ) ){
-            add_user_meta( $user_id, '_atbdp_location_category_page', 'true', true );
+            update_user_meta( $user_id, '_atbdp_location_category_page', 'true' );
         }
     }
 

@@ -499,31 +499,34 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 ?>
                                 <?php if(!$disable_contact_owner) {?>
                                     <div class="form-group">
-                                        <input type="checkbox" name="hide_contact_owner" class="form-check-input"
-                                               id="hide_contact_owner" value="1" <?php if (!empty($hide_contact_owner)) {
-                                            checked($hide_contact_owner);
-                                        } ?> >
-                                        <label class="form-check-label"
+                                        <div class="hide-contant-owner">
+                                            <input type="checkbox" name="hide_contact_owner"
+                                                id="hide_contact_owner" value="1" <?php if (!empty($hide_contact_owner)) {
+                                                checked($hide_contact_owner);
+                                            } ?> >
+                                            <label class="form-check-label"
                                                for="hide_contact_owner"><?php esc_html_e('Check it to hide Contact listing owner', ATBDP_TEXTDOMAIN); ?></label>
+                                        </div>
                                     </div>
                                 <?php } ?>
+
+                                <?php
+                                if ($term_id_selected) {
+                                    ?>
+                                    <div id="atbdp-custom-fields-list-selected" data-post_id="<?php echo $p_id; ?>">
+                                        <?php
+                                        $selected_category = !empty($selected_category) ? $selected_category : '';
+                                        do_action('wp_ajax_atbdp_custom_fields_listings_selected', $p_id, $selected_category); ?>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+
                             </div>
 
 
-                            <?php
-                            if ($term_id_selected) {
-                                ?>
-                                <div id="atbdp-custom-fields-list-selected" data-post_id="<?php echo $p_id; ?>">
-                                    <?php
-                                    $selected_category = !empty($selected_category) ? $selected_category : '';
-                                    do_action('wp_ajax_atbdp_custom_fields_listings_selected', $p_id, $selected_category); ?>
-                                </div>
-                                <?php
-                            }
-                            ?>
-
                         </div><!-- end .atbd_custom_fields_contents -->
-                        <div class="atbdb_content_module_contents">
+                        <div class="atbdb_content_module">
 
                         <?php if (!$disable_contact_info) { ?>
                             <div class="atbd_content_module atbd_contact_information">

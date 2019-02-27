@@ -1159,6 +1159,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-right: 0;
 }
 
+.contact_listing_owner {
+  padding: 30px;
+}
+
+.hide-contant-owner {
+  margin-top: 20px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper p {
   margin: 0;
   padding: 0;

@@ -26,7 +26,7 @@ class ATBDP_Upgrade{
             //update notice for single category and location page.
             if ( true != get_user_meta( $user_id, '_atbdp_location_category_page',true )){
                 echo '<div id="message" class="notice notice-info" style="display: flex; background: #f7bdc7;  justify-content: space-between;"><p>';
-                printf(__('Directorist requires two new pages with the [directorist_category] and [directorist_location] shortcodes to function properly. You can create this page by yourself or let plugin do this for you automatically. %s', ATBDP_TEXTDOMAIN), $link_regen);
+                printf(__('Directorist plugin requires two new pages with the [directorist_category] and [directorist_location] shortcodes to function single category and location pages properly. You can create these pages yourself or let the plugin do this for you.<br> %s', ATBDP_TEXTDOMAIN), $link_regen);
                 echo '</p><p><a href="?location-category-page">Hide</a></p></div>';
             }
         }

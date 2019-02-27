@@ -14,14 +14,23 @@ class ATBDP_Upgrade{
     public function upgrade_notice() {
         $user_id = get_current_user_id();
         $update_link = admin_url().'/edit.php?post_type=at_biz_dir&page=directorist-upgrade';
-        $link = '<a href="'.$update_link.'">please replace</a>';
 
-        //update notice for single category and location page.
-        if ( true != get_user_meta( $user_id, '_atbdp_location_category_page',true )){
-            echo '<div id="message" class="notice notice-info" style="display: flex; background: #ffc733;  justify-content: space-between;"><p>';
-            printf(__('If you are an old user of the %s plugin, %s your shortcodes as we have restructured our shortcodes.', ATBDP_TEXTDOMAIN), ATBDP_NAME, $link);
-            echo '</p><p><a href="?my-plugin-dismissed">Hide</a></p></div>';
+
+        $directorist_header = get_plugins( '/' . explode( '/', plugin_basename( __FILE__ ) )[0] );
+        $current_version = '';
+        foreach ($directorist_header as $key => $val){
+            $current_version = $val['Version'];
         }
+        if ($current_version<'4.0.0'){
+            $link_regen = '<a href="'.$update_link.'">Regenerate Pages</a>';
+            //update notice for single category and location page.
+            if ( true != get_user_meta( $user_id, '_atbdp_location_category_page',true )){
+                echo '<div id="message" class="notice notice-info" style="display: flex; background: #f7bdc7;  justify-content: space-between;"><p>';
+                printf(__('Directorist requires two new pages with the [directorist_category] and [directorist_location] shortcodes to function properly. You can create this page by yourself or let plugin do this for you automatically. %s', ATBDP_TEXTDOMAIN), $link_regen);
+                echo '</p><p><a href="?location-category-page">Hide</a></p></div>';
+            }
+        }
+
 
 
         if (class_exists('BD_Business_Hour')){
@@ -34,7 +43,7 @@ class ATBDP_Upgrade{
                 echo '</p><p><a href="?bh-update-notice">Hide</a></p></div>';
             }
         }
-
+        $link = '<a href="'.$update_link.'">please replace</a>';
         if ( true != get_user_meta( $user_id, '_atbdp_shortcode_regenerate_notice',true )){
             echo '<div id="message" class="notice notice-info" style="display: flex; background: #ffc733;  justify-content: space-between;"><p>';
             printf(__('If you are an old user of the %s plugin, %s your shortcodes as we have restructured our shortcodes.', ATBDP_TEXTDOMAIN), ATBDP_NAME, $link);

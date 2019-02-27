@@ -38,6 +38,7 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
             $listing_info = ATBDP()->metabox->get_listing_info( $post->ID);
             $listing      =  !empty($listing_info) ? $listing_info : array();
             extract($listing);
+
             if( is_singular(ATBDP_POST_TYPE) && !empty($videourl)) {
 
                 $videourl   = !empty($videourl) ? esc_attr(ATBDP()->atbdp_parse_videos($videourl)) : '';

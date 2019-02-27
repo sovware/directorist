@@ -250,6 +250,7 @@ wp_reset_postdata();
         $listing_contact_info['disable_bz_hour_listing']         = get_post_meta($post->ID, '_disable_bz_hour_listing', true);
         $listing_contact_info['listing_img']            = get_post_meta($post->ID, '_listing_img', true);
         $listing_contact_info['hide_contact_info']      = get_post_meta($post->ID, '_hide_contact_info', true);
+        $listing_contact_info['hide_contact_owner']      = get_post_meta($post->ID, '_hide_contact_owner', true);
 
         ATBDP()->load_template('contact-info', compact('listing_contact_info') );
     }
@@ -349,6 +350,7 @@ wp_reset_postdata();
         $metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();
         $metas['_listing_prv_img']   = !empty($p['listing_prv_img'])? sanitize_text_field($p['listing_prv_img']) : '';
         $metas['_hide_contact_info'] = !empty($p['hide_contact_info'])? sanitize_text_field($p['hide_contact_info']) : 0;
+        $metas['_hide_contact_owner'] = !empty($p['hide_contact_owner'])? sanitize_text_field($p['hide_contact_owner']) : 0;
 
         //$listing_info = (!empty($p['listing'])) ? aazztech_enc_serialize($p['listing']) : aazztech_enc_serialize(array());
         //prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
@@ -470,6 +472,7 @@ wp_reset_postdata();
         $listing_info['manual_lng']             = get_post_meta($id, '_manual_lng', true);
         $listing_info['listing_img']            = get_post_meta($id, '_listing_img', true);
         $listing_info['hide_contact_info']      = get_post_meta($id, '_hide_contact_info', true);
+        $listing_info['hide_contact_owner']      = get_post_meta($id, '_hide_contact_owner', true);
         $listing_info['expiry_date']            = get_post_meta($id, '_expiry_date', true);
 
         return apply_filters('atbdp_get_listing_info', $listing_info);

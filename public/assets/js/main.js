@@ -678,7 +678,6 @@ jQuery(function ($) {
     });
 
     var $this = $("#directorist.atbd_wrapper");
-    console.log($this);
     var columnLeft = $(".atbd_col_left.col-lg-8");
     var columnRight = $(".directorist.col-lg-4");
     var tabColumn = $(".atbd_dashboard_wrapper .tab-content .tab-pane .col-lg-4");

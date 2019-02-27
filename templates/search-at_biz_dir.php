@@ -86,31 +86,31 @@ $column_width           = 100/$search_listing_columns .'%';
                 if ( count($listings->posts) ) {
                     while ( $listings->have_posts() ) {
                         $listings->the_post();
-                        $l_ID                 = get_the_ID(); // cache it, save several functions calls.
-                        $cats                 =  get_the_terms($l_ID, ATBDP_CATEGORY);
-                        $locs                 =  get_the_terms($l_ID, ATBDP_LOCATION);
-                        $address              = get_post_meta(get_the_ID(), '_address', true);
-                        $phone_number         = get_post_meta(get_the_Id(), '_phone', true);
-                        $featured             = get_post_meta($l_ID, '_featured', true);
-                        $price                = get_post_meta($l_ID, '_price', true);
-                        $price_range          = get_post_meta($l_ID, '_price_range', true);
+                        $l_ID                           = get_the_ID(); // cache it, save several functions calls.
+                        $cats                           =  get_the_terms($l_ID, ATBDP_CATEGORY);
+                        $locs                           =  get_the_terms($l_ID, ATBDP_LOCATION);
+                        $address                        = get_post_meta(get_the_ID(), '_address', true);
+                        $phone_number                   = get_post_meta(get_the_Id(), '_phone', true);
+                        $featured                       = get_post_meta($l_ID, '_featured', true);
+                        $price                          = get_post_meta($l_ID, '_price', true);
+                        $price_range                    = get_post_meta($l_ID, '_price_range', true);
 
                         /*@todo; As listings on search page and the all listing page, and user dashboard is nearly the same, so try to refactor them to a function later using some condition to show some extra fields on the listing on user dashboard*/
-                        $listing_img          = get_post_meta(get_the_ID(), '_listing_img', true);
-                        $listing_prv_img   = get_post_meta(get_the_ID(), '_listing_prv_img', true);
-                        $excerpt              = get_post_meta(get_the_ID(), '_excerpt', true);
-                        $tagline              = get_post_meta(get_the_ID(), '_tagline', true);
-                        $hide_contact_info    = get_post_meta(get_the_ID(), '_hide_contact_info', true);
-                        $post_view            = get_post_meta(get_the_Id(), '_atbdp_post_views_count', true);
-                        $disable_contact_info = get_directorist_option('disable_contact_info', 0);
-                        $category             = get_post_meta(get_the_Id(), '_admin_category_select', true);
-                        $display_title        = get_directorist_option('display_title',1);
-                        $display_review       = get_directorist_option('enable_review',1);
-                        $display_price        = get_directorist_option('display_price',1);
-                        $display_category     = get_directorist_option('display_category',1);
-                        $display_view_count   = get_directorist_option('display_view_count',1);
-                        $display_author_image = get_directorist_option('display_author_image',1);
-                        $display_publish_date = get_directorist_option('display_publish_date',1);
+                        $listing_img                    = get_post_meta(get_the_ID(), '_listing_img', true);
+                        $listing_prv_img                = get_post_meta(get_the_ID(), '_listing_prv_img', true);
+                        $excerpt                        = get_post_meta(get_the_ID(), '_excerpt', true);
+                        $tagline                        = get_post_meta(get_the_ID(), '_tagline', true);
+                        $hide_contact_info              = get_post_meta(get_the_ID(), '_hide_contact_info', true);
+                        $post_view                      = get_post_meta(get_the_Id(), '_atbdp_post_views_count', true);
+                        $disable_contact_info           = get_directorist_option('disable_contact_info', 0);
+                        $category                       = get_post_meta(get_the_Id(), '_admin_category_select', true);
+                        $display_title                  = get_directorist_option('display_title',1);
+                        $display_review                 = get_directorist_option('enable_review',1);
+                        $display_price                  = get_directorist_option('display_price',1);
+                        $display_category               = get_directorist_option('display_category',1);
+                        $display_view_count             = get_directorist_option('display_view_count',1);
+                        $display_author_image           = get_directorist_option('display_author_image',1);
+                        $display_publish_date           = get_directorist_option('display_publish_date',1);
                         $display_feature_badge_cart     = get_directorist_option('display_feature_badge_cart',1);
                         $display_popular_badge_cart     = get_directorist_option('display_popular_badge_cart',1);
                         $popular_badge_text             = get_directorist_option('popular_badge_text','Popular');
@@ -120,25 +120,24 @@ $column_width           = 100/$search_listing_columns .'%';
                         $enable_excerpt                 = get_directorist_option('enable_excerpt');
                         $address_location               = get_directorist_option('address_location','location');
                         /*Code for Business Hour Extensions*/
-                        $bdbh                   = get_post_meta(get_the_ID(), '_bdbh', true);
-                        $enable247hour               = get_post_meta(get_the_ID(), '_enable247hour', true);
-                        $disable_bz_hour_listing               = get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true);
-                        $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
-                        $author_id = get_the_author_meta( 'ID' );
-                        $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-                        $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
-                        $avata_img = get_avatar($author_id, 32);
-                        $thumbnail_cropping = get_directorist_option('thumbnail_cropping',1);
-                        $crop_width                    = get_directorist_option('crop_width', 360);
-                        $crop_height                   = get_directorist_option('crop_height', 300);
+                        $bdbh                           = get_post_meta(get_the_ID(), '_bdbh', true);
+                        $enable247hour                  = get_post_meta(get_the_ID(), '_enable247hour', true);
+                        $disable_bz_hour_listing        = get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true);
+                        $business_hours                 = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
+                        $author_id                      = get_the_author_meta( 'ID' );
+                        $u_pro_pic                      = get_user_meta($author_id, 'pro_pic', true);
+                        $u_pro_pic                      = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
+                        $avata_img                      = get_avatar($author_id, 32);
+                        $thumbnail_cropping             = get_directorist_option('thumbnail_cropping',1);
+                        $crop_width                     = get_directorist_option('crop_width', 360);
+                        $crop_height                    = get_directorist_option('crop_height', 300);
                         if(!empty($listing_prv_img)) {
 
                             if($thumbnail_cropping) {
 
                                 $prv_image = atbdp_image_cropping($listing_prv_img, $crop_width, $crop_height, true, 100)['url'];
-
                             }else{
-                                $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
+                                $prv_image = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
                             }
 
                         }

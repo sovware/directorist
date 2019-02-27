@@ -1266,7 +1266,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'all_listing_columns',
                         'label' => __('Number of Columns', ATBDP_TEXTDOMAIN),
                         'min' => '1',
-                        'max' => '10',
+                        'max' => '5',
                         'step' => '1',
                         'default' => '3',
                         'validation' => 'numeric|minlength[1]',
@@ -1729,7 +1729,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'search_listing_columns',
                         'label' => __('Number of Columns', ATBDP_TEXTDOMAIN),
                         'min' => '1',
-                        'max' => '10',
+                        'max' => '5',
                         'step' => '1',
                         'default' => '3',
                         'validation' => 'numeric|minlength[1]',
@@ -2101,12 +2101,18 @@ The Administrator of ==SITE_NAME==
                     'label' => __( 'Section Title of Custom Fields', ATBDP_TEXTDOMAIN ),
                     'default' => __('Features', ATBDP_TEXTDOMAIN),
                 ),
-
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_contact_info',
                     'label' => __( 'Disable Contact Information', ATBDP_TEXTDOMAIN ),
                     'default' => 0,
+                ),
+
+                array(
+                    'type' => 'toggle',
+                    'name' => 'disable_contact_owner',
+                    'label' => __( 'Disable Contact listing owner', ATBDP_TEXTDOMAIN ),
+                    'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',

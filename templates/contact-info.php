@@ -10,6 +10,7 @@ $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map');
 $disable_price = get_directorist_option('disable_list_price');
 $disable_contact_info = get_directorist_option('disable_contact_info');
+$disable_contact_owner = get_directorist_option('disable_contact_owner',1);
 $currency = get_directorist_option('g_currency', 'USD');
 $t = get_the_title();
 $t = !empty( $t ) ? esc_html($t) : __('No Title ', ATBDP_TEXTDOMAIN);
@@ -20,9 +21,20 @@ $info_content = "<div class='map_info_window'> <h3>{$t}</h3>";
 $info_content .= "<p> {$tg}</p>";
 $info_content .= $image ; // add the image if available
 $info_content .= "<p> {$ad}</p></div>";
-
 ?>
 <div id="directorist" class="directorist atbd_wrapper">
+    <!-- MAP or ADDRESS related information starts here -->
+    <?php if(!$disable_contact_owner) {?>
+    <div class="form-check">
+        <input type="checkbox" name="hide_contact_owner" class="form-check-input" id="hide_contact_owner"
+               value="1" <?php if (!empty($hide_contact_owner)) {
+            checked($hide_contact_owner);
+        } ?> >
+        <label class="form-check-label"
+               for="hide_contact_owner"><?php esc_html_e('Check it to hide listing contact owner form', ATBDP_TEXTDOMAIN); ?></label>
+
+    </div>
+    <?php } ?>
     <?php if (!$disable_contact_info) { ?>
 
         <!-- MAP or ADDRESS related information starts here -->
@@ -35,7 +47,6 @@ $info_content .= "<p> {$ad}</p></div>";
                    for="hide_contact_info"><?php esc_html_e('Check it to hide Contact Information for this listing', ATBDP_TEXTDOMAIN); ?></label>
 
         </div>
-
 
         <div class="form-group">
             <label for="address"><?php esc_html_e('Address:', ATBDP_TEXTDOMAIN); ?></label>

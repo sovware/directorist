@@ -22,13 +22,13 @@ $listing_info['hide_map']           = get_post_meta($post->ID, '_hide_map', true
 $listing_info['listing_img']        = get_post_meta($post->ID, '_listing_img', true);
 $listing_info['listing_prv_img']    = get_post_meta($post->ID, '_listing_prv_img', true);
 $listing_info['hide_contact_info']  = get_post_meta($post->ID, '_hide_contact_info', true);
+$listing_info['hide_contact_owner'] = get_post_meta($post->ID, '_hide_contact_owner', true);
 $listing_info['expiry_date']        = get_post_meta($post->ID, '_expiry_date', true);
 $display_prv_image                  = get_directorist_option('dsiplay_prv_single_page',1);
 $display_slider_image               = get_directorist_option('dsiplay_slider_single_page',1);
 $gallery_cropping                   = get_directorist_option('gallery_cropping',1);
 $custom_gl_width                    = get_directorist_option('gallery_crop_width', 670);
 $custom_gl_height                   = get_directorist_option('gallery_crop_height', 750);
-$disable_contact_info               = get_directorist_option('disable_contact_info');
 extract($listing_info);
 /*Prepare Listing Image links*/
 $listing_imgs= (!empty($listing_img) && !empty($display_slider_image)) ? $listing_img : array();
@@ -60,10 +60,10 @@ $business_hours         = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array();
 $manual_lat = (!empty($manual_lat)) ? floatval($manual_lat) : false;
 $manual_lng = (!empty($manual_lng)) ? floatval($manual_lng) : false;
 $hide_contact_info = !empty($hide_contact_info) ? $hide_contact_info : false;
+$hide_contact_owner = !empty($hide_contact_owner) ? $hide_contact_owner : false;
 
 /*INFO WINDOW CONTENT*/
 $t = get_the_title();
-var_dump($t);
 $t = !empty($t) ? $t : __('No Title', ATBDP_TEXTDOMAIN);
 $tg = !empty($tagline) ? esc_html($tagline) : '';
 $ad = !empty($address) ? esc_html($address) : '';
@@ -78,6 +78,7 @@ $map_zoom_level                   = get_directorist_option('map_zoom_level', 16)
 $disable_map                      = get_directorist_option('disable_map', 0);
 $disable_sharing                  = get_directorist_option('disable_sharing', 0);
 $disable_contact_info             = get_directorist_option('disable_contact_info', 0);
+$disable_contact_owner            = get_directorist_option('disable_contact_owner',1);
 $is_disable_price                 = get_directorist_option('disable_list_price');
 $enable_social_share              = get_directorist_option('enable_social_share', 1);
 $enable_favourite                 = get_directorist_option('enable_favourite', 1);
@@ -596,9 +597,42 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php } ?>
+            <?php if(!$hide_contact_owner && empty($disable_contact_owner)) { ?>
+            <div class="atbd_content_module atbd_contact_information_module">
+                <div class="atbd_content_module__tittle_area">
+                    <div class="atbd_area_title">
+                        <h4>
+                            <span class="fa fa-envelope-o"></span><?php _e('Contact Listing Owner', ATBDP_TEXTDOMAIN); ?>
+                        </h4>
+                    </div>
+                </div>
+                <form id="atbdp-contact-form" class="form-vertical" role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="atbdp-contact-name" placeholder="<?php _e( 'Name', ATBDP_TEXTDOMAIN ); ?>" required />
+                    </div>
 
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="atbdp-contact-email" placeholder="<?php _e( 'Email', ATBDP_TEXTDOMAIN ); ?>" required />
+                    </div>
+
+                    <div class="form-group">
+                        <textarea class="form-control" id="atbdp-contact-message" rows="3" placeholder="<?php _e( 'Message', ATBDP_TEXTDOMAIN ); ?>..." required ></textarea>
+                    </div>
+                    <?php
+                    /**
+                     * It fires before contact form in the widget area
+                     * @since 4.4.0
+                     */
+
+                    do_action('atbdp_before_submit_contact_form_inWidget');
+                    ?>
+                    <p id="atbdp-contact-message-display"></p>
+
+                    <button type="submit" class="btn btn-primary"><?php _e( 'Submit', ATBDP_TEXTDOMAIN ); ?></button>
+                </form>
+            </div>
+            <?php } ?>
             <?php
-
             // if business hour is active then add the following markup...
             $plan_hours = true;
             if (is_fee_manager_active()){

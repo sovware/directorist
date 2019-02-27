@@ -33,6 +33,7 @@ if (!empty($p_id)) {
     $listing_info['listing_img'] = get_post_meta($p_id, '_listing_img', true);
     $listing_info['listing_prv_img'] = get_post_meta($p_id, '_listing_prv_img', true);
     $listing_info['hide_contact_info'] = get_post_meta($p_id, '_hide_contact_info', true);
+    $listing_info['hide_contact_owner'] = get_post_meta($p_id, '_hide_contact_owner', true);
     $listing_info['expiry_date'] = get_post_meta($p_id, '_expiry_date', true);
     $listing_info['t_c_check'] = get_post_meta($p_id, '_t_c_check', true);
 
@@ -74,6 +75,7 @@ $disable_map = get_directorist_option('disable_map');
 $disable_price = get_directorist_option('disable_list_price');
 $enable_video_url = get_directorist_option('atbd_video_url', 1);
 $disable_contact_info = get_directorist_option('disable_contact_info');
+$disable_contact_owner = get_directorist_option('disable_contact_owner',1);
 
 // get the custom terms and conditions
 $listing_terms_condition_text = get_directorist_option('listing_terms_condition_text');
@@ -495,7 +497,16 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 <?php
                                 }
                                 ?>
-
+                                <?php if(!$disable_contact_owner) {?>
+                                    <div class="form-group">
+                                        <input type="checkbox" name="hide_contact_owner" class="form-check-input"
+                                               id="hide_contact_owner" value="1" <?php if (!empty($hide_contact_owner)) {
+                                            checked($hide_contact_owner);
+                                        } ?> >
+                                        <label class="form-check-label"
+                                               for="hide_contact_owner"><?php esc_html_e('Check it to hide Contact listing owner', ATBDP_TEXTDOMAIN); ?></label>
+                                    </div>
+                                <?php } ?>
                             </div>
 
 
@@ -512,6 +523,8 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                             ?>
 
                         </div><!-- end .atbd_custom_fields_contents -->
+                        <div class="atbdb_content_module_contents">
+
                         <?php if (!$disable_contact_info) { ?>
                             <div class="atbd_content_module atbd_contact_information">
                                 <div class="atbd_content_module__tittle_area">

@@ -16,43 +16,41 @@ Create a classified website, business directory website like Yelp, foursquare et
 
 The Directorist plugin has just got even better with a new update. Meet New Directorist. It is now updated with a lot of new features like featured listings, basic monetization, listing expiration, improved design, email notifications, ability to add price field to a listing, ability to toggle any options and much more. Best directory plugin just got even better than before.
 
-Full ChangeLog of recent releases: [https://wordpress.org/plugins/directorist/#developers](https://wordpress.org/plugins/directorist/#developers)
-
 Now let's have a look at some of the features that make this plugin useful for your directory or classified website.
 
 = Beautiful & 100% Responsive Design =
-The design of Directorist plugin is very elegant and beautiful. Our dedicated designer spent countless hours to design the plugin before we developed it. So, the design of directorist plugin is highly premium that you can not find in any other directory plugins.
+The design of Directorist plugin is very elegant and beautiful. Our dedicated designer spent countless hours to design the plugin before we developed it. So, the design of Directorist plugin is highly premium that you can not find in any other directory plugins.
 
 Besides, being the most beautiful directory plugin, it is also 100% responsive. So, your users can use your directory site from any devices perfectly.
 
-= EASY TO USE =
-Make a powerful and beautiful business directory or classified website with the world-first easiest business directory plugin.
+= Unlimited Custom Fields =
+Whether you’re creating a business, event, or any other type of directory and the given options are not enough for you – don’t worry, the plugin has got unlimited custom fields that can be added as per your requirement.
 
-There are many business directory plugins out there but none of them is as easy as this business directory plugin. Anyone can turn his website into a powerful and professional directory website with this plugin without having any programming skill.
+= EASY TO USE =
+Make a powerful and beautiful business directory or classified website with the world-first easiest business directory plugin. Anyone can turn his/his website into a powerful and professional directory website with this plugin without having any programming skill.
 
 = CLEAN & EXPRESSIVE SETTINGS OPTIONS =
 We do not like to scare user with tons of settings and options. We have implemented a very clean and easily-understandable setting panel where a user can easily customize the plugins. This plugin is extremely fast and powerful and it can be extended with add-ons as per user choice.
 
-= BASIC MONETIZATION =
-You can let user promote their listings to featured listings and charge them for it. You can also charge user when they renew a listing. More monetization features are coming soon.
-
-= FEATURED LISTINGS =
-Featured listings you will be displayed on top of other listings. You may charge a user for it too if you want.
-
-= LISTING EXPIRATION =
-You can now set a default expiration date for a listing or you can set a listing expiration to forever validity.
-
-= RENEW LISTINGS FEATURES =
-Users can renew their listings now after listings expire
-
-= EASY AND TRANSLATABLE EMAIL NOTIFICATION SYSTEM =
-You can send email notifications to your users in different situations. You can control everything about email notification. You can edit all email templates according to your choice. You build your own email template too.
+= MONETIZATION =
+* Paid Listing: Get paid for letting people submit their listing! You can create unlimited pricing plans, each of which includes different benefits. It requires a premium extension.
+* Featured Listing: Earn money by allowing users to promote their listings which display at the top of all listings.
+* Claim Listing: Earn money by allowing business owners to claim their listings and get verified. It requires a premium extension.
 
 = CUSTOMIZABLE OPTIONS =
 You can enable and disabled almost all options. Therefore, you get high customizable possibility with this plugin. For example, you can show or hide map on the front end etc.
 
 = BUILT FOR ANY BUSINESS DIRECTORY OR CLASSIFIED SITE =
 You can make any business directory site using this plugin. You can also make classified websites like a car selling a website or a land selling website etc.
+
+= LISTING EXPIRATION =
+You can now set a default expiration date for a listing or you can set a listing expiration to forever validity.
+
+= RENEW LISTINGS FEATURES =
+Users can renew their listings now after listings expire.
+
+= EASY AND TRANSLATABLE EMAIL NOTIFICATION SYSTEM =
+You can send email notifications to your users in different situations. You can control everything about email notification. You can edit all email templates according to your choice. You build your own email template too.
 
 = OPTIMIZED AND FAST =
 Directorist is developed using Object Oriented PHP and following WordPress Best Coding Practice. It has a highly optimized codebase. Therefore, it will run faster.
@@ -72,25 +70,30 @@ You can extend the functionality of this plugin using free & premium extensions.
 Directorist is not developed by a single person. A team of dedicated developers and designers spent countless hours to make this plugin and they are working on it constantly to improve it and to add new features. Therefore, you get the most professional directory plugin from us. As it is backed by a company, you will get premium support now and upcoming years without any worries.
 
 = OTHER FEATURES =
-* Front-end listing submission ( can be disabled if you wish)
-* Front-end listing submission ( can be disabled if you wish)
-* Front-end user dashboard ( can be disabled if you wish)
-* Basic Monetization by featured listings
-* Ability to create classified websites as well as directory websites
-* Extremely customizable
-* Create Unlimited listing based on location and category
-* Unlimited Locations, Categories, and Tags
-* Related listings display
-* Popular listings display
-* Extendable with extensions
-* Ability to use your own custom slugs for every listing and its location and categories etc.
+* List and grid view for categories, locations and listings pages
+* Front-end listing submission
+* Back-end listing submission
+* Front-end user dashboard
+* Related, Popular, Featured listings display
 * Google Map
 * Listing Ratings
 * Listing Reviews
-* Settings export and import
-* Extendable settings ( A developer can add his own settings to the settings page of Directorist using custom hooks provided by this plugins )
-* Display Business Hours for a listing using Business Hour Extension
-* Upload multiple Images and display them in a nice responsive slider using Multiple Image Upload extension.
+* Author public profile
+* Listing owner contact form
+* Report abuse
+* Add to favourites
+* Social media share
+* Listing image slider
+* New, Popular, Featured and Open/Close badges
+* Contact details
+* Listing video
+* Author info, category, location, map, add new listing, login, search listing, tags etc widgets
+* Custom sidebar
+* Listing filter
+* Create Unlimited listing based on location and category
+* Extendable settings (A developer can add his own settings to the settings page of Directorist using custom hooks provided by this plugins)
+* Extendable with extensions
+* Display Business Hours, FAQs, Image Gallery, Carousel & Slider, Google reCAPTCHA for a listing using extensions
 * And many more features.
 
 == Installation ==
@@ -134,6 +137,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Add - Single Location Page
 * Add - Option to set default location on Google Map
 * Add - Option to set default Preview Image
+* Add - Contact Listing Owner form on single listing page
 * Tweak - Category & location permalink change
 * Tweak - Custom field's URL type
 

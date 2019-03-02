@@ -2111,7 +2111,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_contact_owner',
-                    'label' => __( 'Disable Contact listing owner', ATBDP_TEXTDOMAIN ),
+                    'label' => __( 'Disable Contact Listing Owner Form', ATBDP_TEXTDOMAIN ),
                     'default' => 1,
                 ),
                 array(
@@ -2276,7 +2276,8 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'info_display_in_single_line',
-                        'label' => __('Grid Info Show in Single Line', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Each Grid Info on Single Line', ATBDP_TEXTDOMAIN),
+                        'description' => __('Here Yes means display all the informations (i.e. title, tagline, excerpt etc.) of grid view on single line', ATBDP_TEXTDOMAIN),
                         'default' => '0',
                     ),
                     array(

@@ -23,7 +23,7 @@ class ATBDP_Upgrade{
         }
 
         if ('true' == get_user_meta( $user_id, '_atbdp_shortcode_regenerate_notice',true)){
-            $link_regen = '<a href="'.$update_link.'">Regenerate Pages</a>';
+            $link_regen = '<a href="'.$update_link.'">Generate Pages</a>';
             //update notice for single category and location page.
             if ( true != get_user_meta( $user_id, '_atbdp_location_category_page',true )){
                 echo '<div id="message" class="notice notice-info" style="display: flex; background: #f7bdc7;  justify-content: space-between;"><p>';

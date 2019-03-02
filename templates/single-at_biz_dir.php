@@ -629,7 +629,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
                     do_action('atbdp_before_submit_contact_form_inWidget');
                     ?>
-                    <p id="atbdp-contact-message-display"></p>
+                    <p id="atbdp-contact-message-display" style="margin-bottom: 10px"></p>
 
                     <button type="submit" class="btn btn-primary"><?php _e( 'Submit', ATBDP_TEXTDOMAIN ); ?></button>
                 </form>

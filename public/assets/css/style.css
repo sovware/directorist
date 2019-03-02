@@ -1238,6 +1238,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #f51957;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_listting_category a {
+  word-break: break-all;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_listting_category a span {
   font-size: 14px;
   display: inline-block;
@@ -2496,7 +2500,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .single_search_field .search_fields {
   line-height: 35px;
-  height: 49px;
+  height: 43px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .single_search_field .select2-container--default .select2-selection--single .select2-selection__arrow {

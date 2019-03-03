@@ -79,13 +79,16 @@
     }
   }
   .atbd_listting_category{
-    a span{
-      font-size: 14px;
-      display: inline-block;
-      margin-right: 7px;
-      line-height: 28px;
-      text-align: center;
-      color: #444752;
+    a{
+      word-break: break-all;
+      span{
+        font-size: 14px;
+        display: inline-block;
+        margin-right: 7px;
+        line-height: 28px;
+        text-align: center;
+        color: #444752;
+      }
     }
   }
   .atbd_single_listing {

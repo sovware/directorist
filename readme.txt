@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.1.0
-Stable tag: 4.6.0
+Stable tag: 4.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -125,6 +125,10 @@ Directorist is not developed by a single person. A team of dedicated developers 
 18. Add New Custom Field
 
 == Changelog ==
+= 4.7.0 - March 3, 2019 =
+* Fix - Location's pagination issue
+* Add - Featured listing widget
+* Tweak - Make infinite true of related listing
 = 4.6.0 - FEBRUARY 26, 2019 =
 * Fix - Responsive issue
 * Fix - Hide/show issue on listings grid

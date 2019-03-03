@@ -50,7 +50,7 @@ class ATBDP_Rewrite {
         }
 
         // Single Category page
-        $cat = get_directorist_option('single_category_page'); // get the payment receipt page id.
+        $cat = get_directorist_option('single_category_page'); // get the single category page.
         if( $cat ) {
             $link = str_replace( $home, '', get_permalink( $cat ) );
             $link = trim( $link, '/' );
@@ -61,13 +61,13 @@ class ATBDP_Rewrite {
         }
 
         // Single Location page
-        $loc = get_directorist_option('single_location_page'); // get the payment receipt page id.
+        $loc = get_directorist_option('single_location_page'); // get the single location page.
         if( $loc ) {
             $link = str_replace( $home, '', get_permalink( $loc ) );
             $link = trim( $link, '/' );
 
 
-            add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id='.$loc.'&atbdp_category=$matches[1]&paged=$matches[2]', 'top' );
+            add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id='.$loc.'&atbdp_location=$matches[1]&paged=$matches[2]', 'top' );
             add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id='.$loc.'&atbdp_location=$matches[1]', 'top' );
         }
 

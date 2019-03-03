@@ -790,11 +790,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $listings_header_title     = get_directorist_option('all_listing_title',__('All Items', ATBDP_TEXTDOMAIN));
                 $listings_header_sub_title = get_directorist_option('listings_header_sub_title',__('Total Listing Found: ', ATBDP_TEXTDOMAIN));
 
-
-                $general_settings = get_option('acadp_general_settings');
-                $listings_settings = get_option('acadp_listings_settings');
-                $featured_listing_settings = get_option('acadp_featured_listing_settings');
-
                 $atts = shortcode_atts(array(
                     'view'              => !empty($listing_view) ? $listing_view : 'grid',
                     '_featured'         => 1,
@@ -1058,11 +1053,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $display_listings_header   = get_directorist_option('display_listings_header',1);
                 $listings_header_title     = get_directorist_option('all_listing_title',__('All Items', ATBDP_TEXTDOMAIN));
                 $listings_header_sub_title = get_directorist_option('listings_header_sub_title',__('Total Listing Found: ', ATBDP_TEXTDOMAIN));
-
-
-                $general_settings = get_option('acadp_general_settings');
-                $listings_settings = get_option('acadp_listings_settings');
-                $featured_listing_settings = get_option('acadp_featured_listing_settings');
 
                 $atts = shortcode_atts(array(
                     'view'              => !empty($listing_view) ? $listing_view : 'grid',

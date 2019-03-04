@@ -144,8 +144,9 @@ function atbdp_format_amount( $amount, $decimals = true, $currency_settings = ar
  * @param    bool      $decimals    Whether or not to use decimals. Useful when set to false for non-currency numbers.
  * @return   string                 Newly formatted amount or Price Not Available
  */
-function atbdp_format_payment_amount( $amount, $decimals = true ) {
 
+function atbdp_format_payment_amount( $amount, $decimals = true ) {
+    $decimals = get_directorist_option('allow_decimal',1);
     return atbdp_format_amount( $amount, $decimals, atbdp_get_payment_currency_settings() );
 
 }

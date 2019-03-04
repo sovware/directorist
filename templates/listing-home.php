@@ -16,6 +16,7 @@ $popular_cat_num             = get_directorist_option('popular_cat_num', 10);
 $display_category_field      = get_directorist_option('display_category_field', 1);
 $display_location_field      = get_directorist_option('display_location_field', 1);
 $display_text_field          = get_directorist_option('display_text_field', 1);
+$search_listing_text          = get_directorist_option('search_listing_text',  __('Search Listing', ATBDP_TEXTDOMAIN));
 
 $default                     = get_template_directory_uri().'/images/home_page_bg.jpg';
 $theme_home_bg_image         = get_theme_mod('directoria_home_bg');
@@ -107,7 +108,7 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                     </div>
                     <div class="atbd_submit_btn">
                         <button type="submit" class="btn btn-primary btn-lg btn_search">
-                            <span class="fa fa-search"></span> <?php _e('Search Listing', ATBDP_TEXTDOMAIN)?>
+                            <span class="fa fa-search"></span> <?php _e($search_listing_text, ATBDP_TEXTDOMAIN)?>
                         </button>
                     </div>
                 </form>

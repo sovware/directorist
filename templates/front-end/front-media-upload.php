@@ -4,6 +4,7 @@ $display_slider_image                = get_directorist_option('dsiplay_slider_si
 $display_preview_image               = get_directorist_option('display_preview_image',1);
 $listing_imgs                        = (!empty($args['listing_img'])) ? $args['listing_img'] : array();
 $listing_prv_img_id                  = (!empty($args['listing_prv_img'])) ? $args['listing_prv_img'] : '';
+$plan_slider                         = (!empty($args['plan_slider'])) ? $args['plan_slider'] : '';
 $listing_prv_img                     = wp_get_attachment_image_src($listing_prv_img_id);
 $image_links                         = []; // define a link placeholder variable
 foreach ($listing_imgs as $id) {
@@ -33,8 +34,9 @@ $active_mi_ext = is_multiple_images_active(); // default is no
             <?php echo get_directorist_option('require_preview_img')?'<span class="atbdp_make_str_red">(Field is required)</span>':''; ?>
         </p>
     </div>
-    <?php } ?>
-    <?php if( !empty($display_slider_image) ) {?>
+    <?php }
+    ?>
+    <?php if( !empty($display_slider_image) && $plan_slider ) {?>
     <div class="form-group">
         <!-- image container, which can be manipulated with js -->
         <div class="listing-img-container">

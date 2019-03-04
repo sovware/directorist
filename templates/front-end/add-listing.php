@@ -159,27 +159,40 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     </div>
                                 <?php }?>
                                 <?php
+                                //data for average price range
+                                $plan_average_price = true;
+                                if (is_fee_manager_active()){
+                                    $plan_average_price = is_plan_allowed_average_price_range($fm_plan);
+                                }
+                                $plan_price = true;
+                                if (is_fee_manager_active()){
+                                    $plan_price = is_plan_allowed_price($fm_plan);
+                                }
                                 $price_range = !empty($price_range) ? $price_range : '';
-                                if (!$disable_price) { ?>
+                                if (!$disable_price && ($plan_average_price || $plan_price)) { ?>
                                     <div class="form-group">
                                         <label for="#">Pricing</label>
                                         <div class="atbd_pricing_options">
-                                            <label for="price_selected" data-option="price">
-                                                <input type="checkbox" id="price_selected" name="atbd_listing_pricing"
-                                                       checked>
-                                                <?php
-                                                $currency = get_directorist_option('g_currency', 'USD');
-                                                /*Translator: % is the name of the currency such eg. USD etc.*/
-                                                printf(esc_html__('Price [%s]%s', ATBDP_TEXTDOMAIN), $currency,get_directorist_option('require_price')?'<span class="atbdp_make_str_red">*</span>':''); ?>
-                                            </label>
                                             <?php
-                                            $plan_average_price = true;
-                                            if (is_fee_manager_active()){
-                                                $plan_average_price = is_plan_allowed_average_price_range($fm_plan);
-                                            }
-                                            if ($plan_average_price) {
+                                            if($plan_price){
                                                 ?>
-                                                <span>Or</span>
+                                                <label for="price_selected" data-option="price">
+                                                    <input type="checkbox" id="price_selected" name="atbd_listing_pricing"
+                                                           checked>
+                                                    <?php
+                                                    $currency = get_directorist_option('g_currency', 'USD');
+                                                    /*Translator: % is the name of the currency such eg. USD etc.*/
+                                                    printf(esc_html__('Price [%s]%s', ATBDP_TEXTDOMAIN), $currency,get_directorist_option('require_price')?'<span class="atbdp_make_str_red">*</span>':''); ?>
+                                                </label>
+                                            <?php
+                                            }
+                                            ?>
+                                            <?php
+                                            if ($plan_average_price) {
+                                                if($plan_price){
+                                                    printf('<span>%s</span>', __('Or', ATBDP_TEXTDOMAIN));
+                                                }
+                                                ?>
                                                 <label for="price_range_selected" data-option="price_range">
                                                     <input type="checkbox" id="price_range_selected"
                                                            name="atbd_listing_pricing">
@@ -195,16 +208,15 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 
                                         <input type="hidden" id="price_range_val"
                                                value="<?php echo $price_range; ?>">
-
+                                        <?php
+                                        if($plan_price){
+                                        ?>
                                         <input type="text" id="price" name="price"
                                                value="<?= !empty($price) ? esc_attr($price) : ''; ?>"
                                                class="form-control directory_field"
                                                placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
 
-                                        <?php
-                                        if (is_fee_manager_active()){
-                                            $plan_average_price = is_plan_allowed_average_price_range($fm_plan);
-                                        }
+                                        <?php }
                                         if ($plan_average_price) {
                                             ?>
                                             <select class="form-control directory_field" id="price_range"
@@ -429,24 +441,35 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     </select>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="at_biz_dir-tags"><?php esc_html_e('Tags:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_tags')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
-                                    <?php if (!empty($p_tags)) {
-                                        $output = array();
-                                        foreach ($p_tags as $p_tag) {
-                                            $output[] = $p_tag->name;
-                                        }
-                                        echo '<p class="c_cat_list">' . __('Current Tags:', ATBDP_TEXTDOMAIN) . join(', ', $output) . '</p>';
-                                    } ?>
-                                    <select name="tax_input[at_biz_dir-tags][]" class="form-control"
-                                            id="at_biz_dir-tags" multiple="multiple">
+                                <?php
+                                $plan_tag = true;
+                                if (is_fee_manager_active()){
+                                    $plan_tag = is_plan_allowed_tag($fm_plan);
+                                }
+                                if ($plan_tag) {
+                                    ?>
+                                    <div class="form-group">
+                                        <label for="at_biz_dir-tags"><?php esc_html_e('Tags:', ATBDP_TEXTDOMAIN);
+                                            echo get_directorist_option('require_tags') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
+                                        <?php if (!empty($p_tags)) {
+                                            $output = array();
+                                            foreach ($p_tags as $p_tag) {
+                                                $output[] = $p_tag->name;
+                                            }
+                                            echo '<p class="c_cat_list">' . __('Current Tags:', ATBDP_TEXTDOMAIN) . join(', ', $output) . '</p>';
+                                        } ?>
+                                        <select name="tax_input[at_biz_dir-tags][]" class="form-control"
+                                                id="at_biz_dir-tags" multiple="multiple">
 
-                                        <?php foreach ($listing_tags as $l_tag) { ?>
-                                            <option id='atbdp_tag'
-                                                    value='<?= $l_tag->name ?>'><?= esc_html($l_tag->name) ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
+                                            <?php foreach ($listing_tags as $l_tag) { ?>
+                                                <option id='atbdp_tag'
+                                                        value='<?= $l_tag->name ?>'><?= esc_html($l_tag->name) ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
                                 <!--***********************************************************************
                                     Run the custom field loop to show all published custom fields asign to Category
                                  **************************************************************************-->
@@ -759,23 +782,31 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                  **/
                                 do_action('atbdp_edit_after_googlemap_preview', 'add_listing_page_frontend', $listing_info, $p_id); ?>
                             </div>
+
+                            <?php
+                            $plan_video = true;
+                            if (is_fee_manager_active()){
+                                $plan_video =is_plan_allowed_listing_video($fm_plan);
+                            }
+                            $plan_slider = true;
+                            if (is_fee_manager_active()){
+                                $plan_slider =is_plan_allowed_slider($fm_plan);
+                            }
+                            ?>
+
                             <div class="atbd_content_module">
                                 <div class="atbd_content_module__tittle_area">
                                     <div class="atbd_area_title">
-                                        <h4><?php esc_html_e('Images & Video', ATBDP_TEXTDOMAIN) ?></h4>
+                                        <h4><?php esc_html_e('Images ', ATBDP_TEXTDOMAIN); echo $plan_video?__('& Video', ATBDP_TEXTDOMAIN):'';?></h4>
                                     </div>
                                 </div>
 
                                 <div class="atbdb_content_module_contents">
                                     <!--Image Uploader-->
                                     <div id="_listing_gallery">
-                                        <?php ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img')); ?>
+                                        <?php ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider')); ?>
                                     </div>
                                     <?php
-                                    $plan_video = true;
-                                    if (is_fee_manager_active()){
-                                        $plan_video =is_plan_allowed_listing_video($fm_plan);
-                                    }
                                     if ($enable_video_url && $plan_video) {
                                         ?>
                                         <div class="form-group">

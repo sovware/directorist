@@ -171,6 +171,14 @@ final class Directorist_Base
     public $email;
 
     /**
+     * ATBDP_Email Object.
+     *
+     * @var ATBDP_SEO
+     * @since 3.1.0
+     */
+    public $seo;
+
+    /**
      * Main Directorist_Base Instance.
      *
      * Insures that only one instance of Directorist_Base exists in memory at any one
@@ -209,6 +217,7 @@ final class Directorist_Base
             self::$instance->order = new ATBDP_Order;
             self::$instance->shortcode = new ATBDP_Shortcode;
             self::$instance->email = new ATBDP_Email;
+            self::$instance->seo = new ATBDP_SEO;
 
 
             // new settings

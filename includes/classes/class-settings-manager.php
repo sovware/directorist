@@ -89,6 +89,20 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                     )),
                 ),
                 /*Main Menu 5*/
+                'seo_menu' => array(
+                    'title' => __('Titles & Metas', ATBDP_TEXTDOMAIN),
+                    'name' => 'seo_settings',
+                    'icon' => 'font-awesome:fa-angellist',
+                    'controls'=>apply_filters('atbdp_seo_settings_controls',array(
+                        'seo_section' => array(
+                            'type' => 'section',
+                            'title'=> __('Titles & Metas',ATBDP_TEXTDOMAIN),
+                            'fields'=> $this->get_seo_settings_fields(),
+                        ),
+                    )),
+                ),
+
+                /*Main Menu 5*/
                 'general_menu' => array(
                     'title' => __('Currency Settings', ATBDP_TEXTDOMAIN),
                     'name' => 'currency_settings',
@@ -1157,6 +1171,12 @@ The Administrator of ==SITE_NAME==
                     ),
 
                     array(
+                        'type' => 'toggle',
+                        'name' => 'allow_decimal',
+                        'label' => __('Allow Decimal', ATBDP_TEXTDOMAIN),
+                        'default' => 1,
+                    ),
+                    array(
                         'type' => 'textbox',
                         'name' => 'g_decimal_separator',
                         'label' => __('Decimal Separator', ATBDP_TEXTDOMAIN),
@@ -1182,6 +1202,156 @@ The Administrator of ==SITE_NAME==
                             ),
                         ),
                     ),
+                )
+            );
+        }
+
+        /**
+         * @since 4.6.0
+         * @return array
+         */
+        function get_seo_settings_fields(){
+            return apply_filters('atbdp_seo_settings_fields', array(
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'overwrite_by_yoast',
+                        'label' => __('Disable overwrite by Yoast', ATBDP_TEXTDOMAIN),
+                        'description' => __('Here Yes means Directorist pages will use titles & metas settings from bellow. Otherwise it will use titles & metas settings from Yoast.', ATBDP_TEXTDOMAIN),
+                        'default' => 1,
+                    ),
+                        array(
+                            'type' => 'textbox',
+                            'name' => 'add_listing_page_meta_title',
+                            'label' => __('Add Listing page meta title', ATBDP_TEXTDOMAIN),
+                            'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        ),
+                    array(
+                            'type' => 'textbox',
+                            'name' => 'add_listing_page_meta_desc',
+                            'label' => __('Add Listing page meta description', ATBDP_TEXTDOMAIN),
+                        ),
+                    array(
+                            'type' => 'textbox',
+                            'name' => 'all_listing_meta_title',
+                            'label' => __('All Listing page meta title', ATBDP_TEXTDOMAIN),
+                            'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'all_listing_meta_desc',
+                        'label' => __('All Listing page meta description', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                            'type' => 'textbox',
+                            'name' => 'dashboard_meta_title',
+                            'label' => __('User Dashboard page meta title', ATBDP_TEXTDOMAIN),
+                            'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'dashboard_meta_desc',
+                        'label' => __('Dashboard page meta description', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                            'type' => 'textbox',
+                            'name' => 'author_profile_meta_title',
+                            'label' => __('Author page meta title', ATBDP_TEXTDOMAIN),
+                            'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'author_page_meta_desc',
+                        'label' => __('Author page meta description', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                            'type' => 'textbox',
+                            'name' => 'category_meta_title',
+                            'label' => __('Category page meta title', ATBDP_TEXTDOMAIN),
+                            'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'category_meta_desc',
+                        'label' => __('Category Page Meta Description', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                            'type' => 'textbox',
+                            'name' => 'single_category_meta_title',
+                            'label' => __('Single Category page meta title', ATBDP_TEXTDOMAIN),
+                            'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'single_category_meta_desc',
+                        'label' => __('Single Category Page Meta Description', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                            'type' => 'textbox',
+                            'name' => 'all_locations_meta_title',
+                            'label' => __('All Locations page meta title', ATBDP_TEXTDOMAIN),
+                            'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'all_locations_meta_desc',
+                        'label' => __('All Locations Page Meta Description', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                            'type' => 'textbox',
+                            'name' => 'single_locations_meta_title',
+                            'label' => __('Single Location page meta title', ATBDP_TEXTDOMAIN),
+                            'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'single_locations_meta_desc',
+                        'label' => __('Single Locations Page Meta Description', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                            'type' => 'textbox',
+                            'name' => 'registration_meta_title',
+                            'label' => __('Registration page meta title', ATBDP_TEXTDOMAIN),
+                            'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'registration_meta_desc',
+                        'label' => __('Registration Page Meta Description', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                            'type' => 'textbox',
+                            'name' => 'login_meta_title',
+                            'label' => __('Login page meta title', ATBDP_TEXTDOMAIN),
+                            'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'login_meta_desc',
+                        'label' => __('Login Page Meta Description', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                            'type' => 'textbox',
+                            'name' => 'homepage_meta_title',
+                            'label' => __('Search Home page meta title', ATBDP_TEXTDOMAIN),
+                            'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'homepage_meta_desc',
+                        'label' => __('Search Home Page Meta Description', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                            'type' => 'textbox',
+                            'name' => 'search_result_meta_title',
+                            'label' => __('Search Result page meta title', ATBDP_TEXTDOMAIN),
+                            'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'search_result_meta_desc',
+                        'label' => __('Search Result Page Meta Description', ATBDP_TEXTDOMAIN),
+                    ),
+
                 )
             );
         }
@@ -1605,6 +1775,13 @@ The Administrator of ==SITE_NAME==
                     ),
 
                     array(
+                        'type' => 'textbox',
+                        'name' => 'search_listing_text',
+                        'label' => __('Search Button Text', ATBDP_TEXTDOMAIN),
+                        'default' => __('Search Listing', ATBDP_TEXTDOMAIN)
+                    ),
+
+                    array(
                         'type' => 'toggle',
                         'name' => 'show_popular_category',
                         'label' => __('Display Popular Categories', ATBDP_TEXTDOMAIN),
@@ -1776,7 +1953,7 @@ The Administrator of ==SITE_NAME==
                     'type' => 'slider',
                     'name' => 'new_listing_day',
                     'label' => __('New Badge Duration in Weeks', ATBDP_TEXTDOMAIN),
-                    'min' => '0',
+                    'min' => '1',
                     'max' => '52',
                     'step' => '1',
                     'default' => '3',
@@ -2001,8 +2178,6 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Published', ATBDP_TEXTDOMAIN),
                     ),
                 ),
-
-
                 array(
                     'type' => 'select',
                     'name' => 'edit_listing_redirect',
@@ -2024,7 +2199,42 @@ The Administrator of ==SITE_NAME==
                         'label' => __('View Listing', ATBDP_TEXTDOMAIN),
                     ),
                 ),
-
+                array(
+                    'type' => 'textbox',
+                    'name' => 'listing_details_text',
+                    'label' => __( 'Section Title of Listing Details', ATBDP_TEXTDOMAIN ),
+                    'default' => __('Listing Details', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'custom_section_lable',
+                    'label' => __( 'Section Title of Custom Fields', ATBDP_TEXTDOMAIN ),
+                    'default' => __('Features', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'listing_location_text',
+                    'label' => __('Section Title of Location', ATBDP_TEXTDOMAIN),
+                    'default' => __('Location', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'contact_info_text',
+                    'label' => __( 'Section Title of Contact Info', ATBDP_TEXTDOMAIN ),
+                    'default' => __('Contact Information', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'contact_listing_owner',
+                    'label' => __( 'Section Title of Contact Owner', ATBDP_TEXTDOMAIN ),
+                    'default' => __('Contact Listing Owner', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'atbd_video_title',
+                    'label' => __('Section Title of Video', ATBDP_TEXTDOMAIN),
+                    'default' => __('Video', ATBDP_TEXTDOMAIN),
+                ),
                 array(
                     'type' => 'toggle',
                     'name' => 'dsiplay_prv_single_page',
@@ -2094,13 +2304,6 @@ The Administrator of ==SITE_NAME==
                     'label' => __( 'Disable Listing Price', ATBDP_TEXTDOMAIN ),
                     'default' => 0,
                 ),
-
-                array(
-                    'type' => 'textbox',
-                    'name' => 'custom_section_lable',
-                    'label' => __( 'Section Title of Custom Fields', ATBDP_TEXTDOMAIN ),
-                    'default' => __('Features', ATBDP_TEXTDOMAIN),
-                ),
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_contact_info',
@@ -2132,14 +2335,14 @@ The Administrator of ==SITE_NAME==
                     'name' => 'default_latitude',
                     'label' => __( 'Default Latitude', ATBDP_TEXTDOMAIN ),
                     'description' => sprintf(__( 'You can find it %s.', ATBDP_TEXTDOMAIN ), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
-                    'default' => atbdp_get_option('default_latitude', 'atbdp_general'),
+                    'default' => '51.5073509',
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'default_longitude',
                     'label' => __( 'Default Longitude', ATBDP_TEXTDOMAIN ),
                     'description' => sprintf(__( 'You can find it %s.', ATBDP_TEXTDOMAIN ), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
-                    'default' => atbdp_get_option('default_longitude', 'atbdp_general'),
+                    'default' => '-0.12775829999998223',
                 ),
 
                 array(
@@ -2166,13 +2369,6 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Enable Listing Video', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
-                array(
-                    'type' => 'textbox',
-                    'name' => 'atbd_video_title',
-                    'label' => __('Video Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Video', ATBDP_TEXTDOMAIN),
-                ),
-
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_rel_listing',

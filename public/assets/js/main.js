@@ -60,7 +60,8 @@
         slidesToShow: 1,
         slidesToScroll: 1,
         arrows: false,
-        asNavFor: '.atbd_directory_image_thumbnail'
+        asNavFor: '.atbd_directory_image_thumbnail',
+        rtl: true
     });
 
     /* image gallery slider */
@@ -72,7 +73,8 @@
         arrows: false,
         asNavFor: '.atbd_directory_gallery',
         focusOnSelect: true,
-        variableWidth: true
+        variableWidth: true,
+        rtl: true
     });
 
     $('#atbd_review_attachment').on('change', function (e) {

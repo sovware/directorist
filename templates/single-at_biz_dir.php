@@ -84,7 +84,7 @@ $enable_social_share              = get_directorist_option('enable_social_share'
 $enable_favourite                 = get_directorist_option('enable_favourite', 1);
 $enable_report_abuse              = get_directorist_option('enable_report_abuse', 1);
 $enable_video_url                 = get_directorist_option('atbd_video_url', 1);
-$video_label                      = get_directorist_option('atbd_video_title');
+$video_label                      = get_directorist_option('atbd_video_title', __('Video', ATBDP_TEXTDOMAIN));
 $p_lnk                            = get_the_permalink();
 $p_title                          = get_the_title();
 $featured                         = get_post_meta(get_the_ID(), '_featured', true);
@@ -100,6 +100,10 @@ $enable_new_listing               = get_directorist_option('display_new_badge_ca
 $use_nofollow                     = get_directorist_option('use_nofollow');
 $enable_review                    = get_directorist_option('enable_review', 1);
 $custom_section_lable             = get_directorist_option('custom_section_lable', __('Details', ATBDP_TEXTDOMAIN));
+$listing_details_text             = get_directorist_option('listing_details_text', __('Listing Details', ATBDP_TEXTDOMAIN));
+$listing_location_text            = get_directorist_option('listing_location_text', __('Location', ATBDP_TEXTDOMAIN));
+$contact_info_text                = get_directorist_option('contact_info_text', __('Contact Information', ATBDP_TEXTDOMAIN));
+$contact_listing_owner            = get_directorist_option('contact_listing_owner', __('Contact Listing Owner', ATBDP_TEXTDOMAIN));
 
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col-lg-12';
@@ -123,7 +127,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
             <div class="atbd_content_module atbd_listing_details">
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">
-                        <h4><span class="fa fa-file-text atbd_area_icon"></span><?php _e('Listing Details', ATBDP_TEXTDOMAIN)?></h4>
+                        <h4><span class="fa fa-file-text atbd_area_icon"></span><?php _e($listing_details_text, ATBDP_TEXTDOMAIN)?></h4>
                     </div>
 
                     <div class="atbd_listing_action_area">
@@ -522,7 +526,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                 <div class="atbd_content_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
-                            <h4><span class="fa fa fa-map atbd_area_icon"></span><?php _e('Location', ATBDP_TEXTDOMAIN);?></h4>
+                            <h4><span class="fa fa fa-map atbd_area_icon"></span><?php _e($listing_location_text, ATBDP_TEXTDOMAIN);?></h4>
                         </div>
                     </div>
 
@@ -538,7 +542,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="fa fa-envelope-o"></span><?php _e('Contact Information', ATBDP_TEXTDOMAIN); ?>
+                                <span class="fa fa-envelope-o"></span><?php _e($contact_info_text, ATBDP_TEXTDOMAIN); ?>
                             </h4>
                         </div>
                     </div>
@@ -605,7 +609,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">
                         <h4>
-                            <span class="fa fa-paper-plane"></span><?php _e('Contact Listing Owner', ATBDP_TEXTDOMAIN); ?>
+                            <span class="fa fa-paper-plane"></span><?php _e($contact_listing_owner, ATBDP_TEXTDOMAIN); ?>
                         </h4>
                     </div>
                 </div>

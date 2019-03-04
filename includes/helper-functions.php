@@ -2874,7 +2874,6 @@ function listing_view_by_list($all_listings)
                                                         <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
                                                     </p></li>
                                             <?php } elseif(!empty($locs) && 'location' == $address_location) {
-                                                $numberOfCat = count($locs);
                                                 $output = array();
                                                 foreach ($locs as $loc) {
                                                     $link = ATBDP_Permalink::atbdp_get_location_page($loc);
@@ -2930,10 +2929,11 @@ function listing_view_by_list($all_listings)
                                                     <span class="atbd_cat_popup">  +<?php echo $totalTerm-1; ?>
                                                         <span class="atbd_cat_popup_wrapper">
                                                         <?php
+                                                        $output = array();
                                                         foreach (array_slice($cats,1) as $cat) {
                                                             $link = ATBDP_Permalink::atbdp_get_category_page($cat);
                                                             $space = str_repeat(' ', 1);
-                                                            $output []= "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
+                                                            $output[]= "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
                                                         }?>
                                                             <span><?php echo join($output);?></span>
                                                     </span>

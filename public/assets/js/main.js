@@ -4,15 +4,7 @@
         $(this).toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
     });
 
-    /* image gallery slider */
-    function sliderNavigation(slider, prevArrow, nextArrow) {
-        $(prevArrow).on('click', function () {
-            slider.slick('slickPrev');
-        });
-        $(nextArrow).on('click', function () {
-            slider.slick('slickNext');
-        });
-    }
+
 
     /* Externel Library init
      ------------------------*/
@@ -52,30 +44,6 @@
         }
     }
 
-    /* initialize slick  */
-    var $listingGallerySlider = $('.atbd_directory_gallery');
-    var $listingGalleryThumbnail = $('.atbd_directory_image_thumbnail');
-
-    $listingGallerySlider.slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-        asNavFor: '.atbd_directory_image_thumbnail',
-        rtl: atbdp_public_data.rtl
-    });
-
-    /* image gallery slider */
-    sliderNavigation($listingGallerySlider, '.atbd_directry_gallery_wrapper .prev', '.atbd_directry_gallery_wrapper .next');
-
-    $listingGalleryThumbnail.slick({
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        arrows: false,
-        asNavFor: '.atbd_directory_gallery',
-        focusOnSelect: true,
-        variableWidth: true,
-        rtl: atbdp_public_data.rtl
-    });
 
     $('#atbd_review_attachment').on('change', function (e) {
         handleFiles(this.files);

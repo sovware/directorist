@@ -202,7 +202,7 @@ if ( !class_exists('ATBDP_SEO') ):
                 $atbdp_page = 'single_category';
                 $slug = get_query_var( 'atbdp_category' );
                 $term = get_term_by( 'slug', $slug, 'at_biz_dir-category' );
-                $title = (get_directorist_option('single_category_meta_title')) ? get_directorist_option('single_category_meta_title') : $term->name;
+                $title = (get_directorist_option('single_category_meta_title')) ? get_directorist_option('single_category_meta_title') : (!empty($term) ? $term->name : '');
             }elseif(atbdp_is_page('all_locations')){
                 $atbdp_page = 'all_locations';
                 $title = (get_directorist_option('all_locations_meta_title')) ? get_directorist_option('all_locations_meta_title') : $title;
@@ -210,7 +210,7 @@ if ( !class_exists('ATBDP_SEO') ):
                 $atbdp_page = 'single_location';
                 $slug = get_query_var( 'atbdp_location' );
                 $term = get_term_by( 'slug', $slug, 'at_biz_dir-location' );
-                $title = (get_directorist_option('single_locations_meta_title')) ? get_directorist_option('single_locations_meta_title') : $term->name;
+                $title = (get_directorist_option('single_locations_meta_title')) ? get_directorist_option('single_locations_meta_title') : (!empty($term) ? $term->name : '');
             }elseif(atbdp_is_page('registration')){
                 $atbdp_page = 'registration';
                 $title = (get_directorist_option('registration_meta_title')) ? get_directorist_option('registration_meta_title') : $title;

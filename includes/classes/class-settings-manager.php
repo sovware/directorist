@@ -1215,58 +1215,58 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'overwrite_by_yoast',
-                        'label' => __('Disable overwrite by Yoast', ATBDP_TEXTDOMAIN),
+                        'label' => __('Disable Overwrite by Yoast', ATBDP_TEXTDOMAIN),
                         'description' => __('Here Yes means Directorist pages will use titles & metas settings from bellow. Otherwise it will use titles & metas settings from Yoast.', ATBDP_TEXTDOMAIN),
                         'default' => 1,
                     ),
                         array(
                             'type' => 'textbox',
                             'name' => 'add_listing_page_meta_title',
-                            'label' => __('Add Listing page meta title', ATBDP_TEXTDOMAIN),
+                            'label' => __('Add Listing Page Meta Title', ATBDP_TEXTDOMAIN),
                             'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
                         ),
                     array(
                             'type' => 'textbox',
                             'name' => 'add_listing_page_meta_desc',
-                            'label' => __('Add Listing page meta description', ATBDP_TEXTDOMAIN),
+                            'label' => __('Add Listing Page Meta Description', ATBDP_TEXTDOMAIN),
                         ),
                     array(
                             'type' => 'textbox',
                             'name' => 'all_listing_meta_title',
-                            'label' => __('All Listing page meta title', ATBDP_TEXTDOMAIN),
+                            'label' => __('All Listing Page Meta Title', ATBDP_TEXTDOMAIN),
                             'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
                         ),
                     array(
                         'type' => 'textbox',
                         'name' => 'all_listing_meta_desc',
-                        'label' => __('All Listing page meta description', ATBDP_TEXTDOMAIN),
+                        'label' => __('All Listing Page Meta Description', ATBDP_TEXTDOMAIN),
                     ),
                     array(
                             'type' => 'textbox',
                             'name' => 'dashboard_meta_title',
-                            'label' => __('User Dashboard page meta title', ATBDP_TEXTDOMAIN),
+                            'label' => __('User Dashboard Page Meta Title', ATBDP_TEXTDOMAIN),
                             'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
                         ),
                     array(
                         'type' => 'textbox',
                         'name' => 'dashboard_meta_desc',
-                        'label' => __('Dashboard page meta description', ATBDP_TEXTDOMAIN),
+                        'label' => __('Dashboard Page Meta Description', ATBDP_TEXTDOMAIN),
                     ),
                     array(
                             'type' => 'textbox',
                             'name' => 'author_profile_meta_title',
-                            'label' => __('Author page meta title', ATBDP_TEXTDOMAIN),
+                            'label' => __('Author Page Meta Title', ATBDP_TEXTDOMAIN),
                             'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
                         ),
                     array(
                         'type' => 'textbox',
                         'name' => 'author_page_meta_desc',
-                        'label' => __('Author page meta description', ATBDP_TEXTDOMAIN),
+                        'label' => __('Author Page Meta Description', ATBDP_TEXTDOMAIN),
                     ),
                     array(
                             'type' => 'textbox',
                             'name' => 'category_meta_title',
-                            'label' => __('Category page meta title', ATBDP_TEXTDOMAIN),
+                            'label' => __('Category Page Meta Title', ATBDP_TEXTDOMAIN),
                             'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
                         ),
                     array(
@@ -1277,7 +1277,7 @@ The Administrator of ==SITE_NAME==
                     array(
                             'type' => 'textbox',
                             'name' => 'single_category_meta_title',
-                            'label' => __('Single Category page meta title', ATBDP_TEXTDOMAIN),
+                            'label' => __('Single Category Page Meta Title', ATBDP_TEXTDOMAIN),
                             'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
                         ),
                     array(
@@ -1288,7 +1288,7 @@ The Administrator of ==SITE_NAME==
                     array(
                             'type' => 'textbox',
                             'name' => 'all_locations_meta_title',
-                            'label' => __('All Locations page meta title', ATBDP_TEXTDOMAIN),
+                            'label' => __('All Locations Page Meta Title', ATBDP_TEXTDOMAIN),
                             'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
                         ),
                     array(
@@ -1299,7 +1299,7 @@ The Administrator of ==SITE_NAME==
                     array(
                             'type' => 'textbox',
                             'name' => 'single_locations_meta_title',
-                            'label' => __('Single Location page meta title', ATBDP_TEXTDOMAIN),
+                            'label' => __('Single Location Page Meta Title', ATBDP_TEXTDOMAIN),
                             'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
                         ),
                     array(
@@ -1310,7 +1310,7 @@ The Administrator of ==SITE_NAME==
                     array(
                             'type' => 'textbox',
                             'name' => 'registration_meta_title',
-                            'label' => __('Registration page meta title', ATBDP_TEXTDOMAIN),
+                            'label' => __('Registration Page Meta Title', ATBDP_TEXTDOMAIN),
                             'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
                         ),
                     array(
@@ -1321,7 +1321,7 @@ The Administrator of ==SITE_NAME==
                     array(
                             'type' => 'textbox',
                             'name' => 'login_meta_title',
-                            'label' => __('Login page meta title', ATBDP_TEXTDOMAIN),
+                            'label' => __('Login Page Meta Title', ATBDP_TEXTDOMAIN),
                             'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
                         ),
                     array(
@@ -1332,7 +1332,7 @@ The Administrator of ==SITE_NAME==
                     array(
                             'type' => 'textbox',
                             'name' => 'homepage_meta_title',
-                            'label' => __('Search Home page meta title', ATBDP_TEXTDOMAIN),
+                            'label' => __('Search Home Page Meta Title', ATBDP_TEXTDOMAIN),
                             'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
                         ),
                     array(
@@ -1343,7 +1343,7 @@ The Administrator of ==SITE_NAME==
                     array(
                             'type' => 'textbox',
                             'name' => 'search_result_meta_title',
-                            'label' => __('Search Result page meta title', ATBDP_TEXTDOMAIN),
+                            'label' => __('Search Result Page Meta Title', ATBDP_TEXTDOMAIN),
                             'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
                         ),
                     array(

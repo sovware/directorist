@@ -61,7 +61,7 @@
         slidesToScroll: 1,
         arrows: false,
         asNavFor: '.atbd_directory_image_thumbnail',
-        rtl: true
+        rtl: atbdp_public_data.rtl
     });
 
     /* image gallery slider */
@@ -74,7 +74,7 @@
         asNavFor: '.atbd_directory_gallery',
         focusOnSelect: true,
         variableWidth: true,
-        rtl: true
+        rtl: atbdp_public_data.rtl
     });
 
     $('#atbd_review_attachment').on('change', function (e) {

@@ -242,6 +242,7 @@ class ATBDP_Enqueuer {
             'nonceName'       => 'atbdp_nonce_js',
             'PublicAssetPath'  => ATBDP_PUBLIC_ASSETS,
             'login_alert_message' => __( 'Sorry, you need to login first.', ATBDP_TEXTDOMAIN ),
+            'rtl'                 => is_rtl() ? 'true': 'false'
         );
         wp_localize_script( 'atbdp_checkout_script', 'atbdp_checkout', $data );
 

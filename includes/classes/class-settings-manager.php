@@ -226,12 +226,12 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                     'name' => 'form_fields_setting',
                     'icon' => 'font-awesome:fa-wpforms',
                     'controls' => apply_filters('atbdp_review_controls', array(
-                        'emails' => array(
+                        'form_field' => array(
                             'type' => 'section',
                             'title' => __('Form Fields', ATBDP_TEXTDOMAIN),
                             'description' => __('You can Customize form fields validation.', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_form_fields_settings(),
-                        ),
+                        )
                     )),
                 ),
             ));
@@ -2088,6 +2088,7 @@ The Administrator of ==SITE_NAME==
                 ),
             ));
         }
+
 
         /**
          * Get all the settings fields for the listings settings section

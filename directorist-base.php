@@ -334,6 +334,7 @@ final class Directorist_Base
         register_widget('BD_Map_Widget');
         register_widget('BD_Similar_Listings_Widget');
         register_widget('BD_Author_Info_Widget');
+        register_widget('BD_Featured_Listings_Widget');
 
     }
 
@@ -697,7 +698,7 @@ final class Directorist_Base
                 $('.related__carousel').slick({
                   dots: false,
                   arrows: false,
-                  infinite: false,
+                  infinite: true,
                   speed: 300,
                   slidesToShow: <?php echo $rel_listing_column;?>,
                   slidesToScroll: 1,

@@ -162,7 +162,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                         return $msg;
                     }if((get_directorist_option('require_location') == 1) && !$location){
                         return $msg;
-                    }if((get_directorist_option('require_category') == 1) && empty($admin_category_select)){
+                    }
+                    if((get_directorist_option('require_category') == 1) && '-1' == $admin_category_select){
                         return $msg;
                     }if((get_directorist_option('require_address') == 1) && empty($p['address'])){
                         return $msg;

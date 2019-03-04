@@ -128,11 +128,17 @@ Directorist is not developed by a single person. A team of dedicated developers 
 18. Add New Custom Field
 
 == Changelog ==
-= 4.7.0 - March 3, 2019 =
-* Fix - Location's pagination issue
+= 4.7.0 - March 4, 2019 =
 * Fix - Compatibility with Polylang Plugin
+* Add - Option to set custom meta title and description on Directorist pages for better SEO performance
 * Add - Featured listing widget
+* Add - Option to disable decimal in currency setting
+* Add - Option to change section title of single listing page
+* Add - Option to change search listing button text
+* Add - RTL support on listing slider
+* Fix - Location's pagination issue
 * Tweak - Make infinite true of related listing
+
 = 4.6.0 - FEBRUARY 26, 2019 =
 * Fix - Responsive issue
 * Fix - Hide/show issue on listings grid

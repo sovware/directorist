@@ -742,6 +742,42 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
             $(this).html(link);
         });
         <?php } ?>
+
+        /* initialize slick  */
+        /* image gallery slider */
+        function sliderNavigation(slider, prevArrow, nextArrow) {
+            $(prevArrow).on('click', function () {
+                slider.slick('slickPrev');
+            });
+            $(nextArrow).on('click', function () {
+                slider.slick('slickNext');
+            });
+        }
+
+        var $listingGallerySlider = $('.atbd_directory_gallery');
+        var $listingGalleryThumbnail = $('.atbd_directory_image_thumbnail');
+
+        $listingGallerySlider.slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            asNavFor: '.atbd_directory_image_thumbnail',
+            rtl: <?php echo is_rtl() ? 'true': 'false'; ?>
+        });
+
+        /* image gallery slider */
+        sliderNavigation($listingGallerySlider, '.atbd_directry_gallery_wrapper .prev', '.atbd_directry_gallery_wrapper .next');
+
+        $listingGalleryThumbnail.slick({
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            arrows: false,
+            asNavFor: '.atbd_directory_gallery',
+            focusOnSelect: true,
+            variableWidth: true,
+            rtl: <?php echo is_rtl() ? 'true': 'false'; ?>
+        });
+
     }); // ends jquery ready function.
 
 

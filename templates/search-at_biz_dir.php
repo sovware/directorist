@@ -111,6 +111,7 @@ $column_width           = 100/$search_listing_columns .'%';
                         $display_view_count             = get_directorist_option('display_view_count',1);
                         $display_author_image           = get_directorist_option('display_author_image',1);
                         $display_publish_date           = get_directorist_option('display_publish_date',1);
+                        $display_contact_info           = get_directorist_option('display_contact_info',1);
                         $display_feature_badge_cart     = get_directorist_option('display_feature_badge_cart',1);
                         $display_popular_badge_cart     = get_directorist_option('display_popular_badge_cart',1);
                         $popular_badge_text             = get_directorist_option('popular_badge_text','Popular');
@@ -271,12 +272,12 @@ $column_width           = 100/$search_listing_columns .'%';
                                             </div><!-- End atbd listing meta -->
 
                                             <?php } ?>
-                                            <?php if(!$disable_contact_info && !empty($display_publish_date)) {?>
+                                            <?php if(!empty($display_contact_info) || !empty($display_publish_date)) { ?>
                                                 <div class="atbd_listing_data_list">
                                                     <ul>
                                                         <?php
-                                                        if (!$disable_contact_info && !$hide_contact_info) {
-                                                            if( !empty( $address && 'contact' == $address_location )) { ?>
+                                                        if (!empty($display_contact_info)) {
+                                                            if( !empty( $address ) && 'contact' == $address_location ) { ?>
                                                                 <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
                                                             <?php } elseif(!empty($locs) && 'location' == $address_location) {
 

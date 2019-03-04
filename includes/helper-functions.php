@@ -2213,12 +2213,13 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                                 <ul>
                                                     <?php
                                                     if (!empty($display_contact_info)) {
-                                                        if (!empty($address && 'contact' == $address_location)) { ?>
+                                                        if (!empty($address) && 'contact' == $address_location) { ?>
                                                             <li><p>
                                                                     <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
                                                                 </p></li>
                                                         <?php } elseif(!empty($locs) && 'location' == $address_location) {
-                                                            
+
+                                                            $numberOfCat = count($locs);
                                                             $output = array();
                                                             foreach ($locs as $loc) {
                                                                 $link = ATBDP_Permalink::atbdp_get_location_page($loc);
@@ -2551,12 +2552,13 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                 <ul>
                                                     <?php
                                                     if (!empty($display_contact_info)) {
-                                                        if (!empty($address && 'contact' == $address_location )) { ?>
+                                                        if (!empty($address) && 'contact' == $address_location ) { ?>
                                                             <li><p>
                                                                     <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
                                                                 </p></li>
                                                         <?php } elseif(!empty($locs) && 'location' == $address_location) {
 
+                                                            $numberOfCat = count($locs);
                                                             $output = array();
                                                             foreach ($locs as $loc) {
                                                                 $link = ATBDP_Permalink::atbdp_get_location_page($loc);
@@ -2867,12 +2869,11 @@ function listing_view_by_list($all_listings)
                                     <ul>
                                         <?php
                                         if (!empty($display_contact_info)) {
-                                            if (!empty($address && 'contact' == $address_location)) { ?>
+                                            if (!empty($address) && 'contact' == $address_location) { ?>
                                                 <li><p>
                                                         <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
                                                     </p></li>
                                             <?php } elseif(!empty($locs) && 'location' == $address_location) {
-
                                                 $numberOfCat = count($locs);
                                                 $output = array();
                                                 foreach ($locs as $loc) {
@@ -2882,8 +2883,7 @@ function listing_view_by_list($all_listings)
                                                 }?>
                                                 <li>
                                                     <p>
-
-                                                    <span>
+                                                   <span>
                                                     <?php echo "<span class='fa fa-location-arrow'></span>" . join(',',$output);?>
                                                 </span>
                                                     </p>

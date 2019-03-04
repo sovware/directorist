@@ -127,6 +127,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 == Changelog ==
 = 4.7.0 - March 3, 2019 =
 * Fix - Location's pagination issue
+* Fix - Compatibility with Polylang Plugin
 * Add - Featured listing widget
 * Tweak - Make infinite true of related listing
 = 4.6.0 - FEBRUARY 26, 2019 =

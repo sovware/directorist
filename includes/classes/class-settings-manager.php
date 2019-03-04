@@ -1278,7 +1278,7 @@ The Administrator of ==SITE_NAME==
                             'type' => 'textbox',
                             'name' => 'single_category_meta_title',
                             'label' => __('Single Category Page Meta Title', ATBDP_TEXTDOMAIN),
-                            'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                            'description' => __('Default the title of the category.', ATBDP_TEXTDOMAIN),
                         ),
                     array(
                         'type' => 'textbox',
@@ -1300,7 +1300,7 @@ The Administrator of ==SITE_NAME==
                             'type' => 'textbox',
                             'name' => 'single_locations_meta_title',
                             'label' => __('Single Location Page Meta Title', ATBDP_TEXTDOMAIN),
-                            'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                            'description' => __('Default the title of the location.', ATBDP_TEXTDOMAIN),
                         ),
                     array(
                         'type' => 'textbox',

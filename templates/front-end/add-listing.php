@@ -217,11 +217,6 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
 
                                         <?php }
-                                        /**
-                                         * @since 4.7.1
-                                         * It fires after the price field
-                                         */
-                                        do_action('atbdp_add_listing_after_price', 'add_listing_page_frontend', $listing_info);
                                         if ($plan_average_price) {
                                             ?>
                                             <select class="form-control directory_field" id="price_range"
@@ -243,7 +238,13 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                         <?php }
                                         ?>
                                     </div>
-                                <?php } ?>
+                                <?php }
+                                /**
+                                 * @since 4.7.1
+                                 * It fires after the price field
+                                 */
+                                do_action('atbdp_add_listing_after_price', $p_id);
+                                ?>
                                 <?php if (get_directorist_option('enable_excerpt')){ ?>
                                     <div class="form-group">
                                         <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_excerpt')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
@@ -478,7 +479,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                  * @since 4.7.1
                                  * It fires after the tag field
                                  */
-                                do_action('atbdp_add_listing_after_tag', 'add_listing_page_frontend', $listing_info);
+                                do_action('atbdp_add_listing_after_tag', $p_id);
                                 ?>
                                 <!--***********************************************************************
                                     Run the custom field loop to show all published custom fields asign to Category
@@ -818,12 +819,12 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     </div>
                                     <?php
                                     /**
-                                     * @since 4.7.1
-                                     * It fires after the tag field
+                                     *@since 4.6.1
+                                     *
                                      */
-                                    do_action('atbdp_add_listing_after_listing_slider', 'add_listing_page_frontend', $listing_info);
-                                    ?>
-                                    <?php
+                                    do_action('atbdp_add_listing_after_listing_slider', $p_id);
+
+
                                     if ($enable_video_url && $plan_video) {
                                         ?>
                                         <div class="form-group">

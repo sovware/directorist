@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.1.0
-Stable tag: 4.7.0
+Stable tag: 4.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -128,6 +128,11 @@ Directorist is not developed by a single person. A team of dedicated developers 
 18. Add New Custom Field
 
 == Changelog ==
+
+= 4.7.1 - March 5, 2019 =
+* Fix - Compatibility with Yoast Plugin
+* Fix - Title issue of single listing page
+* Tweak - Made Contact Information's email clickable to open in mail client
 
 = 4.7.0 - March 4, 2019 =
 * Fix - Compatibility with Polylang Plugin

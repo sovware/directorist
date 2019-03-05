@@ -575,7 +575,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                         <div class="atbd_info_title"><span
                                                     class="fa fa-envelope"></span><?php _e('Email', ATBDP_TEXTDOMAIN); ?>
                                         </div>
-                                        <span class="atbd_info"><?= esc_html($email); ?></span>
+                                        <span class="atbd_info"><a href="mailto:<?= esc_html($email); ?>"><?= esc_html($email); ?></a></span>
                                     </li>
                                 <?php } ?>
 
@@ -588,7 +588,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                            class="atbd_info" <?php echo !empty($use_nofollow) ? 'rel="nofollow"': '';?>><?= esc_html($website); ?></a>
                                     </li>
                                 <?php } ?>
-
                             </ul>
                         </div>
                         <?php if (!empty($social) && is_array($social)) { ?>
@@ -604,7 +603,13 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php } ?>
-            <?php if(!$hide_contact_owner && empty($disable_contact_owner)) { ?>
+            <?php
+            $plan_permission = true;
+            global $post;
+            if (is_fee_manager_active()){
+                $plan_permission = is_plan_allowed_owner_contact_widget($fm_plan);
+            }
+            if($plan_permission && !$hide_contact_owner && empty($disable_contact_owner)) { ?>
             <div class="atbd_content_module atbd_contact_information_module">
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">

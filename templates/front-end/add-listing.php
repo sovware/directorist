@@ -217,6 +217,11 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                                placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
 
                                         <?php }
+                                        /**
+                                         * @since 4.7.1
+                                         * It fires after the price field
+                                         */
+                                        do_action('atbdp_add_listing_after_price', 'add_listing_page_frontend', $listing_info);
                                         if ($plan_average_price) {
                                             ?>
                                             <select class="form-control directory_field" id="price_range"
@@ -469,6 +474,11 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     </div>
                                     <?php
                                 }
+                                /**
+                                 * @since 4.7.1
+                                 * It fires after the tag field
+                                 */
+                                do_action('atbdp_add_listing_after_tag', 'add_listing_page_frontend', $listing_info);
                                 ?>
                                 <!--***********************************************************************
                                     Run the custom field loop to show all published custom fields asign to Category
@@ -806,6 +816,13 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     <div id="_listing_gallery">
                                         <?php ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider')); ?>
                                     </div>
+                                    <?php
+                                    /**
+                                     * @since 4.7.1
+                                     * It fires after the tag field
+                                     */
+                                    do_action('atbdp_add_listing_after_listing_slider', 'add_listing_page_frontend', $listing_info);
+                                    ?>
                                     <?php
                                     if ($enable_video_url && $plan_video) {
                                         ?>

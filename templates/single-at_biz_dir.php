@@ -575,7 +575,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                         <div class="atbd_info_title"><span
                                                     class="fa fa-envelope"></span><?php _e('Email', ATBDP_TEXTDOMAIN); ?>
                                         </div>
-                                        <span class="atbd_info"><a href="mailto:<?= esc_html($email); ?>"><?= esc_html($email); ?></a></span>
+                                        <span class="atbd_info"><a target="_top" href="mailto:<?= esc_html($email); ?>"><?= esc_html($email); ?></a></span>
                                     </li>
                                 <?php } ?>
 

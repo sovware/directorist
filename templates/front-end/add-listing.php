@@ -85,6 +85,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 <div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
     <div class="<?php echo is_directoria_active() ? 'container' : ' container-fluid'; ?>">
         <form action="<?= esc_url($_SERVER['REQUEST_URI']); ?>" method="post">
+            <fieldset>
             <?php
             do_action('atbdb_before_add_listing_from_frontend');//for dev purpose
             $fm_plan = !empty(get_post_meta($p_id, '_fm_plans', true))?get_post_meta($p_id, '_fm_plans', true):'';
@@ -815,16 +816,15 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 <div class="atbdb_content_module_contents">
                                     <!--Image Uploader-->
                                     <div id="_listing_gallery">
-                                        <?php ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider')); ?>
+                                        <?php ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider'));
+                                        /**
+                                         *@since 4.6.1
+                                         *
+                                         */
+                                        do_action('atbdp_add_listing_after_listing_slider_button', $p_id);
+                                        ?>
                                     </div>
                                     <?php
-                                    /**
-                                     *@since 4.6.1
-                                     *
-                                     */
-                                    do_action('atbdp_add_listing_after_listing_slider', $p_id);
-
-
                                     if ($enable_video_url && $plan_video) {
                                         ?>
                                         <div class="form-group">
@@ -883,6 +883,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                     </div><!--ends .row-->
                 </div>
             </div>
+            </fieldset>
         </form>
     </div> <!--ends container-fluid-->
 </div>

@@ -816,12 +816,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 <div class="atbdb_content_module_contents">
                                     <!--Image Uploader-->
                                     <div id="_listing_gallery">
-                                        <?php ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider'));
-                                        /**
-                                         *@since 4.6.1
-                                         *
-                                         */
-                                        do_action('atbdp_add_listing_after_listing_slider_button', $p_id);
+                                        <?php ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider', 'p_id'));
                                         ?>
                                     </div>
                                     <?php

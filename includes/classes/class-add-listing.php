@@ -225,6 +225,20 @@ if (!class_exists('ATBDP_Add_Listing')):
                             }
                         }
 
+                        $prev = !empty($metas['_listing_prv_img'])?1:0;
+                        $totat_image = count($metas['_listing_img'])+$prev;
+                       if ($plan_meta['num_image'][0]<$totat_image && empty($plan_meta['num_image_unl'][0])){
+                           $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_image'][0].' image(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
+                           return $msg;
+                       }
+                       if (class_exists('BD_Gallery')){
+                           $_gallery_img = count($metas['_gallery_img']);
+                           if ($plan_meta['num_gallery_image'][0]<$_gallery_img && empty($plan_meta['num_gallery_image_unl'][0])){
+                               $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_gallery_image'][0].' gallery image(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
+                               return $msg;
+                           }
+                       }
+
                     }
                     /**
                      * @since 4.4.0

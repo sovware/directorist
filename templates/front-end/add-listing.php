@@ -867,7 +867,6 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                              */
                             do_action('atbdp_before_submit_listing_frontend', $p_id);
                             ?>
-                            <label class="error" for="name" id="name_error">This field is required.</label>
                             <div class="btn_wrap list_submit">
                                 <button type="submit"
                                         class="btn btn-primary btn-lg listing_submit_btn"><?= !empty($p_id) ? __('Update Listing', ATBDP_TEXTDOMAIN) : __('Submit listing', ATBDP_TEXTDOMAIN); ?></button>

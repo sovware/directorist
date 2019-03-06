@@ -298,6 +298,12 @@ class ATBDP_Enqueuer {
 
         // is MI extension enabled and active?
         $active_mi_extension = $this->enable_multiple_image; // 1 or 0
+        $plan_image = 999;
+        if (is_fee_manager_active()){
+            $selected_plan = selected_plan_id();
+            $planID = !empty($selected_plan)?$selected_plan:'';
+            $plan_image = is_plan_slider_limit($planID);
+        }
         $data = array(
             'nonce'            => wp_create_nonce('atbdp_nonce_action_js'),
             'ajaxurl'          => admin_url('admin-ajax.php'),
@@ -305,6 +311,7 @@ class ATBDP_Enqueuer {
             'PublicAssetPath'  => ATBDP_PUBLIC_ASSETS,
             'i18n_text'        => $i18n_text,
             'active_mi_ext'    => $active_mi_extension, // 1 or 0
+            'plan_image'       => $plan_image
         );
 
         wp_localize_script( 'atbdp_add_listing_js', 'atbdp_add_listing', $data );

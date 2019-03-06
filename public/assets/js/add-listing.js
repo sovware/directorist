@@ -190,14 +190,19 @@ jQuery(function($){
 
 
             var data = ''; // create a placeholder to save all our image from the selection of media uploader
+            var validation = ''; // create a placeholder to show validation
 
             // if no image exist then remove the place holder image from the image container div before appending new image
             if ($('.single_attachment').length === 0) {
                 imgContainer.html('');
             }
-
             //handle multiple image uploading.......
             if ( multiple_image ){
+               var image_limit = atbdp_add_listing.plan_image;
+               var selected_image = selection.length;
+                if (selected_image > image_limit){
+                    validation = '<span class="plan_image_notice alert alert-danger">Sorry! You have crossed the maximum image limit</span>';
+                }
                 $(selection).each( function ( ) {
                     // here el === this
                     // append the selected element if it is an image
@@ -225,6 +230,7 @@ jQuery(function($){
             // If MI extension is active then append images to the listng, else only add one image replacing previus upload
             if(multiple_image){
                 imgContainer.append(data);
+                $('.validation').append(validation);
             }else {
                 imgContainer.html(data);
             }

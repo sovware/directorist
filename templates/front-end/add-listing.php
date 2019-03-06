@@ -127,7 +127,6 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                     <h4><?php esc_html_e('General information', ATBDP_TEXTDOMAIN) ?></h4>
                                 </div>
                             </div>
-
                             <div class="atbdb_content_module_contents">
                                 <div class="form-group">
                                     <label for="listing_title"><?php esc_html_e('Title:', ATBDP_TEXTDOMAIN);
@@ -455,7 +454,7 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                                 }
                                 if ($plan_tag) {
                                     ?>
-                                    <div class="form-group">
+                                    <div class="form-group tag_area">
                                         <label for="at_biz_dir-tags"><?php esc_html_e('Tags:', ATBDP_TEXTDOMAIN);
                                             echo get_directorist_option('require_tags') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                                         <?php if (!empty($p_tags)) {
@@ -866,8 +865,9 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
                             /**
                              * It fires before rendering submit listing button on the front end.
                              */
-                            do_action('atbdp_before_submit_listing_frontend');
+                            do_action('atbdp_before_submit_listing_frontend', $p_id);
                             ?>
+                            <label class="error" for="name" id="name_error">This field is required.</label>
                             <div class="btn_wrap list_submit">
                                 <button type="submit"
                                         class="btn btn-primary btn-lg listing_submit_btn"><?= !empty($p_id) ? __('Update Listing', ATBDP_TEXTDOMAIN) : __('Submit listing', ATBDP_TEXTDOMAIN); ?></button>

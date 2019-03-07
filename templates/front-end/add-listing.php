@@ -255,10 +255,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                         <?php }
                                         ?>
                                     </div>
-<<<<<<< HEAD
-                                <?php } ?>
-                                <?php if ('admin_users' == $display_short_desc_for){ ?>
-=======
+
                                 <?php }
                                 /**
                                  * @since 4.7.1
@@ -266,8 +263,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                  */
                                 do_action('atbdp_add_listing_after_price', $p_id);
                                 ?>
-                                <?php if (get_directorist_option('enable_excerpt')){ ?>
->>>>>>> 101276ad3790138396dac8ccdf1ca9d9eae83c82
+                                 <?php if ('admin_users' == $display_short_desc_for){ ?>
                                     <div class="form-group">
                                         <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_excerpt')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
                                         <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
@@ -844,7 +840,6 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                     </div>
                                     <?php }?>
                                     <?php
-<<<<<<< HEAD
                                     /**
                                      * @since 4.7.1
                                      * It fires after the tag field
@@ -853,9 +848,6 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                     ?>
                                     <?php
                                     if ('admin_users' == $display_video_for && $plan_video) {
-=======
-                                    if ($enable_video_url && $plan_video) {
->>>>>>> 101276ad3790138396dac8ccdf1ca9d9eae83c82
                                         ?>
                                         <div class="form-group">
                                             <label for="videourl"><?php esc_html_e('Video Url', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_video')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>

@@ -99,6 +99,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
 <div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
     <div class="<?php echo is_directoria_active() ? 'container' : ' container-fluid'; ?>">
         <form action="<?= esc_url($_SERVER['REQUEST_URI']); ?>" method="post">
+            <fieldset>
             <?php
             do_action('atbdb_before_add_listing_from_frontend');//for dev purpose
             $fm_plan = !empty(get_post_meta($p_id, '_fm_plans', true))?get_post_meta($p_id, '_fm_plans', true):'';
@@ -140,7 +141,6 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                     <h4><?php esc_html_e('General information', ATBDP_TEXTDOMAIN) ?></h4>
                                 </div>
                             </div>
-
                             <div class="atbdb_content_module_contents">
                                 <?php if('users' == $display_title_for) {?>
                                 <div class="form-group">
@@ -234,11 +234,6 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                                placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
 
                                         <?php }
-                                        /**
-                                         * @since 4.7.1
-                                         * It fires after the price field
-                                         */
-                                        do_action('atbdp_add_listing_after_price', 'add_listing_page_frontend', $listing_info);
                                         if ($plan_average_price) {
                                             ?>
                                             <select class="form-control directory_field" id="price_range"
@@ -260,8 +255,19 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                         <?php }
                                         ?>
                                     </div>
+<<<<<<< HEAD
                                 <?php } ?>
                                 <?php if ('admin_users' == $display_short_desc_for){ ?>
+=======
+                                <?php }
+                                /**
+                                 * @since 4.7.1
+                                 * It fires after the price field
+                                 */
+                                do_action('atbdp_add_listing_after_price', $p_id);
+                                ?>
+                                <?php if (get_directorist_option('enable_excerpt')){ ?>
+>>>>>>> 101276ad3790138396dac8ccdf1ca9d9eae83c82
                                     <div class="form-group">
                                         <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_excerpt')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
                                         <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
@@ -471,7 +477,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                 }
                                 if ($plan_tag && 'users' == $display_tag_for) {
                                     ?>
-                                    <div class="form-group">
+                                    <div class="form-group tag_area">
                                         <label for="at_biz_dir-tags"><?php esc_html_e('Tags:', ATBDP_TEXTDOMAIN);
                                             echo get_directorist_option('require_tags') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                                         <?php if (!empty($p_tags)) {
@@ -496,7 +502,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                  * @since 4.7.1
                                  * It fires after the tag field
                                  */
-                                do_action('atbdp_add_listing_after_tag', 'add_listing_page_frontend', $listing_info);
+                                do_action('atbdp_add_listing_after_tag', $p_id);
                                 ?>
                                 <!--***********************************************************************
                                     Run the custom field loop to show all published custom fields asign to Category
@@ -833,10 +839,12 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                     <!--Image Uploader-->
                                     <?php if('admin_users' == $display_prv_img_for || 'admin_users' == $display_glr_img_for){?>
                                     <div id="_listing_gallery">
-                                        <?php ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider')); ?>
+                                        <?php ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider', 'p_id'));
+                                        ?>
                                     </div>
                                     <?php }?>
                                     <?php
+<<<<<<< HEAD
                                     /**
                                      * @since 4.7.1
                                      * It fires after the tag field
@@ -845,6 +853,9 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                     ?>
                                     <?php
                                     if ('admin_users' == $display_video_for && $plan_video) {
+=======
+                                    if ($enable_video_url && $plan_video) {
+>>>>>>> 101276ad3790138396dac8ccdf1ca9d9eae83c82
                                         ?>
                                         <div class="form-group">
                                             <label for="videourl"><?php esc_html_e('Video Url', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_video')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
@@ -890,7 +901,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                             /**
                              * It fires before rendering submit listing button on the front end.
                              */
-                            do_action('atbdp_before_submit_listing_frontend');
+                            do_action('atbdp_before_submit_listing_frontend', $p_id);
                             ?>
                             <div class="btn_wrap list_submit">
                                 <button type="submit"
@@ -902,6 +913,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                     </div><!--ends .row-->
                 </div>
             </div>
+            </fieldset>
         </form>
     </div> <!--ends container-fluid-->
 </div>

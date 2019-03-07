@@ -7,6 +7,7 @@ $display_glr_img_for                 = get_directorist_option('display_glr_img_f
 $listing_imgs                        = (!empty($args['listing_img'])) ? $args['listing_img'] : array();
 $listing_prv_img_id                  = (!empty($args['listing_prv_img'])) ? $args['listing_prv_img'] : '';
 $plan_slider                         = (!empty($args['plan_slider'])) ? $args['plan_slider'] : '';
+$listing_id                                  = (!empty($args['p_id'])) ? $args['p_id'] : '';
 $listing_prv_img                     = wp_get_attachment_image_src($listing_prv_img_id);
 $image_links                         = []; // define a link placeholder variable
 foreach ($listing_imgs as $id) {
@@ -71,7 +72,13 @@ $active_mi_ext = is_multiple_images_active(); // default is no
             </a>
             <a id="delete-custom-img" class="btn btn-danger <?= (!empty($image_links)) ? '' : 'hidden' ?>"
                href="#"> <?php echo (1 == $active_mi_ext) ? esc_html__('Remove Images') : esc_html__('Remove Image'); ?></a><br />
-            <?php echo get_directorist_option('require_gallery_img')?'<span class="atbdp_make_str_red">(Field is required)</span>':''; ?>
+            <?php echo get_directorist_option('require_gallery_img')?'<span class="atbdp_make_str_red">(Field is required)</span>':'';
+            /**
+             *@since 4.6.1
+             *
+             */
+            do_action('atbdp_add_listing_after_listing_slider_button', $listing_id);
+            ?>
         </p>
     </div>
     <?php } ?>

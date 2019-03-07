@@ -12,7 +12,6 @@ if(!class_exists('ATBDP_Validator')):
         {
 
 
-
         }
 
 

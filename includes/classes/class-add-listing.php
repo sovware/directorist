@@ -153,89 +153,105 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $subscribed_package_id = $midway_package_id;
                     }
                     //check the title is empty or not
-
-                    if((get_directorist_option('require_terms_conditions') == 1) && empty($t_c_check)){
+                    $term_visable = get_directorist_option('listing_terms_condition');
+                    if((get_directorist_option('require_terms_conditions') == 1) && empty($t_c_check) &&  $term_visable){
                       return $msg;
-                    }if((get_directorist_option('require_title') == 1) && empty($title)){
+                    }
+                    $title_visable = get_directorist_option('display_title_for', 'users');
+                    if((get_directorist_option('require_title') == 1) && empty($title) && ('users' === $title_visable)){
                         return $msg;
-                    }if((get_directorist_option('require_long_details') == 1) && empty($content)){
+                    }
+                    $title_description = get_directorist_option('require_long_details', 'users');
+                    if((get_directorist_option('require_long_details') == 1) && empty($content) && ('users' === $title_description)){
                         return $msg;
                     }
                     $plan_price = true;
                     if (is_fee_manager_active()){
                         $plan_price = is_plan_allowed_price($subscribed_package_id);
                     }
-                    if((get_directorist_option('require_price') == 1) && empty($p['price']) && $plan_price){
+                    $price_visable = get_directorist_option('display_price_for', 'admin_users');
+                    if((get_directorist_option('require_price') == 1) && empty($p['price']) && $plan_price && ('admin_users' === $price_visable)){
                         return $msg;
                     }
                     $plan_price_range = true;
                     if (is_fee_manager_active()){
                         $plan_price_range = is_plan_allowed_average_price_range($subscribed_package_id);
                     }
-                    if((get_directorist_option('require_price_range') == 1) && empty($p['price_range']) && $plan_price_range){
+                    if((get_directorist_option('require_price_range') == 1) && empty($p['price_range']) && $plan_price_range && ('admin_users' === $price_visable)){
                         return $msg;
-                    }if((get_directorist_option('require_excerpt') == 1) && empty($p['excerpt'])){
+                    }
+                    $excerpt_visable = get_directorist_option('display_short_desc_for', 'none');
+                    if((get_directorist_option('require_excerpt') == 1) && empty($p['excerpt']) && ('admin_users' === $excerpt_visable)){
                         return $msg;
                     }
                     $plan_tag = true;
                     if (is_fee_manager_active()){
                         $plan_tag = is_plan_allowed_tag($subscribed_package_id);
                     }
-                    if((get_directorist_option('require_tags') == 1) && empty($tagcount) && $plan_tag){
+                    $tag_visable = get_directorist_option('display_tag_for', 'users');
+                    if((get_directorist_option('require_tags') == 1) && empty($tagcount) && $plan_tag && ('users' === $tag_visable)){
                         return $msg;
                     }
-
-                    if((get_directorist_option('require_location') == 1) && !$location){
+                    $location_visable = get_directorist_option('display_loc_for', 'users');
+                    if((get_directorist_option('require_location') == 1) && !$location && ('users' === $location_visable)) {
                         return $msg;
                     }
-                    if((get_directorist_option('require_category') == 1) && '-1' == $admin_category_select){
+                    if((get_directorist_option('require_category') == 1) && ('-1' == $admin_category_select)){
                         return $msg;
                     }
-                    if((get_directorist_option('require_address') == 1) && empty($p['address'])){
+                    $address_visable = get_directorist_option('display_address_for', 'admin_users');
+                    if((get_directorist_option('require_address') == 1) && empty($p['address']) && ('admin_users' === $address_visable)){
                         return $msg;
                     }
                     $plan_phone = true;
                     if (is_fee_manager_active()){
                         $plan_phone = is_plan_allowed_listing_phone($subscribed_package_id);
                     }
-                    if((get_directorist_option('require_phone_number') == 1) && empty($p['phone']) && $plan_phone){
+                    $phone_visable = get_directorist_option('display_phone_for', 'admin_users');
+                    if((get_directorist_option('require_phone_number') == 1) && empty($p['phone']) && $plan_phone && ('admin_users' === $phone_visable)){
                         return $msg;
                     }
                     $plan_email = true;
                     if (is_fee_manager_active()){
                         $plan_email = is_plan_allowed_listing_email($subscribed_package_id);
                     }
-                    if((get_directorist_option('require_email') == 1) && empty($p['email']) && $plan_email){
+                    $email_visable = get_directorist_option('display_email_for', 'admin_users');
+                    if((get_directorist_option('require_email') == 1) && empty($p['email']) && $plan_email && ('admin_users' === $email_visable)){
                         return $msg;
                     }
                     $plan_webLink = true;
                     if (is_fee_manager_active()){
                         $plan_webLink = is_plan_allowed_listing_webLink($subscribed_package_id);
                     }
-                    if((get_directorist_option('require_website') == 1) && empty($p['website']) && $plan_webLink){
+                    $web_visable = get_directorist_option('display_website_for', 'admin_users');
+                    if((get_directorist_option('require_website') == 1) && empty($p['website']) && $plan_webLink && ('admin_users' === $web_visable)){
                         return $msg;
                     }
                     $plan_social_networks = true;
                     if (is_fee_manager_active()){
                         $plan_social_networks = is_plan_allowed_listing_social_networks($subscribed_package_id);
                     }
-                    if((get_directorist_option('require_social_info') == 1) && empty($p['social']) && $plan_social_networks){
+                    $Sinfo_visable = get_directorist_option('display_social_info_for', 'admin_users');
+                    if((get_directorist_option('require_social_info') == 1) && empty($p['social']) && $plan_social_networks && ('admin_users' === $Sinfo_visable)){
                         return $msg;
                     }
                     $plan_slider = true;
                     if (is_fee_manager_active()){
                         $plan_slider =is_plan_allowed_slider($subscribed_package_id);
                     }
-                    if((get_directorist_option('require_preview_img') == 1) && empty($p['listing_prv_img']) && $plan_slider){
+                    $preview_visable = get_directorist_option('display_prv_img_for', 'admin_users');
+                    $gallery_visable = get_directorist_option('display_glr_img_for', 'admin_users');
+                    if((get_directorist_option('require_preview_img') == 1) && empty($p['listing_prv_img']) && $plan_slider && ('admin_users' === $preview_visable)){
                         return $msg;
-                    }if((get_directorist_option('require_gallery_img') == 1) && empty($p['listing_img']) && $plan_slider){
+                    }if((get_directorist_option('require_gallery_img') == 1) && empty($p['listing_img']) && $plan_slider && ('admin_users' === $gallery_visable)){
                         return $msg;
                     }
                     $plan_video = true;
                     if (is_fee_manager_active()){
                         $plan_video =is_plan_allowed_listing_video($subscribed_package_id);
                     }
-                    if((get_directorist_option('require_video') == 1) && empty($p['videourl']) && $plan_video){
+                    $video_visable = get_directorist_option('display_video_for', 'admin_users');
+                    if((get_directorist_option('require_video') == 1) && empty($p['videourl']) && $plan_video && ('admin_users' === $video_visable)){
                         return $msg;
                     }
                     //@todo need to shift FM validation code to extension itself

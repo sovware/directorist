@@ -12,6 +12,12 @@ $disable_price = get_directorist_option('disable_list_price');
 $disable_contact_info = get_directorist_option('disable_contact_info');
 $disable_contact_owner = get_directorist_option('disable_contact_owner',1);
 $currency = get_directorist_option('g_currency', 'USD');
+$display_address_for = get_directorist_option('display_address_for', 'admin_users');
+$display_phone_for = get_directorist_option('display_phone_for', 'admin_users');
+$display_email_for = get_directorist_option('display_email_for', 'admin_users');
+$display_website_for = get_directorist_option('display_website_for', 'admin_users');
+$display_social_info_for = get_directorist_option('display_social_info_for', 'admin_users');
+$display_map_for = get_directorist_option('display_map_for', 'admin_users');
 $t = get_the_title();
 $t = !empty( $t ) ? esc_html($t) : __('No Title ', ATBDP_TEXTDOMAIN);
 $tg = !empty( $tagline ) ? esc_html($tagline) : '';
@@ -47,31 +53,32 @@ $info_content .= "<p> {$ad}</p></div>";
                    for="hide_contact_info"><?php esc_html_e('Check it to hide Contact Information for this listing', ATBDP_TEXTDOMAIN); ?></label>
 
         </div>
-
+        <?php if('none' != $display_address_for) { ?>
         <div class="form-group">
             <label for="address"><?php esc_html_e('Address:', ATBDP_TEXTDOMAIN); ?></label>
             <input type="text" name="address" id="address" value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
                    class="form-control directory_field"
                    placeholder="<?php esc_html_e('Listing address eg. Houghton Street London WC2A 2AE UK', ATBDP_TEXTDOMAIN); ?>"/>
         </div>
-
+        <?php } ?>
         <!--phone-->
+        <?php if('none' != $display_phone_for) {?>
         <div class="form-group">
             <label for="atbdp_phone_number"><?php esc_html_e('Phone Number:', ATBDP_TEXTDOMAIN); ?></label>
             <input type="tel" name="phone" id="atbdp_phone_number"
                    value="<?= !empty($phone) ? esc_attr($phone) : ''; ?>" class="form-control directory_field"
                    placeholder="<?php esc_attr_e('Phone Number', ATBDP_TEXTDOMAIN); ?>"/>
         </div>
-
-
+        <?php } ?>
+        <?php if('none' != $display_email_for){?>
         <div class="form-group">
             <label for="atbdp_email"><?php esc_html_e('Email:', ATBDP_TEXTDOMAIN); ?></label>
             <input type="email" name="email" id="atbdp_email" value="<?= !empty($email) ? esc_attr($email) : ''; ?>"
                    class="form-control directory_field"
                    placeholder="<?php esc_attr_e('Enter Email', ATBDP_TEXTDOMAIN); ?>"/>
         </div>
-
-
+        <?php } ?>
+        <?php if('none' != $display_website_for) {?>
         <div class="form-group">
             <label for="atbdp_website"><?php esc_html_e('Website:', ATBDP_TEXTDOMAIN); ?></label>
 
@@ -79,8 +86,7 @@ $info_content .= "<p> {$ad}</p></div>";
                    value="<?= !empty($website) ? esc_url($website) : ''; ?>" class="form-control directory_field"
                    placeholder="<?php esc_attr_e('Listing Website eg. http://example.com', ATBDP_TEXTDOMAIN); ?>"/>
         </div>
-
-
+        <?php } ?>
         <?php } ?>
 
         <!--Social Information-->
@@ -93,9 +99,9 @@ $info_content .= "<p> {$ad}</p></div>";
              * @since 1.1.1
              **/
             do_action('atbdp_edit_before_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
-
-            ATBDP()->load_template('meta-partials/social', array('social_info' => $social_info));
-
+            if('none' != $display_social_info_for) {
+                ATBDP()->load_template('meta-partials/social', array('social_info' => $social_info));
+            }
             /**
     * It fires after social information fields
     * @param string $type Page type.
@@ -120,7 +126,7 @@ $info_content .= "<p> {$ad}</p></div>";
         }
         ?>
     </div> <!--ends .row-->
-    <?php if (!$disable_map) { ?>
+    <?php if ('none' != $display_map_for) { ?>
 
 
     <!--Google map will be generated here using js-->

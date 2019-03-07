@@ -135,6 +135,9 @@ $column_width = 100/$columns .'%';
                 $thumbnail_cropping             = get_directorist_option('thumbnail_cropping',1);
                 $crop_width                     = get_directorist_option('crop_width', 360);
                 $crop_height                    = get_directorist_option('crop_height', 300);
+                $display_tagline_for            = get_directorist_option('display_tagline_for', 'none');
+                $display_price_for              = get_directorist_option('display_price_for', 'admin_users');
+                $display_short_desc_for         = get_directorist_option('display_short_desc_for', 'none');
                 if(!empty($listing_prv_img)) {
 
                     if($thumbnail_cropping) {
@@ -241,14 +244,12 @@ $column_width = 100/$columns .'%';
                             </figure>
                             <div class="atbd_listing_info">
                                 <div class="atbd_content_upper">
-                                    <?php if(!empty($display_title)) {?>
+                                    <?php if(!empty($display_title)) { ?>
                                         <h4 class="atbd_listing_title">
                                             <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                         </h4>
-                                    <?php } if(!empty($tagline) && !empty($enable_tagline)) {
-
+                                    <?php } if(!empty($tagline) && !empty($enable_tagline) && 'none' != $display_tagline_for) {
                                         ?>
-
                                         <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                     <?php } ?>
                                     <?php if(!empty($display_review) || !empty($display_price)) {?>
@@ -263,7 +264,7 @@ $column_width = 100/$columns .'%';
 
                                                 do_action('atbdp_after_listing_tagline');
 
-                                            if(!empty($display_price)) {
+                                            if(!empty($display_price) && 'none' != $display_price_for) {
                                                 if(!empty($price_range)) {
                                                     $output = atbdp_display_price_range($price_range);
                                                     echo $output;
@@ -321,7 +322,7 @@ $column_width = 100/$columns .'%';
                                         </div><!-- End atbd listing meta -->
                                         <?php
                                     }
-                                    if( !empty($excerpt) && !empty($enable_excerpt)) {?>
+                                    if( !empty($excerpt) && !empty($enable_excerpt) && 'none' != $display_short_desc_for) { ?>
                                         <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20))); ?></p>
                                     <?php } ?>
                                 </div><!-- end ./atbd_content_upper -->

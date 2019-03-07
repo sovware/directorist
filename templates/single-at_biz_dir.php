@@ -104,7 +104,14 @@ $listing_details_text             = get_directorist_option('listing_details_text
 $listing_location_text            = get_directorist_option('listing_location_text', __('Location', ATBDP_TEXTDOMAIN));
 $contact_info_text                = get_directorist_option('contact_info_text', __('Contact Information', ATBDP_TEXTDOMAIN));
 $contact_listing_owner            = get_directorist_option('contact_listing_owner', __('Contact Listing Owner', ATBDP_TEXTDOMAIN));
-
+$display_tagline_for              = get_directorist_option('display_tagline_for', 'none');
+$display_address_for              = get_directorist_option('display_address_for', 'admin_users');
+$display_phone_for                = get_directorist_option('display_phone_for', 'admin_users');
+$display_email_for                = get_directorist_option('display_email_for', 'admin_users');
+$display_website_for              = get_directorist_option('display_website_for', 'admin_users');
+$display_social_info_for          = get_directorist_option('display_social_info_for', 'admin_users');
+$display_map_for                  = get_directorist_option('display_map_for', 'admin_users');
+$display_video_for                = get_directorist_option('display_video_for', 'admin_users');
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col-lg-12';
 ?>
@@ -373,7 +380,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                              */
                             do_action('atbdp_single_listing_after_title');
                             ?>
-                            <?php if(!empty($tagline)) {?>
+                            <?php if(!empty($tagline) && 'none' != $display_tagline_for) {?>
                             <p class="atbd_sub_title"><?= (!empty($tagline)) ? esc_html(stripslashes($tagline)) : ''; ?></p>
                             <?php } ?>
                         </div>
@@ -505,7 +512,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
                             <?php
 
-            if ($enable_video_url && !empty($videourl)) { ?>
+            if ($enable_video_url && !empty($videourl) && 'none' != $display_video_for) { ?>
                 <div class="atbd_content_module atbd_custom_fields_contents">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
@@ -522,7 +529,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                 <?php do_action('atbdp_after_video_gallery');?>
             <!--Google map section-->
             <?php
-            if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) ) { ?>
+            if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) && 'none' != $display_map_for  ) { ?>
                 <div class="atbd_content_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
@@ -550,7 +557,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                     <div class="atbdb_content_module_contents">
                         <div class="atbd_contact_info">
                             <ul>
-                                <?php if (!empty($address)) { ?>
+                                <?php if (!empty($address) && 'none' != $display_address_for) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
                                                     class="fa fa-map-marker"></span><?php _e('Address', ATBDP_TEXTDOMAIN); ?>
@@ -560,7 +567,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                 <?php } ?>
 
                                 <?php
-                                if (isset($phone) && !is_empty_v($phone)) { ?>
+                                if (isset($phone) && !is_empty_v($phone) && 'none' != $display_phone_for) { ?>
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
                                         <div class="atbd_info_title"><span
@@ -570,7 +577,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                     </li>
                                 <?php } ?>
 
-                                <?php if (!empty($email)) { ?>
+                                <?php if (!empty($email) && 'none' != $display_email_for) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
                                                     class="fa fa-envelope"></span><?php _e('Email', ATBDP_TEXTDOMAIN); ?>
@@ -579,7 +586,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                     </li>
                                 <?php } ?>
 
-                                <?php if (!empty($website)) { ?>
+                                <?php if (!empty($website && 'none' != $display_website_for)) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
                                                     class="fa fa-globe"></span><?php _e('Website', ATBDP_TEXTDOMAIN); ?>
@@ -590,7 +597,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                 <?php } ?>
                             </ul>
                         </div>
-                        <?php if (!empty($social) && is_array($social)) { ?>
+                        <?php if (!empty($social) && is_array($social) && 'none' != $display_social_info_for) { ?>
                             <div class="atbd_director_social_wrap">
                                 <?php foreach ($social as $link) {
                                     $n = esc_attr($link['id']);
@@ -709,7 +716,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
     jQuery(document).ready(function ($) {
         // Do not show map if lat long is empty or map is globally disabled.
-        <?php if (!$disable_map && (!empty($manual_lat) && !empty($manual_lng))){ ?>
+        <?php if (!$disable_map && (!empty($manual_lat) && !empty($manual_lng)) && 'none' != $display_map_for){ ?>
         // initialize all vars here to avoid hoisting related misunderstanding.
         var map, info_window, saved_lat_lng, info_content;
         saved_lat_lng = {

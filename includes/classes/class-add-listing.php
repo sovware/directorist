@@ -209,6 +209,28 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $has_featured_type = listings_data_with_plan($user_id, '1', $subscribed_package_id, 'featured');
                         //store the plan meta
                         $plan_meta = get_post_meta($subscribed_package_id);
+                        $slider_image = $plan_meta['fm_allow_slider'][0];
+                        $slider = !empty($slider_image)?$slider_image:'';
+                        $fm_allow_price_range = $plan_meta['fm_allow_price'][0];
+                        $fm_allow_tag = $plan_meta['fm_allow_tag'][0];
+                        if ($fm_allow_tag){
+                            if ($plan_meta['fm_tag_limit'][0]<$tagcount && empty($plan_meta['fm_tag_limit_unl'][0])){
+                                $msg = '<div class="alert alert-danger"><strong>' . __('You can use a maximum of '.$plan_meta['fm_tag_limit'][0].' tag(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
+                                return $msg;
+                            }
+                        }
+
+                        if ($fm_allow_price_range){
+                            if (empty($plan_meta['price_range_unl'][0]) || !empty($plan_meta['price_range'][0])){
+                                $price = !empty($metas['_price'])?$metas['_price']:'';
+                                if ($price>$plan_meta['price_range'][0]){
+                                    //var_dump($plan_meta['price_range'][0]);die();
+                                    $msg = '<div class="alert alert-danger"><strong>' . __('Given price is not included in this plan!', ATBDP_TEXTDOMAIN) . '</strong></div>';
+                                    return $msg;
+                                }
+                            }
+                        }
+
 
                         if (('regular' === $listing_type) && ('package' === $plan_type)) {
                             if (($plan_meta['num_regular'][0] < $_general_type) && empty($plan_meta['num_regular_unl'][0])) {
@@ -224,13 +246,13 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                             }
                         }
-
-                        $prev = !empty($metas['_listing_prv_img'])?1:0;
-                        $totat_image = count($metas['_listing_img'])+$prev;
-                       if ($plan_meta['num_image'][0]<$totat_image && empty($plan_meta['num_image_unl'][0])){
-                           $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_image'][0].' image(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
-                           return $msg;
-                       }
+                        $totat_image = count($metas['_listing_img']);
+                        if ($slider){
+                            if ($plan_meta['num_image'][0]<$totat_image && empty($plan_meta['num_image_unl'][0])){
+                                $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_image'][0].' image(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
+                                return $msg;
+                            }
+                        }
                        if (class_exists('BD_Gallery')){
                            $_gallery_img = count($metas['_gallery_img']);
                            if ($plan_meta['num_gallery_image'][0]<$_gallery_img && empty($plan_meta['num_gallery_image_unl'][0])){
@@ -368,6 +390,12 @@ if (!class_exists('ATBDP_Add_Listing')):
                         if (current_user_can('publish_at_biz_dirs')){
                             $new_l_status = get_directorist_option('new_listing_status', 'pending');
                             $args['post_status'] = $new_l_status;
+                            //if listing under a purchased package
+                            if(is_fee_manager_active()){
+                                if (('package' === package_or_PPL($plan=null)) && $plan_purchased){
+                                    $args['post_status'] = 'publish';
+                                }
+                            }
                             $post_id = wp_insert_post($args);
                             do_action('atbdp_listing_inserted', $post_id);//for sending email notification
 

@@ -171,12 +171,20 @@ final class Directorist_Base
     public $email;
 
     /**
-     * ATBDP_Email Object.
+     * ATBDP_SEO Object.
      *
      * @var ATBDP_SEO
-     * @since 3.1.0
+     * @since 4.7.0
      */
     public $seo;
+
+    /**
+     * ATBDP_Validator Object.
+     *
+     * @var ATBDP_Validator
+     * @since 4.7.2
+     */
+    public $validator;
 
     /**
      * Main Directorist_Base Instance.
@@ -218,6 +226,7 @@ final class Directorist_Base
             self::$instance->shortcode = new ATBDP_Shortcode;
             self::$instance->email = new ATBDP_Email;
             self::$instance->seo = new ATBDP_SEO;
+            self::$instance->validator = new ATBDP_Validator;
 
 
             // new settings
@@ -265,6 +274,8 @@ final class Directorist_Base
             new ATBDP_Upgrade;
             // add upgrade feature
             new ATBDP_Help_Support;
+            //validator
+            new ATBDP_Validator();
 
         }
 

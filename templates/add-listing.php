@@ -12,10 +12,14 @@ $post_ID = $post->ID;
 // grab social information
 $disable_price = get_directorist_option('disable_list_price');
 $currency = get_directorist_option('g_currency', 'USD');
+$display_tagline_for = get_directorist_option('display_tagline_for', 'none');
+$display_price_for = get_directorist_option('display_price_for', 'admin_users');
+$display_short_desc_for = get_directorist_option('display_short_desc_for', 'none');
+
 ?>
 <div id="directorist" class="directorist atbd_wrapper directory_wrapper">
     <?php
-    /*
+    /**
      * It fires before the listing tagline
      * @param string $type Page type.
      * @param array $args Current listing details.
@@ -25,7 +29,7 @@ $currency = get_directorist_option('g_currency', 'USD');
     ?>
 
     <div class="atbd_">
-        <?php if (get_directorist_option('enable_tagline')){ ?>
+        <?php if ('none' != $display_tagline_for){ ?>
             <div class="form-group">
                 <label for="atbdp_excerpt"><?php esc_html_e('Tagline', ATBDP_TEXTDOMAIN); ?></label>
                 <input type="text" name="tagline"
@@ -37,7 +41,7 @@ $currency = get_directorist_option('g_currency', 'USD');
         <?php }?>
         <?php
         $price_range = !empty($price_range) ? $price_range : '';
-        if (!$disable_price) { ?>
+        if ('none' != $display_price_for ) { ?>
             <div class="form-group">
                 <label for="#">Pricing</label>
                 <div class="atbd_pricing_options">
@@ -82,7 +86,7 @@ $currency = get_directorist_option('g_currency', 'USD');
                 </select>
             </div>
         <?php } ?>
-        <?php if (get_directorist_option('enable_excerpt')){ ?>
+        <?php if ('none' != $display_short_desc_for){ ?>
             <div class="form-group">
                 <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN) ?></label>
                 <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->

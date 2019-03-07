@@ -164,38 +164,44 @@ class ATBDP_Metabox {
      * Render Metaboxes for ATBDP_POST_TYPE
      * @param Object $post Current Post Object being displayed
      */
-    public function listing_info_meta( $post ) {
-        add_meta_box( '_listing_info',
-        __( 'General Information', ATBDP_TEXTDOMAIN ),
-        array($this, 'listing_info'),
-        ATBDP_POST_TYPE,
-        'normal', 'high' );
+    public function listing_info_meta( $post )
+    {
+        $display_prv_img_for = get_directorist_option('display_prv_img_for', 'admin_users');
+        $display_glr_img_for = get_directorist_option('display_glr_img_for', 'admin_users');
+        $display_video_for   = get_directorist_option('display_video_for', 'admin_users');
+        add_meta_box('_listing_info',
+            __('General Information', ATBDP_TEXTDOMAIN),
+            array($this, 'listing_info'),
+            ATBDP_POST_TYPE,
+            'normal', 'high');
 
-        add_meta_box( '_listing_contact_info',
-        __( 'Contact Information', ATBDP_TEXTDOMAIN ),
-        array($this, 'listing_contact_info'),
-        ATBDP_POST_TYPE,
-        'normal', 'high' );
-
-        add_meta_box( '_listing_gallery',
-        __( 'Upload Preview & Slider Images for the Listing', ATBDP_TEXTDOMAIN ),
-        array($this, 'listing_gallery'),
-        ATBDP_POST_TYPE,
-        'normal', 'high' );
-
+        add_meta_box('_listing_contact_info',
+            __('Contact Information', ATBDP_TEXTDOMAIN),
+            array($this, 'listing_contact_info'),
+            ATBDP_POST_TYPE,
+            'normal', 'high');
+        if ('none' != $display_prv_img_for || 'none' != $display_glr_img_for) {
+            add_meta_box('_listing_gallery',
+                __('Upload Preview & Slider Images for the Listing', ATBDP_TEXTDOMAIN),
+                array($this, 'listing_gallery'),
+                ATBDP_POST_TYPE,
+                'normal', 'high');
+         }
         /*
          *
          * It fires after the video metabox
          * @since 1.0.0
          */
         do_action('atbdp_before_video_gallery_backend',$post);
-
-        add_meta_box( '_listing_video_gallery',
-        __( 'Add Video for the Listing', ATBDP_TEXTDOMAIN ),
-        array($this, 'listing_video_gallery'),
-        ATBDP_POST_TYPE,
-        'normal', 'high' );
+        if('none' != $display_video_for) {
+            add_meta_box('_listing_video_gallery',
+                __('Add Video for the Listing', ATBDP_TEXTDOMAIN),
+                array($this, 'listing_video_gallery'),
+                ATBDP_POST_TYPE,
+                'normal', 'high');
+        }
 wp_reset_postdata();
+
         /*
          *
          * It fires after the video metabox
@@ -275,8 +281,8 @@ wp_reset_postdata();
     {
         $post_meta = get_post_meta( $post->ID );
         $videourl = get_post_meta($post->ID, '_videourl', true);
-        $enable_video_url = get_directorist_option('atbd_video_url',1);
-        if($enable_video_url) {?>
+        $enable_video_url = get_directorist_option('atbd_video_url',1); ?>
+
             <div id="directorist" class="directorist atbd_wrapper">
                 <div class="form-group">
                     <label for="videourl"><?php
@@ -285,7 +291,7 @@ wp_reset_postdata();
                     <input type="text" id="videourl"  name="videourl" value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
                 </div>
             </div>
-        <?php }
+    <?php
     }
 
     /**

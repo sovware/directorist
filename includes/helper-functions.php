@@ -2060,6 +2060,11 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                     $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
                     $crop_width = get_directorist_option('crop_width', 360);
                     $crop_height = get_directorist_option('crop_height', 300);
+                    $display_tagline_for = get_directorist_option('display_tagline_for', 'none');
+                    $display_price_for              = get_directorist_option('display_price_for', 'admin_users');
+                    $display_short_desc_for = get_directorist_option('display_short_desc_for', 'none');
+                    $display_address_for = get_directorist_option('display_address_for', 'admin_users');
+
                     if (!empty($listing_prv_img)) {
 
                         if ($thumbnail_cropping) {
@@ -2171,7 +2176,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                                 <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                             </h4>
                                         <?php }
-                                        if (!empty($tagline) && !empty($enable_tagline)) {
+                                        if (!empty($tagline) && !empty($enable_tagline) && 'none' != $display_tagline_for) {
 
                                             ?>
 
@@ -2189,7 +2194,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                                 if (!empty($display_review)) {
                                                     do_action('atbdp_after_listing_tagline');
                                                 }
-                                                if (!empty($display_price)) {
+                                                if (!empty($display_price) && 'none' != $display_price_for) {
                                                     if (!empty($price_range)) {
                                                         $output = atbdp_display_price_range($price_range);
                                                         echo $output;
@@ -2213,7 +2218,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                                 <ul>
                                                     <?php
                                                     if (!empty($display_contact_info)) {
-                                                        if (!empty($address) && 'contact' == $address_location) { ?>
+                                                        if (!empty($address) && 'contact' == $address_location && 'none' != $display_address_for) { ?>
                                                             <li><p>
                                                                     <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
                                                                 </p></li>
@@ -2252,7 +2257,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                             </div><!-- End atbd listing meta -->
                                             <?php
                                         }
-                                        if (!empty($excerpt) && !empty($enable_excerpt)) { ?>
+                                        if (!empty($excerpt) && !empty($enable_excerpt) && 'none' != $display_short_desc_for) { ?>
                                             <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20))); ?></p>
                                         <?php } ?>
                                     </div><!-- end ./atbd_content_upper -->
@@ -2398,6 +2403,11 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                     $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
                     $crop_width = get_directorist_option('crop_width', 360);
                     $crop_height = get_directorist_option('crop_height', 300);
+                    $display_tagline_for            = get_directorist_option('display_tagline_for', 'none');
+                    $display_price_for              = get_directorist_option('display_price_for', 'admin_users');
+                    $display_short_desc_for = get_directorist_option('display_short_desc_for', 'none');
+                    $display_address_for = get_directorist_option('display_address_for', 'admin_users');
+                    $display_phone_for = get_directorist_option('display_phone_for', 'admin_users');
                     if (!empty($listing_prv_img)) {
 
                         if ($thumbnail_cropping) {
@@ -2510,7 +2520,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                 <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                             </h4>
                                         <?php }
-                                        if (!empty($tagline) && !empty($enable_tagline)) {
+                                        if (!empty($tagline) && !empty($enable_tagline) && 'none' != $display_tagline_for) {
 
                                             ?>
 
@@ -2528,7 +2538,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                 if (!empty($display_review)) {
                                                     do_action('atbdp_after_listing_tagline');
                                                 }
-                                                if (!empty($display_price)) {
+                                                if (!empty($display_price) && 'none' != $display_price_for) {
                                                     if (!empty($price_range)) {
                                                         $output = atbdp_display_price_range($price_range);
                                                         echo $output;
@@ -2552,7 +2562,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                 <ul>
                                                     <?php
                                                     if (!empty($display_contact_info)) {
-                                                        if (!empty($address) && 'contact' == $address_location ) { ?>
+                                                        if (!empty($address) && 'contact' == $address_location && 'none' != $display_address_for ) { ?>
                                                             <li><p>
                                                                     <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
                                                                 </p></li>
@@ -2574,7 +2584,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                                 </p>
                                                             </li>
                                                         <?php }?>
-                                                        <?php if (!empty($phone_number)) { ?>
+                                                        <?php if (!empty($phone_number) && 'none' != $display_phone_for) { ?>
                                                             <li><p>
                                                                     <span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number)); ?>
                                                                 </p></li>
@@ -2591,7 +2601,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                             </div><!-- End atbd listing meta -->
                                             <?php
                                         }
-                                        if (!empty($excerpt) && !empty($enable_excerpt)) { ?>
+                                        if (!empty($excerpt) && !empty($enable_excerpt) && 'none' != $display_short_desc_for) { ?>
                                             <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20))); ?></p>
                                         <?php } ?>
                                     </div><!-- end ./atbd_content_upper -->
@@ -2735,6 +2745,11 @@ function listing_view_by_list($all_listings)
             $thumbnail_cropping         = get_directorist_option('thumbnail_cropping', 1);
             $crop_width                 = get_directorist_option('crop_width', 360);
             $crop_height                = get_directorist_option('crop_height', 300);
+            $display_tagline_for        = get_directorist_option('display_tagline_for', 'none');
+            $display_price_for          = get_directorist_option('display_price_for', 'admin_users');
+            $display_short_desc_for     = get_directorist_option('display_short_desc_for', 'none');
+            $display_address_for        = get_directorist_option('display_address_for', 'admin_users');
+            $display_phone_for          = get_directorist_option('display_phone_for', 'admin_users');
             if (!empty($listing_prv_img)) {
 
                 if ($thumbnail_cropping) {
@@ -2814,7 +2829,7 @@ function listing_view_by_list($all_listings)
                                     <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                 </h4>
                             <?php } ?>
-                            <?php if (!empty($tagline) && !empty($enable_tagline)) { ?>
+                            <?php if (!empty($tagline) && !empty($enable_tagline) && 'none' != $display_tagline_for) { ?>
                                 <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                             <?php } ?>
                             <?php if (!empty($display_review) || !empty($display_price) || class_exists('BD_Business_Hour')) { ?>
@@ -2829,7 +2844,7 @@ function listing_view_by_list($all_listings)
                                     if (!empty($display_review)) {
                                         do_action('atbdp_after_listing_tagline');
                                     }
-                                    if (!empty($display_price)) {
+                                    if (!empty($display_price) && 'none' != $display_price_for) {
                                         if (empty($price) && !empty($price_range)) {
                                             atbdp_display_price_range($price_range);
                                         }
@@ -2869,7 +2884,7 @@ function listing_view_by_list($all_listings)
                                     <ul>
                                         <?php
                                         if (!empty($display_contact_info)) {
-                                            if (!empty($address) && 'contact' == $address_location) { ?>
+                                            if (!empty($address) && 'contact' == $address_location && 'none' != $display_address_for) { ?>
                                                 <li><p>
                                                         <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
                                                     </p></li>
@@ -2888,7 +2903,7 @@ function listing_view_by_list($all_listings)
                                                     </p>
                                                 </li>
                                             <?php } ?>
-                                            <?php if (!empty($phone_number)) { ?>
+                                            <?php if (!empty($phone_number) && 'none' != $display_phone_for) { ?>
                                                 <li><p>
                                                         <span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number)); ?>
                                                     </p></li>
@@ -2907,7 +2922,7 @@ function listing_view_by_list($all_listings)
                             }
                             //show category and location info
                             ?>
-                            <?php if (!empty($excerpt) && !empty($enable_excerpt)) { ?>
+                            <?php if (!empty($excerpt) && !empty($enable_excerpt) && 'none' != $display_short_desc_for) { ?>
                                 <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20))); ?></p>
                             <?php } ?>
 

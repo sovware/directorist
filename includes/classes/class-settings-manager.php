@@ -2712,12 +2712,6 @@ The Administrator of ==SITE_NAME==
                     'default' => 0,
                 ),
                 array(
-                    'type' => 'toggle',
-                    'name' => 'require_terms_conditions',
-                    'label' => __('Required Terms and Condition', ATBDP_TEXTDOMAIN),
-                    'default' => 1,
-                ),
-                array(
                     'type' => 'select',
                     'name' => 'display_video_for',
                     'label' => __( 'Display Preview Image For', ATBDP_TEXTDOMAIN ),

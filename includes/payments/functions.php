@@ -96,6 +96,7 @@ function atbdp_get_payment_bulk_actions() {
  * @return   string     $amount               Newly formatted amount or Price Not Available
  */
 function atbdp_format_amount( $amount, $decimals = true, $currency_settings = array() ) {
+    $decimals = get_directorist_option('allow_decimal', 1);
     !is_array($currency_settings) || extract($currency_settings); // if it is array then extract it. Using the magic of OR CONDITION's FLOW
 
     $currency       = ! empty( $currency )              ? $currency : get_directorist_option('g_currency', 'USD') ;

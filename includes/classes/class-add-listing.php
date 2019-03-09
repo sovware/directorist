@@ -157,10 +157,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if((get_directorist_option('require_terms_conditions') == 1) && empty($t_c_check) &&  $term_visable){
                       return $msg;
                     }
-                    $title_visable = get_directorist_option('display_title_for', 'users');
-                    if((get_directorist_option('require_title') == 1) && empty($title) && ('users' === $title_visable)){
-                        return $msg;
-                    }
+
                     $title_description = get_directorist_option('require_long_details', 'users');
                     if((get_directorist_option('require_long_details') == 1) && empty($content) && ('users' === $title_description)){
                         return $msg;

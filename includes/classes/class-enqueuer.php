@@ -282,6 +282,8 @@ class ATBDP_Enqueuer {
         if (!$disable_map){ $dependency[]= 'atbdp-google-map-front'; }
         wp_register_script('atbdp_add_listing_js', ATBDP_PUBLIC_ASSETS . 'js/add-listing.js', $dependency, ATBDP_VERSION, true );
         wp_enqueue_script('atbdp_add_listing_js');
+        wp_register_script('atbdp_add_listing_validator', ATBDP_PUBLIC_ASSETS . 'js/validator.js', $dependency, ATBDP_VERSION, true );
+        wp_enqueue_script('atbdp_add_listing_validator');
 
         // Internationalization text for javascript file especially add-listing.js
         $i18n_text = array(
@@ -315,6 +317,21 @@ class ATBDP_Enqueuer {
         );
 
         wp_localize_script( 'atbdp_add_listing_js', 'atbdp_add_listing', $data );
+
+        wp_enqueue_media();
+
+        //validation staff start
+        $title_visable = get_directorist_option('display_title_for', 'users');
+        $title = '';
+        if((get_directorist_option('require_title') == 1) && ('users' === $title_visable)){
+            $title = __('Title field is required!', ATBDP_TEXTDOMAIN);
+        }
+
+        $validator = array(
+            'title' => $title
+        );
+
+        wp_localize_script( 'atbdp_add_listing_validator', 'add_listing_validator', $validator );
 
         wp_enqueue_media();
 

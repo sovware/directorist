@@ -145,7 +145,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                 <?php if('users' == $display_title_for) {?>
                                 <div class="form-group">
                                     <label for="listing_title"><?php esc_html_e('Title:', ATBDP_TEXTDOMAIN);
-                                        if(get_directorist_option('require_title',1)){echo '<span class="atbdp_make_str_red"> *</span>';} ?></label>
+                                        if(get_directorist_option('require_title',1)){echo '<span class="atbdp_make_str_red"> *</span>';} ?><div style="display: none" class="title_required atbdp-required"></div></label>
                                     <input type="text" name="listing_title"
                                            value="<?= !empty($listing->post_title) ? esc_attr($listing->post_title) : ''; ?>"
                                            class="form-control directory_field"
@@ -154,7 +154,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                 <?php } ?>
                                 <?php if('users' == $display_desc_for) {?>
                                 <div class="form-group">
-                                    <label for="listing_content"><?php esc_html_e('Long Description', ATBDP_TEXTDOMAIN) ;if(get_directorist_option('require_long_details')){echo '<span class="atbdp_make_str_red"> *</span>';}?></label>
+                                    <label for="listing_content"><?php esc_html_e('Long Description', ATBDP_TEXTDOMAIN) ;if(get_directorist_option('require_long_details')){echo '<span class="atbdp_make_str_red"> *</span>';}?><div style="display: none" class="description_required atbdp-required"></div></label>
                                     <?php wp_editor(
                                         !empty($listing->post_content) ? wp_kses($listing->post_content, wp_kses_allowed_html('post')) : '',
                                         'listing_content',

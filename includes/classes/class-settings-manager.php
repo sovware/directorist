@@ -2451,8 +2451,8 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_email_field_setting' , array(
                 array(
                     'type' => 'toggle',
-                    'name' => 'require_website',
-                    'label' => __('Required Website', ATBDP_TEXTDOMAIN),
+                    'name' => 'require_email',
+                    'label' => __('Required Email', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(
@@ -2492,7 +2492,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'require_website',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required Website', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(

@@ -127,23 +127,9 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     );
 
-                    $msg = '<div class="alert alert-danger"><strong>'.__('Please fill up the require field marked with ', ATBDP_TEXTDOMAIN).'<span style="color: red">*</span></strong></div>';
-//var_dump($admin_category_select);die();
+                    $msg = '<div class="alert alert-danger"><strong>'.__('Please fill up the required field marked with ', ATBDP_TEXTDOMAIN).'<span style="color: red">*</span></strong></div>';
                     //let check all the required custom field
-                    foreach ($custom_field as $key => $value) {
-                        $require = get_post_meta($key, 'required', true);
-                        if ($require){
-                            switch( $require ) {
-                                case '1' :
-                                    $Check_require = $value;
-                                    break;
-                            }
-                            if (empty($Check_require)){
-                                $msg = '<div class="alert alert-danger"><strong>'.__('Please fill up the require field marked with ', ATBDP_TEXTDOMAIN).'<span style="color:                            red">*</span></strong></div>';
-                                return $msg;
-                            }
-                        }
-                    }
+
                     if (is_fee_manager_active()){
                         $user_id = get_current_user_id();
                         $midway_package_id = selected_plan_id();
@@ -158,72 +144,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                       return $msg;
                     }
 
-                    $title_description = get_directorist_option('require_long_details', 'users');
-                    if((get_directorist_option('require_long_details') == 1) && empty($content) && ('users' === $title_description)){
-                        return $msg;
-                    }
-                    $plan_price = true;
-                    if (is_fee_manager_active()){
-                        $plan_price = is_plan_allowed_price($subscribed_package_id);
-                    }
-                    $price_visable = get_directorist_option('display_price_for', 'admin_users');
-                    if((get_directorist_option('require_price') == 1) && empty($p['price']) && $plan_price && ('admin_users' === $price_visable)){
-                        return $msg;
-                    }
-                    $plan_price_range = true;
-                    if (is_fee_manager_active()){
-                        $plan_price_range = is_plan_allowed_average_price_range($subscribed_package_id);
-                    }
-                    if((get_directorist_option('require_price_range') == 1) && empty($p['price_range']) && $plan_price_range && ('admin_users' === $price_visable)){
-                        return $msg;
-                    }
-                    $excerpt_visable = get_directorist_option('display_short_desc_for', 'none');
-                    if((get_directorist_option('require_excerpt') == 1) && empty($p['excerpt']) && ('admin_users' === $excerpt_visable)){
-                        return $msg;
-                    }
-                    $plan_tag = true;
-                    if (is_fee_manager_active()){
-                        $plan_tag = is_plan_allowed_tag($subscribed_package_id);
-                    }
-                    $tag_visable = get_directorist_option('display_tag_for', 'users');
-                    if((get_directorist_option('require_tags') == 1) && empty($tagcount) && $plan_tag && ('users' === $tag_visable)){
-                        return $msg;
-                    }
-                    $location_visable = get_directorist_option('display_loc_for', 'users');
-                    if((get_directorist_option('require_location') == 1) && !$location && ('users' === $location_visable)) {
-                        return $msg;
-                    }
-                    if((get_directorist_option('require_category') == 1) && ('-1' == $admin_category_select)){
-                        return $msg;
-                    }
-                    $address_visable = get_directorist_option('display_address_for', 'admin_users');
-                    if((get_directorist_option('require_address') == 1) && empty($p['address']) && ('admin_users' === $address_visable)){
-                        return $msg;
-                    }
-                    $plan_phone = true;
-                    if (is_fee_manager_active()){
-                        $plan_phone = is_plan_allowed_listing_phone($subscribed_package_id);
-                    }
-                    $phone_visable = get_directorist_option('display_phone_for', 'admin_users');
-                    if((get_directorist_option('require_phone_number') == 1) && empty($p['phone']) && $plan_phone && ('admin_users' === $phone_visable)){
-                        return $msg;
-                    }
-                    $plan_email = true;
-                    if (is_fee_manager_active()){
-                        $plan_email = is_plan_allowed_listing_email($subscribed_package_id);
-                    }
-                    $email_visable = get_directorist_option('display_email_for', 'admin_users');
-                    if((get_directorist_option('require_email') == 1) && empty($p['email']) && $plan_email && ('admin_users' === $email_visable)){
-                        return $msg;
-                    }
-                    $plan_webLink = true;
-                    if (is_fee_manager_active()){
-                        $plan_webLink = is_plan_allowed_listing_webLink($subscribed_package_id);
-                    }
-                    $web_visable = get_directorist_option('display_website_for', 'admin_users');
-                    if((get_directorist_option('require_website') == 1) && empty($p['website']) && $plan_webLink && ('admin_users' === $web_visable)){
-                        return $msg;
-                    }
+
+
                     $plan_social_networks = true;
                     if (is_fee_manager_active()){
                         $plan_social_networks = is_plan_allowed_listing_social_networks($subscribed_package_id);

@@ -298,12 +298,22 @@ class ATBDP_Enqueuer {
             'choose_image' => __('Use this Image', ATBDP_TEXTDOMAIN),
         );
 
+        //get listing is if the screen in edit listing
+        global $wp;
+        global $pagenow;
+        $current_url = home_url(add_query_arg(array(),$wp->request));
+        $fm_plans = '';
+        if( (strpos( $current_url, '/edit/' ) !== false) && ($pagenow = 'at_biz_dir')){
+            $listing_id = substr($current_url, strpos($current_url, "/edit/") + 6);
+            $fm_plans = get_post_meta($listing_id, '_fm_plans', true);
+        }
+
         // is MI extension enabled and active?
         $active_mi_extension = $this->enable_multiple_image; // 1 or 0
         $plan_image = 999;
         if (is_fee_manager_active()){
             $selected_plan = selected_plan_id();
-            $planID = !empty($selected_plan)?$selected_plan:'';
+            $planID = !empty($selected_plan)?$selected_plan:$fm_plans;
             $plan_image = is_plan_slider_limit($planID);
         }
         $data = array(
@@ -326,9 +336,136 @@ class ATBDP_Enqueuer {
         if((get_directorist_option('require_title') == 1) && ('users' === $title_visable)){
             $title = __('Title field is required!', ATBDP_TEXTDOMAIN);
         }
+        $title_description = get_directorist_option('require_long_details', 'users');
+        $description = '';
+        if((get_directorist_option('require_long_details') == 1) && ('users' === $title_description)){
+            $description = __('Description field is required!', ATBDP_TEXTDOMAIN);
+        }
+        $category = '';
+        if((get_directorist_option('require_category') == 1)){
+            $category = __('Category field is required!', ATBDP_TEXTDOMAIN);
+        }
+        $excerpt = '';
+        $excerpt_visable = get_directorist_option('display_short_desc_for', 'none');
+        if((get_directorist_option('require_excerpt') == 1) && empty($p['excerpt']) && ('admin_users' === $excerpt_visable)){
+            $excerpt = __('Excerpt field is required!', ATBDP_TEXTDOMAIN);
+        }
+        //custom fields
+        $required_custom_fields = array();
+        $custom_fields = new WP_Query(array(
+            'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
+            'posts_per_page' => -1,
+            'post_status' => 'publish',
+
+        ));
+       $plan_custom_field = true;
+        if (is_fee_manager_active()){
+            $selected_plan = selected_plan_id();
+            $planID = !empty($selected_plan)?$selected_plan:$fm_plans;
+            $plan_custom_field = is_plan_allowed_custom_fields($planID);
+        }
+        if ($plan_custom_field){
+            $fields = $custom_fields->posts;
+        }else{
+            $fields = array();
+        }
+        foreach ($fields as $post) {
+            setup_postdata($post);
+            $cf_required = get_post_meta($post->ID, 'required', true);
+            if ($cf_required){
+                $required_custom_fields[] = $post->ID;
+            }
+
+        }
+        wp_reset_postdata();
+
+        //price
+        $plan_price = true;
+        if (is_fee_manager_active()){
+            $plan_price = is_plan_allowed_price($fm_plans);
+        }
+        $price_visable = get_directorist_option('display_price_for', 'admin_users');
+        $price = '';
+        if((get_directorist_option('require_price') == 1) && $plan_price && ('admin_users' === $price_visable)){
+            $price = __('Price field is required!', ATBDP_TEXTDOMAIN);
+        }
+        $plan_price_range = true;
+        if (is_fee_manager_active()){
+            $plan_price_range = is_plan_allowed_average_price_range($fm_plans);
+        }
+        $price_range = '';
+        if((get_directorist_option('require_price_range') == 1) && $plan_price_range && ('admin_users' === $price_visable)){
+            $price_range = __('Price range field is required!', ATBDP_TEXTDOMAIN);
+        }
+        //tag
+        $plan_tag = true;
+        if (is_fee_manager_active()){
+            $plan_tag = is_plan_allowed_tag($fm_plans);
+        }
+        $tag = '';
+        $tag_visable = get_directorist_option('display_tag_for', 'users');
+        if((get_directorist_option('require_tags') == 1) && $plan_tag && ('users' === $tag_visable)){
+            $tag = __('Tag field is required!', ATBDP_TEXTDOMAIN);
+        }
+
+        //location
+        $location = '';
+        $location_visable = get_directorist_option('display_loc_for', 'users');
+        if((get_directorist_option('require_location') == 1) && ('users' === $location_visable)) {
+            $location = __('Location field is required!', ATBDP_TEXTDOMAIN);
+        }
+
+        //address
+        $address = '';
+        $address_visable = get_directorist_option('display_address_for', 'admin_users');
+        if((get_directorist_option('require_address') == 1) && ('admin_users' === $address_visable)){
+            $address = __('Address field is required!', ATBDP_TEXTDOMAIN);
+        }
+        //phone
+        $plan_phone = true;
+        if (is_fee_manager_active()){
+            $plan_phone = is_plan_allowed_listing_phone($fm_plans);
+        }
+        $phone = '';
+        $phone_visable = get_directorist_option('display_phone_for', 'admin_users');
+        if((get_directorist_option('require_phone_number') == 1) && $plan_phone && ('admin_users' === $phone_visable)){
+            $phone = __('Phone field is required!', ATBDP_TEXTDOMAIN);
+        }
+        //email
+        $plan_email = true;
+        if (is_fee_manager_active()){
+            $plan_email = is_plan_allowed_listing_email($fm_plans);
+        }
+        $email = '';
+        $email_visable = get_directorist_option('display_email_for', 'admin_users');
+        if((get_directorist_option('require_email') == 1) && empty($p['email']) && $plan_email && ('admin_users' === $email_visable)){
+            $email = __('Email field is required!', ATBDP_TEXTDOMAIN);
+        }
+        //website
+        $plan_webLink = true;
+        if (is_fee_manager_active()){
+            $plan_webLink = is_plan_allowed_listing_webLink($fm_plans);
+        }
+        $web = '';
+        $web_visable = get_directorist_option('display_website_for', 'admin_users');
+        if((get_directorist_option('require_website') == 1) && empty($p['website']) && $plan_webLink && ('admin_users' === $web_visable)){
+            $web = __('Website link field is required!', ATBDP_TEXTDOMAIN);
+        }
 
         $validator = array(
-            'title' => $title
+            'title' => $title,
+            'description' => $description,
+            'category' => $category,
+            'excerpt' => $excerpt,
+            'required_cus_fields' => $required_custom_fields,
+            'price'    => $price,
+            'price_range'    => $price_range,
+            'tag'    => $tag,
+            'location'    => $location,
+            'address'    => $address,
+            'phone'    => $phone,
+            'email'    => $email,
+            'web'    => $web,
         );
 
         wp_localize_script( 'atbdp_add_listing_validator', 'add_listing_validator', $validator );

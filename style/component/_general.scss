@@ -28,6 +28,10 @@ body.atbd_content_active #directorist.atbd_wrapper{
 .atbd_content_active #directorist.atbd_wrapper.size-xs .atbdp_column{
   width: 50%;
 }
+.atbd_content_active #directorist.atbd_wrapper .atbdp_column {
+  padding-left: 15px;
+  padding-right: 15px;
+}
 
 .atbd_content_active #directorist.atbd_wrapper {
   div, p, a, li{

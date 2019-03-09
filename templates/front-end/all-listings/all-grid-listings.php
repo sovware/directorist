@@ -162,7 +162,7 @@ $column_width = 100/$columns .'%';
                 /*Code for Business Hour Extensions*/
                 ?>
 
-                <div class="col atbdp_column">
+                <div class="atbdp_column">
                     <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line',0)?'atbd_single_line_card_info':'';?>">
                         <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                             <figure class="atbd_listing_thumbnail_area" style=" <?php echo empty(get_directorist_option('display_preview_image',1))?'display:none':''?>">

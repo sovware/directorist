@@ -207,7 +207,7 @@ do_action('atbdp_edit_after_googlemap_preview', 'add_listing_page_backend', $arg
     jQuery(document).ready(function ($) {
 
 
-        <?php if (!$disable_map) { ?>
+        <?php if ('none' != $display_map_for) { ?>
 
         // initialize all vars here to avoid hoisting related misunderstanding.
         var placeSearch, map, autocomplete, address_input, markers, info_window, $manual_lat, $manual_lng, saved_lat_lng, info_content;

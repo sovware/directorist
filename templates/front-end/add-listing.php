@@ -967,7 +967,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
 
         // Bias the auto complete object to the user's geographical location,
         // as supplied by the browser's 'navigator.geolocation' object.
-        <?php if (!$disable_map) { ?>
+        <?php if ('admin_users' == $display_map_for) { ?>
         // initialize all vars here to avoid hoisting related misunderstanding.
         var placeSearch, map, autocomplete, address_input, markers, info_window, $manual_lat, $manual_lng,
             saved_lat_lng, info_content;

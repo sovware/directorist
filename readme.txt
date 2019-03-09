@@ -128,6 +128,8 @@ Directorist is not developed by a single person. A team of dedicated developers 
 18. Add New Custom Field
 
 == Changelog ==
+= 4.7.2 - March 5, 2019 =
+* Tweak - Separate form settings options
 
 = 4.7.1 - March 5, 2019 =
 * Fix - Compatibility with Yoast Plugin

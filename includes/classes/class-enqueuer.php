@@ -452,6 +452,48 @@ class ATBDP_Enqueuer {
             $web = __('Website link field is required!', ATBDP_TEXTDOMAIN);
         }
 
+        //social link
+        $plan_social_networks = true;
+        if (is_fee_manager_active()){
+            $plan_social_networks = is_plan_allowed_listing_social_networks($fm_plans);
+        }
+        $Sinfo = '';
+        $Sinfo_visable = get_directorist_option('display_social_info_for', 'admin_users');
+        if((get_directorist_option('require_social_info') == 1) && $plan_social_networks && ('admin_users' === $Sinfo_visable)){
+            $Sinfo = __('Social information is required!', ATBDP_TEXTDOMAIN);
+        }
+        //image slider
+        $plan_slider = true;
+        if (is_fee_manager_active()){
+            $plan_slider =is_plan_allowed_slider($fm_plans);
+        }
+        $preview_visable = get_directorist_option('display_prv_img_for', 'admin_users');
+        $gallery_visable = get_directorist_option('display_glr_img_for', 'admin_users');
+        $preview_image = '';
+        $gallery_image = '';
+        if((get_directorist_option('require_preview_img') == 1) && ('admin_users' === $preview_visable)){
+            $preview_image = __('Preview image is required!', ATBDP_TEXTDOMAIN);
+        }if((get_directorist_option('require_gallery_img') == 1) && $plan_slider && ('admin_users' === $gallery_visable)){
+        $gallery_image = __('Gallery image is required!', ATBDP_TEXTDOMAIN);
+    }
+
+    //video
+        $plan_video = true;
+        if (is_fee_manager_active()){
+            $plan_video =is_plan_allowed_listing_video($fm_plans);
+        }
+        $video_visable = get_directorist_option('display_video_for', 'admin_users');
+        $video = '';
+        if((get_directorist_option('require_video') == 1) && $plan_video && ('admin_users' === $video_visable)){
+            $video = __('Video is required!', ATBDP_TEXTDOMAIN);
+        }
+        //t & c
+        $term_visable = get_directorist_option('listing_terms_condition');
+        $terms = '';
+        if((get_directorist_option('require_terms_conditions') == 1) &&  $term_visable){
+            $terms = __('Agree to Terms & Conditions is required!', ATBDP_TEXTDOMAIN);
+        }
+
         $validator = array(
             'title' => $title,
             'description' => $description,
@@ -466,6 +508,11 @@ class ATBDP_Enqueuer {
             'phone'    => $phone,
             'email'    => $email,
             'web'    => $web,
+            'Sinfo'    => $Sinfo,
+            'listing_prv_img'    => $preview_image,
+            'gallery_image'    => $gallery_image,
+            'video'    => $video,
+            'terms'    => $terms,
         );
 
         wp_localize_script( 'atbdp_add_listing_validator', 'add_listing_validator', $validator );

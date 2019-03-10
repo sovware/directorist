@@ -117,7 +117,47 @@ jQuery(document).ready(function ($) {
             return false;
         }
 
+        //Sinfo
 
+        var Sinfo = $(".atbdp_social_field_wrapper").length;
+        var required_Sinfo = add_listing_validator.Sinfo;
+        if (0 === Sinfo && '' !== required_Sinfo){
+            $("#social_info_sortable_container").parent().prepend('<span class="atbdp_required">'+required_Sinfo+'</span>');
+            $([document.documentElement, document.body]).animate({
+                scrollTop:2300 }, 1000);
+            return false;
+        }
+      //listing_prv_img
+        var listing_prv_img = $("input[name='listing_prv_img']").val();
+        var required_listing_prv_img = add_listing_validator.listing_prv_img;
+        if ('' === listing_prv_img && '' !== required_listing_prv_img){
+            $("input[name='listing_prv_img']").parent().prepend('<span class="atbdp_required">'+required_listing_prv_img+'</span>');
+            return false;
+        }
+
+        //slider
+        var gallery_image = $("#no_image_set").length;
+        var required_gallery_image = add_listing_validator.gallery_image;
+        if (1 === gallery_image && '' !== required_gallery_image){
+            $("#no_images").parent().prepend('<span class="atbdp_required">'+required_gallery_image+'</span>');
+            return false;
+        }
+
+        //video
+        var video = $("input[name='videourl']").val();
+        var required_video = add_listing_validator.video;
+        if ('' === video && '' !== required_video){
+            $("input[name='videourl']").parent().prepend('<span class="atbdp_required">'+required_video+'</span>');
+            return false;
+        }
+
+        //terms
+        var terms = $("#listing_t").is(":checked");
+        var required_terms = add_listing_validator.terms;
+        if (false === terms && '' !== required_terms){
+            $("#listing_t").parent().prepend('<span class="atbdp_required">'+required_terms+'</span>');
+            return false;
+        }
 
 
         //category

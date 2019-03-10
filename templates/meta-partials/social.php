@@ -5,6 +5,7 @@
 $social_info = (array_key_exists('social_info', $args)) ? $args['social_info'] : array(); ?>
     <label for="atbdp_social"><?php esc_html_e('Social Information:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_social_info')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
     <div id="social_info_sortable_container">
+        <input type="hidden" id="is_social_checked">
         <?php
         if ( !empty($social_info) ) {
             foreach ($social_info as $index => $socialInfo) { // eg. here, $socialInfo = ['id'=> 'facebook', 'url'=> 'http://fb.com']

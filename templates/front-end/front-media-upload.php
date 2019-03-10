@@ -55,9 +55,9 @@ $active_mi_ext = is_multiple_images_active(); // default is no
                     </div>
                 <?php }  // ends foreach for looping image
             } else { ?>
-                <img src="<?= esc_url(ATBDP_ADMIN_ASSETS . 'images/no-image.png'); ?>"
+                <img id="no_image_set" src="<?= esc_url(ATBDP_ADMIN_ASSETS . 'images/no-image.png'); ?>"
                      alt="<?php esc_attr_e('No Image Found', ATBDP_TEXTDOMAIN); ?>">
-                <p>No Images</p>
+                <p id="no_images"><?php esc_attr_e('No Images', ATBDP_TEXTDOMAIN); ?></p>
             <?php } //  ends if statement  ?>
         </div>
         <?php

@@ -138,41 +138,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $plan_purchased = subscribed_package_or_PPL_plans($user_id, 'completed',$midway_package_id);
                         $subscribed_package_id = $midway_package_id;
                     }
-                    //check the title is empty or not
-                    $term_visable = get_directorist_option('listing_terms_condition');
-                    if((get_directorist_option('require_terms_conditions') == 1) && empty($t_c_check) &&  $term_visable){
-                      return $msg;
-                    }
 
-
-
-                    $plan_social_networks = true;
-                    if (is_fee_manager_active()){
-                        $plan_social_networks = is_plan_allowed_listing_social_networks($subscribed_package_id);
-                    }
-                    $Sinfo_visable = get_directorist_option('display_social_info_for', 'admin_users');
-                    if((get_directorist_option('require_social_info') == 1) && empty($p['social']) && $plan_social_networks && ('admin_users' === $Sinfo_visable)){
-                        return $msg;
-                    }
-                    $plan_slider = true;
-                    if (is_fee_manager_active()){
-                        $plan_slider =is_plan_allowed_slider($subscribed_package_id);
-                    }
-                    $preview_visable = get_directorist_option('display_prv_img_for', 'admin_users');
-                    $gallery_visable = get_directorist_option('display_glr_img_for', 'admin_users');
-                    if((get_directorist_option('require_preview_img') == 1) && empty($p['listing_prv_img']) && $plan_slider && ('admin_users' === $preview_visable)){
-                        return $msg;
-                    }if((get_directorist_option('require_gallery_img') == 1) && empty($p['listing_img']) && $plan_slider && ('admin_users' === $gallery_visable)){
-                        return $msg;
-                    }
-                    $plan_video = true;
-                    if (is_fee_manager_active()){
-                        $plan_video =is_plan_allowed_listing_video($subscribed_package_id);
-                    }
-                    $video_visable = get_directorist_option('display_video_for', 'admin_users');
-                    if((get_directorist_option('require_video') == 1) && empty($p['videourl']) && $plan_video && ('admin_users' === $video_visable)){
-                        return $msg;
-                    }
                     //@todo need to shift FM validation code to extension itself
                     if (is_fee_manager_active()) {
                         $subscribed_date = get_user_meta($user_id, '_subscribed_time', true);

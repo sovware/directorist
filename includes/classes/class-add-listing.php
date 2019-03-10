@@ -78,15 +78,14 @@ if (!class_exists('ATBDP_Add_Listing')):
                     // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');;
 
                     $admin_category_select= !empty($_POST['admin_category_select']) ? sanitize_text_field($_POST['admin_category_select']) : '';
-                    $t_c_check= !empty($_POST['t_c_check']) ? sanitize_text_field($_POST['t_c_check']) : '';
                     $custom_field= !empty($_POST['custom_field']) ? ($_POST['custom_field']) : array();
                     // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');
                     $metas = array();
                     $p = $_POST; // save some character
                     $content = !empty($p['listing_content']) ? wp_kses($p['listing_content'], wp_kses_allowed_html('post')) : '';
                     $title= !empty($p['listing_title']) ? sanitize_text_field($p['listing_title']) : '';/*@todo; in future, do not let the user add a post without a title. Return here with an error shown to the user*/
-                    $tagcount = !empty($_POST['tax_input']['at_biz_dir-tags'])?(count($_POST['tax_input']['at_biz_dir-tags'])):'';
-                    $location = !empty($_POST['tax_input']['at_biz_dir-location'])?true:false;
+                    $tag = !empty($_POST['tax_input']['at_biz_dir-tags'])?($_POST['tax_input']['at_biz_dir-tags']):array();
+                    $location = !empty($_POST['tax_input']['at_biz_dir-location'])?($_POST['tax_input']['at_biz_dir-location']):array();
 
                     $metas['_listing_type']      = !empty($p['listing_type']) ? sanitize_text_field($p['listing_type']) : 0;
                     $metas['_price']             = !empty($p['price'])? (float) $p['price'] : 0;
@@ -127,8 +126,6 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     );
 
-                    $msg = '<div class="alert alert-danger"><strong>'.__('Please fill up the required field marked with ', ATBDP_TEXTDOMAIN).'<span style="color: red">*</span></strong></div>';
-                    //let check all the required custom field
 
                     if (is_fee_manager_active()){
                         $user_id = get_current_user_id();
@@ -164,7 +161,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $fm_allow_price_range = $plan_meta['fm_allow_price'][0];
                         $fm_allow_tag = $plan_meta['fm_allow_tag'][0];
                         if ($fm_allow_tag){
-                            if ($plan_meta['fm_tag_limit'][0]<$tagcount && empty($plan_meta['fm_tag_limit_unl'][0])){
+                            if ($plan_meta['fm_tag_limit'][0]<count($tag) && empty($plan_meta['fm_tag_limit_unl'][0])){
                                 $msg = '<div class="alert alert-danger"><strong>' . __('You can use a maximum of '.$plan_meta['fm_tag_limit'][0].' tag(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
                                 return $msg;
                             }
@@ -275,9 +272,32 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     $args['tax_input'][ $taxonomy ] = $clean_terms;
                                 }
                             }
-
-
                             $post_id = wp_update_post($args);
+                            $append = false;
+                            if (count($location)>1){
+                                $append = true;
+                            }
+                            if (!empty($location)){
+                                foreach ($location as $single_loc){
+                                    $locations =  get_term_by('term_id', $single_loc, ATBDP_LOCATION);
+                                    wp_set_object_terms($post_id, $locations->name, ATBDP_LOCATION, $append);
+                                }
+                            }
+                            $append = false;
+                            if (count($tag)>1){
+                                $append = true;
+                            }
+                            if (!empty($tag)){
+                                foreach ($tag as $single_tag){
+                                    $tag =  get_term_by('slug', $single_tag, ATBDP_TAGS);
+                                    wp_set_object_terms($post_id, $tag->name, ATBDP_TAGS, $append);
+                                }
+                            }
+
+
+                            //update the location and category term for subscriber
+
+
                             /*
                                   * send the custom field value to the database
                                   */
@@ -319,9 +339,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     update_post_meta( $post_id, $key, $value );
                                 }
                                 update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
-
-
                                 $term_by_id =  get_term_by('term_id', $admin_category_select, ATBDP_CATEGORY);
+
                                 wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
                             }
 

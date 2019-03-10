@@ -8,7 +8,6 @@ if (!empty($p_id)) {
         echo '<p class="error">' . __('You do not have permission to edit this listing', ATBDP_TEXTDOMAIN) . '</p>';
         return;
     }
-
     $listing_info['never_expire'] = get_post_meta($p_id, '_never_expire', true);
     $listing_info['featured'] = get_post_meta($p_id, '_featured', true);
     $listing_info['listing_type'] = get_post_meta($p_id, '_listing_type', true);

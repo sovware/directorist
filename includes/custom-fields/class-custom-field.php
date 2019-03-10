@@ -633,9 +633,9 @@ class ATBDP_Custom_Field
                     <label><?php _e('Options', ATBDP_TEXTDOMAIN); ?></label>
                     <p class="description">
                         <?php _e('Each on a new line, for example,', ATBDP_TEXTDOMAIN); ?><br/>
-                        <?php _e('male: Male', ATBDP_TEXTDOMAIN); ?><br/>
-                        <?php _e('female: Female', ATBDP_TEXTDOMAIN); ?><br/>
-                        <?php _e('other: Other', ATBDP_TEXTDOMAIN); ?>
+                        <?php _e('Male: Male', ATBDP_TEXTDOMAIN); ?><br/>
+                        <?php _e('Female: Female', ATBDP_TEXTDOMAIN); ?><br/>
+                        <?php _e('Other: Other', ATBDP_TEXTDOMAIN); ?>
 
                     </p>
                     <textarea class="textarea form-control" name="choices"

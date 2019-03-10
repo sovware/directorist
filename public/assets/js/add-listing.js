@@ -28,7 +28,7 @@
 
     // SOCIAL SECTION
     // Rearrange the IDS and Add new social field
-    $("#addNewSocial").on('click', function(){
+    $("#addNewSocial").on('click', function(e){
         var currentItems = $('.atbdp_social_field_wrapper').length;
         var ID = "id="+currentItems; // eg. 'id=3'
         var iconBindingElement = jQuery('#addNewSocial');

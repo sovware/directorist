@@ -493,7 +493,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                                             }elseif($field_type === 'url') {
                                                                 printf('<a href="%s" target="_blank">%s</a>', esc_url($field_details), esc_url($field_details));
                                                             } else {
-                                                                echo esc_attr(ucwords($field_details));
+                                                                echo esc_attr($field_details);
                                                             } ?></p>
 
                                                     </div>
@@ -591,7 +591,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                         <div class="atbd_info_title"><span
                                                     class="fa fa-globe"></span><?php _e('Website', ATBDP_TEXTDOMAIN); ?>
                                         </div>
-                                        <a href="<?= esc_url($website); ?>"
+                                        <a target="_blank" href="<?= esc_url($website); ?>"
                                            class="atbd_info" <?php echo !empty($use_nofollow) ? 'rel="nofollow"': '';?>><?= esc_html($website); ?></a>
                                     </li>
                                 <?php } ?>

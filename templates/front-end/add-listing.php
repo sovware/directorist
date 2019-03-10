@@ -331,9 +331,12 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                                 echo '</div>';
                                                 break;
                                             case 'textarea' :
+                                                echo '<div>';
                                                 printf('<textarea  class="form-control directory_field" name="custom_field[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $post->ID, (int)$cf_rows, esc_attr($cf_placeholder), esc_textarea($value));
+                                                echo '</div>';
                                                 break;
                                             case 'radio':
+                                                echo '<div>';
                                                 $choices = get_post_meta(get_the_ID(), 'choices', true);
                                                 $choices = explode("\n", $choices);
                                                 echo '<ul class="atbdp-radio-list vertical">';
@@ -354,9 +357,11 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                                                                     printf( '<li><label><input type="radio" name="custom_field[%d]" value="%s"%s>%s</label></li>', $post->ID, $_value, $_checked, $_label );
                                                 }
                                                     echo '</ul>';
+                                                echo '</div>';
                                                     break;
 
                                                 case 'select' :
+                                                    echo '<div>';
                                                     $choices = get_post_meta(get_the_ID(), 'choices', true);
                                                     $choices = explode("\n", $choices);
                                                     printf('<select name="custom_field[%d]" class="form-control directory_field">', $post->ID);
@@ -381,9 +386,11 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                                         printf('<option value="%s"%s>%s</option>', $_value, $_selected, $_label);
                                                     }
                                                     echo '</select>';
+                                                    echo '</div>';
                                                     break;
 
                                                 case 'checkbox' :
+                                                    echo '<div>';
                                                     $choices = get_post_meta(get_the_ID(), 'choices', true);
                                                     $choices = explode("\n", $choices);
 
@@ -409,6 +416,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                                         printf('<li><label><input type="hidden" name="custom_field[%s][]" value="" /><input type="checkbox" name="custom_field[%d][]" value="%s"%s> %s</label></li>', $post->ID, $post->ID, $_value, $_checked, $_label);
                                                     }
                                                     echo '</ul>';
+                                                    echo '</div>';
                                                     break;
                                                 case 'url'  :
                                                     echo '<div>';

@@ -336,7 +336,7 @@ class ATBDP_Enqueuer {
         if((get_directorist_option('require_title') == 1) && ('users' === $title_visable)){
             $title = __('Title field is required!', ATBDP_TEXTDOMAIN);
         }
-        $title_description = get_directorist_option('require_long_details', 'users');
+        $title_description = get_directorist_option('display_desc_for', 'users');
         $description = '';
         if((get_directorist_option('require_long_details') == 1) && ('users' === $title_description)){
             $description = __('Description field is required!', ATBDP_TEXTDOMAIN);

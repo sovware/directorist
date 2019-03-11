@@ -158,27 +158,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $plan_meta = get_post_meta($subscribed_package_id);
                         $slider_image = $plan_meta['fm_allow_slider'][0];
                         $slider = !empty($slider_image)?$slider_image:'';
-                        $fm_allow_price_range = $plan_meta['fm_allow_price'][0];
-                        $fm_allow_tag = $plan_meta['fm_allow_tag'][0];
-                        if ($fm_allow_tag){
-                            if ($plan_meta['fm_tag_limit'][0]<count($tag) && empty($plan_meta['fm_tag_limit_unl'][0])){
-                                $msg = '<div class="alert alert-danger"><strong>' . __('You can use a maximum of '.$plan_meta['fm_tag_limit'][0].' tag(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
-                                return $msg;
-                            }
-                        }
-
-                        if ($fm_allow_price_range){
-                            if (empty($plan_meta['price_range_unl'][0]) || !empty($plan_meta['price_range'][0])){
-                                $price = !empty($metas['_price'])?$metas['_price']:'';
-                                if ($price>$plan_meta['price_range'][0]){
-                                    //var_dump($plan_meta['price_range'][0]);die();
-                                    $msg = '<div class="alert alert-danger"><strong>' . __('Given price is not included in this plan!', ATBDP_TEXTDOMAIN) . '</strong></div>';
-                                    return $msg;
-                                }
-                            }
-                        }
-
-
                         if (('regular' === $listing_type) && ('package' === $plan_type)) {
                             if (($plan_meta['num_regular'][0] < $_general_type) && empty($plan_meta['num_regular_unl'][0])) {
                                 $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for regular listing!', ATBDP_TEXTDOMAIN) . '</strong></div>';

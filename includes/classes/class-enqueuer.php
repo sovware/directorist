@@ -352,6 +352,8 @@ class ATBDP_Enqueuer {
         }
         //custom fields
         $required_custom_fields = array();
+        $radio_field = '';
+        $cus_check = '';
         $custom_fields = new WP_Query(array(
             'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
             'posts_per_page' => -1,
@@ -372,9 +374,19 @@ class ATBDP_Enqueuer {
         foreach ($fields as $post) {
             setup_postdata($post);
             $cf_required = get_post_meta($post->ID, 'required', true);
+            $cf_type = get_post_meta($post->ID, 'type', true);
             if ($cf_required){
                 $required_custom_fields[] = $post->ID;
+                switch ($cf_type){
+                    case 'radio':
+                        $radio_field = $post->ID;
+                        break;
+                    case 'checkbox':
+                        $cus_check = $post->ID;
+                        break;
+                }
             }
+
 
         }
         wp_reset_postdata();
@@ -500,6 +512,8 @@ class ATBDP_Enqueuer {
             'category' => $category,
             'excerpt' => $excerpt,
             'required_cus_fields' => $required_custom_fields,
+            'cus_radio' => $radio_field,
+            'cus_check' => $cus_check,
             'price'    => $price,
             'price_range'    => $price_range,
             'tag'    => $tag,

@@ -321,9 +321,9 @@ class ATBDP_Enqueuer {
         wp_enqueue_media();
 
         //validation staff start
-        $title_visable = get_directorist_option('display_title_for', 'users');
+        $title_visable = get_directorist_option('display_title_for', 0);
         $title = '';
-        if((get_directorist_option('require_title') == 1) && ('users' === $title_visable)){
+        if((get_directorist_option('require_title') == 1) && empty($title_visable)){
             $title = __('Title field is required!', ATBDP_TEXTDOMAIN);
         }
 

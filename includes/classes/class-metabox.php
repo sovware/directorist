@@ -166,9 +166,9 @@ class ATBDP_Metabox {
      */
     public function listing_info_meta( $post )
     {
-        $display_prv_img_for = get_directorist_option('display_prv_img_for', 'admin_users');
-        $display_glr_img_for = get_directorist_option('display_glr_img_for', 'admin_users');
-        $display_video_for   = get_directorist_option('display_video_for', 'admin_users');
+        $display_prv_field = get_directorist_option('display_prv_field', 1);
+        $display_gellery_field = get_directorist_option('display_gellery_field', 1);
+        $display_video_field = get_directorist_option('display_video_field', 1);
         add_meta_box('_listing_info',
             __('General Information', ATBDP_TEXTDOMAIN),
             array($this, 'listing_info'),
@@ -180,7 +180,7 @@ class ATBDP_Metabox {
             array($this, 'listing_contact_info'),
             ATBDP_POST_TYPE,
             'normal', 'high');
-        if ('none' != $display_prv_img_for || 'none' != $display_glr_img_for) {
+        if (!empty($display_prv_field) || !empty($display_gellery_field)) {
             add_meta_box('_listing_gallery',
                 __('Upload Preview & Slider Images for the Listing', ATBDP_TEXTDOMAIN),
                 array($this, 'listing_gallery'),
@@ -193,7 +193,7 @@ class ATBDP_Metabox {
          * @since 1.0.0
          */
         do_action('atbdp_before_video_gallery_backend',$post);
-        if('none' != $display_video_for) {
+        if(!empty($display_video_field)) {
             add_meta_box('_listing_video_gallery',
                 __('Add Video for the Listing', ATBDP_TEXTDOMAIN),
                 array($this, 'listing_video_gallery'),

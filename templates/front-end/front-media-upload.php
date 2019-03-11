@@ -2,22 +2,24 @@
 $display_prv_image                   = get_directorist_option('dsiplay_prv_single_page',1);
 $display_slider_image                = get_directorist_option('dsiplay_slider_single_page',1);
 $display_preview_image               = get_directorist_option('display_preview_image',1);
-$display_prv_img_for                 = get_directorist_option('display_prv_img_for', 'admin_users');
-$display_glr_img_for                 = get_directorist_option('display_glr_img_for', 'admin_users');
+$display_prv_field                   = get_directorist_option('display_prv_field', 1);
+$display_gellery_field               = get_directorist_option('display_gellery_field', 1);
+$display_prv_img_for                 = get_directorist_option('display_prv_img_for', 0);
+$display_glr_img_for                 = get_directorist_option('display_glr_img_for', 0);
 $listing_imgs                        = (!empty($args['listing_img'])) ? $args['listing_img'] : array();
 $listing_prv_img_id                  = (!empty($args['listing_prv_img'])) ? $args['listing_prv_img'] : '';
 $plan_slider                         = (!empty($args['plan_slider'])) ? $args['plan_slider'] : '';
-$listing_id                                  = (!empty($args['p_id'])) ? $args['p_id'] : '';
+$listing_id                          = (!empty($args['p_id'])) ? $args['p_id'] : '';
 $listing_prv_img                     = wp_get_attachment_image_src($listing_prv_img_id);
 $image_links                         = []; // define a link placeholder variable
 foreach ($listing_imgs as $id) {
-    $image_links[$id] = wp_get_attachment_image_src($id)[0]; // store the attachment id and url
+    $image_links[$id]                = wp_get_attachment_image_src($id)[0]; // store the attachment id and url
 }
 // is multiple image upload extension is active  ?
 $active_mi_ext = is_multiple_images_active(); // default is no
 ?>
 <div class="add_listing_form_wrapper" id="gallery_upload">
-    <?php if( 'admin_users' == $display_prv_img_for) {?>
+    <?php if( empty($display_prv_img_for) && !empty($display_prv_field)) { ?>
     <div class="form-group">
         <!-- image container, which can be manipulated with js -->
         <div class="listing-prv-img-container">
@@ -38,7 +40,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
     </div>
     <?php }
     ?>
-    <?php if( 'admin_users' == $display_glr_img_for ) {?>
+    <?php if( empty($display_glr_img_for) && !empty($display_gellery_field) ) {?>
     <div class="form-group">
         <!-- image container, which can be manipulated with js -->
         <div class="listing-img-container">

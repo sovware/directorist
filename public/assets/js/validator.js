@@ -173,12 +173,31 @@ jQuery(document).ready(function ($) {
             if (match_field) {
                 var value = $(this).val();
                 if ('' === value) {
-                    $(this).parent().siblings('label').append('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
+                    $(this).parents(".form-group").children('label').append('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
                     to_top(1400);
                     returnValue = false;
                 }
             }
         });
+
+        //custom field checkbox
+        var cus_check = $('.atbdp-checkbox-list input[type="checkbox"]').is(":checked");
+        var required_terms = add_listing_validator.cus_check;
+        if (false === cus_check && '' !== required_terms) {
+            $('.atbdp-checkbox-list input[type="checkbox"]').parent().parents(".form-group").children('label').append('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
+            to_top(1400);
+            return false;
+        }
+
+        //custom field radio
+        var cus_radio = $('.atbdp-radio-list input[type="radio"]').is(":checked");
+        var required_terms = add_listing_validator.cus_radio;
+        if (false === cus_radio && '' !== required_terms) {
+            $('.atbdp-radio-list input[type="radio"]').parent().parents(".form-group").children('label').append('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
+            to_top(1400);
+            return false;
+        }
+
         return returnValue;
 
     });

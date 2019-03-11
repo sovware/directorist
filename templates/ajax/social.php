@@ -8,7 +8,7 @@ $id = (array_key_exists('id', $args)) ? $args['id'] : 0;
         <div class="form-group">
             <select name="social[<?= $id; ?>][id]" class="form-control">
                 <?php foreach ( ATBDP()->helper->social_links() as $nameID => $socialName ) { ?>
-                    <option value='<?= esc_attr($nameID); ?>'> <?= esc_html($socialName); ?></option>;
+                    <option value='<?= esc_attr($nameID); ?>'> <?= esc_html($socialName); ?></option>
                 <?php } ?>
             </select>
         </div>

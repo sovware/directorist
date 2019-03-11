@@ -398,4 +398,8 @@ css for Custom Field
   margin-bottom: 15px;
 }
 
+.atbdp_social_field_wrapper select.form-control {
+  height: 35px !important;
+}
+
 /*# sourceMappingURL=map/style.css.map */

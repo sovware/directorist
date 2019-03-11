@@ -2,8 +2,9 @@
 $listing_imgs           = (!empty($args['listing_img'])) ? $args['listing_img'] : array();
 $listing_prv_img_id     = (!empty($args['listing_prv_img'])) ? $args['listing_prv_img'] : '';
 $listing_prv_img        = wp_get_attachment_image_src($listing_prv_img_id);
-$display_prv_img_for = get_directorist_option('display_prv_img_for', 'admin_users');
-$display_glr_img_for = get_directorist_option('display_glr_img_for', 'admin_users');
+
+$display_prv_field      = get_directorist_option('display_prv_field', 1);
+$display_gellery_field  = get_directorist_option('display_gellery_field', 1);
 $image_links = []; // define a link placeholder variable
 foreach ($listing_imgs as $id) {
     $image_links[$id] = wp_get_attachment_image_src($id)[0]; // store the attachment id and url
@@ -12,7 +13,7 @@ foreach ($listing_imgs as $id) {
 $active_mi_ext = is_multiple_images_active(); // default is no
 ?>
 <div class="add_listing_form_wrapper" id="gallery_upload">
-    <?php if('none' != $display_prv_img_for) {?>
+    <?php if(!empty($display_prv_field)) { ?>
     <div class="form-group">
         <!-- image container, which can be manipulated with js -->
         <div class="listing-prv-img-container">
@@ -31,7 +32,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
         </p>
     </div>
     <?php } ?>
-    <?php if('none' != $display_glr_img_for) {?>
+    <?php if(!empty($display_gellery_field)) { ?>
     <div class="form-group">
         <!-- image container, which can be manipulated with js -->
         <div class="listing-img-container">

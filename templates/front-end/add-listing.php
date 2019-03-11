@@ -75,25 +75,38 @@ $disable_price = get_directorist_option('disable_list_price');
 $enable_video_url = get_directorist_option('atbd_video_url', 1);
 $disable_contact_info = get_directorist_option('disable_contact_info');
 $disable_contact_owner = get_directorist_option('disable_contact_owner',1);
-$display_title_for = get_directorist_option('display_title_for','users');
-$display_desc_for = get_directorist_option('display_desc_for','users');
+$display_title_for = get_directorist_option('display_title_for',0);
+$display_desc_for = get_directorist_option('display_desc_for',0);
 $display_cat_for = get_directorist_option('display_cat_for','users');
-$display_loc_for = get_directorist_option('display_loc_for','users');
-$display_tag_for = get_directorist_option('display_tag_for','users');
-$display_tagline_for = get_directorist_option('display_tagline_for', 'none');
+$display_loc_for = get_directorist_option('display_loc_for',0);
+$display_tag_for = get_directorist_option('display_tag_for',0);
+$display_tagline_field = get_directorist_option('display_tagline_field', 0);
+$display_tagline_for = get_directorist_option('display_tagline_for', 0);
 // get the custom terms and conditions
 $listing_terms_condition_text = get_directorist_option('listing_terms_condition_text');
+$display_pricing_field = get_directorist_option('display_pricing_field', 1);
 $display_price_for = get_directorist_option('display_price_for', 'admin_users');
-$display_short_desc_for = get_directorist_option('display_short_desc_for', 'none');
-$display_address_for = get_directorist_option('display_address_for', 'admin_users');
-$display_phone_for = get_directorist_option('display_phone_for', 'admin_users');
-$display_email_for = get_directorist_option('display_email_for', 'admin_users');
-$display_website_for = get_directorist_option('display_website_for', 'admin_users');
-$display_social_info_for = get_directorist_option('display_social_info_for', 'admin_users');
-$display_map_for = get_directorist_option('display_map_for', 'admin_users');
-$display_prv_img_for = get_directorist_option('display_prv_img_for', 'admin_users');
-$display_glr_img_for = get_directorist_option('display_glr_img_for', 'admin_users');
-$display_video_for = get_directorist_option('display_video_for', 'admin_users');
+$display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
+$display_short_desc_for = get_directorist_option('display_short_desc_for', 0);
+$display_address_field = get_directorist_option('display_address_field', 1);
+$display_address_for = get_directorist_option('display_address_for', 0);
+$display_phone_field = get_directorist_option('display_phone_field', 1);
+$display_phone_for = get_directorist_option('display_phone_for', 0);
+$display_email_field = get_directorist_option('display_email_field', 1);
+$display_email_for = get_directorist_option('display_email_for', 0);
+$display_website_field = get_directorist_option('display_website_field', 1);
+$display_website_for = get_directorist_option('display_website_for', 0);
+$display_social_info_field = get_directorist_option('display_social_info_field', 1);
+$display_social_info_for = get_directorist_option('display_social_info_for', 0);
+$display_map_field = get_directorist_option('display_map_field', 1);
+$display_map_for = get_directorist_option('display_map_for', 0);
+$display_prv_field = get_directorist_option('display_prv_field', 1);
+$display_gellery_field = get_directorist_option('display_gellery_field', 1);
+$display_video_field = get_directorist_option('display_video_field', 1);
+$display_prv_img_for    = get_directorist_option('display_prv_img_for', 0);
+$display_glr_img_for    = get_directorist_option('display_glr_img_for', 0);
+$display_video_for = get_directorist_option('display_video_for', 0);
+
 ?>
 <div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
     <div class="<?php echo is_directoria_active() ? 'container' : ' container-fluid'; ?>">
@@ -141,7 +154,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                 </div>
                             </div>
                             <div class="atbdb_content_module_contents">
-                                <?php if('users' == $display_title_for) {?>
+                                <?php if(empty($display_title_for)) {?>
                                 <div class="form-group">
                                     <label for="listing_title"><?php esc_html_e('Title:', ATBDP_TEXTDOMAIN);
                                         if(get_directorist_option('require_title',1)){echo '<span class="atbdp_make_str_red"> *</span>';} ?></label>
@@ -151,7 +164,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                            placeholder="<?= __('Enter a title', ATBDP_TEXTDOMAIN); ?>"/>
                                 </div>
                                 <?php } ?>
-                                <?php if('users' == $display_desc_for) {?>
+                                <?php if(empty($display_desc_for)) { ?>
                                 <div class="form-group">
                                     <label for="listing_content"><?php esc_html_e('Long Description', ATBDP_TEXTDOMAIN) ;if(get_directorist_option('require_long_details')){echo '<span class="atbdp_make_str_red"> *</span>';}?></label>
                                     <?php wp_editor(
@@ -164,8 +177,8 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                         )); ?>
                                 </div>
                                 <?php } ?>
-                                <?php if ('admin_users' == $display_tagline_for){ ?>
-                                    <div class="form-group">
+                                <?php if (!empty($display_tagline_field) && empty($display_tagline_for)){ ?>
+                                    <div class="form-group" id="atbdp_excerpt">
                                         <label for="atbdp_excerpt"><?php esc_html_e('Tagline', ATBDP_TEXTDOMAIN); ?></label>
                                         <input type="text" name="tagline"
                                                id="has_tagline"
@@ -185,9 +198,9 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                     $plan_price = is_plan_allowed_price($fm_plan);
                                 }
                                 $price_range = !empty($price_range) ? $price_range : '';
-                                if ('admin_users' == $display_price_for && ($plan_average_price || $plan_price)) { ?>
-                                    <div class="form-group">
-                                        <label for="#">Pricing</label>
+                                if (empty($display_price_for) && !empty($display_pricing_field) && ($plan_average_price || $plan_price)) { ?>
+                                    <div class="form-group" id="atbd_pricing">
+                                        <label for="#"><?php esc_html_e('Pricing', ATBDP_TEXTDOMAIN); ?></label>
                                         <div class="atbd_pricing_options">
                                             <?php
                                             if($plan_price){
@@ -262,7 +275,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                  */
                                 do_action('atbdp_add_listing_after_price', $p_id);
                                 ?>
-                                 <?php if ('admin_users' == $display_short_desc_for){ ?>
+                                 <?php if (!empty($display_excerpt_field) && empty($display_short_desc_for)){ ?>
                                     <div class="form-group">
                                         <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_excerpt')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
                                         <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
@@ -453,8 +466,8 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                 }
                                 wp_reset_postdata();
                                 ?>
-                                <?php if('users' == $display_loc_for) {?>
-                                <div class="form-group">
+                                <?php if(empty($display_loc_for)) {?>
+                                <div class="form-group" id="atbdp_locations">
                                     <label for="at_biz_dir-location"><?php esc_html_e('Location:', ATBDP_TEXTDOMAIN); echo get_directorist_option('require_location')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
                                     <?php if (!empty($p_locations)) {
                                         $output = array();
@@ -478,9 +491,9 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                 if (is_fee_manager_active()){
                                     $plan_tag = is_plan_allowed_tag($fm_plan);
                                 }
-                                if ($plan_tag && 'users' == $display_tag_for) {
+                                if ($plan_tag && empty($display_tag_for)) {
                                     ?>
-                                    <div class="form-group tag_area">
+                                    <div class="form-group tag_area" id="atbdp_tags">
                                         <label for="at_biz_dir-tags"><?php esc_html_e('Tags:', ATBDP_TEXTDOMAIN);
                                             echo get_directorist_option('require_tags') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                                         <?php if (!empty($p_tags)) {
@@ -601,8 +614,8 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                                    for="hide_contact_owner"><?php esc_html_e('Check it to hide Contact listing owner', ATBDP_TEXTDOMAIN); ?></label>
                                         </div>
                                     <?php } ?>
-                                    <?php if ('admin_users' == $display_address_for) { ?>
-                                    <div class="form-group">
+                                    <?php if (empty($display_address_for) && !empty($display_address_field)) { ?>
+                                    <div class="form-group" id="atbdp_address">
                                         <label for="address"><?php esc_html_e('Address:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_address')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
                                         <input type="text" name="address" id="address"
                                                value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
@@ -615,9 +628,9 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                     if (is_fee_manager_active()){
                                         $plan_phone = is_plan_allowed_listing_phone($fm_plan);
                                     }
-                                    if ($plan_phone && 'admin_users' == $display_phone_for){
+                                    if ($plan_phone && empty($display_phone_for) && !empty($display_phone_field)){
                                     ?>
-                                    <div class="form-group">
+                                    <div class="form-group" id="atbdp_phone">
                                         <label for="atbdp_phone_number"><?php esc_html_e('Phone Number:', ATBDP_TEXTDOMAIN); echo get_directorist_option('require_phone_number')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
                                         <input type="tel" name="phone" id="atbdp_phone_number"
                                                value="<?= !empty($phone) ? esc_attr($phone) : ''; ?>"
@@ -629,9 +642,9 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                     if (is_fee_manager_active()){
                                         $plan_email = is_plan_allowed_listing_email($fm_plan);
                                     }
-                                    if ($plan_email && 'admin_users' == $display_email_for){
+                                    if ($plan_email && empty($display_email_for) && !empty($display_email_field)){
                                         ?>
-                                        <div class="form-group">
+                                        <div class="form-group" id="atbdp_emails">
                                             <label for="atbdp_email"><?php esc_html_e('Email:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_email')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
                                             <input type="email" name="email" id="atbdp_email"
                                                    value="<?= !empty($email) ? esc_attr($email) : ''; ?>"
@@ -643,9 +656,9 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                     if (is_fee_manager_active()){
                                         $plan_webLink = is_plan_allowed_listing_webLink($fm_plan);
                                     }
-                                    if ($plan_webLink && 'admin_users' == $display_website_for){
+                                    if ($plan_webLink && empty($display_website_for) && !empty($display_website_field)){
                                     ?>
-                                    <div class="form-group">
+                                    <div class="form-group" id="atbdp_webs">
                                         <label for="atbdp_website"><?php esc_html_e('Website:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_website')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
 
                                         <input type="text" id="atbdp_website" name="website"
@@ -654,7 +667,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                                placeholder="<?php esc_attr_e('Listing website eg. http://example.com', ATBDP_TEXTDOMAIN); ?>"/>
                                     </div>
                                     <?php } ?>
-                                    <div class="form-group">
+                                    <div class="form-group" id="atbdp_socialInFo">
                                         <?php
                                         /**
                                          * It fires before social information fields
@@ -667,7 +680,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                         if (is_fee_manager_active()){
                                             $plan_social_networks = is_plan_allowed_listing_social_networks($fm_plan);
                                         }
-                                        if ($plan_social_networks && 'admin_users' == $display_social_info_for) {
+                                        if ($plan_social_networks && empty($display_social_info_for) && !empty($display_social_info_field)) {
                                             ATBDP()->load_template('meta-partials/social', array('social_info' => $social_info));
                                         }
                                         /**
@@ -727,7 +740,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                             apply_filters('atbdp_before_map_section', 'add_listing_page_frontend', $listing_info, $p_id);
                             ?>
 
-                            <?php if ('admin_users' == $display_map_for) { ?>
+                            <?php if (empty($display_map_for) && !empty($display_map_field)) { ?>
                                 <!--Show map only if it is not disabled in the settings-->
                             <div class="atbd_content_module atbd_location_map_setting">
                                 <div class="atbd_content_module__tittle_area">
@@ -840,7 +853,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
 
                                 <div class="atbdb_content_module_contents">
                                     <!--Image Uploader-->
-                                    <?php if('admin_users' == $display_prv_img_for || 'admin_users' == $display_glr_img_for){?>
+                                    <?php if((!empty($display_prv_field) && empty($display_prv_img_for)) || (!empty($display_gellery_field) && empty($display_glr_img_for))){?>
                                     <div id="_listing_gallery">
                                         <?php ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider', 'p_id'));
                                         ?>
@@ -854,7 +867,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
                                     do_action('atbdp_add_listing_after_listing_slider', 'add_listing_page_frontend', $listing_info);
                                     ?>
                                     <?php
-                                    if ('admin_users' == $display_video_for && $plan_video) {
+                                    if (empty($display_video_for) && !empty($display_video_field) && $plan_video) {
                                         ?>
                                         <div class="form-group">
                                             <label for="videourl"><?php esc_html_e('Video Url', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_video')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
@@ -974,7 +987,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
 
         // Bias the auto complete object to the user's geographical location,
         // as supplied by the browser's 'navigator.geolocation' object.
-        <?php if ('admin_users' == $display_map_for) { ?>
+        <?php if (empty($display_map_for) && !empty($display_map_field)) { ?>
         // initialize all vars here to avoid hoisting related misunderstanding.
         var placeSearch, map, autocomplete, address_input, markers, info_window, $manual_lat, $manual_lng,
             saved_lat_lng, info_content;

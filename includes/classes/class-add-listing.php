@@ -126,18 +126,15 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     );
 
-
-                    if (is_fee_manager_active()){
+                    //@todo need to shift FM validation code to extension itself
+                    if (is_fee_manager_active()) {
                         $user_id = get_current_user_id();
                         $midway_package_id = selected_plan_id();
                         $sub_plan_id = get_post_meta($_POST['listing_id'], '_fm_plans', true);
                         $midway_package_id =!empty($midway_package_id)?$midway_package_id:$sub_plan_id;
                         $plan_purchased = subscribed_package_or_PPL_plans($user_id, 'completed',$midway_package_id);
                         $subscribed_package_id = $midway_package_id;
-                    }
 
-                    //@todo need to shift FM validation code to extension itself
-                    if (is_fee_manager_active()) {
                         $subscribed_date = get_user_meta($user_id, '_subscribed_time', true);
                         $package_length = get_post_meta($subscribed_package_id, 'fm_length', true);
                         $plan_type = get_post_meta($subscribed_package_id, 'plan_type', true);

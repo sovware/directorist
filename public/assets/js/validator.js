@@ -1,7 +1,7 @@
 jQuery(document).ready(function ($) {
     function to_top(top) {
         $([document.documentElement, document.body]).animate({
-            scrollTop: top
+            scrollTop: $(top).offset().top
         }, 1000);
     }
     $('.listing_submit_btn').on('click', function (e) {
@@ -30,7 +30,7 @@ jQuery(document).ready(function ($) {
         var required_excerpt = add_listing_validator.excerpt;
         if ('' === excerpt && '' !== required_excerpt) {
             $("textarea#atbdp_excerpt").siblings("label").after('<span class="atbdp_required">' + w_icon + required_excerpt + '</span>');
-            to_top(1000);
+            to_top('#atbdp_excerpt');
             return false;
         }
         //custom fields
@@ -48,7 +48,8 @@ jQuery(document).ready(function ($) {
         var required_price = add_listing_validator.price;
         if ('' === price && '' !== required_price) {
             $("input[name='price']").siblings("label").after('<span class="atbdp_required">' + w_icon + required_price + '</span>');
-            to_top(1000);
+            to_top('#atbd_pricing');
+
             return false;
         }
 
@@ -57,7 +58,7 @@ jQuery(document).ready(function ($) {
         var required_price_range = add_listing_validator.price_range;
         if ('' === price_range && '' !== required_price_range) {
             $("select[name='price_range']").siblings("label").after('<span class="atbdp_required">' + w_icon + required_price_range + '</span>');
-            to_top(1000);
+            to_top('#atbd_pricing');
             return false;
         }
 
@@ -66,7 +67,7 @@ jQuery(document).ready(function ($) {
         var required_location = add_listing_validator.location;
         if (null === location && '' !== required_location) {
             $("#at_biz_dir-location").siblings("label").after('<span class="atbdp_required">' + w_icon + required_location + '</span>');
-            to_top(1500);
+            to_top('#atbdp_locations');
             return false;
         }
         //tag
@@ -74,7 +75,7 @@ jQuery(document).ready(function ($) {
         var required_tag = add_listing_validator.tag;
         if (null === tag && '' !== required_tag) {
             $("#at_biz_dir-tags").siblings("label").after('<span class="atbdp_required">' + w_icon + required_tag + '</span>');
-            to_top(1500);
+            to_top('#atbdp_tags');
             return false;
         }
 
@@ -92,23 +93,23 @@ jQuery(document).ready(function ($) {
         var required_address = add_listing_validator.address;
         if ('' === address && '' !== required_address) {
             $("input[name='address']").siblings("label").after('<span class="atbdp_required">' + w_icon + required_address + '</span>');
-            to_top(1900);
+            to_top('#atbdp_address');
             return false;
         }
         //phone
         var phone = $("input[name='phone']").val();
         var required_phone = add_listing_validator.phone;
         if ('' === phone && '' !== required_phone) {
-            $("input[name='phone']").siblings("label").after('<span class="atbdp_required">' + w_icon + required_phone + '</span>');
-            to_top(1900);
+            $("#atbdp_phone").append('<span class="atbdp_required">' + w_icon + required_phone + '</span>');
+            to_top('#atbdp_phone');
             return false;
         }
         //email
         var email = $("input[name='email']").val();
         var required_email = add_listing_validator.email;
         if ('' === email && '' !== required_email) {
-            $("input[name='email']").siblings("label").after('<span class="atbdp_required">' + w_icon + required_email + '</span>');
-            to_top(1900);
+            $("#atbdp_emails").append('<span class="atbdp_required">' + w_icon + required_email + '</span>');
+            to_top('#atbdp_emails');
             return false;
         }
 
@@ -116,8 +117,8 @@ jQuery(document).ready(function ($) {
         var web = $("input[name='website']").val();
         var required_web = add_listing_validator.web;
         if ('' === web && '' !== required_web) {
-            $("input[name='website']").siblings("label").after('<span class="atbdp_required">' + w_icon + required_web + '</span>');
-            to_top(2000);
+            $("#atbdp_webs").append('<span class="atbdp_required">' + w_icon + required_web + '</span>');
+            to_top('#atbdp_webs');
             return false;
         }
 
@@ -126,15 +127,15 @@ jQuery(document).ready(function ($) {
         var Sinfo = $(".atbdp_social_field_wrapper").length;
         var required_Sinfo = add_listing_validator.Sinfo;
         if (0 === Sinfo && '' !== required_Sinfo) {
-            $("#social_info_sortable_container").siblings("label").after('<span class="atbdp_required">' + w_icon + required_Sinfo + '</span>');
-            to_top(2200);
+            $("#atbdp_socialInFo").after('<span class="atbdp_required">' + w_icon + required_Sinfo + '</span>');
+            to_top('#atbdp_socialInFo');
             return false;
         }
         //listing_prv_img
         var listing_prv_img = $("input[name='listing_prv_img']").val();
         var required_listing_prv_img = add_listing_validator.listing_prv_img;
         if ('' === listing_prv_img && '' !== required_listing_prv_img) {
-            $("input[name='listing_prv_img']").siblings("label").after('<span class="atbdp_required">' + w_icon + required_listing_prv_img + '</span>');
+            $("input[name='listing_prv_img']").parents('.form-group').append('<span style="text-align: center;display: block" class="atbdp_required">' + w_icon + required_listing_prv_img + '</span>');
             return false;
         }
 

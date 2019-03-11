@@ -228,87 +228,87 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                     'controls' => apply_filters('atbdp_review_controls', array(
                         'title_field' => array(
                             'type' => 'section',
-                            'title' => __('Title Field', ATBDP_TEXTDOMAIN),
+                            'title' => __('Title', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_title_field_settings(),
                         ),
                         'desc_field' => array(
                             'type' => 'section',
-                            'title' => __('Long Description Field', ATBDP_TEXTDOMAIN),
+                            'title' => __('Long Description', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_desc_field_settings(),
                         ),
                         'cat_field' => array(
                             'type' => 'section',
-                            'title' => __('Category Field', ATBDP_TEXTDOMAIN),
+                            'title' => __('Category', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_cat_field_settings(),
                         ),
                         'loc_field' => array(
                             'type' => 'section',
-                            'title' => __('Location Field', ATBDP_TEXTDOMAIN),
+                            'title' => __('Location', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_loc_field_settings(),
                         ),
                         'tag_field' => array(
                             'type' => 'section',
-                            'title' => __('Tag Field', ATBDP_TEXTDOMAIN),
+                            'title' => __('Tag', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_tag_field_settings(),
                         ),
                         'tagline_field' => array(
                             'type' => 'section',
-                            'title' => __('Tagline Field', ATBDP_TEXTDOMAIN),
+                            'title' => __('Tagline', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_tagline_field_settings(),
                         ),
                         'pricing_field' => array(
                             'type' => 'section',
-                            'title' => __('Pricing Field', ATBDP_TEXTDOMAIN),
+                            'title' => __('Pricing', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_pricing_field_settings(),
                         ),
                         's_desc_field' => array(
                             'type' => 'section',
-                            'title' => __('Short Description / Excerpt Field', ATBDP_TEXTDOMAIN),
+                            'title' => __('Short Description / Excerpt', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_short_desc_field_settings(),
                         ),
                         'address_field' => array(
                             'type' => 'section',
-                            'title' => __('Address Field', ATBDP_TEXTDOMAIN),
+                            'title' => __('Address', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_address_field_settings(),
                         ),
                         'phone_field' => array(
                             'type' => 'section',
-                            'title' => __('Phone Number Field', ATBDP_TEXTDOMAIN),
+                            'title' => __('Phone Number', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_phone_field_settings(),
                         ),
                         'email_field' => array(
                             'type' => 'section',
-                            'title' => __('Email Field', ATBDP_TEXTDOMAIN),
+                            'title' => __('Email', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_email_field_settings(),
                         ),
                         'website_field' => array(
                             'type' => 'section',
-                            'title' => __('Website Field', ATBDP_TEXTDOMAIN),
+                            'title' => __('Website', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_website_field_settings(),
                         ),
                         'social_field' => array(
                             'type' => 'section',
-                            'title' => __('Social Info Field', ATBDP_TEXTDOMAIN),
+                            'title' => __('Social Info', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_social_field_settings(),
                         ),
                         'map_field' => array(
                             'type' => 'section',
-                            'title' => __('Google Map Field', ATBDP_TEXTDOMAIN),
+                            'title' => __('Google Map', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_map_field_settings(),
                         ),
                         'img_field' => array(
                             'type' => 'section',
-                            'title' => __('Image Field', ATBDP_TEXTDOMAIN),
+                            'title' => __('Image', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_image_field_settings(),
                         ),
                         'video_field' => array(
                             'type' => 'section',
-                            'title' => __('Video Field', ATBDP_TEXTDOMAIN),
+                            'title' => __('Video', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_video_field_settings(),
                         ),
                         'terms_field' => array(
                             'type' => 'section',
-                            'title' => __('Terms and Condition Field', ATBDP_TEXTDOMAIN),
+                            'title' => __('Terms and Condition', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_terms_field_settings(),
                         ),
                     )),
@@ -2082,27 +2082,13 @@ The Administrator of ==SITE_NAME==
                     'default' => atbdp_yes_to_bool($req_title),
                 ),
                 array(
-                    'type' => 'select',
+                    'type' => 'toggle',
                     'name' => 'display_title_for',
-                    'label' => __( 'Display For', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'users',
-                            'label' => __('Users', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'none',
-                            'label' => __('None', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'users',
-                        'label' => __('Users', ATBDP_TEXTDOMAIN),
-                    ),
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
                 ),
             ));
         }
-
         /**
          * Get all the settings fields for description section
          * @since 4.7.2
@@ -2117,23 +2103,10 @@ The Administrator of ==SITE_NAME==
                     'default' => 0,
                 ),
                 array(
-                    'type' => 'select',
+                    'type' => 'toggle',
                     'name' => 'display_desc_for',
-                    'label' => __( 'Display For', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'users',
-                            'label' => __('Users', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'none',
-                            'label' => __('None', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'users',
-                        'label' => __('Users', ATBDP_TEXTDOMAIN),
-                    ),
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
                 ),
             ));
         }
@@ -2187,23 +2160,10 @@ The Administrator of ==SITE_NAME==
                     'default' => 0,
                 ),
                 array(
-                    'type' => 'select',
+                    'type' => 'toggle',
                     'name' => 'display_loc_for',
-                    'label' => __( 'Display For', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'users',
-                            'label' => __('Users', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'none',
-                            'label' => __('None', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'users',
-                        'label' => __('Users', ATBDP_TEXTDOMAIN),
-                    ),
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
                 ),
             ));
         }
@@ -2222,23 +2182,10 @@ The Administrator of ==SITE_NAME==
                     'default' => 0,
                 ),
                 array(
-                    'type' => 'select',
+                    'type' => 'toggle',
                     'name' => 'display_tag_for',
-                    'label' => __( 'Display For', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'users',
-                            'label' => __('Users', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'none',
-                            'label' => __('None', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'users',
-                        'label' => __('Users', ATBDP_TEXTDOMAIN),
-                    ),
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
                 ),
             ));
         }
@@ -2251,27 +2198,16 @@ The Administrator of ==SITE_NAME==
         public function get_listings_tagline_field_settings() {
             return apply_filters('atbdp_tagline_field_setting' , array(
                 array(
-                    'type' => 'select',
+                    'type' => 'toggle',
+                    'name' => 'display_tagline_field',
+                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'display_tagline_for',
-                    'label' => __( 'Display For', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'admin_users',
-                            'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'admin',
-                            'label' => __('Admin Only', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'none',
-                            'label' => __('None', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'none',
-                        'label' => __('None', ATBDP_TEXTDOMAIN),
-                    ),
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
                 ),
             ));
         }
@@ -2285,6 +2221,12 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_pricing_field_setting' , array(
                 array(
                     'type' => 'toggle',
+                    'name' => 'display_pricing_field',
+                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'require_price',
                     'label' => __('Required Price', ATBDP_TEXTDOMAIN),
                     'default' => 0,
@@ -2296,27 +2238,10 @@ The Administrator of ==SITE_NAME==
                     'default' => 0,
                 ),
                 array(
-                    'type' => 'select',
+                    'type' => 'toggle',
                     'name' => 'display_price_for',
-                    'label' => __( 'Display For', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'admin_users',
-                            'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'admin',
-                            'label' => __('Admin Only', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'none',
-                            'label' => __('None', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'admin_users',
-                        'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                    ),
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
                 ),
 
             ));
@@ -2331,34 +2256,22 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_short_desc_field_setting' , array(
                 array(
                     'type' => 'toggle',
+                    'name' => 'display_excerpt_field',
+                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'require_excerpt',
                     'label' => __('Required', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(
-                    'type' => 'select',
+                    'type' => 'toggle',
                     'name' => 'display_short_desc_for',
-                    'label' => __( 'Display For', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'admin_users',
-                            'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'admin',
-                            'label' => __('Admin Only', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'none',
-                            'label' => __('None', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'none',
-                        'label' => __('None', ATBDP_TEXTDOMAIN),
-                    ),
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
                 ),
-
             ));
         }
 
@@ -2371,34 +2284,22 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_address_field_setting' , array(
                 array(
                     'type' => 'toggle',
+                    'name' => 'display_address_field',
+                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'require_address',
-                    'label' => __('Required Address', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(
-                    'type' => 'select',
+                    'type' => 'toggle',
                     'name' => 'display_address_for',
-                    'label' => __( 'Display For', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'admin_users',
-                            'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'admin',
-                            'label' => __('Admin Only', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'none',
-                            'label' => __('None', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'admin_users',
-                        'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                    ),
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
                 ),
-
             ));
         }
 
@@ -2411,32 +2312,21 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_phone_field_setting' , array(
                 array(
                     'type' => 'toggle',
+                    'name' => 'display_phone_field',
+                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'require_phone_number',
                     'label' => __('Required', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(
-                    'type' => 'select',
+                    'type' => 'toggle',
                     'name' => 'display_phone_for',
-                    'label' => __( 'Display For', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'admin_users',
-                            'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'admin',
-                            'label' => __('Admin Only', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'none',
-                            'label' => __('None', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'admin_users',
-                        'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                    ),
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
                 ),
 
             ));
@@ -2451,32 +2341,21 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_email_field_setting' , array(
                 array(
                     'type' => 'toggle',
+                    'name' => 'display_email_field',
+                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'require_email',
-                    'label' => __('Required Email', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(
-                    'type' => 'select',
+                    'type' => 'toggle',
                     'name' => 'display_email_for',
-                    'label' => __( 'Display For', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'admin_users',
-                            'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'admin',
-                            'label' => __('Admin Only', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'none',
-                            'label' => __('None', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'admin_users',
-                        'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                    ),
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
                 ),
 
             ));
@@ -2491,34 +2370,22 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_website_field_setting' , array(
                 array(
                     'type' => 'toggle',
+                    'name' => 'display_website_field',
+                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'require_website',
                     'label' => __('Required Website', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(
-                    'type' => 'select',
+                    'type' => 'toggle',
                     'name' => 'display_website_for',
-                    'label' => __( 'Display For', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'admin_users',
-                            'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'admin',
-                            'label' => __('Admin Only', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'none',
-                            'label' => __('None', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'admin_users',
-                        'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                    ),
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
                 ),
-
             ));
         }
 
@@ -2531,34 +2398,22 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_social_field_setting' , array(
                 array(
                     'type' => 'toggle',
+                    'name' => 'display_social_info_field',
+                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'require_social_info',
                     'label' => __('Required', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(
-                    'type' => 'select',
+                    'type' => 'toggle',
                     'name' => 'display_social_info_for',
-                    'label' => __( 'Display For', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'admin_users',
-                            'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'admin',
-                            'label' => __('Admin Only', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'none',
-                            'label' => __('None', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'admin_users',
-                        'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                    ),
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
                 ),
-
             ));
         }
 
@@ -2569,6 +2424,18 @@ The Administrator of ==SITE_NAME==
          */
         public function get_listings_map_field_settings() {
             return apply_filters('atbdp_map_field_setting' , array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_map_field',
+                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_map_for',
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
                 array(
                     'type' => 'textbox',
                     'name' => 'map_api_key',
@@ -2590,7 +2457,6 @@ The Administrator of ==SITE_NAME==
                     'description' => sprintf(__( 'You can find it %s.', ATBDP_TEXTDOMAIN ), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
                     'default' => '-0.12775829999998223',
                 ),
-
                 array(
                     'type' => 'slider',
                     'name' => 'map_zoom_level',
@@ -2601,29 +2467,6 @@ The Administrator of ==SITE_NAME==
                     'step' => '1',
                     'default' => '16',
 
-                ),
-                array(
-                    'type' => 'select',
-                    'name' => 'display_map_for',
-                    'label' => __( 'Display For', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'admin_users',
-                            'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'admin',
-                            'label' => __('Admin Only', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'none',
-                            'label' => __('None', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'admin_users',
-                        'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                    ),
                 ),
 
             ));
@@ -2638,6 +2481,18 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_image_field_setting' , array(
                 array(
                     'type' => 'toggle',
+                    'name' => 'display_prv_field',
+                    'label' => __('Display Preview Image', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_gellery_field',
+                    'label' => __('Display Gallery Image', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'require_preview_img',
                     'label' => __('Required Preview Image', ATBDP_TEXTDOMAIN),
                     'default' => 0,
@@ -2649,51 +2504,18 @@ The Administrator of ==SITE_NAME==
                     'default' => 0,
                 ),
                 array(
-                    'type' => 'select',
+                    'type' => 'toggle',
                     'name' => 'display_prv_img_for',
-                    'label' => __( 'Display Preview Image For', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'admin_users',
-                            'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'admin',
-                            'label' => __('Admin Only', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'none',
-                            'label' => __('None', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'admin_users',
-                        'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                    ),
+                    'label' => __('Preview Image Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
                 ),
                 array(
-                    'type' => 'select',
+                    'type' => 'toggle',
                     'name' => 'display_glr_img_for',
-                    'label' => __( 'Display Gallery Image For', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'admin_users',
-                            'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'admin',
-                            'label' => __('Admin Only', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'none',
-                            'label' => __('None', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'admin_users',
-                        'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                    ),
+                    'label' => __('Gallery Image Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
                 ),
+
 
             ));
         }
@@ -2707,32 +2529,21 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_video_field_setting' , array(
                 array(
                     'type' => 'toggle',
+                    'name' => 'display_video_field',
+                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'require_video',
                     'label' => __('Required', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(
-                    'type' => 'select',
+                    'type' => 'toggle',
                     'name' => 'display_video_for',
-                    'label' => __( 'Display Preview Image For', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'admin_users',
-                            'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'admin',
-                            'label' => __('Admin Only', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'none',
-                            'label' => __('None', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'admin_users',
-                        'label' => __('Admin & Users', ATBDP_TEXTDOMAIN),
-                    ),
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
                 ),
 
 
@@ -2748,17 +2559,17 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_video_field_setting' , array(
                 array(
                     'type' => 'toggle',
-                    'name' => 'require_terms_conditions',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
-                    'default' => 1,
-                ),
-                array(
-                    'type' => 'toggle',
                     'name' => 'listing_terms_condition',
                     'label' => __('Enable Terms & Conditions', ATBDP_TEXTDOMAIN),
                     'description' => __('Here YES means users must agree to before submitting a listing from frontend.
 
 ', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_terms_conditions',
+                    'label' => __('Required', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(

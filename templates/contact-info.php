@@ -12,12 +12,12 @@ $disable_price = get_directorist_option('disable_list_price');
 $disable_contact_info = get_directorist_option('disable_contact_info');
 $disable_contact_owner = get_directorist_option('disable_contact_owner',1);
 $currency = get_directorist_option('g_currency', 'USD');
-$display_address_for = get_directorist_option('display_address_for', 'admin_users');
-$display_phone_for = get_directorist_option('display_phone_for', 'admin_users');
-$display_email_for = get_directorist_option('display_email_for', 'admin_users');
-$display_website_for = get_directorist_option('display_website_for', 'admin_users');
-$display_social_info_for = get_directorist_option('display_social_info_for', 'admin_users');
-$display_map_for = get_directorist_option('display_map_for', 'admin_users');
+$display_address_field = get_directorist_option('display_address_field', 1);
+$display_phone_field = get_directorist_option('display_phone_field', 1);
+$display_email_field = get_directorist_option('display_email_field', 1);
+$display_website_field = get_directorist_option('display_website_field', 1);
+$display_social_info_field = get_directorist_option('display_social_info_field', 1);
+$display_map_field = get_directorist_option('display_map_field', 1);
 $t = get_the_title();
 $t = !empty( $t ) ? esc_html($t) : __('No Title ', ATBDP_TEXTDOMAIN);
 $tg = !empty( $tagline ) ? esc_html($tagline) : '';
@@ -53,7 +53,7 @@ $info_content .= "<p> {$ad}</p></div>";
                    for="hide_contact_info"><?php esc_html_e('Check it to hide Contact Information for this listing', ATBDP_TEXTDOMAIN); ?></label>
 
         </div>
-        <?php if('none' != $display_address_for) { ?>
+        <?php if(!empty($display_address_field)) { ?>
         <div class="form-group">
             <label for="address"><?php esc_html_e('Address:', ATBDP_TEXTDOMAIN); ?></label>
             <input type="text" name="address" id="address" value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
@@ -62,7 +62,7 @@ $info_content .= "<p> {$ad}</p></div>";
         </div>
         <?php } ?>
         <!--phone-->
-        <?php if('none' != $display_phone_for) {?>
+        <?php if(!empty($display_phone_field) ) {?>
         <div class="form-group">
             <label for="atbdp_phone_number"><?php esc_html_e('Phone Number:', ATBDP_TEXTDOMAIN); ?></label>
             <input type="tel" name="phone" id="atbdp_phone_number"
@@ -70,7 +70,7 @@ $info_content .= "<p> {$ad}</p></div>";
                    placeholder="<?php esc_attr_e('Phone Number', ATBDP_TEXTDOMAIN); ?>"/>
         </div>
         <?php } ?>
-        <?php if('none' != $display_email_for){?>
+        <?php if(!empty($display_email_field)){?>
         <div class="form-group">
             <label for="atbdp_email"><?php esc_html_e('Email:', ATBDP_TEXTDOMAIN); ?></label>
             <input type="email" name="email" id="atbdp_email" value="<?= !empty($email) ? esc_attr($email) : ''; ?>"
@@ -78,7 +78,7 @@ $info_content .= "<p> {$ad}</p></div>";
                    placeholder="<?php esc_attr_e('Enter Email', ATBDP_TEXTDOMAIN); ?>"/>
         </div>
         <?php } ?>
-        <?php if('none' != $display_website_for) {?>
+        <?php if(!empty($display_website_field) ) {?>
         <div class="form-group">
             <label for="atbdp_website"><?php esc_html_e('Website:', ATBDP_TEXTDOMAIN); ?></label>
 
@@ -99,7 +99,7 @@ $info_content .= "<p> {$ad}</p></div>";
              * @since 1.1.1
              **/
             do_action('atbdp_edit_before_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
-            if('none' != $display_social_info_for) {
+            if(!empty($display_social_info_field)) {
                 ATBDP()->load_template('meta-partials/social', array('social_info' => $social_info));
             }
             /**
@@ -126,7 +126,7 @@ $info_content .= "<p> {$ad}</p></div>";
         }
         ?>
     </div> <!--ends .row-->
-    <?php if ('none' != $display_map_for) { ?>
+    <?php if (!empty($display_map_field)) { ?>
 
 
     <!--Google map will be generated here using js-->
@@ -207,7 +207,7 @@ do_action('atbdp_edit_after_googlemap_preview', 'add_listing_page_backend', $arg
     jQuery(document).ready(function ($) {
 
 
-        <?php if ('none' != $display_map_for) { ?>
+        <?php if (!empty($display_map_field)) { ?>
 
         // initialize all vars here to avoid hoisting related misunderstanding.
         var placeSearch, map, autocomplete, address_input, markers, info_window, $manual_lat, $manual_lng, saved_lat_lng, info_content;

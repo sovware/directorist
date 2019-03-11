@@ -135,9 +135,11 @@ $column_width = 100/$columns .'%';
                 $thumbnail_cropping             = get_directorist_option('thumbnail_cropping',1);
                 $crop_width                     = get_directorist_option('crop_width', 360);
                 $crop_height                    = get_directorist_option('crop_height', 300);
-                $display_tagline_for            = get_directorist_option('display_tagline_for', 'none');
-                $display_price_for              = get_directorist_option('display_price_for', 'admin_users');
-                $display_short_desc_for         = get_directorist_option('display_short_desc_for', 'none');
+                $display_tagline_field          = get_directorist_option('display_tagline_field', 0);
+                $display_pricing_field          = get_directorist_option('display_pricing_field', 1);
+                $display_excerpt_field          = get_directorist_option('display_excerpt_field', 0);
+                $display_address_field          = get_directorist_option('display_address_field', 1);
+                $display_phone_field            = get_directorist_option('display_phone_field', 1);
                 if(!empty($listing_prv_img)) {
 
                     if($thumbnail_cropping) {
@@ -248,7 +250,7 @@ $column_width = 100/$columns .'%';
                                         <h4 class="atbd_listing_title">
                                             <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                         </h4>
-                                    <?php } if(!empty($tagline) && !empty($enable_tagline) && 'none' != $display_tagline_for) {
+                                    <?php } if(!empty($tagline) && !empty($enable_tagline) && !empty($display_tagline_field)) {
                                         ?>
                                         <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                     <?php } ?>
@@ -264,7 +266,7 @@ $column_width = 100/$columns .'%';
 
                                                 do_action('atbdp_after_listing_tagline');
 
-                                            if(!empty($display_price) && 'none' != $display_price_for) {
+                                            if(!empty($display_price) && !empty($display_pricing_field)) {
                                                 if(!empty($price_range)) {
                                                     $output = atbdp_display_price_range($price_range);
                                                     echo $output;
@@ -288,7 +290,7 @@ $column_width = 100/$columns .'%';
                                             <ul>
                                                 <?php
                                                 if (!empty($display_contact_info)) {
-                                                    if( !empty( $address ) && 'contact' == $address_location) { ?>
+                                                    if( !empty( $address ) && 'contact' == $address_location && !empty($display_address_field)) { ?>
                                                         <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
                                                     <?php } elseif(!empty($locs) && 'location' == $address_location) {
 
@@ -308,7 +310,7 @@ $column_width = 100/$columns .'%';
                                                             </p>
                                                         </li>
                                                     <?php } ?>
-                                                    <?php if( !empty( $phone_number )) {?>
+                                                    <?php if( !empty( $phone_number ) && !empty($display_phone_field)) {?>
                                                         <li><p><span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number));?></p></li>
                                                         <?php
                                                     } }
@@ -322,7 +324,7 @@ $column_width = 100/$columns .'%';
                                         </div><!-- End atbd listing meta -->
                                         <?php
                                     }
-                                    if( !empty($excerpt) && !empty($enable_excerpt) && 'none' != $display_short_desc_for) { ?>
+                                    if( !empty($excerpt) && !empty($enable_excerpt) && !empty($display_excerpt_field)) { ?>
                                         <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20))); ?></p>
                                     <?php } ?>
                                 </div><!-- end ./atbd_content_upper -->

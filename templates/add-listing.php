@@ -10,12 +10,11 @@ $ad = !empty($address) ? esc_html($address) : '';
 $image = (!empty($attachment_id[0])) ? "<img src='" . esc_url(wp_get_attachment_image_url($attachment_id[0], 'thumbnail')) . "'>" : '';
 $post_ID = $post->ID;
 // grab social information
-$disable_price = get_directorist_option('disable_list_price');
-$currency = get_directorist_option('g_currency', 'USD');
-$display_tagline_for = get_directorist_option('display_tagline_for', 'none');
-$display_price_for = get_directorist_option('display_price_for', 'admin_users');
-$display_short_desc_for = get_directorist_option('display_short_desc_for', 'none');
-
+$disable_price         = get_directorist_option('disable_list_price');
+$currency              = get_directorist_option('g_currency', 'USD');
+$display_tagline_field = get_directorist_option('display_tagline_field', 0);
+$display_pricing_field = get_directorist_option('display_pricing_field', 1);
+$display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
 ?>
 <div id="directorist" class="directorist atbd_wrapper directory_wrapper">
     <?php
@@ -29,7 +28,7 @@ $display_short_desc_for = get_directorist_option('display_short_desc_for', 'none
     ?>
 
     <div class="atbd_">
-        <?php if ('none' != $display_tagline_for){ ?>
+        <?php if (!empty($display_tagline_field)){ ?>
             <div class="form-group">
                 <label for="atbdp_excerpt"><?php esc_html_e('Tagline', ATBDP_TEXTDOMAIN); ?></label>
                 <input type="text" name="tagline"
@@ -41,7 +40,7 @@ $display_short_desc_for = get_directorist_option('display_short_desc_for', 'none
         <?php }?>
         <?php
         $price_range = !empty($price_range) ? $price_range : '';
-        if ('none' != $display_price_for ) { ?>
+        if (!empty($display_pricing_field) ) { ?>
             <div class="form-group">
                 <label for="#">Pricing</label>
                 <div class="atbd_pricing_options">
@@ -61,8 +60,6 @@ $display_short_desc_for = get_directorist_option('display_short_desc_for', 'none
 
                     <small> (Optional - Uncheck both to hide pricing for this listing)</small>
                 </div>
-
-
 
                 <input type="hidden" id="pricerange_val" value="<?php echo $price_range;?>">
                 <input type="text" id="price" name="price" value="<?= !empty($price) ? esc_attr($price) : ''; ?>"
@@ -86,7 +83,7 @@ $display_short_desc_for = get_directorist_option('display_short_desc_for', 'none
                 </select>
             </div>
         <?php } ?>
-        <?php if ('none' != $display_short_desc_for){ ?>
+        <?php if (!empty($display_excerpt_field)){ ?>
             <div class="form-group">
                 <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN) ?></label>
                 <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->

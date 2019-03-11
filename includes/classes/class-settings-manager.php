@@ -2378,7 +2378,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'require_website',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required Website', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(

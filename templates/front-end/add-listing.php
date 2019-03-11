@@ -8,7 +8,6 @@ if (!empty($p_id)) {
         echo '<p class="error">' . __('You do not have permission to edit this listing', ATBDP_TEXTDOMAIN) . '</p>';
         return;
     }
-
     $listing_info['never_expire'] = get_post_meta($p_id, '_never_expire', true);
     $listing_info['featured'] = get_post_meta($p_id, '_featured', true);
     $listing_info['listing_type'] = get_post_meta($p_id, '_listing_type', true);
@@ -158,7 +157,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                 <?php if(empty($display_title_for)) {?>
                                 <div class="form-group">
                                     <label for="listing_title"><?php esc_html_e('Title:', ATBDP_TEXTDOMAIN);
-                                        if(get_directorist_option('require_title',1)){echo '<span class="atbdp_make_str_red"> *</span>';} ?><div style="display: none" class="title_required atbdp-required"></div></label>
+                                        if(get_directorist_option('require_title',1)){echo '<span class="atbdp_make_str_red"> *</span>';} ?></label>
                                     <input type="text" name="listing_title"
                                            value="<?= !empty($listing->post_title) ? esc_attr($listing->post_title) : ''; ?>"
                                            class="form-control directory_field"
@@ -167,7 +166,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                 <?php } ?>
                                 <?php if(empty($display_desc_for)) { ?>
                                 <div class="form-group">
-                                    <label for="listing_content"><?php esc_html_e('Long Description', ATBDP_TEXTDOMAIN) ;if(get_directorist_option('require_long_details')){echo '<span class="atbdp_make_str_red"> *</span>';}?><div style="display: none" class="description_required atbdp-required"></div></label>
+                                    <label for="listing_content"><?php esc_html_e('Long Description', ATBDP_TEXTDOMAIN) ;if(get_directorist_option('require_long_details')){echo '<span class="atbdp_make_str_red"> *</span>';}?></label>
                                     <?php wp_editor(
                                         !empty($listing->post_content) ? wp_kses($listing->post_content, wp_kses_allowed_html('post')) : '',
                                         'listing_content',
@@ -345,9 +344,12 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                                 echo '</div>';
                                                 break;
                                             case 'textarea' :
+                                                echo '<div>';
                                                 printf('<textarea  class="form-control directory_field" name="custom_field[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $post->ID, (int)$cf_rows, esc_attr($cf_placeholder), esc_textarea($value));
+                                                echo '</div>';
                                                 break;
                                             case 'radio':
+                                                echo '<div>';
                                                 $choices = get_post_meta(get_the_ID(), 'choices', true);
                                                 $choices = explode("\n", $choices);
                                                 echo '<ul class="atbdp-radio-list vertical">';
@@ -368,9 +370,11 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                                                                     printf( '<li><label><input type="radio" name="custom_field[%d]" value="%s"%s>%s</label></li>', $post->ID, $_value, $_checked, $_label );
                                                 }
                                                     echo '</ul>';
+                                                echo '</div>';
                                                     break;
 
                                                 case 'select' :
+                                                    echo '<div>';
                                                     $choices = get_post_meta(get_the_ID(), 'choices', true);
                                                     $choices = explode("\n", $choices);
                                                     printf('<select name="custom_field[%d]" class="form-control directory_field">', $post->ID);
@@ -395,9 +399,11 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                                         printf('<option value="%s"%s>%s</option>', $_value, $_selected, $_label);
                                                     }
                                                     echo '</select>';
+                                                    echo '</div>';
                                                     break;
 
                                                 case 'checkbox' :
+                                                    echo '<div>';
                                                     $choices = get_post_meta(get_the_ID(), 'choices', true);
                                                     $choices = explode("\n", $choices);
 
@@ -423,6 +429,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                                         printf('<li><label><input type="hidden" name="custom_field[%s][]" value="" /><input type="checkbox" name="custom_field[%d][]" value="%s"%s> %s</label></li>', $post->ID, $post->ID, $_value, $_checked, $_label);
                                                     }
                                                     echo '</ul>';
+                                                    echo '</div>';
                                                     break;
                                                 case 'url'  :
                                                     echo '<div>';

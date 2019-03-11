@@ -123,17 +123,13 @@
         placeholder: atbdp_add_listing.i18n_text.location_selection,
         allowClear: true
     });
-    // Category
-    $('#at_biz_dir-category').select2({
-        placeholder: atbdp_add_listing.i18n_text.category_selection,
-        allowClear: true
-    });
 
     // Tags
     $('#at_biz_dir-tags').select2({
         placeholder: atbdp_add_listing.i18n_text.tag_selection,
-        tags: true,
-        tokenSeparators: [',', ' ']
+        /*tags: true,
+        tokenSeparators: [',', ' ']*/
+        allowClear: true
     });
 
 })(jQuery);

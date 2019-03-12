@@ -511,6 +511,13 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                                         value='<?= $l_tag->name ?>'><?= esc_html($l_tag->name) ?></option>
                                             <?php } ?>
                                         </select>
+                                        <?php
+                                        /**
+                                         * @since 4.7.2
+                                         * It fires after the tag field
+                                         */
+                                        do_action('atbdp_add_listing_after_tag_field', $p_id);
+                                        ?>
                                     </div>
                                     <?php
                                 }

@@ -11,8 +11,8 @@ jQuery(document).ready(function ($) {
         var title = $("input[name='listing_title']").val();
         var required_title = add_listing_validator.title;
         if ('' === title && '' !== required_title) {
-            $("input[name='listing_title']").siblings("label").after('<span class="atbdp_required">' + w_icon + required_title + '</span>');
-            to_top(0);
+            $("input[name='listing_title']").after('<span class="atbdp_required">' + w_icon + required_title + '</span>');
+            to_top('#atbdp_listing_title');
             return false;
         }
         //description
@@ -20,8 +20,8 @@ jQuery(document).ready(function ($) {
         var description = $('#tinymce[data-id="listing_content"]', iframe.contents()).text();
         var required_description = add_listing_validator.description;
         if ('' === description && '' !== required_description) {
-            $("#wp-listing_content-wrap").siblings("label").after('<span class="atbdp_required">' + w_icon  + required_description + '</span>');
-            to_top(0);
+            $("#wp-listing_content-wrap").after('<span class="atbdp_required">' + w_icon  + required_description + '</span>');
+            to_top('#atbdp_listing_content');
             return false;
         }
 
@@ -84,7 +84,7 @@ jQuery(document).ready(function ($) {
         var required_category = add_listing_validator.category;
         if ('-1' === category && '' !== required_category) {
             $("select[name='admin_category_select']").siblings("label").after('<span class="atbdp_required">' + w_icon + required_category + '</span>');
-            to_top(1500);
+            to_top('#atbdp_categories');
             return false;
         }
 

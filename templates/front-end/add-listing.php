@@ -155,7 +155,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                             </div>
                             <div class="atbdb_content_module_contents">
                                 <?php if(empty($display_title_for)) {?>
-                                <div class="form-group">
+                                <div class="form-group" id="atbdp_listing_title">
                                     <label for="listing_title"><?php esc_html_e('Title:', ATBDP_TEXTDOMAIN);
                                         if(get_directorist_option('require_title',1)){echo '<span class="atbdp_make_str_red"> *</span>';} ?></label>
                                     <input type="text" name="listing_title"
@@ -165,7 +165,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                 </div>
                                 <?php } ?>
                                 <?php if(empty($display_desc_for)) { ?>
-                                <div class="form-group">
+                                <div class="form-group" id="atbdp_listing_content">
                                     <label for="listing_content"><?php esc_html_e('Long Description', ATBDP_TEXTDOMAIN) ;if(get_directorist_option('require_long_details')){echo '<span class="atbdp_make_str_red"> *</span>';}?></label>
                                     <?php wp_editor(
                                         !empty($listing->post_content) ? wp_kses($listing->post_content, wp_kses_allowed_html('post')) : '',
@@ -524,7 +524,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                     Run the custom field loop to show all published custom fields asign to Category
                                  **************************************************************************-->
                                 <!--@ Options for select the category.-->
-                                <div class="form-group">
+                                <div class="form-group" id="atbdp_categories">
                                     <label for="atbdp_select_cat"><?php esc_html_e('Select Category', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_category')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
                                     <?php
                                     $category = wp_get_object_terms($p_id, ATBDP_CATEGORY, array('fields' => 'ids'));

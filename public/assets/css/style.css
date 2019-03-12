@@ -559,8 +559,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbdp_required {
-  display: inline-block;
-  margin-left: 10px;
+  display: block;
+  margin-top: 10px;
   color: #F44336;
 }
 
@@ -2219,11 +2219,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .atbd_term_and_condition_area {
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .atbd_term_and_condition_area > label {
   display: inline-block;
+  margin: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .btn_wrap.list_submit {

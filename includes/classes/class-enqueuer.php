@@ -283,7 +283,9 @@ class ATBDP_Enqueuer {
         wp_register_script('atbdp_add_listing_js', ATBDP_PUBLIC_ASSETS . 'js/add-listing.js', $dependency, ATBDP_VERSION, true );
         wp_enqueue_script('atbdp_add_listing_js');
         wp_register_script('atbdp_add_listing_validator', ATBDP_PUBLIC_ASSETS . 'js/validator.js', $dependency, ATBDP_VERSION, true );
+        wp_register_script('atbdp_custom_field_validator', ATBDP_PUBLIC_ASSETS . 'js/custom_field_validator.js', $dependency, ATBDP_VERSION, true );
         wp_enqueue_script('atbdp_add_listing_validator');
+        wp_enqueue_script('atbdp_custom_field_validator');
 
         // Internationalization text for javascript file especially add-listing.js
         $i18n_text = array(
@@ -354,45 +356,6 @@ class ATBDP_Enqueuer {
         if(!empty($require_excerpt && $display_excerpt) && empty($excerpt_visable)){
             $excerpt = __('Excerpt field is required!', ATBDP_TEXTDOMAIN);
         }
-        //custom fields
-        $required_custom_fields = array();
-        $radio_field = '';
-        $cus_check = '';
-        $custom_fields = new WP_Query(array(
-            'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
-            'posts_per_page' => -1,
-            'post_status' => 'publish',
-
-        ));
-       $plan_custom_field = true;
-        if (is_fee_manager_active()){
-            $selected_plan = selected_plan_id();
-            $planID = !empty($selected_plan)?$selected_plan:$fm_plans;
-            $plan_custom_field = is_plan_allowed_custom_fields($planID);
-        }
-        if ($plan_custom_field){
-            $fields = $custom_fields->posts;
-        }else{
-            $fields = array();
-        }
-        foreach ($fields as $post) {
-            setup_postdata($post);
-            $cf_required = get_post_meta($post->ID, 'required', true);
-            $cf_type = get_post_meta($post->ID, 'type', true);
-            if ($cf_required){
-                $required_custom_fields[] = $post->ID;
-                switch ($cf_type){
-                    case 'radio':
-                        $radio_field = $post->ID;
-                        break;
-                    case 'checkbox':
-                        $cus_check = $post->ID;
-                        break;
-                }
-            }
-        }
-        wp_reset_postdata();
-
         //price
         $plan_price = true;
         if (is_fee_manager_active()){
@@ -536,9 +499,6 @@ class ATBDP_Enqueuer {
             'description' => $description,
             'category' => $category,
             'excerpt' => $excerpt,
-            'required_cus_fields' => $required_custom_fields,
-            'cus_radio' => $radio_field,
-            'cus_check' => $cus_check,
             'price'    => $price,
             'price_range'    => $price_range,
             'tag'    => $tag,
@@ -556,6 +516,51 @@ class ATBDP_Enqueuer {
 
         wp_localize_script( 'atbdp_add_listing_validator', 'add_listing_validator', $validator );
 
+        //custom fields
+        $required_custom_fields = array();
+        $radio_field = '';
+        $cus_check = '';
+        $custom_fields = new WP_Query(array(
+            'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
+            'posts_per_page' => -1,
+            'post_status' => 'publish',
+
+        ));
+        $plan_custom_field = true;
+        if (is_fee_manager_active()){
+            $selected_plan = selected_plan_id();
+            $planID = !empty($selected_plan)?$selected_plan:$fm_plans;
+            $plan_custom_field = is_plan_allowed_custom_fields($planID);
+        }
+        if ($plan_custom_field){
+            $fields = $custom_fields->posts;
+        }else{
+            $fields = array();
+        }
+        foreach ($fields as $post) {
+            setup_postdata($post);
+            $cf_required = get_post_meta($post->ID, 'required', true);
+            $cf_type = get_post_meta($post->ID, 'type', true);
+            if ($cf_required){
+                $required_custom_fields[] = $post->ID;
+                switch ($cf_type){
+                    case 'radio':
+                        $radio_field = $post->ID;
+                        break;
+                    case 'checkbox':
+                        $cus_check = $post->ID;
+                        break;
+                }
+            }
+        }
+        wp_reset_postdata();
+
+        $custom_field_validator = array(
+            'required_cus_fields' => $required_custom_fields,
+            'cus_radio' => $radio_field,
+            'cus_check' => $cus_check,
+        );
+        wp_localize_script( 'atbdp_custom_field_validator', 'custom_field_validator', $custom_field_validator );
         wp_enqueue_media();
 
     }

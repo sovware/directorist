@@ -279,10 +279,10 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                     <div class="form-group">
                                         <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_excerpt')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
                                         <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
-                                        <input type="hidden" id="has_excerpt" value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
+                                        <input type="hidden" id="has_excerpt" value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) :''; ?>">
                                         <textarea name="excerpt" id="atbdp_excerpt"
                                                   class="form-control directory_field" cols="30" rows="5"
-                                                  placeholder="<?= __('Short Description or Excerpt', ATBDP_TEXTDOMAIN); ?>"> <?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?> </textarea>
+                                                  placeholder="<?= __('Short Description or Excerpt', ATBDP_TEXTDOMAIN); ?>"><?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) :''; ?></textarea>
                                     </div>
                                 <?php }?>
                                 <!--***********************************************************************

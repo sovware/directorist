@@ -314,7 +314,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                     $post_meta = get_post_meta($post_id);
                                     $instructions = get_post_meta(get_the_ID(), 'instructions', true);
                                     ?>
-                                    <div class="form-group">
+                                    <div class="form-group" id="atbdp_custom_field_area">
                                         <label for=""><?php the_title(); ?><?php if ($cf_required) {
                                                 echo '<span style="color: red"> *</span>';
                                             }

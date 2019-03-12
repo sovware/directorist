@@ -29,7 +29,7 @@ jQuery(document).ready(function ($) {
         var excerpt = $("textarea#atbdp_excerpt").val();
         var required_excerpt = add_listing_validator.excerpt;
         if ('' === excerpt && '' !== required_excerpt) {
-            $("textarea#atbdp_excerpt").siblings("label").after('<span class="atbdp_required">' + w_icon + required_excerpt + '</span>');
+            $("textarea#atbdp_excerpt").after('<span class="atbdp_required">' + w_icon + required_excerpt + '</span>');
             to_top('#atbdp_excerpt');
             return false;
         }
@@ -47,7 +47,7 @@ jQuery(document).ready(function ($) {
         var price = $("input[name='price']").val();
         var required_price = add_listing_validator.price;
         if ('' === price && '' !== required_price) {
-            $("input[name='price']").siblings("label").after('<span class="atbdp_required">' + w_icon + required_price + '</span>');
+            $("#atbd_pricing").append('<span class="atbdp_required">' + w_icon + required_price + '</span>');
             to_top('#atbd_pricing');
 
             return false;
@@ -57,7 +57,7 @@ jQuery(document).ready(function ($) {
         var price_range = $("select[name='price_range']").val();
         var required_price_range = add_listing_validator.price_range;
         if ('' === price_range && '' !== required_price_range) {
-            $("select[name='price_range']").siblings("label").after('<span class="atbdp_required">' + w_icon + required_price_range + '</span>');
+            $("#atbd_pricing").after('<span class="atbdp_required">' + w_icon + required_price_range + '</span>');
             to_top('#atbd_pricing');
             return false;
         }
@@ -74,7 +74,7 @@ jQuery(document).ready(function ($) {
         var tag = $("#at_biz_dir-tags").val();
         var required_tag = add_listing_validator.tag;
         if (null === tag && '' !== required_tag) {
-            $("#at_biz_dir-tags").siblings("label").after('<span class="atbdp_required">' + w_icon + required_tag + '</span>');
+            $("#atbdp_tags").after('<span class="atbdp_required">' + w_icon + required_tag + '</span>');
             to_top('#atbdp_tags');
             return false;
         }
@@ -92,7 +92,7 @@ jQuery(document).ready(function ($) {
         var address = $("input[name='address']").val();
         var required_address = add_listing_validator.address;
         if ('' === address && '' !== required_address) {
-            $("input[name='address']").siblings("label").after('<span class="atbdp_required">' + w_icon + required_address + '</span>');
+            $("input[name='address']").after('<span class="atbdp_required">' + w_icon + required_address + '</span>');
             to_top('#atbdp_address');
             return false;
         }
@@ -143,7 +143,7 @@ jQuery(document).ready(function ($) {
         var gallery_image = $("#no_image_set").length;
         var required_gallery_image = add_listing_validator.gallery_image;
         if (1 === gallery_image && '' !== required_gallery_image) {
-            $("#no_images").siblings("label").after('<span class="atbdp_required">' + w_icon + required_gallery_image + '</span>');
+            $(".listing-img-container").append('<span class="atbdp_required">' + w_icon + required_gallery_image + '</span>');
             return false;
         }
 
@@ -159,7 +159,7 @@ jQuery(document).ready(function ($) {
         var terms = $("#listing_t").is(":checked");
         var required_terms = add_listing_validator.terms;
         if (false === terms && '' !== required_terms) {
-            $("#listing_t").siblings("label").after('<span class="atbdp_required">' + w_icon + required_terms + '</span>');
+            $(".atbd_term_and_condition_area").after('<span class="atbdp_required" style="text-align: center;display: block; margin-bottom: 10px">' + w_icon + required_terms + '</span>');
             return false;
         }
 
@@ -174,8 +174,8 @@ jQuery(document).ready(function ($) {
             if (match_field) {
                 var value = $(this).val();
                 if ('' === value) {
-                    $(this).parents(".form-group").children('label').append('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
-                    to_top(1400);
+                    $(this).parents(".form-group").after('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
+                   to_top('#atbdp_custom_field_area');
                     returnValue = false;
                 }
             }
@@ -187,8 +187,8 @@ jQuery(document).ready(function ($) {
         var cus_check = $('.atbdp-checkbox-list input[type="checkbox"]').is(":checked");
         var required_checkbox = add_listing_validator.cus_check;
         if (false === cus_check && '' !== required_checkbox) {
-            $('.atbdp-checkbox-list input[type="checkbox"]').parent().parents(".form-group").children('label').append('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
-            to_top(1400);
+            $('.atbdp-checkbox-list input[type="checkbox"]').parents(".form-group").after('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
+            to_top('#atbdp_custom_field_area');
             return false;
         }
 
@@ -196,8 +196,8 @@ jQuery(document).ready(function ($) {
         var cus_radio = $('.atbdp-radio-list input[type="radio"]').is(":checked");
         var required_radio = add_listing_validator.cus_radio;
         if (false === cus_radio && '' !== required_radio) {
-            $('.atbdp-radio-list input[type="radio"]').parent().parents(".form-group").children('label').append('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
-            to_top(1400);
+            $('.atbdp-radio-list input[type="radio"]').parents(".form-group").after('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
+            to_top('#atbdp_custom_field_area');
             return false;
         }
 

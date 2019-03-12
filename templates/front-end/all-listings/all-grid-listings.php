@@ -109,7 +109,7 @@ $column_width = 100/$columns .'%';
                 $hide_contact_info              = get_post_meta(get_the_ID(), '_hide_contact_info', true);
                 $disable_contact_info           = get_directorist_option('disable_contact_info', 0);
                 $display_title                  = get_directorist_option('display_title',1);
-                $display_review                 = get_directorist_option('display_review',1);
+                $display_review                 = get_directorist_option('enable_review',1);
                 $display_price                  = get_directorist_option('display_price',1);
                 $display_category               = get_directorist_option('display_category',1);
                 $display_view_count             = get_directorist_option('display_view_count',1);
@@ -245,6 +245,7 @@ $column_width = 100/$columns .'%';
                                             </span>
                             </figure>
                             <div class="atbd_listing_info">
+                                <?php if(!empty($display_title) || !empty($enable_tagline) || !empty($display_review) || !empty($display_price)) {?>
                                 <div class="atbd_content_upper">
                                     <?php if(!empty($display_title)) { ?>
                                         <h4 class="atbd_listing_title">
@@ -328,6 +329,7 @@ $column_width = 100/$columns .'%';
                                         <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20))); ?></p>
                                     <?php } ?>
                                 </div><!-- end ./atbd_content_upper -->
+                                <?php } ?>
                                 <?php if(!empty($display_category) || !empty($display_view_count)) {?>
                                     <div class="atbd_listing_bottom_content">
                                         <?php

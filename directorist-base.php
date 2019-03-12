@@ -1046,8 +1046,7 @@ final class Directorist_Base
                             ?></h4>
                     </div>
                     <?php if (is_user_logged_in()) { ?>
-                        <label for="review_content" class="btn btn-primary btn-sm">Add a review</label>
-
+                        <label for="review_content" class="btn btn-primary btn-sm"><?php _e('Add a review',ATBDP_TEXTDOMAIN); ?></label>
                     <?php } ?>
                 </div>
 

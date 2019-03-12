@@ -293,17 +293,21 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                     } ?>
                     <div class="atbd_listing_detail">
                         <div class="atbd_data_info">
+                            <?php if(empty($is_disable_price) || !empty($enable_review)) {?>
                             <div class="atbd_listing_meta">
                                 <?php
-                                if(!empty($display_pricing_field)) {
-                                    if (!empty($price_range)) {
-                                        //is range selected then print it
-                                        $output = atbdp_display_price_range($price_range);
-                                        echo $output;
-                                    } else {
-                                        atbdp_display_price($price, $is_disable_price);
+                                if(empty($is_disable_price)){
+                                    if(!empty($display_pricing_field)) {
+                                        if (!empty($price_range)) {
+                                            //is range selected then print it
+                                            $output = atbdp_display_price_range($price_range);
+                                            echo $output;
+                                        } else {
+                                            atbdp_display_price($price, $is_disable_price);
+                                        }
                                     }
                                 }
+
                                 do_action('atbdp_after_listing_price');
                                 /**
                                  * Fires after the title and sub title of the listing is rendered on the single listing page
@@ -320,7 +324,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                     ?>
                                 </p>
                             </div>
-                            <?php } ?>
+                            <?php } } ?>
+                            <?php if(!empty($enable_new_listing) || !empty($display_feature_badge_single) || !empty($display_popular_badge_single)) {?>
                             <div class="atbd_badges">
                                 <?php
                                     //print the new badge
@@ -346,6 +351,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                     }
                                 ?>
                             </div>
+                            <?php } ?>
                             <div class="atbd_listting_category">
                                 <ul class="directory_cats">
                                     <?php

@@ -510,7 +510,7 @@ class ATBDP_Order {
             <?php foreach( $order_items as $order ) : ?>
                 <tr>
                     <td style="border-right:1px solid #CCC; border-bottom:1px solid #CCC;">
-                        <h3><?php echo $order['label']; ?></h3>
+                        <h3><?php echo !empty($order['label'])?$order['label']:''; ?></h3>
                         <?php if( isset( $order['desc'] ) ) echo $order['desc']; ?>
                     </td>
                     <td style="border-bottom:1px solid #CCC;">

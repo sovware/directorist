@@ -40,7 +40,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
     </div>
     <?php }
     ?>
-    <?php if( empty($display_glr_img_for) && !empty($display_gellery_field) ) {?>
+    <?php if( empty($display_glr_img_for) && !empty($display_gellery_field) && $plan_slider ) {?>
     <div class="form-group">
         <!-- image container, which can be manipulated with js -->
         <div class="listing-img-container">

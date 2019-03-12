@@ -67,7 +67,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $ajax = false;
             if( isset( $_POST['term_id'] ) ) {
                 $ajax = true;
-                $post_ID = (int) $_POST['post_id'];
+                $post_ID = !empty($_POST['post_id'])?(int)$_POST['post_id']:'' ;
                 $term_id = (int) $_POST['term_id'];
             }
             // var_dump($post_id);

@@ -740,7 +740,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                             apply_filters('atbdp_before_map_section', 'add_listing_page_frontend', $listing_info, $p_id);
                             ?>
 
-                            <?php if (empty($display_map_for) && !empty($display_map_field)) { ?>
+                            <?php if (empty($display_map_for) && !empty($display_map_field) && !empty($display_address_field)) { ?>
                                 <!--Show map only if it is not disabled in the settings-->
                             <div class="atbd_content_module atbd_location_map_setting">
                                 <div class="atbd_content_module__tittle_area">
@@ -987,7 +987,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
 
         // Bias the auto complete object to the user's geographical location,
         // as supplied by the browser's 'navigator.geolocation' object.
-        <?php if (empty($display_map_for) && !empty($display_map_field)) { ?>
+        <?php if (empty($display_map_for) && !empty($display_map_field) && !empty($display_address_field)) { ?>
         // initialize all vars here to avoid hoisting related misunderstanding.
         var placeSearch, map, autocomplete, address_input, markers, info_window, $manual_lat, $manual_lng,
             saved_lat_lng, info_content;

@@ -126,7 +126,7 @@ $info_content .= "<p> {$ad}</p></div>";
         }
         ?>
     </div> <!--ends .row-->
-    <?php if (!empty($display_map_field)) { ?>
+    <?php if (!empty($display_map_field) && !empty($display_address_field)) { ?>
 
 
     <!--Google map will be generated here using js-->
@@ -207,7 +207,7 @@ do_action('atbdp_edit_after_googlemap_preview', 'add_listing_page_backend', $arg
     jQuery(document).ready(function ($) {
 
 
-        <?php if (!empty($display_map_field)) { ?>
+        <?php if (!empty($display_map_field) && !empty($display_address_field)) { ?>
 
         // initialize all vars here to avoid hoisting related misunderstanding.
         var placeSearch, map, autocomplete, address_input, markers, info_window, $manual_lat, $manual_lng, saved_lat_lng, info_content;

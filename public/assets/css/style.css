@@ -2559,10 +2559,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   border-radius: 3px;
   padding: 10px 20px;
   margin-bottom: 15px;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .directory_home_category_area .categories li + li {
-  margin-left: 15px;
+  margin-left: 7px;
+  margin-right: 7px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .directory_home_category_area .categories li a p {
@@ -2765,14 +2763,25 @@ body.atbd_content_active #directorist.atbd_wrapper {
     justify-content: center;
     margin-top: 30px;
   }
+  .atbd_content_active #directorist.atbd_wrapper #delete-custom-img {
+    margin-top: 10px;
+  }
 }
 
 @media (max-width: 575px) {
   .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar {
     flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
   }
-  .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar img {
-    margin-right: 15px;
+  .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar .atbd_auth_nd {
+    margin-top: 10px;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_author_listings_area {
+    display: block;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_author_listings_area .atbd_author_filter_area {
+    margin-top: 15px;
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar .atbd_auth_nd {
     margin-left: 0;

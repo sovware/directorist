@@ -195,8 +195,6 @@ $column_width           = 100/$search_listing_columns .'%';
                                                 </div>
                                             <?php } ?>
                                         </div>
-
-                                        <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>" class="atbd_thumbnail_overlay_content">
                                             <?php
                                             $plan_hours = true;
                                             if (is_fee_manager_active()){

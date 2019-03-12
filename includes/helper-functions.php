@@ -2122,9 +2122,6 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                         <?php } ?>
                                     </div>
 
-                                    <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"
-                                       class="atbd_thumbnail_overlay_content">
-
                                         <?php
                                         $plan_hours = true;
                                         if (is_fee_manager_active()) {
@@ -2170,6 +2167,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                             </span>
                                 </figure>
                                 <div class="atbd_listing_info">
+                    <?php if(!empty($display_title) || !empty($enable_tagline) || !empty($display_review) || !empty($display_price)) {?>
                                     <div class="atbd_content_upper">
                                         <?php if (!empty($display_title)) { ?>
                                             <h4 class="atbd_listing_title">
@@ -2261,7 +2259,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                             <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20))); ?></p>
                                         <?php } ?>
                                     </div><!-- end ./atbd_content_upper -->
-                                    <?php if (!empty($display_category) || !empty($display_view_count)) { ?>
+                                    <?php } if (!empty($display_category) || !empty($display_view_count)) { ?>
                                         <div class="atbd_listing_bottom_content">
                                             <?php
                                             if(!empty($display_category)) {
@@ -2465,9 +2463,6 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                         <?php } ?>
 
                                     </div>
-
-                                    <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"
-                                       class="atbd_thumbnail_overlay_content">
 
                                         <?php
                                         $plan_hours = true;

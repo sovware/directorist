@@ -155,7 +155,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                             </div>
                             <div class="atbdb_content_module_contents">
                                 <?php if(empty($display_title_for)) {?>
-                                <div class="form-group">
+                                <div class="form-group" id="atbdp_listing_title">
                                     <label for="listing_title"><?php esc_html_e('Title:', ATBDP_TEXTDOMAIN);
                                         if(get_directorist_option('require_title',1)){echo '<span class="atbdp_make_str_red"> *</span>';} ?></label>
                                     <input type="text" name="listing_title"
@@ -165,7 +165,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                 </div>
                                 <?php } ?>
                                 <?php if(empty($display_desc_for)) { ?>
-                                <div class="form-group">
+                                <div class="form-group" id="atbdp_listing_content">
                                     <label for="listing_content"><?php esc_html_e('Long Description', ATBDP_TEXTDOMAIN) ;if(get_directorist_option('require_long_details')){echo '<span class="atbdp_make_str_red"> *</span>';}?></label>
                                     <?php wp_editor(
                                         !empty($listing->post_content) ? wp_kses($listing->post_content, wp_kses_allowed_html('post')) : '',
@@ -265,8 +265,15 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                                 </option>
                                             </select>
                                         <?php }
-                                        ?>
+                                    
+                                     /**
+                                 * @since 4.7.1
+                                 * It fires after the price field
+                                 */
+                                do_action('atbdp_add_listing_after_price_field', $p_id);
+                                ?>
                                     </div>
+
 
                                 <?php }
                                 /**
@@ -279,10 +286,10 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                     <div class="form-group">
                                         <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_excerpt')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
                                         <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
-                                        <input type="hidden" id="has_excerpt" value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
+                                        <input type="hidden" id="has_excerpt" value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) :''; ?>">
                                         <textarea name="excerpt" id="atbdp_excerpt"
                                                   class="form-control directory_field" cols="30" rows="5"
-                                                  placeholder="<?= __('Short Description or Excerpt', ATBDP_TEXTDOMAIN); ?>"> <?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?> </textarea>
+                                                  placeholder="<?= __('Short Description or Excerpt', ATBDP_TEXTDOMAIN); ?>"><?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) :''; ?></textarea>
                                     </div>
                                 <?php }?>
                                 <!--***********************************************************************
@@ -524,7 +531,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                     Run the custom field loop to show all published custom fields asign to Category
                                  **************************************************************************-->
                                 <!--@ Options for select the category.-->
-                                <div class="form-group">
+                                <div class="form-group" id="atbdp_categories">
                                     <label for="atbdp_select_cat"><?php esc_html_e('Select Category', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_category')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
                                     <?php
                                     $category = wp_get_object_terms($p_id, ATBDP_CATEGORY, array('fields' => 'ids'));

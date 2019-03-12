@@ -68,13 +68,24 @@
     justify-content: center;
     margin-top: 30px;
   }
+  .atbd_content_active #directorist.atbd_wrapper #delete-custom-img{
+    margin-top: 10px;
+  }
 }
 
 @media (max-width: 575px) {
   .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar{
     flex-wrap: wrap;
-    img{
-      margin-right: 15px;
+    justify-content: center;
+    text-align: center;
+    .atbd_auth_nd{
+      margin-top: 10px;
+    }
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_author_listings_area{
+    display: block;
+    .atbd_author_filter_area{
+      margin-top: 15px;
     }
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar .atbd_auth_nd{

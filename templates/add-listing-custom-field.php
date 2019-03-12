@@ -11,7 +11,7 @@
                 <div class="form-group" id="custom_field_for_cat">
                     <label for=""><?php the_title(); ?><?php if($cf_required){echo '<span style="color: red"> *</span>'; }
                         if (!empty($instructions)){
-                            printf('<span class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="%s"></span>', $instructions);
+                            printf(' <span class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="%s"></span>', $instructions);
                         }
                     ?>
                     </label>

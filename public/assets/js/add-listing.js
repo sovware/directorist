@@ -42,16 +42,14 @@
         });
         // now add the new elements. we could do it here without using ajax but it would require more markup here.
         atbdp_do_ajax( iconBindingElement, 'atbdp_social_info_handler', ID, function(data){
-            $s_wrap.append(data);
+            $s_wrap.after(data);
         });
     });
-
 
     // remove the social field and then reset the ids while maintaining position
     $(document).on('click', '.removeSocialField', function(e){
         var id = $(this).data("id"),
             elementToRemove = $('div#socialID-'+id);
-        event.preventDefault();
         /* Act on the event */
         swal({
                 title: atbdp_add_listing.i18n_text.confirmation_text,

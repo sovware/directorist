@@ -2377,7 +2377,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'require_website',
-                    'label' => __('Required Website', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(
@@ -2842,7 +2842,7 @@ The Administrator of ==SITE_NAME==
                     'min' => '1',
                     'max' => '10',
                     'step' => '1',
-                    'default' => '3',
+                    'default' => '5',
                     'validation' => 'numeric|minlength[1]',
                 ),
                 array(
@@ -2852,7 +2852,7 @@ The Administrator of ==SITE_NAME==
                     'min' => '1',
                     'max' => '10',
                     'step' => '1',
-                    'default' => '3',
+                    'default' => '2',
                     'validation' => 'numeric|minlength[1]',
                 ),
 

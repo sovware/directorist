@@ -1090,6 +1090,7 @@ final class Directorist_Base
                             </div>
                         <?php } ?>
                     </div>
+                    <div id="clint_review"></div>
                 </div>
             </div><!-- end .atbd_review_module -->
             <?php

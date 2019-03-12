@@ -178,7 +178,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                 </div>
                                 <?php } ?>
                                 <?php if (!empty($display_tagline_field) && empty($display_tagline_for)){ ?>
-                                    <div class="form-group">
+                                    <div class="form-group" id="atbdp_excerpt">
                                         <label for="atbdp_excerpt"><?php esc_html_e('Tagline', ATBDP_TEXTDOMAIN); ?></label>
                                         <input type="text" name="tagline"
                                                id="has_tagline"
@@ -199,8 +199,8 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                 }
                                 $price_range = !empty($price_range) ? $price_range : '';
                                 if (empty($display_price_for) && !empty($display_pricing_field) && ($plan_average_price || $plan_price)) { ?>
-                                    <div class="form-group">
-                                        <label for="#">Pricing</label>
+                                    <div class="form-group" id="atbd_pricing">
+                                        <label for="#"><?php esc_html_e('Pricing', ATBDP_TEXTDOMAIN); ?></label>
                                         <div class="atbd_pricing_options">
                                             <?php
                                             if($plan_price){
@@ -314,7 +314,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                     $post_meta = get_post_meta($post_id);
                                     $instructions = get_post_meta(get_the_ID(), 'instructions', true);
                                     ?>
-                                    <div class="form-group">
+                                    <div class="form-group" id="atbdp_custom_field_area">
                                         <label for=""><?php the_title(); ?><?php if ($cf_required) {
                                                 echo '<span style="color: red"> *</span>';
                                             }
@@ -467,7 +467,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                 wp_reset_postdata();
                                 ?>
                                 <?php if(empty($display_loc_for)) {?>
-                                <div class="form-group">
+                                <div class="form-group" id="atbdp_locations">
                                     <label for="at_biz_dir-location"><?php esc_html_e('Location:', ATBDP_TEXTDOMAIN); echo get_directorist_option('require_location')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
                                     <?php if (!empty($p_locations)) {
                                         $output = array();
@@ -493,7 +493,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                 }
                                 if ($plan_tag && empty($display_tag_for)) {
                                     ?>
-                                    <div class="form-group tag_area">
+                                    <div class="form-group tag_area" id="atbdp_tags">
                                         <label for="at_biz_dir-tags"><?php esc_html_e('Tags:', ATBDP_TEXTDOMAIN);
                                             echo get_directorist_option('require_tags') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                                         <?php if (!empty($p_tags)) {
@@ -615,7 +615,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                         </div>
                                     <?php } ?>
                                     <?php if (empty($display_address_for) && !empty($display_address_field)) { ?>
-                                    <div class="form-group">
+                                    <div class="form-group" id="atbdp_address">
                                         <label for="address"><?php esc_html_e('Address:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_address')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
                                         <input type="text" name="address" id="address"
                                                value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
@@ -630,7 +630,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                     }
                                     if ($plan_phone && empty($display_phone_for) && !empty($display_phone_field)){
                                     ?>
-                                    <div class="form-group">
+                                    <div class="form-group" id="atbdp_phone">
                                         <label for="atbdp_phone_number"><?php esc_html_e('Phone Number:', ATBDP_TEXTDOMAIN); echo get_directorist_option('require_phone_number')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
                                         <input type="tel" name="phone" id="atbdp_phone_number"
                                                value="<?= !empty($phone) ? esc_attr($phone) : ''; ?>"
@@ -644,7 +644,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                     }
                                     if ($plan_email && empty($display_email_for) && !empty($display_email_field)){
                                         ?>
-                                        <div class="form-group">
+                                        <div class="form-group" id="atbdp_emails">
                                             <label for="atbdp_email"><?php esc_html_e('Email:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_email')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
                                             <input type="email" name="email" id="atbdp_email"
                                                    value="<?= !empty($email) ? esc_attr($email) : ''; ?>"
@@ -658,7 +658,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                     }
                                     if ($plan_webLink && empty($display_website_for) && !empty($display_website_field)){
                                     ?>
-                                    <div class="form-group">
+                                    <div class="form-group" id="atbdp_webs">
                                         <label for="atbdp_website"><?php esc_html_e('Website:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_website')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
 
                                         <input type="text" id="atbdp_website" name="website"
@@ -667,7 +667,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                                placeholder="<?php esc_attr_e('Listing website eg. http://example.com', ATBDP_TEXTDOMAIN); ?>"/>
                                     </div>
                                     <?php } ?>
-                                    <div class="form-group">
+                                    <div class="form-group" id="atbdp_socialInFo">
                                         <?php
                                         /**
                                          * It fires before social information fields

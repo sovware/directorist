@@ -116,7 +116,7 @@
                 var sectionToHide= $(".atbdp_static");
                 var sectionToHide2= $(".directory_btn");
                 if (sectionToShow){
-                    $(sectionToHide).hide();
+                   // $(sectionToHide).hide();
                     $(sectionToHide2).hide();
                 }
                 submit_count++;

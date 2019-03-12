@@ -126,111 +126,15 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     );
 
-
-                    if (is_fee_manager_active()){
+                    //@todo need to shift FM validation code to extension itself
+                    if (is_fee_manager_active()) {
                         $user_id = get_current_user_id();
                         $midway_package_id = selected_plan_id();
                         $sub_plan_id = get_post_meta($_POST['listing_id'], '_fm_plans', true);
                         $midway_package_id =!empty($midway_package_id)?$midway_package_id:$sub_plan_id;
                         $plan_purchased = subscribed_package_or_PPL_plans($user_id, 'completed',$midway_package_id);
                         $subscribed_package_id = $midway_package_id;
-                    }
 
-                    $title_description = get_directorist_option('display_desc_for', 0);
-                    if((get_directorist_option('require_long_details') == 1) && empty($content) && empty($title_description)){
-                        return $msg;
-                    }
-                    $plan_price = true;
-                    if (is_fee_manager_active()){
-                        $plan_price = is_plan_allowed_price($subscribed_package_id);
-                    }
-                    $price_visable = get_directorist_option('display_price_for', 'admin_users');
-                    if((get_directorist_option('require_price') == 1) && empty($p['price']) && $plan_price && ('admin_users' === $price_visable)){
-                        return $msg;
-                    }
-                    $plan_price_range = true;
-                    if (is_fee_manager_active()){
-                        $plan_price_range = is_plan_allowed_average_price_range($subscribed_package_id);
-                    }
-                    if((get_directorist_option('require_price_range') == 1) && empty($p['price_range']) && $plan_price_range && ('admin_users' === $price_visable)){
-                        return $msg;
-                    }
-                    $excerpt_visable = get_directorist_option('display_short_desc_for', 'none');
-                    if((get_directorist_option('require_excerpt') == 1) && empty($p['excerpt']) && ('admin_users' === $excerpt_visable)){
-                        return $msg;
-                    }
-                    $plan_tag = true;
-                    if (is_fee_manager_active()){
-                        $plan_tag = is_plan_allowed_tag($subscribed_package_id);
-                    }
-                    $tag_visable = get_directorist_option('display_tag_for', 0);
-                    if((get_directorist_option('require_tags') == 1) && empty($tagcount) && $plan_tag && empty($tag_visable)){
-                        return $msg;
-                    }
-                    $location_visable = get_directorist_option('display_loc_for', 0);
-                    if((get_directorist_option('require_location') == 1) && !$location && empty($location_visable)) {
-                        return $msg;
-                    }
-                    if((get_directorist_option('require_category') == 1) && ('-1' == $admin_category_select)){
-                        return $msg;
-                    }
-                    $address_visable = get_directorist_option('display_address_for', 0);
-                    if((get_directorist_option('require_address') == 1) && empty($p['address']) && ('admin_users' === $address_visable)){
-                        return $msg;
-                    }
-                    $plan_phone = true;
-                    if (is_fee_manager_active()){
-                        $plan_phone = is_plan_allowed_listing_phone($subscribed_package_id);
-                    }
-                    $phone_visable = get_directorist_option('display_phone_for', 0);
-                    if((get_directorist_option('require_phone_number') == 1) && empty($p['phone']) && $plan_phone && ('admin_users' === $phone_visable)){
-                        return $msg;
-                    }
-                    $plan_email = true;
-                    if (is_fee_manager_active()){
-                        $plan_email = is_plan_allowed_listing_email($subscribed_package_id);
-                    }
-                    $email_visable = get_directorist_option('display_email_for', 0);
-                    if((get_directorist_option('require_email') == 1) && empty($p['email']) && $plan_email && ('admin_users' === $email_visable)){
-                        return $msg;
-                    }
-                    $plan_webLink = true;
-                    if (is_fee_manager_active()){
-                        $plan_webLink = is_plan_allowed_listing_webLink($subscribed_package_id);
-                    }
-                    $web_visable = get_directorist_option('display_website_for', 0);
-                    if((get_directorist_option('require_website') == 1) && empty($p['website']) && $plan_webLink && ('admin_users' === $web_visable)){
-                        return $msg;
-                    }
-                    $plan_social_networks = true;
-                    if (is_fee_manager_active()){
-                        $plan_social_networks = is_plan_allowed_listing_social_networks($subscribed_package_id);
-                    }
-                    $Sinfo_visable = get_directorist_option('display_social_info_for', 0);
-                    if((get_directorist_option('require_social_info') == 1) && empty($p['social']) && $plan_social_networks && ('admin_users' === $Sinfo_visable)){
-                        return $msg;
-                    }
-                    $plan_slider = true;
-                    if (is_fee_manager_active()){
-                        $plan_slider =is_plan_allowed_slider($subscribed_package_id);
-                    }
-                    $preview_visable = get_directorist_option('display_prv_img_for', 0);
-                    $gallery_visable = get_directorist_option('display_glr_img_for', 0);
-                    if((get_directorist_option('require_preview_img') == 1) && empty($p['listing_prv_img']) && $plan_slider && ('admin_users' === $preview_visable)){
-                        return $msg;
-                    }if((get_directorist_option('require_gallery_img') == 1) && empty($p['listing_img']) && $plan_slider && ('admin_users' === $gallery_visable)){
-                        return $msg;
-                    }
-                    $plan_video = true;
-                    if (is_fee_manager_active()){
-                        $plan_video =is_plan_allowed_listing_video($subscribed_package_id);
-                    }
-                    $video_visable = get_directorist_option('display_video_for', 0);
-                    if((get_directorist_option('require_video') == 1) && empty($p['videourl']) && $plan_video && ('admin_users' === $video_visable)){
-                        return $msg;
-                    }
-                    //@todo need to shift FM validation code to extension itself
-                    if (is_fee_manager_active()) {
                         $subscribed_date = get_user_meta($user_id, '_subscribed_time', true);
                         $package_length = get_post_meta($subscribed_package_id, 'fm_length', true);
                         $plan_type = get_post_meta($subscribed_package_id, 'plan_type', true);
@@ -251,27 +155,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $plan_meta = get_post_meta($subscribed_package_id);
                         $slider_image = $plan_meta['fm_allow_slider'][0];
                         $slider = !empty($slider_image)?$slider_image:'';
-                        $fm_allow_price_range = $plan_meta['fm_allow_price'][0];
-                        $fm_allow_tag = $plan_meta['fm_allow_tag'][0];
-                        if ($fm_allow_tag){
-                            if ($plan_meta['fm_tag_limit'][0]<count($tag) && empty($plan_meta['fm_tag_limit_unl'][0])){
-                                $msg = '<div class="alert alert-danger"><strong>' . __('You can use a maximum of '.$plan_meta['fm_tag_limit'][0].' tag(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
-                                return $msg;
-                            }
-                        }
-
-                        if ($fm_allow_price_range){
-                            if (empty($plan_meta['price_range_unl'][0]) || !empty($plan_meta['price_range'][0])){
-                                $price = !empty($metas['_price'])?$metas['_price']:'';
-                                if ($price>$plan_meta['price_range'][0]){
-                                    //var_dump($plan_meta['price_range'][0]);die();
-                                    $msg = '<div class="alert alert-danger"><strong>' . __('Given price is not included in this plan!', ATBDP_TEXTDOMAIN) . '</strong></div>';
-                                    return $msg;
-                                }
-                            }
-                        }
-
-
                         if (('regular' === $listing_type) && ('package' === $plan_type)) {
                             if (($plan_meta['num_regular'][0] < $_general_type) && empty($plan_meta['num_regular_unl'][0])) {
                                 $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for regular listing!', ATBDP_TEXTDOMAIN) . '</strong></div>';

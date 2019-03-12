@@ -332,13 +332,15 @@ class ATBDP_Enqueuer {
 
         //validation staff start
         $title_visable = get_directorist_option('display_title_for', 0);
+        $require_title = get_directorist_option('require_title');
         $title = '';
-        if((get_directorist_option('require_title') == 1) && empty($title_visable)){
+        if(!empty($require_title) && empty($title_visable)){
             $title = __('Title field is required!', ATBDP_TEXTDOMAIN);
         }
-        $title_description = get_directorist_option('display_desc_for', 'users');
+        $show_description = get_directorist_option('display_desc_for', 0);
         $description = '';
-        if((get_directorist_option('require_long_details') == 1) && ('users' === $title_description)){
+        $require_description = get_directorist_option('require_long_details');
+        if(!empty($require_description)  && empty($show_description)){
             $description = __('Description field is required!', ATBDP_TEXTDOMAIN);
         }
         $category = '';
@@ -346,12 +348,16 @@ class ATBDP_Enqueuer {
             $category = __('Category field is required!', ATBDP_TEXTDOMAIN);
         }
         $excerpt = '';
-        $excerpt_visable = get_directorist_option('display_short_desc_for', 'none');
-        if((get_directorist_option('require_excerpt') == 1) && empty($p['excerpt']) && ('admin_users' === $excerpt_visable)){
+        $require_excerpt = get_directorist_option('require_excerpt');
+        $display_excerpt = get_directorist_option('display_excerpt_field', 0);
+        $excerpt_visable = get_directorist_option('display_short_desc_for', 0);
+        if(!empty($require_excerpt && $display_excerpt) && empty($excerpt_visable)){
             $excerpt = __('Excerpt field is required!', ATBDP_TEXTDOMAIN);
         }
         //custom fields
         $required_custom_fields = array();
+        $radio_field = '';
+        $cus_check = '';
         $custom_fields = new WP_Query(array(
             'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
             'posts_per_page' => -1,
@@ -372,10 +378,18 @@ class ATBDP_Enqueuer {
         foreach ($fields as $post) {
             setup_postdata($post);
             $cf_required = get_post_meta($post->ID, 'required', true);
+            $cf_type = get_post_meta($post->ID, 'type', true);
             if ($cf_required){
                 $required_custom_fields[] = $post->ID;
+                switch ($cf_type){
+                    case 'radio':
+                        $radio_field = $post->ID;
+                        break;
+                    case 'checkbox':
+                        $cus_check = $post->ID;
+                        break;
+                }
             }
-
         }
         wp_reset_postdata();
 
@@ -384,17 +398,21 @@ class ATBDP_Enqueuer {
         if (is_fee_manager_active()){
             $plan_price = is_plan_allowed_price($fm_plans);
         }
-        $price_visable = get_directorist_option('display_price_for', 'admin_users');
+        $price_visable = get_directorist_option('display_price_for', 0);
+        $price_display = get_directorist_option('display_pricing_field', 1);
+        $price_required = get_directorist_option('require_price', 0);
         $price = '';
-        if((get_directorist_option('require_price') == 1) && $plan_price && ('admin_users' === $price_visable)){
+        if(!empty($price_required && $price_display) && $plan_price && empty($price_visable)){
             $price = __('Price field is required!', ATBDP_TEXTDOMAIN);
         }
+        //price range
         $plan_price_range = true;
         if (is_fee_manager_active()){
             $plan_price_range = is_plan_allowed_average_price_range($fm_plans);
         }
         $price_range = '';
-        if((get_directorist_option('require_price_range') == 1) && $plan_price_range && ('admin_users' === $price_visable)){
+        $require_price_range = get_directorist_option('require_price_range');
+        if(!empty($require_price_range && $price_display) && $plan_price_range){
             $price_range = __('Price range field is required!', ATBDP_TEXTDOMAIN);
         }
         //tag
@@ -403,22 +421,26 @@ class ATBDP_Enqueuer {
             $plan_tag = is_plan_allowed_tag($fm_plans);
         }
         $tag = '';
-        $tag_visable = get_directorist_option('display_tag_for', 'users');
-        if((get_directorist_option('require_tags') == 1) && $plan_tag && ('users' === $tag_visable)){
+        $require_tag = get_directorist_option('require_tags');
+        $tag_visable = get_directorist_option('display_tag_for', 0);
+        if(!empty($require_tag) && $plan_tag && empty($tag_visable)){
             $tag = __('Tag field is required!', ATBDP_TEXTDOMAIN);
         }
 
         //location
         $location = '';
-        $location_visable = get_directorist_option('display_loc_for', 'users');
-        if((get_directorist_option('require_location') == 1) && ('users' === $location_visable)) {
+        $required_location = get_directorist_option('require_location');
+        $location_visable = get_directorist_option('display_loc_for', 0);
+        if((!empty($required_location)) && empty($location_visable)) {
             $location = __('Location field is required!', ATBDP_TEXTDOMAIN);
         }
 
         //address
         $address = '';
-        $address_visable = get_directorist_option('display_address_for', 'admin_users');
-        if((get_directorist_option('require_address') == 1) && ('admin_users' === $address_visable)){
+        $require_address = get_directorist_option('require_address');
+        $display_address = get_directorist_option('display_address_field', 1);
+        $address_visable = get_directorist_option('display_address_for', 0);
+        if(!empty($require_address && $display_address) && empty($address_visable)){
             $address = __('Address field is required!', ATBDP_TEXTDOMAIN);
         }
         //phone
@@ -427,8 +449,10 @@ class ATBDP_Enqueuer {
             $plan_phone = is_plan_allowed_listing_phone($fm_plans);
         }
         $phone = '';
-        $phone_visable = get_directorist_option('display_phone_for', 'admin_users');
-        if((get_directorist_option('require_phone_number') == 1) && $plan_phone && ('admin_users' === $phone_visable)){
+        $require_phone = get_directorist_option('require_phone_number');
+        $display_phone = get_directorist_option('display_phone_field', 1);
+        $phone_visable = get_directorist_option('display_phone_for', 0);
+        if(($require_phone && $display_phone) && $plan_phone && empty($phone_visable)){
             $phone = __('Phone field is required!', ATBDP_TEXTDOMAIN);
         }
         //email
@@ -437,8 +461,10 @@ class ATBDP_Enqueuer {
             $plan_email = is_plan_allowed_listing_email($fm_plans);
         }
         $email = '';
-        $email_visable = get_directorist_option('display_email_for', 'admin_users');
-        if((get_directorist_option('require_email') == 1) && empty($p['email']) && $plan_email && ('admin_users' === $email_visable)){
+        $require_email = get_directorist_option('require_email');
+        $display_email = get_directorist_option('display_email_field', 1);
+        $email_visable = get_directorist_option('display_email_for', 0);
+        if(!empty($require_email && $display_email) && $plan_email && empty($email_visable)){
             $email = __('Email field is required!', ATBDP_TEXTDOMAIN);
         }
         //website
@@ -447,8 +473,10 @@ class ATBDP_Enqueuer {
             $plan_webLink = is_plan_allowed_listing_webLink($fm_plans);
         }
         $web = '';
-        $web_visable = get_directorist_option('display_website_for', 'admin_users');
-        if((get_directorist_option('require_website') == 1) && empty($p['website']) && $plan_webLink && ('admin_users' === $web_visable)){
+        $require_web = get_directorist_option('require_website');
+        $display_web = get_directorist_option('display_website_field', 1);
+        $web_visable = get_directorist_option('display_website_for', 0);
+        if(!empty($require_web && $display_web) && $plan_webLink && empty($web_visable)){
             $web = __('Website link field is required!', ATBDP_TEXTDOMAIN);
         }
 
@@ -458,8 +486,10 @@ class ATBDP_Enqueuer {
             $plan_social_networks = is_plan_allowed_listing_social_networks($fm_plans);
         }
         $Sinfo = '';
-        $Sinfo_visable = get_directorist_option('display_social_info_for', 'admin_users');
-        if((get_directorist_option('require_social_info') == 1) && $plan_social_networks && ('admin_users' === $Sinfo_visable)){
+        $require_Sinfo = get_directorist_option('require_social_info');
+        $display_Sinfo = get_directorist_option('display_social_info_field', 1);
+        $Sinfo_visable = get_directorist_option('display_social_info_for', 0);
+        if(!empty($require_Sinfo && $display_Sinfo) && $plan_social_networks && empty($Sinfo_visable)){
             $Sinfo = __('Social information is required!', ATBDP_TEXTDOMAIN);
         }
         //image slider
@@ -467,13 +497,17 @@ class ATBDP_Enqueuer {
         if (is_fee_manager_active()){
             $plan_slider =is_plan_allowed_slider($fm_plans);
         }
-        $preview_visable = get_directorist_option('display_prv_img_for', 'admin_users');
-        $gallery_visable = get_directorist_option('display_glr_img_for', 'admin_users');
+        $preview_visable = get_directorist_option('display_prv_img_for', 0);
+        $gallery_visable = get_directorist_option('display_glr_img_for', 0);
         $preview_image = '';
+        $req_preview_image = get_directorist_option('require_preview_img');
+        $display_preview_image = get_directorist_option('display_prv_field',1);
         $gallery_image = '';
-        if((get_directorist_option('require_preview_img') == 1) && ('admin_users' === $preview_visable)){
+        $req_gallery_image = get_directorist_option('require_gallery_img');
+        $display_gallery_image = get_directorist_option('display_gellery_field',1);
+        if(!empty($req_preview_image && $display_preview_image) && empty($preview_visable)){
             $preview_image = __('Preview image is required!', ATBDP_TEXTDOMAIN);
-        }if((get_directorist_option('require_gallery_img') == 1) && $plan_slider && ('admin_users' === $gallery_visable)){
+        }if(!empty($req_gallery_image && $display_gallery_image) && $plan_slider && empty($gallery_visable)){
         $gallery_image = __('Gallery image is required!', ATBDP_TEXTDOMAIN);
     }
 
@@ -482,15 +516,18 @@ class ATBDP_Enqueuer {
         if (is_fee_manager_active()){
             $plan_video =is_plan_allowed_listing_video($fm_plans);
         }
-        $video_visable = get_directorist_option('display_video_for', 'admin_users');
+        $video_visable = get_directorist_option('display_video_for', 0);
+        $require_video = get_directorist_option('require_video');
+        $display_video = get_directorist_option('display_video_field', 1);
         $video = '';
-        if((get_directorist_option('require_video') == 1) && $plan_video && ('admin_users' === $video_visable)){
+        if(!empty($require_video && $display_video) && $plan_video && empty($video_visable)){
             $video = __('Video is required!', ATBDP_TEXTDOMAIN);
         }
         //t & c
         $term_visable = get_directorist_option('listing_terms_condition');
         $terms = '';
-        if((get_directorist_option('require_terms_conditions') == 1) &&  $term_visable){
+        $req_terms = get_directorist_option('require_terms_conditions');
+        if(!empty($req_terms) &&  $term_visable){
             $terms = __('Agree to Terms & Conditions is required!', ATBDP_TEXTDOMAIN);
         }
 
@@ -500,6 +537,8 @@ class ATBDP_Enqueuer {
             'category' => $category,
             'excerpt' => $excerpt,
             'required_cus_fields' => $required_custom_fields,
+            'cus_radio' => $radio_field,
+            'cus_check' => $cus_check,
             'price'    => $price,
             'price_range'    => $price_range,
             'tag'    => $tag,

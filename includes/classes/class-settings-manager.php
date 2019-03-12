@@ -2089,7 +2089,6 @@ The Administrator of ==SITE_NAME==
                 ),
             ));
         }
-
         /**
          * Get all the settings fields for description section
          * @since 4.7.2

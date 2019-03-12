@@ -496,6 +496,31 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                                                 echo date('h:i A', strtotime($field_details));
                                                             }elseif($field_type === 'url') {
                                                                 printf('<a href="%s" target="_blank">%s</a>', esc_url($field_details), esc_url($field_details));
+                                                            }elseif($field_type === 'checkbox') {
+                                                             $choices = get_post_meta($field_id, 'choices', true);
+                                                    $choices = explode("\n", $choices);
+                                                                $values = explode("\n", $field_details);
+                                                                $values = array_map('trim', $values);
+                                                                $output = array();
+                                                    foreach ($choices as $choice) {
+                                                        if (strpos($choice, ':') !== false) {
+                                                            $_choice = explode(':', $choice);
+                                                            $_choice = array_map('trim', $_choice);
+
+                                                            $_value = $_choice[0];
+                                                            $_label = $_choice[1];
+                                                        } else {
+                                                            $_value = trim($choice);
+                                                            $_label = $_value;
+                                                        }
+                                                        $_checked = '';
+                                                        if (in_array($_value, $values)){
+                                                            $space = str_repeat(' ', 1);
+                                                            $output[] = "{$space}$_value";
+                                                        }
+                                                    }
+                                                                echo join(',',$output);
+
                                                             } else {
                                                                 echo esc_attr($field_details);
                                                             } ?></p>

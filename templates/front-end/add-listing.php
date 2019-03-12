@@ -265,8 +265,15 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                                 </option>
                                             </select>
                                         <?php }
-                                        ?>
+                                    
+                                     /**
+                                 * @since 4.7.1
+                                 * It fires after the price field
+                                 */
+                                do_action('atbdp_add_listing_after_price_field', $p_id);
+                                ?>
                                     </div>
+
 
                                 <?php }
                                 /**

@@ -354,9 +354,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 update_post_meta( $post_id, '_featured', 0 );
                                 update_post_meta( $post_id, '_listing_status', 'post_status' );
                                 update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
-                                $term_by_id =  get_term_by('term_id', $admin_category_select, ATBDP_CATEGORY);
-                                $term_by_id = !empty($term_by_id)?$term_by_id->name:'';
-                                wp_set_object_terms($post_id, $term_by_id, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
                                 /*
                                   * It fires before processing a listing from the front end
                                   * @param array $_POST the array containing the submitted fee data.
@@ -366,6 +363,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 /*
                                 * send the custom field value to the database
                              */
+
                                 if( isset( $custom_field ) ) {
 
                                     foreach( $custom_field as $key => $value ) {
@@ -403,6 +401,9 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                                         update_post_meta( $post_id, $key, $value );
                                     }
+                                    $term_by_id =  get_term_by('term_id', $admin_category_select, ATBDP_CATEGORY);
+                                    $term_name = !empty($term_by_id)?$term_by_id->name:'';
+                                    wp_set_object_terms($post_id, $term_name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
                                 }
                             }
                             if ('publish' == $new_l_status){

@@ -102,7 +102,7 @@ class ATBDP_Listing_DB {
         }
         if (!empty($fav_listing)){
             $args = array(
-                'author'=> $user_id,
+               // 'author'=> $user_id,
                 'post_type'=> ATBDP_POST_TYPE,
                 'posts_per_page' => -1, //@todo; Add pagination in future.
                 'order'=> 'DESC',

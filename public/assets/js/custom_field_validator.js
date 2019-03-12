@@ -28,7 +28,7 @@ jQuery(document).ready(function ($) {
             if (match_field) {
                 var value = $(this).val();
                 if ('' === value) {
-                    $(this).parents(".form-group").after('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
+                    $(this).parents(".form-group").append('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
                     to_top('#atbdp_custom_field_area');
                     returnValue = false;
                 }
@@ -38,7 +38,7 @@ jQuery(document).ready(function ($) {
         var cus_check = $('.atbdp-checkbox-list input[type="checkbox"]').is(":checked");
         var required_checkbox = custom_field_validator.cus_check;
         if (false === cus_check && '' !== required_checkbox) {
-            $('.atbdp-checkbox-list input[type="checkbox"]').parents(".form-group").after('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
+            $('.atbdp-checkbox-list').after('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
             to_top('#atbdp_custom_field_area');
             return false;
         }
@@ -47,7 +47,7 @@ jQuery(document).ready(function ($) {
         var cus_radio = $('.atbdp-radio-list input[type="radio"]').is(":checked");
         var required_radio = custom_field_validator.cus_radio;
         if (false === cus_radio && '' !== required_radio) {
-            $('.atbdp-radio-list input[type="radio"]').parents(".form-group").after('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
+            $('.atbdp-radio-list').parents(".form-group").append('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
             to_top('#atbdp_custom_field_area');
             return false;
         }

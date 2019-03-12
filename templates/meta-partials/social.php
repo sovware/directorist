@@ -18,7 +18,7 @@ $social_info = (array_key_exists('social_info', $args)) ? $args['social_info'] :
                                 <?php foreach (ATBDP()->helper->social_links() as $nameID => $socialName) { ?>
                                     <option value='<?= esc_attr($nameID); ?>' <?php selected($nameID, $socialInfo['id']); ?> >
                                         <?= esc_html($socialName); ?>
-                                    </option>;
+                                    </option>
                                 <?php } ?>
                             </select>
                         </div>

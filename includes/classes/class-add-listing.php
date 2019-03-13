@@ -339,6 +339,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                             if(is_fee_manager_active()){
                                 if (('package' === package_or_PPL($plan=null)) && $plan_purchased){
                                     $args['post_status'] = 'publish';
+                                }else{
+                                    $args['post_status'] = 'pending';
                                 }
                             }
                             $post_id = wp_insert_post($args);

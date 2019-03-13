@@ -3,8 +3,8 @@ Contributors: AazzTech
 Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
-Tested up to:  5.1.0
-Stable tag: 4.7.1
+Tested up to:  5.1
+Stable tag: 4.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -128,8 +128,19 @@ Directorist is not developed by a single person. A team of dedicated developers 
 18. Add New Custom Field
 
 == Changelog ==
-= 4.7.2 - March 5, 2019 =
-* Tweak - Separate form settings options
+
+= 4.7.3 - March 13, 2019 =
+* Fix -
+
+= 4.7.2 - March 12, 2019 =
+* Tweak - Listing form validation without page load
+* Tweak - Rearranged 'Form Fields' settings
+* Tweak - Open Website link of Contact Information on a new tab
+* Fix - Currency Decimal
+* Fix - Two minor issues of Custom fields
+* Fix - Ajax output on listing review section
+* Fix - Tag and location saving issue of frontend add listing form
+* Fix - Minor CSS issues
 
 = 4.7.1 - March 5, 2019 =
 * Fix - Compatibility with Yoast Plugin

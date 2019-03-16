@@ -37,7 +37,7 @@ if ( !class_exists('ATBDP_SEO') ):
 
                 if( $slug = get_query_var( 'atbdp_category' ) ) {
                     $term = get_term_by( 'slug', $slug, ATBDP_CATEGORY );
-                    $title = $term->name;
+                    $title = !empty($term)?$term->name:'';
                 }
             }
 

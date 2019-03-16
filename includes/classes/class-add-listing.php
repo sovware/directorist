@@ -76,7 +76,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     // we have data and passed the security
                     // we not need to sanitize post vars to be saved to the database,
                     // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');;
-
+                    $featured_enabled = get_directorist_option('enable_featured_listing');
                     $admin_category_select= !empty($_POST['admin_category_select']) ? sanitize_text_field($_POST['admin_category_select']) : '';
                     $custom_field= !empty($_POST['custom_field']) ? ($_POST['custom_field']) : array();
                     // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');
@@ -342,6 +342,10 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 }else{
                                     $args['post_status'] = 'pending';
                                 }
+                            }else{
+                                if (!empty($featured_enabled)){
+                                    $args['post_status'] = 'pending';
+                                }
                             }
                             $post_id = wp_insert_post($args);
                             do_action('atbdp_listing_inserted', $post_id);//for sending email notification
@@ -466,7 +470,6 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                         }else{
                             //no pay extension own yet let treat as general user
-                            $featured_enabled = get_directorist_option('enable_featured_listing');
                             if (get_directorist_option('enable_monetization') && !$_POST['listing_id'] && $featured_enabled && (!is_fee_manager_active())){
                                 wp_redirect(ATBDP_Permalink::get_checkout_page_link($post_id));
                                 exit;

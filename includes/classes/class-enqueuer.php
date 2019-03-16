@@ -316,7 +316,11 @@ class ATBDP_Enqueuer {
         if (is_fee_manager_active()){
             $selected_plan = selected_plan_id();
             $planID = !empty($selected_plan)?$selected_plan:$fm_plans;
-            $plan_image = is_plan_slider_limit($planID);
+            $allow_slider = is_plan_allowed_slider($planID);
+            $slider_unl = is_plan_slider_unlimited($planID);
+            if (!empty($allow_slider) && empty($slider_unl)){
+                $plan_image = is_plan_slider_limit($planID);
+            }
         }
         $data = array(
             'nonce'            => wp_create_nonce('atbdp_nonce_action_js'),

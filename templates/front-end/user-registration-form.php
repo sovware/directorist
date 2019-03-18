@@ -98,7 +98,7 @@
                                 <div class="directory_regi_btn">
                                  <p>
                                      <?php
-                                     printf(__('Already have an account? Please login %s.', ATBDP_TEXTDOMAIN), "<a href='".wp_login_url()."'><span style='color: red'> ". __('Here', ATBDP_TEXTDOMAIN)."</span></a>");
+                                     printf(__('Already have an account? Please login %s.', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_login_page_link()."'><span style='color: red'> ". __('Here', ATBDP_TEXTDOMAIN)."</span></a>");
                                      ?>
                                  </p>
                                 </div>

@@ -388,7 +388,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                              * @since 4.5.2
                              * It fires after the title in single listing
                              */
-                            do_action('atbdp_single_listing_after_title');
+                            do_action('atbdp_single_listing_after_title', $listing_id);
                             ?>
                             <?php if(!empty($tagline) && !empty($display_tagline_field)) {?>
                             <p class="atbd_sub_title"><?= (!empty($tagline)) ? esc_html(stripslashes($tagline)) : ''; ?></p>

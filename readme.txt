@@ -129,6 +129,10 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
+= 4.7.4 - March 18, 2019 =
+* Fix - User Login page
+* Extended - Category icons
+
 = 4.7.3 - March 14, 2019 =
 * Fix - Payment issue
 * Fix - Conflict of category permalink

@@ -35,7 +35,7 @@ class ATBDP_Metabox {
         if( isset( $_POST['term_id'] ) ) {
             $ajax = true;
             $post_ID = (int) $_POST['post_id'];
-            $term_ids = $_POST['term_id'];
+            $term_ids = !empty($_POST['term_id'])?$_POST['term_id']:'';
         }
         $args = null;
         if (!empty($term_ids)){
@@ -102,7 +102,7 @@ class ATBDP_Metabox {
         if( isset( $_POST['term_id'] ) ) {
             $ajax = true;
             $post_ID = (int) $_POST['post_id'];
-            $term_ids = $_POST['term_id'];
+            $term_ids = !empty($_POST['term_id'])?$_POST['term_id']:'';
         }
         $args = null;
         if (!empty($term_ids)){

@@ -38,8 +38,20 @@ if ( !class_exists('ATBDP_Shortcode') ):
             add_action('wp_ajax_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2 );
 
             add_filter( 'body_class', array($this, 'my_body_class'));
+            add_action( 'wp_login_failed', array($this, 'my_login_fail'));
 
         }
+
+
+        /**
+         *
+         * @since 4.7.4
+         */
+        public function my_login_fail($username){
+            wp_redirect(home_url( '?page_id=15' ) . "&login_error" );
+            exit;
+        }
+
 
         /*
          *  add own class in order to push custom style
@@ -717,7 +729,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 ATBDP()->user->user_dashboard();
             }else{
                 // user not logged in;
-                $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), "<a href='".wp_login_url()."'> ". __('Here', ATBDP_TEXTDOMAIN)."</a>","<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>"); ?>
+                $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_login_page_link()."'> ". __('Here', ATBDP_TEXTDOMAIN)."</a>","<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>"); ?>
                 <section class="directory_wrapper single_area">
                     <?php  ATBDP()->helper->show_login_message($error_message); ?>
                 </section>
@@ -1337,7 +1349,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             }else{
                 // user not logged in;
-                $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), "<a href='".wp_login_url()."'> ". __('Here', ATBDP_TEXTDOMAIN)."</a>","<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>"); ?>
+                $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_login_page_link()."'> ". __('Here', ATBDP_TEXTDOMAIN)."</a>","<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>"); ?>
 
 
                 <section class="directory_wrapper single_area">
@@ -1353,6 +1365,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
         {
             ob_start();
             echo '<div class="atbdp_login_form_shortcode">';
+            if (isset($_GET['login_error'])){
+               printf('<p class="alert-danger"><span class="fa fa-exclamation"></span>%s</p>',__(' Invalid username or password!', ATBDP_TEXTDOMAIN));
+            }
             wp_login_form();
             printf(__('<p>Don\'t have an account? %s</p>', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>");
             echo '</div>';

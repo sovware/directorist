@@ -3374,7 +3374,7 @@ The Administrator of ==SITE_NAME==
                         'label' =>  __(  'Login Page', ATBDP_TEXTDOMAIN ),
                         'items' => $this->get_pages_vl_arrays(),
                         'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_user_login]</strong>'),
-                        'default' => atbdp_get_option('custom_registration', 'atbdp_general'),
+                        'default' => atbdp_get_option('user_login', 'atbdp_general'),
                         'validation' => 'numeric',
 
                     ),

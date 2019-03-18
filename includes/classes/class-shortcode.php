@@ -48,7 +48,8 @@ if ( !class_exists('ATBDP_Shortcode') ):
          * @since 4.7.4
          */
         public function my_login_fail($username){
-            wp_redirect(home_url( '?page_id=15' ) . "&login_error" );
+            $id = get_directorist_option('user_login');
+            wp_redirect(home_url( "?page_id=$id" ) . "&login_error" );
             exit;
         }
 

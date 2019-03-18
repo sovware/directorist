@@ -100,17 +100,6 @@ class ATBDP_Checkout
                     'price' => $price,
                 );
             }
-       /*   if (class_exists('ATBDP_Pricing_Plans')){
-                   $form_data[] = array(
-                       'type' => 'checkbox',
-                       'name' => 'feature',
-                       'value' => 1,
-                       'selected' => 1,
-                       'title' => $title,
-                       'desc' => $desc,
-                       'price' => $price,
-                   );
-               }*/
 
             // if data is empty then vail,
             if (empty($form_data)) { return __('Sorry, Nothing is available to buy. Please try again.', ATBDP_TEXTDOMAIN); }

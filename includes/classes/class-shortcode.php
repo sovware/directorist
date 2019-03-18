@@ -202,7 +202,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             }
 
             $meta_queries = array();
-            
+
             $meta_queries['expired'] = array(
                 'relation' => 'OR',
                 array(
@@ -1367,7 +1367,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             ob_start();
             echo '<div class="atbdp_login_form_shortcode">';
             if (isset($_GET['login_error'])){
-               printf('<p class="alert-danger"><span class="fa fa-exclamation"></span>%s</p>',__(' Invalid username or password!', ATBDP_TEXTDOMAIN));
+               printf('<p class="alert-danger"><span class="fa fa-exclamation-triangle"></span>%s</p>',__(' Invalid username or password!', ATBDP_TEXTDOMAIN));
             }
             wp_login_form();
             printf(__('<p>Don\'t have an account? %s</p>', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>");

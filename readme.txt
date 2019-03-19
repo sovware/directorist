@@ -132,6 +132,9 @@ Directorist is not developed by a single person. A team of dedicated developers 
 = 4.7.4 - March 18, 2019 =
 * Fix - User Login page
 * Extended - Category icons
+* Fix - Google map autocomplete issue
+* Fix - Form fields hide/show issue
+* Tweak - Address field's placeholder on add listing form
 
 = 4.7.3 - March 14, 2019 =
 * Fix - Payment issue

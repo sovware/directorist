@@ -600,7 +600,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
 
                         </div><!-- end .atbd_custom_fields_contents -->
                         <div class="atbdb_content_module">
-                        <?php if (!$disable_contact_info) { ?>
+                        <?php if (empty($display_phone_for || $display_email_for || $display_website_for || $display_social_info_for) && !empty($display_phone_field || $display_email_field || $display_website_field || $display_social_info_field)) { ?>
                             <div class="atbd_content_module atbd_contact_information">
                                 <div class="atbd_content_module__tittle_area">
                                     <div class="atbd_area_title">
@@ -627,15 +627,6 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                             <label class="form-check-label"
                                                    for="hide_contact_owner"><?php esc_html_e('Check it to hide Contact listing owner', ATBDP_TEXTDOMAIN); ?></label>
                                         </div>
-                                    <?php } ?>
-                                    <?php if (empty($display_address_for) && !empty($display_address_field)) { ?>
-                                    <div class="form-group" id="atbdp_address">
-                                        <label for="address"><?php esc_html_e('Address:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_address')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
-                                        <input type="text" name="address" id="address"
-                                               value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
-                                               class="form-control directory_field"
-                                               placeholder="<?php esc_html_e('Listing address eg. Houghton Street London WC2A 2AE UK', ATBDP_TEXTDOMAIN); ?>"/>
-                                    </div>
                                     <?php } ?>
                                     <?php
                                     $plan_phone = true;
@@ -754,7 +745,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                             apply_filters('atbdp_before_map_section', 'add_listing_page_frontend', $listing_info, $p_id);
                             ?>
 
-                            <?php if (empty($display_map_for) && !empty($display_map_field) && !empty($display_address_field)) { ?>
+                            <?php if (empty($display_map_for && $display_address_for) && !empty($display_map_field) && !empty($display_address_field)) { ?>
                                 <!--Show map only if it is not disabled in the settings-->
                             <div class="atbd_content_module atbd_location_map_setting">
                                 <div class="atbd_content_module__tittle_area">
@@ -762,9 +753,16 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                         <h4><?php esc_html_e('Location (Map)', ATBDP_TEXTDOMAIN) ?></h4>
                                     </div>
                                 </div>
-
                                 <div class="atbdb_content_module_contents">
-                                    <label><?php _e('Set the Marker by clicking anywhere on the Map', ATBDP_TEXTDOMAIN); ?></label>
+                                    <?php if (empty($display_address_for) && !empty($display_address_field)) { ?>
+                                        <div class="form-group" id="atbdp_address">
+                                            <label for="address"><?php esc_html_e('Google Address:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_address')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
+                                            <input type="text" name="address" id="address"
+                                                   value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
+                                                   class="form-control directory_field"
+                                                   placeholder="<?php esc_html_e('Listing address eg. New York, USA', ATBDP_TEXTDOMAIN); ?>"/>
+                                        </div>
+                                    <?php } ?>
 
                                     <!--Google map will be generated here using js-->
                                         <div class="row">
@@ -780,6 +778,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                             </div> <!--ends .col-md-12-->
                                         </div><!--ends .row-->
                                     <div class="cor-wrap form-group">
+                                        <small style="font-size: 12px; margin-bottom: 4px; display: block"><i class="fa fa-info-circle" aria-hidden="true"></i> <?php _e('You can drag pinpoint to place the correct address manually.', ATBDP_TEXTDOMAIN); ?></small>
                                         <?php $map_guide = sprintf("<span class='color:#c71585;'>%s</span>", __('SET 0 to LAT & LONG Field to HIDE MAP FOR THIS LISTING', ATBDP_TEXTDOMAIN)); ?>
                                         <label for="manual_coordinate"><input type="checkbox" name="manual_coordinate"
                                                                               value="1"
@@ -832,6 +831,12 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                     </div> <!--ends .row-->
                                 </div>
                             </div> <!--./end atbd_location_map_setting-->
+
+
+
+
+
+
                             <?php } ?>
                         <?php } ?>
 
@@ -1043,7 +1048,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
             // location types.
             autocomplete = new google.maps.places.Autocomplete(
                 (address_input),
-                {types: ['geocode']});
+                {types: []});
 
             // When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
             autocomplete.addListener('place_changed', fillInAddress);
@@ -1187,9 +1192,5 @@ $display_video_for = get_directorist_option('display_video_for', 0);
         }
         <?php } ?>
 
-
-
     }); // ends jquery ready function.
-
-
 </script>

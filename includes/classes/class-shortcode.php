@@ -1365,13 +1365,18 @@ if ( !class_exists('ATBDP_Shortcode') ):
         public function custom_user_login()
         {
             ob_start();
-            echo '<div class="atbdp_login_form_shortcode">';
-            if (isset($_GET['login_error'])){
-               printf('<p class="alert-danger"><span class="fa fa-exclamation"></span>%s</p>',__(' Invalid username or password!', ATBDP_TEXTDOMAIN));
+            if (!is_user_logged_in()){
+                echo '<div class="atbdp_login_form_shortcode">';
+                if (isset($_GET['login_error'])){
+                    printf('<p class="alert-danger"><span class="fa fa-exclamation"></span>%s</p>',__(' Invalid username or password!', ATBDP_TEXTDOMAIN));
+                }
+                wp_login_form();
+                printf(__('<p>Don\'t have an account? %s</p>', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>");
+                echo '</div>';
+            }else{
+                $error_message = sprintf(__('Login page is not for logged-in user. <a href="%s">Go Back To Home</a>', ATBDP_TEXTDOMAIN), esc_url(get_home_url()));
+                ATBDP()->helper->show_login_message($error_message);
             }
-            wp_login_form();
-            printf(__('<p>Don\'t have an account? %s</p>', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>");
-            echo '</div>';
             return ob_get_clean();
         }
 

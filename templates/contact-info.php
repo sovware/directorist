@@ -31,17 +31,17 @@ $info_content .= "<p> {$ad}</p></div>";
 <div id="directorist" class="directorist atbd_wrapper">
     <!-- MAP or ADDRESS related information starts here -->
     <?php if(!$disable_contact_owner) {?>
-    <div class="form-check">
-        <input type="checkbox" name="hide_contact_owner" class="form-check-input" id="hide_contact_owner"
-               value="1" <?php if (!empty($hide_contact_owner)) {
-            checked($hide_contact_owner);
-        } ?> >
-        <label class="form-check-label"
-               for="hide_contact_owner"><?php esc_html_e('Check it to hide listing contact owner form', ATBDP_TEXTDOMAIN); ?></label>
+        <div class="form-check">
+            <input type="checkbox" name="hide_contact_owner" class="form-check-input" id="hide_contact_owner"
+                   value="1" <?php if (!empty($hide_contact_owner)) {
+                checked($hide_contact_owner);
+            } ?> >
+            <label class="form-check-label"
+                   for="hide_contact_owner"><?php esc_html_e('Check it to hide listing contact owner form', ATBDP_TEXTDOMAIN); ?></label>
 
-    </div>
+        </div>
     <?php } ?>
-    <?php if (!$disable_contact_info) { ?>
+    <?php if (!empty( $display_phone_field || $display_email_field || $display_website_field)) { ?>
 
         <!-- MAP or ADDRESS related information starts here -->
         <div class="form-check">
@@ -53,14 +53,6 @@ $info_content .= "<p> {$ad}</p></div>";
                    for="hide_contact_info"><?php esc_html_e('Check it to hide Contact Information for this listing', ATBDP_TEXTDOMAIN); ?></label>
 
         </div>
-        <?php if(!empty($display_address_field)) { ?>
-        <div class="form-group">
-            <label for="address"><?php esc_html_e('Address:', ATBDP_TEXTDOMAIN); ?></label>
-            <input type="text" name="address" id="address" value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
-                   class="form-control directory_field"
-                   placeholder="<?php esc_html_e('Listing address eg. Houghton Street London WC2A 2AE UK', ATBDP_TEXTDOMAIN); ?>"/>
-        </div>
-        <?php } ?>
         <!--phone-->
         <?php if(!empty($display_phone_field) ) {?>
         <div class="form-group">
@@ -130,7 +122,14 @@ $info_content .= "<p> {$ad}</p></div>";
 
 
     <!--Google map will be generated here using js-->
-        <label class="atbd_map_title"><?php _e('You can drag pinpoint to place the correct address manually.', ATBDP_TEXTDOMAIN); ?></label>
+        <?php if(!empty($display_address_field)) { ?>
+            <div class="form-group">
+                <label for="address"><?php esc_html_e('Google Address:', ATBDP_TEXTDOMAIN); ?></label>
+                <input type="text" name="address" id="address" value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
+                       class="form-control directory_field"
+                       placeholder="<?php esc_html_e('Listing address eg. New York, USA', ATBDP_TEXTDOMAIN); ?>"/>
+            </div>
+        <?php } ?>
     <div class="map_wrapper">
         <div id="floating-panel">
             <button class="btn btn-danger"
@@ -141,6 +140,7 @@ $info_content .= "<p> {$ad}</p></div>";
     </div>
         <div class="map-coordinate form-group">
             <div class="cor-wrap map_cor">
+                <small style="font-size: 12px; margin-bottom: 4px; display: block"><i class="fa fa-info-circle" aria-hidden="true"></i> <?php _e('You can drag pinpoint to place the correct address manually.', ATBDP_TEXTDOMAIN); ?></small><br>
                 <input type="checkbox" name="manual_coordinate" value="1"
                        id="manual_coordinate" <?= (!empty($manual_coordinate)) ? 'checked' : ''; ?> >
                 <label for="manual_coordinate"> <?php _e('Or Enter Coordinates (latitude and longitude) Manually.', ATBDP_TEXTDOMAIN); ?> </label>
@@ -250,7 +250,7 @@ do_action('atbdp_edit_after_googlemap_preview', 'add_listing_page_backend', $arg
             // location types.
             autocomplete = new google.maps.places.Autocomplete(
                 (address_input),
-                {types: ['geocode']});
+                {types: []});
 
             // When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
             autocomplete.addListener('place_changed', fillInAddress);

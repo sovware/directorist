@@ -207,6 +207,8 @@ class ATBDP_Enqueuer {
         wp_register_script( 'atbdp_slick_slider', ATBDP_PUBLIC_ASSETS . 'js/slick.min.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'adminmainassets', ATBDP_PUBLIC_ASSETS . 'js/main.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'loc_cat_assets', ATBDP_PUBLIC_ASSETS . 'js/loc_cat.js', array( 'jquery' ), ATBDP_VERSION, true );
+        wp_register_script( 'atbdp_open_street', ATBDP_PUBLIC_ASSETS . 'openstreet/openlayers/OpenLayers.js', array( 'jquery' ), ATBDP_VERSION, true );
+        wp_register_script( 'atbdp_open_street_src', ATBDP_PUBLIC_ASSETS . 'openstreet/openlayers4jgsi/Crosshairs.js', array( 'jquery' ), ATBDP_VERSION, true );
 
 
         // we need select2 js on taxonomy edit screen to let the use to select the fonts-awesome icons ans search the icons easily
@@ -214,6 +216,8 @@ class ATBDP_Enqueuer {
         wp_enqueue_style('select2style');
         wp_enqueue_script('select2script');
         wp_enqueue_script('atbdp_validator');
+        wp_enqueue_script('atbdp_open_street');
+        wp_enqueue_script('atbdp_open_street_src');
 
         /* Enqueue all styles*/
         wp_enqueue_style('atbdp-bootstrap-style');

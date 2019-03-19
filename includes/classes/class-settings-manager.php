@@ -92,7 +92,7 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                 'seo_menu' => array(
                     'title' => __('Titles & Metas', ATBDP_TEXTDOMAIN),
                     'name' => 'seo_settings',
-                    'icon' => 'font-awesome:fa-angellist',
+                    'icon' => 'font-awesome:fa-bolt',
                     'controls'=>apply_filters('atbdp_seo_settings_controls',array(
                         'seo_section' => array(
                             'type' => 'section',
@@ -181,7 +181,7 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                 array(
                     'title' => __('Single Listing', ATBDP_TEXTDOMAIN),
                     'name' => 'listings_form',
-                    'icon' => 'font-awesome:fa-wpforms',
+                    'icon' => 'font-awesome:fa-info',
                     'controls' => apply_filters('atbdp_listings_form_controls', array(
                         'emails' => array(
                             'type' => 'section',
@@ -224,7 +224,7 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                 array(
                     'title' => __('Form Fields', ATBDP_TEXTDOMAIN),
                     'name' => 'form_fields_setting',
-                    'icon' => 'font-awesome:fa-wpforms',
+                    'icon' => 'font-awesome:fa-adjust',
                     'controls' => apply_filters('atbdp_review_controls', array(
                         'title_field' => array(
                             'type' => 'section',

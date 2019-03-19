@@ -202,7 +202,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             }
 
             $meta_queries = array();
-            
+
             $meta_queries['expired'] = array(
                 'relation' => 'OR',
                 array(

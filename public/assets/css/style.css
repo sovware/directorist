@@ -523,6 +523,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   width: auto !important;
 }
 
+.atbdp_login_form_shortcode .alert-danger {
+  background: #F9D7D7;
+  padding: 8px 15px;
+}
+
 #directorist.atbd_wrapper .atbd_related_listings .atbd_listing_info .atbd_content_upper > p {
   margin-top: 13px;
 }
@@ -958,6 +963,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_listing_title h2 {
   font-size: 30px;
   font-weight: 500;
+  display: inline-block;
+  margin-right: 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_listing_title .atbd_sub_title {

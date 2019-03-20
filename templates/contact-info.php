@@ -16,6 +16,7 @@ $display_address_field = get_directorist_option('display_address_field', 1);
 $display_phone_field = get_directorist_option('display_phone_field', 1);
 $display_email_field = get_directorist_option('display_email_field', 1);
 $display_website_field = get_directorist_option('display_website_field', 1);
+$display_zip_field = get_directorist_option('display_zip_field', 1);
 $display_social_info_field = get_directorist_option('display_social_info_field', 1);
 $display_map_field = get_directorist_option('display_map_field', 1);
 $t = get_the_title();
@@ -41,7 +42,7 @@ $info_content .= "<p> {$ad}</p></div>";
 
         </div>
     <?php } ?>
-    <?php if (!empty( $display_phone_field || $display_email_field || $display_website_field)) { ?>
+    <?php if (!empty( $display_phone_field || $display_map_field || $display_address_field || $display_email_field || $display_website_field || $display_zip_field)) { ?>
 
         <!-- MAP or ADDRESS related information starts here -->
         <div class="form-check">
@@ -53,72 +54,8 @@ $info_content .= "<p> {$ad}</p></div>";
                    for="hide_contact_info"><?php esc_html_e('Check it to hide Contact Information for this listing', ATBDP_TEXTDOMAIN); ?></label>
 
         </div>
-        <!--phone-->
-        <?php if(!empty($display_phone_field) ) {?>
-        <div class="form-group">
-            <label for="atbdp_phone_number"><?php esc_html_e('Phone Number:', ATBDP_TEXTDOMAIN); ?></label>
-            <input type="tel" name="phone" id="atbdp_phone_number"
-                   value="<?= !empty($phone) ? esc_attr($phone) : ''; ?>" class="form-control directory_field"
-                   placeholder="<?php esc_attr_e('Phone Number', ATBDP_TEXTDOMAIN); ?>"/>
-        </div>
-        <?php } ?>
-        <?php if(!empty($display_email_field)){?>
-        <div class="form-group">
-            <label for="atbdp_email"><?php esc_html_e('Email:', ATBDP_TEXTDOMAIN); ?></label>
-            <input type="email" name="email" id="atbdp_email" value="<?= !empty($email) ? esc_attr($email) : ''; ?>"
-                   class="form-control directory_field"
-                   placeholder="<?php esc_attr_e('Enter Email', ATBDP_TEXTDOMAIN); ?>"/>
-        </div>
-        <?php } ?>
-        <?php if(!empty($display_website_field) ) {?>
-        <div class="form-group">
-            <label for="atbdp_website"><?php esc_html_e('Website:', ATBDP_TEXTDOMAIN); ?></label>
 
-            <input type="text" id="atbdp_website" name="website"
-                   value="<?= !empty($website) ? esc_url($website) : ''; ?>" class="form-control directory_field"
-                   placeholder="<?php esc_attr_e('Listing Website eg. http://example.com', ATBDP_TEXTDOMAIN); ?>"/>
-        </div>
-        <?php } ?>
-        <?php } ?>
-
-        <!--Social Information-->
-
-            <?php
-            /**
-             * It fires before social information fields
-             * @param string $type Page type.
-             * @param array $listing_contact_info Information of the current listing
-             * @since 1.1.1
-             **/
-            do_action('atbdp_edit_before_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
-            if(!empty($display_social_info_field)) {
-                ATBDP()->load_template('meta-partials/social', array('social_info' => $social_info));
-            }
-            /**
-    * It fires after social information fields
-    * @param string $type Page type.
-    * @param array $listing_contact_info Information of the current listing
-    * @since 1.1.1
-    **/
-    do_action('atbdp_edit_after_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
-    ?>
-    <div class="atbd_backend_business_hours">
-        <?php
-        if (class_exists('BD_Business_Hour') && get_directorist_option('enable_business_hour') ==1){
-        ?>
-        <div class="atbd_backend_business_hour">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h6 class="atbd_backend_area_title"><?php _e('Enter Information about Businss/Opening Hours', ATBDP_TEXTDOMAIN); ?></h6>
-                    </div>
-                </div>
-        <?php do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_backend', $args['listing_contact_info']); ?>
-        </div>
-            <?php
-        }
-        ?>
-    </div> <!--ends .row-->
-    <?php if (!empty($display_map_field) && !empty($display_address_field)) { ?>
+         <?php if (!empty($display_map_field) && !empty($display_address_field)) { ?>
 
 
     <!--Google map will be generated here using js-->
@@ -188,13 +125,90 @@ $info_content .= "<p> {$ad}</p></div>";
 <?php
 }
 
-/**
- * It fires after the google map preview area
- * @param string $type Page type.
- * @param array $listing_contact_info Information of the current listing
- * @since 1.1.1
- **/
-do_action('atbdp_edit_after_googlemap_preview', 'add_listing_page_backend', $args['listing_contact_info'], get_the_ID());
+        /**
+        * It fires after the google map preview area
+        * @param string $type Page type.
+        * @param array $listing_contact_info Information of the current listing
+        * @since 1.1.1
+        **/
+        do_action('atbdp_edit_after_googlemap_preview', 'add_listing_page_backend', $args['listing_contact_info'], get_the_ID());
+        ?>
+    <!--    zip code-->
+        <?php if(!empty($display_zip_field) ) {?>
+            <div class="form-group">
+                <label for="atbdp_zip"><?php esc_html_e('Zip/Post Code:', ATBDP_TEXTDOMAIN); ?></label>
+
+                <input type="text" id="atbdp_zip" name="zip"
+                       value="<?= !empty($zip) ? esc_attr($zip) : ''; ?>" class="form-control directory_field"
+                       placeholder="<?php esc_attr_e('Enter Zip/Post Code', ATBDP_TEXTDOMAIN); ?>"/>
+            </div>
+        <?php } ?>
+        <!--phone-->
+        <?php if(!empty($display_phone_field) ) {?>
+        <div class="form-group">
+            <label for="atbdp_phone_number"><?php esc_html_e('Phone Number:', ATBDP_TEXTDOMAIN); ?></label>
+            <input type="tel" name="phone" id="atbdp_phone_number"
+                   value="<?= !empty($phone) ? esc_attr($phone) : ''; ?>" class="form-control directory_field"
+                   placeholder="<?php esc_attr_e('Phone Number', ATBDP_TEXTDOMAIN); ?>"/>
+        </div>
+        <?php } ?>
+        <?php if(!empty($display_email_field)){?>
+        <div class="form-group">
+            <label for="atbdp_email"><?php esc_html_e('Email:', ATBDP_TEXTDOMAIN); ?></label>
+            <input type="email" name="email" id="atbdp_email" value="<?= !empty($email) ? esc_attr($email) : ''; ?>"
+                   class="form-control directory_field"
+                   placeholder="<?php esc_attr_e('Enter Email', ATBDP_TEXTDOMAIN); ?>"/>
+        </div>
+        <?php } ?>
+        <?php if(!empty($display_website_field) ) {?>
+        <div class="form-group">
+            <label for="atbdp_website"><?php esc_html_e('Website:', ATBDP_TEXTDOMAIN); ?></label>
+
+            <input type="text" id="atbdp_website" name="website"
+                   value="<?= !empty($website) ? esc_url($website) : ''; ?>" class="form-control directory_field"
+                   placeholder="<?php esc_attr_e('Listing Website eg. http://example.com', ATBDP_TEXTDOMAIN); ?>"/>
+        </div>
+        <?php } ?>
+        <?php } ?>
+
+        <!--Social Information-->
+
+            <?php
+            /**
+             * It fires before social information fields
+             * @param string $type Page type.
+             * @param array $listing_contact_info Information of the current listing
+             * @since 1.1.1
+             **/
+            do_action('atbdp_edit_before_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
+            if(!empty($display_social_info_field)) {
+                ATBDP()->load_template('meta-partials/social', array('social_info' => $social_info));
+            }
+            /**
+    * It fires after social information fields
+    * @param string $type Page type.
+    * @param array $listing_contact_info Information of the current listing
+    * @since 1.1.1
+    **/
+    do_action('atbdp_edit_after_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
+    ?>
+    <div class="atbd_backend_business_hours">
+        <?php
+        if (class_exists('BD_Business_Hour') && get_directorist_option('enable_business_hour') ==1){
+        ?>
+        <div class="atbd_backend_business_hour">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6 class="atbd_backend_area_title"><?php _e('Enter Information about Businss/Opening Hours', ATBDP_TEXTDOMAIN); ?></h6>
+                    </div>
+                </div>
+        <?php do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_backend', $args['listing_contact_info']); ?>
+        </div>
+            <?php
+        }
+        ?>
+    </div> <!--ends .row-->
+   <?php
 
 ?>
 </div>

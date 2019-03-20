@@ -451,6 +451,16 @@ class ATBDP_Enqueuer {
             $web = __('Website link field is required!', ATBDP_TEXTDOMAIN);
         }
 
+        //zip
+
+        $zip = '';
+        $require_zip = get_directorist_option('require_zip');
+        $display_zip = get_directorist_option('display_zip_field', 1);
+        $zip_visable = get_directorist_option('display_zip_for', 0);
+        if(!empty($require_zip && $display_zip) && empty($zip_visable)){
+            $zip = __('Zip/Post Code field is required!', ATBDP_TEXTDOMAIN);
+        }
+
         //social link
         $plan_social_networks = true;
         if (is_fee_manager_active()){
@@ -515,6 +525,7 @@ class ATBDP_Enqueuer {
             'phone'    => $phone,
             'email'    => $email,
             'web'    => $web,
+            'zip'    => $zip,
             'Sinfo'    => $Sinfo,
             'listing_prv_img'    => $preview_image,
             'gallery_image'    => $gallery_image,

@@ -130,6 +130,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 == Changelog ==
 
 = 4.7.4 - March 18, 2019 =
+* Add - Enter Zip/Post Code field on add listing form
 * Fix - User Login page
 * Extended - Category icons
 * Fix - Google map autocomplete issue

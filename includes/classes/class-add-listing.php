@@ -98,6 +98,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $metas['_phone']             = !empty($p['phone'])? sanitize_text_field($p['phone']) : '';
                     $metas['_email']             = !empty($p['email'])? sanitize_text_field($p['email']) : '';
                     $metas['_website']           = !empty($p['website'])? sanitize_text_field($p['website']) : '';
+                    $metas['_zip']               = !empty($p['zip'])? sanitize_text_field($p['zip']) : '';
                     $metas['_social']            = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
                     $metas['_faqs']              = !empty($p['faqs']) ? atbdp_sanitize_array($p['faqs']) : array(); // we are expecting array value
                     $metas['_bdbh']              = !empty($p['bdbh'])? atbdp_sanitize_array($p['bdbh']) : array();

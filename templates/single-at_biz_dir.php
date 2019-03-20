@@ -14,6 +14,7 @@ $listing_info['address']            = get_post_meta($post->ID, '_address', true)
 $listing_info['phone']              = get_post_meta($post->ID, '_phone', true);
 $listing_info['email']              = get_post_meta($post->ID, '_email', true);
 $listing_info['website']            = get_post_meta($post->ID, '_website', true);
+$listing_info['zip']                = get_post_meta($post->ID, '_zip', true);
 $listing_info['social']             = get_post_meta($post->ID, '_social', true);
 $listing_info['faqs']               = get_post_meta($post->ID, '_faqs', true);
 $listing_info['manual_lat']         = get_post_meta($post->ID, '_manual_lat', true);
@@ -110,6 +111,7 @@ $display_address_field            = get_directorist_option('display_address_fiel
 $display_phone_field              = get_directorist_option('display_phone_field', 1);
 $display_email_field              = get_directorist_option('display_email_field', 1);
 $display_website_field            = get_directorist_option('display_website_field', 1);
+$display_zip_field                 = get_directorist_option('display_zip_field', 1);
 $display_social_info_field        = get_directorist_option('display_social_info_field', 1);
 $display_social_info_for          = get_directorist_option('display_social_info_for', 'admin_users');
 $display_map_field                = get_directorist_option('display_map_field', 1);
@@ -579,7 +581,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
             <?php } ?>
 
 
-            <?php if ((!$hide_contact_info) && !empty($address||$phone||$email||$website||$social) && empty($disable_contact_info) ) { ?>
+            <?php if ((!$hide_contact_info) && !empty($address||$phone||$email||$website||$zip||$social) && empty($disable_contact_info) ) { ?>
                 <div class="atbd_content_module atbd_contact_information_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
@@ -630,6 +632,17 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                            class="atbd_info" <?php echo !empty($use_nofollow) ? 'rel="nofollow"': '';?>><?= esc_html($website); ?></a>
                                     </li>
                                 <?php } ?>
+                                <?php
+                                if (isset($zip) && !is_empty_v($zip) && !empty($display_zip_field)) { ?>
+                                    <!-- In Future, We will have to use a loop to print more than 1 number-->
+                                    <li>
+                                        <div class="atbd_info_title"><span
+                                                    class="fa fa-address-card"></span><?php _e('Zip/Post Code', ATBDP_TEXTDOMAIN); ?>
+                                        </div>
+                                        <div class="atbd_info"><?= esc_html($zip); ?></div>
+                                    </li>
+                                <?php } ?>
+
                             </ul>
                         </div>
                         <?php if (!empty($social) && is_array($social) && !empty($display_social_info_field)) { ?>

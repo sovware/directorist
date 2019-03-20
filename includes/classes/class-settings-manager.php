@@ -286,6 +286,11 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                             'title' => __('Website', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_website_field_settings(),
                         ),
+                        'zip_field' => array(
+                            'type' => 'section',
+                            'title' => __('Zip/Post Code', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_listings_zip_field_settings(),
+                        ),
                         'social_field' => array(
                             'type' => 'section',
                             'title' => __('Social Info', ATBDP_TEXTDOMAIN),
@@ -2390,6 +2395,34 @@ The Administrator of ==SITE_NAME==
         }
 
         /**
+         * Get website settings field
+         * @since 4.7.2
+         * @return array
+         */
+        public function get_listings_zip_field_settings() {
+            return apply_filters('atbdp_zip_field_setting' , array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_zip_field',
+                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_zip',
+                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_zip_for',
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+            ));
+        }
+
+        /**
          * Get social info settings field
          * @since 4.7.2
          * @return array
@@ -2630,7 +2663,6 @@ The Administrator of ==SITE_NAME==
                     'name' => 'atbdp_listing_slug',
                     'label' => __('Listing Slug', ATBDP_TEXTDOMAIN),
                     'default' => 'directory',
-                    'validation' => 'required',
                 ),
                 array(
                     'type' => 'select',

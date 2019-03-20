@@ -268,7 +268,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                                 </option>
                                             </select>
                                         <?php }
-                                    
+
                                      /**
                                  * @since 4.7.1
                                  * It fires after the price field
@@ -644,70 +644,66 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                         <?php if (empty($display_map_for && $display_address_for) && !empty($display_map_field) && !empty($display_address_field)) { ?>
                                             <!--Show map only if it is not disabled in the settings-->
                                             <!--Google map will be generated here using js-->
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="map_wrapper">
-                                                        <div id="floating-panel">
-                                                            <button class="btn btn-danger"
-                                                                    id="delete_marker"><?php _e('Delete Marker', ATBDP_TEXTDOMAIN); ?></button>
-                                                        </div>
-
-                                                        <div id="gmap"></div>
-                                                    </div>
-                                                </div> <!--ends .col-md-12-->
-                                            </div><!--ends .row-->
-                                            <div class="cor-wrap form-group">
-                                                <small style="font-size: 14px; margin-bottom: 4px; display: block"><i class="fa fa-info-circle" aria-hidden="true"></i> <?php _e('You can drag pinpoint to place the correct address manually.', ATBDP_TEXTDOMAIN); ?></small>
-                                                <?php $map_guide = sprintf("<span class='color:#c71585;'>%s</span>", __('SET 0 to LAT & LONG Field to HIDE MAP FOR THIS LISTING', ATBDP_TEXTDOMAIN)); ?>
-                                                <label for="manual_coordinate"><input type="checkbox" name="manual_coordinate"
-                                                                                      value="1"
-                                                                                      id="manual_coordinate" <?= (!empty($manual_coordinate)) ? 'checked' : ''; ?> > <?php
-                                                    printf(__('Or Enter Coordinates (latitude and longitude) Manually.', ATBDP_TEXTDOMAIN), $map_guide)
-                                                    ?>
-                                                </label>
-                                            </div>
-
-
-                                            <div class="row">
-                                                <div id="hide_if_no_manual_cor" class="clearfix">
-                                                    <div>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="manual_lat"> <?php _e('Latitude', ATBDP_TEXTDOMAIN); ?>  </label>
-                                                            <input type="text" name="manual_lat" id="manual_lat"
-                                                                   value="<?= !empty($manual_lat) ? esc_attr($manual_lat) : ''; ?>"
-                                                                   class="form-control directory_field"
-                                                                   placeholder="<?php esc_attr_e('Enter Latitude eg. 24.89904', ATBDP_TEXTDOMAIN); ?>"/>
-                                                        </div>
+                                            <div class="form-group">
+                                                <div class="map_wrapper">
+                                                    <div id="floating-panel">
+                                                        <button class="btn btn-danger"
+                                                                id="delete_marker"><?php _e('Delete Marker', ATBDP_TEXTDOMAIN); ?></button>
                                                     </div>
 
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="manual_lng"> <?php _e('Longitude', ATBDP_TEXTDOMAIN); ?> </label>
-                                                            <input type="text" name="manual_lng" id="manual_lng"
-                                                                   value="<?= !empty($manual_lng) ? esc_attr($manual_lng) : ''; ?>"
-                                                                   class="form-control directory_field"
-                                                                   placeholder="<?php esc_attr_e('Enter Longitude eg. 91.87198', ATBDP_TEXTDOMAIN); ?>"/>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-3 col-sm-12">
-                                                        <div class="form-group lat_btn_wrap">
-                                                            <button class="btn btn-primary"
-                                                                    id="generate_admin_map"><?php _e('Generate on Map', ATBDP_TEXTDOMAIN); ?></button>
-                                                        </div>
-                                                    </div> <!-- ends #hide_if_no_manual_cor-->
-
-                                                </div> <!--ends .row -->
-                                                <div class="col-sm-12">
-                                                    <div class="form-group">
-                                                        <input type="checkbox" name="hide_map" value="1"
-                                                               id="hide_map" <?= (!empty($hide_map)) ? 'checked' : ''; ?> >
-                                                        <label for="hide_map"> <?php _e('Hide map for this listing.', ATBDP_TEXTDOMAIN); ?> </label>
-                                                    </div>
+                                                    <div id="gmap"></div>
+                                                    <small  class="map_drag_info"><i class="fa fa-info-circle" aria-hidden="true"></i> <?php _e('You can drag pinpoint to place the correct address manually.', ATBDP_TEXTDOMAIN); ?></small>
+                                                    <div class="cor-wrap">
+                                                    <?php $map_guide = sprintf("<span class='color:#c71585;'>%s</span>", __('SET 0 to LAT & LONG Field to HIDE MAP FOR THIS LISTING', ATBDP_TEXTDOMAIN)); ?>
+                                                    <label for="manual_coordinate"><input type="checkbox" name="manual_coordinate"
+                                                                                        value="1"
+                                                                                        id="manual_coordinate" <?= (!empty($manual_coordinate)) ? 'checked' : ''; ?> > <?php
+                                                        printf(__('Or Enter Coordinates (latitude and longitude) Manually.', ATBDP_TEXTDOMAIN), $map_guide)
+                                                        ?>
+                                                    </label>
                                                 </div>
-                                            </div> <!--ends .row-->
+
+                                                </div>
+
+                                                <div class="row">
+                                                    <div id="hide_if_no_manual_cor" class="clearfix">
+                                                        <div class="col-md-6 col-sm-12">
+                                                            <div class="form-group">
+                                                                <label for="manual_lat"> <?php _e('Latitude', ATBDP_TEXTDOMAIN); ?>  </label>
+                                                                <input type="text" name="manual_lat" id="manual_lat"
+                                                                    value="<?= !empty($manual_lat) ? esc_attr($manual_lat) : ''; ?>"
+                                                                    class="form-control directory_field"
+                                                                    placeholder="<?php esc_attr_e('Enter Latitude eg. 24.89904', ATBDP_TEXTDOMAIN); ?>"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6 col-sm-12">
+                                                            <div class="form-group">
+                                                                <label for="manual_lng"> <?php _e('Longitude', ATBDP_TEXTDOMAIN); ?> </label>
+                                                                <input type="text" name="manual_lng" id="manual_lng"
+                                                                    value="<?= !empty($manual_lng) ? esc_attr($manual_lng) : ''; ?>"
+                                                                    class="form-control directory_field"
+                                                                    placeholder="<?php esc_attr_e('Enter Longitude eg. 91.87198', ATBDP_TEXTDOMAIN); ?>"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-3 col-sm-12">
+                                                            <div class="form-group lat_btn_wrap">
+                                                                <button class="btn btn-primary"
+                                                                        id="generate_admin_map"><?php _e('Generate on Map', ATBDP_TEXTDOMAIN); ?></button>
+                                                            </div>
+                                                        </div> <!-- ends #hide_if_no_manual_cor-->
+
+                                                    </div> <!--ends .row -->
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group hide-map-option">
+                                                            <input type="checkbox" name="hide_map" value="1"
+                                                                id="hide_map" <?= (!empty($hide_map)) ? 'checked' : ''; ?> >
+                                                            <label for="hide_map"> <?php _e('Hide map for this listing.', ATBDP_TEXTDOMAIN); ?> </label>
+                                                        </div>
+                                                    </div>
+                                                </div> <!--ends .row-->
+                                            </div><!--ends .row-->
                                         <?php } ?>
                                     <?php }
 

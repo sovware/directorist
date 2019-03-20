@@ -347,12 +347,22 @@ css for Custom Field
   margin-bottom: 0;
 }
 
+#directorist.atbd_wrapper .g_address_wrap {
+  margin-bottom: 15px;
+}
+
 #directorist.atbd_wrapper .atbd_map_title {
   margin-bottom: 15px;
 }
 
+#directorist.atbd_wrapper .map_wrapper .map_drag_info {
+  display: block;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
 #directorist.atbd_wrapper .map-coordinate {
-  margin-top: 30px;
+  margin-top: 15px;
   margin-bottom: 15px;
 }
 

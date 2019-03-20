@@ -300,11 +300,21 @@ css for Custom Field
   margin-bottom: 0;
 }
 #directorist.atbd_wrapper{
+  .g_address_wrap{
+    margin-bottom: 15px;
+  }
   .atbd_map_title{
     margin-bottom: 15px;
   }
+  .map_wrapper{
+    .map_drag_info{
+      display: block;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+  }
   .map-coordinate{
-    margin-top: 30px;
+    margin-top: 15px;
     margin-bottom: 15px;
     label{
       margin-bottom: 0;

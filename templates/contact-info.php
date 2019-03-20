@@ -19,8 +19,8 @@ $display_website_field = get_directorist_option('display_website_field', 1);
 $display_zip_field = get_directorist_option('display_zip_field', 1);
 $display_social_info_field = get_directorist_option('display_social_info_field', 1);
 $display_map_field = get_directorist_option('display_map_field', 1);
-$t = get_the_title();
-$t = !empty( $t ) ? esc_html($t) : __('No Title ', ATBDP_TEXTDOMAIN);
+$t = '';//later need to configure the marker info window
+//$t = !empty( $t ) ? esc_html($t) : __('No Title ', ATBDP_TEXTDOMAIN);
 $tg = !empty( $tagline ) ? esc_html($tagline) : '';
 $ad = !empty( $address ) ? esc_html($address) : '';
 $image = (!empty($attachment_id[0])) ? "<img src='". esc_url(wp_get_attachment_image_url($attachment_id[0], 'thumbnail'))."'>": '';

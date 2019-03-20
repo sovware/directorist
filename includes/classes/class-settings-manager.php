@@ -2473,8 +2473,8 @@ The Administrator of ==SITE_NAME==
                     'type' => 'textbox',
                     'name' => 'map_api_key',
                     'label' => __( 'Google Map API key', ATBDP_TEXTDOMAIN ),
-                    'description' => sprintf(__( 'It\'s required to use Google Map. You can find detailed information %s.', ATBDP_TEXTDOMAIN ), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
-                    'default' => atbdp_get_option('map_api_key', 'atbdp_general'),
+                    'description' => sprintf(__( 'Please replace it by your own API. It\'s required to use Google Map. You can find detailed information %s.', ATBDP_TEXTDOMAIN ), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'default' => 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo',
                 ),
                 array(
                     'type' => 'textbox',

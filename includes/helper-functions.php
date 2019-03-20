@@ -387,7 +387,6 @@ if (!function_exists('get_fa_icons_full')) {
     {
         return array(
             'none' => '',
-            //Adnan
             'fa-glass' => 'f000',
             'fa-remove' => 'f00d',
             'fa-rmb' => 'f157',
@@ -538,8 +537,6 @@ if (!function_exists('get_fa_icons_full')) {
             'fa-battery-1' => 'f243',
             'fa-dollar' => 'f155',
             'fa-drivers-license' => 'f2c2',
-            //Adnan
-
             'fa-music' => 'f001',
             'fa-search' => 'f002',
             'fa-envelope-o' => 'f003',

@@ -113,6 +113,15 @@ jQuery(document).ready(function ($) {
             return false;
         }
 
+        //zip
+        var zip = $("input[name='zip']").val();
+        var required_zip = add_listing_validator.zip;
+        if ('' === zip && '' !== required_zip) {
+            $("#atbdp_zip").append('<span class="atbdp_required">' + w_icon + required_zip + '</span>');
+            to_top('#atbdp_zip');
+            return false;
+        }
+
         //Sinfo
 
         var Sinfo = $(".atbdp_social_field_wrapper").length;

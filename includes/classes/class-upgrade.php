@@ -13,6 +13,7 @@ class ATBDP_Upgrade{
 
     public function upgrade_notice() {
         $user_id = get_current_user_id();
+        if (!current_user_can('administrator')) return false;
         $update_link = admin_url().'/edit.php?post_type=at_biz_dir&page=directorist-upgrade';
 
         //check the version of Directorist

@@ -497,7 +497,7 @@ jQuery(function ($) {
      */
     $(function () {
 
-        // Validate ACADP forms
+        // Validate forms
         if ($.fn.validator) {
 
             // Validate report abuse form

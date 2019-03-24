@@ -207,6 +207,8 @@ class ATBDP_Enqueuer {
         wp_register_script( 'atbdp_slick_slider', ATBDP_PUBLIC_ASSETS . 'js/slick.min.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'adminmainassets', ATBDP_PUBLIC_ASSETS . 'js/main.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'loc_cat_assets', ATBDP_PUBLIC_ASSETS . 'js/loc_cat.js', array( 'jquery' ), ATBDP_VERSION, true );
+        wp_register_script( 'atbdp_open_street', ATBDP_PUBLIC_ASSETS . 'openstreet/openlayers/OpenLayers.js', array( 'jquery' ), ATBDP_VERSION, true );
+        wp_register_script( 'atbdp_open_street_src', ATBDP_PUBLIC_ASSETS . 'openstreet/openlayers4jgsi/Crosshairs.js', array( 'jquery' ), ATBDP_VERSION, true );
 
 
         // we need select2 js on taxonomy edit screen to let the use to select the fonts-awesome icons ans search the icons easily
@@ -214,6 +216,8 @@ class ATBDP_Enqueuer {
         wp_enqueue_style('select2style');
         wp_enqueue_script('select2script');
         wp_enqueue_script('atbdp_validator');
+        wp_enqueue_script('atbdp_open_street');
+        wp_enqueue_script('atbdp_open_street_src');
 
         /* Enqueue all styles*/
         wp_enqueue_style('atbdp-bootstrap-style');
@@ -316,7 +320,11 @@ class ATBDP_Enqueuer {
         if (is_fee_manager_active()){
             $selected_plan = selected_plan_id();
             $planID = !empty($selected_plan)?$selected_plan:$fm_plans;
-            $plan_image = is_plan_slider_limit($planID);
+            $allow_slider = is_plan_allowed_slider($planID);
+            $slider_unl = is_plan_slider_unlimited($planID);
+            if (!empty($allow_slider) && empty($slider_unl)){
+                $plan_image = is_plan_slider_limit($planID);
+            }
         }
         $data = array(
             'nonce'            => wp_create_nonce('atbdp_nonce_action_js'),
@@ -443,6 +451,16 @@ class ATBDP_Enqueuer {
             $web = __('Website link field is required!', ATBDP_TEXTDOMAIN);
         }
 
+        //zip
+
+        $zip = '';
+        $require_zip = get_directorist_option('require_zip');
+        $display_zip = get_directorist_option('display_zip_field', 1);
+        $zip_visable = get_directorist_option('display_zip_for', 0);
+        if(!empty($require_zip && $display_zip) && empty($zip_visable)){
+            $zip = __('Zip/Post Code field is required!', ATBDP_TEXTDOMAIN);
+        }
+
         //social link
         $plan_social_networks = true;
         if (is_fee_manager_active()){
@@ -507,6 +525,7 @@ class ATBDP_Enqueuer {
             'phone'    => $phone,
             'email'    => $email,
             'web'    => $web,
+            'zip'    => $zip,
             'Sinfo'    => $Sinfo,
             'listing_prv_img'    => $preview_image,
             'gallery_image'    => $gallery_image,

@@ -21,6 +21,7 @@ if (!empty($p_id)) {
     $listing_info['phone'] = get_post_meta($p_id, '_phone', true);
     $listing_info['email'] = get_post_meta($p_id, '_email', true);
     $listing_info['website'] = get_post_meta($p_id, '_website', true);
+    $listing_info['zip'] = get_post_meta($p_id, '_zip', true);
     $listing_info['social'] = get_post_meta($p_id, '_social', true);
     $listing_info['faqs'] = get_post_meta($p_id, '_faqs', true);
     $listing_info['manual_lat'] = get_post_meta($p_id, '_manual_lat', true);
@@ -96,6 +97,8 @@ $display_email_field = get_directorist_option('display_email_field', 1);
 $display_email_for = get_directorist_option('display_email_for', 0);
 $display_website_field = get_directorist_option('display_website_field', 1);
 $display_website_for = get_directorist_option('display_website_for', 0);
+$display_zip_field = get_directorist_option('display_zip_field', 1);
+$display_zip_for = get_directorist_option('display_zip_for', 0);
 $display_social_info_field = get_directorist_option('display_social_info_field', 1);
 $display_social_info_for = get_directorist_option('display_social_info_for', 0);
 $display_map_field = get_directorist_option('display_map_field', 1);
@@ -265,7 +268,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                                 </option>
                                             </select>
                                         <?php }
-                                    
+
                                      /**
                                  * @since 4.7.1
                                  * It fires after the price field
@@ -600,7 +603,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
 
                         </div><!-- end .atbd_custom_fields_contents -->
                         <div class="atbdb_content_module">
-                        <?php if (!$disable_contact_info) { ?>
+                        <?php if (empty($display_phone_for || $display_address_for || $display_email_for || $display_website_for || $display_zip_for || $display_social_info_for) || !empty($display_address_field || $display_phone_field || $display_email_field || $display_website_field  || $display_zip_field || $display_social_info_field)) { ?>
                             <div class="atbd_content_module atbd_contact_information">
                                 <div class="atbd_content_module__tittle_area">
                                     <div class="atbd_area_title">
@@ -628,15 +631,101 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                                    for="hide_contact_owner"><?php esc_html_e('Check it to hide Contact listing owner', ATBDP_TEXTDOMAIN); ?></label>
                                         </div>
                                     <?php } ?>
+
                                     <?php if (empty($display_address_for) && !empty($display_address_field)) { ?>
-                                    <div class="form-group" id="atbdp_address">
-                                        <label for="address"><?php esc_html_e('Address:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_address')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
-                                        <input type="text" name="address" id="address"
-                                               value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
+                                        <div class="form-group" id="atbdp_address">
+                                            <label for="address"><?php esc_html_e('Google Address:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_address')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
+                                            <input type="text" name="address" id="address"
+                                                   value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
+                                                   class="form-control directory_field"
+                                                   placeholder="<?php esc_html_e('Listing address eg. New York, USA', ATBDP_TEXTDOMAIN); ?>"/>
+                                        </div>
+
+                                        <?php if (empty($display_map_for && $display_address_for) && !empty($display_map_field) && !empty($display_address_field)) { ?>
+                                            <!--Show map only if it is not disabled in the settings-->
+                                            <!--Google map will be generated here using js-->
+                                            <div class="form-group">
+                                                <div class="map_wrapper">
+                                                    <div id="floating-panel">
+                                                        <button class="btn btn-danger"
+                                                                id="delete_marker"><?php _e('Delete Marker', ATBDP_TEXTDOMAIN); ?></button>
+                                                    </div>
+
+                                                    <div id="gmap"></div>
+                                                    <small  class="map_drag_info"><i class="fa fa-info-circle" aria-hidden="true"></i> <?php _e('You can drag pinpoint to place the correct address manually.', ATBDP_TEXTDOMAIN); ?></small>
+                                                    <div class="cor-wrap">
+                                                    <?php $map_guide = sprintf("<span class='color:#c71585;'>%s</span>", __('SET 0 to LAT & LONG Field to HIDE MAP FOR THIS LISTING', ATBDP_TEXTDOMAIN)); ?>
+                                                    <label for="manual_coordinate"><input type="checkbox" name="manual_coordinate"
+                                                                                        value="1"
+                                                                                        id="manual_coordinate" <?= (!empty($manual_coordinate)) ? 'checked' : ''; ?> > <?php
+                                                        printf(__('Or Enter Coordinates (latitude and longitude) Manually.', ATBDP_TEXTDOMAIN), $map_guide)
+                                                        ?>
+                                                    </label>
+                                                </div>
+
+                                                </div>
+
+                                                <div class="row">
+                                                    <div id="hide_if_no_manual_cor" class="clearfix">
+                                                        <div class="col-md-6 col-sm-12">
+                                                            <div class="form-group">
+                                                                <label for="manual_lat"> <?php _e('Latitude', ATBDP_TEXTDOMAIN); ?>  </label>
+                                                                <input type="text" name="manual_lat" id="manual_lat"
+                                                                    value="<?= !empty($manual_lat) ? esc_attr($manual_lat) : ''; ?>"
+                                                                    class="form-control directory_field"
+                                                                    placeholder="<?php esc_attr_e('Enter Latitude eg. 24.89904', ATBDP_TEXTDOMAIN); ?>"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6 col-sm-12">
+                                                            <div class="form-group">
+                                                                <label for="manual_lng"> <?php _e('Longitude', ATBDP_TEXTDOMAIN); ?> </label>
+                                                                <input type="text" name="manual_lng" id="manual_lng"
+                                                                    value="<?= !empty($manual_lng) ? esc_attr($manual_lng) : ''; ?>"
+                                                                    class="form-control directory_field"
+                                                                    placeholder="<?php esc_attr_e('Enter Longitude eg. 91.87198', ATBDP_TEXTDOMAIN); ?>"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-3 col-sm-12">
+                                                            <div class="form-group lat_btn_wrap">
+                                                                <button class="btn btn-primary"
+                                                                        id="generate_admin_map"><?php _e('Generate on Map', ATBDP_TEXTDOMAIN); ?></button>
+                                                            </div>
+                                                        </div> <!-- ends #hide_if_no_manual_cor-->
+
+                                                    </div> <!--ends .row -->
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group hide-map-option">
+                                                            <input type="checkbox" name="hide_map" value="1"
+                                                                id="hide_map" <?= (!empty($hide_map)) ? 'checked' : ''; ?> >
+                                                            <label for="hide_map"> <?php _e('Hide map for this listing.', ATBDP_TEXTDOMAIN); ?> </label>
+                                                        </div>
+                                                    </div>
+                                                </div> <!--ends .row-->
+                                            </div><!--ends .row-->
+                                        <?php } ?>
+                                    <?php }
+
+                                /**
+                                 * It fires after the google map preview area
+                                 * @param string $type Page type.
+                                 * @param array $listing_info Information of the current listing
+                                 * @since 1.1.1
+                                 **/
+                                do_action('atbdp_edit_after_googlemap_preview', 'add_listing_page_frontend', $listing_info, $p_id);
+                                    if (empty($display_zip_for) && !empty($display_zip_field)){
+                                    ?>
+                                    <div class="form-group" id="atbdp_zip">
+                                        <label for="atbdp_zip"><?php esc_html_e('Zip/Post Code:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_zip')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
+
+                                        <input type="text" id="atbdp_zip" name="zip"
+                                               value="<?= !empty($zip) ? esc_attr($zip) : ''; ?>"
                                                class="form-control directory_field"
-                                               placeholder="<?php esc_html_e('Listing address eg. Houghton Street London WC2A 2AE UK', ATBDP_TEXTDOMAIN); ?>"/>
+                                               placeholder="<?php esc_attr_e('Enter Zip/Post Code', ATBDP_TEXTDOMAIN); ?>"/>
                                     </div>
-                                    <?php } ?>
+                                    <?php }?>
+
                                     <?php
                                     $plan_phone = true;
                                     if (is_fee_manager_active()){
@@ -680,7 +769,9 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                                class="form-control directory_field"
                                                placeholder="<?php esc_attr_e('Listing website eg. http://example.com', ATBDP_TEXTDOMAIN); ?>"/>
                                     </div>
-                                    <?php } ?>
+                                    <?php }
+                                     ?>
+
                                     <div class="form-group" id="atbdp_socialInFo">
                                         <?php
                                         /**
@@ -745,96 +836,16 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                              **/
                             do_action('atbdp_edit_after_business_hour_fields', 'add_listing_page_frontend', $listing_info);
 
+
+                         }
                             /**
                             * It fires before map
                             * @param string $type Page type.
                             * @param array $listing_info Information of the current listing
                             * @since 4.0
                             **/
-                            apply_filters('atbdp_before_map_section', 'add_listing_page_frontend', $listing_info, $p_id);
+                            apply_filters('atbdp_after_contact_info_section', 'add_listing_page_frontend', $listing_info, $p_id);
                             ?>
-
-                            <?php if (empty($display_map_for) && !empty($display_map_field) && !empty($display_address_field)) { ?>
-                                <!--Show map only if it is not disabled in the settings-->
-                            <div class="atbd_content_module atbd_location_map_setting">
-                                <div class="atbd_content_module__tittle_area">
-                                    <div class="atbd_area_title">
-                                        <h4><?php esc_html_e('Location (Map)', ATBDP_TEXTDOMAIN) ?></h4>
-                                    </div>
-                                </div>
-
-                                <div class="atbdb_content_module_contents">
-                                    <label><?php _e('Set the Marker by clicking anywhere on the Map', ATBDP_TEXTDOMAIN); ?></label>
-
-                                    <!--Google map will be generated here using js-->
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="map_wrapper">
-                                                    <div id="floating-panel">
-                                                        <button class="btn btn-danger"
-                                                                id="delete_marker"><?php _e('Delete Marker', ATBDP_TEXTDOMAIN); ?></button>
-                                                    </div>
-
-                                                    <div id="gmap"></div>
-                                                </div>
-                                            </div> <!--ends .col-md-12-->
-                                        </div><!--ends .row-->
-                                    <div class="cor-wrap form-group">
-                                        <?php $map_guide = sprintf("<span class='color:#c71585;'>%s</span>", __('SET 0 to LAT & LONG Field to HIDE MAP FOR THIS LISTING', ATBDP_TEXTDOMAIN)); ?>
-                                        <label for="manual_coordinate"><input type="checkbox" name="manual_coordinate"
-                                                                              value="1"
-                                                                              id="manual_coordinate" <?= (!empty($manual_coordinate)) ? 'checked' : ''; ?> > <?php
-                                            printf(__('Or Enter Coordinates (latitude and longitude) Manually.', ATBDP_TEXTDOMAIN), $map_guide)
-                                            ?>
-                                        </label>
-                                    </div>
-
-
-                                    <div class="row">
-                                        <div id="hide_if_no_manual_cor" class="clearfix">
-                                            <div>
-                                            </div>
-                                            <div class="col-md-6 col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="manual_lat"> <?php _e('Latitude', ATBDP_TEXTDOMAIN); ?>  </label>
-                                                    <input type="text" name="manual_lat" id="manual_lat"
-                                                           value="<?= !empty($manual_lat) ? esc_attr($manual_lat) : ''; ?>"
-                                                           class="form-control directory_field"
-                                                           placeholder="<?php esc_attr_e('Enter Latitude eg. 24.89904', ATBDP_TEXTDOMAIN); ?>"/>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6 col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="manual_lng"> <?php _e('Longitude', ATBDP_TEXTDOMAIN); ?> </label>
-                                                    <input type="text" name="manual_lng" id="manual_lng"
-                                                           value="<?= !empty($manual_lng) ? esc_attr($manual_lng) : ''; ?>"
-                                                           class="form-control directory_field"
-                                                           placeholder="<?php esc_attr_e('Enter Longitude eg. 91.87198', ATBDP_TEXTDOMAIN); ?>"/>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-3 col-sm-12">
-                                                <div class="form-group lat_btn_wrap">
-                                                    <button class="btn btn-primary"
-                                                            id="generate_admin_map"><?php _e('Generate on Map', ATBDP_TEXTDOMAIN); ?></button>
-                                                </div>
-                                            </div> <!-- ends #hide_if_no_manual_cor-->
-
-                                        </div> <!--ends .row -->
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <input type="checkbox" name="hide_map" value="1"
-                                                       id="hide_map" <?= (!empty($hide_map)) ? 'checked' : ''; ?> >
-                                                <label for="hide_map"> <?php _e('Hide map for this listing.', ATBDP_TEXTDOMAIN); ?> </label>
-                                            </div>
-                                        </div>
-                                    </div> <!--ends .row-->
-                                </div>
-                            </div> <!--./end atbd_location_map_setting-->
-                            <?php } ?>
-                        <?php } ?>
-
                         <div class="directorist-contact-fields atbdp_info_module">
                             <div class="atbdp_info_module">
                                 <?php
@@ -842,9 +853,9 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                  * It fires after the google map preview area
                                  * @param string $type Page type.
                                  * @param array $listing_info Information of the current listing
-                                 * @since 1.1.1
+                                 * @since 4.4.7
                                  **/
-                                do_action('atbdp_edit_after_googlemap_preview', 'add_listing_page_frontend', $listing_info, $p_id); ?>
+                                do_action('atbdp_edit_before_video_field', 'add_listing_page_frontend', $listing_info, $p_id); ?>
                             </div>
 
                             <?php
@@ -1043,7 +1054,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
             // location types.
             autocomplete = new google.maps.places.Autocomplete(
                 (address_input),
-                {types: ['geocode']});
+                {types: []});
 
             // When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
             autocomplete.addListener('place_changed', fillInAddress);
@@ -1187,9 +1198,5 @@ $display_video_for = get_directorist_option('display_video_for', 0);
         }
         <?php } ?>
 
-
-
     }); // ends jquery ready function.
-
-
 </script>

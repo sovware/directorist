@@ -523,6 +523,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   width: auto !important;
 }
 
+.atbdp_login_form_shortcode .alert-danger {
+  background: #F9D7D7;
+  padding: 8px 15px;
+}
+
 #directorist.atbd_wrapper .atbd_related_listings .atbd_listing_info .atbd_content_upper > p {
   margin-top: 13px;
 }
@@ -958,6 +963,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_listing_title h2 {
   font-size: 30px;
   font-weight: 500;
+  display: inline-block;
+  margin-right: 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_listing_title .atbd_sub_title {
@@ -2094,6 +2101,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   background: #ffffff;
 }
 
+.atbd_content_active #directorist.atbd_wrapper #atbdp_address {
+  margin-bottom: 15px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper #gmap {
   height: 350px;
 }
@@ -2102,6 +2113,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  margin: 5px 0 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper #hide_if_no_manual_cor .lat_btn_wrap {
+  margin-top: 10px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .map_wrapper {
@@ -2113,6 +2129,21 @@ body.atbd_content_active #directorist.atbd_wrapper {
   top: 10px;
   right: 58px;
   z-index: 1;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .map_wrapper .map_drag_info {
+  display: block;
+  font-size: 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .map_wrapper .cor-wrap label {
+  margin-bottom: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .hide-map-option label {
+  margin-left: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_plan_alert a.btn {

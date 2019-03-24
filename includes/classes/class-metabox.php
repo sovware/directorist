@@ -35,7 +35,7 @@ class ATBDP_Metabox {
         if( isset( $_POST['term_id'] ) ) {
             $ajax = true;
             $post_ID = (int) $_POST['post_id'];
-            $term_ids = $_POST['term_id'];
+            $term_ids = !empty($_POST['term_id'])?$_POST['term_id']:'';
         }
         $args = null;
         if (!empty($term_ids)){
@@ -102,7 +102,7 @@ class ATBDP_Metabox {
         if( isset( $_POST['term_id'] ) ) {
             $ajax = true;
             $post_ID = (int) $_POST['post_id'];
-            $term_ids = $_POST['term_id'];
+            $term_ids = !empty($_POST['term_id'])?$_POST['term_id']:'';
         }
         $args = null;
         if (!empty($term_ids)){
@@ -247,6 +247,7 @@ wp_reset_postdata();
         $listing_contact_info['phone']                  = get_post_meta($post->ID, '_phone', true);
         $listing_contact_info['email']                 = get_post_meta($post->ID, '_email', true);
         $listing_contact_info['website']               = get_post_meta($post->ID, '_website', true);
+        $listing_contact_info['zip']                    = get_post_meta($post->ID, '_zip', true);
         $listing_contact_info['social']                = get_post_meta($post->ID, '_social', true);
         $listing_contact_info['manual_lat']             = get_post_meta($post->ID, '_manual_lat', true);
         $listing_contact_info['manual_lng']            = get_post_meta($post->ID, '_manual_lng', true);
@@ -345,6 +346,7 @@ wp_reset_postdata();
         $metas['_phone']             = !empty($p['phone'])? sanitize_text_field($p['phone']) : '';
         $metas['_email']             = !empty($p['email'])? sanitize_text_field($p['email']) : '';
         $metas['_website']           = !empty($p['website'])? sanitize_text_field($p['website']) : '';
+        $metas['_zip']               = !empty($p['zip'])? sanitize_text_field($p['zip']) : '';
         $metas['_social']            = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
         $metas['_faqs']              = !empty($p['faqs']) ? atbdp_sanitize_array($p['faqs']) : array(); // we are expecting array value
         $metas['_enable247hour']     = !empty($p['enable247hour']) ? sanitize_text_field($p['enable247hour']) : ''; // we are expecting array value
@@ -473,6 +475,7 @@ wp_reset_postdata();
         $listing_info['phone']                  = get_post_meta($id, '_phone', true);
         $listing_info['email']                  = get_post_meta($id, '_email', true);
         $listing_info['website']                = get_post_meta($id, '_website', true);
+        $listing_info['zip']                    = get_post_meta($id, '_zip', true);
         $listing_info['social']                 = get_post_meta($id, '_social', true);
         $listing_info['manual_lat']             = get_post_meta($id, '_manual_lat', true);
         $listing_info['manual_lng']             = get_post_meta($id, '_manual_lng', true);

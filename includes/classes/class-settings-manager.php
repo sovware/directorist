@@ -92,7 +92,7 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                 'seo_menu' => array(
                     'title' => __('Titles & Metas', ATBDP_TEXTDOMAIN),
                     'name' => 'seo_settings',
-                    'icon' => 'font-awesome:fa-angellist',
+                    'icon' => 'font-awesome:fa-bolt',
                     'controls'=>apply_filters('atbdp_seo_settings_controls',array(
                         'seo_section' => array(
                             'type' => 'section',
@@ -181,7 +181,7 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                 array(
                     'title' => __('Single Listing', ATBDP_TEXTDOMAIN),
                     'name' => 'listings_form',
-                    'icon' => 'font-awesome:fa-wpforms',
+                    'icon' => 'font-awesome:fa-info',
                     'controls' => apply_filters('atbdp_listings_form_controls', array(
                         'emails' => array(
                             'type' => 'section',
@@ -224,7 +224,7 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                 array(
                     'title' => __('Form Fields', ATBDP_TEXTDOMAIN),
                     'name' => 'form_fields_setting',
-                    'icon' => 'font-awesome:fa-wpforms',
+                    'icon' => 'font-awesome:fa-adjust',
                     'controls' => apply_filters('atbdp_review_controls', array(
                         'title_field' => array(
                             'type' => 'section',
@@ -285,6 +285,11 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                             'type' => 'section',
                             'title' => __('Website', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_website_field_settings(),
+                        ),
+                        'zip_field' => array(
+                            'type' => 'section',
+                            'title' => __('Zip/Post Code', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_listings_zip_field_settings(),
                         ),
                         'social_field' => array(
                             'type' => 'section',
@@ -2390,6 +2395,34 @@ The Administrator of ==SITE_NAME==
         }
 
         /**
+         * Get website settings field
+         * @since 4.7.2
+         * @return array
+         */
+        public function get_listings_zip_field_settings() {
+            return apply_filters('atbdp_zip_field_setting' , array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_zip_field',
+                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_zip',
+                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_zip_for',
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+            ));
+        }
+
+        /**
          * Get social info settings field
          * @since 4.7.2
          * @return array
@@ -2630,7 +2663,6 @@ The Administrator of ==SITE_NAME==
                     'name' => 'atbdp_listing_slug',
                     'label' => __('Listing Slug', ATBDP_TEXTDOMAIN),
                     'default' => 'directory',
-                    'validation' => 'required',
                 ),
                 array(
                     'type' => 'select',
@@ -3374,7 +3406,7 @@ The Administrator of ==SITE_NAME==
                         'label' =>  __(  'Login Page', ATBDP_TEXTDOMAIN ),
                         'items' => $this->get_pages_vl_arrays(),
                         'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_user_login]</strong>'),
-                        'default' => atbdp_get_option('custom_registration', 'atbdp_general'),
+                        'default' => atbdp_get_option('user_login', 'atbdp_general'),
                         'validation' => 'numeric',
 
                     ),

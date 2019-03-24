@@ -45,6 +45,9 @@
     margin-bottom: 30px;
     background: $light;
   }
+  #atbdp_address{
+    margin-bottom: 15px;
+  }
   #gmap {
     height: 350px;
   }
@@ -52,6 +55,10 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    margin: 5px 0 15px;
+    .lat_btn_wrap{
+      margin-top: 10px;
+    }
   }
   .map_wrapper {
     position: relative;
@@ -60,6 +67,22 @@
       top: 10px;
       right: 58px;
       z-index: 1;
+    }
+    .map_drag_info{
+      display: block;
+      font-size: 12px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .cor-wrap{
+      label{
+        margin-bottom: 0;
+      }
+    }
+  }
+  .hide-map-option{
+    label{
+      margin-left: 0;
     }
   }
   .atbd_plan_alert {

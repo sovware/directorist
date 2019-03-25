@@ -563,6 +563,15 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-right: 8px;
 }
 
+#directorist.atbd_wrapper #listing_image_btn:focus {
+  box-shadow: none;
+}
+
+#directorist.atbd_wrapper #listing_image_btn,
+#directorist.atbd_wrapper #delete-custom-img {
+  margin: 3px;
+}
+
 .atbdp_required {
   display: block;
   margin-top: 10px;
@@ -2793,9 +2802,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
     width: 100%;
     justify-content: center;
     margin-top: 30px;
-  }
-  .atbd_content_active #directorist.atbd_wrapper #delete-custom-img {
-    margin-top: 10px;
   }
 }
 

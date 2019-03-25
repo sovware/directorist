@@ -188,6 +188,7 @@ class ATBDP_Custom_Taxonomy {
 
         $args = array(
             'hierarchical'      => true,
+            'show_in_rest'         => true,
             'labels'            => $labels,
             'show_ui'           => true,
             'show_admin_column' => true,

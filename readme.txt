@@ -129,7 +129,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 4.7.4 - March 18, 2019 =
+= 4.7.4 - March 20, 2019 =
 * Fix - User Login page
 * Fix - Google map autocomplete issue
 * Fix - Form fields hide/show issue

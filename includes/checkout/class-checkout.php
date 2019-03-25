@@ -174,7 +174,6 @@ class ATBDP_Checkout
         // if order is created successfully then process the order
         apply_filters( 'atbdp_before_order_recipt', array(), $listing_id);
         if ($order_id){
-
             /*@todo; Find a better way to search for a order with a given ID*/
             /*wp_update_post(array(
                 'ID'=> (int) $order_id,

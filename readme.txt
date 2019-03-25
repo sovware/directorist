@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.1.1
-Stable tag: 4.7.3
+Stable tag: 4.7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,13 +129,12 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 4.7.4 - March 18, 2019 =
-* Add - Enter Zip/Post Code field on add listing form
+= 4.7.4 - March 20, 2019 =
 * Fix - User Login page
-* Extended - Category icons
 * Fix - Google map autocomplete issue
 * Fix - Form fields hide/show issue
-* Tweak - Address field's placeholder on add listing form
+* Extend - Zip/Post Code field on add listing form
+* Extend - Added another 149 Category icons
 
 = 4.7.3 - March 14, 2019 =
 * Fix - Payment issue

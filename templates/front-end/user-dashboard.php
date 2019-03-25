@@ -162,9 +162,16 @@ $is_disable_price = get_directorist_option('disable_list_price');
 
                                                         <div class="db_btn_area">
                                                             <?php
+                                                            $exp_date = get_post_meta($post->ID, '_expiry_date', true);
+                                                            $never_exp = get_post_meta($post->ID, '_never_expire', true);
                                                             $lstatus = get_post_meta($post->ID, '_listing_status', true);
+                                                            $post_date = $post->post_date;
+                                                            $datetime1 = new DateTime($post_date);
+                                                            $datetime2 = new DateTime($exp_date);
+                                                            $interval = $datetime1>$datetime2;
                                                             // If the listing needs renewal then there is no need to show promote button
-                                                            if ('renewal' == $lstatus || 'expired' == $lstatus) {
+                                                           // if ('renewal' == $lstatus || 'expired' == $lstatus) {
+                                                            if ($interval){
                                                                 $can_renew = get_directorist_option('can_renew_listing');
                                                                 if (!$can_renew) return false;// vail if renewal option is turned off on the site.
                                                                 ?>
@@ -204,8 +211,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     <div class="atbd_listing_bottom_content">
                                                         <div class="listing-meta">
                                                             <?php
-                                                            $exp_date = get_post_meta($post->ID, '_expiry_date', true);
-                                                            $never_exp = get_post_meta($post->ID, '_never_expire', true);
                                                             if (is_fee_manager_active()){
                                                                 $plan_id = get_post_meta($post->ID, '_fm_plans', true);
                                                                 $plan_name = get_the_title($plan_id);

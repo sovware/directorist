@@ -2170,6 +2170,12 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'multiple_for_user',
+                    'label' => __('Multiple for User', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
             ));
         }
 

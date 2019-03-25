@@ -1,4 +1,4 @@
-<?php
+ <?php
 if (!empty($args['listing_contact_info'])) {
     extract($args['listing_contact_info']);
 }

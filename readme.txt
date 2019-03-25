@@ -129,6 +129,9 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
+= 4.7.5 - March 25, 2019 =
+* Tweak - Option for multiple & single location select
+
 = 4.7.4 - March 20, 2019 =
 * Fix - User Login page
 * Fix - Google map autocomplete issue

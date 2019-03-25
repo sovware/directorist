@@ -80,6 +80,7 @@ $display_title_for = get_directorist_option('display_title_for',0);
 $display_desc_for = get_directorist_option('display_desc_for',0);
 $display_cat_for = get_directorist_option('display_cat_for','users');
 $display_loc_for = get_directorist_option('display_loc_for',0);
+$multiple_for_user = get_directorist_option('multiple_for_user',1);
 $display_tag_for = get_directorist_option('display_tag_for',0);
 $display_tagline_field = get_directorist_option('display_tagline_field', 0);
 $display_tagline_for = get_directorist_option('display_tagline_for', 0);
@@ -389,7 +390,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                                     $choices = explode("\n", $choices);
                                                     printf('<select name="custom_field[%d]" class="form-control directory_field">', $post->ID);
                                                     if (!empty($field_meta['allow_null'][0])) {
-                                                        printf('<option value="">%s</option>', '- ' . __('Select an Option', 'advanced-classifieds-and-directory-pro') . ' -');
+                                                        printf('<option value="">%s</option>', '- ' . __('Select an Option', 'directorist') . ' -');
                                                     }
                                                     foreach ($choices as $choice) {
                                                         if (strpos($choice, ':') !== false) {
@@ -487,7 +488,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                         echo '<p class="c_cat_list">' . __('Current Location:', ATBDP_TEXTDOMAIN) . join(', ', $output) . '</p>';
                                     } ?>
                                     <select name="tax_input[at_biz_dir-location][]" class="form-control"
-                                            id="at_biz_dir-location" multiple="multiple">
+                                            id="at_biz_dir-location" <?php if(!empty($multiple_for_user)) { echo 'multiple="multiple"';}?>>
 
                                         <?php foreach ($locations as $location) {
                                             echo "<option id='atbdp_location' value='$location->term_id'>$location->name</option>";

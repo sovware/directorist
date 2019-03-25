@@ -407,8 +407,14 @@ body.atbd_content_active #directorist.atbd_wrapper{
   span{
     margin-right: 8px;
   }
+  &:focus{
+    box-shadow: none;
+  }
 }
-
+#directorist.atbd_wrapper #listing_image_btn,
+#directorist.atbd_wrapper #delete-custom-img{
+  margin:3px;
+}
 .atbdp_required{
   display: block;
   margin-top: 10px;

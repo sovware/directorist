@@ -852,6 +852,21 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $args['tax_query'] = $tax_queries;
 
                 $meta_queries = array();
+                $meta_queries['expired'] = array(
+                    'relation' => 'OR',
+                    array(
+                        'key'	  => '_expiry_date',
+                        'value'	  => current_time( 'mysql' ),
+                        'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
+                        'type'    => 'DATETIME'
+                    ),
+                    array(
+                        'key'	  => '_never_expire',
+                        'value' => 1,
+                    )
+
+                );
+                $args['expired'] = $meta_queries;
                 if( $has_featured ) {
 
                     if( '_featured' == $atts['filterby'] ) {
@@ -1116,6 +1131,21 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $args['tax_query'] = $tax_queries;
 
                 $meta_queries = array();
+                $meta_queries['expired'] = array(
+                    'relation' => 'OR',
+                    array(
+                        'key'	  => '_expiry_date',
+                        'value'	  => current_time( 'mysql' ),
+                        'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
+                        'type'    => 'DATETIME'
+                    ),
+                    array(
+                        'key'	  => '_never_expire',
+                        'value' => 1,
+                    )
+
+                );
+                $args['expired'] = $meta_queries;
                 if( $has_featured ) {
 
                     if( '_featured' == $atts['filterby'] ) {

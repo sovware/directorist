@@ -661,6 +661,11 @@ jQuery(function ($) {
         tabColumn.toggleClass("col-lg-4");
     }
 
+    var listing_size = $(".atbd_dashboard_wrapper .atbd_single_listing").width();
+    if(listing_size < 200){
+        $(".atbd_single_listing .db_btn_area").addClass("db_btn_area--sm");
+    }
+
 
 })(jQuery);
 

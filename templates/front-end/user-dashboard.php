@@ -162,16 +162,23 @@ $is_disable_price = get_directorist_option('disable_list_price');
 
                                                         <div class="db_btn_area">
                                                             <?php
+                                                            $exp_date = get_post_meta($post->ID, '_expiry_date', true);
+                                                            $never_exp = get_post_meta($post->ID, '_never_expire', true);
                                                             $lstatus = get_post_meta($post->ID, '_listing_status', true);
+                                                            $post_date = $post->post_date;
+                                                            $datetime1 = new DateTime($post_date);
+                                                            $datetime2 = new DateTime($exp_date);
+                                                            $interval = $datetime1>$datetime2;
                                                             // If the listing needs renewal then there is no need to show promote button
-                                                            if ('renewal' == $lstatus || 'expired' == $lstatus) {
+                                                           // if ('renewal' == $lstatus || 'expired' == $lstatus) {
+                                                            if ($interval){
                                                                 $can_renew = get_directorist_option('can_renew_listing');
                                                                 if (!$can_renew) return false;// vail if renewal option is turned off on the site.
                                                                 ?>
                                                                 <a href="<?= esc_url(ATBDP_Permalink::get_renewal_page_link($post->ID)) ?>"
                                                                    id="directorist-renew"
                                                                    data-listing_id="<?= $post->ID; ?>"
-                                                                   class="directory_btn btn btn-default">
+                                                                   class="directory_btn btn btn-outline-success">
                                                                     <?php _e('Renew', ATBDP_TEXTDOMAIN); ?>
                                                                 </a>
                                                                 <!--@todo; add expiration and renew date-->
@@ -204,8 +211,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                     <div class="atbd_listing_bottom_content">
                                                         <div class="listing-meta">
                                                             <?php
-                                                            $exp_date = get_post_meta($post->ID, '_expiry_date', true);
-                                                            $never_exp = get_post_meta($post->ID, '_never_expire', true);
                                                             if (is_fee_manager_active()){
                                                                 $plan_id = get_post_meta($post->ID, '_fm_plans', true);
                                                                 $plan_name = get_the_title($plan_id);
@@ -478,8 +483,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             <td class="saved_item_category">
                                                 <a href="%s"><span class="fa %s"></span>%s</a>
                                             </td>
-                                            
-                                            
+
+
                                         </tr>', $post_link, $title, $category_link, $category_icon, $category_name, atbdp_get_remove_favourites_page_link($post->ID), __('Remove', ATBDP_TEXTDOMAIN));
                                         }
                                         ?>

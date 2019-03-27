@@ -48,9 +48,17 @@ if ( !class_exists('ATBDP_Shortcode') ):
          * @since 4.7.4
          */
         public function my_login_fail($username){
-            $id = get_directorist_option('user_login');
-            wp_redirect(home_url( "?page_id=$id" ) . "&login_error" );
-            exit;
+
+                /*$id = get_directorist_option('user_login');
+                wp_redirect(home_url( "?page_id=$id" ) . "&login_error" );
+                exit;*/
+            $referrer = $_SERVER['HTTP_REFERER'];  // where did the post submission come from?
+            // if there's a valid referrer, and it's not the default log-in screen
+            if ( !empty($referrer) && !strstr($referrer,'wp-login') && !strstr($referrer,'wp-admin') ) {
+                wp_redirect( $referrer . '?login=failed' );  // let's append some information (login=failed) to the URL for the theme to use
+                exit;
+            }
+
         }
 
 
@@ -1397,7 +1405,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             ob_start();
             if (!is_user_logged_in()){
                 echo '<div class="atbdp_login_form_shortcode">';
-                if (isset($_GET['login_error'])){
+                if (isset($_GET['login']) && $_GET['login'] == 'failed'){
                     printf('<p class="alert-danger"><span class="fa fa-exclamation"></span>%s</p>',__(' Invalid username or password!', ATBDP_TEXTDOMAIN));
                 }
                 wp_login_form();

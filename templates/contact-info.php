@@ -7,7 +7,6 @@ $social_info = !empty($social) ? $social : array();
 $default_latitude = get_directorist_option('default_latitude', '51.5073509');
 $default_longitude = get_directorist_option('default_longitude', '-0.12775829999998223');
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
-$disable_map = get_directorist_option('disable_map');
 $disable_price = get_directorist_option('disable_list_price');
 $disable_contact_info = get_directorist_option('disable_contact_info');
 $disable_contact_owner = get_directorist_option('disable_contact_owner',1);

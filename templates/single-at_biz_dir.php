@@ -151,7 +151,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                 <div class="atbd_director_social_wrap">
                                     <?php
                                     //prepare the data for the links because links needs to be escaped
-                                    $twt_lnk = "http://twitter.com/intent/tweet?status={$p_title}+{$p_lnk}";
+                                    $twt_lnk = "http://twitter.com/share?url={$p_lnk}";
                                     $fb_lnk = "https://www.facebook.com/share.php?u={$p_lnk}&title={$p_title}";
                                     $g_lnk = "https://plus.google.com/share?url={$p_lnk}";
                                     $in_link = "http://www.linkedin.com/shareArticle?mini=true&url={$p_lnk}&title={$p_title}";
@@ -179,7 +179,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                         </li>
                                     </ul>
                                 </div> <!--Ends social share-->
-
+                            <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
                         </div>
                         <?php } ?>
                         <!-- Report Abuse-->

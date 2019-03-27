@@ -27,8 +27,8 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                 'use_util_menu' => true, // show import and export menu
                 'minimum_role' => 'manage_options',
                 'layout' => 'fixed',
-                'page_title' => __('Directory settings', ATBDP_TEXTDOMAIN),
-                'menu_label' => __('Directory settings', ATBDP_TEXTDOMAIN),
+                'page_title' => __('Directory Settings', ATBDP_TEXTDOMAIN),
+                'menu_label' => __('Directory Settings', ATBDP_TEXTDOMAIN),
                 'template' => array(
                     'title' => __('Directory Settings', ATBDP_TEXTDOMAIN),
                     'logo' => esc_url(ATBDP_ADMIN_ASSETS . 'images/settings_icon.png'),

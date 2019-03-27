@@ -75,8 +75,8 @@ class ATBDP_Enqueuer {
                 'select2script',
                 'bs-tooltip'
             );
-            $disable_map = get_directorist_option('disable_map');
-            if (!$disable_map){
+            $disable_map = get_directorist_option('display_map_field');
+            if (!empty($disable_map)){
                 // get the map api from the user settings
                 $map_api_key = get_directorist_option('map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo'); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
                 //Google map needs to be enqueued from google server with a valid API key. So, it is not possible to store map js file locally as this file will be unique for all users based on their MAP API key.
@@ -309,6 +309,7 @@ class ATBDP_Enqueuer {
         global $pagenow;
         $current_url = home_url(add_query_arg(array(),$wp->request));
         $fm_plans = '';
+        $listing_id = '';
         if( (strpos( $current_url, '/edit/' ) !== false) && ($pagenow = 'at_biz_dir')){
             $listing_id = substr($current_url, strpos($current_url, "/edit/") + 6);
             $fm_plans = get_post_meta($listing_id, '_fm_plans', true);
@@ -392,17 +393,37 @@ class ATBDP_Enqueuer {
             $plan_tag = is_plan_allowed_tag($fm_plans);
         }
         $tag = '';
+        $p_tags = true;
+        if (!empty($listing_id)){
+            $p_tags = wp_get_post_terms($listing_id, ATBDP_TAGS);
+            if (!empty($p_tags)){
+                $p_tags = false;
+            }else{
+                $p_tags = true;
+            }
+        }
+
         $require_tag = get_directorist_option('require_tags');
         $tag_visable = get_directorist_option('display_tag_for', 0);
-        if(!empty($require_tag) && $plan_tag && empty($tag_visable)){
+        if(!empty($require_tag && $p_tags) && $plan_tag && empty($tag_visable)){
             $tag = __('Tag field is required!', ATBDP_TEXTDOMAIN);
         }
 
         //location
         $location = '';
+        $p_locations = true;
+        if (!empty($listing_id)){
+            $p_locations = wp_get_post_terms($listing_id, ATBDP_LOCATION);
+            if (!empty($p_locations)){
+                $p_locations = false;
+            }else{
+                $p_locations = true;
+            }
+        }
+
         $required_location = get_directorist_option('require_location');
         $location_visable = get_directorist_option('display_loc_for', 0);
-        if((!empty($required_location)) && empty($location_visable)) {
+        if((!empty($required_location && $p_locations)) && empty($location_visable)) {
             $location = __('Location field is required!', ATBDP_TEXTDOMAIN);
         }
 

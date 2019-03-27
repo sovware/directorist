@@ -42,6 +42,9 @@ if (!class_exists('BD_Login_Form_Widget')) {
                     ?>
                     <div class="directorist">
                     <?php
+                    if (isset($_GET['login']) && $_GET['login'] == 'failed'){
+                        printf('<p class="alert-danger">  <span class="fa fa-exclamation"></span>%s</p>',__(' Invalid username or password!', ATBDP_TEXTDOMAIN));
+                    }
                         wp_login_form();
                         wp_register();
                     printf(__('<p>Don\'t have an account? %s</p>', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign up', ATBDP_TEXTDOMAIN)."</a>");

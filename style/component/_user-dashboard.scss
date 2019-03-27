@@ -26,18 +26,28 @@
   }
   &.dashboard_area{
     .db_btn_area{
-      padding: 20px;
+      padding: 20px 10px;
       border-top: 1px solid $border-color;
       margin-top: 0;
+      .btn{
+        line-height: 25px;
+        margin: 0 2px;
+      }
+      &.db_btn_area--sm{
+        .btn{
+          line-height: 19px;
+          font-size: 13px;
+          padding-left: 8px;
+          padding-right: 8px;
+          margin: 0 2px;
+        }
+      }
     }
     .atbd_dashboard_tittle_metas{
       padding: 15px 20px;
     }
     .atbd_promote_btn_wrapper{
       margin-bottom: 10px;
-    }
-    .directory_edit_btn{
-      margin-right: 6px;
     }
     .atbd_listing_bottom_content{
       .listing-meta p span{

@@ -44,7 +44,7 @@
                             $choices = get_post_meta(get_the_ID(), 'choices', true);
                             $choices = explode( "\n", $choices );
 
-                            echo '<ul class="atbdp-radio-list radio vertical">';
+                            echo '<ul class="atbdp-radio-list atbdp_custom_field_radio radio vertical">';
                             foreach( $choices as $choice ) {
                                 if( strpos( $choice, ':' ) !== false ) {
                                     $_choice = explode( ':', $choice );

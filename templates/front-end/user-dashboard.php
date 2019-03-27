@@ -178,7 +178,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                                 <a href="<?= esc_url(ATBDP_Permalink::get_renewal_page_link($post->ID)) ?>"
                                                                    id="directorist-renew"
                                                                    data-listing_id="<?= $post->ID; ?>"
-                                                                   class="directory_btn btn btn-default">
+                                                                   class="directory_btn btn btn-outline-success">
                                                                     <?php _e('Renew', ATBDP_TEXTDOMAIN); ?>
                                                                 </a>
                                                                 <!--@todo; add expiration and renew date-->
@@ -483,8 +483,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             <td class="saved_item_category">
                                                 <a href="%s"><span class="fa %s"></span>%s</a>
                                             </td>
-                                            
-                                            
+
+
                                         </tr>', $post_link, $title, $category_link, $category_icon, $category_name, atbdp_get_remove_favourites_page_link($post->ID), __('Remove', ATBDP_TEXTDOMAIN));
                                         }
                                         ?>

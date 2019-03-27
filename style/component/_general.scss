@@ -162,7 +162,6 @@ body.atbd_content_active #directorist.atbd_wrapper{
   }
   label {
     color: $dark;
-    text-transform: capitalize;
     label {
       display: inline-block;
       margin-bottom: $label-margin-bottom;
@@ -421,3 +420,8 @@ body.atbd_content_active #directorist.atbd_wrapper{
   color: #F44336;
 }
 
+#directorist.atbd_wrapper .atbdp_custom_field_radio{
+  li label{
+    display: flex;
+  }
+}

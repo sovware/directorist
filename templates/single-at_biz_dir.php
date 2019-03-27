@@ -99,7 +99,7 @@ $feature_badge_text               = get_directorist_option('feature_badge_text',
 $new_badge_text                   = get_directorist_option('new_badge_text','New');
 $enable_new_listing               = get_directorist_option('display_new_badge_cart',1);
 $use_nofollow                     = get_directorist_option('use_nofollow');
-$enable_review                    = get_directorist_option('enable_review', 1);
+$enable_review                    = get_directorist_option('enable_review', 'yes');
 $custom_section_lable             = get_directorist_option('custom_section_lable', __('Details', ATBDP_TEXTDOMAIN));
 $listing_details_text             = get_directorist_option('listing_details_text', __('Listing Details', ATBDP_TEXTDOMAIN));
 $listing_location_text            = get_directorist_option('listing_location_text', __('Location', ATBDP_TEXTDOMAIN));
@@ -346,7 +346,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
 
                                             foreach ($popular_listings->posts as $pop_post) {
                                                 if ($pop_post->ID == get_the_ID()){
-                                                    echo '<span class="atbd_badge atbd_badge_popular">Popular</span>';
+                                                    printf('<span class="atbd_badge atbd_badge_popular">%s</span>', __($popular_badge_text, ATBDP_TEXTDOMAIN)) ;
                                                 }
                                             }
                                         }

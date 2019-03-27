@@ -294,7 +294,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper label {
   color: #202428;
-  text-transform: capitalize;
 }
 
 #directorist.atbd_wrapper label label {
@@ -576,6 +575,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   display: block;
   margin-top: 10px;
   color: #F44336;
+}
+
+#directorist.atbd_wrapper .atbdp_custom_field_radio li label {
+  display: flex;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
@@ -2387,9 +2390,22 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area {
-  padding: 20px;
+  padding: 20px 10px;
   border-top: 1px solid #e3e6ef;
   margin-top: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .btn {
+  line-height: 25px;
+  margin: 0 2px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area.db_btn_area--sm .btn {
+  line-height: 19px;
+  font-size: 13px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin: 0 2px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_dashboard_tittle_metas {
@@ -2398,10 +2414,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_promote_btn_wrapper {
   margin-bottom: 10px;
-}
-
-.atbd_content_active #directorist.atbd_wrapper.dashboard_area .directory_edit_btn {
-  margin-right: 6px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_listing_bottom_content .listing-meta p span {

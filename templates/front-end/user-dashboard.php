@@ -126,10 +126,11 @@ $is_disable_price = get_directorist_option('disable_list_price');
 
                                                         <div class="atbd_lower_badge">
                                                             <?php
+                                                            $featured_text = get_directorist_option('feature_badge_text', esc_html__('Featured', ATBDP_TEXTDOMAIN));
                                                             if ($featured) {
                                                                 printf(
-                                                                    '<span class="atbd_badge atbd_badge_featured">Featured</span>',
-                                                                    esc_html__('Featured', ATBDP_TEXTDOMAIN)
+                                                                    '<span class="atbd_badge atbd_badge_featured">%s</span>', __($featured_text, ATBDP_TEXTDOMAIN)
+
                                                                 );
                                                             }
                                                             ?>
@@ -178,7 +179,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                                 <a href="<?= esc_url(ATBDP_Permalink::get_renewal_page_link($post->ID)) ?>"
                                                                    id="directorist-renew"
                                                                    data-listing_id="<?= $post->ID; ?>"
-                                                                   class="directory_btn btn btn-default">
+                                                                   class="directory_btn btn btn-outline-success">
                                                                     <?php _e('Renew', ATBDP_TEXTDOMAIN); ?>
                                                                 </a>
                                                                 <!--@todo; add expiration and renew date-->
@@ -219,7 +220,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                                             $exp_text = !empty($never_exp)
                                                                 ? __('Never Expires', ATBDP_TEXTDOMAIN)
                                                                 : date_i18n($date_format, strtotime($exp_date)); ?>
-                                                            <p><?php printf(__('<span>Expiration:</span> %s', ATBDP_TEXTDOMAIN), $exp_text); ?></p>
+                                                            <p><?php printf(__('<span>Expiration:</span> %s', ATBDP_TEXTDOMAIN), !empty($interval)?'<span style="color: red">Expired</span>':$exp_text); ?></p>
                                                             <p><?php printf(__('<span>Listing Status:</span> %s', ATBDP_TEXTDOMAIN), get_post_status_object($post->post_status)->label); ?></p>
                                                             <?php
                                                             atbdp_display_price($price, $is_disable_price);
@@ -483,8 +484,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                             <td class="saved_item_category">
                                                 <a href="%s"><span class="fa %s"></span>%s</a>
                                             </td>
-                                            
-                                            
+
+
                                         </tr>', $post_link, $title, $category_link, $category_icon, $category_name, atbdp_get_remove_favourites_page_link($post->ID), __('Remove', ATBDP_TEXTDOMAIN));
                                         }
                                         ?>

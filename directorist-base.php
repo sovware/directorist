@@ -658,23 +658,29 @@ final class Directorist_Base
         /*Popular post related stuff*/
         $p_count = !empty($count) ? $count : 5;
 
+        $view_to_popular = get_directorist_option('views_for_popular', 5);
         /**
          * It filters the number of the popular listing to display
          * @since 1.0.0
          * @param int $p_count The number of popular listing  to show
          */
         $p_count = apply_filters('atbdp_popular_listing_number', $p_count);
-
+       /* $average = ATBDP()->review->get_average($listing_id);
+        $top_rated_listing = '';
+        if (5 === $average){
+            $top_rated_listing = $listing_id;
+        }*/
         $args = array(
             'post_type' => ATBDP_POST_TYPE,
             'meta_key' => '_atbdp_post_views_count',
             'orderby' => 'meta_value_num',
             'order' => 'DESC',
+            //'p' => $top_rated_listing,
             'posts_per_page' => (int)$p_count,
             'meta_query' =>
                 array(
                     'key' => '_atbdp_post_views_count',
-                    'value' => 10,
+                    'value' => $view_to_popular,
                     'compare' => '>=',
                 )
             /*@todo; later sort by featured listings*/
@@ -754,7 +760,7 @@ final class Directorist_Base
      */
     public function get_related_listings($post)
     {
-        $rel_listing_num = get_directorist_option('rel_listing_num', 3);
+        $rel_listing_num = get_directorist_option('rel_listing_num', 2);
         $atbd_cats = get_the_terms($post, ATBDP_CATEGORY);
         $atbd_tags = get_the_terms($post, ATBDP_TAGS);
         // get the tag ids of the listing post type

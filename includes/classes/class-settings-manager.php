@@ -2068,6 +2068,22 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Popular Badge Text', ATBDP_TEXTDOMAIN),
                     'default' => __( 'Popular', ATBDP_TEXTDOMAIN ),
                 ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'views_for_popular',
+                    'label' => __('Popular Listing Threshold (view count)', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '1000',
+                    'step' => '1',
+                    'default' => '5',
+                    'validation' => 'numeric|minlength[1]',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'count_loggedin_user',
+                    'label' => __('Count Visit while User Logged-in', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
             ) );
         }
 

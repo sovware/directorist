@@ -116,8 +116,10 @@ class ATBDP_Listing{
      * @param $postID
      */
     public function track_post_views ($postID) {
-                // vail if user is logged in or if the post is not single.
-                if ( !is_single() || is_user_logged_in() ) return;
+                // vail if user is logged in or if the post is not single..
+
+                $count_loggedin = get_directorist_option('count_loggedin_user');
+                if ( !is_single() || is_user_logged_in() && empty($count_loggedin) ) return;
 
                 if ( empty ( $postID) ) {
                     global $post;

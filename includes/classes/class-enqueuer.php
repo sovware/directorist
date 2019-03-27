@@ -241,12 +241,31 @@ class ATBDP_Enqueuer {
         wp_enqueue_script('wp-color-picker');
 
         $data = array(
-            'nonce'       => wp_create_nonce('atbdp_nonce_action_js'),
-            'ajaxurl'       => admin_url('admin-ajax.php'),
-            'nonceName'       => 'atbdp_nonce_js',
-            'PublicAssetPath'  => ATBDP_PUBLIC_ASSETS,
-            'login_alert_message' => __( 'Sorry, you need to login first.', ATBDP_TEXTDOMAIN ),
-            'rtl'                 => is_rtl() ? 'true': 'false'
+            'nonce'                         => wp_create_nonce('atbdp_nonce_action_js'),
+            'ajaxurl'                       => admin_url('admin-ajax.php'),
+            'nonceName'                     => 'atbdp_nonce_js',
+            'PublicAssetPath'               => ATBDP_PUBLIC_ASSETS,
+            'login_alert_message'           => __( 'Sorry, you need to login first.', ATBDP_TEXTDOMAIN ),
+            'rtl'                           => is_rtl() ? 'true': 'false',
+            'warning'                       =>__( 'WARNING!!', ATBDP_TEXTDOMAIN ),
+            'not_add_more_than_one'         =>__( 'You can not add more than one review. Refresh the page to edit or delete your review!!!,', ATBDP_TEXTDOMAIN ),
+            'review_success'                => __( 'Reviews Saved Successfully!!', ATBDP_TEXTDOMAIN ),
+            'review_error'                  => __( 'Something went wrong. Check the form and try again!!!', ATBDP_TEXTDOMAIN ),
+            'review_loaded'                 => __( 'Reviews Loaded!!', ATBDP_TEXTDOMAIN ),
+            'review_not_available'          => __( 'NO MORE REVIEWS AVAILABLE!!!,', ATBDP_TEXTDOMAIN ),
+            'review_have_not_for_delete'    => __( 'You do not have any review to delete. Refresh the page to submit new review!!!,', ATBDP_TEXTDOMAIN ),
+            'review_sure_msg'               => __( 'Are you sure?', ATBDP_TEXTDOMAIN ),
+            'review_want_to_remove'         => __( 'Do you really want to remove this review!', ATBDP_TEXTDOMAIN ),
+            'review_delete_msg'             => __( 'Yes, Delete it!', ATBDP_TEXTDOMAIN ),
+            'review_wrong_msg'              => __( 'Something went wrong!!!, Try again', ATBDP_TEXTDOMAIN ),
+            'listing_remove_title'          => __( 'Are you sure?', ATBDP_TEXTDOMAIN ),
+            'listing_remove_text'           => __( 'Do you really want to delete this item?!', ATBDP_TEXTDOMAIN ),
+            'listing_remove_confirm_text'   => __( 'Yes, Delete it!', ATBDP_TEXTDOMAIN ),
+            'listing_delete'                => __( 'Deleted!!', ATBDP_TEXTDOMAIN ),
+            'listing_error_title'           => __( 'ERROR!!', ATBDP_TEXTDOMAIN ),
+            'listing_error_text'            => __( 'Something went wrong!!!, Try again', ATBDP_TEXTDOMAIN ),
+            'upload_pro_pic_title'          => __( 'Select or Upload a profile picture', ATBDP_TEXTDOMAIN ),
+            'upload_pro_pic_text'           => __( 'Use this Image', ATBDP_TEXTDOMAIN ),
         );
         wp_localize_script( 'atbdp_checkout_script', 'atbdp_checkout', $data );
 

@@ -2173,7 +2173,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'multiple_for_user',
-                    'label' => __('Multiple for User', ATBDP_TEXTDOMAIN),
+                    'label' => __('Multi Location for User', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
             ));

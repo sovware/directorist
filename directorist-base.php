@@ -666,9 +666,8 @@ final class Directorist_Base
          */
         $p_count = apply_filters('atbdp_popular_listing_number', $p_count);
         $top_rated_listing = '';
-
-        $popular_with_average_review = get_directorist_option('popular_with_average_review');
-        if (!empty($popular_with_average_review)){
+        $listing_popular_by = get_directorist_option('listing_popular_by');
+        if (('average_rating' || 'both_view_rating') === $listing_popular_by){
             $average = ATBDP()->review->get_average($listing_id);
             $average_review_for_popular = get_directorist_option('average_review_for_popular',4);
             if ($average_review_for_popular <= $average){
@@ -683,14 +682,15 @@ final class Directorist_Base
             'order' => 'DESC',
             'p' => $top_rated_listing,
             'posts_per_page' => (int)$p_count,
-            'meta_query' =>
-                array(
-                    'key' => '_atbdp_post_views_count',
-                    'value' => $view_to_popular,
-                    'compare' => '>=',
-                )
-            /*@todo; later sort by featured listings*/
+
         );
+        if (('view_count'|| 'both_view_rating') === $listing_popular_by){
+            $args['meta_query'] =  array(
+                'key' => '_atbdp_post_views_count',
+                'value' => $view_to_popular,
+                'compare' => '>=',
+            );
+        }
         return new WP_Query(apply_filters('atbdp_popular_listing_args', $args));
 
     }

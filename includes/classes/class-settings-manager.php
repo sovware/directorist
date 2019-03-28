@@ -2102,13 +2102,13 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'count_loggedin_user',
-                    'label' => __('Count Visit while User Logged-in', ATBDP_TEXTDOMAIN),
+                    'label' => __('Count Logged-in Users View', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'select',
                     'name' => 'listing_popular_by',
-                    'label' => __( 'Popular by', ATBDP_TEXTDOMAIN ),
+                    'label' => __( 'Popular Based on', ATBDP_TEXTDOMAIN ),
                     'items' => array(
                         array(
                             'value' => 'view_count',

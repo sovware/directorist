@@ -2100,20 +2100,39 @@ The Administrator of ==SITE_NAME==
                     'default' => __( 'Popular', ATBDP_TEXTDOMAIN ),
                 ),
                 array(
-                    'type' => 'slider',
-                    'name' => 'views_for_popular',
-                    'label' => __('Popular Listing Threshold (view count)', ATBDP_TEXTDOMAIN),
-                    'min' => '1',
-                    'max' => '500',
-                    'step' => '1',
-                    'default' => '5',
-                    'validation' => 'numeric|minlength[1]',
-                ),
-                array(
                     'type' => 'toggle',
                     'name' => 'count_loggedin_user',
                     'label' => __('Count Visit while User Logged-in', ATBDP_TEXTDOMAIN),
                     'default' => 0,
+                ),
+                array(
+                    'type' => 'select',
+                    'name' => 'listing_popular_by',
+                    'label' => __( 'Popular by', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'view_count',
+                            'label' => __('View Count', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'average_rating',
+                            'label' => __('Average Rating', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'both_view_rating',
+                            'label' => __('Both', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'view_count',
+                        'label' => __('View Count', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'views_for_popular',
+                    'label' => __('Popular Listing Threshold (in views count)', ATBDP_TEXTDOMAIN),
+                    'default' => 5,
                 ),
                 array(
                     'type' => 'toggle',

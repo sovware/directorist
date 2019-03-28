@@ -129,16 +129,15 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 4.8.0 - March 25, 2019 =
-* Tweak - Option for multiple & single location select
-<<<<<<< HEAD
-* Tweak - Listing expiration and renewal issue
-* Fix - Minor CSS issues
-*
-=======
+= 4.8.0 - March 28, 2019 =
+* Add - Option to use average review for making listing popular
 * Add - User Dashboard control options
+* Fix - Minor CSS issues
+* Fix - Image upload issue
 * Fix - Popup's text translate issue
->>>>>>> 82d75669b19a000597440491d2a41d98f191d5e4
+* Fix - Listing share with social medias
+* Tweak - Option for multiple & single location select
+* Tweak - Listing expiration and renewal issue
 
 = 4.7.4 - March 20, 2019 =
 * Fix - User Login page

@@ -1,24 +1,27 @@
 <?php
-$listings = ATBDP()->user->current_user_listings();
-$fav_listings = ATBDP()->user->current_user_fav_listings();
-$uid = get_current_user_id();
-$c_user = get_userdata($uid);
-$u_website = $c_user->user_url;
-$avatar = get_user_meta($uid, 'avatar', true);
-$u_phone = get_user_meta($uid, 'phone', true);
-$u_pro_pic_id = get_user_meta($uid, 'pro_pic', true);
-$u_pro_pic = wp_get_attachment_image_src($u_pro_pic_id, 'directory-large');
-$facebook = get_user_meta($uid, 'facebook', true);
-$twitter = get_user_meta($uid, 'twitter', true);
-$google = get_user_meta($uid, 'google', true);
-$linkedIn = get_user_meta($uid, 'linkedIn', true);
-$youtube = get_user_meta($uid, 'youtube', true);
-$bio = get_user_meta($uid, 'bio', true);
-$u_address = get_user_meta($uid, 'address', true);
-$date_format = get_option('date_format');
-$featured_active = get_directorist_option('enable_featured_listing');
-$is_disable_price = get_directorist_option('disable_list_price');
-
+$listings                = ATBDP()->user->current_user_listings();
+$fav_listings            = ATBDP()->user->current_user_fav_listings();
+$uid                     = get_current_user_id();
+$c_user                  = get_userdata($uid);
+$u_website               = $c_user->user_url;
+$avatar                  = get_user_meta($uid, 'avatar', true);
+$u_phone                 = get_user_meta($uid, 'phone', true);
+$u_pro_pic_id            = get_user_meta($uid, 'pro_pic', true);
+$u_pro_pic               = wp_get_attachment_image_src($u_pro_pic_id, 'directory-large');
+$facebook                = get_user_meta($uid, 'facebook', true);
+$twitter                 = get_user_meta($uid, 'twitter', true);
+$google                  = get_user_meta($uid, 'google', true);
+$linkedIn                = get_user_meta($uid, 'linkedIn', true);
+$youtube                 = get_user_meta($uid, 'youtube', true);
+$bio                     = get_user_meta($uid, 'bio', true);
+$u_address               = get_user_meta($uid, 'address', true);
+$date_format             = get_option('date_format');
+$featured_active         = get_directorist_option('enable_featured_listing');
+$is_disable_price        = get_directorist_option('disable_list_price');
+$my_listing_tab          = get_directorist_option('my_listing_tab',1);
+$my_profile_tab          = get_directorist_option('my_profile_tab',1);
+$fav_listings_tab        = get_directorist_option('fav_listings_tab',1);
+$submit_listing_button   = get_directorist_option('submit_listing_button',1);
 
 /*@todo; later show featured listing first on the user dashboard maybe??? */
 ?>
@@ -26,15 +29,14 @@ $is_disable_price = get_directorist_option('disable_list_price');
     <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
         <div class="row">
             <div class="col-md-12">
-
                 <div class="atbd_add_listing_title">
                     <h2><?php _e('My Dashboard', ATBDP_TEXTDOMAIN); ?></h2>
                 </div> <!--ends add_listing_title-->
-
                 <div class="atbd_dashboard_wrapper">
                     <div class="atbd_user_dashboard_nav">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist" id="atbdp_tabs">
+                            <?php if(!empty($my_listing_tab)) {?>
                             <li role="presentation" class="active nav-item">
                                 <a href="#my_listings" class="nav-link active" aria-controls="my_listings" role="tab"
                                    data-toggle="tab">
@@ -42,14 +44,19 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                     printf(__('My Listing (%s)', ATBDP_TEXTDOMAIN), $list_found); ?>
                                 </a>
                             </li>
+                            <?php } ?>
+                            <?php if(!empty($my_profile_tab)) {?>
                             <li role="presentation" class="nav-item"><a href="#profile" class="nav-link"
                                                                         aria-controls="profile" role="tab"
                                                                         data-toggle="tab"><?php _e('My Profile', ATBDP_TEXTDOMAIN); ?></a>
                             </li>
+                            <?php } ?>
+                            <?php if(!empty($fav_listings_tab)) {?>
                             <li role="presentation" class="nav-item"><a href="#saved_items" class="nav-link"
                                                                         aria-controls="profile" role="tab"
                                                                         data-toggle="tab"><?php _e('Favorite Listings', ATBDP_TEXTDOMAIN); ?></a>
                             </li>
+                            <?php } ?>
                             <?php
                             do_action('atbdp_tab_after_favorite_listings');
                             ?>
@@ -57,8 +64,10 @@ $is_disable_price = get_directorist_option('disable_list_price');
                         </ul>
 
                         <div class="nav_button">
+                            <?php if(!empty($submit_listing_button)) {?>
                             <a href="<?= (is_fee_manager_active())?esc_url(ATBDP_Permalink::get_fee_plan_page_link()):esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
                                class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Submit Listing', ATBDP_TEXTDOMAIN); ?></a>
+                            <?php } ?>
                             <a href="<?= esc_url(wp_logout_url()); ?>"
                                class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Log Out', ATBDP_TEXTDOMAIN); ?></a>
                         </div>
@@ -66,6 +75,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
 
                     <!-- Tab panes -->
                     <div class="tab-content">
+                        <?php if(!empty($my_listing_tab)) {?>
                         <div role="tabpanel" class="tab-pane active row" data-uk-grid id="my_listings">
                             <?php if ($listings->have_posts()) {
                                 foreach ($listings->posts as $post) {
@@ -248,6 +258,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             ?>
 
                         </div> <!--ends #my_listings-->
+                        <?php } ?>
+                        <?php if(!empty($my_profile_tab)) {?>
                             <div role="tabpanel" class="tab-pane" id="profile">
                                 <form action="#" id="user_profile_form" method="post">
                                     <div class="row">
@@ -448,8 +460,8 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                     </div>
                                 </form>
                             </div>
-
-
+                        <?php } ?>
+                        <?php if(!empty($fav_listings_tab)) {?>
                         <div role="tabpanel" class="tab-pane" id="saved_items">
                             <div class="atbd_saved_items_wrapper">
                                 <table class="table table-bordered atbd_single_saved_item table-responsive-sm">
@@ -498,6 +510,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                 </table>
                             </div>
                         </div>
+                        <?php } ?>
                         <?php
                             do_action('atbdp_tab_content_after_favorite');
                         ?>

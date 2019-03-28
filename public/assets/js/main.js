@@ -56,8 +56,8 @@
             // show error message
             /*@todo; make all the strings on js file translatable*/
             swal({
-                title: "WARNING!!",
-                text: 'You can not add more than one review. Refresh the page to edit or delete your review!!!,',
+                title: atbdp_public_data.warning,
+                text: atbdp_public_data.not_add_more_than_one,
                 type: "warning",
                 timer: 2000,
                 showConfirmButton: false
@@ -122,7 +122,7 @@
                 submit_count++;
                 // show success message
                 swal({
-                    title: "Reviews Saved Successfully!!",
+                    title: atbdp_public_data.review_success,
                     type: "success",
                     timer: 800,
                     showConfirmButton: false
@@ -139,7 +139,7 @@
                 // show error message
                 swal({
                     title: "ERROR!!",
-                    text: 'Something went wrong. Check the form and try again!!!,',
+                    text: atbdp_public_data.review_error,
                     type: "error",
                     timer: 2000,
                     showConfirmButton: false
@@ -186,7 +186,7 @@
 
                 // show success message
                 swal({
-                    title: "Reviews Loaded!!",
+                    title: atbdp_public_data.review_loaded,
                     type: "success",
                     timer: 500,
                     showConfirmButton: false
@@ -203,7 +203,7 @@
                 // show error message
                 swal({
                     title: "ERORR!!",
-                    text: 'NO MORE REVIEWS AVAILABLE!!!,',
+                    text: atbdp_public_data.review_not_available,
                     type: "warning",
                     timer: 1000,
                     showConfirmButton: false
@@ -226,7 +226,7 @@
             // show error message
             swal({
                 title: "WARNING!!",
-                text: 'You do not have any review to delete. Refresh the page to submit new review!!!,',
+                text: atbdp_public_data.review_have_not_for_delete,
                 type: "warning",
                 timer: 2000,
                 showConfirmButton: false
@@ -238,12 +238,12 @@
         var data = 'review_id=' + id;
 
         swal({
-                title: "Are you sure?",
-                text: "Do you really want to remove this review!",
+                title: atbdp_public_data.review_sure_msg,
+                text: atbdp_public_data.review_want_to_remove,
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, Delete it!",
+                confirmButtonText: atbdp_public_data.review_delete_msg,
                 showLoaderOnConfirm: true,
                 closeOnConfirm: false
             },
@@ -270,7 +270,7 @@
                             // show error message
                             swal({
                                 title: "ERROR!!",
-                                text: 'Something went wrong!!!, Try again',
+                                text: atbdp_public_data.review_wrong_msg,
                                 type: "error",
                                 timer: 2000,
                                 showConfirmButton: false
@@ -298,12 +298,12 @@
         var id = $this.data('listing_id');
         var data = 'listing_id=' + id;
         swal({
-                title: "Are you sure?",
-                text: "Do you really want to delete this item?!",
+                title: atbdp_public_data.listing_remove_title,
+                text: atbdp_public_data.listing_remove_text,
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, Delete it!",
+                confirmButtonText: atbdp_public_data.listing_remove_confirm_text,
                 showLoaderOnConfirm: true,
                 closeOnConfirm: false
             },
@@ -315,7 +315,7 @@
                         if ('success' === response) {
                             // show success message
                             swal({
-                                title: "Deleted!!",
+                                title: atbdp_public_data.listing_delete,
                                 type: "success",
                                 timer: 200,
                                 showConfirmButton: false
@@ -325,8 +325,8 @@
                         } else {
                             // show error message
                             swal({
-                                title: "ERROR!!",
-                                text: 'Something went wrong!!!, Try again',
+                                title: atbdp_public_data.listing_error_title,
+                                text:  atbdp_public_data.listing_error_text,
                                 type: "error",
                                 timer: 2000,
                                 showConfirmButton: false
@@ -450,9 +450,9 @@ jQuery(function ($) {
         // Create a new media frame
         /*@todo; make the static help text translatable later*/
         frame = wp.media({
-            title: 'Select or Upload a profile picture',
+            title: atbdp_public_data.upload_pro_pic_title,
             button: {
-                text: 'Use this Image'
+                text: atbdp_public_data.upload_pro_pic_text
             },
             library: {type: 'image'}, // only
             multiple: false  // Set to true to allow multiple files to be selected

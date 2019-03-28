@@ -324,6 +324,20 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                         ),
                     )),
                 ),
+
+                /*Submenu : Review */
+                array(
+                    'title' => __('User Dashboard Setting', ATBDP_TEXTDOMAIN),
+                    'name' => 'dashboard_setting',
+                    'icon' => 'font-awesome:fa-star',
+                    'controls' => apply_filters('atbdp_dashboard_controls', array(
+                        'emails' => array(
+                            'type' => 'section',
+                            'title' => __('User Dashboard Setting', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_listings_dashboard_settings_fields(),
+                        ),
+                    )),
+                ),
             ));
         }
 
@@ -2222,7 +2236,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'multiple_for_user',
-                    'label' => __('Multiple for User', ATBDP_TEXTDOMAIN),
+                    'label' => __('Multi Location for User', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
             ));
@@ -2670,6 +2684,36 @@ The Administrator of ==SITE_NAME==
 
             ));
         }
+
+        function get_listings_dashboard_settings_fields() {
+            return apply_filters('atbdp_dashboard_field_setting' , array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'my_listing_tab',
+                    'label' => __('My Listing Tab', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'my_profile_tab',
+                    'label' => __('My Profile Tab', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'fav_listings_tab',
+                    'label' => __('Favourite Listings Tab', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'submit_listing_button',
+                    'label' => __('Submit Listing Button', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+            ));
+        }
+
         /**
          * Get all the settings fields for the listings settings section
          * @since 4.0.0

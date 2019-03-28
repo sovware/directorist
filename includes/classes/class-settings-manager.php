@@ -2099,12 +2099,7 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Popular Badge Text', ATBDP_TEXTDOMAIN),
                     'default' => __( 'Popular', ATBDP_TEXTDOMAIN ),
                 ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'count_loggedin_user',
-                    'label' => __('Count Visit while User Logged-in', ATBDP_TEXTDOMAIN),
-                    'default' => 0,
-                ),
+
                 array(
                     'type' => 'select',
                     'name' => 'listing_popular_by',
@@ -2129,17 +2124,18 @@ The Administrator of ==SITE_NAME==
                     ),
                 ),
                 array(
+                    'type' => 'toggle',
+                    'name' => 'count_loggedin_user',
+                    'label' => __('Count Visit while User Logged-in', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+                array(
                     'type' => 'textbox',
                     'name' => 'views_for_popular',
                     'label' => __('Popular Listing Threshold (in views count)', ATBDP_TEXTDOMAIN),
                     'default' => 5,
                 ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'popular_with_average_review',
-                    'label' => __('Use Listing Average Review', ATBDP_TEXTDOMAIN),
-                    'default' => 0,
-                ),
+
                 array(
                     'type' => 'slider',
                     'name' => 'average_review_for_popular',

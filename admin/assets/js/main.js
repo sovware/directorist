@@ -470,10 +470,10 @@ jQuery(function ($) {
         avg_review.hide();
     }
     $("#popular_with_average_review .vp-input").on("change", function () {
-        if ($(this).hasClass("checked")) {
-            avg_review.hide();
-        } else {
+        if ($(this).is(":checked")) {
             avg_review.show();
+        } else {
+            avg_review.hide();
         }
     })
 

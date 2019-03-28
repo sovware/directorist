@@ -463,17 +463,28 @@ jQuery(function ($) {
         });
     }
 
-    var avg_review = $("#average_review_for_popular");
-    if ($('#popular_with_average_review .vp-input').hasClass("checked")) {
+    var avg_review = $("#average_review_for_popular").hide();
+    var logged_count = $("#count_loggedin_user, #views_for_popular").hide();
+    if ($('#listing_popular_by select[name="listing_popular_by"]').val() === "average_rating"){
         avg_review.show();
-    } else {
+        logged_count.hide();
+    }else if($('#listing_popular_by select[name="listing_popular_by"]').val() === "view_count"){
+        logged_count.show();
         avg_review.hide();
+    } else if($('#listing_popular_by select[name="listing_popular_by"]').val() === "both_view_rating"){
+        avg_review.show();
+        logged_count.show();
     }
-    $("#popular_with_average_review .vp-input").on("change", function () {
-        if ($(this).is(":checked")) {
+    $('#listing_popular_by select[name="listing_popular_by"]').on("change", function () {
+        if ($(this).val() === "average_rating"){
             avg_review.show();
-        } else {
+            logged_count.hide();
+        }else if($(this).val() === "view_count"){
+            logged_count.show();
             avg_review.hide();
+        } else if($(this).val() === "both_view_rating"){
+            avg_review.show();
+            logged_count.show();
         }
     })
 

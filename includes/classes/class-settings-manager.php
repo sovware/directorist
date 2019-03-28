@@ -2100,12 +2100,6 @@ The Administrator of ==SITE_NAME==
                     'default' => __( 'Popular', ATBDP_TEXTDOMAIN ),
                 ),
                 array(
-                    'type' => 'toggle',
-                    'name' => 'count_loggedin_user',
-                    'label' => __('Count Logged-in Users View', ATBDP_TEXTDOMAIN),
-                    'default' => 0,
-                ),
-                array(
                     'type' => 'select',
                     'name' => 'listing_popular_by',
                     'label' => __( 'Popular Based on', ATBDP_TEXTDOMAIN ),
@@ -2129,21 +2123,22 @@ The Administrator of ==SITE_NAME==
                     ),
                 ),
                 array(
-                    'type' => 'textbox',
-                    'name' => 'views_for_popular',
-                    'label' => __('Popular Listing Threshold (in views count)', ATBDP_TEXTDOMAIN),
-                    'default' => 5,
-                ),
-                array(
                     'type' => 'toggle',
-                    'name' => 'popular_with_average_review',
-                    'label' => __('Use Listing Average Review', ATBDP_TEXTDOMAIN),
+                    'name' => 'count_loggedin_user',
+                    'label' => __('Count Logged-in User View', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(
+                    'type' => 'textbox',
+                    'name' => 'views_for_popular',
+                    'label' => __('Threshold', ATBDP_TEXTDOMAIN),
+                    'default' => 5,
+                ),
+
+                array(
                     'type' => 'slider',
                     'name' => 'average_review_for_popular',
-                    'label' => __('Set Average Review (equal or grater than)', ATBDP_TEXTDOMAIN),
+                    'label' => __('Threshold (equal or grater than)', ATBDP_TEXTDOMAIN),
                     'min' => '.5',
                     'max' => '4.5',
                     'step' => '.5',

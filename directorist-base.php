@@ -658,33 +658,32 @@ final class Directorist_Base
         /*Popular post related stuff*/
         $p_count = !empty($count) ? $count : 5;
 
-        $view_to_popular = get_directorist_option('views_for_popular', 5);
+        $view_to_popular = get_directorist_option('views_for_popular');
         /**
          * It filters the number of the popular listing to display
          * @since 1.0.0
          * @param int $p_count The number of popular listing  to show
          */
         $p_count = apply_filters('atbdp_popular_listing_number', $p_count);
-        $top_rated_listing = '';
-        $listing_popular_by = get_directorist_option('listing_popular_by');
-        if (('average_rating' || 'both_view_rating') === $listing_popular_by){
-            $average = ATBDP()->review->get_average($listing_id);
-            $average_review_for_popular = get_directorist_option('average_review_for_popular',4);
-            if ($average_review_for_popular <= $average){
-                $top_rated_listing = $listing_id;
-            }
-        }
-
         $args = array(
             'post_type' => ATBDP_POST_TYPE,
             'meta_key' => '_atbdp_post_views_count',
             'orderby' => 'meta_value_num',
             'order' => 'DESC',
-            'p' => $top_rated_listing,
             'posts_per_page' => (int)$p_count,
 
         );
-        if (('view_count'|| 'both_view_rating') === $listing_popular_by){
+        $listing_popular_by = get_directorist_option('listing_popular_by');
+        if ((('average_rating') === $listing_popular_by) || (('both_view_rating') === $listing_popular_by)){
+            $average = ATBDP()->review->get_average($listing_id);
+            $average_review_for_popular = get_directorist_option('average_review_for_popular',4);
+            if ($average_review_for_popular <= $average){
+                $args['p'] = $listing_id;
+            }
+
+        }
+
+        if ((('view_count') === $listing_popular_by) || (('both_view_rating') === $listing_popular_by)){
             $args['meta_query'] =  array(
                 'key' => '_atbdp_post_views_count',
                 'value' => $view_to_popular,

@@ -340,7 +340,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                         );
                                     }
                                     $count = !empty($count) ? $count : '';
-                                    $popular_listings = ATBDP()->get_popular_listings($count);
+                                    $popular_listings = ATBDP()->get_popular_listings($count, get_the_ID());
                                     if ($display_popular_badge_single){
                                         if ($popular_listings->have_posts()) {
 

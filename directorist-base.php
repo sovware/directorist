@@ -653,7 +653,7 @@ final class Directorist_Base
      *                   For example, on different widgets place. Default 5.
      * @return WP_Query It returns the popular listings if found.
      */
-    public function get_popular_listings($count = 5)
+    public function get_popular_listings($count = 5, $listing_id = '')
     {
         /*Popular post related stuff*/
         $p_count = !empty($count) ? $count : 5;
@@ -665,17 +665,23 @@ final class Directorist_Base
          * @param int $p_count The number of popular listing  to show
          */
         $p_count = apply_filters('atbdp_popular_listing_number', $p_count);
-       /* $average = ATBDP()->review->get_average($listing_id);
         $top_rated_listing = '';
-        if (5 === $average){
-            $top_rated_listing = $listing_id;
-        }*/
+
+        $popular_with_average_review = get_directorist_option('popular_with_average_review');
+        if (!empty($popular_with_average_review)){
+            $average = ATBDP()->review->get_average($listing_id);
+            $average_review_for_popular = get_directorist_option('average_review_for_popular',4);
+            if ($average_review_for_popular <= $average){
+                $top_rated_listing = $listing_id;
+            }
+        }
+
         $args = array(
             'post_type' => ATBDP_POST_TYPE,
             'meta_key' => '_atbdp_post_views_count',
             'orderby' => 'meta_value_num',
             'order' => 'DESC',
-            //'p' => $top_rated_listing,
+            'p' => $top_rated_listing,
             'posts_per_page' => (int)$p_count,
             'meta_query' =>
                 array(

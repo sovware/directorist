@@ -227,7 +227,7 @@ $column_width = 100/$columns .'%';
                                                     $feature_badge_text
                                                 );}
                                                 $count = !empty($count)?$count:5;
-                                                $popular_listings = ATBDP()->get_popular_listings($count = 5);
+                                                $popular_listings = ATBDP()->get_popular_listings($count, get_the_ID());
 
                                                 if ($popular_listings->have_posts() && !empty($display_popular_badge_cart)) {
                                                     foreach ($popular_listings->posts as $pop_post) {

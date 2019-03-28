@@ -2304,7 +2304,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                                     );
                                                 }
                                                 $count = !empty($count) ? $count : 5;
-                                                $popular_listings = ATBDP()->get_popular_listings($count = 5);
+                                                $popular_listings = ATBDP()->get_popular_listings($count, get_the_ID());
 
                                                 if ($popular_listings->have_posts() && !empty($display_popular_badge_cart)) {
                                                     foreach ($popular_listings->posts as $pop_post) {
@@ -2648,7 +2648,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                     );
                                                 }
                                                 $count = !empty($count) ? $count : 5;
-                                                $popular_listings = ATBDP()->get_popular_listings($count = 5);
+                                                $popular_listings = ATBDP()->get_popular_listings($count, get_the_ID());
 
                                                 if ($popular_listings->have_posts() && !empty($display_popular_badge_cart)) {
                                                     foreach ($popular_listings->posts as $pop_post) {
@@ -2962,7 +2962,7 @@ function listing_view_by_list($all_listings)
                                     ?>
                                     <?php
                                     $count = !empty($count) ? $count : '';
-                                    $popular_listings = ATBDP()->get_popular_listings($count);
+                                    $popular_listings = ATBDP()->get_popular_listings($count, get_the_ID());
                                     if ($popular_listings->have_posts() && !empty($display_popular_badge_cart)) {
                                         foreach ($popular_listings->posts as $pop_post) {
                                             if ($pop_post->ID == get_the_ID()) {

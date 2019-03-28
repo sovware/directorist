@@ -198,11 +198,17 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                     'name' => 'badge_management',
                     'icon' => 'font-awesome:fa-certificate',
                     'controls' => apply_filters('atbdp_badge_controls', array(
-                        'emails' => array(
+                        'badges' => array(
                             'type' => 'section',
                             'title' => __('Badge Management', ATBDP_TEXTDOMAIN),
                             'description' => __('You can Customize Badge here', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_badge_settings_fields(),
+                        ),
+                        'popular_badge' => array(
+                            'type' => 'section',
+                            'title' => __('Popular Badge', ATBDP_TEXTDOMAIN),
+                            'description' => __('You can Customize Popular Badge here', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_popular_badge_settings_fields(),
                         ),
                     )),
                 ),
@@ -2056,6 +2062,17 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Featured Badge Text', ATBDP_TEXTDOMAIN),
                     'default' => __( 'Featured', ATBDP_TEXTDOMAIN ),
                 ),
+            ) );
+        }
+
+        /**
+         * Get all the settings fields for the listings settings section
+         * @since 4.0.0
+         * @return array
+         */
+        function get_popular_badge_settings_fields() {
+            return apply_filters('atbdp_badge_settings_fields' , array(
+
                 array(
                     'type' => 'toggle',
                     'name' => 'display_popular_badge_cart',
@@ -2073,7 +2090,7 @@ The Administrator of ==SITE_NAME==
                     'name' => 'views_for_popular',
                     'label' => __('Popular Listing Threshold (view count)', ATBDP_TEXTDOMAIN),
                     'min' => '1',
-                    'max' => '1000',
+                    'max' => '500',
                     'step' => '1',
                     'default' => '5',
                     'validation' => 'numeric|minlength[1]',
@@ -2083,6 +2100,22 @@ The Administrator of ==SITE_NAME==
                     'name' => 'count_loggedin_user',
                     'label' => __('Count Visit while User Logged-in', ATBDP_TEXTDOMAIN),
                     'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'popular_with_average_review',
+                    'label' => __('Use Listing Average Review', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'average_review_for_popular',
+                    'label' => __('Set Average Review (equal or grater than)', ATBDP_TEXTDOMAIN),
+                    'min' => '.5',
+                    'max' => '4.5',
+                    'step' => '.5',
+                    'default' => '4',
+                    'validation' => 'numeric|minlength[1]',
                 ),
             ) );
         }

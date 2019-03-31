@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2019-03-30 14:53+0600\n"
+"POT-Creation-Date: 2019-03-31 12:48+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Submit & Deactivate"
 msgstr ""
 
-#: directorist-base.php:914 includes/classes/class-enqueuer.php:260
+#: directorist-base.php:914 includes/classes/class-enqueuer.php:262
 #: includes/libs/vafpress/classes/shortcodegenerator.php:261
 msgid "Cancel"
 msgstr ""
@@ -340,7 +340,7 @@ msgstr ""
 #: includes/classes/class-search-widget.php:105
 #: includes/classes/class-similar-listings-widget.php:135
 #: includes/classes/class-submit-widget.php:65
-#: includes/classes/class-tags-widget.php:125
+#: includes/classes/class-tags-widget.php:127
 #: includes/classes/class-video-widget.php:74
 #: includes/classes/class-widget.php:61
 #: templates/front-end/add-listing.php:162
@@ -367,7 +367,7 @@ msgstr ""
 
 #: includes/classes/class-categories-widget.php:132
 #: includes/classes/class-locations-widget.php:133
-#: includes/classes/class-tags-widget.php:132
+#: includes/classes/class-tags-widget.php:134
 #: templates/front-end/all-listings/all-grid-listings.php:45
 #: templates/front-end/all-listings/all-list-listings.php:39
 msgid "View as"
@@ -378,14 +378,14 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1511
 #: includes/classes/class-settings-manager.php:1624
 #: includes/classes/class-settings-manager.php:1735
-#: includes/classes/class-tags-widget.php:134
+#: includes/classes/class-tags-widget.php:136
 #: includes/helper-functions.php:1980
 msgid "List"
 msgstr ""
 
 #: includes/classes/class-categories-widget.php:135
 #: includes/classes/class-locations-widget.php:136
-#: includes/classes/class-tags-widget.php:135
+#: includes/classes/class-tags-widget.php:137
 msgid "Dropdown"
 msgstr ""
 
@@ -399,13 +399,13 @@ msgstr ""
 #: includes/classes/class-categories-widget.php:158
 #: includes/classes/class-locations-widget.php:160
 #: includes/classes/class-settings-manager.php:1969
-#: includes/classes/class-tags-widget.php:140
+#: includes/classes/class-tags-widget.php:142
 msgid "Order By"
 msgstr ""
 
 #: includes/classes/class-categories-widget.php:160
 #: includes/classes/class-locations-widget.php:162
-#: includes/classes/class-tags-widget.php:142
+#: includes/classes/class-tags-widget.php:144
 msgid "Id"
 msgstr ""
 
@@ -413,7 +413,7 @@ msgstr ""
 #: includes/classes/class-locations-widget.php:163
 #: includes/classes/class-settings-manager.php:1665
 #: includes/classes/class-settings-manager.php:1776
-#: includes/classes/class-tags-widget.php:143
+#: includes/classes/class-tags-widget.php:145
 msgid "Count"
 msgstr ""
 
@@ -422,7 +422,7 @@ msgstr ""
 #: includes/classes/class-locations-widget.php:164
 #: includes/classes/class-settings-manager.php:1669
 #: includes/classes/class-settings-manager.php:1780
-#: includes/classes/class-tags-widget.php:144
+#: includes/classes/class-tags-widget.php:146
 #: templates/front-end/payment-receipt.php:107
 #: templates/single-at_biz_dir.php:678
 msgid "Name"
@@ -432,13 +432,13 @@ msgstr ""
 #: includes/classes/class-locations-widget.php:165
 #: includes/classes/class-settings-manager.php:1673
 #: includes/classes/class-settings-manager.php:1784
-#: includes/classes/class-tags-widget.php:145
+#: includes/classes/class-tags-widget.php:147
 msgid "Slug"
 msgstr ""
 
 #: includes/classes/class-categories-widget.php:168
 #: includes/classes/class-settings-manager.php:1992
-#: includes/classes/class-tags-widget.php:150
+#: includes/classes/class-tags-widget.php:152
 msgid "Sort By"
 msgstr ""
 
@@ -450,7 +450,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1799
 #: includes/classes/class-settings-manager.php:1808
 #: includes/classes/class-settings-manager.php:1996
-#: includes/classes/class-tags-widget.php:152
+#: includes/classes/class-tags-widget.php:154
 msgid "Ascending"
 msgstr ""
 
@@ -462,7 +462,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1803
 #: includes/classes/class-settings-manager.php:2000
 #: includes/classes/class-settings-manager.php:2005
-#: includes/classes/class-tags-widget.php:153
+#: includes/classes/class-tags-widget.php:155
 msgid "Descending"
 msgstr ""
 
@@ -476,7 +476,7 @@ msgstr ""
 
 #: includes/classes/class-categories-widget.php:187
 #: includes/classes/class-locations-widget.php:189
-#: includes/classes/class-tags-widget.php:164
+#: includes/classes/class-tags-widget.php:166
 msgid "Display listing counts"
 msgstr ""
 
@@ -968,24 +968,24 @@ msgid "Current Color"
 msgstr ""
 
 #: includes/classes/class-enqueuer.php:135
-#: includes/classes/class-enqueuer.php:316
+#: includes/classes/class-enqueuer.php:318
 msgid "Are you sure"
 msgstr ""
 
 #: includes/classes/class-enqueuer.php:136
-#: includes/classes/class-enqueuer.php:317
+#: includes/classes/class-enqueuer.php:319
 msgid "Do you really want to remove this Social Link!"
 msgstr ""
 
 #: includes/classes/class-enqueuer.php:137
-#: includes/classes/class-enqueuer.php:259
-#: includes/classes/class-enqueuer.php:264
-#: includes/classes/class-enqueuer.php:318
+#: includes/classes/class-enqueuer.php:261
+#: includes/classes/class-enqueuer.php:266
+#: includes/classes/class-enqueuer.php:320
 msgid "Yes, Delete it!"
 msgstr ""
 
 #: includes/classes/class-enqueuer.php:138
-#: includes/classes/class-enqueuer.php:319
+#: includes/classes/class-enqueuer.php:321
 msgid "Deleted!"
 msgstr ""
 
@@ -994,169 +994,179 @@ msgid "Select an icon"
 msgstr ""
 
 #: includes/classes/class-enqueuer.php:140
-#: includes/classes/class-enqueuer.php:323
+#: includes/classes/class-enqueuer.php:325
 msgid "Select or Upload Slider Image"
 msgstr ""
 
 #: includes/classes/class-enqueuer.php:141
-#: includes/classes/class-enqueuer.php:269
-#: includes/classes/class-enqueuer.php:324
+#: includes/classes/class-enqueuer.php:271
+#: includes/classes/class-enqueuer.php:326
 msgid "Use this Image"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:248
-msgid "Sorry, you need to login first."
+#: includes/classes/class-enqueuer.php:142
+#: includes/classes/class-enqueuer.php:327
+msgid "Select Preview Image"
+msgstr ""
+
+#: includes/classes/class-enqueuer.php:143
+#: includes/classes/class-enqueuer.php:328
+msgid "Insert Preview Image"
 msgstr ""
 
 #: includes/classes/class-enqueuer.php:250
+msgid "Sorry, you need to login first."
+msgstr ""
+
+#: includes/classes/class-enqueuer.php:252
 msgid "WARNING!!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:251
+#: includes/classes/class-enqueuer.php:253
 msgid ""
 "You can not add more than one review. Refresh the page to edit or "
 "delete your review!!!,"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:252
+#: includes/classes/class-enqueuer.php:254
 msgid "Reviews Saved Successfully!!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:253
+#: includes/classes/class-enqueuer.php:255
 msgid "Something went wrong. Check the form and try again!!!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:254
+#: includes/classes/class-enqueuer.php:256
 msgid "Reviews Loaded!!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:255
+#: includes/classes/class-enqueuer.php:257
 msgid "NO MORE REVIEWS AVAILABLE!!!,"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:256
+#: includes/classes/class-enqueuer.php:258
 msgid ""
 "You do not have any review to delete. Refresh the page to submit new "
 "review!!!,"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:257
-#: includes/classes/class-enqueuer.php:262
+#: includes/classes/class-enqueuer.php:259
+#: includes/classes/class-enqueuer.php:264
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:258
+#: includes/classes/class-enqueuer.php:260
 msgid "Do you really want to remove this review!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:261
-#: includes/classes/class-enqueuer.php:267
+#: includes/classes/class-enqueuer.php:263
+#: includes/classes/class-enqueuer.php:269
 msgid "Something went wrong!!!, Try again"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:263
+#: includes/classes/class-enqueuer.php:265
 msgid "Do you really want to delete this item?!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:265
+#: includes/classes/class-enqueuer.php:267
 msgid "Deleted!!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:266
+#: includes/classes/class-enqueuer.php:268
 msgid "ERROR!!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:268
+#: includes/classes/class-enqueuer.php:270
 msgid "Select or Upload a profile picture"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:320
-#: includes/classes/class-enqueuer.php:662
+#: includes/classes/class-enqueuer.php:322
+#: includes/classes/class-enqueuer.php:666
 #: includes/classes/class-search-widget.php:71
 #: templates/listing-home.php:87
 msgid "Select a location"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:321
-#: includes/classes/class-enqueuer.php:663
+#: includes/classes/class-enqueuer.php:323
+#: includes/classes/class-enqueuer.php:667
 #: includes/classes/class-search-widget.php:58
 #: templates/listing-home.php:62
 msgid "Select a category"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:322
+#: includes/classes/class-enqueuer.php:324
 msgid "Select or insert new tags separated by a comma, or space"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:369
+#: includes/classes/class-enqueuer.php:373
 msgid "Title field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:375
+#: includes/classes/class-enqueuer.php:379
 msgid "Description field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:379
+#: includes/classes/class-enqueuer.php:383
 msgid "Category field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:386
+#: includes/classes/class-enqueuer.php:390
 msgid "Excerpt field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:398
+#: includes/classes/class-enqueuer.php:402
 msgid "Price field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:408
+#: includes/classes/class-enqueuer.php:412
 msgid "Price range field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:429
+#: includes/classes/class-enqueuer.php:433
 msgid "Tag field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:447
+#: includes/classes/class-enqueuer.php:451
 msgid "Location field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:456
+#: includes/classes/class-enqueuer.php:460
 msgid "Address field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:468
+#: includes/classes/class-enqueuer.php:472
 msgid "Phone field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:480
+#: includes/classes/class-enqueuer.php:484
 msgid "Email field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:492
+#: includes/classes/class-enqueuer.php:496
 msgid "Website link field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:502
+#: includes/classes/class-enqueuer.php:506
 msgid "Zip/Post Code field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:515
+#: includes/classes/class-enqueuer.php:519
 msgid "Social information is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:531
+#: includes/classes/class-enqueuer.php:535
 msgid "Preview image is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:533
+#: includes/classes/class-enqueuer.php:537
 msgid "Gallery image is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:546
+#: includes/classes/class-enqueuer.php:550
 msgid "Video is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:553
+#: includes/classes/class-enqueuer.php:557
 msgid "Agree to Terms & Conditions is required!"
 msgstr ""
 
@@ -3584,13 +3594,17 @@ msgid "Directorist - Tags"
 msgstr ""
 
 #: includes/classes/class-tags-widget.php:38
-#: includes/classes/class-tags-widget.php:111
-#: includes/classes/class-tags-widget.php:122
+#: includes/classes/class-tags-widget.php:112
+#: includes/classes/class-tags-widget.php:124
 msgid "Tags"
 msgstr ""
 
-#: includes/classes/class-tags-widget.php:159
+#: includes/classes/class-tags-widget.php:161
 msgid "Hide empty tags"
+msgstr ""
+
+#: includes/classes/class-tags-widget.php:171
+msgid "Display single listing tags"
 msgstr ""
 
 #: includes/classes/class-upgrade.php:31
@@ -4655,6 +4669,10 @@ msgstr ""
 msgid "Short Description or Excerpt"
 msgstr ""
 
+#: templates/ajax/social.php:18 templates/meta-partials/social.php:30
+msgid "eg. http://example.com"
+msgstr ""
+
 #: templates/ajax/social.php:22 templates/meta-partials/social.php:35
 msgid "Remove this item"
 msgstr ""
@@ -5031,6 +5049,7 @@ msgid "Pay Now"
 msgstr ""
 
 #: templates/front-end/front-media-upload.php:37
+#: templates/media-upload.php:31
 msgid "Upload Preview Image"
 msgstr ""
 
@@ -5050,6 +5069,7 @@ msgid "No Image Found"
 msgstr ""
 
 #: templates/front-end/front-media-upload.php:62
+#: templates/media-upload.php:54
 msgid "No Images"
 msgstr ""
 

@@ -73,7 +73,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
                 <?php _e('Upload Slider Images', ATBDP_TEXTDOMAIN); ?>
             </a>
             <a id="delete-custom-img" class="btn btn-danger <?= (!empty($image_links)) ? '' : 'hidden' ?>"
-               href="#"> <?php echo (1 == $active_mi_ext) ? esc_html__('Remove Images') : esc_html__('Remove Image'); ?></a><br />
+               href="#"> <?php echo (1 == $active_mi_ext) ? esc_html__('Remove Images',ATBDP_TEXTDOMAIN) : esc_html__('Remove Image',ATBDP_TEXTDOMAIN); ?></a><br />
             <?php echo get_directorist_option('require_gallery_img')?'<span class="atbdp_make_str_red">(Field is required)</span>':'';
             /**
              *@since 4.6.1

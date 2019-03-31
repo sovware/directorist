@@ -139,6 +139,8 @@ class ATBDP_Enqueuer {
                 'icon_choose_text' => __('Select an icon', ATBDP_TEXTDOMAIN),
                 'upload_image' => __('Select or Upload Slider Image', ATBDP_TEXTDOMAIN),
                 'choose_image' => __('Use this Image', ATBDP_TEXTDOMAIN),
+                'select_prv_img' => __('Select Preview Image', ATBDP_TEXTDOMAIN),
+                'insert_prv_img' => __('Insert Preview Image', ATBDP_TEXTDOMAIN),
             );
             // is MI extension enabled and active?
             $data = array(
@@ -322,6 +324,8 @@ class ATBDP_Enqueuer {
             'tag_selection' => __('Select or insert new tags separated by a comma, or space', ATBDP_TEXTDOMAIN),
             'upload_image' => __('Select or Upload Slider Image', ATBDP_TEXTDOMAIN),
             'choose_image' => __('Use this Image', ATBDP_TEXTDOMAIN),
+            'select_prv_img_front' => __('Select Preview Image', ATBDP_TEXTDOMAIN),
+            'insert_prv_img_front' => __('Insert Preview Image', ATBDP_TEXTDOMAIN),
         );
 
         //get listing is if the screen in edit listing

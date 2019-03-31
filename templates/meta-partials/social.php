@@ -27,7 +27,7 @@ $social_info = (array_key_exists('social_info', $args)) ? $args['social_info'] :
                     <div class="col-md-6 col-sm-12">
                         <input type="url" name="social[<?= $index; ?>][url]"
                                class="form-control directory_field atbdp_social_input"
-                               value="<?= esc_url($socialInfo['url']); ?>" placeholder="eg. http://example.com">
+                               value="<?= esc_url($socialInfo['url']); ?>" placeholder="<?php esc_attr_e('eg. http://example.com', ATBDP_TEXTDOMAIN); ?>">
 
                     </div>
                     <div class="col-md-3 col-sm-12">

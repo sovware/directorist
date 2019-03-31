@@ -15,7 +15,7 @@ $id = (array_key_exists('id', $args)) ? $args['id'] : 0;
     </div>
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
-            <input type="url" name="social[<?= $id; ?>][url]" class="form-control directory_field atbdp_social_input" value="" placeholder="eg. http://example.com" required>
+            <input type="url" name="social[<?= $id; ?>][url]" class="form-control directory_field atbdp_social_input" value="" placeholder="<?php esc_attr_e('eg. http://example.com', ATBDP_TEXTDOMAIN); ?>" required>
         </div>
     </div>
     <div class="col-md-2 col-sm-12">

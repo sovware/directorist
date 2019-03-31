@@ -2123,22 +2123,21 @@ The Administrator of ==SITE_NAME==
                     ),
                 ),
                 array(
+                    'type' => 'textbox',
+                    'name' => 'views_for_popular',
+                    'label' => __('Threshold in Views Count', ATBDP_TEXTDOMAIN),
+                    'default' => 5,
+                ),
+                array(
                     'type' => 'toggle',
                     'name' => 'count_loggedin_user',
                     'label' => __('Count Logged-in User View', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(
-                    'type' => 'textbox',
-                    'name' => 'views_for_popular',
-                    'label' => __('Threshold', ATBDP_TEXTDOMAIN),
-                    'default' => 5,
-                ),
-
-                array(
                     'type' => 'slider',
                     'name' => 'average_review_for_popular',
-                    'label' => __('Threshold (equal or grater than)', ATBDP_TEXTDOMAIN),
+                    'label' => __('Threshold in Average Ratings (equal or grater than)', ATBDP_TEXTDOMAIN),
                     'min' => '.5',
                     'max' => '4.5',
                     'step' => '.5',
@@ -2704,25 +2703,25 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'my_listing_tab',
-                    'label' => __('My Listing Tab', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display My Listing Tab', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'my_profile_tab',
-                    'label' => __('My Profile Tab', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display My Profile Tab', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'fav_listings_tab',
-                    'label' => __('Favourite Listings Tab', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display Favourite Listings Tab', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'submit_listing_button',
-                    'label' => __('Submit Listing Button', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display Submit Listing Button', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
             ));

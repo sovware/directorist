@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
  * Description: Create a professional directory listing website like Yelp by a few clicks only. You can list place, any business etc.  with this plugin very easily.
- * Version: 4.7.4
+ * Version: 4.7.5
  * Author: AazzTech
  * Author URI: https://aazztech.com
  * License: GPLv2 or later
@@ -552,9 +552,58 @@ final class Directorist_Base
             };
             update_option('atbdp_pages_version', 1);
         }
-
     }
 
+
+    /**
+     * It gets the popular listings of the given listing/post
+     *
+     * @param int $count [optional] Number of popular listing to show.  If the count is more than one then it uses it,
+     *                   else the function will use the value from the settings page.
+     *                   Count variable is handy if we want to show different number of popular listings on different pages.
+     *                   For example, on different widgets place. Default 5.
+     * @return WP_Query It returns the popular listings if found.
+     */
+    public function get_popular_listings($count = 5, $listing_id = '')
+    {
+        /*Popular post related stuff*/
+        $p_count = !empty($count) ? $count : 5;
+
+        $view_to_popular = get_directorist_option('views_for_popular');
+        /**
+         * It filters the number of the popular listing to display
+         * @since 1.0.0
+         * @param int $p_count The number of popular listing  to show
+         */
+        $p_count = apply_filters('atbdp_popular_listing_number', $p_count);
+        $args = array(
+            'post_type' => ATBDP_POST_TYPE,
+            'meta_key' => '_atbdp_post_views_count',
+            'orderby' => 'meta_value_num',
+            'order' => 'DESC',
+            'posts_per_page' => (int)$p_count,
+
+        );
+        $listing_popular_by = get_directorist_option('listing_popular_by');
+        if ((('average_rating') === $listing_popular_by) || (('both_view_rating') === $listing_popular_by)){
+            $average = ATBDP()->review->get_average($listing_id);
+            $average_review_for_popular = get_directorist_option('average_review_for_popular',4);
+            if ($average_review_for_popular <= $average){
+                $args['p'] = $listing_id;
+            }
+
+        }
+
+        if ((('view_count') === $listing_popular_by) || (('both_view_rating') === $listing_popular_by)){
+            $args['meta_query'] =  array(
+                'key' => '_atbdp_post_views_count',
+                'value' => $view_to_popular,
+                'compare' => '>=',
+            );
+        }
+        return new WP_Query(apply_filters('atbdp_popular_listing_args', $args));
+
+    }
 
 
     /**
@@ -643,56 +692,6 @@ final class Directorist_Base
 
     }
 
-
-    /**
-     * It gets the popular listings of the given listing/post
-     *
-     * @param int $count [optional] Number of popular listing to show.  If the count is more than one then it uses it,
-     *                   else the function will use the value from the settings page.
-     *                   Count variable is handy if we want to show different number of popular listings on different pages.
-     *                   For example, on different widgets place. Default 5.
-     * @return WP_Query It returns the popular listings if found.
-     */
-    public function get_popular_listings($count = 5, $listing_id = '')
-    {
-        /*Popular post related stuff*/
-        $p_count = !empty($count) ? $count : 5;
-
-        $view_to_popular = get_directorist_option('views_for_popular');
-        /**
-         * It filters the number of the popular listing to display
-         * @since 1.0.0
-         * @param int $p_count The number of popular listing  to show
-         */
-        $p_count = apply_filters('atbdp_popular_listing_number', $p_count);
-        $args = array(
-            'post_type' => ATBDP_POST_TYPE,
-            'meta_key' => '_atbdp_post_views_count',
-            'orderby' => 'meta_value_num',
-            'order' => 'DESC',
-            'posts_per_page' => (int)$p_count,
-
-        );
-        $listing_popular_by = get_directorist_option('listing_popular_by');
-        if ((('average_rating') === $listing_popular_by) || (('both_view_rating') === $listing_popular_by)){
-            $average = ATBDP()->review->get_average($listing_id);
-            $average_review_for_popular = get_directorist_option('average_review_for_popular',4);
-            if ($average_review_for_popular <= $average){
-                $args['p'] = $listing_id;
-            }
-
-        }
-
-        if ((('view_count') === $listing_popular_by) || (('both_view_rating') === $listing_popular_by)){
-            $args['meta_query'] =  array(
-                'key' => '_atbdp_post_views_count',
-                'value' => $view_to_popular,
-                'compare' => '>=',
-            );
-        }
-        return new WP_Query(apply_filters('atbdp_popular_listing_args', $args));
-
-    }
 
     /**
      * It displays related listings of the given post
@@ -1204,7 +1203,7 @@ final class Directorist_Base
                     //if we have custom registration page, use it, else use the default registration url.
                     $reg_link = !empty($reg_link_custom) ? $reg_link_custom : wp_registration_url();
 
-                    $login_url = '<a href="' . esc_url(wp_login_url()) . '">' . __('Login', ATBDP_TEXTDOMAIN) . '</a>';
+                    $login_url = '<a href="' . ATBDP_Permalink::get_login_page_link() . '">' . __('Login', ATBDP_TEXTDOMAIN) . '</a>';
                     $register_url = '<a href="' . esc_url($reg_link) . '">' . __('Register', ATBDP_TEXTDOMAIN) . '</a>';
 
                     printf(__('You need to %s or %s to submit a review', ATBDP_TEXTDOMAIN), $login_url, $register_url);

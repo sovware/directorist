@@ -872,7 +872,11 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                             <div class="atbd_content_module">
                                 <div class="atbd_content_module__tittle_area">
                                     <div class="atbd_area_title">
-                                        <h4><?php esc_html_e('Images ', ATBDP_TEXTDOMAIN); echo $plan_video?__('& Video', ATBDP_TEXTDOMAIN):'';?></h4>
+                                        <h4>
+                                            <?php
+                                           $video_text = $plan_video?'& Video':'';
+                                            _e("Images {$video_text}", ATBDP_TEXTDOMAIN);
+                                            ?></h4>
                                     </div>
                                 </div>
 

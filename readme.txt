@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.1.1
-Stable tag: 4.7.4
+Stable tag: 4.7.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -131,16 +131,18 @@ Directorist is not developed by a single person. A team of dedicated developers 
 = 4.7.6 - March 31, 2019 =
 * Fix - Translate issues
 * Tweak - Add single listing tags on Tag Widget
+* Fix - The + New tab in the Dashboard
+* Fix - Popular listing issue
 
 = 4.7.5 - March 28, 2019 =
-* Add - Option to use average review for making listing popular
-* Add - User Dashboard control options
+* Extend - Added another option for making listing popular based on average ratings
+* Extend - Added new settings page to control user dashboard called "User Dashboard Setting" under Directory Settings >> Listing Settings
 * Fix - Minor CSS issues
 * Fix - Image upload issue
 * Fix - Popup's text translate issue
-* Fix - Listing share with social medias
-* Tweak - Option for multiple & single location select
-* Tweak - Listing expiration and renewal issue
+* Fix - Listing share issue on social medias
+* Fix - Listing expiration and renewal issue
+* Tweak - Option to restrict selecting multi-location
 
 = 4.7.4 - March 20, 2019 =
 * Fix - User Login page

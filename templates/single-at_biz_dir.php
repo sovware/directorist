@@ -339,18 +339,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                             $feature_badge_text
                                         );
                                     }
-                                    $count = !empty($count) ? $count : '';
-                                    $popular_listings = ATBDP()->get_popular_listings($count, get_the_ID());
-                                    if ($display_popular_badge_single){
-                                        if ($popular_listings->have_posts()) {
-
-                                            foreach ($popular_listings->posts as $pop_post) {
-                                                if ($pop_post->ID == get_the_ID()){
-                                                    printf('<span class="atbd_badge atbd_badge_popular">%s</span>', __($popular_badge_text, ATBDP_TEXTDOMAIN)) ;
-                                                }
-                                            }
-                                        }
-                                    }
+                                $popular_listing_id = atbdp_popular_listings(get_the_ID());
+                                $badge = '<span class="atbd_badge atbd_badge_popular">'. $popular_badge_text .'</span>';
+                                if ($popular_listing_id === get_the_ID()){
+                                    echo $badge;
+                                }
                                 ?>
                             </div>
                             <?php } ?>

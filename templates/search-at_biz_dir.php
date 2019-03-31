@@ -221,16 +221,14 @@ $column_width           = 100/$search_listing_columns .'%';
                                                 '<span class="atbd_badge atbd_badge_featured">%s</span>',
                                                 $feature_badge_text
                                             );}
-                                                $count = !empty($count)?$count:5;
-                                            $popular_listings = ATBDP()->get_popular_listings($count, get_the_ID());
-
-                                            if ($popular_listings->have_posts() && !empty($display_popular_badge_cart)) {
-                                                foreach ($popular_listings->posts as $pop_post) {
-                                                    if ($pop_post->ID == get_the_ID()){
-                                                        echo ' <span class="atbd_badge atbd_badge_popular">'. $popular_badge_text .'</span>';
+                                                //popular badge
+                                                if (!empty($display_popular_badge_cart)) {
+                                                    $popular_listing_id = atbdp_popular_listings(get_the_ID());
+                                                    $badge = '<span class="atbd_badge atbd_badge_popular">'. $popular_badge_text .'</span>';
+                                                    if ($popular_listing_id === get_the_ID()){
+                                                        echo $badge;
                                                     }
                                                 }
-                                            }
                                                 //print the new badge
                                                 echo new_badge();
                                                 ?>

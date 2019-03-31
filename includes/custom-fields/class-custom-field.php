@@ -362,7 +362,7 @@ class ATBDP_Custom_Field
             'name' => _x('Custom Field', 'Post Type General Name', ATBDP_TEXTDOMAIN),
             'singular_name' => _x('Custom Field', 'Post Type Singular Name', ATBDP_TEXTDOMAIN),
             'menu_name' => __('Custom Field', ATBDP_TEXTDOMAIN),
-            'name_admin_bar' => __('Order', ATBDP_TEXTDOMAIN),
+            'name_admin_bar' => __('Custom Field', ATBDP_TEXTDOMAIN),
             'all_items' => __('Custom Field', ATBDP_TEXTDOMAIN),
             'add_new_item' => __('Add New Field', ATBDP_TEXTDOMAIN),
             'add_new' => __('Add New Field', ATBDP_TEXTDOMAIN),

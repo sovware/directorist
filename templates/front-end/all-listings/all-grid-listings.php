@@ -226,16 +226,22 @@ $column_width = 100/$columns .'%';
                                                     '<span class="atbd_badge atbd_badge_featured">%s</span>',
                                                     $feature_badge_text
                                                 );}
-                                                $count = !empty($count)?$count:5;
-                                                $popular_listings = ATBDP()->get_popular_listings($count, get_the_ID());
 
-                                                if ($popular_listings->have_posts() && !empty($display_popular_badge_cart)) {
-                                                    foreach ($popular_listings->posts as $pop_post) {
-                                                        if ($pop_post->ID == get_the_ID()){
-                                                            echo '<span class="atbd_badge atbd_badge_popular">'. $popular_badge_text .'</span>';
-                                                        }
-                                                    }
+                                                $popular_listing_id = atbdp_popular_listings(get_the_ID());
+                                                $badge = '<span class="atbd_badge atbd_badge_popular">'. $popular_badge_text .'</span>';
+                                                if ($popular_listing_id === get_the_ID()){
+                                                    echo $badge;
                                                 }
+                                              /*  if ($popular_listings->have_posts() && !empty($display_popular_badge_cart)) {
+                                                    foreach ($popular_listings->posts as $pop_post) {
+                                                        $view_count = get_post_meta(get_the_ID(), '_atbdp_post_views_count', true);
+                                                        $view_to_popular = get_directorist_option('views_for_popular');
+
+                                                    }
+                                                    if ((int) $view_count >= (int) $view_to_popular){
+                                                        echo '<span class="atbd_badge atbd_badge_popular">'. $popular_badge_text .'</span>';
+                                                    }
+                                                }*/
                                                 //print the new badge
                                                 echo new_badge();
                                                 ?>

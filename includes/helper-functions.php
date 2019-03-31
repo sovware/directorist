@@ -2303,14 +2303,12 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                                         $feature_badge_text
                                                     );
                                                 }
-                                                $count = !empty($count) ? $count : 5;
-                                                $popular_listings = ATBDP()->get_popular_listings($count, get_the_ID());
-
-                                                if ($popular_listings->have_posts() && !empty($display_popular_badge_cart)) {
-                                                    foreach ($popular_listings->posts as $pop_post) {
-                                                        if ($pop_post->ID == get_the_ID()) {
-                                                            echo ' <span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
-                                                        }
+                                                //popular badge
+                                                if (!empty($display_popular_badge_cart)) {
+                                                    $popular_listing_id = atbdp_popular_listings(get_the_ID());
+                                                    $badge = '<span class="atbd_badge atbd_badge_popular">'. $popular_badge_text .'</span>';
+                                                    if ($popular_listing_id === get_the_ID()){
+                                                        echo $badge;
                                                     }
                                                 }
                                                 //print the new badge
@@ -2647,14 +2645,13 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                         $feature_badge_text
                                                     );
                                                 }
-                                                $count = !empty($count) ? $count : 5;
-                                                $popular_listings = ATBDP()->get_popular_listings($count, get_the_ID());
 
-                                                if ($popular_listings->have_posts() && !empty($display_popular_badge_cart)) {
-                                                    foreach ($popular_listings->posts as $pop_post) {
-                                                        if ($pop_post->ID == get_the_ID()) {
-                                                            echo ' <span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
-                                                        }
+                                                //popular badge
+                                                if ( !empty($display_popular_badge_cart)) {
+                                                    $popular_listing_id = atbdp_popular_listings(get_the_ID());
+                                                    $badge = '<span class="atbd_badge atbd_badge_popular">'. $popular_badge_text .'</span>';
+                                                    if ($popular_listing_id === get_the_ID()){
+                                                        echo $badge;
                                                     }
                                                 }
                                                 //print the new badge
@@ -2961,13 +2958,12 @@ function listing_view_by_list($all_listings)
                                     }
                                     ?>
                                     <?php
-                                    $count = !empty($count) ? $count : '';
-                                    $popular_listings = ATBDP()->get_popular_listings($count, get_the_ID());
-                                    if ($popular_listings->have_posts() && !empty($display_popular_badge_cart)) {
-                                        foreach ($popular_listings->posts as $pop_post) {
-                                            if ($pop_post->ID == get_the_ID()) {
-                                                echo ' <span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
-                                            }
+                                    //popular badge
+                                    if (!empty($display_popular_badge_cart)) {
+                                        $popular_listing_id = atbdp_popular_listings(get_the_ID());
+                                        $badge = '<span class="atbd_badge atbd_badge_popular">'. $popular_badge_text .'</span>';
+                                        if ($popular_listing_id === get_the_ID()){
+                                            echo $badge;
                                         }
                                     }
                                     ?>
@@ -3353,3 +3349,31 @@ function atbdp_is_page( $atbdppages = '' ) {
 
     return false;
 }
+/**
+ * @since 4.7.8
+ * @param $listing_id
+ * @return integer $pop_listing_id
+ */
+if (!function_exists('atbdp_popular_listings')){
+    function atbdp_popular_listings($listing_id){
+        $listing_popular_by = get_directorist_option('listing_popular_by');
+        $average = ATBDP()->review->get_average($listing_id);
+        $average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
+        $view_count = get_post_meta($listing_id, '_atbdp_post_views_count', true);
+        $view_to_popular = get_directorist_option('views_for_popular');
+        if ('average_rating' === $listing_popular_by) {
+            if ($average_review_for_popular <= $average) {
+                return $pop_listing_id = $listing_id;
+            }
+        }elseif ('view_count' === $listing_popular_by){
+            if ((int) $view_count >= (int) $view_to_popular){
+                return $pop_listing_id = $listing_id;
+            }
+        }else{
+            if (($average_review_for_popular <= $average) && ((int) $view_count >= (int) $view_to_popular)){
+                return $pop_listing_id = $listing_id;
+            }
+        }
+    }
+}
+

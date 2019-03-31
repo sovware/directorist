@@ -208,7 +208,7 @@ if (!class_exists('BD_Tags_Widget')) {
                     $html .= '<ul>';
                     foreach ($terms as $term) {
                         $html .= '<li>';
-                        $html .= '<a href="' . ATBDP_Permalink::get_tag_archive($term) . '">';
+                        $html .= '<a href="' . ATBDP_Permalink::atbdp_get_tag_page($term) . '">';
                         $html .= $term->name;
                         $html .= '</a>';
                         $html .= '</li>';
@@ -253,7 +253,7 @@ if (!class_exists('BD_Tags_Widget')) {
                         }
 
                         $html .= '<li>';
-                        $html .= '<a href="' . ATBDP_Permalink::get_tag_archive($term) . '">';
+                        $html .= '<a href="' . ATBDP_Permalink::atbdp_get_tag_page($term) . '">';
                         $html .= $term->name;
                         if (!empty($settings['show_count'])) {
                             $html .= ' (' . $count . ')';

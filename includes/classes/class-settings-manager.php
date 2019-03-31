@@ -3504,6 +3504,17 @@ The Administrator of ==SITE_NAME==
 
                     array(
                         'type' => 'select',
+                        'name' => 'single_tag_page',
+                        'label' => __( 'Single Tag Page', ATBDP_TEXTDOMAIN ),
+                        'items' => $this->get_pages_vl_arrays(),
+                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_tag]</strong>'),
+
+                        'default' => atbdp_get_option('single_tag_page', 'atbdp_general'),
+                        'validation' => 'numeric',
+                    ),
+
+                    array(
+                        'type' => 'select',
                         'name' => 'custom_registration',
                         'label' =>  __(  'Registration Page', ATBDP_TEXTDOMAIN ),
                         'items' => $this->get_pages_vl_arrays(),

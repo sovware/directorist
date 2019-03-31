@@ -463,6 +463,10 @@ final class Directorist_Base
                 'title'   => __( 'Single Location', ATBDP_TEXTDOMAIN ),
                 'content' => '[directorist_location]'
             ),
+            'single_location_page' => array(
+                'title'   => __( 'Single Tag', ATBDP_TEXTDOMAIN ),
+                'content' => '[directorist_tag]'
+            ),
             'author_profile_page' => array(
                 'title'   => __( 'Author Profile', ATBDP_TEXTDOMAIN ),
                 'content' => '[directorist_author_profile]'

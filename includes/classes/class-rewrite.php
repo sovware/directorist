@@ -71,6 +71,17 @@ class ATBDP_Rewrite {
             add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id='.$loc.'&atbdp_location=$matches[1]', 'top' );
         }
 
+        // Single Tag page
+        $tag = get_directorist_option('single_tag_page'); // get the single location page.
+        if( $tag ) {
+            $link = str_replace( $home, '', get_permalink( $tag ) );
+            $link = trim( $link, '/' );
+
+
+            add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id='.$tag.'&atbdp_location=$matches[1]&paged=$matches[2]', 'top' );
+            add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id='.$tag.'&atbdp_tag=$matches[1]', 'top' );
+        }
+
         // Rewrite tags (Making custom query var available throughout the application
         // WordPress by default does not understand the unknown query vars. It needs to be registered with WP for using it.
         // by using add_rewrite_tag() or add_query_arg() on init hook or other earlier hook, we can register custom query var eg. atbdp_action and  we can access it later on any other page
@@ -82,6 +93,7 @@ class ATBDP_Rewrite {
         add_rewrite_tag( '%atbdp_listing_id%', '([0-9]{1,})' );
         add_rewrite_tag( '%atbdp_category%', '([^/]+)' );
         add_rewrite_tag( '%atbdp_location%', '([^/]+)' );
+        add_rewrite_tag( '%atbdp_tag%', '([^/]+)' );
     }
 
 

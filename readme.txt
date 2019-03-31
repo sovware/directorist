@@ -133,6 +133,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Tweak - Add single listing tags on Tag Widget
 * Fix - The + New tab in the Dashboard
 * Fix - Popular listing issue
+* Add - Single Tag Page
 
 = 4.7.5 - March 28, 2019 =
 * Extend - Added another option for making listing popular based on average ratings

@@ -139,6 +139,8 @@ class ATBDP_Enqueuer {
                 'icon_choose_text' => __('Select an icon', ATBDP_TEXTDOMAIN),
                 'upload_image' => __('Select or Upload Slider Image', ATBDP_TEXTDOMAIN),
                 'choose_image' => __('Use this Image', ATBDP_TEXTDOMAIN),
+                'select_prv_img' => __('Select Preview Image', ATBDP_TEXTDOMAIN),
+                'insert_prv_img' => __('Insert Preview Image', ATBDP_TEXTDOMAIN),
             );
             // is MI extension enabled and active?
             $data = array(
@@ -247,9 +249,9 @@ class ATBDP_Enqueuer {
             'PublicAssetPath'               => ATBDP_PUBLIC_ASSETS,
             'login_alert_message'           => __( 'Sorry, you need to login first.', ATBDP_TEXTDOMAIN ),
             'rtl'                           => is_rtl() ? 'true': 'false',
-            'warning'                       =>__( 'WARNING!!', ATBDP_TEXTDOMAIN ),
-            'not_add_more_than_one'         =>__( 'You can not add more than one review. Refresh the page to edit or delete your review!!!,', ATBDP_TEXTDOMAIN ),
-            'review_success'                => __( 'Reviews Saved Successfully!!', ATBDP_TEXTDOMAIN ),
+            'warning'                       => __( 'WARNING!!', ATBDP_TEXTDOMAIN ),
+            'not_add_more_than_one'         => __( 'You can not add more than one review. Refresh the page to edit or delete your review!!!,', ATBDP_TEXTDOMAIN ),
+            'review_success'                => __( 'Reviews Saved Successfully!!', 'directorist' ),
             'review_error'                  => __( 'Something went wrong. Check the form and try again!!!', ATBDP_TEXTDOMAIN ),
             'review_loaded'                 => __( 'Reviews Loaded!!', ATBDP_TEXTDOMAIN ),
             'review_not_available'          => __( 'NO MORE REVIEWS AVAILABLE!!!,', ATBDP_TEXTDOMAIN ),
@@ -257,6 +259,7 @@ class ATBDP_Enqueuer {
             'review_sure_msg'               => __( 'Are you sure?', ATBDP_TEXTDOMAIN ),
             'review_want_to_remove'         => __( 'Do you really want to remove this review!', ATBDP_TEXTDOMAIN ),
             'review_delete_msg'             => __( 'Yes, Delete it!', ATBDP_TEXTDOMAIN ),
+            'review_cancel_btn_text'        => __( 'Cancel','directorist'),
             'review_wrong_msg'              => __( 'Something went wrong!!!, Try again', ATBDP_TEXTDOMAIN ),
             'listing_remove_title'          => __( 'Are you sure?', ATBDP_TEXTDOMAIN ),
             'listing_remove_text'           => __( 'Do you really want to delete this item?!', ATBDP_TEXTDOMAIN ),
@@ -321,6 +324,8 @@ class ATBDP_Enqueuer {
             'tag_selection' => __('Select or insert new tags separated by a comma, or space', ATBDP_TEXTDOMAIN),
             'upload_image' => __('Select or Upload Slider Image', ATBDP_TEXTDOMAIN),
             'choose_image' => __('Use this Image', ATBDP_TEXTDOMAIN),
+            'select_prv_img_front' => __('Select Preview Image', ATBDP_TEXTDOMAIN),
+            'insert_prv_img_front' => __('Insert Preview Image', ATBDP_TEXTDOMAIN),
         );
 
         //get listing is if the screen in edit listing

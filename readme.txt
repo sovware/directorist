@@ -128,6 +128,11 @@ Directorist is not developed by a single person. A team of dedicated developers 
 18. Add New Custom Field
 
 == Changelog ==
+= 4.7.6 - March 31, 2019 =
+* Fix - Translate issues
+* Tweak - Add single listing tags on Tag Widget
+* Fix - The + New tab in the Dashboard
+* Fix - Popular listing issue
 
 = 4.7.5 - March 28, 2019 =
 * Extend - Added another option for making listing popular based on average ratings

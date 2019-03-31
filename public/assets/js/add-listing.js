@@ -301,9 +301,9 @@ jQuery(function($){
     $('.upload-header').on('click', function (element) {
         element.preventDefault();
         imageUpload = wp.media.frames.file_frame = wp.media({
-            'title' : 'Select Preview Image',
+            'title' : atbdp_add_listing.i18n_text.select_prv_img_front,
             'button' : {
-                'text' : 'Insert Preview Image'
+                'text' : atbdp_add_listing.i18n_text.insert_prv_img_front
             }
         });
         imageUpload.open();

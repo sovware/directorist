@@ -38,17 +38,18 @@ if (!class_exists('BD_Tags_Widget')) {
             $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Tags', ATBDP_TEXTDOMAIN);
 
             $query_args = array(
-                'template'       => ! empty( $instance['display_as'] ) ? sanitize_text_field( $instance['display_as'] ) : 'list',
-                'parent'         => ! empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
-                'term_id'        => ! empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
-                'hide_empty'     => ! empty( $instance['hide_empty'] ) ? 1 : 0,
-                'orderby'        => ! empty( $instance['order_by'] ) ? sanitize_text_field( $instance['order_by'] ) : 'id',
-                'order'          => ! empty( $instance['order'] ) ? sanitize_text_field( $instance['order'] ) : 'asc',
-                'show_count'     => ! empty( $instance['show_count'] ) ? 1 : 0,
-                'pad_counts'     => true,
-                'immediate_category' => ! empty( $instance['immediate_category'] ) ? 1 : 0,
-                'active_term_id' => 0,
-                'ancestors'      => array()
+                'template'               => ! empty( $instance['display_as'] ) ? sanitize_text_field( $instance['display_as'] ) : 'list',
+                'parent'                 => ! empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
+                'term_id'                => ! empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
+                'hide_empty'             => ! empty( $instance['hide_empty'] ) ? 1 : 0,
+                'orderby'                => ! empty( $instance['order_by'] ) ? sanitize_text_field( $instance['order_by'] ) : 'id',
+                'order'                  => ! empty( $instance['order'] ) ? sanitize_text_field( $instance['order'] ) : 'asc',
+                'show_count'             => ! empty( $instance['show_count'] ) ? 1 : 0,
+                'display_single_tag'     => ! empty( $instance['display_single_tag'] ) ? 1 : 0,
+                'pad_counts'             => true,
+                'immediate_category'     => ! empty( $instance['immediate_category'] ) ? 1 : 0,
+                'active_term_id'         => 0,
+                'ancestors'              => array()
             );
 
             if( $query_args['immediate_category'] ) {
@@ -112,6 +113,7 @@ if (!class_exists('BD_Tags_Widget')) {
                 'display_as'=>'list',
                 'hide_empty'=> 0,
                 'show_count'=> 0,
+                'display_single_tag'=> 0,
                 'parent'=>0,
                 'immediate_category'=>0,
                 'order_by'=>'id',
@@ -163,6 +165,11 @@ if (!class_exists('BD_Tags_Widget')) {
                 <input <?php checked( $instance['show_count'],1 ); ?> id="<?php echo $this->get_field_id( 'show_count' ); ?>" name="<?php echo $this->get_field_name( 'show_count' ); ?>" value="1" type="checkbox" />
                 <label for="<?php echo $this->get_field_id( 'show_count' ); ?>"><?php _e( 'Display listing counts', ATBDP_TEXTDOMAIN ); ?></label>
             </p>
+
+            <p>
+                <input <?php checked( $instance['display_single_tag'],1 ); ?> id="<?php echo $this->get_field_id( 'display_single_tag' ); ?>" name="<?php echo $this->get_field_name( 'display_single_tag' ); ?>" value="1" type="checkbox" />
+                <label for="<?php echo $this->get_field_id( 'display_single_tag' ); ?>"><?php _e( 'Display single listing tags', ATBDP_TEXTDOMAIN ); ?></label>
+            </p>
             <?php
         }
 
@@ -186,6 +193,7 @@ if (!class_exists('BD_Tags_Widget')) {
             $instance['order']       = isset( $new_instance['order'] ) ? sanitize_text_field( $new_instance['order'] ) : 'asc';
             $instance['hide_empty']     = isset( $new_instance['hide_empty'] ) ? 1 : 0;
             $instance['show_count']     = isset( $new_instance['show_count'] ) ? 1 : 0;
+            $instance['display_single_tag']     = isset( $new_instance['display_single_tag'] ) ? 1 : 0;
 
             return $instance;
 
@@ -193,106 +201,139 @@ if (!class_exists('BD_Tags_Widget')) {
 
         public function atbdp_tags_list( $settings ) {
 
-            if( $settings['immediate_category'] ) {
-
-                if( $settings['term_id'] > $settings['parent'] && ! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
-                    return;
+            if( $settings['display_single_tag'] ) {
+                $terms = get_the_terms(get_the_ID(), ATBDP_TAGS);
+                $html = '';
+                if (!empty($terms)) {
+                    $html .= '<ul>';
+                    foreach ($terms as $term) {
+                        $html .= '<li>';
+                        $html .= '<a href="' . ATBDP_Permalink::get_tag_archive($term) . '">';
+                        $html .= $term->name;
+                        $html .= '</a>';
+                        $html .= '</li>';
+                    }
+                    $html .= '</ul>';
                 }
+            } else {
 
-            }
 
-            $args = array(
-                'orderby'      => $settings['orderby'],
-                'order'        => $settings['order'],
-                'hide_empty'   => $settings['hide_empty'],
-                'parent'       => $settings['term_id'],
-                'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false
-            );
+                if ($settings['immediate_category']) {
 
-            $terms = get_terms( ATBDP_TAGS, $args );
-
-            $html = '';
-
-            if( count( $terms ) > 0 ) {
-
-                $html .= '<ul>';
-
-                foreach( $terms as $term ) {
-                    $settings['term_id'] = $term->term_id;
-
-                    $count = 0;
-                    if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
-                        $count = atbdp_listings_count_by_tag( $term->term_id);
-
-                        if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
+                    if ($settings['term_id'] > $settings['parent'] && !in_array($settings['term_id'], $settings['ancestors'])) {
+                        return;
                     }
 
-                    $html .= '<li>';
-                    $html .= '<a href="' . ATBDP_Permalink::get_tag_archive( $term ) . '">';
-                    $html .= $term->name;
-                    if( ! empty( $settings['show_count'] ) ) {
-                        $html .= ' (' . $count . ')';
-                    }
-                    $html .= '</a>';
-                    $html .= $this->atbdp_tags_list( $settings );
-                    $html .= '</li>';
                 }
 
-                $html .= '</ul>';
+                $args = array(
+                    'orderby' => $settings['orderby'],
+                    'order' => $settings['order'],
+                    'hide_empty' => $settings['hide_empty'],
+                    'parent' => $settings['term_id'],
+                    'hierarchical' => !empty($settings['hide_empty']) ? true : false
+                );
 
+                $terms = get_terms(ATBDP_TAGS, $args);
+
+                $html = '';
+
+                if (count($terms) > 0) {
+
+                    $html .= '<ul>';
+
+                    foreach ($terms as $term) {
+                        $settings['term_id'] = $term->term_id;
+
+                        $count = 0;
+                        if (!empty($settings['hide_empty']) || !empty($settings['show_count'])) {
+                            $count = atbdp_listings_count_by_tag($term->term_id);
+
+                            if (!empty($settings['hide_empty']) && 0 == $count) continue;
+                        }
+
+                        $html .= '<li>';
+                        $html .= '<a href="' . ATBDP_Permalink::get_tag_archive($term) . '">';
+                        $html .= $term->name;
+                        if (!empty($settings['show_count'])) {
+                            $html .= ' (' . $count . ')';
+                        }
+                        $html .= '</a>';
+                        $html .= $this->atbdp_tags_list($settings);
+                        $html .= '</li>';
+                    }
+
+                    $html .= '</ul>';
+
+                }
             }
-
             return $html;
+
+
 
         }
 
         public function dropdown_tags( $settings, $prefix = '' ) {
+            $term_slug = get_query_var(ATBDP_TAGS);
+            if( $settings['display_single_tag'] ) {
+                $terms = get_the_terms(get_the_ID(), ATBDP_TAGS);
+                $html = '';
+                if (!empty($terms)) {
 
-            if( $settings['immediate_category'] ) {
-
-                if( $settings['term_id'] > $settings['parent'] && ! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
-                    return;
-                }
-
-            }
-
-            $term_slug = get_query_var( ATBDP_TAGS );
-
-            $args = array(
-                'orderby'      => $settings['orderby'],
-                'order'        => $settings['order'],
-                'hide_empty'   => $settings['hide_empty'],
-                'parent'       => $settings['term_id'],
-                'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false
-            );
-
-            $terms = get_terms( ATBDP_TAGS, $args );
-
-            $html = '';
-
-            if( count( $terms ) > 0 ) {
-
-                foreach( $terms as $term ) {
-                    $settings['term_id'] = $term->term_id;
-
-                    $count = 0;
-                    if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
-                        $count = atbdp_listings_count_by_tag( $term->term_id );
-
-                        if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
+                    foreach ($terms as $term) {
+                        $html .= sprintf( '<option value="%s" %s>', $term->slug, selected( $term->slug, $term_slug, false ) );
+                        $html .= $prefix . $term->name;
+                        $html .= '</option>';
                     }
 
-                    $html .= sprintf( '<option value="%s" %s>', $term->slug, selected( $term->slug, $term_slug, false ) );
-                    $html .= $prefix . $term->name;
-                    if( ! empty( $settings['show_count'] ) ) {
-                        $html .= ' (' . $count . ')';
+                }
+            } else {
+
+                if ($settings['immediate_category']) {
+
+                    if ($settings['term_id'] > $settings['parent'] && !in_array($settings['term_id'], $settings['ancestors'])) {
+                        return;
                     }
-                    $html .= $this->dropdown_tags( $settings, $prefix . '&nbsp;&nbsp;&nbsp;' );
-                    $html .= '</option>';
+
                 }
 
-            }
 
+
+                $args = array(
+                    'orderby' => $settings['orderby'],
+                    'order' => $settings['order'],
+                    'hide_empty' => $settings['hide_empty'],
+                    'parent' => $settings['term_id'],
+                    'hierarchical' => !empty($settings['hide_empty']) ? true : false
+                );
+
+                $terms = get_terms(ATBDP_TAGS, $args);
+
+                $html = '';
+
+                if (count($terms) > 0) {
+
+                    foreach ($terms as $term) {
+                        $settings['term_id'] = $term->term_id;
+
+                        $count = 0;
+                        if (!empty($settings['hide_empty']) || !empty($settings['show_count'])) {
+                            $count = atbdp_listings_count_by_tag($term->term_id);
+
+                            if (!empty($settings['hide_empty']) && 0 == $count) continue;
+                        }
+
+                        $html .= sprintf('<option value="%s" %s>', $term->slug, selected($term->slug, $term_slug, false));
+                        $html .= $prefix . $term->name;
+                        if (!empty($settings['show_count'])) {
+                            $html .= ' (' . $count . ')';
+                        }
+                        $html .= $this->dropdown_tags($settings, $prefix . '&nbsp;&nbsp;&nbsp;');
+                        $html .= '</option>';
+                    }
+
+                }
+            }
             return $html;
 
         }

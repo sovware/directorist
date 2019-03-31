@@ -28,7 +28,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
         </div>
         <!--  add & remove image links -->
         <p class="hide-if-no-js">
-            <a href="#" class="upload-header btn btn-secondary">Upload Preview Image</a>
+            <a href="#" class="upload-header btn btn-secondary"><?php esc_attr_e('Upload Preview Image', ATBDP_TEXTDOMAIN); ?></a>
         </p>
     </div>
     <?php } ?>
@@ -51,7 +51,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
             } else { ?>
                 <img src="<?= esc_url(ATBDP_ADMIN_ASSETS . 'images/no-image.png'); ?>"
                      alt="<?php esc_attr_e('No Image Found', ATBDP_TEXTDOMAIN); ?>">
-                <p>No Images</p>
+                <p><?php esc_attr_e('No Images', ATBDP_TEXTDOMAIN); ?></p>
             <?php } //  ends if statement  ?>
         </div>
         <?php
@@ -65,7 +65,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
                 <?php _e('Upload Slider Images', ATBDP_TEXTDOMAIN); ?>
             </a>
             <a id="delete-custom-img" class="btn btn-danger <?= (!empty($image_links)) ? '' : 'hidden' ?>"
-               href="#"> <?php echo (1 == $active_mi_ext) ? esc_html__('Remove Images') : esc_html__('Remove Image'); ?></a>
+               href="#"> <?php echo (1 == $active_mi_ext) ? esc_html__('Remove Images',ATBDP_TEXTDOMAIN) : esc_html__('Remove Image',ATBDP_TEXTDOMAIN); ?></a>
         </p>
     </div>
     <?php } ?>

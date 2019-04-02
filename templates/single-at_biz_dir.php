@@ -254,15 +254,13 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                     <?php foreach ($image_links as $image_link) {?>
                                         <div class="single_image">
                                             <img src="<?= !empty($image_link)?esc_url($image_link): ''; ?>"
-                                                 alt="<?php esc_attr_e('Details Image', ATBDP_TEXTDOMAIN); ?>">
+                                                 alt="<?php echo esc_html($p_title); ?>">
                                         </div>
 
                                         <?php
-                                        // do not output more than one image if the MI extension is not active
-                                        if (!is_multiple_images_active()) break;
                                     } ?>
                                 </div>
-                                <?php if (count($image_links) > 1 && is_multiple_images_active()) { ?>
+                                <?php if (count($image_links) > 1) { ?>
                                     <span class="prev fa fa-angle-left"></span>
                                     <span class="next fa fa-angle-right"></span>
                                 <?php } ?>
@@ -276,7 +274,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                 foreach ($image_links_thumbnails as $image_links_thumbnail) { ?>
                                     <div class="single_thumbnail">
                                         <img src="<?= esc_url($image_links_thumbnail); ?>"
-                                             alt="<?php esc_attr_e('Details Image', ATBDP_TEXTDOMAIN); ?>">
+                                             alt="<?php echo esc_html($p_title); ?>">
                                     </div>
                                     <?php
                                     // do not output more than one image if the MI extension is not active
@@ -289,7 +287,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                         ?>
                         <div class="single_image">
                             <img src="<?= !empty($listing_prv_img) ? esc_url($listing_prv_imgurl) : $default_image; ?>"
-                                 alt="<?php esc_attr_e('Details Image', ATBDP_TEXTDOMAIN); ?>">
+                                 alt="<?php echo esc_html($p_title); ?>">
                         </div>
                         <?php
                     } ?>

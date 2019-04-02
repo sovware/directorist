@@ -463,6 +463,10 @@ final class Directorist_Base
                 'title'   => __( 'Single Location', ATBDP_TEXTDOMAIN ),
                 'content' => '[directorist_location]'
             ),
+            'single_tag_page' => array(
+                'title'   => __( 'Single Tag', ATBDP_TEXTDOMAIN ),
+                'content' => '[directorist_tag]'
+            ),
             'author_profile_page' => array(
                 'title'   => __( 'Author Profile', ATBDP_TEXTDOMAIN ),
                 'content' => '[directorist_author_profile]'
@@ -633,11 +637,11 @@ final class Directorist_Base
                                 <?php
                                 $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                                     if(!empty($listing_prv_img)) {
-                                        echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_prv_img, array(90, 90))).'" alt="listing image">';
+                                        echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_prv_img, array(90, 90))).'" alt="'.esc_html($pop_post->post_title).'">';
                                     } elseif(!empty($listing_img[0]) && empty($listing_prv_img)) {
-                                        echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="listing image">';
+                                        echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="'.esc_html($pop_post->post_title).'">';
                                     } else{
-                                        echo '<img src="'.$default_image.'" alt="listing image">';
+                                        echo '<img src="'.$default_image.'" alt="'.esc_html($pop_post->post_title).'">';
                                     }
 
                                 ?>

@@ -118,15 +118,15 @@ $submit_listing_button   = get_directorist_option('submit_listing_button',1);
                                                     <div class="atbd_listing_image">
                                                         <?php if(!empty($listing_prv_img)){
 
-                                                            echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="'.esc_url($prv_image).'" alt="listing image"></a>';
+                                                            echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="'.esc_url($prv_image).'" alt="'.esc_html(stripslashes(get_the_title())).'"></a>';
 
                                                         } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                                            echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="' . esc_url($gallery_img) . '" alt="listing image"></a>';
+                                                            echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="' . esc_url($gallery_img) . '" alt="'.esc_html(stripslashes(get_the_title())).'"></a>';
 
                                                         }if (empty($listing_img[0]) && empty($listing_prv_img)){
 
-                                                            echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="listing image"></a>';
+                                                            echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="'.esc_html(stripslashes(get_the_title())).'"></a>';
 
                                                         }
                                                         ?>

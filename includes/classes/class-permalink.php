@@ -262,6 +262,35 @@ class ATBDP_Permalink{
     }
 
     /**
+     * Generate a permalink for single location page.
+     *
+     * @since    4.5.3
+     *
+     * @param    object    $term    The term object.
+     * @return   string             Term link.
+     */
+    public static function atbdp_get_tag_page( $term ) {
+
+        $page_settings =  get_directorist_option('single_tag_page');
+
+        $link = '/';
+
+        if( $page_settings  ) {
+            $link = get_permalink( $page_settings );
+
+            if( '' != get_option( 'permalink_structure' ) ) {
+                $link = user_trailingslashit( trailingslashit( $link ) . $term->slug );
+
+            } else {
+                $link = add_query_arg( 'atbdp_tag', $term->slug, $link );
+            }
+        }
+
+        return apply_filters('atbdp_single_tag', $link);
+
+    }
+
+    /**
      * It returns the link to the custom category archive page of ATBDP
      * @param $loc
      * @param string $field

@@ -274,7 +274,7 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                         ),
                         'address_field' => array(
                             'type' => 'section',
-                            'title' => __('Address', ATBDP_TEXTDOMAIN),
+                            'title' => __('Google Address', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_address_field_settings(),
                         ),
                         'phone_field' => array(
@@ -3498,6 +3498,17 @@ The Administrator of ==SITE_NAME==
                         'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_location]</strong>'),
 
                         'default' => atbdp_get_option('single_location_page', 'atbdp_general'),
+                        'validation' => 'numeric',
+                    ),
+
+                    array(
+                        'type' => 'select',
+                        'name' => 'single_tag_page',
+                        'label' => __( 'Single Tag Page', ATBDP_TEXTDOMAIN ),
+                        'items' => $this->get_pages_vl_arrays(),
+                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_tag]</strong>'),
+
+                        'default' => atbdp_get_option('single_tag_page', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),
 

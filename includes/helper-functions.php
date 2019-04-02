@@ -2250,13 +2250,13 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                             <?php
                                             $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                                             if (!empty($listing_prv_img)) {
-                                                echo '<img src="' . esc_url($prv_image) . '" alt="listing image">';
+                                                echo '<img src="' . esc_url($prv_image) . '" alt="'.esc_html(stripslashes(get_the_title())).'">';
                                             }
                                             if (!empty($listing_img[0]) && empty($listing_prv_img)) {
-                                                echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
+                                                echo '<img src="' . esc_url($gallery_img) . '" alt="'.esc_html(stripslashes(get_the_title())).'">';
                                             }
                                             if (empty($listing_img[0]) && empty($listing_prv_img)) {
-                                                echo '<img src="' . $default_image . '" alt="listing image">';
+                                                echo '<img src="' . $default_image . '" alt="'.esc_html(stripslashes(get_the_title())).'">';
                                             }
                                             ?>
                                         </a>
@@ -2589,13 +2589,13 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                             <?php
                                             $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                                             if (!empty($listing_prv_img)) {
-                                                echo '<img src="' . esc_url($prv_image) . '" alt="listing image">';
+                                                echo '<img src="' . esc_url($prv_image) . '" alt="'.esc_html(stripslashes(get_the_title())).'">';
                                             }
                                             if (!empty($listing_img[0]) && empty($listing_prv_img)) {
-                                                echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
+                                                echo '<img src="' . esc_url($gallery_img) . '" alt="'.esc_html(stripslashes(get_the_title())).'">';
                                             }
                                             if (empty($listing_img[0]) && empty($listing_prv_img)) {
-                                                echo '<img src="' . $default_image . '" alt="listing image">';
+                                                echo '<img src="' . $default_image . '" alt="'.esc_html(stripslashes(get_the_title())).'">';
                                             }
                                             ?>
                                         </a>
@@ -2931,17 +2931,17 @@ function listing_view_by_list($all_listings)
                             $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                             if (!empty($listing_prv_img)) {
 
-                                echo '<img src="' . esc_url($prv_image) . '" alt="listing image">';
+                                echo '<img src="' . esc_url($prv_image) . '" alt="'.esc_html(stripslashes(get_the_title())).'">';
 
                             }
                             if (!empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                echo '<img src="' . esc_url($gallery_img) . '" alt="listing image">';
+                                echo '<img src="' . esc_url($gallery_img) . '" alt="'.esc_html(stripslashes(get_the_title())).'">';
 
                             }
                             if (empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                echo '<img src="' . $default_image . '" alt="listing imag">';
+                                echo '<img src="' . $default_image . '" alt="'.esc_html(stripslashes(get_the_title())).'">';
 
                             }
                             ?></a>

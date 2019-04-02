@@ -632,7 +632,8 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                         </div>
                                     <?php } ?>
 
-                                    <?php if (empty($display_address_for) && !empty($display_address_field)) { ?>
+                                    <?php
+                                    if (empty($display_map_for || $display_address_for) && !empty($display_map_field || $display_address_field)) { ?>
                                         <div class="form-group" id="atbdp_address">
                                             <label for="address"><?php esc_html_e('Google Address:', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_address')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
                                             <input type="text" name="address" id="address"
@@ -641,7 +642,6 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                                    placeholder="<?php esc_html_e('Listing address eg. New York, USA', ATBDP_TEXTDOMAIN); ?>"/>
                                         </div>
 
-                                        <?php if (empty($display_map_for && $display_address_for) && !empty($display_map_field) && !empty($display_address_field)) { ?>
                                             <!--Show map only if it is not disabled in the settings-->
                                             <!--Google map will be generated here using js-->
                                             <div class="form-group">
@@ -704,7 +704,6 @@ $display_video_for = get_directorist_option('display_video_for', 0);
                                                     </div>
                                                 </div> <!--ends .row-->
                                             </div><!--ends .row-->
-                                        <?php } ?>
                                     <?php }
 
                                 /**
@@ -1016,7 +1015,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
 
         // Bias the auto complete object to the user's geographical location,
         // as supplied by the browser's 'navigator.geolocation' object.
-        <?php if (empty($display_map_for) && !empty($display_map_field) && !empty($display_address_field)) { ?>
+        <?php if (empty($display_map_for || $display_address_for) && !empty($display_map_field || $display_address_field)) { ?>
         // initialize all vars here to avoid hoisting related misunderstanding.
         var placeSearch, map, autocomplete, address_input, markers, info_window, $manual_lat, $manual_lng,
             saved_lat_lng, info_content;

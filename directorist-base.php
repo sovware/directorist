@@ -635,6 +635,12 @@ final class Directorist_Base
                         <li>
                             <div class="atbd_left_img">
                                 <?php
+                                $disable_single_listing = get_directorist_option('disable_single_listing');
+                                if (empty($disable_single_listing)){
+                                ?>
+                                <a href="<?php echo esc_url(get_post_permalink($pop_post->ID));?>">
+                                    <?php
+                                    }
                                 $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                                     if(!empty($listing_prv_img)) {
                                         echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_prv_img, array(90, 90))).'" alt="'.esc_html($pop_post->post_title).'">';
@@ -643,13 +649,22 @@ final class Directorist_Base
                                     } else{
                                         echo '<img src="'.$default_image.'" alt="'.esc_html($pop_post->post_title).'">';
                                     }
-
+                                    if (empty($disable_single_listing)){
+                                        echo '</a>';
+                                    }
                                 ?>
                             </div>
                             <div class="atbd_right_content">
                                 <div class="cate_title">
                                     <h4>
-                                        <a href="<?= esc_url(get_post_permalink($pop_post->ID)); ?>"><?= esc_html($pop_post->post_title); ?></a>
+                                        <?php
+                                        if (empty($disable_single_listing)){
+                                            ?>
+                                            <a href="<?= esc_url(get_post_permalink($pop_post->ID)); ?>"><?= esc_html($pop_post->post_title); ?></a>
+                                            <?php
+                                        }else{
+                                            echo esc_html($pop_post->post_title);
+                                        }?>
                                     </h4>
                                 </div>
 

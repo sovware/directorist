@@ -166,8 +166,13 @@ $column_width           = 100/$search_listing_columns .'%';
                                 <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                     <figure class="atbd_listing_thumbnail_area" style=" <?php echo empty(get_directorist_option('display_preview_image'))?'display:none':''?>">
                                         <div class="atbd_listing_image">
-                                             <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>">
-                                                 <?php
+                                            <?php
+                                            $disable_single_listing = get_directorist_option('disable_single_listing');
+                                            if (empty($disable_single_listing)){
+                                            ?>
+                                            <a href="<?php echo esc_url(get_post_permalink(get_the_ID()));?>">
+                                                <?php
+                                                }
                                                  $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                                                  if(!empty($listing_prv_img)){
 
@@ -182,8 +187,9 @@ $column_width           = 100/$search_listing_columns .'%';
                                                             echo '<img src="'.$default_image.'" alt="'.esc_html(stripslashes(get_the_title())).'">';
 
                                                         }
-                                                        ?></a>
-                                            <?php if(!empty($display_author_image)) {
+                                                if (empty($disable_single_listing)){
+                                                    echo '</a>';
+                                                } if(!empty($display_author_image)) {
                                                 $author = get_userdata($author_id);
                                                 ?>
                                                 <div class="atbd_author">
@@ -239,7 +245,14 @@ $column_width           = 100/$search_listing_columns .'%';
                                         <div class="atbd_content_upper">
                                             <?php if(!empty($display_title)) {?>
                                             <h4 class="atbd_listing_title">
-                                                <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
+                                                <?php
+                                                if (empty($disable_single_listing)){
+                                                    ?>
+                                                    <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
+                                                    <?php
+                                                }else{
+                                                    echo esc_html(stripslashes(get_the_title()));
+                                                }?>
                                             </h4>
                                             <?php } if(!empty($tagline) && !empty($enable_tagline) && !empty($display_tagline_field)) { ?>
                                             <p class="atbd_listing_tagline"><?= esc_html(stripslashes($tagline)); ?></p>

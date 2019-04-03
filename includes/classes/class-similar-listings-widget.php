@@ -55,6 +55,12 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
                         <li>
                             <div class="atbd_left_img">
                                 <?php
+                                $disable_single_listing = get_directorist_option('disable_single_listing');
+                                if (empty($disable_single_listing)){
+                                ?>
+                                <a href="<?php echo esc_url(get_post_permalink($related_listing->ID));?>">
+                                    <?php
+                                    }
                                 $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                                 if(!empty($listing_prv_img)) {
                                     echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_prv_img, array(90, 90))).'" alt="listing image">';
@@ -63,13 +69,23 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
                                 } else{
                                     echo '<img src="'.$default_image.'" alt="listing image">';
                                 }
-
+                                    if (empty($disable_single_listing)){
+                                        echo '</a>';
+                                    }
                                 ?>
                             </div>
                             <div class="atbd_right_content">
                                 <div class="cate_title">
                                     <h4>
+                                        <?php
+                                        if (empty($disable_single_listing)){
+                                        ?>
                                         <a href="<?= esc_url(get_post_permalink($related_listing->ID)); ?>"><?= esc_html($related_listing->post_title); ?></a>
+                                        <?php
+                                    }else{
+                            echo esc_html($related_listing->post_title);
+                        }?>
+
                                     </h4>
                                     <?php if(!empty($price)) {?>
                                     <span><?php atbdp_display_price($price);?></span>

@@ -1487,6 +1487,12 @@ The Administrator of ==SITE_NAME==
                     ),
                     array(
                         'type' => 'toggle',
+                        'name' => 'disable_single_listing',
+                        'label' => __('Disable Single Listing', ATBDP_TEXTDOMAIN),
+                        'default' => 0,
+                    ),
+                    array(
+                        'type' => 'toggle',
                         'name' => 'display_sort_by',
                         'label' => __('Display "Sort By" Dropdown', ATBDP_TEXTDOMAIN),
                         'default' => 1,

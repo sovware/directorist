@@ -138,6 +138,7 @@ class ATBDP_Enqueuer {
                 'deleted' => __('Deleted!', ATBDP_TEXTDOMAIN),
                 'icon_choose_text' => __('Select an icon', ATBDP_TEXTDOMAIN),
                 'upload_image' => __('Select or Upload Slider Image', ATBDP_TEXTDOMAIN),
+                'upload_cat_image' => __('Select Category Image', ATBDP_TEXTDOMAIN),
                 'choose_image' => __('Use this Image', ATBDP_TEXTDOMAIN),
                 'select_prv_img' => __('Select Preview Image', ATBDP_TEXTDOMAIN),
                 'insert_prv_img' => __('Insert Preview Image', ATBDP_TEXTDOMAIN),

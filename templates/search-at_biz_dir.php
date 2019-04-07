@@ -292,7 +292,13 @@ $column_width           = 100/$search_listing_columns .'%';
                                             <?php if(!empty($display_contact_info) || !empty($display_publish_date)) { ?>
                                                 <div class="atbd_listing_data_list">
                                                     <ul>
+
                                                         <?php
+                                                        /**
+                                                         * @since 4.7.6
+                                                         */
+                                                        do_action('atbdp_listings_before_location');
+
                                                         if (!empty($display_contact_info)) {
                                                             if( !empty( $address ) && 'contact' == $address_location && !empty($display_address_field) ) { ?>
                                                                 <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
@@ -313,17 +319,32 @@ $column_width           = 100/$search_listing_columns .'%';
                                                 </span>
                                                                     </p>
                                                                 </li>
-                                                            <?php } ?>
+                                                            <?php }
+                                                            /**
+                                                             * @since 4.7.6
+                                                             */
+                                                            do_action('atbdp_listings_before_phone');
+                                                            ?>
                                                             <?php if( !empty( $phone_number ) && !empty($display_phone_field)) {?>
                                                                 <li><p><span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number));?></p></li>
                                                                 <?php
                                                             } }
+                                                        /**
+                                                         * @since 4.7.6
+                                                         */
+                                                        do_action('atbdp_listings_before_post_date');
 
                                                         if(!empty($display_publish_date)) { ?>
                                                             <li><p><span class="fa fa-clock-o"></span><?php
                                                                     printf( __( 'Posted %s ago', ATBDP_TEXTDOMAIN ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
                                                                     ?></p></li>
-                                                        <?php } ?>
+                                                        <?php }
+                                                        /**
+                                                         * @since 4.7.6
+                                                         */
+                                                        do_action('atbdp_listings_after_post_date');
+
+                                                        ?>
                                                     </ul>
                                                 </div><!-- End atbd listing meta -->
                                                 <?php

@@ -147,7 +147,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                         <?php } ?>
                         <?php if($enable_social_share) {?>
                         <div class="atbd_action atbd_share">
-                            <span class="fa fa-share-alt"></span>Share
+                            <span class="fa fa-share-alt"></span><?php _e('Share', ATBDP_TEXTDOMAIN);?>
                                 <div class="atbd_director_social_wrap">
                                     <?php
                                     //prepare the data for the links because links needs to be escaped

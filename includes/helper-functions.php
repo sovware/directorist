@@ -2376,6 +2376,11 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                             <div class="atbd_listing_data_list">
                                                 <ul>
                                                     <?php
+                                                    /**
+                                                     * @since 4.7.6
+                                                     */
+                                                    do_action('atbdp_listings_before_location');
+
                                                     if (!empty($display_contact_info)) {
                                                         if (!empty($address) && 'contact' == $address_location && !empty($display_address_field)) { ?>
                                                             <li><p>
@@ -2398,7 +2403,12 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                                 </span>
                                                                 </p>
                                                             </li>
-                                                        <?php } ?>
+                                                        <?php }
+                                                        /**
+                                                         * @since 4.7.6
+                                                         */
+                                                        do_action('atbdp_listings_before_phone');
+                                                        ?>
                                                         <?php if (!empty($phone_number) && !empty($display_phone_field)) { ?>
                                                             <li><p>
                                                                     <span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number)); ?>
@@ -2406,12 +2416,21 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                                             <?php
                                                         }
                                                     }
+                                                    /**
+                                                     * @since 4.7.6
+                                                     */
+                                                    do_action('atbdp_listings_before_post_date');
 
                                                     if (!empty($display_publish_date)) { ?>
                                                         <li><p><span class="fa fa-clock-o"></span><?php
                                                                 printf(__('Posted %s ago', ATBDP_TEXTDOMAIN), human_time_diff(get_the_time('U'), current_time('timestamp')));
                                                                 ?></p></li>
-                                                    <?php } ?>
+                                                    <?php }
+                                                    /**
+                                                     * @since 4.7.6
+                                                     */
+                                                    do_action('atbdp_listings_after_post_date');
+                                                    ?>
                                                 </ul>
                                             </div><!-- End atbd listing meta -->
                                             <?php
@@ -2729,6 +2748,10 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                             <div class="atbd_listing_data_list">
                                                 <ul>
                                                     <?php
+                                                    /**
+                                                     * @since 4.7.6
+                                                     */
+                                                    do_action('atbdp_listings_before_location');
                                                     if (!empty($display_contact_info)) {
                                                         if (!empty($address) && 'contact' == $address_location && !empty($display_address_field) ) { ?>
                                                             <li><p>
@@ -2751,7 +2774,12 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                 </span>
                                                                 </p>
                                                             </li>
-                                                        <?php }?>
+                                                        <?php }
+                                                        /**
+                                                         * @since 4.7.6
+                                                         */
+                                                        do_action('atbdp_listings_before_phone');
+                                                        ?>
                                                         <?php if (!empty($phone_number) && !empty($display_phone_field)) { ?>
                                                             <li><p>
                                                                     <span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number)); ?>
@@ -2759,12 +2787,20 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                             <?php
                                                         }
                                                     }
-
+                                                    /**
+                                                     * @since 4.7.6
+                                                     */
+                                                    do_action('atbdp_listings_before_post_date');
                                                     if (!empty($display_publish_date)) { ?>
                                                         <li><p><span class="fa fa-clock-o"></span><?php
                                                                 printf(__('Posted %s ago', ATBDP_TEXTDOMAIN), human_time_diff(get_the_time('U'), current_time('timestamp')));
                                                                 ?></p></li>
-                                                    <?php } ?>
+                                                    <?php }
+                                                    /**
+                                                     * @since 4.7.6
+                                                     */
+                                                    do_action('atbdp_listings_after_post_date');
+                                                    ?>
                                                 </ul>
                                             </div><!-- End atbd listing meta -->
                                             <?php
@@ -3065,6 +3101,10 @@ function listing_view_by_list($all_listings)
                                 <div class="atbd_listing_data_list">
                                     <ul>
                                         <?php
+                                        /**
+                                         * @since 4.7.6
+                                         */
+                                        do_action('atbdp_listings_before_location');
                                         if (!empty($display_contact_info)) {
                                             if (!empty($address) && 'contact' == $address_location && !empty($display_address_field)) { ?>
                                                 <li><p>
@@ -3084,7 +3124,12 @@ function listing_view_by_list($all_listings)
                                                 </span>
                                                     </p>
                                                 </li>
-                                            <?php } ?>
+                                            <?php }
+                                            /**
+                                             * @since 4.7.6
+                                             */
+                                            do_action('atbdp_listings_before_phone');
+                                            ?>
                                             <?php if (!empty($phone_number) && !empty($display_phone_field)) { ?>
                                                 <li><p>
                                                         <span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number)); ?>
@@ -3092,12 +3137,20 @@ function listing_view_by_list($all_listings)
                                                 <?php
                                             }
                                         }
-
+                                        /**
+                                         * @since 4.7.6
+                                         */
+                                        do_action('atbdp_listings_before_post_date');
                                         if (!empty($display_publish_date)) { ?>
                                             <li><p><span class="fa fa-clock-o"></span><?php
                                                     printf(__('Posted %s ago', ATBDP_TEXTDOMAIN), human_time_diff(get_the_time('U'), current_time('timestamp')));
                                                     ?></p></li>
-                                        <?php } ?>
+                                        <?php }
+                                        /**
+                                         * @since 4.7.6
+                                         */
+                                        do_action('atbdp_listings_after_post_date');
+                                        ?>
                                     </ul>
                                 </div><!-- End atbd listing meta -->
                                 <?php

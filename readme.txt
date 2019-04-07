@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.1.1
-Stable tag: 4.7.5
+Stable tag: 4.7.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -128,14 +128,15 @@ Directorist is not developed by a single person. A team of dedicated developers 
 18. Add New Custom Field
 
 == Changelog ==
-= 4.7.6 - March 31, 2019 =
-* Fix - Translate issues
-* Tweak - Add single listing tags on Tag Widget
-* Fix - The + New tab in the Dashboard
-* Fix - Popular listing issue
-* Add - Single Tag Page
-* Add - Dynamic alt for image tag
 
+= 4.7.6 - April 3, 2019 =
+* Add - Option to disable single listing view
+* Add - Single Tag Page
+* Add - Dynamic alt attribute for img tag
+* Fix - Translate issues
+* Fix - Wp admin bar
+* Fix - Popular listing issue
+* Tweak - Option to display single listing tags on Tag Widget
 
 = 4.7.5 - March 28, 2019 =
 * Extend - Added another option for making listing popular based on average ratings

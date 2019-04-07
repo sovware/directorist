@@ -236,16 +236,6 @@ $column_width = 100/$columns .'%';
                                                 if ($popular_listing_id === get_the_ID()){
                                                     echo $badge;
                                                 }
-                                              /*  if ($popular_listings->have_posts() && !empty($display_popular_badge_cart)) {
-                                                    foreach ($popular_listings->posts as $pop_post) {
-                                                        $view_count = get_post_meta(get_the_ID(), '_atbdp_post_views_count', true);
-                                                        $view_to_popular = get_directorist_option('views_for_popular');
-
-                                                    }
-                                                    if ((int) $view_count >= (int) $view_to_popular){
-                                                        echo '<span class="atbd_badge atbd_badge_popular">'. $popular_badge_text .'</span>';
-                                                    }
-                                                }*/
                                                 //print the new badge
                                                 echo new_badge();
                                                 ?>
@@ -305,6 +295,11 @@ $column_width = 100/$columns .'%';
                                         <div class="atbd_listing_data_list">
                                             <ul>
                                                 <?php
+                                                /**
+                                                 * @since 4.7.6
+                                                 */
+                                                do_action('atbdp_listings_before_location');
+
                                                 if (!empty($display_contact_info)) {
                                                     if( !empty( $address ) && 'contact' == $address_location && !empty($display_address_field)) { ?>
                                                         <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
@@ -317,6 +312,7 @@ $column_width = 100/$columns .'%';
                                                             $space = str_repeat(' ', 1);
                                                             $output []= "{$space}<a href='{$link}'>{$loc->name}</a>";
                                                         }?>
+
                                                         <li>
                                                             <p>
 
@@ -325,17 +321,31 @@ $column_width = 100/$columns .'%';
                                                 </span>
                                                             </p>
                                                         </li>
-                                                    <?php } ?>
+                                                    <?php }
+                                                    /**
+                                                     * @since 4.7.6
+                                                     */
+                                                    do_action('atbdp_listings_before_phone');
+                                                    ?>
                                                     <?php if( !empty( $phone_number ) && !empty($display_phone_field)) {?>
                                                         <li><p><span class="fa fa-phone"></span><?php echo esc_html(stripslashes($phone_number));?></p></li>
                                                         <?php
                                                     } }
+                                                /**
+                                                 * @since 4.7.6
+                                                 */
+                                                do_action('atbdp_listings_before_post_date');
 
                                                 if(!empty($display_publish_date)) { ?>
                                                     <li><p><span class="fa fa-clock-o"></span><?php
                                                             printf( __( 'Posted %s ago', ATBDP_TEXTDOMAIN ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
                                                             ?></p></li>
-                                                <?php } ?>
+                                                <?php }
+                                                /**
+                                                 * @since 4.7.6
+                                                 */
+                                                do_action('atbdp_listings_after_post_date');
+                                                ?>
                                             </ul>
                                         </div><!-- End atbd listing meta -->
                                         <?php

@@ -486,6 +486,86 @@ jQuery(function ($) {
             avg_review.show();
             logged_count.show();
         }
+    });
+
+    /**
+     * Display the media uploader for selecting an image.
+     *
+     * @since    1.0.0
+     */
+    function atbdp_render_media_uploader( page ) {
+
+        var file_frame, image_data, json;
+
+        // If an instance of file_frame already exists, then we can open it rather than creating a new instance
+        if( undefined !== file_frame ) {
+
+            file_frame.open();
+            return;
+
+        };
+
+        // Here, use the wp.media library to define the settings of the media uploader
+        file_frame = wp.media.frames.file_frame = wp.media({
+            frame    : 'post',
+            state    : 'insert',
+            multiple : false
+        });
+
+        // Setup an event handler for what to do when an image has been selected
+        file_frame.on( 'insert', function() {
+
+            // Read the JSON data returned from the media uploader
+            json = file_frame.state().get( 'selection' ).first().toJSON();
+
+            // First, make sure that we have the URL of an image to display
+            if( 0 > $.trim( json.url.length ) ) {
+                return;
+            };
+
+            // After that, set the properties of the image and display it
+            if( 'listings' == page ) {
+
+                var html = '<tr class="atbdp-image-row">' +
+                    '<td class="atbdp-handle"><span class="dashicons dashicons-screenoptions"></span></td>' +
+                    '<td class="atbdp-image">' +
+                    '<img src="' + json.url + '" />' +
+                    '<input type="hidden" name="images[]" value="' + json.id + '" />' +
+                    '</td>' +
+                    '<td>' +
+                    json.url + '<br />' +
+                    '<a href="post.php?post=' + json.id + '&action=edit" target="_blank">' + atbdp.edit + '</a> | ' +
+                    '<a href="javascript:;" class="atbdp-delete-image" data-attachment_id="' + json.id + '">' + atbdp.delete_permanently + '</a>' +
+                    '</td>' +
+                    '</tr>';
+
+                $( '#atbdp-images' ).append( html );
+
+            } else {
+
+                $( '#atbdp-categories-image-id' ).val( json.id );
+                $( '#atbdp-categories-image-wrapper' ).html( '<img src="' + json.url + '" />' );
+
+            }
+
+        });
+
+        // Now display the actual file_frame
+        file_frame.open();
+
+    };
+
+    // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
+    $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
+
+        e.preventDefault();
+
+        atbdp_render_media_uploader( 'categories' );
+
+    });
+
+    $('#submit').on('click', function () {
+        $('#atbdp-categories-image-wrapper').empty();
     })
 
 });

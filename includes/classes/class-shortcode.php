@@ -721,7 +721,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
             if( $count_meta_queries ) {
                 $args['meta_query'] = ( $count_meta_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $meta_queries ) : $meta_queries;
             }
-
+            $display_header             = !empty($display_header) ? $display_header : '';
+            $header_title               = !empty($header_title) ? $header_title : '';
+            $header_sub_title           = !empty($header_sub_title) ? $header_sub_title : '';
             $all_listings = new WP_Query($args);
 
             $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');

@@ -97,25 +97,29 @@ if ( !class_exists('BD_Search_Widget')) {
          */
         public function form ($instance)
         {
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : __( 'Search Listings',ATBDP_TEXTDOMAIN );
-            $instance['hide_category'] = !empty($instance['hide_category']) ? esc_html($instance['hide_category']) : '';
-            $instance['hide_location'] = !empty($instance['hide_location']) ? esc_html($instance['hide_location']) : '';
-            ?>
-            <p>
-                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', ATBDP_TEXTDOMAIN); ?></label>
-                <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
-                       name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
-                       value="<?php echo esc_attr($title); ?>">
-            </p>
-            <p>
-                <input <?php checked( $instance['hide_category'],1 ); ?> id="<?php echo $this->get_field_id( 'hide_category' ); ?>" name="<?php echo $this->get_field_name( 'hide_category' ); ?>" value="1" type="checkbox" />
-                <label for="<?php echo $this->get_field_id( 'hide_category' ); ?>"><?php _e( 'Hide Category Field', ATBDP_TEXTDOMAIN ); ?></label>
-            </p>
-            <p>
-                <input <?php checked( $instance['hide_location'],1 ); ?> id="<?php echo $this->get_field_id( 'hide_location' ); ?>" name="<?php echo $this->get_field_name( 'hide_location' ); ?>" value="1" type="checkbox" />
-                <label for="<?php echo $this->get_field_id( 'hide_location' ); ?>"><?php _e( 'Hide Location Field', ATBDP_TEXTDOMAIN ); ?></label>
-            </p>
-            <?php
+            // Define the array of defaults
+            $defaults = array(
+                'title'                   =>  __( 'Search', ATBDP_TEXTDOMAIN ),
+                'search_by_text_field'    => 1,
+                'search_by_category'      => 1,
+                'search_by_location'      => 1,
+                'search_by_tag'           => 1,
+                'search_by_custom_fields' => 1,
+                'search_by_price'         => 1,
+                'search_by_review'        => 1,
+                'search_by_website'       => 0,
+                'search_by_email'         => 0,
+                'search_by_phone'         => 0,
+                'search_by_address'       => 0,
+                'search_by_zip_code'      => 0,
+            );
+            // Parse incoming $instance into an array and merge it with $defaults
+            $instance = wp_parse_args(
+                (array) $instance,
+                $defaults
+            );
+
+            require ATBDP_TEMPLATES_DIR . 'search-widget-form.php';
         }
 
         /**
@@ -132,8 +136,18 @@ if ( !class_exists('BD_Search_Widget')) {
         {
             $instance = array();
             $instance['title'] = (!empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
-            $instance['hide_category'] = (!empty($new_instance['hide_category'])) ? 1 : '';
-            $instance['hide_location'] = (!empty($new_instance['hide_location'])) ? 1 : '';
+            $instance['search_by_text_field'] = (isset($new_instance['search_by_text_field'])) ? 1 : 0;
+            $instance['search_by_category'] = (isset($new_instance['search_by_category'])) ? 1 : 0;
+            $instance['search_by_location'] = (isset($new_instance['search_by_location'])) ? 1 : 0;
+            $instance['search_by_tag'] = (isset($new_instance['search_by_tag'])) ? 1 : 0;
+            $instance['search_by_custom_fields'] = (isset($new_instance['search_by_custom_fields'])) ? 1 : 0;
+            $instance['search_by_price'] = (isset($new_instance['search_by_price'])) ? 1 : 0;
+            $instance['search_by_review'] = (isset($new_instance['search_by_review'])) ? 1 : 0;
+            $instance['search_by_website'] = (isset($new_instance['search_by_website'])) ? 1 : 0;
+            $instance['search_by_email'] = (isset($new_instance['search_by_email'])) ? 1 : 0;
+            $instance['search_by_phone'] = (isset($new_instance['search_by_phone'])) ? 1 : 0;
+            $instance['search_by_address'] = (isset($new_instance['search_by_address'])) ? 1 : 0;
+            $instance['search_by_zip_code'] = (isset($new_instance['search_by_zip_code'])) ? 1 : 0;
 
             return $instance;
         }

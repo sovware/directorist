@@ -82,6 +82,8 @@ class ATBDP_Rewrite {
             add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id='.$tag.'&atbdp_tag=$matches[1]', 'top' );
         }
 
+
+
         // Rewrite tags (Making custom query var available throughout the application
         // WordPress by default does not understand the unknown query vars. It needs to be registered with WP for using it.
         // by using add_rewrite_tag() or add_query_arg() on init hook or other earlier hook, we can register custom query var eg. atbdp_action and  we can access it later on any other page

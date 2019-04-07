@@ -4,9 +4,7 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
 $pagenation = get_directorist_option('paginate_all_listings', 1);
 $display_sortby_dropdown = get_directorist_option('display_sort_by', 1);
 $display_viewas_dropdown = get_directorist_option('display_view_as', 1);
-$display_header             = !empty($display_header) ? $display_header : '';
-$header_title               = !empty($header_title) ? $header_title : '';
-$header_sub_title           = !empty($header_sub_title) ? $header_sub_title : '';
+
 ?>
     <div id="directorist" class="atbd_wrapper">
         <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">

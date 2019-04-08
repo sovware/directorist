@@ -46,6 +46,13 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
         add_action( 'wp_ajax_atbdp_submit-uninstall-reason', array( $this, 'atbdp_deactivate_reason' ) );
         add_action( 'wp_ajax_nopriv_atbdp_submit-uninstall-reason', array( $this, 'atbdp_deactivate_reason' ) );
+
+        // location & category child term
+        add_action( 'wp_ajax_bdas_public_dropdown_terms', array($this,'bdas_dropdown_terms') );
+        add_action( 'wp_ajax_nopriv_bdas_public_dropdown_terms', array($this,'bdas_dropdown_terms') );
+        //custom field search
+        add_action( 'wp_ajax_atbdp_custom_fields_search', array($this,'custom_field_search'),10, 1 );
+        add_action( 'wp_ajax_nopriv_atbdp_custom_fields_search', array($this,'custom_field_search'),10, 1 );
         //add_action( 'wp_ajax_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all') );
         //add_action( 'wp_ajax_nopriv_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all') );
     }
@@ -545,6 +552,85 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
 
     }
+
+        public function bdas_dropdown_terms () {
+            check_ajax_referer( 'bdas_ajax_nonce', 'security' );
+
+            if( isset( $_POST['taxonomy'] ) && isset( $_POST['parent'] ) ) {
+
+                $args = array(
+                    'taxonomy'  => sanitize_text_field( $_POST['taxonomy'] ),
+                    'base_term' => 0,
+                    'parent'    => (int) $_POST['parent']
+                );
+
+                if( 'at_biz_dir-location' == $args['taxonomy'] ) {
+
+                    $args['orderby'] = 'date';
+                    $args['order'] = 'ASC';
+                }
+
+                if( 'at_biz_dir-category' == $args['taxonomy'] ) {
+
+                    $args['orderby'] = 'date';
+                    $args['order'] = 'ASC';
+                }
+
+                if( isset( $_POST['class'] ) && '' != trim( $_POST['class'] ) ) {
+                    $args['class'] = sanitize_text_field( $_POST['class'] );
+                }
+
+                if( $args['parent'] != $args['base_term'] ) {
+                    ob_start();
+                    bdas_dropdown_terms( $args );
+                    $output = ob_get_clean();
+                    print $output;
+                }
+
+            }
+
+            wp_die();
+        }
+
+        public function custom_field_search($term_id = 0) {
+            $ajax = false;
+
+            if( isset( $_POST['term_id'] ) ) {
+
+                check_ajax_referer( 'bdas_ajax_nonce', 'security' );
+
+                $ajax = true;
+                $term_id = (int) $_POST['term_id'];
+
+            }
+            // Get custom fields
+            $custom_field_ids = acadp_get_custom_field_ids( $term_id );
+
+            $args = array(
+                'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+                'post_status'    => 'publish',
+                'posts_per_page' => -1,
+                'post__in'		 => $custom_field_ids,
+                'orderby'        => 'meta_value_num',
+                'order'          => 'ASC',
+            );
+            $acadp_query = new WP_Query( $args );
+
+            // Start the Loop
+            global $post;
+
+            // Process output
+            ob_start();
+            require ATBDP_TEMPLATES_DIR . 'custom-field-search-form.php';
+            wp_reset_postdata(); // Restore global post data stomped by the_post()
+            $output = ob_get_clean();
+
+            print $output;
+
+            if( $ajax ) {
+                wp_die();
+            }
+        }
 
 }
 

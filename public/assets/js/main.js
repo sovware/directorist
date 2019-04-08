@@ -706,14 +706,14 @@ jQuery(function ($) {
     // load custom fields of the selected category in the search form
     $( 'body' ).on( 'change', '.bdas-category-search', function() {
 
-        var $search_elem = $( this ).closest ( 'form' ).find( ".acadp-custom-fields-search" );
+        var $search_elem = $( this ).closest ( 'form' ).find( ".atbdp-custom-fields-search" );
 
         if( $search_elem.length ) {
 
             $search_elem.html( '<div class="acadp-spinner"></div>' );
 
             var data = {
-                'action': 'acadp_custom_fields_search',
+                'action': 'atbdp_custom_fields_search',
                 'term_id': $( this ).val(),
                 'security': atbdp_public_data.ajax_nonce
             };

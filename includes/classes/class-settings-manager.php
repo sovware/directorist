@@ -1949,13 +1949,19 @@ The Administrator of ==SITE_NAME==
                         'type' => 'textbox',
                         'name' => 'search_header_title',
                         'label' => __('Header Title', ATBDP_TEXTDOMAIN),
-                        'default' => __('Search Result: ', ATBDP_TEXTDOMAIN),
+                        'default' => __('Search Result ', ATBDP_TEXTDOMAIN),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_header_sub_title',
                         'label' => __('Header Sub-Title', ATBDP_TEXTDOMAIN),
                         'default' => __('Total Listing Found: ', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'search_view_as',
+                        'label' => __('Display "View As" Dropdown', ATBDP_TEXTDOMAIN),
+                        'default' => 1,
                     ),
                     array(
                         'type' => 'toggle',

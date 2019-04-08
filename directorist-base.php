@@ -381,7 +381,7 @@ final class Directorist_Base
         /*Load gateway related stuff*/
         load_dependencies('all', ATBDP_INC_DIR . 'gateways/');
 
-        /*Load gateway related stuff*/
+        /*Load custom field related stuff*/
         load_dependencies('all', ATBDP_INC_DIR . 'custom-fields/');
         /*Load payment related stuff*/
         load_dependencies('all', ATBDP_INC_DIR . 'payments/');

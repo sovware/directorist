@@ -35,6 +35,16 @@
 </p>
 
 <p>
+    <input <?php checked( $instance['search_by_price_range'] ); ?> id="<?php echo $this->get_field_id( 'search_by_price_range' ); ?>" name="<?php echo $this->get_field_name( 'search_by_price_range' ); ?>" type="checkbox" />
+    <label for="<?php echo $this->get_field_id( 'search_by_price_range' ); ?>"><?php _e( 'Search by Price Range', ATBDP_TEXTDOMAIN ); ?></label>
+</p>
+
+<p>
+    <input <?php checked( $instance['search_by_open_now'] ); ?> id="<?php echo $this->get_field_id( 'search_by_open_now' ); ?>" name="<?php echo $this->get_field_name( 'search_by_open_now' ); ?>" type="checkbox" />
+    <label for="<?php echo $this->get_field_id( 'search_by_open_now' ); ?>"><?php _e( 'Search by Open Now', ATBDP_TEXTDOMAIN ); ?></label>
+</p>
+
+<p>
     <input <?php checked( $instance['search_by_review'] ); ?> id="<?php echo $this->get_field_id( 'search_by_review' ); ?>" name="<?php echo $this->get_field_name( 'search_by_review' ); ?>" type="checkbox" />
     <label for="<?php echo $this->get_field_id( 'search_by_review' ); ?>"><?php _e( 'Search by Review', ATBDP_TEXTDOMAIN ); ?></label>
 </p>

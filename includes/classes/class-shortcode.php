@@ -150,50 +150,81 @@ if ( !class_exists('ATBDP_Shortcode') ):
         }
 
 
-        public function search_result()
+        public function search_result($atts)
         {
-            ob_start();
-            $paged          = atbdp_get_paged_num();
-            $srch_p_num     = get_directorist_option('search_posts_num', 6);
-            $paginate       = get_directorist_option('paginate_search_results');
-            $order_by       = get_directorist_option('search_order_listing_by','date');
-            $sort_by        = get_directorist_option('search_sort_listing_by','desc');
-            $s_string       = !empty($_GET['q']) ? sanitize_text_field($_GET['q']) : '';// get the searched query
-            $in_cat         = !empty($_GET['in_cat']) ? sanitize_text_field($_GET['in_cat']) : '';
-            $in_loc         = !empty($_GET['in_loc']) ? sanitize_text_field($_GET['in_loc']) : '';
-            $in_tag         = !empty($_GET['in_tag']) ? sanitize_text_field($_GET['in_tag']) : '';
+            $listing_orderby           = get_directorist_option('search_order_listing_by');
+            $listing_view              = get_directorist_option('search_view_as');
+            $listing_order             = get_directorist_option('search_sort_by');
+            $listing_grid_columns      = get_directorist_option('search_listing_columns',3);
+            $display_listings_header   = get_directorist_option('search_header',1);
+            $listings_header_title     = get_directorist_option('search_header_title',__('Search Result', ATBDP_TEXTDOMAIN));
+            $listings_header_sub_title = get_directorist_option('search_header_sub_title',__('Total Listing Found: ', ATBDP_TEXTDOMAIN));
+            $atts = shortcode_atts( array(
+                'view'              => !empty($listing_view) ? $listing_view : 'grid',
+                '_featured'         => 1,
+                'filterby'          => '',
+                'orderby'           => !empty($listing_orderby) ? $listing_orderby : 'date',
+                'order'             => !empty($listing_order) ? $listing_order : 'asc',
+                'listings_per_page' => (int) get_directorist_option('search_posts_num', 6),
+                'pagination'        => 1,
+                'header'            => !empty($display_listings_header) ? 'yes' : '',
+                'header_title'      => !empty($listings_header_title) ? $listings_header_title : '',
+                'header_sub_title'  => !empty($listings_header_sub_title) ? $listings_header_sub_title : '',
+                'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
+                'featured_only'     => '',
+                'popular_only'      => '',
+            ), $atts );
 
-            $current_order       = atbdp_get_listings_current_order( $order_by.'-'.$sort_by );
-            // lets setup the query args
+
+            $columns             = !empty($atts['columns']) ? $atts['columns'] : 3;
+            $display_header      = !empty($atts['header']) ? $atts['header'] : '';
+            $header_title        = !empty($atts['header_title']) ? $atts['header_title'] : '';
+            $header_sub_title    = !empty($atts['header_sub_title']) ? $atts['header_sub_title'] : '';
+            $feature_only        = !empty($atts['featured_only']) ? $atts['featured_only'] : '';
+            $popular_only        = !empty($atts['popular_only']) ? $atts['popular_only'] : '';
+            //for pagination
+            $paged               = atbdp_get_paged_num();
+            $paginate            = get_directorist_option('paginate_search_results');
+
+            if (!$paginate) $args['no_found_rows'] = true;
+
+            $has_featured        = get_directorist_option('enable_featured_listing');
+            if( $has_featured || is_fee_manager_active()) {
+                $has_featured    = $atts['_featured'];
+            }
+
+            $current_order       = atbdp_get_listings_current_order( $atts['orderby'].'-'.$atts['order'] );
+            $view                = atbdp_get_listings_current_view_name( $atts['view'] );
+            $s_string            = !empty($_GET['q']) ? sanitize_text_field($_GET['q']) : '';// get the searched query
             $args = array(
                 'post_type'      => ATBDP_POST_TYPE,
                 'post_status'    => 'publish',
-                'posts_per_page' => (int) $srch_p_num,
+                'posts_per_page' => (int) $atts['listings_per_page'],
                 'paged'          => $paged,
                 's'              => $s_string,
             );
-            if (!$paginate) $args['no_found_rows'] = true;
 
-            $tax_queries=array(); // initiate the tax query var to append to it different tax query
+            // Define tax queries( only if applicable )
+            $tax_queries = array();
 
-            if( !empty($in_cat) ) {
-                /*@todo; add option to the settings panel to let user choose whether to include result from children or not*/
+            if( isset( $_GET['in_cat'] ) && (int) $_GET['in_cat'] > 0 ) {
+
                 $tax_queries[] = array(
                     'taxonomy'         => ATBDP_CATEGORY,
-                    'field'            => 'slug',
-                    'terms'            => $in_cat,
-                    'include_children' => true, /*@todo; Add option to include children or exclude it*/
+                    'field'            => 'term_id',
+                    'terms'            => (int) $_GET['in_cat'],
+                    'include_children' => true,
                 );
 
             }
 
-            if( !empty($in_loc) ) {
-                /*@todo; add option to the settings panel to let user choose whether to include result from children or not*/
+            if( isset( $_GET['in_loc'] ) && (int) $_GET['in_loc'] > 0 ) {
+
                 $tax_queries[] = array(
                     'taxonomy'         => ATBDP_LOCATION,
-                    'field'            => 'slug',
-                    'terms'            => $in_loc,
-                    'include_children' => true
+                    'field'            => 'term_id',
+                    'terms'            => (int) $_GET['in_loc'],
+                    'include_children' => true,
                 );
 
             }
@@ -201,17 +232,560 @@ if ( !class_exists('ATBDP_Shortcode') ):
             if( !empty($in_tag) ) {
                 $tax_queries[] = array(
                     'taxonomy'         => ATBDP_TAGS,
-                    'field'            => 'slug',
+                    'field'            => 'term_id',
                     'terms'            => $in_tag,
                 );
 
             }
 
-            if (!is_empty_v($tax_queries)){
-                $args['tax_query'] = $tax_queries;
+            $count_tax_queries = count( $tax_queries );
+            if( $count_tax_queries ) {
+                $args['tax_query'] = ( $count_tax_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $tax_queries ) : $tax_queries;
             }
 
             $meta_queries = array();
+
+            if( isset( $_GET['cf'] ) ) {
+
+                $cf = array_filter( $_GET['cf'] );
+
+                foreach( $cf as $key => $values ) {
+
+                    if( is_array( $values ) ) {
+
+                        if( count( $values ) > 1 ) {
+
+                            $sub_meta_queries = array();
+
+                            foreach( $values as $value ) {
+                                $sub_meta_queries[] = array(
+                                    'key'		=> $key,
+                                    'value'		=> sanitize_text_field( $value ),
+                                    'compare'	=> 'LIKE'
+                                );
+                            }
+
+                            $meta_queries[] = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
+
+                        } else {
+
+                            $meta_queries[] = array(
+                                'key'		=> $key,
+                                'value'		=> sanitize_text_field( $values[0] ),
+                                'compare'	=> 'LIKE'
+                            );
+
+                        }
+
+                    } else {
+
+                        $field_type = get_post_meta( $key, 'type', true );
+                        $operator = ( 'text' == $field_type || 'textarea' == $field_type || 'url' == $field_type ) ? 'LIKE' : '=';
+                        $meta_queries[] = array(
+                            'key'		=> $key,
+                            'value'		=> sanitize_text_field( $values ),
+                            'compare'	=> $operator
+                        );
+
+                    }
+
+                }
+
+            } // end get['cf']
+
+            if( isset( $_GET['price'] ) ) {
+
+                $price = array_filter( $_GET['price'] );
+
+                if( $n = count( $price ) ) {
+
+                    if( 2 == $n ) {
+                        $meta_queries[] = array(
+                            'key'		=> '_price',
+                            'value'		=> array_map( 'intval', $price ),
+                            'type'      => 'NUMERIC',
+                            'compare'	=> 'BETWEEN'
+                        );
+                    } else {
+                        if( empty( $price[0] ) ) {
+                            $meta_queries[] = array(
+                                'key'		=> '_price',
+                                'value'		=> (int) $price[1],
+                                'type'      => 'NUMERIC',
+                                'compare'	=> '<='
+                            );
+                        } else {
+                            $meta_queries[] = array(
+                                'key'		=> '_price',
+                                'value'		=> (int) $price[0],
+                                'type'      => 'NUMERIC',
+                                'compare'	=> '>='
+                            );
+                        }
+                    }
+
+                }
+
+            }// end price
+
+
+            //filter by open now business
+            if (isset($_GET['open_now']) && ($_GET['open_now']  == 'open_now')) {
+                $listings = get_atbdp_listings_ids();
+                if ($listings->have_posts()) {
+                    $closed = array();
+                    while ($listings->have_posts()) {
+                        $listings->the_post();
+                        $id = get_the_ID();
+                        $business_hours = get_post_meta($id, '_bdbh', true);
+                        $always_open = get_post_meta($id, '_enable247hour', true);
+                        $no_time = get_post_meta($id, '_disable_bz_hour_listing', true);
+                        $business_hours = !empty($business_hours) ? atbdp_sanitize_array($business_hours) : array();
+                        $_day = '';
+                        foreach ($business_hours as $day => $time) {
+                            if (empty($time)) continue; // do not print the day if time is not set
+                            $day_ = date('D');
+                            $timezone = get_directorist_option('timezone');
+                            $timezone = !empty($timezone) ? $timezone : 'America/New_York';
+                            $interval = DateTime::createFromFormat('H:i a', '11:59 am');
+                            switch ($day_) {
+                                case 'Sat' :
+                                    $start_time = date('h:i a', strtotime(esc_attr($business_hours['saturday']['start'])));
+                                    $close_time = date('h:i a', strtotime(esc_attr($business_hours['saturday']['close'])));
+                                    $dt = new DateTime('now', new DateTimezone($timezone));
+                                    $current_time = $dt->format('g:i a');
+                                    $time_now = DateTime::createFromFormat('H:i a', $current_time);
+                                    $time_start = DateTime::createFromFormat('H:i a', $start_time);
+                                    $time_end = DateTime::createFromFormat('H:i a', $close_time);
+                                    $remain_close = !empty($time['remain_close']) ? 1 : '';
+                                    if (!empty($remain_close)){
+                                        $_day = false;
+                                    }elseif (!empty($always_open)){
+                                        $_day = true;
+                                    }else{
+                                        /*
+                                      * time start as pm (12.01 pm to 11.59 pm)
+                                      * lets calculate time
+                                      * is start time is smaller than current time and grater than close time
+                                      */
+                                        if ($interval < $time_now) {
+                                            //pm
+                                            if (($time_start < $time_now) && ($time_now > $time_end)) {
+                                                $_day = true;
+
+                                            }
+
+                                        } else {
+                                            //am
+                                            //is the business start in a pm time
+                                            if ((($time_start && $time_end) < $interval)) {
+                                                if (($time_start > $time_now) && ($time_now < $time_end)) {
+                                                    $_day = true;
+
+                                                }
+                                            } else {
+                                                if ($time_end < $interval) {
+                                                    if (($time_start > $time_now) && ($time_now < $time_end)) {
+                                                        $_day = true;
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if (($time_now > $time_start) && ($time_now < $time_end)) {
+                                            $_day = true;
+                                        }
+                                    }
+
+
+                                    break;
+                                case 'Sun' :
+                                    $start_time = date('h:i a', strtotime(esc_attr($business_hours['sunday']['start'])));
+                                    $close_time = date('h:i a', strtotime(esc_attr($business_hours['sunday']['close'])));
+                                    $dt = new DateTime('now', new DateTimezone($timezone));
+                                    $current_time = $dt->format('g:i a');
+                                    $time_now = DateTime::createFromFormat('H:i a', $current_time);
+                                    $time_start = DateTime::createFromFormat('H:i a', $start_time);
+                                    $time_end = DateTime::createFromFormat('H:i a', $close_time);
+                                    $remain_close = !empty($time['remain_close']) ? 1 : '';
+                                    if (!empty($remain_close)){
+                                        $_day = false;
+                                    }elseif (!empty($always_open)){
+                                        $_day = true;
+                                    }else{
+                                        /*
+                                      * time start as pm (12.01 pm to 11.59 pm)
+                                      * lets calculate time
+                                      * is start time is smaller than current time and grater than close time
+                                      */
+                                        if ($interval < $time_now) {
+                                            //pm
+                                            if (($time_start < $time_now) && ($time_now > $time_end)) {
+                                                $_day = true;
+
+                                            }
+
+                                        } else {
+                                            //am
+                                            //is the business start in a pm time
+                                            if ((($time_start && $time_end) < $interval)) {
+                                                if (($time_start > $time_now) && ($time_now < $time_end)) {
+                                                    $_day = true;
+
+                                                }
+                                            } else {
+                                                if ($time_end < $interval) {
+                                                    if (($time_start > $time_now) && ($time_now < $time_end)) {
+                                                        $_day = true;
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if (($time_now > $time_start) && ($time_now < $time_end)) {
+                                            $_day = true;
+                                        }
+                                    }
+
+                                    break;
+                                case 'Mon' :
+                                    $start_time = date('h:i a', strtotime(esc_attr($time['start'])));
+                                    $close_time = date('h:i a', strtotime(esc_attr($time['close'])));
+                                    $dt = new DateTime('now', new DateTimezone($timezone));
+                                    $current_time = $dt->format('g:i a');
+                                    $time_now = DateTime::createFromFormat('H:i a', $current_time);
+                                    $time_start = DateTime::createFromFormat('H:i a', $start_time);
+                                    $time_end = DateTime::createFromFormat('H:i a', $close_time);
+                                    $remain_close = !empty($time['remain_close']) ? 1 : '';
+                                    if (!empty($remain_close)){
+                                        $_day = false;
+                                    }elseif (!empty($always_open)){
+                                        $_day = true;
+                                    }else{
+                                        /*
+                                      * time start as pm (12.01 pm to 11.59 pm)
+                                      * lets calculate time
+                                      * is start time is smaller than current time and grater than close time
+                                      */
+                                        if ($interval < $time_now) {
+                                            //pm
+                                            if (($time_start < $time_now) && ($time_now > $time_end)) {
+                                                $_day = true;
+
+                                            }
+
+                                        } else {
+                                            //am
+                                            //is the business start in a pm time
+                                            if ((($time_start && $time_end) < $interval)) {
+                                                if (($time_start > $time_now) && ($time_now < $time_end)) {
+                                                    $_day = true;
+
+                                                }
+                                            } else {
+                                                if ($time_end < $interval) {
+                                                    if (($time_start > $time_now) && ($time_now < $time_end)) {
+                                                        $_day = true;
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if (($time_now > $time_start) && ($time_now < $time_end)) {
+                                            $_day = true;
+                                        }
+                                    }
+
+
+                                    break;
+                                case 'Tue' :
+                                    $start_time = date('h:i a', strtotime(esc_attr($business_hours['tuesday']['start'])));
+                                    $close_time = date('h:i a', strtotime(esc_attr($business_hours['tuesday']['close'])));
+                                    $dt = new DateTime('now', new DateTimezone($timezone));
+                                    $current_time = $dt->format('g:i a');
+                                    $time_now = DateTime::createFromFormat('H:i a', $current_time);
+                                    $time_start = DateTime::createFromFormat('H:i a', $start_time);
+                                    $time_end = DateTime::createFromFormat('H:i a', $close_time);
+                                    $remain_close = !empty($time['remain_close']) ? 1 : '';
+                                    if (!empty($remain_close)){
+                                        $_day = false;
+                                    }elseif (!empty($always_open)){
+                                        $_day = true;
+                                    }else{
+                                        /*
+                                      * time start as pm (12.01 pm to 11.59 pm)
+                                      * lets calculate time
+                                      * is start time is smaller than current time and grater than close time
+                                      */
+                                        if ($interval < $time_now) {
+                                            //pm
+                                            if (($time_start < $time_now) && ($time_now > $time_end)) {
+                                                $_day = true;
+
+                                            }
+
+                                        } else {
+                                            //am
+                                            //is the business start in a pm time
+                                            if ((($time_start && $time_end) < $interval)) {
+                                                if (($time_start > $time_now) && ($time_now < $time_end)) {
+                                                    $_day = true;
+
+                                                }
+                                            } else {
+                                                if ($time_end < $interval) {
+                                                    if (($time_start > $time_now) && ($time_now < $time_end)) {
+                                                        $_day = true;
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if (($time_now > $time_start) && ($time_now < $time_end)) {
+                                            $_day = true;
+                                        }
+                                    }
+
+                                    break;
+                                case 'Wed' :
+                                    $start_time = date('h:i a', strtotime(esc_attr($business_hours['wednesday']['start'])));
+                                    $close_time = date('h:i a', strtotime(esc_attr($business_hours['wednesday']['close'])));
+                                    $dt = new DateTime('now', new DateTimezone($timezone));
+                                    $current_time = $dt->format('g:i a');
+                                    $time_now = DateTime::createFromFormat('H:i a', $current_time);
+                                    $time_start = DateTime::createFromFormat('H:i a', $start_time);
+                                    $time_end = DateTime::createFromFormat('H:i a', $close_time);
+                                    $remain_close = !empty($time['remain_close']) ? 1 : '';
+                                    if (!empty($remain_close)){
+                                        $_day = false;
+                                    }elseif (!empty($always_open)){
+                                        $_day = true;
+                                    }else{
+                                        /*
+                                      * time start as pm (12.01 pm to 11.59 pm)
+                                      * lets calculate time
+                                      * is start time is smaller than current time and grater than close time
+                                      */
+                                        if ($interval < $time_now) {
+                                            //pm
+                                            if (($time_start < $time_now) && ($time_now > $time_end)) {
+                                                $_day = true;
+
+                                            }
+
+                                        } else {
+                                            //am
+                                            //is the business start in a pm time
+                                            if ((($time_start && $time_end) < $interval)) {
+                                                if (($time_start > $time_now) && ($time_now < $time_end)) {
+                                                    $_day = true;
+
+                                                }
+                                            } else {
+                                                if ($time_end < $interval) {
+                                                    if (($time_start > $time_now) && ($time_now < $time_end)) {
+                                                        $_day = true;
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if (($time_now > $time_start) && ($time_now < $time_end)) {
+                                            $_day = true;
+                                        }
+                                    }
+
+                                    break;
+                                case 'Thu' :
+                                    $start_time = date('h:i a', strtotime(esc_attr($business_hours['thursday']['start'])));
+                                    $close_time = date('h:i a', strtotime(esc_attr($business_hours['thursday']['close'])));
+                                    $dt = new DateTime('now', new DateTimezone($timezone));
+                                    $current_time = $dt->format('g:i a');
+                                    $time_now = DateTime::createFromFormat('H:i a', $current_time);
+                                    $time_start = DateTime::createFromFormat('H:i a', $start_time);
+                                    $time_end = DateTime::createFromFormat('H:i a', $close_time);
+                                    $remain_close = !empty($time['remain_close']) ? 1 : '';
+                                    if (!empty($remain_close)){
+                                        $_day = false;
+                                    }elseif (!empty($always_open)){
+                                        $_day = true;
+                                    }else{
+                                        /*
+                                      * time start as pm (12.01 pm to 11.59 pm)
+                                      * lets calculate time
+                                      * is start time is smaller than current time and grater than close time
+                                      */
+                                        if ($interval < $time_now) {
+                                            //pm
+                                            if (($time_start < $time_now) && ($time_now > $time_end)) {
+                                                $_day = true;
+
+                                            }
+
+                                        } else {
+                                            //am
+                                            //is the business start in a pm time
+                                            if ((($time_start && $time_end) < $interval)) {
+                                                if (($time_start > $time_now) && ($time_now < $time_end)) {
+                                                    $_day = true;
+
+                                                }
+                                            } else {
+                                                if ($time_end < $interval) {
+                                                    if (($time_start > $time_now) && ($time_now < $time_end)) {
+                                                        $_day = true;
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if (($time_now > $time_start) && ($time_now < $time_end)) {
+                                            $_day = true;
+                                        }
+                                    }
+
+                                    break;
+                                case 'Fri':
+                                    $start_time = date('h:i a', strtotime(esc_attr($business_hours['thursday']['start'])));
+                                    $close_time = date('h:i a', strtotime(esc_attr($business_hours['thursday']['close'])));
+                                    $dt = new DateTime('now', new DateTimezone($timezone));
+                                    $current_time = $dt->format('g:i a');
+                                    $time_now = DateTime::createFromFormat('H:i a', $current_time);
+                                    $time_start = DateTime::createFromFormat('H:i a', $start_time);
+                                    $time_end = DateTime::createFromFormat('H:i a', $close_time);
+                                    $remain_close = !empty($time['remain_close']) ? 1 : '';
+                                    if (!empty($remain_close)){
+                                        $_day = false;
+                                    }elseif (!empty($always_open)){
+                                        $_day = true;
+                                    }else{
+                                        /*
+                                      * time start as pm (12.01 pm to 11.59 pm)
+                                      * lets calculate time
+                                      * is start time is smaller than current time and grater than close time
+                                      */
+                                        if ($interval < $time_now) {
+                                            //pm
+                                            if (($time_start < $time_now) && ($time_now > $time_end)) {
+                                                $_day = true;
+
+                                            }
+
+                                        } else {
+                                            //am
+                                            //is the business start in a pm time
+                                            if ((($time_start && $time_end) < $interval)) {
+                                                if (($time_start > $time_now) && ($time_now < $time_end)) {
+                                                    $_day = true;
+
+                                                }
+                                            } else {
+                                                if ($time_end < $interval) {
+                                                    if (($time_start > $time_now) && ($time_now < $time_end)) {
+                                                        $_day = true;
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if (($time_now > $time_start) && ($time_now < $time_end)) {
+                                            $_day = true;
+                                        }
+                                    }
+
+                                    break;
+                            }
+
+                        }
+                        if (empty($_day)){
+                            $closed[] = get_the_ID();
+                        }
+                    }
+
+                    $closed_id = array(
+                        'post__not_in' => !empty($closed) ? $closed : array()
+                    );
+                    $args = array_merge($args, $closed_id);
+
+                }
+
+            }
+
+            // search by rating
+            if(isset($_GET['search_by_rating'])) {
+                $q_rating = $_GET['search_by_rating'];
+                $listings = get_atbdp_listings_ids();
+                $rated = array();
+                if ($listings->have_posts()) {
+                    while ($listings->have_posts()) {
+                        $listings->the_post();
+                        $listing_id = get_the_ID();
+                        $average = ATBDP()->review->get_average($listing_id);
+                        if ($average === $q_rating){
+                            $rated[] = get_the_ID();
+                        }elseif ('' === $q_rating){
+                            if ($average === ''){
+                                $rated[] = get_the_ID();
+                            }
+                        }
+                    }
+                    $rating_id = array(
+                        'post__in' => !empty($rated) ? $rated : array()
+                    );
+                    $args = array_merge($args, $rating_id);
+                }
+
+
+
+
+            }
+
+            if(isset($_GET['website'])) {
+                $website = $_GET['website'];
+                $meta_queries[] = array(
+                    'key'     => '_website',
+                    'value'   => $website,
+                    'compare' => 'LIKE'
+                );
+            }
+
+            if(isset($_GET['email'])) {
+                $email = $_GET['email'];
+                $meta_queries[] = array(
+                    'key'  => '_email',
+                    'value' => $email,
+                    'compare' => 'LIKE'
+                );
+            }
+
+            if(isset($_GET['email'])) {
+                $phone = $_GET['email'];
+                $meta_queries[] = array(
+                    'key'   => '_phone',
+                    'value' => $phone,
+                    'compare' => 'LIKE'
+                );
+            }
+
+            if(isset($_GET['address'])) {
+                $address = $_GET['address'];
+                $meta_queries[] = array(
+                    'key'   => '_address',
+                    'value' => $address,
+                    'compare' => 'LIKE'
+                );
+            }
+
+            if(isset($_GET['zip_code'])) {
+                $zip_code = $_GET['zip_code'];
+                $meta_queries[] = array(
+                    'key'   => '_zip',
+                    'value' => $zip_code,
+                    'compare' => 'LIKE'
+                );
+            }
+
+
 
             $meta_queries['expired'] = array(
                 'relation' => 'OR',
@@ -228,26 +802,29 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             );
             $args['expired'] = $meta_queries;
-            // Show featured listing first. Eg. Order by Featured Listings eg.
-            $featured_active = (get_directorist_option('enable_featured_listing') || is_fee_manager_active());
-            if ($featured_active){
-                $meta_queries[] = array(
-                    'key'     => '_featured',
-                    'type'    => 'NUMERIC',
-                    'compare' => 'EXISTS',
-                );
+            if( $has_featured ) {
 
-                $args['orderby']  = array(
-                    'meta_value_num' => 'DESC',
-                );
+                if( '_featured' == $atts['filterby'] ) {
+                    $meta_queries['_featured'] = array(
+                        'key'     => '_featured',
+                        'value'   => 1,
+                        'compare' => '='
+                    );
+
+                } else {
+                    $meta_queries['_featured'] = array(
+                        'key'     => '_featured',
+                        'type'    => 'NUMERIC',
+                        'compare' => 'EXISTS',
+                    );
+                }
+
             }
-            if (!is_empty_v($meta_queries)){
-                $args['meta_query'] = $meta_queries;
-            }
+
 
             switch( $current_order ) {
                 case 'title-asc' :
-                    if( $featured_active ) {
+                    if( $has_featured ) {
                         $args['meta_key'] = '_featured';
                         $args['orderby']  = array(
                             'meta_value_num' => 'DESC',
@@ -259,7 +836,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     };
                     break;
                 case 'title-desc' :
-                    if( $featured_active ) {
+                    if( $has_featured ) {
                         $args['meta_key'] = '_featured';
                         $args['orderby']  = array(
                             'meta_value_num' => 'DESC',
@@ -271,7 +848,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     };
                     break;
                 case 'date-asc' :
-                    if( $featured_active ) {
+                    if( $has_featured ) {
                         $args['meta_key'] = '_featured';
                         $args['orderby']  = array(
                             'meta_value_num' => 'DESC',
@@ -283,7 +860,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     };
                     break;
                 case 'date-desc' :
-                    if( $featured_active ) {
+                    if( $has_featured ) {
                         $args['meta_key'] = '_featured';
                         $args['orderby']  = array(
                             'meta_value_num' => 'DESC',
@@ -295,7 +872,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     };
                     break;
                 case 'price-asc' :
-                    if( $featured_active ) {
+                    if( $has_featured ) {
                         $meta_queries['price'] = array(
                             'key'     => '_price',
                             'type'    => 'NUMERIC',
@@ -313,7 +890,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     };
                     break;
                 case 'price-desc' :
-                    if( $featured_active ) {
+                    if( $has_featured ) {
                         $meta_queries['price'] = array(
                             'key'     => '_price',
                             'type'    => 'NUMERIC',
@@ -331,7 +908,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     };
                     break;
                 case 'views-desc' :
-                    if( $featured_active ) {
+                    if( $has_featured ) {
                         $meta_queries['views'] = array(
                             'key'     => '_atbdp_post_views_count',
                             'type'    => 'NUMERIC',
@@ -349,7 +926,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     };
                     break;
                 case 'rand' :
-                    if( $featured_active ) {
+                    if( $has_featured ) {
                         $args['meta_key'] = '_featured';
                         $args['orderby']  = 'meta_value_num rand';
                     } else {
@@ -358,11 +935,17 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     break;
             }
 
-            $listings = new WP_Query(apply_filters('atbdp_search_query_args', $args));
+            $count_meta_queries = count( $meta_queries );
+            if( $count_meta_queries ) {
+                $args['meta_query'] = ( $count_meta_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $meta_queries ) : $meta_queries;
+            }
 
+            $all_listings = new WP_Query($args);
 
-            $data_for_template = compact('listings', 'in_loc', 'in_cat', 'in_tag', 's_string', 'paged', 'paginate','current_order');
-            ATBDP()->load_template('search-at_biz_dir', array( 'data' => $data_for_template ));
+            $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
+
+            ob_start();
+            include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
             return ob_get_clean();
         }
 

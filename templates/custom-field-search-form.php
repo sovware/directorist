@@ -75,7 +75,7 @@
                         $_checked = '';
                         if( in_array( $_value, $values ) ) $_checked = ' checked="checked"';
 
-                        printf( '<div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary"><input type="checkbox" name="cf[%d][]" id="%d" class="custom-control-input" value="%s"%s><label for="%d" class="custom-control-label">%s</label></div>', $post->ID,$_for, $_value, $_checked,$_for, $_label );
+                        printf( '<div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary"><input type="checkbox" name="cf[%d][]" id="%d" class="custom-control-input" value="%s"%s><span class="check--select"></span><label for="%d" class="custom-control-label">%s</label></div>', $post->ID,$_for, $_value, $_checked,$_for, $_label );
                     }
                     break;
                 case 'radio' :

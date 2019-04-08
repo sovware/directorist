@@ -115,7 +115,7 @@
                 <div class="position-relative">
                     <input type="text" name="address" placeholder="Google Address"
                            class="form-control location-name">
-                    <button type="submit" class="locator"><span class="la la-crosshairs"></span></button>
+                    <button type="submit" class="locator"><span class="fa fa-location-arrow"></span></button>
                 </div>
             </div><!-- ends: .form-group -->
         <?php } ?>
@@ -128,11 +128,12 @@
             </div><!-- ends: .form-group -->
         <?php } ?>
         <?php if(!empty($search_by_review)) { ?>
-            <div class="filter-checklist">
-                <h5>Filter by Features</h5>
+            <div class="form-group filter-checklist">
+                <label>Filter by Features</label>
                 <div class="sort-rating">
                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
                         <input type="radio" value="5" name="search_by_rating" class="custom-control-input" id="customCheck7">
+                        <span class="check--select"></span>
                         <label class="custom-control-label" for="customCheck7">
                             <span class="active"><i class="fa fa-star"></i></span>
                             <span class="active"><i class="fa fa-star"></i></span>
@@ -143,6 +144,7 @@
                     </div>
                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
                         <input type="radio" value="4" name="search_by_rating" class="custom-control-input" id="customCheck8">
+                        <span class="check--select"></span>
                         <label class="custom-control-label" for="customCheck8">
                             <span class="active"><i class="fa fa-star"></i></span>
                             <span class="active"><i class="fa fa-star"></i></span>
@@ -153,6 +155,7 @@
                     </div>
                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
                         <input type="radio" value="3" name="search_by_rating" class="custom-control-input" id="customCheck9">
+                        <span class="check--select"></span>
                         <label class="custom-control-label" for="customCheck9">
                             <span class="active"><i class="fa fa-star"></i></span>
                             <span class="active"><i class="fa fa-star"></i></span>
@@ -163,6 +166,7 @@
                     </div>
                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
                         <input type="radio" value="2" name="search_by_rating" class="custom-control-input" id="customCheck10">
+                        <span class="check--select"></span>
                         <label class="custom-control-label" for="customCheck10">
                             <span class="active"><i class="fa fa-star"></i></span>
                             <span class="active"><i class="fa fa-star"></i></span>
@@ -173,6 +177,7 @@
                     </div>
                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
                         <input type="radio" value="1" name="search_by_rating" class="custom-control-input" id="customCheck11">
+                        <span class="check--select"></span>
                         <label class="custom-control-label" for="customCheck11">
                             <span class="active"><i class="fa fa-star"></i></span>
                             <span><i class="fa fa-star"></i></span>
@@ -183,6 +188,7 @@
                     </div>
                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
                         <input type="radio" name="search_by_rating" value="0" class="custom-control-input" id="customCheck12">
+                        <span class="check--select"></span>
                         <label class="custom-control-label" for="customCheck12">
                             <span><i class="fa fa-star"></i></span>
                             <span><i class="fa fa-star"></i></span>

@@ -129,7 +129,7 @@
         <?php } ?>
         <?php if(!empty($search_by_review)) { ?>
             <div class="form-group filter-checklist">
-                <label>Filter by Features</label>
+                <label>Filter by Ratings</label>
                 <div class="sort-rating">
                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
                         <input type="radio" value="5" name="search_by_rating" class="custom-control-input" id="customCheck7">

@@ -33,7 +33,7 @@
 
                     printf( '<div class="select-basic"><select name="cf[%d]" class="form-control">', $post->ID );
 
-                        printf( '<option value="">%s</option>', '- '.__( 'Select an Option', ATBDP_TEXTDOMAIN ).' -' );
+                        printf( '<option value="">%s</option>', '- '.__( 'Select an Option', 'advanced-classifieds-and-directory-pro' ).' -' );
 
                     foreach( $choices as $choice ) {
                         if( strpos( $choice, ':' ) !== false ) {
@@ -97,7 +97,7 @@
                         $_checked = '';
                         if( trim( $value ) == $_value ) $_checked = ' checked="checked"';
 
-                        printf( '<div class="radio"><label><input type="radio" name="cf[%d]" value="%s"%s>%s</label></div>', $post->ID, $_value, $_checked, $_label );
+                        printf( '<div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary"><label><input type="radio" name="cf[%d]" value="%s"%s>%s</label></div>', $post->ID, $_value, $_checked, $_label );
                     }
                     break;
                 case 'url' :

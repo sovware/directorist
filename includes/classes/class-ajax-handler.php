@@ -604,7 +604,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
             }
             // Get custom fields
-            $custom_field_ids = acadp_get_custom_field_ids( $term_id );
+            $custom_field_ids = atbdp_get_custom_field_ids( $term_id );
 
             $args = array(
                 'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,

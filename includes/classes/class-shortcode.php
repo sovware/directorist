@@ -329,6 +329,16 @@ if ( !class_exists('ATBDP_Shortcode') ):
             }// end price
 
 
+            if (isset($_GET['price_range']) && 'none' != $_GET['price_range']) {
+                $price_range = $_GET['price_range'];
+                $meta_queries[] = array(
+                    'key'     => '_price_range',
+                    'value'   => $price_range,
+                    'compare' => 'LIKE'
+                );
+            }
+
+
             //filter by open now business
             if (isset($_GET['open_now']) && ($_GET['open_now']  == 'open_now')) {
                 $listings = get_atbdp_listings_ids();
@@ -758,8 +768,8 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 );
             }
 
-            if(isset($_GET['email'])) {
-                $phone = $_GET['email'];
+            if(isset($_GET['phone'])) {
+                $phone = $_GET['phone'];
                 $meta_queries[] = array(
                     'key'   => '_phone',
                     'value' => $phone,

@@ -3615,7 +3615,7 @@ function bdas_dropdown_terms( $args = array(), $echo = true ) {
 
 }
 
-function acadp_get_custom_field_ids( $category = 0 ) {
+function atbdp_get_custom_field_ids( $category = 0 ) {
 
 
     // Get global fields

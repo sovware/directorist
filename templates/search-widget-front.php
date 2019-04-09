@@ -2,7 +2,7 @@
     <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>">
         <?php if(!empty($search_by_text_field)) {?>
             <div class="form-group">
-                <input type="text" name="q" placeholder="What are you looking for?" class="form-control">
+                <input type="text" name="q" placeholder="What are you looking for?" value="<?php echo !empty($_GET['q']) ? $_GET['q'] : ''; ?>" class="form-control">
             </div><!-- ends: .form-group -->
         <?php } ?>
         <?php if(!empty($search_by_category)) {?>
@@ -76,11 +76,11 @@
         <div class="form-group">
             <div class="select-basic">
                 <select name="price_range" class="form-control">
-                    <option value="-1">Price Range</option>
-                    <option value="skimming" >Ultra High ($$$$)</option>
-                    <option value="moderate" >Expensive ($$$)</option>
-                    <option value="economy" >Moderate ($$)</option>
-                    <option value="bellow_economy" >Cheap ($)</option>
+                    <option value="none">Price Range</option>
+                    <option value="skimming" <?php if(!empty($_GET['price_range']) && 'skimming' == $_GET['price_range']) { echo 'selected';}?>>Ultra High ($$$$)</option>
+                    <option value="moderate" <?php if(!empty($_GET['price_range']) && 'moderate' == $_GET['price_range']) { echo 'selected';}?>>Expensive ($$$)</option>
+                    <option value="economy" <?php if(!empty($_GET['price_range']) && 'economy' == $_GET['price_range']) { echo 'selected';}?>>Moderate ($$)</option>
+                    <option value="bellow_economy" <?php if(!empty($_GET['price_range']) && 'bellow_economy' == $_GET['price_range']) { echo 'selected';}?> >Cheap ($)</option>
                 </select>
             </div>
         </div><!-- ends: .form-group -->
@@ -89,7 +89,7 @@
         <div class="check-btn">
             <div class="btn-checkbox active-color-secondary">
                 <label>
-                    <input type="checkbox" name="open_now" value="open_now"><span class="text-success"><i
+                    <input type="checkbox" name="open_now" value="open_now" <?php if(!empty($_GET['open_now']) && 'open_now' == $_GET['open_now']) { echo 'checked';}?>><span class="text-success"><i
                             class="la la-clock-o"></i> Open Now</span>
                 </label>
             </div>
@@ -97,25 +97,24 @@
         <?php } ?>
         <?php if(!empty($search_by_website)) { ?>
             <div class="form-group">
-                <input type="text" name="website" placeholder="Website" class="form-control">
+                <input type="text" name="website" placeholder="Website" value="<?php echo !empty($_GET['website']) ? $_GET['website'] : ''; ?>" class="form-control">
             </div><!-- ends: .form-group -->
         <?php } ?>
         <?php if(!empty($search_by_email)) { ?>
             <div class="form-group">
-                <input type="text" name="email" placeholder="Email" class="form-control">
+                <input type="text" name="email" placeholder="Email" value="<?php echo !empty($_GET['email']) ? $_GET['email'] : ''; ?>" class="form-control">
             </div><!-- ends: .form-group -->
         <?php } ?>
         <?php if(!empty($search_by_phone)) { ?>
             <div class="form-group">
-                <input type="text" name="phone" placeholder="Phone Number" class="form-control">
+                <input type="text" name="phone" placeholder="Phone Number" value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>" class="form-control">
             </div><!-- ends: .form-group -->
         <?php } ?>
         <?php if(!empty($search_by_address)) { ?>
             <div class="form-group">
                 <div class="position-relative">
-                    <input type="text" name="address" placeholder="Google Address"
+                    <input type="text" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="Google Address"
                            class="form-control location-name">
-                    <button type="submit" class="locator"><span class="fa fa-location-arrow"></span></button>
                 </div>
             </div><!-- ends: .form-group -->
         <?php } ?>
@@ -123,7 +122,7 @@
             <div class="form-group">
                 <div class="position-relative">
                     <input type="text" name="zip_code" placeholder="Zip/Post Code"
-                           class="form-control">
+                           value="<?php echo !empty($_GET['zip_code']) ? $_GET['zip_code'] : ''; ?>" class="form-control">
                 </div>
             </div><!-- ends: .form-group -->
         <?php } ?>
@@ -132,7 +131,7 @@
                 <label>Filter by Ratings</label>
                 <div class="sort-rating">
                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
-                        <input type="radio" value="5" name="search_by_rating" class="custom-control-input" id="customCheck7">
+                        <input type="radio" value="5" name="search_by_rating" class="custom-control-input" id="customCheck7" <?php if(!empty($_GET['price_range']) && 'bellow_economy' == $_GET['price_range']) { echo 'checked';}?>>
                         <span class="check--select"></span>
                         <label class="custom-control-label" for="customCheck7">
                             <span class="active"><i class="fa fa-star"></i></span>
@@ -143,7 +142,7 @@
                         </label>
                     </div>
                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
-                        <input type="radio" value="4" name="search_by_rating" class="custom-control-input" id="customCheck8">
+                        <input type="radio" value="4" name="search_by_rating" class="custom-control-input" id="customCheck8" <?php if(!empty($_GET['search_by_rating']) && '4' == $_GET['search_by_rating']) { echo 'checked';}?>>
                         <span class="check--select"></span>
                         <label class="custom-control-label" for="customCheck8">
                             <span class="active"><i class="fa fa-star"></i></span>
@@ -154,7 +153,7 @@
                         </label>
                     </div>
                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
-                        <input type="radio" value="3" name="search_by_rating" class="custom-control-input" id="customCheck9">
+                        <input type="radio" value="3" name="search_by_rating" class="custom-control-input" id="customCheck9" <?php if(!empty($_GET['search_by_rating']) && '3' == $_GET['search_by_rating']) { echo 'checked';}?>>
                         <span class="check--select"></span>
                         <label class="custom-control-label" for="customCheck9">
                             <span class="active"><i class="fa fa-star"></i></span>
@@ -165,7 +164,7 @@
                         </label>
                     </div>
                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
-                        <input type="radio" value="2" name="search_by_rating" class="custom-control-input" id="customCheck10">
+                        <input type="radio" value="2" name="search_by_rating" class="custom-control-input" id="customCheck10" <?php if(!empty($_GET['search_by_rating']) && '2' == $_GET['search_by_rating']) { echo 'checked';}?>>
                         <span class="check--select"></span>
                         <label class="custom-control-label" for="customCheck10">
                             <span class="active"><i class="fa fa-star"></i></span>
@@ -176,7 +175,7 @@
                         </label>
                     </div>
                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
-                        <input type="radio" value="1" name="search_by_rating" class="custom-control-input" id="customCheck11">
+                        <input type="radio" value="1" name="search_by_rating" class="custom-control-input" id="customCheck11" <?php if(!empty($_GET['search_by_rating']) && '1' == $_GET['price_range']) { echo 'checked';}?>>
                         <span class="check--select"></span>
                         <label class="custom-control-label" for="customCheck11">
                             <span class="active"><i class="fa fa-star"></i></span>
@@ -187,7 +186,7 @@
                         </label>
                     </div>
                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
-                        <input type="radio" name="search_by_rating" value="0" class="custom-control-input" id="customCheck12">
+                        <input type="radio" name="search_by_rating" value="0" class="custom-control-input" id="customCheck12" <?php if(!empty($_GET['search_by_rating']) && '0' == $_GET['price_range']) { echo 'none';}?>>
                         <span class="check--select"></span>
                         <label class="custom-control-label" for="customCheck12">
                             <span><i class="fa fa-star"></i></span>

@@ -50,6 +50,7 @@ if ( !class_exists('BD_Search_Widget')) {
             $search_by_address             = ! empty( $instance['search_by_address'] ) ? 1 : 0;
             $search_by_zip_code            = ! empty( $instance['search_by_zip_code'] ) ? 1 : 0;
             wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
+            wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
             wp_localize_script('atbdp-search-listing','atbdp_search',array(
                 'ajaxnonce'         => wp_create_nonce( 'bdas_ajax_nonce' ),
                 'ajax_url'           => admin_url( 'admin-ajax.php' ),

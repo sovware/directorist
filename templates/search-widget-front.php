@@ -90,7 +90,7 @@
             <div class="btn-checkbox active-color-secondary">
                 <label>
                     <input type="checkbox" name="open_now" value="open_now"><span class="text-success"><i
-                            class="la la-clock-o"></i> Open Now</span>
+                            class="fa fa-clock-o"></i> Open Now</span>
                 </label>
             </div>
         </div>

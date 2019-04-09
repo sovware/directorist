@@ -229,11 +229,11 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             }
 
-            if( !empty($in_tag) ) {
+            if( isset( $_GET['in_tag'] ) && (int) $_GET['in_tag'] > 0 ) {
                 $tax_queries[] = array(
                     'taxonomy'         => ATBDP_TAGS,
                     'field'            => 'term_id',
-                    'terms'            => $in_tag,
+                    'terms'            => $_GET['in_tag'],
                 );
 
             }
@@ -327,6 +327,16 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 }
 
             }// end price
+
+
+            if (isset($_GET['price_range']) && 'none' != $_GET['price_range']) {
+                $price_range = $_GET['price_range'];
+                $meta_queries[] = array(
+                    'key'     => '_price_range',
+                    'value'   => $price_range,
+                    'compare' => 'LIKE'
+                );
+            }
 
 
             //filter by open now business
@@ -758,8 +768,8 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 );
             }
 
-            if(isset($_GET['email'])) {
-                $phone = $_GET['email'];
+            if(isset($_GET['phone'])) {
+                $phone = $_GET['phone'];
                 $meta_queries[] = array(
                     'key'   => '_phone',
                     'value' => $phone,

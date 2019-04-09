@@ -32,9 +32,9 @@
                     $choices = explode( "\n", trim( $choices ) );
 
                     printf( '<div class="select-basic"><select name="cf[%d]" class="form-control">', $post->ID );
-                    if( ! empty( $field_meta['allow_null'][0] ) ) {
+
                         printf( '<option value="">%s</option>', '- '.__( 'Select an Option', 'advanced-classifieds-and-directory-pro' ).' -' );
-                    }
+
                     foreach( $choices as $choice ) {
                         if( strpos( $choice, ':' ) !== false ) {
                             $_choice = explode( ':', $choice );
@@ -97,11 +97,28 @@
                         $_checked = '';
                         if( trim( $value ) == $_value ) $_checked = ' checked="checked"';
 
-                        printf( '<div class="radio"><label><input type="radio" name="cf[%d]" value="%s"%s>%s</label></div>', $post->ID, $_value, $_checked, $_label );
+                        printf( '<div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary"><label><input type="radio" name="cf[%d]" value="%s"%s>%s</label></div>', $post->ID, $_value, $_checked, $_label );
                     }
                     break;
                 case 'url' :
                     printf( '<input type="text" name="cf[%d]" class="form-control" value="%s"/>', $post->ID, esc_url( $value ) );
+                    break;
+                case 'date' :
+                    printf( '<input type="date" name="cf[%d]" class="form-control" value="%s"/>', $post->ID, esc_url( $value ) );
+                    break;
+                  /*  */?><!--
+                    <script>
+                        jQuery(document).ready(function ($) {
+                            $('.my-color-field2').wpColorPicker();
+                        });
+                    </script>
+
+                    --><?php
+/*                case 'color' :
+                    printf( '<input type="color" name="cf[%d]" class="my-color-field2" value="%s"/>', $post->ID, esc_url( $value ) );
+                    break;*/
+                case 'time' :
+                    printf( '<input type="time" name="cf[%d]" class="form-control" value="%s"/>', $post->ID, esc_url( $value ) );
                     break;
             }
             ?>

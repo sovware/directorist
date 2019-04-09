@@ -604,13 +604,21 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
             }
             // Get custom fields
-            $custom_field_ids = acadp_get_custom_field_ids( $term_id );
+            $custom_field_ids = atbdp_get_custom_field_ids( $term_id );
 
             $args = array(
                 'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
                 'post_status'    => 'publish',
                 'posts_per_page' => -1,
                 'post__in'		 => $custom_field_ids,
+                'meta_query'     => array(
+                    array(
+                        'key'	  => 'searchable',
+                        'value'	  => 1,
+                        'type'    => 'NUMERIC',
+                        'compare' => '='
+                    ),
+                ),
                 'orderby'        => 'meta_value_num',
                 'order'          => 'ASC',
             );

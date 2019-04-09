@@ -3504,7 +3504,6 @@ function bdas_dropdown_terms( $args = array(), $echo = true ) {
     if( isset( $args['walker'] ) ) {
 
         $selected = count( $ancestors ) >= 2 ? (int) $ancestors[1] : 0;
-        var_dump($selected);
 
         $html .= '<div class="bdas-terms">';
         $html .= sprintf( '<input type="hidden" name="%s" class="bdas-term-hidden" value="%d" />', $args['name'], $selected );
@@ -3616,7 +3615,7 @@ function bdas_dropdown_terms( $args = array(), $echo = true ) {
 
 }
 
-function acadp_get_custom_field_ids( $category = 0 ) {
+function atbdp_get_custom_field_ids( $category = 0 ) {
 
 
     // Get global fields

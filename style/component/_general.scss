@@ -271,7 +271,7 @@ body.atbd_content_active #directorist.atbd_wrapper{
     }
   }
 }
-#directorist.atbd_wrapper{
+#directorist.atbd_wrapper, .default-ad-search{
   .form-control{
     padding: 10px 15px;
   }
@@ -279,6 +279,7 @@ body.atbd_content_active #directorist.atbd_wrapper{
     padding-top: 0;
   }
 }
+
  .modal.fade.show{
    opacity: 1;
    background: rgba(#000, 0.6);

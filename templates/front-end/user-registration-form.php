@@ -11,7 +11,7 @@
                         <p style="padding: 20px" class="alert-success"><span class="fa fa-check"></span><?php _e('Registration completed. Please check your inbox and activate your account.', ATBDP_TEXTDOMAIN); ?></p>
                         <p>
                             <?php
-                            printf(__('Or click %s to login now.', ATBDP_TEXTDOMAIN), "<a href='".wp_login_url()."'><span style='color: red'> ". __('Here', ATBDP_TEXTDOMAIN)."</span></a>");
+                            printf(__('Or click %s to login now.', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_login_page_link()."'><span style='color: red'> ". __('Here', ATBDP_TEXTDOMAIN)."</span></a>");
                             ?>
                         </p>
                         <?php

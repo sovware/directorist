@@ -87,7 +87,7 @@ class ATBDP_User {
             $key = filter_input( INPUT_GET, 'key' );
             if ( $code == $key ) {
                 delete_user_meta( $user_id, 'has_to_be_activated' );
-                wp_safe_redirect(wp_login_url());
+                wp_safe_redirect(ATBDP_Permalink::get_login_page_link());
             }
         }
     }

@@ -130,6 +130,11 @@ Directorist is not developed by a single person. A team of dedicated developers 
 == Changelog ==
 
 = 4.7.6 - April 3, 2019 =
+* Add - Option to upload category image
+* Fix - Login url after successful registration
+* Fix - Translation issue in single listing
+
+= 4.7.6 - April 3, 2019 =
 * Add - Option to disable single listing view
 * Add - Single Tag Page
 * Add - Dynamic alt attribute for img tag

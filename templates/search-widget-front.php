@@ -60,13 +60,13 @@
         <?php } ?>
         <?php if(!empty($search_by_price)) {?>
 
-            <div class="form-group">
+            <div class="form-group ">
                 <label><?php _e( 'Price Range', ATBDP_TEXTDOMAIN ); ?></label>
-                <div class="row">
-                    <div class="col-md-6 col-xs-6">
+                <div class="price_ranges">
+                    <div>
                         <input type="text" name="price[0]" class="form-control" placeholder="<?php _e( 'min', ATBDP_TEXTDOMAIN ); ?>" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][0] ); ?>">
                     </div>
-                    <div class="col-md-6 col-xs-6">
+                    <div>
                         <input type="text" name="price[1]" class="form-control" placeholder="<?php _e( 'max', ATBDP_TEXTDOMAIN ); ?>" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][1] ); ?>">
                     </div>
                 </div>

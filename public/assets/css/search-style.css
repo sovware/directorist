@@ -174,7 +174,7 @@
     border: 1px solid #e3e6ef;
 }
 .btn-checkbox label span i {
-    font-size: 18px;
+    font-size: 16px;
     margin-right: 5px;
     margin-top: -1px;
 }
@@ -207,4 +207,7 @@
 .price_ranges div{
     padding: 0 8px;
     width: 50%;
+}
+.position-relative{
+    position: relative;
 }

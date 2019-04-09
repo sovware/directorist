@@ -32,7 +32,11 @@
 			echo '<a href=" ' .ATBDP_Permalink::atbdp_get_category_page($term) . ' " class="atbd_parent_cat">';
 			echo '<span>' . $term->name . '</span>';
 			if( ! empty( $categories_settings['show_count'] ) ) {
-				echo ' (' .  $count . ')';
+                $expired_listings = atbdp_get_expired_listings(ATBDP_CATEGORY, $term->term_id);
+                $number_of_expired = $expired_listings->post_count;
+                $number_of_expired = !empty($number_of_expired)?$number_of_expired:'0';
+                $totat = ($count)?($count-$number_of_expired):$count;
+				echo ' (' .  $totat . ')';
 			}
 			echo "</a>$plus_icon";
 			echo atbdp_list_categories( $categories_settings );

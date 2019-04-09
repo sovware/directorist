@@ -35,54 +35,24 @@ if ( !class_exists('BD_Search_Widget')) {
          */
         public function widget ($args, $instance)
         {
-            $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
-            $locations = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
-            $search_placeholder = get_directorist_option('search_placeholder', __('What are you looking for?', ATBDP_TEXTDOMAIN));
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Search Listings', ATBDP_TEXTDOMAIN);
-            $hide_category = !empty($instance['hide_category']) ? 1 : 0;
-            $hide_location = !empty($instance['hide_location']) ? 1 : 0;
+            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Advance Search', ATBDP_TEXTDOMAIN);
+            $search_by_text_field          = ! empty( $instance['search_by_text_field'] ) ? 1 : 0;
+            $search_by_category            = ! empty( $instance['search_by_category'] ) ? 1 : 0;
+            $search_by_location            = ! empty( $instance['search_by_location'] ) ? 1 : 0;
+            $search_by_custom_fields       = ! empty( $instance['search_by_custom_fields'] ) ? 1 : 0;
+            $search_by_price               = ! empty( $instance['search_by_price'] ) ? 1 : 0;
+            $search_by_review              = ! empty( $instance['search_by_review'] ) ? 1 : 0;
+            $search_by_website             = ! empty( $instance['search_by_website'] ) ? 1 : 0;
+            $search_by_email               = ! empty( $instance['search_by_email'] ) ? 1 : 0;
+            $search_by_phone               = ! empty( $instance['search_by_phone'] ) ? 1 : 0;
+            $search_by_address             = ! empty( $instance['search_by_address'] ) ? 1 : 0;
+            $search_by_zip_code            = ! empty( $instance['search_by_zip_code'] ) ? 1 : 0;
             echo $args['before_widget'];
             echo '<div class="atbd_widget_title">';
             echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
             echo '</div>';
-            ?>
-            <div class="directorist atbdp-search atbdp-search-vertical">
-                <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" class="form-vertical" role="form">
-                    <div class="form-group">
-                        <input type="text" name="q" class="form-control" placeholder="<?php _e( 'Enter your keyword here ...', 'advanced-classifieds-and-directory-pro' ); ?>" value="">
-                    </div>
 
-                    <?php if(empty($hide_category)) { ?>
-                    <div class="form-group single_search_field search_category" >
-                        <select name="in_cat" class="directory_field form-control" id="at_biz_dir-category">
-                            <option value=""><?php _e('Select a category', ATBDP_TEXTDOMAIN ); ?></option>
-                            <?php
-                            foreach ( $categories as $category ) {
-                                echo "<option id='atbdp_category' value='$category->slug'>$category->name</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <?php } ?>
-                    <?php if(empty($hide_location)) {?>
-                    <div class="form-group single_search_field search_location">
-                        <select name="in_loc" class="directory_field form-control" id="at_biz_dir-location">
-                            <!--This text comes from js, translate them later @todo; translate js text-->
-                            <option value=""><?php _e('Select a location', ATBDP_TEXTDOMAIN); ?></option>
-
-                            <?php foreach ($locations as $location) {
-                                echo "<option id='atbdp_location' value='$location->slug'>$location->name</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-                   <?php } ?>
-                    <div class="form-group submit_btn">
-                        <button type="submit" class="btn btn-primary"><?php _e( 'Search Listings', ATBDP_TEXTDOMAIN ); ?></button>
-                    </div>
-                </form>
-            </div>
-            <?php
+            require ATBDP_TEMPLATES_DIR . 'search-widget-front.php';
 
             echo $args['after_widget'];
         }
@@ -97,25 +67,31 @@ if ( !class_exists('BD_Search_Widget')) {
          */
         public function form ($instance)
         {
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : __( 'Search Listings',ATBDP_TEXTDOMAIN );
-            $instance['hide_category'] = !empty($instance['hide_category']) ? esc_html($instance['hide_category']) : '';
-            $instance['hide_location'] = !empty($instance['hide_location']) ? esc_html($instance['hide_location']) : '';
-            ?>
-            <p>
-                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', ATBDP_TEXTDOMAIN); ?></label>
-                <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
-                       name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
-                       value="<?php echo esc_attr($title); ?>">
-            </p>
-            <p>
-                <input <?php checked( $instance['hide_category'],1 ); ?> id="<?php echo $this->get_field_id( 'hide_category' ); ?>" name="<?php echo $this->get_field_name( 'hide_category' ); ?>" value="1" type="checkbox" />
-                <label for="<?php echo $this->get_field_id( 'hide_category' ); ?>"><?php _e( 'Hide Category Field', ATBDP_TEXTDOMAIN ); ?></label>
-            </p>
-            <p>
-                <input <?php checked( $instance['hide_location'],1 ); ?> id="<?php echo $this->get_field_id( 'hide_location' ); ?>" name="<?php echo $this->get_field_name( 'hide_location' ); ?>" value="1" type="checkbox" />
-                <label for="<?php echo $this->get_field_id( 'hide_location' ); ?>"><?php _e( 'Hide Location Field', ATBDP_TEXTDOMAIN ); ?></label>
-            </p>
-            <?php
+            // Define the array of defaults
+            $defaults = array(
+                'title'                   =>  __( 'Search', ATBDP_TEXTDOMAIN ),
+                'search_by_text_field'    => 1,
+                'search_by_category'      => 1,
+                'search_by_location'      => 1,
+                'search_by_tag'           => 1,
+                'search_by_custom_fields' => 1,
+                'search_by_price'         => 1,
+                'search_by_price_range'   => 0,
+                'search_by_open_now'      => 0,
+                'search_by_review'        => 1,
+                'search_by_website'       => 0,
+                'search_by_email'         => 0,
+                'search_by_phone'         => 0,
+                'search_by_address'       => 0,
+                'search_by_zip_code'      => 0,
+            );
+            // Parse incoming $instance into an array and merge it with $defaults
+            $instance = wp_parse_args(
+                (array) $instance,
+                $defaults
+            );
+
+            require ATBDP_TEMPLATES_DIR . 'search-widget-form.php';
         }
 
         /**
@@ -131,9 +107,20 @@ if ( !class_exists('BD_Search_Widget')) {
         public function update($new_instance, $old_instance)
         {
             $instance = array();
-            $instance['title'] = (!empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
-            $instance['hide_category'] = (!empty($new_instance['hide_category'])) ? 1 : '';
-            $instance['hide_location'] = (!empty($new_instance['hide_location'])) ? 1 : '';
+            $instance['title']                   = (!empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
+            $instance['search_by_text_field']    = (isset($new_instance['search_by_text_field'])) ? 1 : 0;
+            $instance['search_by_category']      = (isset($new_instance['search_by_category'])) ? 1 : 0;
+            $instance['search_by_location']      = (isset($new_instance['search_by_location'])) ? 1 : 0;
+            $instance['search_by_tag']           = (isset($new_instance['search_by_tag'])) ? 1 : 0;
+            $instance['search_by_custom_fields'] = (isset($new_instance['search_by_custom_fields'])) ? 1 : 0;
+            $instance['search_by_price']         = (isset($new_instance['search_by_price'])) ? 1 : 0;
+            $instance['search_by_price_range']   = (isset($new_instance['search_by_price_range'])) ? 1 : 0;
+            $instance['search_by_review']        = (isset($new_instance['search_by_review'])) ? 1 : 0;
+            $instance['search_by_website']       = (isset($new_instance['search_by_website'])) ? 1 : 0;
+            $instance['search_by_email']         = (isset($new_instance['search_by_email'])) ? 1 : 0;
+            $instance['search_by_phone']         = (isset($new_instance['search_by_phone'])) ? 1 : 0;
+            $instance['search_by_address']       = (isset($new_instance['search_by_address'])) ? 1 : 0;
+            $instance['search_by_zip_code']      = (isset($new_instance['search_by_zip_code'])) ? 1 : 0;
 
             return $instance;
         }

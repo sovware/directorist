@@ -25,7 +25,11 @@
 			echo '<a href=" ' .ATBDP_Permalink::atbdp_get_location_page($term) . ' ">';
 			echo '<span>' . $term->name . '</span>';
 			if( ! empty( $locations_settings['show_count'] ) ) {
-				echo ' (' .  $count . ')';
+                $expired_listings = atbdp_get_expired_listings(ATBDP_LOCATION, $term->term_id);
+                $number_of_expired = $expired_listings->post_count;
+                $number_of_expired = !empty($number_of_expired)?$number_of_expired:'0';
+                $totat = ($count)?($count-$number_of_expired):$count;
+				echo ' (' .  $totat . ')';
 			}
 			echo "</a>$plus_icon";
 			echo atbdp_list_locations( $locations_settings );

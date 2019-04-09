@@ -133,6 +133,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Add - Option to upload category image
 * Fix - Login url after successful registration
 * Fix - Translation issue in single listing
+* Fix - Listing count in All Locations page, All Categories page, Location widget and Category widget
 
 = 4.7.6 - April 3, 2019 =
 * Add - Option to disable single listing view

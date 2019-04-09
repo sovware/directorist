@@ -381,7 +381,7 @@ final class Directorist_Base
         /*Load gateway related stuff*/
         load_dependencies('all', ATBDP_INC_DIR . 'gateways/');
 
-        /*Load gateway related stuff*/
+        /*Load custom field related stuff*/
         load_dependencies('all', ATBDP_INC_DIR . 'custom-fields/');
         /*Load payment related stuff*/
         load_dependencies('all', ATBDP_INC_DIR . 'payments/');
@@ -1066,12 +1066,13 @@ final class Directorist_Base
             $plan_review = is_plan_allowed_listing_review(get_post_meta($post->ID, '_fm_plans', true));
         }
         if ($plan_review) {
+            $count_review = ($reviews_count>1) ? __(' Reviews',ATBDP_TEXTDOMAIN) : __(' Review',ATBDP_TEXTDOMAIN);
             ?>
             <div class="atbd_content_module atbd_review_module">
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">
                         <h4><span class="fa fa-star atbd_area_icon"></span><span id="reviewCounter"><?php echo $reviews_count;?></span><?php
-                            _e($reviews_count > 1 ? ' Reviews' : ' Review', ATBDP_TEXTDOMAIN);
+                           echo $count_review;
                             ?></h4>
                     </div>
                     <?php if (is_user_logged_in()) { ?>

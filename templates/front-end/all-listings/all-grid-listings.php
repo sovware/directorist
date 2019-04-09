@@ -5,12 +5,9 @@ $is_disable_price           = get_directorist_option('disable_list_price');
 $display_sortby_dropdown    = get_directorist_option('display_sort_by',1);
 $display_viewas_dropdown    = get_directorist_option('display_view_as',1);
 $pagenation                 = get_directorist_option('paginate_all_listings',1);
-$display_header             = !empty($display_header) ? $display_header : '';
-$header_title               = !empty($header_title) ? $header_title : '';
-$header_sub_title           = !empty($header_sub_title) ? $header_sub_title : '';
+
 $column_width = 100/$columns .'%';
 ?>
-
 
 <div id="directorist" class="atbd_wrapper">
     <?php if( $display_header == 'yes'  ) { ?>

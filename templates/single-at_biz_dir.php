@@ -129,7 +129,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                 //ok show the edit option
                 ?>
                 <div class="edit_btn_wrap">
-                    <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>" class="btn btn-success"><span class="fa fa-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN)?></a>
+                    <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>" class="btn btn-success"><span class="fa fa-edit"></span>Z<?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN)?></a>
                 </div>
 
                 <?php
@@ -147,7 +147,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                         <?php } ?>
                         <?php if($enable_social_share) {?>
                         <div class="atbd_action atbd_share">
-                            <span class="fa fa-share-alt"></span><?php _e('Share', ATBDP_TEXTDOMAIN);?>
+                            <span class="fa fa-share-alt"></span><?PHP _e('Share', ATBDP_TEXTDOMAIN);?>
                                 <div class="atbd_director_social_wrap">
                                     <?php
                                     //prepare the data for the links because links needs to be escaped
@@ -317,10 +317,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                 do_action('atbdp_after_listing_tagline');
                                 ?>
                             </div>
-                            <?php if($enable_review) {?>
+                            <?php if($enable_review) {
+                                $reviews = ($reviews_count>1) ? __(' Reviews',ATBDP_TEXTDOMAIN) : __(' Review',ATBDP_TEXTDOMAIN);
+                                ?>
                             <div class="atbd_rating_count">
-                                <p><?php echo $reviews_count;
-                                    _e($reviews_count>1 ? ' Reviews': ' Review', ATBDP_TEXTDOMAIN);
+                                <p><?php echo $reviews_count . $reviews;
+
                                     ?>
                                 </p>
                             </div>

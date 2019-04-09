@@ -3465,3 +3465,274 @@ if (!function_exists('atbdp_popular_listings')){
     }
 }
 
+/**
+ * Outputs the directorist categories/locations dropdown.
+ *
+ * @since    1.5.5
+ *
+ * @param    array     $args    Array of options to control the field output.
+ * @param    bool      $echo    Whether to echo or just return the string.
+ * @return   string             HTML attribute or empty string.
+ */
+function bdas_dropdown_terms( $args = array(), $echo = true ) {
+
+    // Vars
+    $args = array_merge( array(
+        'show_option_none'  => '-- '.__( 'Select a category', 'advanced-classifieds-and-directory-pro' ).' --',
+        'option_none_value' => '',
+        'taxonomy'          => 'at_biz_dir-category',
+        'name' 			    => 'bdas_category',
+        'class'             => 'form-control',
+        'required'          => false,
+        'base_term'         => 0,
+        'parent'            => 0,
+        'orderby'           => 'name',
+        'order'             => 'ASC',
+        'selected'          => 0
+    ), $args );
+
+    if( ! empty( $args['selected'] ) ) {
+        $ancestors = get_ancestors( $args['selected'], $args['taxonomy'] );
+        $ancestors = array_merge( array_reverse( $ancestors ), array( $args['selected'] ) );
+    } else {
+        $ancestors = array();
+    }
+
+    // Build data
+    $html = '';
+
+    if( isset( $args['walker'] ) ) {
+
+        $selected = count( $ancestors ) >= 2 ? (int) $ancestors[1] : 0;
+        var_dump($selected);
+
+        $html .= '<div class="bdas-terms">';
+        $html .= sprintf( '<input type="hidden" name="%s" class="bdas-term-hidden" value="%d" />', $args['name'], $selected );
+
+        $term_args = array(
+            'show_option_none'  => $args['show_option_none'],
+            'option_none_value' => $args['option_none_value'],
+            'taxonomy'          => $args['taxonomy'],
+            'child_of'          => $args['parent'],
+            'orderby'           => $args['orderby'],
+            'order'             => $args['order'],
+            'selected'          => $selected,
+            'hierarchical'      => true,
+            'depth'             => 2,
+            'show_count'        => false,
+            'hide_empty'        => false,
+            'walker'            => $args['walker'],
+            'echo'              => 0
+        );
+
+        unset( $args['walker'] );
+
+        $select  = wp_dropdown_categories( $term_args );
+        $required = $args['required'] ? ' required' : '';
+        $replace = sprintf( '<select class="%s" data-taxonomy="%s" data-parent="%d"%s>', $args['class'], $args['taxonomy'], $args['parent'], $required );
+
+        $html .= preg_replace( '#<select([^>]*)>#', $replace, $select );
+
+        if( $selected > 0 ) {
+            $args['parent'] = $selected;
+            $html .= bdas_dropdown_terms( $args, false );
+        }
+
+        $html .= '</div>';
+
+    } else {
+
+        $has_children = 0;
+        $child_of     = 0;
+
+        $term_args = array(
+            'parent'       => $args['parent'],
+            'orderby'      => 'name',
+            'order'        => 'ASC',
+            'hide_empty'   => false,
+            'hierarchical' => false
+        );
+        $terms = get_terms( $args['taxonomy'], $term_args );
+
+        if( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+
+            if( $args['parent'] == $args['base_term'] ) {
+                $required = $args['required'] ? ' required' : '';
+
+                $html .= '<div class="bdas-terms">';
+                $html .= sprintf( '<input type="hidden" name="%s" class="bdas-term-hidden" value="%d" />', $args['name'], $args['selected'] );
+                $html .= sprintf( '<select class="%s" data-taxonomy="%s" data-parent="%d"%s>', $args['class'], $args['taxonomy'], $args['parent'], $required );
+                $html .= sprintf( '<option value="%s">%s</option>', $args['option_none_value'],  $args['show_option_none'] );
+            } else {
+                $html .= sprintf( '<div class="bdas-child-terms bdas-child-terms-%d">', $args['parent'] );
+                $html .= sprintf( '<select class="%s" data-taxonomy="%s" data-parent="%d">', $args['class'], $args['taxonomy'], $args['parent'] );
+                $html .= sprintf( '<option value="%d">%s</option>', $args['parent'], '---' );
+            }
+
+            foreach( $terms as $term ) {
+                $selected = '';
+                if( in_array( $term->term_id, $ancestors ) ) {
+                    $has_children = 1;
+                    $child_of = $term->term_id;
+                    $selected = ' selected';
+                } else if( $term->term_id == $args['selected'] ) {
+                    $selected = ' selected';
+                }
+
+                $html .= sprintf( '<option value="%s"%s>%s</option>', $term->term_id, $selected, $term->name );
+            }
+
+            $html .= '</select>';
+            if( $has_children ) {
+                $args['parent'] = $child_of;
+                $html .= bdas_dropdown_terms( $args, false );
+            }
+            $html .= '</div>';
+
+        } else {
+
+            if( $args['parent'] == $args['base_term'] ) {
+                $required = $args['required'] ? ' required' : '';
+
+                $html .= '<div class="bdas-terms">';
+                $html .= sprintf( '<input type="hidden" name="%s" class="bdas-term-hidden" value="%d" />', $args['name'], $args['selected'] );
+                $html .= sprintf( '<select class="%s" data-taxonomy="%s" data-parent="%d"%s>', $args['class'], $args['taxonomy'], $args['parent'], $required );
+                $html .= sprintf( '<option value="%s">%s</option>', $args['option_none_value'],  $args['show_option_none'] );
+                $html .= '</select>';
+                $html .= '</div>';
+            }
+
+        }
+
+    }
+
+    // Echo or Return
+    if( $echo ) {
+        echo $html;
+        return '';
+    } else {
+        return $html;
+    }
+
+}
+
+function acadp_get_custom_field_ids( $category = 0 ) {
+
+
+    // Get global fields
+    $args = array(
+        'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'fields'		 => 'ids',
+        'meta_query' 	 => array(
+            array(
+                'key'   => 'associate',
+                'value' => 'form'
+            ),
+        )
+    );
+
+    $field_ids = get_posts( $args );
+
+    // Get category fields
+    if( $category > 0 ) {
+
+        $args = array(
+            'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+            'post_status'    => 'publish',
+            'posts_per_page' => -1,
+            'fields'		 => 'ids',
+            'tax_query'      => array(
+                array(
+                    'key'         => 'associate',
+                    'value'       => 'categories'
+                ),
+            )
+        );
+
+        $category_fields = get_posts( $args );
+        $field_ids = array_merge( $field_ids, $category_fields );
+        $field_ids = array_unique( $field_ids );
+
+    }
+
+    // Return
+    if( empty( $field_ids ) ) {
+        $field_ids = array( 0 );
+    }
+
+    return $field_ids;
+
+}
+
+function get_advance_search_result_page_link()
+{
+
+    $link = home_url();
+
+    if( get_option('permalink_structure') ) {
+
+        $page_settings = get_directorist_option('advance_search_result');;
+
+        if( $page_settings > 0 ) {
+            $link = get_permalink( $page_settings );
+        }
+
+    }
+
+    return $link;
+}
+
+/**
+ * @since 1.0.0
+ * @return Wp_Query
+ */
+if (!function_exists('get_atbdp_listings_ids')){
+    function get_atbdp_listings_ids(){
+        $arg = (array(
+            'post_type' => 'at_biz_dir',
+            'posts_per_page' => -1,
+            'post_status' => 'publish',
+        ));
+
+        return new WP_Query($arg);
+    }
+}
+
+/**
+ * @since 4.7.7
+ * @return Wp_Query
+ */
+if (!function_exists('atbdp_get_expired_listings')){
+    function atbdp_get_expired_listings($texonomy, $categories){
+        $arg = (array(
+            'post_type' => 'at_biz_dir',
+            'posts_per_page' => -1,
+            'post_status' => 'publish',
+            'meta_query'  => array(
+                'relation' => 'OR',
+                array(
+                    'key'	  => '_expiry_date',
+                    'value'	  => current_time( 'mysql' ),
+                    'compare' => '<', // eg. expire date 6 <= current date 7 will return the post
+                    'type'    => 'DATETIME'
+                ),
+                array(
+                    'key'	  => '_never_expire',
+                    'value' => '',
+                )
+            ),
+            'tax_query' => array(
+                    array(
+                        'taxonomy'         => $texonomy,
+                        'field'            => 'id',
+                        'terms'            => !empty($categories) ? $categories : array(),
+                        'include_children' => true,
+                    )
+            ),
+        ));
+
+        return new WP_Query($arg);
+    }
+}

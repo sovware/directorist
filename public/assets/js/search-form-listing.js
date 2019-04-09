@@ -26,7 +26,7 @@
                 'security': atbdp_search.ajaxnonce
             };
 
-            $.post( atbdp_search.ajaxurl, data, function( response ) {
+            $.post( atbdp_search.ajax_url, data, function( response ) {
                 $this.parent().find( 'div:first' ).remove();
                 $this.parent().append( response );
             });
@@ -49,7 +49,7 @@
                 'security': atbdp_search.ajaxnonce
             };
 
-            $.post( atbdp_search.ajaxurl, data, function(response) {
+            $.post( atbdp_search.ajax_url, data, function(response) {
                 $search_elem.html( response );
             });
 

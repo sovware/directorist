@@ -54,7 +54,7 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                                 </div>
                             </div>
                             <?php } ?>
-                            <?php if(!empty($display_category_field)) {?>
+                            <?php if(!empty($display_category_field)) { ?>
                             <div class="col-md-6 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_category">
                                     <?php
@@ -68,7 +68,7 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                                         'orderby' => 'name',
                                         'selected' => '',
                                         'hierarchical' => true,
-                                        'value_field'  => 'slug',
+                                        'value_field'  => 'id',
                                         'depth' => 10,
                                         'show_count' => false,
                                         'hide_empty' => false,
@@ -93,7 +93,7 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                                         'orderby' => 'name',
                                         'selected' => '',
                                         'hierarchical' => true,
-                                        'value_field'  => 'slug',
+                                        'value_field'  => 'id',
                                         'depth' => 10,
                                         'show_count' => false,
                                         'hide_empty' => false,

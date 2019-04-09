@@ -41,12 +41,19 @@ if ( !class_exists('BD_Search_Widget')) {
             $search_by_location            = ! empty( $instance['search_by_location'] ) ? 1 : 0;
             $search_by_custom_fields       = ! empty( $instance['search_by_custom_fields'] ) ? 1 : 0;
             $search_by_price               = ! empty( $instance['search_by_price'] ) ? 1 : 0;
+            $search_by_price_range         = ! empty( $instance['search_by_price_range'] ) ? 1 : 0;
+            $search_by_open_now            = ! empty( $instance['search_by_open_now'] ) ? 1 : 0;
             $search_by_review              = ! empty( $instance['search_by_review'] ) ? 1 : 0;
             $search_by_website             = ! empty( $instance['search_by_website'] ) ? 1 : 0;
             $search_by_email               = ! empty( $instance['search_by_email'] ) ? 1 : 0;
             $search_by_phone               = ! empty( $instance['search_by_phone'] ) ? 1 : 0;
             $search_by_address             = ! empty( $instance['search_by_address'] ) ? 1 : 0;
             $search_by_zip_code            = ! empty( $instance['search_by_zip_code'] ) ? 1 : 0;
+            wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
+            wp_localize_script('atbdp-search-listing','atbdp_search',array(
+                'ajaxnonce'         => wp_create_nonce( 'bdas_ajax_nonce' ),
+                'ajax_url'           => admin_url( 'admin-ajax.php' ),
+            ));
             echo $args['before_widget'];
             echo '<div class="atbd_widget_title">';
             echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
@@ -115,6 +122,7 @@ if ( !class_exists('BD_Search_Widget')) {
             $instance['search_by_custom_fields'] = (isset($new_instance['search_by_custom_fields'])) ? 1 : 0;
             $instance['search_by_price']         = (isset($new_instance['search_by_price'])) ? 1 : 0;
             $instance['search_by_price_range']   = (isset($new_instance['search_by_price_range'])) ? 1 : 0;
+            $instance['search_by_open_now']      = (isset($new_instance['search_by_open_now'])) ? 1 : 0;
             $instance['search_by_review']        = (isset($new_instance['search_by_review'])) ? 1 : 0;
             $instance['search_by_website']       = (isset($new_instance['search_by_website'])) ? 1 : 0;
             $instance['search_by_email']         = (isset($new_instance['search_by_email'])) ? 1 : 0;

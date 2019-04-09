@@ -32,9 +32,9 @@
                     $choices = explode( "\n", trim( $choices ) );
 
                     printf( '<div class="select-basic"><select name="cf[%d]" class="form-control">', $post->ID );
-                    if( ! empty( $field_meta['allow_null'][0] ) ) {
-                        printf( '<option value="">%s</option>', '- '.__( 'Select an Option', 'advanced-classifieds-and-directory-pro' ).' -' );
-                    }
+
+                        printf( '<option value="">%s</option>', '- '.__( 'Select an Option', ATBDP_TEXTDOMAIN ).' -' );
+
                     foreach( $choices as $choice ) {
                         if( strpos( $choice, ':' ) !== false ) {
                             $_choice = explode( ':', $choice );

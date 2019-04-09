@@ -76,7 +76,7 @@
         <div class="form-group">
             <div class="select-basic">
                 <select name="price_range" class="form-control">
-                    <option>Price Range</option>
+                    <option value="-1">Price Range</option>
                     <option value="skimming" >Ultra High ($$$$)</option>
                     <option value="moderate" >Expensive ($$$)</option>
                     <option value="economy" >Moderate ($$)</option>

@@ -488,6 +488,25 @@ jQuery(function ($) {
         }
     });
 
+   /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
+    $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
+
+        if (frame) {
+            frame.open();
+            return;
+        }
+
+        // Create a new media frame
+        frame = wp.media({
+            title: atbdp_admin_data.i18n_text.upload_cat_image,
+            button: {
+                text: atbdp_admin_data.i18n_text.choose_image
+            },
+            library: {type: 'image'}, // only allow image upload only
+            multiple: multiple_image  // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
+        });
+        frame.open();
+    });*/
     /**
      * Display the media uploader for selecting an image.
      *
@@ -540,7 +559,6 @@ jQuery(function ($) {
                     '</tr>';
 
                 $( '#atbdp-images' ).append( html );
-
             } else {
 
                 $( '#atbdp-categories-image-id' ).val( json.id );
@@ -565,7 +583,7 @@ jQuery(function ($) {
     });
 
     $('#submit').on('click', function () {
-        $('#atbdp-categories-image-wrapper').empty();
+        $('#atbdp-categories-upload-image').hide();
     })
 
 });

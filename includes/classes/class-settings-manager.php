@@ -2163,6 +2163,12 @@ The Administrator of ==SITE_NAME==
             $req_title = atbdp_get_option('title_field_setting', 'atbdp_general', 'yes');
             return apply_filters('atbdp_title_field_setting' , array(
                 array(
+                    'type' => 'textbox',
+                    'name' => 'title_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Title', ATBDP_TEXTDOMAIN),
+                ),
+                array(
                     'type' => 'toggle',
                     'name' => 'require_title',
                     'label' => __('Required', ATBDP_TEXTDOMAIN),
@@ -2183,6 +2189,12 @@ The Administrator of ==SITE_NAME==
          */
         public function get_listings_desc_field_settings() {
             return apply_filters('atbdp_desc_field_setting' , array(
+                array(
+                    'type' => 'textbox',
+                    'name' => 'long_details_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Long Details', ATBDP_TEXTDOMAIN),
+                ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_long_details',
@@ -2205,6 +2217,12 @@ The Administrator of ==SITE_NAME==
          */
         public function get_listings_cat_field_settings() {
             return apply_filters('atbdp_cat_field_setting' , array(
+                array(
+                    'type' => 'textbox',
+                    'name' => 'category_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Select Category', ATBDP_TEXTDOMAIN),
+                ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_category',
@@ -2241,6 +2259,12 @@ The Administrator of ==SITE_NAME==
         public function get_listings_loc_field_settings() {
             return apply_filters('atbdp_loc_field_setting' , array(
                 array(
+                    'type' => 'textbox',
+                    'name' => 'location_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Location', ATBDP_TEXTDOMAIN),
+                ),
+                array(
                     'type' => 'toggle',
                     'name' => 'require_location',
                     'label' => __('Required', ATBDP_TEXTDOMAIN),
@@ -2269,6 +2293,12 @@ The Administrator of ==SITE_NAME==
         public function get_listings_tag_field_settings() {
             return apply_filters('atbdp_tag_field_setting' , array(
                 array(
+                    'type' => 'textbox',
+                    'name' => 'tag_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Tag', ATBDP_TEXTDOMAIN),
+                ),
+                array(
                     'type' => 'toggle',
                     'name' => 'require_tags',
                     'label' => __('Required', ATBDP_TEXTDOMAIN),
@@ -2290,11 +2320,18 @@ The Administrator of ==SITE_NAME==
          */
         public function get_listings_tagline_field_settings() {
             return apply_filters('atbdp_tagline_field_setting' , array(
+
                 array(
                     'type' => 'toggle',
                     'name' => 'display_tagline_field',
                     'label' => __('Display', ATBDP_TEXTDOMAIN),
                     'default' => 0,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'tagline_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Tagline', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -2312,11 +2349,17 @@ The Administrator of ==SITE_NAME==
          */
         public function get_listings_pricing_field_settings() {
             return apply_filters('atbdp_pricing_field_setting' , array(
+
                 array(
                     'type' => 'toggle',
                     'name' => 'display_pricing_field',
                     'label' => __('Display', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                ),array(
+                    'type' => 'textbox',
+                    'name' => 'price_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Price', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -2347,11 +2390,17 @@ The Administrator of ==SITE_NAME==
          */
         public function get_listings_short_desc_field_settings() {
             return apply_filters('atbdp_short_desc_field_setting' , array(
+
                 array(
                     'type' => 'toggle',
                     'name' => 'display_excerpt_field',
                     'label' => __('Display', ATBDP_TEXTDOMAIN),
                     'default' => 0,
+                ), array(
+                    'type' => 'textbox',
+                    'name' => 'excerpt_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Short Description/Excerpt', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -2375,11 +2424,18 @@ The Administrator of ==SITE_NAME==
          */
         public function get_listings_address_field_settings() {
             return apply_filters('atbdp_address_field_setting' , array(
+
                 array(
                     'type' => 'toggle',
                     'name' => 'display_address_field',
                     'label' => __('Display', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'address_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Google Address', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -2403,11 +2459,18 @@ The Administrator of ==SITE_NAME==
          */
         public function get_listings_phone_field_settings() {
             return apply_filters('atbdp_phone_field_setting' , array(
+
                 array(
                     'type' => 'toggle',
                     'name' => 'display_phone_field',
                     'label' => __('Display', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'phone_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Phone', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -2432,11 +2495,18 @@ The Administrator of ==SITE_NAME==
          */
         public function get_listings_email_field_settings() {
             return apply_filters('atbdp_email_field_setting' , array(
+
                 array(
                     'type' => 'toggle',
                     'name' => 'display_email_field',
                     'label' => __('Display', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'email_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Email', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -2461,11 +2531,18 @@ The Administrator of ==SITE_NAME==
          */
         public function get_listings_website_field_settings() {
             return apply_filters('atbdp_website_field_setting' , array(
+
                 array(
                     'type' => 'toggle',
                     'name' => 'display_website_field',
                     'label' => __('Display', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'website_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Website', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -2489,11 +2566,18 @@ The Administrator of ==SITE_NAME==
          */
         public function get_listings_zip_field_settings() {
             return apply_filters('atbdp_zip_field_setting' , array(
+
                 array(
                     'type' => 'toggle',
                     'name' => 'display_zip_field',
                     'label' => __('Display', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'zip_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Zip/Post Code', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -2517,11 +2601,18 @@ The Administrator of ==SITE_NAME==
          */
         public function get_listings_social_field_settings() {
             return apply_filters('atbdp_social_field_setting' , array(
+
                 array(
                     'type' => 'toggle',
                     'name' => 'display_social_info_field',
                     'label' => __('Display', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'social_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Social Information', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -2600,6 +2691,7 @@ The Administrator of ==SITE_NAME==
          */
         public function get_listings_image_field_settings() {
             return apply_filters('atbdp_image_field_setting' , array(
+
                 array(
                     'type' => 'toggle',
                     'name' => 'display_prv_field',
@@ -2607,10 +2699,23 @@ The Administrator of ==SITE_NAME==
                     'default' => 1,
                 ),
                 array(
+                    'type' => 'textbox',
+                    'name' => 'preview_label',
+                    'label' => __('Preview Image Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Upload Preview Image', ATBDP_TEXTDOMAIN),
+                ),
+
+                array(
                     'type' => 'toggle',
                     'name' => 'display_gellery_field',
                     'label' => __('Display Gallery Image', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'gellery_label',
+                    'label' => __('Gallery Image Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Upload Slider Images', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -2648,11 +2753,18 @@ The Administrator of ==SITE_NAME==
          */
         public function get_listings_video_field_settings() {
             return apply_filters('atbdp_video_field_setting' , array(
+
                 array(
                     'type' => 'toggle',
                     'name' => 'display_video_field',
                     'label' => __('Display', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'video_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Video Url', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -2666,7 +2778,6 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
-
 
             ));
         }
@@ -2698,6 +2809,12 @@ The Administrator of ==SITE_NAME==
                     'name' => 'listing_terms_condition_text',
                     'label' => __('Terms & Conditions Text', ATBDP_TEXTDOMAIN),
                     'description' => __('If Terms & Conditions is enabled, enter the agreement terms and conditions here.', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'submit_label',
+                    'label' => __('Submit listing label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Submit listing', ATBDP_TEXTDOMAIN),
                 ),
 
 

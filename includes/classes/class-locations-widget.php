@@ -260,7 +260,11 @@ if (!class_exists('BD_Locations_Widget')) {
                     $html .= '<a href="' . ATBDP_Permalink::atbdp_get_location_page( $term ) . '">';
                     $html .= $term->name;
                     if( ! empty( $settings['show_count'] ) ) {
-                        $html .= ' (' . $count . ')';
+                        $expired_listings = atbdp_get_expired_listings(ATBDP_LOCATION, $term->term_id);
+                        $number_of_expired = $expired_listings->post_count;
+                        $number_of_expired = !empty($number_of_expired)?$number_of_expired:'0';
+                        $totat = ($count)?($count-$number_of_expired):$count;
+                        $html .= ' (' . $totat . ')';
                     }
                     $html .= '</a>';
                     $html .= $this->list_locations( $settings );

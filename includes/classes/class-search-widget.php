@@ -39,6 +39,7 @@ if ( !class_exists('BD_Search_Widget')) {
             $search_by_text_field          = ! empty( $instance['search_by_text_field'] ) ? 1 : 0;
             $search_by_category            = ! empty( $instance['search_by_category'] ) ? 1 : 0;
             $search_by_location            = ! empty( $instance['search_by_location'] ) ? 1 : 0;
+            $search_by_tag                 = ! empty( $instance['search_by_tag'] ) ? 1 : 0;
             $search_by_custom_fields       = ! empty( $instance['search_by_custom_fields'] ) ? 1 : 0;
             $search_by_price               = ! empty( $instance['search_by_price'] ) ? 1 : 0;
             $search_by_price_range         = ! empty( $instance['search_by_price_range'] ) ? 1 : 0;
@@ -81,7 +82,7 @@ if ( !class_exists('BD_Search_Widget')) {
                 'search_by_text_field'    => 1,
                 'search_by_category'      => 1,
                 'search_by_location'      => 1,
-                'search_by_tag'           => 1,
+                'search_by_tag'           => 0,
                 'search_by_custom_fields' => 1,
                 'search_by_price'         => 1,
                 'search_by_price_range'   => 0,

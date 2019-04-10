@@ -1332,7 +1332,7 @@ if (!function_exists('atbdp_only_logged_in_user')) {
         if (!is_user_logged_in()) {
             // user not logged in;
             $error_message = (empty($message))
-                ? sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), "<a href='" . wp_login_url() . "'> " . __('Here', ATBDP_TEXTDOMAIN) . "</a>", "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign up', ATBDP_TEXTDOMAIN) . "</a>")
+                ? sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', ATBDP_TEXTDOMAIN) . "</a>", "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign up', ATBDP_TEXTDOMAIN) . "</a>")
                 : $message;
             ?>
             <section class="directory_wrapper single_area">
@@ -3699,3 +3699,39 @@ if (!function_exists('get_atbdp_listings_ids')){
     }
 }
 
+/**
+ * @since 4.7.7
+ * @return Wp_Query
+ */
+if (!function_exists('atbdp_get_expired_listings')){
+    function atbdp_get_expired_listings($texonomy, $categories){
+        $arg = (array(
+            'post_type' => 'at_biz_dir',
+            'posts_per_page' => -1,
+            'post_status' => 'publish',
+            'meta_query'  => array(
+                'relation' => 'OR',
+                array(
+                    'key'	  => '_expiry_date',
+                    'value'	  => current_time( 'mysql' ),
+                    'compare' => '<', // eg. expire date 6 <= current date 7 will return the post
+                    'type'    => 'DATETIME'
+                ),
+                array(
+                    'key'	  => '_never_expire',
+                    'value' => '',
+                )
+            ),
+            'tax_query' => array(
+                    array(
+                        'taxonomy'         => $texonomy,
+                        'field'            => 'id',
+                        'terms'            => !empty($categories) ? $categories : array(),
+                        'include_children' => true,
+                    )
+            ),
+        ));
+
+        return new WP_Query($arg);
+    }
+}

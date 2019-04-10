@@ -611,6 +611,14 @@ if(!class_exists('ATBDP_Ajax_Handler')):
                 'post_status'    => 'publish',
                 'posts_per_page' => -1,
                 'post__in'		 => $custom_field_ids,
+                'meta_query'     => array(
+                    array(
+                        'key'	  => 'searchable',
+                        'value'	  => 1,
+                        'type'    => 'NUMERIC',
+                        'compare' => '='
+                    ),
+                ),
                 'orderby'        => 'meta_value_num',
                 'order'          => 'ASC',
             );

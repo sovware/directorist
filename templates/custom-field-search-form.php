@@ -103,6 +103,22 @@
                 case 'url' :
                     printf( '<input type="text" name="cf[%d]" class="form-control" value="%s"/>', $post->ID, esc_url( $value ) );
                     break;
+                case 'date' :
+                    printf( '<input type="date" name="cf[%d]" class="form-control" value="%s"/>', $post->ID, esc_url( $value ) );
+                    break;
+                case 'color' :
+                    ?>
+                    <script>
+                        jQuery(document).ready(function ($) {
+                            $('.search-color-field').wpColorPicker();
+                        });
+                    </script>
+                    <?php
+                    printf( '<input type="color" name="cf[%d]" class="search-color-field" value="%s"/>', $post->ID, esc_url( $value ) );
+                    break;
+                case 'time' :
+                    printf( '<input type="time" name="cf[%d]" class="form-control" value="%s"/>', $post->ID, esc_url( $value ) );
+                    break;
             }
             ?>
         </div>

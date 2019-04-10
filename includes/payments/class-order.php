@@ -241,8 +241,9 @@ class ATBDP_Order {
                 printf( '<p><a href="%s"> %s: [Listing ID #%d]</a></p>', get_edit_post_link( $listing_id ), get_the_title( $listing_id ),  $listing_id );
 
                 $order_details = apply_filters( 'atbdp_order_details', array(), $post_id, $listing_id);
-                foreach( $order_details as $order_detail ) {
-                    echo '<div>#Order for: '.$order_detail['label'].'</div>';
+                foreach( array($order_details) as $order_detail ) {
+                    $title = !empty($order_detail['label'])?$order_detail['label']:"";
+                    echo '<div>#Order for: '.$title.'</div>';
                 }
 
                 $featured = get_post_meta( $post_id, '_featured', true ); // is this listing featured ?

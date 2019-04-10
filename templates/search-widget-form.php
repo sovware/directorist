@@ -25,6 +25,11 @@
 </p>
 
 <p>
+    <input <?php checked( $instance['search_by_tag'] ); ?> id="<?php echo $this->get_field_id( 'search_by_tag' ); ?>" name="<?php echo $this->get_field_name( 'search_by_tag' ); ?>" type="checkbox" />
+    <label for="<?php echo $this->get_field_id( 'search_by_tag' ); ?>"><?php _e( 'Search by Tag', ATBDP_TEXTDOMAIN ); ?></label>
+</p>
+
+<p>
     <input <?php checked( $instance['search_by_custom_fields'] ); ?> id="<?php echo $this->get_field_id( 'search_by_custom_fields' ); ?>" name="<?php echo $this->get_field_name( 'search_by_custom_fields' ); ?>" type="checkbox" />
     <label for="<?php echo $this->get_field_id( 'search_by_custom_fields' ); ?>"><?php _e( 'Search by Custom Fields', ATBDP_TEXTDOMAIN ); ?></label>
 </p>

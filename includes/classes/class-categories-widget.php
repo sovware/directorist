@@ -262,7 +262,11 @@ if (!class_exists('BD_Categories_Widget')) {
                     $html .= '<a href="' . ATBDP_Permalink::atbdp_get_category_page( $term ) . '">'. $span .'';
                     $html .= $term->name;
                     if( ! empty( $settings['show_count'] ) ) {
-                        $html .= ' (' . $count . ')';
+                        $expired_listings = atbdp_get_expired_listings(ATBDP_CATEGORY, $term->term_id);
+                        $number_of_expired = $expired_listings->post_count;
+                        $number_of_expired = !empty($number_of_expired)?$number_of_expired:'0';
+                        $totat = ($count)?($count-$number_of_expired):$count;
+                        $html .= ' (' . $totat . ')';
                     }
                     $html .= '</a>'. $plus_icon . '';
                     $html .= $this->atbdp_categories_list( $settings );

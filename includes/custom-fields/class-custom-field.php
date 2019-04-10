@@ -261,14 +261,15 @@ class ATBDP_Custom_Field
                 echo ('form' == $value) ? __('Form', ATBDP_TEXTDOMAIN) : $selected_cat . __(' Category', ATBDP_TEXTDOMAIN);
 
                 break;
+
             case 'require' :
                 $value = esc_attr(get_post_meta($post_id, 'required', true));
                 echo '<span class="atbdp-tick-cross">' . ($value == 1 ? '&#x2713;' : '&#x2717;') . '</span>';
                 break;
-            /*case 'searchable' :
+            case 'searchable' :
                 $value = esc_attr(get_post_meta( $post_id, 'searchable', true ));
                 echo '<span class="atbdp-tick-cross2">'.($value == 1 ? '&#x2713;' : '&#x2717;').'</span>';
-                break;*/
+                break;
         }
     }
 
@@ -338,8 +339,8 @@ class ATBDP_Custom_Field
 
                 $field_category_pass = sanitize_text_field($_POST['category_pass']);
                 update_post_meta($post_id, 'category_pass', $field_category_pass);
-                /* $field_searchable = (int) $_POST['searchable'];
-                 update_post_meta( $post_id, 'searchable', $field_searchable );*/
+                 $field_searchable = (int) $_POST['searchable'];
+                 update_post_meta( $post_id, 'searchable', $field_searchable );
 
             }
 
@@ -439,32 +440,32 @@ class ATBDP_Custom_Field
             <div class="atbdp-input widefat" id="atbdp-field-options">
 
 
-                <!-- <tr>
+                 <tr>
                 <td class="label">
-                    <label><?php /*_e( 'Include this field in the search form?', ATBDP_TEXTDOMAIN ); */
+                    <label><?php _e( 'Include this field in the search form?', ATBDP_TEXTDOMAIN );
                 ?></label>
                 </td>
                 <td>
-                    <?php /*$searchable = isset( $post_meta['searchable'] ) ? esc_attr($post_meta['searchable'][0]) : 0; */
+                    <?php $searchable = isset( $post_meta['searchable'] ) ? esc_attr($post_meta['searchable'][0]) : 0;
                 ?>
                     <ul class="atbdp-radio-list radio horizontal">
                         <li>
                             <label>
-                                <input type="radio" name="searchable" value="1" <?php /*echo checked( $searchable, 1, false ); */
-                ?>><?php /*_e( 'Yes', ATBDP_TEXTDOMAIN ); */
+                                <input type="radio" name="searchable" value="1" <?php echo checked( $searchable, 1, false );
+                ?>><?php _e( 'Yes', ATBDP_TEXTDOMAIN );
                 ?>
                             </label>
                         </li>
                         <li>
                             <label>
-                                <input type="radio" name="searchable" value="0" <?php /*echo checked( $searchable, 0, false ); */
-                ?>><?php /*_e( 'No', ATBDP_TEXTDOMAIN ); */
+                                <input type="radio" name="searchable" value="0" <?php echo checked( $searchable, 0, false );
+                ?>><?php _e( 'No', ATBDP_TEXTDOMAIN );
                 ?>
                             </label>
                         </li>
                     </ul>
                 </td>
-            </tr>-->
+            </tr>
 
 
                 <label><?php _e('Assign to', ATBDP_TEXTDOMAIN); ?></label>

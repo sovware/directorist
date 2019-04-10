@@ -106,17 +106,16 @@
                 case 'date' :
                     printf( '<input type="date" name="cf[%d]" class="form-control" value="%s"/>', $post->ID, esc_url( $value ) );
                     break;
-                  /*  */?><!--
+                case 'color' :
+                    ?>
                     <script>
                         jQuery(document).ready(function ($) {
-                            $('.my-color-field2').wpColorPicker();
+                            $('.search-color-field').wpColorPicker();
                         });
                     </script>
-
-                    --><?php
-/*                case 'color' :
-                    printf( '<input type="color" name="cf[%d]" class="my-color-field2" value="%s"/>', $post->ID, esc_url( $value ) );
-                    break;*/
+                    <?php
+                    printf( '<input type="color" name="cf[%d]" class="search-color-field" value="%s"/>', $post->ID, esc_url( $value ) );
+                    break;
                 case 'time' :
                     printf( '<input type="time" name="cf[%d]" class="form-control" value="%s"/>', $post->ID, esc_url( $value ) );
                     break;

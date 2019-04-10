@@ -814,7 +814,7 @@
   }
 }
 
-#directorist.atbd_wrapper .btn, .default-ad-search .btn {
+#directorist.atbd_wrapper .btn {
   display: inline-block;
   font-weight: 400;
   text-align: center;
@@ -861,7 +861,7 @@
   pointer-events: none;
 }
 
-#directorist.atbd_wrapper .btn-primary, .default-ad-search .btn-primary {
+#directorist.atbd_wrapper .btn-primary {
   color: #fff;
   background-color: #444752;
   border-color: #444752;
@@ -1458,7 +1458,7 @@
   width: 100%;
 }
 
-#directorist.atbd_wrapper .form-control, .default-ad-search .form-control {
+#directorist.atbd_wrapper .form-control {
   display: block;
   width: 100%;
   padding: 0.375rem 0.75rem;
@@ -1578,7 +1578,7 @@
   height: calc(2.875rem + 2px);
 }
 
-#directorist.atbd_wrapper .form-group, .default-ad-search .form-group {
+#directorist.atbd_wrapper .form-group {
   margin-bottom: 1rem;
 }
 

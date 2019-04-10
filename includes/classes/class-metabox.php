@@ -287,8 +287,8 @@ wp_reset_postdata();
             <div id="directorist" class="directorist atbd_wrapper">
                 <div class="form-group">
                     <label for="videourl"><?php
-                        /*Translator: % is the name of the currency such eg. USD etc.*/
-                        printf(esc_html__('Video URL', ATBDP_TEXTDOMAIN)); ?></label>
+                        $video_label = get_directorist_option('video_label', __('Video Url', ATBDP_TEXTDOMAIN));
+                        esc_html_e($video_label.':', ATBDP_TEXTDOMAIN); ?></label>
                     <input type="text" id="videourl"  name="videourl" value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
                 </div>
             </div>

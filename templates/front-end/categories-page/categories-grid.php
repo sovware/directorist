@@ -26,7 +26,6 @@
                                 <?php
                                 if ('none' != $icon){
                                 ?>
-                                    <i class="fab fa-accessible-icon"></i>
                                     <span class="fa <?php echo !empty($icon) ? $icon : '';?>"></span>
                                 <?php
                                 }

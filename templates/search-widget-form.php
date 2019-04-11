@@ -15,19 +15,15 @@
 </p>
 
 <p>
-    <input <?php checked( $instance['search_by_category'] ); ?> id="<?php echo $this->get_field_id( 'search_by_category' ); ?>" name="<?php echo $this->get_field_name( 'search_by_category' ); ?>" type="checkbox" />
-    <label for="<?php echo $this->get_field_id( 'search_by_category' ); ?>"><?php _e( 'Search by Category', ATBDP_TEXTDOMAIN ); ?></label>
-</p>
-
-<p>
     <input <?php checked( $instance['search_by_location'] ); ?> id="<?php echo $this->get_field_id( 'search_by_location' ); ?>" name="<?php echo $this->get_field_name( 'search_by_location' ); ?>" type="checkbox" />
     <label for="<?php echo $this->get_field_id( 'search_by_location' ); ?>"><?php _e( 'Search by Location', ATBDP_TEXTDOMAIN ); ?></label>
 </p>
 
 <p>
-    <input <?php checked( $instance['search_by_tag'] ); ?> id="<?php echo $this->get_field_id( 'search_by_tag' ); ?>" name="<?php echo $this->get_field_name( 'search_by_tag' ); ?>" type="checkbox" />
-    <label for="<?php echo $this->get_field_id( 'search_by_tag' ); ?>"><?php _e( 'Search by Tag', ATBDP_TEXTDOMAIN ); ?></label>
+    <input <?php checked( $instance['search_by_category'] ); ?> id="<?php echo $this->get_field_id( 'search_by_category' ); ?>" name="<?php echo $this->get_field_name( 'search_by_category' ); ?>" type="checkbox" />
+    <label for="<?php echo $this->get_field_id( 'search_by_category' ); ?>"><?php _e( 'Search by Category', ATBDP_TEXTDOMAIN ); ?></label>
 </p>
+
 
 <p>
     <input <?php checked( $instance['search_by_custom_fields'] ); ?> id="<?php echo $this->get_field_id( 'search_by_custom_fields' ); ?>" name="<?php echo $this->get_field_name( 'search_by_custom_fields' ); ?>" type="checkbox" />
@@ -46,12 +42,7 @@
 
 <p>
     <input <?php checked( $instance['search_by_open_now'] ); ?> id="<?php echo $this->get_field_id( 'search_by_open_now' ); ?>" name="<?php echo $this->get_field_name( 'search_by_open_now' ); ?>" type="checkbox" />
-    <label for="<?php echo $this->get_field_id( 'search_by_open_now' ); ?>"><?php _e( 'Search by Open Now', ATBDP_TEXTDOMAIN ); ?></label>
-</p>
-
-<p>
-    <input <?php checked( $instance['search_by_review'] ); ?> id="<?php echo $this->get_field_id( 'search_by_review' ); ?>" name="<?php echo $this->get_field_name( 'search_by_review' ); ?>" type="checkbox" />
-    <label for="<?php echo $this->get_field_id( 'search_by_review' ); ?>"><?php _e( 'Search by Review', ATBDP_TEXTDOMAIN ); ?></label>
+    <label for="<?php echo $this->get_field_id( 'search_by_open_now' ); ?>"><?php _e( 'Search by Open Now (It requires Business Hour extension)', ATBDP_TEXTDOMAIN ); ?></label>
 </p>
 
 <p>
@@ -77,4 +68,14 @@
 <p>
     <input <?php checked( $instance['search_by_zip_code'] ); ?> id="<?php echo $this->get_field_id( 'search_by_zip_code' ); ?>" name="<?php echo $this->get_field_name( 'search_by_zip_code' ); ?>" type="checkbox" />
     <label for="<?php echo $this->get_field_id( 'search_by_zip_code' ); ?>"><?php _e( 'Search by Zip/Post Code', ATBDP_TEXTDOMAIN ); ?></label>
+</p>
+
+<p>
+    <input <?php checked( $instance['search_by_tag'] ); ?> id="<?php echo $this->get_field_id( 'search_by_tag' ); ?>" name="<?php echo $this->get_field_name( 'search_by_tag' ); ?>" type="checkbox" />
+    <label for="<?php echo $this->get_field_id( 'search_by_tag' ); ?>"><?php _e( 'Search by Tag', ATBDP_TEXTDOMAIN ); ?></label>
+</p>
+
+<p>
+    <input <?php checked( $instance['search_by_review'] ); ?> id="<?php echo $this->get_field_id( 'search_by_review' ); ?>" name="<?php echo $this->get_field_name( 'search_by_review' ); ?>" type="checkbox" />
+    <label for="<?php echo $this->get_field_id( 'search_by_review' ); ?>"><?php _e( 'Search by Review', ATBDP_TEXTDOMAIN ); ?></label>
 </p>

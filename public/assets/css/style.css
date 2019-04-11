@@ -2384,11 +2384,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 10px 15px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .nav-link.active {
-  background: none;
-  border: 0 none;
-}
-
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area {
   padding: 20px 10px;
   border-top: 1px solid #e3e6ef;

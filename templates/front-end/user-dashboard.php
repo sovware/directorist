@@ -37,8 +37,8 @@ $submit_listing_button   = get_directorist_option('submit_listing_button',1);
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist" id="atbdp_tabs">
                             <?php if(!empty($my_listing_tab)) {?>
-                            <li role="presentation" class="active nav-item">
-                                <a href="#my_listings" class="nav-link active" aria-controls="my_listings" role="tab"
+                            <li role="presentation" class="nav-item">
+                                <a href="#my_listings" class="active nav-link" aria-controls="my_listings" role="tab"
                                    data-toggle="tab">
                                     <?php $list_found = ($listings->found_posts > 0) ? $listings->found_posts : '0';
                                     printf(__('My Listing (%s)', ATBDP_TEXTDOMAIN), $list_found); ?>

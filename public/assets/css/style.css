@@ -2867,4 +2867,22 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
 }
 
+/*open street map*/
+#OL_Icon_33, #OL_Icon_74{
+  position: relative;
+}
+
+.mapHover {
+  position: absolute;
+  background: #fff;
+  padding: 5px;
+  width: 150px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  display: none;
+}
+#OL_Icon_33:hover .mapHover, #OL_Icon_74:hover .mapHover{
+  display: block;
+}
+
 /*# sourceMappingURL=map/style.css.map */

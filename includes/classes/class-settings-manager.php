@@ -304,7 +304,7 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                         ),
                         'map_field' => array(
                             'type' => 'section',
-                            'title' => __('Google Map', ATBDP_TEXTDOMAIN),
+                            'title' => __('Map', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_map_field_settings(),
                         ),
                         'img_field' => array(
@@ -2641,6 +2641,25 @@ The Administrator of ==SITE_NAME==
                     'name' => 'display_map_field',
                     'label' => __('Display', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                ),
+                array(
+                    'type' => 'select',
+                    'name' => 'select_listing_map',
+                    'label' => __( 'Select Map', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'google',
+                            'label' => __('Google Map', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'openstreet',
+                            'label' => __('OpenStreetMap', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'google',
+                        'label' => __('Google Map', ATBDP_TEXTDOMAIN),
+                    ),
                 ),
                 array(
                     'type' => 'toggle',

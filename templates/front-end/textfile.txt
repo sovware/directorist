@@ -1,3 +1,0 @@
-lat	lon	title	description	icon	iconSize	iconOffset
-48.9459301	9.6075669	Title One	Description one	Ol_icon_blue_example.png 24,24	0,-24
-48.9899851	9.5382032	Title Two	Description two Ol_icon_red_example.png	16,16	-8,-8

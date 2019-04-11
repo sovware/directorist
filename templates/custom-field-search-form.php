@@ -33,7 +33,7 @@
 
                     printf( '<div class="select-basic"><select name="cf[%d]" class="form-control">', $post->ID );
 
-                        printf( '<option value="">%s</option>', '- '.__( 'Select an Option', 'advanced-classifieds-and-directory-pro' ).' -' );
+                        printf( '<option value="">%s</option>', '- '.__( 'Select an Option', ATBDP_TEMPLATES_DIR ).' -' );
 
                     foreach( $choices as $choice ) {
                         if( strpos( $choice, ':' ) !== false ) {
@@ -104,7 +104,7 @@
                     printf( '<input type="text" name="cf[%d]" class="form-control" value="%s"/>', $post->ID, esc_url( $value ) );
                     break;
                 case 'date' :
-                    printf( '<input type="date" name="cf[%d]" class="form-control" value="%s"/>', $post->ID, esc_url( $value ) );
+                    printf( '<input type="date" name="cf[%d]" class="form-control" value="%s"/>', $post->ID,  $value  );
                     break;
                 case 'color' :
                     ?>
@@ -117,7 +117,7 @@
                     printf( '<input type="color" name="cf[%d]" class="search-color-field" value="%s"/>', $post->ID, esc_url( $value ) );
                     break;
                 case 'time' :
-                    printf( '<input type="time" name="cf[%d]" class="form-control" value="%s"/>', $post->ID, esc_url( $value ) );
+                    printf( '<input type="time" name="cf[%d]" class="form-control" value="%s"/>', $post->ID,  $value  );
                     break;
             }
             ?>

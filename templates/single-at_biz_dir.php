@@ -30,6 +30,7 @@ $display_slider_image               = get_directorist_option('dsiplay_slider_sin
 $gallery_cropping                   = get_directorist_option('gallery_cropping',1);
 $custom_gl_width                    = get_directorist_option('gallery_crop_width', 670);
 $custom_gl_height                   = get_directorist_option('gallery_crop_height', 750);
+$select_listing_map                 = get_directorist_option('select_listing_map', 'google');
 extract($listing_info);
 /*Prepare Listing Image links*/
 $listing_imgs= (!empty($listing_img) && !empty($display_slider_image)) ? $listing_img : array();
@@ -752,12 +753,19 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
         ?>
     </div> <!--ends .row-->
 </section>
-
+<?php
+if('openstreet' == $select_listing_map) { ?>
+    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+<?php }
+?>
 <script>
 
     jQuery(document).ready(function ($) {
         // Do not show map if lat long is empty or map is globally disabled.
-        <?php if (!$disable_map && (!empty($manual_lat) && !empty($manual_lng)) && !empty($display_map_field)){ ?>
+        <?php if (!$disable_map && (!empty($manual_lat) && !empty($manual_lng)) && !empty($display_map_field) && empty($hide_map) ){
+            if('google' == $select_listing_map) {
+            ?>
+
         // initialize all vars here to avoid hoisting related misunderstanding.
         var map, info_window, saved_lat_lng, info_content;
         saved_lat_lng = {
@@ -794,8 +802,41 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
             var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
             $(this).html(link);
         });
-        <?php } ?>
+        <?php } elseif('openstreet' == $select_listing_map) { ?>
 
+
+        map = new OpenLayers.Map("gmap");
+
+        let mymap = (lon, lat) => {
+            map.addLayer(new OpenLayers.Layer.OSM());
+            let pois = new OpenLayers.Layer.Text( "My Points",
+                { location:"",
+                    projection: map.displayProjection
+                });
+            map.addLayer(pois);
+            // create layer switcher widget in top right corner of map.
+            let layer_switcher= new OpenLayers.Control.LayerSwitcher({});
+            map.addControl(layer_switcher);
+            //Set start centrepoint and zoom
+            let lonLat = new OpenLayers.LonLat( lon, lat )
+                .transform(
+                    new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                    map.getProjectionObject() // to Spherical Mercator Projection
+                );
+            let zoom=11;
+            let markers = new OpenLayers.Layer.Markers( "Markers" );
+            map.addLayer(markers);
+            markers.addMarker(new OpenLayers.Marker(lonLat));
+            map.setCenter (lonLat, zoom);
+        }
+
+        let lat = <?php echo !empty($manual_lat) ? floatval($manual_lat) : false;?>,
+            lon = <?php echo !empty($manual_lng) ? floatval($manual_lng) : false; ?>;
+
+        mymap(lon, lat);
+
+        $('#OL_Icon_74').append('<div class="mapHover"><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
+        <?php } }?>
         /* initialize slick  */
         /* image gallery slider */
         function sliderNavigation(slider, prevArrow, nextArrow) {

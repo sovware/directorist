@@ -3642,11 +3642,18 @@ function atbdp_get_custom_field_ids( $category = 0 ) {
             'post_status'    => 'publish',
             'posts_per_page' => -1,
             'fields'		 => 'ids',
-            'tax_query'      => array(
+            'meta_query'    => array(
+                'relation' => 'AND',
                 array(
-                    'key'         => 'associate',
-                    'value'       => 'categories'
+                    'key'       => 'category_pass',
+                    'value'     => $category,
+                    'compare'   => 'EXISTS',
                 ),
+                array(
+                    'key'       => 'associate',
+                    'value'     => 'categories',
+                    'compare'   => 'LIKE',
+                )
             )
         );
 

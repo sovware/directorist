@@ -1,5 +1,4 @@
 (function ($) {
-    alert('dsfdsf');
     //sorting toggle
     $('.sorting span').on('click', function () {
         $(this).toggleClass('fa-sort-amount-asc fa-sort-amount-desc');

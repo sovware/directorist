@@ -1,4 +1,5 @@
 (function ($) {
+    alert('dsfdsf');
     //sorting toggle
     $('.sorting span').on('click', function () {
         $(this).toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
@@ -667,7 +668,6 @@ jQuery(function ($) {
     if(listing_size < 200){
         $(".atbd_single_listing .db_btn_area").addClass("db_btn_area--sm");
     }
-
 
 })(jQuery);
 

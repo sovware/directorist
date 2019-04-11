@@ -379,18 +379,18 @@ $column_width = 100/$columns .'%';
                                                         <?php
                                                         if ($totalTerm>1){
                                                             ?>
-                                                            <span class="atbd_cat_popup">  +<?php echo $totalTerm-1; ?>
-                                                                <span class="atbd_cat_popup_wrapper">
+                                                            <div class="atbd_cat_popup"> <span>+<?php echo $totalTerm-1; ?></span>
+                                                                <div class="atbd_cat_popup_wrapper">
                                                                     <?php
                                                                     $output = array();
                                                                     foreach (array_slice($cats,1) as $cat) {
                                                                         $link = ATBDP_Permalink::atbdp_get_category_page($cat);
                                                                         $space = str_repeat(' ', 1);
-                                                                        $output []= "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
+                                                                        $output []= "{$space}<span><a href='{$link}'>{$cat->name}<span>,</span></a></span>";
                                                                          }?>
                                                                     <span><?php echo join($output);?></span>
-                                                                </span>
-                                                            </span>
+                                                                </div>
+                                                            </div>
                                                             <?php } ?>
                                                     </div>
                                                 </div>

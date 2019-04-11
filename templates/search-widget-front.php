@@ -202,6 +202,7 @@
         <?php } ?>
         <div class="form-group submit_btn">
             <button type="submit" class="btn btn-primary btn-block btn-icon icon-right"><?php _e( 'Search Listings', ATBDP_TEXTDOMAIN ); ?></button>
+            <a href="<?php echo get_permalink(); ?>" class="btn btn-default"><?php _e( 'Reset', ATBDP_TEXTDOMAIN ); ?></a>
         </div>
     </form><!-- ends: form -->
 </div><!-- ends: .default-ad-search -->

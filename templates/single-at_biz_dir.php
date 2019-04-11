@@ -524,7 +524,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                                                                 echo join(',',$output);
 
                                                             } else {
-                                                                echo esc_attr($field_details);
+                                                                $content =  apply_filters('get_the_content',$field_details);
+                                                                echo do_shortcode(wpautop($content));
+                                                                //echo esc_attr($field_details);
                                                             } ?></p>
 
                                                     </div>

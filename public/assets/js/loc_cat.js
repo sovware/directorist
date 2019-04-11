@@ -9,5 +9,4 @@
         $(this).siblings('.atbdp_child_category').slideToggle();
         $(this).parent('li').siblings('li').children('.atbdp_child_category').slideUp();
     });
-
 })(jQuery);

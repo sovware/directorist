@@ -127,6 +127,8 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     );
 
+
+
                     //@todo need to shift FM validation code to extension itself
                     if (is_fee_manager_active()) {
                         $user_id = get_current_user_id();
@@ -279,7 +281,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                                   * send the custom field value to the database
                                   */
                             if( isset( $custom_field ) ) {
-
                                 foreach( $custom_field as $key => $value ) {
 
                                     $type = get_post_meta( $key, 'type', true );

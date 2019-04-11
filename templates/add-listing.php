@@ -30,7 +30,10 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
     <div class="atbd_">
         <?php if (!empty($display_tagline_field)){ ?>
             <div class="form-group">
-                <label for="atbdp_excerpt"><?php esc_html_e('Tagline', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="atbdp_excerpt"><?php
+                    $tagline_label = get_directorist_option('tagline_label', __('Tagline', ATBDP_TEXTDOMAIN));
+                    esc_html_e($tagline_label.':', ATBDP_TEXTDOMAIN);
+                    ?></label>
                 <input type="text" name="tagline"
                        id="has_tagline"
                        value="<?= !empty($tagline) ? esc_attr($tagline) : ''; ?>"
@@ -42,7 +45,12 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
         $price_range = !empty($price_range) ? $price_range : '';
         if (!empty($display_pricing_field) ) { ?>
             <div class="form-group">
-                <label for="#">Pricing</label>
+                <label for="#">
+                    <?php
+                    $price_label = get_directorist_option('price_label', __('Pricing', ATBDP_TEXTDOMAIN));
+                    esc_html_e($price_label.':', ATBDP_TEXTDOMAIN);
+                    ?>
+                </label>
                 <div class="atbd_pricing_options">
                     <label for="price_selected" data-option="price">
                         <input type="checkbox" id="price_selected" name="atbd_listing_pricing" checked>
@@ -85,7 +93,9 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
         <?php } ?>
         <?php if (!empty($display_excerpt_field)){ ?>
             <div class="form-group">
-                <label for="atbdp_excerpt"><?php esc_html_e('Short Description/Excerpt', ATBDP_TEXTDOMAIN) ?></label>
+                <label for="atbdp_excerpt"><?php
+                    $excerpt_label = get_directorist_option('excerpt_label', __('Short Description/Excerpt', ATBDP_TEXTDOMAIN));
+                    esc_html_e($excerpt_label.':', ATBDP_TEXTDOMAIN); ?></label>
                 <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
                 <input type="hidden" id="has_excerpt" value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
                 <textarea name="excerpt" id="atbdp_excerpt"

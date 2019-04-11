@@ -36,23 +36,30 @@ $column_width = 100/$columns .'%';
                         <?php if($display_viewas_dropdown || $display_sortby_dropdown) {?>
                             <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
                                 <!-- Views dropdown -->
-                                <?php if($display_viewas_dropdown) { ?>
-                                    <div class="dropdown">
-                                        <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <?php _e( "View as", ATBDP_TEXTDOMAIN ); ?> <span class="caret"></span>
-                                        </a>
+                                <?php if($display_viewas_dropdown) {
+                                    $html = '<div class="dropdown">';
+                                    $html .= '<a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            '. __( "View as", ATBDP_TEXTDOMAIN ).'<span class="caret"></span>
+                                        </a>';
+                                    $html .= '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">';
+                                    $views = atbdp_get_listings_view_options();
+                                    foreach ($views as $value => $label) {
+                                        $active_class = ($view == $value) ? ' active' : '';
+                                        $html .= sprintf('<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg('view', $value), $label);
 
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <?php
-                                            $views = atbdp_get_listings_view_options();
-
-                                            foreach( $views as $value => $label ) {
-                                                $active_class = ( $view == $value ) ? ' active' : '';
-                                                printf( '<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg( 'view', $value ), $label );
-                                            }
-                                            ?>
-                                        </div>
-                                    </div>
+                                    }
+                                    $html .= '</div>';
+                                    $html .= '</div>';
+                                    /**
+                                     * @since 5.0.0
+                                     * @package Directorist
+                                     * @param htmlUms       $html it return the markup for list and grid
+                                     * @param string        $view the shortcode attr view_as value
+                                     * @param array         $views it return the views type array
+                                     *
+                                     */
+                                   echo apply_filters('atbdp_listings_view_as', $html, $view, $views);
+                                    ?>
                                 <?php } ?>
                                 <!-- Orderby dropdown -->
                                 <?php
@@ -372,18 +379,18 @@ $column_width = 100/$columns .'%';
                                                         <?php
                                                         if ($totalTerm>1){
                                                             ?>
-                                                            <span class="atbd_cat_popup">  +<?php echo $totalTerm-1; ?>
-                                                                <span class="atbd_cat_popup_wrapper">
+                                                            <div class="atbd_cat_popup"> <span>+<?php echo $totalTerm-1; ?></span>
+                                                                <div class="atbd_cat_popup_wrapper">
                                                                     <?php
                                                                     $output = array();
                                                                     foreach (array_slice($cats,1) as $cat) {
                                                                         $link = ATBDP_Permalink::atbdp_get_category_page($cat);
                                                                         $space = str_repeat(' ', 1);
-                                                                        $output []= "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
+                                                                        $output []= "{$space}<span><a href='{$link}'>{$cat->name}<span>,</span></a></span>";
                                                                          }?>
                                                                     <span><?php echo join($output);?></span>
-                                                                </span>
-                                                            </span>
+                                                                </div>
+                                                            </div>
                                                             <?php } ?>
                                                     </div>
                                                 </div>

@@ -632,10 +632,10 @@ jQuery(function ($) {
 
         });
 
-        $('#atbdp_tabs a').click(function(e) {
+        /*$('#atbdp_tabs a').click(function(e) {
             e.preventDefault();
             $(this).tab('show');
-        });
+        });*/
 
 // store the currently selected tab in the hash value
         $("ul.nav-tabs > li > a").on("show.bs.tab", function(e) {
@@ -667,7 +667,6 @@ jQuery(function ($) {
     if(listing_size < 200){
         $(".atbd_single_listing .db_btn_area").addClass("db_btn_area--sm");
     }
-
 
 })(jQuery);
 

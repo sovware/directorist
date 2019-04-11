@@ -2,7 +2,7 @@
 <div id="directorist" class="atbd_wrapper">
     <div class="container-fluid">
         <div class="col-md-12">
-            <ul class="atbd_all_categories">
+            <div class="atbd_all_categories">
                 <?php
                 $terms = is_array($terms) ? $terms : array();
                 $i = 0;
@@ -19,27 +19,27 @@
                         echo '<div class="row atbdp-no-margin">';
                     }
                     ?>
-                    <li class="<?php echo $span;?>">
-                        <a href="<?php  echo ATBDP_Permalink::atbdp_get_category_page($term) ?>">
-                            <?php
-                            if ('none' != $icon){
-                               ?>
-                                <span class="fa <?php echo !empty($icon) ? $icon : '';?>"></span>
-                            <?php
-                            }
-                            ?>
-                            <p><?php echo $term->name;?>
+                    <div class="<?php echo $span;?>">
+                        <a class="atbd_category_single" href="<?php  echo ATBDP_Permalink::atbdp_get_category_page($term) ?>">
+                            <img src="https://placespro.listingprowp.com/wp-content/uploads/2017/04/boating-300x224-270x197.jpeg" alt="">
+                            <div class="atbd_category_single_content">
                                 <?php
-                                if(!empty($categories_settings['show_count'])){
-                                    $expired_listings = atbdp_get_expired_listings(ATBDP_CATEGORY, $term->term_id);
-                                    $number_of_expired = $expired_listings->post_count;
-                                    $number_of_expired = !empty($number_of_expired)?$number_of_expired:'0';
-                                    $totat = ($count)?($count-$number_of_expired):$count;
-                                    echo "(". $totat .")";
+                                if ('none' != $icon){
+                                ?>
+                                    <span class="fa <?php echo !empty($icon) ? $icon : '';?>"></span>
+                                <?php
                                 }
-                                ?></p>
+                                ?>
+                                <p><?php echo $term->name;?>
+                                    <?php
+                                    if(!empty($categories_settings['show_count'])){
+                                        echo "(". $count .")";
+                                    }
+                                    ?>
+                                </p>
+                            </div>
                         </a>
-                    </li>
+                    </div>
 
                 <?php
                     $i++;
@@ -48,7 +48,7 @@
                         echo '</div>';
                     }
                 } ?>
-            </ul>
+            </div>
         </div>
     </div>
 </div>

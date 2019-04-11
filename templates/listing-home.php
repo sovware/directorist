@@ -77,6 +77,7 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                                     wp_dropdown_categories($args);
                                     ?>
                                 </div>
+
                             </div>
                             <?php }
                             if(!empty($display_location_field)) { ?>
@@ -166,5 +167,4 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
     </div><!-- end directory_main_area -->
 </div><!-- end search area container -->
 <!-- end search section -->
-
 

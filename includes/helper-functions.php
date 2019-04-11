@@ -1544,7 +1544,7 @@ function atbdp_display_price_range($price_range)
     $output = '';
     if ('skimming' == $price_range) {
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing">
+            '<span class="atbd_meta atbd_listing_average_pricing" data-toggle="tooltip" data-placement="top" title="" data-original-title="Skimming">
             <span class="atbd_active">$</span>
             <span class="atbd_active">$</span>
             <span class="atbd_active">$</span>
@@ -1553,7 +1553,7 @@ function atbdp_display_price_range($price_range)
 
     } elseif ('moderate' == $price_range) {
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing">
+            '<span class="atbd_meta atbd_listing_average_pricing" data-toggle="tooltip" data-placement="top" title="" data-original-title="Moderate">
             <span class="atbd_active">$</span>
             <span class="atbd_active">$</span>
             <span class="atbd_active">$</span>
@@ -1561,7 +1561,7 @@ function atbdp_display_price_range($price_range)
             </span>';
     } elseif ('economy' == $price_range) {
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing">
+            '<span class="atbd_meta atbd_listing_average_pricing" data-toggle="tooltip" data-placement="top" title="" data-original-title="Economy">
             <span class="atbd_active">$</span>
             <span class="atbd_active">$</span>
             <span>$</span>
@@ -1570,7 +1570,7 @@ function atbdp_display_price_range($price_range)
     } elseif ('bellow_economy' == $price_range) {
 
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing">
+            '<span class="atbd_meta atbd_listing_average_pricing" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cheap">
             <span class="atbd_active">$</span>
             <span>$</span>
             <span>$</span>
@@ -1987,6 +1987,23 @@ function atbdp_get_listings_view_options()
     }
 
     return $views;
+
+}
+
+/**
+ * @param $var
+ * @return array|string
+ */
+function atbdp_get_view_as($view){
+    $views = atbdp_get_listings_view_options();
+    $ways = '';
+    foreach ($views as $value => $label) {
+        $active_class = ($view == $value) ? ' active' : '';
+        $ways = sprintf('<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg('view', $value), $label);
+
+    }
+    return $ways;
+
 
 }
 

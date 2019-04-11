@@ -29,26 +29,20 @@ $display_viewas_dropdown = get_directorist_option('display_view_as', 1);
                             </div>
                             <?php if ($display_viewas_dropdown || $display_sortby_dropdown) { ?>
                                 <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
-                                    <?php if ($display_viewas_dropdown) { ?>
-                                        <div class="dropdown">
-                                            <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button"
-                                               id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                               aria-expanded="false">
-                                                <?php _e("View as", ATBDP_TEXTDOMAIN); ?> <span class="caret"></span>
+                                    <?php if ($display_viewas_dropdown) {
+                                        $view = !empty($view)?$view:'';
+                                        $view_as = '<div class="dropdown">
+                                            <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                '. __( "View as", ATBDP_TEXTDOMAIN ).'<span class="caret"></span>
                                             </a>
-
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <?php
-                                                $views = atbdp_get_listings_view_options();
-
-                                                foreach ($views as $value => $label) {
-                                                    $active_class = ($view == $value) ? ' active' : '';
-                                                    printf('<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg('view', $value), $label);
-                                                }
-                                                ?>
-                                            </div>
-                                        </div>
-                                    <?php } ?>
+                                                '. atbdp_get_view_as($view).'</div></div>';
+                                        /**
+                                        * @since 5.0.0
+                                        *
+                                        */
+                                        echo apply_filters('atbdp_all_listings_view_as', $view_as);
+                                        } ?>
 
                                     <!-- Orderby dropdown -->
                                     <?php if ($display_sortby_dropdown) { ?>

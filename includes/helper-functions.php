@@ -1990,6 +1990,23 @@ function atbdp_get_listings_view_options()
 
 }
 
+/**
+ * @param $var
+ * @return array|string
+ */
+function atbdp_get_view_as($view){
+    $views = atbdp_get_listings_view_options();
+    $ways = '';
+    foreach ($views as $value => $label) {
+        $active_class = ($view == $value) ? ' active' : '';
+        $ways = sprintf('<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg('view', $value), $label);
+
+    }
+    return $ways;
+
+
+}
+
 /*
  * Clean variables using sanitize_text_field. Arrays are cleaned recursively.
  * Non-scalar values are ignored.

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2019-04-09 10:28-0600\n"
+"POT-Creation-Date: 2019-04-10 10:18-0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -321,8 +321,9 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1979
 #: includes/classes/class-settings-manager.php:2169
 #: includes/classes/class-submit-widget.php:35
-#: includes/custom-fields/class-custom-field.php:695
+#: includes/custom-fields/class-custom-field.php:696
 #: includes/gateways/class-gateway.php:131
+#: templates/front-end/add-listing.php:163
 msgid "Title"
 msgstr ""
 
@@ -376,7 +377,7 @@ msgstr ""
 #: includes/classes/class-locations-widget.php:133
 #: includes/classes/class-tags-widget.php:134
 #: templates/front-end/all-listings/all-grid-listings.php:42
-#: templates/front-end/all-listings/all-list-listings.php:37
+#: templates/front-end/all-listings/all-list-listings.php:36
 msgid "View as"
 msgstr ""
 
@@ -431,7 +432,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1780
 #: includes/classes/class-tags-widget.php:146
 #: templates/front-end/payment-receipt.php:107
-#: templates/single-at_biz_dir.php:671
+#: templates/single-at_biz_dir.php:673
 msgid "Name"
 msgstr ""
 
@@ -504,18 +505,19 @@ msgstr ""
 #: includes/classes/class-contact-form-widget.php:60
 #: includes/classes/class-settings-manager.php:287
 #: includes/classes/class-settings-manager.php:2509
+#: templates/contact-info.php:158 templates/front-end/add-listing.php:781
 #: templates/front-end/user-registration-form.php:62
-#: templates/single-at_biz_dir.php:613 templates/single-at_biz_dir.php:675
+#: templates/single-at_biz_dir.php:615 templates/single-at_biz_dir.php:677
 msgid "Email"
 msgstr ""
 
 #: includes/classes/class-contact-form-widget.php:64
-#: templates/single-at_biz_dir.php:218 templates/single-at_biz_dir.php:679
+#: templates/single-at_biz_dir.php:218 templates/single-at_biz_dir.php:681
 msgid "Message"
 msgstr ""
 
 #: includes/classes/class-contact-form-widget.php:76
-#: templates/single-at_biz_dir.php:228 templates/single-at_biz_dir.php:691
+#: templates/single-at_biz_dir.php:228 templates/single-at_biz_dir.php:693
 msgid "Submit"
 msgstr ""
 
@@ -596,6 +598,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:252
 #: includes/classes/class-settings-manager.php:2265
 #: includes/classes/class-settings-manager.php:2983
+#: templates/front-end/add-listing.php:495
 #: templates/single-at_biz_dir.php:105
 msgid "Location"
 msgstr ""
@@ -640,7 +643,7 @@ msgstr ""
 
 #: includes/classes/class-custom-taxonomy.php:86
 #: includes/classes/class-custom-taxonomy.php:97
-#: includes/custom-fields/class-custom-field.php:718
+#: includes/custom-fields/class-custom-field.php:719
 #: includes/payments/class-order.php:547
 msgid "View"
 msgstr ""
@@ -1111,7 +1114,7 @@ msgstr ""
 
 #: includes/classes/class-enqueuer.php:325
 #: includes/classes/class-enqueuer.php:669
-#: includes/helper-functions.php:3481 templates/listing-home.php:62
+#: includes/helper-functions.php:3498 templates/listing-home.php:62
 #: templates/search-widget-front.php:12
 msgid "Select a category"
 msgstr ""
@@ -1325,7 +1328,6 @@ msgstr ""
 
 #: includes/classes/class-helper.php:228
 #: includes/classes/class-helper.php:303
-#: templates/front-end/add-listing.php:483
 msgid "Location:"
 msgstr ""
 
@@ -1371,12 +1373,12 @@ msgid "Directorist - Login Form"
 msgstr ""
 
 #: includes/classes/class-login-form-widget.php:46
-#: includes/classes/class-shortcode.php:2233
+#: includes/classes/class-shortcode.php:2243
 msgid " Invalid username or password!"
 msgstr ""
 
 #: includes/classes/class-login-form-widget.php:50
-#: includes/classes/class-shortcode.php:2236
+#: includes/classes/class-shortcode.php:2246
 #, php-format
 msgid "<p>Don't have an account? %s</p>"
 msgstr ""
@@ -1414,7 +1416,7 @@ msgstr ""
 #: includes/classes/class-metabox.php:179
 #: includes/classes/class-settings-manager.php:2989
 #: includes/classes/class-settings-manager.php:3245
-#: templates/front-end/add-listing.php:612
+#: templates/front-end/add-listing.php:631
 #: templates/single-at_biz_dir.php:106
 msgid "Contact Information"
 msgstr ""
@@ -1427,12 +1429,39 @@ msgstr ""
 msgid "Add Video for the Listing"
 msgstr ""
 
-#: includes/classes/class-metabox.php:291
-msgid "Video URL"
+#: includes/classes/class-metabox.php:290
+#: includes/classes/class-settings-manager.php:2767
+#: templates/front-end/add-listing.php:938
+msgid "Video Url"
+msgstr ""
+
+#: includes/classes/class-metabox.php:291 templates/add-listing.php:35
+#: templates/add-listing.php:51 templates/add-listing.php:98
+#: templates/contact-info.php:66 templates/contact-info.php:139
+#: templates/contact-info.php:150 templates/contact-info.php:159
+#: templates/contact-info.php:168 templates/front-end/add-listing.php:164
+#: templates/front-end/add-listing.php:176
+#: templates/front-end/add-listing.php:191
+#: templates/front-end/add-listing.php:215
+#: templates/front-end/add-listing.php:302
+#: templates/front-end/add-listing.php:496
+#: templates/front-end/add-listing.php:525
+#: templates/front-end/add-listing.php:565
+#: templates/front-end/add-listing.php:661
+#: templates/front-end/add-listing.php:745
+#: templates/front-end/add-listing.php:765
+#: templates/front-end/add-listing.php:782
+#: templates/front-end/add-listing.php:799
+#: templates/front-end/add-listing.php:939
+#: templates/front-end/front-media-upload.php:39
+#: templates/front-end/front-media-upload.php:78
+#: templates/media-upload.php:32 templates/media-upload.php:67
+#: templates/meta-partials/social.php:8
+msgid ":"
 msgstr ""
 
 #: includes/classes/class-metabox.php:292
-#: templates/front-end/add-listing.php:907
+#: templates/front-end/add-listing.php:944
 msgid "Only YouTube & Vimeo URLs."
 msgstr ""
 
@@ -1449,7 +1478,7 @@ msgstr ""
 msgid "Advance Search"
 msgstr ""
 
-#: includes/classes/class-search-widget.php:72
+#: includes/classes/class-search-widget.php:81
 msgid "Search"
 msgstr ""
 
@@ -1587,12 +1616,11 @@ msgid "Form Fields"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:242
-#: templates/front-end/add-listing.php:174
+#: templates/front-end/add-listing.php:175
 msgid "Long Description"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:247
-#: includes/classes/class-settings-manager.php:2224
 #: templates/front-end/user-dashboard.php:474
 msgid "Category"
 msgstr ""
@@ -1604,12 +1632,12 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:262
 #: includes/classes/class-settings-manager.php:2334
-#: templates/add-listing.php:33 templates/front-end/add-listing.php:187
+#: templates/add-listing.php:34 templates/front-end/add-listing.php:190
 msgid "Tagline"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:267
-#: templates/front-end/add-listing.php:208
+#: templates/add-listing.php:50 templates/front-end/add-listing.php:214
 msgid "Pricing"
 msgstr ""
 
@@ -1619,25 +1647,30 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:277
 #: includes/classes/class-settings-manager.php:2438
+#: templates/contact-info.php:65 templates/front-end/add-listing.php:660
 msgid "Google Address"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:282
-#: templates/contact-info.php:149 templates/front-end/add-listing.php:742
+#: templates/contact-info.php:149 templates/contact-info.php:153
+#: templates/front-end/add-listing.php:764
+#: templates/front-end/add-listing.php:770
 msgid "Phone Number"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:292
 #: includes/classes/class-settings-manager.php:2545
+#: templates/contact-info.php:167 templates/front-end/add-listing.php:798
 #: templates/front-end/user-dashboard.php:353
 #: templates/front-end/user-registration-form.php:67
-#: templates/single-at_biz_dir.php:622
+#: templates/single-at_biz_dir.php:624
 msgid "Website"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:297
 #: includes/classes/class-settings-manager.php:2580
-#: templates/single-at_biz_dir.php:633
+#: templates/contact-info.php:138 templates/front-end/add-listing.php:744
+#: templates/single-at_biz_dir.php:635
 msgid "Zip/Post Code"
 msgstr ""
 
@@ -2501,10 +2534,10 @@ msgid "Header Title"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:1480
-#: includes/classes/class-shortcode.php:961
-#: includes/classes/class-shortcode.php:1398
-#: includes/classes/class-shortcode.php:1677
-#: includes/classes/class-shortcode.php:1914
+#: includes/classes/class-shortcode.php:971
+#: includes/classes/class-shortcode.php:1408
+#: includes/classes/class-shortcode.php:1687
+#: includes/classes/class-shortcode.php:1924
 msgid "All Items"
 msgstr ""
 
@@ -2516,10 +2549,10 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1486
 #: includes/classes/class-settings-manager.php:1958
 #: includes/classes/class-shortcode.php:161
-#: includes/classes/class-shortcode.php:962
-#: includes/classes/class-shortcode.php:1399
-#: includes/classes/class-shortcode.php:1678
-#: includes/classes/class-shortcode.php:1915
+#: includes/classes/class-shortcode.php:972
+#: includes/classes/class-shortcode.php:1409
+#: includes/classes/class-shortcode.php:1688
+#: includes/classes/class-shortcode.php:1925
 #: templates/search-at_biz_dir.php:10
 msgid "Total Listing Found: "
 msgstr ""
@@ -2576,8 +2609,8 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1568
 #: includes/classes/class-settings-manager.php:1983
 #: includes/classes/class-settings-manager.php:1992
-#: includes/custom-fields/class-custom-field.php:552
-#: includes/custom-fields/class-custom-field.php:700
+#: includes/custom-fields/class-custom-field.php:553
+#: includes/custom-fields/class-custom-field.php:701
 #: includes/payments/class-order.php:214
 #: templates/front-end/payment-receipt.php:48
 msgid "Date"
@@ -2720,7 +2753,7 @@ msgid "Connector Text"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:1906
-#: templates/front-end/add-listing.php:227 templates/listing-home.php:13
+#: templates/front-end/add-listing.php:235 templates/listing-home.php:13
 msgid "Or"
 msgstr ""
 
@@ -2851,7 +2884,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:2620
 #: includes/classes/class-settings-manager.php:2772
 #: includes/classes/class-settings-manager.php:2804
-#: includes/custom-fields/class-custom-field.php:698
+#: includes/custom-fields/class-custom-field.php:699
 msgid "Required"
 msgstr ""
 
@@ -2875,6 +2908,12 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:2196
 msgid "Long Details"
+msgstr ""
+
+#: includes/classes/class-settings-manager.php:2224
+#: templates/front-end/add-listing.php:564
+#: templates/front-end/add-listing.php:575
+msgid "Select Category"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2282
@@ -2904,16 +2943,17 @@ msgid "Required Price Range"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2403
-#: templates/add-listing.php:88 templates/front-end/add-listing.php:292
+#: templates/add-listing.php:97 templates/front-end/add-listing.php:301
 msgid "Short Description/Excerpt"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2473
-#: templates/single-at_biz_dir.php:604
+#: templates/single-at_biz_dir.php:606
 msgid "Phone"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2615
+#: templates/meta-partials/social.php:7
 msgid "Social Information"
 msgstr ""
 
@@ -2961,7 +3001,7 @@ msgid "Preview Image Label"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2705
-#: templates/front-end/front-media-upload.php:37
+#: templates/front-end/front-media-upload.php:38
 #: templates/media-upload.php:31
 msgid "Upload Preview Image"
 msgstr ""
@@ -2975,8 +3015,8 @@ msgid "Gallery Image Label"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2718
-#: templates/front-end/front-media-upload.php:73
-#: templates/media-upload.php:65
+#: templates/front-end/front-media-upload.php:77
+#: templates/media-upload.php:66
 msgid "Upload Slider Images"
 msgstr ""
 
@@ -2994,11 +3034,6 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:2741
 msgid "Gallery Image Only For Admin Use"
-msgstr ""
-
-#: includes/classes/class-settings-manager.php:2767
-#: templates/front-end/add-listing.php:903
-msgid "Video Url"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2795
@@ -3027,7 +3062,7 @@ msgid "Submit listing label"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2817
-#: templates/front-end/add-listing.php:950
+#: templates/front-end/add-listing.php:988
 msgid "Submit listing"
 msgstr ""
 
@@ -3293,7 +3328,7 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:3230
 #: templates/front-end/user-dashboard.php:361
-#: templates/single-at_biz_dir.php:593
+#: templates/single-at_biz_dir.php:595
 msgid "Address"
 msgstr ""
 
@@ -3609,8 +3644,8 @@ msgid ""
 "even more by using extensions. %s"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1328
-#: includes/classes/class-shortcode.php:2215
+#: includes/classes/class-shortcode.php:1338
+#: includes/classes/class-shortcode.php:2225
 #: includes/helper-functions.php:1335
 #, php-format
 msgid ""
@@ -3618,39 +3653,39 @@ msgid ""
 "login %s. Don't have an account? %s"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1328
-#: includes/classes/class-shortcode.php:2215
+#: includes/classes/class-shortcode.php:1338
+#: includes/classes/class-shortcode.php:2225
 #: includes/helper-functions.php:1335
 #: templates/front-end/user-registration-form.php:14
 #: templates/front-end/user-registration-form.php:101
 msgid "Here"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1328
-#: includes/classes/class-shortcode.php:2215
-#: includes/classes/class-shortcode.php:2236
+#: includes/classes/class-shortcode.php:1338
+#: includes/classes/class-shortcode.php:2225
+#: includes/classes/class-shortcode.php:2246
 #: templates/front-end/user-registration-form.php:95
 msgid "Sign Up"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1373
-#: includes/classes/class-shortcode.php:1652
+#: includes/classes/class-shortcode.php:1383
+#: includes/classes/class-shortcode.php:1662
 msgid "<p>No Results found!</p>"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1612
-#: includes/classes/class-shortcode.php:1891
-#: includes/classes/class-shortcode.php:2128
+#: includes/classes/class-shortcode.php:1622
+#: includes/classes/class-shortcode.php:1901
+#: includes/classes/class-shortcode.php:2138
 msgid "No Results Found."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2239
+#: includes/classes/class-shortcode.php:2249
 #, php-format
 msgid ""
 "Login page is not for logged-in user. <a href=\"%s\">Go Back To Home</a>"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2254
+#: includes/classes/class-shortcode.php:2264
 #, php-format
 msgid ""
 "Registration page is only for unregistered user. <a href=\"%s\">Go Back "
@@ -3697,6 +3732,7 @@ msgstr ""
 #: includes/classes/class-tags-widget.php:38
 #: includes/classes/class-tags-widget.php:112
 #: includes/classes/class-tags-widget.php:124
+#: templates/front-end/add-listing.php:524
 msgid "Tags"
 msgstr ""
 
@@ -3833,182 +3869,188 @@ msgstr ""
 msgid " Category"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:362
+#: includes/custom-fields/class-custom-field.php:363
 msgctxt "Post Type General Name"
 msgid "Custom Field"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:363
+#: includes/custom-fields/class-custom-field.php:364
 msgctxt "Post Type Singular Name"
 msgid "Custom Field"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:364
 #: includes/custom-fields/class-custom-field.php:365
 #: includes/custom-fields/class-custom-field.php:366
+#: includes/custom-fields/class-custom-field.php:367
 msgid "Custom Field"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:367
 #: includes/custom-fields/class-custom-field.php:368
+#: includes/custom-fields/class-custom-field.php:369
 msgid "Add New Field"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:369
+#: includes/custom-fields/class-custom-field.php:370
 msgid "New Field"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:370
+#: includes/custom-fields/class-custom-field.php:371
 msgid "Edit Field"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:371
+#: includes/custom-fields/class-custom-field.php:372
 msgid "Update Field"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:372
+#: includes/custom-fields/class-custom-field.php:373
 msgid "View Field"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:373
+#: includes/custom-fields/class-custom-field.php:374
 msgid "Search Field"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:374
+#: includes/custom-fields/class-custom-field.php:375
 #: includes/payments/class-order.php:64
 msgid "No orders found"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:375
+#: includes/custom-fields/class-custom-field.php:376
 #: includes/payments/class-order.php:65
 msgid "No orders found in Trash"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:380
+#: includes/custom-fields/class-custom-field.php:381
 #: includes/payments/class-order.php:70
 msgid ""
 "This order post type will keep track of user's order and payment status"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:413
+#: includes/custom-fields/class-custom-field.php:414
 msgid "Field Details"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:414
+#: includes/custom-fields/class-custom-field.php:415
 msgid "Display Options"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:470
-msgid "Assign to"
+#: includes/custom-fields/class-custom-field.php:445
+msgid "Include this field in the search form?"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:480
-msgid "Listing Form"
-msgstr ""
-
-#: includes/custom-fields/class-custom-field.php:508
-msgid "Specific Category"
-msgstr ""
-
-#: includes/custom-fields/class-custom-field.php:520
-msgid "-Select a category-"
-msgstr ""
-
-#: includes/custom-fields/class-custom-field.php:546
-msgid "Text"
-msgstr ""
-
-#: includes/custom-fields/class-custom-field.php:547
-msgid "Text Area"
-msgstr ""
-
-#: includes/custom-fields/class-custom-field.php:548
-msgid "Select"
-msgstr ""
-
-#: includes/custom-fields/class-custom-field.php:549
-msgid "Checkbox"
-msgstr ""
-
-#: includes/custom-fields/class-custom-field.php:550
-msgid "Radio Button"
-msgstr ""
-
-#: includes/custom-fields/class-custom-field.php:551
-msgid "URL"
-msgstr ""
-
-#: includes/custom-fields/class-custom-field.php:553
-msgid "Color"
-msgstr ""
-
-#: includes/custom-fields/class-custom-field.php:554
-msgid "Time"
-msgstr ""
-
-#: includes/custom-fields/class-custom-field.php:590
-msgid "Field Type"
-msgstr ""
-
-#: includes/custom-fields/class-custom-field.php:607
-msgid "Field Description"
-msgstr ""
-
-#: includes/custom-fields/class-custom-field.php:608
-msgid "Tooltip instructions for author"
-msgstr ""
-
-#: includes/custom-fields/class-custom-field.php:614
-msgid "Required?"
-msgstr ""
-
-#: includes/custom-fields/class-custom-field.php:619
-#: includes/custom-fields/class-custom-field.php:660
+#: includes/custom-fields/class-custom-field.php:455
+#: includes/custom-fields/class-custom-field.php:620
+#: includes/custom-fields/class-custom-field.php:661
 msgid "Yes"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:624
-#: includes/custom-fields/class-custom-field.php:665
+#: includes/custom-fields/class-custom-field.php:462
+#: includes/custom-fields/class-custom-field.php:625
+#: includes/custom-fields/class-custom-field.php:666
 msgid "No"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:633
+#: includes/custom-fields/class-custom-field.php:471
+msgid "Assign to"
+msgstr ""
+
+#: includes/custom-fields/class-custom-field.php:481
+msgid "Listing Form"
+msgstr ""
+
+#: includes/custom-fields/class-custom-field.php:509
+msgid "Specific Category"
+msgstr ""
+
+#: includes/custom-fields/class-custom-field.php:521
+msgid "-Select a category-"
+msgstr ""
+
+#: includes/custom-fields/class-custom-field.php:547
+msgid "Text"
+msgstr ""
+
+#: includes/custom-fields/class-custom-field.php:548
+msgid "Text Area"
+msgstr ""
+
+#: includes/custom-fields/class-custom-field.php:549
+msgid "Select"
+msgstr ""
+
+#: includes/custom-fields/class-custom-field.php:550
+msgid "Checkbox"
+msgstr ""
+
+#: includes/custom-fields/class-custom-field.php:551
+msgid "Radio Button"
+msgstr ""
+
+#: includes/custom-fields/class-custom-field.php:552
+msgid "URL"
+msgstr ""
+
+#: includes/custom-fields/class-custom-field.php:554
+msgid "Color"
+msgstr ""
+
+#: includes/custom-fields/class-custom-field.php:555
+msgid "Time"
+msgstr ""
+
+#: includes/custom-fields/class-custom-field.php:591
+msgid "Field Type"
+msgstr ""
+
+#: includes/custom-fields/class-custom-field.php:608
+msgid "Field Description"
+msgstr ""
+
+#: includes/custom-fields/class-custom-field.php:609
+msgid "Tooltip instructions for author"
+msgstr ""
+
+#: includes/custom-fields/class-custom-field.php:615
+msgid "Required?"
+msgstr ""
+
+#: includes/custom-fields/class-custom-field.php:634
 msgid "Options"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:635
+#: includes/custom-fields/class-custom-field.php:636
 msgid "Each on a new line, for example,"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:636
+#: includes/custom-fields/class-custom-field.php:637
 msgid "Male: Male"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:637
+#: includes/custom-fields/class-custom-field.php:638
 msgid "Female: Female"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:638
+#: includes/custom-fields/class-custom-field.php:639
 msgid "Other: Other"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:646
+#: includes/custom-fields/class-custom-field.php:647
 msgid "Rows"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:647
+#: includes/custom-fields/class-custom-field.php:648
 msgid "Textarea height"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:654
+#: includes/custom-fields/class-custom-field.php:655
 msgid "Open link in a new window?"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:696
+#: includes/custom-fields/class-custom-field.php:697
 msgid "Type"
 msgstr ""
 
-#: includes/custom-fields/class-custom-field.php:697
+#: includes/custom-fields/class-custom-field.php:698
 msgid "Assigned to"
 msgstr ""
 
@@ -4343,29 +4385,29 @@ msgstr ""
 msgid "Random listings"
 msgstr ""
 
-#: includes/helper-functions.php:2029 includes/helper-functions.php:2031
-#: includes/helper-functions.php:2036
+#: includes/helper-functions.php:2046 includes/helper-functions.php:2048
+#: includes/helper-functions.php:2053
 msgid "Favorite"
 msgstr ""
 
-#: includes/helper-functions.php:2426 includes/helper-functions.php:2796
-#: includes/helper-functions.php:3146
-#: templates/front-end/all-listings/all-grid-listings.php:341
+#: includes/helper-functions.php:2443 includes/helper-functions.php:2813
+#: includes/helper-functions.php:3163
+#: templates/front-end/all-listings/all-grid-listings.php:348
 #: templates/search-at_biz_dir.php:339
 #, php-format
 msgid "Posted %s ago"
 msgstr ""
 
-#: includes/helper-functions.php:2475 includes/helper-functions.php:2846
-#: includes/helper-functions.php:3198
-#: templates/front-end/all-listings/all-grid-listings.php:394
+#: includes/helper-functions.php:2492 includes/helper-functions.php:2863
+#: includes/helper-functions.php:3215
+#: templates/front-end/all-listings/all-grid-listings.php:401
 #: templates/search-at_biz_dir.php:389
 msgid "Uncategorized"
 msgstr ""
 
-#: includes/helper-functions.php:2510 includes/helper-functions.php:2881
-#: templates/front-end/all-listings/all-grid-listings.php:424
-#: templates/front-end/all-listings/all-list-listings.php:82
+#: includes/helper-functions.php:2527 includes/helper-functions.php:2898
+#: templates/front-end/all-listings/all-grid-listings.php:431
+#: templates/front-end/all-listings/all-list-listings.php:76
 #: templates/search-at_biz_dir.php:410
 msgid "No listing found."
 msgstr ""
@@ -4605,7 +4647,7 @@ msgid "Add New Order"
 msgstr ""
 
 #: includes/payments/class-order.php:58
-#: templates/meta-partials/social.php:46
+#: templates/meta-partials/social.php:49
 msgid "Add New"
 msgstr ""
 
@@ -4679,7 +4721,7 @@ msgstr ""
 msgid "Item(s)"
 msgstr ""
 
-#: includes/payments/class-order.php:509 templates/add-listing.php:52
+#: includes/payments/class-order.php:509 templates/add-listing.php:60
 #: templates/front-end/checkout-form.php:28
 #: templates/front-end/payment-receipt.php:108
 #, php-format
@@ -4741,9 +4783,9 @@ msgstr ""
 msgid "Invalid"
 msgstr ""
 
-#: templates/add-listing-custom-field.php:76 templates/add-listing.php:177
+#: templates/add-listing-custom-field.php:76 templates/add-listing.php:187
 #: templates/custom-field-search-form.php:36
-#: templates/front-end/add-listing.php:394
+#: templates/front-end/add-listing.php:405
 msgid "Select an Option"
 msgstr ""
 
@@ -4751,28 +4793,28 @@ msgstr ""
 msgid "No Title"
 msgstr ""
 
-#: templates/add-listing.php:38 templates/front-end/add-listing.php:192
+#: templates/add-listing.php:41 templates/front-end/add-listing.php:197
 msgid "Your Listing's motto or tag-line"
 msgstr ""
 
-#: templates/add-listing.php:57 templates/front-end/add-listing.php:233
+#: templates/add-listing.php:65 templates/front-end/add-listing.php:241
 #: templates/search-widget-front.php:64
 msgid "Price Range"
 msgstr ""
 
-#: templates/add-listing.php:67 templates/front-end/add-listing.php:251
+#: templates/add-listing.php:75 templates/front-end/add-listing.php:259
 msgid "Price of this listing. Eg. 100"
 msgstr ""
 
-#: templates/add-listing.php:93 templates/front-end/add-listing.php:297
+#: templates/add-listing.php:103 templates/front-end/add-listing.php:308
 msgid "Short Description or Excerpt"
 msgstr ""
 
-#: templates/ajax/social.php:18 templates/meta-partials/social.php:30
+#: templates/ajax/social.php:18 templates/meta-partials/social.php:33
 msgid "eg. http://example.com"
 msgstr ""
 
-#: templates/ajax/social.php:22 templates/meta-partials/social.php:35
+#: templates/ajax/social.php:22 templates/meta-partials/social.php:38
 msgid "Remove this item"
 msgstr ""
 
@@ -4780,93 +4822,73 @@ msgstr ""
 msgid "Check it to hide listing contact owner form"
 msgstr ""
 
-#: templates/contact-info.php:53 templates/front-end/add-listing.php:623
+#: templates/contact-info.php:53 templates/front-end/add-listing.php:642
 msgid "Check it to hide Contact Information for this listing"
 msgstr ""
 
-#: templates/contact-info.php:64 templates/front-end/add-listing.php:640
-msgid "Google Address:"
-msgstr ""
-
-#: templates/contact-info.php:67 templates/front-end/add-listing.php:644
+#: templates/contact-info.php:69 templates/front-end/add-listing.php:666
 msgid "Listing address eg. New York, USA"
 msgstr ""
 
-#: templates/contact-info.php:73 templates/front-end/add-listing.php:653
+#: templates/contact-info.php:75 templates/front-end/add-listing.php:675
 msgid "Delete Marker"
 msgstr ""
 
-#: templates/contact-info.php:77 templates/front-end/add-listing.php:657
+#: templates/contact-info.php:79 templates/front-end/add-listing.php:679
 msgid "You can drag pinpoint to place the correct address manually."
 msgstr ""
 
-#: templates/contact-info.php:82 templates/front-end/add-listing.php:663
+#: templates/contact-info.php:84 templates/front-end/add-listing.php:685
 msgid "Or Enter Coordinates (latitude and longitude) Manually."
 msgstr ""
 
-#: templates/contact-info.php:91 templates/front-end/add-listing.php:674
+#: templates/contact-info.php:93 templates/front-end/add-listing.php:696
 msgid "Latitude"
 msgstr ""
 
-#: templates/contact-info.php:95 templates/front-end/add-listing.php:678
+#: templates/contact-info.php:97 templates/front-end/add-listing.php:700
 msgid "Enter Latitude eg. 24.89904"
 msgstr ""
 
-#: templates/contact-info.php:100 templates/front-end/add-listing.php:684
+#: templates/contact-info.php:102 templates/front-end/add-listing.php:706
 msgid "Longitude"
 msgstr ""
 
-#: templates/contact-info.php:104 templates/front-end/add-listing.php:688
+#: templates/contact-info.php:106 templates/front-end/add-listing.php:710
 msgid "Enter Longitude eg. 91.87198"
 msgstr ""
 
-#: templates/contact-info.php:111 templates/front-end/add-listing.php:695
+#: templates/contact-info.php:113 templates/front-end/add-listing.php:717
 msgid "Generate on Map"
 msgstr ""
 
-#: templates/contact-info.php:118 templates/front-end/add-listing.php:704
+#: templates/contact-info.php:120 templates/front-end/add-listing.php:726
 msgid "Hide map for this listing."
 msgstr ""
 
-#: templates/contact-info.php:136 templates/front-end/add-listing.php:721
-msgid "Zip/Post Code:"
-msgstr ""
-
-#: templates/contact-info.php:140 templates/front-end/add-listing.php:726
+#: templates/contact-info.php:143 templates/front-end/add-listing.php:751
 msgid "Enter Zip/Post Code"
 msgstr ""
 
-#: templates/contact-info.php:146 templates/front-end/add-listing.php:738
-msgid "Phone Number:"
-msgstr ""
-
-#: templates/contact-info.php:154 templates/front-end/add-listing.php:752
-msgid "Email:"
-msgstr ""
-
-#: templates/contact-info.php:157 templates/front-end/add-listing.php:756
+#: templates/contact-info.php:162 templates/front-end/add-listing.php:787
 msgid "Enter Email"
 msgstr ""
 
-#: templates/contact-info.php:162 templates/front-end/add-listing.php:766
-msgid "Website:"
-msgstr ""
-
-#: templates/contact-info.php:166
+#: templates/contact-info.php:172
 msgid "Listing Website eg. http://example.com"
 msgstr ""
 
-#: templates/contact-info.php:199
+#: templates/contact-info.php:205
 msgid "Enter Information about Businss/Opening Hours"
 msgstr ""
 
-#: templates/contact-info.php:303 templates/contact-info.php:384
-#: templates/front-end/add-listing.php:1102
-#: templates/front-end/add-listing.php:1181
+#: templates/contact-info.php:309 templates/contact-info.php:390
+#: templates/front-end/add-listing.php:1143
+#: templates/front-end/add-listing.php:1222
 msgid "You can drag the marker to your desired place to place a marker"
 msgstr ""
 
-#: templates/contact-info.php:363 templates/front-end/add-listing.php:1160
+#: templates/contact-info.php:369 templates/front-end/add-listing.php:1201
 msgid "Geocode was not successful for the following reason: "
 msgstr ""
 
@@ -5024,7 +5046,7 @@ msgid "No Title "
 msgstr ""
 
 #: templates/front-end/add-listing.php:124
-#: templates/front-end/add-listing.php:950
+#: templates/front-end/add-listing.php:989
 msgid "Update Listing"
 msgstr ""
 
@@ -5032,87 +5054,74 @@ msgstr ""
 msgid "General information"
 msgstr ""
 
-#: templates/front-end/add-listing.php:164
-msgid ":"
-msgstr ""
-
 #: templates/front-end/add-listing.php:169
 msgid "Enter a title"
 msgstr ""
 
-#: templates/front-end/add-listing.php:219
+#: templates/front-end/add-listing.php:227
 #, php-format
 msgid "Price [%s]%s"
 msgstr ""
 
-#: templates/front-end/add-listing.php:258
+#: templates/front-end/add-listing.php:266
 msgid "Select Price Range"
 msgstr ""
 
-#: templates/front-end/add-listing.php:260
+#: templates/front-end/add-listing.php:268
 msgid "Ultra High ($$$$)"
 msgstr ""
 
-#: templates/front-end/add-listing.php:263
+#: templates/front-end/add-listing.php:271
 msgid "Expensive ($$$)"
 msgstr ""
 
-#: templates/front-end/add-listing.php:266
+#: templates/front-end/add-listing.php:274
 msgid "Moderate ($$)"
 msgstr ""
 
-#: templates/front-end/add-listing.php:269
+#: templates/front-end/add-listing.php:277
 msgid "Cheap ($)"
 msgstr ""
 
-#: templates/front-end/add-listing.php:489
+#: templates/front-end/add-listing.php:503
 msgid "Current Location:"
 msgstr ""
 
-#: templates/front-end/add-listing.php:509
-msgid "Tags:"
-msgstr ""
-
-#: templates/front-end/add-listing.php:516
+#: templates/front-end/add-listing.php:532
 msgid "Current Tags:"
 msgstr ""
 
-#: templates/front-end/add-listing.php:547
-#: templates/front-end/add-listing.php:556
-msgid "Select Category"
-msgstr ""
-
-#: templates/front-end/add-listing.php:633
+#: templates/front-end/add-listing.php:652
 msgid "Check it to hide Contact listing owner"
 msgstr ""
 
-#: templates/front-end/add-listing.php:659
+#: templates/front-end/add-listing.php:681
 msgid "SET 0 to LAT & LONG Field to HIDE MAP FOR THIS LISTING"
 msgstr ""
 
-#: templates/front-end/add-listing.php:771
+#: templates/front-end/add-listing.php:805
 msgid "Listing website eg. http://example.com"
 msgstr ""
 
-#: templates/front-end/add-listing.php:814
+#: templates/front-end/add-listing.php:848
 msgid "Opening/Business Hour Information"
 msgstr ""
 
-#: templates/front-end/add-listing.php:933
+#: templates/front-end/add-listing.php:970
 msgid "I Agree with all "
 msgstr ""
 
-#: templates/front-end/add-listing.php:935
+#: templates/front-end/add-listing.php:972
 msgid "terms & conditions"
 msgstr ""
 
-#: templates/front-end/all-listings/all-grid-listings.php:63
-#: templates/front-end/all-listings/all-list-listings.php:59
+#: templates/front-end/all-listings/all-grid-listings.php:70
+#: templates/front-end/all-listings/all-list-listings.php:53
 #: templates/search-at_biz_dir.php:62
 msgid "Sort by"
 msgstr ""
 
-#: templates/front-end/all-listings/all-grid-listings.php:214
+#: templates/front-end/all-listings/all-grid-listings.php:221
 #: templates/search-at_biz_dir.php:212
 msgid "Open Now"
 msgstr ""
@@ -5135,38 +5144,38 @@ msgstr ""
 msgid "Pay Now"
 msgstr ""
 
-#: templates/front-end/front-media-upload.php:38
-#: templates/front-end/front-media-upload.php:77
+#: templates/front-end/front-media-upload.php:41
+#: templates/front-end/front-media-upload.php:83
 msgid "(Field is required)"
 msgstr ""
 
-#: templates/front-end/front-media-upload.php:54
-#: templates/media-upload.php:46
+#: templates/front-end/front-media-upload.php:57
+#: templates/media-upload.php:47
 msgid "Listing Image"
 msgstr ""
 
-#: templates/front-end/front-media-upload.php:56
-#: templates/media-upload.php:48
+#: templates/front-end/front-media-upload.php:59
+#: templates/media-upload.php:49
 msgid "Remove it"
 msgstr ""
 
-#: templates/front-end/front-media-upload.php:61
-#: templates/media-upload.php:53
+#: templates/front-end/front-media-upload.php:64
+#: templates/media-upload.php:54
 msgid "No Image Found"
 msgstr ""
 
-#: templates/front-end/front-media-upload.php:62
-#: templates/media-upload.php:54
+#: templates/front-end/front-media-upload.php:65
+#: templates/media-upload.php:55
 msgid "No Images"
 msgstr ""
 
-#: templates/front-end/front-media-upload.php:76
-#: templates/media-upload.php:68
+#: templates/front-end/front-media-upload.php:82
+#: templates/media-upload.php:70
 msgid "Remove Images"
 msgstr ""
 
-#: templates/front-end/front-media-upload.php:76
-#: templates/media-upload.php:68
+#: templates/front-end/front-media-upload.php:82
+#: templates/media-upload.php:70
 msgid "Remove Image"
 msgstr ""
 
@@ -5509,10 +5518,6 @@ msgstr ""
 msgid "Mark as"
 msgstr ""
 
-#: templates/meta-partials/social.php:6
-msgid "Social Information:"
-msgstr ""
-
 #: templates/search-at_biz_dir.php:9
 msgid "Search Result: "
 msgstr ""
@@ -5559,42 +5564,46 @@ msgid "Search by Location"
 msgstr ""
 
 #: templates/search-widget-form.php:29
-msgid "Search by Custom Fields"
+msgid "Search by Tag"
 msgstr ""
 
 #: templates/search-widget-form.php:34
-msgid "Search by Price"
+msgid "Search by Custom Fields"
 msgstr ""
 
 #: templates/search-widget-form.php:39
-msgid "Search by Price Range"
+msgid "Search by Price"
 msgstr ""
 
 #: templates/search-widget-form.php:44
-msgid "Search by Open Now"
+msgid "Search by Price Range"
 msgstr ""
 
 #: templates/search-widget-form.php:49
-msgid "Search by Review"
+msgid "Search by Open Now"
 msgstr ""
 
 #: templates/search-widget-form.php:54
-msgid "Search by Website"
+msgid "Search by Review"
 msgstr ""
 
 #: templates/search-widget-form.php:59
-msgid "Search by Email"
+msgid "Search by Website"
 msgstr ""
 
 #: templates/search-widget-form.php:64
-msgid "Search by Phone Number"
+msgid "Search by Email"
 msgstr ""
 
 #: templates/search-widget-form.php:69
-msgid "Search by Address"
+msgid "Search by Phone Number"
 msgstr ""
 
 #: templates/search-widget-form.php:74
+msgid "Search by Address"
+msgstr ""
+
+#: templates/search-widget-form.php:79
 msgid "Search by Zip/Post Code"
 msgstr ""
 
@@ -5614,7 +5623,7 @@ msgstr ""
 msgid "max"
 msgstr ""
 
-#: templates/search-widget-front.php:204
+#: templates/search-widget-front.php:203
 msgid "Search Listings"
 msgstr ""
 

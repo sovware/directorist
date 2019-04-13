@@ -110,7 +110,7 @@
                     ?>
                     <script>
                         jQuery(document).ready(function ($) {
-                            $('.search-color-field').wpColorPicker();
+                            $('.search-color-field').wpColorPicker().empty();
                         });
                     </script>
                     <?php

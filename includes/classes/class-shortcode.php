@@ -731,8 +731,36 @@ if ( !class_exists('ATBDP_Shortcode') ):
                         $listings->the_post();
                         $listing_id = get_the_ID();
                         $average = ATBDP()->review->get_average($listing_id);
-                        if ($average === $q_rating){
-                            $rated[] = get_the_ID();
+                        if ($q_rating === '5'){
+                            if (($average>'4') && ($average<='5')){
+                                $rated[] = get_the_ID();
+                            }else{
+                                $rated[] =array();
+                            }
+                        }elseif ($q_rating === '4'){
+                            if (($average>'3') && ($average<='4')){
+                                $rated[] = get_the_ID();
+                            }else{
+                                $rated[] =array();
+                            }
+                        }elseif ($q_rating === '3'){
+                            if (($average>'2') && ($average<='3')){
+                                $rated[] = get_the_ID();
+                            }else{
+                                $rated[] =array();
+                            }
+                        }elseif ($q_rating === '2'){
+                            if (($average>'2') && ($average<='3')){
+                                $rated[] = get_the_ID();
+                            }else{
+                                $rated[] =array();
+                            }
+                        }elseif ($q_rating === '1'){
+                            if (($average>'2') && ($average<='1')){
+                                $rated[] = get_the_ID();
+                            }else{
+                                $rated[] =array();
+                            }
                         }elseif ('' === $q_rating){
                             if ($average === ''){
                                 $rated[] = get_the_ID();

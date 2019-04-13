@@ -18,6 +18,7 @@ $display_website_field = get_directorist_option('display_website_field', 1);
 $display_zip_field = get_directorist_option('display_zip_field', 1);
 $display_social_info_field = get_directorist_option('display_social_info_field', 1);
 $display_map_field = get_directorist_option('display_map_field', 1);
+$select_listing_map = get_directorist_option('select_listing_map', 'google');
 $t = '';//later need to configure the marker info window
 //$t = !empty( $t ) ? esc_html($t) : __('No Title ', ATBDP_TEXTDOMAIN);
 $tg = !empty( $tagline ) ? esc_html($tagline) : '';
@@ -67,16 +68,22 @@ $info_content .= "<p> {$ad}</p></div>";
                     <input type="text" name="address" id="address" value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
                         class="form-control directory_field"
                         placeholder="<?php esc_html_e('Listing address eg. New York, USA', ATBDP_TEXTDOMAIN); ?>"/>
+                    <div id="result">
+                        <ul></ul>
+                    </div>
                 </div>
             <?php } ?>
             <div class="map_wrapper">
+                <?php if('google' == $select_listing_map) {?>
                 <div id="floating-panel">
                     <button class="btn btn-danger"
                             id="delete_marker"> <?php _e('Delete Marker', ATBDP_TEXTDOMAIN); ?></button>
                 </div>
-
+                <?php } ?>
                 <div id="gmap"></div>
+                <?php if('google' == $select_listing_map) {?>
                 <small class="map_drag_info"><i class="fa fa-info-circle" aria-hidden="true"></i> <?php _e('You can drag pinpoint to place the correct address manually.', ATBDP_TEXTDOMAIN); ?></small>
+                 <?php } ?>
                 <div class="map-coordinate form-group">
                     <div class="cor-wrap map_cor">
                         <input type="checkbox" name="manual_coordinate" value="1"
@@ -92,7 +99,7 @@ $info_content .= "<p> {$ad}</p></div>";
                             <div class="form-group">
                                 <label for="manual_lat"> <?php _e('Latitude', ATBDP_TEXTDOMAIN); ?>  </label>
                                 <input type="text" name="manual_lat" id="manual_lat"
-                                    value="<?= (!empty($manual_lat)) ? $manual_lat : '' ?>"
+                                    value="<?= (!empty($manual_lat)) ? $manual_lat : $default_latitude ?>"
                                     class="form-control directory_field"
                                     placeholder="<?php esc_attr_e('Enter Latitude eg. 24.89904', ATBDP_TEXTDOMAIN); ?>"/>
                             </div>
@@ -101,7 +108,7 @@ $info_content .= "<p> {$ad}</p></div>";
                             <div class="form-group">
                                 <label for="manual_lng"> <?php _e('Longitude', ATBDP_TEXTDOMAIN); ?> </label>
                                 <input type="text" name="manual_lng" id="manual_lng"
-                                    value="<?= (!empty($manual_lng)) ? $manual_lng : '' ?>"
+                                    value="<?= (!empty($manual_lng)) ? $manual_lng : $default_longitude ?>"
                                     class="form-control directory_field"
                                     placeholder="<?php esc_attr_e('Enter Longitude eg. 91.87198', ATBDP_TEXTDOMAIN); ?>"/>
                             </div>
@@ -215,7 +222,11 @@ $info_content .= "<p> {$ad}</p></div>";
 
 ?>
 </div>
-
+<?php
+    if('openstreet' == $select_listing_map) { ?>
+        <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+   <?php }
+?>
 <script>
 
     // Bias the auto complete object to the user's geographical location,
@@ -224,7 +235,9 @@ $info_content .= "<p> {$ad}</p></div>";
     jQuery(document).ready(function ($) {
 
 
-        <?php if (!empty($display_map_field) && !empty($display_address_field)) { ?>
+        <?php if (!empty($display_map_field) && !empty($display_address_field) ) {
+            if('google' == $select_listing_map) {
+        ?>
 
         // initialize all vars here to avoid hoisting related misunderstanding.
         var placeSearch, map, autocomplete, address_input, markers, info_window, $manual_lat, $manual_lng, saved_lat_lng, info_content;
@@ -412,10 +425,83 @@ $info_content .= "<p> {$ad}</p></div>";
             }
             markers = [];
         }
-        <?php } ?>
+        <?php }elseif('openstreet' == $select_listing_map) { ?>
 
+        $('#address').on('keyup', function(event) {
+            event.preventDefault();
+            var address = $('#address').val();
+            $('#result').css({'display':'block'});
+            if(address === ""){
+                $('#result').css({'display':'none'});
+            }
+            var res = "";
+            $.ajax({
+                url: `https://nominatim.openstreetmap.org/?q=%27+${address}+%27&format=json`,
+                type: 'POST',
+                data: {},
+                success: function (data) {
+                    //console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
+                    }
+                    $('#result ul').html(res);
+                }
+            });
+        });
+        map = new OpenLayers.Map("gmap");
+
+
+
+        var mymap = (lon, lat) => {
+            map.addLayer(new OpenLayers.Layer.OSM());
+            var pois = new OpenLayers.Layer.Text( "My Points",
+                { location:"",
+                    projection: map.displayProjection
+                });
+            map.addLayer(pois);
+            // create layer switcher widget in top right corner of map.
+            var layer_switcher= new OpenLayers.Control.LayerSwitcher({});
+            map.addControl(layer_switcher);
+            //Set start centrepoint and zoom
+            var lonLat = new OpenLayers.LonLat( lon, lat )
+                .transform(
+                    new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                    map.getProjectionObject() // to Spherical Mercator Projection
+                );
+            var zoom= <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 16; ?>;
+            var markers = new OpenLayers.Layer.Markers( "Markers" );
+            map.addLayer(markers);
+            markers.addMarker(new OpenLayers.Marker(lonLat));
+            map.setCenter (lonLat, zoom);
+        }
+
+        var lat = $('#manual_lat').val(),
+            lon = $('#manual_lng').val();
+
+        mymap(lon, lat);
+
+        $('body').on('click', '#result ul li a', function(event) {
+            event.preventDefault();
+            var text = $(this).text(),
+                lat = $(this).data('lat'),
+                lon = $(this).data('lon');
+
+            $('#manual_lat').val(lat);
+            $('#manual_lng').val(lon);
+
+            $('#address').val(text);
+            $('#result').css({'display':'none'});
+            mymap(lon, lat);
+        });
+        <?php if(!empty($address)) {?>
+        $('#OL_Icon_34').append('<div class="mapHover"><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
+    <?php
+        } // adress
+         } // select map
+        } // disable map
+        ?>
 
     }); // ends jquery ready function.
 
-
 </script>
+

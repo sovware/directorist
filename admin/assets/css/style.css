@@ -411,4 +411,22 @@ css for Custom Field
   height: 35px !important;
 }
 
+/*open street map*/
+#OL_Icon_34{
+  position: relative;
+}
+
+.mapHover {
+  position: absolute;
+  background: #fff;
+  padding: 5px;
+  width: 150px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  display: none;
+}
+#OL_Icon_34:hover .mapHover{
+  display: block;
+}
+
 /*# sourceMappingURL=map/style.css.map */

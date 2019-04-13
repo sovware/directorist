@@ -39,6 +39,8 @@ if ( !class_exists('BD_Map_Widget')) {
                 global $post;
                 $manual_lat = get_post_meta($post->ID, '_manual_lat', true);
                 $manual_lng = get_post_meta($post->ID, '_manual_lng', true);
+                $address = get_post_meta($post->ID, '_address', true);
+                $select_listing_map = get_directorist_option('select_listing_map', 'google');
                 $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Map', ATBDP_TEXTDOMAIN);
                 $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 16;
                 echo $args['before_widget'];
@@ -53,10 +55,15 @@ if ( !class_exists('BD_Map_Widget')) {
                         </div>
 
                     <?php } ?>
+                    <?php
+                    if('openstreet' == $select_listing_map) { ?>
+                        <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+                    <?php }
+                    ?>
                     <script>
 
                         jQuery(document).ready(function ($) {
-
+                            <?php if('google' == $select_listing_map) {?>
                             // Do not show map if lat long is empty or map is globally disabled.
                             <?php if ((!empty($manual_lat) && !empty($manual_lng))){ ?>
                             // initialize all vars here to avoid hoisting related misunderstanding.
@@ -93,11 +100,62 @@ if ( !class_exists('BD_Map_Widget')) {
                                 var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
                                 $(this).html(link);
                             });
-                            <?php } ?>
+                            <?php }
+                            } elseif('openstreet' == $select_listing_map) { ?>
+                            map = new OpenLayers.Map("widgetMap");
+
+                            let mymap = (lon, lat) => {
+                                map.addLayer(new OpenLayers.Layer.OSM());
+                                let pois = new OpenLayers.Layer.Text( "My Points",
+                                    { location:"",
+                                        projection: map.displayProjection
+                                    });
+                                map.addLayer(pois);
+                                // create layer switcher widget in top right corner of map.
+                                let layer_switcher= new OpenLayers.Control.LayerSwitcher({});
+                                map.addControl(layer_switcher);
+                                //Set start centrepoint and zoom
+                                let lonLat = new OpenLayers.LonLat( lon, lat )
+                                    .transform(
+                                        new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                                        map.getProjectionObject() // to Spherical Mercator Projection
+                                    );
+                                let zoom= <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 16; ?>;
+                                let markers = new OpenLayers.Layer.Markers( "Markers" );
+                                map.addLayer(markers);
+                                markers.addMarker(new OpenLayers.Marker(lonLat));
+                                map.setCenter (lonLat, zoom);
+                            }
+
+                            let lat = <?php echo !empty($manual_lat) ? floatval($manual_lat) : false;?>,
+                                lon = <?php echo !empty($manual_lng) ? floatval($manual_lng) : false; ?>;
+
+                            mymap(lon, lat);
+                            $('#OL_Icon_33').append('<div class="mapHover"><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
+                       <?php }
+                            ?>
                         }); // ends jquery ready function.
 
 
                     </script>
+                <style>
+                    #OL_Icon_33{
+                        position: relative;
+                    }
+
+                    .mapHover {
+                        position: absolute;
+                        background: #fff;
+                        padding: 5px;
+                        width: 150px;
+                        border-radius: 3px;
+                        border: 1px solid #ddd;
+                        display: none;
+                    }
+                    #OL_Icon_33:hover .mapHover{
+                        display: block;
+                    }
+                </style>
 
                 <?php
                 echo $args['after_widget'];

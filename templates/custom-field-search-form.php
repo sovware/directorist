@@ -10,10 +10,6 @@
         <div class="form-group">
             <label><?php the_title(); ?></label>
 
-            <?php if( isset( $field_meta['instructions'] ) ) : ?>
-                <small class="help-block"><?php echo $field_meta['instructions'][0]; ?></small>
-            <?php endif; ?>
-
             <?php
             $value = '';
             if( isset( $_GET['cf'][ $post->ID ] ) ) {
@@ -33,7 +29,7 @@
 
                     printf( '<div class="select-basic"><select name="cf[%d]" class="form-control">', $post->ID );
 
-                        printf( '<option value="">%s</option>', '- '.__( 'Select an Option', 'advanced-classifieds-and-directory-pro' ).' -' );
+                        printf( '<option value="">%s</option>', '- '.__( 'Select an Option', ATBDP_TEMPLATES_DIR ).' -' );
 
                     foreach( $choices as $choice ) {
                         if( strpos( $choice, ':' ) !== false ) {
@@ -73,6 +69,7 @@
                         }
                         $_for = rand();
                         $_checked = '';
+
                         if( in_array( $_value, $values ) ) $_checked = ' checked="checked"';
 
                         printf( '<div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary"><input type="checkbox" name="cf[%d][]" id="%d" class="custom-control-input" value="%s"%s><span class="check--select"></span><label for="%d" class="custom-control-label">%s</label></div>', $post->ID,$_for, $_value, $_checked,$_for, $_label );
@@ -104,7 +101,7 @@
                     printf( '<input type="text" name="cf[%d]" class="form-control" value="%s"/>', $post->ID, esc_url( $value ) );
                     break;
                 case 'date' :
-                    printf( '<input type="date" name="cf[%d]" class="form-control" value="%s"/>', $post->ID, esc_url( $value ) );
+                    printf( '<input type="date" name="cf[%d]" class="form-control" value="%s"/>', $post->ID,  $value  );
                     break;
                 case 'color' :
                     ?>
@@ -117,7 +114,7 @@
                     printf( '<input type="color" name="cf[%d]" class="search-color-field" value="%s"/>', $post->ID, esc_url( $value ) );
                     break;
                 case 'time' :
-                    printf( '<input type="time" name="cf[%d]" class="form-control" value="%s"/>', $post->ID, esc_url( $value ) );
+                    printf( '<input type="time" name="cf[%d]" class="form-control" value="%s"/>', $post->ID,  $value  );
                     break;
             }
             ?>

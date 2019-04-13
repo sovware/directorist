@@ -5,22 +5,6 @@
                 <input type="text" name="q" placeholder="What are you looking for?" value="<?php echo !empty($_GET['q']) ? $_GET['q'] : ''; ?>" class="form-control">
             </div><!-- ends: .form-group -->
         <?php } ?>
-        <?php if(!empty($search_by_category)) {?>
-            <div class="form-group">
-                <?php
-                bdas_dropdown_terms( array(
-                    'show_option_none'   => '-- '.__( 'Select a category', ATBDP_TEXTDOMAIN ).' --',
-                    'option_none_value'  => -1,
-                    'taxonomy'           => 'at_biz_dir-category',
-                    'name' 			     => 'in_cat',
-                    'class'              => 'form-control bdas-category-search select-basic',
-                    'orderby'            => 'date',
-                    'order'              => 'ASC',
-                    'selected'           => isset( $_GET['in_cat'] ) ? (int) $_GET['in_cat'] : -1
-                ) );
-                ?>
-            </div>
-        <?php } ?>
         <?php if(!empty($search_by_location)) {?>
             <div class="form-group">
                 <?php
@@ -37,18 +21,18 @@
                 ?>
             </div>
         <?php } ?>
-        <?php if(!empty($search_by_tag)) { ?>
+        <?php if(!empty($search_by_category)) {?>
             <div class="form-group">
                 <?php
                 bdas_dropdown_terms( array(
-                    'show_option_none'   => '-- '.__( 'Select a Tag', ATBDP_TEXTDOMAIN ).' --',
+                    'show_option_none'   => '-- '.__( 'Select a category', ATBDP_TEXTDOMAIN ).' --',
                     'option_none_value'  => -1,
-                    'taxonomy'           => 'at_biz_dir-tags',
-                    'name' 			     => 'in_tag',
-                    'class'              => 'form-control bdas-tag-search select-basic',
+                    'taxonomy'           => 'at_biz_dir-category',
+                    'name' 			     => 'in_cat',
+                    'class'              => 'form-control bdas-category-search select-basic',
                     'orderby'            => 'date',
                     'order'              => 'ASC',
-                    'selected'           => isset( $_GET['in_tag'] ) ? (int) $_GET['in_tag'] : -1
+                    'selected'           => isset( $_GET['in_cat'] ) ? (int) $_GET['in_cat'] : -1
                 ) );
                 ?>
             </div>
@@ -85,7 +69,7 @@
             </div>
         </div><!-- ends: .form-group -->
         <?php } ?>
-        <?php if(!empty($search_by_open_now)) {?>
+        <?php if(!empty($search_by_open_now) && in_array( 'directorist-business-hours/bd-business-hour.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) )) {?>
         <div class="check-btn">
             <div class="btn-checkbox active-color-secondary">
                 <label>
@@ -125,6 +109,23 @@
                            value="<?php echo !empty($_GET['zip_code']) ? $_GET['zip_code'] : ''; ?>" class="form-control">
                 </div>
             </div><!-- ends: .form-group -->
+        <?php } ?>
+        <?php if(!empty($search_by_tag)) {
+            $terms = get_terms(ATBDP_TAGS);
+            ?>
+            
+            <div class="filter-checklist">
+                <h5>Filter by Tags</h5>
+                <div class="checklist-items">
+                    <?php foreach($terms as $term) {
+                        ?>
+                    <div class="">
+                        <input type="checkbox" class="custom-control-input" id="<?php echo $term->term_id;?>" name="in_tag" value="<?php echo $term->term_id;?>" <?php if(!empty($_GET['in_tag']) && $term->term_id == $_GET['in_tag']) { echo "checked";}?>>
+                        <label class="custom-control-label" for="<?php echo $term->term_id;?>"><?php echo $term->name;?></label>
+                    </div>
+                    <?php } ?>
+                </div>
+            </div><!-- ends: .filter-checklist -->
         <?php } ?>
         <?php if(!empty($search_by_review)) { ?>
             <div class="form-group filter-checklist">
@@ -201,6 +202,7 @@
         <?php } ?>
         <div class="form-group submit_btn">
             <button type="submit" class="btn btn-primary btn-block btn-icon icon-right"><?php _e( 'Search Listings', ATBDP_TEXTDOMAIN ); ?></button>
+            <a href="<?php echo get_permalink(); ?>" class="btn btn-default"><?php _e( 'Reset', ATBDP_TEXTDOMAIN ); ?></a>
         </div>
     </form><!-- ends: form -->
 </div><!-- ends: .default-ad-search -->

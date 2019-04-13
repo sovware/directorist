@@ -31,6 +31,20 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             //to remove custom category metabox form add new listing page
             //add_action( 'admin_menu', array($this,'remove_custom_taxonomy') );
 
+
+
+            /*show the select box form field to select an icon*/
+            add_action(ATBDP_LOCATION . '_add_form_fields', array($this, 'add_extra_location_field'), 10, 2);
+            /*create the meta data*/
+            add_action('created_' . ATBDP_LOCATION, array($this, 'save_location_extra_meta'), 10, 2);
+            /*Updating A Term With Meta Data*/
+            add_action(ATBDP_LOCATION . '_edit_form_fields', array($this, 'edit_location_extra_field'), 10, 2);
+            // update or save the meta data of the term
+            add_action('edited_' . ATBDP_LOCATION, array($this, 'update_location_field'), 10, 2);
+
+            // Modify the view link of the category tax
+            add_filter(ATBDP_LOCATION . '_row_actions', array($this, 'edit_taxonomy_view_link'), 10, 2);
+
             add_filter('term_link', array($this, 'taxonomy_redirect_page'), 10, 3);
             add_action('template_redirect', array($this, 'atbdp_template_redirect'));
 
@@ -134,6 +148,23 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             }
         }
 
+        /**
+         * This function will run when our taxonomy term will will be updated
+         * @param int $term_id Term id
+         * @param int $tt_id Taxonomy ID
+         */
+        public function update_location_field($term_id, $tt_id)
+        {
+
+
+            //UPDATED location IMAGE
+            if (isset($_POST['image']) && '' !== $_POST['image']) {
+                update_term_meta($term_id, 'image', (int)$_POST['image']);
+            } else {
+                update_term_meta($term_id, 'image', '');
+            }
+        }
+
         public function edit_category_icon_field($term, $taxonomy)
         {
             // get current group
@@ -175,12 +206,45 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             <?php
         }
 
+        public function edit_location_extra_field($term, $taxonomy)
+        {
+            //get current cat image
+            $image_id = get_term_meta($term->term_id, 'image', true);
+            $image_src = ($image_id) ? wp_get_attachment_url((int)$image_id) : '';
+            ?>
+            <tr class="form-field term-group-wrap">
+                <th scope="row">
+                    <label for="atbdp-categories-image-id"><?php _e('Image', ATBDP_TEXTDOMAIN); ?></label>
+                </th>
+                <td>
+                    <input type="hidden" id="atbdp-categories-image-id" name="image" value="<?php echo $image_id; ?>"/>
+                    <div id="atbdp-categories-image-wrapper">
+                        <?php if ($image_src) : ?>
+                            <img src="<?php echo $image_src; ?>"/>
+                        <?php endif; ?>
+                    </div>
+                    <p>
+                        <input type="button" class="button button-secondary" id="atbdp-categories-upload-image"
+                               value="<?php _e('Add Image', ATBDP_TEXTDOMAIN); ?>"/>
+                    </p>
+                </td>
+            </tr>
+            <?php
+        }
+
         public function save_category_icon_meta($term_id, $tt_id)
         {
             if (!empty($_POST['category_icon'])) {
                 $category_icon = sanitize_text_field($_POST['category_icon']);
                 add_term_meta($term_id, 'category_icon', $category_icon, true);
             }
+            if (isset($_POST['image']) && '' !== $_POST['image']) {
+                add_term_meta($term_id, 'image', (int)$_POST['image'], true);
+            }
+        }
+
+        public function save_location_extra_meta($term_id, $tt_id)
+        {
             if (isset($_POST['image']) && '' !== $_POST['image']) {
                 add_term_meta($term_id, 'image', (int)$_POST['image'], true);
             }
@@ -201,6 +265,21 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                     <?php endforeach; ?>
                 </select>
             </div>
+            <div class="form-field term-group">
+                <label for="atbdp-categories-image-id"><?php _e('Image', ATBDP_TEXTDOMAIN); ?></label>
+                <input type="hidden" id="atbdp-categories-image-id" name="image"/>
+                <div id="atbdp-categories-image-wrapper"></div>
+                <p>
+                    <input type="button" class="button button-secondary" id="atbdp-categories-upload-image"
+                           value="<?php _e('Add Image', ATBDP_TEXTDOMAIN); ?>"/>
+                </p>
+            </div>
+            <?php
+        }
+
+        public function add_extra_location_field($taxonomy)
+        {
+            ?>
             <div class="form-field term-group">
                 <label for="atbdp-categories-image-id"><?php _e('Image', ATBDP_TEXTDOMAIN); ?></label>
                 <input type="hidden" id="atbdp-categories-image-id" name="image"/>
@@ -369,6 +448,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
             return $empty_string;
         }
+
 
 
         public function display_terms_of_post($post_id, $term_name = 'category')

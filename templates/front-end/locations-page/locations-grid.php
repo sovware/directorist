@@ -6,6 +6,8 @@
         $span = 'col-md-' . floor( 12 /  $locations_settings['columns'] );
         $i = 0;
         foreach ($terms as $term) {
+            $image = get_term_meta($term->term_id,'image',true);
+            $location_image = wp_get_attachment_image_src($image, array('350', '280'))[0];
             $count = 0;
             if (!empty($locations_settings['hide_empty']) || !empty($locations_settings['show_count'])) {
                 $count = atbdp_listings_count_by_location($term->term_id);
@@ -17,6 +19,7 @@
             }
             ?>
             <div class="<?php echo $span;?>">
+                <img src="<?php echo !empty($location_image)?$location_image: ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'?>" alt="">
             <a class="atbd_location_grid" href="<?php echo ATBDP_Permalink::atbdp_get_location_page($term) ?>"
                class=""> <?php echo $term->name; ?>
                 <?php

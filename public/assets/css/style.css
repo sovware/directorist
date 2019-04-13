@@ -2825,11 +2825,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 0;
   border-radius: 3px;
   overflow: hidden;
+  width: 100%;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_single img {
-  width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_single .atbd_category_single_content {

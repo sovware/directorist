@@ -465,85 +465,87 @@ jQuery(function ($) {
 
     var avg_review = $("#average_review_for_popular").hide();
     var logged_count = $("#count_loggedin_user, #views_for_popular").hide();
-    if ($('#listing_popular_by select[name="listing_popular_by"]').val() === "average_rating"){
+    if ($('#listing_popular_by select[name="listing_popular_by"]').val() === "average_rating") {
         avg_review.show();
         logged_count.hide();
-    }else if($('#listing_popular_by select[name="listing_popular_by"]').val() === "view_count"){
+    } else if ($('#listing_popular_by select[name="listing_popular_by"]').val() === "view_count") {
         logged_count.show();
         avg_review.hide();
-    } else if($('#listing_popular_by select[name="listing_popular_by"]').val() === "both_view_rating"){
+    } else if ($('#listing_popular_by select[name="listing_popular_by"]').val() === "both_view_rating") {
         avg_review.show();
         logged_count.show();
     }
     $('#listing_popular_by select[name="listing_popular_by"]').on("change", function () {
-        if ($(this).val() === "average_rating"){
+        if ($(this).val() === "average_rating") {
             avg_review.show();
             logged_count.hide();
-        }else if($(this).val() === "view_count"){
+        } else if ($(this).val() === "view_count") {
             logged_count.show();
             avg_review.hide();
-        } else if($(this).val() === "both_view_rating"){
+        } else if ($(this).val() === "both_view_rating") {
             avg_review.show();
             logged_count.show();
         }
     });
 
-   /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
-    $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
+    /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
+     $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
 
-        if (frame) {
-            frame.open();
-            return;
-        }
+         if (frame) {
+             frame.open();
+             return;
+         }
 
-        // Create a new media frame
-        frame = wp.media({
-            title: atbdp_admin_data.i18n_text.upload_cat_image,
-            button: {
-                text: atbdp_admin_data.i18n_text.choose_image
-            },
-            library: {type: 'image'}, // only allow image upload only
-            multiple: multiple_image  // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
-        });
-        frame.open();
-    });*/
+         // Create a new media frame
+         frame = wp.media({
+             title: atbdp_admin_data.i18n_text.upload_cat_image,
+             button: {
+                 text: atbdp_admin_data.i18n_text.choose_image
+             },
+             library: {type: 'image'}, // only allow image upload only
+             multiple: multiple_image  // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
+         });
+         frame.open();
+     });*/
     /**
      * Display the media uploader for selecting an image.
      *
      * @since    1.0.0
      */
-    function atbdp_render_media_uploader( page ) {
+    function atbdp_render_media_uploader(page) {
 
         var file_frame, image_data, json;
 
         // If an instance of file_frame already exists, then we can open it rather than creating a new instance
-        if( undefined !== file_frame ) {
+        if (undefined !== file_frame) {
 
             file_frame.open();
             return;
 
-        };
+        }
+        ;
 
         // Here, use the wp.media library to define the settings of the media uploader
         file_frame = wp.media.frames.file_frame = wp.media({
-            frame    : 'post',
-            state    : 'insert',
-            multiple : false
+            frame: 'post',
+            state: 'insert',
+            multiple: false
         });
 
         // Setup an event handler for what to do when an image has been selected
-        file_frame.on( 'insert', function() {
+        file_frame.on('insert', function () {
 
             // Read the JSON data returned from the media uploader
-            json = file_frame.state().get( 'selection' ).first().toJSON();
+            json = file_frame.state().get('selection').first().toJSON();
 
             // First, make sure that we have the URL of an image to display
-            if( 0 > $.trim( json.url.length ) ) {
+            if (0 > $.trim(json.url.length)) {
                 return;
-            };
+            }
+            ;
 
             // After that, set the properties of the image and display it
-            if( 'listings' == page ) {
+            if ('listings' == page) {
 
                 var html = '<tr class="atbdp-image-row">' +
                     '<td class="atbdp-handle"><span class="dashicons dashicons-screenoptions"></span></td>' +
@@ -558,11 +560,11 @@ jQuery(function ($) {
                     '</td>' +
                     '</tr>';
 
-                $( '#atbdp-images' ).append( html );
+                $('#atbdp-images').append(html);
             } else {
 
-                $( '#atbdp-categories-image-id' ).val( json.id );
-                $( '#atbdp-categories-image-wrapper' ).html( '<img src="' + json.url + '" />' );
+                $('#atbdp-categories-image-id').val(json.id);
+                $('#atbdp-categories-image-wrapper').html('<img src="' + json.url + '" />');
 
             }
 
@@ -574,16 +576,16 @@ jQuery(function ($) {
     };
 
     // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
-    $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
+    $('#atbdp-categories-upload-image').on('click', function (e) {
 
         e.preventDefault();
 
-        atbdp_render_media_uploader( 'categories' );
+        atbdp_render_media_uploader('categories');
 
     });
 
     $('#submit').on('click', function () {
-        $('#atbdp-categories-upload-image').hide();
+        $('#atbdp-categories-image-wrapper img').attr('src', '');
     })
 
 });

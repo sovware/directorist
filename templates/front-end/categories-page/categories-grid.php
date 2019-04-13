@@ -14,6 +14,8 @@
                         if(!empty($categories_settings['hide_empty']) && 0 == $count) continue;
                     }
                     $icon = get_term_meta($term->term_id,'category_icon',true);
+                    $image = get_term_meta($term->term_id,'image',true);
+                    $cat_image = wp_get_attachment_image_src($image, 'thumbnail')[0];
                     $icon = !empty($icon)?$icon:'';
                     if( $i % $categories_settings['columns'] == 0 ) {
                         echo '<div class="row atbdp-no-margin">';
@@ -21,7 +23,7 @@
                     ?>
                     <div class="<?php echo $span;?>">
                         <a class="atbd_category_single" href="<?php  echo ATBDP_Permalink::atbdp_get_category_page($term) ?>">
-                            <img src="https://placespro.listingprowp.com/wp-content/uploads/2017/04/boating-300x224-270x197.jpeg" alt="">
+                            <img src="<?php echo !empty($cat_image)?$cat_image: ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'?>" alt="">
                             <div class="atbd_category_single_content">
                                 <?php
                                 if ('none' != $icon){

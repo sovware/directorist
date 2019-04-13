@@ -29,11 +29,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.scss" pinned="false" current-in-tab="true">
+      <file leaf-file-name="style.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin/style.scss">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="586">
               <caret line="369" column="17" lean-forward="true" selection-start-line="369" selection-start-column="17" selection-end-line="369" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_location-category.scss" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/component/_location-category.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="151" column="30" selection-start-line="151" selection-start-column="30" selection-end-line="151" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -43,6 +52,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>.directory_regi_btn</find>
+      <find>single</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -50,6 +60,8 @@
       <list>
         <option value="$PROJECT_DIR$/component/_general.scss" />
         <option value="$PROJECT_DIR$/admin/style.scss" />
+        <option value="$PROJECT_DIR$/../public/assets/css/search-style.css" />
+        <option value="$PROJECT_DIR$/component/_location-category.scss" />
       </list>
     </option>
   </component>
@@ -123,12 +135,12 @@
       <workItem from="1549986504028" duration="93000" />
       <workItem from="1550027018567" duration="190000" />
       <workItem from="1550027512630" duration="6000" />
-      <workItem from="1555138037898" duration="729000" />
+      <workItem from="1555138037898" duration="5557000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1018000" />
+    <option name="totallyTimeSpent" value="5846000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-8" width="1936" height="1056" extended-state="0" />
@@ -192,6 +204,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="586">
           <caret line="369" column="17" lean-forward="true" selection-start-line="369" selection-start-column="17" selection-end-line="369" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../public/assets/css/search-style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="557">
+          <caret line="253" column="22" selection-start-line="253" selection-start-column="22" selection-end-line="253" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/component/_location-category.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="151" column="30" selection-start-line="151" selection-start-column="30" selection-end-line="151" selection-end-column="30" />
         </state>
       </provider>
     </entry>

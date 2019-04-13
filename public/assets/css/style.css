@@ -2761,6 +2761,59 @@ body.atbd_content_active #directorist.atbd_wrapper {
   text-align: center;
   margin-top: 5px;
   color: #fff;
+  word-break: break-all;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-2 .atbd_category_single {
+  height: 100px;
+  margin-bottom: 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-2 .atbd_category_single img {
+  width: 100%;
+  min-height: 100%;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-2 .atbd_category_single span {
+  font-size: 18px;
+  margin-bottom: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-3 .atbd_category_single {
+  height: 150px;
+  margin-bottom: 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-3 .atbd_category_single img {
+  width: 100%;
+  min-height: 100%;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-4 .atbd_category_single {
+  height: 200px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-4 .atbd_category_single img {
+  width: 100%;
+  min-height: 100%;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-6 .atbd_category_single {
+  height: 350px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-6 .atbd_category_single img {
+  width: 100%;
+  min-height: 100%;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-12 .atbd_category_single {
+  height: 600px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-12 .atbd_category_single img {
+  width: 100%;
+  min-height: 100%;
 }
 
 #directorist.atbd_wrapper .atbdp_child_category li {
@@ -2790,6 +2843,19 @@ body.atbd_content_active #directorist.atbd_wrapper {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category_default {
+  border: 1px solid #e3e6ef;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category_default .atbd_category_single_content {
+  position: relative;
+  background: none;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category_default .atbd_category_single_content p, .atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category_default .atbd_category_single_content span {
+  color: #7a82a6;
 }
 
 /*responsive css */

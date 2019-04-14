@@ -2950,6 +2950,7 @@ function listing_view_by_list($all_listings)
             $locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);
             $featured = get_post_meta(get_the_ID(), '_featured', true);
             $price = get_post_meta(get_the_ID(), '_price', true);
+            $price_range = get_post_meta(get_the_ID(), '_price_range', true);
             $listing_pricing = get_post_meta(get_the_ID(), '_atbd_listing_pricing', true);
             $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
             $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
@@ -3104,10 +3105,13 @@ function listing_view_by_list($all_listings)
                                     }
                                     $listing_pricing = !empty($listing_pricing)?$listing_pricing:'';
                                     if (!empty($display_price) && !empty($display_pricing_field)) {
+
                                         if (!empty($price_range)  && ('range' === $listing_pricing)) {
-                                            atbdp_display_price_range($price_range);
+                                            $output = atbdp_display_price_range($price_range);
+                                            echo $output;
+                                        }else{
+                                            atbdp_display_price($price, $is_disable_price);
                                         }
-                                        atbdp_display_price($price, $is_disable_price);
                                     }
                                     /**
                                      * Fires after the price of the listing is rendered

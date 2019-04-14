@@ -250,3 +250,9 @@
 .position-relative{
     position: relative;
 }
+.iris-picker .iris-square{
+    margin-right: 10px;
+}
+.iris-picker .iris-strip{
+    height: 100% !important;
+}

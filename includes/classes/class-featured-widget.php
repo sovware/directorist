@@ -85,7 +85,7 @@ if (!class_exists('BD_Featured_Listings_Widget')) {
                                     <h4>
                                         <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?= esc_html(stripslashes(get_the_title())); ?></a>
                                     </h4>
-                                    <?php if (!empty($price) && ('range' === $listing_pricing)) { ?>
+                                    <?php if (!empty($price) && ('price' === $listing_pricing)) { ?>
                                         <span><?php atbdp_display_price($price); ?></span>
 
                                     <?php }else{

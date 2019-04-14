@@ -2756,7 +2756,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid.atbd_location_grid-default figure figcaption {
-  background: none;
+  background: #fff;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid.atbd_location_grid-default figure figcaption h3, .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid.atbd_location_grid-default figure figcaption p {
@@ -2961,7 +2961,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category-default figure figcaption {
-  background: none;
+  background: #fff;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category-default figure figcaption .icon, .atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category-default figure figcaption .cat-name {

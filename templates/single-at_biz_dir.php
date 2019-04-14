@@ -6,6 +6,7 @@ $listing_info['never_expire']       = get_post_meta($post->ID, '_never_expire', 
 $listing_info['featured']           = get_post_meta($post->ID, '_featured', true);
 $listing_info['price']              = get_post_meta($post->ID, '_price', true);
 $listing_info['price_range']        = get_post_meta($post->ID, '_price_range', true);
+$listing_info['atbd_listing_pricing'] = get_post_meta($post->ID, '_atbd_listing_pricing', true);
 $listing_info['videourl']           = get_post_meta($post->ID, '_videourl', true);
 $listing_info['listing_status']     = get_post_meta($post->ID, '_listing_status', true);
 $listing_info['tagline']            = get_post_meta($post->ID, '_tagline', true);
@@ -297,13 +298,14 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                             <?php if(empty($is_disable_price) || !empty($enable_review)) {?>
                             <div class="atbd_listing_meta">
                                 <?php
+                                $atbd_listing_pricing = !empty($atbd_listing_pricing)?$atbd_listing_pricing:'';
                                 if(empty($is_disable_price)){
                                     if(!empty($display_pricing_field)) {
-                                        if (!empty($price_range)) {
+                                        if (!empty($price_range) && ('range' === $atbd_listing_pricing)) {
                                             //is range selected then print it
                                             $output = atbdp_display_price_range($price_range);
                                             echo $output;
-                                        } else {
+                                        } else{
                                             atbdp_display_price($price, $is_disable_price);
                                         }
                                     }

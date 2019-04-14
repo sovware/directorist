@@ -204,6 +204,17 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 's'              => $s_string,
             );
 
+            if( $has_featured ) {
+                $args['meta_key'] = '_featured';
+                $args['orderby']  = array(
+                    'meta_value_num' => 'DESC',
+                    'title'          => 'ASC',
+                );
+            } else {
+                $args['orderby'] = 'title';
+                $args['order']   = 'ASC';
+            };
+
             // Define tax queries( only if applicable )
             $tax_queries = array();
 
@@ -750,13 +761,13 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                 $rated[] =array();
                             }
                         }elseif ($q_rating === '2'){
-                            if (($average>'2') && ($average<='3')){
+                            if (($average>'1') && ($average<='2')){
                                 $rated[] = get_the_ID();
                             }else{
                                 $rated[] =array();
                             }
                         }elseif ($q_rating === '1'){
-                            if (($average>'2') && ($average<='1')){
+                            if (($average>'0') && ($average<='1')){
                                 $rated[] = get_the_ID();
                             }else{
                                 $rated[] =array();

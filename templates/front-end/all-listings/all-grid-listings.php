@@ -278,9 +278,9 @@ $column_width = 100/$columns .'%';
                                              */
 
                                                 do_action('atbdp_after_listing_tagline');
-
+                                            $atbd_listing_pricing = !empty($atbd_listing_pricing)?$atbd_listing_pricing:'';
                                             if(!empty($display_price) && !empty($display_pricing_field)) {
-                                                if(!empty($price_range)) {
+                                                if(!empty($price_range) && ('range' === $atbd_listing_pricing)) {
                                                     $output = atbdp_display_price_range($price_range);
                                                     echo $output;
                                                 }else{

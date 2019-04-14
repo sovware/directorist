@@ -19,7 +19,14 @@
             }
             ?>
             <div class="<?php echo $span;?>">
-                <img src="<?php echo !empty($location_image)?$location_image: ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'?>" alt="">
+                <?php
+                if (!empty($location_image)){
+                    ?>
+                    <img src="<?php echo !empty($location_image)?$location_image: ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'?>" alt="">
+                <?php
+                }
+                ?>
+
             <a class="atbd_location_grid" href="<?php echo ATBDP_Permalink::atbdp_get_location_page($term) ?>"
                class=""> <?php echo $term->name; ?>
                 <?php

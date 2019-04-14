@@ -219,7 +219,7 @@ $select_listing_map = get_directorist_option('select_listing_map', 'google');
                                             if($plan_price){
                                                 ?>
                                                 <label for="price_selected" data-option="price">
-                                                    <input type="checkbox" id="price_selected" name="atbd_listing_pricing"
+                                                    <input type="checkbox" id="price_selected" value="price" name="atbd_listing_pricing"
                                                            checked>
                                                     <?php
                                                     $currency = get_directorist_option('g_currency', 'USD');
@@ -237,6 +237,7 @@ $select_listing_map = get_directorist_option('select_listing_map', 'google');
                                                 ?>
                                                 <label for="price_range_selected" data-option="price_range">
                                                     <input type="checkbox" id="price_range_selected"
+                                                           value="range"
                                                            name="atbd_listing_pricing">
                                                     <?php echo __('Price Range', ATBDP_TEXTDOMAIN);echo get_directorist_option('require_price_range')?'<span class="atbdp_make_str_red">*</span>':'';?>
                                                     <!--<p id='price_range_option'><?php /*echo __('Price Range', ATBDP_TEXTDOMAIN); */ ?></p></label>-->

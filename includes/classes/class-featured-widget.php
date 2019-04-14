@@ -62,6 +62,8 @@ if (!class_exists('BD_Featured_Listings_Widget')) {
                         $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
                         $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
                         $price = get_post_meta(get_the_ID(), '_price', true);
+                        $price_range = get_post_meta(get_the_ID(), '_price_range', true);
+                        $listing_pricing = get_post_meta(get_the_ID(), '_atbd_listing_pricing', true);
                         $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
                         ?>
                         <li>
@@ -83,10 +85,13 @@ if (!class_exists('BD_Featured_Listings_Widget')) {
                                     <h4>
                                         <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?= esc_html(stripslashes(get_the_title())); ?></a>
                                     </h4>
-                                    <?php if (!empty($price)) { ?>
+                                    <?php if (!empty($price) && ('range' === $listing_pricing)) { ?>
                                         <span><?php atbdp_display_price($price); ?></span>
 
-                                    <?php } ?>
+                                    <?php }else{
+                                        $output = atbdp_display_price_range($price_range);
+                                        echo $output;
+                                    } ?>
                                 </div>
 
                                 <?php if (!empty($cats)) {

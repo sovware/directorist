@@ -2957,12 +2957,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_single figure .cat-info > span {
-  margin: 0 2px;
+  margin: 0 3px;
+  font-size: 18px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_single figure .cat-name {
   color: #fff;
-  margin: 0 2px;
+  margin: 0 3px;
+  line-height: normal;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category-default figure img {
@@ -2973,7 +2975,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   background: #fff;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category-default figure figcaption .icon, .atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category-default figure figcaption .cat-name {
+.atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category-default figure figcaption .icon, .atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category-default figure figcaption .cat-name, .atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category-default figure figcaption .cat-info span {
   color: #444752;
 }
 

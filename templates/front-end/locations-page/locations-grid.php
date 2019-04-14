@@ -20,7 +20,7 @@
             ?>
             <div class="<?php echo $span;?>">
 
-                <a class="atbd_location_grid <?php echo !empty($location_image)?'':'atbd_category-default';?>" href="<?php echo ATBDP_Permalink::atbdp_get_location_page($term) ?>">
+                <a class="atbd_location_grid <?php echo !empty($location_image)?'':'atbd_location_grid-default';?>" href="<?php echo ATBDP_Permalink::atbdp_get_location_page($term) ?>">
                     <figure>
                         <?php if(!empty($location_image)) {
                             ?>

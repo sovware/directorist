@@ -22,26 +22,6 @@
                     }
                     ?>
                     <div class="<?php echo $span;?>">
-                        <!--<a class="atbd_category_single" href="<?php /* echo ATBDP_Permalink::atbdp_get_category_page($term) */?>">
-                            <img src="<?php /*echo !empty($cat_image)?$cat_image: ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'*/?>" alt="">
-                            <div class="atbd_category_single_content">
-                                <?php
-/*                                if ('none' != $icon){
-                                */?>
-                                    <span class="fa <?php /*echo !empty($icon) ? $icon : '';*/?>"></span>
-                                <?php
-/*                                }
-                                */?>
-                                <p>
-                                    <?php /*echo $term->name;*/?>
-                                    <?php
-/*                                    if(!empty($categories_settings['show_count'])){
-                                        echo "(". $count .")";
-                                    }
-                                    */?>
-                                </p>
-                            </div>
-                        </a>-->
 
                         <a class="atbd_category_single atbd_category-default" href="<?php  echo ATBDP_Permalink::atbdp_get_category_page($term) ?>">
                             <figure>
@@ -58,14 +38,18 @@
                                                 }
                                                 ?>
                                             </div>
-                                            <h4 class="cat-name">
-                                                <?php echo $term->name;?>
-                                                <?php
-                                                if(!empty($categories_settings['show_count'])){
-                                                    echo "(". $count .")";
-                                                }
-                                                ?>
-                                            </h4>
+                                            <div class="cat-info">
+                                                <h4 class="cat-name">
+                                                    <?php echo $term->name;?>
+                                                </h4>
+                                                <span>
+                                                    <?php
+                                                    if(!empty($categories_settings['show_count'])){
+                                                        echo "(". $count .")";
+                                                    }
+                                                    ?>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </figcaption>

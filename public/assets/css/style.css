@@ -2951,9 +2951,18 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding-bottom: 15px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_category_single figure .cat-info {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_category_single figure .cat-info > span {
+  margin: 0 2px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_single figure .cat-name {
   color: #fff;
-  margin: 0;
+  margin: 0 2px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category-default figure img {

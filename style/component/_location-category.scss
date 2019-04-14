@@ -243,9 +243,16 @@
     .icon{
       padding-bottom: 15px;
     }
+    .cat-info{
+      display: flex;
+      flex-wrap: wrap;
+      &>span{
+        margin: 0 2px;
+      }
+    }
     .cat-name{
       color: #fff;
-      margin: 0;
+      margin: 0 2px;
     }
   }
   &.atbd_category-default{

@@ -39,6 +39,9 @@
                                                     <span class="fa <?php echo !empty($icon) ? $icon : '';?>"></span>
 
                                             </div>
+                                            <?php
+                                            }
+                                            ?>
                                             <div class="cat-info">
                                                 <h4 class="cat-name">
                                                     <?php echo $term->name;?>

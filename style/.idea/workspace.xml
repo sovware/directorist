@@ -41,8 +41,15 @@
       <file leaf-file-name="_location-category.scss" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/component/_location-category.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="641">
-              <caret line="168" column="25" selection-start-line="168" selection-start-column="25" selection-end-line="168" selection-end-column="25" />
+            <state relative-caret-position="588">
+              <caret line="45" column="25" selection-start-line="45" selection-start-column="25" selection-end-line="45" selection-end-column="25" />
+              <folding>
+                <element signature="e#1373#1622#0" />
+                <element signature="e#1636#1806#0" />
+                <element signature="e#1820#1961#0" />
+                <element signature="e#1975#2116#0" />
+                <element signature="e#2131#2272#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -53,7 +60,11 @@
     <findStrings>
       <find>.directory_regi_btn</find>
       <find>single</find>
+      <find>atbd_location_grid</find>
     </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -136,12 +147,12 @@
       <workItem from="1550027018567" duration="190000" />
       <workItem from="1550027512630" duration="6000" />
       <workItem from="1555138037898" duration="7074000" />
-      <workItem from="1555223163284" duration="1113000" />
+      <workItem from="1555223163284" duration="3328000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8476000" />
+    <option name="totallyTimeSpent" value="10691000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-8" width="1936" height="1056" extended-state="0" />
@@ -151,6 +162,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32890365" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -163,7 +175,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,6 +202,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4088">
           <caret line="146" column="18" lean-forward="true" selection-start-line="146" selection-start-column="18" selection-end-line="146" selection-end-column="18" />
+          <folding>
+            <element signature="e#1373#1622#0" />
+            <element signature="e#1636#1806#0" />
+            <element signature="e#1820#1961#0" />
+            <element signature="e#1975#2116#0" />
+            <element signature="e#2131#2272#0" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -238,8 +256,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/component/_location-category.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="641">
-          <caret line="168" column="25" selection-start-line="168" selection-start-column="25" selection-end-line="168" selection-end-column="25" />
+        <state relative-caret-position="588">
+          <caret line="45" column="25" selection-start-line="45" selection-start-column="25" selection-end-line="45" selection-end-column="25" />
+          <folding>
+            <element signature="e#1373#1622#0" />
+            <element signature="e#1636#1806#0" />
+            <element signature="e#1820#1961#0" />
+            <element signature="e#1975#2116#0" />
+            <element signature="e#2131#2272#0" />
+          </folding>
         </state>
       </provider>
     </entry>

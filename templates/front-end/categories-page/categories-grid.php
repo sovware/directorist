@@ -22,21 +22,22 @@
                     }
                     ?>
                     <div class="<?php echo $span;?>">
-
-                        <a class="atbd_category_single atbd_category-default" href="<?php  echo ATBDP_Permalink::atbdp_get_category_page($term) ?>">
+                        <a class="atbd_category_single <?php echo !empty($cat_image)?'':'atbd_category-default';?>" href="<?php  echo ATBDP_Permalink::atbdp_get_category_page($term) ?>">
                             <figure>
-                                <img src="<?php echo !empty($cat_image)?$cat_image: ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'?>" alt="">
+                                <?php if (!empty($cat_image)){
+                                    ?>
+                                    <img src="<?php echo !empty($cat_image)?$cat_image: ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'?>" alt="">
+                                <?php
+                                }?>
                                 <figcaption class="overlay-bg">
                                     <div class="cat-box">
-                                        <div>
+                                        <div><?php
+                                            if (('none' != $icon) ){
+                                            ?>
                                             <div class="icon">
-                                                <?php
-                                                if ('none' != $icon){
-                                                    ?>
+
                                                     <span class="fa <?php echo !empty($icon) ? $icon : '';?>"></span>
-                                                    <?php
-                                                }
-                                                ?>
+
                                             </div>
                                             <div class="cat-info">
                                                 <h4 class="cat-name">

@@ -20,6 +20,7 @@ class ATBDP_Enqueuer {
         // 'Professional WordPress Plugin Development' by Brad Williams
         add_action( 'wp_enqueue_scripts', array( $this, 'front_end_enqueue_scripts' ), -10 );
         add_action( 'wp_enqueue_scripts', array( $this, 'custom_color_picker_scripts' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'search_listing_scripts_styles' ) );
 
         /*The plugins_loaded action hook fires early, and precedes the setup_theme, after_setup_theme, init and wp_loaded action hooks.
         This is why calling is_multiple_images_active() which is a wrapper function of vp_option() returned false all the time here.

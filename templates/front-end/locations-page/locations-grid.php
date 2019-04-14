@@ -19,9 +19,14 @@
             }
             ?>
             <div class="<?php echo $span;?>">
-                <a class="atbd_location_grid atbd_location_grid-default" href="<?php echo ATBDP_Permalink::atbdp_get_location_page($term) ?>">
+
+                <a class="atbd_location_grid <?php echo !empty($location_image)?'':'atbd_category-default';?>" href="<?php echo ATBDP_Permalink::atbdp_get_location_page($term) ?>">
                     <figure>
-                        <img src="<?php echo !empty($location_image)?$location_image: ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'?>" alt="">
+                        <?php if(!empty($location_image)) {
+                            ?>
+                            <img src="<?php echo !empty($location_image)?$location_image: ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'?>" alt="">
+                            <?php
+                        }?>
                         <figcaption>
                             <h3><?php echo $term->name; ?></h3>
                             <p>

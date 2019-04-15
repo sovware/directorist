@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/element/_categories.scss" line="72" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="54f7846e-07be-4934-ba9c-a23970150816" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -41,20 +38,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_location-category.scss" pinned="false" current-in-tab="true">
+      <file leaf-file-name="_location-category.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/component/_location-category.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4982">
-              <caret line="214" column="69" lean-forward="true" selection-start-line="214" selection-start-column="69" selection-end-line="214" selection-end-column="69" />
+            <state relative-caret-position="336">
+              <caret line="12" column="25" lean-forward="true" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_categories.scss" pinned="false" current-in-tab="false">
+      <file leaf-file-name="_categories.scss" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/element/_categories.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="535">
-              <caret line="49" column="12" selection-start-line="49" selection-start-column="12" selection-end-line="49" selection-end-column="12" />
+            <state relative-caret-position="390">
+              <caret line="64" column="9" selection-start-line="64" selection-start-column="9" selection-end-line="64" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_cards.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/element/_cards.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-346">
+              <caret line="443" column="18" selection-start-line="443" selection-start-column="18" selection-end-line="443" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -67,6 +73,10 @@
       <find>single</find>
       <find>atbd_location_grid</find>
       <find>category-single</find>
+      <find>atbd_category-default</find>
+      <find>loc</find>
+      <find>location</find>
+      <find>place</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -78,8 +88,9 @@
         <option value="$PROJECT_DIR$/component/_general.scss" />
         <option value="$PROJECT_DIR$/admin/style.scss" />
         <option value="$PROJECT_DIR$/../public/assets/css/search-style.css" />
-        <option value="$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/element/_categories.scss" />
         <option value="$PROJECT_DIR$/component/_location-category.scss" />
+        <option value="$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/element/_cards.scss" />
+        <option value="$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/element/_categories.scss" />
       </list>
     </option>
   </component>
@@ -154,26 +165,26 @@
       <workItem from="1550027018567" duration="190000" />
       <workItem from="1550027512630" duration="6000" />
       <workItem from="1555138037898" duration="7074000" />
-      <workItem from="1555223163284" duration="6970000" />
+      <workItem from="1555223163284" duration="11547000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14333000" />
+    <option name="totallyTimeSpent" value="18910000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-8" width="1936" height="1056" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32890365" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32890365" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -249,8 +260,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/themes.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="300" column="22" lean-forward="true" selection-start-line="300" selection-start-column="22" selection-end-line="300" selection-end-column="22" />
+        <state relative-caret-position="261">
+          <caret line="65" column="25" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -261,17 +272,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/element/_categories.scss">
+    <entry file="file://$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/element/_cards.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
-          <caret line="49" column="12" selection-start-line="49" selection-start-column="12" selection-end-line="49" selection-end-column="12" />
+        <state relative-caret-position="-346">
+          <caret line="443" column="18" selection-start-line="443" selection-start-column="18" selection-end-line="443" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/component/_location-category.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4982">
-          <caret line="214" column="69" lean-forward="true" selection-start-line="214" selection-start-column="69" selection-end-line="214" selection-end-column="69" />
+        <state relative-caret-position="336">
+          <caret line="12" column="25" lean-forward="true" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/element/_categories.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="64" column="9" selection-start-line="64" selection-start-column="9" selection-end-line="64" selection-end-column="9" />
         </state>
       </provider>
     </entry>

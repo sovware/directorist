@@ -2891,3 +2891,54 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 /*# sourceMappingURL=map/style.css.map */
+
+
+.atbdp .embed-responsive {
+  position: relative;
+  display: block;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.atbdp .embed-responsive .embed-responsive-item,
+.atbdp .embed-responsive iframe,
+.atbdp .embed-responsive embed,
+.atbdp .embed-responsive object,
+.atbdp .embed-responsive video {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.atbdp .embed-responsive-16by9 {
+  padding-bottom: 56.25%;
+}
+.atbdp .embed-responsive-4by3 {
+  padding-bottom: 75%;
+}
+
+.atbdp-map {
+  width: 100%;
+}
+
+.atbdp-map .media {
+  display: none;
+}
+
+.atbdp-map .gm-style-iw .media {
+  display: block;
+}
+
+.atbdp-map .media-left img {
+  width: 64px;
+  height: 64px;
+  max-width: inherit !important;
+}
+
+
+
+
+

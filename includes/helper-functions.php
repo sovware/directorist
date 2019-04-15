@@ -1942,7 +1942,7 @@ function atbdp_get_listings_current_view_name($view)
         $view = sanitize_text_field($_GET['view']);
     }
 
-    $allowed_views = array('list', 'grid');
+    $allowed_views = array('list', 'grid','map');
     if (!in_array($view, $allowed_views)) {
         $listing_view = get_directorist_option('default_listing_view');
         $listings_settings = !empty($listing_view) ? $listing_view : 'grid';
@@ -1967,7 +1967,11 @@ function atbdp_get_listings_view_options()
 
     $listings_settings = !empty($listing_view) ? $listing_view : 'grid';
 
-    $options = array('grid', 'list');
+    $options = array('grid', 'list','map');
+    $display_map = get_directorist_option('display_map_field',1);
+    if(empty($display_map)) {
+        array_pop($options);
+    }
     $options[] = isset($_GET['view']) ? sanitize_text_field($_GET['view']) : $listings_settings;
     $options = array_unique($options);
 
@@ -1981,6 +1985,9 @@ function atbdp_get_listings_view_options()
                 break;
             case 'grid' :
                 $views[$option] = __('Grid', ATBDP_TEXTDOMAIN);
+                break;
+            case 'map' :
+                $views[$option] = __('Map', ATBDP_TEXTDOMAIN);
                 break;
         }
 

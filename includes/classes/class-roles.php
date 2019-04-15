@@ -23,6 +23,21 @@ class ATBDP_Roles {
         }
 
 
+        add_action('init', array($this, 'disable_admin_bar_for_subscribers'), 9);
+
+
+    }
+    /**
+     * @since 5.0.0
+     * It restrict subscriber not to enter in wp admin bar
+     */
+    public function disable_admin_bar_for_subscribers(){
+        if ( is_user_logged_in() ):
+            global $current_user;
+            if( !empty( $current_user->caps['subscriber'] ) ):
+                add_filter('show_admin_bar', '__return_false');
+            endif;
+        endif;
     }
 
     /**

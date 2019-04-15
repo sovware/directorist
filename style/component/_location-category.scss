@@ -11,21 +11,111 @@
     }
   }
   .atbd_location_grid_wrap{
-    a.atbd_location_grid {
-      border: 1px solid #ededed;
-      text-align: center;
+    .atbd_location_grid {
+      position: relative;
       border-radius: 3px;
-      padding: 13px 17px;
-      margin: 0 15px 15px;
-      background: #fafcfd;
+      overflow: hidden;
+      width: 100%;
       display: block;
-      align-items: center;
+      margin-bottom: 30px;
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      figure{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        figcaption{
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(#000, 0.5);
+          padding: 15px;
+          flex-wrap: wrap;
+          h3, p{
+            color: #fff;
+            margin: 0 2px;
+            text-align: center;
+          }
+          p{
+            margin: 0 2px;
+          }
+        }
+      }
+      &.atbd_location_grid-default{
+        img{
+          display: none;
+        }
+        figure{
+          border: 1px solid #e3e6ef;
+          figcaption{
+            background: #fff;
+            h3, p{
+              color: #444752;
+            }
+          }
+        }
+      }
     }
     .col-md-1{
       a.atbd_location_grid {
         padding: 5px;
         margin: 0;
         word-wrap: break-word;
+      }
+    }
+    .col-md-2{
+      .atbd_location_grid{
+        height: 100px;
+        margin-bottom: 15px;
+        img{
+          width: 100%;
+        }
+        h3, p{
+          font-size: 14px;
+        }
+      }
+    }
+    .col-md-3{
+      .atbd_location_grid{
+        height: 150px;
+        margin-bottom: 15px;
+        img{
+          width: 100%;
+        }
+      }
+    }
+    .col-md-4{
+      .atbd_location_grid{
+        height: 200px;
+        img{
+          width: 100%;
+        }
+      }
+    }
+    .col-md-6{
+      .atbd_location_grid{
+        height: 350px;
+        img{
+          width: 100%;
+        }
+      }
+    }
+    .col-md-12{
+      .atbd_location_grid{
+        height: 600px;
+        img{
+          width: 100%;
+        }
       }
     }
   }
@@ -64,6 +154,53 @@
         text-align: center;
         margin-top: 5px;
         color: #fff;
+        word-break: break-all;
+      }
+    }
+    .col-md-2{
+      .atbd_category_single{
+        height: 100px;
+        margin-bottom: 15px;
+        img{
+          width: 100%;
+        }
+        span{
+          font-size: 18px;
+          margin-bottom: 0;
+        }
+      }
+    }
+    .col-md-3{
+      .atbd_category_single{
+        height: 150px;
+        margin-bottom: 15px;
+        img{
+          width: 100%;
+        }
+      }
+    }
+    .col-md-4{
+      .atbd_category_single{
+        height: 200px;
+        img{
+          width: 100%;
+        }
+      }
+    }
+    .col-md-6{
+      .atbd_category_single{
+        height: 350px;
+        img{
+          width: 100%;
+        }
+      }
+    }
+    .col-md-12{
+      .atbd_category_single{
+        height: 600px;
+        img{
+          width: 100%;
+        }
       }
     }
   }
@@ -80,20 +217,57 @@
   padding: 0;
   border-radius: 3px;
   overflow: hidden;
+  width: 100%;
   img{
-    width: 100%;
-    height:auto;
+    height: 100%;
+    object-fit: cover;
   }
-  .atbd_category_single_content{
+  figure{
     position: absolute;
-    left: 0;
-    top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    left: 0;
+    top: 0;
+    figcaption{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(#000, 0.5);
+      left: 0;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .icon{
+      padding-bottom: 15px;
+    }
+    .cat-info{
+      display: flex;
+      flex-wrap: wrap;
+      &>span{
+        margin: 0 3px;
+        font-size: 18px;atbd_category-default
+      }
+    }
+    .cat-name{
+      color: #fff;
+      margin: 0 3px;
+      line-height: normal;
+    }
+  }
+  &.atbd_category-default{
+    figure{
+      img{
+        display: none;
+      }
+      figcaption{
+        background: #fff;
+        .icon, .cat-name, .cat-info span{
+          color: #444752;
+        }
+      }
+    }
   }
 }

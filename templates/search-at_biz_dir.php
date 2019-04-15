@@ -94,6 +94,7 @@ $column_width           = 100/$search_listing_columns .'%';
                         $featured                       = get_post_meta($l_ID, '_featured', true);
                         $price                          = get_post_meta($l_ID, '_price', true);
                         $price_range                    = get_post_meta($l_ID, '_price_range', true);
+                        $atbd_listing_pricing            = get_post_meta($l_ID, '_atbd_listing_pricing', true);
 
                         /*@todo; As listings on search page and the all listing page, and user dashboard is nearly the same, so try to refactor them to a function later using some condition to show some extra fields on the listing on user dashboard*/
                         $listing_img                    = get_post_meta(get_the_ID(), '_listing_img', true);
@@ -269,10 +270,11 @@ $column_width           = 100/$search_listing_columns .'%';
                                                 if(!empty($display_review)) {
                                                 do_action('atbdp_after_listing_tagline');
                                                 }
+                                                $atbd_listing_pricing = !empty($atbd_listing_pricing)?$atbd_listing_pricing:'';
                                                 if(!empty($display_price) && !empty($display_pricing_field)) {
-                                                    if(!empty($price_range)) {
-                                                     $output = atbdp_display_price_range($price_range);
-                                                     echo $output;
+                                                    if(!empty($price_range) && ('range' === $atbd_listing_pricing)) {
+                                                        $output = atbdp_display_price_range($price_range);
+                                                        echo $output;
                                                     }else{
                                                         atbdp_display_price($price, $is_disable_price);
                                                     }

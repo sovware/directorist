@@ -33,7 +33,7 @@ $column_width = 100/$columns .'%';
                                 ?>
                             </p>
                         </div>
-                        <?php if($display_viewas_dropdown || $display_sortby_dropdown) {?>
+                        <?php if($display_viewas_dropdown || $display_sortby_dropdown) { ?>
                             <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
                                 <!-- Views dropdown -->
                                 <?php if($display_viewas_dropdown) {

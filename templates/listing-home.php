@@ -21,6 +21,20 @@ $search_listing_text          = get_directorist_option('search_listing_text',  _
 $default                     = get_template_directory_uri().'/images/home_page_bg.jpg';
 $theme_home_bg_image         = get_theme_mod('directoria_home_bg');
 $search_home_bg              = get_directorist_option('search_home_bg');
+$display_more_filter_search  = get_directorist_option('search_more_filter',1);
+$search_price                = get_directorist_option('search_price',1);
+$search_price_range          = get_directorist_option('search_price_range',0);
+$search_rating               = get_directorist_option('search_rating',1);
+$search_open_now             = get_directorist_option('search_open_now',0);
+$search_custom_field         = get_directorist_option('search_custom_field',1);
+$search_tag                  = get_directorist_option('search_tag',1);
+$search_website              = get_directorist_option('search_website',1);
+$search_email                = get_directorist_option('search_email',1);
+$search_phone                = get_directorist_option('search_phone',1);
+$search_adderess             = get_directorist_option('search_adderess',1);
+$search_zip_code             = get_directorist_option('search_zip_code',1);
+$search_reset_button         = get_directorist_option('search_reset_button',1);
+$search_apply_button         = get_directorist_option('search_apply_button',1);
 $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_image : $search_home_bg;
 ?>
 <!-- start search section -->
@@ -63,7 +77,7 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                                         'taxonomy' => ATBDP_CATEGORY,
                                         'id' => 'cat-type',
                                         'option_none_value'  => '',
-                                        'class' => 'form-control directory_field',
+                                        'class' => 'form-control directory_field bdas-category-search',
                                         'name' => 'in_cat',
                                         'orderby' => 'name',
                                         'selected' => '',
@@ -104,14 +118,140 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                                     ?>
                                 </div>
                             </div>
-                            <?php } ?>
+                            <?php }
+                            /**
+                             * @since 5.0
+                             */
+                            do_action('atbdp_search_field_after_location');
+
+                            ?>
                         </div>
                     </div>
+
+                    <!--More Filters  & Search Button-->
                     <div class="atbd_submit_btn">
-                        <button type="submit" class="btn btn-primary btn-lg btn_search">
-                            <span class="fa fa-search"></span> <?php _e($search_listing_text, ATBDP_TEXTDOMAIN)?>
-                        </button>
-                    </div>
+                        <?php if(!empty($display_more_filter_search)) {?>
+                        <button class="more-filter"><span class="fa fa-filter"></span> <?php _e('More Filters', ATBDP_TEXTDOMAIN);?></button>
+                        <?php } ?>
+                        <?php
+                        $html = '<div class="atbd_submit_btn">';
+                        $html .= '<button type="submit" class="btn btn-primary btn-lg btn_search">';
+                        $html .= '<span class="fa fa-search"></span>'.__($search_listing_text, ATBDP_TEXTDOMAIN).'';
+                        $html .= '</button>';
+                        $html .= '</div>';
+                        /**
+                         * @since 5.0
+                         * It show the search button
+                         */
+                        echo apply_filters('atbdp_search_listing_button', $html);
+                        ?>
+                    </div><!-- ends: .atbd_submit_btn -->
+
+
+                    <!--ads advance search-->
+                    <div class="ads-advanced">
+
+                        <div class="form-group ">
+                            <?php if(!empty($search_price)) { ?>
+                            <label class=""><?php _e('Price Range', ATBDP_TEXTDOMAIN);?></label>
+                            <div class="price_ranges">
+                                <div>
+                                    <input type="text" name="price[0]" class="form-control" placeholder="Min Price" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][0] ); ?>">
+                                </div>
+                                <div>
+                                    <input type="text" name="price[1]" class="form-control" placeholder="Max Price" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][1] ); ?>">
+                                </div>
+                                <?php } ?>
+                                <?php if(!empty($search_price_range)) { ?>
+                                <div class="price-frequency">
+                                    <label class="pf-btn">$ <input type="checkbox" name="price_range" value="bellow_economy"<?php if(!empty($_GET['price_range']) && 'bellow_economy' == $_GET['price_range']) { echo "checked='checked'";}?>></label>
+                                    <label class="pf-btn">$$ <input type="checkbox" name="price_range" value="economy" <?php if(!empty($_GET['price_range']) && 'economy' == $_GET['price_range']) { echo "checked='checked'";}?>></label>
+                                    <label class="pf-btn">$$$ <input type="checkbox" name="price_range" value="moderate" <?php if(!empty($_GET['price_range']) && 'moderate' == $_GET['price_range']) { echo "checked='checked'";}?>></label>
+                                    <label class="pf-btn">$$$$ <input type="checkbox" name="price_range" value="skimming" <?php if(!empty($_GET['price_range']) && 'skimming' == $_GET['price_range']) { echo "checked='checked'";}?>></label>
+                                </div>
+                                <?php } ?>
+                            </div>
+                        </div><!-- ends: .form=group -->
+
+                        <?php if(!empty($search_rating)) { ?>
+                        <div class="form-group">
+                            <label><?php _e('Filter by Ratings', ATBDP_TEXTDOMAIN);?></label>
+                            <select class="select-basic form-control">
+                                <option value=""><?php _e('Select Ratings', ATBDP_TEXTDOMAIN);?></option>
+                                <option name='search_by_rating' value="5" <?php if(!empty($_GET['search_by_rating']) && '5' == $_GET['search_by_rating']) { echo "checked='checked'";}?>>5 Star</option>
+                                <option name='search_by_rating' value="4" <?php if(!empty($_GET['search_by_rating']) && '4' == $_GET['search_by_rating']) { echo "checked='checked'";}?>>4 Star & Up</option>
+                                <option name='search_by_rating' value="3" <?php if(!empty($_GET['search_by_rating']) && '3' == $_GET['search_by_rating']) { echo "checked='checked'";}?>>3 Star & Up</option>
+                                <option name='search_by_rating' value="2" <?php if(!empty($_GET['search_by_rating']) && '2' == $_GET['search_by_rating']) { echo "checked='checked'";}?>>2 Star & Up</option>
+                                <option name='search_by_rating' value="1" <?php if(!empty($_GET['search_by_rating']) && '1' == $_GET['search_by_rating']) { echo "checked='checked'";}?>>1 Star & Up</option>
+                            </select>
+                        </div><!-- ends: .form-group -->
+                        <?php } ?>
+                        <?php if(!empty($search_open_now) && in_array( 'directorist-business-hours/bd-business-hour.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) )) {?>
+                        <div class="form-group">
+                            <label>Open Now</label>
+                            <div class="check-btn">
+                                <div class="btn-checkbox">
+                                    <label>
+                                        <input type="checkbox" name="open_now" value="open_now" <?php if(!empty($_GET['open_now']) && 'open_now' == $_GET['open_now']) { echo "checked='checked'";}?>>
+                                        <span><i class="fa fa-clock-o"></i><?php _e('Open Now', ATBDP_TEXTDOMAIN);?> </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div><!-- ends: .form-group -->
+                        <?php } ?>
+                        <?php if(!empty($search_tag)) {?>
+                        <div class="form-group">
+                            <label>Tags</label>
+                            <div class="bads-tags">
+                                <?php
+                                $terms = get_terms(ATBDP_TAGS);
+                                if(!empty($terms)) {
+                                foreach($terms as $term) {
+                                ?>
+                                <div class="custom-check">
+                                    <input type="checkbox" class="custom-control-input" name="in_tag" value="<?php echo $term->term_id;?>" id="<?php echo $term->term_id;?>">
+                                    <span class="check--select"></span>
+                                    <label for="<?php echo $term->term_id;?>" class="custom-control-label"><?php echo $term->name;?></label>
+                                </div>
+                               <?php } }?>
+                            </div>
+                            <a href="#" class="more-less"><?php _e('Show More', ATBDP_TEXTDOMAIN);?></a>
+                        </div><!-- ends: .form-control -->
+                        <?php } ?>
+                        <?php if(!empty($search_custom_field)) {?>
+                        <div id="atbdp-custom-fields-search" class="atbdp-custom-fields-search">
+                            <?php do_action( 'wp_ajax_atbdp_custom_fields_search', isset( $_GET['in_cat'] ) ? (int) $_GET['in_cat'] : 0 ); ?>
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($search_website) || !empty($search_email) || !empty($search_phone) || !empty($search_adderess) || !empty($search_zip_code)) {?>
+                        <div class="form-group">
+                            <?php if(!empty($search_website)) {?>
+                            <input type="text" name="website" placeholder="<?php _e('Website', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['website']) ? $_GET['website'] : ''; ?>" class="form-control">
+                            <?php } if(!empty($search_email)) {?>
+                            <input type="text" name="email" placeholder=" <?php _e('Email', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['email']) ? $_GET['email'] : ''; ?>" class="form-control">
+                            <?php } if(!empty($search_phone)) {?>
+                            <input type="text" name="phone" placeholder="<?php _e('Phone Number', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>" class="form-control">
+                            <?php } if(!empty($search_adderess)) {?>
+                            <input type="text" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php _e('Address', ATBDP_TEXTDOMAIN);?>"
+                                   class="form-control location-name">
+                            <?php } if(!empty($search_zip_code)) {?>
+                            <input type="text" name="zip_code" placeholder=" <?php _e('Zip/Post Code', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['zip_code']) ? $_GET['zip_code'] : ''; ?>" class="form-control">
+                            <?php } ?>
+                        </div>
+                        <?php } ?>
+                        <?php if(!empty($search_reset_button) || !empty($search_reset_button)) {?>
+                        <div class="bdas-filter-actions">
+                            <?php if(!empty($search_reset_button)) { ?>
+                            <a href="<?php echo get_permalink();?>"><?php _e('Reset Filters', ATBDP_TEXTDOMAIN);?></a>
+                            <?php } if(!empty($search_apply_button)) {?>
+                            <button type="submit" class="btn btn-primary"><?php _e('Apply Filters', ATBDP_TEXTDOMAIN);?></button>
+                            <?php } ?>
+                        </div><!-- ends: .bdas-filter-actions -->
+                        <?php } ?>
+                    </div> <!--ads advanced -->
+
+
+
                 </form>
             </div>
         </div>

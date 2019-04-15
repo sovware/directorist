@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/element/_categories.scss" line="72" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="54f7846e-07be-4934-ba9c-a23970150816" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -41,15 +44,17 @@
       <file leaf-file-name="_location-category.scss" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/component/_location-category.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="256" column="24" selection-start-line="256" selection-start-column="24" selection-end-line="256" selection-end-column="24" />
-              <folding>
-                <element signature="e#1373#1622#0" />
-                <element signature="e#1636#1806#0" />
-                <element signature="e#1820#1961#0" />
-                <element signature="e#1975#2116#0" />
-                <element signature="e#2131#2272#0" />
-              </folding>
+            <state relative-caret-position="4982">
+              <caret line="214" column="69" lean-forward="true" selection-start-line="214" selection-start-column="69" selection-end-line="214" selection-end-column="69" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_categories.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/element/_categories.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="535">
+              <caret line="49" column="12" selection-start-line="49" selection-start-column="12" selection-end-line="49" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -61,6 +66,7 @@
       <find>.directory_regi_btn</find>
       <find>single</find>
       <find>atbd_location_grid</find>
+      <find>category-single</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -72,6 +78,7 @@
         <option value="$PROJECT_DIR$/component/_general.scss" />
         <option value="$PROJECT_DIR$/admin/style.scss" />
         <option value="$PROJECT_DIR$/../public/assets/css/search-style.css" />
+        <option value="$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/element/_categories.scss" />
         <option value="$PROJECT_DIR$/component/_location-category.scss" />
       </list>
     </option>
@@ -147,12 +154,12 @@
       <workItem from="1550027018567" duration="190000" />
       <workItem from="1550027512630" duration="6000" />
       <workItem from="1555138037898" duration="7074000" />
-      <workItem from="1555223163284" duration="3872000" />
+      <workItem from="1555223163284" duration="6970000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11235000" />
+    <option name="totallyTimeSpent" value="14333000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-8" width="1936" height="1056" extended-state="0" />
@@ -202,13 +209,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4088">
           <caret line="146" column="18" lean-forward="true" selection-start-line="146" selection-start-column="18" selection-end-line="146" selection-end-column="18" />
-          <folding>
-            <element signature="e#1373#1622#0" />
-            <element signature="e#1636#1806#0" />
-            <element signature="e#1820#1961#0" />
-            <element signature="e#1975#2116#0" />
-            <element signature="e#2131#2272#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -247,6 +247,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/themes.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="300" column="22" lean-forward="true" selection-start-line="300" selection-start-column="22" selection-end-line="300" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/admin/style.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="586">
@@ -254,17 +261,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/element/_categories.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="49" column="12" selection-start-line="49" selection-start-column="12" selection-end-line="49" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/component/_location-category.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="256" column="24" selection-start-line="256" selection-start-column="24" selection-end-line="256" selection-end-column="24" />
-          <folding>
-            <element signature="e#1373#1622#0" />
-            <element signature="e#1636#1806#0" />
-            <element signature="e#1820#1961#0" />
-            <element signature="e#1975#2116#0" />
-            <element signature="e#2131#2272#0" />
-          </folding>
+        <state relative-caret-position="4982">
+          <caret line="214" column="69" lean-forward="true" selection-start-line="214" selection-start-column="69" selection-end-line="214" selection-end-column="69" />
         </state>
       </provider>
     </entry>

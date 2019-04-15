@@ -39,17 +39,21 @@
                                                     <span class="fa <?php echo !empty($icon) ? $icon : '';?>"></span>
 
                                             </div>
-                                                <?php
+                                            <?php
                                             }
                                             ?>
-                                            <h4 class="cat-name">
-                                                <?php echo $term->name;?>
-                                                <?php
-                                                if(!empty($categories_settings['show_count'])){
-                                                    echo "(". $count .")";
-                                                }
-                                                ?>
-                                            </h4>
+                                            <div class="cat-info">
+                                                <h4 class="cat-name">
+                                                    <?php echo $term->name;?>
+                                                </h4>
+                                                <span>
+                                                    <?php
+                                                    if(!empty($categories_settings['show_count'])){
+                                                        echo "(". $count .")";
+                                                    }
+                                                    ?>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </figcaption>

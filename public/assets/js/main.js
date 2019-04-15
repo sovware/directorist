@@ -668,6 +668,8 @@ jQuery(function ($) {
         $(".atbd_single_listing .db_btn_area").addClass("db_btn_area--sm");
     }
 
+
+
 })(jQuery);
 
 

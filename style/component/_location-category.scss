@@ -243,9 +243,18 @@
     .icon{
       padding-bottom: 15px;
     }
+    .cat-info{
+      display: flex;
+      flex-wrap: wrap;
+      &>span{
+        margin: 0 3px;
+        font-size: 18px;atbd_category-default
+      }
+    }
     .cat-name{
       color: #fff;
-      margin: 0;
+      margin: 0 3px;
+      line-height: normal;
     }
   }
   &.atbd_category-default{
@@ -255,7 +264,7 @@
       }
       figcaption{
         background: #fff;
-        .icon, .cat-name{
+        .icon, .cat-name, .cat-info span{
           color: #444752;
         }
       }

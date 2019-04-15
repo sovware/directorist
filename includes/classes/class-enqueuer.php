@@ -175,13 +175,14 @@ class ATBDP_Enqueuer {
      */
     public function front_end_enqueue_scripts($force=false) {
         global $typenow, $post;
-        $front_scripts_dependency = array('jquery',);
+        $front_scripts_dependency = array('jquery');
         $disable_map = get_directorist_option('disable_map');
         if (!$disable_map){
             // get the map api from the user settings
             $map_api_key = get_directorist_option('map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo'); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
             //Google map needs to be enqueued from google server with a valid API key. So, it is not possible to store map js file locally as this file will be unique for all users based on their MAP API key.
             wp_register_script( 'atbdp-google-map-front', '//maps.googleapis.com/maps/api/js?key='.$map_api_key.'&libraries=places', false, ATBDP_VERSION, true );
+            wp_register_script( 'atbdp-markerclusterer', ATBDP_PUBLIC_ASSETS . 'js/markerclusterer.js', array('atbdp-google-map-front') );
             $front_scripts_dependency[] = 'atbdp-google-map-front';
         }
         // Registration of all styles and js for the front end should be done here
@@ -236,7 +237,10 @@ class ATBDP_Enqueuer {
         /* Enqueue all scripts */
         wp_enqueue_script('atbdp-bootstrap-script');
         wp_enqueue_script('atbdp-rating');
-        if (!$disable_map) { wp_enqueue_script('atbdp-google-map-front'); }
+        if (!$disable_map) {
+            wp_enqueue_script('atbdp-google-map-front');
+            wp_enqueue_script('atbdp-markerclusterer');
+        }
         wp_enqueue_script('atbdp-uikit');
         wp_enqueue_script('atbdp-uikit-grid');
         wp_enqueue_script('atbdp_slick_slider');
@@ -272,6 +276,7 @@ class ATBDP_Enqueuer {
             'listing_error_text'            => __( 'Something went wrong!!!, Try again', ATBDP_TEXTDOMAIN ),
             'upload_pro_pic_title'          => __( 'Select or Upload a profile picture', ATBDP_TEXTDOMAIN ),
             'upload_pro_pic_text'           => __( 'Use this Image', ATBDP_TEXTDOMAIN ),
+            'plugin_url'                    => ATBDP_URL
         );
         wp_localize_script( 'atbdp_checkout_script', 'atbdp_checkout', $data );
 
@@ -290,6 +295,8 @@ class ATBDP_Enqueuer {
 
             wp_enqueue_media();
         }
+
+        wp_enqueue_script('atbdp-markerclusterer');
     }
 
 

@@ -1356,9 +1356,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $display_header             = !empty($display_header) ? $display_header : '';
             $header_title               = !empty($header_title) ? $header_title : '';
             $header_sub_title           = !empty($header_sub_title) ? $header_sub_title : '';
-            $all_listings = new WP_Query($args);
+            $all_listings               = new WP_Query($args);
 
-            $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
+            $data_for_template          = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
 
             ob_start();
             include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";

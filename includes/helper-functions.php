@@ -2125,41 +2125,21 @@ function the_atbdp_favourites_all_listing($post_id = 0)
 if (!function_exists('new_badge')) {
     function new_badge()
     {
-        $is_old = human_time_diff(get_the_time('U'), current_time('timestamp'));
+        global $post;
         $new_listing_time = get_directorist_option('new_listing_day');
         $new_badge_text = get_directorist_option('new_badge_text', 'New');
         $enable_new_listing = get_directorist_option('display_new_badge_cart', 1);
-
-        $is_day_or_days = substr($is_old, -4);
-        $is_other = substr($is_old, -5);
+        $each_hours = 60 * 60 * 24; // seconds in a day
+        $s_date1 = strtotime( current_time( 'mysql' ) ); // seconds for date 1
+        $s_date2 = strtotime( $post->post_date ); // seconds for date 2
+        $s_date_diff = abs( $s_date1 - $s_date2 ); // different of the two dates in seconds
+        $days = round( $s_date_diff / $each_hours ); // divided the different with second in a day
         $new = '<span class="atbd_badge atbd_badge_new">' . $new_badge_text . '</span>';
-        if ($enable_new_listing) {
-            switch ($is_day_or_days) {
-                case ' day':
-                    return $new;
-                    break;
-                case 'days':
-                    return $new;
-                    break;
-                case 'mins':
-                    return $new;
-                    break;
-                case ' min':
-                    return $new;
-                    break;
-                case 'hour':
-                    return $new;
-                    break;
+        if( $days <= (int) $new_listing_time ) {
+            if (!empty($enable_new_listing)){
+                return $new;
             }
-            switch ($is_other) {
-                case 'hours':
-                    return $new;
-                    break;
-                case 'weeks':
-                    if (substr($is_old, 0, 1) <= $new_listing_time) {
-                        return $new;
-                    }
-            }
+
         }
     }
 }

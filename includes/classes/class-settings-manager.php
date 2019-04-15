@@ -2146,9 +2146,9 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'new_listing_day',
-                    'label' => __('New Badge Duration in Weeks', ATBDP_TEXTDOMAIN),
+                    'label' => __('New Badge Duration in Days', ATBDP_TEXTDOMAIN),
                     'min' => '1',
-                    'max' => '52',
+                    'max' => '100',
                     'step' => '1',
                     'default' => '3',
                     'validation' => 'numeric|minlength[1]',

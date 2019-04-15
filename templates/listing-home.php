@@ -118,7 +118,13 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                                     ?>
                                 </div>
                             </div>
-                            <?php } ?>
+                            <?php }
+                            /**
+                             * @since 5.0
+                             */
+                            do_action('atbdp_search_field_after_location');
+
+                            ?>
                         </div>
                     </div>
 
@@ -127,9 +133,18 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                         <?php if(!empty($display_more_filter_search)) {?>
                         <button class="more-filter"><span class="fa fa-filter"></span> <?php _e('More Filters', ATBDP_TEXTDOMAIN);?></button>
                         <?php } ?>
-                        <button type="submit" class="btn btn-primary btn-lg btn_search">
-                            <span class="fa fa-search"></span> Search
-                        </button>
+                        <?php
+                        $html = '<div class="atbd_submit_btn">';
+                        $html .= '<button type="submit" class="btn btn-primary btn-lg btn_search">';
+                        $html .= '<span class="fa fa-search"></span>'.__($search_listing_text, ATBDP_TEXTDOMAIN).'';
+                        $html .= '</button>';
+                        $html .= '</div>';
+                        /**
+                         * @since 5.0
+                         * It show the search button
+                         */
+                        echo apply_filters('atbdp_search_listing_button', $html);
+                        ?>
                     </div><!-- ends: .atbd_submit_btn -->
 
 
@@ -234,6 +249,7 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                         </div><!-- ends: .bdas-filter-actions -->
                         <?php } ?>
                     </div> <!--ads advanced -->
+
 
 
                 </form>

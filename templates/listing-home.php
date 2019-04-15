@@ -104,14 +104,27 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                                     ?>
                                 </div>
                             </div>
-                            <?php } ?>
+                            <?php }
+                            /**
+                             * @since 5.0
+                             */
+                            do_action('atbdp_search_field_after_location');
+
+                            ?>
                         </div>
                     </div>
-                    <div class="atbd_submit_btn">
-                        <button type="submit" class="btn btn-primary btn-lg btn_search">
-                            <span class="fa fa-search"></span> <?php _e($search_listing_text, ATBDP_TEXTDOMAIN)?>
-                        </button>
-                    </div>
+                    <?php
+                    $html = '<div class="atbd_submit_btn">';
+                    $html .= '<button type="submit" class="btn btn-primary btn-lg btn_search">';
+                    $html .= '<span class="fa fa-search"></span>'.__($search_listing_text, ATBDP_TEXTDOMAIN).'';
+                    $html .= '</button>';
+                    $html .= '</div>';
+                    /**
+                     * @since 5.0
+                     * It show the search button
+                     */
+                    echo apply_filters('atbdp_search_listing_button', $html);
+                    ?>
                 </form>
             </div>
         </div>

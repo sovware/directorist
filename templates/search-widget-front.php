@@ -117,13 +117,15 @@
             <div class="filter-checklist">
                 <h5>Filter by Tags</h5>
                 <div class="checklist-items">
-                    <?php foreach($terms as $term) {
+                    <?php
+                    if(!empty($terms)) {
+                    foreach($terms as $term) {
                         ?>
                     <div class="">
                         <input type="checkbox" class="custom-control-input" id="<?php echo $term->term_id;?>" name="in_tag" value="<?php echo $term->term_id;?>" <?php if(!empty($_GET['in_tag']) && $term->term_id == $_GET['in_tag']) { echo "checked";}?>>
                         <label class="custom-control-label" for="<?php echo $term->term_id;?>"><?php echo $term->name;?></label>
                     </div>
-                    <?php } ?>
+                    <?php } } ?>
                 </div>
             </div><!-- ends: .filter-checklist -->
         <?php } ?>
@@ -132,7 +134,7 @@
                 <label>Filter by Ratings</label>
                 <div class="sort-rating">
                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
-                        <input type="radio" value="5" name="search_by_rating" class="custom-control-input" id="customCheck7" <?php if(!empty($_GET['price_range']) && 'bellow_economy' == $_GET['price_range']) { echo 'checked';}?>>
+                        <input type="radio" value="5" name="search_by_rating" class="custom-control-input" id="customCheck7" <?php if(!empty($_GET['search_by_rating']) && '5' == $_GET['search_by_rating']) { echo 'checked';}?>>
                         <span class="radio--select"></span>
                         <label class="custom-control-label" for="customCheck7">
                             <span class="active"><i class="fa fa-star"></i></span>

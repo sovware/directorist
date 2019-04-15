@@ -2389,7 +2389,13 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                                 ?>
                                             </div><!-- End atbd listing meta -->
 
-                                        <?php } ?>
+                                        <?php }
+                                        /**
+                                         * @since 5.0
+                                         * universal action to fire after the price
+                                         */
+                                        do_action('atbdp_listings_after_price');
+                                        ?>
                                         <?php if (!empty($display_contact_info) || !empty($display_publish_date)) { ?>
                                             <div class="atbd_listing_data_list">
                                                 <ul>
@@ -2402,7 +2408,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                                     if (!empty($display_contact_info)) {
                                                         if (!empty($address) && 'contact' == $address_location && !empty($display_address_field)) { ?>
                                                             <li><p>
-                                                                    <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
+                                                                    <span class="fas fa-map-marker-alt"></span><?php echo esc_html(stripslashes($address)); ?>
                                                                 </p></li>
                                                         <?php } elseif (!empty($locs) && 'location' == $address_location) {
 
@@ -2417,7 +2423,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                                                 <p>
 
                                                     <span>
-                                                    <?php echo "<span class='fa fa-location-arrow'></span>" . join(',', $output); ?>
+                                                    <?php echo "<span class='fas fa-map-marker-alt'></span>" . join(',', $output); ?>
                                                 </span>
                                                                 </p>
                                                             </li>
@@ -2776,7 +2782,13 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                         ?>
                                                     </div><!-- End atbd listing meta -->
 
-                                                <?php } ?>
+                                                <?php }
+                                                /**
+                                                 * @since 5.0
+                                                 * universal action to fire after the price
+                                                 */
+                                                do_action('atbdp_listings_after_price');
+                                                ?>
                                                 <?php if (!empty($display_contact_info) || !empty($display_publish_date)) { ?>
                                                     <div class="atbd_listing_data_list">
                                                         <ul>
@@ -2788,7 +2800,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                             if (!empty($display_contact_info)) {
                                                                 if (!empty($address) && 'contact' == $address_location && !empty($display_address_field)) { ?>
                                                                     <li><p>
-                                                                            <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
+                                                                            <span class="fas fa-map-marker-alt"></span><?php echo esc_html(stripslashes($address)); ?>
                                                                         </p></li>
                                                                 <?php } elseif (!empty($locs) && 'location' == $address_location) {
 
@@ -2803,7 +2815,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                                         <p>
 
                                                     <span>
-                                                    <?php echo "<span class='fa fa-location-arrow'></span>" . join(',', $output); ?>
+                                                    <?php echo "<span class='fas fa-map-marker-alt'></span>" . join(',', $output); ?>
                                                 </span>
                                                                         </p>
                                                                     </li>
@@ -3148,7 +3160,7 @@ function listing_view_by_list($all_listings)
                                         if (!empty($display_contact_info)) {
                                             if (!empty($address) && 'contact' == $address_location && !empty($display_address_field)) { ?>
                                                 <li><p>
-                                                        <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
+                                                        <span class="fas fa-map-marker-alt"></span><?php echo esc_html(stripslashes($address)); ?>
                                                     </p></li>
                                             <?php } elseif (!empty($locs) && 'location' == $address_location) {
                                                 $output = array();
@@ -3160,7 +3172,7 @@ function listing_view_by_list($all_listings)
                                                 <li>
                                                     <p>
                                                    <span>
-                                                    <?php echo "<span class='fa fa-location-arrow'></span>" . join(',', $output); ?>
+                                                    <?php echo "<span class='fas fa-map-marker-alt'></span>" . join(',', $output); ?>
                                                 </span>
                                                     </p>
                                                 </li>

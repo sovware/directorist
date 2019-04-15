@@ -340,7 +340,7 @@ $column_width = 100 / $columns . '%';
                                                         if (!empty($display_contact_info)) {
                                                             if (!empty($address) && 'contact' == $address_location && !empty($display_address_field)) { ?>
                                                                 <li><p>
-                                                                        <span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address)); ?>
+                                                                        <span class="fas fa-map-marker-alt"></span><?php echo esc_html(stripslashes($address)); ?>
                                                                     </p></li>
                                                             <?php } elseif (!empty($locs) && 'location' == $address_location) {
 
@@ -356,7 +356,7 @@ $column_width = 100 / $columns . '%';
                                                                     <p>
 
                                                     <span>
-                                                    <?php echo "<span class='fa fa-location-arrow'></span>" . join(',', $output); ?>
+                                                    <?php echo "<span class='fas fa-map-marker-alt'></span>" . join(',', $output); ?>
                                                 </span>
                                                                     </p>
                                                                 </li>

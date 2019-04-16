@@ -10,29 +10,20 @@ $column_width = 100 / $columns . '%';
 ?>
 
 <div id="directorist" class="atbd_wrapper">
-    <?php if ($display_header == 'yes') { ?>
-        <div class="header_bar">
-            <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="atbd_generic_header">
-                            <div class="atbd_generic_header_title">
-                                <?php if (!empty($header_title)) { ?>
-                                    <h3>
-                                        <?php echo esc_html($header_title); ?>
-                                    </h3>
-                                <?php } ?>
-                                <p>
-                                    <?php
-                                    echo esc_html($header_sub_title) . ' ';
-                                    if ($paginate) {
-                                        echo $all_listings->found_posts;
-                                    } else {
-                                        echo count($all_listings->posts);
-                                    }
-                                    ?>
-                                </p>
-                            </div>
+    <?php if( $display_header == 'yes'  ) { ?>
+    <div class="header_bar">
+        <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="atbd_generic_header">
+                        <div class="atbd_generic_header_title">
+                            <?php if(!empty($header_title)) {?>
+                            <h3>
+                                <?php echo esc_html($header_title); ?>
+                            </h3>
+                            <?php } ?>
+                            <p><?php echo esc_html($header_sub_title) . ' '; ?></p>
+                        </div>
                             <?php if ($display_viewas_dropdown || $display_sortby_dropdown) { ?>
                                 <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
                                     <!-- Views dropdown -->

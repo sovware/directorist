@@ -9,6 +9,7 @@ $is_disable_price           = get_directorist_option('disable_list_price');
 $display_sortby_dropdown    = get_directorist_option('display_sort_by',1);
 $display_viewas_dropdown    = get_directorist_option('display_view_as',1);
 $pagenation                 = get_directorist_option('paginate_all_listings',1);
+$select_listing_map                 = get_directorist_option('select_listing_map',1);
 $zoom = get_directorist_option('map_zoom_level', 16);
 wp_enqueue_script('atbdp-map-view',ATBDP_PUBLIC_ASSETS . 'js/map-view.js');
 $data = array(

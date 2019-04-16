@@ -11,4 +11,28 @@
     });
 
     $("[data-toggle='tooltip']").tooltip();
+
+    //ad search js
+    var checkbox = $(".bads-tags .custom-control");
+    checkbox.slice(4).hide();
+    var show_more = $(".more-less");
+    show_more.on("click", function (e) {
+        e.preventDefault();
+        var txt = checkbox.slice(4).is(":visible") ? "Show More" : "Show Less";
+        $(this).text(txt);
+        checkbox.slice(4).slideToggle(200);
+        $(this).toggleClass("ad");
+    });
+    if(checkbox.length <= 4){
+        show_more.remove();
+    }
+
+    var ad = $(".ads-advanced");
+    ad.hide().slideUp();
+    $(".more-filter").on("click", function (e) {
+        e.preventDefault();
+        ad.slideToggle().show();
+    })
+
+
 })(jQuery);

@@ -36,6 +36,7 @@ $search_zip_code             = get_directorist_option('search_zip_code',1);
 $search_reset_button         = get_directorist_option('search_reset_button',1);
 $search_apply_button         = get_directorist_option('search_apply_button',1);
 $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_image : $search_home_bg;
+wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
 ?>
 <!-- start search section -->
 <div id="directorist" class="directorist atbd_wrapper directory_search_area single_area"
@@ -129,9 +130,9 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                     </div>
 
                     <!--More Filters  & Search Button-->
-                    <div class="atbd_submit_btn">
+                    <div class="atbd_submit_btn_wrapper">
                         <?php if(!empty($display_more_filter_search)) {?>
-                        <button class="more-filter"><span class="fa fa-filter"></span> <?php _e('More Filters', ATBDP_TEXTDOMAIN);?></button>
+                        <button class="more-filter btn btn-outline btn-lg btn-outline-primary"><span class="fa fa-filter"></span> <?php _e('More Filters', ATBDP_TEXTDOMAIN);?></button>
                         <?php } ?>
                         <?php
                         $html = '<div class="atbd_submit_btn">';
@@ -150,28 +151,27 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
 
                     <!--ads advance search-->
                     <div class="ads-advanced">
-
                         <div class="form-group ">
                             <?php if(!empty($search_price)) { ?>
                             <label class=""><?php _e('Price Range', ATBDP_TEXTDOMAIN);?></label>
                             <div class="price_ranges">
-                                <div>
+                                <div class="range_single">
                                     <input type="text" name="price[0]" class="form-control" placeholder="Min Price" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][0] ); ?>">
                                 </div>
-                                <div>
+                                <div class="range_single">
                                     <input type="text" name="price[1]" class="form-control" placeholder="Max Price" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][1] ); ?>">
                                 </div>
                                 <?php } ?>
                                 <?php if(!empty($search_price_range)) { ?>
                                 <div class="price-frequency">
-                                    <label class="pf-btn">$ <input type="checkbox" name="price_range" value="bellow_economy"<?php if(!empty($_GET['price_range']) && 'bellow_economy' == $_GET['price_range']) { echo "checked='checked'";}?>></label>
-                                    <label class="pf-btn">$$ <input type="checkbox" name="price_range" value="economy" <?php if(!empty($_GET['price_range']) && 'economy' == $_GET['price_range']) { echo "checked='checked'";}?>></label>
-                                    <label class="pf-btn">$$$ <input type="checkbox" name="price_range" value="moderate" <?php if(!empty($_GET['price_range']) && 'moderate' == $_GET['price_range']) { echo "checked='checked'";}?>></label>
-                                    <label class="pf-btn">$$$$ <input type="checkbox" name="price_range" value="skimming" <?php if(!empty($_GET['price_range']) && 'skimming' == $_GET['price_range']) { echo "checked='checked'";}?>></label>
+                                    <label class="pf-btn"><input type="radio" name="price_range" value="bellow_economy"<?php if(!empty($_GET['price_range']) && 'bellow_economy' == $_GET['price_range']) { echo "checked='checked'";}?>><span>$</span></label>
+                                    <label class="pf-btn"><input type="radio" name="price_range" value="economy" <?php if(!empty($_GET['price_range']) && 'economy' == $_GET['price_range']) { echo "checked='checked'";}?>><span>$$</span></label>
+                                    <label class="pf-btn"><input type="radio" name="price_range" value="moderate" <?php if(!empty($_GET['price_range']) && 'moderate' == $_GET['price_range']) { echo "checked='checked'";}?>><span>$$$</span></label>
+                                    <label class="pf-btn"><input type="radio" name="price_range" value="skimming" <?php if(!empty($_GET['price_range']) && 'skimming' == $_GET['price_range']) { echo "checked='checked'";}?>><span>$$$$</span></label>
                                 </div>
                                 <?php } ?>
                             </div>
-                        </div><!-- ends: .form=group -->
+                        </div><!-- ends: .form-group -->
 
                         <?php if(!empty($search_rating)) { ?>
                         <div class="form-group">
@@ -200,7 +200,7 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                         </div><!-- ends: .form-group -->
                         <?php } ?>
                         <?php if(!empty($search_tag)) {?>
-                        <div class="form-group">
+                        <div class="form-group ads-filter-tags">
                             <label>Tags</label>
                             <div class="bads-tags">
                                 <?php
@@ -208,14 +208,14 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                                 if(!empty($terms)) {
                                 foreach($terms as $term) {
                                 ?>
-                                <div class="custom-check">
+                                <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
                                     <input type="checkbox" class="custom-control-input" name="in_tag" value="<?php echo $term->term_id;?>" id="<?php echo $term->term_id;?>">
                                     <span class="check--select"></span>
                                     <label for="<?php echo $term->term_id;?>" class="custom-control-label"><?php echo $term->name;?></label>
                                 </div>
                                <?php } }?>
                             </div>
-                            <a href="#" class="more-less"><?php _e('Show More', ATBDP_TEXTDOMAIN);?></a>
+                            <a href="#" class="more-less ad"><?php _e('Show More', ATBDP_TEXTDOMAIN);?></a>
                         </div><!-- ends: .form-control -->
                         <?php } ?>
                         <?php if(!empty($search_custom_field)) {?>
@@ -225,33 +225,42 @@ $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_i
                         <?php } ?>
                         <?php if(!empty($search_website) || !empty($search_email) || !empty($search_phone) || !empty($search_adderess) || !empty($search_zip_code)) {?>
                         <div class="form-group">
-                            <?php if(!empty($search_website)) {?>
-                            <input type="text" name="website" placeholder="<?php _e('Website', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['website']) ? $_GET['website'] : ''; ?>" class="form-control">
-                            <?php } if(!empty($search_email)) {?>
-                            <input type="text" name="email" placeholder=" <?php _e('Email', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['email']) ? $_GET['email'] : ''; ?>" class="form-control">
-                            <?php } if(!empty($search_phone)) {?>
-                            <input type="text" name="phone" placeholder="<?php _e('Phone Number', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>" class="form-control">
-                            <?php } if(!empty($search_adderess)) {?>
-                            <input type="text" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php _e('Address', ATBDP_TEXTDOMAIN);?>"
-                                   class="form-control location-name">
-                            <?php } if(!empty($search_zip_code)) {?>
-                            <input type="text" name="zip_code" placeholder=" <?php _e('Zip/Post Code', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['zip_code']) ? $_GET['zip_code'] : ''; ?>" class="form-control">
+                            <div class="bottom-inputs">
+                                <div>
+                                    <?php if(!empty($search_website)) {?>
+                                    <input type="text" name="website" placeholder="<?php _e('Website', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['website']) ? $_GET['website'] : ''; ?>" class="form-control">
+                                </div>
+                                <div>
+                                    <?php } if(!empty($search_email)) {?>
+                                    <input type="text" name="email" placeholder=" <?php _e('Email', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['email']) ? $_GET['email'] : ''; ?>" class="form-control">
+                                </div>
+                                <div>
+                                    <?php } if(!empty($search_phone)) {?>
+                                    <input type="text" name="phone" placeholder="<?php _e('Phone Number', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>" class="form-control">
+                                </div>
+                                <div>
+                                    <?php } if(!empty($search_adderess)) {?>
+                                    <input type="text" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php _e('Address', ATBDP_TEXTDOMAIN);?>"
+                                           class="form-control location-name">
+                                </div>
+                                <div>
+                                    <?php } if(!empty($search_zip_code)) {?>
+                                    <input type="text" name="zip_code" placeholder=" <?php _e('Zip/Post Code', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['zip_code']) ? $_GET['zip_code'] : ''; ?>" class="form-control">
+                                </div>
+                            </div>
                             <?php } ?>
                         </div>
                         <?php } ?>
                         <?php if(!empty($search_reset_button) || !empty($search_reset_button)) {?>
                         <div class="bdas-filter-actions">
                             <?php if(!empty($search_reset_button)) { ?>
-                            <a href="<?php echo get_permalink();?>"><?php _e('Reset Filters', ATBDP_TEXTDOMAIN);?></a>
+                            <a href="<?php echo get_permalink();?>" class="btn btn-outline btn-lg"><?php _e('Reset Filters', ATBDP_TEXTDOMAIN);?></a>
                             <?php } if(!empty($search_apply_button)) {?>
-                            <button type="submit" class="btn btn-primary"><?php _e('Apply Filters', ATBDP_TEXTDOMAIN);?></button>
+                            <button type="submit" class="btn btn-primary btn-lg"><?php _e('Apply Filters', ATBDP_TEXTDOMAIN);?></button>
                             <?php } ?>
                         </div><!-- ends: .bdas-filter-actions -->
                         <?php } ?>
                     </div> <!--ads advanced -->
-
-
-
                 </form>
             </div>
         </div>

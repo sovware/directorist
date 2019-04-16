@@ -178,8 +178,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             $columns             = !empty($atts['columns']) ? $atts['columns'] : 3;
             $display_header      = !empty($atts['header']) ? $atts['header'] : '';
-            $header_title        = !empty($atts['header_title']) ? $atts['header_title'] : '';
-            $header_sub_title    = !empty($atts['header_sub_title']) ? $atts['header_sub_title'] : '';
+
             $feature_only        = !empty($atts['featured_only']) ? $atts['featured_only'] : '';
             $popular_only        = !empty($atts['popular_only']) ? $atts['popular_only'] : '';
             //for pagination
@@ -990,7 +989,16 @@ if ( !class_exists('ATBDP_Shortcode') ):
             }
 
             $all_listings = new WP_Query($args);
+            $cat_id = !empty($_GET['in_cat']) ? $_GET['in_cat'] : '';
+            $loc_id = !empty($_GET['in_loc']) ? $_GET['in_loc'] : '';
+            $cat_name =  get_term_by('id',$cat_id,ATBDP_CATEGORY);
+            $loc_name =  get_term_by('id',$loc_id,ATBDP_LOCATION);
+            $for_cat = !empty($cat_name) ? sprintf(__('for %s',ATBDP_TEXTDOMAIN),$cat_name->name): '';
+            $in_loc = !empty($loc_name) ? sprintf(__('in %s',ATBDP_TEXTDOMAIN),$loc_name->name) : '';
+            $_s = (1 < count($all_listings->posts)) ? 's' : '';
 
+            $header_title    = sprintf(__('%d result%s %s %s',ATBDP_TEXTDOMAIN),$all_listings->found_posts,$_s,$for_cat,$in_loc);
+            $header_sub_title         = "More Filter";
             $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
 
             ob_start();
@@ -1353,11 +1361,16 @@ if ( !class_exists('ATBDP_Shortcode') ):
             if( $count_meta_queries ) {
                 $args['meta_query'] = ( $count_meta_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $meta_queries ) : $meta_queries;
             }
-            $display_header             = !empty($display_header) ? $display_header : '';
-            $header_title               = !empty($header_title) ? $header_title : '';
-            $header_sub_title           = !empty($header_sub_title) ? $header_sub_title : '';
-            $all_listings               = new WP_Query($args);
 
+            $all_listings               = new WP_Query($args);
+            if ($paginate){
+                $listing_count =  $all_listings->found_posts;
+            }else{
+                $listing_count =  count($all_listings->posts);
+            }
+            $display_header             = !empty($display_header) ? $display_header : '';
+            $header_title               = !empty($header_sub_title) ? $header_sub_title . $listing_count : '';
+            $header_sub_title           = 'More Filter';
             $data_for_template          = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
 
             ob_start();

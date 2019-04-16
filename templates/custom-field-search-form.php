@@ -90,11 +90,11 @@
                             $_value  = trim( $choice );
                             $_label  = $_value;
                         }
-
+                        $_for = rand();
                         $_checked = '';
                         if( trim( $value ) == $_value ) $_checked = ' checked="checked"';
 
-                        printf( '<div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary"><label><input type="radio" name="cf[%d]" value="%s"%s>%s</label></div>', $post->ID, $_value, $_checked, $_label );
+                        printf( '<div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary"><input type="radio" class="custom-control-input" name="cf[%d]" id="%d" value="%s"%s><span class="radio--select"></span><label class="custom-control-label" for="%d">%s</label></div>', $post->ID,$_for, $_value, $_checked,$_for, $_label );
                     }
                     break;
                 case 'url' :

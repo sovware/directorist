@@ -1,5 +1,4 @@
-.atbd_content_active
-#directorist.atbd_wrapper {
+.atbd_content_active #directorist.atbd_wrapper {
   .atbd_category_wrapper {
     span.fa {
       cursor: pointer;
@@ -248,7 +247,7 @@
       flex-wrap: wrap;
       &>span{
         margin: 0 3px;
-        font-size: 18px;atbd_category-default
+        font-size: 18px;
       }
     }
     .cat-name{

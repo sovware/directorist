@@ -213,6 +213,7 @@ $select_listing_map = get_directorist_option('select_listing_map', 'google');
 
                                 if (empty($display_price_for) && !empty($display_pricing_field) && ($plan_average_price || $plan_price)) { ?>
                                     <div class="form-group" id="atbd_pricing">
+                                        <input type="hidden" id="atbd_listing_pricing" value="<?php echo $atbd_listing_pricing?>">
                                         <label for="#"><?php
                                             $price_label = get_directorist_option('price_label', __('Pricing', ATBDP_TEXTDOMAIN));
                                             esc_html_e($price_label.':', ATBDP_TEXTDOMAIN);

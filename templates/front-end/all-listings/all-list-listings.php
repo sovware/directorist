@@ -8,7 +8,7 @@ $display_viewas_dropdown = get_directorist_option('display_view_as', 1);
 ?>
     <div id="directorist" class="atbd_wrapper">
         <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
-            <div class="row" data-uk-grid>
+            <div class="row">
                 <?php if( $display_header == 'yes'  ) { ?>
                     <div class="col-md-12">
                         <div class="atbd_generic_header">
@@ -79,12 +79,22 @@ $display_viewas_dropdown = get_directorist_option('display_view_as', 1);
                             <?php } ?>
                         </div>
                     </div>
-                <?php } ?>
+                <?php }
+                /**
+                 * @since 5.0
+                 */
+                do_action('atbdp_before_list_listings_loop');
+                ?>
                 <?php if ($all_listings->have_posts()) { ?>
                     <?php listing_view_by_list($all_listings);?>
                 <?php } else { ?>
                     <p><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
-                <?php } ?>
+                <?php }
+                /**
+                 * @since 5.0
+                 */
+                do_action('atbdp_after_list_listings_loop');
+                ?>
 
             </div> <!--ends .row -->
 

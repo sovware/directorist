@@ -93,15 +93,15 @@ $column_width = 100 / $columns . '%';
         </div>
     <?php } ?>
     <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
-
+        <?php
+        /**
+         * @since 5.0
+         * It fires before the listings columns
+         */
+        do_action('atbdp_before_grid_listings_loop');
+        ?>
         <div class="row" <?php echo (get_directorist_option('grid_view_as', 'masonry_grid') !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
             <?php
-            /**
-             * @since 5.0
-             * It fires before the listings columns
-             */
-            do_action('atbdp_before_listings_columns');
-
             if ($all_listings->have_posts()) {
                 while ($all_listings->have_posts()) {
                     $all_listings->the_post();
@@ -483,12 +483,19 @@ $column_width = 100 / $columns . '%';
                     </div>
                 <?php }
                 wp_reset_postdata();
-            } else { ?>
+            }else { ?>
                 <p><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
-            <?php } ?>
+            <?php }
+            ?>
 
         </div>
-
+        <?php
+        /**
+         * @since 5.0
+         * to add custom html
+         */
+        do_action('atbdp_after_grid_listings_loop');
+        ?>
     </div>
     <div class="row atbd_listing_pagination">
         <?php

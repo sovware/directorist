@@ -266,19 +266,26 @@ $column_width           = 100/$search_listing_columns .'%';
                                             </h4>
                                             <?php } if(!empty($tagline) && !empty($enable_tagline) && !empty($display_tagline_field)) { ?>
                                             <p class="atbd_listing_tagline"><?= esc_html(stripslashes($tagline)); ?></p>
-                                            <?php } ?>
-                                             <?php if(!empty($display_review) || !empty($display_price)) {?>
-                                            <div class="atbd_listing_meta">
-                                                <?php
-                                                /**
-                                                 * Fires after the title and sub title of the listing is rendered
-                                                 *
-                                                 *
-                                                 * @since 1.0.0
-                                                 */
-                                                if(!empty($display_review)) {
-                                                do_action('atbdp_after_listing_tagline');
-                                                }
+                                            <?php } /**
+                                             * Fires after the title and sub title of the listing is rendered
+                                             *
+                                             *
+                                             * @since 1.0.0
+                                             */
+                                            do_action('atbdp_after_listing_tagline');
+                                            ?>
+                                            <?php if (!empty($display_review) || !empty($display_price)) { ?>
+                                                <div class="atbd_listing_meta">
+
+                                                    <?php
+                                                    if (!empty($display_review)) {
+                                                        $average = ATBDP()->review->get_average(get_the_ID());
+                                                        ?>
+                                                        <span class="atbd_meta atbd_listing_rating">
+            <?php echo $average; ?><i class="fa fa-star"></i>
+        </span>
+                                                        <?php
+                                                    }
                                                 $atbd_listing_pricing = !empty($atbd_listing_pricing)?$atbd_listing_pricing:'';
                                                 if(!empty($display_price) && !empty($display_pricing_field)) {
                                                     if(!empty($price_range) && ('range' === $atbd_listing_pricing)) {

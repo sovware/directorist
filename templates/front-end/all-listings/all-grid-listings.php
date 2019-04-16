@@ -93,7 +93,13 @@ $column_width = 100 / $columns . '%';
         </div>
     <?php } ?>
     <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
-
+        <?php
+        /**
+         * @since 5.0
+         * It fires before the listings columns
+         */
+        do_action('atbdp_before_grid_listings_loop');
+        ?>
         <div class="row" <?php echo (get_directorist_option('grid_view_as', 'masonry_grid') !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
             <?php
             if ($all_listings->have_posts()) {
@@ -290,18 +296,26 @@ $column_width = 100 / $columns . '%';
                                             if (!empty($tagline) && !empty($enable_tagline) && !empty($display_tagline_field)) {
                                                 ?>
                                                 <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
-                                            <?php } ?>
+                                            <?php }
+
+                                            /**
+                                             * Fires after the title and sub title of the listing is rendered
+                                             *
+                                             *
+                                             * @since 1.0.0
+                                             */
+
+                                            do_action('atbdp_after_listing_tagline');
+                                            ?>
                                             <?php if (!empty($display_review) || !empty($display_price)) { ?>
                                                 <div class="atbd_listing_meta">
                                                     <?php
-                                                    /**
-                                                     * Fires after the title and sub title of the listing is rendered
-                                                     *
-                                                     *
-                                                     * @since 1.0.0
-                                                     */
-
-                                                    do_action('atbdp_after_listing_tagline');
+                                                    $average = ATBDP()->review->get_average(get_the_ID());
+                                                    ?>
+                                                    <span class="atbd_meta atbd_listing_rating">
+            <?php echo $average; ?><i class="fa fa-star"></i>
+        </span>
+                                                    <?php
                                                     $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
                                                     if (!empty($display_price) && !empty($display_pricing_field)) {
                                                         if (!empty($price_range) && ('range' === $atbd_listing_pricing)) {
@@ -469,12 +483,19 @@ $column_width = 100 / $columns . '%';
                     </div>
                 <?php }
                 wp_reset_postdata();
-            } else { ?>
+            }else { ?>
                 <p><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
-            <?php } ?>
+            <?php }
+            ?>
 
         </div>
-
+        <?php
+        /**
+         * @since 5.0
+         * to add custom html
+         */
+        do_action('atbdp_after_grid_listings_loop');
+        ?>
     </div>
     <div class="row atbd_listing_pagination">
         <?php

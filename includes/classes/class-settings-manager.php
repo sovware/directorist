@@ -1892,7 +1892,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'search_price_range',
-                        'label' => __('Display Price range Field', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Price Range Field', ATBDP_TEXTDOMAIN),
                         'default' => 0,
                     ),
                     array(

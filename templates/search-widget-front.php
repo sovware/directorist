@@ -114,15 +114,16 @@
             $terms = get_terms(ATBDP_TAGS);
             ?>
             
-            <div class="filter-checklist">
-                <h5>Filter by Tags</h5>
+            <div class="form-group filter-checklist">
+                <label>Filter by Tags</label>
                 <div class="checklist-items">
                     <?php
                     if(!empty($terms)) {
                     foreach($terms as $term) {
                         ?>
-                    <div class="">
+                    <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
                         <input type="checkbox" class="custom-control-input" id="<?php echo $term->term_id;?>" name="in_tag" value="<?php echo $term->term_id;?>" <?php if(!empty($_GET['in_tag']) && $term->term_id == $_GET['in_tag']) { echo "checked";}?>>
+                        <span class="check--select"></span>
                         <label class="custom-control-label" for="<?php echo $term->term_id;?>"><?php echo $term->name;?></label>
                     </div>
                     <?php } } ?>

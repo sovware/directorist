@@ -92,13 +92,14 @@
     top: 2px;
     width: 17px;
     height: 17px;
-    background: #eee;
+    border: 1px solid #cbd0e3;
     border-radius: 2px;
     transition: all 0.2s ease-in-out;
 }
 
 .custom-control .custom-control-input:checked ~ .check--select {
     background: #444752;
+    border: 1px solid #444752;
 }
 
 .custom-control .custom-control-input:checked ~ .check--select:before {
@@ -123,26 +124,13 @@
     top: 2px;
     width: 17px;
     height: 17px;
-    background: #eee;
+    border: 1px solid #cbd0e3;
     border-radius: 100%;
-    border: 3px solid transparent;
     transition: all 0.2s ease-in-out;
 }
 
 .custom-control .custom-control-input:checked ~ .radio--select {
-    border: 3px solid #444752;
-}
-
-.custom-control .custom-control-input:checked ~ .radio--select:before {
-    content: '';;
-    position: absolute;
-    width: 7px;
-    height: 7px;
-    background: #444752;
-    left: 2px;
-    top: 2px;
-    transition: all 0.2s ease-in-out;
-    border-radius: 100%;
+    border: 5px solid #444752;
 }
 
 
@@ -229,15 +217,11 @@
     cursor: pointer;
     outline: 0;
 }
-.btn-checkbox label input:checked + span {
-    color: #fff;
-}
-.active-color-secondary label input:checked + span {
-    background: #444752;
-    border-color: #444752;
-}
+
 .btn-checkbox label input:checked + span {
     color: #fff !important;
+    background: #444752;
+    border-color: #444752;
 }
 .price_ranges{
     display: flex;
@@ -255,4 +239,16 @@
 }
 .iris-picker .iris-strip{
     height: 100% !important;
+}
+.default-ad-search .submit_btn{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: -10px;
+}
+.default-ad-search .submit_btn .btn{
+    margin-right: 10px !important;
+    margin-top: 10px !important;
+}
+.bdas-terms .bdas-child-terms{
+    margin-top: 14px;
 }

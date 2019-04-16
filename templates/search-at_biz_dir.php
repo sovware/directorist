@@ -204,42 +204,51 @@ $column_width           = 100/$search_listing_columns .'%';
                                         </div>
                                             <?php
                                             $plan_hours = true;
-                                            if (is_fee_manager_active()){
-                                                $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(),'_fm_plans', true));
+                                            $u_badge_html = '<span class="atbd_upper_badge">';
+                                            if (is_fee_manager_active()) {
+                                                $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(), '_fm_plans', true));
                                             }
-                                            if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)){
+                                            if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
                                                 //lets check is it 24/7
+                                                $open = get_directorist_option('open_badge_text', __('Open Now', ATBDP_TEXTDOMAIN));
                                                 if (!empty($enable247hour)) {
-                                                    $open =  get_directorist_option('open_badge_text',__('Open Now', ATBDP_TEXTDOMAIN));
-                                                    ?>
-                                                    <span class="atbd_upper_badge">
-                                                        <span class="atbd_badge atbd_badge_open"><?php echo $open;?></span>
-                                                    </span><!-- END /.atbd_upper_badge -->
-                                                    <?php
-                                                }else {?>
-                                                    <span class="atbd_upper_badge">
-                                                        <?php BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list ?>
-                                                    </span>
-                                                <?php }
-                                            } ?>
-                                            <span class="atbd_lower_badge">
-                                                <?php
-                                                 if ($featured && !empty($display_feature_badge_cart)){ printf(
-                                                '<span class="atbd_badge atbd_badge_featured">%s</span>',
-                                                $feature_badge_text
-                                            );}
-                                                //popular badge
-                                                if (!empty($display_popular_badge_cart)) {
-                                                    $popular_listing_id = atbdp_popular_listings(get_the_ID());
-                                                    $badge = '<span class="atbd_badge atbd_badge_popular">'. $popular_badge_text .'</span>';
-                                                    if ($popular_listing_id === get_the_ID()){
-                                                        echo $badge;
-                                                    }
+                                                    $u_badge_html .= ' <span class="atbd_badge atbd_badge_open">'.$open.'</span>';
+
+                                                } else {
+                                                    $bh_statement = BD_Business_Hour()->show_business_open_close($business_hours);
+
+                                                    $u_badge_html .= $bh_statement;
                                                 }
-                                                //print the new badge
-                                                echo new_badge();
-                                                ?>
-                                            </span>
+                                            }
+                                            $u_badge_html .= '</span>';
+
+                                            /**
+                                             * @since 5.0
+                                             */
+                                            echo apply_filters('atbdp_upper_badges', $u_badge_html);
+
+
+                                            //Start lower badge
+                                            $l_badge_html = '<span class="atbd_lower_badge">';
+
+                                            if ($featured && !empty($display_feature_badge_cart)) {
+                                                $l_badge_html .= '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>';
+                                            }
+
+                                            $popular_listing_id = atbdp_popular_listings(get_the_ID());
+                                            $badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
+                                            if ($popular_listing_id === get_the_ID()) {
+                                                $l_badge_html .= $badge;
+                                            }
+                                            //print the new badge
+                                            $l_badge_html .= new_badge();
+                                            $l_badge_html .= '</span>';
+
+                                            /**
+                                             * @since 5.0
+                                             */
+                                            echo apply_filters('atbdp_lower_badges', $l_badge_html);
+                                            ?>
                                     </figure>
 
                                     <div class="atbd_listing_info">
@@ -290,7 +299,13 @@ $column_width           = 100/$search_listing_columns .'%';
                                                 ?>
                                             </div><!-- End atbd listing meta -->
 
-                                            <?php } ?>
+                                            <?php }
+                                             /**
+                                              * @since 5.0
+                                              * universal action to fire after the price
+                                              */
+                                             do_action('atbdp_listings_after_price');
+                                            ?>
                                             <?php if(!empty($display_contact_info) || !empty($display_publish_date)) { ?>
                                                 <div class="atbd_listing_data_list">
                                                     <ul>
@@ -303,7 +318,7 @@ $column_width           = 100/$search_listing_columns .'%';
 
                                                         if (!empty($display_contact_info)) {
                                                             if( !empty( $address ) && 'contact' == $address_location && !empty($display_address_field) ) { ?>
-                                                                <li><p><span class="fa fa-location-arrow"></span><?php echo esc_html(stripslashes($address));?></p></li>
+                                                                <li><p><span class="fas fa-map-marker-alt"></span><?php echo esc_html(stripslashes($address));?></p></li>
                                                             <?php } elseif(!empty($locs) && 'location' == $address_location) {
 
                                                                 $numberOfCat = count($locs);
@@ -317,7 +332,7 @@ $column_width           = 100/$search_listing_columns .'%';
                                                                     <p>
 
                                                     <span>
-                                                    <?php echo "<span class='fa fa-location-arrow'></span>" . join(',',$output);?>
+                                                    <?php echo "<span class='fas fa-map-marker-alt'></span>" . join(',',$output);?>
                                                 </span>
                                                                     </p>
                                                                 </li>

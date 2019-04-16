@@ -96,6 +96,12 @@ $column_width = 100 / $columns . '%';
 
         <div class="row" <?php echo (get_directorist_option('grid_view_as', 'masonry_grid') !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
             <?php
+            /**
+             * @since 5.0
+             * It fires before the listings columns
+             */
+            do_action('atbdp_before_listings_columns');
+
             if ($all_listings->have_posts()) {
                 while ($all_listings->have_posts()) {
                     $all_listings->the_post();
@@ -290,18 +296,26 @@ $column_width = 100 / $columns . '%';
                                             if (!empty($tagline) && !empty($enable_tagline) && !empty($display_tagline_field)) {
                                                 ?>
                                                 <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
-                                            <?php } ?>
+                                            <?php }
+
+                                            /**
+                                             * Fires after the title and sub title of the listing is rendered
+                                             *
+                                             *
+                                             * @since 1.0.0
+                                             */
+
+                                            do_action('atbdp_after_listing_tagline');
+                                            ?>
                                             <?php if (!empty($display_review) || !empty($display_price)) { ?>
                                                 <div class="atbd_listing_meta">
                                                     <?php
-                                                    /**
-                                                     * Fires after the title and sub title of the listing is rendered
-                                                     *
-                                                     *
-                                                     * @since 1.0.0
-                                                     */
-
-                                                    do_action('atbdp_after_listing_tagline');
+                                                    $average = ATBDP()->review->get_average(get_the_ID());
+                                                    ?>
+                                                    <span class="atbd_meta atbd_listing_rating">
+            <?php echo $average; ?><i class="fa fa-star"></i>
+        </span>
+                                                    <?php
                                                     $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
                                                     if (!empty($display_price) && !empty($display_pricing_field)) {
                                                         if (!empty($price_range) && ('range' === $atbd_listing_pricing)) {

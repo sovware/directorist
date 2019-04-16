@@ -249,7 +249,6 @@ final class Directorist_Base
             // display related listings
             add_action('atbdp_after_single_listing', array(self::$instance, 'show_related_listing'));
             //review and rating
-            add_action('atbdp_after_listing_tagline', array(self::$instance, 'show_review_after_tagliine')); // show rating after the tagline of the normal post on single page and also the search result page.
             add_action('atbdp_after_map', array(self::$instance, 'show_review'));
             // plugin deactivated popup
             add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , array(self::$instance, 'atbdp_plugin_link') );
@@ -871,20 +870,6 @@ final class Directorist_Base
 
     }
 
-    public function show_review_after_tagliine()
-    {
-        $enable_review = get_directorist_option('enable_review', 1);
-        if (!$enable_review) return; // vail if review is not enabled
-        global $post;
-        $average = ATBDP()->review->get_average($post->ID);
-        $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
-
-        ?>
-        <span class="atbd_meta atbd_listing_rating">
-            <?php echo $average; ?><i class="fa fa-star"></i>
-        </span>
-        <?php
-    }
 
     /**
      * Plugin links

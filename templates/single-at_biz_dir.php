@@ -147,7 +147,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing')  ? 'col-lg-8' : 'col
                         <?php if($enable_favourite) {?>
                         <div class="atbd_action atbd_save" id="atbdp-favourites"><?php the_atbdp_favourites_link(); ?></div>
                         <?php } ?>
-                        <?php if($enable_social_share) {?>
+                        <?php if($enable_social_share) { ?>
                         <div class="atbd_action atbd_share">
                             <span class="fa fa-share-alt"></span><?PHP _e('Share', ATBDP_TEXTDOMAIN);?>
                                 <div class="atbd_director_social_wrap">

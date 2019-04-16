@@ -1880,94 +1880,93 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'search_more_filter',
-                        'label' => __('Display More Filter Button', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display More Filters Button', ATBDP_TEXTDOMAIN),
                         'default' => 1,
                     ),
                     array(
-                        'type' => 'toggle',
-                        'name' => 'search_price',
-                        'label' => __('Display Price (Min - Max) Field', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
+                        'type' => 'checkbox',
+                        'name' => 'search_fields',
+                        'label' => __('Search Fields', ATBDP_TEXTDOMAIN),
+                        'validation' => 'minselected[2]|maxselected[10]',
+                        'items' => array(
+                            array(
+                                'value' => 'search_price',
+                                'label' => __('Price (Min - Max)', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_price_range',
+                                'label' => __('Price Range', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_rating',
+                                'label' => __('Rating', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_tag',
+                                'label' => __('Tag', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_custom_fields',
+                                'label' => __('Custom Fields', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_website',
+                                'label' => __('Website', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_email',
+                                'label' => __('Email', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_phone',
+                                'label' => __('Phone', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_address',
+                                'label' => __('Address', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_zip_code',
+                                'label' => __('Zip/Post Code', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_reset_button',
+                                'label' => __('Reset Filters Button', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_apply_filters_button',
+                                'label' => __('Apply Filters Button', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'search_price','search_price_range','search_rating','search_tag','search_custom_fields'
+                        ),
                     ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'search_price_range',
-                        'label' => __('Display Price range Field', ATBDP_TEXTDOMAIN),
-                        'default' => 0,
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'search_rating',
-                        'label' => __('Display Rating Field', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'search_open_now',
-                        'label' => __('Display Open Now Field (It requires Business Hour extension)', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'search_tag',
-                        'label' => __('Display Tag Field', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'search_custom_field',
-                        'label' => __('Display Custom Field', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'search_website',
-                        'label' => __('Display Website Field', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'search_email',
-                        'label' => __('Display Email Field', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'search_phone',
-                        'label' => __('Display Phone Field', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'search_adderess',
-                        'label' => __('Display Address Field', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'search_zip_code',
-                        'label' => __('Display Zip/Post Code Field', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'search_reset_button',
-                        'label' => __('Display Reset Button', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'search_apply_button',
-                        'label' => __('Display Apply Filters Button', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
-                    ),
+
                     array(
                         'type' => 'textbox',
                         'name' => 'search_listing_text',
                         'label' => __('Search Button Text', ATBDP_TEXTDOMAIN),
                         'default' => __('Search Listing', ATBDP_TEXTDOMAIN)
                     ),
-
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'search_more_filters',
+                        'label' => __('More Filters Button Text', ATBDP_TEXTDOMAIN),
+                        'default' => __('More Filters', ATBDP_TEXTDOMAIN)
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'search_reset_filters',
+                        'label' => __('Reset Filters Button Text', ATBDP_TEXTDOMAIN),
+                        'default' => __('Reset Filters', ATBDP_TEXTDOMAIN)
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'search_apply_filters',
+                        'label' => __('Apply Filters Button Text', ATBDP_TEXTDOMAIN),
+                        'default' => __('Apply Filters', ATBDP_TEXTDOMAIN)
+                    ),
                     array(
                         'type' => 'toggle',
                         'name' => 'show_popular_category',

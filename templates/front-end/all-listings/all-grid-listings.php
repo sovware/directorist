@@ -22,16 +22,7 @@ $column_width = 100/$columns .'%';
                                 <?php echo esc_html($header_title); ?>
                             </h3>
                             <?php } ?>
-                            <p>
-                                <?php
-                                echo esc_html($header_sub_title) . ' ';
-                                if ($paginate){
-                                    echo $all_listings->found_posts;
-                                }else{
-                                    echo count($all_listings->posts);
-                                }
-                                ?>
-                            </p>
+                            <p><?php echo esc_html($header_sub_title) . ' '; ?></p>
                         </div>
                         <?php if($display_viewas_dropdown || $display_sortby_dropdown) { ?>
                             <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">

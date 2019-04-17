@@ -10,7 +10,7 @@
         blockDiv = $("<div>").addClass("block" + value.toString()).appendTo(container);
         $('<span>').appendTo(blockDiv);
     });
-    
+
     // html element create end here
 
     // html element create here for selected category

@@ -672,22 +672,27 @@ $column_width = 100 / $columns . '%';
     </div>
 
     <?php
-    $p_html = '<div class="row atbd_listing_pagination">';
 
+    /**
+     * @since 5.0
+     */
+    do_action('atbdp_before_listings_pagination');
+
+    $show_pagination = !empty($show_pagination) ? $show_pagination : '';
+    if (('yes' === $show_pagination)) {
         if (1 == $pagenation) {
-
-                    $p_html .= '<div class="col-md-12">';
-                    $p_html .= '<div class="">';
+            ?>
+    <div class="row atbd_listing_pagination">
+                <div class="col-md-12">
+                    <?php
                     $paged = !empty($paged) ? $paged : '';
-                    $p_html .= atbdp_pagination($all_listings, $paged);
-                    $p_html .= '</div>';
-                    $p_html .= '</div>';
+                    echo atbdp_pagination($all_listings, $paged);
+                    ?>
+                </div>
+            </div>
+        <?php }
+    } ?>
 
-         }
-
-    $p_html .= '</div>';
-    echo apply_filters('atbdp_grid_pagination', $p_html);
-    ?>
 
 </div>
 <style>

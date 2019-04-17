@@ -83,7 +83,6 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                         'page_section' => array(
                             'type' => 'section',
                             'title' => __('Upgrade/Regenerate Pages', ATBDP_TEXTDOMAIN),
-                            'description' => __('If you are an existing user of the directorist, you have to upgrade your Directorist pages shortcode.', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_pages_regenerate_settings_fields(),
                         ),
                         'search_section' => array(
@@ -3682,7 +3681,7 @@ The Administrator of ==SITE_NAME==
                     'type' => 'toggle',
                     'name' => 'shortcode-updated',
                     'label' => __('Upgrade/Regenerate Pages', ATBDP_TEXTDOMAIN),
-                    'description' => sprintf(__( '%s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">It won\'t work unless you have selected Pages for the Shortcodes from Directory Settings >> Pages, Links & Views.</strong>'),
+                    'description' => sprintf(__( '%s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">It won\'t work unless you have selected Pages for the Shortcodes from below.</strong>'),
 
                 ),
             ));

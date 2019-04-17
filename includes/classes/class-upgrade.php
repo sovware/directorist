@@ -4,7 +4,6 @@ class ATBDP_Upgrade{
 
     public function __construct()
     {
-        add_action('admin_menu', array($this, 'add_upgrade_submenu'), 11);
         add_action('wp_ajax_atbdp_upgrade_old_pages', array($this, 'upgrade_old_pages'));
         add_action('admin_init', array( $this, 'check_need_to_upgrade_database' ), 100 );
         add_action('admin_notices', array( $this, 'upgrade_notice' ), 100 );
@@ -13,7 +12,7 @@ class ATBDP_Upgrade{
     public function upgrade_notice() {
         $user_id = get_current_user_id();
         if (!current_user_can('administrator')) return false;
-        $update_link = admin_url().'/edit.php?post_type=at_biz_dir&page=directorist-upgrade';
+        $update_link = admin_url().'edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages';
 
         //check the version of Directorist
         $directorist_header = get_plugins( '/' . explode( '/', plugin_basename( __FILE__ ) )[0] );
@@ -64,22 +63,6 @@ class ATBDP_Upgrade{
         if ( isset( $_GET['location-category-page'] ) ){
             update_user_meta( $user_id, '_atbdp_location_category_page', 'true' );
         }
-    }
-
-    /**
-     * It adds a submenu for upgrading directorist listing data that are old so that they work fine with new export & import feature
-     */
-    public function add_upgrade_submenu()
-    {
-        add_submenu_page('edit.php?post_type=at_biz_dir', __('Database Upgrade', ATBDP_TEXTDOMAIN), __('<span>Database Upgrade</span>', ATBDP_TEXTDOMAIN), 'manage_options', 'directorist-upgrade', array($this, 'display_upgrade_menu'));
-    }
-
-    /**
-     * It displays settings page markup
-     */
-    public function display_upgrade_menu()
-    {
-        ATBDP()->load_template('upgrade-directorist');
     }
 
 

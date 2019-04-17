@@ -2621,9 +2621,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 /* ads advance search */
 .ads-advanced {
-  border-top: 1px solid #e3e6ef;
-  padding-top: 15px;
+  border: 1px solid #e3e6ef;
+  padding: 15px 30px 30px;
   margin-top: 25px;
+  background: #fff;
 }
 
 .ads-advanced .form-group {

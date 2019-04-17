@@ -252,3 +252,9 @@
 .bdas-terms .bdas-child-terms{
     margin-top: 14px;
 }
+.default-ad-search .form-control{
+    width: 100%;
+}
+.default-ad-search .form-group{
+    margin-bottom: 15px;
+}

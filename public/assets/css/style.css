@@ -1484,6 +1484,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   text-overflow: ellipsis;
 }
 
+.atbd_google_map {
+  height: 250px;
+}
+
 .atbd_content_active .widget.atbd_widget[id^='bd'],
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget {
   padding: 0;
@@ -2363,6 +2367,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 0 0 0 3px;
 }
 
+#directorist.atbd_wrapper .c_cat_list strong {
+  font-weight: 500;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav {
   display: flex;
   justify-content: space-between;
@@ -2621,9 +2629,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 /* ads advance search */
 .ads-advanced {
-  border-top: 1px solid #e3e6ef;
-  padding-top: 15px;
+  border: 1px solid #e3e6ef;
+  padding: 20px 30px 30px;
   margin-top: 25px;
+  background: #fff;
 }
 
 .ads-advanced .form-group {
@@ -2642,6 +2651,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
   width: 150px;
 }
 
+.ads-advanced .form-group label {
+  font-weight: 500;
+}
+
+.ads-advanced .form-group .form-control {
+  height: 44px;
+}
+
 .ads-advanced .price_ranges {
   display: flex;
   align-items: center;
@@ -2655,10 +2672,16 @@ body.atbd_content_active #directorist.atbd_wrapper {
   width: 145px;
 }
 
+.ads-advanced .price_ranges .range_single input {
+  height: 44px;
+}
+
 .ads-advanced .price-frequency {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   margin-left: 7px;
+  width: auto;
 }
 
 .ads-advanced .price-frequency .pf-btn {
@@ -2797,6 +2820,17 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .ads-advanced .atbdp-custom-fields-search .form-group .custom-control {
   width: 140px;
+}
+
+.header_bar .ads-advanced {
+  margin-bottom: 30px;
+  margin-top: 0;
+}
+
+.header_bar .ads-advanced .atbd_seach_fields_wrapper {
+  border-bottom: 1px solid #eef0f6 !important;
+  margin-bottom: 15px !important;
+  padding: 0 0 15px 0 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_author_module .atbd_content_module p {

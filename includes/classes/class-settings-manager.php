@@ -3023,7 +3023,7 @@ The Administrator of ==SITE_NAME==
          * @return array
          */
         function get_listings_form_settings_fields() {
-            return apply_filters('atbdp_listings_settings_fields' , array(
+            return apply_filters('atbdp_single_listings_settings_fields' , array(
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_single_listing',
@@ -3274,7 +3274,7 @@ The Administrator of ==SITE_NAME==
             $e_p_list = atbdp_get_option('enable_pop_listing', 'atbdp_general', 'yes');
             $e_r_list = atbdp_get_option('enable_rel_listing', 'atbdp_general', 'yes');
 
-            return apply_filters('atbdp_listings_settings_fields', array(
+            return apply_filters('atbdp_all_listings_settings_fields', array(
                     array(
                         'type' => 'toggle',
                         'name' => 'display_preview_image',
@@ -3483,7 +3483,7 @@ The Administrator of ==SITE_NAME==
             $s_p_cat = atbdp_get_option('show_popular_category', 'atbdp_general', 'yes');
             $e_r_list = atbdp_get_option('enable_rel_listing', 'atbdp_general', 'yes');
 
-            return apply_filters('atbdp_listings_settings_fields', array(
+            return apply_filters('atbdp_listings_expiration_settings_fields', array(
                     array(
                         'type' => 'slider',
                         'name' => 'listing_expire_in_days',

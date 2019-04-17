@@ -136,23 +136,25 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                     </div>
 
                     <!--More Filters  & Search Button-->
-                    <div class="atbd_submit_btn_wrapper">
-                        <?php if(!empty($display_more_filter_search)) {?>
-                        <button class="more-filter btn btn-outline btn-lg btn-outline-primary"><span class="fa fa-filter"></span> <?php _e('More Filters', ATBDP_TEXTDOMAIN);?></button>
-                        <?php } ?>
                         <?php
-                        $html = '<div class="atbd_submit_btn">';
+                        $html = '<div class="atbd_submit_btn_wrapper">';
+                        if(!empty($display_more_filter_search)) {
+                            $html .= '<button class="more-filter btn btn-outline btn-lg btn-outline-primary"><span class="fa fa-filter"></span>'.__('More Filters', ATBDP_TEXTDOMAIN).'</button>';
+                             }
+                        $html .= '<div class="atbd_submit_btn">';
                         $html .= '<button type="submit" class="btn btn-primary btn-lg btn_search">';
                         $html .= '<span class="fa fa-search"></span>'.__($search_listing_text, ATBDP_TEXTDOMAIN).'';
                         $html .= '</button>';
                         $html .= '</div>';
+                        $html .= '</div>';
+                        
                         /**
                          * @since 5.0
                          * It show the search button
                          */
                         echo apply_filters('atbdp_search_listing_button', $html);
                         ?>
-                    </div><!-- ends: .atbd_submit_btn -->
+
 
                     <?php if(!empty($display_more_filter_search)) {?>
                     <!--ads advance search-->

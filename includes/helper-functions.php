@@ -2036,7 +2036,8 @@ function directorist_clean($var)
  *
  * @since    4.0
  *
- * @param    int $post_id Post ID.
+ * @param    int          $post_id Post ID.
+ * @return   mixed        Included the favourites and unfavourites button
  */
 function the_atbdp_favourites_link($post_id = 0)
 {
@@ -2051,14 +2052,14 @@ function the_atbdp_favourites_link($post_id = 0)
         $favourites = (array)get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
 
         if (in_array($post_id, $favourites)) {
-            echo '<span class="fa fa-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '">' . __('Favorite', ATBDP_TEXTDOMAIN) . '</a>';
+            return '<span class="fa fa-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '">' . __('Favorite', ATBDP_TEXTDOMAIN) . '</a>';
         } else {
-            echo '<span class="fa fa-heart"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '">' . __('Favorite', ATBDP_TEXTDOMAIN) . '</a>';
+            return '<span class="fa fa-heart"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '">' . __('Favorite', ATBDP_TEXTDOMAIN) . '</a>';
         }
 
     } else {
 
-        echo '<span class="fa fa-heart"></span><a href="javascript:void(0)" class="atbdp-require-login">' . __('Favorite', ATBDP_TEXTDOMAIN) . '</a>';
+        return '<span class="fa fa-heart"></span><a href="javascript:void(0)" class="atbdp-require-login">' . __('Favorite', ATBDP_TEXTDOMAIN) . '</a>';
 
     }
 
@@ -2090,7 +2091,7 @@ function atbdp_get_remove_favourites_page_link($listing_id)
  *
  * @param    int $post_id Post ID.
  */
-function the_atbdp_favourites_all_listing($post_id = 0)
+/*function the_atbdp_favourites_all_listing($post_id = 0)
 {
 
     if (is_user_logged_in()) {
@@ -2114,7 +2115,7 @@ function the_atbdp_favourites_all_listing($post_id = 0)
 
     }
 
-}
+}*/
 
 /*
  * to get the new badge

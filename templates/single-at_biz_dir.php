@@ -124,7 +124,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 <section id="directorist" class="directorist atbd_wrapper">
     <div class="row">
         <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
-
             <?php
             //is current user is logged in and the original author of the listing
             if (is_user_logged_in() && $listing_author_id == get_current_user_id()) {
@@ -138,6 +137,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 
                 <?php
             }
+            /**
+             * @since 5.0
+             */
+            do_action('atbdp_before_listing_section');
             ?>
             <div class="atbd_content_module atbd_listing_details">
                 <div class="atbd_content_module__tittle_area">
@@ -147,100 +150,102 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         </h4>
                     </div>
 
-                    <div class="atbd_listing_action_area">
-                        <?php if ($enable_favourite) { ?>
-                            <div class="atbd_action atbd_save"
-                                 id="atbdp-favourites"><?php the_atbdp_favourites_link(); ?></div>
-                        <?php } ?>
-                        <?php if ($enable_social_share) { ?>
-                            <div class="atbd_action atbd_share">
-                                <span class="fa fa-share-alt"></span><?PHP _e('Share', ATBDP_TEXTDOMAIN); ?>
-                                <div class="atbd_director_social_wrap">
-                                    <?php
-                                    //prepare the data for the links because links needs to be escaped
-                                    $twt_lnk = "http://twitter.com/share?url={$p_lnk}";
-                                    $fb_lnk = "https://www.facebook.com/share.php?u={$p_lnk}&title={$p_title}";
-                                    $g_lnk = "https://plus.google.com/share?url={$p_lnk}";
-                                    $in_link = "http://www.linkedin.com/shareArticle?mini=true&url={$p_lnk}&title={$p_title}";
-                                    ?>
-                                    <ul>
-                                        <li>
-                                            <a href="<?php echo esc_url($fb_lnk); ?>" target="_blank">
-                                                <span class="fa fa-facebook"></span><?PHP _e('Facebook', ATBDP_TEXTDOMAIN) ?>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo esc_url($twt_lnk); ?>" target="_blank">
-                                                <span class="fa fa-twitter"></span><?PHP _e('Twitter', ATBDP_TEXTDOMAIN) ?>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo esc_url($g_lnk); ?>" target="_blank">
-                                                <span class="fa fa-google-plus"></span><?PHP _e('Google Plus', ATBDP_TEXTDOMAIN) ?>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo esc_url($in_link); ?>" target="_blank">
-                                                <span class="fa fa-linkedin"></span><?PHP _e('LinkedIn', ATBDP_TEXTDOMAIN) ?>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div> <!--Ends social share-->
-                                <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-                            </div>
-                        <?php } ?>
-                        <!-- Report Abuse-->
+                    <?php
+                    $listing_header = '<div class="atbd_listing_action_area">';
+                    if ($enable_favourite) {
+                        $listing_header .= '<div class="atbd_action atbd_save"
+                                 id="atbdp-favourites">' . the_atbdp_favourites_link() . '</div>';
+                        }
+                        if ($enable_social_share) {
+                        $listing_header .= '<div class="atbd_action atbd_share">';
+                        $listing_header .= '<span class="fa fa-share-alt"></span>' . __('Share', ATBDP_TEXTDOMAIN) . '';
+
+                        $listing_header .= '<div class="atbd_director_social_wrap">';
+                        //prepare the data for the links because links needs to be escaped
+                        $twt_lnk = "http://twitter.com/share?url={$p_lnk}";
+                        $fb_lnk = "https://www.facebook.com/share.php?u={$p_lnk}&title={$p_title}";
+                        $g_lnk = "https://plus.google.com/share?url={$p_lnk}";
+                        $in_link = "http://www.linkedin.com/shareArticle?mini=true&url={$p_lnk}&title={$p_title}";
+                        $listing_header .= '
+                        
+                        
+                         <ul>
+                        <li>
+                            <a href="' . esc_url($fb_lnk) . '" target="_blank">
+                                <span class="fa fa-facebook"></span>' . __('Facebook', ATBDP_TEXTDOMAIN) . '</a>
+                        </li>
+                        <li>
+                            <a href="' . esc_url($twt_lnk) . '" target="_blank">
+                                <span class="fa fa-twitter"></span>' . __('Twitter', ATBDP_TEXTDOMAIN) . '</a>
+                        </li>
+                        <li>
+                            <a href="' . esc_url($g_lnk) . '" target="_blank">
+                                <span class="fa fa-google-plus"></span>' . __('Google Plus', ATBDP_TEXTDOMAIN) . '</a>
+                        </li>
+                        <li>
+                            <a href="' . esc_url($in_link) . '" target="_blank">
+                                <span class="fa fa-linkedin"></span>' . __('LinkedIn', ATBDP_TEXTDOMAIN) . '</a>
+                        </li>
+                    </ul>';
+                        $listing_header .= '</div>'; //Ends social share
+                        ?>
+                        <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
                         <?php
-                        if ($enable_report_abuse) { ?>
-                            <div class="atbd_action atbd_report">
-                                <?php if (is_user_logged_in()) { ?>
+                        $listing_header .= '</div>';
+                    }
 
-                                    <span class="fa fa-flag"></span><a href="javascript:void(0)" data-toggle="modal"
-                                                                       data-target="#atbdp-report-abuse-modal"><?php _e('Report', ATBDP_TEXTDOMAIN); ?></a>
-                                    <!-- Modal (report abuse form) -->
-
-                                <?php } else { ?>
-                                    <a href="javascript:void(0)"
-                                       class="atbdp-require-login"><span
-                                                class="fa fa-flag"></span><?php _e('Report', ATBDP_TEXTDOMAIN); ?></a>
-                                <?php } ?>
-                                <input type="hidden" id="atbdp-post-id" value="<?php echo get_the_ID(); ?>"/>
-                            </div>
-                        <?php } ?>
-                        <div class="modal fade" id="atbdp-report-abuse-modal" tabindex="-1" role="dialog"
-                             aria-labelledby="atbdp-report-abuse-modal-label" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content modal-dialog-centered">
-                                    <form id="atbdp-report-abuse-form" class="form-vertical" role="form">
-                                        <div class="modal-header">
-                                            <h3 class="modal-title"
-                                                id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', ATBDP_TEXTDOMAIN); ?></h3>
-                                            <button type="button" class="close" data-dismiss="modal"><span
-                                                        aria-hidden="true">&times;</span></button>
+                    if ($enable_report_abuse) {
+                        $listing_header .= '<div class="atbd_action atbd_report">';
+                        if (is_user_logged_in()) {
+                            $listing_header .= '<span class="fa fa-flag"></span><a href="javascript:void(0)" data-toggle="modal"
+                                                               data-target="#atbdp-report-abuse-modal">' . __('Report', ATBDP_TEXTDOMAIN) . '</a>'; //Modal (report abuse form)
+                        } else {
+                            $listing_header .= '<a href="javascript:void(0)"
+                               class="atbdp-require-login"><span
+                                        class="fa fa-flag"></span>'.__('Report', ATBDP_TEXTDOMAIN).'</a>';
+                            }
+                        $listing_header .= '<input type="hidden" id="atbdp-post-id" value="'. get_the_ID().'"/>';
+                        $listing_header .= '</div>';
+                    } ?>
+                    <div class="modal fade" id="atbdp-report-abuse-modal" tabindex="-1" role="dialog"
+                         aria-labelledby="atbdp-report-abuse-modal-label" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content modal-dialog-centered">
+                                <form id="atbdp-report-abuse-form" class="form-vertical" role="form">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title"
+                                            id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', ATBDP_TEXTDOMAIN); ?></h3>
+                                        <button type="button" class="close" data-dismiss="modal"><span
+                                                    aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="atbdp-report-abuse-message"><?php _e('Your Complaint', ATBDP_TEXTDOMAIN); ?>
+                                                <span class="atbdp-star">*</span></label>
+                                            <textarea class="form-control" id="atbdp-report-abuse-message"
+                                                      rows="3"
+                                                      placeholder="<?php _e('Message', ATBDP_TEXTDOMAIN); ?>..."
+                                                      required></textarea>
                                         </div>
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <label for="atbdp-report-abuse-message"><?php _e('Your Complaint', ATBDP_TEXTDOMAIN); ?>
-                                                    <span class="atbdp-star">*</span></label>
-                                                <textarea class="form-control" id="atbdp-report-abuse-message"
-                                                          rows="3"
-                                                          placeholder="<?php _e('Message', ATBDP_TEXTDOMAIN); ?>..."
-                                                          required></textarea>
-                                            </div>
-                                            <div id="atbdp-report-abuse-g-recaptcha"></div>
-                                            <div id="atbdp-report-abuse-message-display"></div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger"
-                                                    data-dismiss="modal"><?php _e('Close', ATBDP_TEXTDOMAIN); ?></button>
-                                            <button type="submit"
-                                                    class="btn btn-primary"><?php _e('Submit', ATBDP_TEXTDOMAIN); ?></button>
-                                        </div>
-                                    </form>
-                                </div>
+                                        <div id="atbdp-report-abuse-g-recaptcha"></div>
+                                        <div id="atbdp-report-abuse-message-display"></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal"><?php _e('Close', ATBDP_TEXTDOMAIN); ?></button>
+                                        <button type="submit"
+                                                class="btn btn-primary"><?php _e('Submit', ATBDP_TEXTDOMAIN); ?></button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
+                    <?php $listing_header .= '</div>';
+                    /**
+                     * @since 5.0
+                     */
+                    echo apply_filters('atbdp_header_before_image_slider', $listing_header);
+                    ?>
                 </div>
 
                 <div class="atbdb_content_module_contents">
@@ -383,31 +388,34 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                          * It returns data before listing title
                          */
                         echo apply_filters('atbdp_before_listing_title', $data_info);
-                        ?>
 
-                        <div class="atbd_listing_title">
-                            <h2><?php echo esc_html($p_title); ?></h2>
-                            <?php
+                        $title_html = '<div class="atbd_listing_title">';
+                        $title_html .= '<h2>'. esc_html($p_title).'</h2>';
+
                             /**
                              * @since 4.5.2
                              * It fires after the title in single listing
                              */
                             do_action('atbdp_single_listing_after_title', $listing_id);
                             ?>
-                            <?php if (!empty($tagline) && !empty($display_tagline_field)) { ?>
-                                <p class="atbd_sub_title"><?= (!empty($tagline)) ? esc_html(stripslashes($tagline)) : ''; ?></p>
-                            <?php }
+                            <?php if (!empty($tagline) && !empty($display_tagline_field)) {
+                                $title_html .= '<p class="atbd_sub_title">'. (!empty($tagline)) ? esc_html(stripslashes($tagline)) : "".'</p>';
+                            }
                             /**
                              * Fires after the title and sub title of the listing is rendered on the single listing page
                              *
                              * @since 1.0.0
                              */
                             do_action('atbdp_after_listing_tagline');
-                            ?>
-                        </div>
+                            $title_html .= '</div>';
 
-                        <div class="about_detail">
-                            <?php
+                            /**
+                             * @since 5.0
+                             */
+                            echo apply_filters('atbdp_listing_title_and_tagline', $title_html);
+
+                            $listing_content = '<div class="about_detail">';
+
                             /*
                              * Automatic embedding done by WP by hooking to the_content filter
                              * As we are outputting the data on the content filter before them, therefore it is our duty to parse the embed using the WP_Embed object manually.
@@ -416,17 +424,15 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                              * then do_shortcode() will parse the rest of the shortcodes
                              * */
                             $post_object = get_post(get_the_ID());
-
                             $content = apply_filters('get_the_content', $post_object->post_content);
-                            echo do_shortcode(wpautop($content));
+                            $listing_content .=  do_shortcode(wpautop($content));
                             /*
                             global $wp_embed;
                             $cont = $wp_embed->autoembed($wp_embed->run_shortcode(wp_kses_post($post->post_content)));
                             echo do_shortcode($cont);*/
+                            $listing_content .= '</div>';
+                            echo apply_filters('atbdp_listing_content', $listing_content);
                             ?>
-
-
-                        </div>
                     </div>
                 </div>
             </div> <!-- end .atbd_listing_details -->

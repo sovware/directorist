@@ -100,10 +100,16 @@
 }
 
 /* ads advance search */
+.directory_search_area{
+  .ads-advanced{
+
+  }
+}
 .ads-advanced{
-  border-top: 1px solid #e3e6ef;
-  padding-top: 15px;
+  border: 1px solid #e3e6ef;
+  padding: 20px 30px 30px;
   margin-top: 25px;
+  background: #fff;
   .form-group{
     display: flex;
     flex-wrap: wrap;
@@ -117,6 +123,12 @@
       display: block;
       width: 150px;
     }
+    label{
+      font-weight: 500;
+    }
+    .form-control{
+      height: 44px;
+    }
   }
   .price_ranges{
     display: flex;
@@ -127,12 +139,17 @@
     .range_single{
       padding: 0 5px;
       width: 145px;
+      input{
+        height: 44px;
+      }
     }
   }
   .price-frequency{
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     margin-left: 7px;
+    width: auto;
     .pf-btn{
       margin-right: -1px !important;
       overflow: hidden;
@@ -253,5 +270,15 @@
         width: 140px;
       }
     }
+  }
+}
+
+.header_bar .ads-advanced{
+  margin-bottom: 30px;
+  margin-top: 0;
+  .atbd_seach_fields_wrapper{
+    border-bottom: 1px solid #eef0f6 !important;
+    margin-bottom: 15px !important;
+    padding: 0 0 15px 0 !important;
   }
 }

@@ -23,7 +23,7 @@
       <file leaf-file-name="_general.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/component/_general.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="28">
+            <state relative-caret-position="10612">
               <caret line="379" column="18" selection-start-line="379" selection-start-column="18" selection-end-line="379" selection-end-column="18" />
             </state>
           </provider>
@@ -32,7 +32,7 @@
       <file leaf-file-name="style.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin/style.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="586">
+            <state relative-caret-position="10332">
               <caret line="369" column="17" selection-start-line="369" selection-start-column="17" selection-end-line="369" selection-end-column="17" />
             </state>
           </provider>
@@ -41,7 +41,7 @@
       <file leaf-file-name="_location-category.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/component/_location-category.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="28">
+            <state relative-caret-position="224">
               <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
             </state>
           </provider>
@@ -50,8 +50,8 @@
       <file leaf-file-name="search-style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../public/assets/css/search-style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="28">
-              <caret line="219" selection-start-line="219" selection-end-line="219" />
+            <state relative-caret-position="578">
+              <caret line="255" column="16" lean-forward="true" selection-start-line="255" selection-start-column="16" selection-end-line="256" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -59,8 +59,17 @@
       <file leaf-file-name="_home.scss" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/component/_home.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="725">
-              <caret line="252" column="21" selection-start-line="252" selection-start-column="21" selection-end-line="252" selection-end-column="21" />
+            <state relative-caret-position="298">
+              <caret line="151" column="16" selection-start-line="151" selection-start-column="16" selection-end-line="151" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_listing.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/component/_listing.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="809">
+              <caret line="286" column="12" selection-start-line="286" selection-start-column="12" selection-end-line="286" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -81,6 +90,10 @@
       <find>submit_btn</find>
       <find>13px 20px</find>
       <find>keyfar</find>
+      <find>default</find>
+      <find>pricing</find>
+      <find>default-ad-search</find>
+      <find>.directory_search_area</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -95,7 +108,9 @@
         <option value="$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/element/_cards.scss" />
         <option value="$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/element/_categories.scss" />
         <option value="$USER_HOME$/Downloads/Compressed/glitz/src/theme_assets/sass/mixins/_mixin_all.scss" />
+        <option value="$PROJECT_DIR$/component/_add-listing.scss" />
         <option value="$PROJECT_DIR$/../public/assets/css/search-style.css" />
+        <option value="$PROJECT_DIR$/component/_listing.scss" />
         <option value="$PROJECT_DIR$/component/_home.scss" />
       </list>
     </option>
@@ -120,6 +135,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -136,7 +152,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -174,12 +189,13 @@
       <workItem from="1555223163284" duration="11547000" />
       <workItem from="1555386983574" duration="5715000" />
       <workItem from="1555396882750" duration="10405000" />
-      <workItem from="1555419559706" duration="4712000" />
+      <workItem from="1555419559706" duration="5941000" />
+      <workItem from="1555470175374" duration="6669000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39742000" />
+    <option name="totallyTimeSpent" value="47640000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-9" width="1936" height="1056" extended-state="6" />
@@ -211,6 +227,41 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/component/_general.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10612">
+          <caret line="379" column="18" selection-start-line="379" selection-start-column="18" selection-end-line="379" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/style.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10332">
+          <caret line="369" column="17" selection-start-line="369" selection-start-column="17" selection-end-line="369" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/component/_location-category.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../public/assets/css/search-style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6132">
+          <caret line="219" selection-start-line="219" selection-end-line="219" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/component/_home.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2940">
+          <caret line="105" column="19" selection-start-line="105" selection-start-column="19" selection-end-line="105" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/component/_general.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="10612">
@@ -425,36 +476,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/style.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="586">
+        <state relative-caret-position="10332">
           <caret line="369" column="17" selection-start-line="369" selection-start-column="17" selection-end-line="369" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/component/_general.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
+        <state relative-caret-position="10612">
           <caret line="379" column="18" selection-start-line="379" selection-start-column="18" selection-end-line="379" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../public/assets/css/search-style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="219" selection-start-line="219" selection-end-line="219" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/component/_location-category.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
+        <state relative-caret-position="224">
           <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/component/_add-listing.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="726">
+          <caret line="283" column="20" selection-start-line="283" selection-start-column="20" selection-end-line="283" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../public/assets/css/search-style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="255" column="16" lean-forward="true" selection-start-line="255" selection-start-column="16" selection-end-line="256" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/component/_listing.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="809">
+          <caret line="286" column="12" selection-start-line="286" selection-start-column="12" selection-end-line="286" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/component/_home.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="725">
-          <caret line="252" column="21" selection-start-line="252" selection-start-column="21" selection-end-line="252" selection-end-column="21" />
+        <state relative-caret-position="298">
+          <caret line="151" column="16" selection-start-line="151" selection-start-column="16" selection-end-line="151" selection-end-column="16" />
         </state>
       </provider>
     </entry>

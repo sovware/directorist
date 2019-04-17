@@ -88,8 +88,11 @@ $column_width = 100 / $columns . '%';
         /**
          * @since 5.0
          * It fires before the listings columns
+         * It only fires if the parameter [directorist_all_listing action_before_after_loop="yes"]
          */
-        do_action('atbdp_before_grid_listings_loop');
+        if ('yes' === $action_before_after_loop){
+            do_action('atbdp_before_grid_listings_loop');
+        }
         ?>
         <div class="row" <?php echo (get_directorist_option('grid_view_as', 'masonry_grid') !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
             <?php
@@ -235,7 +238,7 @@ $column_width = 100 / $columns . '%';
                                             $bh_statement = BD_Business_Hour()->show_business_open_close($business_hours);
 
                                             $u_badge_html .= $bh_statement;
-                                         }
+                                        }
                                     }
                                     $u_badge_html .= '</span>';
 
@@ -345,7 +348,7 @@ $column_width = 100 / $columns . '%';
                                                         if (!empty($display_contact_info)) {
                                                             if (!empty($address) && 'contact' == $address_location && !empty($display_address_field)) { ?>
                                                                 <li><p>
-                                                                        <span class="fas fa-map-marker-alt"></span><?php echo esc_html(stripslashes($address)); ?>
+                                                                        <span class="fa fa-map-marker"></span><?php echo esc_html(stripslashes($address)); ?>
                                                                     </p></li>
                                                             <?php } elseif (!empty($locs) && 'location' == $address_location) {
 
@@ -361,7 +364,8 @@ $column_width = 100 / $columns . '%';
                                                                     <p>
 
                                                     <span>
-                                                    <?php echo "<span class='fas fa-map-marker-alt'></span>" . join(',', $output); ?>
+                                                    <?php
+                                                    echo "<span class='fa fa-map-marker'></span>" . join(',', $output); ?>
                                                 </span>
                                                                     </p>
                                                                 </li>
@@ -484,24 +488,31 @@ $column_width = 100 / $columns . '%';
         /**
          * @since 5.0
          * to add custom html
+         * It only fires if the parameter [directorist_all_listing action_before_after_loop="yes"]
          */
-        do_action('atbdp_after_grid_listings_loop');
+        if ('yes' === $action_before_after_loop ){
+            do_action('atbdp_after_grid_listings_loop');
+        }
         ?>
     </div>
-    <div class="row atbd_listing_pagination">
-        <?php
+
+    <?php
+    $p_html = '<div class="row atbd_listing_pagination">';
+
         if (1 == $pagenation) {
-            ?>
-            <div class="col-md-12">
-                <div class="">
-                    <?php
+
+                    $p_html .= '<div class="col-md-12">';
+                    $p_html .= '<div class="">';
                     $paged = !empty($paged) ? $paged : '';
-                    echo atbdp_pagination($all_listings, $paged);
-                    ?>
-                </div>
-            </div>
-        <?php } ?>
-    </div>
+                    $p_html .= atbdp_pagination($all_listings, $paged);
+                    $p_html .= '</div>';
+                    $p_html .= '</div>';
+
+         }
+
+    $p_html .= '</div>';
+    echo apply_filters('atbdp_grid_pagination', $p_html);
+    ?>
 
 </div>
 <style>

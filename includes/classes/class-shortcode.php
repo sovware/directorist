@@ -1035,6 +1035,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                 'featured_only'     => '',
                 'popular_only'      => '',
+                'action_before_after_loop' => 'yes',
             ), $atts );
 
             $categories          = !empty($atts['category'] ) ? explode(',', $atts['category'] ) : '';
@@ -1047,6 +1048,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $header_sub_title    = !empty($atts['header_sub_title']) ? $atts['header_sub_title'] : '';
             $feature_only        = !empty($atts['featured_only']) ? $atts['featured_only'] : '';
             $popular_only        = !empty($atts['popular_only']) ? $atts['popular_only'] : '';
+            $action_before_after_loop  = !empty($atts['action_before_after_loop']) ? $atts['action_before_after_loop'] : '';
             //for pagination
             $paged               = atbdp_get_paged_num();
             $paginate            = get_directorist_option('paginate_all_listings');
@@ -1412,7 +1414,8 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $atts = shortcode_atts( array(
                 'view'              => $display_categories_as,
                 'orderby'           => $categories_settings['orderby'],
-                'order'             => $categories_settings['order']
+                'order'             => $categories_settings['order'],
+                'cat_per_page'       => 100
             ), $atts );
 
             $args = array(
@@ -1424,6 +1427,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             );
 
             $terms = get_terms( ATBDP_CATEGORY, $args );
+            $terms = array_slice($terms, 0, $atts['cat_per_page'] );
             //var_dump($terms);
             if( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
                 if('grid' == $atts['view']) {
@@ -1691,7 +1695,8 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $atts = shortcode_atts( array(
                 'view'              => $display_locations_as,
                 'orderby'           => $locations_settings['orderby'],
-                'order'             => $locations_settings['order']
+                'order'             => $locations_settings['order'],
+                'loc_per_page'       => 100,
             ), $atts );
 
             $args = array(
@@ -1699,10 +1704,11 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'order'        => $atts['order'],
                 'hide_empty'   => ! empty( $locations_settings['hide_empty'] ) ? 1 : 0,
                 'parent'       => 0,
-                'hierarchical' => ! empty( $locations_settings['hide_empty'] ) ? true : false
+                'hierarchical' => ! empty( $locations_settings['hide_empty'] ) ? true : false,
             );
 
             $terms = get_terms( ATBDP_LOCATION, $args );
+            $terms = array_slice($terms, 0, $atts['loc_per_page'] );
 
             if( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
                 if('grid' == $atts['view']) {

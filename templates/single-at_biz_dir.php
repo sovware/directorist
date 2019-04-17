@@ -413,9 +413,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                              * @since 5.0
                              */
                             echo apply_filters('atbdp_listing_title_and_tagline', $title_html);
-
                             $listing_content = '<div class="about_detail">';
-
                             /*
                              * Automatic embedding done by WP by hooking to the_content filter
                              * As we are outputting the data on the content filter before them, therefore it is our duty to parse the embed using the WP_Embed object manually.

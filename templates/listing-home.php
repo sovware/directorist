@@ -128,7 +128,6 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                             ?>
                         </div>
                     </div>
-
                     <!--More Filters  & Search Button-->
                         <?php
                         $html = '<div class="atbd_submit_btn_wrapper">';
@@ -141,7 +140,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                         $html .= '</button>';
                         $html .= '</div>';
                         $html .= '</div>';
-                        
+
                         /**
                          * @since 5.0
                          * It show the search button

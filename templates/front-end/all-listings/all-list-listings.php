@@ -82,8 +82,12 @@ $display_viewas_dropdown = get_directorist_option('display_view_as', 1);
                 <?php }
                 /**
                  * @since 5.0
+                 * It fires before the listings columns
+                 * It only fires if the parameter [directorist_all_listing action_before_after_loop="yes"]
                  */
-                do_action('atbdp_before_list_listings_loop');
+                if ('yes' === $action_before_after_loop){
+                    do_action('atbdp_before_list_listings_loop');
+                }
                 ?>
                 <?php if ($all_listings->have_posts()) { ?>
                     <?php listing_view_by_list($all_listings);?>
@@ -92,8 +96,12 @@ $display_viewas_dropdown = get_directorist_option('display_view_as', 1);
                 <?php }
                 /**
                  * @since 5.0
+                 * It fires before the listings columns
+                 * It only fires if the parameter [directorist_all_listing action_before_after_loop="yes"]
                  */
-                do_action('atbdp_after_list_listings_loop');
+                if ('yes' === $action_before_after_loop) {
+                    do_action('atbdp_after_list_listings_loop');
+                }
                 ?>
 
             </div> <!--ends .row -->

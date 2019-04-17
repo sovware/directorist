@@ -101,8 +101,11 @@
 
 /* ads advance search */
 .directory_search_area{
-  .ads-advanced{
+  &>form{
+    position: relative;
+    .ads-advanced{
 
+    }
   }
 }
 .ads-advanced{

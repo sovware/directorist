@@ -2628,6 +2628,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 /* ads advance search */
+.directory_search_area > form {
+  position: relative;
+}
+
 .ads-advanced {
   border: 1px solid #e3e6ef;
   padding: 20px 30px 30px;

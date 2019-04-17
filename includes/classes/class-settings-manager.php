@@ -1847,47 +1847,63 @@ The Administrator of ==SITE_NAME==
                         'default' => atbdp_get_option('search_subtitle', 'atbdp_general'),
                     ),
                     array(
-                        'type' => 'textbox',
-                        'name' => 'search_placeholder',
-                        'label' => __('Search Bar Placeholder', ATBDP_TEXTDOMAIN),
-                        'default' => __('What are you looking for?', ATBDP_TEXTDOMAIN),
-                    ),
-
-                    array(
                         'type' => 'toggle',
                         'name' => 'search_border',
                         'label' => __('Search Bar Border', ATBDP_TEXTDOMAIN),
                         'default' => 1,
                     ),
                     array(
-                        'type' => 'toggle',
-                        'name' => 'display_text_field',
-                        'label' => __('Display Text Search Field', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
+                        'type' => 'checkbox',
+                        'name' => 'search_tsc_fields',
+                        'label' => __('Search Fields', ATBDP_TEXTDOMAIN),
+                        'validation' => 'minselected[1]|maxselected[3]',
+                        'items' => array(
+                            array(
+                                'value' => 'search_text',
+                                'label' => __('Text', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_category',
+                                'label' => __('Category', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_location',
+                                'label' => __('Location', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'search_text','search_category','search_location'
+                        ),
                     ),
                     array(
-                        'type' => 'toggle',
-                        'name' => 'display_category_field',
-                        'label' => __('Display Category Search Field', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
+                        'type' => 'textbox',
+                        'name' => 'search_placeholder',
+                        'label' => __('Search Bar Placeholder', ATBDP_TEXTDOMAIN),
+                        'default' => __('What are you looking for?', ATBDP_TEXTDOMAIN),
                     ),
                     array(
-                        'type' => 'toggle',
-                        'name' => 'display_location_field',
-                        'label' => __('Display Location Search Field', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
+                        'type' => 'textbox',
+                        'name' => 'search_category_placeholder',
+                        'label' => __('Category Placeholder', ATBDP_TEXTDOMAIN),
+                        'default' => __('Select a category', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'search_location_placeholder',
+                        'label' => __('Location Placeholder', ATBDP_TEXTDOMAIN),
+                        'default' => __('Select a location', ATBDP_TEXTDOMAIN),
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'search_more_filter',
-                        'label' => __('Display More Filters Button', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display More Filters', ATBDP_TEXTDOMAIN),
                         'default' => 1,
                     ),
                     array(
                         'type' => 'checkbox',
-                        'name' => 'search_fields',
-                        'label' => __('Search Fields', ATBDP_TEXTDOMAIN),
-                        'validation' => 'minselected[2]|maxselected[10]',
+                        'name' => 'search_more_filters_fields',
+                        'label' => __('Filter Fields', ATBDP_TEXTDOMAIN),
+                        'validation' => 'minselected[0]|maxselected[12]',
                         'items' => array(
                             array(
                                 'value' => 'search_price',
@@ -1904,6 +1920,10 @@ The Administrator of ==SITE_NAME==
                             array(
                                 'value' => 'search_tag',
                                 'label' => __('Tag', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_open_now',
+                                'label' => __('Open Now (It requires Business Hours extension)', ATBDP_TEXTDOMAIN),
                             ),
                             array(
                                 'value' => 'search_custom_fields',
@@ -1929,20 +1949,30 @@ The Administrator of ==SITE_NAME==
                                 'value' => 'search_zip_code',
                                 'label' => __('Zip/Post Code', ATBDP_TEXTDOMAIN),
                             ),
-                            array(
-                                'value' => 'search_reset_button',
-                                'label' => __('Reset Filters Button', ATBDP_TEXTDOMAIN),
-                            ),
-                            array(
-                                'value' => 'search_apply_filters_button',
-                                'label' => __('Apply Filters Button', ATBDP_TEXTDOMAIN),
-                            ),
                         ),
                         'default' => array(
                             'search_price','search_price_range','search_rating','search_tag','search_custom_fields'
                         ),
                     ),
-
+                    array(
+                        'type' => 'checkbox',
+                        'name' => 'search_filters',
+                        'label' => __('Filters Button', ATBDP_TEXTDOMAIN),
+                        'validation' => 'minselected[0]|maxselected[2]',
+                        'items' => array(
+                            array(
+                                'value' => 'search_reset_filters',
+                                'label' => __('Reset', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_apply_filters',
+                                'label' => __('Apply', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'search_reset_filters','search_apply_filters'
+                        ),
+                    ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_listing_text',

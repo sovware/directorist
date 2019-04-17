@@ -853,7 +853,7 @@ if ('openstreet' == $select_listing_map) { ?>
                     new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
                     map.getProjectionObject() // to Spherical Mercator Projection
                 );
-            let zoom = 11;
+            let zoom = <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 16; ?>;
             let markers = new OpenLayers.Layer.Markers("Markers");
             map.addLayer(markers);
             markers.addMarker(new OpenLayers.Marker(lonLat));

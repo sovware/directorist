@@ -325,7 +325,7 @@ $column_width           = 100/$search_listing_columns .'%';
 
                                                         if (!empty($display_contact_info)) {
                                                             if( !empty( $address ) && 'contact' == $address_location && !empty($display_address_field) ) { ?>
-                                                                <li><p><span class="fas fa-map-marker-alt"></span><?php echo esc_html(stripslashes($address));?></p></li>
+                                                                <li><p><span class="fa fa-map-marker"></span><?php echo esc_html(stripslashes($address));?></p></li>
                                                             <?php } elseif(!empty($locs) && 'location' == $address_location) {
 
                                                                 $numberOfCat = count($locs);
@@ -339,7 +339,7 @@ $column_width           = 100/$search_listing_columns .'%';
                                                                     <p>
 
                                                     <span>
-                                                    <?php echo "<span class='fas fa-map-marker-alt'></span>" . join(',',$output);?>
+                                                    <?php echo "<span class='fa fa-map-marker'></span>" . join(',',$output);?>
                                                 </span>
                                                                     </p>
                                                                 </li>

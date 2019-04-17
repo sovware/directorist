@@ -84,7 +84,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
             delete_user_meta( get_current_user_id(), 'atbdp_favourites' );
             update_user_meta( get_current_user_id(), 'atbdp_favourites', $favourites );
 
-            the_atbdp_favourites_all_listing( $post_id );
+            echo the_atbdp_favourites_all_listing( $post_id );
 
 
         }
@@ -116,7 +116,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
             delete_user_meta( get_current_user_id(), 'atbdp_favourites' );
             update_user_meta( get_current_user_id(), 'atbdp_favourites', $favourites );
 
-            the_atbdp_favourites_link( $post_id );
+            echo the_atbdp_favourites_link( $post_id );
 
             wp_die();
 

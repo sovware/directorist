@@ -139,6 +139,14 @@
       height: 44px;
     }
   }
+  .form-control{
+    box-shadow: none;
+  }
+  .custom-control{
+    label{
+      font-weight: normal;
+    }
+  }
   .price_ranges{
     display: flex;
     align-items: center;
@@ -265,8 +273,9 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    margin-top: 15px;
     .btn{
-      padding: 13px 25px !important;
+      padding: 8px 20px !important;
       margin: 0 5px !important;
     }
   }
@@ -283,7 +292,6 @@
 }
 
 .header_bar .ads-advanced{
-  margin-bottom: 30px;
   margin-top: 0;
   .atbd_seach_fields_wrapper{
     border-bottom: 1px solid #eef0f6 !important;

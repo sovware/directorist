@@ -61,11 +61,12 @@ body.atbd_content_active #directorist.atbd_wrapper{
     margin: 0;
     padding: 0;
   }
-
+  .header_bar{
+    margin-bottom: 35px;
+  }
   .atbd_generic_header {
     background: $light;
     padding: 20px 30px;
-    margin-bottom: 35px;
     border-radius: 5px;
     border: 1px solid $border-color;
     display: flex;

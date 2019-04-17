@@ -203,10 +203,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 0;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .header_bar {
+  margin-bottom: 35px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header {
   background: #ffffff;
   padding: 20px 30px;
-  margin-bottom: 35px;
   border-radius: 5px;
   border: 1px solid #e3e6ef;
   display: flex;
@@ -1488,6 +1491,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
   height: 250px;
 }
 
+.atbdp-map .gm-style .gm-style-iw {
+  width: 250px !important;
+}
+
+.atbdp-map .gm-style .gm-style-iw img {
+  width: 100px;
+}
+
 .atbd_content_active .widget.atbd_widget[id^='bd'],
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget {
   padding: 0;
@@ -2673,6 +2684,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
   height: 44px;
 }
 
+.ads-advanced .form-control {
+  box-shadow: none;
+}
+
+.ads-advanced .custom-control label {
+  font-weight: normal;
+}
+
 .ads-advanced .price_ranges {
   display: flex;
   align-items: center;
@@ -2821,10 +2840,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  margin-top: 15px;
 }
 
 .ads-advanced .bdas-filter-actions .btn {
-  padding: 13px 25px !important;
+  padding: 8px 20px !important;
   margin: 0 5px !important;
 }
 
@@ -2837,7 +2857,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .header_bar .ads-advanced {
-  margin-bottom: 30px;
   margin-top: 0;
 }
 

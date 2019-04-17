@@ -286,3 +286,12 @@
 .atbd_google_map{
   height: 250px;
 }
+
+.atbdp-map{
+  .gm-style .gm-style-iw{
+    width: 250px !important;
+    img{
+      width: 100px;
+    }
+  }
+}

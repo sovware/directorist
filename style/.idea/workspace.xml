@@ -23,8 +23,8 @@
       <file leaf-file-name="_general.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/component/_general.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10612">
-              <caret line="379" column="18" selection-start-line="379" selection-start-column="18" selection-end-line="379" selection-end-column="18" />
+            <state relative-caret-position="504">
+              <caret line="66" column="24" lean-forward="true" selection-start-line="66" selection-start-column="24" selection-end-line="66" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -50,8 +50,8 @@
       <file leaf-file-name="search-style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../public/assets/css/search-style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="255" column="16" lean-forward="true" selection-start-line="255" selection-start-column="16" selection-end-line="256" selection-end-column="17" />
+            <state relative-caret-position="-1736">
+              <caret line="70" column="23" selection-start-line="70" selection-start-column="23" selection-end-line="70" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -59,8 +59,8 @@
       <file leaf-file-name="_home.scss" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/component/_home.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="103" column="12" selection-start-line="103" selection-start-column="12" selection-end-line="103" selection-end-column="12" />
+            <state relative-caret-position="445">
+              <caret line="293" column="26" selection-start-line="293" selection-start-column="26" selection-end-line="293" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -68,8 +68,28 @@
       <file leaf-file-name="_listing.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/component/_listing.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="809">
-              <caret line="286" column="12" selection-start-line="286" selection-start-column="12" selection-end-line="286" selection-end-column="12" />
+            <state relative-caret-position="641">
+              <caret line="293" column="18" selection-start-line="293" selection-start-column="18" selection-end-line="293" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="map-view.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../public/assets/js/map-view.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="753">
+              <caret line="135" column="32" lean-forward="true" selection-start-line="135" selection-start-column="32" selection-end-line="135" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="markerclusterer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../public/assets/js/markerclusterer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2940">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -94,6 +114,9 @@
       <find>pricing</find>
       <find>default-ad-search</find>
       <find>.directory_search_area</find>
+      <find>custom-check</find>
+      <find>marker</find>
+      <find>max</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -102,15 +125,16 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/component/_general.scss" />
         <option value="$PROJECT_DIR$/admin/style.scss" />
         <option value="$PROJECT_DIR$/component/_location-category.scss" />
         <option value="$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/element/_cards.scss" />
         <option value="$PROJECT_DIR$/../../../../../direo/wp-content/themes/direo/theme_assets/sass/element/_categories.scss" />
         <option value="$USER_HOME$/Downloads/Compressed/glitz/src/theme_assets/sass/mixins/_mixin_all.scss" />
         <option value="$PROJECT_DIR$/component/_add-listing.scss" />
-        <option value="$PROJECT_DIR$/../public/assets/css/search-style.css" />
         <option value="$PROJECT_DIR$/component/_listing.scss" />
+        <option value="$PROJECT_DIR$/../public/assets/css/search-style.css" />
+        <option value="$PROJECT_DIR$/../public/assets/js/map-view.js" />
+        <option value="$PROJECT_DIR$/component/_general.scss" />
         <option value="$PROJECT_DIR$/component/_home.scss" />
       </list>
     </option>
@@ -124,7 +148,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-1928" />
     <option name="y" value="-1" />
     <option name="width" value="1936" />
@@ -190,18 +214,19 @@
       <workItem from="1555386983574" duration="5715000" />
       <workItem from="1555396882750" duration="10405000" />
       <workItem from="1555419559706" duration="5941000" />
-      <workItem from="1555470175374" duration="8708000" />
+      <workItem from="1555470175374" duration="11778000" />
+      <workItem from="1555496115914" duration="2783000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49679000" />
+    <option name="totallyTimeSpent" value="55532000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-9" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32890365" />
@@ -227,6 +252,41 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/component/_location-category.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../public/assets/css/search-style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7140">
+          <caret line="255" column="16" lean-forward="true" selection-start-line="255" selection-start-column="16" selection-end-line="256" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/component/_home.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2884">
+          <caret line="103" column="12" selection-start-line="103" selection-start-column="12" selection-end-line="103" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/component/_listing.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8204">
+          <caret line="293" column="18" selection-start-line="293" selection-start-column="18" selection-end-line="293" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../public/assets/js/map-view.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3892">
+          <caret line="139" column="33" selection-start-line="139" selection-start-column="33" selection-end-line="139" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/component/_general.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="10612">
@@ -481,13 +541,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/component/_general.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10612">
-          <caret line="379" column="18" selection-start-line="379" selection-start-column="18" selection-end-line="379" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/component/_location-category.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
@@ -504,22 +557,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../public/assets/css/search-style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="255" column="16" lean-forward="true" selection-start-line="255" selection-start-column="16" selection-end-line="256" selection-end-column="17" />
+        <state relative-caret-position="-1736">
+          <caret line="70" column="23" selection-start-line="70" selection-start-column="23" selection-end-line="70" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../public/assets/js/markerclusterer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2940">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/component/_listing.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="809">
-          <caret line="286" column="12" selection-start-line="286" selection-start-column="12" selection-end-line="286" selection-end-column="12" />
+        <state relative-caret-position="641">
+          <caret line="293" column="18" selection-start-line="293" selection-start-column="18" selection-end-line="293" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../public/assets/js/map-view.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="753">
+          <caret line="135" column="32" lean-forward="true" selection-start-line="135" selection-start-column="32" selection-end-line="135" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/component/_general.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="66" column="24" lean-forward="true" selection-start-line="66" selection-start-column="24" selection-end-line="66" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/component/_home.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="103" column="12" selection-start-line="103" selection-start-column="12" selection-end-line="103" selection-end-column="12" />
+        <state relative-caret-position="445">
+          <caret line="293" column="26" selection-start-line="293" selection-start-column="26" selection-end-line="293" selection-end-column="26" />
         </state>
       </provider>
     </entry>

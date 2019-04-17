@@ -20,7 +20,7 @@ if ( !class_exists('BD_All_Map_Widget')) {
             );
             parent::__construct(
                 'bdamw_widget', // Base ID
-                esc_html__('Directorist - All Maps', ATBDP_TEXTDOMAIN), // Name
+                esc_html__('Directorist - Map', ATBDP_TEXTDOMAIN), // Name
                 $widget_options // Args
             );
         }

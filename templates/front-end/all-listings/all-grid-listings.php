@@ -5,7 +5,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
 $display_sortby_dropdown = get_directorist_option('display_sort_by', 1);
 $display_viewas_dropdown = get_directorist_option('display_view_as', 1);
 $pagenation = get_directorist_option('paginate_all_listings', 1);
-$listing_filters_button = get_directorist_option('listing_filters_button', 1);
+
 wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
 $column_width = 100 / $columns . '%';
 ?>
@@ -16,7 +16,8 @@ $column_width = 100 / $columns . '%';
         <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
             <div class="row">
                 <div class="col-md-12">
-                    <?php if(!empty($header_title)) {?>
+                    <?php
+                    if(!empty($header_title)) {?>
                         <h3>
                             <?php echo esc_html($header_title); ?>
                         </h3>
@@ -106,7 +107,7 @@ $column_width = 100 / $columns . '%';
                                                     'class' => 'form-control directory_field bdas-category-search',
                                                     'name' => 'in_cat',
                                                     'orderby' => 'name',
-                                                    'selected' => '',
+                                                    'selected' => isset( $_GET['in_cat'] ) ? (int) $_GET['in_cat'] : -1,
                                                     'hierarchical' => true,
                                                     'value_field'  => 'id',
                                                     'depth' => 10,
@@ -130,7 +131,7 @@ $column_width = 100 / $columns . '%';
                                                     'class' => 'form-control directory_field',
                                                     'name' => 'in_loc',
                                                     'orderby' => 'name',
-                                                    'selected' => '',
+                                                    'selected' => isset( $_GET['in_loc'] ) ? (int) $_GET['in_loc'] : -1,
                                                     'hierarchical' => true,
                                                     'value_field'  => 'id',
                                                     'depth' => 10,

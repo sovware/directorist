@@ -998,7 +998,13 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $_s = (1 < count($all_listings->posts)) ? 's' : '';
 
             $header_title    = sprintf(__('%d result%s %s %s',ATBDP_TEXTDOMAIN),$all_listings->found_posts,$_s,$for_cat,$in_loc);
-            $header_sub_title         = "More Filter";
+            $listing_filters_button       = get_directorist_option('search_result_filters_button', 1);
+            $filters                      = get_directorist_option('search_result_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
+            $text_placeholder             = get_directorist_option('search_result_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
+            $category_placeholder         = get_directorist_option('search_result_category_placeholder',__('Select a category',ATBDP_TEXTDOMAIN));
+            $location_placeholder         = get_directorist_option('search_result_location_placeholder',__('Select a location',ATBDP_TEXTDOMAIN));
+            $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
+            $search_more_filters_fields   = get_directorist_option('listing_filters_fields',array('search_text','search_category','search_location','search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
             $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
 
             ob_start();
@@ -1374,6 +1380,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             }
             $display_header               = !empty($display_header) ? $display_header : '';
             $header_title                 = !empty($header_sub_title) ? $header_sub_title . $listing_count : '';
+            $listing_filters_button       = get_directorist_option('listing_filters_button', 1);
             $filters                      = get_directorist_option('listings_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
             $text_placeholder             = get_directorist_option('listings_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
             $category_placeholder         = get_directorist_option('listings_category_placeholder',__('Select a category',ATBDP_TEXTDOMAIN));
@@ -1673,7 +1680,20 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 }
 
                 $all_listings = new WP_Query($args);
-
+                if ($paginate){
+                    $listing_count =  $all_listings->found_posts;
+                }else{
+                    $listing_count =  count($all_listings->posts);
+                }
+                $display_header               = !empty($display_header) ? $display_header : '';
+                $header_title                 = !empty($header_sub_title) ? $header_sub_title . $listing_count : '';
+                $listing_filters_button       = get_directorist_option('listing_filters_button', 1);
+                $filters                      = get_directorist_option('listings_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
+                $text_placeholder             = get_directorist_option('listings_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
+                $category_placeholder         = get_directorist_option('listings_category_placeholder',__('Select a category',ATBDP_TEXTDOMAIN));
+                $location_placeholder         = get_directorist_option('listings_location_placeholder',__('Select a location',ATBDP_TEXTDOMAIN));
+                $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
+                $search_more_filters_fields   = get_directorist_option('listing_filters_fields',array('search_text','search_category','search_location','search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
                 $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
 
                 ob_start();
@@ -1954,7 +1974,20 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 }
 
                 $all_listings = new WP_Query($args);
-
+                if ($paginate){
+                    $listing_count =  $all_listings->found_posts;
+                }else{
+                    $listing_count =  count($all_listings->posts);
+                }
+                $display_header               = !empty($display_header) ? $display_header : '';
+                $header_title                 = !empty($header_sub_title) ? $header_sub_title . $listing_count : '';
+                $listing_filters_button       = get_directorist_option('listing_filters_button', 1);
+                $filters                      = get_directorist_option('listings_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
+                $text_placeholder             = get_directorist_option('listings_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
+                $category_placeholder         = get_directorist_option('listings_category_placeholder',__('Select a category',ATBDP_TEXTDOMAIN));
+                $location_placeholder         = get_directorist_option('listings_location_placeholder',__('Select a location',ATBDP_TEXTDOMAIN));
+                $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
+                $search_more_filters_fields   = get_directorist_option('listing_filters_fields',array('search_text','search_category','search_location','search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
                 $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
 
                 ob_start();
@@ -2191,7 +2224,15 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 }
 
                 $all_listings = new WP_Query($args);
-
+                $display_header               = !empty($display_header) ? $display_header : '';
+                $header_title                 = !empty($header_sub_title) ? $header_sub_title . $listing_count : '';
+                $listing_filters_button       = get_directorist_option('listing_filters_button', 1);
+                $filters                      = get_directorist_option('listings_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
+                $text_placeholder             = get_directorist_option('listings_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
+                $category_placeholder         = get_directorist_option('listings_category_placeholder',__('Select a category',ATBDP_TEXTDOMAIN));
+                $location_placeholder         = get_directorist_option('listings_location_placeholder',__('Select a location',ATBDP_TEXTDOMAIN));
+                $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
+                $search_more_filters_fields   = get_directorist_option('listing_filters_fields',array('search_text','search_category','search_location','search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
                 $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
 
                 ob_start();

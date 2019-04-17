@@ -1368,11 +1368,15 @@ if ( !class_exists('ATBDP_Shortcode') ):
             }else{
                 $listing_count =  count($all_listings->posts);
             }
-            $display_header             = !empty($display_header) ? $display_header : '';
-            $header_title               = !empty($header_sub_title) ? $header_sub_title . $listing_count : '';
-            $header_sub_title           = 'More Filter';
-            $data_for_template          = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
-
+            $display_header               = !empty($display_header) ? $display_header : '';
+            $header_title                 = !empty($header_sub_title) ? $header_sub_title . $listing_count : '';
+            $filters                      = get_directorist_option('listings_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
+            $text_placeholder             = get_directorist_option('listings_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
+            $category_placeholder         = get_directorist_option('listings_category_placeholder',__('Select a category',ATBDP_TEXTDOMAIN));
+            $location_placeholder         = get_directorist_option('listings_location_placeholder',__('Select a location',ATBDP_TEXTDOMAIN));
+            $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
+            $search_more_filters_fields   = get_directorist_option('listing_filters_fields',array('search_text','search_category','search_location','search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
+            
             ob_start();
             include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
             return ob_get_clean();

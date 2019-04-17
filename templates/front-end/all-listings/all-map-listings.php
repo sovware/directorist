@@ -9,8 +9,8 @@ $is_disable_price           = get_directorist_option('disable_list_price');
 $display_sortby_dropdown    = get_directorist_option('display_sort_by',1);
 $display_viewas_dropdown    = get_directorist_option('display_view_as',1);
 $pagenation                 = get_directorist_option('paginate_all_listings',1);
-$select_listing_map                 = get_directorist_option('select_listing_map',1);
-$zoom = get_directorist_option('map_zoom_level', 16);
+$select_listing_map         = get_directorist_option('select_listing_map',1);
+$zoom                       = get_directorist_option('map_zoom_level', 16);
 wp_enqueue_script('atbdp-map-view',ATBDP_PUBLIC_ASSETS . 'js/map-view.js');
 $data = array(
     'plugin_url' => ATBDP_URL,
@@ -105,7 +105,7 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
         <div class="atbdp-divider"></div>
 
         <!-- the loop -->
-        <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer">
+        <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: 350px;">
             <?php while( $all_listings->have_posts() ) : $all_listings->the_post();
             global $post;
                 $manual_lat         = get_post_meta($post->ID, '_manual_lat', true);

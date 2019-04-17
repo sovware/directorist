@@ -1969,7 +1969,9 @@ function atbdp_get_listings_view_options()
 
     $options = array('grid', 'list','map');
     $display_map = get_directorist_option('display_map_field',1);
-    if(empty($display_map)) {
+    $select_listing_map = get_directorist_option('select_listing_map','google');
+
+    if(empty($display_map) || 'google' != $select_listing_map) {
         array_pop($options);
     }
     $options[] = isset($_GET['view']) ? sanitize_text_field($_GET['view']) : $listings_settings;

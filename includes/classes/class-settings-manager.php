@@ -1480,10 +1480,108 @@ The Administrator of ==SITE_NAME==
                         'default' => __('All Items', ATBDP_TEXTDOMAIN),
                     ),
                     array(
+                        'type' => 'toggle',
+                        'name' => 'listing_filters_button',
+                        'label' => __('Display Filters Button', ATBDP_TEXTDOMAIN),
+                        'default' => 1,
+                    ),
+                    array(
                         'type' => 'textbox',
-                        'name' => 'listings_header_sub_title',
-                        'label' => __('Header Sub-Title', ATBDP_TEXTDOMAIN),
-                        'default' => __('Total Listing Found: ', ATBDP_TEXTDOMAIN),
+                        'name' => 'listings_filter_button_text',
+                        'label' => __('Filters Button Text', ATBDP_TEXTDOMAIN),
+                        'default' => __('Filters', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'type' => 'checkbox',
+                        'name' => 'listing_filters_fields',
+                        'label' => __('Filter Fields', ATBDP_TEXTDOMAIN),
+                        'validation' => 'minselected[0]|maxselected[12]',
+                        'items' => array(
+                            array(
+                                'value' => 'search_text',
+                                'label' => __('Text', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_category',
+                                'label' => __('Category', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_location',
+                                'label' => __('Location', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_price',
+                                'label' => __('Price (Min - Max)', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_price_range',
+                                'label' => __('Price Range', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_rating',
+                                'label' => __('Rating', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_tag',
+                                'label' => __('Tag', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_open_now',
+                                'label' => __('Open Now (It requires Business Hours extension)', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_custom_fields',
+                                'label' => __('Custom Fields', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_website',
+                                'label' => __('Website', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_email',
+                                'label' => __('Email', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_phone',
+                                'label' => __('Phone', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_address',
+                                'label' => __('Address', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_zip_code',
+                                'label' => __('Zip/Post Code', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'search_text',
+                            'search_category',
+                            'search_location',
+                            'search_price',
+                            'search_price_range',
+                            'search_rating',
+                            'search_tag',
+                            'search_custom_fields'
+                        ),
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'listings_search_text_placeholder',
+                        'label' => __('Search Bar placeholder', ATBDP_TEXTDOMAIN),
+                        'default' => __('What are you looking for?', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'listings_category_placeholder',
+                        'label' => __('Category placeholder', ATBDP_TEXTDOMAIN),
+                        'default' => __('Select a category', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'listings_location_placeholder',
+                        'label' => __('Location placeholder', ATBDP_TEXTDOMAIN),
+                        'default' => __('Select a location', ATBDP_TEXTDOMAIN),
                     ),
                     array(
                         'type' => 'toggle',

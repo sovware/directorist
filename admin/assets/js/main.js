@@ -10,6 +10,7 @@
         blockDiv = $("<div>").addClass("block" + value.toString()).appendTo(container);
         $('<span>').appendTo(blockDiv);
     });
+
     // html element create end here
 
     // html element create here for selected category
@@ -146,13 +147,14 @@
 
     // upgrade old pages
     $('#shortcode-updated').on('click', function (event) {
+        $('#success_msg').hide();
         event.preventDefault();
         var $this = $(this);
         // display a notice to user to wait
         // send an ajax request to the back end
         atbdp_do_ajax($this, 'atbdp_upgrade_old_pages', null, function (response) {
             if (response.success) {
-                $this.after('<p>' + response.data + '</p>');
+                $this.after('<p id="success_msg">' + response.data + '</p>');
             }
         });
 
@@ -586,7 +588,8 @@ jQuery(function ($) {
 
     $('#submit').on('click', function () {
         $('#atbdp-categories-image-wrapper img').attr('src', '');
-    })
+    });
+
 
 });
 

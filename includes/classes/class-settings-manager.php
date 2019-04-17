@@ -80,12 +80,18 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                     'title' => __('Pages, Links & Views', ATBDP_TEXTDOMAIN),
                     'icon' => 'font-awesome:fa-line-chart',
                     'controls' => apply_filters('atbdp_pages_settings_controls', array(
+                        'page_section' => array(
+                            'type' => 'section',
+                            'title' => __('Upgrade/Regenerate Pages', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_pages_regenerate_settings_fields(),
+                        ),
                         'search_section' => array(
                             'type' => 'section',
                             'title' => __('Pages, links & views Settings', ATBDP_TEXTDOMAIN),
                             'description' => __('You can Customize Listings related settings here. After switching any option, Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_pages_settings_fields(),
                         ), // ends 'pages' section
+
                     )),
                 ),
                 /*Main Menu 5*/
@@ -3762,6 +3768,21 @@ The Administrator of ==SITE_NAME==
                     ),
                 )
             );
+        }
+
+        /**
+         * @since 5.0
+         */
+        function get_pages_regenerate_settings_fields(){
+            return apply_filters('atbdp_pages_settings_fields', array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'shortcode-updated',
+                    'label' => __('Upgrade/Regenerate Pages', ATBDP_TEXTDOMAIN),
+                    'description' => sprintf(__( '%s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">It won\'t work unless you have selected Pages for the Shortcodes from below.</strong>'),
+
+                ),
+            ));
         }
 
         /**

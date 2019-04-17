@@ -235,6 +235,8 @@ final class Directorist_Base
             /*Extensions Link*/
             /*initiate extensions link*/
             new ATBDP_Extensions();
+            /*Theme Link*/
+            new ATBDP_Themes();
             /*Initiate Review and Rating Features*/
             self::$instance->review = new ATBDP_Review_Rating;
 

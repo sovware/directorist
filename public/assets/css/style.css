@@ -2628,8 +2628,18 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 /* ads advance search */
-.directory_search_area > form {
+.ads-advaced--wrapper .ads_float {
   position: relative;
+}
+
+.ads-advaced--wrapper .ads_float .ads-advanced {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  z-index: 1;
+  height: 400px;
+  overflow-y: scroll;
+  border-radius: 3px;
 }
 
 .ads-advanced {

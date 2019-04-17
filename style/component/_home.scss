@@ -100,11 +100,17 @@
 }
 
 /* ads advance search */
-.directory_search_area{
-  &>form{
+.ads-advaced--wrapper{
+  .ads_float{
     position: relative;
     .ads-advanced{
-
+      position: absolute;
+      width: 100%;
+      left: 0;
+      z-index: 1;
+      height: 400px;
+      overflow-y: scroll;
+      border-radius: 3px;
     }
   }
 }

@@ -503,7 +503,7 @@ $select_listing_map = get_directorist_option('select_listing_map', 'google');
                                         foreach ($p_locations as $p_location) {
                                             $output[] = $p_location->name;
                                         }
-                                        echo '<p class="c_cat_list">' . __('Current Location:', ATBDP_TEXTDOMAIN) . join(', ', $output) . '</p>';
+                                        echo '<p class="c_cat_list">' . __('Current Location: <strong>', ATBDP_TEXTDOMAIN) . join(', ', $output) . '</strong></p>';
                                     } ?>
                                     <select name="tax_input[at_biz_dir-location][]" class="form-control"
                                             id="at_biz_dir-location" <?php if(!empty($multiple_for_user)) { echo 'multiple="multiple"';}?>>
@@ -532,7 +532,7 @@ $select_listing_map = get_directorist_option('select_listing_map', 'google');
                                             foreach ($p_tags as $p_tag) {
                                                 $output[] = $p_tag->name;
                                             }
-                                            echo '<p class="c_cat_list">' . __('Current Tags:', ATBDP_TEXTDOMAIN) . join(', ', $output) . '</p>';
+                                            echo '<p class="c_cat_list">' . __('Current Tags: <strong>', ATBDP_TEXTDOMAIN) . join(', ', $output) . '</strong></p>';
                                         } ?>
                                         <select name="tax_input[at_biz_dir-tags][]" class="form-control"
                                                 id="at_biz_dir-tags" multiple="multiple">

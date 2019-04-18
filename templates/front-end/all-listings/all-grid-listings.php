@@ -665,6 +665,7 @@ $column_width = 100 / $columns . '%';
          * to add custom html
          * It only fires if the parameter [directorist_all_listing action_before_after_loop="yes"]
          */
+        $action_before_after_loop = !empty($action_before_after_loop)?$action_before_after_loop:'';
         if ('yes' === $action_before_after_loop ){
             do_action('atbdp_after_grid_listings_loop');
         }

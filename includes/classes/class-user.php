@@ -253,7 +253,6 @@ class ATBDP_User {
                 exit();
             } else {
                 wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('errors' => true)));
-
                 exit();
             }
 

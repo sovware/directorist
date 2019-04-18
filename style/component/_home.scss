@@ -105,7 +105,7 @@
     position: relative;
     .ads-advanced{
       border-radius: 3px;
-      z-index: 10;
+      z-index: 100;
       overflow-y: scroll;
       overflow-x: hidden;
       position: absolute;
@@ -117,11 +117,18 @@
     }
   }
 }
+.directory_search_area{
+  .ads-advanced{
+    padding: 20px 30px 30px;
+  }
+}
 .ads-advanced{
   border: 1px solid #e3e6ef;
-  padding: 20px 30px 30px;
   margin-top: 25px;
   background: #fff;
+  form{
+    padding: 20px 30px 30px;
+  }
   .form-group{
     display: flex;
     flex-wrap: wrap;

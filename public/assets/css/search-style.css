@@ -67,7 +67,6 @@
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
     padding-left: 30px;
-    position: relative;
     font-weight: normal;
 }
 .custom-control .custom-control-label:before{
@@ -77,8 +76,18 @@
     content: '';
     left: 0;
     top: 0;
+    background: none;
 }
-
+.custom-control .custom-control-label:after{
+    content: none;
+}
+.custom-checkbox{
+    padding-left: 0;
+}
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before,
+.custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before{
+    background: transparent;
+}
 .custom-control .custom-control-input {
     position: absolute;
     left: 0;

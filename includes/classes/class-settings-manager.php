@@ -3678,7 +3678,7 @@ The Administrator of ==SITE_NAME==
         function get_pages_regenerate_settings_fields(){
             return apply_filters('atbdp_pages_settings_fields', array(
                 array(
-                    'type' => 'toggle',
+                    'type' => 'HTML',
                     'name' => 'shortcode-updated',
                     'label' => __('Upgrade/Regenerate Pages', ATBDP_TEXTDOMAIN),
                     'description' => sprintf(__( '%s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">It won\'t work unless you have selected Pages for the Shortcodes from below.</strong>'),

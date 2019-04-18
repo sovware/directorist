@@ -137,12 +137,6 @@ function atbdp_center_map( map ) {
 $( '.atbdp-map' ).each(function() {
     atbdp_rander_map( $( this ) );
 });
-// don`t delete this code
-    $('body').on('click', '#gmimap1', (e) => {
-        $('div.media-left').css({
-            display: 'none',
-        });
-    });
 
 
 })(jQuery);

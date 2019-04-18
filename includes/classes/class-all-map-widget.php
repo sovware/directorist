@@ -87,7 +87,7 @@ if ( !class_exists('BD_All_Map_Widget')) {
                                  data-longitude="<?php echo $manual_lng; ?>">
                                 <div>
 
-                                    <div class="media-image">
+                                    <div class="media-left">
                                         <a href="<?php the_permalink(); ?>">
                                             <?php
                                             $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
@@ -111,15 +111,15 @@ if ( !class_exists('BD_All_Map_Widget')) {
                                     </div>
 
 
-                                    <div class="media-contents">
+                                    <div class="media-body">
                                         <div class="atbdp-listings-title-block">
                                             <h3 class="atbdp-no-margin"><a
                                                         href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 
                                         </div>
 
-                                        <span class="glyphicon glyphicon-briefcase"></span><a
-                                                href=""><?php echo $address; ?></a>
+                                        <span class="fa fa-briefcase"></span> <a
+                                                href="" class="map-info-link"><?php echo $address; ?></a>
 
 
                                         <?php do_action('atbdp_after_listing_content', $post->ID, 'map'); ?>

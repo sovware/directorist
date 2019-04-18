@@ -17,7 +17,7 @@ $column_width = 100 / $columns . '%';
             <div class="row">
                 <div class="col-md-12">
                     <?php
-                    if(!empty($header_title)) {?>
+                    if(!empty($header_title) && !empty($listing_filters_button)) {?>
                         <h3>
                             <?php echo esc_html($header_title); ?>
                         </h3>
@@ -27,6 +27,10 @@ $column_width = 100 / $columns . '%';
                         <div class="atbd_generic_header_title">
                             <button class="more-filter btn btn-outline btn-outline-primary"><span class="fa fa-filter"></span> <?php echo $filters;?></button>
                         </div>
+                        <?php } elseif(!empty($header_title) && empty($listing_filters_button)) {?>
+                            <h3>
+                                <?php echo esc_html($header_title); ?>
+                            </h3>
                         <?php } ?>
                         <?php if ($display_viewas_dropdown || $display_sortby_dropdown) { ?>
                             <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">

@@ -1507,11 +1507,31 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Display Filters Button', ATBDP_TEXTDOMAIN),
                         'default' => 1,
                     ),
+
                     array(
                         'type' => 'textbox',
                         'name' => 'listings_filter_button_text',
                         'label' => __('Filters Button Text', ATBDP_TEXTDOMAIN),
                         'default' => __('Filters', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'type' => 'select',
+                        'name' => 'listings_display_filter',
+                        'label' => __( 'Open Filter Fields', ATBDP_TEXTDOMAIN ),
+                        'items' => array(
+                            array(
+                                'value' => 'overlapping',
+                                'label' => __('Overlapping', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'sliding',
+                                'label' => __('Sliding', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'sliding',
+                            'label' => __('Sliding', ATBDP_TEXTDOMAIN),
+                        ),
                     ),
                     array(
                         'type' => 'checkbox',
@@ -2020,6 +2040,25 @@ The Administrator of ==SITE_NAME==
                         'default' => 1,
                     ),
                     array(
+                        'type' => 'select',
+                        'name' => 'home_display_filter',
+                        'label' => __( 'Open Filter Fields', ATBDP_TEXTDOMAIN ),
+                        'items' => array(
+                            array(
+                                'value' => 'overlapping',
+                                'label' => __('Overlapping', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'sliding',
+                                'label' => __('Sliding', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'overlapping',
+                            'label' => __('Overlapping', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    array(
                         'type' => 'checkbox',
                         'name' => 'search_more_filters_fields',
                         'label' => __('Filter Fields', ATBDP_TEXTDOMAIN),
@@ -2194,6 +2233,25 @@ The Administrator of ==SITE_NAME==
                         'name' => 'search_result_filter_button_text',
                         'label' => __('Filters Button Text', ATBDP_TEXTDOMAIN),
                         'default' => __('Filters', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'type' => 'select',
+                        'name' => 'search_result_display_filter',
+                        'label' => __( 'Open Filter Fields', ATBDP_TEXTDOMAIN ),
+                        'items' => array(
+                            array(
+                                'value' => 'overlapping',
+                                'label' => __('Overlapping', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'sliding',
+                                'label' => __('Sliding', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'sliding',
+                            'label' => __('Sliding', ATBDP_TEXTDOMAIN),
+                        ),
                     ),
                     array(
                         'type' => 'checkbox',
@@ -3199,6 +3257,17 @@ The Administrator of ==SITE_NAME==
                     'max' => '22',
                     'step' => '1',
                     'default' => '16',
+
+                ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'listings_map_height',
+                    'label' => __( 'Map Height', ATBDP_TEXTDOMAIN ),
+                    'description' => __( 'In pixel.', ATBDP_TEXTDOMAIN ),
+                    'min' => '5',
+                    'max' => '1200',
+                    'step' => '5',
+                    'default' => '350',
 
                 ),
             ));

@@ -176,7 +176,7 @@ class ATBDP_Enqueuer {
     public function front_end_enqueue_scripts($force=false) {
         global $typenow, $post;
         $front_scripts_dependency = array('jquery');
-        $disable_map = get_directorist_option('disable_map');
+        $disable_map = false;
         if (!$disable_map){
             // get the map api from the user settings
             $map_api_key = get_directorist_option('map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo'); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
@@ -314,7 +314,7 @@ class ATBDP_Enqueuer {
             'jquery-ui-sortable',
             'select2script'
         );
-        $disable_map = get_directorist_option('disable_map');
+        $disable_map = false;
         if (!$disable_map){ $dependency[]= 'atbdp-google-map-front'; }
         wp_register_script('atbdp_add_listing_js', ATBDP_PUBLIC_ASSETS . 'js/add-listing.js', $dependency, ATBDP_VERSION, true );
         wp_enqueue_script('atbdp_add_listing_js');

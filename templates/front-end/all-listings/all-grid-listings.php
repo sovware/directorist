@@ -87,7 +87,10 @@ $column_width = 100 / $columns . '%';
                         <?php } ?>
                     </div>
                     <!--ads advance search-->
-                    <div class="">
+                    <?php
+                    $filters_display = !empty($filters_display)?$filters_display:'';
+                    ?>
+                    <div class="<?php echo ('overlapping' === $filters_display)?'ads_float':'ads_slide'?>">
                         <div class="ads-advanced">
                             <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
                                 <div class="atbd_seach_fields_wrapper"<?php echo empty($search_border)?'style="border: none;"':'';?>>
@@ -277,6 +280,7 @@ $column_width = 100 / $columns . '%';
          * It fires before the listings columns
          * It only fires if the parameter [directorist_all_listing action_before_after_loop="yes"]
          */
+        $action_before_after_loop = !empty($action_before_after_loop)?$action_before_after_loop:'';
         if ('yes' === $action_before_after_loop){
             do_action('atbdp_before_grid_listings_loop');
         }
@@ -412,7 +416,7 @@ $column_width = 100 / $columns . '%';
 
                                     <?php
                                     $plan_hours = true;
-                                    $u_badge_html = '<span class="atbd_upper_badge">';
+                                    $u_badge_html = '<span class="atbd_upper_badge bh_only">';
                                     if (is_fee_manager_active()) {
                                         $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(), '_fm_plans', true));
                                     }

@@ -96,7 +96,10 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                             <?php } ?>
                         </div>
                         <!--ads advance search-->
-                        <div class="">
+                        <?php
+                        $filters_display = !empty($filters_display)?$filters_display:'';
+                        ?>
+                        <div class="<?php echo ('overlapping' === $filters_display)?'ads_float':'ads_slide'?>">
                             <div class="ads-advanced">
                                 <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
                                     <div class="atbd_seach_fields_wrapper"<?php echo empty($search_border)?'style="border: none;"':'';?>>
@@ -282,19 +285,22 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
 
         <div class="atbdp-divider"></div>
 
-        <div class="container">
-            <!-- the loop -->
-            <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: 450px; width: 100%; margin-bottom: 35px;">
-                <?php while( $all_listings->have_posts() ) : $all_listings->the_post();
-                    global $post;
-                    $manual_lat         = get_post_meta($post->ID, '_manual_lat', true);
-                    $manual_lng        = get_post_meta($post->ID, '_manual_lng', true);
-                    $listing_img                    = get_post_meta(get_the_ID(), '_listing_img', true);
-                    $listing_prv_img                = get_post_meta(get_the_ID(), '_listing_prv_img', true);
-                    $crop_width                     = get_directorist_option('crop_width', 360);
-                    $crop_height                    = get_directorist_option('crop_height', 300);
-                    $address                        = get_post_meta(get_the_ID(), '_address', true);
-                    if(!empty($listing_prv_img)) {
+        <!-- the loop -->
+    <?php
+    $listings_map_height = get_directorist_option('listings_map_height',350);
+    ?>
+    <div class="container">
+        <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($listings_map_height)?$listings_map_height:'';?>px;">
+            <?php while( $all_listings->have_posts() ) : $all_listings->the_post();
+            global $post;
+                $manual_lat         = get_post_meta($post->ID, '_manual_lat', true);
+                $manual_lng        = get_post_meta($post->ID, '_manual_lng', true);
+                $listing_img                    = get_post_meta(get_the_ID(), '_listing_img', true);
+                $listing_prv_img                = get_post_meta(get_the_ID(), '_listing_prv_img', true);
+                $crop_width                     = get_directorist_option('crop_width', 360);
+                $crop_height                    = get_directorist_option('crop_height', 300);
+                $address                        = get_post_meta(get_the_ID(), '_address', true);
+                if(!empty($listing_prv_img)) {
 
 
                         $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
@@ -354,7 +360,8 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                 <?php endwhile; ?>
             </div>
             <!-- end of the loop -->
-        </div>
+    </div>
+</div>
 
         <!-- Use reset postdata to restore orginal query -->
         <?php wp_reset_postdata(); ?>

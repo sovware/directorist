@@ -83,7 +83,10 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                             <?php } ?>
                         </div>
                         <!--ads advance search-->
-                        <div class="">
+                        <?php
+                        $filters_display = !empty($filters_display)?$filters_display:'ads_slide';
+                        ?>
+                        <div class="<?php echo ('overlapping' === $filters_display)?'ads_float':'ads_slide'?>">
                             <div class="ads-advanced">
                                 <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
                                     <div class="atbd_seach_fields_wrapper"<?php echo empty($search_border)?'style="border: none;"':'';?>>
@@ -270,6 +273,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
              * It fires before the listings columns
              * It only fires if the parameter [directorist_all_listing action_before_after_loop="yes"]
              */
+            $action_before_after_loop = !empty($action_before_after_loop)?$action_before_after_loop:'';
             if ('yes' === $action_before_after_loop) {
                 do_action('atbdp_before_list_listings_loop');
             }

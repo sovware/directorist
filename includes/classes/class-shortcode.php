@@ -159,6 +159,8 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $display_listings_header   = get_directorist_option('search_header',1);
             $listings_header_title     = get_directorist_option('search_header_title',__('Search Result', ATBDP_TEXTDOMAIN));
             $listings_header_sub_title = get_directorist_option('search_header_sub_title',__('Total Listing Found: ', ATBDP_TEXTDOMAIN));
+            $filters_display           = get_directorist_option('search_result_display_filter','sliding');
+
             $atts = shortcode_atts( array(
                 'view'              => !empty($listing_view) ? $listing_view : 'grid',
                 '_featured'         => 1,
@@ -1018,6 +1020,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             wp_enqueue_script('adminmainassets');
             $listing_orderby           = get_directorist_option('order_listing_by');
             $listing_view              = get_directorist_option('default_listing_view');
+            $filters_display           = get_directorist_option('listings_display_filter','sliding');
             $listing_order             = get_directorist_option('sort_listing_by');
             $listing_grid_columns      = get_directorist_option('all_listing_columns',3);
             $display_listings_header   = get_directorist_option('display_listings_header',1);
@@ -1476,6 +1479,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $display_listings_header   = get_directorist_option('display_listings_header',1);
                 $listings_header_title     = get_directorist_option('all_listing_title',__('All Items', ATBDP_TEXTDOMAIN));
                 $listings_header_sub_title = get_directorist_option('listings_header_sub_title',__('Total Listing Found: ', ATBDP_TEXTDOMAIN));
+                $filters_display           = get_directorist_option('listings_display_filter','sliding');
 
                 $atts = shortcode_atts(array(
                     'view'              => !empty($listing_view) ? $listing_view : 'grid',
@@ -1770,6 +1774,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $display_listings_header   = get_directorist_option('display_listings_header',1);
                 $listings_header_title     = get_directorist_option('all_listing_title',__('All Items', ATBDP_TEXTDOMAIN));
                 $listings_header_sub_title = get_directorist_option('listings_header_sub_title',__('Total Listing Found: ', ATBDP_TEXTDOMAIN));
+                $filters_display           = get_directorist_option('listings_display_filter','sliding');
 
                 $atts = shortcode_atts(array(
                     'view'              => !empty($listing_view) ? $listing_view : 'grid',
@@ -2020,6 +2025,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $display_listings_header   = get_directorist_option('display_listings_header',1);
                 $listings_header_title     = get_directorist_option('all_listing_title',__('All Items', ATBDP_TEXTDOMAIN));
                 $listings_header_sub_title = get_directorist_option('listings_header_sub_title',__('Total Listing Found: ', ATBDP_TEXTDOMAIN));
+                $filters_display           = get_directorist_option('listings_display_filter','sliding');
 
                 $atts = shortcode_atts(array(
                     'view'              => !empty($listing_view) ? $listing_view : 'grid',
@@ -2247,6 +2253,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
         public function search_listing($atts, $content = null) {
             ob_start();
 
+            $filters_display           = get_directorist_option('home_display_filter','overlapping');
             include ATBDP_TEMPLATES_DIR . 'listing-home.php';
           //  ATBDP()->load_template('listing-home');
             ATBDP()->enquirer->search_listing_scripts_styles();

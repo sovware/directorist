@@ -157,7 +157,10 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
 
                     <?php if(!empty($display_more_filter_search)) {?>
                     <!--ads advance search-->
-                        <div class="ads_float">
+                        <?php
+                        $filters_display = !empty($filters_display)?$filters_display:'';
+                        ?>
+                        <div class="<?php echo ('overlapping' === $filters_display)?'ads_float':''?>">
                             <div class="ads-advanced">
                                 <?php if(in_array( 'search_price', $search_more_filters_fields) ||in_array( 'search_price_range', $search_more_filters_fields) ) { ?>
                                     <div class="form-group ">

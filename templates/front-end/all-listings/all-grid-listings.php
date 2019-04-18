@@ -87,7 +87,10 @@ $column_width = 100 / $columns . '%';
                         <?php } ?>
                     </div>
                     <!--ads advance search-->
-                    <div class="">
+                    <?php
+                    $filters_display = !empty($filters_display)?$filters_display:'';
+                    ?>
+                    <div class="<?php echo ('overlapping' === $filters_display)?'ads_float':''?>">
                         <div class="ads-advanced">
                             <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
                                 <div class="atbd_seach_fields_wrapper"<?php echo empty($search_border)?'style="border: none;"':'';?>>
@@ -411,7 +414,7 @@ $column_width = 100 / $columns . '%';
                                     </div>
                                     <?php
                                     $plan_hours = true;
-                                    $u_badge_html = '<span class="atbd_upper_badge">';
+                                    $u_badge_html = '<span class="atbd_upper_badge bh_only">';
                                     if (is_fee_manager_active()) {
                                         $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(), '_fm_plans', true));
                                     }

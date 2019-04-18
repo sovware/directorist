@@ -657,7 +657,7 @@ $select_listing_map = get_directorist_option('select_listing_map', 'google');
                                     <?php } ?>
 
                                     <?php
-                                    if (empty($display_map_for || $display_address_for) && !empty($display_map_field || $display_address_field)) { ?>
+                                    if (empty($display_map_for || $display_address_for) && !empty($display_map_field && $display_address_field)) { ?>
                                         <div class="form-group" id="atbdp_address">
                                             <label for="address"><?php
                                                 $address_label = get_directorist_option('address_label', __('Google Address', ATBDP_TEXTDOMAIN));
@@ -1069,7 +1069,7 @@ if('openstreet' == $select_listing_map) { ?>
 
         // Bias the auto complete object to the user's geographical location,
         // as supplied by the browser's 'navigator.geolocation' object.
-        <?php if ( empty($display_map_for || $display_address_for) && !empty($display_map_field || $display_address_field) ) {
+        <?php if ( empty($display_map_for || $display_address_for) && !empty($display_map_field && $display_address_field) ) {
             if('google' == $select_listing_map) {
             ?>
         // initialize all vars here to avoid hoisting related misunderstanding.

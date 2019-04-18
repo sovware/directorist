@@ -2306,9 +2306,8 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                             $u_badge_html .= ' <span class="atbd_badge atbd_badge_open">'.$open.'</span>';
 
                                         } else {
-                                            $bh_statement = BD_Business_Hour()->show_business_open_close($business_hours);
+                                            $u_badge_html .= BD_Business_Hour()->show_business_open_close($business_hours);
 
-                                            $u_badge_html .= $bh_statement;
                                         }
                                     }
                                     $u_badge_html .= '</span>';
@@ -3168,7 +3167,7 @@ function listing_view_by_list($all_listings)
                                             <span class="atbd_badge atbd_badge_open"><?php echo $open; ?></span>
                                             <?php
                                         } else {
-                                            BD_Business_Hour()->show_business_open_close($business_hours); // show the business hour in an unordered list
+                                            BD_Business_Hour()->show_business_open_close($business_hours, true); // show the business hour in an unordered list
                                         }
                                     } ?>
                                 </div><!-- End atbd listing meta -->

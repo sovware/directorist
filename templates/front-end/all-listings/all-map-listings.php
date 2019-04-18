@@ -286,7 +286,10 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
         <div class="atbdp-divider"></div>
 
         <!-- the loop -->
-        <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: 350px;">
+    <?php
+    $listings_map_height = get_directorist_option('listings_map_height',350);
+    ?>
+        <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($listings_map_height)?$listings_map_height:'';?>px;">
             <?php while( $all_listings->have_posts() ) : $all_listings->the_post();
             global $post;
                 $manual_lat         = get_post_meta($post->ID, '_manual_lat', true);

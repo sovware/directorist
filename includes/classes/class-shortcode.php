@@ -2253,9 +2253,8 @@ if ( !class_exists('ATBDP_Shortcode') ):
         public function search_listing($atts, $content = null) {
             ob_start();
 
-            $filters_display           = get_directorist_option('home_display_filter','overlapping');
-            include ATBDP_TEMPLATES_DIR . 'listing-home.php';
-          //  ATBDP()->load_template('listing-home');
+            $filters_display = get_directorist_option('home_display_filter','overlapping');
+             ATBDP()->load_template('listing-home');
             ATBDP()->enquirer->search_listing_scripts_styles();
             return ob_get_clean();
         }

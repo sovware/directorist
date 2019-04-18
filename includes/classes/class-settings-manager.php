@@ -3259,6 +3259,17 @@ The Administrator of ==SITE_NAME==
                     'default' => '16',
 
                 ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'listings_map_height',
+                    'label' => __( 'Map Height', ATBDP_TEXTDOMAIN ),
+                    'description' => __( 'In pixel.', ATBDP_TEXTDOMAIN ),
+                    'min' => '5',
+                    'max' => '900',
+                    'step' => '5',
+                    'default' => '350',
+
+                ),
             ));
         }
 

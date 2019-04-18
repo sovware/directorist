@@ -27,7 +27,7 @@
         show_more.remove();
     }
 
-    var ad = $(".ads-advanced");
+    var ad = $(".ads_float .ads-advanced");
     ad.css({
         visibility: 'hidden',
         height: '0',
@@ -36,7 +36,7 @@
     $("body").on("click", '.more-filter', function (e) {
         count++;
         e.preventDefault();
-            var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos-currentPos;
+        var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos-currentPos;
         if(count%2 === 0) {
             ad.css({
                 visibility: 'hidden',

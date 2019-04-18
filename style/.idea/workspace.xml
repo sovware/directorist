@@ -68,8 +68,8 @@
       <file leaf-file-name="_home.scss" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/component/_home.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="781">
-              <caret line="125" column="3" lean-forward="true" selection-start-line="125" selection-start-column="3" selection-end-line="125" selection-end-column="3" />
+            <state relative-caret-position="417">
+              <caret line="121" column="28" selection-start-line="121" selection-start-column="28" selection-end-line="121" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -77,7 +77,7 @@
       <file leaf-file-name="_listing.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/component/_listing.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8904">
+            <state relative-caret-position="1733">
               <caret line="318" column="24" selection-start-line="318" selection-start-column="24" selection-end-line="318" selection-end-column="24" />
             </state>
           </provider>
@@ -212,18 +212,18 @@
       <workItem from="1555496115914" duration="2783000" />
       <workItem from="1555508035157" duration="3287000" />
       <workItem from="1555556405803" duration="14271000" />
-      <workItem from="1555578969274" duration="4969000" />
+      <workItem from="1555578969274" duration="5872000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78059000" />
+    <option name="totallyTimeSpent" value="78962000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-9" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32890365" />
@@ -548,13 +548,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/component/_listing.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8904">
-          <caret line="318" column="24" selection-start-line="318" selection-start-column="24" selection-end-line="318" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/component/_location-category.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="28">
@@ -583,10 +576,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/component/_listing.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1733">
+          <caret line="318" column="24" selection-start-line="318" selection-start-column="24" selection-end-line="318" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/component/_home.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="781">
-          <caret line="125" column="3" lean-forward="true" selection-start-line="125" selection-start-column="3" selection-end-line="125" selection-end-column="3" />
+        <state relative-caret-position="417">
+          <caret line="121" column="28" selection-start-line="121" selection-start-column="28" selection-end-line="121" selection-end-column="28" />
         </state>
       </provider>
     </entry>

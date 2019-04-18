@@ -54,4 +54,11 @@
         }
     });
 
+    var ad_slide = $(".ads_slide .ads-advanced");
+    ad_slide.hide().slideUp();
+    $(".more-filter").on("click", function (e) {
+        e.preventDefault();
+        ad_slide.slideToggle().show();
+    })
+
 })(jQuery);

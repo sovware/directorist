@@ -203,10 +203,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 0;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .header_bar {
+  margin-bottom: 35px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header {
   background: #ffffff;
   padding: 20px 30px;
-  margin-bottom: 35px;
   border-radius: 5px;
   border: 1px solid #e3e6ef;
   display: flex;
@@ -1488,6 +1491,57 @@ body.atbd_content_active #directorist.atbd_wrapper {
   height: 250px;
 }
 
+.atbdp-map .gm-style .gm-style-iw {
+  width: 250px !important;
+}
+
+.atbdp-map .gm-style .gm-style-iw img {
+  width: auto;
+  max-height: 150px;
+}
+
+/*style the box*/
+.gm-style .gm-style-iw {
+  background-color: #fff !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 250px !important;
+  padding-top: 10px;
+  display: block !important;
+  border-radius: 3px !important;
+}
+
+.gm-style .gm-style-iw .gm-style-iw-d {
+  height: 100% !important;
+  max-height: 100% !important;
+  overflow: hidden !important;
+}
+
+.gm-style .gm-style-iw .gm-style-iw-d .media-left, .gm-style .gm-style-iw .gm-style-iw-d .media-right {
+  display: block !important;
+}
+
+.gm-style .gm-style-iw .gm-style-iw-d .media-left {
+  text-align: center;
+}
+
+.gm-style .gm-style-iw .gm-style-iw-d .media-body .atbdp-listings-title-block {
+  margin-top: 10px;
+}
+
+.gm-style .gm-style-iw .gm-style-iw-d .media-body .atbdp-listings-title-block h3 {
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: 500;
+}
+
+.gm-style .gm-style-iw .gm-style-iw-d .media-body a.map-info-link {
+  font-size: 15px;
+  font-weight: 300;
+}
+
 .atbd_content_active .widget.atbd_widget[id^='bd'],
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget {
   padding: 0;
@@ -2633,13 +2687,16 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .ads-advaced--wrapper .ads_float .ads-advanced {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  z-index: 1;
-  height: 400px;
-  overflow-y: scroll;
   border-radius: 3px;
+  z-index: 10;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  box-shadow: none;
+  visibility: visible;
 }
 
 .ads-advanced {
@@ -2655,7 +2712,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   align-items: center;
   border-bottom: 1px solid #eef0f6;
   padding-bottom: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 15px !important;
   transition: 0.3s ease;
 }
 
@@ -2671,6 +2728,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .ads-advanced .form-group .form-control {
   height: 44px;
+}
+
+.ads-advanced .form-control {
+  box-shadow: none;
+}
+
+.ads-advanced .custom-control label {
+  font-weight: normal;
 }
 
 .ads-advanced .price_ranges {
@@ -2821,10 +2886,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  margin-top: 15px;
 }
 
 .ads-advanced .bdas-filter-actions .btn {
-  padding: 13px 25px !important;
+  padding: 8px 20px !important;
   margin: 0 5px !important;
 }
 
@@ -2836,8 +2902,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   width: 140px;
 }
 
+.header_bar .header_bar_title {
+  font-size: 15px !important;
+  margin-bottom: 21px !important;
+}
+
 .header_bar .ads-advanced {
-  margin-bottom: 30px;
   margin-top: 0;
 }
 

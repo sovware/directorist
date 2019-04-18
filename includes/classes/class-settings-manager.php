@@ -1517,7 +1517,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'listings_display_filter',
-                        'label' => __( 'Display Filter Fields', ATBDP_TEXTDOMAIN ),
+                        'label' => __( 'Open Filter Fields', ATBDP_TEXTDOMAIN ),
                         'items' => array(
                             array(
                                 'value' => 'overlapping',
@@ -2042,7 +2042,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'home_display_filter',
-                        'label' => __( 'Display Filter Fields', ATBDP_TEXTDOMAIN ),
+                        'label' => __( 'Open Filter Fields', ATBDP_TEXTDOMAIN ),
                         'items' => array(
                             array(
                                 'value' => 'overlapping',
@@ -2237,7 +2237,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'search_result_display_filter',
-                        'label' => __( 'Display Filter Fields', ATBDP_TEXTDOMAIN ),
+                        'label' => __( 'Open Filter Fields', ATBDP_TEXTDOMAIN ),
                         'items' => array(
                             array(
                                 'value' => 'overlapping',
@@ -3265,7 +3265,7 @@ The Administrator of ==SITE_NAME==
                     'label' => __( 'Map Height', ATBDP_TEXTDOMAIN ),
                     'description' => __( 'In pixel.', ATBDP_TEXTDOMAIN ),
                     'min' => '5',
-                    'max' => '900',
+                    'max' => '1200',
                     'step' => '5',
                     'default' => '350',
 

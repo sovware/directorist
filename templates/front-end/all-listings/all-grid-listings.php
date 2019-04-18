@@ -18,7 +18,7 @@ $column_width = 100 / $columns . '%';
                 <div class="col-md-12">
                     <?php
                     if(!empty($header_title) && !empty($listing_filters_button) && !empty($search_more_filters_fields)) {?>
-                        <h3>
+                        <h3 class="header_bar_title">
                             <?php echo esc_html($header_title); ?>
                         </h3>
                     <?php } ?>
@@ -90,7 +90,7 @@ $column_width = 100 / $columns . '%';
                     <?php
                     $filters_display = !empty($filters_display)?$filters_display:'';
                     ?>
-                    <div class="<?php echo ('overlapping' === $filters_display)?'ads_float':''?>">
+                    <div class="<?php echo ('overlapping' === $filters_display)?'ads_float':'ads_slide'?>">
                         <div class="ads-advanced">
                             <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
                                 <div class="atbd_seach_fields_wrapper"<?php echo empty($search_border)?'style="border: none;"':'';?>>
@@ -260,9 +260,9 @@ $column_width = 100 / $columns . '%';
                                 <?php } ?>
                                 <div class="bdas-filter-actions">
 
-                                    <a href="<?php echo get_permalink();?>" class="btn btn-outline btn-outline-primary btn-lg"><?php _e('Reset Filters', ATBDP_TEXTDOMAIN);?></a>
+                                    <a href="<?php echo get_permalink();?>" class="btn btn-outline btn-outline-primary btn-sm"><?php _e('Reset Filters', ATBDP_TEXTDOMAIN);?></a>
 
-                                    <button type="submit" class="btn btn-primary btn-lg"><?php _e('Apply Filters', ATBDP_TEXTDOMAIN);?></button>
+                                    <button type="submit" class="btn btn-primary btn-sm"><?php _e('Apply Filters', ATBDP_TEXTDOMAIN);?></button>
 
                                 </div><!-- ends: .bdas-filter-actions -->
                             </form>
@@ -413,6 +413,7 @@ $column_width = 100 / $columns . '%';
                                                 </div>
                                             <?php } ?>
                                     </div>
+
                                     <?php
                                     $plan_hours = true;
                                     $u_badge_html = '<span class="atbd_upper_badge bh_only">';

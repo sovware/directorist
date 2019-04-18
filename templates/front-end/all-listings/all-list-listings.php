@@ -84,9 +84,9 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                         </div>
                         <!--ads advance search-->
                         <?php
-                        $filters_display = !empty($filters_display)?$filters_display:'';
+                        $filters_display = !empty($filters_display)?$filters_display:'ads_slide';
                         ?>
-                        <div class="<?php echo ('overlapping' === $filters_display)?'ads_float':''?>">
+                        <div class="<?php echo ('overlapping' === $filters_display)?'ads_float':'ads_slide'?>">
                             <div class="ads-advanced">
                                 <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
                                     <div class="atbd_seach_fields_wrapper"<?php echo empty($search_border)?'style="border: none;"':'';?>>

@@ -138,4 +138,5 @@ $( '.atbdp-map' ).each(function() {
     atbdp_rander_map( $( this ) );
 });
 
+
 })(jQuery);

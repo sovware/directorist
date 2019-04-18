@@ -27,7 +27,7 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                     <div class="col-md-12">
                         <?php
                         if(!empty($header_title) && !empty($listing_filters_button) && !empty($search_more_filters_fields)) {?>
-                            <h3>
+                            <h3 class="header_bar_title">
                                 <?php echo esc_html($header_title); ?>
                             </h3>
                         <?php } ?>
@@ -99,7 +99,7 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                         <?php
                         $filters_display = !empty($filters_display)?$filters_display:'';
                         ?>
-                        <div class="<?php echo ('overlapping' === $filters_display)?'ads_float':''?>">
+                        <div class="<?php echo ('overlapping' === $filters_display)?'ads_float':'ads_slide'?>">
                             <div class="ads-advanced">
                                 <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
                                     <div class="atbd_seach_fields_wrapper"<?php echo empty($search_border)?'style="border: none;"':'';?>>
@@ -289,6 +289,7 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
     <?php
     $listings_map_height = get_directorist_option('listings_map_height',350);
     ?>
+    <div class="container">
         <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($listings_map_height)?$listings_map_height:'';?>px;">
             <?php while( $all_listings->have_posts() ) : $all_listings->the_post();
             global $post;
@@ -305,19 +306,19 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                         $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
 
 
-                }
-                if(!empty($listing_img[0])) {
+                    }
+                    if(!empty($listing_img[0])) {
 
-                    $default_img = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $crop_width, $crop_height, true, 100)['url'];;
-                    $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
+                        $default_img = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $crop_width, $crop_height, true, 100)['url'];;
+                        $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
 
 
-                }
-                ?>
+                    }
+                    ?>
 
-                <?php if( ! empty( $manual_lat ) && ! empty( $manual_lng ) ) : ?>
-                    <div class="marker" data-latitude="<?php echo $manual_lat; ?>" data-longitude="<?php echo $manual_lng; ?>">
-                        <div>
+                    <?php if( ! empty( $manual_lat ) && ! empty( $manual_lng ) ) : ?>
+                        <div class="marker" data-latitude="<?php echo $manual_lat; ?>" data-longitude="<?php echo $manual_lng; ?>">
+                            <div>
 
                                 <div class="media-left">
                                     <a href="<?php the_permalink(); ?>">
@@ -341,24 +342,26 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                                 </div>
 
 
-                            <div class="media-body">
-                                <div class="atbdp-listings-title-block">
-                                    <h3 class="atbdp-no-margin"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                                <div class="media-body">
+                                    <div class="atbdp-listings-title-block">
+                                        <h3 class="atbdp-no-margin"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 
+                                    </div>
+
+                                    <span class="fa fa-briefcase"></span> <a href="" class="map-info-link"><?php echo $address;?></a>
+
+
+                                    <?php do_action( 'atbdp_after_listing_content', $post->ID, 'map' ); ?>
                                 </div>
-
-                                <span class="glyphicon glyphicon-briefcase"></span><a href=""><?php echo $address;?></a>
-
-
-                                <?php do_action( 'atbdp_after_listing_content', $post->ID, 'map' ); ?>
                             </div>
                         </div>
-                    </div>
-                <?php endif; ?>
+                    <?php endif; ?>
 
-            <?php endwhile; ?>
-        </div>
-        <!-- end of the loop -->
+                <?php endwhile; ?>
+            </div>
+            <!-- end of the loop -->
+    </div>
+</div>
 
         <!-- Use reset postdata to restore orginal query -->
         <?php wp_reset_postdata(); ?>

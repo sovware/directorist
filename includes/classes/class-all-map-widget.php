@@ -118,8 +118,8 @@ if ( !class_exists('BD_All_Map_Widget')) {
 
                                         </div>
 
-                                        <span class="glyphicon glyphicon-briefcase"></span><a
-                                                href=""><?php echo $address; ?></a>
+                                        <span class="fa fa-briefcase"></span> <a
+                                                href="" class="map-info-link"><?php echo $address; ?></a>
 
 
                                         <?php do_action('atbdp_after_listing_content', $post->ID, 'map'); ?>

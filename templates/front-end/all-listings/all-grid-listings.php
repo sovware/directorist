@@ -17,7 +17,7 @@ $column_width = 100 / $columns . '%';
             <div class="row">
                 <div class="col-md-12">
                     <?php
-                    if(!empty($header_title)) {?>
+                    if(!empty($header_title) && !empty($listing_filters_button) && !empty($search_more_filters_fields)) {?>
                         <h3 class="header_bar_title">
                             <?php echo esc_html($header_title); ?>
                         </h3>
@@ -27,6 +27,10 @@ $column_width = 100 / $columns . '%';
                         <div class="atbd_generic_header_title">
                             <button class="more-filter btn btn-outline btn-outline-primary"><span class="fa fa-filter"></span> <?php echo $filters;?></button>
                         </div>
+                        <?php } elseif((!empty($header_title) && empty($listing_filters_button)) || empty($search_more_filters_fields)) {?>
+                            <h3>
+                                <?php echo esc_html($header_title); ?>
+                            </h3>
                         <?php } ?>
                         <?php if ($display_viewas_dropdown || $display_sortby_dropdown) { ?>
                             <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
@@ -155,9 +159,10 @@ $column_width = 100 / $columns . '%';
                                 </div>
                                 <?php if(in_array( 'search_price', $search_more_filters_fields) || in_array( 'search_price_range', $search_more_filters_fields) ) { ?>
                                 <div class="form-group ">
-                                    <?php if(in_array( 'search_price', $search_more_filters_fields)) { ?>
+
                                     <label class=""><?php _e('Price Range', ATBDP_TEXTDOMAIN);?></label>
                                     <div class="price_ranges">
+                                        <?php if(in_array( 'search_price', $search_more_filters_fields)) { ?>
                                         <div class="range_single">
                                             <input type="text" name="price[0]" class="form-control" placeholder="Min Price" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][0] ); ?>">
                                         </div>
@@ -187,7 +192,7 @@ $column_width = 100 / $columns . '%';
                                         <option name='search_by_rating' value="1" <?php if(!empty($_GET['search_by_rating']) && '1' == $_GET['search_by_rating']) { echo "checked='checked'";}?>>1 Star & Up</option>
                                     </select>
                                 </div><!-- ends: .form-group -->
-                                <?php } if(in_array( 'search_open_now', $search_more_filters_fields ) && in_array( 'directorist-business-hours/bd-business-hour.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) )) {?>
+                                <?php } if(in_array( 'search_open_now', $search_more_filters_fields ) && in_array( 'directorist-business-hours/bd-business-hour.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) )) { ?>
                                 <div class="form-group">
                                     <label>Open Now</label>
                                     <div class="check-btn">
@@ -225,29 +230,29 @@ $column_width = 100 / $columns . '%';
                                 <?php if(in_array( 'search_website', $search_more_filters_fields ) || in_array( 'search_email', $search_more_filters_fields ) || in_array( 'search_phone', $search_more_filters_fields ) || in_array( 'search_address', $search_more_filters_fields ) || in_array( 'search_zip_code', $search_more_filters_fields )) {?>
                                     <div class="form-group">
                                         <div class="bottom-inputs">
+                                            <?php if(in_array( 'search_website', $search_more_filters_fields )) {?>
                                             <div>
-                                                <?php if(in_array( 'search_website', $search_more_filters_fields )) {?>
                                                 <input type="text" name="website" placeholder="<?php _e('Website', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['website']) ? $_GET['website'] : ''; ?>" class="form-control">
                                             </div>
+                                            <?php } if(in_array( 'search_email', $search_more_filters_fields )) {?>
                                             <div>
-                                                <?php } if(in_array( 'search_email', $search_more_filters_fields )) {?>
                                                 <input type="text" name="email" placeholder=" <?php _e('Email', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['email']) ? $_GET['email'] : ''; ?>" class="form-control">
                                             </div>
+                                            <?php } if(in_array( 'search_phone', $search_more_filters_fields )) {?>
                                             <div>
-                                                <?php } if(in_array( 'search_phone', $search_more_filters_fields )) {?>
                                                 <input type="text" name="phone" placeholder="<?php _e('Phone Number', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>" class="form-control">
                                             </div>
+                                            <?php } if(in_array( 'search_address', $search_more_filters_fields )) {?>
                                             <div>
-                                                <?php } if(in_array( 'search_address', $search_more_filters_fields )) {?>
                                                 <input type="text" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php _e('Address', ATBDP_TEXTDOMAIN);?>"
                                                        class="form-control location-name">
                                             </div>
+                                            <?php } if(in_array( 'search_zip_code', $search_more_filters_fields )) {?>
                                             <div>
-                                                <?php } if(in_array( 'search_zip_code', $search_more_filters_fields )) {?>
                                                 <input type="text" name="zip_code" placeholder=" <?php _e('Zip/Post Code', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['zip_code']) ? $_GET['zip_code'] : ''; ?>" class="form-control">
                                             </div>
+                                            <?php } ?>
                                         </div>
-                                        <?php } ?>
                                     </div>
                                 <?php } ?>
                                 <div class="bdas-filter-actions">
@@ -404,13 +409,7 @@ $column_width = 100 / $columns . '%';
                                                 </div>
                                             <?php } ?>
                                     </div>
-                                    <style>
-                                        .atbd_badge_close{
-                                            position: absolute;
-                                            left: 15px;
-                                            top: 15px;
-                                        }
-                                    </style>
+
                                     <?php
                                     $plan_hours = true;
                                     $u_badge_html = '<span class="atbd_upper_badge">';
@@ -679,6 +678,7 @@ $column_width = 100 / $columns . '%';
          * to add custom html
          * It only fires if the parameter [directorist_all_listing action_before_after_loop="yes"]
          */
+        $action_before_after_loop = !empty($action_before_after_loop)?$action_before_after_loop:'';
         if ('yes' === $action_before_after_loop ){
             do_action('atbdp_after_grid_listings_loop');
         }

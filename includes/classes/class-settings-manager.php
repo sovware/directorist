@@ -83,6 +83,7 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                         'page_section' => array(
                             'type' => 'section',
                             'title' => __('Upgrade/Regenerate Pages', ATBDP_TEXTDOMAIN),
+                            'description' => __('If you are an existing user of the directorist, you have to upgrade your Directorist pages shortcode.', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_pages_regenerate_settings_fields(),
                         ),
                         'search_section' => array(
@@ -280,7 +281,7 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                         ),
                         'address_field' => array(
                             'type' => 'section',
-                            'title' => __('Google Address', ATBDP_TEXTDOMAIN),
+                            'title' => __('Address', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_address_field_settings(),
                         ),
                         'phone_field' => array(
@@ -1486,6 +1487,7 @@ The Administrator of ==SITE_NAME==
          * @return array
          */
         function get_listings_page_settings_fields(){
+            $business_hours = '<a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a>';
             return apply_filters('atbdp_listings_settings_fields', array(
                     array(
                         'type' => 'toggle',
@@ -1547,8 +1549,7 @@ The Administrator of ==SITE_NAME==
                             ),
                             array(
                                 'value' => 'search_open_now',
-                                'label' => __('Open Now (It requires Business Hours extension)', ATBDP_TEXTDOMAIN),
-                            ),
+                                'label' => sprintf(__('Open Now (Requires %s extension)', ATBDP_TEXTDOMAIN), $business_hours)),
                             array(
                                 'value' => 'search_custom_fields',
                                 'label' => __('Custom Fields', ATBDP_TEXTDOMAIN),
@@ -1588,19 +1589,19 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'textbox',
                         'name' => 'listings_search_text_placeholder',
-                        'label' => __('Search Bar placeholder', ATBDP_TEXTDOMAIN),
+                        'label' => __('Search Bar Placeholder', ATBDP_TEXTDOMAIN),
                         'default' => __('What are you looking for?', ATBDP_TEXTDOMAIN),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'listings_category_placeholder',
-                        'label' => __('Category placeholder', ATBDP_TEXTDOMAIN),
+                        'label' => __('Category Placeholder', ATBDP_TEXTDOMAIN),
                         'default' => __('Select a category', ATBDP_TEXTDOMAIN),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'listings_location_placeholder',
-                        'label' => __('Location placeholder', ATBDP_TEXTDOMAIN),
+                        'label' => __('Location Placeholder', ATBDP_TEXTDOMAIN),
                         'default' => __('Select a location', ATBDP_TEXTDOMAIN),
                     ),
                     array(
@@ -1950,6 +1951,7 @@ The Administrator of ==SITE_NAME==
          * @return array
          */
         function get_search_settings_fields(){
+            $business_hours = '<a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a>';
             return apply_filters('atbdp_search_settings_fields', array(
                     array(
                         'type' => 'textbox',
@@ -2041,8 +2043,7 @@ The Administrator of ==SITE_NAME==
                             ),
                             array(
                                 'value' => 'search_open_now',
-                                'label' => __('Open Now (It requires Business Hours extension)', ATBDP_TEXTDOMAIN),
-                            ),
+                                'label' =>  sprintf(__('Open Now (Requires %s extension)', ATBDP_TEXTDOMAIN), $business_hours)),
                             array(
                                 'value' => 'search_custom_fields',
                                 'label' => __('Custom Fields', ATBDP_TEXTDOMAIN),
@@ -2168,6 +2169,7 @@ The Administrator of ==SITE_NAME==
          * @return array
          */
         function get_search_form_settings_fields() {
+            $business_hours = '<a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a>';
             return apply_filters('atbdp_search_result_settings_fields', array(
                     array(
                         'type' => 'toggle',
@@ -2229,8 +2231,7 @@ The Administrator of ==SITE_NAME==
                             ),
                             array(
                                 'value' => 'search_open_now',
-                                'label' => __('Open Now (It requires Business Hours extension)', ATBDP_TEXTDOMAIN),
-                            ),
+                                'label' =>  sprintf(__('Open Now (Requires %s extension)', ATBDP_TEXTDOMAIN), $business_hours)),
                             array(
                                 'value' => 'search_custom_fields',
                                 'label' => __('Custom Fields', ATBDP_TEXTDOMAIN),
@@ -2270,19 +2271,19 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'textbox',
                         'name' => 'search_result_search_text_placeholder',
-                        'label' => __('Search Bar placeholder', ATBDP_TEXTDOMAIN),
+                        'label' => __('Search Bar Placeholder', ATBDP_TEXTDOMAIN),
                         'default' => __('What are you looking for?', ATBDP_TEXTDOMAIN),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_result_category_placeholder',
-                        'label' => __('Category placeholder', ATBDP_TEXTDOMAIN),
+                        'label' => __('Category Placeholder', ATBDP_TEXTDOMAIN),
                         'default' => __('Select a category', ATBDP_TEXTDOMAIN),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_result_location_placeholder',
-                        'label' => __('Location placeholder', ATBDP_TEXTDOMAIN),
+                        'label' => __('Location Placeholder', ATBDP_TEXTDOMAIN),
                         'default' => __('Select a location', ATBDP_TEXTDOMAIN),
                     ),
                     array(
@@ -2763,7 +2764,7 @@ The Administrator of ==SITE_NAME==
                     'type' => 'textbox',
                     'name' => 'address_label',
                     'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Google Address', ATBDP_TEXTDOMAIN),
+                    'default' => __('Address', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -3894,10 +3895,11 @@ The Administrator of ==SITE_NAME==
         function get_pages_regenerate_settings_fields(){
             return apply_filters('atbdp_pages_settings_fields', array(
                 array(
-                    'type' => 'HTML',
+                    'type' => 'toggle',
                     'name' => 'shortcode-updated',
                     'label' => __('Upgrade/Regenerate Pages', ATBDP_TEXTDOMAIN),
-                    'description' => sprintf(__( '%s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">It won\'t work unless you have selected Pages for the Shortcodes from below.</strong>'),
+                    'description' => sprintf(__( '%s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">It won\'t work unless you have selected Pages for the Shortcodes from Directory Settings >> Pages, Links & Views.</strong>'),
+                    'validation' => 'numeric',
 
                 ),
             ));

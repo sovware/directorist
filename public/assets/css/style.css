@@ -2687,13 +2687,16 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .ads-advaced--wrapper .ads_float .ads-advanced {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  z-index: 1;
-  height: 400px;
-  overflow-y: scroll;
   border-radius: 3px;
+  z-index: 10;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  box-shadow: none;
+  visibility: visible;
 }
 
 .ads-advanced {

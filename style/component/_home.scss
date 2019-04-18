@@ -104,13 +104,16 @@
   .ads_float{
     position: relative;
     .ads-advanced{
-      position: absolute;
-      width: 100%;
-      left: 0;
-      z-index: 1;
-      height: 400px;
-      overflow-y: scroll;
       border-radius: 3px;
+      z-index: 10;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      box-shadow: none;
+      visibility: visible;
     }
   }
 }

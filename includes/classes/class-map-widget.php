@@ -16,7 +16,7 @@ if ( !class_exists('BD_Map_Widget')) {
         {
             $widget_options = array(
                 'classname' => 'atbd_widget',
-                'description' => esc_html__('You can show map by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show single listing map by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
                 'bdmw_widget', // Base ID

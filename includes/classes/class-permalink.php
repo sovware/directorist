@@ -92,6 +92,25 @@ class ATBDP_Permalink{
         return apply_filters('atbdp_registration_page_url', $link );
     }
 
+
+    /**
+     * It returns the link to the all listing page of ATBDP
+     * @param array $query_vars [optional] Array of query vars to be added to the all listing page url
+     * @return string
+     * @since 5.0
+     */
+    public static function get_directorist_lisitngs_page_link($query_vars=array())
+    {
+        $link = home_url();
+        $id = get_directorist_option('all_listing_page'); // get the page id of the custom registration page.
+        if( $id ) $link = get_permalink( $id );
+
+        if (!empty($query_vars) && is_array($query_vars)){
+            $link = add_query_arg( $query_vars, $link );
+        }
+        return apply_filters('atbdp_listings_page_url', $link );
+    }
+
     /**
      * It returns the link to the custom search archive page of ATBDP
      * @param array $query_vars [optional] Array of query vars to be added to the registration page url

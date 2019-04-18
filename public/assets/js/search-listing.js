@@ -28,11 +28,30 @@
     }
 
     var ad = $(".ads-advanced");
-    ad.hide().slideUp();
-    $(".more-filter").on("click", function (e) {
+    ad.css({
+        visibility: 'hidden',
+        height: '0',
+    });
+    var count = 0;
+    $("body").on("click", '.more-filter', function (e) {
+        count++;
         e.preventDefault();
-        ad.slideToggle().show();
-    })
-
+            var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos-currentPos;
+        if(count%2 === 0) {
+            ad.css({
+                visibility: 'hidden',
+                opacity: '0',
+                height: '0',
+                transition: '.3s ease'
+            });
+        } else {
+            ad.css({
+                visibility: 'visible',
+                height: height-70+'px',
+                transition: '0.3s ease',
+                opacity: '1',
+            });
+        }
+    });
 
 })(jQuery);

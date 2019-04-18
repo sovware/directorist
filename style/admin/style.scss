@@ -384,3 +384,28 @@ css for Custom Field
   left: 20px;
   background: #f2f4f7;
 }
+#adminmenu .atbdp_extensions,
+#adminmenu .atbdp_themes{
+  color: #01b0ff;
+  font-weight: 600;
+}
+#shortcode-updated .input label span{
+  background: #008EC2;
+  width: 160px;
+  position: relative;
+  border-radius: 3px;
+  margin-top: 10px;
+  &:before{
+    content: 'Upgrade/Regenerate';
+    position: absolute;
+    color: #fff;
+    left: 50%;
+    top: 48%;
+    transform:translate(-50%, -50%);
+    border-radius: 3px;
+  }
+}
+#shortcode-updated + #success_msg{
+  color: #4caf50;
+  padding-left: 15px;
+}

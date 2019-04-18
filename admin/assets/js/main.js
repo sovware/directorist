@@ -146,16 +146,22 @@
     });
 
     // upgrade old pages
-    $('#shortcode-updated').on('click', function (event) {
-        $('#success_msg').hide();
+    $('#shortcode-updated input[name="shortcode-updated"]').on('change', function (event) {
         event.preventDefault();
+        $('#success_msg').hide();
+
         var $this = $(this);
         // display a notice to user to wait
         // send an ajax request to the back end
         atbdp_do_ajax($this, 'atbdp_upgrade_old_pages', null, function (response) {
             if (response.success) {
-                $this.after('<p id="success_msg">' + response.data + '</p>');
+                $('#shortcode-updated').after('<p id="success_msg">' + response.data + '</p>');
+
             }
+        });
+
+        $('.atbdp_ajax_loading').css({
+            display: 'none'
         });
 
     });

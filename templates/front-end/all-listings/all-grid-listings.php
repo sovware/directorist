@@ -18,7 +18,7 @@ $column_width = 100 / $columns . '%';
                 <div class="col-md-12">
                     <?php
                     if(!empty($header_title)) {?>
-                        <h3>
+                        <h3 class="header_bar_title">
                             <?php echo esc_html($header_title); ?>
                         </h3>
                     <?php } ?>
@@ -404,6 +404,13 @@ $column_width = 100 / $columns . '%';
                                                 </div>
                                             <?php } ?>
                                     </div>
+                                    <style>
+                                        .atbd_badge_close{
+                                            position: absolute;
+                                            left: 15px;
+                                            top: 15px;
+                                        }
+                                    </style>
                                     <?php
                                     $plan_hours = true;
                                     $u_badge_html = '<span class="atbd_upper_badge">';

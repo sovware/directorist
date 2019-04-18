@@ -291,7 +291,8 @@
   .gm-style .gm-style-iw{
     width: 250px !important;
     img{
-      width: 100%;
+      width: auto;
+      max-height: 150px;
     }
   }
 }
@@ -306,12 +307,16 @@
   min-height: 250px !important;
   padding-top: 10px;
   display: block !important;
+  border-radius: 3px !important;
   .gm-style-iw-d{
     height: 100% !important;
     max-height: 100% !important;
     overflow: hidden !important;
     .media-left, .media-right{
       display: block !important;
+    }
+    .media-left{
+      text-align: center;
     }
     .media-body{
       .atbdp-listings-title-block{

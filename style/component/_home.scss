@@ -125,7 +125,7 @@
     align-items: center;
     border-bottom: 1px solid #eef0f6;
     padding-bottom: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 15px !important;
     transition: 0.3s ease;
     &>label{
       margin:0 !important;
@@ -290,7 +290,10 @@
     }
   }
 }
-
+.header_bar .header_bar_title{
+  font-size: 15px !important;
+  margin-bottom: 21px !important;
+}
 .header_bar .ads-advanced{
   margin-top: 0;
   .atbd_seach_fields_wrapper{

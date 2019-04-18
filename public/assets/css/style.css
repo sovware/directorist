@@ -1496,7 +1496,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbdp-map .gm-style .gm-style-iw img {
-  width: 100%;
+  width: auto;
+  max-height: 150px;
 }
 
 /*style the box*/
@@ -1509,6 +1510,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   min-height: 250px !important;
   padding-top: 10px;
   display: block !important;
+  border-radius: 3px !important;
 }
 
 .gm-style .gm-style-iw .gm-style-iw-d {
@@ -1519,6 +1521,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .gm-style .gm-style-iw .gm-style-iw-d .media-left, .gm-style .gm-style-iw .gm-style-iw-d .media-right {
   display: block !important;
+}
+
+.gm-style .gm-style-iw .gm-style-iw-d .media-left {
+  text-align: center;
 }
 
 .gm-style .gm-style-iw .gm-style-iw-d .media-body .atbdp-listings-title-block {
@@ -2703,7 +2709,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   align-items: center;
   border-bottom: 1px solid #eef0f6;
   padding-bottom: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 15px !important;
   transition: 0.3s ease;
 }
 
@@ -2891,6 +2897,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .ads-advanced .atbdp-custom-fields-search .form-group .custom-control {
   width: 140px;
+}
+
+.header_bar .header_bar_title {
+  font-size: 15px !important;
+  margin-bottom: 21px !important;
 }
 
 .header_bar .ads-advanced {

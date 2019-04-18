@@ -416,4 +416,20 @@ css for Custom Field
   width: 150px;
 }
 
+.vp-wrap .vp-checkbox .field label {
+  display: block;
+  margin-right: 0;
+}
+
+.vp-wrap .vp-section > h3 {
+  color: #01b0ff;
+  font-size: 15px;
+  padding: 10px 20px;
+  margin: 0;
+  top: 12px;
+  border: 1px solid #eee;
+  left: 20px;
+  background: #f2f4f7;
+}
+
 /*# sourceMappingURL=map/style.css.map */

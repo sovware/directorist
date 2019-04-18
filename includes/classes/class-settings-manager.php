@@ -281,7 +281,7 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                         ),
                         'address_field' => array(
                             'type' => 'section',
-                            'title' => __('Google Address', ATBDP_TEXTDOMAIN),
+                            'title' => __('Address', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_address_field_settings(),
                         ),
                         'phone_field' => array(
@@ -332,7 +332,7 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                     )),
                 ),
 
-                /*Submenu : Review */
+                /*Submenu : Deshboard */
                 array(
                     'title' => __('User Dashboard Setting', ATBDP_TEXTDOMAIN),
                     'name' => 'dashboard_setting',
@@ -342,6 +342,20 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                             'type' => 'section',
                             'title' => __('User Dashboard Setting', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_dashboard_settings_fields(),
+                        ),
+                    )),
+                ),
+
+                /*Submenu : Deshboard */
+                array(
+                    'title' => __('Map Setting', ATBDP_TEXTDOMAIN),
+                    'name' => 'map_setting',
+                    'icon' => 'font-awesome:fa-map-signs',
+                    'controls' => apply_filters('atbdp_dashboard_controls', array(
+                        'emails' => array(
+                            'type' => 'section',
+                            'title' => __('Map Setting', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_listings_map_settings_fields(),
                         ),
                     )),
                 ),
@@ -1473,6 +1487,7 @@ The Administrator of ==SITE_NAME==
          * @return array
          */
         function get_listings_page_settings_fields(){
+            $business_hours = '<a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a>';
             return apply_filters('atbdp_listings_settings_fields', array(
                     array(
                         'type' => 'toggle',
@@ -1487,10 +1502,107 @@ The Administrator of ==SITE_NAME==
                         'default' => __('All Items', ATBDP_TEXTDOMAIN),
                     ),
                     array(
+                        'type' => 'toggle',
+                        'name' => 'listing_filters_button',
+                        'label' => __('Display Filters Button', ATBDP_TEXTDOMAIN),
+                        'default' => 1,
+                    ),
+                    array(
                         'type' => 'textbox',
-                        'name' => 'listings_header_sub_title',
-                        'label' => __('Header Sub-Title', ATBDP_TEXTDOMAIN),
-                        'default' => __('Total Listing Found: ', ATBDP_TEXTDOMAIN),
+                        'name' => 'listings_filter_button_text',
+                        'label' => __('Filters Button Text', ATBDP_TEXTDOMAIN),
+                        'default' => __('Filters', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'type' => 'checkbox',
+                        'name' => 'listing_filters_fields',
+                        'label' => __('Filter Fields', ATBDP_TEXTDOMAIN),
+                        'validation' => 'minselected[0]|maxselected[15]',
+                        'items' => array(
+                            array(
+                                'value' => 'search_text',
+                                'label' => __('Text', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_category',
+                                'label' => __('Category', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_location',
+                                'label' => __('Location', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_price',
+                                'label' => __('Price (Min - Max)', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_price_range',
+                                'label' => __('Price Range', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_rating',
+                                'label' => __('Rating', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_tag',
+                                'label' => __('Tag', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_open_now',
+                                'label' => sprintf(__('Open Now (Requires %s extension)', ATBDP_TEXTDOMAIN), $business_hours)),
+                            array(
+                                'value' => 'search_custom_fields',
+                                'label' => __('Custom Fields', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_website',
+                                'label' => __('Website', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_email',
+                                'label' => __('Email', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_phone',
+                                'label' => __('Phone', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_address',
+                                'label' => __('Address', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_zip_code',
+                                'label' => __('Zip/Post Code', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'search_text',
+                            'search_category',
+                            'search_location',
+                            'search_price',
+                            'search_price_range',
+                            'search_rating',
+                            'search_tag',
+                            'search_custom_fields'
+                        ),
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'listings_search_text_placeholder',
+                        'label' => __('Search Bar Placeholder', ATBDP_TEXTDOMAIN),
+                        'default' => __('What are you looking for?', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'listings_category_placeholder',
+                        'label' => __('Category Placeholder', ATBDP_TEXTDOMAIN),
+                        'default' => __('Select a category', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'listings_location_placeholder',
+                        'label' => __('Location Placeholder', ATBDP_TEXTDOMAIN),
+                        'default' => __('Select a location', ATBDP_TEXTDOMAIN),
                     ),
                     array(
                         'type' => 'toggle',
@@ -1839,6 +1951,7 @@ The Administrator of ==SITE_NAME==
          * @return array
          */
         function get_search_settings_fields(){
+            $business_hours = '<a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a>';
             return apply_filters('atbdp_search_settings_fields', array(
                     array(
                         'type' => 'textbox',
@@ -1930,8 +2043,7 @@ The Administrator of ==SITE_NAME==
                             ),
                             array(
                                 'value' => 'search_open_now',
-                                'label' => __('Open Now (It requires Business Hours extension)', ATBDP_TEXTDOMAIN),
-                            ),
+                                'label' =>  sprintf(__('Open Now (Requires %s extension)', ATBDP_TEXTDOMAIN), $business_hours)),
                             array(
                                 'value' => 'search_custom_fields',
                                 'label' => __('Custom Fields', ATBDP_TEXTDOMAIN),
@@ -2057,6 +2169,7 @@ The Administrator of ==SITE_NAME==
          * @return array
          */
         function get_search_form_settings_fields() {
+            $business_hours = '<a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a>';
             return apply_filters('atbdp_search_result_settings_fields', array(
                     array(
                         'type' => 'toggle',
@@ -2071,10 +2184,107 @@ The Administrator of ==SITE_NAME==
                         'default' => __('Search Result ', ATBDP_TEXTDOMAIN),
                     ),
                     array(
+                        'type' => 'toggle',
+                        'name' => 'search_result_filters_button',
+                        'label' => __('Display Filters Button', ATBDP_TEXTDOMAIN),
+                        'default' => 1,
+                    ),
+                    array(
                         'type' => 'textbox',
-                        'name' => 'search_header_sub_title',
-                        'label' => __('Header Sub-Title', ATBDP_TEXTDOMAIN),
-                        'default' => __('Total Listing Found: ', ATBDP_TEXTDOMAIN),
+                        'name' => 'search_result_filter_button_text',
+                        'label' => __('Filters Button Text', ATBDP_TEXTDOMAIN),
+                        'default' => __('Filters', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'type' => 'checkbox',
+                        'name' => 'search_result_filters_fields',
+                        'label' => __('Filter Fields', ATBDP_TEXTDOMAIN),
+                        'validation' => 'minselected[0]|maxselected[15]',
+                        'items' => array(
+                            array(
+                                'value' => 'search_text',
+                                'label' => __('Text', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_category',
+                                'label' => __('Category', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_location',
+                                'label' => __('Location', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_price',
+                                'label' => __('Price (Min - Max)', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_price_range',
+                                'label' => __('Price Range', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_rating',
+                                'label' => __('Rating', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_tag',
+                                'label' => __('Tag', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_open_now',
+                                'label' =>  sprintf(__('Open Now (Requires %s extension)', ATBDP_TEXTDOMAIN), $business_hours)),
+                            array(
+                                'value' => 'search_custom_fields',
+                                'label' => __('Custom Fields', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_website',
+                                'label' => __('Website', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_email',
+                                'label' => __('Email', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_phone',
+                                'label' => __('Phone', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_address',
+                                'label' => __('Address', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_zip_code',
+                                'label' => __('Zip/Post Code', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'search_text',
+                            'search_category',
+                            'search_location',
+                            'search_price',
+                            'search_price_range',
+                            'search_rating',
+                            'search_tag',
+                            'search_custom_fields'
+                        ),
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'search_result_search_text_placeholder',
+                        'label' => __('Search Bar Placeholder', ATBDP_TEXTDOMAIN),
+                        'default' => __('What are you looking for?', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'search_result_category_placeholder',
+                        'label' => __('Category Placeholder', ATBDP_TEXTDOMAIN),
+                        'default' => __('Select a category', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'search_result_location_placeholder',
+                        'label' => __('Location Placeholder', ATBDP_TEXTDOMAIN),
+                        'default' => __('Select a location', ATBDP_TEXTDOMAIN),
                     ),
                     array(
                         'type' => 'toggle',
@@ -2554,7 +2764,7 @@ The Administrator of ==SITE_NAME==
                     'type' => 'textbox',
                     'name' => 'address_label',
                     'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Google Address', ATBDP_TEXTDOMAIN),
+                    'default' => __('Address', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -2761,62 +2971,12 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Display', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
-                array(
-                    'type' => 'select',
-                    'name' => 'select_listing_map',
-                    'label' => __( 'Select Map', ATBDP_TEXTDOMAIN ),
-                    'items' => array(
-                        array(
-                            'value' => 'google',
-                            'label' => __('Google Map', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'openstreet',
-                            'label' => __('OpenStreetMap', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'google',
-                        'label' => __('Google Map', ATBDP_TEXTDOMAIN),
-                    ),
-                ),
+
                 array(
                     'type' => 'toggle',
                     'name' => 'display_map_for',
                     'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
                     'default' => 0,
-                ),
-                array(
-                    'type' => 'textbox',
-                    'name' => 'map_api_key',
-                    'label' => __( 'Google Map API key', ATBDP_TEXTDOMAIN ),
-                    'description' => sprintf(__( 'Please replace it by your own API. It\'s required to use Google Map. You can find detailed information %s.', ATBDP_TEXTDOMAIN ), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
-                    'default' => 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo',
-                ),
-                array(
-                    'type' => 'textbox',
-                    'name' => 'default_latitude',
-                    'label' => __( 'Default Latitude', ATBDP_TEXTDOMAIN ),
-                    'description' => sprintf(__( 'You can find it %s.', ATBDP_TEXTDOMAIN ), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
-                    'default' => '51.5073509',
-                ),
-                array(
-                    'type' => 'textbox',
-                    'name' => 'default_longitude',
-                    'label' => __( 'Default Longitude', ATBDP_TEXTDOMAIN ),
-                    'description' => sprintf(__( 'You can find it %s.', ATBDP_TEXTDOMAIN ), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
-                    'default' => '-0.12775829999998223',
-                ),
-                array(
-                    'type' => 'slider',
-                    'name' => 'map_zoom_level',
-                    'label' => __( 'Adjust Map Zoom Level', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'Here 0 means 100% zoom-out. 22 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22.', ATBDP_TEXTDOMAIN ),
-                    'min' => '1',
-                    'max' => '22',
-                    'step' => '1',
-                    'default' => '16',
-
                 ),
 
             ));
@@ -2984,6 +3144,62 @@ The Administrator of ==SITE_NAME==
                     'name' => 'submit_listing_button',
                     'label' => __('Display Submit Listing Button', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                ),
+            ));
+        }
+
+        function get_listings_map_settings_fields() {
+            return apply_filters('atbdp_map_field_setting' , array(
+                array(
+                    'type' => 'select',
+                    'name' => 'select_listing_map',
+                    'label' => __( 'Select Map', ATBDP_TEXTDOMAIN ),
+                    'items' => array(
+                        array(
+                            'value' => 'google',
+                            'label' => __('Google Map', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'openstreet',
+                            'label' => __('OpenStreetMap', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'google',
+                        'label' => __('Google Map', ATBDP_TEXTDOMAIN),
+                    ),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'map_api_key',
+                    'label' => __( 'Google Map API key', ATBDP_TEXTDOMAIN ),
+                    'description' => sprintf(__( 'Please replace it by your own API. It\'s required to use Google Map. You can find detailed information %s.', ATBDP_TEXTDOMAIN ), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'default' => 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo',
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'default_latitude',
+                    'label' => __( 'Default Latitude', ATBDP_TEXTDOMAIN ),
+                    'description' => sprintf(__( 'You can find it %s.', ATBDP_TEXTDOMAIN ), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'default' => '51.5073509',
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'default_longitude',
+                    'label' => __( 'Default Longitude', ATBDP_TEXTDOMAIN ),
+                    'description' => sprintf(__( 'You can find it %s.', ATBDP_TEXTDOMAIN ), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'default' => '-0.12775829999998223',
+                ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'map_zoom_level',
+                    'label' => __( 'Adjust Map Zoom Level', ATBDP_TEXTDOMAIN ),
+                    'description' => __( 'Here 0 means 100% zoom-out. 22 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22.', ATBDP_TEXTDOMAIN ),
+                    'min' => '1',
+                    'max' => '22',
+                    'step' => '1',
+                    'default' => '16',
+
                 ),
             ));
         }

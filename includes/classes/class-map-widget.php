@@ -16,11 +16,11 @@ if ( !class_exists('BD_Map_Widget')) {
         {
             $widget_options = array(
                 'classname' => 'atbd_widget',
-                'description' => esc_html__('You can show map by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show single listing map by this widget', ATBDP_TEXTDOMAIN),
             );
             parent::__construct(
                 'bdmw_widget', // Base ID
-                esc_html__('Directorist - Map', ATBDP_TEXTDOMAIN), // Name
+                esc_html__('Directorist - Map (Single Listing)', ATBDP_TEXTDOMAIN), // Name
                 $widget_options // Args
             );
         }

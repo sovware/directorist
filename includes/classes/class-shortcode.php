@@ -2247,8 +2247,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
         public function search_listing($atts, $content = null) {
             ob_start();
 
-            include ATBDP_TEMPLATES_DIR . 'listing-home.php';
-          //  ATBDP()->load_template('listing-home');
+             ATBDP()->load_template('listing-home');
             ATBDP()->enquirer->search_listing_scripts_styles();
             return ob_get_clean();
         }

@@ -18,7 +18,7 @@ $display_category_field      = get_directorist_option('display_category_field', 
 $display_location_field      = get_directorist_option('display_location_field', 1);
 $display_text_field          = get_directorist_option('display_text_field', 1);
 $search_listing_text          = get_directorist_option('search_listing_text',  __('Search Listing', ATBDP_TEXTDOMAIN));
-
+$search_more_filters          = get_directorist_option('search_more_filters',  __('More Filters', ATBDP_TEXTDOMAIN));
 $default                     = get_template_directory_uri().'/images/home_page_bg.jpg';
 $theme_home_bg_image         = get_theme_mod('directoria_home_bg');
 $search_home_bg              = get_directorist_option('search_home_bg');
@@ -137,8 +137,8 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                     <!--More Filters  & Search Button-->
                         <?php
                         $html = '<div class="atbd_submit_btn_wrapper">';
-                        if(!empty($display_more_filter_search)) {
-                            $html .= '<button class="more-filter btn btn-outline btn-lg btn-outline-primary"><span class="fa fa-filter"></span>'.__('More Filters', ATBDP_TEXTDOMAIN).'</button>';
+                        if(!empty($display_more_filter_search) && !empty($search_more_filters_fields)) {
+                            $html .= '<button class="more-filter btn btn-outline btn-lg btn-outline-primary"><span class="fa fa-filter"></span>'.__($search_more_filters, ATBDP_TEXTDOMAIN).'</button>';
                              }
                         $html .= '<div class="atbd_submit_btn">';
                         $html .= '<button type="submit" class="btn btn-primary btn-lg btn_search">';

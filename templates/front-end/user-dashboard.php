@@ -173,16 +173,18 @@ $submit_listing_button   = get_directorist_option('submit_listing_button',1);
 
                                                         <div class="db_btn_area">
                                                             <?php
+                                                            date_default_timezone_set('Asia/Dhaka');
                                                             $exp_date = get_post_meta($post->ID, '_expiry_date', true);
                                                             $never_exp = get_post_meta($post->ID, '_never_expire', true);
                                                             $lstatus = get_post_meta($post->ID, '_listing_status', true);
                                                             $post_date = $post->post_date;
-                                                            $datetime1 = new DateTime($post_date);
                                                             $datetime2 = new DateTime($exp_date);
-                                                            $interval = $datetime1>$datetime2;
+                                                            $datetime1 = new DateTime($post_date);
+                                                            $interval = $datetime1->diff($datetime2);
+                                                            $interval = $interval->format('%a');
                                                             // If the listing needs renewal then there is no need to show promote button
                                                            // if ('renewal' == $lstatus || 'expired' == $lstatus) {
-                                                            if ($interval){
+                                                            if ('0' === $interval){
                                                                 $can_renew = get_directorist_option('can_renew_listing');
                                                                 if (!$can_renew) return false;// vail if renewal option is turned off on the site.
                                                                 ?>
@@ -230,7 +232,7 @@ $submit_listing_button   = get_directorist_option('submit_listing_button',1);
                                                             $exp_text = !empty($never_exp)
                                                                 ? __('Never Expires', ATBDP_TEXTDOMAIN)
                                                                 : date_i18n($date_format, strtotime($exp_date)); ?>
-                                                            <p><?php printf(__('<span>Expiration:</span> %s', ATBDP_TEXTDOMAIN), !empty($interval)?'<span style="color: red">Expired</span>':$exp_text); ?></p>
+                                                            <p><?php printf(__('<span>Expiration:</span> %s', ATBDP_TEXTDOMAIN), ('0'===$interval)?'<span style="color: red">Expired</span>':$exp_text); ?></p>
                                                             <p><?php printf(__('<span>Listing Status:</span> %s', ATBDP_TEXTDOMAIN), get_post_status_object($post->post_status)->label); ?></p>
                                                             <?php
                                                             atbdp_display_price($price, $is_disable_price);

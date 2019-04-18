@@ -164,7 +164,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         //prepare the data for the links because links needs to be escaped
                         $twt_lnk = "http://twitter.com/share?url={$p_lnk}";
                         $fb_lnk = "https://www.facebook.com/share.php?u={$p_lnk}&title={$p_title}";
-                        $g_lnk = "https://plus.google.com/share?url={$p_lnk}";
                         $in_link = "http://www.linkedin.com/shareArticle?mini=true&url={$p_lnk}&title={$p_title}";
                         $listing_header .= '
                         
@@ -177,10 +176,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         <li>
                             <a href="' . esc_url($twt_lnk) . '" target="_blank">
                                 <span class="fa fa-twitter"></span>' . __('Twitter', ATBDP_TEXTDOMAIN) . '</a>
-                        </li>
-                        <li>
-                            <a href="' . esc_url($g_lnk) . '" target="_blank">
-                                <span class="fa fa-google-plus"></span>' . __('Google Plus', ATBDP_TEXTDOMAIN) . '</a>
                         </li>
                         <li>
                             <a href="' . esc_url($in_link) . '" target="_blank">

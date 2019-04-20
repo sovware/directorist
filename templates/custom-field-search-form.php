@@ -56,6 +56,7 @@
 
                     $values = array_map( 'trim', (array) $value );
 
+                    echo '<div class="bads-custom-checks">';
                     foreach( $choices as $choice ) {
                         if( strpos( $choice, ':' ) !== false ) {
                             $_choice = explode( ':', $choice );
@@ -74,6 +75,8 @@
 
                         printf( '<div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary"><input type="checkbox" name="cf[%d][]" id="%d" class="custom-control-input" value="%s"%s><span class="check--select"></span><label for="%d" class="custom-control-label">%s</label></div>', $post->ID,$_for, $_value, $_checked,$_for, $_label );
                     }
+                    echo '</div>';
+                    echo '<a href="#" class="more-or-less sml">'.__('Show More', ATBDP_TEXTDOMAIN).'</a>';
                     break;
                 case 'radio' :
                     $choices = $field_meta['choices'][0];

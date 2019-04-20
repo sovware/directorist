@@ -33,7 +33,7 @@ if (!class_exists('ATBDP_Extensions')) {
         {
             add_submenu_page('edit.php?post_type=at_biz_dir',
                 __('Get Extensions', ATBDP_TEXTDOMAIN),
-                __('<span class="atbdp_extensions">Extensions</span>', ATBDP_TEXTDOMAIN),
+                __('<span style="color: #01b0ff; font-weight: 600;">Extensions</span>', ATBDP_TEXTDOMAIN),
                 'manage_options',
                 'atbdp-extension',
                 array($this, 'show_extension_view')

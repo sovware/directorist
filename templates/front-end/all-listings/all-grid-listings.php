@@ -413,7 +413,13 @@ $column_width = 100 / $columns . '%';
                                                 </div>
                                             <?php } ?>
                                     </div>
-
+                                    <style>
+                                        .atbd_badge_close{
+                                            position: absolute;
+                                            left: 15px;
+                                            top: 15px;
+                                        }
+                                    </style>
                                     <?php
                                     $plan_hours = true;
                                     $u_badge_html = '<span class="atbd_upper_badge bh_only">';

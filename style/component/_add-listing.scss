@@ -50,6 +50,7 @@
   }
   #gmap {
     height: 350px;
+    position: relative;
   }
   #hide_if_no_manual_cor {
     display: flex;
@@ -208,6 +209,13 @@
       }
     }
   }
+}
+.olMap + .cor-wrap{
+  margin-top: 15px;
+}
+.olControlAttribution{
+  right: 10px !important;
+  bottom: 10px !important;
 }
 .atbd_general_information_module{
   .not_empty{

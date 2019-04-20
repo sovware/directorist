@@ -384,11 +384,7 @@ css for Custom Field
   left: 20px;
   background: #f2f4f7;
 }
-#adminmenu .atbdp_extensions,
-#adminmenu .atbdp_themes{
-  color: #01b0ff;
-  font-weight: 600;
-}
+
 #shortcode-updated .input label span{
   background: #008EC2;
   width: 160px;
@@ -408,4 +404,19 @@ css for Custom Field
 #shortcode-updated + #success_msg{
   color: #4caf50;
   padding-left: 15px;
+}
+.olControlAttribution{
+  right: 10px !important;
+  bottom: 10px !important;
+}
+.g_address_wrap ul{
+  margin-top: 15px !important;
+  li{
+    margin-bottom: 8px;
+    border-bottom: 1px solid #e3e6ef;
+    padding-bottom: 8px;
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
 }

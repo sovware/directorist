@@ -113,7 +113,7 @@
       top: 0;
       width: 100%;
       box-shadow: none;
-      visibility: visible;
+      visibility: hidden;
     }
   }
 }
@@ -212,7 +212,7 @@
   .ads-filter-tags{
     align-items: flex-start;
   }
-  .bads-tags{
+  .bads-tags, .bads-custom-checks{
     display: flex;
     flex-wrap: wrap;
     flex: 4;
@@ -228,7 +228,7 @@
       line-height: normal;
     }
   }
-  .more-less{
+  .more-less, .more-or-less{
     flex: 1;
     text-align: right;
     color: #272b41;

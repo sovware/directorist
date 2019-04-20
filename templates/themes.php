@@ -10,7 +10,7 @@
 
                         <div class="extension_detail">
                             <a href="http://directorist.com/theme/directoria" target="_blank" class="ext_title">
-                                <h4><?php esc_html_e(' Directoria ', ATBDP_TEXTDOMAIN); ?></h4></a>
+                                <h4 class="text-center"><?php esc_html_e(' Directoria ', ATBDP_TEXTDOMAIN); ?></h4></a>
 
                             <div class="btn_wrapper">
                                 <a href="http://directorist.com/theme/demo/directoria" target="_blank"
@@ -29,7 +29,7 @@
 
                         <div class="extension_detail">
                             <a href="http://directorist.com/theme/direo" target="_blank" class="ext_title">
-                                <h4><?php esc_html_e(' Direo ', ATBDP_TEXTDOMAIN); ?></h4></a>
+                                <h4 class="text-center"><?php esc_html_e(' Direo ', ATBDP_TEXTDOMAIN); ?></h4></a>
 
                             <div class="btn_wrapper">
                                 <a href="http://directorist.com/theme/demo/direo" target="_blank"
@@ -48,7 +48,7 @@
 
                         <div class="extension_detail">
                             <a href="http://directorist.com/theme/dplace" target="_blank" class="ext_title">
-                                <h4><?php esc_html_e(' dPlace ', ATBDP_TEXTDOMAIN); ?></h4></a>
+                                <h4 class="text-center"><?php esc_html_e(' dPlace ', ATBDP_TEXTDOMAIN); ?></h4></a>
 
                             <div class="btn_wrapper">
                                 <a href="http://directorist.com/theme/demo/dplace" target="_blank"
@@ -67,7 +67,7 @@
 
                         <div class="extension_detail">
                             <a href="http://directorist.com/theme/drestaurant" target="_blank" class="ext_title">
-                                <h4><?php esc_html_e(' dRestaurant ', ATBDP_TEXTDOMAIN); ?></h4></a>
+                                <h4 class="text-center"><?php esc_html_e(' dRestaurant ', ATBDP_TEXTDOMAIN); ?></h4></a>
 
                             <div class="btn_wrapper">
                                 <a href="http://directorist.com/theme/demo/drestaurant" target="_blank"
@@ -86,7 +86,7 @@
 
                         <div class="extension_detail">
                             <a href="http://directorist.com/theme/dservice" target="_blank" class="ext_title">
-                                <h4><?php esc_html_e(' dService ', ATBDP_TEXTDOMAIN); ?></h4></a>
+                                <h4 class="text-center"><?php esc_html_e(' dService ', ATBDP_TEXTDOMAIN); ?></h4></a>
 
                             <div class="btn_wrapper">
                                 <a href="http://directorist.com/theme/demo/dservice" target="_blank"
@@ -105,7 +105,7 @@
 
                         <div class="extension_detail">
                             <a href="http://directorist.com/theme/devent" target="_blank" class="ext_title">
-                                <h4><?php esc_html_e(' dEvent ', ATBDP_TEXTDOMAIN); ?></h4></a>
+                                <h4 class="text-center"><?php esc_html_e(' dEvent ', ATBDP_TEXTDOMAIN); ?></h4></a>
 
                             <div class="btn_wrapper">
                                 <a href="http://directorist.com/theme/demo/devent" target="_blank"

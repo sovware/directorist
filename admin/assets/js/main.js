@@ -364,13 +364,19 @@ jQuery(function ($) {
         imageUpload.open();
     });
 
+    //price range
     $("#price_range").hide();
+    var is_checked = $('#atbd_listing_pricing').val();
+    if ('range' === is_checked){
+        $('#price').hide();
+        $("#price_range").show();
+    }
     $('.atbd_pricing_options label').on('click', function () {
         var $this = $(this);
-        $this.children('input[type=checkbox]').prop('checked') == true ? $('#' + $this.data('option')).show() : $('#' + $this.data('option')).hide();
-        var $sibling = $this.siblings('label');
+        $this.children('input[type=checkbox]').prop('checked')==true ? $('#'+$this.data('option')).show(): $('#'+$this.data('option')).hide();
+        var $sibling= $this.siblings('label');
         $sibling.children('input[type=checkbox]').prop('checked', false);
-        $('#' + $sibling.data('option')).hide();
+        $('#'+$sibling.data('option')).hide();
     });
 
     // Load custom fields of the selected category in the custom post type "atbdp_listings"

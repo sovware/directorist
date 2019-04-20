@@ -4,9 +4,9 @@ if (!empty($args['listing_contact_info'])) {
 }
 // grab social information
 $social_info = !empty($social) ? $social : array();
-$default_latitude = get_directorist_option('default_latitude', '51.5073509');
-$default_longitude = get_directorist_option('default_longitude', '-0.12775829999998223');
-$map_zoom_level = get_directorist_option('map_zoom_level', 16);
+$default_latitude = get_directorist_option('default_latitude', '40.7127753');
+$default_longitude = get_directorist_option('default_longitude', '-74.0059728');
+$map_zoom_level = get_directorist_option('map_zoom_level', 4);
 $disable_price = get_directorist_option('disable_list_price');
 $disable_contact_info = get_directorist_option('disable_contact_info');
 $disable_contact_owner = get_directorist_option('disable_contact_owner',1);
@@ -312,7 +312,7 @@ $info_content .= "<p> {$ad}</p></div>";
         function initMap() {
             /* Create new map instance*/
             map = new google.maps.Map(document.getElementById('gmap'), {
-                zoom: <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 16; ?>,
+                zoom: <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 4; ?>,
                 center: saved_lat_lng
             });
             var marker = new google.maps.Marker({
@@ -468,7 +468,7 @@ $info_content .= "<p> {$ad}</p></div>";
                     new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
                     map.getProjectionObject() // to Spherical Mercator Projection
                 );
-            var zoom= <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 16; ?>;
+            var zoom= <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 4; ?>;
             var markers = new OpenLayers.Layer.Markers( "Markers" );
             map.addLayer(markers);
             markers.addMarker(new OpenLayers.Marker(lonLat));

@@ -336,7 +336,7 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                 array(
                     'title' => __('User Dashboard Setting', ATBDP_TEXTDOMAIN),
                     'name' => 'dashboard_setting',
-                    'icon' => 'font-awesome:fa-star',
+                    'icon' => 'font-awesome:fa-bar-chart',
                     'controls' => apply_filters('atbdp_dashboard_controls', array(
                         'emails' => array(
                             'type' => 'section',
@@ -1648,6 +1648,10 @@ The Administrator of ==SITE_NAME==
                             array(
                                 'value' => 'list',
                                 'label' => __('List', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'map',
+                                'label' => __('Map', ATBDP_TEXTDOMAIN),
                             ),
                         ),
                         'default' => array(
@@ -3239,14 +3243,14 @@ The Administrator of ==SITE_NAME==
                     'name' => 'default_latitude',
                     'label' => __( 'Default Latitude', ATBDP_TEXTDOMAIN ),
                     'description' => sprintf(__( 'You can find it %s.', ATBDP_TEXTDOMAIN ), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
-                    'default' => '51.5073509',
+                    'default' => '40.7127753',
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'default_longitude',
                     'label' => __( 'Default Longitude', ATBDP_TEXTDOMAIN ),
                     'description' => sprintf(__( 'You can find it %s.', ATBDP_TEXTDOMAIN ), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
-                    'default' => '-0.12775829999998223',
+                    'default' => '-74.0059728',
                 ),
                 array(
                     'type' => 'slider',
@@ -3256,7 +3260,7 @@ The Administrator of ==SITE_NAME==
                     'min' => '1',
                     'max' => '22',
                     'step' => '1',
-                    'default' => '16',
+                    'default' => '4',
 
                 ),
                 array(
@@ -3967,7 +3971,6 @@ The Administrator of ==SITE_NAME==
                     'type' => 'toggle',
                     'name' => 'shortcode-updated',
                     'label' => __('Upgrade/Regenerate Pages', ATBDP_TEXTDOMAIN),
-                    'description' => sprintf(__( '%s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">It won\'t work unless you have selected Pages for the Shortcodes from Directory Settings >> Pages, Links & Views.</strong>'),
                     'validation' => 'numeric',
 
                 ),

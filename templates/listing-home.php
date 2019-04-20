@@ -211,13 +211,14 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                         </div>
                                     </div><!-- ends: .form-group -->
                                 <?php } ?>
-                                <?php if(in_array( 'search_tag', $search_more_filters_fields )) {?>
+                                <?php if(in_array( 'search_tag', $search_more_filters_fields )) {
+                                $terms = get_terms(ATBDP_TAGS);
+                                if(!empty($terms)) {
+                                    ?>
                                     <div class="form-group ads-filter-tags">
                                         <label>Tags</label>
                                         <div class="bads-tags">
                                             <?php
-                                            $terms = get_terms(ATBDP_TAGS);
-                                            if(!empty($terms)) {
                                                 foreach($terms as $term) {
                                                     ?>
                                                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
@@ -225,11 +226,11 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                                         <span class="check--select"></span>
                                                         <label for="<?php echo $term->term_id;?>" class="custom-control-label"><?php echo $term->name;?></label>
                                                     </div>
-                                                <?php } }?>
+                                                <?php } ?>
                                         </div>
                                         <a href="#" class="more-less ad"><?php _e('Show More', ATBDP_TEXTDOMAIN);?></a>
                                     </div><!-- ends: .form-control -->
-                                <?php } ?>
+                                <?php } } ?>
                                 <?php if(in_array( 'search_custom_fields', $search_more_filters_fields )) { ?>
                                     <div id="atbdp-custom-fields-search" class="atbdp-custom-fields-search">
                                         <?php do_action( 'wp_ajax_atbdp_custom_fields_search', isset( $_GET['in_cat'] ) ? (int) $_GET['in_cat'] : 0 ); ?>

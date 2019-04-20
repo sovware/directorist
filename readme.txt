@@ -129,6 +129,33 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
+= 5.0.0 - April 19, 2019 =
+
+* Add - Advanced Search (search by Custom Fields, Price, Price Range, Ratings, Tags, Website, Email, Phone, Address, Zip/Post Code etc.)
+* Add - Advanced Filters on Listings and Search Result pages
+* Add - Listings Map View
+* Add - OpenStreetMap Map
+* Add - Option to upload category and location background image
+* Add - Advanced Search widget
+* Add - Listings Map View widget
+* Add - Option to change Add Listing form's labels
+* Add - Option to change 'Select a category' and 'Select a location' placeholder text of Search Form
+* Add - 25 more action and filter hooks to make Directorist more customizable
+* Tweak - Header area of Listings and Search Result pages
+* Tweak - Form fields label capitalization
+* Tweak - Moved 'Upgrade/Regenerate Pages' button to Directory Settings >> Pages, Links & Views
+* Tweak - Hide 'Order History' sub-menu if monetization disabled
+* Tweak - Changed Location icon
+* Fix - Listing expiration
+* Fix - Image uploading issue of Add Listing form
+* Fix - Style issues
+* Fix - Listing pricing
+* Fix - Map issue on single listing
+* Fix - Translate issue
+* Remove - Top Admin Bar for Subscriber/User
+* Remove - Upgrade database option
+* Remove - Google+ from listing sharing
+
 = 4.7.6 - April 3, 2019 =
 * Add - Option to upload category image
 * Fix - Login url after successful registration

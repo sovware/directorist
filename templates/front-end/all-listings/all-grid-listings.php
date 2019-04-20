@@ -207,13 +207,14 @@ $column_width = 100 / $columns . '%';
                                         </div>
                                     </div>
                                 </div><!-- ends: .form-group -->
-                                <?php } if(in_array( 'search_tag', $search_more_filters_fields )) { ?>
+                                <?php } if(in_array( 'search_tag', $search_more_filters_fields )) {
+                                    $terms = get_terms(ATBDP_TAGS);
+                                if(!empty($terms)) {
+                                    ?>
                                 <div class="form-group ads-filter-tags">
                                     <label>Tags</label>
                                     <div class="bads-tags">
                                         <?php
-                                        $terms = get_terms(ATBDP_TAGS);
-                                        if(!empty($terms)) {
                                             foreach($terms as $term) {
                                                 ?>
                                                 <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
@@ -221,11 +222,11 @@ $column_width = 100 / $columns . '%';
                                                     <span class="check--select"></span>
                                                     <label for="<?php echo $term->term_id;?>" class="custom-control-label"><?php echo $term->name;?></label>
                                                 </div>
-                                            <?php } }?>
+                                            <?php } ?>
                                     </div>
                                     <a href="#" class="more-less ad"><?php _e('Show More', ATBDP_TEXTDOMAIN);?></a>
                                 </div><!-- ends: .form-control -->
-                                <?php } if(in_array( 'search_custom_fields', $search_more_filters_fields )) { ?>
+                                <?php } } if(in_array( 'search_custom_fields', $search_more_filters_fields )) { ?>
                                 <div id="atbdp-custom-fields-search" class="atbdp-custom-fields-search">
                                     <?php do_action( 'wp_ajax_atbdp_custom_fields_search', isset( $_GET['in_cat'] ) ? (int) $_GET['in_cat'] : 0 ); ?>
                                 </div>
@@ -422,6 +423,10 @@ $column_width = 100 / $columns . '%';
                                     }
                                     if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
                                         //lets check is it 24/7
+                                        $version = atbdp_get_extension_version('directorist-business-hours/bd-business-hour.php');
+                                        if ('2.2.6'>$version){
+                                            // temporary css
+                                        }
                                         $open = get_directorist_option('open_badge_text', __('Open Now', ATBDP_TEXTDOMAIN));
                                         if (!empty($enable247hour)) {
                                             $u_badge_html .= ' <span class="atbd_badge atbd_badge_open">'.$open.'</span>';

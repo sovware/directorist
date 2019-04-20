@@ -6,17 +6,37 @@
                     <!--Google reCAPTCHA-->
                     <div class="single_extension">
                         <img src="https://aazztech.com/wp-content/uploads/edd/2019/04/directoria_theme_prev.jpg"
-                             alt="Fee Manager">
+                             alt="Directoria">
 
                         <div class="extension_detail">
-                            <a href="https://aazztech.com/product/directoria-wordpress-theme/" target="_blank" class="ext_title">
+                            <a href="https://directorist.com/theme/directoria" target="_blank" class="ext_title">
                                 <h4><?php esc_html_e(' Directoria ', ATBDP_TEXTDOMAIN); ?></h4></a>
                             <p><?php esc_html_e('Create & sell unlimited pricing plans to monetize your directory.', ATBDP_TEXTDOMAIN); ?></p>
 
                             <div class="btn_wrapper">
-                                <a href="https://aazztech.com/demos/plugins/directorist/demo-one/" target="_blank"
+                                <a href="https://directorist.com/theme/demo/directoria" target="_blank"
                                    class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
-                                <a href="https://aazztech.com/product/directoria-wordpress-theme/" target="_blank"
+                                <a href="https://directorist.com/theme/directoria" target="_blank"
+                                   class="btn get btn-success"><?php esc_html_e('Get Theme', ATBDP_TEXTDOMAIN); ?></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                    <!--Google reCAPTCHA-->
+                    <div class="single_extension">
+                        <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/04/Direo.jpg"
+                             alt="Direo">
+
+                        <div class="extension_detail">
+                            <a href="https://directorist.com/theme/direo" target="_blank" class="ext_title">
+                                <h4><?php esc_html_e(' Direo ', ATBDP_TEXTDOMAIN); ?></h4></a>
+                            <p><?php esc_html_e('Create & sell unlimited pricing plans to monetize your directory.', ATBDP_TEXTDOMAIN); ?></p>
+
+                            <div class="btn_wrapper">
+                                <a href="https://directorist.com/theme/demo/direo" target="_blank"
+                                   class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
+                                <a href="https://directorist.com/theme/direo" target="_blank"
                                    class="btn get btn-success"><?php esc_html_e('Get theme', ATBDP_TEXTDOMAIN); ?></a>
                             </div>
                         </div>
@@ -25,23 +45,84 @@
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--Google reCAPTCHA-->
                     <div class="single_extension">
-                        <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/04/Preview.__large_preview-e1555510668409.jpg"
-                             alt="Fee Manager">
+                        <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/04/Dplace.jpg"
+                             alt="dPlace">
 
                         <div class="extension_detail">
-                            <a href="https://aazztech.com/product/directorist-pricing-plans" target="_blank" class="ext_title">
-                                <h4><?php esc_html_e(' Direo ', ATBDP_TEXTDOMAIN); ?></h4></a>
+                            <a href="https://directorist.com/theme/dplace" target="_blank" class="ext_title">
+                                <h4><?php esc_html_e(' dPlace ', ATBDP_TEXTDOMAIN); ?></h4></a>
                             <p><?php esc_html_e('Create & sell unlimited pricing plans to monetize your directory.', ATBDP_TEXTDOMAIN); ?></p>
 
                             <div class="btn_wrapper">
-                                <a href="https://aazztech.com/product/directorist-pricing-plans/#screenshots" target="_blank"
+                                <a href="https://directorist.com/theme/demo/dplace" target="_blank"
                                    class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
-                                <a href="https://aazztech.com/product/directorist-pricing-plans" target="_blank"
+                                <a href="https://directorist.com/theme/dplace" target="_blank"
                                    class="btn get btn-success"><?php esc_html_e('Get theme', ATBDP_TEXTDOMAIN); ?></a>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                    <!--Google reCAPTCHA-->
+                    <div class="single_extension">
+                        <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/04/DRestaurant.jpg"
+                             alt="dRestaurant">
+
+                        <div class="extension_detail">
+                            <a href="https://directorist.com/theme/drestaurant" target="_blank" class="ext_title">
+                                <h4><?php esc_html_e(' dRestaurant ', ATBDP_TEXTDOMAIN); ?></h4></a>
+                            <p><?php esc_html_e('Create & sell unlimited pricing plans to monetize your directory.', ATBDP_TEXTDOMAIN); ?></p>
+
+                            <div class="btn_wrapper">
+                                <a href="https://directorist.com/theme/demo/drestaurant" target="_blank"
+                                   class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
+                                <a href="https://directorist.com/theme/drestaurant" target="_blank"
+                                   class="btn get btn-success"><?php esc_html_e('Get theme', ATBDP_TEXTDOMAIN); ?></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                    <!--Google reCAPTCHA-->
+                    <div class="single_extension">
+                        <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/04/DService.jpg"
+                             alt="dService">
+
+                        <div class="extension_detail">
+                            <a href="https://directorist.com/theme/dservice" target="_blank" class="ext_title">
+                                <h4><?php esc_html_e(' dService ', ATBDP_TEXTDOMAIN); ?></h4></a>
+                            <p><?php esc_html_e('Create & sell unlimited pricing plans to monetize your directory.', ATBDP_TEXTDOMAIN); ?></p>
+
+                            <div class="btn_wrapper">
+                                <a href="https://directorist.com/theme/demo/dservice" target="_blank"
+                                   class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
+                                <a href="https://directorist.com/theme/dservice" target="_blank"
+                                   class="btn get btn-success"><?php esc_html_e('Get theme', ATBDP_TEXTDOMAIN); ?></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                    <!--Google reCAPTCHA-->
+                    <div class="single_extension">
+                        <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/04/DEvent.jpg"
+                             alt="dEvent">
+
+                        <div class="extension_detail">
+                            <a href="https://directorist.com/theme/devent" target="_blank" class="ext_title">
+                                <h4><?php esc_html_e(' dEvent ', ATBDP_TEXTDOMAIN); ?></h4></a>
+                            <p><?php esc_html_e('Create & sell unlimited pricing plans to monetize your directory.', ATBDP_TEXTDOMAIN); ?></p>
+
+                            <div class="btn_wrapper">
+                                <a href="https://directorist.com/theme/demo/devent" target="_blank"
+                                   class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
+                                <a href="https://directorist.com/theme/devent" target="_blank"
+                                   class="btn get btn-success"><?php esc_html_e('Get theme', ATBDP_TEXTDOMAIN); ?></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

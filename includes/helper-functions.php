@@ -3831,3 +3831,18 @@ if (!function_exists('atbdp_get_expired_listings')) {
         return new WP_Query($arg);
     }
 }
+
+/**
+ * @since 5.0.0
+ * @return integer  $extension_version
+ */
+function atbdp_get_extension_version($plugin_basename){
+    if ( ! function_exists( 'get_plugins' ) ) {
+        require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        $BH_header = get_plugins( '/' . explode( '/', $plugin_basename )[0] );
+        foreach ($BH_header as $key => $val){
+            $extension_version = $val['Version'];
+            return $extension_version;
+        }
+    }
+}

@@ -10,11 +10,11 @@ $display_sortby_dropdown    = get_directorist_option('display_sort_by',1);
 $display_viewas_dropdown    = get_directorist_option('display_view_as',1);
 $pagenation                 = get_directorist_option('paginate_all_listings',1);
 $select_listing_map         = get_directorist_option('select_listing_map',1);
-$zoom                       = get_directorist_option('map_zoom_level', 16);
+$zoom                       = get_directorist_option('map_zoom_level', 4);
 wp_enqueue_script('atbdp-map-view',ATBDP_PUBLIC_ASSETS . 'js/map-view.js');
 $data = array(
     'plugin_url' => ATBDP_URL,
-    'zoom'       => !empty($zoom) ? $zoom : 16
+    'zoom'       => !empty($zoom) ? $zoom : 4
 );
 wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
 
@@ -216,13 +216,14 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                                                 </div>
                                             </div>
                                         </div><!-- ends: .form-group -->
-                                    <?php } if(in_array( 'search_tag', $search_more_filters_fields )) { ?>
+                                    <?php } if(in_array( 'search_tag', $search_more_filters_fields )) {
+                                    $terms = get_terms(ATBDP_TAGS);
+                                    if(!empty($terms)) {
+                                        ?>
                                         <div class="form-group ads-filter-tags">
                                             <label>Tags</label>
                                             <div class="bads-tags">
                                                 <?php
-                                                $terms = get_terms(ATBDP_TAGS);
-                                                if(!empty($terms)) {
                                                     foreach($terms as $term) {
                                                         ?>
                                                         <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
@@ -230,11 +231,11 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                                                             <span class="check--select"></span>
                                                             <label for="<?php echo $term->term_id;?>" class="custom-control-label"><?php echo $term->name;?></label>
                                                         </div>
-                                                    <?php } }?>
+                                                    <?php }?>
                                             </div>
                                             <a href="#" class="more-less ad"><?php _e('Show More', ATBDP_TEXTDOMAIN);?></a>
                                         </div><!-- ends: .form-control -->
-                                    <?php } if(in_array( 'search_custom_fields', $search_more_filters_fields )) { ?>
+                                    <?php } } if(in_array( 'search_custom_fields', $search_more_filters_fields )) { ?>
                                         <div id="atbdp-custom-fields-search" class="atbdp-custom-fields-search">
                                             <?php do_action( 'wp_ajax_atbdp_custom_fields_search', isset( $_GET['in_cat'] ) ? (int) $_GET['in_cat'] : 0 ); ?>
                                         </div>
@@ -361,24 +362,25 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
             </div>
             <!-- end of the loop -->
     </div>
+    <!-- Use reset postdata to restore orginal query -->
+    <?php wp_reset_postdata(); ?>
+
+    <div class="row atbd_listing_pagination">
+        <?php
+        if (1 == $pagenation){
+            ?>
+            <div class="col-md-12">
+                <div class="">
+                    <?php
+                    $paged = !empty($paged)?$paged:'';
+                    echo atbdp_pagination($all_listings, $paged);
+                    ?>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
 </div>
 
-        <!-- Use reset postdata to restore orginal query -->
-        <?php wp_reset_postdata(); ?>
 
-        <div class="row atbd_listing_pagination">
-            <?php
-            if (1 == $pagenation){
-                ?>
-                <div class="col-md-12">
-                    <div class="">
-                        <?php
-                        $paged = !empty($paged)?$paged:'';
-                        echo atbdp_pagination($all_listings, $paged);
-                        ?>
-                    </div>
-                </div>
-            <?php } ?>
-        </div>
     </div>
 </div>

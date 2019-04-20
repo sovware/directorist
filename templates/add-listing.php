@@ -43,8 +43,10 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
         <?php }?>
         <?php
         $price_range = !empty($price_range) ? $price_range : '';
+        $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
         if (!empty($display_pricing_field) ) { ?>
             <div class="form-group">
+                <input type="hidden" id="atbd_listing_pricing" value="<?php echo $atbd_listing_pricing?>">
                 <label for="#">
                     <?php
                     $price_label = get_directorist_option('price_label', __('Pricing', ATBDP_TEXTDOMAIN));
@@ -53,7 +55,7 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                 </label>
                 <div class="atbd_pricing_options">
                     <label for="price_selected" data-option="price">
-                        <input type="checkbox" id="price_selected" name="atbd_listing_pricing" checked>
+                        <input type="checkbox" value="price" id="price_selected" name="atbd_listing_pricing" <?php echo ('price' === $atbd_listing_pricing)?'checked':(('range' !== $atbd_listing_pricing)?'checked':'');?>>
                         <?php
                         $currency = get_directorist_option('g_currency', 'USD');
                         /*Translator: % is the name of the currency such eg. USD etc.*/
@@ -61,7 +63,7 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                     </label>
                     <span class="bor">Or</span>
                     <label for="price_range_selected" data-option="price_range">
-                        <input type="checkbox" id="price_range_selected" name="atbd_listing_pricing">
+                        <input type="checkbox" id="price_range_selected" value="range" name="atbd_listing_pricing" <?php echo ('range' === $atbd_listing_pricing)?'checked':'';?>>
                         <?php echo __('Price Range', ATBDP_TEXTDOMAIN); ?>
                         <!--<p id='price_range_option'><?php /*echo __('Price Range', ATBDP_TEXTDOMAIN); */ ?></p></label>-->
                     </label>

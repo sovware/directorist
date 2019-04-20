@@ -130,6 +130,9 @@
   }
   .extension_detail{
     margin-top: 20px;
+    .btn_wrapper{
+      margin-top: 25px;
+    }
   }
   .ext_title {
     text-decoration: none;
@@ -147,6 +150,14 @@
   }
   .attc_extension_wrapper {
     margin-top: 30px;
+    .col-md-4{
+      .single_extension{
+        .btn{
+          padding: 3px 15px;
+          font-size: 14px;
+        }
+      }
+    }
     .single_extension {
       margin-bottom: 30px;
       background: #ffffff;

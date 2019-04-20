@@ -103,8 +103,7 @@
                     </div>
                 </div>
 
-
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--WooCommerce Fee Manager-->
                     <div class="single_extension">
                         <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/WooCommerce_Free_Manager.jpg" alt="WooCommerce Pricing Plans">
@@ -124,7 +123,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--WooCommerce Fee Manager-->
                     <div class="single_extension">
                         <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Listing_Slider__Carousal.jpg" alt="Listings Slider">
@@ -144,7 +143,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--WooCommerce Fee Manager-->
                     <div class="single_extension">
                         <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Image_Gallery.jpg" alt="Image Gallery">
@@ -164,7 +163,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--WooCommerce Fee Manager-->
                     <div class="single_extension">
                         <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/FAQs.jpg" alt="Listing FAQs">
@@ -184,7 +183,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--WooCommerce Fee Manager-->
                     <div class="single_extension">
                         <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Coupon.jpg" alt="Coupon">
@@ -204,7 +203,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--WooCommerce Fee Manager-->
                     <div class="single_extension">
                         <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Reservation.jpg" alt="WooCommerce Fee Manager">
@@ -224,7 +223,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--WooCommerce Fee Manager-->
                     <div class="single_extension">
                         <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Claim_Listing.jpg" alt="WooCommerce Fee Manager">
@@ -244,8 +243,7 @@
                     </div>
                 </div>
 
-
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--WooCommerce Fee Manager-->
                     <div class="single_extension">
                         <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Appointment.jpg" alt="WooCommerce Fee Manager">
@@ -264,7 +262,6 @@
                         </div>
                     </div>
                 </div>
-
 
             </div>
         </div>

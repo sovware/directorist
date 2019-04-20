@@ -167,6 +167,10 @@ css for Custom Field
   margin-top: 20px;
 }
 
+#directorist.atbd_wrapper .extension_detail .btn_wrapper {
+  margin-top: 25px;
+}
+
 #directorist.atbd_wrapper .ext_title {
   text-decoration: none;
 }
@@ -184,6 +188,11 @@ css for Custom Field
 
 #directorist.atbd_wrapper .attc_extension_wrapper {
   margin-top: 30px;
+}
+
+#directorist.atbd_wrapper .attc_extension_wrapper .col-md-4 .single_extension .btn {
+  padding: 3px 15px;
+  font-size: 14px;
 }
 
 #directorist.atbd_wrapper .attc_extension_wrapper .single_extension {

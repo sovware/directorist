@@ -221,7 +221,7 @@ class ATBDP_Order
 
             echo '<select name="payment_status">';
             echo '<option value="all">' . __("All orders", ATBDP_TEXTDOMAIN) . '</option>';
-            foreach ($statuses as $value => $title) {
+            foreach (array($statuses) as $value => $title) {
                 printf('<option value="%s" %s>%s</option>', $value, selected($value, $current_status), $title);
             }
             echo '</select>';
@@ -373,7 +373,6 @@ class ATBDP_Order
      */
     public function get_sortable_columns()
     {
-
         $columns = array(
             'ID' => 'ID',
             'amount' => 'amount',

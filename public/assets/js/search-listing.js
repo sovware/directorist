@@ -27,6 +27,21 @@
         show_more.remove();
     }
 
+    var checkbox2 = $(".bads-custom-checks .custom-control");
+    checkbox2.slice(4).hide();
+    var show_more2 = $(".more-or-less");
+    show_more2.on("click", function (e) {
+        e.preventDefault();
+        var txt = checkbox2.slice(4).is(":visible") ? "Show More" : "Show Less";
+        $(this).text(txt);
+        checkbox2.slice(4).slideToggle(200);
+        $(this).toggleClass("sml");
+    });
+    if(checkbox2.length <= 4){
+        show_more2.remove();
+    }
+    $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags");
+
     var ad = $(".ads_float .ads-advanced");
     ad.css({
         visibility: 'hidden',
@@ -59,6 +74,8 @@
     $(".more-filter").on("click", function (e) {
         e.preventDefault();
         ad_slide.slideToggle().show();
-    })
+    });
+    $(".ads-advanced").parents("div").css("overflow", "visible");
+
 
 })(jQuery);

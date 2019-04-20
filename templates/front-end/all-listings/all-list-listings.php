@@ -295,28 +295,26 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                 do_action('atbdp_after_list_listings_loop');
             }
             ?>
+    <?php
+    /**
+     * @since 5.0
+     */
+    do_action('atbdp_before_listings_pagination');
 
-        </div> <!--ends .row -->
-
-        <?php
-        /**
-         * @since 5.0
-         */
-        do_action('atbdp_before_listings_pagination');
-
-        $show_pagination = !empty($show_pagination) ? $show_pagination : '';
-        if (('yes' === $show_pagination)) {
-            if (1 == $pagenation) {
-                ?>
-                <div class="row">
-                    <div class="col-md-12">
-                        <?php
-                        $paged = !empty($paged) ? $paged : '';
-                        echo atbdp_pagination($all_listings, $paged);
-                        ?>
-                    </div>
+    $show_pagination = !empty($show_pagination) ? $show_pagination : '';
+    if (('yes' === $show_pagination)) {
+        if (1 == $pagenation) {
+            ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <?php
+                    $paged = !empty($paged) ? $paged : '';
+                    echo atbdp_pagination($all_listings, $paged);
+                    ?>
                 </div>
-            <?php }
-        } ?>
+            </div>
+        <?php }
+    } ?>
+        </div> <!--ends .row -->
     </div>
 </div>

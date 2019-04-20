@@ -423,9 +423,17 @@ $column_width = 100 / $columns . '%';
                                     }
                                     if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
                                         //lets check is it 24/7
-                                        $version = atbdp_get_extension_version('directorist-business-hours/bd-business-hour.php');
-                                        if ('2.2.6'>$version){
-                                            // temporary css
+
+                                        if ('2.2.6'>BDBH_VERSION){
+                                            ?>
+                                            <style>
+                                                .atbd_badge_close, .atbd_badge_open{
+                                                    position: absolute;
+                                                    left: 15px;
+                                                    top: 15px;
+                                                }
+                                            </style>
+                                    <?php
                                         }
                                         $open = get_directorist_option('open_badge_text', __('Open Now', ATBDP_TEXTDOMAIN));
                                         if (!empty($enable247hour)) {

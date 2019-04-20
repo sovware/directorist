@@ -209,7 +209,18 @@ $column_width           = 100/$search_listing_columns .'%';
                                                 $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(), '_fm_plans', true));
                                             }
                                             if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
-                                                //lets check is it 24/7
+                                                //lets check is it 24/7.
+                                                if ('2.2.6'>BDBH_VERSION){
+                                                    ?>
+                                                    <style>
+                                                        .atbd_badge_close, .atbd_badge_open{
+                                                            position: absolute;
+                                                            left: 15px;
+                                                            top: 15px;
+                                                        }
+                                                    </style>
+                                                    <?php
+                                                }
                                                 $open = get_directorist_option('open_badge_text', __('Open Now', ATBDP_TEXTDOMAIN));
                                                 if (!empty($enable247hour)) {
                                                     $u_badge_html .= ' <span class="atbd_badge atbd_badge_open">'.$open.'</span>';

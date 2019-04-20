@@ -2301,6 +2301,17 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                     }
                                     if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
                                         //lets check is it 24/7
+                                        if ('2.2.6'>BDBH_VERSION){
+                                            ?>
+                                            <style>
+                                                .atbd_badge_close, .atbd_badge_open{
+                                                    position: absolute;
+                                                    left: 15px;
+                                                    top: 15px;
+                                                }
+                                            </style>
+                                            <?php
+                                        }
                                         $open = get_directorist_option('open_badge_text', __('Open Now', ATBDP_TEXTDOMAIN));
                                         if (!empty($enable247hour)) {
                                             $u_badge_html .= ' <span class="atbd_badge atbd_badge_open">'.$open.'</span>';
@@ -2700,6 +2711,17 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                         }
                                         if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
                                             //lets check is it 24/7
+                                            if ('2.2.6'>BDBH_VERSION){
+                                                ?>
+                                                <style>
+                                                    .atbd_badge_close, .atbd_badge_open{
+                                                        position: absolute;
+                                                        left: 15px;
+                                                        top: 15px;
+                                                    }
+                                                </style>
+                                                <?php
+                                            }
                                             $open = get_directorist_option('open_badge_text', __('Open Now', ATBDP_TEXTDOMAIN));
                                             if (!empty($enable247hour)) {
                                                 $u_badge_html .= ' <span class="atbd_badge atbd_badge_open">'.$open.'</span>';
@@ -3829,20 +3851,5 @@ if (!function_exists('atbdp_get_expired_listings')) {
         ));
 
         return new WP_Query($arg);
-    }
-}
-
-/**
- * @since 5.0.0
- * @return integer  $extension_version
- */
-function atbdp_get_extension_version($plugin_basename){
-    if ( ! function_exists( 'get_plugins' ) ) {
-        require_once ABSPATH . 'wp-admin/includes/plugin.php';
-        $BH_header = get_plugins( '/' . explode( '/', $plugin_basename )[0] );
-        foreach ($BH_header as $key => $val){
-            $extension_version = $val['Version'];
-            return $extension_version;
-        }
     }
 }

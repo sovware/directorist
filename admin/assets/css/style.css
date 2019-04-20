@@ -287,6 +287,14 @@ css for Custom Field
   margin-right: 7px;
 }
 
+#directorist.atbd_wrapper .single_thm .ext_title h4 {
+  text-align: center;
+}
+
+#directorist.atbd_wrapper .single_thm .btn_wrapper {
+  text-align: center;
+}
+
 #directorist.atbd_wrapper .postbox table.widefat {
   box-shadow: none;
   background: #eff2f5;

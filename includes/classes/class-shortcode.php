@@ -1421,7 +1421,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $display_categories_as   = get_directorist_option('display_categories_as','grid');
             $categories_settings = array();
             $categories_settings['depth'] = get_directorist_option('categories_depth_number',1);
-            $categories_settings['columns'] = get_directorist_option('categories_column_number',3);
             $categories_settings['show_count'] = get_directorist_option('display_listing_count',1);
             $categories_settings['hide_empty'] = get_directorist_option('hide_empty_categories');
             $categories_settings['orderby'] = get_directorist_option('order_category_by','id');
@@ -1431,9 +1430,10 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'view'              => $display_categories_as,
                 'orderby'           => $categories_settings['orderby'],
                 'order'             => $categories_settings['order'],
-                'cat_per_page'       => 100
+                'cat_per_page'       => 100,
+                'columns'           => 3
             ), $atts );
-
+            $categories_settings['columns'] = !empty($atts['columns'])?$atts['columns']:get_directorist_option('categories_column_number',3);
             $args = array(
                 'orderby'      => $atts['orderby'],
                 'order'        => $atts['order'],
@@ -1716,7 +1716,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $display_locations_as              = get_directorist_option('display_locations_as','grid');
             $locations_settings                = array();
             $locations_settings['depth']       = get_directorist_option('locations_depth_number',1);
-            $locations_settings['columns']     = get_directorist_option('locations_column_number',3);
             $locations_settings['show_count']  = get_directorist_option('display_location_listing_count',1);
             $locations_settings['hide_empty']  = get_directorist_option('hide_empty_locations');
             $locations_settings['orderby']     = get_directorist_option('order_location_by','id');
@@ -1727,8 +1726,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'orderby'           => $locations_settings['orderby'],
                 'order'             => $locations_settings['order'],
                 'loc_per_page'       => 100,
+                'columns'           => 3
             ), $atts );
-
+            $locations_settings['columns'] = !empty($atts['columns'])?$atts['columns']:get_directorist_option('locations_column_number',3);
             $args = array(
                 'orderby'      => $atts['orderby'],
                 'order'        => $atts['order'],

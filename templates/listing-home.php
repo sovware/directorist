@@ -67,18 +67,18 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                         <div class="row atbdp-search-form">
                             <?php
 
-                            if(in_array( 'search_text', $search_fields )) {?>
-                            <div class="col-md-6 col-sm-12 col-lg-4">
-                                <div class="single_search_field search_query">
+                            if(in_array( 'search_text', $search_fields )) {
+                                $search_html = '<div class="col-md-6 col-sm-12 col-lg-4">';
+
+                                $search_html .= '<div class="single_search_field search_query">
                                     <input class="form-control search_fields" type="text" name="q"
-                                           placeholder="<?php echo esc_html($search_placeholder); ?>">
-                                </div>
-                            </div>
-                            <?php } ?>
-                            <?php if(in_array( 'search_category', $search_fields )) { ?>
-                            <div class="col-md-6 col-sm-12 col-lg-4">
-                                <div class="single_search_field search_category">
-                                    <?php
+                                           placeholder="'. esc_html($search_placeholder).'">
+                                </div>';
+                                $search_html .= '</div>';
+                               }
+                               if(in_array( 'search_category', $search_fields )) {
+                                $search_html .= '<div class="col-md-6 col-sm-12 col-lg-4">
+                                <div class="single_search_field search_category">';
                                     $args = array(
                                         'show_option_none' =>  $search_category_placeholder,
                                         'taxonomy' => ATBDP_CATEGORY,
@@ -93,18 +93,14 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                         'depth' => 10,
                                         'show_count' => false,
                                         'hide_empty' => false,
+                                        'echo' => false,
                                     );
-
-                                    wp_dropdown_categories($args);
-                                    ?>
-                                </div>
-
-                            </div>
-                            <?php }
-                            if(in_array( 'search_location', $search_fields )) { ?>
-                            <div class="col-md-12 col-sm-12 col-lg-4">
-                                <div class="single_search_field search_location">
-                                    <?php
+                                   $search_html .= wp_dropdown_categories($args);
+                            $search_html .= '</div></div>';
+                                    }
+                            if(in_array( 'search_location', $search_fields )) {
+                                $search_html .= '<div class="col-md-12 col-sm-12 col-lg-4">
+                                <div class="single_search_field search_location">';
                                     $args = array(
                                         'show_option_none' =>  $search_location_placeholder,
                                         'taxonomy' => ATBDP_LOCATION,
@@ -119,17 +115,17 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                         'depth' => 10,
                                         'show_count' => false,
                                         'hide_empty' => false,
+                                        'echo' => false,
                                     );
 
-                                    wp_dropdown_categories($args);
-                                    ?>
-                                </div>
-                            </div>
-                            <?php }
+                            $search_html .= wp_dropdown_categories($args);
+
+                            $search_html .= ' </div></div>';
+                                     }
                             /**
                              * @since 5.0
                              */
-                            do_action('atbdp_search_field_after_location');
+                                     echo apply_filters('atbdp_search_form_fields', $search_html);
 
                             ?>
                         </div>

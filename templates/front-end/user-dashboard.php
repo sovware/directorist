@@ -225,9 +225,10 @@ $submit_listing_button   = get_directorist_option('submit_listing_button',1);
                                                         <div class="listing-meta">
                                                             <?php
                                                             if (is_fee_manager_active()){
+                                                                $change_plan_link = '<span><a href="">'.__('Change', ATBDP_TEXTDOMAIN).'</a></span>';
                                                                 $plan_id = get_post_meta($post->ID, '_fm_plans', true);
                                                                 $plan_name = get_the_title($plan_id);
-                                                                printf(__('<p><span>Plan Name:</span> %s</p>', ATBDP_TEXTDOMAIN), $plan_name);
+                                                                printf(__('<p><span>Plan Name:</span> %s</p>%s', ATBDP_TEXTDOMAIN), $plan_name, $change_plan_link);
                                                             }
                                                             $exp_text = !empty($never_exp)
                                                                 ? __('Never Expires', ATBDP_TEXTDOMAIN)

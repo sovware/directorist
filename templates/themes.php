@@ -117,6 +117,16 @@
                     </div>
                 </div>
 
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                    <!--Google reCAPTCHA-->
+                    <a href="http://directorist.com/theme" target="_blank">
+                    <div class="single_extension single_thm">
+                        <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/04/More-themes.jpg"
+                             alt="More">
+                    </div>
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>

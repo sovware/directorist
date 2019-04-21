@@ -65,6 +65,14 @@
         margin-right: 7px;
       }
     }
+    .more-filter{
+      background: #fff;
+      border: 1px solid #686e77;
+      &:hover{
+        color: inherit;
+        background: #fff;
+      }
+    }
   }
   .atbd_seach_fields_wrapper{
     padding: 30px;

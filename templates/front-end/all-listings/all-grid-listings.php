@@ -169,10 +169,10 @@ $column_width = 100 / $columns . '%';
                                     <div class="price_ranges">
                                         <?php if(in_array( 'search_price', $search_more_filters_fields)) { ?>
                                         <div class="range_single">
-                                            <input type="text" name="price[0]" class="form-control" placeholder="Min Price" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][0] ); ?>">
+                                            <input type="text" name="price[0]" class="form-control" placeholder="<?php _e('Min Price', ATBDP_TEXTDOMAIN);?>" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][0] ); ?>">
                                         </div>
                                         <div class="range_single">
-                                            <input type="text" name="price[1]" class="form-control" placeholder="Max Price" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][1] ); ?>">
+                                            <input type="text" name="price[1]" class="form-control" placeholder="<?php _e('Max Price', ATBDP_TEXTDOMAIN);?>" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][1] ); ?>">
                                         </div>
                                     <?php } if(in_array( 'search_price_range', $search_more_filters_fields )) {?>
                                         <div class="price-frequency">

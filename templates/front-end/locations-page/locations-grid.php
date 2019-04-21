@@ -29,17 +29,22 @@
                         }?>
                         <figcaption>
                             <h3><?php echo $term->name; ?></h3>
-                            <p>
+
                                 <?php
+                                $html = '';
                                 if (!empty($locations_settings['show_count'])) {
                                     $expired_listings = atbdp_get_expired_listings(ATBDP_LOCATION, $term->term_id);
                                     $number_of_expired = $expired_listings->post_count;
                                     $number_of_expired = !empty($number_of_expired)?$number_of_expired:'0';
                                     $totat = ($count)?($count-$number_of_expired):$count;
-                                    echo "(" . $totat . ")";
+                                    $html = "<p>(" . $totat . ")</p>";
                                 }
+                                /**
+                                 * @since 5.0.0
+                                 */
+                                echo apply_filters('atbdp_all_locations_after_location_name', $html);
                                 ?>
-                            </p>
+
                         </figcaption>
                     </figure>
                 </a>

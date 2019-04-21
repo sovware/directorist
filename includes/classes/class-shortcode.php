@@ -1021,6 +1021,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $listing_orderby           = get_directorist_option('order_listing_by');
             $listing_view              = get_directorist_option('default_listing_view');
             $filters_display           = get_directorist_option('listings_display_filter','sliding');
+            $listing_filters_button    = get_directorist_option('listing_filters_button');
             $listing_order             = get_directorist_option('sort_listing_by');
             $listing_grid_columns      = get_directorist_option('all_listing_columns',3);
             $display_listings_header   = get_directorist_option('display_listings_header',1);
@@ -1045,6 +1046,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                 'featured_only'     => '',
                 'popular_only'      => '',
+                'advanced_filter'   => 'yes',
                 'action_before_after_loop' => 'yes',
             ), $atts );
 
@@ -1059,6 +1061,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $feature_only        = !empty($atts['featured_only']) ? $atts['featured_only'] : '';
             $popular_only        = !empty($atts['popular_only']) ? $atts['popular_only'] : '';
             $action_before_after_loop  = !empty($atts['action_before_after_loop']) ? $atts['action_before_after_loop'] : '';
+            $advanced_filter       = !empty($atts['advanced_filter']) ? $atts['advanced_filter'] : $listing_filters_button;
             $show_pagination       = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
             //for pagination
             $paged               = atbdp_get_paged_num();

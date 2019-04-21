@@ -23,7 +23,9 @@ $column_width = 100 / $columns . '%';
                         </h3>
                     <?php } ?>
                     <div class="atbd_generic_header">
-                        <?php if(!empty($listing_filters_button) && !empty($search_more_filters_fields)) {?>
+                        <?php
+                        $advanced_filter = !empty($advanced_filter)?$advanced_filter:'';
+                        if(!empty($listing_filters_button) && !empty($search_more_filters_fields) ) {?>
                         <div class="atbd_generic_header_title">
                             <button class="more-filter btn btn-outline btn-outline-primary"><span class="fa fa-filter"></span> <?php echo $filters;?></button>
                         </div>
@@ -99,7 +101,7 @@ $column_width = 100 / $columns . '%';
                                         <div class="col-md-6 col-sm-12 col-lg-4">
                                             <div class="single_search_field search_query">
                                                 <input class="form-control search_fields" type="text" name="q"
-                                                       placeholder="<?php echo esc_html($text_placeholder); ?>">
+                                                       placeholder="<?php _e($text_placeholder, ATBDP_TEXTDOMAIN); ?>">
                                             </div>
                                         </div>
                                         <?php } if(in_array( 'search_category', $search_more_filters_fields )) {?>
@@ -107,7 +109,7 @@ $column_width = 100 / $columns . '%';
                                             <div class="single_search_field search_category">
                                                 <?php
                                                 $args = array(
-                                                    'show_option_none' =>  $category_placeholder,
+                                                    'show_option_none' =>  __($category_placeholder, ATBDP_TEXTDOMAIN),
                                                     'taxonomy' => ATBDP_CATEGORY,
                                                     'id' => 'cat-type',
                                                     'option_none_value'  => '',
@@ -131,7 +133,7 @@ $column_width = 100 / $columns . '%';
                                             <div class="single_search_field search_location">
                                                 <?php
                                                 $args = array(
-                                                    'show_option_none' =>  $location_placeholder,
+                                                    'show_option_none' =>  __($location_placeholder, ATBDP_TEXTDOMAIN),
                                                     'taxonomy' => ATBDP_LOCATION,
                                                     'id' => 'cat-type',
                                                     'option_none_value'  => '',

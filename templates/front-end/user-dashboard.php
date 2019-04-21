@@ -188,7 +188,7 @@ $submit_listing_button   = get_directorist_option('submit_listing_button',1);
                                                                 $can_renew = get_directorist_option('can_renew_listing');
                                                                 if (!$can_renew) return false;// vail if renewal option is turned off on the site.
                                                                 ?>
-                                                                <a href="<?= esc_url(ATBDP_Permalink::get_renewal_page_link($post->ID)) ?>"
+                                                                <a href="<?php echo esc_url(ATBDP_Permalink::get_renewal_page_link($post->ID)) ?>"
                                                                    id="directorist-renew"
                                                                    data-listing_id="<?= $post->ID; ?>"
                                                                    class="directory_btn btn btn-outline-success">

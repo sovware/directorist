@@ -2656,6 +2656,16 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-right: 7px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter {
+  background: #fff;
+  border: 1px solid #686e77;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter:hover {
+  color: inherit;
+  background: #fff;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_seach_fields_wrapper {
   padding: 30px;
   border: 1px solid #e3e6ef;

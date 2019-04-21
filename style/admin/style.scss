@@ -133,6 +133,20 @@
     .btn_wrapper{
       margin-top: 25px;
     }
+    &.ext_d{
+      height:195px;
+      position: relative;
+      p{
+        margin: 0;
+      }
+      .btn_wrapper{
+        width: 100%;
+        position: absolute;
+        margin: 0;
+        left: 0;
+        bottom: 0;
+      }
+    }
   }
   .ext_title {
     text-decoration: none;

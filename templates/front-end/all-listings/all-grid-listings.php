@@ -101,7 +101,7 @@ $column_width = 100 / $columns . '%';
                                         <div class="col-md-6 col-sm-12 col-lg-4">
                                             <div class="single_search_field search_query">
                                                 <input class="form-control search_fields" type="text" name="q"
-                                                       placeholder="<?php echo esc_html($text_placeholder); ?>">
+                                                       placeholder="<?php _e($text_placeholder, ATBDP_TEXTDOMAIN); ?>">
                                             </div>
                                         </div>
                                         <?php } if(in_array( 'search_category', $search_more_filters_fields )) {?>
@@ -109,7 +109,7 @@ $column_width = 100 / $columns . '%';
                                             <div class="single_search_field search_category">
                                                 <?php
                                                 $args = array(
-                                                    'show_option_none' =>  $category_placeholder,
+                                                    'show_option_none' =>  __($category_placeholder, ATBDP_TEXTDOMAIN),
                                                     'taxonomy' => ATBDP_CATEGORY,
                                                     'id' => 'cat-type',
                                                     'option_none_value'  => '',
@@ -133,7 +133,7 @@ $column_width = 100 / $columns . '%';
                                             <div class="single_search_field search_location">
                                                 <?php
                                                 $args = array(
-                                                    'show_option_none' =>  $location_placeholder,
+                                                    'show_option_none' =>  __($location_placeholder, ATBDP_TEXTDOMAIN),
                                                     'taxonomy' => ATBDP_LOCATION,
                                                     'id' => 'cat-type',
                                                     'option_none_value'  => '',

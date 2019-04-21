@@ -1431,7 +1431,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'orderby'           => $categories_settings['orderby'],
                 'order'             => $categories_settings['order'],
                 'cat_per_page'       => 100,
-                'columns'           => 3
+                'columns'           => ''
             ), $atts );
             $categories_settings['columns'] = !empty($atts['columns'])?$atts['columns']:get_directorist_option('categories_column_number',3);
             $args = array(
@@ -1726,7 +1726,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'orderby'           => $locations_settings['orderby'],
                 'order'             => $locations_settings['order'],
                 'loc_per_page'       => 100,
-                'columns'           => 3
+                'columns'           => ''
             ), $atts );
             $locations_settings['columns'] = !empty($atts['columns'])?$atts['columns']:get_directorist_option('locations_column_number',3);
             $args = array(

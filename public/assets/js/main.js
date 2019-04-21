@@ -668,6 +668,10 @@ jQuery(function ($) {
         $(".atbd_single_listing .db_btn_area").addClass("db_btn_area--sm");
     }
 
+    //remove preload after window load
+    $(window).load(function () {
+        $("body").removeClass("atbdp_preload");
+    });
 
 
 })(jQuery);

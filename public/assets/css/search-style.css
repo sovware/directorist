@@ -226,10 +226,14 @@
     height: 100%;
     cursor: pointer;
     outline: 0;
+    background: transparent !important;
 }
 .btn-checkbox label input:focus{
     outline: 0;
+}
 
+.btn-checkbox label input:checked:before{
+    content: none !important;
 }
 
 .btn-checkbox label input:checked + span {

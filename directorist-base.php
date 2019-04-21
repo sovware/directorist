@@ -253,8 +253,8 @@ final class Directorist_Base
             //review and rating
             add_action('atbdp_after_map', array(self::$instance, 'show_review'));
             // plugin deactivated popup
-            add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , array(self::$instance, 'atbdp_plugin_link') );
-            add_action( 'admin_footer', array( self::$instance, 'atbdp_deactivate_popup' ) );
+            add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(self::$instance, 'atbdp_plugin_link'));
+            add_action('admin_footer', array(self::$instance, 'atbdp_deactivate_popup'));
 
             // Attempt to create listing related custom pages with plugin's custom shortcode to give user best experience.
             // we can check the database if our custom pages have been installed correctly or not here first.
@@ -283,6 +283,55 @@ final class Directorist_Base
         return self::$instance;
     }
 
+    /**
+     * Setup plugin constants.
+     *
+     * @access private
+     * @since 1.0
+     * @return void
+     */
+    private function setup_constants()
+    {
+        // test
+        require_once plugin_dir_path(__FILE__) . '/config.php'; // loads constant from a file so that it can be available on all files.
+    }
+
+    /**
+     * Include required files.
+     *
+     * @access private
+     * @since 1.0
+     * @return void
+     */
+    private function includes()
+    {
+        require_once ATBDP_LIB_DIR . 'vafpress/bootstrap.php'; // load option framework.
+        require_once ATBDP_INC_DIR . 'helper-functions.php';
+        require_once ATBDP_INC_DIR . 'login-register.php';
+        load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
+        load_dependencies('all', ATBDP_LIB_DIR); // load all php files from ATBDP_LIB_DIR
+        /*LOAD Rating and Review functionality*/
+        load_dependencies('all', ATBDP_INC_DIR . 'review-rating/');
+        /*Load gateway related stuff*/
+        load_dependencies('all', ATBDP_INC_DIR . 'gateways/');
+
+        /*Load custom field related stuff*/
+        load_dependencies('all', ATBDP_INC_DIR . 'custom-fields/');
+        /*Load payment related stuff*/
+        load_dependencies('all', ATBDP_INC_DIR . 'payments/');
+        load_dependencies('all', ATBDP_INC_DIR . 'checkout/');
+        /*Load payment related stuff*/
+        require_once ATBDP_INC_DIR . 'custom-actions.php';
+        require_once ATBDP_INC_DIR . 'custom-filters.php';
+
+    }
+
+    public static function prepare_plugin()
+    {
+
+        include ATBDP_INC_DIR . 'classes/class-installation.php';
+        ATBDP_Installation::install();
+    }
 
     /**
      * Throw error on object clone.
@@ -351,55 +400,11 @@ final class Directorist_Base
 
     }
 
-    /**
-     * Setup plugin constants.
-     *
-     * @access private
-     * @since 1.0
-     * @return void
-     */
-    private function setup_constants()
-    {
-        // test
-        require_once plugin_dir_path(__FILE__) . '/config.php'; // loads constant from a file so that it can be available on all files.
-    }
-
-    /**
-     * Include required files.
-     *
-     * @access private
-     * @since 1.0
-     * @return void
-     */
-    private function includes()
-    {
-        require_once ATBDP_LIB_DIR . 'vafpress/bootstrap.php'; // load option framework.
-        require_once ATBDP_INC_DIR . 'helper-functions.php';
-        require_once ATBDP_INC_DIR . 'login-register.php';
-        load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
-        load_dependencies('all', ATBDP_LIB_DIR); // load all php files from ATBDP_LIB_DIR
-        /*LOAD Rating and Review functionality*/
-        load_dependencies('all', ATBDP_INC_DIR . 'review-rating/');
-        /*Load gateway related stuff*/
-        load_dependencies('all', ATBDP_INC_DIR . 'gateways/');
-
-        /*Load custom field related stuff*/
-        load_dependencies('all', ATBDP_INC_DIR . 'custom-fields/');
-        /*Load payment related stuff*/
-        load_dependencies('all', ATBDP_INC_DIR . 'payments/');
-        load_dependencies('all', ATBDP_INC_DIR . 'checkout/');
-        /*Load payment related stuff*/
-        require_once ATBDP_INC_DIR . 'custom-actions.php';
-        require_once ATBDP_INC_DIR . 'custom-filters.php';
-
-    }
-
     public function load_textdomain()
     {
 
         load_plugin_textdomain(ATBDP_TEXTDOMAIN, false, ATBDP_LANG_DIR);
     }
-
 
     /**
      * It  loads a template file from the Default template directory.
@@ -415,13 +420,6 @@ final class Directorist_Base
         $path = ATBDP_TEMPLATES_DIR . $name . '.php';
         if ($return_path) return $path;
         include($path);
-    }
-
-    public static function prepare_plugin()
-    {
-
-        include ATBDP_INC_DIR . 'classes/class-installation.php';
-        ATBDP_Installation::install();
     }
 
     public function add_custom_directorist_pages()
@@ -450,27 +448,27 @@ final class Directorist_Base
                 'content' => '[directorist_all_listing]'
             ),
             'all_categories_page' => array(
-                'title'   => __( 'All Categories', ATBDP_TEXTDOMAIN ),
+                'title' => __('All Categories', ATBDP_TEXTDOMAIN),
                 'content' => '[directorist_all_categories]'
             ),
             'single_category_page' => array(
-                'title'   => __( 'Single Category', ATBDP_TEXTDOMAIN ),
+                'title' => __('Single Category', ATBDP_TEXTDOMAIN),
                 'content' => '[directorist_category]'
             ),
             'all_locations_page' => array(
-                'title'   => __( 'All Locations', ATBDP_TEXTDOMAIN ),
+                'title' => __('All Locations', ATBDP_TEXTDOMAIN),
                 'content' => '[directorist_all_locations]'
             ),
             'single_location_page' => array(
-                'title'   => __( 'Single Location', ATBDP_TEXTDOMAIN ),
+                'title' => __('Single Location', ATBDP_TEXTDOMAIN),
                 'content' => '[directorist_location]'
             ),
             'single_tag_page' => array(
-                'title'   => __( 'Single Tag', ATBDP_TEXTDOMAIN ),
+                'title' => __('Single Tag', ATBDP_TEXTDOMAIN),
                 'content' => '[directorist_tag]'
             ),
             'author_profile_page' => array(
-                'title'   => __( 'Author Profile', ATBDP_TEXTDOMAIN ),
+                'title' => __('Author Profile', ATBDP_TEXTDOMAIN),
                 'content' => '[directorist_author_profile]'
             ),
             'user_dashboard' => array(
@@ -537,19 +535,19 @@ final class Directorist_Base
 
                 }
                 $new_settings++;
-            }else{
+            } else {
                 $replace_shortcode = wp_update_post(
                     array(
-                            'ID'  => $options[$op_name],
+                        'ID' => $options[$op_name],
                         'post_title' => $page_settings['title'],
                         'post_content' => $page_settings['content'],
                         'post_status' => 'publish',
                         'post_type' => 'page',
                         'comment_status' => 'closed'
-                    ),true
+                    ), true
                 );
-                if (!is_wp_error($replace_shortcode)){
-                    update_user_meta( get_current_user_id(), '_atbdp_shortcode_regenerate_notice', 'true' );
+                if (!is_wp_error($replace_shortcode)) {
+                    update_user_meta(get_current_user_id(), '_atbdp_shortcode_regenerate_notice', 'true');
                 }
             }
             // if we have new options then lets update the options with new option values.
@@ -560,6 +558,106 @@ final class Directorist_Base
         }
     }
 
+    /**
+     * It displays popular listings
+     * @param int $count [optional] Number of popular listing to show. Default 5.
+     * If the count is more than one then it uses it, else the function will use the value from the settings page.
+     * Count variable is handy if we want to show different number of popular listings on different pages. For example, on different widgets place
+     * @todo Try to move popular listings related functionalities to a dedicated listing related class that handles popular listings, related listings etc. when have time.
+     */
+    public function show_popular_listing($count = 5)
+    {
+        $popular_listings = $this->get_popular_listings($count);
+
+
+        if ($popular_listings->have_posts()) { ?>
+            <div class="atbd_categorized_listings">
+                <ul class="listings">
+                    <?php foreach ($popular_listings->posts as $pop_post) {
+                        // get only one parent or high level term object
+                        $top_category = ATBDP()->taxonomy->get_one_high_level_term($pop_post->ID, ATBDP_CATEGORY);
+                        $listing_img = get_post_meta($pop_post->ID, '_listing_img', true);
+                        $listing_prv_img = get_post_meta($pop_post->ID, '_listing_prv_img', true);
+                        $cats = get_the_terms($pop_post->ID, ATBDP_CATEGORY);
+                        ?>
+                        <li>
+                            <div class="atbd_left_img">
+                                <?php
+                                $disable_single_listing = get_directorist_option('disable_single_listing');
+                                if (empty($disable_single_listing)){
+                                ?>
+                                <a href="<?php echo esc_url(get_post_permalink($pop_post->ID)); ?>">
+                                    <?php
+                                    }
+                                    $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+                                    if (!empty($listing_prv_img)) {
+                                        echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_prv_img, array(90, 90))) . '" alt="' . esc_html($pop_post->post_title) . '">';
+                                    } elseif (!empty($listing_img[0]) && empty($listing_prv_img)) {
+                                        echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="' . esc_html($pop_post->post_title) . '">';
+                                    } else {
+                                        echo '<img src="' . $default_image . '" alt="' . esc_html($pop_post->post_title) . '">';
+                                    }
+                                    if (empty($disable_single_listing)) {
+                                        echo '</a>';
+                                    }
+                                    ?>
+                            </div>
+                            <div class="atbd_right_content">
+                                <div class="cate_title">
+                                    <h4>
+                                        <?php
+                                        if (empty($disable_single_listing)) {
+                                            ?>
+                                            <a href="<?= esc_url(get_post_permalink($pop_post->ID)); ?>"><?= esc_html($pop_post->post_title); ?></a>
+                                            <?php
+                                        } else {
+                                            echo esc_html($pop_post->post_title);
+                                        } ?>
+                                    </h4>
+                                </div>
+
+                                <?php if (!empty($cats)) {
+                                    $totalTerm = count($cats);
+                                    ?>
+
+                                    <p class="directory_tag">
+                                        <span class="fa fa-folder-open">
+                                        <span>
+                                                <a href="<?= ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
+                                                                     <?= esc_html($cats[0]->name); ?>
+                                                </a>
+                                            <?php
+                                            if ($totalTerm > 1) {
+                                                ?>
+                                                <span class="atbd_cat_popup">  +<?php echo $totalTerm - 1; ?>
+                                                    <span class="atbd_cat_popup_wrapper">
+                                                                    <?php
+                                                                    $output = array();
+                                                                    foreach (array_slice($cats, 1) as $cat) {
+                                                                        $link = ATBDP_Permalink::atbdp_get_category_page($cat);
+                                                                        $space = str_repeat(' ', 1);
+                                                                        $output [] = "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
+                                                                    } ?>
+                                                        <span><?php echo join($output) ?></span>
+                                                                </span>
+                                                            </span>
+                                            <?php } ?>
+
+                                        </span>
+                                    </p>
+                                <?php }
+                                ATBDP()->show_static_rating($pop_post);
+                                ?>
+                            </div>
+                        </li>
+                    <?php } // ends the loop
+                    ?>
+
+                </ul>
+            </div> <!--ends .categorized_listings-->
+        <?php }
+
+    }
 
     /**
      * It gets the popular listings of the given listing/post
@@ -591,17 +689,17 @@ final class Directorist_Base
 
         );
         $listing_popular_by = get_directorist_option('listing_popular_by');
-        if ((('average_rating') === $listing_popular_by) || (('both_view_rating') === $listing_popular_by)){
+        if ((('average_rating') === $listing_popular_by) || (('both_view_rating') === $listing_popular_by)) {
             $average = ATBDP()->review->get_average($listing_id);
-            $average_review_for_popular = get_directorist_option('average_review_for_popular',4);
-            if ($average_review_for_popular <= $average){
+            $average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
+            if ($average_review_for_popular <= $average) {
                 $args['p'] = $listing_id;
             }
 
         }
 
-        if ((('view_count') === $listing_popular_by) || (('both_view_rating') === $listing_popular_by)){
-            $args['meta_query'] =  array(
+        if ((('view_count') === $listing_popular_by) || (('both_view_rating') === $listing_popular_by)) {
+            $args['meta_query'] = array(
                 'key' => '_atbdp_post_views_count',
                 'value' => $view_to_popular,
                 'compare' => '>=',
@@ -611,108 +709,22 @@ final class Directorist_Base
 
     }
 
-
     /**
-     * It displays popular listings
-     * @param int $count [optional] Number of popular listing to show. Default 5.
-     * If the count is more than one then it uses it, else the function will use the value from the settings page.
-     * Count variable is handy if we want to show different number of popular listings on different pages. For example, on different widgets place
-     * @todo Try to move popular listings related functionalities to a dedicated listing related class that handles popular listings, related listings etc. when have time.
+     * It displays static rating of the given post
+     * @param object|WP_Post $post The current post object
      */
-    public function show_popular_listing($count = 5)
+    public function show_static_rating($post)
     {
-        $popular_listings = $this->get_popular_listings($count);
-
-
-        if ($popular_listings->have_posts()) { ?>
-            <div class="atbd_categorized_listings">
-                <ul class="listings">
-                    <?php foreach ($popular_listings->posts as $pop_post) {
-                        // get only one parent or high level term object
-                        $top_category           = ATBDP()->taxonomy->get_one_high_level_term($pop_post->ID, ATBDP_CATEGORY);
-                        $listing_img            = get_post_meta($pop_post->ID, '_listing_img', true);
-                        $listing_prv_img        = get_post_meta($pop_post->ID, '_listing_prv_img', true);
-                        $cats                   =  get_the_terms($pop_post->ID, ATBDP_CATEGORY);
-                        ?>
-                        <li>
-                            <div class="atbd_left_img">
-                                <?php
-                                $disable_single_listing = get_directorist_option('disable_single_listing');
-                                if (empty($disable_single_listing)){
-                                ?>
-                                <a href="<?php echo esc_url(get_post_permalink($pop_post->ID));?>">
-                                    <?php
-                                    }
-                                $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
-                                    if(!empty($listing_prv_img)) {
-                                        echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_prv_img, array(90, 90))).'" alt="'.esc_html($pop_post->post_title).'">';
-                                    } elseif(!empty($listing_img[0]) && empty($listing_prv_img)) {
-                                        echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="'.esc_html($pop_post->post_title).'">';
-                                    } else{
-                                        echo '<img src="'.$default_image.'" alt="'.esc_html($pop_post->post_title).'">';
-                                    }
-                                    if (empty($disable_single_listing)){
-                                        echo '</a>';
-                                    }
-                                ?>
-                            </div>
-                            <div class="atbd_right_content">
-                                <div class="cate_title">
-                                    <h4>
-                                        <?php
-                                        if (empty($disable_single_listing)){
-                                            ?>
-                                            <a href="<?= esc_url(get_post_permalink($pop_post->ID)); ?>"><?= esc_html($pop_post->post_title); ?></a>
-                                            <?php
-                                        }else{
-                                            echo esc_html($pop_post->post_title);
-                                        }?>
-                                    </h4>
-                                </div>
-
-                                <?php if (!empty($cats)){
-                                    $totalTerm = count($cats);
-                                    ?>
-
-                                    <p class="directory_tag">
-                                        <span class="fa fa-folder-open">
-                                        <span>
-                                                <a href="<?= ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
-                                                                     <?= esc_html($cats[0]->name); ?>
-                                                </a>
-                                            <?php
-                                            if ($totalTerm>1){
-                                                ?>
-                                                <span class="atbd_cat_popup">  +<?php echo $totalTerm-1; ?>
-                                                    <span class="atbd_cat_popup_wrapper">
-                                                                    <?php
-                                                                    $output = array();
-                                                                    foreach (array_slice($cats,1) as $cat) {
-                                                                        $link = ATBDP_Permalink::atbdp_get_category_page($cat);
-                                                                        $space = str_repeat(' ', 1);
-                                                                        $output []= "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
-                                                                    }?>
-                                                        <span><?php echo join($output)?></span>
-                                                                </span>
-                                                            </span>
-                                            <?php } ?>
-
-                                        </span>
-                                    </p>
-                                <?php }
-                                ATBDP()->show_static_rating($pop_post);
-                                ?>
-                            </div>
-                        </li>
-                    <?php } // ends the loop
-                    ?>
-
-                </ul>
-            </div> <!--ends .categorized_listings-->
-        <?php }
+        $enable_review = get_directorist_option('enable_review', 1);
+        if (!$enable_review) return; // vail if review is not enabled
+        $average = ATBDP()->review->get_average($post->ID);
+        ?>
+        <div class="atbd_rated_stars">
+            <?= ATBDP()->review->print_static_rating($average); ?>
+        </div>
+        <?php
 
     }
-
 
     /**
      * It displays related listings of the given post
@@ -723,60 +735,59 @@ final class Directorist_Base
 
         $enable_rel_listing = get_directorist_option('enable_rel_listing', 1);
         if (1 != $enable_rel_listing) return; // vail if related listing is not enabled
-        $related_listings       = $this->get_related_listings($post);
-        $is_disable_price       = get_directorist_option('disable_list_price');
-        $rel_listing_column     = get_directorist_option('rel_listing_column',3);
+        $related_listings = $this->get_related_listings($post);
+        $is_disable_price = get_directorist_option('disable_list_price');
+        $rel_listing_column = get_directorist_option('rel_listing_column', 3);
 
 
         if ($related_listings->have_posts()) {
             ?>
             <!--Related Listings starts-->
             <?php
-            related_listing_slider($related_listings, $pagenation=null, $is_disable_price);
+            related_listing_slider($related_listings, $pagenation = null, $is_disable_price);
             ?>
         <?php } ?>
         <script>
-            jQuery(document).ready(function($){
+            jQuery(document).ready(function ($) {
                 $('.related__carousel').slick({
-                  dots: false,
-                  arrows: false,
-                  infinite: true,
-                  speed: 300,
-                  slidesToShow: <?php echo $rel_listing_column;?>,
-                  slidesToScroll: 1,
-                  autoplay: true,
-                  responsive: [
-                    {
-                      breakpoint: 1024,
-                      settings: {
-                        slidesToShow: <?php echo $rel_listing_column;?>,
-                        slidesToScroll: 1,
-                        infinite: true,
-                        dots: true
-                      }
-                    },
-                    {
-                      breakpoint: 767,
-                      settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 1
-                      }
-                    },
-                    {
-                      breakpoint: 575,
-                      settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                      }
-                    }
-                  ]
+                    dots: false,
+                    arrows: false,
+                    infinite: true,
+                    speed: 300,
+                    slidesToShow: <?php echo $rel_listing_column;?>,
+                    slidesToScroll: 1,
+                    autoplay: true,
+                    responsive: [
+                        {
+                            breakpoint: 1024,
+                            settings: {
+                                slidesToShow: <?php echo $rel_listing_column;?>,
+                                slidesToScroll: 1,
+                                infinite: true,
+                                dots: true
+                            }
+                        },
+                        {
+                            breakpoint: 767,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 1
+                            }
+                        },
+                        {
+                            breakpoint: 575,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1
+                            }
+                        }
+                    ]
                 });
             });
 
         </script>
-    <?php
+        <?php
     }
-
 
     /**
      * It gets the related listings of the given listing/post
@@ -872,14 +883,14 @@ final class Directorist_Base
 
     }
 
-
     /**
      * Plugin links
      * @since 4.4.0
      * */
-    public function atbdp_plugin_link ($links) {
-        if ( array_key_exists( 'deactivate', $links ) ) {
-            $links['deactivate'] = str_replace( '<a', '<a class="atbdp-deactivate-popup"', $links['deactivate'] );
+    public function atbdp_plugin_link($links)
+    {
+        if (array_key_exists('deactivate', $links)) {
+            $links['deactivate'] = str_replace('<a', '<a class="atbdp-deactivate-popup"', $links['deactivate']);
         }
 
         return $links;
@@ -889,10 +900,11 @@ final class Directorist_Base
      * Deactivate Reasons
      * @since 4.4.0
      */
-    public function atbdp_deactivate_popup () {
+    public function atbdp_deactivate_popup()
+    {
         global $pagenow;
 
-        if ( 'plugins.php' != $pagenow ) {
+        if ('plugins.php' != $pagenow) {
             return;
         }
         $deactivate_reasons = atbdp_deactivate_reasons();
@@ -901,23 +913,26 @@ final class Directorist_Base
         <div class="aazz-deactivate" id="atbdp-aazz-deactivate">
             <div class="aazz-deactivate-wrap">
                 <div class="aazz-deactivate-header">
-                    <h3><?php _e( 'If you have time, please let us know why you are deactivating so that we can improve.', ATBDP_TEXTDOMAIN ); ?></h3>
+                    <h3><?php _e('If you have time, please let us know why you are deactivating so that we can improve.', ATBDP_TEXTDOMAIN); ?></h3>
                 </div>
 
                 <div class="aazz-deactivate-body">
                     <ul class="reasons">
                         <?php foreach ($deactivate_reasons as $reason) { ?>
-                            <li data-type="<?php echo esc_attr( $reason['type'] ); ?>" data-placeholder="<?php echo esc_attr( $reason['placeholder'] ); ?>">
-                                <label><input type="radio" name="selected-reason" value="<?php echo $reason['id']; ?>"> <?php echo $reason['text']; ?></label>
+                            <li data-type="<?php echo esc_attr($reason['type']); ?>"
+                                data-placeholder="<?php echo esc_attr($reason['placeholder']); ?>">
+                                <label><input type="radio" name="selected-reason"
+                                              value="<?php echo $reason['id']; ?>"> <?php echo $reason['text']; ?>
+                                </label>
                             </li>
                         <?php } ?>
                     </ul>
                 </div>
 
                 <div class="aazz-deactivate-footer">
-                    <a href="#" class="atbdp-no-comment"><?php _e( 'Skip & Deactivate', ATBDP_TEXTDOMAIN ); ?></a>
-                    <button class="atbdp-reason-submit atbdp-reason-submit"><?php _e( 'Submit & Deactivate', ATBDP_TEXTDOMAIN ); ?></button>
-                    <button class="button-primary"><?php _e( 'Cancel', ATBDP_TEXTDOMAIN ); ?></button>
+                    <a href="#" class="atbdp-no-comment"><?php _e('Skip & Deactivate', ATBDP_TEXTDOMAIN); ?></a>
+                    <button class="atbdp-reason-submit atbdp-reason-submit"><?php _e('Submit & Deactivate', ATBDP_TEXTDOMAIN); ?></button>
+                    <button class="button-primary"><?php _e('Cancel', ATBDP_TEXTDOMAIN); ?></button>
                 </div>
             </div>
         </div>
@@ -930,33 +945,40 @@ final class Directorist_Base
                 position: fixed;
                 z-index: 99999;
                 top: 0;
-                background: rgba(0,0,0,0.5);
+                background: rgba(0, 0, 0, 0.5);
                 display: none;
             }
+
             .aazz-deactivate.modal-active {
                 display: block;
             }
+
             .aazz-deactivate-wrap {
                 width: 475px;
                 position: relative;
                 margin: 10% auto;
                 background: #fff;
             }
+
             .aazz-deactivate-header {
                 border-bottom: 1px solid #eee;
                 padding: 8px 20px;
             }
+
             .aazz-deactivate-header h3 {
                 line-height: 150%;
                 margin: 0;
             }
+
             .aazz-deactivate-body .reason-input {
                 margin-top: 5px;
                 margin-left: 20px;
             }
+
             .aazz-deactivate-body {
                 padding: 5px 20px 20px 20px;
             }
+
             .aazz-deactivate-footer {
                 border-top: 1px solid #eee;
                 padding: 12px 20px;
@@ -965,12 +987,12 @@ final class Directorist_Base
         </style>
 
         <script type="text/javascript">
-            (function($) {
-                $(function() {
-                    var modal = $( '#atbdp-aazz-deactivate' );
+            (function ($) {
+                $(function () {
+                    var modal = $('#atbdp-aazz-deactivate');
                     var deactivateLink = '';
 
-                    $( '#the-list' ).on('click', 'a.atbdp-deactivate-popup', function(e) {
+                    $('#the-list').on('click', 'a.atbdp-deactivate-popup', function (e) {
                         e.preventDefault();
 
                         modal.addClass('modal-active');
@@ -978,7 +1000,7 @@ final class Directorist_Base
                         modal.find('a.atbdp-no-comment').attr('href', deactivateLink).css('float', 'left');
                     });
 
-                    modal.on('click', 'button.button-primary', function(e) {
+                    modal.on('click', 'button.button-primary', function (e) {
                         e.preventDefault();
 
                         modal.removeClass('modal-active');
@@ -991,24 +1013,24 @@ final class Directorist_Base
 
                         var inputType = parent.data('type'),
                             inputPlaceholder = parent.data('placeholder'),
-                            reasonInputHtml = '<div class="reason-input">' + ( ( 'text' === inputType ) ? '<input type="text" size="40" />' : '<textarea rows="5" cols="45"></textarea>' ) + '</div>';
+                            reasonInputHtml = '<div class="reason-input">' + (('text' === inputType) ? '<input type="text" size="40" />' : '<textarea rows="5" cols="45"></textarea>') + '</div>';
 
-                        if ( inputType !== '' ) {
-                            parent.append( $(reasonInputHtml) );
+                        if (inputType !== '') {
+                            parent.append($(reasonInputHtml));
                             parent.find('input, textarea').attr('placeholder', inputPlaceholder).focus();
                         }
                     });
 
-                    modal.on('click', 'button.atbdp-reason-submit', function(e) {
+                    modal.on('click', 'button.atbdp-reason-submit', function (e) {
                         e.preventDefault();
 
                         var button = $(this);
 
-                        if ( button.hasClass('disabled') ) {
+                        if (button.hasClass('disabled')) {
                             return;
                         }
 
-                        var $radio = $( 'input[type="radio"]:checked', modal );
+                        var $radio = $('input[type="radio"]:checked', modal);
 
                         var $selected_reason = $radio.parents('li:first'),
                             $input = $selected_reason.find('textarea, input[type="text"]');
@@ -1018,14 +1040,14 @@ final class Directorist_Base
                             type: 'POST',
                             data: {
                                 action: 'atbdp_submit-uninstall-reason',
-                                reason_id: ( 0 === $radio.length ) ? 'none' : $radio.val(),
-                                reason_info: ( 0 !== $input.length ) ? $input.val().trim() : ''
+                                reason_id: (0 === $radio.length) ? 'none' : $radio.val(),
+                                reason_info: (0 !== $input.length) ? $input.val().trim() : ''
                             },
-                            beforeSend: function() {
+                            beforeSend: function () {
                                 button.addClass('disabled');
                                 button.text('Processing...');
                             },
-                            complete: function() {
+                            complete: function () {
                                 window.location.href = deactivateLink;
                             }
                         });
@@ -1035,7 +1057,6 @@ final class Directorist_Base
         </script>
         <?php
     }
-
 
     /**
      * It displays reviews of the given post
@@ -1050,21 +1071,23 @@ final class Directorist_Base
         $reviews = ATBDP()->_get_reviews($post, $review_num);
         $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
         $plan_review = true;
-        if (is_fee_manager_active()){
+        if (is_fee_manager_active()) {
             $plan_review = is_plan_allowed_listing_review(get_post_meta($post->ID, '_fm_plans', true));
         }
         if ($plan_review) {
-            $count_review = ($reviews_count>1) ? __(' Reviews',ATBDP_TEXTDOMAIN) : __(' Review',ATBDP_TEXTDOMAIN);
+            $count_review = ($reviews_count > 1) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
             ?>
             <div class="atbd_content_module atbd_review_module">
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">
-                        <h4><span class="fa fa-star atbd_area_icon"></span><span id="reviewCounter"><?php echo $reviews_count;?></span><?php
-                           echo $count_review;
+                        <h4><span class="fa fa-star atbd_area_icon"></span><span
+                                    id="reviewCounter"><?php echo $reviews_count; ?></span><?php
+                            echo $count_review;
                             ?></h4>
                     </div>
                     <?php if (is_user_logged_in()) { ?>
-                        <label for="review_content" class="btn btn-primary btn-sm"><?php _e('Add a review',ATBDP_TEXTDOMAIN); ?></label>
+                        <label for="review_content"
+                               class="btn btn-primary btn-sm"><?php _e('Add a review', ATBDP_TEXTDOMAIN); ?></label>
                     <?php } ?>
                 </div>
 
@@ -1139,12 +1162,13 @@ final class Directorist_Base
                                 <!--<input type="email" name="email" class="directory_field" placeholder="Your email" required>-->
                                 <input type="hidden" name="name" class="btn btn-default"
                                        value="<?= wp_get_current_user()->display_name; ?>"
-                                       placeholder="<?php esc_attr_e('Your name', ATBDP_TEXTDOMAIN); ?>" id="reviewer_name">
+                                       placeholder="<?php esc_attr_e('Your name', ATBDP_TEXTDOMAIN); ?>"
+                                       id="reviewer_name">
                                 <?php $avata_img = get_avatar(wp_get_current_user()->ID, 32);
-                                $user_img = !empty($avata_img)?$avata_img:ATBDP_PUBLIC_ASSETS . 'images/revav.png';
+                                $user_img = !empty($avata_img) ? $avata_img : ATBDP_PUBLIC_ASSETS . 'images/revav.png';
                                 ?>
                                 <input type="hidden" name="name" class="btn btn-default"
-                                       value="<?php echo $user_img?>" id="reviewer_img">
+                                       value="<?php echo $user_img ?>" id="reviewer_img">
 
                                 <div class="atbd_review_rating_area"> <!--It should be displayed on the left side -->
                                     <?php
@@ -1223,7 +1247,7 @@ final class Directorist_Base
             if (!empty($reviews_count) && $reviews_count > $review_num) {
                 echo "<button class='directory_btn' type='button' id='load_more_review' data-id='{$post->ID}''>" . __('View More Review', ATBDP_TEXTDOMAIN) . "</button>";
             }
-             }
+        }
     }
 
     /**
@@ -1236,23 +1260,6 @@ final class Directorist_Base
     {
 
         return ATBDP()->review->db->get_reviews_by('post_id', $post->ID, 0, $review_number); // get the amount of reviews set by $review_number
-    }
-
-    /**
-     * It displays static rating of the given post
-     * @param object|WP_Post $post The current post object
-     */
-    public function show_static_rating($post)
-    {
-        $enable_review = get_directorist_option('enable_review', 1);
-        if (!$enable_review) return; // vail if review is not enabled
-        $average = ATBDP()->review->get_average($post->ID);
-        ?>
-        <div class="atbd_rated_stars">
-            <?= ATBDP()->review->print_static_rating($average); ?>
-        </div>
-        <?php
-
     }
 
     public function add_custom_meta_keys_for_old_listings()

@@ -129,7 +129,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 5.0.0 - April 19, 2019 =
+= 5.0.0 - April 20, 2019 =
 
 * Add - Advanced Search (search by Custom Fields, Price, Price Range, Ratings, Tags, Website, Email, Phone, Address, Zip/Post Code etc.)
 * Add - Advanced Filters on Listings and Search Result pages

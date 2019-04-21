@@ -225,9 +225,10 @@ $submit_listing_button   = get_directorist_option('submit_listing_button',1);
                                                         <div class="listing-meta">
                                                             <?php
                                                             if (is_fee_manager_active()){
+                                                                $change_plan_link = '<span><a href="">'.__('Change', ATBDP_TEXTDOMAIN).'</a></span>';
                                                                 $plan_id = get_post_meta($post->ID, '_fm_plans', true);
                                                                 $plan_name = get_the_title($plan_id);
-                                                                printf(__('<p><span>Plan Name:</span> %s</p>', ATBDP_TEXTDOMAIN), $plan_name);
+                                                                printf(__('<p><span>Plan Name:</span> %s</p>%s', ATBDP_TEXTDOMAIN), $plan_name, $change_plan_link);
                                                             }
                                                             $exp_text = !empty($never_exp)
                                                                 ? __('Never Expires', ATBDP_TEXTDOMAIN)
@@ -487,12 +488,58 @@ $submit_listing_button   = get_directorist_option('submit_listing_button',1);
                                             $category_link = !empty($cats) ? esc_url(ATBDP_Permalink::atbdp_get_category_page($cats[0])) : '#';
                                             $post_link = esc_url(get_post_permalink($post->ID));
 
+
+                                            $listing_img = get_post_meta($post->ID, '_listing_img', true);
+                                            $listing_prv_img = get_post_meta($post->ID, '_listing_prv_img', true);
+                                            $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
+                                            $crop_width = get_directorist_option('crop_width', 360);
+                                            $crop_height = get_directorist_option('crop_height', 300);
+                                            if (!empty($listing_prv_img)) {
+
+                                                if ($thumbnail_cropping) {
+
+                                                    $prv_image = atbdp_image_cropping($listing_prv_img, $crop_width, $crop_height, true, 100)['url'];
+
+                                                } else {
+                                                    $prv_image = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
+                                                }
+
+                                            }
+                                            if (!empty($listing_img[0])) {
+                                                if ($thumbnail_cropping) {
+                                                    $gallery_img = atbdp_image_cropping($listing_img[0], $crop_width, $crop_height, true, 100)['url'];
+
+                                                } else {
+                                                    $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
+                                                }
+
+                                            }
+
+                                            if (!empty($listing_prv_img)) {
+
+                                                $img_src = $prv_image;
+
+                                            }
+                                            if (!empty($listing_img[0]) && empty($listing_prv_img)) {
+
+                                                $img_src = $gallery_img;
+
+                                            }
+                                            if (empty($listing_img[0]) && empty($listing_prv_img)) {
+
+                                                $img_src = ATBDP_PUBLIC_ASSETS . 'images/grid.jpg';
+
+                                            }
+
                                             printf(' <tr>
                                             <td class="thumb_title">
-                                                <div class="img_wrapper"><img
-                                                            src=""
-                                                            alt=""></div>
-                                                <a href="%s"><h4>%s</h4></a>
+                                                <div class="img_wrapper"><a href="%s">
+                                                <img
+                                                            src="%s"
+                                                            alt="%s">
+                                                <h4>%s</h4>
+                                                </a>
+                                                </div>
                                             </td>
 
                                             <td class="saved_item_category">
@@ -500,7 +547,7 @@ $submit_listing_button   = get_directorist_option('submit_listing_button',1);
                                             </td>
 
 
-                                        </tr>', $post_link, $title, $category_link, $category_icon, $category_name, atbdp_get_remove_favourites_page_link($post->ID), __('Remove', ATBDP_TEXTDOMAIN));
+                                        </tr>', $post_link, $img_src, $title, $title, $category_link, $category_icon, $category_name, atbdp_get_remove_favourites_page_link($post->ID), __('Remove', ATBDP_TEXTDOMAIN));
                                         }
                                         ?>
                                         </tbody>

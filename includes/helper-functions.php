@@ -2379,43 +2379,39 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                                          */
                                         do_action('atbdp_after_listing_tagline');
                                         ?>
-                                        <?php if (!empty($display_review) || !empty($display_price)) { ?>
-                                            <div class="atbd_listing_meta">
 
-                                                <?php
-                                                if (!empty($display_review)) {
-                                                    $average = ATBDP()->review->get_average(get_the_ID());
-                                                    ?>
-                                                    <span class="atbd_meta atbd_listing_rating">
-            <?php echo $average; ?><i class="fa fa-star"></i>
-        </span>
-                                                    <?php
-                                                }
-                                                $atbd_listing_pricing = !empty($atbd_listing_pricing)?$atbd_listing_pricing:'';
-                                                if(!empty($display_price) && !empty($display_pricing_field)) {
-                                                    if(!empty($price_range) && ('range' === $atbd_listing_pricing)) {
-                                                        $output = atbdp_display_price_range($price_range);
-                                                        echo $output;
-                                                    }else{
-                                                        atbdp_display_price($price, $is_disable_price);
-                                                    }
-                                                }
-                                                /**
-                                                 * Fires after the price of the listing is rendered
-                                                 *
-                                                 *
-                                                 * @since 3.1.0
-                                                 */
-                                                do_action('atbdp_after_listing_price');
-                                                ?>
-                                            </div><!-- End atbd listing meta -->
+                                        <?php
+                                        $meta_html = '';
+                                        if (!empty($display_review) || !empty($display_price)) { ?>
 
-                                        <?php }
+                                            <?php
+                                            $meta_html .= '<div class="atbd_listing_meta">';
+                                            $average = ATBDP()->review->get_average(get_the_ID());
+                                            $meta_html .= '<span class="atbd_meta atbd_listing_rating">'.$average.'<i class="fa fa-star"></i>
+        </span>';
+                                            $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
+                                            if (!empty($display_price) && !empty($display_pricing_field)) {
+                                                if (!empty($price_range) && ('range' === $atbd_listing_pricing)) {
+                                                    $output = atbdp_display_price_range($price_range);
+                                                    $meta_html .= $output;
+                                                } else {
+                                                    $meta_html .=  atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false);
+                                                }
+                                            }
+                                            /**
+                                             * Fires after the price of the listing is rendered
+                                             *
+                                             *
+                                             * @since 3.1.0
+                                             */
+                                            do_action('atbdp_after_listing_price');
+                                            $meta_html .= '</div>';
+                                        }
                                         /**
                                          * @since 5.0
                                          * universal action to fire after the price
                                          */
-                                        do_action('atbdp_listings_after_price');
+                                        echo apply_filters('atbdp_listings_review_price',$meta_html);
                                         ?>
                                         <?php if (!empty($display_contact_info) || !empty($display_publish_date)) { ?>
                                             <div class="atbd_listing_data_list">
@@ -2790,43 +2786,39 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                  */
                                                 do_action('atbdp_after_listing_tagline');
                                                 ?>
-                                                <?php if (!empty($display_review) || !empty($display_price)) { ?>
-                                                    <div class="atbd_listing_meta">
 
-                                                        <?php
-                                                        if (!empty($display_review)) {
-                                                            $average = ATBDP()->review->get_average(get_the_ID());
-                                                            ?>
-                                                            <span class="atbd_meta atbd_listing_rating">
-            <?php echo $average; ?><i class="fa fa-star"></i>
-        </span>
-                                                            <?php
-                                                        }
-                                                        $atbd_listing_pricing = !empty($atbd_listing_pricing)?$atbd_listing_pricing:'';
-                                                        if (!empty($display_price) && !empty($display_pricing_field)) {
-                                                            if (!empty($price_range) && ('range' === $atbd_listing_pricing)) {
-                                                                $output = atbdp_display_price_range($price_range);
-                                                                echo $output;
-                                                            } else {
-                                                                atbdp_display_price($price, $is_disable_price);
-                                                            }
-                                                        }
-                                                        /**
-                                                         * Fires after the price of the listing is rendered
-                                                         *
-                                                         *
-                                                         * @since 3.1.0
-                                                         */
-                                                        do_action('atbdp_after_listing_price');
-                                                        ?>
-                                                    </div><!-- End atbd listing meta -->
+                                                <?php
+                                                $meta_html = '';
+                                                if (!empty($display_review) || !empty($display_price)) { ?>
 
-                                                <?php }
+                                                    <?php
+                                                    $meta_html .= '<div class="atbd_listing_meta">';
+                                                    $average = ATBDP()->review->get_average(get_the_ID());
+                                                    $meta_html .= '<span class="atbd_meta atbd_listing_rating">'.$average.'<i class="fa fa-star"></i>
+        </span>';
+                                                    $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
+                                                    if (!empty($display_price) && !empty($display_pricing_field)) {
+                                                        if (!empty($price_range) && ('range' === $atbd_listing_pricing)) {
+                                                            $output = atbdp_display_price_range($price_range);
+                                                            $meta_html .= $output;
+                                                        } else {
+                                                            $meta_html .=  atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false);
+                                                        }
+                                                    }
+                                                    /**
+                                                     * Fires after the price of the listing is rendered
+                                                     *
+                                                     *
+                                                     * @since 3.1.0
+                                                     */
+                                                    do_action('atbdp_after_listing_price');
+                                                    $meta_html .= '</div>';
+                                                }
                                                 /**
                                                  * @since 5.0
                                                  * universal action to fire after the price
                                                  */
-                                                do_action('atbdp_listings_after_price');
+                                                echo apply_filters('atbdp_listings_review_price',$meta_html);
                                                 ?>
                                                 <?php if (!empty($display_contact_info) || !empty($display_publish_date)) { ?>
                                                     <div class="atbd_listing_data_list">

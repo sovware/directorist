@@ -668,6 +668,10 @@ class ATBDP_Enqueuer {
         $search_dependency = array('jquery',
             'select2script',);
         wp_enqueue_script( 'atbdp_search_listing', ATBDP_PUBLIC_ASSETS . 'js/search-listing.js',
+            /**
+             * @since 5.0.1
+             * It returns the dependencies for search form js
+             */
            apply_filters('atbdp_search_listing_jquery_dependency', $search_dependency), ATBDP_VERSION, true );
 
         /*Internationalization*/

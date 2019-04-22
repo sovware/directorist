@@ -2244,7 +2244,13 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
         public function search_listing($atts, $content = null) {
             ob_start();
+            $atts = shortcode_atts(array(
+                'show_title_subtitle'      => 'yes',
+                'show_filter'              => 'yes',
 
+            ), $atts);
+            $show_title_subtitle = ('yes' === $atts['show_title_subtitle'])?$atts['show_title_subtitle']:'';
+            $show_filter = ('yes' === $atts['show_filter'])?$atts['show_filter']:'';
             $filters_display = get_directorist_option('home_display_filter','overlapping');
             include ATBDP_TEMPLATES_DIR . 'listing-home.php';
              //ATBDP()->load_template('listing-home');

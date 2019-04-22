@@ -591,6 +591,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
   display: flex;
 }
 
+.atbdp-map {
+  margin-bottom: 35px;
+}
+
+.atbd_widget .atbdp-map {
+  margin-bottom: 0;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   text-align: right;
   margin-bottom: 15px;

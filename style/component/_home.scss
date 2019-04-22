@@ -70,6 +70,7 @@
       border: 1px solid #686e77;
       &:hover{
         color: inherit;
+        color: inherit;
         background: #fff;
       }
     }
@@ -130,11 +131,15 @@
     padding: 20px 30px 30px;
   }
 }
+.ads_slide{
+  .ads-advanced{
+    display: none;
+  }
+}
 .ads-advanced{
   border: 1px solid #e3e6ef;
   margin-top: 25px;
   background: #fff;
-  display: none;
   &.ads_ov{
     display: block;
   }

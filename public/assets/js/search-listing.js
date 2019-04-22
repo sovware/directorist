@@ -76,7 +76,7 @@
     $(".more-filter").on("click", function (e) {
         e.preventDefault();
         ad_slide.slideToggle().show();
-        $(".ads-advanced").toggleClass("ads_ov")
+        $(".ads_slide .ads-advanced").toggleClass("ads_ov")
     });
     $(".ads-advanced").parents("div").css("overflow", "visible");
 

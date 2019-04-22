@@ -59,7 +59,7 @@
                                                     /**
                                                      * @since 5.0.0
                                                      */
-                                                    echo apply_filters('atbdp_all_categories_after_category_name', $html, $terms);
+                                                    echo apply_filters('atbdp_all_categories_after_category_name', $html, $term);
                                                     ?>
 
                                             </div>

@@ -196,15 +196,15 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                 <?php } ?>
                                 <?php if(in_array( 'search_open_now', $search_more_filters_fields ) && in_array( 'directorist-business-hours/bd-business-hour.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) )) { ?>
                                     <div class="form-group">
-                                        <label>Open Now</label>
-                                        <div class="check-btn">
-                                            <div class="btn-checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="open_now" value="open_now" <?php if(!empty($_GET['open_now']) && 'open_now' == $_GET['open_now']) { echo "checked='checked'";}?>>
-                                                    <span><i class="fa fa-clock-o"></i><?php _e('Open Now', ATBDP_TEXTDOMAIN);?> </span>
-                                                </label>
-                                            </div>
-                                        </div>
+                                        <label><?php _e('Filter by Ratings', ATBDP_TEXTDOMAIN);?></label>
+                                        <select class="select-basic form-control">
+                                            <option value=""><?php _e('Select Ratings', ATBDP_TEXTDOMAIN);?></option>
+                                            <option name='search_by_rating' value="5" <?php if(!empty($_GET['search_by_rating']) && '5' == $_GET['search_by_rating']) { echo "checked='checked'";}?>><?php _e('5 Star', ATBDP_TEXTDOMAIN);?></option>
+                                            <option name='search_by_rating' value="4" <?php if(!empty($_GET['search_by_rating']) && '4' == $_GET['search_by_rating']) { echo "checked='checked'";}?>><?php _e('4 Star & Up', ATBDP_TEXTDOMAIN);?></option>
+                                            <option name='search_by_rating' value="3" <?php if(!empty($_GET['search_by_rating']) && '3' == $_GET['search_by_rating']) { echo "checked='checked'";}?>><?php _e('3 Star & Up', ATBDP_TEXTDOMAIN);?></option>
+                                            <option name='search_by_rating' value="2" <?php if(!empty($_GET['search_by_rating']) && '2' == $_GET['search_by_rating']) { echo "checked='checked'";}?>><?php _e('2 Star & Up', ATBDP_TEXTDOMAIN);?></option>
+                                            <option name='search_by_rating' value="1" <?php if(!empty($_GET['search_by_rating']) && '1' == $_GET['search_by_rating']) { echo "checked='checked'";}?>><?php _e('1 Star & Up', ATBDP_TEXTDOMAIN);?></option>
+                                        </select>
                                     </div><!-- ends: .form-group -->
                                 <?php } ?>
                                 <?php if(in_array( 'search_tag', $search_more_filters_fields )) {
@@ -212,7 +212,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                 if(!empty($terms)) {
                                     ?>
                                     <div class="form-group ads-filter-tags">
-                                        <label>Tags</label>
+                                        <label><?php _e('Tags', ATBDP_TEXTDOMAIN);?></label>
                                         <div class="bads-tags">
                                             <?php
                                                 foreach($terms as $term) {
@@ -224,7 +224,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                                     </div>
                                                 <?php } ?>
                                         </div>
-                                        <a href="#" class="more-less ad"><?php _e('Show More', ATBDP_TEXTDOMAIN);?></a>
+                                        <a href="#" class="more-less ad"></a>
                                     </div><!-- ends: .form-control -->
                                 <?php } } ?>
                                 <?php if(in_array( 'search_custom_fields', $search_more_filters_fields )) { ?>

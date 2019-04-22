@@ -42,7 +42,7 @@
                                 /**
                                  * @since 5.0.0
                                  */
-                                echo apply_filters('atbdp_all_locations_after_location_name', $html);
+                                echo apply_filters('atbdp_all_locations_after_location_name', $html, $term);
                                 ?>
 
                         </figcaption>

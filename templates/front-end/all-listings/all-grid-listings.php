@@ -214,7 +214,7 @@ $column_width = 100 / $columns . '%';
                                 if(!empty($terms)) {
                                     ?>
                                 <div class="form-group ads-filter-tags">
-                                    <label>Tags</label>
+                                    <label><?php _e('Tags', ATBDP_TEXTDOMAIN);?></label>
                                     <div class="bads-tags">
                                         <?php
                                             foreach($terms as $term) {

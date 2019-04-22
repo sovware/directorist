@@ -157,8 +157,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $listing_order             = get_directorist_option('search_sort_by');
             $listing_grid_columns      = get_directorist_option('search_listing_columns',3);
             $display_listings_header   = get_directorist_option('search_header',1);
-            $listings_header_title     = get_directorist_option('search_header_title',__('Search Result', ATBDP_TEXTDOMAIN));
-            $listings_header_sub_title = get_directorist_option('search_header_sub_title',__('Total Listing Found: ', ATBDP_TEXTDOMAIN));
+            $listings_header_title     = get_directorist_option('search_header_title',__('Total Found: ', ATBDP_TEXTDOMAIN));
             $filters_display           = get_directorist_option('search_result_display_filter','sliding');
 
             $atts = shortcode_atts( array(
@@ -171,7 +170,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'pagination'        => 1,
                 'header'            => !empty($display_listings_header) ? 'yes' : '',
                 'header_title'      => !empty($listings_header_title) ? $listings_header_title : '',
-                'header_sub_title'  => !empty($listings_header_sub_title) ? $listings_header_sub_title : '',
                 'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                 'featured_only'     => '',
                 'popular_only'      => '',
@@ -999,7 +997,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $in_loc = !empty($loc_name) ? sprintf(__('in %s',ATBDP_TEXTDOMAIN),$loc_name->name) : '';
             $_s = (1 < count($all_listings->posts)) ? 's' : '';
 
-            $header_title    = sprintf(__('%d result%s %s %s',ATBDP_TEXTDOMAIN),$all_listings->found_posts,$_s,$for_cat,$in_loc);
+            $header_title    = sprintf(__('%d %s',ATBDP_TEXTDOMAIN),$all_listings->found_posts,$atts['header_title']);
             $listing_filters_button       = get_directorist_option('search_result_filters_button', 1);
             $filters                      = get_directorist_option('search_result_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
             $text_placeholder             = get_directorist_option('search_result_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
@@ -1026,7 +1024,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $listing_grid_columns      = get_directorist_option('all_listing_columns',3);
             $display_listings_header   = get_directorist_option('display_listings_header',1);
             $listings_header_title     = get_directorist_option('all_listing_title',__('All Items', ATBDP_TEXTDOMAIN));
-            $listings_header_sub_title = get_directorist_option('listings_header_sub_title',__('Total Listing Found: ', ATBDP_TEXTDOMAIN));
             $atts = shortcode_atts( array(
                 'view'              => !empty($listing_view) ? $listing_view : 'grid',
                 '_featured'         => 1,
@@ -1038,7 +1035,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'show_pagination'   => 'yes',
                 'header'            => !empty($display_listings_header) ? 'yes' : '',
                 'header_title'      => !empty($listings_header_title) ? $listings_header_title : '',
-                'header_sub_title'  => !empty($listings_header_sub_title) ? $listings_header_sub_title : '',
                 'category'          => '',
                 'location'          => '',
                 'tag'               => '',
@@ -1057,7 +1053,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $columns             = !empty($atts['columns']) ? $atts['columns'] : 3;
             $display_header      = !empty($atts['header']) ? $atts['header'] : '';
             $header_title        = !empty($atts['header_title']) ? $atts['header_title'] : '';
-            $header_sub_title    = !empty($atts['header_sub_title']) ? $atts['header_sub_title'] : '';
             $feature_only        = !empty($atts['featured_only']) ? $atts['featured_only'] : '';
             $popular_only        = !empty($atts['popular_only']) ? $atts['popular_only'] : '';
             $action_before_after_loop  = !empty($atts['action_before_after_loop']) ? $atts['action_before_after_loop'] : '';
@@ -1384,7 +1379,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $listing_count =  count($all_listings->posts);
             }
             $display_header               = !empty($display_header) ? $display_header : '';
-            $header_title                 = !empty($header_sub_title) ? $header_sub_title . $listing_count : '';
+            $header_title                 = !empty($header_title) ? $header_title . $listing_count : '';
             $listing_filters_button       = !empty($atts['advanced_filter'])?(('yes' === $atts['advanced_filter'])?1:(('no' === $atts['advanced_filter'])?0:$listing_filters_button)): $listing_filters_button;
             $filters                      = get_directorist_option('listings_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
             $text_placeholder             = get_directorist_option('listings_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
@@ -1479,8 +1474,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $listing_order             = get_directorist_option('sort_listing_by');
                 $listing_grid_columns      = get_directorist_option('all_listing_columns',3);
                 $display_listings_header   = get_directorist_option('display_listings_header',1);
-                $listings_header_title     = get_directorist_option('all_listing_title',__('All Items', ATBDP_TEXTDOMAIN));
-                $listings_header_sub_title = get_directorist_option('listings_header_sub_title',__('Total Listing Found: ', ATBDP_TEXTDOMAIN));
+                $listings_header_title     = get_directorist_option('all_listing_title',__('Total Listing Found: ', ATBDP_TEXTDOMAIN));
                 $filters_display           = get_directorist_option('listings_display_filter','sliding');
 
                 $atts = shortcode_atts(array(
@@ -1493,14 +1487,12 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     'pagination'        => 1,
                     'header'            => !empty($display_listings_header) ? 'yes' : '',
                     'header_title'      => !empty($listings_header_title) ? $listings_header_title : '',
-                    'header_sub_title'  => !empty($listings_header_sub_title) ? $listings_header_sub_title : '',
                     'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                 ), $atts);
 
                 $columns             = !empty($atts['columns']) ? $atts['columns'] : 3;
                 $display_header      = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title        = !empty($atts['header_title']) ? $atts['header_title'] : '';
-                $header_sub_title    = !empty($atts['header_sub_title']) ? $atts['header_sub_title'] : '';
                 //for pagination
                 $paged               = atbdp_get_paged_num();
                 $paginate            = get_directorist_option('paginate_all_listings');
@@ -1692,7 +1684,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     $listing_count =  count($all_listings->posts);
                 }
                 $display_header               = !empty($display_header) ? $display_header : '';
-                $header_title                 = !empty($header_sub_title) ? $header_sub_title . $listing_count : '';
+                $header_title                 = !empty($header_title) ? $header_title . $listing_count : '';
                 $listing_filters_button       = get_directorist_option('listing_filters_button', 1);
                 $filters                      = get_directorist_option('listings_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
                 $text_placeholder             = get_directorist_option('listings_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
@@ -1775,7 +1767,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $listing_grid_columns      = get_directorist_option('all_listing_columns',3);
                 $display_listings_header   = get_directorist_option('display_listings_header',1);
                 $listings_header_title     = get_directorist_option('all_listing_title',__('All Items', ATBDP_TEXTDOMAIN));
-                $listings_header_sub_title = get_directorist_option('listings_header_sub_title',__('Total Listing Found: ', ATBDP_TEXTDOMAIN));
                 $filters_display           = get_directorist_option('listings_display_filter','sliding');
 
                 $atts = shortcode_atts(array(
@@ -1788,7 +1779,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     'pagination'        => 1,
                     'header'            => !empty($display_listings_header) ? 'yes' : '',
                     'header_title'      => !empty($listings_header_title) ? $listings_header_title : '',
-                    'header_sub_title'  => !empty($listings_header_sub_title) ? $listings_header_sub_title : '',
                     'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                 ), $atts);
 
@@ -1987,7 +1977,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     $listing_count =  count($all_listings->posts);
                 }
                 $display_header               = !empty($display_header) ? $display_header : '';
-                $header_title                 = !empty($header_sub_title) ? $header_sub_title . $listing_count : '';
+                $header_title                 = !empty($header_title) ? $header_title . $listing_count : '';
                 $listing_filters_button       = get_directorist_option('listing_filters_button', 1);
                 $filters                      = get_directorist_option('listings_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
                 $text_placeholder             = get_directorist_option('listings_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));

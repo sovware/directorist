@@ -24,8 +24,7 @@ $column_width = 100 / $columns . '%';
                     <?php } ?>
                     <div class="atbd_generic_header">
                         <?php
-                        $advanced_filter = !empty($advanced_filter)?$advanced_filter:'';
-                        if(!empty($listing_filters_button) && !empty($search_more_filters_fields) ) {?>
+                        if(!empty($listing_filters_button) && !empty($search_more_filters_fields)) {?>
                         <div class="atbd_generic_header_title">
                             <button class="more-filter btn btn-outline btn-outline-primary"><span class="fa fa-filter"></span> <?php echo $filters;?></button>
                         </div>

@@ -24,8 +24,7 @@ $column_width = 100 / $columns . '%';
                     <?php } ?>
                     <div class="atbd_generic_header">
                         <?php
-                        $advanced_filter = !empty($advanced_filter)?$advanced_filter:'';
-                        if(!empty($listing_filters_button) && !empty($search_more_filters_fields) ) {?>
+                        if(!empty($listing_filters_button) && !empty($search_more_filters_fields)) {?>
                         <div class="atbd_generic_header_title">
                             <button class="more-filter btn btn-outline btn-outline-primary"><span class="fa fa-filter"></span> <?php echo $filters;?></button>
                         </div>
@@ -169,10 +168,10 @@ $column_width = 100 / $columns . '%';
                                     <div class="price_ranges">
                                         <?php if(in_array( 'search_price', $search_more_filters_fields)) { ?>
                                         <div class="range_single">
-                                            <input type="text" name="price[0]" class="form-control" placeholder="Min Price" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][0] ); ?>">
+                                            <input type="text" name="price[0]" class="form-control" placeholder="<?php _e('Min Price', ATBDP_TEXTDOMAIN);?>" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][0] ); ?>">
                                         </div>
                                         <div class="range_single">
-                                            <input type="text" name="price[1]" class="form-control" placeholder="Max Price" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][1] ); ?>">
+                                            <input type="text" name="price[1]" class="form-control" placeholder="<?php _e('Max Price', ATBDP_TEXTDOMAIN);?>" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][1] ); ?>">
                                         </div>
                                     <?php } if(in_array( 'search_price_range', $search_more_filters_fields )) {?>
                                         <div class="price-frequency">
@@ -190,16 +189,16 @@ $column_width = 100 / $columns . '%';
                                     <label><?php _e('Filter by Ratings', ATBDP_TEXTDOMAIN);?></label>
                                     <select class="select-basic form-control">
                                         <option value=""><?php _e('Select Ratings', ATBDP_TEXTDOMAIN);?></option>
-                                        <option name='search_by_rating' value="5" <?php if(!empty($_GET['search_by_rating']) && '5' == $_GET['search_by_rating']) { echo "checked='checked'";}?>>5 Star</option>
-                                        <option name='search_by_rating' value="4" <?php if(!empty($_GET['search_by_rating']) && '4' == $_GET['search_by_rating']) { echo "checked='checked'";}?>>4 Star & Up</option>
-                                        <option name='search_by_rating' value="3" <?php if(!empty($_GET['search_by_rating']) && '3' == $_GET['search_by_rating']) { echo "checked='checked'";}?>>3 Star & Up</option>
-                                        <option name='search_by_rating' value="2" <?php if(!empty($_GET['search_by_rating']) && '2' == $_GET['search_by_rating']) { echo "checked='checked'";}?>>2 Star & Up</option>
-                                        <option name='search_by_rating' value="1" <?php if(!empty($_GET['search_by_rating']) && '1' == $_GET['search_by_rating']) { echo "checked='checked'";}?>>1 Star & Up</option>
+                                        <option name='search_by_rating' value="5" <?php if(!empty($_GET['search_by_rating']) && '5' == $_GET['search_by_rating']) { echo "checked='checked'";}?>><?php _e('5 Star', ATBDP_TEXTDOMAIN);?></option>
+                                        <option name='search_by_rating' value="4" <?php if(!empty($_GET['search_by_rating']) && '4' == $_GET['search_by_rating']) { echo "checked='checked'";}?>><?php _e('4 Star & Up', ATBDP_TEXTDOMAIN);?></option>
+                                        <option name='search_by_rating' value="3" <?php if(!empty($_GET['search_by_rating']) && '3' == $_GET['search_by_rating']) { echo "checked='checked'";}?>><?php _e('3 Star & Up', ATBDP_TEXTDOMAIN);?></option>
+                                        <option name='search_by_rating' value="2" <?php if(!empty($_GET['search_by_rating']) && '2' == $_GET['search_by_rating']) { echo "checked='checked'";}?>><?php _e('2 Star & Up', ATBDP_TEXTDOMAIN);?></option>
+                                        <option name='search_by_rating' value="1" <?php if(!empty($_GET['search_by_rating']) && '1' == $_GET['search_by_rating']) { echo "checked='checked'";}?>><?php _e('1 Star & Up', ATBDP_TEXTDOMAIN);?></option>
                                     </select>
                                 </div><!-- ends: .form-group -->
                                 <?php } if(in_array( 'search_open_now', $search_more_filters_fields ) && in_array( 'directorist-business-hours/bd-business-hour.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) )) { ?>
                                 <div class="form-group">
-                                    <label>Open Now</label>
+                                    <label><?php _e('Open Now', ATBDP_TEXTDOMAIN);?></label>
                                     <div class="check-btn">
                                         <div class="btn-checkbox">
                                             <label>
@@ -214,7 +213,7 @@ $column_width = 100 / $columns . '%';
                                 if(!empty($terms)) {
                                     ?>
                                 <div class="form-group ads-filter-tags">
-                                    <label>Tags</label>
+                                    <label><?php _e('Tags', ATBDP_TEXTDOMAIN);?></label>
                                     <div class="bads-tags">
                                         <?php
                                             foreach($terms as $term) {
@@ -226,7 +225,7 @@ $column_width = 100 / $columns . '%';
                                                 </div>
                                             <?php } ?>
                                     </div>
-                                    <a href="#" class="more-less ad"><?php _e('Show More', ATBDP_TEXTDOMAIN);?></a>
+                                    <a href="#" class="more-less ad"></a>
                                 </div><!-- ends: .form-control -->
                                 <?php } } if(in_array( 'search_custom_fields', $search_more_filters_fields )) { ?>
                                 <div id="atbdp-custom-fields-search" class="atbdp-custom-fields-search">

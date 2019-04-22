@@ -13,12 +13,14 @@
     $("[data-toggle='tooltip']").tooltip();
 
     //ad search js
+    var showMore = atbdp_search_listing.i18n_text.show_more;
+    var showLess = atbdp_search_listing.i18n_text.show_less;
     var checkbox = $(".bads-tags .custom-control");
     checkbox.slice(4).hide();
     var show_more = $(".more-less");
     show_more.on("click", function (e) {
         e.preventDefault();
-        var txt = checkbox.slice(4).is(":visible") ? "Show More" : "Show Less";
+        var txt = checkbox.slice(4).is(":visible") ? showMore : showLess;
         $(this).text(txt);
         checkbox.slice(4).slideToggle(200);
         $(this).toggleClass("ad");
@@ -32,7 +34,7 @@
     var show_more2 = $(".more-or-less");
     show_more2.on("click", function (e) {
         e.preventDefault();
-        var txt = checkbox2.slice(4).is(":visible") ? "Show More" : "Show Less";
+        var txt = checkbox2.slice(4).is(":visible") ? showMore : showLess;
         $(this).text(txt);
         checkbox2.slice(4).slideToggle(200);
         $(this).toggleClass("sml");

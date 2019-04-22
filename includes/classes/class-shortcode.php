@@ -1046,7 +1046,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                 'featured_only'     => '',
                 'popular_only'      => '',
-                'advanced_filter'   => 'yes',
+                'advanced_filter'   => '',
                 'action_before_after_loop' => 'yes',
             ), $atts );
 
@@ -1061,7 +1061,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $feature_only        = !empty($atts['featured_only']) ? $atts['featured_only'] : '';
             $popular_only        = !empty($atts['popular_only']) ? $atts['popular_only'] : '';
             $action_before_after_loop  = !empty($atts['action_before_after_loop']) ? $atts['action_before_after_loop'] : '';
-            $advanced_filter       = !empty($atts['advanced_filter']) ? $atts['advanced_filter'] : $listing_filters_button;
             $show_pagination       = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
             //for pagination
             $paged               = atbdp_get_paged_num();
@@ -1386,7 +1385,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             }
             $display_header               = !empty($display_header) ? $display_header : '';
             $header_title                 = !empty($header_sub_title) ? $header_sub_title . $listing_count : '';
-            $listing_filters_button       = get_directorist_option('listing_filters_button', 1);
+            $listing_filters_button       = !empty($atts['advanced_filter'])?(('yes' === $atts['advanced_filter'])?1:(('no' === $atts['advanced_filter'])?0:$listing_filters_button)): $listing_filters_button;
             $filters                      = get_directorist_option('listings_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
             $text_placeholder             = get_directorist_option('listings_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
             $category_placeholder         = get_directorist_option('listings_category_placeholder',__('Select a category',ATBDP_TEXTDOMAIN));

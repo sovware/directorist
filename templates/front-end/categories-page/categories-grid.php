@@ -46,17 +46,22 @@
                                                 <h4 class="cat-name">
                                                     <?php echo $term->name;?>
                                                 </h4>
-                                                <span>
+
                                                     <?php
+                                                    $html = '';
                                                     if(!empty($categories_settings['show_count'])){
                                                         $expired_listings = atbdp_get_expired_listings(ATBDP_CATEGORY, $term->term_id);
                                                         $number_of_expired = $expired_listings->post_count;
                                                         $number_of_expired = !empty($number_of_expired)?$number_of_expired:'0';
                                                         $totat = ($count)?($count-$number_of_expired):$count;
-                                                        echo "(". $totat .")";
+                                                        $html = "<span>(". $totat .")</span>";
                                                     }
+                                                    /**
+                                                     * @since 5.0.0
+                                                     */
+                                                    echo apply_filters('atbdp_all_categories_after_category_name', $html, $term);
                                                     ?>
-                                                </span>
+
                                             </div>
                                         </div>
                                     </div>

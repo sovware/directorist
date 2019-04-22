@@ -675,6 +675,8 @@ class ATBDP_Enqueuer {
             'i18n_text'        => array(
                 'location_selection' => __('Select a location', ATBDP_TEXTDOMAIN),
                 'category_selection' => __('Select a category', ATBDP_TEXTDOMAIN),
+                'show_more' => __('Show More', ATBDP_TEXTDOMAIN),
+                'show_less' => __('Show Less', ATBDP_TEXTDOMAIN),
             )
         );
         wp_localize_script( 'atbdp_search_listing', 'atbdp_search_listing', $data );

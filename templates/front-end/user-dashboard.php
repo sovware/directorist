@@ -537,8 +537,9 @@ $submit_listing_button   = get_directorist_option('submit_listing_button',1);
                                                 <img
                                                             src="%s"
                                                             alt="%s">
-                                                <h4>%s</h4>
+                                               
                                                 </a>
+                                                <h4><a href="%s">%s</a></h4>
                                                 </div>
                                             </td>
 
@@ -547,7 +548,7 @@ $submit_listing_button   = get_directorist_option('submit_listing_button',1);
                                             </td>
 
 
-                                        </tr>', $post_link, $img_src, $title, $title, $category_link, $category_icon, $category_name, atbdp_get_remove_favourites_page_link($post->ID), __('Remove', ATBDP_TEXTDOMAIN));
+                                        </tr>', $post_link, $img_src, $title,$post_link, $title, $category_link, $category_icon, $category_name, atbdp_get_remove_favourites_page_link($post->ID), __('Remove', ATBDP_TEXTDOMAIN));
                                         }
                                         ?>
                                         </tbody>

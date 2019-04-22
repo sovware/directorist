@@ -134,6 +134,10 @@
   border: 1px solid #e3e6ef;
   margin-top: 25px;
   background: #fff;
+  display: none;
+  &.ads_ov{
+    display: block;
+  }
   form{
     padding: 20px 30px 30px;
   }

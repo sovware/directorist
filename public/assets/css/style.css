@@ -2734,6 +2734,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   border: 1px solid #e3e6ef;
   margin-top: 25px;
   background: #fff;
+  display: none;
+}
+
+.ads-advanced.ads_ov {
+  display: block;
 }
 
 .ads-advanced form {

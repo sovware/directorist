@@ -76,8 +76,14 @@
     $(".more-filter").on("click", function (e) {
         e.preventDefault();
         ad_slide.slideToggle().show();
+        $(".ads_slide .ads-advanced").toggleClass("ads_ov")
     });
     $(".ads-advanced").parents("div").css("overflow", "visible");
+
+    //remove preload after window load
+    $(window).load(function () {
+        $("body").removeClass("atbdp_preload");
+    });
 
 
 })(jQuery);

@@ -4,6 +4,14 @@ body.atbd_content_active #directorist.atbd_wrapper{
   max-width: 100%;
 }
 
+//stop preload transition
+.atbdp_preload * {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper h1, .atbd_content_active #directorist.atbd_wrapper h2, .atbd_content_active #directorist.atbd_wrapper h3, .atbd_content_active #directorist.atbd_wrapper h4, .atbd_content_active #directorist.atbd_wrapper h5, .atbd_content_active #directorist.atbd_wrapper h6,
 .atbd_content_active #directorist.atbd_wrapper .h1, .atbd_content_active #directorist.atbd_wrapper .h2, .atbd_content_active #directorist.atbd_wrapper .h3, .atbd_content_active #directorist.atbd_wrapper .h4, .atbd_content_active #directorist.atbd_wrapper .h5, .atbd_content_active #directorist.atbd_wrapper .h6 {
   margin-bottom: $headings-margin-bottom;

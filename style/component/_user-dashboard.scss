@@ -96,23 +96,35 @@
     .atbd_single_saved_item {
       border-bottom: 1px solid $border-color;
       padding: 20px 0;
+      tbody{
+        tr{
+          .thumb_title{
+            width: 60%;
+          }
+          .saved_item_category{
+            width: 40%;
+          }
+        }
+      }
     }
     .thumb_title {
       .img_wrapper {
-        width: 72px;
-        height: 72px;
-        display: inline-block;
+        display: table;
         vertical-align: middle;
-        overflow: hidden;
         img {
-          width: 100%;
+          width: 72px;
+          object-fit: cover;
+        }
+        & >a{
+          display: table-cell;
+          padding-right: 10px;
+          width: 82px;
+          vertical-align: middle;
         }
       }
       h4{
-        display: inline-block;
+        display: table-cell;
         vertical-align: middle;
-        margin-bottom: 0;
-        margin-left: 10px;
       }
     }
     td{

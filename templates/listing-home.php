@@ -2,8 +2,10 @@
 $categories                           = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
 $locations                            = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
 // get search page title and sub title from the plugin settings page
-$search_title                         = get_directorist_option('search_title', '');
-$search_subtitle                      = get_directorist_option('search_subtitle', '');
+$search_title                         = get_directorist_option('search_title', __("Search here", ATBDP_TEXTDOMAIN));
+$search_subtitle                      = get_directorist_option('search_subtitle', __("Find the best match of your interest
+
+", ATBDP_TEXTDOMAIN));
 $search_placeholder                   = get_directorist_option('search_placeholder', __('What are you looking for?', ATBDP_TEXTDOMAIN));
 $search_category_placeholder          = get_directorist_option('search_category_placeholder', __('Select a category', ATBDP_TEXTDOMAIN));
 $search_location_placeholder          = get_directorist_option('search_location_placeholder', __('Select a location', ATBDP_TEXTDOMAIN));
@@ -49,7 +51,8 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
     <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
         <div class="row">
             <div class="col-md-12">
-                <?php if (!empty($search_title) || !empty($search_subtitle)) { ?>
+                <?php
+                if (!empty($search_title || $search_subtitle) && (!empty($show_title_subtitle))) { ?>
                     <div class="atbd_search_title_area">
                         <?php echo !empty($search_title) ? '<h2 class="title">' . esc_html($search_title) . '</h2>' : ''; ?>
                         <?php echo !empty($search_subtitle) ? '<p class="sub_title">' . esc_html($search_subtitle) . '</p>' : ''; ?>
@@ -133,7 +136,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                     <!--More Filters  & Search Button-->
                         <?php
                         $html = '<div class="atbd_submit_btn_wrapper">';
-                        if(!empty($display_more_filter_search) && !empty($search_more_filters_fields)) {
+                        if(!empty($display_more_filter_search && $search_more_filters_fields && $show_filter)) {
                             $html .= '<button class="more-filter btn btn-outline btn-lg btn-outline-primary"><span class="fa fa-filter"></span>'.__($search_more_filters, ATBDP_TEXTDOMAIN).'</button>';
                              }
                         $html .= '<div class="atbd_submit_btn">';

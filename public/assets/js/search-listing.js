@@ -32,7 +32,7 @@
     var checkbox2 = $(".bads-custom-checks .custom-control");
     checkbox2.slice(4).hide();
     var show_more2 = $(".more-or-less");
-    show_more2.on("click", function (e) {
+    $(document).on("click", ".more-or-less", function (e) {
         e.preventDefault();
         var txt = checkbox2.slice(4).is(":visible") ? showMore : showLess;
         $(this).text(txt);

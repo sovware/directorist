@@ -30,7 +30,7 @@ $column_width = 100 / $columns . '%';
                         </div>
                         <?php } elseif((!empty($header_title) && empty($listing_filters_button)) || empty($search_more_filters_fields)) {?>
                             <h3>
-                                <?php echo esc_html($header_title); ?>
+                                <?php echo $header_title; ?>
                             </h3>
                         <?php } ?>
                         <?php if ($display_viewas_dropdown || $display_sortby_dropdown) { ?>

@@ -1373,13 +1373,14 @@ if ( !class_exists('ATBDP_Shortcode') ):
             }
 
             $all_listings               = new WP_Query($args);
+            $paginate            = get_directorist_option('paginate_all_listings');
             if ($paginate){
-                $listing_count =  $all_listings->found_posts;
+                $listing_count =  '<span>'.$all_listings->found_posts.'</span>';
             }else{
-                $listing_count =  count($all_listings->posts);
+                $listing_count =  '<span>'.count($all_listings->posts).'</span>';
             }
             $display_header               = !empty($display_header) ? $display_header : '';
-            $header_title                 = !empty($header_title) ? $header_title . $listing_count : '';
+            $header_title                 = !empty($header_title) ? $header_title.$listing_count : '';
             $listing_filters_button       = !empty($atts['advanced_filter'])?(('yes' === $atts['advanced_filter'])?1:(('no' === $atts['advanced_filter'])?0:$listing_filters_button)): $listing_filters_button;
             $filters                      = get_directorist_option('listings_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
             $text_placeholder             = get_directorist_option('listings_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
@@ -1679,9 +1680,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
                 $all_listings = new WP_Query($args);
                 if ($paginate){
-                    $listing_count =  $all_listings->found_posts;
+                    $listing_count =  '<span>'.$all_listings->found_posts.'</span>';
                 }else{
-                    $listing_count =  count($all_listings->posts);
+                    $listing_count =  '<span>'.count($all_listings->posts).'</span>';
                 }
                 $display_header               = !empty($display_header) ? $display_header : '';
                 $header_title                 = !empty($header_title) ? $header_title . $listing_count : '';
@@ -1972,9 +1973,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
                 $all_listings = new WP_Query($args);
                 if ($paginate){
-                    $listing_count =  $all_listings->found_posts;
+                    $listing_count =  '<span>'.$all_listings->found_posts.'</span>';
                 }else{
-                    $listing_count =  count($all_listings->posts);
+                    $listing_count =  '<span>'.count($all_listings->posts).'</span>';
                 }
                 $display_header               = !empty($display_header) ? $display_header : '';
                 $header_title                 = !empty($header_title) ? $header_title . $listing_count : '';
@@ -2222,6 +2223,11 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 }
 
                 $all_listings = new WP_Query($args);
+                if ($paginate){
+                    $listing_count =  '<span>'.$all_listings->found_posts.'</span>';
+                }else{
+                    $listing_count =  '<span>'.count($all_listings->posts).'</span>';
+                }
                 $display_header               = !empty($display_header) ? $display_header : '';
                 $header_title                 = !empty($header_sub_title) ? $header_sub_title . $listing_count : '';
                 $listing_filters_button       = get_directorist_option('listing_filters_button', 1);

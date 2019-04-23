@@ -43,6 +43,7 @@ $column_width = 100 / $columns . '%';
                                     </a>';
                                     $html .= '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">';
                                     $views = atbdp_get_listings_view_options();
+                                    $view = !empty($view)?$view:'';
                                     foreach ($views as $value => $label) {
                                         $active_class = ($view == $value) ? ' active' : '';
                                         $html .= sprintf('<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg('view', $value), $label);
@@ -76,6 +77,7 @@ $column_width = 100 / $columns . '%';
                                             <?php
                                             $options = atbdp_get_listings_orderby_options();
 
+                                            $current_order = !empty($current_order)?$current_order:'';
                                             foreach ($options as $value => $label) {
                                                 $active_class = ($value == $current_order) ? ' active' : '';
                                                 printf('<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg('sort', $value), $label);
@@ -90,6 +92,9 @@ $column_width = 100 / $columns . '%';
                     <!--ads advance search-->
                     <?php
                     $filters_display = !empty($filters_display)?$filters_display:'';
+                    $text_placeholder = !empty($text_placeholder)?$text_placeholder:'';
+                    $category_placeholder = !empty($category_placeholder)?$category_placeholder:'';
+                    $location_placeholder = !empty($location_placeholder)?$location_placeholder:'';
                     ?>
                     <div class="<?php echo ('overlapping' === $filters_display)?'ads_float':'ads_slide'?>">
                         <div class="ads-advanced">
@@ -115,7 +120,7 @@ $column_width = 100 / $columns . '%';
                                                     'class' => 'form-control directory_field bdas-category-search',
                                                     'name' => 'in_cat',
                                                     'orderby' => 'name',
-                                                    'selected' => isset( $_GET['in_cat'] ) ? (int) $_GET['in_cat'] : -1,
+                                                    'selected' => isset( $_GET['in_cat'] ) ?  $_GET['in_cat'] : -1,
                                                     'hierarchical' => true,
                                                     'value_field'  => 'id',
                                                     'depth' => 10,
@@ -225,11 +230,11 @@ $column_width = 100 / $columns . '%';
                                                 </div>
                                             <?php } ?>
                                     </div>
-                                    <a href="#" class="more-less ad"></a>
+                                    <a href="#" class="more-less ad"><?php _e('Show More', ATBDP_TEXTDOMAIN);?></a>
                                 </div><!-- ends: .form-control -->
                                 <?php } } if(in_array( 'search_custom_fields', $search_more_filters_fields )) { ?>
                                 <div id="atbdp-custom-fields-search" class="atbdp-custom-fields-search">
-                                    <?php do_action( 'wp_ajax_atbdp_custom_fields_search', isset( $_GET['in_cat'] ) ? (int) $_GET['in_cat'] : 0 ); ?>
+                                    <?php do_action( 'wp_ajax_atbdp_custom_fields_search', isset( $_GET['in_cat'] ) ?  $_GET['in_cat'] : 0 ); ?>
                                 </div>
                                 <?php } ?>
                                 <?php if(in_array( 'search_website', $search_more_filters_fields ) || in_array( 'search_email', $search_more_filters_fields ) || in_array( 'search_phone', $search_more_filters_fields ) || in_array( 'search_address', $search_more_filters_fields ) || in_array( 'search_zip_code', $search_more_filters_fields )) {?>

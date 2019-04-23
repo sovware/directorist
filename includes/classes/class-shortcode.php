@@ -168,6 +168,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'order'             => !empty($listing_order) ? $listing_order : 'asc',
                 'listings_per_page' => (int) get_directorist_option('search_posts_num', 6),
                 'pagination'        => 1,
+                'show_pagination'   => 'yes',
                 'header'            => !empty($display_listings_header) ? 'yes' : '',
                 'header_title'      => !empty($listings_header_title) ? $listings_header_title : '',
                 'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
@@ -178,6 +179,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             $columns             = !empty($atts['columns']) ? $atts['columns'] : 3;
             $display_header      = !empty($atts['header']) ? $atts['header'] : '';
+            $show_pagination       = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
 
             $feature_only        = !empty($atts['featured_only']) ? $atts['featured_only'] : '';
             $popular_only        = !empty($atts['popular_only']) ? $atts['popular_only'] : '';
@@ -217,32 +219,32 @@ if ( !class_exists('ATBDP_Shortcode') ):
             // Define tax queries( only if applicable )
             $tax_queries = array();
 
-            if( isset( $_GET['in_cat'] ) && (int) $_GET['in_cat'] > 0 ) {
+            if( isset( $_GET['in_cat'] ) &&  $_GET['in_cat'] !== '' ) {
 
                 $tax_queries[] = array(
                     'taxonomy'         => ATBDP_CATEGORY,
-                    'field'            => 'term_id',
-                    'terms'            => (int) $_GET['in_cat'],
+                    'field'            => 'slug',
+                    'terms'            => $_GET['in_cat'],
                     'include_children' => true,
                 );
 
             }
 
-            if( isset( $_GET['in_loc'] ) && (int) $_GET['in_loc'] > 0 ) {
+            if( isset( $_GET['in_loc'] ) &&  $_GET['in_loc'] !== '' ) {
 
                 $tax_queries[] = array(
                     'taxonomy'         => ATBDP_LOCATION,
-                    'field'            => 'term_id',
-                    'terms'            => (int) $_GET['in_loc'],
+                    'field'            => 'slug',
+                    'terms'            =>  $_GET['in_loc'],
                     'include_children' => true,
                 );
 
             }
 
-            if( isset( $_GET['in_tag'] ) && (int) $_GET['in_tag'] > 0 ) {
+            if( isset( $_GET['in_tag'] ) && $_GET['in_tag'] !== '' ) {
                 $tax_queries[] = array(
                     'taxonomy'         => ATBDP_TAGS,
-                    'field'            => 'term_id',
+                    'field'            => 'slug',
                     'terms'            => $_GET['in_tag'],
                 );
 
@@ -255,7 +257,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             $meta_queries = array();
 
-            if( isset( $_GET['cf'] ) ) {
+            if( isset( $_GET['cf'] ) && $_GET['cf'] !== '' ) {
 
                 $cf = array_filter( $_GET['cf'] );
 
@@ -284,7 +286,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                 'value'		=> sanitize_text_field( $values[0] ),
                                 'compare'	=> 'LIKE'
                             );
-
                         }
 
                     } else {

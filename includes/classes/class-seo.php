@@ -164,7 +164,23 @@ if ( !class_exists('ATBDP_SEO') ):
             elseif(atbdp_is_page('search-result')){
                 $atbdp_page = 'search-result';
 
-                $title = (get_directorist_option('search_result_meta_title')) ? get_directorist_option('search_result_meta_title') : $title;
+                $query = (isset($_GET['q']) && ('' !== $_GET['q']))?ucfirst($_GET['q']):'';
+                $category = (isset($_GET['in_cat']) && ('' !== $_GET['in_cat']))?ucfirst($_GET['in_cat']):'';
+                $location = (isset($_GET['in_loc']) && ('' !== $_GET['in_loc']))?ucfirst($_GET['in_loc']):'';
+
+                $in_s_string_text       = !empty($query) ? sprintf(__('%s', ATBDP_TEXTDOMAIN), $query) : '';
+                $in_cat_text            = !empty($category) ? sprintf(__(' %s %s ', ATBDP_TEXTDOMAIN), !empty($query)?'from':'', $category) : '';
+                $in_loc_text            = !empty($location) ? sprintf(__('%s %s', ATBDP_TEXTDOMAIN), !empty($query)?'in':'', $location) : '';
+
+                $how_to = get_directorist_option('meta_title_for_search_result', 'searched_value');
+                if ('searched_value' === $how_to){
+                    if (!empty($query) || !empty($category) || !empty($location)){
+                        $title = $in_s_string_text. $in_cat_text. $in_loc_text;
+                    }
+                }else{
+                    $title = (get_directorist_option('search_result_meta_title')) ? get_directorist_option('search_result_meta_title') : $title;
+                }
+
             } elseif(atbdp_is_page('add-listing')){
                 $atbdp_page = 'add-listing';
 

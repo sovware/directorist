@@ -162,4 +162,4 @@
             }
             wp_reset_postdata();
  ?>
- <script> jQuery(document).ready(function($){ $('.my-color-field').wpColorPicker(); }); </script>
+ <script> jQuery(document).ready(function($){ $('.my-color-field').wpColorPicker().empty(); }); </script>

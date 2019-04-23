@@ -90,9 +90,9 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                         'class' => 'form-control directory_field bdas-category-search',
                                         'name' => 'in_cat',
                                         'orderby' => 'name',
-                                        'selected' => isset( $_GET['in_cat'] ) ? (int) $_GET['in_cat'] : -1,
+                                        'selected' => isset( $_GET['in_cat'] ) ? $_GET['in_cat'] : -1,
                                         'hierarchical' => true,
-                                        'value_field'  => 'id',
+                                        'value_field'  => 'slug',
                                         'depth' => 10,
                                         'show_count' => false,
                                         'hide_empty' => false,
@@ -112,9 +112,9 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                         'class' => 'form-control directory_field',
                                         'name' => 'in_loc',
                                         'orderby' => 'name',
-                                        'selected' => isset( $_GET['in_loc'] ) ? (int) $_GET['in_loc'] : -1,
+                                        'selected' => isset( $_GET['in_loc'] ) ? $_GET['in_loc'] : -1,
                                         'hierarchical' => true,
-                                        'value_field'  => 'id',
+                                        'value_field'  => 'slug',
                                         'depth' => 10,
                                         'show_count' => false,
                                         'hide_empty' => false,
@@ -136,6 +136,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                     <!--More Filters  & Search Button-->
                         <?php
                         $html = '<div class="atbd_submit_btn_wrapper">';
+                        $show_filter = !empty($show_filter)?$show_filter:'';
                         if(!empty($display_more_filter_search && $search_more_filters_fields && $show_filter)) {
                             $html .= '<button class="more-filter btn btn-outline btn-lg btn-outline-primary"><span class="fa fa-filter"></span>'.__($search_more_filters, ATBDP_TEXTDOMAIN).'</button>';
                              }
@@ -227,12 +228,12 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                                     </div>
                                                 <?php } ?>
                                         </div>
-                                        <a href="#" class="more-less ad"></a>
+                                        <a href="#" class="more-less ad"><?php _e('Show More', ATBDP_TEXTDOMAIN);?></a>
                                     </div><!-- ends: .form-control -->
                                 <?php } } ?>
                                 <?php if(in_array( 'search_custom_fields', $search_more_filters_fields )) { ?>
                                     <div id="atbdp-custom-fields-search" class="atbdp-custom-fields-search">
-                                        <?php do_action( 'wp_ajax_atbdp_custom_fields_search', isset( $_GET['in_cat'] ) ? (int) $_GET['in_cat'] : 0 ); ?>
+                                        <?php do_action( 'wp_ajax_atbdp_custom_fields_search', isset( $_GET['in_cat'] ) ? $_GET['in_cat'] : 0 ); ?>
                                     </div>
                                 <?php } ?>
                                 <?php if(in_array( 'search_website', $search_more_filters_fields ) || in_array( 'search_email', $search_more_filters_fields ) || in_array( 'search_phone', $search_more_filters_fields ) || in_array( 'search_address', $search_more_filters_fields ) || in_array( 'search_zip_code', $search_more_filters_fields )) {?>

@@ -3588,7 +3588,7 @@ function bdas_dropdown_terms($args = array(), $echo = true)
         'parent' => 0,
         'orderby' => 'name',
         'order' => 'ASC',
-        'selected' => 0
+        'selected' => 0,
     ), $args);
 
     if (!empty($args['selected'])) {
@@ -3649,7 +3649,7 @@ function bdas_dropdown_terms($args = array(), $echo = true)
             'orderby' => 'name',
             'order' => 'ASC',
             'hide_empty' => false,
-            'hierarchical' => false
+            'hierarchical' => false,
         );
         $terms = get_terms($args['taxonomy'], $term_args);
 
@@ -3678,7 +3678,7 @@ function bdas_dropdown_terms($args = array(), $echo = true)
                     $selected = ' selected';
                 }
 
-                $html .= sprintf('<option value="%s"%s>%s</option>', $term->term_id, $selected, $term->name);
+                $html .= sprintf('<option value="%s"%s>%s</option>', $term->slug, $selected, $term->name);
             }
 
             $html .= '</select>';

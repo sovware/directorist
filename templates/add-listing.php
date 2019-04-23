@@ -258,7 +258,7 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                         ?>
                         <script>
                             jQuery(document).ready(function ($) {
-                                $('.my-color-field2').wpColorPicker();
+                                $('.my-color-field2').wpColorPicker().empty();
                             });
                         </script>
                         <?php

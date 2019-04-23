@@ -111,10 +111,12 @@
                     <script>
                         jQuery(document).ready(function ($) {
                             $('.search-color-field').wpColorPicker().empty();
+                            $('.wp-color-picker').empty();
                         });
                     </script>
-                    <?php
-                    printf( '<input type="color" name="cf[%d]" class="search-color-field" value="%s"/>', $post->ID, esc_url( $value ) );
+                <?php
+                    printf( '<input type="color" name="cf[%d]" class="search-color-field" value="%s"/>', $post->ID,  $value  );
+
                     break;
                 case 'time' :
                     printf( '<input type="time" name="cf[%d]" class="form-control" value="%s"/>', $post->ID,  $value  );

@@ -1025,7 +1025,7 @@ if('openstreet' == $select_listing_map) { ?>
         <?php } ?>
 
         $(function () {
-            $('#color_code2').wpColorPicker();
+            $('#color_code2').wpColorPicker().empty();
         });
         //it shows the hidden term and conditions
         $(function () {

@@ -134,7 +134,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                                             'class' => 'form-control directory_field',
                                                             'name' => 'in_loc',
                                                             'orderby' => 'name',
-                                                            'selected' => isset( $_GET['in_loc'] ) ? (int) $_GET['in_loc'] : -1,
+                                                            'selected' => isset( $_GET['in_loc'] ) ? $_GET['in_loc'] : -1,
                                                             'hierarchical' => true,
                                                             'value_field'  => 'id',
                                                             'depth' => 10,
@@ -220,7 +220,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                                         </div>
                                                     <?php } ?>
                                                 </div>
-                                                <a href="#" class="more-less ad"></a>
+                                                <a href="#" class="more-less ad"><?php _e('Show More', ATBDP_TEXTDOMAIN);?></a>
                                             </div><!-- ends: .form-control -->
                                         <?php } } if(in_array( 'search_custom_fields', $search_more_filters_fields )) { ?>
                                         <div id="atbdp-custom-fields-search" class="atbdp-custom-fields-search">

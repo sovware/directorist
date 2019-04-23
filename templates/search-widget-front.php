@@ -15,8 +15,9 @@
                     'name' 			     => 'in_loc',
                     'class'              => 'form-control bdas-location-search select-basic',
                     'orderby'            => 'date',
+                    'value_field'        => 'slug',
                     'order'              => 'ASC',
-                    'selected'           => isset( $_GET['in_loc'] ) ? (int) $_GET['in_loc'] : -1
+                    'selected'           => isset( $_GET['in_loc'] ) ? $_GET['in_loc'] : -1,
                 ) );
                 ?>
             </div>
@@ -31,15 +32,16 @@
                     'name' 			     => 'in_cat',
                     'class'              => 'form-control bdas-category-search select-basic',
                     'orderby'            => 'date',
+                    'value_field'        => 'slug',
                     'order'              => 'ASC',
-                    'selected'           => isset( $_GET['in_cat'] ) ? (int) $_GET['in_cat'] : -1
+                    'selected'           => isset( $_GET['in_cat'] ) ? $_GET['in_cat'] : -1,
                 ) );
                 ?>
             </div>
         <?php } ?>
         <?php if(!empty($search_by_custom_fields)) { ?>
             <div id="atbdp-custom-fields-search" class="atbdp-custom-fields-search">
-                <?php do_action( 'wp_ajax_atbdp_custom_fields_search', isset( $_GET['in_cat'] ) ? (int) $_GET['in_cat'] : 0 ); ?>
+                <?php do_action( 'wp_ajax_atbdp_custom_fields_search', isset( $_GET['in_cat'] ) ? $_GET['in_cat'] : 0 ); ?>
             </div>
         <?php } ?>
         <?php if(!empty($search_by_price)) {?>

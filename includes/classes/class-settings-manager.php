@@ -1466,9 +1466,28 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Search Home Page Meta Description', ATBDP_TEXTDOMAIN),
                     ),
                     array(
+                        'type' => 'select',
+                        'name' => 'meta_title_for_search_result',
+                        'label' => __( 'Search Result Page Meta Title', ATBDP_TEXTDOMAIN ),
+                        'items' => array(
+                            array(
+                                'value' => 'custom',
+                                'label' => __('Custom', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'searched_value',
+                                'label' => __('From User Search', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'searched_value',
+                            'label' => __('From User Search', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    array(
                             'type' => 'textbox',
                             'name' => 'search_result_meta_title',
-                            'label' => __('Search Result Page Meta Title', ATBDP_TEXTDOMAIN),
+                            'label' => __('Custom Meta Title', ATBDP_TEXTDOMAIN),
                             'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
                         ),
                     array(

@@ -434,17 +434,15 @@ $column_width           = 100/$search_listing_columns .'%';
                                 </article>
                             </div>
                         </div>
-                    <?php }
 
+                    <?php }
                     } else {?>
                             <p><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
                 <?php } ?>
-
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <?php
-
                     if(!empty($pagination)){
                         the_posts_pagination(
                             array('mid_size'  => 2,

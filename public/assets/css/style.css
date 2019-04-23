@@ -2788,6 +2788,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-weight: 500;
 }
 
+.ads-advanced .form-group label:before, .ads-advanced .form-group label:after {
+  content: none !important;
+}
+
 .ads-advanced .form-group .form-control {
   height: 44px;
 }

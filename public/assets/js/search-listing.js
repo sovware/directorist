@@ -29,16 +29,28 @@
         show_more.remove();
     }
 
-    var checkbox2 = $(".bads-custom-checks .custom-control");
+    var checkbox2 = $(".default-ad-search .bads-custom-checks .custom-control");
+    var checkbox3 = $(".ads-advanced .bads-custom-checks .custom-control");
     checkbox2.slice(4).hide();
-    var show_more2 = $(".more-or-less");
-    $(document).on("click", ".more-or-less", function (e) {
+    checkbox3.slice(4).hide();
+
+    var show_more2 = $(".ads-advanced .more-or-less");
+    $(document).on("click", ".default-ad-search .more-or-less", function (e) {
         e.preventDefault();
         var txt = checkbox2.slice(4).is(":visible") ? showMore : showLess;
         $(this).text(txt);
         checkbox2.slice(4).slideToggle(200);
         $(this).toggleClass("sml");
     });
+
+    $(document).on("click", ".ads-advanced .more-or-less", function (e) {
+        e.preventDefault();
+        var txt1 = checkbox3.slice(4).is(":visible") ? showMore : showLess;
+        $(this).text(txt1);
+        checkbox3.slice(4).slideToggle(200);
+        $(this).toggleClass("sml");
+    });
+
     if(checkbox2.length <= 4){
         show_more2.remove();
     }

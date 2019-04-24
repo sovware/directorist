@@ -152,10 +152,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                          * It show the search button
                          */
                         echo apply_filters('atbdp_search_listing_button', $html);
-                        ?>
-
-
-                    <?php if(!empty($display_more_filter_search)) {?>
+                        if(!empty($display_more_filter_search)) {?>
                     <!--ads advance search-->
                         <?php
                         $filters_display = !empty($filters_display)?$filters_display:'';

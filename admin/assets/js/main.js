@@ -611,10 +611,10 @@ jQuery(function ($) {
         }else{
             lf_opt.hide();
         }
-    })
+    });
     if($('input[name="listing_filters_button"]').is(":checked") === true){
         lf_opt.show();
-    }
+    };
 
     //
     var lf_opt2 = $("#search_result_filter_button_text, #search_result_filters_fields, #search_result_search_text_placeholder, #search_result_category_placeholder, #search_result_location_placeholder");
@@ -625,10 +625,10 @@ jQuery(function ($) {
         }else{
             lf_opt2.hide();
         }
-    })
+    });
     if($('input[name="search_result_filters_button"]').is(":checked") === true){
         lf_opt2.show();
-    }
+    };
 
     //Display more filters - option
     var lf_opt3 = $("#search_more_filters_fields, #search_filters, #search_more_filters, #search_reset_filters, #search_apply_filters");
@@ -639,9 +639,23 @@ jQuery(function ($) {
         }else{
             lf_opt3.hide();
         }
-    })
+    });
     if($('input[name="search_more_filter"]').is(":checked") === true){
         lf_opt3.show();
+    };
+
+    //Display more filters - option
+    var lf_opt4 = $("#search_result_meta_title");
+    lf_opt4.hide();
+    $('#meta_title_for_search_result select[name="meta_title_for_search_result"]').on("change", function () {
+        if($(this).val() === "custom"){
+            lf_opt4.show();
+        }else{
+            lf_opt4.hide();
+        }
+    });
+    if ($('#meta_title_for_search_result select[name="meta_title_for_search_result"]').val() === "custom") {
+        lf_opt4.show();
     }
 
 });

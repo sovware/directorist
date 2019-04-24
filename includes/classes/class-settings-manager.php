@@ -1471,12 +1471,12 @@ The Administrator of ==SITE_NAME==
                         'label' => __( 'Search Result Page Meta Title', ATBDP_TEXTDOMAIN ),
                         'items' => array(
                             array(
-                                'value' => 'custom',
-                                'label' => __('Custom', ATBDP_TEXTDOMAIN),
-                            ),
-                            array(
                                 'value' => 'searched_value',
                                 'label' => __('From User Search', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'custom',
+                                'label' => __('Custom', ATBDP_TEXTDOMAIN),
                             ),
                         ),
                         'default' => array(

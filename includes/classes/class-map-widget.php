@@ -57,7 +57,7 @@ if ( !class_exists('BD_Map_Widget')) {
                     <?php } ?>
                     <?php
                     if('openstreet' == $select_listing_map) { ?>
-                        <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+                        <script src="https://www.openlayers.org/api/OpenLayers.js"></script>
                     <?php }
                     ?>
                     <script>

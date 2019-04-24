@@ -1009,7 +1009,7 @@ $select_listing_map = get_directorist_option('select_listing_map', 'google');
 
 <?php
 if('openstreet' == $select_listing_map) { ?>
-    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <script src="https://www.openlayers.org/api/OpenLayers.js"></script>
 <?php }
 ?>
 

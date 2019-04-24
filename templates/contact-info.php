@@ -224,7 +224,7 @@ $info_content .= "<p> {$ad}</p></div>";
 </div>
 <?php
     if('openstreet' == $select_listing_map) { ?>
-        <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+        <script src="https://www.openlayers.org/api/OpenLayers.js"></script>
    <?php }
 ?>
 <script>

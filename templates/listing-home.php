@@ -264,7 +264,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                 <?php if(in_array( 'search_reset_filters', $search_filters ) || in_array( 'search_apply_filters', $search_filters )) {?>
                                     <div class="bdas-filter-actions">
                                         <?php if(in_array( 'search_reset_filters', $search_filters )) { ?>
-                                            <a href="<?php echo get_permalink();?>" class="btn btn-outline-primary btn-lg"><?php _e('Reset Filters', ATBDP_TEXTDOMAIN);?></a>
+                                            <button type="reset" class="btn btn-outline-primary btn-lg"><?php _e('Reset Filters', ATBDP_TEXTDOMAIN);?></button>
                                         <?php } if(in_array( 'search_apply_filters', $search_filters )) {?>
                                             <button type="submit" class="btn btn-primary btn-lg"><?php _e('Apply Filters', ATBDP_TEXTDOMAIN);?></button>
                                         <?php } ?>

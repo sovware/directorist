@@ -3678,7 +3678,7 @@ function bdas_dropdown_terms($args = array(), $echo = true)
                     $selected = ' selected';
                 }
 
-                $html .= sprintf('<option value="%s"%s>%s</option>', $term->slug, $selected, $term->name);
+                $html .= sprintf('<option value="%s"%s>%s</option>', $term->term_id, $selected, $term->name);
             }
 
             $html .= '</select>';

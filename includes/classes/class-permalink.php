@@ -161,7 +161,9 @@ class ATBDP_Permalink{
     {
         $link = home_url();
         $id = get_directorist_option('pricing_plans'); // get the page id of the dashboard page.
-        if( $id )  $link = get_permalink( $id );
+        if( $id )  {
+            $link = get_permalink( $id );
+        }
         return apply_filters('atbdp_fee_plan_page_url', $link );
     }
 

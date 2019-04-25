@@ -3985,7 +3985,7 @@ The Administrator of ==SITE_NAME==
          * @since 5.0
          */
         function get_pages_regenerate_settings_fields(){
-            return apply_filters('atbdp_pages_settings_fields', array(
+            return apply_filters('atbdp_regenerate_pages_settings_fields', array(
                 array(
                     'type' => 'toggle',
                     'name' => 'shortcode-updated',

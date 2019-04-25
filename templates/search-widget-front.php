@@ -15,7 +15,6 @@
                     'name' 			     => 'in_loc',
                     'class'              => 'form-control bdas-location-search select-basic',
                     'orderby'            => 'date',
-                    'value_field'        => 'slug',
                     'order'              => 'ASC',
                     'selected'           => isset( $_GET['in_loc'] ) ? $_GET['in_loc'] : -1,
                 ) );
@@ -32,7 +31,6 @@
                     'name' 			     => 'in_cat',
                     'class'              => 'form-control bdas-category-search select-basic',
                     'orderby'            => 'date',
-                    'value_field'        => 'slug',
                     'order'              => 'ASC',
                     'selected'           => isset( $_GET['in_cat'] ) ? $_GET['in_cat'] : -1,
                 ) );

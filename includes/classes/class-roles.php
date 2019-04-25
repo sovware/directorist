@@ -37,6 +37,9 @@ class ATBDP_Roles {
             if( !empty( $current_user->caps['subscriber'] ) ):
                 add_filter('show_admin_bar', '__return_false');
             endif;
+            if (is_directoria_active() && !empty( $current_user->caps['administrator'] )):
+                add_filter('show_admin_bar', '__return_false');
+            endif;
         endif;
     }
 

@@ -220,11 +220,10 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $tax_queries = array();
 
             if( isset( $_GET['in_cat'] ) &&  $_GET['in_cat'] !== '' ) {
-
                 $tax_queries[] = array(
                     'taxonomy'         => ATBDP_CATEGORY,
-                    'field'            => 'slug',
-                    'terms'            => $_GET['in_cat'],
+                    'field'            => 'term_id',
+                    'terms'            => (int)$_GET['in_cat'],
                     'include_children' => true,
                 );
 
@@ -234,8 +233,8 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
                 $tax_queries[] = array(
                     'taxonomy'         => ATBDP_LOCATION,
-                    'field'            => 'slug',
-                    'terms'            =>  $_GET['in_loc'],
+                    'field'            => 'term_id',
+                    'terms'            =>  (int)$_GET['in_loc'],
                     'include_children' => true,
                 );
 
@@ -244,12 +243,11 @@ if ( !class_exists('ATBDP_Shortcode') ):
             if( isset( $_GET['in_tag'] ) && $_GET['in_tag'] !== '' ) {
                 $tax_queries[] = array(
                     'taxonomy'         => ATBDP_TAGS,
-                    'field'            => 'slug',
-                    'terms'            => $_GET['in_tag'],
+                    'field'            => 'term_id',
+                    'terms'            => (int)$_GET['in_tag'],
                 );
 
             }
-
             $count_tax_queries = count( $tax_queries );
             if( $count_tax_queries ) {
                 $args['tax_query'] = ( $count_tax_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $tax_queries ) : $tax_queries;
@@ -1487,6 +1485,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     'order'             => !empty($listing_order) ? $listing_order : 'asc',
                     'listings_per_page' => (int) get_directorist_option('all_listing_page_items', 6),
                     'pagination'        => 1,
+                    'show_pagination'   => 'yes',
                     'header'            => !empty($display_listings_header) ? 'yes' : '',
                     'header_title'      => !empty($listings_header_title) ? $listings_header_title : '',
                     'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
@@ -1495,6 +1494,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $columns             = !empty($atts['columns']) ? $atts['columns'] : 3;
                 $display_header      = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title        = !empty($atts['header_title']) ? $atts['header_title'] : '';
+                $show_pagination     = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
                 //for pagination
                 $paged               = atbdp_get_paged_num();
                 $paginate            = get_directorist_option('paginate_all_listings');
@@ -1779,6 +1779,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     'order'             => !empty($listing_order) ? $listing_order : 'asc',
                     'listings_per_page' => (int) get_directorist_option('all_listing_page_items', 6),
                     'pagination'        => 1,
+                    'show_pagination'   => 'yes',
                     'header'            => !empty($display_listings_header) ? 'yes' : '',
                     'header_title'      => !empty($listings_header_title) ? $listings_header_title : '',
                     'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
@@ -1788,6 +1789,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $display_header      = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title        = !empty($atts['header_title']) ? $atts['header_title'] : '';
                 $header_sub_title    = !empty($atts['header_sub_title']) ? $atts['header_sub_title'] : '';
+                $show_pagination    = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
                 //for pagination
                 $paged               = atbdp_get_paged_num();
                 $paginate            = get_directorist_option('paginate_all_listings');
@@ -2029,6 +2031,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     'order'             => !empty($listing_order) ? $listing_order : 'asc',
                     'listings_per_page' => (int) get_directorist_option('all_listing_page_items', 6),
                     'pagination'        => 1,
+                    'show_pagination'   => 'yes',
                     'header'            => !empty($display_listings_header) ? 'yes' : '',
                     'header_title'      => !empty($listings_header_title) ? $listings_header_title : '',
                     'header_sub_title'  => !empty($listings_header_sub_title) ? $listings_header_sub_title : '',
@@ -2039,6 +2042,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $display_header      = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title        = !empty($atts['header_title']) ? $atts['header_title'] : '';
                 $header_sub_title    = !empty($atts['header_sub_title']) ? $atts['header_sub_title'] : '';
+                $show_pagination    = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
                 //for pagination
                 $paged               = atbdp_get_paged_num();
                 $paginate            = get_directorist_option('paginate_all_listings');

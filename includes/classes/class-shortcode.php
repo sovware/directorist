@@ -1393,13 +1393,18 @@ if ( !class_exists('ATBDP_Shortcode') ):
             return ob_get_clean();
         }
 
-        public function user_dashboard()
+        public function user_dashboard($atts)
         {
             ob_start();
             // show user dashboard if the user is logged in, else kick him out of this page or show a message
             if (is_user_logged_in()){
+                $atts = shortcode_atts( array(
+                    'show_title'    => '',
+                ), $atts );
+                $show_title = !empty($atts['show_title']) ? $atts['show_title'] : '';
                 ATBDP()->enquirer->front_end_enqueue_scripts(true); // all front end scripts forcibly here
-                ATBDP()->user->user_dashboard();
+                include ATBDP_TEMPLATES_DIR . 'front-end/user-dashboard.php';
+                //ATBDP()->user->user_dashboard($show_title);
             }else{
                 // user not logged in;
                 $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_login_page_link()."'> ". __('Here', ATBDP_TEXTDOMAIN)."</a>","<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>"); ?>

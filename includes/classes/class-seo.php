@@ -167,6 +167,9 @@ if ( !class_exists('ATBDP_SEO') ):
                 $query = (isset($_GET['q']) && ('' !== $_GET['q']))?ucfirst($_GET['q']):'';
                 $category = (isset($_GET['in_cat']) && ('' !== $_GET['in_cat']))?ucfirst($_GET['in_cat']):'';
                 $location = (isset($_GET['in_loc']) && ('' !== $_GET['in_loc']))?ucfirst($_GET['in_loc']):'';
+                $category =  get_term_by('id',$category,ATBDP_CATEGORY);
+                $location =  get_term_by('id',$location,ATBDP_LOCATION);
+
 
                 $in_s_string_text       = !empty($query) ? sprintf(__('%s', ATBDP_TEXTDOMAIN), $query) : '';
                 $in_cat_text            = !empty($category) ? sprintf(__(' %s %s ', ATBDP_TEXTDOMAIN), !empty($query)?'from':'', $category) : '';

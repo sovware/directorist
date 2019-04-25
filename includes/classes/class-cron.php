@@ -55,15 +55,8 @@ if (!class_exists('ATBDP_Cron')):
          */
         public function atbdp_custom_schedule_cron() {
             if ( !wp_next_scheduled( 'atbdp_custom_cron' ) )
-                wp_schedule_event(time(), 'daily', 'atbdp_custom_cron');
+                wp_schedule_event(time(), 'hourly', 'atbdp_custom_cron');
         }
-
-
-
-
-
-
-
 
 
 

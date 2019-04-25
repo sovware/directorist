@@ -782,9 +782,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
     </div> <!--ends .row-->
 </section>
 <?php
-if ('openstreet' == $select_listing_map) { ?>
-    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-<?php }
+if ('openstreet' == $select_listing_map) {
+    wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array( 'jquery' ), ATBDP_VERSION, true );
+    wp_enqueue_script( 'openstreet_layer' );
+}
 ?>
 <script>
 
@@ -864,7 +865,7 @@ if ('openstreet' == $select_listing_map) { ?>
 
         mymap(lon, lat);
 
-        $('#OL_Icon_74').append('<div class="mapHover"><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
+        $('#OL_Icon_33').append('<div class="mapHover"><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
         <?php } }?>
         /* initialize slick  */
 
@@ -903,9 +904,24 @@ if ('openstreet' == $select_listing_map) { ?>
         });
 
     }); // ends jquery ready function.
-
-
 </script>
+<style>
+    #OL_Icon_33{
+        position: relative;
+    }
+    .mapHover {
+        position: absolute;
+        background: #fff;
+        padding: 5px;
+        width: 150px;
+        border-radius: 3px;
+        border: 1px solid #ddd;
+        display: none;
+    }
+    #OL_Icon_33:hover .mapHover{
+        display: block;
+    }
+</style>
 
 
 

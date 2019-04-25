@@ -996,7 +996,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $in_loc = !empty($loc_name) ? sprintf(__('in %s',ATBDP_TEXTDOMAIN),$loc_name->name) : '';
             $_s = (1 < count($all_listings->posts)) ? 's' : '';
 
-            $header_title    = sprintf(__('%d %s',ATBDP_TEXTDOMAIN),$all_listings->found_posts,$atts['header_title']);
+            $header_title    = sprintf(__('%d result%s %s %s',ATBDP_TEXTDOMAIN),$all_listings->found_posts,$_s,$for_cat,$in_loc);
             $listing_filters_button       = get_directorist_option('search_result_filters_button', 1);
             $filters                      = get_directorist_option('search_result_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
             $text_placeholder             = get_directorist_option('search_result_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));

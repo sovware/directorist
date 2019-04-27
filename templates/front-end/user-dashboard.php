@@ -22,7 +22,7 @@ $my_listing_tab          = get_directorist_option('my_listing_tab',1);
 $my_profile_tab          = get_directorist_option('my_profile_tab',1);
 $fav_listings_tab        = get_directorist_option('fav_listings_tab',1);
 $submit_listing_button   = get_directorist_option('submit_listing_button',1);
-$show_title              = !empty($show_title)?$show_title:'';
+$show_title = !empty($show_title)?$show_title:'';
 /*@todo; later show featured listing first on the user dashboard maybe??? */
 ?>
 <div id="directorist" class="directorist atbd_wrapper dashboard_area">
@@ -35,7 +35,7 @@ $show_title              = !empty($show_title)?$show_title:'';
                     <div class="atbd_add_listing_title">
                         <h2><?php _e('My Dashboard', ATBDP_TEXTDOMAIN); ?></h2>
                     </div> <!--ends add_listing_title-->
-                <?php
+                    <?php
                 }
                 ?>
                 <div class="atbd_dashboard_wrapper">
@@ -179,16 +179,26 @@ $show_title              = !empty($show_title)?$show_title:'';
 
                                                             <div class="db_btn_area">
                                                                 <?php
-
+                                                                date_default_timezone_set('Asia/Dhaka');
                                                                 $exp_date = get_post_meta($post->ID, '_expiry_date', true);
                                                                 $never_exp = get_post_meta($post->ID, '_never_expire', true);
                                                                 $lstatus = get_post_meta($post->ID, '_listing_status', true);
 
                                                                 $post_date = $post->post_date;
-
+                                                                $datetime2 = new DateTime($exp_date);
+                                                                $datetime1 = new DateTime($post_date);
+                                                                $interval = $datetime1->diff($datetime2);
+                                                                $interval = $interval->format('%R%a');
+                                                                $result = substr($interval, 0, 1);
+                                                                if ('-' === $result){
+                                                                    $interval = true;
+                                                                }else{
+                                                                    $interval = false;
+                                                                }
                                                                 // If the listing needs renewal then there is no need to show promote button
-                                                                if ('renewal' == $lstatus || 'expired' == $lstatus) {
-                                                                    //if ($interval){
+
+                                                               if (($interval) && ('renewal' == $lstatus || 'expired' == $lstatus)) {
+
                                                                     $can_renew = get_directorist_option('can_renew_listing');
                                                                     if (!$can_renew) return false;// vail if renewal option is turned off on the site.
                                                                     ?>
@@ -237,7 +247,7 @@ $show_title              = !empty($show_title)?$show_title:'';
                                                                 $exp_text = !empty($never_exp)
                                                                     ? __('Never Expires', ATBDP_TEXTDOMAIN)
                                                                     : date_i18n($date_format, strtotime($exp_date)); ?>
-                                                                <p><?php printf(__('<span>Expiration:</span> %s', ATBDP_TEXTDOMAIN), ('renewal' == $lstatus || 'expired' == $lstatus)?'<span style="color: red">Expired</span>':$exp_text); ?></p>
+                                                                <p><?php printf(__('<span>Expiration:</span> %s', ATBDP_TEXTDOMAIN), (($interval) && ('renewal' == $lstatus || 'expired' == $lstatus))?'<span style="color: red">Expired</span>':$exp_text); ?></p>
                                                                 <p><?php printf(__('<span>Listing Status:</span> %s', ATBDP_TEXTDOMAIN), get_post_status_object($post->post_status)->label); ?></p>
                                                                 <?php
                                                                 /**

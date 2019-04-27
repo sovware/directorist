@@ -219,7 +219,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             // Define tax queries( only if applicable )
             $tax_queries = array();
 
-            if( isset( $_GET['in_cat'] ) &&  $_GET['in_cat'] !== '' ) {
+            if( isset( $_GET['in_cat'] ) && (int) $_GET['in_cat'] > 0 ) {
                 $tax_queries[] = array(
                     'taxonomy'         => ATBDP_CATEGORY,
                     'field'            => 'term_id',
@@ -229,7 +229,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             }
 
-            if( isset( $_GET['in_loc'] ) &&  $_GET['in_loc'] !== '' ) {
+            if( isset( $_GET['in_loc'] ) && (int) $_GET['in_loc'] > 0 ) {
 
                 $tax_queries[] = array(
                     'taxonomy'         => ATBDP_LOCATION,
@@ -240,7 +240,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             }
 
-            if( isset( $_GET['in_tag'] ) && $_GET['in_tag'] !== '' ) {
+            if( isset( $_GET['in_tag'] ) && (int) $_GET['in_tag'] > 0 ) {
                 $tax_queries[] = array(
                     'taxonomy'         => ATBDP_TAGS,
                     'field'            => 'term_id',
@@ -255,7 +255,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             $meta_queries = array();
 
-            if( isset( $_GET['cf'] ) && $_GET['cf'] !== '' ) {
+            if( isset( $_GET['cf'] )  ) {
 
                 $cf = array_filter( $_GET['cf'] );
 

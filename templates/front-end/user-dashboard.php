@@ -240,7 +240,6 @@ $show_title              = !empty($show_title)?$show_title:'';
                                                                 <p><?php printf(__('<span>Expiration:</span> %s', ATBDP_TEXTDOMAIN), ('renewal' == $lstatus || 'expired' == $lstatus)?'<span style="color: red">Expired</span>':$exp_text); ?></p>
                                                                 <p><?php printf(__('<span>Listing Status:</span> %s', ATBDP_TEXTDOMAIN), get_post_status_object($post->post_status)->label); ?></p>
                                                                 <?php
-                                                                atbdp_display_price($price, $is_disable_price);
                                                                 /**
                                                                  * Fires after the price of the listing is rendered
                                                                  *

@@ -92,7 +92,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                         'orderby' => 'name',
                                         'selected' => isset( $_GET['in_cat'] ) ? $_GET['in_cat'] : -1,
                                         'hierarchical' => true,
-                                        'value_field'  => 'slug',
+                                        'value_field'  => 'term_id',
                                         'depth' => 10,
                                         'show_count' => false,
                                         'hide_empty' => false,
@@ -114,7 +114,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                         'orderby' => 'name',
                                         'selected' => isset( $_GET['in_loc'] ) ? $_GET['in_loc'] : -1,
                                         'hierarchical' => true,
-                                        'value_field'  => 'slug',
+                                        'value_field'  => 'term_id',
                                         'depth' => 10,
                                         'show_count' => false,
                                         'hide_empty' => false,
@@ -152,10 +152,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                          * It show the search button
                          */
                         echo apply_filters('atbdp_search_listing_button', $html);
-                        ?>
-
-
-                    <?php if(!empty($display_more_filter_search)) {?>
+                        if(!empty($display_more_filter_search)) {?>
                     <!--ads advance search-->
                         <?php
                         $filters_display = !empty($filters_display)?$filters_display:'';
@@ -267,7 +264,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                 <?php if(in_array( 'search_reset_filters', $search_filters ) || in_array( 'search_apply_filters', $search_filters )) {?>
                                     <div class="bdas-filter-actions">
                                         <?php if(in_array( 'search_reset_filters', $search_filters )) { ?>
-                                            <a href="<?php echo get_permalink();?>" class="btn btn-outline-primary btn-lg"><?php _e('Reset Filters', ATBDP_TEXTDOMAIN);?></a>
+                                            <button type="reset" class="btn btn-outline-primary btn-lg"><?php _e('Reset Filters', ATBDP_TEXTDOMAIN);?></button>
                                         <?php } if(in_array( 'search_apply_filters', $search_filters )) {?>
                                             <button type="submit" class="btn btn-primary btn-lg"><?php _e('Apply Filters', ATBDP_TEXTDOMAIN);?></button>
                                         <?php } ?>

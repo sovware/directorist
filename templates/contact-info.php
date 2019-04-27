@@ -223,9 +223,12 @@ $info_content .= "<p> {$ad}</p></div>";
 ?>
 </div>
 <?php
-    if('openstreet' == $select_listing_map) { ?>
-        <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-   <?php }
+    if('openstreet' == $select_listing_map) {
+
+        wp_register_script('openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
+        wp_enqueue_script('openstreet_layer');
+
+    }
 ?>
 <script>
 
@@ -480,8 +483,16 @@ $info_content .= "<p> {$ad}</p></div>";
 
         mymap(lon, lat);
 
+
         $('body').on('click', '#result ul li a', function(event) {
             event.preventDefault();
+
+            setTimeout(() => {
+                var el = $('.olMap img.olAlphaImg');
+                $(el).attr('src', 'http://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-PNG-File.png');
+                $('img#OpenLayers_Control_MaximizeDiv_innerImage').css({display: 'none'});
+            }, 1000);
+
             var text = $(this).text(),
                 lat = $(this).data('lat'),
                 lon = $(this).data('lon');
@@ -493,10 +504,16 @@ $info_content .= "<p> {$ad}</p></div>";
             $('#result').css({'display':'none'});
             mymap(lon, lat);
         });
-        <?php if(!empty($address)) {?>
+
         $('#OL_Icon_34').append('<div class="mapHover"><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
+        //$('.olAlphaImg').each(function(inde,el){
+            $('.olAlphaImg').each(function(index,element){
+                $(element).attr('src', 'http://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-PNG-File.png');
+            });
+        $('#OpenLayers_Control_MaximizeDiv_innerImage').attr('src', 'http://dev.openlayers.org/releases/OpenLayers-2.13.1/img/zoom-plus-mini.png');
+            $('#OpenLayers_Control_MinimizeDiv_innerImage').attr('src', 'http://dev.openlayers.org/releases/OpenLayers-2.13.1/img/layer-switcher-minimize.png');
+        //});
     <?php
-        } // adress
          } // select map
         } // disable map
         ?>
@@ -504,4 +521,22 @@ $info_content .= "<p> {$ad}</p></div>";
     }); // ends jquery ready function.
 
 </script>
+ <style>
+     #OL_Icon_34{
+         position: relative;
+     }
+
+     .mapHover {
+         position: absolute;
+         background: #fff;
+         padding: 5px;
+         width: 150px;
+         border-radius: 3px;
+         border: 1px solid #ddd;
+         display: none;
+     }
+     #OL_Icon_34:hover .mapHover{
+         display: block;
+     }
+ </style>
 

@@ -667,6 +667,9 @@ $select_listing_map = get_directorist_option('select_listing_map', 'google');
                                                    value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
                                                    class="form-control directory_field"
                                                    placeholder="<?php esc_html_e('Listing address eg. New York, USA', ATBDP_TEXTDOMAIN); ?>"/>
+                                            <div id="result">
+                                                <ul></ul>
+                                            </div>
                                         </div>
 
                                             <!--Show map only if it is not disabled in the settings-->
@@ -1008,11 +1011,11 @@ $select_listing_map = get_directorist_option('select_listing_map', 'google');
 </div>
 
 <?php
-if('openstreet' == $select_listing_map) { ?>
-    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-<?php }
+if('openstreet' == $select_listing_map) {
+    wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array( 'jquery' ), ATBDP_VERSION, true );
+    wp_enqueue_script( 'openstreet_layer' );
+ }
 ?>
-
 <script>
 
     jQuery(document).ready(function ($) {
@@ -1332,4 +1335,20 @@ if('openstreet' == $select_listing_map) { ?>
 
     }); // ends jquery ready function.
 </script>
-
+<style>
+    #OL_Icon_33{
+        position: relative;
+    }
+    .mapHover {
+        position: absolute;
+        background: #fff;
+        padding: 5px;
+        width: 150px;
+        border-radius: 3px;
+        border: 1px solid #ddd;
+        display: none;
+    }
+    #OL_Icon_33:hover .mapHover{
+        display: block;
+    }
+</style>

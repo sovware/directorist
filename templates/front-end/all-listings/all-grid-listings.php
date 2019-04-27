@@ -267,8 +267,7 @@ $column_width = 100 / $columns . '%';
                                 <?php } ?>
                                 <div class="bdas-filter-actions">
 
-                                    <a href="<?php echo get_permalink();?>" class="btn btn-outline btn-outline-primary btn-sm"><?php _e('Reset Filters', ATBDP_TEXTDOMAIN);?></a>
-
+                                    <button type="reset" class="btn btn-outline btn-outline-primary btn-sm"><?php _e('Reset Filters', ATBDP_TEXTDOMAIN);?></button>
                                     <button type="submit" class="btn btn-primary btn-sm"><?php _e('Apply Filters', ATBDP_TEXTDOMAIN);?></button>
 
                                 </div><!-- ends: .bdas-filter-actions -->

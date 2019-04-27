@@ -22,40 +22,46 @@ $my_listing_tab          = get_directorist_option('my_listing_tab',1);
 $my_profile_tab          = get_directorist_option('my_profile_tab',1);
 $fav_listings_tab        = get_directorist_option('fav_listings_tab',1);
 $submit_listing_button   = get_directorist_option('submit_listing_button',1);
-
+$show_title = !empty($show_title)?$show_title:'';
 /*@todo; later show featured listing first on the user dashboard maybe??? */
 ?>
 <div id="directorist" class="directorist atbd_wrapper dashboard_area">
     <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
         <div class="row">
             <div class="col-md-12">
-                <div class="atbd_add_listing_title">
-                    <h2><?php _e('My Dashboard', ATBDP_TEXTDOMAIN); ?></h2>
-                </div> <!--ends add_listing_title-->
+                <?php
+                if ('yes' === $show_title){
+                    ?>
+                    <div class="atbd_add_listing_title">
+                        <h2><?php _e('My Dashboard', ATBDP_TEXTDOMAIN); ?></h2>
+                    </div> <!--ends add_listing_title-->
+                    <?php
+                }
+                ?>
                 <div class="atbd_dashboard_wrapper">
                     <div class="atbd_user_dashboard_nav">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist" id="atbdp_tabs">
                             <?php if(!empty($my_listing_tab)) {?>
-                            <li role="presentation" class="nav-item">
-                                <a href="#my_listings" class="active nav-link" aria-controls="my_listings" role="tab"
-                                   data-toggle="tab">
-                                    <?php $list_found = ($listings->found_posts > 0) ? $listings->found_posts : '0';
-                                    printf(__('My Listing (%s)', ATBDP_TEXTDOMAIN), $list_found); ?>
-                                </a>
-                            </li>
+                                <li role="presentation" class="nav-item">
+                                    <a href="#my_listings" class="active nav-link" aria-controls="my_listings" role="tab"
+                                       data-toggle="tab">
+                                        <?php $list_found = ($listings->found_posts > 0) ? $listings->found_posts : '0';
+                                        printf(__('My Listing (%s)', ATBDP_TEXTDOMAIN), $list_found); ?>
+                                    </a>
+                                </li>
                             <?php } ?>
                             <?php if(!empty($my_profile_tab)) {?>
-                            <li role="presentation" class="nav-item"><a href="#profile" class="nav-link"
-                                                                        aria-controls="profile" role="tab"
-                                                                        data-toggle="tab"><?php _e('My Profile', ATBDP_TEXTDOMAIN); ?></a>
-                            </li>
+                                <li role="presentation" class="nav-item"><a href="#profile" class="nav-link"
+                                                                            aria-controls="profile" role="tab"
+                                                                            data-toggle="tab"><?php _e('My Profile', ATBDP_TEXTDOMAIN); ?></a>
+                                </li>
                             <?php } ?>
                             <?php if(!empty($fav_listings_tab)) {?>
-                            <li role="presentation" class="nav-item"><a href="#saved_items" class="nav-link"
-                                                                        aria-controls="profile" role="tab"
-                                                                        data-toggle="tab"><?php _e('Favorite Listings', ATBDP_TEXTDOMAIN); ?></a>
-                            </li>
+                                <li role="presentation" class="nav-item"><a href="#saved_items" class="nav-link"
+                                                                            aria-controls="profile" role="tab"
+                                                                            data-toggle="tab"><?php _e('Favorite Listings', ATBDP_TEXTDOMAIN); ?></a>
+                                </li>
                             <?php } ?>
                             <?php
                             do_action('atbdp_tab_after_favorite_listings');
@@ -65,8 +71,8 @@ $submit_listing_button   = get_directorist_option('submit_listing_button',1);
 
                         <div class="nav_button">
                             <?php if(!empty($submit_listing_button)) {?>
-                            <a href="<?= (is_fee_manager_active())?esc_url(ATBDP_Permalink::get_fee_plan_page_link()):esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
-                               class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Submit Listing', ATBDP_TEXTDOMAIN); ?></a>
+                                <a href="<?= (is_fee_manager_active())?esc_url(ATBDP_Permalink::get_fee_plan_page_link()):esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
+                                   class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Submit Listing', ATBDP_TEXTDOMAIN); ?></a>
                             <?php } ?>
                             <a href="<?= esc_url(wp_logout_url()); ?>"
                                class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Log Out', ATBDP_TEXTDOMAIN); ?></a>
@@ -76,191 +82,198 @@ $submit_listing_button   = get_directorist_option('submit_listing_button',1);
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <?php if(!empty($my_listing_tab)) {?>
-                        <div role="tabpanel" class="tab-pane active row" data-uk-grid id="my_listings">
-                            <?php if ($listings->have_posts()) {
-                                foreach ($listings->posts as $post) {
-                                    // get only one parent or high level term object
-                                    $top_category = ATBDP()->taxonomy->get_one_high_level_term($post->ID, ATBDP_CATEGORY);
-                                    $price = get_post_meta($post->ID, '_price', true);
-                                    $featured = get_post_meta($post->ID, '_featured', true);
-                                    $listing_img = get_post_meta($post->ID, '_listing_img', true);
-                                    $listing_prv_img = get_post_meta($post->ID, '_listing_prv_img', true);
-                                    $tagline = get_post_meta($post->ID, '_tagline', true);
-                                    $thumbnail_cropping = get_directorist_option('thumbnail_cropping',1);
-                                    $crop_width                    = get_directorist_option('crop_width', 360);
-                                    $crop_height                   = get_directorist_option('crop_height', 300);
-                                    if(!empty($listing_prv_img)) {
+                            <div role="tabpanel" class="tab-pane active row" data-uk-grid id="my_listings">
+                                <?php if ($listings->have_posts()) {
+                                    foreach ($listings->posts as $post) {
+                                        // get only one parent or high level term object
+                                        $top_category = ATBDP()->taxonomy->get_one_high_level_term($post->ID, ATBDP_CATEGORY);
+                                        $price = get_post_meta($post->ID, '_price', true);
+                                        $featured = get_post_meta($post->ID, '_featured', true);
+                                        $listing_img = get_post_meta($post->ID, '_listing_img', true);
+                                        $listing_prv_img = get_post_meta($post->ID, '_listing_prv_img', true);
+                                        $tagline = get_post_meta($post->ID, '_tagline', true);
+                                        $thumbnail_cropping = get_directorist_option('thumbnail_cropping',1);
+                                        $crop_width                    = get_directorist_option('crop_width', 360);
+                                        $crop_height                   = get_directorist_option('crop_height', 300);
+                                        if(!empty($listing_prv_img)) {
 
-                                        if($thumbnail_cropping) {
+                                            if($thumbnail_cropping) {
 
-                                            $prv_image = atbdp_image_cropping($listing_prv_img, $crop_width, $crop_height, true, 100)['url'];
+                                                $prv_image = atbdp_image_cropping($listing_prv_img, $crop_width, $crop_height, true, 100)['url'];
 
-                                        }else{
-                                            $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
+                                            }else{
+                                                $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
+                                            }
+
                                         }
+                                        if(!empty($listing_img[0])) {
+                                            if( $thumbnail_cropping ) {
+                                                $gallery_img = atbdp_image_cropping($listing_img[0], $crop_width, $crop_height, true, 100)['url'];
 
-                                    }
-                                    if(!empty($listing_img[0])) {
-                                        if( $thumbnail_cropping ) {
-                                            $gallery_img = atbdp_image_cropping($listing_img[0], $crop_width, $crop_height, true, 100)['url'];
+                                            }else{
+                                                $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
+                                            }
 
-                                        }else{
-                                            $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
                                         }
+                                        ?>
+                                        <div class="col-lg-4 col-sm-6" id="listing_id_<?= $post->ID; ?>">
+                                            <div class="atbd_single_listing atbd_listing_card">
+                                                <article
+                                                        class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
+                                                    <figure class="atbd_listing_thumbnail_area">
+                                                        <div class="atbd_listing_image">
+                                                            <?php if(!empty($listing_prv_img)){
 
-                                    }
-                                    ?>
-                                    <div class="col-lg-4 col-sm-6" id="listing_id_<?= $post->ID; ?>">
-                                        <div class="atbd_single_listing atbd_listing_card">
-                                            <article
-                                                    class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
-                                                <figure class="atbd_listing_thumbnail_area">
-                                                    <div class="atbd_listing_image">
-                                                        <?php if(!empty($listing_prv_img)){
+                                                                echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="'.esc_url($prv_image).'" alt="'.esc_html(stripslashes(get_the_title())).'"></a>';
 
-                                                            echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="'.esc_url($prv_image).'" alt="'.esc_html(stripslashes(get_the_title())).'"></a>';
+                                                            } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                                        } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
+                                                                echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="' . esc_url($gallery_img) . '" alt="'.esc_html(stripslashes(get_the_title())).'"></a>';
 
-                                                            echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="' . esc_url($gallery_img) . '" alt="'.esc_html(stripslashes(get_the_title())).'"></a>';
+                                                            }if (empty($listing_img[0]) && empty($listing_prv_img)){
 
-                                                        }if (empty($listing_img[0]) && empty($listing_prv_img)){
+                                                                echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="'.esc_html(stripslashes(get_the_title())).'"></a>';
 
-                                                            echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="'.esc_html(stripslashes(get_the_title())).'"></a>';
-
-                                                        }
-                                                        ?>
-                                                    </div>
-
-                                                    <figcaption class="atbd_thumbnail_overlay_content">
-
-                                                        <div class="atbd_lower_badge">
-                                                            <?php
-                                                            $featured_text = get_directorist_option('feature_badge_text', esc_html__('Featured', ATBDP_TEXTDOMAIN));
-                                                            if ($featured) {
-                                                                printf(
-                                                                    '<span class="atbd_badge atbd_badge_featured">%s</span>', __($featured_text, ATBDP_TEXTDOMAIN)
-
-                                                                );
                                                             }
                                                             ?>
                                                         </div>
-                                                    </figcaption>
-                                                </figure>
 
-                                                <div class="atbd_listing_info">
-                                                    <div class="atbd_content_upper">
-                                                        <div class="atbd_dashboard_tittle_metas">
-                                                            <h4 class="atbd_listing_title">
-                                                                <a href="<?= get_post_permalink($post->ID); ?>">
-                                                                    <?= !empty($post->post_title) ? esc_html(stripslashes($post->post_title)) : ''; ?>
-                                                                </a>
-                                                            </h4>
+                                                        <figcaption class="atbd_thumbnail_overlay_content">
 
-                                                            <div class="atbd_listing_meta">
+                                                            <div class="atbd_lower_badge">
+                                                                <?php
+                                                                $featured_text = get_directorist_option('feature_badge_text', esc_html__('Featured', ATBDP_TEXTDOMAIN));
+                                                                if ($featured) {
+                                                                    printf(
+                                                                        '<span class="atbd_badge atbd_badge_featured">%s</span>', __($featured_text, ATBDP_TEXTDOMAIN)
+
+                                                                    );
+                                                                }
+                                                                ?>
+                                                            </div>
+                                                        </figcaption>
+                                                    </figure>
+
+                                                    <div class="atbd_listing_info">
+                                                        <div class="atbd_content_upper">
+                                                            <div class="atbd_dashboard_tittle_metas">
+                                                                <h4 class="atbd_listing_title">
+                                                                    <a href="<?= get_post_permalink($post->ID); ?>">
+                                                                        <?= !empty($post->post_title) ? esc_html(stripslashes($post->post_title)) : ''; ?>
+                                                                    </a>
+                                                                </h4>
+
+                                                                <div class="atbd_listing_meta">
+                                                                    <?php
+                                                                    /**
+                                                                     * Fires after the title and sub title of the listing is rendered
+                                                                     *
+                                                                     *
+                                                                     * @since 1.0.0
+                                                                     */
+
+                                                                    do_action('atbdp_after_listing_tagline');
+                                                                    ?>
+                                                                </div><!-- End atbd listing meta -->
+                                                            </div>
+
+                                                            <div class="db_btn_area">
+                                                                <?php
+                                                                date_default_timezone_set('Asia/Dhaka');
+                                                                $exp_date = get_post_meta($post->ID, '_expiry_date', true);
+                                                                $never_exp = get_post_meta($post->ID, '_never_expire', true);
+                                                                $lstatus = get_post_meta($post->ID, '_listing_status', true);
+
+                                                                $post_date = $post->post_date;
+                                                                $datetime2 = new DateTime($exp_date);
+                                                                $datetime1 = new DateTime($post_date);
+                                                                $interval = $datetime1->diff($datetime2);
+                                                                $interval = $interval->format('%R%a');
+                                                                $result = substr($interval, 0, 1);
+                                                                if ('-' === $result){
+                                                                    $interval = true;
+                                                                }else{
+                                                                    $interval = false;
+                                                                }
+                                                                // If the listing needs renewal then there is no need to show promote button
+
+                                                               if (($interval) && ('renewal' == $lstatus || 'expired' == $lstatus)) {
+
+                                                                    $can_renew = get_directorist_option('can_renew_listing');
+                                                                    if (!$can_renew) return false;// vail if renewal option is turned off on the site.
+                                                                    ?>
+                                                                    <a href="<?php echo esc_url(ATBDP_Permalink::get_renewal_page_link($post->ID)) ?>"
+                                                                       id="directorist-renew"
+                                                                       data-listing_id="<?= $post->ID; ?>"
+                                                                       class="directory_btn btn btn-outline-success">
+                                                                        <?php _e('Renew', ATBDP_TEXTDOMAIN); ?>
+                                                                    </a>
+                                                                    <!--@todo; add expiration and renew date-->
+                                                                <?php } else {
+                                                                    // show promotions if the featured is available
+                                                                    // featured available but the listing is not featured, show promotion button
+                                                                    if ($featured_active && empty($featured) && !is_fee_manager_active()) {
+                                                                        ?>
+                                                                        <div class="atbd_promote_btn_wrapper">
+                                                                            <a href="<?= esc_url(ATBDP_Permalink::get_checkout_page_link($post->ID)) ?>"
+                                                                               id="directorist-promote"
+                                                                               data-listing_id="<?= $post->ID; ?>"
+                                                                               class="directory_btn btn btn-primary">
+                                                                                <?php _e('Promote Your listing', ATBDP_TEXTDOMAIN); ?>
+                                                                            </a>
+                                                                        </div>
+                                                                    <?php }
+                                                                } ?>
+
+                                                                <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
+                                                                   id="edit_listing"
+                                                                   class="directory_edit_btn btn btn-outline-primary"><?php _e('Edit', ATBDP_TEXTDOMAIN); ?></a>
+                                                                <a href="#" id="remove_listing"
+                                                                   data-listing_id="<?= $post->ID; ?>"
+                                                                   class="directory_remove_btn btn btn-outline-danger"><?php _e('Delete', ATBDP_TEXTDOMAIN); ?></a>
+                                                            </div> <!--ends .db_btn_area-->
+                                                            <?php /* @todo: deleted the read more link */ ?>
+                                                        </div><!-- end ./atbd_content_upper -->
+
+                                                        <div class="atbd_listing_bottom_content">
+                                                            <div class="listing-meta">
+                                                                <?php
+                                                                if (is_fee_manager_active()){
+                                                                    $change_plan_link = '<span><a href="">'.__('Change', ATBDP_TEXTDOMAIN).'</a></span>';
+                                                                    $plan_id = get_post_meta($post->ID, '_fm_plans', true);
+                                                                    $plan_name = !empty($plan_id)?get_the_title($plan_id):'';
+                                                                    printf(__('<p><span>Plan Name:</span> %s</p>', ATBDP_TEXTDOMAIN), $plan_name);
+                                                                }
+                                                                $exp_text = !empty($never_exp)
+                                                                    ? __('Never Expires', ATBDP_TEXTDOMAIN)
+                                                                    : date_i18n($date_format, strtotime($exp_date)); ?>
+                                                                <p><?php printf(__('<span>Expiration:</span> %s', ATBDP_TEXTDOMAIN), (($interval) && ('renewal' == $lstatus || 'expired' == $lstatus))?'<span style="color: red">Expired</span>':$exp_text); ?></p>
+                                                                <p><?php printf(__('<span>Listing Status:</span> %s', ATBDP_TEXTDOMAIN), get_post_status_object($post->post_status)->label); ?></p>
                                                                 <?php
                                                                 /**
-                                                                 * Fires after the title and sub title of the listing is rendered
+                                                                 * Fires after the price of the listing is rendered
                                                                  *
                                                                  *
-                                                                 * @since 1.0.0
+                                                                 * @since 3.1.0
                                                                  */
-
-                                                                do_action('atbdp_after_listing_tagline');
-                                                               ?>
-                                                            </div><!-- End atbd listing meta -->
-                                                        </div>
-
-                                                        <div class="db_btn_area">
-                                                            <?php
-                                                            date_default_timezone_set('Asia/Dhaka');
-                                                            $exp_date = get_post_meta($post->ID, '_expiry_date', true);
-                                                            $never_exp = get_post_meta($post->ID, '_never_expire', true);
-                                                            $lstatus = get_post_meta($post->ID, '_listing_status', true);
-                                                            $post_date = $post->post_date;
-                                                            $datetime2 = new DateTime($exp_date);
-                                                            $datetime1 = new DateTime($post_date);
-                                                            $interval = $datetime1->diff($datetime2);
-                                                            $interval = $interval->format('%a');
-                                                            // If the listing needs renewal then there is no need to show promote button
-                                                           // if ('renewal' == $lstatus || 'expired' == $lstatus) {
-                                                            if ('0' === $interval){
-                                                                $can_renew = get_directorist_option('can_renew_listing');
-                                                                if (!$can_renew) return false;// vail if renewal option is turned off on the site.
+                                                                do_action('atbdp_after_listing_price');
                                                                 ?>
-                                                                <a href="<?php echo esc_url(ATBDP_Permalink::get_renewal_page_link($post->ID)) ?>"
-                                                                   id="directorist-renew"
-                                                                   data-listing_id="<?= $post->ID; ?>"
-                                                                   class="directory_btn btn btn-outline-success">
-                                                                    <?php _e('Renew', ATBDP_TEXTDOMAIN); ?>
-                                                                </a>
-                                                                <!--@todo; add expiration and renew date-->
-                                                            <?php } else {
-                                                                // show promotions if the featured is available
-                                                                // featured available but the listing is not featured, show promotion button
-                                                                if ($featured_active && empty($featured) && !is_fee_manager_active()) {
-                                                                    ?>
-                                                                    <div class="atbd_promote_btn_wrapper">
-                                                                        <a href="<?= esc_url(ATBDP_Permalink::get_checkout_page_link($post->ID)) ?>"
-                                                                           id="directorist-promote"
-                                                                           data-listing_id="<?= $post->ID; ?>"
-                                                                           class="directory_btn btn btn-primary">
-                                                                            <?php _e('Promote Your listing', ATBDP_TEXTDOMAIN); ?>
-                                                                        </a>
-                                                                    </div>
-                                                                <?php }
-                                                            } ?>
 
-                                                            <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
-                                                               id="edit_listing"
-                                                               class="directory_edit_btn btn btn-outline-primary"><?php _e('Edit', ATBDP_TEXTDOMAIN); ?></a>
-                                                            <a href="#" id="remove_listing"
-                                                               data-listing_id="<?= $post->ID; ?>"
-                                                               class="directory_remove_btn btn btn-outline-danger"><?php _e('Delete', ATBDP_TEXTDOMAIN); ?></a>
-                                                        </div> <!--ends .db_btn_area-->
-                                                        <?php /* @todo: deleted the read more link */ ?>
-                                                    </div><!-- end ./atbd_content_upper -->
-
-                                                    <div class="atbd_listing_bottom_content">
-                                                        <div class="listing-meta">
-                                                            <?php
-                                                            if (is_fee_manager_active()){
-                                                                $change_plan_link = '<span><a href="">'.__('Change', ATBDP_TEXTDOMAIN).'</a></span>';
-                                                                $plan_id = get_post_meta($post->ID, '_fm_plans', true);
-                                                                $plan_name = get_the_title($plan_id);
-                                                                printf(__('<p><span>Plan Name:</span> %s</p>%s', ATBDP_TEXTDOMAIN), $plan_name, $change_plan_link);
-                                                            }
-                                                            $exp_text = !empty($never_exp)
-                                                                ? __('Never Expires', ATBDP_TEXTDOMAIN)
-                                                                : date_i18n($date_format, strtotime($exp_date)); ?>
-                                                            <p><?php printf(__('<span>Expiration:</span> %s', ATBDP_TEXTDOMAIN), ('0'===$interval)?'<span style="color: red">Expired</span>':$exp_text); ?></p>
-                                                            <p><?php printf(__('<span>Listing Status:</span> %s', ATBDP_TEXTDOMAIN), get_post_status_object($post->post_status)->label); ?></p>
-                                                            <?php
-                                                            atbdp_display_price($price, $is_disable_price);
-                                                            /**
-                                                             * Fires after the price of the listing is rendered
-                                                             *
-                                                             *
-                                                             * @since 3.1.0
-                                                             */
-                                                            do_action('atbdp_after_listing_price');
-                                                            ?>
-
-                                                        </div>
-                                                    </div><!-- end ./atbd_listing_bottom_content -->
-                                                </div>
-                                            </article>
-                                        </div>
-                                    </div> <!--ends . col-lg-3 col-sm-6-->
-                                    <?php
+                                                            </div>
+                                                        </div><!-- end ./atbd_listing_bottom_content -->
+                                                    </div>
+                                                </article>
+                                            </div>
+                                        </div> <!--ends . col-lg-3 col-sm-6-->
+                                        <?php
+                                    }
+                                } else {
+                                    esc_html_e('Looks like you have not created any listing yet!', ATBDP_TEXTDOMAIN);
                                 }
-                            } else {
-                                esc_html_e('Looks like you have not created any listing yet!', ATBDP_TEXTDOMAIN);
-                            }
-                            //@todo;add pagination on dashboard echo atbdp_pagination($listings, $paged);
-                            ?>
+                                //@todo;add pagination on dashboard echo atbdp_pagination($listings, $paged);
+                                ?>
 
-                        </div> <!--ends #my_listings-->
+                            </div> <!--ends #my_listings-->
                         <?php } ?>
                         <?php if(!empty($my_profile_tab)) {?>
                             <div role="tabpanel" class="tab-pane" id="profile">
@@ -465,73 +478,73 @@ $submit_listing_button   = get_directorist_option('submit_listing_button',1);
                             </div>
                         <?php } ?>
                         <?php if(!empty($fav_listings_tab)) {?>
-                        <div role="tabpanel" class="tab-pane" id="saved_items">
-                            <div class="atbd_saved_items_wrapper">
-                                <table class="table table-bordered atbd_single_saved_item table-responsive-sm">
-                                    <?php
-                                    if ($fav_listings->have_posts()) {
-                                        ?>
-                                        <thead>
-                                        <tr>
-                                            <th><?php _e('Listing Name', ATBDP_TEXTDOMAIN) ?></th>
-                                            <th><?php _e('Category', ATBDP_TEXTDOMAIN) ?></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
+                            <div role="tabpanel" class="tab-pane" id="saved_items">
+                                <div class="atbd_saved_items_wrapper">
+                                    <table class="table table-bordered atbd_single_saved_item table-responsive-sm">
                                         <?php
-                                        foreach ($fav_listings->posts as $post) {
-                                            $title = !empty($post->post_title) ? $post->post_title : __('Untitled', ATBDP_TEXTDOMAIN);
-                                            $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
-                                            $category = get_post_meta($post->ID, '_admin_category_select', true);
-                                            $category_name = !empty($cats) ? $cats[0]->name : 'Uncategorized';
-                                            $category_icon = !empty($cats) ? esc_attr(get_cat_icon($cats[0]->term_id)) : 'fa fa-square-o';
-                                            $category_link = !empty($cats) ? esc_url(ATBDP_Permalink::atbdp_get_category_page($cats[0])) : '#';
-                                            $post_link = esc_url(get_post_permalink($post->ID));
+                                        if ($fav_listings->have_posts()) {
+                                            ?>
+                                            <thead>
+                                            <tr>
+                                                <th><?php _e('Listing Name', ATBDP_TEXTDOMAIN) ?></th>
+                                                <th><?php _e('Category', ATBDP_TEXTDOMAIN) ?></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                            foreach ($fav_listings->posts as $post) {
+                                                $title = !empty($post->post_title) ? $post->post_title : __('Untitled', ATBDP_TEXTDOMAIN);
+                                                $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
+                                                $category = get_post_meta($post->ID, '_admin_category_select', true);
+                                                $category_name = !empty($cats) ? $cats[0]->name : 'Uncategorized';
+                                                $category_icon = !empty($cats) ? esc_attr(get_cat_icon($cats[0]->term_id)) : 'fa fa-square-o';
+                                                $category_link = !empty($cats) ? esc_url(ATBDP_Permalink::atbdp_get_category_page($cats[0])) : '#';
+                                                $post_link = esc_url(get_post_permalink($post->ID));
 
 
-                                            $listing_img = get_post_meta($post->ID, '_listing_img', true);
-                                            $listing_prv_img = get_post_meta($post->ID, '_listing_prv_img', true);
-                                            $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
-                                            $crop_width = get_directorist_option('crop_width', 360);
-                                            $crop_height = get_directorist_option('crop_height', 300);
-                                            if (!empty($listing_prv_img)) {
+                                                $listing_img = get_post_meta($post->ID, '_listing_img', true);
+                                                $listing_prv_img = get_post_meta($post->ID, '_listing_prv_img', true);
+                                                $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
+                                                $crop_width = get_directorist_option('crop_width', 360);
+                                                $crop_height = get_directorist_option('crop_height', 300);
+                                                if (!empty($listing_prv_img)) {
 
-                                                if ($thumbnail_cropping) {
+                                                    if ($thumbnail_cropping) {
 
-                                                    $prv_image = atbdp_image_cropping($listing_prv_img, $crop_width, $crop_height, true, 100)['url'];
+                                                        $prv_image = atbdp_image_cropping($listing_prv_img, $crop_width, $crop_height, true, 100)['url'];
 
-                                                } else {
-                                                    $prv_image = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
+                                                    } else {
+                                                        $prv_image = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
+                                                    }
+
+                                                }
+                                                if (!empty($listing_img[0])) {
+                                                    if ($thumbnail_cropping) {
+                                                        $gallery_img = atbdp_image_cropping($listing_img[0], $crop_width, $crop_height, true, 100)['url'];
+
+                                                    } else {
+                                                        $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
+                                                    }
+
                                                 }
 
-                                            }
-                                            if (!empty($listing_img[0])) {
-                                                if ($thumbnail_cropping) {
-                                                    $gallery_img = atbdp_image_cropping($listing_img[0], $crop_width, $crop_height, true, 100)['url'];
+                                                if (!empty($listing_prv_img)) {
 
-                                                } else {
-                                                    $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
+                                                    $img_src = $prv_image;
+
+                                                }
+                                                if (!empty($listing_img[0]) && empty($listing_prv_img)) {
+
+                                                    $img_src = $gallery_img;
+
+                                                }
+                                                if (empty($listing_img[0]) && empty($listing_prv_img)) {
+
+                                                    $img_src = ATBDP_PUBLIC_ASSETS . 'images/grid.jpg';
+
                                                 }
 
-                                            }
-
-                                            if (!empty($listing_prv_img)) {
-
-                                                $img_src = $prv_image;
-
-                                            }
-                                            if (!empty($listing_img[0]) && empty($listing_prv_img)) {
-
-                                                $img_src = $gallery_img;
-
-                                            }
-                                            if (empty($listing_img[0]) && empty($listing_prv_img)) {
-
-                                                $img_src = ATBDP_PUBLIC_ASSETS . 'images/grid.jpg';
-
-                                            }
-
-                                            printf(' <tr>
+                                                printf(' <tr>
                                             <td class="thumb_title">
                                                 <div class="img_wrapper"><a href="%s">
                                                 <img
@@ -549,20 +562,20 @@ $submit_listing_button   = get_directorist_option('submit_listing_button',1);
 
 
                                         </tr>', $post_link, $img_src, $title,$post_link, $title, $category_link, $category_icon, $category_name, atbdp_get_remove_favourites_page_link($post->ID), __('Remove', ATBDP_TEXTDOMAIN));
+                                            }
+                                            ?>
+                                            </tbody>
+                                            <?php
+                                        }else{
+                                            printf('<p>%s</p>',__("No listing found !", ATBDP_TEXTDOMAIN));
                                         }
                                         ?>
-                                        </tbody>
-                                        <?php
-                                    }else{
-                                        printf('<p>%s</p>',__("No listing found !", ATBDP_TEXTDOMAIN));
-                                    }
-                                    ?>
-                                </table>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
                         <?php } ?>
                         <?php
-                            do_action('atbdp_tab_content_after_favorite');
+                        do_action('atbdp_tab_content_after_favorite');
                         ?>
                     </div>
                 </div>

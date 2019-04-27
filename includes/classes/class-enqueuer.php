@@ -96,6 +96,7 @@ class ATBDP_Enqueuer {
 
 
             wp_register_script( 'sweetalert', ATBDP_PUBLIC_ASSETS . 'js/sweetalert.min.js', array( 'jquery' ), ATBDP_VERSION, true );
+
             /*Public Common Asset: */
             wp_register_script( 'select2script', ATBDP_PUBLIC_ASSETS . 'js/select2.min.js', array( 'jquery' ), ATBDP_VERSION, true );
             wp_register_script('popper', ATBDP_ADMIN_ASSETS.'js/popper.min.js', array('jquery'), ATBDP_VERSION, true);

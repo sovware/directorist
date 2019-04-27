@@ -219,37 +219,35 @@ if ( !class_exists('ATBDP_Shortcode') ):
             // Define tax queries( only if applicable )
             $tax_queries = array();
 
-            if( isset( $_GET['in_cat'] ) &&  $_GET['in_cat'] !== '' ) {
-
+            if( isset( $_GET['in_cat'] ) && (int) $_GET['in_cat'] > 0 ) {
                 $tax_queries[] = array(
                     'taxonomy'         => ATBDP_CATEGORY,
-                    'field'            => 'slug',
-                    'terms'            => $_GET['in_cat'],
+                    'field'            => 'term_id',
+                    'terms'            => (int)$_GET['in_cat'],
                     'include_children' => true,
                 );
 
             }
 
-            if( isset( $_GET['in_loc'] ) &&  $_GET['in_loc'] !== '' ) {
+            if( isset( $_GET['in_loc'] ) && (int) $_GET['in_loc'] > 0 ) {
 
                 $tax_queries[] = array(
                     'taxonomy'         => ATBDP_LOCATION,
-                    'field'            => 'slug',
-                    'terms'            =>  $_GET['in_loc'],
+                    'field'            => 'term_id',
+                    'terms'            =>  (int)$_GET['in_loc'],
                     'include_children' => true,
                 );
 
             }
 
-            if( isset( $_GET['in_tag'] ) && $_GET['in_tag'] !== '' ) {
+            if( isset( $_GET['in_tag'] ) && (int) $_GET['in_tag'] > 0 ) {
                 $tax_queries[] = array(
                     'taxonomy'         => ATBDP_TAGS,
-                    'field'            => 'slug',
-                    'terms'            => $_GET['in_tag'],
+                    'field'            => 'term_id',
+                    'terms'            => (int)$_GET['in_tag'],
                 );
 
             }
-
             $count_tax_queries = count( $tax_queries );
             if( $count_tax_queries ) {
                 $args['tax_query'] = ( $count_tax_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $tax_queries ) : $tax_queries;
@@ -257,7 +255,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             $meta_queries = array();
 
-            if( isset( $_GET['cf'] ) && $_GET['cf'] !== '' ) {
+            if( isset( $_GET['cf'] )  ) {
 
                 $cf = array_filter( $_GET['cf'] );
 
@@ -998,7 +996,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $in_loc = !empty($loc_name) ? sprintf(__('in %s',ATBDP_TEXTDOMAIN),$loc_name->name) : '';
             $_s = (1 < count($all_listings->posts)) ? 's' : '';
 
-            $header_title    = sprintf(__('%d %s',ATBDP_TEXTDOMAIN),$all_listings->found_posts,$atts['header_title']);
+            $header_title    = sprintf(__('%d result%s %s %s',ATBDP_TEXTDOMAIN),$all_listings->found_posts,$_s,$for_cat,$in_loc);
             $listing_filters_button       = get_directorist_option('search_result_filters_button', 1);
             $filters                      = get_directorist_option('search_result_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
             $text_placeholder             = get_directorist_option('search_result_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
@@ -1395,13 +1393,18 @@ if ( !class_exists('ATBDP_Shortcode') ):
             return ob_get_clean();
         }
 
-        public function user_dashboard()
+        public function user_dashboard($atts)
         {
             ob_start();
             // show user dashboard if the user is logged in, else kick him out of this page or show a message
             if (is_user_logged_in()){
+                $atts = shortcode_atts( array(
+                    'show_title'    => '',
+                ), $atts );
+                $show_title = !empty($atts['show_title']) ? $atts['show_title'] : '';
                 ATBDP()->enquirer->front_end_enqueue_scripts(true); // all front end scripts forcibly here
-                ATBDP()->user->user_dashboard();
+                include ATBDP_TEMPLATES_DIR . 'front-end/user-dashboard.php';
+                //ATBDP()->user->user_dashboard($show_title);
             }else{
                 // user not logged in;
                 $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_login_page_link()."'> ". __('Here', ATBDP_TEXTDOMAIN)."</a>","<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>"); ?>
@@ -1487,6 +1490,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     'order'             => !empty($listing_order) ? $listing_order : 'asc',
                     'listings_per_page' => (int) get_directorist_option('all_listing_page_items', 6),
                     'pagination'        => 1,
+                    'show_pagination'   => 'yes',
                     'header'            => !empty($display_listings_header) ? 'yes' : '',
                     'header_title'      => !empty($listings_header_title) ? $listings_header_title : '',
                     'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
@@ -1495,6 +1499,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $columns             = !empty($atts['columns']) ? $atts['columns'] : 3;
                 $display_header      = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title        = !empty($atts['header_title']) ? $atts['header_title'] : '';
+                $show_pagination     = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
                 //for pagination
                 $paged               = atbdp_get_paged_num();
                 $paginate            = get_directorist_option('paginate_all_listings');
@@ -1779,6 +1784,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     'order'             => !empty($listing_order) ? $listing_order : 'asc',
                     'listings_per_page' => (int) get_directorist_option('all_listing_page_items', 6),
                     'pagination'        => 1,
+                    'show_pagination'   => 'yes',
                     'header'            => !empty($display_listings_header) ? 'yes' : '',
                     'header_title'      => !empty($listings_header_title) ? $listings_header_title : '',
                     'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
@@ -1788,6 +1794,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $display_header      = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title        = !empty($atts['header_title']) ? $atts['header_title'] : '';
                 $header_sub_title    = !empty($atts['header_sub_title']) ? $atts['header_sub_title'] : '';
+                $show_pagination    = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
                 //for pagination
                 $paged               = atbdp_get_paged_num();
                 $paginate            = get_directorist_option('paginate_all_listings');
@@ -2029,6 +2036,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     'order'             => !empty($listing_order) ? $listing_order : 'asc',
                     'listings_per_page' => (int) get_directorist_option('all_listing_page_items', 6),
                     'pagination'        => 1,
+                    'show_pagination'   => 'yes',
                     'header'            => !empty($display_listings_header) ? 'yes' : '',
                     'header_title'      => !empty($listings_header_title) ? $listings_header_title : '',
                     'header_sub_title'  => !empty($listings_header_sub_title) ? $listings_header_sub_title : '',
@@ -2039,6 +2047,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $display_header      = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title        = !empty($atts['header_title']) ? $atts['header_title'] : '';
                 $header_sub_title    = !empty($atts['header_sub_title']) ? $atts['header_sub_title'] : '';
+                $show_pagination    = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
                 //for pagination
                 $paged               = atbdp_get_paged_num();
                 $paginate            = get_directorist_option('paginate_all_listings');

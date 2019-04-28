@@ -2466,7 +2466,10 @@ display: none;
                     printf('<p class="alert-danger"><span class="fa fa-exclamation"></span>%s</p>',__(' Invalid username or password!', ATBDP_TEXTDOMAIN));
                 }
                 wp_login_form();
+                echo "<div class='d-flex justify-content-between'>";
                 printf(__('<p>Don\'t have an account? %s</p>', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>");
+                printf(__('<p>%s</p>', ATBDP_TEXTDOMAIN), "<a href='#' data-toggle='modal' data-target='#recover-pass-modal'> ". __('Recover Password', ATBDP_TEXTDOMAIN)."</a>");
+                echo "</div>";
                 global $wpdb;
 
                 $error = '';
@@ -2524,18 +2527,32 @@ display: none;
                         echo '<div class="error_login"><p class="success">'. $success .'</p></div>';
                 }
                 ?>
-                <form method="post">
-                    <fieldset>
-                        <p><?php _e('Please enter your username or email address. You will receive a link to create a new password via email.', ATBDP_TEXTDOMAIN)?></p>
-                        <p><label for="reset_user_login"><?php _e('Username or E-mail:', ATBDP_TEXTDOMAIN)?></label>
-                            <?php $user_login = isset( $_POST['user_login'] ) ? $_POST['user_login'] : ''; ?>
-                            <input type="text" name="user_login" id="reset_user_login" value="<?php echo $user_login; ?>" /></p>
-                        <p>
-                            <input type="hidden" name="action" value="reset" />
-                            <input type="submit" value="<?php _e('Get New Password', ATBDP_TEXTDOMAIN)?>" class="button" id="submit" />
-                        </p>
-                    </fieldset>
-                </form>
+                <div class="modal fade" id="recover-pass-modal" tabindex="-1" role="dialog" aria-labelledby="recover-pass-modalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="recover-pass-modalLabel"><span class="la la-lock"></span> Recover Password</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post">
+                                    <fieldset>
+                                        <p><?php _e('Please enter your username or email address. You will receive a link to create a new password via email.', ATBDP_TEXTDOMAIN)?></p>
+                                        <label for="reset_user_login"><?php _e('Username or E-mail:', ATBDP_TEXTDOMAIN)?></label>
+                                            <?php $user_login = isset( $_POST['user_login'] ) ? $_POST['user_login'] : ''; ?>
+                                            <input type="text" name="user_login" id="reset_user_login" value="<?php echo $user_login; ?>" placeholder="eg. mail@example.com" />
+                                        <p>
+                                            <input type="hidden" name="action" value="reset" />
+                                            <input type="submit" c value="<?php _e('Get New Password', ATBDP_TEXTDOMAIN)?>" class="btn btn-primary" id="submit" />
+                                        </p>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <?php
                 echo '</div>';
             }else{

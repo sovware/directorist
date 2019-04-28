@@ -2279,7 +2279,7 @@ The Administrator of ==SITE_NAME==
                     ),
                     array(
                         'type' => 'toggle',
-                        'name' => 'search_result_filters_button',
+                        'name' => 'search_result_filters_button_display',
                         'label' => __('Display Filters Button', ATBDP_TEXTDOMAIN),
                         'default' => 1,
                     ),
@@ -2384,7 +2384,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'checkbox',
                         'name' => 'search_result_filters_button',
-                        'label' => __('Filter Fields', ATBDP_TEXTDOMAIN),
+                        'label' => __('Filters Button', ATBDP_TEXTDOMAIN),
                         'validation' => 'minselected[0]|maxselected[5]',
                         'items' => array(
                             array(

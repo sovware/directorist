@@ -1020,7 +1020,7 @@ display: none;
             $_s = (1 < count($all_listings->posts)) ? 's' : '';
 
             $header_title    = sprintf(__('%d result%s %s %s',ATBDP_TEXTDOMAIN),$all_listings->found_posts,$_s,$for_cat,$in_loc);
-            $listing_filters_button       = get_directorist_option('search_result_filters_button', 1);
+            $listing_filters_button       = get_directorist_option('search_result_filters_button_display', 1);
             $filters                      = get_directorist_option('search_result_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
             $text_placeholder             = get_directorist_option('search_result_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
             $category_placeholder         = get_directorist_option('search_result_category_placeholder',__('Select a category',ATBDP_TEXTDOMAIN));

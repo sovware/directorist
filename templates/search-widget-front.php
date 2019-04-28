@@ -57,27 +57,27 @@
             </div>
         <?php } ?>
         <?php if(!empty($search_by_price_range)) {?>
-        <div class="form-group">
-            <div class="select-basic">
-                <select name="price_range" class="form-control">
-                    <option value="none">Price Range</option>
-                    <option value="skimming" <?php if(!empty($_GET['price_range']) && 'skimming' == $_GET['price_range']) { echo 'selected';}?>>Ultra High ($$$$)</option>
-                    <option value="moderate" <?php if(!empty($_GET['price_range']) && 'moderate' == $_GET['price_range']) { echo 'selected';}?>>Expensive ($$$)</option>
-                    <option value="economy" <?php if(!empty($_GET['price_range']) && 'economy' == $_GET['price_range']) { echo 'selected';}?>>Moderate ($$)</option>
-                    <option value="bellow_economy" <?php if(!empty($_GET['price_range']) && 'bellow_economy' == $_GET['price_range']) { echo 'selected';}?> >Cheap ($)</option>
-                </select>
-            </div>
-        </div><!-- ends: .form-group -->
+            <div class="form-group">
+                <div class="select-basic">
+                    <select name="price_range" class="form-control">
+                        <option value="none">Price Range</option>
+                        <option value="skimming" <?php if(!empty($_GET['price_range']) && 'skimming' == $_GET['price_range']) { echo 'selected';}?>>Ultra High ($$$$)</option>
+                        <option value="moderate" <?php if(!empty($_GET['price_range']) && 'moderate' == $_GET['price_range']) { echo 'selected';}?>>Expensive ($$$)</option>
+                        <option value="economy" <?php if(!empty($_GET['price_range']) && 'economy' == $_GET['price_range']) { echo 'selected';}?>>Moderate ($$)</option>
+                        <option value="bellow_economy" <?php if(!empty($_GET['price_range']) && 'bellow_economy' == $_GET['price_range']) { echo 'selected';}?> >Cheap ($)</option>
+                    </select>
+                </div>
+            </div><!-- ends: .form-group -->
         <?php } ?>
         <?php if(!empty($search_by_open_now) && in_array( 'directorist-business-hours/bd-business-hour.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) )) {?>
-        <div class="check-btn">
-            <div class="btn-checkbox active-color-secondary">
-                <label>
-                    <input type="checkbox" name="open_now" value="open_now" <?php if(!empty($_GET['open_now']) && 'open_now' == $_GET['open_now']) { echo 'checked';}?>><span class="text-success"><i
-                            class="fa fa-clock-o"></i> Open Now</span>
-                </label>
+            <div class="check-btn">
+                <div class="btn-checkbox active-color-secondary">
+                    <label>
+                        <input type="checkbox" name="open_now" value="open_now" <?php if(!empty($_GET['open_now']) && 'open_now' == $_GET['open_now']) { echo 'checked';}?>><span class="text-success"><i
+                                    class="fa fa-clock-o"></i> Open Now</span>
+                    </label>
+                </div>
             </div>
-        </div>
         <?php } ?>
         <?php if(!empty($search_by_website)) { ?>
             <div class="form-group">
@@ -113,20 +113,20 @@
         <?php if(!empty($search_by_tag)) {
             $terms = get_terms(ATBDP_TAGS);
             ?>
-            
+
             <div class="form-group filter-checklist">
                 <label>Filter by Tags</label>
                 <div class="checklist-items">
                     <?php
                     if(!empty($terms)) {
-                    foreach($terms as $term) {
-                        ?>
-                    <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
-                        <input type="checkbox" class="custom-control-input" id="<?php echo $term->term_id;?>" name="in_tag" value="<?php echo $term->term_id;?>" <?php if(!empty($_GET['in_tag']) && $term->term_id == $_GET['in_tag']) { echo "checked";}?>>
-                        <span class="check--select"></span>
-                        <label class="custom-control-label" for="<?php echo $term->term_id;?>"><?php echo $term->name;?></label>
-                    </div>
-                    <?php } } ?>
+                        foreach($terms as $term) {
+                            ?>
+                            <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
+                                <input type="checkbox" class="custom-control-input" id="<?php echo $term->term_id;?>" name="in_tag" value="<?php echo $term->term_id;?>" <?php if(!empty($_GET['in_tag']) && $term->term_id == $_GET['in_tag']) { echo "checked";}?>>
+                                <span class="check--select"></span>
+                                <label class="custom-control-label" for="<?php echo $term->term_id;?>"><?php echo $term->name;?></label>
+                            </div>
+                        <?php } } ?>
                 </div>
             </div><!-- ends: .filter-checklist -->
         <?php } ?>
@@ -204,8 +204,8 @@
             </div><!-- ends: .filter-checklist -->
         <?php } ?>
         <div class="form-group submit_btn">
+            <button type="reset" class="btn btn-default"><?php _e( 'Reset', ATBDP_TEXTDOMAIN ); ?></button>
             <button type="submit" class="btn btn-primary btn-block btn-icon icon-right"><?php _e( 'Search Listings', ATBDP_TEXTDOMAIN ); ?></button>
-            <a href="<?php echo get_permalink(); ?>" class="btn btn-default"><?php _e( 'Reset', ATBDP_TEXTDOMAIN ); ?></a>
         </div>
     </form><!-- ends: form -->
 </div><!-- ends: .default-ad-search -->

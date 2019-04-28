@@ -2539,7 +2539,7 @@ display: none;
                             <div class="modal-body">
                                 <form method="post">
                                     <fieldset>
-                                        <p><?php _e('Please enter your username or email address. You will receive a link to create a new password via email.', ATBDP_TEXTDOMAIN)?></p>
+                                        <p><?php _e('Please enter your email address. You will receive a link to create a new password via email.', ATBDP_TEXTDOMAIN)?></p>
                                         <label for="reset_user_login"><?php _e('Username or E-mail:', ATBDP_TEXTDOMAIN)?></label>
                                             <?php $user_login = isset( $_POST['user_login'] ) ? $_POST['user_login'] : ''; ?>
                                             <input type="text" name="user_login" id="reset_user_login" value="<?php echo $user_login; ?>" placeholder="eg. mail@example.com" />

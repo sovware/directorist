@@ -1,9 +1,10 @@
 <?php
 !empty($args['data']) ? extract($args['data']) : array(); // data array contains all required var.
-$all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
-$pagenation = get_directorist_option('paginate_all_listings', 1);
-$display_sortby_dropdown = get_directorist_option('display_sort_by', 1);
-$display_viewas_dropdown = get_directorist_option('display_view_as', 1);
+$all_listings               = !empty($all_listings) ? $all_listings : new WP_Query;
+$pagenation                 = get_directorist_option('paginate_all_listings', 1);
+$display_sortby_dropdown    = get_directorist_option('display_sort_by', 1);
+$display_viewas_dropdown    = get_directorist_option('display_view_as', 1);
+$display_image              = !empty($display_image) ? $display_image : '';
 wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
 ?>
 <div id="directorist" class="atbd_wrapper">
@@ -19,7 +20,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
     }
     ?>
     <?php if ($all_listings->have_posts()) { ?>
-        <?php listing_view_by_list($all_listings); ?>
+        <?php listing_view_by_list($all_listings,$display_image); ?>
     <?php } else { ?>
         <p><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
     <?php }

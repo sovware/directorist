@@ -77,6 +77,7 @@ $column_width = 100 / $columns . '%';
                     $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                     $display_address_field = get_directorist_option('display_address_field', 1);
                     $display_phone_field = get_directorist_option('display_phone_field', 1);
+                    $display_image       = !empty($display_image) ? $display_image : '';
                     if (!empty($listing_prv_img)) {
 
                         if ($thumbnail_cropping) {
@@ -97,16 +98,13 @@ $column_width = 100 / $columns . '%';
                         }
 
                     }
-
                     /*Code for Business Hour Extensions*/
                     ?>
-
                     <div class="atbdp_column">
                         <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : ''; ?>">
-                            <article
-                                    class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
+                            <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                 <figure class="atbd_listing_thumbnail_area"
-                                        style=" <?php echo empty(get_directorist_option('display_preview_image', 1)) ? 'display:none' : '' ?>">
+                                        style=" <?php echo (empty(get_directorist_option('display_preview_image', 1)) || 'no' == $display_image) ? 'display:none' : '' ?>">
                                     <div class="atbd_listing_image">
                                         <?php
                                         $disable_single_listing = get_directorist_option('disable_single_listing');
@@ -212,7 +210,6 @@ $column_width = 100 / $columns . '%';
                                      */
                                     echo apply_filters('atbdp_lower_badges', $l_badge_html);
                                     ?>
-
                                 </figure>
                                 <div class="atbd_listing_info">
                                     <?php if (!empty($display_title) || !empty($enable_tagline) || !empty($display_review) || !empty($display_price)) { ?>

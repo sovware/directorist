@@ -1037,7 +1037,6 @@ display: none;
             return ob_get_clean();
         }
 
-
         public function all_listing( $atts )
         {
             wp_enqueue_script('adminmainassets');
@@ -1068,6 +1067,7 @@ display: none;
                 'featured_only'     => '',
                 'popular_only'      => '',
                 'advanced_filter'   => '',
+                'display_image'     => 'yes',
                 'action_before_after_loop' => 'yes',
             ), $atts );
 
@@ -1082,6 +1082,7 @@ display: none;
             $popular_only        = !empty($atts['popular_only']) ? $atts['popular_only'] : '';
             $action_before_after_loop  = !empty($atts['action_before_after_loop']) ? $atts['action_before_after_loop'] : '';
             $show_pagination       = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
+            $display_image       = !empty($atts['display_image'])  ? $atts['display_image'] : '';
             //for pagination
             $paged               = atbdp_get_paged_num();
             $paginate            = get_directorist_option('paginate_all_listings');

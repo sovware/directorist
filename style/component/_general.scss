@@ -442,3 +442,22 @@ body.atbd_content_active #directorist.atbd_wrapper{
 .atbd_widget .atbdp-map{
   margin-bottom: 0;
 }
+
+#recover-pass-modal{
+  .modal-body{
+    padding: 30px;
+    label{
+      display: block;
+      font-weight: 600;
+      margin-top: 15px;
+      color: $text-color;
+    }
+    input[type="text"]{
+      width: 100%;
+      border: 1px solid $border-color;
+      height: 45px;
+      padding: 0 15px;
+      margin-bottom: 15px;
+    }
+  }
+}

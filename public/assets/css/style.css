@@ -599,6 +599,25 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 0;
 }
 
+#recover-pass-modal .modal-body {
+  padding: 30px;
+}
+
+#recover-pass-modal .modal-body label {
+  display: block;
+  font-weight: 600;
+  margin-top: 15px;
+  color: #7a82a6;
+}
+
+#recover-pass-modal .modal-body input[type="text"] {
+  width: 100%;
+  border: 1px solid #e3e6ef;
+  height: 45px;
+  padding: 0 15px;
+  margin-bottom: 15px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   text-align: right;
   margin-bottom: 15px;

@@ -3394,6 +3394,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
     justify-content: center;
     margin-top: 30px;
   }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-6 .atbd_category_single {
+    height: 200px;
+  }
 }
 
 @media (max-width: 575px) {
@@ -3445,7 +3448,5 @@ body.atbd_content_active #directorist.atbd_wrapper {
     padding-left: 45px;
   }
 }
-
-
 
 /*# sourceMappingURL=map/style.css.map */

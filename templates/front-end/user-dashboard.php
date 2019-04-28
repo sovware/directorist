@@ -249,7 +249,6 @@ $show_title = !empty($show_title)?$show_title:'';
                                                                 <p><?php printf(__('<span>Expiration:</span> %s', ATBDP_TEXTDOMAIN), (($interval) && ('renewal' == $lstatus || 'expired' == $lstatus))?'<span style="color: red">Expired</span>':$exp_text); ?></p>
                                                                 <p><?php printf(__('<span>Listing Status:</span> %s', ATBDP_TEXTDOMAIN), get_post_status_object($post->post_status)->label); ?></p>
                                                                 <?php
-                                                                atbdp_display_price($price, $is_disable_price);
                                                                 /**
                                                                  * Fires after the price of the listing is rendered
                                                                  *
@@ -297,7 +296,7 @@ $show_title = !empty($show_title)?$show_title:'';
                                             </div> <!--ends .user_pro_img_area-->
                                         </div> <!--ends .col-md-4-->
 
-                                        <div class="col-md-8">
+                                        <div class="col-md-9">
                                             <div class="profile_title"><h4><?php _e('My Profile', ATBDP_TEXTDOMAIN); ?></h4>
                                             </div>
 

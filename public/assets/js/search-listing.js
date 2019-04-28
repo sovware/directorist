@@ -4,7 +4,7 @@
         allowClear: true
     });
 
-// Category
+    // Category
     $('#at_biz_dir-category').select2({
         placeholder: atbdp_search_listing.i18n_text.category_selection,
         allowClear: true
@@ -25,35 +25,44 @@
         checkbox.slice(4).slideToggle(200);
         $(this).toggleClass("ad");
     });
-    if(checkbox.length <= 4){
+    if (checkbox.length <= 4) {
         show_more.remove();
     }
 
-    var checkbox2 = $(".default-ad-search .bads-custom-checks .custom-control");
-    var checkbox3 = $(".ads-advanced .bads-custom-checks .custom-control");
-    checkbox2.slice(4).hide();
-    checkbox3.slice(4).hide();
 
-    var show_more2 = $(".ads-advanced .more-or-less");
-    $(document).on("click", ".default-ad-search .more-or-less", function (e) {
-        e.preventDefault();
-        var txt = checkbox2.slice(4).is(":visible") ? showMore : showLess;
-        $(this).text(txt);
-        checkbox2.slice(4).slideToggle(200);
-        $(this).toggleClass("sml");
+    var item = $('.custom-control').closest('.bads-custom-checks');
+    item.each(function (index, el) {
+        var count = 0;
+        var abc = $(el)[0];
+        var abc2 = $(abc).children('.custom-control');
+        $(abc2).slice(4, abc2.length).hide();
+
     });
 
-    $(document).on("click", ".ads-advanced .more-or-less", function (e) {
+    var count = 1;
+    $(document).on("click", ".more-or-less", function (e) {
         e.preventDefault();
-        var txt1 = checkbox3.slice(4).is(":visible") ? showMore : showLess;
-        $(this).text(txt1);
-        checkbox3.slice(4).slideToggle(200);
-        $(this).toggleClass("sml");
+        count++;
+
+        var item = $(this).closest('.ads-filter-tags');
+
+        //var abc = $(el)[0];
+        var abc2 = $(item).find('.custom-control');
+        // console.log(abc2);
+        $(abc2).slice(4, abc2.length).hide();
+
+        if (count % 2 == 1) {
+            $(this).removeClass('active');
+            $(this).text('Show More');
+            $(abc2).slice(4, abc2.length).hide();
+        } else {
+            $(this).addClass('active');
+            $(this).text('Show Less')
+            $(abc2).slice(4, abc2.length).show();
+        }
     });
 
-    if(checkbox2.length <= 4){
-        show_more2.remove();
-    }
+
     $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags");
 
     var ad = $(".ads_float .ads-advanced");
@@ -63,12 +72,12 @@
     });
     var count = 0;
     $("body").on("click", '.more-filter', function (e) {
+
         count++;
         e.preventDefault();
-        var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos-currentPos;
+        var currentPos = e.clientY, displayPos = window.innerHeight, height = displayPos - currentPos;
 
-        //console.log($(this).closest('.atbd_wrapper').find('.ads_float').find('.ads-advanced'));
-        if(count%2 === 0) {
+        if (count % 2 === 0) {
             $(this).closest('.atbd_wrapper').find('.ads_float').find('.ads-advanced').css({
                 visibility: 'hidden',
                 opacity: '0',
@@ -78,7 +87,7 @@
         } else {
             $(this).closest('.atbd_wrapper').find('.ads_float').find('.ads-advanced').css({
                 visibility: 'visible',
-                height: height-70+'px',
+                height: height - 70 + 'px',
                 transition: '0.3s ease',
                 opacity: '1',
             });

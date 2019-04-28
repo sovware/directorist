@@ -18,7 +18,7 @@
                 echo '<div class="row atbdp-no-margin">';
             }
             ?>
-            <div class="<?php echo $span;?>">
+            <div class="<?php echo $span;?> col-sm-6">
 
                 <a class="atbd_location_grid <?php echo !empty($location_image)?'':'atbd_location_grid-default';?>" href="<?php echo ATBDP_Permalink::atbdp_get_location_page($term) ?>">
                     <figure>

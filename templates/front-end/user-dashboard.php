@@ -297,7 +297,7 @@ $show_title = !empty($show_title)?$show_title:'';
                                             </div> <!--ends .user_pro_img_area-->
                                         </div> <!--ends .col-md-4-->
 
-                                        <div class="col-md-8">
+                                        <div class="col-md-9">
                                             <div class="profile_title"><h4><?php _e('My Profile', ATBDP_TEXTDOMAIN); ?></h4>
                                             </div>
 

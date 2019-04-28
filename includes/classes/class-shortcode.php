@@ -5,7 +5,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
         public function __construct()
         {
-
             add_shortcode( 'directorist_search_listing', array( $this, 'search_listing' ) );
 
             add_shortcode( 'directorist_search_result', array( $this, 'search_result' ) );
@@ -42,6 +41,32 @@ if ( !class_exists('ATBDP_Shortcode') ):
             add_filter( 'body_class', array($this, 'my_body_class'));
             add_action( 'wp_login_failed', array($this, 'my_login_fail'));
 
+            //remove themes sidebar if needed
+            //add_filter( 'is_active_sidebar', array($this, 'remove_active_sidebar'),10,2);
+            add_action( 'wp_head', array($this, 'remove_active_sidebar'));
+
+        }
+
+
+        /**
+         * @since 5.0.2
+         */
+        public function remove_active_sidebar(){
+            global $post, $wp_registered_sidebars;
+            $current_post = $post->post_type;
+            if(is_single() && ('at_biz_dir' === $current_post)){
+                foreach ($wp_registered_sidebars as $key => $value){
+                    if ('right-sidebar-listing' !== $key){
+                        unregister_sidebar($key);
+                /*        echo '<style>
+
+.widget-area{
+display: none;
+}
+</style>';*/
+                    }
+                }
+            }
         }
 
 
@@ -51,12 +76,11 @@ if ( !class_exists('ATBDP_Shortcode') ):
          */
         public function my_login_fail($username){
 
-                /*$id = get_directorist_option('user_login');
-                wp_redirect(home_url( "?page_id=$id" ) . "&login_error" );
-                exit;*/
+
             $referrer = $_SERVER['HTTP_REFERER'];  // where did the post submission come from?
             // if there's a valid referrer, and it's not the default log-in screen
             if ( !empty($referrer) && !strstr($referrer,'wp-login') && !strstr($referrer,'wp-admin') ) {
+
                 wp_redirect( $referrer . '?login=failed' );  // let's append some information (login=failed) to the URL for the theme to use
                 exit;
             }
@@ -2365,6 +2389,8 @@ if ( !class_exists('ATBDP_Shortcode') ):
         public function custom_user_login()
         {
             ob_start();
+
+
             if (!is_user_logged_in()){
                 echo '<div class="atbdp_login_form_shortcode">';
                 if (isset($_GET['login']) && $_GET['login'] == 'failed'){
@@ -2372,6 +2398,76 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 }
                 wp_login_form();
                 printf(__('<p>Don\'t have an account? %s</p>', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>");
+                global $wpdb;
+
+                $error = '';
+                $success = '';
+
+                // check if we're in reset form
+                if( isset( $_POST['action'] ) && 'reset' == $_POST['action'] )
+                {
+                    $email = trim($_POST['user_login']);
+
+                    if( empty( $email ) ) {
+                        $error = __('Enter a username or e-mail address..', ATBDP_TEXTDOMAIN);
+                    } else if( ! is_email( $email )) {
+                        $error = __('Invalid username or e-mail address.', ATBDP_TEXTDOMAIN);
+                    } else if( ! email_exists( $email ) ) {
+                        $error = __('There is no user registered with that email address.', ATBDP_TEXTDOMAIN);
+                    } else {
+
+                        $random_password = wp_generate_password( 12, false );
+                        $user = get_user_by( 'email', $email );
+
+                        $update_user = wp_update_user( array (
+                                'ID' => $user->ID,
+                                'user_pass' => $random_password
+                            )
+                        );
+
+                        // if  update user return true then lets send user an email containing the new password
+                        if( $update_user ) {
+                            $to = $email;
+                            $subject = 'Your new password';
+                            $sender = get_option('name');
+
+                            $message = 'Your new password is: '.$random_password;
+
+                            $headers[] = 'MIME-Version: 1.0' . "\r\n";
+                            $headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                            $headers[] = "X-Mailer: PHP \r\n";
+                            $headers[] = 'From: '.$sender.' < '.$email.'>' . "\r\n";
+
+                            $mail = wp_mail( $to, $subject, $message, $headers );
+                            if( $mail )
+                                $success =  __('Check your email address for you new password.', ATBDP_TEXTDOMAIN);
+
+                        } else {
+                            $error = __('Oops something went wrong updaing your account.', ATBDP_TEXTDOMAIN);
+                        }
+
+                    }
+
+                    if( ! empty( $error ) )
+                        echo '<div class="message"><p class="error"><strong>'. __("ERROR:", ATBDP_TEXTDOMAIN) .'</strong> '. $error .'</p></div>';
+
+                    if( ! empty( $success ) )
+                        echo '<div class="error_login"><p class="success">'. $success .'</p></div>';
+                }
+                ?>
+                <form method="post">
+                    <fieldset>
+                        <p><?php _e('Please enter your username or email address. You will receive a link to create a new password via email.', ATBDP_TEXTDOMAIN)?></p>
+                        <p><label for="reset_user_login"><?php _e('Username or E-mail:', ATBDP_TEXTDOMAIN)?></label>
+                            <?php $user_login = isset( $_POST['user_login'] ) ? $_POST['user_login'] : ''; ?>
+                            <input type="text" name="user_login" id="reset_user_login" value="<?php echo $user_login; ?>" /></p>
+                        <p>
+                            <input type="hidden" name="action" value="reset" />
+                            <input type="submit" value="<?php _e('Get New Password', ATBDP_TEXTDOMAIN)?>" class="button" id="submit" />
+                        </p>
+                    </fieldset>
+                </form>
+                <?php
                 echo '</div>';
             }else{
                 $error_message = sprintf(__('Login page is not for logged-in user. <a href="%s">Go Back To Home</a>', ATBDP_TEXTDOMAIN), esc_url(get_home_url()));
@@ -2379,7 +2475,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
             }
             return ob_get_clean();
         }
-
 
         public function user_registration()
         {
@@ -2398,5 +2493,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             return ob_get_clean();
         }
+
+
     }
 endif;

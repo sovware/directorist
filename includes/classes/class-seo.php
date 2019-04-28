@@ -172,8 +172,8 @@ if ( !class_exists('ATBDP_SEO') ):
 
 
                 $in_s_string_text       = !empty($query) ? sprintf(__('%s', ATBDP_TEXTDOMAIN), $query) : '';
-                $in_cat_text            = !empty($category) ? sprintf(__(' %s %s ', ATBDP_TEXTDOMAIN), !empty($query)?'from':'', $category) : '';
-                $in_loc_text            = !empty($location) ? sprintf(__('%s %s', ATBDP_TEXTDOMAIN), !empty($query)?'in':'', $location) : '';
+                $in_cat_text            = !empty($category) ? sprintf(__(' %s %s ', ATBDP_TEXTDOMAIN), !empty($query)?'from':'', $category->name) : '';
+                $in_loc_text            = !empty($location) ? sprintf(__('%s %s', ATBDP_TEXTDOMAIN), !empty($category)?'in':'', $location->name) : '';
 
                 $how_to = get_directorist_option('meta_title_for_search_result', 'searched_value');
                 if ('searched_value' === $how_to){

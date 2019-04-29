@@ -118,5 +118,4 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
 </div>
 
 
-</div>
-</div>
+

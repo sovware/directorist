@@ -385,15 +385,15 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         echo apply_filters('atbdp_before_listing_title', $data_info);
 
                         $title_html = '<div class="atbd_listing_title">';
-                        $title_html .= '<h2>'. esc_html($p_title).'</h2>';
-
-                            /**
-                             * @since 4.5.2
-                             * It fires after the title in single listing
-                             */
-                            do_action('atbdp_single_listing_after_title', $listing_id);
-                            ?>
-                            <?php if (!empty($tagline) && !empty($display_tagline_field)) {
+                        $title_html .= '<h2>';
+                        $title_html .= esc_html($p_title);
+                        $title_html .= '</h2>';
+                        /**
+                         * @since 4.5.2
+                         * It fires after the title in single listing
+                         */
+                        do_action('atbdp_single_listing_after_title', $listing_id);
+                        if (!empty($tagline) && !empty($display_tagline_field)) {
                                 $title_html .= '<p class="atbd_sub_title">'. (!empty($tagline)) ? esc_html(stripslashes($tagline)) : "".'</p>';
                             }
                             /**
@@ -408,6 +408,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                              * @since 5.0
                              */
                             echo apply_filters('atbdp_listing_title_and_tagline', $title_html);
+
                             $listing_content = '<div class="about_detail">';
                             /*
                              * Automatic embedding done by WP by hooking to the_content filter

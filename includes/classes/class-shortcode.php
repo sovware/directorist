@@ -41,32 +41,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
             add_filter( 'body_class', array($this, 'my_body_class'));
             add_action( 'wp_login_failed', array($this, 'my_login_fail'));
 
-            //remove themes sidebar if needed
-            //add_filter( 'is_active_sidebar', array($this, 'remove_active_sidebar'),10,2);
-            add_action( 'wp_head', array($this, 'remove_active_sidebar'));
-
-        }
-
-
-        /**
-         * @since 5.0.2
-         */
-        public function remove_active_sidebar(){
-            global $post, $wp_registered_sidebars;
-            $current_post = $post->post_type;
-            if(is_single() && ('at_biz_dir' === $current_post)){
-                foreach ($wp_registered_sidebars as $key => $value){
-                    if ('right-sidebar-listing' !== $key){
-                        unregister_sidebar($key);
-                /*        echo '<style>
-
-.widget-area{
-display: none;
-}
-</style>';*/
-                    }
-                }
-            }
         }
 
 

@@ -39,7 +39,14 @@ if ( !class_exists('BD_Map_Widget')) {
                 global $post;
                 $manual_lat = get_post_meta($post->ID, '_manual_lat', true);
                 $manual_lng = get_post_meta($post->ID, '_manual_lng', true);
+                $tagline    = get_post_meta($post->ID, '_tagline', true);
                 $address = get_post_meta($post->ID, '_address', true);
+                $t = get_the_title();
+                $t = !empty($t) ? $t : __('No Title', ATBDP_TEXTDOMAIN);
+                $info_content = "<div class='map_info_window'> <h3>{$t}</h3>";
+                $info_content .= "<p> {$tagline} </p>";
+                $info_content .= "<address>{$address}</address>";
+                $info_content .= "<a href='http://www.google.com/maps/place/{$manual_lat},{$manual_lng}' target='_blank'> " . __('View On Google Maps', ATBDP_TEXTDOMAIN) . "</a></div>";
                 $select_listing_map = get_directorist_option('select_listing_map', 'google');
                 $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Map', ATBDP_TEXTDOMAIN);
                 $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 16;
@@ -72,9 +79,11 @@ if ( !class_exists('BD_Map_Widget')) {
                             saved_lat_lng = {
                                 lat:<?= (!empty($manual_lat)) ? floatval($manual_lat) : false ?>,
                                 lng: <?= (!empty($manual_lng)) ? floatval($manual_lng) : false ?> }; // default is London city
+                            info_content = "<?php echo $info_content; ?>";
 
                             // create an info window for map
                             info_window = new google.maps.InfoWindow({
+                                content: info_content,
                                 maxWidth: 400/*Add configuration for max width*/
                             });
 

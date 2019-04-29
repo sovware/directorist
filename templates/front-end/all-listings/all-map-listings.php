@@ -39,16 +39,13 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                 $address                        = get_post_meta(get_the_ID(), '_address', true);
                 if(!empty($listing_prv_img)) {
 
-
                     $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
-
 
                 }
                 if(!empty($listing_img[0])) {
 
                     $default_img = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $crop_width, $crop_height, true, 100)['url'];;
                     $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
-
 
                 }
                 ?>

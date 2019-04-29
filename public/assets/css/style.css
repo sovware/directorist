@@ -368,6 +368,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 #directorist.atbd_wrapper .pagination {
+  width: 100%;
   border-top: 0;
   text-align: center;
   box-shadow: none;
@@ -387,6 +388,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper .pagination .nav-links {
   background: none;
+  margin: 0;
+  justify-content: center;
 }
 
 #directorist.atbd_wrapper .pagination .nav-links .current, #directorist.atbd_wrapper .pagination .nav-links .page-numbers {
@@ -405,10 +408,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
   text-align: center;
   margin-right: 2px;
   margin-left: 0;
+  right: auto;
+  float: none;
 }
 
 #directorist.atbd_wrapper .pagination .nav-links .current:last-child, #directorist.atbd_wrapper .pagination .nav-links .page-numbers:last-child {
   margin-right: 0;
+  margin-left: 2px;
 }
 
 #directorist.atbd_wrapper .pagination .nav-links .current {
@@ -2806,15 +2812,17 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .ads-advanced .price_ranges {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   flex: 1;
-  margin: 0 -5px;
+  margin: 0 -5px -10px;
   width: 0;
 }
 
 .ads-advanced .price_ranges .range_single {
   padding: 0 5px;
   width: 145px;
+  margin-bottom: 10px;
 }
 
 .ads-advanced .price_ranges .range_single input {
@@ -2826,6 +2834,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   flex-wrap: wrap;
   align-items: center;
   margin-left: 7px;
+  margin-bottom: 10px;
   width: auto;
 }
 
@@ -3379,6 +3388,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
 @media (max-width: 991px) {
   #directorist .single_search_field {
     margin-bottom: 15px;
+  }
+  .ads-advanced .price-frequency {
+    margin-left: -2px;
   }
 }
 

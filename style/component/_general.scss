@@ -229,6 +229,7 @@ body.atbd_content_active #directorist.atbd_wrapper{
 
 //pagination css
 #directorist.atbd_wrapper .pagination{
+  width: 100%;
   &:before, &:after{
     content: none;
   }
@@ -243,6 +244,8 @@ body.atbd_content_active #directorist.atbd_wrapper{
   box-shadow: none;
   .nav-links{
     background: none;
+    margin: 0;
+    justify-content: center;
     .current, .page-numbers{
       padding: 0;
       line-height: normal;
@@ -259,8 +262,11 @@ body.atbd_content_active #directorist.atbd_wrapper{
       text-align: center;
       margin-right: 2px;
       margin-left: 0;
+      right: auto;
+      float: none;
       &:last-child{
         margin-right: 0;
+        margin-left: 2px;
       }
     }
     .current{

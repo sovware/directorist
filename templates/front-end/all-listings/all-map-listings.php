@@ -30,8 +30,8 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
         <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($listings_map_height)?$listings_map_height:'';?>px;">
             <?php while( $all_listings->have_posts() ) : $all_listings->the_post();
                 global $post;
-                $manual_lat         = get_post_meta($post->ID, '_manual_lat', true);
-                $manual_lng        = get_post_meta($post->ID, '_manual_lng', true);
+                $manual_lat                     = get_post_meta($post->ID, '_manual_lat', true);
+                $manual_lng                     = get_post_meta($post->ID, '_manual_lng', true);
                 $listing_img                    = get_post_meta(get_the_ID(), '_listing_img', true);
                 $listing_prv_img                = get_post_meta(get_the_ID(), '_listing_prv_img', true);
                 $crop_width                     = get_directorist_option('crop_width', 360);
@@ -39,16 +39,13 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                 $address                        = get_post_meta(get_the_ID(), '_address', true);
                 if(!empty($listing_prv_img)) {
 
-
                     $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
-
 
                 }
                 if(!empty($listing_img[0])) {
 
                     $default_img = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $crop_width, $crop_height, true, 100)['url'];;
                     $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
-
 
                 }
                 ?>
@@ -118,5 +115,4 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
 </div>
 
 
-</div>
-</div>
+

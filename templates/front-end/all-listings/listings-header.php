@@ -15,7 +15,7 @@
                             <div class="atbd_generic_header_title">
                                 <button class="more-filter btn btn-outline btn-outline-primary"><span class="fa fa-filter"></span> <?php echo $filters;?></button>
                             </div>
-                        <?php } elseif((!empty($header_title) && empty($listing_filters_button)) || empty($search_more_filters_fields)) {?>
+                        <?php } elseif((!empty($header_title) && empty($listing_filters_button)) || empty($search_more_filters_fields)) { ?>
                             <h3>
                                 <?php echo $header_title; ?>
                             </h3>
@@ -224,12 +224,13 @@
                                             <label><?php _e('Tags', ATBDP_TEXTDOMAIN);?></label>
                                             <div class="bads-tags">
                                                 <?php
+                                                $rand = rand();
                                                 foreach($terms as $term) {
                                                     ?>
                                                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
-                                                        <input type="checkbox" class="custom-control-input" name="in_tag" value="<?php echo $term->term_id;?>" id="<?php echo $term->term_id;?>" <?php if(!empty($_GET['in_tag']) && $term->term_id == $_GET['in_tag']) { echo "checked";}?>>
+                                                        <input type="checkbox" class="custom-control-input" name="in_tag" value="<?php echo $term->term_id;?>" id="<?php echo $rand . $term->term_id;?>" <?php if(!empty($_GET['in_tag']) && $term->term_id == $_GET['in_tag']) { echo "checked";}?>>
                                                         <span class="check--select"></span>
-                                                        <label for="<?php echo $term->term_id;?>" class="custom-control-label"><?php echo $term->name;?></label>
+                                                        <label for="<?php echo $rand . $term->term_id;?>" class="custom-control-label"><?php echo $term->name;?></label>
                                                     </div>
                                                 <?php } ?>
                                             </div>

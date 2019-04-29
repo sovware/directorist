@@ -266,6 +266,9 @@
 .default-ad-search .submit_btn .btn{
     margin-right: 10px !important;
     margin-top: 10px !important;
+    background: #444752;
+    border-color: #444752;
+    color: #fff;
 }
 .bdas-terms .bdas-child-terms{
     margin-top: 14px;

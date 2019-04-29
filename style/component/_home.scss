@@ -175,17 +175,21 @@
   .custom-control{
     label{
       font-weight: normal;
+      position: relative;
+      z-index: 1;
     }
   }
   .price_ranges{
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     flex: 1;
-    margin: 0 -5px;
+    margin: 0 -5px -10px;
     width:0;
     .range_single{
       padding: 0 5px;
       width: 145px;
+      margin-bottom: 10px;
       input{
         height: 44px;
       }
@@ -196,6 +200,7 @@
     flex-wrap: wrap;
     align-items: center;
     margin-left: 7px;
+    margin-bottom: 10px;
     width: auto;
     .pf-btn{
       margin-right: -1px !important;
@@ -247,6 +252,11 @@
     label{
       line-height: normal;
     }
+  }
+  .atbdp_custom_radios{
+    display: flex;
+    flex-wrap: wrap;
+    flex: 4;
   }
   .more-less, .more-or-less{
     flex: 1;

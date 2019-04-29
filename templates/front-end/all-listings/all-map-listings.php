@@ -30,8 +30,8 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
         <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($listings_map_height)?$listings_map_height:'';?>px;">
             <?php while( $all_listings->have_posts() ) : $all_listings->the_post();
                 global $post;
-                $manual_lat         = get_post_meta($post->ID, '_manual_lat', true);
-                $manual_lng        = get_post_meta($post->ID, '_manual_lng', true);
+                $manual_lat                     = get_post_meta($post->ID, '_manual_lat', true);
+                $manual_lng                     = get_post_meta($post->ID, '_manual_lng', true);
                 $listing_img                    = get_post_meta(get_the_ID(), '_listing_img', true);
                 $listing_prv_img                = get_post_meta(get_the_ID(), '_listing_prv_img', true);
                 $crop_width                     = get_directorist_option('crop_width', 360);

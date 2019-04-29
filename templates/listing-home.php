@@ -196,12 +196,14 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                             <label><?php _e('Tags', ATBDP_TEXTDOMAIN);?></label>
                                             <div class="bads-custom-checks">
                                                 <?php
+                                                $rand = rand();
                                                 foreach($terms as $term) {
+
                                                     ?>
                                                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
-                                                        <input type="checkbox" class="custom-control-input" name="in_tag" value="<?php echo $term->term_id;?>" id="<?php echo $term->term_id;?>">
+                                                        <input type="checkbox" class="custom-control-input" name="in_tag" value="<?php echo $term->term_id;?>" id="<?php echo $rand . $term->term_id;?>">
                                                         <span class="check--select"></span>
-                                                        <label for="<?php echo $term->term_id;?>" class="custom-control-label"><?php echo $term->name;?></label>
+                                                        <label for="<?php echo $rand . $term->term_id;?>" class="custom-control-label"><?php echo $term->name;?></label>
                                                     </div>
                                                 <?php } ?>
                                             </div>

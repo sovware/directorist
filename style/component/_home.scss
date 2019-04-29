@@ -175,6 +175,8 @@
   .custom-control{
     label{
       font-weight: normal;
+      position: relative;
+      z-index: 1;
     }
   }
   .price_ranges{
@@ -250,6 +252,11 @@
     label{
       line-height: normal;
     }
+  }
+  .atbdp_custom_radios{
+    display: flex;
+    flex-wrap: wrap;
+    flex: 4;
   }
   .more-less, .more-or-less{
     flex: 1;

@@ -605,6 +605,25 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 0;
 }
 
+#recover-pass-modal .modal-body {
+  padding: 30px;
+}
+
+#recover-pass-modal .modal-body label {
+  display: block;
+  font-weight: 600;
+  margin-top: 15px;
+  color: #7a82a6;
+}
+
+#recover-pass-modal .modal-body input[type="text"] {
+  width: 100%;
+  border: 1px solid #e3e6ef;
+  height: 45px;
+  padding: 0 15px;
+  margin-bottom: 15px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   text-align: right;
   margin-bottom: 15px;
@@ -2808,6 +2827,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .ads-advanced .custom-control label {
   font-weight: normal;
+  position: relative;
+  z-index: 1;
 }
 
 .ads-advanced .price_ranges {
@@ -2896,6 +2917,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .ads-advanced .bads-tags label, .ads-advanced .bads-custom-checks label {
   line-height: normal;
+}
+
+.ads-advanced .atbdp_custom_radios {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 4;
 }
 
 .ads-advanced .more-less, .ads-advanced .more-or-less {
@@ -3409,6 +3436,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
   .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-6 .atbd_category_single {
     height: 200px;
   }
+  .ads-advanced .bottom-inputs > div {
+    width: 50%;
+  }
 }
 
 @media (max-width: 575px) {
@@ -3448,6 +3478,26 @@ body.atbd_content_active #directorist.atbd_wrapper {
     padding-top: 0;
     padding-right: 0;
     padding-left: 0;
+  }
+  .ads-advanced .bottom-inputs > div {
+    width: 100%;
+  }
+  .ads-advanced .price_ranges,
+  .ads-advanced .select-basic,
+  .ads-advanced .bads-tags,
+  .ads-advanced .bads-custom-checks,
+  .ads-advanced .atbdp_custom_radios,
+  .ads-advanced .wp-picker-container,
+  .ads-advanced .form-group > .form-control,
+  .ads-advanced .atbdp-custom-fields-search .form-group .form-control {
+    flex: auto;
+    width: 100% !important;
+  }
+  .ads-advanced .form-group label {
+    margin-bottom: 10px !important;
+  }
+  .ads-advanced .more-less, .ads-advanced .more-or-less {
+    text-align: left;
   }
 }
 

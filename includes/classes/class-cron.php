@@ -22,7 +22,7 @@ if (!class_exists('ATBDP_Cron')):
 
             add_action('wp', array($this, 'atbdp_custom_schedule_cron'));
             add_action('atbdp_custom_cron', array($this, 'atbdp_custom_cron_function'));
-            //add_action('wp_head', array($this, 'atbdp_custom_cron_function'));
+            add_action('wp_head', array($this, 'atbdp_custom_cron_function'));
             add_filter('cron_schedules', array($this, 'atbdp_custom_cron_add_intervals'));
         }
 

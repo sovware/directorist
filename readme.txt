@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.1.1
-Stable tag: 5.0.0
+Stable tag: 5.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -128,6 +128,17 @@ Directorist is not developed by a single person. A team of dedicated developers 
 18. Add New Custom Field
 
 == Changelog ==
+
+= 5.0.1 - April 25, 2019 =
+
+* Fix - OpenStreetMap issue
+* Fix - Advanced search/filter issues
+* Fix - Listing pagination on single Category and Location pages
+* Fix - Translation issue of advanced search/filter
+* Fix - Listing expiration
+* Add - Preview image on user's favourite listings list
+* Add - New parameters for Directorist Shortcode's
+* Tweak - Search Result page meta title
 
 = 5.0.0 - April 20, 2019 =
 

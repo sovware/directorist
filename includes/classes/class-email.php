@@ -487,8 +487,8 @@ This email is sent automatically for information purpose only. Please do not res
      */
     public function notify_owner_listing_expired($listing_id)
     {
-        if (get_directorist_option('disable_email_notification')) return false;
-        if(! in_array( 'listing_expired', get_directorist_option('notify_user', array()) ) ) return false;
+        //if (get_directorist_option('disable_email_notification')) return false;
+       // if(! in_array( 'listing_expired', get_directorist_option('notify_user', array()) ) ) return false;
         $user = $this->get_owner($listing_id);
         $sub  = $this->replace_in_content(get_directorist_option("email_sub_expired_listing"), null, $listing_id, $user);
         $body = $this->replace_in_content(get_directorist_option("email_tmpl_expired_listing"), null, $listing_id, $user);

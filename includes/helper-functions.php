@@ -2980,7 +2980,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
     return true;
 }
 
-function listing_view_by_list($all_listings)
+function listing_view_by_list($all_listings,$display_image)
 { ?>
     <div class="<?php echo apply_filters('atbdp_listing_list_view_html_class', 'col-md-12')?>">
         <?php
@@ -3064,7 +3064,7 @@ function listing_view_by_list($all_listings)
                 <article
                         class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                     <figure class="atbd_listing_thumbnail_area"
-                            style=" <?php echo empty(get_directorist_option('display_preview_image')) ? 'display:none' : '' ?>">
+                            style=" <?php echo (empty(get_directorist_option('display_preview_image')) || 'no' == $display_image) ? 'display:none' : '' ?>">
                         <?php
                         $disable_single_listing = get_directorist_option('disable_single_listing');
                         if (empty($disable_single_listing)){

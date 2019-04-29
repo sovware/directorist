@@ -124,15 +124,15 @@ $show_title = !empty($show_title)?$show_title:'';
                                                         <div class="atbd_listing_image">
                                                             <?php if(!empty($listing_prv_img)){
 
-                                                                echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="'.esc_url($prv_image).'" alt="'.esc_html(stripslashes(get_the_title())).'"></a>';
+                                                                echo '<a href="'.esc_url(get_post_permalink($post->ID)).'"><img src="'.esc_url($prv_image).'" alt="'.esc_html(stripslashes(get_the_title())).'"></a>';
 
                                                             } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                                                echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="' . esc_url($gallery_img) . '" alt="'.esc_html(stripslashes(get_the_title())).'"></a>';
+                                                                echo '<a href="'.esc_url(get_post_permalink($post->ID)).'"><img src="' . esc_url($gallery_img) . '" alt="'.esc_html(stripslashes(get_the_title())).'"></a>';
 
                                                             }if (empty($listing_img[0]) && empty($listing_prv_img)){
 
-                                                                echo '<a href="'.esc_url(get_post_permalink(get_the_ID())).'"><img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="'.esc_html(stripslashes(get_the_title())).'"></a>';
+                                                                echo '<a href="'.esc_url(get_post_permalink($post->ID)).'"><img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="'.esc_html(stripslashes($post->ID)).'"></a>';
 
                                                             }
                                                             ?>
@@ -190,13 +190,12 @@ $show_title = !empty($show_title)?$show_title:'';
                                                                 $interval = $datetime1->diff($datetime2);
                                                                 $interval = $interval->format('%R%a');
                                                                 $result = substr($interval, 0, 1);
-                                                                if ('-' === $result){
+                                                                if ('+' === $result){
                                                                     $interval = true;
                                                                 }else{
                                                                     $interval = false;
                                                                 }
                                                                 // If the listing needs renewal then there is no need to show promote button
-
                                                                if (($interval) && ('renewal' == $lstatus || 'expired' == $lstatus)) {
 
                                                                     $can_renew = get_directorist_option('can_renew_listing');

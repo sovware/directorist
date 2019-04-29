@@ -81,7 +81,7 @@
                 case 'radio' :
                     $choices = $field_meta['choices'][0];
                     $choices = explode( "\n", trim( $choices ) );
-
+                    echo "<div class='atbdp_custom_radios'>";
                     foreach( $choices as $choice ) {
                         if( strpos( $choice, ':' ) !== false ) {
                             $_choice = explode( ':', $choice );
@@ -99,6 +99,7 @@
 
                         printf( '<div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary"><input type="radio" class="custom-control-input" name="cf[%d]" id="%d" value="%s"%s><span class="radio--select"></span><label class="custom-control-label" for="%d">%s</label></div>', $post->ID,$_for, $_value, $_checked,$_for, $_label );
                     }
+                    echo "</div>";
                     break;
                 case 'url' :
                     printf( '<input type="text" name="cf[%d]" class="form-control" value="%s"/>', $post->ID, esc_url( $value ) );

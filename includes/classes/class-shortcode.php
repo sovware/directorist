@@ -5,7 +5,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
         public function __construct()
         {
-
             add_shortcode( 'directorist_search_listing', array( $this, 'search_listing' ) );
 
             add_shortcode( 'directorist_search_result', array( $this, 'search_result' ) );
@@ -42,6 +41,32 @@ if ( !class_exists('ATBDP_Shortcode') ):
             add_filter( 'body_class', array($this, 'my_body_class'));
             add_action( 'wp_login_failed', array($this, 'my_login_fail'));
 
+            //remove themes sidebar if needed
+            //add_filter( 'is_active_sidebar', array($this, 'remove_active_sidebar'),10,2);
+            add_action( 'wp_head', array($this, 'remove_active_sidebar'));
+
+        }
+
+
+        /**
+         * @since 5.0.2
+         */
+        public function remove_active_sidebar(){
+            global $post, $wp_registered_sidebars;
+            $current_post = $post->post_type;
+            if(is_single() && ('at_biz_dir' === $current_post)){
+                foreach ($wp_registered_sidebars as $key => $value){
+                    if ('right-sidebar-listing' !== $key){
+                        unregister_sidebar($key);
+                /*        echo '<style>
+
+.widget-area{
+display: none;
+}
+</style>';*/
+                    }
+                }
+            }
         }
 
 
@@ -51,12 +76,10 @@ if ( !class_exists('ATBDP_Shortcode') ):
          */
         public function my_login_fail($username){
 
-                /*$id = get_directorist_option('user_login');
-                wp_redirect(home_url( "?page_id=$id" ) . "&login_error" );
-                exit;*/
             $referrer = $_SERVER['HTTP_REFERER'];  // where did the post submission come from?
             // if there's a valid referrer, and it's not the default log-in screen
             if ( !empty($referrer) && !strstr($referrer,'wp-login') && !strstr($referrer,'wp-admin') ) {
+
                 wp_redirect( $referrer . '?login=failed' );  // let's append some information (login=failed) to the URL for the theme to use
                 exit;
             }
@@ -997,20 +1020,22 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $_s = (1 < count($all_listings->posts)) ? 's' : '';
 
             $header_title    = sprintf(__('%d result%s %s %s',ATBDP_TEXTDOMAIN),$all_listings->found_posts,$_s,$for_cat,$in_loc);
-            $listing_filters_button       = get_directorist_option('search_result_filters_button', 1);
+            $listing_filters_button       = get_directorist_option('search_result_filters_button_display', 1);
             $filters                      = get_directorist_option('search_result_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
             $text_placeholder             = get_directorist_option('search_result_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
             $category_placeholder         = get_directorist_option('search_result_category_placeholder',__('Select a category',ATBDP_TEXTDOMAIN));
             $location_placeholder         = get_directorist_option('search_result_location_placeholder',__('Select a location',ATBDP_TEXTDOMAIN));
             $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
             $search_more_filters_fields   = get_directorist_option('listing_filters_fields',array('search_text','search_category','search_location','search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
-            $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
+            $filters_button               = get_directorist_option('search_result_filters_button',array('reset_button','apply_button'));
+            $reset_filters_text           = get_directorist_option('sresult_reset_text',__('Reset Filters',ATBDP_TEXTDOMAIN));
+            $apply_filters_text           = get_directorist_option('sresult_apply_text',__('Apply Filters',ATBDP_TEXTDOMAIN));
+            $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
 
             ob_start();
             include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
             return ob_get_clean();
         }
-
 
         public function all_listing( $atts )
         {
@@ -1042,6 +1067,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'featured_only'     => '',
                 'popular_only'      => '',
                 'advanced_filter'   => '',
+                'display_image'     => 'yes',
                 'action_before_after_loop' => 'yes',
             ), $atts );
 
@@ -1056,6 +1082,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $popular_only        = !empty($atts['popular_only']) ? $atts['popular_only'] : '';
             $action_before_after_loop  = !empty($atts['action_before_after_loop']) ? $atts['action_before_after_loop'] : '';
             $show_pagination       = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
+            $display_image       = !empty($atts['display_image'])  ? $atts['display_image'] : '';
             //for pagination
             $paged               = atbdp_get_paged_num();
             $paginate            = get_directorist_option('paginate_all_listings');
@@ -1195,7 +1222,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $meta_queries = array();
 
             $meta_queries['expired'] = array(
-                    'relation' => 'OR',
+                'relation' => 'OR',
                 array(
                     'key'	  => '_expiry_date',
                     'value'	  => current_time( 'mysql' ),
@@ -1371,15 +1398,15 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $args['meta_query'] = ( $count_meta_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $meta_queries ) : $meta_queries;
             }
 
-            $all_listings               = new WP_Query($args);
-            $paginate            = get_directorist_option('paginate_all_listings');
+            $all_listings                 = new WP_Query($args);
+            $paginate                     = get_directorist_option('paginate_all_listings');
             if ($paginate){
-                $listing_count =  '<span>'.$all_listings->found_posts.'</span>';
+                $listing_count            =  '<span>'.$all_listings->found_posts.'</span>';
             }else{
-                $listing_count =  '<span>'.count($all_listings->posts).'</span>';
+                $listing_count            =  '<span>'.count($all_listings->posts).'</span>';
             }
             $display_header               = !empty($display_header) ? $display_header : '';
-            $header_title                 = !empty($header_title) ? $header_title.$listing_count : '';
+            $header_title                 = !empty($header_title) ? $header_title.' ' .$listing_count : '';
             $listing_filters_button       = !empty($atts['advanced_filter'])?(('yes' === $atts['advanced_filter'])?1:(('no' === $atts['advanced_filter'])?0:$listing_filters_button)): $listing_filters_button;
             $filters                      = get_directorist_option('listings_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
             $text_placeholder             = get_directorist_option('listings_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
@@ -1387,7 +1414,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $location_placeholder         = get_directorist_option('listings_location_placeholder',__('Select a location',ATBDP_TEXTDOMAIN));
             $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
             $search_more_filters_fields   = get_directorist_option('listing_filters_fields',array('search_text','search_category','search_location','search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
-            
+            $filters_button   = get_directorist_option('listings_filters_button',array('reset_button','apply_button'));
+            $reset_filters_text           = get_directorist_option('listings_reset_text',__('Reset Filters',ATBDP_TEXTDOMAIN));
+            $apply_filters_text           = get_directorist_option('listings_apply_text',__('Apply Filters',ATBDP_TEXTDOMAIN));
             ob_start();
             include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
             return ob_get_clean();
@@ -1691,7 +1720,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     $listing_count =  '<span>'.count($all_listings->posts).'</span>';
                 }
                 $display_header               = !empty($display_header) ? $display_header : '';
-                $header_title                 = !empty($header_title) ? $header_title . $listing_count : '';
+                $header_title                 = !empty($header_title) ? $header_title .' '. $listing_count : '';
                 $listing_filters_button       = get_directorist_option('listing_filters_button', 1);
                 $filters                      = get_directorist_option('listings_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
                 $text_placeholder             = get_directorist_option('listings_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
@@ -1699,6 +1728,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $location_placeholder         = get_directorist_option('listings_location_placeholder',__('Select a location',ATBDP_TEXTDOMAIN));
                 $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
                 $search_more_filters_fields   = get_directorist_option('listing_filters_fields',array('search_text','search_category','search_location','search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
+                $filters_button   = get_directorist_option('listings_filters_button',array('reset_button','apply_button'));
+                $reset_filters_text           = get_directorist_option('listings_reset_text',__('Reset Filters',ATBDP_TEXTDOMAIN));
+                $apply_filters_text           = get_directorist_option('listings_apply_text',__('Apply Filters',ATBDP_TEXTDOMAIN));
                 $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
 
                 ob_start();
@@ -1986,7 +2018,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     $listing_count =  '<span>'.count($all_listings->posts).'</span>';
                 }
                 $display_header               = !empty($display_header) ? $display_header : '';
-                $header_title                 = !empty($header_title) ? $header_title . $listing_count : '';
+                $header_title                 = !empty($header_title) ? $header_title .' ' . $listing_count : '';
                 $listing_filters_button       = get_directorist_option('listing_filters_button', 1);
                 $filters                      = get_directorist_option('listings_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
                 $text_placeholder             = get_directorist_option('listings_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
@@ -1994,6 +2026,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $location_placeholder         = get_directorist_option('listings_location_placeholder',__('Select a location',ATBDP_TEXTDOMAIN));
                 $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
                 $search_more_filters_fields   = get_directorist_option('listing_filters_fields',array('search_text','search_category','search_location','search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
+                $filters_button   = get_directorist_option('listings_filters_button',array('reset_button','apply_button'));
+                $reset_filters_text           = get_directorist_option('listings_reset_text',__('Reset Filters',ATBDP_TEXTDOMAIN));
+                $apply_filters_text           = get_directorist_option('listings_apply_text',__('Apply Filters',ATBDP_TEXTDOMAIN));
                 $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
 
                 ob_start();
@@ -2239,7 +2274,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     $listing_count =  '<span>'.count($all_listings->posts).'</span>';
                 }
                 $display_header               = !empty($display_header) ? $display_header : '';
-                $header_title                 = !empty($header_sub_title) ? $header_sub_title . $listing_count : '';
+                $header_title                 = !empty($header_sub_title) ? $header_sub_title .' ' . $listing_count : '';
                 $listing_filters_button       = get_directorist_option('listing_filters_button', 1);
                 $filters                      = get_directorist_option('listings_filter_button_text',__('Filters',ATBDP_TEXTDOMAIN));
                 $text_placeholder             = get_directorist_option('listings_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
@@ -2247,6 +2282,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $location_placeholder         = get_directorist_option('listings_location_placeholder',__('Select a location',ATBDP_TEXTDOMAIN));
                 $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
                 $search_more_filters_fields   = get_directorist_option('listing_filters_fields',array('search_text','search_category','search_location','search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
+                $filters_button               = get_directorist_option('listings_filters_button',array('reset_button','apply_button'));
+                $reset_filters_text           = get_directorist_option('listings_reset_text',__('Reset Filters',ATBDP_TEXTDOMAIN));
+                $apply_filters_text           = get_directorist_option('listings_apply_text',__('Apply Filters',ATBDP_TEXTDOMAIN));
                 $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
 
                 ob_start();
@@ -2259,17 +2297,72 @@ if ( !class_exists('ATBDP_Shortcode') ):
         }
 
         public function search_listing($atts, $content = null) {
-            ob_start();
+            $search_title                = get_directorist_option('search_title', __("Search here", ATBDP_TEXTDOMAIN));
+            $search_subtitle              = get_directorist_option('search_subtitle', __("Find the best match of your interest
+", ATBDP_TEXTDOMAIN));
+            $search_fields               = get_directorist_option('search_tsc_fields',array('search_text','search_category','search_location'));
+            $search_more_filter          = get_directorist_option('search_more_filter',1);
+            $search_more_filters_fields  = get_directorist_option('search_more_filters_fields',array('search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
+            $search_filters              = get_directorist_option('search_filters',array('search_reset_filters','search_apply_filters'));
+            $search_more_filters         = get_directorist_option('search_more_filters',  __('More Filters', ATBDP_TEXTDOMAIN));
+            $search_listing_text         = get_directorist_option('search_listing_text',  __('Search Listing', ATBDP_TEXTDOMAIN));
+            $search_reset_text           = get_directorist_option('search_reset_text',  __('Reset Filters', ATBDP_TEXTDOMAIN));
+            $search_apply_text           = get_directorist_option('search_apply_filter',  __('Apply Filters', ATBDP_TEXTDOMAIN));
             $atts = shortcode_atts(array(
                 'show_title_subtitle'      => 'yes',
-                'show_filter'              => 'yes',
-
+                'search_bar_title'         => !empty($search_title) ? $search_title : 'Search here',
+                'search_bar_sub_title'     => !empty($search_subtitle) ? $search_subtitle : 'Find the best match of your interest',
+                'text_field'               => in_array( 'search_text', $search_fields ) ? 'yes' : '',
+                'category_field'           => in_array( 'search_category', $search_fields ) ? 'yes' : '',
+                'location_field'           => in_array( 'search_location', $search_fields ) ? 'yes' : '',
+                'search_button_text'       => !empty($search_listing_text) ? $search_listing_text : 'Search Listing',
+                'more_filters_button'      => !empty($search_more_filter) ? 'yes' : '',
+                'more_filters_text'        => !empty($search_more_filters) ? $search_more_filters : 'More Filters',
+                'price_min_max_field'      => in_array( 'search_price', $search_more_filters_fields ) ? 'yes' : '',
+                'price_range_field'        => in_array( 'search_price_range', $search_more_filters_fields ) ? 'yes' : '',
+                'rating_field'             => in_array( 'search_rating', $search_more_filters_fields ) ? 'yes' : '',
+                'tag_field'                => in_array( 'search_tag', $search_more_filters_fields ) ? 'yes' : '',
+                'open_now_field'           => in_array( 'search_open_now', $search_more_filters_fields ) ? 'yes' : '',
+                'custom_fields'            => in_array( 'search_custom_fields', $search_more_filters_fields ) ? 'yes' : '',
+                'website_field'            => in_array( 'search_website', $search_more_filters_fields ) ? 'yes' : '',
+                'email_field'              => in_array( 'search_email', $search_more_filters_fields ) ? 'yes' : '',
+                'phone_field'              => in_array( 'search_phone', $search_more_filters_fields ) ? 'yes' : '',
+                'address_field'            => in_array( 'search_address', $search_more_filters_fields ) ? 'yes' : '',
+                'zip_code_field'           => in_array( 'search_zip_code', $search_more_filters_fields ) ? 'yes' : '',
+                'reset_filters_button'     => in_array( 'search_reset_filters', $search_filters ) ? 'yes' : '',
+                'apply_filters_button'     => in_array( 'search_apply_filters', $search_filters ) ? 'yes' : '',
+                'reset_filters_text'       => !empty($search_reset_text) ? $search_reset_text : 'Reset Filters',
+                'apply_filters_text'       => !empty($search_apply_text) ? $search_apply_text : 'Apply Filters',
             ), $atts);
-            $show_title_subtitle = ('yes' === $atts['show_title_subtitle'])?$atts['show_title_subtitle']:'';
-            $show_filter = ('yes' === $atts['show_filter'])?$atts['show_filter']:'';
-            $filters_display = get_directorist_option('home_display_filter','overlapping');
+
+            $search_bar_title       = (!empty($atts['search_bar_title']) ) ? $atts['search_bar_title'] : '';
+            $search_bar_sub_title   = (!empty($atts['search_bar_sub_title']) ) ? $atts['search_bar_sub_title'] : '';
+            $text_field             = (!empty($atts['text_field']) && 'yes' == $atts['text_field']) ? $atts['text_field'] : '';
+            $category_field         = (!empty($atts['category_field']) && 'yes' == $atts['category_field']) ? $atts['category_field'] : '';
+            $location_field         = (!empty($atts['location_field']) && 'yes' == $atts['location_field']) ? $atts['location_field'] : '';
+            $search_button_text     = (!empty($atts['search_button_text']) ) ? $atts['search_button_text'] : '';
+            $more_filters_button    = (!empty($atts['more_filters_button']) && 'yes' == $atts['more_filters_button']) ? $atts['more_filters_button'] : '';
+            $more_filters_text      = (!empty($atts['more_filters_text']) ) ? $atts['more_filters_text'] : '';
+            $price_min_max_field    = (!empty($atts['price_min_max_field']) && 'yes' == $atts['price_min_max_field']) ? $atts['price_min_max_field'] : '';
+            $price_range_field      = (!empty($atts['price_range_field']) && 'yes' == $atts['price_range_field']) ? $atts['price_range_field'] : '';
+            $rating_field           = (!empty($atts['rating_field']) && 'yes' == $atts['rating_field']) ? $atts['rating_field'] : '';
+            $tag_field              = (!empty($atts['tag_field']) && 'yes' == $atts['tag_field']) ? $atts['tag_field'] : '';
+            $open_now_field         = (!empty($atts['open_now_field']) && 'yes' == $atts['open_now_field']) ? $atts['open_now_field'] : '';
+            $custom_fields          = (!empty($atts['custom_fields']) && 'yes' == $atts['custom_fields']) ? $atts['custom_fields'] : '';
+            $website_field          = (!empty($atts['website_field']) && 'yes' == $atts['website_field']) ? $atts['website_field'] : '';
+            $email_field            = (!empty($atts['email_field']) && 'yes' == $atts['email_field']) ? $atts['email_field'] : '';
+            $phone_field            = (!empty($atts['phone_field']) && 'yes' == $atts['phone_field']) ? $atts['phone_field'] : '';
+            $address_field          = (!empty($atts['address_field']) && 'yes' == $atts['address_field']) ? $atts['address_field'] : '';
+            $zip_code_field         = (!empty($atts['zip_code_field']) && 'yes' == $atts['zip_code_field']) ? $atts['zip_code_field'] : '';
+            $reset_filters_button   = (!empty($atts['reset_filters_button']) && 'yes' == $atts['reset_filters_button']) ? $atts['reset_filters_button'] : '';
+            $apply_filters_button   = (!empty($atts['apply_filters_button']) && 'yes' == $atts['apply_filters_button']) ? $atts['apply_filters_button'] : '';
+            $reset_filters_text     = (!empty($atts['reset_filters_text']) ) ? $atts['reset_filters_text'] : '';
+            $apply_filters_text     = (!empty($atts['apply_filters_text']) ) ? $atts['apply_filters_text'] : '';
+            $show_title_subtitle    = ('yes' === $atts['show_title_subtitle'])?$atts['show_title_subtitle']:'';
+            $filters_display        = get_directorist_option('home_display_filter','overlapping');
+            ob_start();
             include ATBDP_TEMPLATES_DIR . 'listing-home.php';
-             //ATBDP()->load_template('listing-home');
+            //ATBDP()->load_template('listing-home');
             ATBDP()->enquirer->search_listing_scripts_styles();
             return ob_get_clean();
         }
@@ -2365,13 +2458,102 @@ if ( !class_exists('ATBDP_Shortcode') ):
         public function custom_user_login()
         {
             ob_start();
+
+
             if (!is_user_logged_in()){
                 echo '<div class="atbdp_login_form_shortcode">';
                 if (isset($_GET['login']) && $_GET['login'] == 'failed'){
                     printf('<p class="alert-danger"><span class="fa fa-exclamation"></span>%s</p>',__(' Invalid username or password!', ATBDP_TEXTDOMAIN));
                 }
                 wp_login_form();
+                echo "<div class='d-flex justify-content-between'>";
                 printf(__('<p>Don\'t have an account? %s</p>', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>");
+                printf(__('<p>%s</p>', ATBDP_TEXTDOMAIN), "<a href='#' data-toggle='modal' data-target='#recover-pass-modal'> ". __('Recover Password', ATBDP_TEXTDOMAIN)."</a>");
+                echo "</div>";
+                global $wpdb;
+
+                $error = '';
+                $success = '';
+
+                // check if we're in reset form
+                if( isset( $_POST['action'] ) && 'reset' == $_POST['action'] )
+                {
+                    $email = trim($_POST['user_login']);
+
+                    if( empty( $email ) ) {
+                        $error = __('Enter a username or e-mail address..', ATBDP_TEXTDOMAIN);
+                    } else if( ! is_email( $email )) {
+                        $error = __('Invalid username or e-mail address.', ATBDP_TEXTDOMAIN);
+                    } else if( ! email_exists( $email ) ) {
+                        $error = __('There is no user registered with that email address.', ATBDP_TEXTDOMAIN);
+                    } else {
+
+                        $random_password = wp_generate_password( 12, false );
+                        $user = get_user_by( 'email', $email );
+
+                        $update_user = wp_update_user( array (
+                                'ID' => $user->ID,
+                                'user_pass' => $random_password
+                            )
+                        );
+
+                        // if  update user return true then lets send user an email containing the new password
+                        if( $update_user ) {
+                            $to = $email;
+                            $subject = 'Your new password';
+                            $sender = get_option('name');
+
+                            $message = 'Your new password is: '.$random_password;
+
+                            $headers[] = 'MIME-Version: 1.0' . "\r\n";
+                            $headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                            $headers[] = "X-Mailer: PHP \r\n";
+                            $headers[] = 'From: '.$sender.' < '.$email.'>' . "\r\n";
+
+                            $mail = wp_mail( $to, $subject, $message, $headers );
+                            if( $mail )
+                                $success =  __('Check your email address for you new password.', ATBDP_TEXTDOMAIN);
+
+                        } else {
+                            $error = __('Oops something went wrong updaing your account.', ATBDP_TEXTDOMAIN);
+                        }
+
+                    }
+
+                    if( ! empty( $error ) )
+                        echo '<div class="message"><p class="error"><strong>'. __("ERROR:", ATBDP_TEXTDOMAIN) .'</strong> '. $error .'</p></div>';
+
+                    if( ! empty( $success ) )
+                        echo '<div class="error_login"><p class="success">'. $success .'</p></div>';
+                }
+                ?>
+                <div class="modal fade" id="recover-pass-modal" tabindex="-1" role="dialog" aria-labelledby="recover-pass-modalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="recover-pass-modalLabel"><span class="la la-lock"></span> Recover Password</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post">
+                                    <fieldset>
+                                        <p><?php _e('Please enter your email address. You will receive a link to create a new password via email.', ATBDP_TEXTDOMAIN)?></p>
+                                        <label for="reset_user_login"><?php _e('Username or E-mail:', ATBDP_TEXTDOMAIN)?></label>
+                                            <?php $user_login = isset( $_POST['user_login'] ) ? $_POST['user_login'] : ''; ?>
+                                            <input type="text" name="user_login" id="reset_user_login" value="<?php echo $user_login; ?>" placeholder="eg. mail@example.com" />
+                                        <p>
+                                            <input type="hidden" name="action" value="reset" />
+                                            <input type="submit" c value="<?php _e('Get New Password', ATBDP_TEXTDOMAIN)?>" class="btn btn-primary" id="submit" />
+                                        </p>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php
                 echo '</div>';
             }else{
                 $error_message = sprintf(__('Login page is not for logged-in user. <a href="%s">Go Back To Home</a>', ATBDP_TEXTDOMAIN), esc_url(get_home_url()));
@@ -2379,7 +2561,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
             }
             return ob_get_clean();
         }
-
 
         public function user_registration()
         {
@@ -2398,5 +2579,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             return ob_get_clean();
         }
+
+
     }
 endif;

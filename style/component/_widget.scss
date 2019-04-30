@@ -168,17 +168,22 @@
     }
   }
   .atbdp-widget-categories {
+    ul li{
+      list-style-type: none !important;
+    }
     .atbdp_child_category {
       padding-left: 50px;
-      li a{
-        position: relative;
-        &:before{
-          position: absolute;
-          content: '-';
-          left: -10px;
-          top: 50%;
-          font-size: 20px;
-          transform: translateY(-50%);
+      li{
+        a{
+          position: relative;
+          &:before{
+            position: absolute;
+            content: '-';
+            left: -10px;
+            top: 50%;
+            font-size: 20px;
+            transform: translateY(-50%);
+          }
         }
       }
     }
@@ -318,6 +323,7 @@
       padding-bottom: 0;
       ul li {
         margin-bottom: 6px;
+        list-style-type: none !important;
         .atbd_info {
           padding-left: 10px;
           width: calc(100% - 43px);

@@ -35,6 +35,9 @@
         var count = 0;
         var abc = $(el)[0];
         var abc2 = $(abc).children('.custom-control');
+        if(abc2.length <= 4){
+            $(abc2).closest('.bads-custom-checks').next('a.more-or-less').hide();
+        }
         $(abc2).slice(4, abc2.length).hide();
 
     });
@@ -60,6 +63,10 @@
 
         });
     });
+    // var checkbox2 = $(".bads-custom-checks .custom-control");
+    // if (checkbox2.length <= 4) {
+    //     $(".more-or-less").remove();
+    // }
 
 
     $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags");

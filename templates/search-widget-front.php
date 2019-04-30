@@ -1,11 +1,11 @@
 <div class="atbdp search-area default-ad-search">
     <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>">
-        <?php if(!empty($search_by_text_field)) {?>
+        <?php if(!empty($search_by_text_field)) { ?>
             <div class="form-group">
                 <input type="text" name="q" placeholder="What are you looking for?" value="<?php echo !empty($_GET['q']) ? $_GET['q'] : ''; ?>" class="form-control">
             </div><!-- ends: .form-group -->
         <?php } ?>
-        <?php if(!empty($search_by_location)) {?>
+        <?php if(!empty($search_by_location)) { ?>
             <div class="form-group">
                 <?php
                 bdas_dropdown_terms( array(

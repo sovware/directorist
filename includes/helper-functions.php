@@ -1887,21 +1887,43 @@ function atbdp_get_listings_current_order($default_order = '')
  *
  * @return   array    $options    A list of the orderby options.
  */
-function atbdp_get_listings_orderby_options()
+function atbdp_get_listings_orderby_options($sort_by_items)
 {
-
-
     $options = array(
-        'title-asc' => __("A to Z ( title )", ATBDP_TEXTDOMAIN),
-        'title-desc' => __("Z to A ( title )", ATBDP_TEXTDOMAIN),
-        'date-desc' => __("Latest listings", ATBDP_TEXTDOMAIN),
-        'date-asc' => __("Oldest listings", ATBDP_TEXTDOMAIN),
-        'views-desc' => __("Popular listings", ATBDP_TEXTDOMAIN),
-        'price-asc' => __("Price ( low to high )", ATBDP_TEXTDOMAIN),
-        'price-desc' => __("Price ( high to low )", ATBDP_TEXTDOMAIN),
-        'rand' => __("Random listings", ATBDP_TEXTDOMAIN),
+        'title-asc'   => __("A to Z ( title )", ATBDP_TEXTDOMAIN),
+        'title-desc'  => __("Z to A ( title )", ATBDP_TEXTDOMAIN),
+        'date-desc'   => __("Latest listings", ATBDP_TEXTDOMAIN),
+        'date-asc'    => __("Oldest listings", ATBDP_TEXTDOMAIN),
+        'views-desc'  => __("Popular listings", ATBDP_TEXTDOMAIN),
+        'price-asc'   => __("Price ( low to high )", ATBDP_TEXTDOMAIN),
+        'price-desc'  => __("Price ( high to low )", ATBDP_TEXTDOMAIN),
+        'rand'        => __("Random listings", ATBDP_TEXTDOMAIN),
     );
 
+    if(!in_array( 'a_z', $sort_by_items )) {
+        unset($options['title-asc']);
+    }
+    if(!in_array( 'z_a', $sort_by_items )) {
+        unset($options['title-desc']);
+    }
+    if(!in_array( 'latest', $sort_by_items )) {
+        unset($options['date-desc']);
+    }
+    if(!in_array( 'oldest', $sort_by_items )) {
+        unset($options['date-asc']);
+    }
+    if(!in_array( 'popular', $sort_by_items )) {
+        unset($options['views-desc']);
+    }
+    if(!in_array( 'price_low_high', $sort_by_items )) {
+        unset($options['price-asc']);
+    }
+    if(!in_array( 'price_high_low', $sort_by_items )) {
+        unset($options['price-desc']);
+    }
+    if(!in_array( 'random', $sort_by_items )) {
+        unset($options['rand']);
+    }
     $args = array(
         'post_type' => ATBDP_POST_TYPE,
         'post_status' => 'publish',

@@ -1682,6 +1682,56 @@ The Administrator of ==SITE_NAME==
                         'default' => 1,
                     ),
                     array(
+                        'type' => 'checkbox',
+                        'name' => 'listings_sort_by_items',
+                        'label' => __('"Sort By" Dropdown', ATBDP_TEXTDOMAIN),
+                        'validation' => 'minselected[1]|maxselected[10]',
+                        'items' => array(
+                            array(
+                                'value' => 'a_z',
+                                'label' => __('A to Z (title)', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'z_a',
+                                'label' => __('Z to A (title)', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'latest',
+                                'label' => __('Latest listings', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'oldest',
+                                'label' => __('Oldest listings', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'popular',
+                                'label' => __('Popular listings', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'price_low_high',
+                                'label' => __('Price (low to high)', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'price_high_low',
+                                'label' => __('Price (high to low)', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'random',
+                                'label' => __('Random listings', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'a_z',
+                            'z_a',
+                            'latest',
+                            'oldest',
+                            'popular',
+                            'price_low_high',
+                            'price_high_low',
+                            'random'
+                        ),
+                    ),
+                    array(
                         'type' => 'toggle',
                         'name' => 'display_view_as',
                         'label' => __('Display "View As" Dropdown', ATBDP_TEXTDOMAIN),
@@ -2492,6 +2542,56 @@ The Administrator of ==SITE_NAME==
                         'name' => 'search_sort_by',
                         'label' => __('Display "Sort By" Dropdown', ATBDP_TEXTDOMAIN),
                         'default' => 1,
+                    ),
+                    array(
+                        'type' => 'checkbox',
+                        'name' => 'search_sort_by_items',
+                        'label' => __('"Sort By" Dropdown', ATBDP_TEXTDOMAIN),
+                        'validation' => 'minselected[1]|maxselected[10]',
+                        'items' => array(
+                            array(
+                                'value' => 'a_z',
+                                'label' => __('A to Z (title)', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'z_a',
+                                'label' => __('Z to A (title)', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'latest',
+                                'label' => __('Latest listings', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'oldest',
+                                'label' => __('Oldest listings', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'popular',
+                                'label' => __('Popular listings', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'price_low_high',
+                                'label' => __('Price (low to high)', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'price_high_low',
+                                'label' => __('Price (high to low)', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'random',
+                                'label' => __('Random listings', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'a_z',
+                            'z_a',
+                            'latest',
+                            'oldest',
+                            'popular',
+                            'price_low_high',
+                            'price_high_low',
+                            'random'
+                        ),
                     ),
                     array(
                         'type' => 'select',

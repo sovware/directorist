@@ -62,7 +62,7 @@
 
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
                                             <?php
-                                            $options = atbdp_get_listings_orderby_options();
+                                            $options = atbdp_get_listings_orderby_options($sort_by_items);
 
                                             $current_order = !empty($current_order)?$current_order:'';
                                             foreach ($options as $value => $label) {

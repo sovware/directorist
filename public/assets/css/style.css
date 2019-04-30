@@ -1903,6 +1903,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding-left: 10px;
 }
 
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories ul li,
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories ul li,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories ul li {
+  list-style-type: none !important;
+}
+
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_category,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories .atbdp_child_category,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_category {
@@ -2118,6 +2124,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_author_info_widget .atbd_widget_contact_info ul li,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_author_info_widget .atbd_widget_contact_info ul li {
   margin-bottom: 6px;
+  list-style-type: none !important;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_author_info_widget .atbd_widget_contact_info ul li .atbd_info,

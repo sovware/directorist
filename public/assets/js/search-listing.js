@@ -39,27 +39,26 @@
 
     });
 
-    var count = 1;
-    $(document).on("click", ".more-or-less", function (e) {
-        e.preventDefault();
-        count++;
+    $('.more-or-less').each(function(index, el) {
+        var count = 1;
+        $(el).on('click', function(event) {
+            event.preventDefault();
+            count++;
+            var item = $(this).closest('.ads-filter-tags');
 
-        var item = $(this).closest('.ads-filter-tags');
-
-        //var abc = $(el)[0];
-        var abc2 = $(item).find('.custom-control');
-        // console.log(abc2);
-        $(abc2).slice(4, abc2.length).hide();
-
-        if (count % 2 == 1) {
-            $(this).removeClass('active');
-            $(this).text('Show More');
+            var abc2 = $(item).find('.custom-control');
             $(abc2).slice(4, abc2.length).hide();
-        } else {
-            $(this).addClass('active');
-            $(this).text('Show Less')
-            $(abc2).slice(4, abc2.length).show();
-        }
+            if (count%2 == 1) {
+                $(this).removeClass('active');
+                $(this).text('Show More');
+                $(abc2).slice(4, abc2.length).hide();
+            } else {
+                $(this).addClass('active');
+                $(this).text('Show Less');
+                $(abc2).slice(4, abc2.length).show();
+            }
+
+        });
     });
 
 

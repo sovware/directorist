@@ -165,6 +165,7 @@
 }
 .default-ad-search *{
     box-sizing: border-box;
+    text-align: left;
 }
 .default-ad-search small{
     color: #7a82a6;

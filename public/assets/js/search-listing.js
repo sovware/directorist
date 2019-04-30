@@ -35,32 +35,38 @@
         var count = 0;
         var abc = $(el)[0];
         var abc2 = $(abc).children('.custom-control');
-        $(abc2).slice(4, abc2.length).hide();
-
-    });
-
-    var count = 1;
-    $(document).on("click", ".more-or-less", function (e) {
-        e.preventDefault();
-        count++;
-
-        var item = $(this).closest('.ads-filter-tags');
-
-        //var abc = $(el)[0];
-        var abc2 = $(item).find('.custom-control');
-        // console.log(abc2);
-        $(abc2).slice(4, abc2.length).hide();
-
-        if (count % 2 == 1) {
-            $(this).removeClass('active');
-            $(this).text('Show More');
-            $(abc2).slice(4, abc2.length).hide();
-        } else {
-            $(this).addClass('active');
-            $(this).text('Show Less')
-            $(abc2).slice(4, abc2.length).show();
+        if(abc2.length <= 4){
+            $(abc2).closest('.bads-custom-checks').next('a.more-or-less').hide();
         }
+        $(abc2).slice(4, abc2.length).hide();
+
     });
+
+    $('.more-or-less').each(function(index, el) {
+        var count = 1;
+        $(el).on('click', function(event) {
+            event.preventDefault();
+            count++;
+            var item = $(this).closest('.ads-filter-tags');
+
+            var abc2 = $(item).find('.custom-control');
+            $(abc2).slice(4, abc2.length).hide();
+            if (count%2 == 1) {
+                $(this).removeClass('active');
+                $(this).text('Show More');
+                $(abc2).slice(4, abc2.length).hide();
+            } else {
+                $(this).addClass('active');
+                $(this).text('Show Less');
+                $(abc2).slice(4, abc2.length).show();
+            }
+
+        });
+    });
+    // var checkbox2 = $(".bads-custom-checks .custom-control");
+    // if (checkbox2.length <= 4) {
+    //     $(".more-or-less").remove();
+    // }
 
 
     $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags");

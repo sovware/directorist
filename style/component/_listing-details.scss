@@ -473,7 +473,8 @@
   }
 }
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content{
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content,
+.atbd_content_active .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content{
   .atbd_cat{
     position: relative;
     padding-left: 25px;
@@ -533,6 +534,12 @@
       visibility: visible;
       opacity: 1;
     }
+  }
+  .directory_tag{
+    margin: 0;
+  }
+  .cate_title{
+    line-height: 18px;
   }
 }
 

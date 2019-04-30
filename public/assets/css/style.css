@@ -1820,10 +1820,17 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 0px 30px;
 }
 
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_categorized_listings .listings,
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_categorized_listings .listings,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings .listings {
+  padding: 0;
+}
+
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_categorized_listings .listings > li,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_categorized_listings .listings > li,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings .listings > li {
   padding: 15px 0;
+  list-style-type: none !important;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_categorized_listings .listings > li:first-child,
@@ -1882,6 +1889,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-size: 16px;
   font-family: "Roboto", sans-serif;
   margin-bottom: 0;
+}
+
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_categorized_listings .listings > li .atbd_right_content .atbd_rated_stars ul li,
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_categorized_listings .listings > li .atbd_right_content .atbd_rated_stars ul li,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings .listings > li .atbd_right_content .atbd_rated_stars ul li {
+  list-style: none !important;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_categorized_listings .listings > li .atbd_left_img + .atbd_right_content,
@@ -2383,6 +2396,21 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active .widget.atbd_widget + #dcl-claim-modal .dcl_plans {
   display: block;
+  margin-top: 10px;
+}
+
+.atbd_content_active .widget.atbd_widget + #dcl-claim-modal .modal-footer {
+  flex-direction: column;
+}
+
+.atbd_content_active .widget.atbd_widget + #dcl-claim-modal .modal-footer .btn {
+  background: #444752;
+  color: #fff;
+}
+
+.atbd_content_active .widget.atbd_widget + #dcl-claim-modal .modal-footer span {
+  display: block;
+  margin-top: 10px;
 }
 
 @media (min-width: 576px) {

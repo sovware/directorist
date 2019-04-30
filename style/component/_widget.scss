@@ -117,8 +117,10 @@
   .atbd_categorized_listings {
     padding: 0px 30px;
     .listings {
+      padding:0;
       > li {
         padding: 15px 0;
+        list-style-type: none !important;
         &:first-child{
           padding-top: 25px;
         }
@@ -152,6 +154,11 @@
             font-size: 16px;
             font-family: $atbd-font-family;
             margin-bottom: 0;
+          }
+          .atbd_rated_stars{
+            ul li{
+              list-style: none !important;
+            }
           }
         }
         .atbd_left_img + .atbd_right_content {
@@ -551,6 +558,18 @@
     }
     .dcl_plans{
       display: block;
+      margin-top: 10px;
+    }
+    .modal-footer{
+      flex-direction: column;
+      .btn{
+        background: #444752;
+        color: #fff;
+      }
+      span{
+        display: block;
+        margin-top: 10px;
+      }
     }
   }
 }

@@ -81,7 +81,7 @@ $column_width           = 100/$search_listing_columns .'%';
             </div>
             <?php } ?>
             <!--maybe we should removed the parent container so that it can match perfectly -->
-            <div class="row" <?php echo (get_directorist_option('grid_view_as','masonry_grid') !== 'masonry_grid')?'':'data-uk-grid';?>>
+            <div class="row" <?php echo (get_directorist_option('grid_view_as','normal_grid') !== 'masonry_grid')?'':'data-uk-grid';?>>
                 <?php
                 if ( count($listings->posts) ) {
                     while ( $listings->have_posts() ) {

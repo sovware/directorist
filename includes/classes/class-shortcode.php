@@ -1235,12 +1235,19 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     'compare' => '='
                 );
             }
+
+            $listing_popular_by = get_directorist_option('listing_popular_by');
+            $average = ATBDP()->review->get_average($listing_id);
+            $average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
+            $view_to_popular = get_directorist_option('views_for_popular');
+
             if('yes' == $popular_only) {
                 if( $has_featured ) {
                     $meta_queries['views'] = array(
                         'key'     => '_atbdp_post_views_count',
+                        'value'   => (int)$view_to_popular,
                         'type'    => 'NUMERIC',
-                        'compare' => 'EXISTS',
+                        'compare' => '>=',
                     );
 
                     $args['orderby']  = array(
@@ -2485,8 +2492,11 @@ if ( !class_exists('ATBDP_Shortcode') ):
                             $headers[] = 'From: '.$sender.' < '.$email.'>' . "\r\n";
 
                             $mail = wp_mail( $to, $subject, $message, $headers );
-                            if( $mail )
+                            if( $mail ){
                                 $success =  __('Check your email address for you new password.', ATBDP_TEXTDOMAIN);
+                            }else{
+                                $error = __('Oops something went wrong sending email.', ATBDP_TEXTDOMAIN);
+                            }
 
                         } else {
                             $error = __('Oops something went wrong updaing your account.', ATBDP_TEXTDOMAIN);

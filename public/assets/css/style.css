@@ -1419,7 +1419,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_title {
   padding-top: 0;
   text-transform: capitalize;
-  line-height: 28px;
+  line-height: 24px;
   margin-bottom: 0;
 }
 
@@ -1460,10 +1460,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
   justify-content: space-between;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_left {
+  margin-right: 12px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right {
   display: flex;
   align-items: center;
-  margin-left: 12px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right li + li {

@@ -140,7 +140,7 @@
           padding-top: 0;
           a{font-size: 18px;}
           text-transform: capitalize;
-          line-height: 28px;
+          line-height: 24px;
           margin-bottom: 0;
         }
         .atbd_listing_tagline {
@@ -176,10 +176,12 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+        .atbd_content_left{
+          margin-right: 12px;
+        }
         .atbd_content_right{
           display: flex;
           align-items: center;
-          margin-left: 12px;
           li+li{
             margin-left: 6px;
           }

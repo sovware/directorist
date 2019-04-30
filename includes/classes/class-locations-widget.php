@@ -38,62 +38,27 @@ if (!class_exists('BD_Locations_Widget')) {
             $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Directorist Locations', ATBDP_TEXTDOMAIN);
 
             $query_args = array(
-                'template'       => ! empty( $instance['display_as'] ) ? sanitize_text_field( $instance['display_as'] ) : 'list',
-                'parent'         => ! empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
-                'term_id'        => ! empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
-                'hide_empty'     => ! empty( $instance['hide_empty'] ) ? 1 : 0,
-                'orderby'        => ! empty( $instance['orderby'] ) ? sanitize_text_field( $instance['order_by'] ) : 'id',
-                'order'          => ! empty( $instance['order'] ) ? sanitize_text_field( $instance['order'] ) : 'asc',
-                'show_count'     => ! empty( $instance['show_count'] ) ? 1 : 0,
-                'pad_counts'     => true,
-                'immediate_category' => ! empty( $instance['immediate_category'] ) ? 1 : 0,
-                'active_term_id' => 0,
-                'ancestors'      => array()
+                'template'           => !empty( $instance['display_as'] ) ? sanitize_text_field( $instance['display_as'] ) : 'list',
+                'parent'             => !empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
+                'term_id'            => !empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
+                'hide_empty'         => !empty( $instance['hide_empty'] ) ? 1 : 0,
+                'orderby'            => !empty( $instance['orderby'] ) ? sanitize_text_field( $instance['order_by'] ) : 'id',
+                'order'              => !empty( $instance['order'] ) ? sanitize_text_field( $instance['order'] ) : 'asc',
+                'show_count'         => !empty( $instance['show_count'] ) ? 1 : 0,
+                'single_only'        => !empty( $instance['single_only'] ) ? 1 : 0,
+                'pad_counts'         => true,
+                'immediate_category' => !empty( $instance['immediate_category'] ) ? 1 : 0,
+                'active_term_id'     => 0,
+                'ancestors'          => array()
             );
 
-            if( $query_args['immediate_category'] ) {
-
-                $term_slug = get_query_var( ATBDP_LOCATION );
-
-                if( '' != $term_slug ) {
-                    $term = get_term_by( 'slug', $term_slug, ATBDP_LOCATION );
-                    $query_args['active_term_id'] = $term->term_id;
-
-                    $query_args['ancestors'] = get_ancestors( $query_args['active_term_id'], ATBDP_LOCATION );
-                    $query_args['ancestors'][] = $query_args['active_term_id'];
-                    $query_args['ancestors'] = array_unique( $query_args['ancestors'] );
+            if(!empty($query_args['single_only'])) {
+                if(is_singular(ATBDP_POST_TYPE)) {
+                    include ATBDP_TEMPLATES_DIR . "widget-templates/locations.php";
                 }
-
-            }
-
-            if( 'dropdown' == $query_args['template'] ) {
-                $categories = $this->dropdown_locations( $query_args );
             } else {
-                $categories = $this->list_locations( $query_args );
+                include ATBDP_TEMPLATES_DIR . "widget-templates/locations.php";
             }
-            echo $args['before_widget'];
-            echo '<div class="atbd_widget_title">';
-            echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
-            echo '</div>';
-            ?>
-
-            <div class="atbdp atbdp-widget-categories">
-                <?php if( 'dropdown' == $query_args['template'] ) : ?>
-                    <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
-                        <input type="hidden" name="q" placeholder="">
-                        <select id="at_biz_dir-location" name="in_loc" onchange="this.form.submit()">
-                            <?php echo $categories; ?>
-                        </select>
-                    </form>
-                <?php else :
-                    echo $categories;
-                endif; ?>
-            </div>
-
-            <?php
-
-
-            echo $args['after_widget'];
         }
 
         /**
@@ -107,14 +72,15 @@ if (!class_exists('BD_Locations_Widget')) {
         public function form($instance)
         {
             $values = array(
-                'title' => __('Locations', ATBDP_TEXTDOMAIN),
-                'display_as'=>'list',
-                'hide_empty'=> 0,
-                'show_count'=> 0,
-                'parent'=>0,
-                'immediate_category'=>0,
-                'order_by'=>'id',
-                'order'=>'asc',
+                'title'              => __('Locations', ATBDP_TEXTDOMAIN),
+                'display_as'         => 'list',
+                'hide_empty'         => 0,
+                'show_count'         => 0,
+                'single_only'        => 0,
+                'parent'             => 0,
+                'immediate_category' => 0,
+                'order_by'           => 'id',
+                'order'              => 'asc',
             );
 
             $instance = wp_parse_args((array)$instance,$values);
@@ -188,6 +154,11 @@ if (!class_exists('BD_Locations_Widget')) {
                 <input <?php checked( $instance['show_count'],1 ); ?> id="<?php echo $this->get_field_id( 'show_count' ); ?>" name="<?php echo $this->get_field_name( 'show_count' ); ?>" value="1" type="checkbox" />
                 <label for="<?php echo $this->get_field_id( 'show_count' ); ?>"><?php _e( 'Display listing counts', ATBDP_TEXTDOMAIN ); ?></label>
             </p>
+
+            <p>
+                <input <?php checked( $instance['single_only'],1 ); ?> id="<?php echo $this->get_field_id( 'single_only' ); ?>" name="<?php echo $this->get_field_name( 'single_only' ); ?>" value="1" type="checkbox" />
+                <label for="<?php echo $this->get_field_id( 'single_only' ); ?>"><?php _e( 'Display only on single listing', ATBDP_TEXTDOMAIN ); ?></label>
+            </p>
             <?php
         }
 
@@ -213,6 +184,7 @@ if (!class_exists('BD_Locations_Widget')) {
             $instance['immediate_category'] = isset( $new_instance['immediate_category'] ) ? 1 : 0;
             $instance['hide_empty']     = isset( $new_instance['hide_empty'] ) ? 1 : 0;
             $instance['show_count']     = isset( $new_instance['show_count'] ) ? 1 : 0;
+            $instance['single_only']     = isset( $new_instance['single_only'] ) ? 1 : 0;
 
             return $instance;
 

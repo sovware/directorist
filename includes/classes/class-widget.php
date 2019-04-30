@@ -32,17 +32,16 @@ if (!class_exists('BD_Popular_Listing_Widget')) {
          */
         public function widget($args, $instance)
         {
-            global $post;
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Popular Listings', ATBDP_TEXTDOMAIN);
-            $pop_listing_num = !empty($instance['pop_listing_num']) ? $instance['pop_listing_num'] : 5;
-            echo $args['before_widget'];
-            echo '<div class="atbd_widget_title">';
-            echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
-            echo '</div>';
-            ATBDP()->show_popular_listing($pop_listing_num, $post->id);
+            $single_only  = !empty( $instance['single_only'] ) ? 1 : 0;
 
+            if(!empty($single_only)) {
+                if(is_singular(ATBDP_POST_TYPE)) {
+                    include ATBDP_TEMPLATES_DIR . "widget-templates/popular-listings.php";
+                }
+            } else {
+                include ATBDP_TEMPLATES_DIR . "widget-templates/popular-listings.php";
+            }
 
-            echo $args['after_widget'];
         }
 
         /**
@@ -55,8 +54,9 @@ if (!class_exists('BD_Popular_Listing_Widget')) {
          */
         public function form($instance)
         {
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Popular Listings', ATBDP_TEXTDOMAIN);
-            $pop_listing_num = !empty($instance['pop_listing_num']) ? $instance['pop_listing_num'] : 5;
+            $title              = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Popular Listings', ATBDP_TEXTDOMAIN);
+            $pop_listing_num    = !empty($instance['pop_listing_num']) ? $instance['pop_listing_num'] : 5;
+            $single_only        = !empty($instance['single_only']) ? 1 : 0;
             ?>
             <p>
                 <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', ATBDP_TEXTDOMAIN); ?></label>
@@ -70,6 +70,11 @@ if (!class_exists('BD_Popular_Listing_Widget')) {
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('pop_listing_num')); ?>"
                        name="<?php echo esc_attr($this->get_field_name('pop_listing_num')); ?>" type="text"
                        value="<?php echo esc_attr($pop_listing_num); ?>">
+            </p>
+
+            <p>
+                <input <?php checked( $single_only,1 ); ?> id="<?php echo $this->get_field_id( 'single_only' ); ?>" name="<?php echo $this->get_field_name( 'single_only' ); ?>" value="1" type="checkbox" />
+                <label for="<?php echo $this->get_field_id( 'single_only' ); ?>"><?php _e( 'Display only on single listing', ATBDP_TEXTDOMAIN ); ?></label>
             </p>
             <?php
         }
@@ -86,10 +91,10 @@ if (!class_exists('BD_Popular_Listing_Widget')) {
          */
         public function update($new_instance, $old_instance)
         {
-            $instance = array();
-            $instance['title'] = (!empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
-            $instance['pop_listing_num'] = (!empty($new_instance['pop_listing_num'])) ? intval($new_instance['pop_listing_num']) : '';
-
+            $instance                       = array();
+            $instance['title']              = (!empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
+            $instance['pop_listing_num']    = (!empty($new_instance['pop_listing_num'])) ? intval($new_instance['pop_listing_num']) : '';
+            $instance['single_only']        = (!empty($new_instance['single_only'])) ? 1 : 0;
             return $instance;
         }
 

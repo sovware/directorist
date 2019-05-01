@@ -2184,8 +2184,8 @@ The Administrator of ==SITE_NAME==
                             ),
                         ),
                         'default' => array(
-                            'value' => 'overlapping',
-                            'label' => __('Overlapping', ATBDP_TEXTDOMAIN),
+                            'value' => 'sliding',
+                            'label' => __('Sliding', ATBDP_TEXTDOMAIN),
                         ),
                     ),
                     array(

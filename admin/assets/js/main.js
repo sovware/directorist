@@ -674,6 +674,8 @@ jQuery(function ($) {
         lf_opt6.show();
     }
 
+
+
     //Display filter button
     var lf_opt7 = $("#default_preview_image");
     lf_opt7.hide();
@@ -732,18 +734,115 @@ jQuery(function ($) {
 
     //
     var lf_opt11 = $("#atbdp_listing_slug, #new_listing_status, #edit_listing_status, #edit_listing_redirect, #listing_details_text, #custom_section_lable, #listing_location_text, #contact_info_text, #contact_listing_owner, #atbd_video_title, #dsiplay_prv_single_page, #dsiplay_slider_single_page, #gallery_cropping, #gallery_crop_width, #gallery_crop_height, #enable_social_share, #enable_favourite, #enable_report_abuse, #disable_list_price, #disable_contact_info, #disable_contact_owner, #use_nofollow, #disable_map, #atbd_video_url, #enable_rel_listing, #rel_listing_num, #rel_listing_column");
-    lf_opt11.hide();
+    lf_opt11.show();
     $('input[name="disable_single_listing"]').on("change", function () {
         if($(this).is(":checked") === true){
-            lf_opt11.show();
-        }else{
             lf_opt11.hide();
+        }else{
+            lf_opt11.show();
         }
     });
     if($('input[name="disable_single_listing"]').is(":checked") === true){
-        lf_opt11.show();
+        lf_opt11.hide();
     }
 
+    //Display all listings sort by dropdown
+    var lf_opt12 = $("#listings_sort_by_items");
+    lf_opt12.hide();
+    $('input[name="display_sort_by"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt12.show();
+        }else{
+            lf_opt12.hide();
+        }
+    });
+    if($('input[name="display_sort_by"]').is(":checked") === true){
+        lf_opt12.show();
+    }
+
+    //Display all listings view as dropdown
+    var lf_opt13 = $("#listings_view_as_items");
+    lf_opt13.hide();
+    $('input[name="display_view_as"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt13.show();
+        }else{
+            lf_opt13.hide();
+        }
+    });
+    if($('input[name="display_view_as"]').is(":checked") === true){
+        lf_opt13.show();
+    }
+
+    //Display new badge
+    var lf_opt14 = $("#new_badge_text,#new_listing_day");
+    lf_opt14.hide();
+    $('input[name="display_new_badge_cart"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt14.show();
+        }else{
+            lf_opt14.hide();
+        }
+    });
+    if($('input[name="display_new_badge_cart"]').is(":checked") === true){
+        lf_opt14.show();
+    }
+
+    //Display featured badge
+    var lf_opt15 = $("#feature_badge_text");
+    lf_opt15.hide();
+    $('input[name="display_feature_badge_cart"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt15.show();
+        }else{
+            lf_opt15.hide();
+        }
+    });
+    if($('input[name="display_feature_badge_cart"]').is(":checked") === true){
+        lf_opt15.show();
+    }
+
+    //Display featured badge
+    var lf_opt16 = $("#popular_badge_text,#listing_popular_by,#average_review_for_popular");
+    lf_opt16.hide();
+    $('input[name="display_popular_badge_cart"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt16.show();
+        }else{
+            lf_opt16.hide();
+        }
+    });
+    if($('input[name="display_popular_badge_cart"]').is(":checked") === true){
+        lf_opt16.show();
+    }
+
+    //Display review rating
+    var lf_opt17 = $("#enable_owner_review,#review_num");
+    lf_opt17.hide();
+    $('input[name="enable_review"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt17.show();
+        }else{
+            lf_opt17.hide();
+        }
+    });
+    if($('input[name="enable_review"]').is(":checked") === true){
+        lf_opt17.show();
+    }
+
+    //Display form tagline
+    var lf_opt17 = $("#enable_owner_review,#review_num");
+    lf_opt17.hide();
+    $('input[name="enable_review"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt17.show();
+        }else{
+            lf_opt17.hide();
+        }
+    });
+    if($('input[name="enable_review"]').is(":checked") === true){
+        lf_opt17.show();
+    }
 
 });
 

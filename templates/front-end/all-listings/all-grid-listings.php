@@ -5,6 +5,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
 $display_sortby_dropdown = get_directorist_option('display_sort_by', 1);
 $display_viewas_dropdown = get_directorist_option('display_view_as', 1);
 $pagenation = get_directorist_option('paginate_all_listings', 1);
+$view_as = get_directorist_option('grid_view_as', 'normal_grid');
 
 wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
 $column_width = 100 / $columns . '%';
@@ -24,7 +25,7 @@ $column_width = 100 / $columns . '%';
             do_action('atbdp_before_grid_listings_loop');
         }
         ?>
-        <div class="row" <?php echo (get_directorist_option('grid_view_as', 'masonry_grid') !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
+        <div class="row" <?php echo ($view_as !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
             <?php
             if ($all_listings->have_posts()) {
                 while ($all_listings->have_posts()) {

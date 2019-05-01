@@ -660,6 +660,12 @@ jQuery(function ($) {
         $(".atbd_single_listing .db_btn_area").addClass("db_btn_area--sm");
     }
 
+    $("#recover-pass-modal").hide();
+    $(".atbdp_recovery_pass").on("click", function (e) {
+        e.preventDefault();
+        $("#recover-pass-modal").slideToggle().show();
+    })
+
 })(jQuery);
 
 

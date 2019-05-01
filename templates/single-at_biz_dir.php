@@ -388,11 +388,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         $title_html .= '<h2>';
                         $title_html .= esc_html($p_title);
                         $title_html .= '</h2>';
-                        /**
-                         * @since 4.5.2
-                         * It fires after the title in single listing
-                         */
-                        do_action('atbdp_single_listing_after_title', $listing_id);
+
                         if (!empty($tagline) && !empty($display_tagline_field)) {
                                 $title_html .= '<p class="atbd_sub_title">'. (!empty($tagline)) ? esc_html(stripslashes($tagline)) : "".'</p>';
                             }
@@ -403,11 +399,15 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                              */
                             do_action('atbdp_after_listing_tagline');
                             $title_html .= '</div>';
-
                             /**
                              * @since 5.0
                              */
                             echo apply_filters('atbdp_listing_title_and_tagline', $title_html);
+                            /**
+                             * @since 4.5.2
+                             * It fires after the title in single listing
+                             */
+                            do_action('atbdp_single_listing_after_title', $listing_id);
 
                             $listing_content = '<div class="about_detail">';
                             /*

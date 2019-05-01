@@ -1170,7 +1170,7 @@ The Administrator of ==SITE_NAME==
                 ),
                 array(
                     'value' => 'listing_contact_form',
-                    'label' => __('Listing contact form', ATBDP_TEXTDOMAIN),
+                    'label' => __('Listing Contact Form', ATBDP_TEXTDOMAIN),
                 ),
             ));
         }
@@ -1214,6 +1214,7 @@ The Administrator of ==SITE_NAME==
                     'value' => 'listing_renewed',
                     'label' => __('Listing Renewed', ATBDP_TEXTDOMAIN),
                 ),
+
             ));
         }
 
@@ -1800,8 +1801,8 @@ The Administrator of ==SITE_NAME==
                             ),
                         ),
                         'default' => array(
-                            'value' => 'masonry_grid',
-                            'label' => __('Masonry', ATBDP_TEXTDOMAIN),
+                            'value' => 'normal_grid',
+                            'label' => __('Normal', ATBDP_TEXTDOMAIN),
                         ),
                     ),
                     array(

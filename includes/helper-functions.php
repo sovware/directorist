@@ -2199,7 +2199,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
 {
     ?>
     <div class="col-lg-12">
-        <div class="row" <?php echo (get_directorist_option('grid_view_as', 'masonry_grid') !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
+        <div class="row" <?php echo (get_directorist_option('grid_view_as', 'normal_grid') !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
 
 
             <?php if ($all_listings->have_posts()) {

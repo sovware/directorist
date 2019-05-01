@@ -687,7 +687,7 @@ jQuery(function ($) {
     var hash = window.location.hash;
     $('#nav-item a[href="' + hash + '"]').tab('show');
 
-    
+
 })(jQuery);
 
 

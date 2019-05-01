@@ -1,21 +1,22 @@
 <?php
-if ( !class_exists('ATBDP_Settings_Manager' ) ):
-    class ATBDP_Settings_Manager {
+if (!class_exists('ATBDP_Settings_Manager')):
+    class ATBDP_Settings_Manager
+    {
 
         private $extension_url = '';
 
         public function __construct()
         {
             // the safest hook to use is after_setup_theme, since Vafpress Framework may exists in Theme or Plugin
-            add_action( 'after_setup_theme', array($this, 'display_plugin_settings') );
+            add_action('after_setup_theme', array($this, 'display_plugin_settings'));
             $this->extension_url = sprintf("<a target='_blank' href='%s'>%s</a>", esc_url(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension')), __('Checkout Awesome Extensions', ATBDP_TEXTDOMAIN));
         }
 
         /**
          * It displays the settings page of the plugin using VafPress framework
-         * @since 3.0.0
          * @return void
-         **/
+         **@since 3.0.0
+         */
         public function display_plugin_settings()
         {
             $atbdp_options = array(
@@ -42,10 +43,11 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
 
         /**
          * Get all the menus for the Settings Page
-         * @since 3.0.0
          * @return array It returns an array of Menus
+         * @since 3.0.0
          */
-        function get_settings_menus(){
+        function get_settings_menus()
+        {
             return apply_filters('atbdp_settings_menus', array(
                 /*Main Menu 1*/
                 'listings' => array(
@@ -72,7 +74,7 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                             'description' => __('You can Customize Search Result related settings here. After switching any option, Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_search_form_settings_fields(),
                         ), // ends 'search_settings' section
-                    ) ),
+                    )),
                 ),
                 /*Main Menu 4*/
                 'pages' => array(
@@ -100,11 +102,11 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                     'title' => __('Titles & Metas', ATBDP_TEXTDOMAIN),
                     'name' => 'seo_settings',
                     'icon' => 'font-awesome:fa-bolt',
-                    'controls'=>apply_filters('atbdp_seo_settings_controls',array(
+                    'controls' => apply_filters('atbdp_seo_settings_controls', array(
                         'seo_section' => array(
                             'type' => 'section',
-                            'title'=> __('Titles & Metas',ATBDP_TEXTDOMAIN),
-                            'fields'=> $this->get_seo_settings_fields(),
+                            'title' => __('Titles & Metas', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_seo_settings_fields(),
                         ),
                     )),
                 ),
@@ -114,11 +116,11 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                     'title' => __('Currency Settings', ATBDP_TEXTDOMAIN),
                     'name' => 'currency_settings',
                     'icon' => 'font-awesome:fa-money',
-                    'controls'=>apply_filters('atbdp_currency_settings_controls',array(
+                    'controls' => apply_filters('atbdp_currency_settings_controls', array(
                         'currency_section' => array(
                             'type' => 'section',
-                            'title'=> __('Currency Settings',ATBDP_TEXTDOMAIN),
-                            'fields'=> $this->get_currency_settings_fields(),
+                            'title' => __('Currency Settings', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_currency_settings_fields(),
                         ),
                     )),
                 ),
@@ -127,17 +129,17 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                     'title' => __('Categories & Locations Page', ATBDP_TEXTDOMAIN),
                     'name' => 'categories_menu',
                     'icon' => 'font-awesome:fa-list-alt',
-                    'controls'=>apply_filters('atbdp_categories_settings_controls',array(
+                    'controls' => apply_filters('atbdp_categories_settings_controls', array(
 
                         'category_section' => array(
                             'type' => 'section',
-                            'title'=> __('Categories Page Setting',ATBDP_TEXTDOMAIN),
-                            'fields'=> $this->get_categories_settings_fields(),
+                            'title' => __('Categories Page Setting', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_categories_settings_fields(),
                         ),
                         'location_section' => array(
                             'type' => 'section',
-                            'title'=> __('Locations Page Setting',ATBDP_TEXTDOMAIN),
-                            'fields'=> $this->get_locations_settings_fields()
+                            'title' => __('Locations Page Setting', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_locations_settings_fields()
                         ),
                     )),
                 ),
@@ -159,10 +161,11 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
 
         /**
          * Get all the submenus for listings
-         * @since 4.0.0
          * @return array It returns an array of submenus
+         * @since 4.0.0
          */
-        public function get_listings_settings_submenus() {
+        public function get_listings_settings_submenus()
+        {
             return apply_filters('atbdp_general_listings_submenus', array(
                 /*Submenu : General Listings*/
                 array(
@@ -172,8 +175,8 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
                     'controls' => apply_filters('atbdp_general_listings_controls', array(
                         'all_listing_section' => array(
                             'type' => 'section',
-                            'title'=> __('Listings Page Setting',ATBDP_TEXTDOMAIN),
-                            'fields'=> $this->get_listings_page_settings_fields(),
+                            'title' => __('Listings Page Setting', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_listings_page_settings_fields(),
                         ),
                         'emails' => array(
                             'type' => 'section',
@@ -364,8 +367,8 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
 
         /**
          * Get all the submenus for the email menu
-         * @since 3.1.0
          * @return array It returns an array of submenus
+         * @since 3.1.0
          */
         public function get_email_settings_submenus()
         {
@@ -469,8 +472,8 @@ if ( !class_exists('ATBDP_Settings_Manager' ) ):
 
         /**
          * Get all the settings fields for the new listing email template section
-         * @since 3.1.0
          * @return array
+         * @since 3.1.0
          */
         public function get_email_new_tmpl_settings_fields()
         {
@@ -487,7 +490,7 @@ Thanks,
 The Administrator of ==SITE_NAME==
 ", ATBDP_TEXTDOMAIN);
             //create small var to highlight important texts
-            $c='<span style="color:#c71585;">'; //color start
+            $c = '<span style="color:#c71585;">'; //color start
             $e = '</span>'; // end color
             /*@todo; make this instruction translatable later*/
             $ph = <<<KAMAL
@@ -517,7 +520,7 @@ KAMAL;
                 array(
                     'type' => 'notebox',
                     'name' => 'email_placeholder_info',
-                    'label' => $c.__('You can use Placeholders to output dynamic value', ATBDP_TEXTDOMAIN).$e,
+                    'label' => $c . __('You can use Placeholders to output dynamic value', ATBDP_TEXTDOMAIN) . $e,
                     'description' => $ph,
                     'status' => 'normal',
                 ),
@@ -542,8 +545,8 @@ KAMAL;
 
         /**
          * Get all the settings fields for the published listing email template section
-         * @since 3.1.0
          * @return array
+         * @since 3.1.0
          */
         public function get_email_pub_tmpl_settings_fields()
         {
@@ -577,8 +580,8 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the edited listing email template section
-         * @since 3.1.0
          * @return array
+         * @since 3.1.0
          */
         public function get_email_edit_tmpl_settings_fields()
         {
@@ -612,8 +615,8 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the renew listing email template section
-         * @since 3.1.0
          * @return array
+         * @since 3.1.0
          */
         public function email_about_expire_tmpl_settings_fields()
         {
@@ -632,8 +635,8 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'email_to_expire_day',
-                    'label' => __( 'When to send expire notice', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'Select the days before a listing expires to send an expiration reminder email', ATBDP_TEXTDOMAIN ),
+                    'label' => __('When to send expire notice', ATBDP_TEXTDOMAIN),
+                    'description' => __('Select the days before a listing expires to send an expiration reminder email', ATBDP_TEXTDOMAIN),
                     'min' => '1',
                     'max' => '120',
                     'step' => '1',
@@ -659,20 +662,20 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the renew listing email template section
-         * @since 3.1.0
          * @return array
+         * @since 3.1.0
          */
         public function email_expired_tmpl_settings_fields()
         {
             // let's define default data
-            $sub = __("[==SITE_NAME==] : Your Listing '==LISTING_TITLE==' has expired.",ATBDP_TEXTDOMAIN);
+            $sub = __("[==SITE_NAME==] : Your Listing '==LISTING_TITLE==' has expired.", ATBDP_TEXTDOMAIN);
             $tmpl = __("
 Dear ==NAME==,
 Your listing '==LISTING_TITLE==' has expired on ==EXPIRATION_DATE==. You can renew it at ==RENEWAL_LINK==
 
 Thanks,
 The Administrator of ==SITE_NAME==
-",ATBDP_TEXTDOMAIN);
+", ATBDP_TEXTDOMAIN);
 
             return apply_filters('atbdp_email_expired_tmpl_settings_fields', array(
                 array(
@@ -695,8 +698,8 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the renew listing email template section
-         * @since 3.1.0
          * @return array
+         * @since 3.1.0
          */
         public function email_renewal_tmpl_settings_fields()
         {
@@ -715,8 +718,8 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'email_renewal_day',
-                    'label' => __( 'When to send renewal reminder', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'Select the days after a listing expires to send a renewal reminder email', ATBDP_TEXTDOMAIN ),
+                    'label' => __('When to send renewal reminder', ATBDP_TEXTDOMAIN),
+                    'description' => __('Select the days after a listing expires to send a renewal reminder email', ATBDP_TEXTDOMAIN),
                     'min' => '1',
                     'max' => '120',
                     'step' => '1',
@@ -744,8 +747,8 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the renewed listing email template section
-         * @since 3.1.0
          * @return array
+         * @since 3.1.0
          */
         public function email_renewed_tmpl_settings_fields()
         {
@@ -784,8 +787,8 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the deleted listing email template section
-         * @since 3.1.0
          * @return array
+         * @since 3.1.0
          */
         public function email_deleted_tmpl_settings_fields()
         {
@@ -823,8 +826,8 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the new order email template section
-         * @since 3.1.0
          * @return array
+         * @since 3.1.0
          */
         public function email_new_order_tmpl_settings_fields()
         {
@@ -871,8 +874,8 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the offline new order email template section
-         * @since 3.1.0
          * @return array
+         * @since 3.1.0
          */
         public function email_offline_new_order_tmpl_settings_fields()
         {
@@ -921,8 +924,8 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the completed new order email template section
-         * @since 3.1.0
          * @return array
+         * @since 3.1.0
          */
         public function email_completed_order_tmpl_settings_fields()
         {
@@ -971,8 +974,8 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the offline new order email template section
-         * @since 3.1.0
          * @return array
+         * @since 3.1.0
          */
         public function listing_contact_email()
         {
@@ -1016,8 +1019,8 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the email settings section
-         * @since 3.1.0
          * @return array
+         * @since 3.1.0
          */
         public function get_email_settings_fields()
         {
@@ -1071,8 +1074,8 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get the list of an array of notification events array to notify admin
-         * @since 3.1.0
          * @return array It returns an array of events when an admin should be notified
+         * @since 3.1.0
          */
         public function events_to_notify_admin()
         {
@@ -1082,8 +1085,8 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get the list of an array of notification events array to notify user
-         * @since 3.1.0
          * @return array It returns an array of events when an user should be notified
+         * @since 3.1.0
          */
         public function events_to_notify_user()
         {
@@ -1093,8 +1096,8 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get the default events to notify the admin.
-         * @since 3.1.0
          * @return array It returns an array of default events when an admin should be notified.
+         * @since 3.1.0
          */
         public function default_events_to_notify_admin()
         {
@@ -1111,8 +1114,8 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get the default events to notify the user.
-         * @since 3.1.0
          * @return array It returns an array of default events when an user should be notified.
+         * @since 3.1.0
          */
         public function default_events_to_notify_user()
         {
@@ -1134,8 +1137,8 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get an array of events to notify both the admin and the users
-         * @since 3.1.0
          * @return array it returns an array of events
+         * @since 3.1.0
          */
         private function default_notifiable_events()
         {
@@ -1177,8 +1180,8 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get an array of events to notify only the admin
-         * @since 3.1.0
          * @return array it returns an array of events
+         * @since 3.1.0
          */
         private function only_admin_notifiable_events()
         {
@@ -1192,8 +1195,8 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get an array of events to notify only users
-         * @since 3.1.0
          * @return array it returns an array of events
+         * @since 3.1.0
          */
         private function only_user_notifiable_events()
         {
@@ -1225,15 +1228,16 @@ The Administrator of ==SITE_NAME==
          *                  array('value'=> 1, 'label'=> 'page_name'),
          *                  array('value'=> 50, 'label'=> 'page_name'),
          *          )
-         * @since 3.0.0
          * @return array page names with key value pairs in a multi-dimensional array
+         * @since 3.0.0
          */
-        function get_pages_vl_arrays() {
+        function get_pages_vl_arrays()
+        {
             $pages = get_pages();
             $pages_options = array();
-            if ( $pages ) {
+            if ($pages) {
                 foreach ($pages as $page) {
-                    $pages_options[] = array( 'value'=>$page->ID, 'label'=> $page->post_title);
+                    $pages_options[] = array('value' => $page->ID, 'label' => $page->post_title);
                 }
             }
 
@@ -1243,10 +1247,11 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the submenus for the extension menu
-         * @since 3.0.0
          * @return array It returns an array of submenus
+         * @since 3.0.0
          */
-        function get_extension_settings_submenus(){
+        function get_extension_settings_submenus()
+        {
 
             return apply_filters('atbdp_extension_settings_submenus', array(
                 'submenu_1' => array(
@@ -1268,7 +1273,8 @@ The Administrator of ==SITE_NAME==
         /**
          * @return array
          */
-        function get_currency_settings_fields(){
+        function get_currency_settings_fields()
+        {
             return apply_filters('atbdp_currency_settings_fields', array(
                     array(
                         'type' => 'notebox',
@@ -1280,8 +1286,8 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'textbox',
                         'name' => 'g_currency',
-                        'label' => __( 'Currency Name', ATBDP_TEXTDOMAIN ),
-                        'description' => __( 'Enter the Name of the currency eg. USD or GBP etc.', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Currency Name', ATBDP_TEXTDOMAIN),
+                        'description' => __('Enter the Name of the currency eg. USD or GBP etc.', ATBDP_TEXTDOMAIN),
                         'default' => 'USD',
                         'validation' => 'required',
                     ),
@@ -1290,8 +1296,8 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'textbox',
                         'name' => 'g_thousand_separator',
-                        'label' => __( 'Thousand Separator', ATBDP_TEXTDOMAIN ),
-                        'description' => __( 'Enter the currency thousand separator. Eg. , or . etc.', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Thousand Separator', ATBDP_TEXTDOMAIN),
+                        'description' => __('Enter the currency thousand separator. Eg. , or . etc.', ATBDP_TEXTDOMAIN),
                         'default' => ',',
                         'validation' => 'required',
                     ),
@@ -1333,10 +1339,11 @@ The Administrator of ==SITE_NAME==
         }
 
         /**
-         * @since 4.6.0
          * @return array
+         * @since 4.6.0
          */
-        function get_seo_settings_fields(){
+        function get_seo_settings_fields()
+        {
             return apply_filters('atbdp_seo_settings_fields', array(
                     array(
                         'type' => 'toggle',
@@ -1469,7 +1476,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'meta_title_for_search_result',
-                        'label' => __( 'Search Result Page Meta Title', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Search Result Page Meta Title', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'searched_value',
@@ -1503,10 +1510,11 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the listings page section
-         * @since 4.0.0
          * @return array
+         * @since 4.0.0
          */
-        function get_listings_page_settings_fields(){
+        function get_listings_page_settings_fields()
+        {
             $business_hours = '<a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a>';
             return apply_filters('atbdp_listings_settings_fields', array(
                     array(
@@ -1537,7 +1545,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'listings_display_filter',
-                        'label' => __( 'Open Filter Fields', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Open Filter Fields', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'overlapping',
@@ -1766,7 +1774,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'default_listing_view',
-                        'label' => __( 'Default View', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Default View', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'grid',
@@ -1789,7 +1797,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'grid_view_as',
-                        'label' => __( 'Grid View', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Grid View', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'masonry_grid',
@@ -1818,7 +1826,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'order_listing_by',
-                        'label' => __( 'Listings Order By', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Listings Order By', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'title',
@@ -1841,7 +1849,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'sort_listing_by',
-                        'label' => __( 'Listings Sort By', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Listings Sort By', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'asc',
@@ -1874,16 +1882,17 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the categories page section
-         * @since 4.0.0
          * @return array
+         * @since 4.0.0
          */
-        function get_categories_settings_fields(){
+        function get_categories_settings_fields()
+        {
             return apply_filters('atbdp_categories_settings_fields', array(
 
                     array(
                         'type' => 'select',
                         'name' => 'display_categories_as',
-                        'label' => __( 'Default View', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Default View', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'grid',
@@ -1903,7 +1912,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'slider',
                         'name' => 'categories_column_number',
                         'label' => __('Number of  Columns', ATBDP_TEXTDOMAIN),
-                        'description' => __( 'Set how many columns to display on categories page.', ATBDP_TEXTDOMAIN),
+                        'description' => __('Set how many columns to display on categories page.', ATBDP_TEXTDOMAIN),
                         'min' => '1',
                         'max' => '5',
                         'step' => '1',
@@ -1914,7 +1923,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'slider',
                         'name' => 'categories_depth_number',
                         'label' => __('Sub-category Depth', ATBDP_TEXTDOMAIN),
-                        'description' => __( 'Set how many sub-categories to display.', ATBDP_TEXTDOMAIN),
+                        'description' => __('Set how many sub-categories to display.', ATBDP_TEXTDOMAIN),
                         'min' => '1',
                         'max' => '15',
                         'step' => '1',
@@ -1924,7 +1933,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'order_category_by',
-                        'label' => __( 'Categories Order By', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Categories Order By', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'id',
@@ -1951,7 +1960,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'sort_category_by',
-                        'label' => __( 'Categories Sort By', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Categories Sort By', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'asc',
@@ -1986,15 +1995,16 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the categories page section
-         * @since 4.0.0
          * @return array
+         * @since 4.0.0
          */
-        function get_locations_settings_fields(){
+        function get_locations_settings_fields()
+        {
             return apply_filters('atbdp_locations_settings_fields', array(
                     array(
                         'type' => 'select',
                         'name' => 'display_locations_as',
-                        'label' => __( 'Default View', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Default View', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'grid',
@@ -2014,7 +2024,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'slider',
                         'name' => 'locations_column_number',
                         'label' => __('Number of  Columns', ATBDP_TEXTDOMAIN),
-                        'description' => __( 'Set how many columns to display on locations page.', ATBDP_TEXTDOMAIN),
+                        'description' => __('Set how many columns to display on locations page.', ATBDP_TEXTDOMAIN),
                         'min' => '1',
                         'max' => '5',
                         'step' => '1',
@@ -2025,7 +2035,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'slider',
                         'name' => 'locations_depth_number',
                         'label' => __('Sub-location Depth', ATBDP_TEXTDOMAIN),
-                        'description' => __( 'Set how many sub-locations to display.', ATBDP_TEXTDOMAIN),
+                        'description' => __('Set how many sub-locations to display.', ATBDP_TEXTDOMAIN),
                         'min' => '1',
                         'max' => '15',
                         'step' => '1',
@@ -2035,7 +2045,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'order_location_by',
-                        'label' => __( 'Locations Order By', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Locations Order By', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'id',
@@ -2062,7 +2072,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'sort_location_by',
-                        'label' => __( 'Locations Sort By', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Locations Sort By', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'asc',
@@ -2098,17 +2108,18 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the search settings section
-         * @since 3.0.0
          * @return array
+         * @since 3.0.0
          */
-        function get_search_settings_fields(){
+        function get_search_settings_fields()
+        {
             $business_hours = '<a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a>';
             return apply_filters('atbdp_search_settings_fields', array(
                     array(
                         'type' => 'textbox',
                         'name' => 'search_title',
                         'label' => __('Search Bar Title', ATBDP_TEXTDOMAIN),
-                        'description' => __( 'Enter the title for search bar on Home Page.', ATBDP_TEXTDOMAIN ),
+                        'description' => __('Enter the title for search bar on Home Page.', ATBDP_TEXTDOMAIN),
                         'default' => atbdp_get_option('search_title', 'atbdp_general'),
                     ),
                     array(
@@ -2143,7 +2154,7 @@ The Administrator of ==SITE_NAME==
                             ),
                         ),
                         'default' => array(
-                            'search_text','search_category','search_location'
+                            'search_text', 'search_category', 'search_location'
                         ),
                     ),
                     array(
@@ -2173,7 +2184,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'home_display_filter',
-                        'label' => __( 'Open Filter Fields', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Open Filter Fields', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'overlapping',
@@ -2213,7 +2224,7 @@ The Administrator of ==SITE_NAME==
                             ),
                             array(
                                 'value' => 'search_open_now',
-                                'label' =>  sprintf(__('Open Now (Requires %s extension)', ATBDP_TEXTDOMAIN), $business_hours)),
+                                'label' => sprintf(__('Open Now (Requires %s extension)', ATBDP_TEXTDOMAIN), $business_hours)),
                             array(
                                 'value' => 'search_custom_fields',
                                 'label' => __('Custom Fields', ATBDP_TEXTDOMAIN),
@@ -2240,7 +2251,7 @@ The Administrator of ==SITE_NAME==
                             ),
                         ),
                         'default' => array(
-                            'search_price','search_price_range','search_rating','search_tag','search_custom_fields'
+                            'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields'
                         ),
                     ),
                     array(
@@ -2259,7 +2270,7 @@ The Administrator of ==SITE_NAME==
                             ),
                         ),
                         'default' => array(
-                            'search_reset_filters','search_apply_filters'
+                            'search_reset_filters', 'search_apply_filters'
                         ),
                     ),
                     array(
@@ -2333,12 +2344,14 @@ The Administrator of ==SITE_NAME==
                 )
             );
         }
+
         /**
          * Get all the settings fields for the listings search result section
-         * @since 4.0.0
          * @return array
+         * @since 4.0.0
          */
-        function get_search_form_settings_fields() {
+        function get_search_form_settings_fields()
+        {
             $business_hours = '<a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a>';
             return apply_filters('atbdp_search_result_settings_fields', array(
                     array(
@@ -2368,7 +2381,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'search_result_display_filter',
-                        'label' => __( 'Open Filter Fields', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Open Filter Fields', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'overlapping',
@@ -2420,7 +2433,7 @@ The Administrator of ==SITE_NAME==
                             ),
                             array(
                                 'value' => 'search_open_now',
-                                'label' =>  sprintf(__('Open Now (Requires %s extension)', ATBDP_TEXTDOMAIN), $business_hours)),
+                                'label' => sprintf(__('Open Now (Requires %s extension)', ATBDP_TEXTDOMAIN), $business_hours)),
                             array(
                                 'value' => 'search_custom_fields',
                                 'label' => __('Custom Fields', ATBDP_TEXTDOMAIN),
@@ -2597,7 +2610,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'search_order_listing_by',
-                        'label' => __( 'Order By', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Order By', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'title',
@@ -2620,7 +2633,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'search_sort_listing_by',
-                        'label' => __( 'Sort By', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Sort By', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'asc',
@@ -2668,11 +2681,12 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the listings settings section
-         * @since 4.0.0
          * @return array
+         * @since 4.0.0
          */
-        function get_badge_settings_fields() {
-            return apply_filters('atbdp_badge_settings_fields' , array(
+        function get_badge_settings_fields()
+        {
+            return apply_filters('atbdp_badge_settings_fields', array(
                 array(
                     'type' => 'toggle',
                     'name' => 'display_new_badge_cart',
@@ -2683,7 +2697,7 @@ The Administrator of ==SITE_NAME==
                     'type' => 'textbox',
                     'name' => 'new_badge_text',
                     'label' => __('New Badge Text', ATBDP_TEXTDOMAIN),
-                    'default' => __( 'New', ATBDP_TEXTDOMAIN ),
+                    'default' => __('New', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'slider',
@@ -2705,18 +2719,19 @@ The Administrator of ==SITE_NAME==
                     'type' => 'textbox',
                     'name' => 'feature_badge_text',
                     'label' => __('Featured Badge Text', ATBDP_TEXTDOMAIN),
-                    'default' => __( 'Featured', ATBDP_TEXTDOMAIN ),
+                    'default' => __('Featured', ATBDP_TEXTDOMAIN),
                 ),
-            ) );
+            ));
         }
 
         /**
          * Get all the settings fields for the listings settings section
-         * @since 4.0.0
          * @return array
+         * @since 4.0.0
          */
-        function get_popular_badge_settings_fields() {
-            return apply_filters('atbdp_badge_settings_fields' , array(
+        function get_popular_badge_settings_fields()
+        {
+            return apply_filters('atbdp_badge_settings_fields', array(
 
                 array(
                     'type' => 'toggle',
@@ -2728,12 +2743,12 @@ The Administrator of ==SITE_NAME==
                     'type' => 'textbox',
                     'name' => 'popular_badge_text',
                     'label' => __('Popular Badge Text', ATBDP_TEXTDOMAIN),
-                    'default' => __( 'Popular', ATBDP_TEXTDOMAIN ),
+                    'default' => __('Popular', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'select',
                     'name' => 'listing_popular_by',
-                    'label' => __( 'Popular Based on', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Popular Based on', ATBDP_TEXTDOMAIN),
                     'items' => array(
                         array(
                             'value' => 'view_count',
@@ -2775,18 +2790,19 @@ The Administrator of ==SITE_NAME==
                     'default' => '4',
                     'validation' => 'numeric|minlength[1]',
                 ),
-            ) );
+            ));
         }
 
 
         /**
          * Get title settings field
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_title_field_settings () {
+        public function get_listings_title_field_settings()
+        {
             $req_title = atbdp_get_option('title_field_setting', 'atbdp_general', 'yes');
-            return apply_filters('atbdp_title_field_setting' , array(
+            return apply_filters('atbdp_title_field_setting', array(
                 array(
                     'type' => 'textbox',
                     'name' => 'title_label',
@@ -2807,13 +2823,15 @@ The Administrator of ==SITE_NAME==
                 ),
             ));
         }
+
         /**
          * Get all the settings fields for description section
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_desc_field_settings() {
-            return apply_filters('atbdp_desc_field_setting' , array(
+        public function get_listings_desc_field_settings()
+        {
+            return apply_filters('atbdp_desc_field_setting', array(
                 array(
                     'type' => 'textbox',
                     'name' => 'long_details_label',
@@ -2837,11 +2855,12 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get category settings field
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_cat_field_settings() {
-            return apply_filters('atbdp_cat_field_setting' , array(
+        public function get_listings_cat_field_settings()
+        {
+            return apply_filters('atbdp_cat_field_setting', array(
                 array(
                     'type' => 'textbox',
                     'name' => 'category_label',
@@ -2878,11 +2897,12 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get location settings field
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_loc_field_settings() {
-            return apply_filters('atbdp_loc_field_setting' , array(
+        public function get_listings_loc_field_settings()
+        {
+            return apply_filters('atbdp_loc_field_setting', array(
                 array(
                     'type' => 'textbox',
                     'name' => 'location_label',
@@ -2912,11 +2932,12 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get tag settings field
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_tag_field_settings() {
-            return apply_filters('atbdp_tag_field_setting' , array(
+        public function get_listings_tag_field_settings()
+        {
+            return apply_filters('atbdp_tag_field_setting', array(
                 array(
                     'type' => 'textbox',
                     'name' => 'tag_label',
@@ -2940,11 +2961,12 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get tagline settings field
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_tagline_field_settings() {
-            return apply_filters('atbdp_tagline_field_setting' , array(
+        public function get_listings_tagline_field_settings()
+        {
+            return apply_filters('atbdp_tagline_field_setting', array(
 
                 array(
                     'type' => 'toggle',
@@ -2969,18 +2991,19 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get pricing settings field
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_pricing_field_settings() {
-            return apply_filters('atbdp_pricing_field_setting' , array(
+        public function get_listings_pricing_field_settings()
+        {
+            return apply_filters('atbdp_pricing_field_setting', array(
 
                 array(
                     'type' => 'toggle',
                     'name' => 'display_pricing_field',
                     'label' => __('Display', ATBDP_TEXTDOMAIN),
                     'default' => 1,
-                ),array(
+                ), array(
                     'type' => 'textbox',
                     'name' => 'price_label',
                     'label' => __('Label', ATBDP_TEXTDOMAIN),
@@ -3010,11 +3033,12 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get excerpt settings field
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_short_desc_field_settings() {
-            return apply_filters('atbdp_short_desc_field_setting' , array(
+        public function get_listings_short_desc_field_settings()
+        {
+            return apply_filters('atbdp_short_desc_field_setting', array(
 
                 array(
                     'type' => 'toggle',
@@ -3044,11 +3068,12 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get address settings field
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_address_field_settings() {
-            return apply_filters('atbdp_address_field_setting' , array(
+        public function get_listings_address_field_settings()
+        {
+            return apply_filters('atbdp_address_field_setting', array(
 
                 array(
                     'type' => 'toggle',
@@ -3079,11 +3104,12 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get phone number settings field
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_phone_field_settings() {
-            return apply_filters('atbdp_phone_field_setting' , array(
+        public function get_listings_phone_field_settings()
+        {
+            return apply_filters('atbdp_phone_field_setting', array(
 
                 array(
                     'type' => 'toggle',
@@ -3115,11 +3141,12 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get email settings field
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_email_field_settings() {
-            return apply_filters('atbdp_email_field_setting' , array(
+        public function get_listings_email_field_settings()
+        {
+            return apply_filters('atbdp_email_field_setting', array(
 
                 array(
                     'type' => 'toggle',
@@ -3151,11 +3178,12 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get website settings field
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_website_field_settings() {
-            return apply_filters('atbdp_website_field_setting' , array(
+        public function get_listings_website_field_settings()
+        {
+            return apply_filters('atbdp_website_field_setting', array(
 
                 array(
                     'type' => 'toggle',
@@ -3186,11 +3214,12 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get website settings field
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_zip_field_settings() {
-            return apply_filters('atbdp_zip_field_setting' , array(
+        public function get_listings_zip_field_settings()
+        {
+            return apply_filters('atbdp_zip_field_setting', array(
 
                 array(
                     'type' => 'toggle',
@@ -3221,11 +3250,12 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get social info settings field
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_social_field_settings() {
-            return apply_filters('atbdp_social_field_setting' , array(
+        public function get_listings_social_field_settings()
+        {
+            return apply_filters('atbdp_social_field_setting', array(
 
                 array(
                     'type' => 'toggle',
@@ -3256,11 +3286,12 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get map settings field
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_map_field_settings() {
-            return apply_filters('atbdp_map_field_setting' , array(
+        public function get_listings_map_field_settings()
+        {
+            return apply_filters('atbdp_map_field_setting', array(
                 array(
                     'type' => 'toggle',
                     'name' => 'display_map_field',
@@ -3280,11 +3311,12 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get  image settings field
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_image_field_settings() {
-            return apply_filters('atbdp_image_field_setting' , array(
+        public function get_listings_image_field_settings()
+        {
+            return apply_filters('atbdp_image_field_setting', array(
 
                 array(
                     'type' => 'toggle',
@@ -3342,11 +3374,12 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get  video settings field
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_video_field_settings() {
-            return apply_filters('atbdp_video_field_setting' , array(
+        public function get_listings_video_field_settings()
+        {
+            return apply_filters('atbdp_video_field_setting', array(
 
                 array(
                     'type' => 'toggle',
@@ -3378,11 +3411,12 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get  term & condition settings field
-         * @since 4.7.2
          * @return array
+         * @since 4.7.2
          */
-        public function get_listings_terms_field_settings() {
-            return apply_filters('atbdp_video_field_setting' , array(
+        public function get_listings_terms_field_settings()
+        {
+            return apply_filters('atbdp_video_field_setting', array(
                 array(
                     'type' => 'toggle',
                     'name' => 'listing_terms_condition',
@@ -3415,8 +3449,9 @@ The Administrator of ==SITE_NAME==
             ));
         }
 
-        function get_listings_dashboard_settings_fields() {
-            return apply_filters('atbdp_dashboard_field_setting' , array(
+        function get_listings_dashboard_settings_fields()
+        {
+            return apply_filters('atbdp_dashboard_field_setting', array(
                 array(
                     'type' => 'toggle',
                     'name' => 'my_listing_tab',
@@ -3444,12 +3479,13 @@ The Administrator of ==SITE_NAME==
             ));
         }
 
-        function get_listings_map_settings_fields() {
-            return apply_filters('atbdp_map_field_setting' , array(
+        function get_listings_map_settings_fields()
+        {
+            return apply_filters('atbdp_map_field_setting', array(
                 array(
                     'type' => 'select',
                     'name' => 'select_listing_map',
-                    'label' => __( 'Select Map', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Select Map', ATBDP_TEXTDOMAIN),
                     'items' => array(
                         array(
                             'value' => 'google',
@@ -3468,29 +3504,29 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'map_api_key',
-                    'label' => __( 'Google Map API key', ATBDP_TEXTDOMAIN ),
-                    'description' => sprintf(__( 'Please replace it by your own API. It\'s required to use Google Map. You can find detailed information %s.', ATBDP_TEXTDOMAIN ), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'label' => __('Google Map API key', ATBDP_TEXTDOMAIN),
+                    'description' => sprintf(__('Please replace it by your own API. It\'s required to use Google Map. You can find detailed information %s.', ATBDP_TEXTDOMAIN), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
                     'default' => 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo',
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'default_latitude',
-                    'label' => __( 'Default Latitude', ATBDP_TEXTDOMAIN ),
-                    'description' => sprintf(__( 'You can find it %s.', ATBDP_TEXTDOMAIN ), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'label' => __('Default Latitude', ATBDP_TEXTDOMAIN),
+                    'description' => sprintf(__('You can find it %s.', ATBDP_TEXTDOMAIN), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
                     'default' => '40.7127753',
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'default_longitude',
-                    'label' => __( 'Default Longitude', ATBDP_TEXTDOMAIN ),
-                    'description' => sprintf(__( 'You can find it %s.', ATBDP_TEXTDOMAIN ), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'label' => __('Default Longitude', ATBDP_TEXTDOMAIN),
+                    'description' => sprintf(__('You can find it %s.', ATBDP_TEXTDOMAIN), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
                     'default' => '-74.0059728',
                 ),
                 array(
                     'type' => 'slider',
                     'name' => 'map_zoom_level',
-                    'label' => __( 'Adjust Map Zoom Level', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'Here 0 means 100% zoom-out. 22 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22.', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Adjust Map Zoom Level', ATBDP_TEXTDOMAIN),
+                    'description' => __('Here 0 means 100% zoom-out. 22 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22.', ATBDP_TEXTDOMAIN),
                     'min' => '1',
                     'max' => '22',
                     'step' => '1',
@@ -3500,8 +3536,8 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'listings_map_height',
-                    'label' => __( 'Map Height', ATBDP_TEXTDOMAIN ),
-                    'description' => __( 'In pixel.', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Map Height', ATBDP_TEXTDOMAIN),
+                    'description' => __('In pixel.', ATBDP_TEXTDOMAIN),
                     'min' => '5',
                     'max' => '1200',
                     'step' => '5',
@@ -3513,12 +3549,13 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the listings settings section
-         * @since 4.0.0
          * @return array
+         * @since 4.0.0
          */
-        function get_listings_review_settings_fields(){
+        function get_listings_review_settings_fields()
+        {
             $e_review = atbdp_get_option('enable_review', 'atbdp_general', 'yes');
-            return apply_filters('atbdp_review_settings_fields' , array(
+            return apply_filters('atbdp_review_settings_fields', array(
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_review',
@@ -3538,7 +3575,7 @@ The Administrator of ==SITE_NAME==
                     'type' => 'slider',
                     'name' => 'review_num',
                     'label' => __('Number of Reviews', ATBDP_TEXTDOMAIN),
-                    'description' => __( 'Enter how many reviews to show on Single listing page.', ATBDP_TEXTDOMAIN),
+                    'description' => __('Enter how many reviews to show on Single listing page.', ATBDP_TEXTDOMAIN),
                     'min' => '1',
                     'max' => '20',
                     'step' => '1',
@@ -3547,13 +3584,15 @@ The Administrator of ==SITE_NAME==
                 ),
             ));
         }
+
         /**
          * Get all the settings fields for the listings settings section
-         * @since 3.0.0
          * @return array
+         * @since 3.0.0
          */
-        function get_listings_form_settings_fields() {
-            return apply_filters('atbdp_single_listings_settings_fields' , array(
+        function get_listings_form_settings_fields()
+        {
+            return apply_filters('atbdp_single_listings_settings_fields', array(
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_single_listing',
@@ -3569,7 +3608,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'select',
                     'name' => 'new_listing_status',
-                    'label' => __( 'New Listing\'s Default Status', ATBDP_TEXTDOMAIN ),
+                    'label' => __('New Listing\'s Default Status', ATBDP_TEXTDOMAIN),
                     'items' => array(
                         array(
                             'value' => 'publish',
@@ -3588,7 +3627,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'select',
                     'name' => 'edit_listing_status',
-                    'label' => __( 'Edited Listing\'s Default Status', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Edited Listing\'s Default Status', ATBDP_TEXTDOMAIN),
                     'items' => array(
                         array(
                             'value' => 'publish',
@@ -3607,7 +3646,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'select',
                     'name' => 'edit_listing_redirect',
-                    'label' => __( 'Redirect after Editing a Listing', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Redirect after Editing a Listing', ATBDP_TEXTDOMAIN),
                     'items' => array(
                         array(
                             'value' => 'view_listing',
@@ -3618,7 +3657,7 @@ The Administrator of ==SITE_NAME==
                             'label' => __('User Dashboard', ATBDP_TEXTDOMAIN),
                         ),
                     ),
-                    'description' => __( 'Select where user will be redirected after editing a listing on the frontend.', ATBDP_TEXTDOMAIN ),
+                    'description' => __('Select where user will be redirected after editing a listing on the frontend.', ATBDP_TEXTDOMAIN),
 
                     'default' => array(
                         'value' => 'view_listing',
@@ -3628,13 +3667,13 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'listing_details_text',
-                    'label' => __( 'Section Title of Listing Details', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Section Title of Listing Details', ATBDP_TEXTDOMAIN),
                     'default' => __('Listing Details', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'custom_section_lable',
-                    'label' => __( 'Section Title of Custom Fields', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Section Title of Custom Fields', ATBDP_TEXTDOMAIN),
                     'default' => __('Features', ATBDP_TEXTDOMAIN),
                 ),
                 array(
@@ -3646,13 +3685,13 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'contact_info_text',
-                    'label' => __( 'Section Title of Contact Info', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Section Title of Contact Info', ATBDP_TEXTDOMAIN),
                     'default' => __('Contact Information', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'contact_listing_owner',
-                    'label' => __( 'Section Title of Contact Owner', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Section Title of Contact Owner', ATBDP_TEXTDOMAIN),
                     'default' => __('Contact Listing Owner', ATBDP_TEXTDOMAIN),
                 ),
                 array(
@@ -3688,7 +3727,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'gallery_crop_width',
-                    'label' => __( 'Image Cropping Width', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Image Cropping Width', ATBDP_TEXTDOMAIN),
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
@@ -3699,7 +3738,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'gallery_crop_height',
-                    'label' => __( 'Image Cropping Height', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Image Cropping Height', ATBDP_TEXTDOMAIN),
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
@@ -3727,32 +3766,32 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_list_price',
-                    'label' => __( 'Disable Listing Price', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Disable Listing Price', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_contact_info',
-                    'label' => __( 'Disable Contact Information', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Disable Contact Information', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
 
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_contact_owner',
-                    'label' => __( 'Disable Contact Listing Owner Form', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Disable Contact Listing Owner Form', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'use_nofollow',
-                    'label' => __( 'Use rel="nofollow" in Website Link', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Use rel="nofollow" in Website Link', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_map',
-                    'label' => __( 'Disable Google Map', ATBDP_TEXTDOMAIN ),
+                    'label' => __('Disable Google Map', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
 
@@ -3793,12 +3832,14 @@ The Administrator of ==SITE_NAME==
 
             ));
         }
+
         /**
          * Get all the settings fields for the listings settings section
-         * @since 3.0.0
          * @return array
+         * @since 3.0.0
          */
-        function get_general_listings_settings_fields(){
+        function get_general_listings_settings_fields()
+        {
             // BACKWARD COMPATIBILITY:  OLD SETTINGS DATA that should be adapted by using them as default value, will be removed in future
             $s_p_cat = atbdp_get_option('show_popular_category', 'atbdp_general', 'yes');
             $e_p_list = atbdp_get_option('enable_pop_listing', 'atbdp_general', 'yes');
@@ -3829,7 +3870,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'slider',
                         'name' => 'crop_width',
-                        'label' => __( 'Image Cropping Width', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Image Cropping Width', ATBDP_TEXTDOMAIN),
                         'min' => '1',
                         'max' => '1200',
                         'step' => '1',
@@ -3840,7 +3881,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'slider',
                         'name' => 'crop_height',
-                        'label' => __( 'Image Cropping Height', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Image Cropping Height', ATBDP_TEXTDOMAIN),
                         'min' => '1',
                         'max' => '1200',
                         'step' => '1',
@@ -3888,7 +3929,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'address_location',
-                        'label' => __( 'Address', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Address', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'location',
@@ -3899,7 +3940,7 @@ The Administrator of ==SITE_NAME==
                                 'label' => __('Display From Contact Information', ATBDP_TEXTDOMAIN),
                             ),
                         ),
-                        'description' => __( 'Choose which address you want to show on listings page', ATBDP_TEXTDOMAIN ),
+                        'description' => __('Choose which address you want to show on listings page', ATBDP_TEXTDOMAIN),
                         /*@todo; later add option to make listing status hidden or invalid for expired listing, so that admin may retain expired listings without having them deleted after the deletion threshold */
                         'default' => array(
                             'value' => 'contact',
@@ -3934,7 +3975,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'slider',
                         'name' => 'listing_expire_in_days',
                         'label' => __('Default Listing Expires in Days', ATBDP_TEXTDOMAIN),
-                        'description' => __( 'Set it to 0 to keep it alive forever.', ATBDP_TEXTDOMAIN ),
+                        'description' => __('Set it to 0 to keep it alive forever.', ATBDP_TEXTDOMAIN),
                         'min' => '0',
                         'max' => '730',
                         'step' => '1',
@@ -3967,7 +4008,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'deletion_mode',
-                        'label' => __( 'Delete or Trash Expired Listings', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Delete or Trash Expired Listings', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'force_delete',
@@ -3978,7 +4019,7 @@ The Administrator of ==SITE_NAME==
                                 'label' => __('Move to Trash', ATBDP_TEXTDOMAIN),
                             ),
                         ),
-                        'description' => __( 'Choose the Default actions after a listing reaches its deletion threshold.', ATBDP_TEXTDOMAIN ),
+                        'description' => __('Choose the Default actions after a listing reaches its deletion threshold.', ATBDP_TEXTDOMAIN),
                         /*@todo; later add option to make listing status hidden or invalid for expired listing, so that admin may retain expired listings without having them deleted after the deletion threshold */
                         'default' => array(
                             'value' => 'trash',
@@ -3999,16 +4040,41 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Paginate Author Listings', ATBDP_TEXTDOMAIN),
                         'default' => '1',
                     ),
+                    array(
+                        'type' => 'select',
+                        'name' => 'display_author_email',
+                        'label' => __('Author Email', ATBDP_TEXTDOMAIN),
+                        'items' => array(
+                            array(
+                                'value' => 'public',
+                                'label' => __('Display', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'logged_in',
+                                'label' => __('Display only for Logged in Users', ATBDP_TEXTDOMAIN),
+                            ),
+
+                            array(
+                                'value' => 'none_to_display',
+                                'label' => __('Hide', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'public',
+                            'label' => __('Display', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
                 )
             );
         }
 
         /**
          * Get all the settings fields for the listings settings section
-         * @since 3.0.0
          * @return array
+         * @since 3.0.0
          */
-        function get_listings_settings_fields(){
+        function get_listings_settings_fields()
+        {
             // BACKWARD COMPATIBILITY:  OLD SETTINGS DATA that should be adapted by using them as default value, will be removed in future
             $s_p_cat = atbdp_get_option('show_popular_category', 'atbdp_general', 'yes');
             $e_r_list = atbdp_get_option('enable_rel_listing', 'atbdp_general', 'yes');
@@ -4018,7 +4084,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'slider',
                         'name' => 'listing_expire_in_days',
                         'label' => __('Default Listing Expires in Days', ATBDP_TEXTDOMAIN),
-                        'description' => __( 'Set how many days after publishing a listing, you would like to expire a listing by default ? Set it to 0 to keep it alive forever.', ATBDP_TEXTDOMAIN ),
+                        'description' => __('Set how many days after publishing a listing, you would like to expire a listing by default ? Set it to 0 to keep it alive forever.', ATBDP_TEXTDOMAIN),
                         'min' => '0',
                         'max' => '730',
                         'step' => '1',
@@ -4057,7 +4123,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'slider',
                         'name' => 'delete_expired_listings_after',
                         'label' => __('Delete/Trash Expired Listings After (days) of Expiration', ATBDP_TEXTDOMAIN),
-                        'description' => __( 'Set how many days after the expiration of a listing you would like the listings gets tashed/deleted. Set it 0 to delete/trash expired listings immediately.(N.B. This option depends on the "Delete/Trash Expired Listings" option', ATBDP_TEXTDOMAIN ),
+                        'description' => __('Set how many days after the expiration of a listing you would like the listings gets tashed/deleted. Set it 0 to delete/trash expired listings immediately.(N.B. This option depends on the "Delete/Trash Expired Listings" option', ATBDP_TEXTDOMAIN),
                         'min' => '0',
                         'max' => '180',
                         'step' => '1',
@@ -4067,7 +4133,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'deletion_mode',
-                        'label' => __( 'Delete or Trash Expired Listings', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Delete or Trash Expired Listings', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'force_delete',
@@ -4078,7 +4144,7 @@ The Administrator of ==SITE_NAME==
                                 'label' => __('Move to Trash', ATBDP_TEXTDOMAIN),
                             ),
                         ),
-                        'description' => __( 'Choose the Default actions after a listing reaches its deletion threshold.', ATBDP_TEXTDOMAIN ),
+                        'description' => __('Choose the Default actions after a listing reaches its deletion threshold.', ATBDP_TEXTDOMAIN),
                         /*@todo; later add option to make listing status hidden or invalid for expired listing, so that admin may retain expired listings without having them deleted after the deletion threshold */
                         'default' => array(
                             'value' => 'trash',
@@ -4088,7 +4154,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'new_listing_status',
-                        'label' => __( 'New Listing\'s Default status', ATBDP_TEXTDOMAIN ),
+                        'label' => __('New Listing\'s Default status', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'publish',
@@ -4099,7 +4165,7 @@ The Administrator of ==SITE_NAME==
                                 'label' => __('Pending', ATBDP_TEXTDOMAIN),
                             ),
                         ),
-                        'description' => __( 'Choose the Default Listing Status for a new listing when a user submits it from the Front End', ATBDP_TEXTDOMAIN ),
+                        'description' => __('Choose the Default Listing Status for a new listing when a user submits it from the Front End', ATBDP_TEXTDOMAIN),
 
                         'default' => array(
                             'value' => 'pending',
@@ -4109,7 +4175,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'edit_listing_status',
-                        'label' => __( 'Edited Listing\'s Default Status', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Edited Listing\'s Default Status', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'publish',
@@ -4120,7 +4186,7 @@ The Administrator of ==SITE_NAME==
                                 'label' => __('Pending', ATBDP_TEXTDOMAIN),
                             ),
                         ),
-                        'description' => __( 'Select the Default Listing Status for Edited listing when a user edits it on the front end.', ATBDP_TEXTDOMAIN ),
+                        'description' => __('Select the Default Listing Status for Edited listing when a user edits it on the front end.', ATBDP_TEXTDOMAIN),
 
                         'default' => array(
                             'value' => 'publish',
@@ -4131,7 +4197,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'textbox',
                         'name' => 'all_listing_title',
                         'label' => __('Title for all listing page', ATBDP_TEXTDOMAIN),
-                        'description' => __( 'Enter a title for the page where all listings will be shown using the shortcode [all_listing] . Eg. All Listings/ Items.', ATBDP_TEXTDOMAIN ),
+                        'description' => __('Enter a title for the page where all listings will be shown using the shortcode [all_listing] . Eg. All Listings/ Items.', ATBDP_TEXTDOMAIN),
                         'default' => atbdp_get_option('all_listing_title', 'atbdp_general'),
                     ),
                     array(
@@ -4146,7 +4212,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'slider',
                         'name' => 'all_listing_page_items',
                         'label' => __('Listings Per Page on All listing page', ATBDP_TEXTDOMAIN),
-                        'description' => __( 'Set how many listings you would like to show per page on the All Listings page. Eg. 6. Default is 6. If pagination is off, then this number will be the total listings to show.', ATBDP_TEXTDOMAIN),
+                        'description' => __('Set how many listings you would like to show per page on the All Listings page. Eg. 6. Default is 6. If pagination is off, then this number will be the total listings to show.', ATBDP_TEXTDOMAIN),
                         'min' => '1',
                         'max' => '30',
                         'step' => '1',
@@ -4165,7 +4231,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'textbox',
                         'name' => 'popular_cat_title',
                         'label' => __('Popular Category Title', ATBDP_TEXTDOMAIN),
-                        'description' => __( 'Enter the title for popular category on listing search page eg. Browse by popular categories', ATBDP_TEXTDOMAIN ),
+                        'description' => __('Enter the title for popular category on listing search page eg. Browse by popular categories', ATBDP_TEXTDOMAIN),
                         'default' => __('Browse by popular categories', ATBDP_TEXTDOMAIN),
                     ),
 
@@ -4173,7 +4239,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'slider',
                         'name' => 'popular_cat_num',
                         'label' => __('Number of Popular Category', ATBDP_TEXTDOMAIN),
-                        'description' => __( 'Set how many popular categories you would like to show on your listing main search page. Eg. 10. Default is 10', ATBDP_TEXTDOMAIN),
+                        'description' => __('Set how many popular categories you would like to show on your listing main search page. Eg. 10. Default is 10', ATBDP_TEXTDOMAIN),
                         'min' => '1',
                         'max' => '30',
                         'step' => '1',
@@ -4185,7 +4251,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'slider',
                         'name' => 'pop_listing_num',
                         'label' => __('Number of Popular Listings', ATBDP_TEXTDOMAIN),
-                        'description' => __( 'Set how many popular listings you would like to show on your website. Eg. 5. Default is 5.', ATBDP_TEXTDOMAIN),
+                        'description' => __('Set how many popular listings you would like to show on your website. Eg. 5. Default is 5.', ATBDP_TEXTDOMAIN),
                         'min' => '1',
                         'max' => '30',
                         'step' => '1',
@@ -4199,7 +4265,8 @@ The Administrator of ==SITE_NAME==
         /**
          * @since 5.0
          */
-        function get_pages_regenerate_settings_fields(){
+        function get_pages_regenerate_settings_fields()
+        {
             return apply_filters('atbdp_regenerate_pages_settings_fields', array(
                 array(
                     'type' => 'toggle',
@@ -4213,17 +4280,18 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the pages settings section
-         * @since 3.0.0
          * @return array
+         * @since 3.0.0
          */
-        function get_pages_settings_fields(){
+        function get_pages_settings_fields()
+        {
             return apply_filters('atbdp_pages_settings_fields', array(
                     array(
                         'type' => 'select',
                         'name' => 'add_listing_page',
                         'label' => __('Add Listing Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(), // eg. array( array('value'=> 123, 'label'=> 'page_name') );
-                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_add_listing]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_add_listing]</strong>'),
                         'default' => atbdp_get_option('add_listing_page', 'atbdp_general'),
                         'validation' => 'numeric',
 
@@ -4232,9 +4300,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'all_listing_page',
-                        'label' => __( 'All Listings Page', ATBDP_TEXTDOMAIN ),
+                        'label' => __('All Listings Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_all_listing]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_all_listing]</strong>'),
 
                         'default' => atbdp_get_option('all_listing_page', 'atbdp_general'),
                         'validation' => 'numeric',
@@ -4243,9 +4311,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'user_dashboard',
-                        'label' =>  __( 'Dashboard Page', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Dashboard Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_user_dashboard]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_user_dashboard]</strong>'),
                         'default' => atbdp_get_option('user_dashboard', 'atbdp_general'),
                         'validation' => 'numeric',
 
@@ -4254,9 +4322,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'author_profile_page',
-                        'label' =>  __( 'User Profile Page', ATBDP_TEXTDOMAIN ),
+                        'label' => __('User Profile Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_author_profile]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_author_profile]</strong>'),
                         'default' => atbdp_get_option('author_profile', 'atbdp_general'),
                         'validation' => 'numeric',
 
@@ -4265,9 +4333,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'all_categories_page',
-                        'label' => __( 'All Categories Page', ATBDP_TEXTDOMAIN ),
+                        'label' => __('All Categories Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_all_categories]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_all_categories]</strong>'),
 
                         'default' => atbdp_get_option('all_categories', 'atbdp_general'),
                         'validation' => 'numeric',
@@ -4276,9 +4344,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'single_category_page',
-                        'label' => __( 'Single Category Page', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Single Category Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_category]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_category]</strong>'),
 
                         'default' => atbdp_get_option('single_category_page', 'atbdp_general'),
                         'validation' => 'numeric',
@@ -4287,9 +4355,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'all_locations_page',
-                        'label' => __( 'All Locations Page', ATBDP_TEXTDOMAIN ),
+                        'label' => __('All Locations Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_all_locations]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_all_locations]</strong>'),
 
                         'default' => atbdp_get_option('all_locations', 'atbdp_general'),
                         'validation' => 'numeric',
@@ -4298,9 +4366,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'single_location_page',
-                        'label' => __( 'Single Location Page', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Single Location Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_location]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_location]</strong>'),
 
                         'default' => atbdp_get_option('single_location_page', 'atbdp_general'),
                         'validation' => 'numeric',
@@ -4309,9 +4377,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'single_tag_page',
-                        'label' => __( 'Single Tag Page', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Single Tag Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_tag]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_tag]</strong>'),
 
                         'default' => atbdp_get_option('single_tag_page', 'atbdp_general'),
                         'validation' => 'numeric',
@@ -4320,9 +4388,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'custom_registration',
-                        'label' =>  __(  'Registration Page', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Registration Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_custom_registration]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_custom_registration]</strong>'),
                         'default' => atbdp_get_option('custom_registration', 'atbdp_general'),
                         'validation' => 'numeric',
 
@@ -4331,9 +4399,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'user_login',
-                        'label' =>  __(  'Login Page', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Login Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_user_login]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_user_login]</strong>'),
                         'default' => atbdp_get_option('user_login', 'atbdp_general'),
                         'validation' => 'numeric',
 
@@ -4342,9 +4410,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'search_listing',
-                        'label' =>  __( 'Listing Search Page', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Listing Search Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ), '<strong style="color: #ff4500;">[directorist_search_listing]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_search_listing]</strong>'),
                         'default' => atbdp_get_option('search_listing', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),
@@ -4352,18 +4420,18 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'search_result_page',
-                        'label' =>  __( 'Listing Search Result Page', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Listing Search Result Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ),'<strong style="color: #ff4500;">[directorist_search_result]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_search_result]</strong>'),
                         'default' => atbdp_get_option('search_result_page', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),
                     array(
                         'type' => 'select',
                         'name' => 'checkout_page',
-                        'label' =>  __( 'Checkout Page', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Checkout Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ),'<strong style="color: #ff4500;">[directorist_checkout]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_checkout]</strong>'),
                         'default' => '',
                         'validation' => 'numeric',
                     ),
@@ -4371,22 +4439,21 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'payment_receipt_page',
-                        'label' =>  __( 'Payment/Order Receipt Page', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Payment/Order Receipt Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ),'<strong style="color: #ff4500;">[directorist_payment_receipt]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_payment_receipt]</strong>'),
                         'default' => '',
                         'validation' => 'numeric',
                     ),
                     array(
                         'type' => 'select',
                         'name' => 'transaction_failure_page',
-                        'label' =>  __( 'Transaction Failure Page', ATBDP_TEXTDOMAIN ),
+                        'label' => __('Transaction Failure Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__( 'Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN ),'<strong style="color: #ff4500;">[directorist_transaction_failure]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_transaction_failure]</strong>'),
                         'default' => '',
                         'validation' => 'numeric',
                     ),
-
 
 
                 )
@@ -4395,10 +4462,11 @@ The Administrator of ==SITE_NAME==
 
         /**
          * Get all the settings fields for the extension settings section
-         * @since 3.0.0
          * @return array
+         * @since 3.0.0
          */
-        function get_extension_settings_fields(){
+        function get_extension_settings_fields()
+        {
             return apply_filters('atbdp_extension_settings_fields', array(
                     array(
                         'type' => 'notebox',
@@ -4410,8 +4478,6 @@ The Administrator of ==SITE_NAME==
                 )
             );
         }
-
-
 
 
     } // ends ATBDP_Settings_Manager

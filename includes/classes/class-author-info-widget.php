@@ -91,14 +91,31 @@ if (!class_exists('BD_Author_Info_Widget')) {
                                 </li>
                             <?php } ?>
 
-                            <?php if (!empty($email)) { ?>
-                                <li>
-                                    <span class="fa fa-envelope"></span>
-                                    <span class="atbd_info"><?= esc_html($email); ?></span>
-                                </li>
-                            <?php } ?>
+                            <?php
 
-                            <?php if (!empty($website)) { ?>
+                            $email_show = get_directorist_option('display_author_email', 'public');
+                            if ('public' === $email_show){
+                                if (!empty($email)){
+                                    ?>
+                                    <li>
+                                        <span class="fa fa-envelope"></span>
+                                        <span class="atbd_info"><?= esc_html($email); ?></span>
+                                    </li>
+                                    <?php
+                                }
+                            }elseif ('logged_in' === $email_show){
+                                if (is_user_logged_in()){
+                                    if (!empty($email)){
+                                        ?>
+                                        <li>
+                                            <span class="fa fa-envelope"></span>
+                                            <span class="atbd_info"><?= esc_html($email); ?></span>
+                                        </li>
+                                        <?php
+                                    }
+                                }
+                            }
+                             if (!empty($website)) { ?>
                                 <li>
                                     <span class="fa fa-globe"></span>
                                     <a href="<?= esc_url($website); ?>" class="atbd_info" <?php echo is_directoria_active() ? 'style="text-transform: none;"': '';?>><?= esc_url($website); ?></a>

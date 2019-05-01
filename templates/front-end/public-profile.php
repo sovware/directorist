@@ -131,14 +131,29 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                     </li>
                                     <?php
                                 }
-                                if (!empty($email)){
-                                    ?>
-                                    <li>
-                                        <span class="fa fa-envelope"></span>
-                                        <span class="atbd_info"><?= !empty($email)?esc_html($email):''; ?></span>
-                                    </li>
-                                    <?php
+                                $email_show = get_directorist_option('display_author_email', 'public');
+                                if ('public' === $email_show){
+                                    if (!empty($email)){
+                                        ?>
+                                        <li>
+                                            <span class="fa fa-envelope"></span>
+                                            <span class="atbd_info"><?= !empty($email)?esc_html($email):''; ?></span>
+                                        </li>
+                                        <?php
+                                    }
+                                }elseif ('logged_in' === $email_show){
+                                    if (is_user_logged_in()){
+                                        if (!empty($email)){
+                                            ?>
+                                            <li>
+                                                <span class="fa fa-envelope"></span>
+                                                <span class="atbd_info"><?= !empty($email)?esc_html($email):''; ?></span>
+                                            </li>
+                                            <?php
+                                        }
+                                    }
                                 }
+
                                 if (!empty($website)){
                                     ?>
                                     <li>

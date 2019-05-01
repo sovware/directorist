@@ -126,6 +126,7 @@ class ATBDP_Checkout
         $meta = get_post_meta($order_id);
         $listing_id = $meta['_listing_id'];
         $data = apply_filters('atbdp_payment_receipt_data', array(), $order_id, $listing_id);
+        $data = !empty($data) ? $data : array();
         $order = get_post($order_id); // we need that order to use its time
         $data = array_merge($data, array(
             'order' => $order,

@@ -1089,12 +1089,14 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $category_placeholder         = get_directorist_option('search_result_category_placeholder',__('Select a category',ATBDP_TEXTDOMAIN));
             $location_placeholder         = get_directorist_option('search_result_location_placeholder',__('Select a location',ATBDP_TEXTDOMAIN));
             $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
-            $search_more_filters_fields   = get_directorist_option('listing_filters_fields',array('search_text','search_category','search_location','search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
+            $search_more_filters_fields   = get_directorist_option('search_result_filters_fields',array('search_text','search_category','search_location','search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
             $filters_button               = get_directorist_option('search_result_filters_button',array('reset_button','apply_button'));
             $reset_filters_text           = get_directorist_option('sresult_reset_text',__('Reset Filters',ATBDP_TEXTDOMAIN));
             $apply_filters_text           = get_directorist_option('sresult_apply_text',__('Apply Filters',ATBDP_TEXTDOMAIN));
             $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
             $view_as_items                = get_directorist_option('search_view_as_items',array('listings_grid','listings_list','listings_map'));
+            $sort_by_items                = get_directorist_option('search_sort_by_items',array('a_z','z_a','latest','oldest','popular','price_low_high','price_high_low','random'));
+
             ob_start();
             include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
             return ob_get_clean();
@@ -1554,6 +1556,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $reset_filters_text           = get_directorist_option('listings_reset_text',__('Reset Filters',ATBDP_TEXTDOMAIN));
             $apply_filters_text           = get_directorist_option('listings_apply_text',__('Apply Filters',ATBDP_TEXTDOMAIN));
             $view_as_items               = get_directorist_option('listings_view_as_items',array('listings_grid','listings_list','listings_map'));
+            $sort_by_items               = get_directorist_option('listings_sort_by_items',array('a_z','z_a','latest','oldest','popular','price_low_high','price_high_low','random'));
             ob_start();
             include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
             return ob_get_clean();
@@ -1959,6 +1962,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $apply_filters_text           = get_directorist_option('listings_apply_text',__('Apply Filters',ATBDP_TEXTDOMAIN));
                 $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
                 $view_as_items                = get_directorist_option('listings_view_as_items',array('listings_grid','listings_list','listings_map'));
+                $sort_by_items                = get_directorist_option('listings_sort_by_items',array('a_z','z_a','latest','oldest','popular','price_low_high','price_high_low','random'));
                 ob_start();
                 include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
                 return ob_get_clean();
@@ -2346,6 +2350,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $apply_filters_text           = get_directorist_option('listings_apply_text',__('Apply Filters',ATBDP_TEXTDOMAIN));
                 $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
                 $view_as_items               = get_directorist_option('listings_view_as_items',array('listings_grid','listings_list','listings_map'));
+                $sort_by_items               = get_directorist_option('listings_sort_by_items',array('a_z','z_a','latest','oldest','popular','price_low_high','price_high_low','random'));
                 ob_start();
                 include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
                 return ob_get_clean();
@@ -2691,6 +2696,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $apply_filters_text           = get_directorist_option('listings_apply_text',__('Apply Filters',ATBDP_TEXTDOMAIN));
                 $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
                 $view_as_items                = get_directorist_option('listings_view_as_items',array('listings_grid','listings_list','listings_map'));
+                $sort_by_items                = get_directorist_option('listings_sort_by_items',array('a_z','z_a','latest','oldest','popular','price_low_high','price_high_low','random'));
                 ob_start();
                 include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
                 return ob_get_clean();

@@ -605,7 +605,7 @@ jQuery(function ($) {
 
 
     //
-    var lf_opt2 = $("#search_result_filter_button_text, #search_result_filters_fields, #search_result_search_text_placeholder, #search_result_category_placeholder, #search_result_location_placeholder");
+    var lf_opt2 = $("#search_result_filter_button_text, #search_result_filters_fields, #search_result_search_text_placeholder, #search_result_category_placeholder, #search_result_location_placeholder,#search_result_display_filter,#search_result_filters_button,#sresult_reset_text,#sresult_apply_text");
     lf_opt2.hide();
     $('input[name="search_result_filters_button_display"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -614,10 +614,12 @@ jQuery(function ($) {
             lf_opt2.hide();
         }
     });
-
+    if($('input[name="search_result_filters_button_display"]').is(":checked") === true){
+        lf_opt2.show();
+    };
 
     //Display more filters - option
-    var lf_opt3 = $("#search_more_filters_fields, #search_filters, #search_more_filters, #search_reset_filters, #search_apply_filters");
+    var lf_opt3 = $("#search_more_filters_fields, #search_filters, #search_more_filters, #search_reset_filters, #search_apply_filters,#home_display_filter,#search_reset_text,#search_apply_filter");
     lf_opt3.hide();
     $('input[name="search_more_filter"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -672,8 +674,10 @@ jQuery(function ($) {
         lf_opt6.show();
     }
 
+
+
     //Display filter button
-    var lf_opt7 = $("#default_preview_image");
+    var lf_opt7 = $("#default_preview_image,#thumbnail_cropping,#crop_width,#crop_height");
     lf_opt7.hide();
     $('input[name="display_preview_image"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -730,19 +734,381 @@ jQuery(function ($) {
 
     //
     var lf_opt11 = $("#atbdp_listing_slug, #new_listing_status, #edit_listing_status, #edit_listing_redirect, #listing_details_text, #custom_section_lable, #listing_location_text, #contact_info_text, #contact_listing_owner, #atbd_video_title, #dsiplay_prv_single_page, #dsiplay_slider_single_page, #gallery_cropping, #gallery_crop_width, #gallery_crop_height, #enable_social_share, #enable_favourite, #enable_report_abuse, #disable_list_price, #disable_contact_info, #disable_contact_owner, #use_nofollow, #disable_map, #atbd_video_url, #enable_rel_listing, #rel_listing_num, #rel_listing_column");
-    lf_opt11.hide();
+    lf_opt11.show();
     $('input[name="disable_single_listing"]').on("change", function () {
         if($(this).is(":checked") === true){
-            lf_opt11.show();
-        }else{
             lf_opt11.hide();
+        }else{
+            lf_opt11.show();
         }
     });
     if($('input[name="disable_single_listing"]').is(":checked") === true){
-        lf_opt11.show();
+        lf_opt11.hide();
     }
 
+    //Display all listings sort by dropdown
+    var lf_opt12 = $("#listings_sort_by_items");
+    lf_opt12.hide();
+    $('input[name="display_sort_by"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt12.show();
+        }else{
+            lf_opt12.hide();
+        }
+    });
+    if($('input[name="display_sort_by"]').is(":checked") === true){
+        lf_opt12.show();
+    }
 
+    //Display all listings view as dropdown
+    var lf_opt13 = $("#listings_view_as_items");
+    lf_opt13.hide();
+    $('input[name="display_view_as"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt13.show();
+        }else{
+            lf_opt13.hide();
+        }
+    });
+    if($('input[name="display_view_as"]').is(":checked") === true){
+        lf_opt13.show();
+    }
+
+    //Display new badge
+    var lf_opt14 = $("#new_badge_text,#new_listing_day");
+    lf_opt14.hide();
+    $('input[name="display_new_badge_cart"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt14.show();
+        }else{
+            lf_opt14.hide();
+        }
+    });
+    if($('input[name="display_new_badge_cart"]').is(":checked") === true){
+        lf_opt14.show();
+    }
+
+    //Display featured badge
+    var lf_opt15 = $("#feature_badge_text");
+    lf_opt15.hide();
+    $('input[name="display_feature_badge_cart"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt15.show();
+        }else{
+            lf_opt15.hide();
+        }
+    });
+    if($('input[name="display_feature_badge_cart"]').is(":checked") === true){
+        lf_opt15.show();
+    }
+
+    //Display featured badge
+    var lf_opt16 = $("#popular_badge_text,#listing_popular_by,#average_review_for_popular");
+    lf_opt16.hide();
+    $('input[name="display_popular_badge_cart"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt16.show();
+        }else{
+            lf_opt16.hide();
+        }
+    });
+    if($('input[name="display_popular_badge_cart"]').is(":checked") === true){
+        lf_opt16.show();
+    }
+
+    //Display review rating
+    var lf_opt17 = $("#enable_owner_review,#review_num");
+    lf_opt17.hide();
+    $('input[name="enable_review"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt17.show();
+        }else{
+            lf_opt17.hide();
+        }
+    });
+    if($('input[name="enable_review"]').is(":checked") === true){
+        lf_opt17.show();
+    }
+
+    //Display form tagline
+    var lf_opt18 = $("#tagline_label,#display_tagline_for");
+    lf_opt18.hide();
+    $('input[name="display_tagline_field"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt18.show();
+        }else{
+            lf_opt18.hide();
+        }
+    });
+    if($('input[name="display_tagline_field"]').is(":checked") === true){
+        lf_opt18.show();
+    }
+
+    //Display form pricing
+    var lf_opt19 = $("#price_label,#require_price,#require_price_range,#display_price_for");
+    lf_opt19.hide();
+    $('input[name="display_pricing_field"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt19.show();
+        }else{
+            lf_opt19.hide();
+        }
+    });
+    if($('input[name="display_pricing_field"]').is(":checked") === true){
+        lf_opt19.show();
+    }
+
+    //Display form excerpt
+    var lf_opt20 = $("#excerpt_label,#require_excerpt,#display_short_desc_for");
+    lf_opt20.hide();
+    $('input[name="display_excerpt_field"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt20.show();
+        }else{
+            lf_opt20.hide();
+        }
+    });
+    if($('input[name="display_excerpt_field"]').is(":checked") === true){
+        lf_opt20.show();
+    }
+
+    //Display form address
+    var lf_opt21 = $("#address_label,#require_address,#display_address_for");
+    lf_opt21.hide();
+    $('input[name="display_address_field"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt21.show();
+        }else{
+            lf_opt21.hide();
+        }
+    });
+    if($('input[name="display_address_field"]').is(":checked") === true){
+        lf_opt21.show();
+    }
+
+    //Display form phone number
+    var lf_opt22 = $("#phone_label,#require_phone_number,#display_phone_for");
+    lf_opt22.hide();
+    $('input[name="display_phone_field"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt22.show();
+        }else{
+            lf_opt22.hide();
+        }
+    });
+    if($('input[name="display_phone_field"]').is(":checked") === true){
+        lf_opt22.show();
+    }
+
+    //Display form email
+    var lf_opt23 = $("#email_label,#require_email,#display_email_for");
+    lf_opt23.hide();
+    $('input[name="display_email_field"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt23.show();
+        }else{
+            lf_opt23.hide();
+        }
+    });
+    if($('input[name="display_email_field"]').is(":checked") === true){
+        lf_opt23.show();
+    }
+
+    //Display form website
+    var lf_opt24 = $("#website_label,#require_website,#display_website_for");
+    lf_opt24.hide();
+    $('input[name="display_website_field"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt24.show();
+        }else{
+            lf_opt24.hide();
+        }
+    });
+    if($('input[name="display_website_field"]').is(":checked") === true){
+        lf_opt24.show();
+    }
+
+    //Display zip/post code
+    var lf_opt25 = $("#zip_label,#require_zip,#display_zip_for");
+    lf_opt25.hide();
+    $('input[name="display_zip_field"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt25.show();
+        }else{
+            lf_opt25.hide();
+        }
+    });
+    if($('input[name="display_zip_field"]').is(":checked") === true){
+        lf_opt25.show();
+    }
+
+    //Display social info
+    var lf_opt26 = $("#social_label,#require_social_info,#display_social_info_for");
+    lf_opt26.hide();
+    $('input[name="display_social_info_field"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt26.show();
+        }else{
+            lf_opt26.hide();
+        }
+    });
+    if($('input[name="display_social_info_field"]').is(":checked") === true){
+        lf_opt26.show();
+    }
+
+    //Display map
+    var lf_opt27 = $("#display_map_for");
+    lf_opt27.hide();
+    $('input[name="display_map_field"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt27.show();
+        }else{
+            lf_opt27.hide();
+        }
+    });
+    if($('input[name="display_map_field"]').is(":checked") === true){
+        lf_opt27.show();
+    }
+
+    //Display form preview image
+    var lf_opt28 = $("#preview_label,#require_preview_img,#display_prv_img_for");
+    lf_opt28.hide();
+    $('input[name="display_prv_field"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt28.show();
+        }else{
+            lf_opt28.hide();
+        }
+    });
+    if($('input[name="display_prv_field"]').is(":checked") === true){
+        lf_opt28.show();
+    }
+
+    //Display gallery image
+    var lf_opt29 = $("#gellery_label,#require_gallery_img,#display_glr_img_for");
+    lf_opt29.hide();
+    $('input[name="display_gellery_field"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt29.show();
+        }else{
+            lf_opt29.hide();
+        }
+    });
+    if($('input[name="display_gellery_field"]').is(":checked") === true){
+        lf_opt29.show();
+    }
+
+    //Display form video
+    var lf_opt30 = $("#video_label,#require_video,#display_video_for");
+    lf_opt30.hide();
+    $('input[name="display_video_field"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt30.show();
+        }else{
+            lf_opt30.hide();
+        }
+    });
+    if($('input[name="display_video_field"]').is(":checked") === true){
+        lf_opt30.show();
+    }
+
+    //Display terms and condition
+    var lf_opt31 = $("#require_terms_conditions,#listing_terms_condition_text");
+    lf_opt31.hide();
+    $('input[name="listing_terms_condition"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt31.show();
+        }else{
+            lf_opt31.hide();
+        }
+    });
+    if($('input[name="listing_terms_condition"]').is(":checked") === true){
+        lf_opt31.show();
+    }
+
+    //Display search header
+    var lf_opt32 = $("#search_header_title");
+    lf_opt32.hide();
+    $('input[name="search_header"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt32.show();
+        }else{
+            lf_opt32.hide();
+        }
+    });
+    if($('input[name="search_header"]').is(":checked") === true){
+        lf_opt32.show();
+    }
+
+    //Display search view as
+    var lf_opt33 = $("#search_view_as_items");
+    lf_opt33.hide();
+    $('input[name="search_view_as"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt33.show();
+        }else{
+            lf_opt33.hide();
+        }
+    });
+    if($('input[name="search_view_as"]').is(":checked") === true){
+        lf_opt33.show();
+    }
+
+    //Display search sort by
+    var lf_opt34 = $("#search_sort_by_items");
+    lf_opt34.hide();
+    $('input[name="search_sort_by"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt34.show();
+        }else{
+            lf_opt34.hide();
+        }
+    });
+    if($('input[name="search_sort_by"]').is(":checked") === true){
+        lf_opt34.show();
+    }
+
+    //Display decimal
+    var lf_opt35 = $("#g_decimal_separator");
+    lf_opt35.hide();
+    $('input[name="allow_decimal"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt35.show();
+        }else{
+            lf_opt35.hide();
+        }
+    });
+    if($('input[name="allow_decimal"]').is(":checked") === true){
+        lf_opt35.show();
+    }
+
+    //Display email notification
+    var lf_opt36 = $("#email_from_name,#email_from_email,#admin_email_lists,#notify_admin,#notify_user");
+    lf_opt36.show();
+    $('input[name="disable_email_notification"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt36.hide();
+        }else{
+            lf_opt36.show();
+        }
+    });
+    if($('input[name="disable_email_notification"]').is(":checked") === true){
+        lf_opt36.hide();
+    }
+
+    //Display email notification
+    var lf_opt36 = $("#enable_featured_listing,#featured_listing_title,#featured_listing_desc,#featured_listing_price,#show_featured_ribbon");
+    lf_opt36.hide();
+    $('input[name="enable_monetization"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt36.show();
+        }else{
+            lf_opt36.hide();
+        }
+    });
+    if($('input[name="enable_monetization"]').is(":checked") === true){
+        lf_opt36.show();
+    }
 });
 
 

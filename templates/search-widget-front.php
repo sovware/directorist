@@ -179,7 +179,7 @@
                         </label>
                     </div>
                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
-                        <input type="radio" value="1" name="search_by_rating" class="custom-control-input" id="customCheck11" <?php if(!empty($_GET['search_by_rating']) && '1' == $_GET['price_range']) { echo 'checked';}?>>
+                        <input type="radio" value="1" name="search_by_rating" class="custom-control-input" id="customCheck11" <?php if(!empty($_GET['search_by_rating']) && '1' == $_GET['search_by_rating']) { echo 'checked';}?>>
                         <span class="radio--select"></span>
                         <label class="custom-control-label" for="customCheck11">
                             <span class="active"><i class="fa fa-star"></i></span>
@@ -190,7 +190,7 @@
                         </label>
                     </div>
                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
-                        <input type="radio" name="search_by_rating" value="0" class="custom-control-input" id="customCheck12" <?php if(!empty($_GET['search_by_rating']) && '0' == $_GET['price_range']) { echo 'none';}?>>
+                        <input type="radio" name="search_by_rating" value="0" class="custom-control-input" id="customCheck12" <?php if(!empty($_GET['search_by_rating']) && '0' == $_GET['search_by_rating']) { echo 'none';}?>>
                         <span class="radio--select"></span>
                         <label class="custom-control-label" for="customCheck12">
                             <span><i class="fa fa-star"></i></span>

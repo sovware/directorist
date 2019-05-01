@@ -1961,18 +1961,24 @@ function atbdp_get_listings_current_view_name($view)
  *
  * @return   array    $view_options    List of view Options.
  */
-function atbdp_get_listings_view_options()
+function atbdp_get_listings_view_options($view_as_items)
 {
     $listing_view = get_directorist_option('default_listing_view');
-
     $listings_settings = !empty($listing_view) ? $listing_view : 'grid';
 
     $options = array('grid', 'list','map');
     $display_map = get_directorist_option('display_map_field',1);
     $select_listing_map = get_directorist_option('select_listing_map','google');
 
-    if(empty($display_map) || 'google' != $select_listing_map) {
-        array_pop($options);
+
+    if(!in_array( 'listings_grid', $view_as_items )) {
+        unset($options[0]);
+    }
+    if(!in_array( 'listings_list', $view_as_items )) {
+        unset($options[1]);
+    }
+    if(empty($display_map) || 'google' != $select_listing_map || !in_array( 'listings_map', $view_as_items )) {
+        unset($options[2]);
     }
     $options[] = isset($_GET['view']) ? sanitize_text_field($_GET['view']) : $listings_settings;
     $options = array_unique($options);

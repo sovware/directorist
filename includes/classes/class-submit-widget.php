@@ -31,22 +31,16 @@ if (!class_exists('BD_Submit_Item_Widget')) {
          */
         public function widget($args, $instance)
         {
-            if( is_singular(ATBDP_POST_TYPE)) {
-                $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Title', ATBDP_TEXTDOMAIN);
-                echo $args['before_widget'];
-                echo '<div class="atbd_widget_title">';
-                echo $args['before_title'] . esc_html(apply_filters('widget_submit_item_title', $title)) . $args['after_title'];
-                echo '</div>';
-                ?>
-                <div class="directorist">
-                    <a href="<?= (is_fee_manager_active())?esc_url(ATBDP_Permalink::get_fee_plan_page_link()):esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
-                       class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Submit New Listing', ATBDP_TEXTDOMAIN); ?></a>
-                </div>
-                <?php
+            $single_only  = !empty( $instance['single_only'] ) ? 1 : 0;
 
-
-                echo $args['after_widget'];
+            if(!empty($single_only)) {
+                if(is_singular(ATBDP_POST_TYPE)) {
+                    include ATBDP_TEMPLATES_DIR . "widget-templates/submit.php";
+                }
+            } else {
+                include ATBDP_TEMPLATES_DIR . "widget-templates/submit.php";
             }
+
         }
 
         /**
@@ -59,7 +53,8 @@ if (!class_exists('BD_Submit_Item_Widget')) {
          */
         public function form($instance)
         {
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Submit a Listing', ATBDP_TEXTDOMAIN);
+            $title       = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Submit a Listing', ATBDP_TEXTDOMAIN);
+            $single_only = !empty($instance['single_only']) ? 1 : 0;
             ?>
             <p>
                 <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', ATBDP_TEXTDOMAIN); ?></label>
@@ -68,6 +63,10 @@ if (!class_exists('BD_Submit_Item_Widget')) {
                        value="<?php echo esc_attr($title); ?>">
             </p>
 
+            <p>
+                <input <?php checked( $single_only,1 ); ?> id="<?php echo $this->get_field_id( 'single_only' ); ?>" name="<?php echo $this->get_field_name( 'single_only' ); ?>" value="1" type="checkbox" />
+                <label for="<?php echo $this->get_field_id( 'single_only' ); ?>"><?php _e( 'Display only on single listing', ATBDP_TEXTDOMAIN ); ?></label>
+            </p>
             <?php
         }
 
@@ -85,6 +84,7 @@ if (!class_exists('BD_Submit_Item_Widget')) {
         {
             $instance = array();
             $instance['title'] = (!empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
+            $instance['single_only'] = (!empty($new_instance['single_only'])) ? 1 : 0;
 
             return $instance;
         }

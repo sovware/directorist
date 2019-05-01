@@ -1629,7 +1629,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'checkbox',
                         'name' => 'listings_filters_button',
-                        'label' => __('Filter Fields', ATBDP_TEXTDOMAIN),
+                        'label' => __('Filter Buttons', ATBDP_TEXTDOMAIN),
                         'validation' => 'minselected[0]|maxselected[5]',
                         'items' => array(
                             array(
@@ -1687,6 +1687,31 @@ The Administrator of ==SITE_NAME==
                         'name' => 'display_view_as',
                         'label' => __('Display "View As" Dropdown', ATBDP_TEXTDOMAIN),
                         'default' => 1,
+                    ),
+                    array(
+                        'type' => 'checkbox',
+                        'name' => 'listings_view_as_items',
+                        'label' => __('"View As" Dropdown', ATBDP_TEXTDOMAIN),
+                        'validation' => 'minselected[1]|maxselected[3]',
+                        'items' => array(
+                            array(
+                                'value' => 'listings_grid',
+                                'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'listings_list',
+                                'label' => __('List', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'listings_map',
+                                'label' => __('Map', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'listings_grid',
+                            'listings_list',
+                            'listings_map'
+                        ),
                     ),
                     array(
                         'type' => 'select',
@@ -2437,6 +2462,31 @@ The Administrator of ==SITE_NAME==
                         'name' => 'search_view_as',
                         'label' => __('Display "View As" Dropdown', ATBDP_TEXTDOMAIN),
                         'default' => 1,
+                    ),
+                    array(
+                        'type' => 'checkbox',
+                        'name' => 'search_view_as_items',
+                        'label' => __('"View As" Dropdown', ATBDP_TEXTDOMAIN),
+                        'validation' => 'minselected[1]|maxselected[3]',
+                        'items' => array(
+                            array(
+                                'value' => 'listings_grid',
+                                'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'listings_list',
+                                'label' => __('List', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'listings_map',
+                                'label' => __('Map', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'listings_grid',
+                            'listings_list',
+                            'listings_map'
+                        ),
                     ),
                     array(
                         'type' => 'toggle',

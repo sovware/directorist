@@ -607,16 +607,14 @@ jQuery(function ($) {
     //
     var lf_opt2 = $("#search_result_filter_button_text, #search_result_filters_fields, #search_result_search_text_placeholder, #search_result_category_placeholder, #search_result_location_placeholder");
     lf_opt2.hide();
-    $('input[name="search_result_filters_button"]').on("change", function () {
+    $('input[name="search_result_filters_button_display"]').on("change", function () {
         if($(this).is(":checked") === true){
             lf_opt2.show();
         }else{
             lf_opt2.hide();
         }
     });
-    if($('input[name="search_result_filters_button"]').is(":checked") === true){
-        lf_opt2.show();
-    };
+
 
     //Display more filters - option
     var lf_opt3 = $("#search_more_filters_fields, #search_filters, #search_more_filters, #search_reset_filters, #search_apply_filters");

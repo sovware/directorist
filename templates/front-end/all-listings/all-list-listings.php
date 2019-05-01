@@ -55,5 +55,4 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
         <?php }
     } ?>
 </div> <!--ends .row -->
-</div>
-</div>
+

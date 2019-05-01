@@ -29,7 +29,7 @@
                                         ' . __("View as", ATBDP_TEXTDOMAIN) . '<span class="caret"></span>
                                     </a>';
                                     $html .= '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">';
-                                    $views = atbdp_get_listings_view_options();
+                                    $views = atbdp_get_listings_view_options($view_as_items);
                                     $view = !empty($view)?$view:'';
                                     foreach ($views as $value => $label) {
                                         $active_class = ($view == $value) ? ' active' : '';

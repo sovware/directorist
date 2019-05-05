@@ -10,13 +10,16 @@
                         if(!empty($listing_filters_button) && !empty($search_more_filters_fields)) {?>
                             <div class="atbd_generic_header_title">
                                 <button class="more-filter btn btn-outline btn-outline-primary"><span class="fa fa-filter"></span> <?php echo $filters;?></button>
+                                <?php
+                                    if(!empty($header_title)) { ?>
+                                        <h3>
+                                            <?php echo $header_title; ?>
+                                        </h3>
+                                    <?php
+                                ?>
                             </div>
                         <?php }
-                        if(!empty($header_title)) { ?>
-                            <h3>
-                                <?php echo $header_title; ?>
-                            </h3>
-                        <?php } ?>
+                         } ?>
                         <?php if ($display_viewas_dropdown || $display_sortby_dropdown) { ?>
                             <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
                                 <!-- Views dropdown -->

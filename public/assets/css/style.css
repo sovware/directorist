@@ -644,6 +644,21 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 15px;
 }
 
+#directorist.atbd_wrapper .form-check-label {
+  margin-left: 10px;
+}
+
+.atbd_margin_fix {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+#directorist.atbd_wrapper .avatar {
+  position: relative;
+  left: 0;
+  top: 0;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   text-align: right;
   margin-bottom: 15px;
@@ -1119,6 +1134,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper #client_review_list .atbd_single_review .atbd_review_top .atbd_review_avatar img {
   width: 100%;
   border-radius: 500px;
+  position: relative;
+  top: 0;
+  left: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper #client_review_list .atbd_single_review .atbd_review_top .atbd_review_avatar, .atbd_content_active #directorist.atbd_wrapper #client_review_list .atbd_single_review .atbd_review_top .atbd_name_time {

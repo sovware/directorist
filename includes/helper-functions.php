@@ -2604,8 +2604,8 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
 function related_listing_slider($all_listings, $pagenation, $is_disable_price)
 {
     ?>
-    <div class="<?php echo is_directoria_active() ? 'containere' : 'container-fluid'; ?>">
-        <div class="">
+    <div class="<?php echo is_directoria_active() ? 'containere' : 'containess-fluid'; ?>">
+        <div class="atbd_margin_fix">
             <div class="related__carousel">
 
                 <?php if ($all_listings->have_posts()) {

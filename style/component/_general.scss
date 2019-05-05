@@ -471,3 +471,16 @@ body.atbd_content_active #directorist.atbd_wrapper{
     }
   }
 }
+
+#directorist.atbd_wrapper .form-check-label{
+  margin-left: 10px;
+}
+.atbd_margin_fix{
+  margin-left: -10px;
+  margin-right: -10px;
+}
+#directorist.atbd_wrapper .avatar{
+  position: relative;
+  left: 0;
+  top: 0;
+}

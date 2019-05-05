@@ -4,6 +4,10 @@ body.atbd_content_active #directorist.atbd_wrapper{
   max-width: 100%;
 }
 
+#directorist.atbd_wrapper .row{
+  float: none;
+}
+
 //stop preload transition
 .atbdp_preload * {
   -webkit-transition: none !important;

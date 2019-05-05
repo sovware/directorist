@@ -57,7 +57,7 @@
                                             <?php _e("Sort by", ATBDP_TEXTDOMAIN); ?> <span class="caret"></span>
                                         </a>
 
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink2">
                                             <?php
                                             $options = atbdp_get_listings_orderby_options($sort_by_items);
 

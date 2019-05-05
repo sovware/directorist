@@ -157,6 +157,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   max-width: 100%;
 }
 
+#directorist.atbd_wrapper .row {
+  float: none;
+}
+
 .atbdp_preload * {
   -webkit-transition: none !important;
   -moz-transition: none !important;
@@ -2402,6 +2406,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active .widget.atbd_widget + #dcl-claim-modal .form-control {
   width: 100%;
+  max-width: 100%;
 }
 
 .atbd_content_active .widget.atbd_widget + #dcl-claim-modal .dcl_plans {

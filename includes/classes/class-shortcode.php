@@ -2941,6 +2941,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                         echo '<div class="error_login"><p class="success">'. $success .'</p></div>';
                 }
                 ?>
+
                 <div id="recover-pass-modal">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -2953,7 +2954,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                             <input type="text" name="user_login" id="reset_user_login" value="<?php echo $user_login; ?>" placeholder="eg. mail@example.com" />
                                         <p>
                                             <input type="hidden" name="action" value="reset" />
-                                            <input type="submit" c value="<?php _e('Get New Password', ATBDP_TEXTDOMAIN)?>" class="btn btn-primary" id="submit" />
+                                            <input type="submit" value="<?php _e('Get New Password', ATBDP_TEXTDOMAIN)?>" class="btn btn-primary" id="submit" />
                                         </p>
                                     </fieldset>
                                 </form>

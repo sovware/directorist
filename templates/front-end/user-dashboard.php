@@ -25,6 +25,51 @@ $submit_listing_button   = get_directorist_option('submit_listing_button',1);
 $show_title = !empty($show_title)?$show_title:'';
 /*@todo; later show featured listing first on the user dashboard maybe??? */
 ?>
+<!--<div id="change-plan-modal" style="display: block">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="fs-modal-header">
+                <h2>Current Pricing Plan</h2>
+            </div>
+            <div class="modal-body">
+                <?php
+/*                $args = array(
+                    'post_type'      => 'atbdp_pricing_plans',
+                    'posts_per_page' => -1,
+                    'status'         => 'publish',
+                    'meta_query' => array(
+                        'relation' => 'OR',
+                        array(
+                            'key' => '_hide_from_plans',
+                            'compare' => 'NOT EXISTS',
+                        ),
+                        array(
+                            'key' => '_hide_from_plans',
+                            'value'   => 1,
+                            'compare' => '!=',
+                        ),
+                    ),
+                );
+
+                $atbdp_query = new WP_Query( $args );
+
+                if ($atbdp_query->have_posts()){
+                    global $post;
+                    $plans = $atbdp_query->posts;
+                    printf('<label for="select_plans">%s</label>', __('Select Plan', 'directorist-pricing-plans'));
+                    printf('<select id="claimer_plan" name="admin_plan">');
+                    echo '<option value="">'.__('- Select -', 'directorist-pricing-plans').'</option>';
+                    foreach ($plans as $key => $value) {
+                        printf('<option value="%s" %s>%s %s</option>', $value->ID,selected($value->ID, $current_val), $value->post_title, ($active_plan && (get_post_meta($value->ID, 'plan_type', true) != 'pay_per_listng'))?__(' <span class="atbd_plan-active">Active</span>', 'directorist-pricing-plans'):'');
+                    }
+                    printf('</select>');
+                    printf('<a target="_blank" href="%s" class="atpp_plans">%s</a>',esc_url(ATBDP_Permalink::get_fee_plan_page_link()), __('Details', 'directorist-pricing-plans'));
+                }
+                */?>
+            </div>
+        </div>
+    </div>
+</div>-->
 <div id="directorist" class="directorist atbd_wrapper dashboard_area">
     <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
         <div class="row">
@@ -82,6 +127,7 @@ $show_title = !empty($show_title)?$show_title:'';
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <?php if(!empty($my_listing_tab)) {?>
+
                             <div role="tabpanel" class="tab-pane active row" data-uk-grid id="my_listings">
                                 <?php if ($listings->have_posts()) {
                                     foreach ($listings->posts as $post) {
@@ -179,7 +225,6 @@ $show_title = !empty($show_title)?$show_title:'';
 
                                                             <div class="db_btn_area">
                                                                 <?php
-                                                                date_default_timezone_set('Asia/Dhaka');
                                                                 $exp_date = get_post_meta($post->ID, '_expiry_date', true);
                                                                 $never_exp = get_post_meta($post->ID, '_never_expire', true);
                                                                 $lstatus = get_post_meta($post->ID, '_listing_status', true);
@@ -237,12 +282,10 @@ $show_title = !empty($show_title)?$show_title:'';
                                                         <div class="atbd_listing_bottom_content">
                                                             <div class="listing-meta">
                                                                 <?php
-                                                                if (is_fee_manager_active()){
-                                                                    $change_plan_link = '<span><a href="">'.__('Change', ATBDP_TEXTDOMAIN).'</a></span>';
-                                                                    $plan_id = get_post_meta($post->ID, '_fm_plans', true);
-                                                                    $plan_name = !empty($plan_id)?get_the_title($plan_id):'';
-                                                                    printf(__('<p><span>Plan Name:</span> %s</p>', ATBDP_TEXTDOMAIN), $plan_name);
-                                                                }
+                                                                /**
+                                                                 * @since 5.0.3
+                                                                 */
+                                                                do_action('atbdp_user_dashboard_listings_before_expireation', $post->ID);
                                                                 $exp_text = !empty($never_exp)
                                                                     ? __('Never Expires', ATBDP_TEXTDOMAIN)
                                                                     : date_i18n($date_format, strtotime($exp_date)); ?>

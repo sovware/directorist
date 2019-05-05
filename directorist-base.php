@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
  * Description: Create a professional directory listing website like Yelp by a few clicks only. You can list place, any business etc.  with this plugin very easily.
- * Version: 5.0.1
+ * Version: 5.0.2
  * Author: AazzTech
  * Author URI: https://aazztech.com
  * License: GPLv2 or later
@@ -1167,8 +1167,8 @@ final class Directorist_Base
                                 <?php $avata_img = get_avatar(wp_get_current_user()->ID, 32);
                                 $user_img = !empty($avata_img) ? $avata_img : ATBDP_PUBLIC_ASSETS . 'images/revav.png';
                                 ?>
-                                <input type="hidden" name="name" class="btn btn-default"
-                                       value="<?php echo $user_img ?>" id="reviewer_img">
+                                <input type="hidden" name="name" id="reviewer_img" class="btn btn-default"
+                                       value='<?php echo esc_attr($user_img); ?>'>
 
                                 <div class="atbd_review_rating_area"> <!--It should be displayed on the left side -->
                                     <?php

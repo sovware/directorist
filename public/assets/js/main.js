@@ -345,6 +345,7 @@
 
     });
 
+
     $('.atbdp_child_category').hide();
     $('.atbdp_parent_category >li >span').on('click', function () {
         $(this).siblings('.atbdp_child_category').slideToggle();
@@ -665,6 +666,8 @@ jQuery(function ($) {
         e.preventDefault();
         $("#recover-pass-modal").slideToggle().show();
     });
+
+
     $(function() {
         var hash = window.location.hash;
         var selectedTab = $('.navbar .menu li a [href= "'+hash+'"]');

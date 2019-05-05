@@ -133,6 +133,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 * Add - New parameters for Shortcodes
 * Add - Recover/forget Password option on login page
+* Add - Option to hide/show author email
 * Fix - Advanced search/filter responsiveness and rating issues
 * Fix - Clickable preview image on user dashboard
 * Fix - Sort by Popular Listings

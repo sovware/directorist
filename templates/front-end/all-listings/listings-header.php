@@ -3,19 +3,16 @@
         <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
             <div class="row">
                 <div class="col-md-12">
-                    <?php
-                    if(!empty($header_title) && !empty($listing_filters_button) && !empty($search_more_filters_fields)) {?>
-                        <h3 class="header_bar_title">
-                            <?php echo $header_title; ?>
-                        </h3>
-                    <?php } ?>
+
+
                     <div class="atbd_generic_header">
                         <?php
                         if(!empty($listing_filters_button) && !empty($search_more_filters_fields)) {?>
                             <div class="atbd_generic_header_title">
                                 <button class="more-filter btn btn-outline btn-outline-primary"><span class="fa fa-filter"></span> <?php echo $filters;?></button>
                             </div>
-                        <?php } elseif((!empty($header_title) && empty($listing_filters_button)) || empty($search_more_filters_fields)) { ?>
+                        <?php }
+                        if(!empty($header_title)) { ?>
                             <h3>
                                 <?php echo $header_title; ?>
                             </h3>

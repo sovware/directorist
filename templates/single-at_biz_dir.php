@@ -1,4 +1,5 @@
 <?php
+global $post;
 $listing_id = $post->ID;
 $fm_plan = get_post_meta($listing_id, '_fm_plans', true);
 /*store all data in an array so that we can pass it to filters for extension to get this value*/

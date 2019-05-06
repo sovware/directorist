@@ -1694,7 +1694,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'checkbox',
                         'name' => 'listings_sort_by_items',
                         'label' => __('"Sort By" Dropdown', ATBDP_TEXTDOMAIN),
-                        'validation' => 'minselected[1]|maxselected[10]',
+                        'validation' => 'minselected[0]|maxselected[10]',
                         'items' => array(
                             array(
                                 'value' => 'a_z',
@@ -1750,7 +1750,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'checkbox',
                         'name' => 'listings_view_as_items',
                         'label' => __('"View As" Dropdown', ATBDP_TEXTDOMAIN),
-                        'validation' => 'minselected[1]|maxselected[3]',
+                        'validation' => 'minselected[0]|maxselected[3]',
                         'items' => array(
                             array(
                                 'value' => 'listings_grid',
@@ -2138,7 +2138,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'checkbox',
                         'name' => 'search_tsc_fields',
                         'label' => __('Search Fields', ATBDP_TEXTDOMAIN),
-                        'validation' => 'minselected[1]|maxselected[3]',
+                        'validation' => 'minselected[0]|maxselected[3]',
                         'items' => array(
                             array(
                                 'value' => 'search_text',
@@ -2530,7 +2530,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'checkbox',
                         'name' => 'search_view_as_items',
                         'label' => __('"View As" Dropdown', ATBDP_TEXTDOMAIN),
-                        'validation' => 'minselected[1]|maxselected[3]',
+                        'validation' => 'minselected[0]|maxselected[3]',
                         'items' => array(
                             array(
                                 'value' => 'listings_grid',
@@ -2561,7 +2561,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'checkbox',
                         'name' => 'search_sort_by_items',
                         'label' => __('"Sort By" Dropdown', ATBDP_TEXTDOMAIN),
-                        'validation' => 'minselected[1]|maxselected[10]',
+                        'validation' => 'minselected[0]|maxselected[10]',
                         'items' => array(
                             array(
                                 'value' => 'a_z',
@@ -4308,6 +4308,16 @@ The Administrator of ==SITE_NAME==
                         'validation' => 'numeric',
                     ),
 
+                    array(
+                        'type' => 'select',
+                        'name' => 'single_listing_page',
+                        'label' => __('Single Listings Page', ATBDP_TEXTDOMAIN),
+                        'items' => $this->get_pages_vl_arrays(),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_single_listing]</strong>'),
+
+                        'default' => atbdp_get_option('all_listing_page', 'atbdp_general'),
+                        'validation' => 'numeric',
+                    ),
                     array(
                         'type' => 'select',
                         'name' => 'user_dashboard',

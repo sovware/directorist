@@ -398,7 +398,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                              *
                              * @since 1.0.0
                              */
-                            do_action('atbdp_after_listing_tagline');
+                            do_action('atbdp_after_listing_tagline', $listing_id);
                             $title_html .= '</div>';
                             /**
                              * @since 5.0

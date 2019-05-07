@@ -1,4 +1,5 @@
 (function ($) {
+
     //sorting toggle
     $('.sorting span').on('click', function () {
         $(this).toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
@@ -12,7 +13,6 @@
     $(".stars").barrating({
         theme: 'fontawesome-stars'
     });
-
 
     function handleFiles(files) {
         var preview = document.getElementById('atbd_up_preview');
@@ -690,13 +690,9 @@ jQuery(function ($) {
     var hash = window.location.hash;
     $('#nav-item a[href="' + hash + '"]').tab('show');
 
+    console.log(atbdp_public_data.listings_lat);
+    console.log(atbdp_public_data.listings_lng);
+    console.log(atbdp_public_data.listings_name);
+    console.log(atbdp_public_data.l_address);
 
 })(jQuery);
-
-
-
-
-
-
-
-

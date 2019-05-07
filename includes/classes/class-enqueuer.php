@@ -249,6 +249,24 @@ class ATBDP_Enqueuer {
         wp_enqueue_style('wp-color-picker');
         wp_enqueue_script('wp-color-picker');
 
+        //listings data
+        $listings = get_atbdp_listings_ids();
+        $listing_lat = array();
+        $manual_lng = array();
+        $name = array();
+        $address = array();
+        if ($listings->have_posts()) {
+            while ($listings->have_posts()) {
+                $listings->the_post();
+                $name[] = get_the_title();
+                $listing_lat[] = get_post_meta(get_the_ID(), '_manual_lat', true);
+                $manual_lng[] = get_post_meta(get_the_ID(), '_manual_lng', true);
+                $address[] = get_post_meta(get_the_ID(), '_address', true);
+            }
+        }
+
+
+
         $data = array(
             'nonce'                         => wp_create_nonce('atbdp_nonce_action_js'),
             'ajax_nonce'                    => wp_create_nonce( 'bdas_ajax_nonce' ),
@@ -277,7 +295,11 @@ class ATBDP_Enqueuer {
             'listing_error_text'            => __( 'Something went wrong!!!, Try again', ATBDP_TEXTDOMAIN ),
             'upload_pro_pic_title'          => __( 'Select or Upload a profile picture', ATBDP_TEXTDOMAIN ),
             'upload_pro_pic_text'           => __( 'Use this Image', ATBDP_TEXTDOMAIN ),
-            'plugin_url'                    => ATBDP_URL
+            'plugin_url'                    => ATBDP_URL,
+            'listings_lat'                  => $listing_lat,
+            'listings_lng'                  => $manual_lng,
+            'listings_name'                 => $name,
+            'l_address'                     => $address,
         );
         wp_localize_script( 'atbdp_checkout_script', 'atbdp_checkout', $data );
 

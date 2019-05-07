@@ -117,6 +117,11 @@
   .atbdb_content_module_contents {
     padding: 30px;
   }
+  .atbd_custom_fields_contents{
+    .atbdb_content_module_contents {
+      padding: 0;
+    }
+  }
   .atbd_give_review_area {
     .atbd_review_rating_area {
       display: inline-block;
@@ -386,18 +391,21 @@
     > li {
       border-bottom: 1px solid $border-color;
       display: flex;
+      &:last-child{
+        border-bottom: 0;
+      }
     }
     .atbd_custom_field_title {
-      width: 25%;
+      width: 40%;
       p {
         font-weight: 500;
-        padding: 10px 15px;
+        padding: 10px 30px;
         color: $dark;
       }
     }
     .atbd_custom_field_content {
       border-left: 1px solid $border-color;
-      width: 74%;
+      width: 60%;
       padding: 10px 15px;
     }
   }

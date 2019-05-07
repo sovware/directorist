@@ -141,7 +141,7 @@
   background: #fa8b0c;
 }
 
-.atbd_color-badge-popular, .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title h3 span {
+.atbd_color-badge-popular {
   color: #f51957;
 }
 
@@ -240,17 +240,32 @@ body.atbd_content_active #directorist.atbd_wrapper {
   border-radius: 5px;
   border: 1px solid #e3e6ef;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title .more-filter {
+  margin-right: 15px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title h3 {
-  font-size: 20px;
+  color: #7a82a6;
+  margin: 0;
+  font-size: 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title h3 p {
   font-size: 14px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_listing_action_btn {
+  margin-left: auto;
 }
 
 .shadow-lg-2 {
@@ -657,6 +672,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   position: relative;
   left: 0;
   top: 0;
+  float: none;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {

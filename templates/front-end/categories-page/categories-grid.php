@@ -1,6 +1,9 @@
-<?php $span = 'col-md-' . floor( 12 /  $categories_settings['columns'] );?>
+<?php
+$span            = 'col-md-' . floor( 12 /  $categories_settings['columns'] );
+$container_fluid = 'container-fluid';
+?>
 <div id="directorist" class="atbd_wrapper">
-    <div class="container-fluid">
+    <div class="<?php echo apply_filters('atbdp_cat_container_fluid',$container_fluid);?>">
         <div class="col-md-12">
             <div class="atbd_all_categories">
                 <?php

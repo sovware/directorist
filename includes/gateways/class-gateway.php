@@ -277,7 +277,6 @@ class ATBDP_Gateway{
                     'label' => __( 'Currency Name', ATBDP_TEXTDOMAIN ),
                     'description' => __( 'Enter the Name of the currency eg. USD or GBP etc.', ATBDP_TEXTDOMAIN ),
                     'default' => 'USD',
-                    'validation' => 'required',
                 ),
                 /*@todo; lets user use space as thousand separator in future. @see: https://docs.oracle.com/cd/E19455-01/806-0169/overview-9/index.html
                 */
@@ -287,7 +286,6 @@ class ATBDP_Gateway{
                     'label' => __( 'Thousand Separator', ATBDP_TEXTDOMAIN ),
                     'description' => __( 'Enter the currency thousand separator. Eg. , or . etc.', ATBDP_TEXTDOMAIN ),
                     'default' => ',',
-                    'validation' => 'required',
                 ),
 
                 array(

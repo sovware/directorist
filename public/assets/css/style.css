@@ -800,6 +800,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 30px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields_contents .atbdb_content_module_contents {
+  padding: 0;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area .atbd_review_rating_area {
   display: inline-block;
   border: 1px solid #e3e6ef;

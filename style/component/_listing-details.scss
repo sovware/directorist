@@ -117,6 +117,11 @@
   .atbdb_content_module_contents {
     padding: 30px;
   }
+  .atbd_custom_fields_contents{
+    .atbdb_content_module_contents {
+      padding: 0;
+    }
+  }
   .atbd_give_review_area {
     .atbd_review_rating_area {
       display: inline-block;

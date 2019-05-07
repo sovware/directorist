@@ -7,9 +7,11 @@
 
                     <div class="atbd_generic_header">
                         <?php
-                        if(!empty($listing_filters_button) && !empty($search_more_filters_fields)) {?>
+                        if((!empty($listing_filters_button) && !empty($search_more_filters_fields)) ||!empty($header_title) ) {?>
                             <div class="atbd_generic_header_title">
+                            <?php if(!empty($listing_filters_button)) {?>
                                 <button class="more-filter btn btn-outline btn-outline-primary"><span class="fa fa-filter"></span> <?php echo $filters;?></button>
+                                <?php } ?>
                                 <?php
                                     if(!empty($header_title)) { ?>
                                         <h3>

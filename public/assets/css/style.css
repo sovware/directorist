@@ -1564,8 +1564,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   right: 15px;
   bottom: 0;
   transform: translateY(50%);
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd_listing_image .atbd_author a {

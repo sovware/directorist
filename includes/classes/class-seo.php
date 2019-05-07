@@ -22,6 +22,7 @@ if ( !class_exists('ATBDP_SEO') ):
                 if ( $post instanceof WP_Post && ( $post->post_type == 'post' || $post->post_type == 'page' ) ) {
                     $CAT_page_ID = get_directorist_option('single_category_page');
                     $LOC_page_ID = get_directorist_option('single_location_page');
+                    $Tag_page_ID = get_directorist_option('single_tag_page');
                     // Change Location page title
                     if( $post->ID == $LOC_page_ID ) {
 
@@ -35,6 +36,14 @@ if ( !class_exists('ATBDP_SEO') ):
 
                         if( $slug = get_query_var( 'atbdp_category' ) ) {
                             $term = get_term_by( 'slug', $slug, ATBDP_CATEGORY );
+                            $title = !empty($term)?$term->name:'';
+                        }
+                    }
+
+                    // Change Location page title
+                    if( $post->ID == $Tag_page_ID ) {
+                        if( $slug = get_query_var( 'atbdp_tag' ) ) {
+                            $term = get_term_by( 'slug', $slug, ATBDP_TAGS );
                             $title = !empty($term)?$term->name:'';
                         }
                     }
@@ -212,6 +221,11 @@ if ( !class_exists('ATBDP_SEO') ):
                 $slug = get_query_var( 'atbdp_location' );
                 $term = get_term_by( 'slug', $slug, 'at_biz_dir-location' );
                 $title = (get_directorist_option('single_locations_meta_title')) ? get_directorist_option('single_locations_meta_title') : (!empty($term) ? $term->name : '');
+            }elseif(atbdp_is_page('single_tag')){
+                $atbdp_page = 'single_tag';
+                $slug = get_query_var( 'atbdp_tag' );
+                $term = get_term_by( 'slug', $slug, ATBDP_TAGS );
+                $title = !empty($term) ? $term->name : '';
             }elseif(atbdp_is_page('registration')){
                 $atbdp_page = 'registration';
                 $title = (get_directorist_option('registration_meta_title')) ? get_directorist_option('registration_meta_title') : $title;

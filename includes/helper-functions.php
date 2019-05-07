@@ -3541,6 +3541,13 @@ function atbdp_is_page($atbdppages = '')
                 return true;
             }
             break;
+        case 'single_tag':
+            if (is_page() && get_query_var('page_id') == get_directorist_option('single_tag_page')) {
+                return true;
+            } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_tag')) {
+                return true;
+            }
+            break;
         case 'registration':
             if (is_page() && get_query_var('page_id') == get_directorist_option('custom_registration')) {
                 return true;

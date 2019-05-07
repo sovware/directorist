@@ -316,7 +316,7 @@ jQuery(function($){
             prv_image = imageUpload.state().get('selection').first().toJSON();
             prv_url = prv_image.id;
             prv_img_url = prv_image.url;
-            console.log(prv_url);
+            //console.log(prv_url);
             $('.listing_prv_img').val(prv_url);
             $('.change_listing_prv_img').attr('src', prv_img_url);
             $('.upload-header').html('Change Preview Image');

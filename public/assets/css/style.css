@@ -1109,19 +1109,23 @@ body.atbd_content_active #directorist.atbd_wrapper {
   display: flex;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields > li:last-child {
+  border-bottom: 0;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_title {
-  width: 25%;
+  width: 40%;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_title p {
   font-weight: 500;
-  padding: 10px 15px;
+  padding: 10px 30px;
   color: #202428;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_content {
   border-left: 1px solid #e3e6ef;
-  width: 74%;
+  width: 60%;
   padding: 10px 15px;
 }
 

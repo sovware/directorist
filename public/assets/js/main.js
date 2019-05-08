@@ -695,4 +695,4 @@ jQuery(function ($) {
     console.log(atbdp_public_data.listings_name);
     console.log(atbdp_public_data.l_address);*/
 
-})(jQuery);
+})(jQuery)

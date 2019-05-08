@@ -2252,6 +2252,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                     $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                     $display_address_field = get_directorist_option('display_address_field', 1);
                     $display_phone_field = get_directorist_option('display_phone_field', 1);
+                    $display_preview = get_directorist_option('display_preview_image', 1);
                     if (!empty($listing_prv_img)) {
 
                         if ($thumbnail_cropping) {
@@ -2274,13 +2275,14 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                     }
 
                     /*Code for Business Hour Extensions*/
+
                     ?>
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : ''; ?>">
                             <article
                                     class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                 <figure class="atbd_listing_thumbnail_area"
-                                        style=" <?php echo empty(get_directorist_option('display_preview_image', 1)) ? 'display:none' : '' ?>">
+                                        style=" <?php echo empty($display_preview) ? 'display:none' : '' ?>">
                                     <div class="atbd_listing_image">
                                         <?php
                                         $disable_single_listing = get_directorist_option('disable_single_listing');

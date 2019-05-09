@@ -325,4 +325,11 @@ jQuery(function($){
 
         imageUpload.open();
     });
+
+    //it shows the hidden term and conditions
+    $('#listing_t_c').on('click', function (e) {
+        e.preventDefault();
+        $('#tc_container').toggleClass("active");
+    })
+
 });

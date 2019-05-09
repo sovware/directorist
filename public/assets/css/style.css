@@ -2660,6 +2660,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   overflow-y: scroll;
   margin-bottom: 30px;
   background: #ffffff;
+  margin-top: 15px;
+  display: none;
+}
+
+.atbd_content_active #directorist.atbd_wrapper #tc_container.active {
+  display: block;
 }
 
 .atbd_content_active #directorist.atbd_wrapper #atbdp_address {

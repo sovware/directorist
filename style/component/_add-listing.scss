@@ -44,6 +44,11 @@
     overflow-y: scroll;
     margin-bottom: 30px;
     background: $light;
+    margin-top: 15px;
+    display: none;
+  }
+  #tc_container.active{
+    display: block;
   }
   #atbdp_address{
     margin-bottom: 15px;

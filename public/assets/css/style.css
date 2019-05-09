@@ -1464,7 +1464,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_title {
   padding-top: 0;
-  text-transform: capitalize;
+  text-transform: none;
   line-height: 24px;
   margin-bottom: 0;
 }
@@ -2660,6 +2660,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   overflow-y: scroll;
   margin-bottom: 30px;
   background: #ffffff;
+  margin-top: 15px;
+  display: none;
+}
+
+.atbd_content_active #directorist.atbd_wrapper #tc_container.active {
+  display: block;
 }
 
 .atbd_content_active #directorist.atbd_wrapper #atbdp_address {

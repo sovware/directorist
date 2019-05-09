@@ -10,7 +10,6 @@ $u_pro_pic_id            = get_user_meta($uid, 'pro_pic', true);
 $u_pro_pic               = wp_get_attachment_image_src($u_pro_pic_id, 'directory-large');
 $facebook                = get_user_meta($uid, 'facebook', true);
 $twitter                 = get_user_meta($uid, 'twitter', true);
-$google                  = get_user_meta($uid, 'google', true);
 $linkedIn                = get_user_meta($uid, 'linkedIn', true);
 $youtube                 = get_user_meta($uid, 'youtube', true);
 $bio                     = get_user_meta($uid, 'bio', true);
@@ -119,7 +118,7 @@ $show_title = !empty($show_title)?$show_title:'';
                                 <a href="<?= (is_fee_manager_active())?esc_url(ATBDP_Permalink::get_fee_plan_page_link()):esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
                                    class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Submit Listing', ATBDP_TEXTDOMAIN); ?></a>
                             <?php } ?>
-                            <a href="<?= esc_url(wp_logout_url()); ?>"
+                            <a href="<?= esc_url(wp_logout_url(home_url())); ?>"
                                class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Log Out', ATBDP_TEXTDOMAIN); ?></a>
                         </div>
                     </div> <!--ends dashboard_nav-->
@@ -467,16 +466,7 @@ $show_title = !empty($show_title)?$show_title:'';
                                                                    placeholder="<?php _e('Enter your twitter url', ATBDP_TEXTDOMAIN); ?>">
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="google"><?php _e('Google+', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
-                                                            <input id="google" class="form-control" type="url"
-                                                                   name="user[google]"
-                                                                   value="<?= !empty($google) ? esc_attr($google) : ''; ?>"
-                                                                   placeholder="<?php _e('Enter google+ url', ATBDP_TEXTDOMAIN); ?>">
-                                                        </div>
-                                                    </div>
+
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="linkedIn"><?php _e('LinkedIn', ATBDP_TEXTDOMAIN); ?></label>

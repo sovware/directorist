@@ -129,6 +129,16 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
+= 5.0.3 - May 09, 2019 =
+
+* Add - Redirect to home url after logged out for user dashboard
+* Fix - CSS issue
+* Fix - Registration confirmation massage
+* Fix - Listings header
+* Fix - Page title on single location and category pages
+* Removed - Validation form Setting panel
+* Removed - Google + form user dashboard
+
 = 5.0.2 - May 01, 2019 =
 
 * Add - New parameters for Shortcodes

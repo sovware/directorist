@@ -23,7 +23,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                 $website = get_the_author_meta('user_url', $author_id);;
                 $facebook = get_user_meta($author_id, 'facebook', true);
                 $twitter = get_user_meta($author_id, 'twitter', true);
-                $google = get_user_meta($author_id, 'google', true);
                 $linkedIn = get_user_meta($author_id, 'linkedIn', true);
                 $youtube = get_user_meta($author_id, 'youtube', true);
                 $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
@@ -166,7 +165,7 @@ $is_disable_price = get_directorist_option('disable_list_price');
                             </ul>
                         </div>
                         <?php
-                        if (!empty($facebook || $twitter || $google || $linkedIn || $youtube)){
+                        if (!empty($facebook || $twitter || $linkedIn || $youtube)){
                             ?>
                             <div class="atbd_social_wrap">
                                 <?php
@@ -175,9 +174,6 @@ $is_disable_price = get_directorist_option('disable_list_price');
                                 }
                                 if ($twitter) {
                                     printf('<p><a target="_blank" href="%s"><span class="fa fa-twitter"></span></a></p>', $twitter);
-                                }
-                                if ($google) {
-                                    printf('<p><a target="_blank" href="%s"><span class="fa fa-google-plus"></span></a></p>', $google);
                                 }
                                 if ($linkedIn) {
                                     printf('<p><a target="_blank" href="%s"><span class="fa fa-linkedin"></span></a></p>', $linkedIn);

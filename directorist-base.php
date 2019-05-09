@@ -447,10 +447,6 @@ final class Directorist_Base
                 'title' => __('All Listings', ATBDP_TEXTDOMAIN),
                 'content' => '[directorist_all_listing]'
             ),
-            'single_listing_page' => array(
-                'title' => __('Single Listing', ATBDP_TEXTDOMAIN),
-                'content' => '[directorist_single_listing]'
-            ),
             'all_categories_page' => array(
                 'title' => __('All Categories', ATBDP_TEXTDOMAIN),
                 'content' => '[directorist_all_categories]'

@@ -57,18 +57,13 @@ class ATBDP_Listing{
 
     public function the_content($content)
     {
-        $id = get_directorist_option('single_listing_page');
         if( is_singular(ATBDP_POST_TYPE ) && in_the_loop() && is_main_query() ) {
             global $post;
-            if($id) {
-                $page_template =  get_post_field( 'post_content', $id );
-                $content = do_shortcode($page_template);
-            }else{
-                ob_start();
-                include ATBDP_TEMPLATES_DIR . 'single-at_biz_dir.php';
-                return ob_get_clean();
-            }
+            ob_start();
 
+            // echo 'hello from the function';
+            include ATBDP_TEMPLATES_DIR . 'single-at_biz_dir.php';
+            return ob_get_clean();
         }
 
         return $content;

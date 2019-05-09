@@ -21,8 +21,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             add_shortcode( 'directorist_all_listing', array( $this, 'all_listing' ) );
 
-            add_shortcode( 'directorist_single_listing', array( $this, 'single_listing' ) );
-
             add_shortcode( 'directorist_all_categories', array( $this, 'all_categories' ) );
 
             add_shortcode( 'directorist_category', array( $this, 'atbdp_category' ) );
@@ -1562,13 +1560,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
             ob_start();
             include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
             return ob_get_clean();
-        }
-
-        public function single_listing( ) {
-            $action = !empty($_GET['action']) ? $_GET['action'] : '';
-            if('edit' != $action && is_singular(ATBDP_POST_TYPE )) {
-                include ATBDP_TEMPLATES_DIR . "single-at_biz_dir.php";
-            }
         }
 
         public function user_dashboard($atts)

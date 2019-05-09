@@ -131,13 +131,15 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 = 5.0.3 - May 09, 2019 =
 
-* Add - Redirect to home url after logged out for user dashboard
-* Fix - CSS issue
+* Add - Redirection to home page after logging out from User Dashboard
+* Fix - Capitalization issues
+* Fix - Various style issues
 * Fix - Registration confirmation massage
-* Fix - Listings header
-* Fix - Page title on single location and category pages
-* Removed - Validation form Setting panel
-* Removed - Google + form user dashboard
+* Fix - Page title of single location and category pages
+* Improve - Listings header
+* Improve - Terms & Conditions area of add listing form
+* Remove - Validations from Setting panel
+* Remove - Google+ from User Dashboard
 
 = 5.0.2 - May 01, 2019 =
 

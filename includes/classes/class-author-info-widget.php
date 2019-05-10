@@ -72,7 +72,6 @@ if (!class_exists('BD_Author_Info_Widget')) {
                             $website = get_the_author_meta('user_url', $author_id);;
                             $facebook = get_user_meta($author_id, 'facebook', true);
                             $twitter = get_user_meta($author_id, 'twitter', true);
-                            $google = get_user_meta($author_id, 'google', true);
                             $linkedIn = get_user_meta($author_id, 'linkedIn', true);
                             $youtube = get_user_meta($author_id, 'youtube', true);
                             if (!empty($address)) { ?>
@@ -131,9 +130,6 @@ if (!class_exists('BD_Author_Info_Widget')) {
                         }
                         if ($twitter) {
                             printf('<p><a target="_blank" href="%s"><span class="fa fa-twitter"></span></a></p>', $twitter);
-                        }
-                        if ($google) {
-                            printf('<p><a target="_blank" href="%s"><span class="fa fa-google-plus"></span></a></p>', $google);
                         }
                         if ($linkedIn) {
                             printf('<p><a target="_blank" href="%s"><span class="fa fa-linkedin"></span></a></p>', $linkedIn);

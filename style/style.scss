@@ -99,6 +99,8 @@
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title{
     margin-bottom: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields > li{
     display: block;
@@ -138,6 +140,10 @@
   .ads-advanced .more-or-less{
     text-align: left;
   }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_listing_action_btn{
+    margin-left: 0;
+    flex-wrap: wrap;
+  }
 }
 
 @media (max-width: 400px) {
@@ -147,5 +153,23 @@
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info{
     padding-left: 45px;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title .more-filter,
+  .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title h3{
+    margin-top: 3px;
+    margin-bottom: 3px;
+  }
+}
+
+@media (max-width: 340px){
+  .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_listing_action_btn{
+    display: block;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_listing_action_btn .dropdown{
+    margin-top: 3px;
+    margin-bottom: 3px;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_listing_action_btn .dropdown + .dropdown{
+    margin-left: 0;
   }
 }

@@ -979,7 +979,7 @@ $select_listing_map = get_directorist_option('select_listing_map', 'google');
                                     <label for="listing_t"><?php echo __('I Agree with all ', ATBDP_TEXTDOMAIN); ?><a
                                                 style="color: red" href="" id="listing_t_c"
                                         "><?php echo __('terms & conditions', ATBDP_TEXTDOMAIN); ?></a></label>
-                                    <div id="tc_container" style="display: none">
+                                    <div id="tc_container" class="">
                                         <p><?php _e($listing_terms_condition_text, ATBDP_TEXTDOMAIN); ?></p>
                                     </div>
                                 </div>
@@ -1029,13 +1029,6 @@ if('openstreet' == $select_listing_map) {
 
         $(function () {
             $('#color_code2').wpColorPicker().empty();
-        });
-        //it shows the hidden term and conditions
-        $(function () {
-            $('#listing_t_c').on('click', function (e) {
-                e.preventDefault();
-                $('#tc_container').fadeIn(500);
-            })
         });
 
         // Load custom fields of the selected category in the custom post type "atbdp_listings"

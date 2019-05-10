@@ -309,7 +309,6 @@ class ATBDP_User {
         $facebook = !empty($data['facebook']) ? esc_url_raw(trim($data['facebook'] )): '';
         $twitter = !empty($data['twitter']) ? esc_url_raw(trim($data['twitter'] )): '';
         $linkedIn = !empty($data['linkedIn']) ? esc_url_raw(trim($data['linkedIn'] )): '';
-        $google = !empty($data['google']) ? esc_url_raw(trim($data['google'] )): '';
         $youtube = !empty($data['youtube']) ? esc_url_raw(trim($data['youtube'] )): '';
         $bio = !empty($data['bio']) ? sanitize_textarea_field(trim($data['bio'] )): '';
         //$current_pass = !empty($data['current_pass']) ? wp_hash_password(trim($data['current_pass'] )): ''; // match with with the hash in DB
@@ -326,7 +325,6 @@ class ATBDP_User {
         update_user_meta( $ID, 'address', $address );
         update_user_meta( $ID, 'facebook', $facebook );
         update_user_meta( $ID, 'twitter', $twitter );
-        update_user_meta( $ID, 'google', $google );
         update_user_meta( $ID, 'linkedIn', $linkedIn );
         update_user_meta( $ID, 'youtube', $youtube );
         update_user_meta( $ID, 'bio', $bio );

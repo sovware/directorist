@@ -24,9 +24,23 @@ class ATBDP_Roles {
 
 
         add_action('init', array($this, 'disable_admin_bar_for_subscribers'), 9);
+        add_filter('wp_dropdown_users_args', array($this, 'add_subscribers_to_dropdown'), 10, 2 );
 
 
     }
+
+    /**
+     * @since 5.03
+     */
+
+
+    public function add_subscribers_to_dropdown( $query_args, $r ) {
+
+        $query_args['who'] = '';
+        return $query_args;
+
+    }
+
     /**
      * @since 5.0.0
      * It restrict subscriber not to enter in wp admin bar

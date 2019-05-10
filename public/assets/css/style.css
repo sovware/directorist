@@ -1464,7 +1464,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_title {
   padding-top: 0;
-  text-transform: capitalize;
+  text-transform: none;
   line-height: 24px;
   margin-bottom: 0;
 }
@@ -2660,6 +2660,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   overflow-y: scroll;
   margin-bottom: 30px;
   background: #ffffff;
+  margin-top: 15px;
+  display: none;
+}
+
+.atbd_content_active #directorist.atbd_wrapper #tc_container.active {
+  display: block;
 }
 
 .atbd_content_active #directorist.atbd_wrapper #atbdp_address {
@@ -3912,6 +3918,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title {
     margin-bottom: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields > li {
     display: block;
@@ -3950,6 +3958,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   .ads-advanced .more-less, .ads-advanced .more-or-less {
     text-align: left;
   }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_listing_action_btn {
+    margin-left: 0;
+    flex-wrap: wrap;
+  }
 }
 
 @media (max-width: 400px) {
@@ -3959,6 +3971,24 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
     padding-left: 45px;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title .more-filter,
+  .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title h3 {
+    margin-top: 3px;
+    margin-bottom: 3px;
+  }
+}
+
+@media (max-width: 340px) {
+  .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_listing_action_btn {
+    display: block;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_listing_action_btn .dropdown {
+    margin-top: 3px;
+    margin-bottom: 3px;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_listing_action_btn .dropdown + .dropdown {
+    margin-left: 0;
   }
 }
 

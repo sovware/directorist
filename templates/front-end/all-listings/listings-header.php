@@ -17,10 +17,11 @@
                                         <h3>
                                             <?php echo $header_title; ?>
                                         </h3>
-                                    <?php
+                                        <?php
+                                    }
                                 ?>
                             </div>
-                        <?php }
+                        <?php
                          } ?>
                         <?php if ($display_viewas_dropdown || $display_sortby_dropdown) { ?>
                             <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">

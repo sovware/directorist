@@ -22,6 +22,7 @@ $my_profile_tab          = get_directorist_option('my_profile_tab',1);
 $fav_listings_tab        = get_directorist_option('fav_listings_tab',1);
 $submit_listing_button   = get_directorist_option('submit_listing_button',1);
 $show_title = !empty($show_title)?$show_title:'';
+$container_fluid         = is_directoria_active() ? 'container' : 'container-fluid';
 /*@todo; later show featured listing first on the user dashboard maybe??? */
 ?>
 <!--<div id="change-plan-modal" style="display: block">
@@ -70,7 +71,7 @@ $show_title = !empty($show_title)?$show_title:'';
     </div>
 </div>-->
 <div id="directorist" class="directorist atbd_wrapper dashboard_area">
-    <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
+    <div class="<?php echo apply_filters('atbdp_deshboard_container_fluid',$container_fluid) ?>">
         <div class="row">
             <div class="col-md-12">
                 <?php

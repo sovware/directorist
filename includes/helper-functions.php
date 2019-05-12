@@ -3474,91 +3474,91 @@ function atbdp_is_page($atbdppages = '')
 
     switch ($atbdppages):
         case 'home':
-            if (is_page() && get_query_var('page_id') == get_directorist_option('search_listing')) {
+            if (is_page() && get_the_ID() == get_directorist_option('search_listing')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_search_listing')) {
                 return true;
             }
             break;
         case 'search-result':
-            if (is_page() && get_query_var('page_id') == get_directorist_option('search_result_page')) {
+            if (is_page() && get_the_ID() == get_directorist_option('search_result_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_search_result')) {
                 return true;
             }
             break;
         case 'add-listing':
-            if (is_page() && get_query_var('page_id') == get_directorist_option('add_listing_page')) {
+            if (is_page() && get_the_ID() == get_directorist_option('add_listing_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_add_listing')) {
                 return true;
             }
             break;
         case 'all-listing':
-            if (is_page() && get_query_var('page_id') == get_directorist_option('all_listing_page')) {
+            if (is_page() && get_the_ID() == get_directorist_option('all_listing_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_all_listing')) {
                 return true;
             }
             break;
         case 'dashboard':
-            if (is_page() && get_query_var('page_id') == get_directorist_option('user_dashboard')) {
+            if (is_page() && get_the_ID() == get_directorist_option('user_dashboard')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_user_dashboard')) {
                 return true;
             }
             break;
         case 'author':
-            if (is_page() && get_query_var('page_id') == get_directorist_option('author_profile_page')) {
+            if (is_page() && get_the_ID() == get_directorist_option('author_profile_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_author_profile')) {
                 return true;
             }
             break;
         case 'category':
-            if (is_page() && get_query_var('page_id') == get_directorist_option('all_categories_page')) {
+            if (is_page() && get_the_ID() == get_directorist_option('all_categories_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_all_categories')) {
                 return true;
             }
             break;
         case 'single_category':
-            if (is_page() && get_query_var('page_id') == get_directorist_option('single_category_page')) {
+            if (is_page() && get_the_ID() == get_directorist_option('single_category_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_category')) {
                 return true;
             }
             break;
         case 'all_locations':
-            if (is_page() && get_query_var('page_id') == get_directorist_option('all_locations_page')) {
+            if (is_page() && get_the_ID() == get_directorist_option('all_locations_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_all_locations')) {
                 return true;
             }
             break;
         case 'single_location':
-            if (is_page() && get_query_var('page_id') == get_directorist_option('single_location_page')) {
+            if (is_page() && get_the_ID() == get_directorist_option('single_location_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_location')) {
                 return true;
             }
             break;
         case 'single_tag':
-            if (is_page() && get_query_var('page_id') == get_directorist_option('single_tag_page')) {
+            if (is_page() && get_the_ID() == get_directorist_option('single_tag_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_tag')) {
                 return true;
             }
             break;
         case 'registration':
-            if (is_page() && get_query_var('page_id') == get_directorist_option('custom_registration')) {
+            if (is_page() && get_the_ID() == get_directorist_option('custom_registration')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_custom_registration')) {
                 return true;
             }
             break;
         case 'login':
-            if (is_page() && get_query_var('page_id') == get_directorist_option('user_login')) {
+            if (is_page() && get_the_ID() == get_directorist_option('user_login')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_user_login')) {
                 return true;

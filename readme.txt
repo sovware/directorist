@@ -3,8 +3,8 @@ Contributors: AazzTech
 Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
-Tested up to:  5.1.1
-Stable tag: 5.0.2
+Tested up to:  5.2
+Stable tag: 5.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -128,6 +128,22 @@ Directorist is not developed by a single person. A team of dedicated developers 
 18. Add New Custom Field
 
 == Changelog ==
+
+= 5.0.4 - May 10, 2019 =
+
+* Fix - Listings header issue
+
+= 5.0.3 - May 09, 2019 =
+
+* Add - Redirection to home page after logging out from User Dashboard
+* Fix - Capitalization issues
+* Fix - Various style issues
+* Fix - Registration confirmation massage
+* Fix - Page title of single location and category pages
+* Improve - Listings header
+* Improve - Terms & Conditions area of add listing form
+* Remove - Validations from Setting panel
+* Remove - Google+ from User Dashboard
 
 = 5.0.2 - May 01, 2019 =
 

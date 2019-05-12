@@ -13,7 +13,7 @@ $column_width = 100 / $columns . '%';
 
 <div id="directorist" class="atbd_wrapper ads-advaced--wrapper">
     <?php  include ATBDP_TEMPLATES_DIR . "front-end/all-listings/listings-header.php"; ?>
-    <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
+    <div class="<?php echo !empty($grid_container_fluid) ? $grid_container_fluid : ''; ?>">
         <?php
         /**
          * @since 5.0

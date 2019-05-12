@@ -3,12 +3,13 @@
 // prepare all the variables required by the payment receipt page.
 $data = !empty($args['data']) ? $args['data'] : array();
 extract($data);
-$c_position = get_directorist_option('payment_currency_position');
-$currency = atbdp_get_payment_currency();
-$symbol = atbdp_currency_symbol($currency);
+$c_position      = get_directorist_option('payment_currency_position');
+$currency        = atbdp_get_payment_currency();
+$symbol          = atbdp_currency_symbol($currency);
+$container_fluid = 'container-fluid';
 ?>
 <div id="directorist" class="atbd_wrapper directorist directory_wrapper single_area">
-    <div class="container-fluid">
+    <div class="<?php echo apply_filters('atbdp_payment_receipt_container_fluid',$container_fluid) ?>">
         <div class="atbd_payment_recipt">
             <p class="atbd_thank_you"><?php _e( 'Thank you for your order!', ATBDP_TEXTDOMAIN ); ?></p>
 

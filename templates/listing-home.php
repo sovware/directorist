@@ -21,12 +21,13 @@ $search_filters              = get_directorist_option('search_filters',array('re
 $search_more_filters_fields  = get_directorist_option('search_more_filters_fields',array('search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
 $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_image : $search_home_bg;
 wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
+$container_fluid             = is_directoria_active() ? 'container' : 'container-fluid';
 ?>
 <!-- start search section -->
 <div id="directorist" class="directorist atbd_wrapper directory_search_area single_area ads-advaced--wrapper"
      style="background-image: url('<?php echo (!empty($front_bg_image)) ? esc_url($front_bg_image) : esc_url($default); ?>')">
     <!-- start search area container -->
-    <div class="<?php echo is_directoria_active() ? 'container' : 'container-fluid'; ?>">
+    <div class="<?php echo apply_filters('atbdp_search_home_container_fluid',$container_fluid) ?>">
         <div class="row">
             <div class="col-md-12">
                 <?php

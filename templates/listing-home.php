@@ -86,7 +86,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                                     $args = array(
                                         'show_option_none' =>  $search_location_placeholder,
                                         'taxonomy' => ATBDP_LOCATION,
-                                        'id' => 'cat-type',
+                                        'id' => 'loc-type',
                                         'option_none_value'  => '',
                                         'class' => 'form-control directory_field',
                                         'name' => 'in_loc',

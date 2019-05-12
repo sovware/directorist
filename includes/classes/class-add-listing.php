@@ -117,17 +117,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                      * It applies a filter to the meta values that are going to be saved with the listing submitted from the front end
                      * @param array $metas the array of meta keys and meta values
                     */
-                    $metas = apply_filters('atbdp_listing_meta_user_submission', $metas);
-                    $args = array(
-                        'post_content' => $content,
-                        'post_title' => $title,
-                        'post_type' => ATBDP_POST_TYPE,
-                        'tax_input' =>!empty($_POST['tax_input'])? atbdp_sanitize_array( $_POST['tax_input'] ) : array(),
-                        'meta_input'=>  $metas,
-
-                    );
-
-
 
                     //@todo need to shift FM validation code to extension itself
                     if (is_fee_manager_active()) {
@@ -159,6 +148,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $slider_image = $plan_meta['fm_allow_slider'][0];
                         $slider = !empty($slider_image)?$slider_image:'';
                         if (('regular' === $listing_type) && ('package' === $plan_type)) {
+
                             if (($plan_meta['num_regular'][0] < $_general_type) && empty($plan_meta['num_regular_unl'][0])) {
                                 $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for regular listing!', ATBDP_TEXTDOMAIN) . '</strong></div>';
                                 return $msg;
@@ -178,15 +168,27 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 return $msg;
                             }
                         }
-                       if (class_exists('BD_Gallery')){
-                           $_gallery_img = count($metas['_gallery_img']);
-                           if ($plan_meta['num_gallery_image'][0]<$_gallery_img && empty($plan_meta['num_gallery_image_unl'][0])){
-                               $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_gallery_image'][0].' gallery image(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
-                               return $msg;
-                           }
-                       }
+                        if (class_exists('BD_Gallery')){
+                            $_gallery_img = count($metas['_gallery_img']);
+                            if ($plan_meta['num_gallery_image'][0]<$_gallery_img && empty($plan_meta['num_gallery_image_unl'][0])){
+                                $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_gallery_image'][0].' gallery image(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
+                                return $msg;
+                            }
+                        }
 
                     }
+
+
+                    $metas = apply_filters('atbdp_listing_meta_user_submission', $metas);
+                    $args = array(
+                        'post_content' => $content,
+                        'post_title' => $title,
+                        'post_type' => ATBDP_POST_TYPE,
+                        'tax_input' =>!empty($_POST['tax_input'])? atbdp_sanitize_array( $_POST['tax_input'] ) : array(),
+                        'meta_input'=>  $metas,
+
+                    );
+
                     /**
                      * @since 4.4.0
                      *

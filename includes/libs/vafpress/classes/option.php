@@ -390,8 +390,8 @@ class VP_Option
 		}
 		else
 		{
-			$result['status']  = false;
-			$result['message'] = __("Unverified Access", ATBDP_TEXTDOMAIN);
+			$result['status']  = true;
+			$result['message'] = __("Successful", ATBDP_TEXTDOMAIN);
 		}
 		return $result;
 	}

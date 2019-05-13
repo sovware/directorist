@@ -852,7 +852,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                             }
                             if (is_business_hour_active() && $plan_hours) {
                                 ?>
-                                <div class="atbd_content_module">
+                                <div class="atbd_content_module atbd_business_hour_module">
                                     <div class="atbd_content_module__tittle_area">
                                         <div class="atbd_area_title">
                                             <h4><?php _e('Opening/Business Hour Information', ATBDP_TEXTDOMAIN); ?></h4>

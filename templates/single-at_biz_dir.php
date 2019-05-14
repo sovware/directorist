@@ -248,7 +248,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <?php
                     $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
                     if (!empty($image_links)) {
-                        if (!empty($listing_prv_img) && !empty($display_prv_image)) {
+                        if (!empty($listing_prv_img && $display_prv_image)) {
                             if (!empty($gallery_cropping)) {
                                 $listing_prv_imgurl = atbdp_image_cropping($listing_prv_img, $custom_gl_width, $custom_gl_height, true, 100)['url'];
                             } else {

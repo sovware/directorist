@@ -1,6 +1,8 @@
-
+<?php
+$container_fluid             = is_directoria_active() ? 'container' : 'container-fluid';
+?>
 <div id="directorist" class="atbd_wrapper directorist">
-    <div class="<?php echo is_directoria_active() ? 'container': ' container-fluid'; ?>">
+    <div class="<?php echo apply_filters('atbdp_registration_container_fluid',$container_fluid) ?>">
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="add_listing_title atbd_success_mesage">

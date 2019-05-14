@@ -3,9 +3,10 @@
 $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
 $pagenation = get_directorist_option('paginate_author_listings',1);
 $is_disable_price = get_directorist_option('disable_list_price');
+$container_fluid  = 'container-fluid';
 ?>
 <div id="directorist" class="atbd_wrapper atbd_author_profile">
-    <div class="container-fluid">
+    <div class="<?php echo apply_filters('atbdp_public_profile_container_fluid',$container_fluid) ?>">
         <div class="row">
             <div class="col-md-12">
                 <?php

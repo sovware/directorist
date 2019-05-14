@@ -1334,9 +1334,10 @@ if (!function_exists('atbdp_only_logged_in_user')) {
             $error_message = (empty($message))
                 ? sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', ATBDP_TEXTDOMAIN) . "</a>", "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign up', ATBDP_TEXTDOMAIN) . "</a>")
                 : $message;
+            $container_fluid              = is_directoria_active() ? 'container' : 'container-fluid';
             ?>
             <section class="directory_wrapper single_area">
-                <div class="<?php echo is_directoria_active() ? 'container' : ' container-fluid'; ?>">
+                <div class="<?php echo apply_filters('atbdp_login_message_container_fluid',$container_fluid) ?>">
                     <div class="row">
                         <div class="col-md-12">
                             <?php ATBDP()->helper->show_login_message($error_message); ?>

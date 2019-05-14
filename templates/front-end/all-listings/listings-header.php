@@ -1,9 +1,8 @@
 <?php if( $display_header == 'yes'  ) { ?>
     <div class="header_bar">
-        <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
+        <div class="<?php echo !empty($header_container_fluid) ? $header_container_fluid : ''; ?>">
             <div class="row">
                 <div class="col-md-12">
-
 
                     <div class="atbd_generic_header">
                         <?php

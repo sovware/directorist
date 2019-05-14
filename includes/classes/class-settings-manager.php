@@ -1514,6 +1514,46 @@ The Administrator of ==SITE_NAME==
         {
             $business_hours = '<a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a>';
             return apply_filters('atbdp_listings_settings_fields', array(
+
+                    array(
+                        'type' => 'select',
+                        'name' => 'new_listing_status',
+                        'label' => __('New Listing\'s Default Status', ATBDP_TEXTDOMAIN),
+                        'items' => array(
+                            array(
+                                'value' => 'publish',
+                                'label' => __('Published', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'pending',
+                                'label' => __('Pending', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'publish',
+                            'label' => __('Published', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    array(
+                        'type' => 'select',
+                        'name' => 'edit_listing_status',
+                        'label' => __('Edited Listing\'s Default Status', ATBDP_TEXTDOMAIN),
+                        'items' => array(
+                            array(
+                                'value' => 'publish',
+                                'label' => __('Published', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'pending',
+                                'label' => __('Pending', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'publish',
+                            'label' => __('Published', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+
                     array(
                         'type' => 'toggle',
                         'name' => 'display_listings_header',
@@ -2968,7 +3008,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_tagline_field',
-                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(
@@ -2998,7 +3038,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_pricing_field',
-                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ), array(
                     'type' => 'textbox',
@@ -3040,7 +3080,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_excerpt_field',
-                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ), array(
                     'type' => 'textbox',
@@ -3075,7 +3115,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_address_field',
-                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
@@ -3111,7 +3151,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_phone_field',
-                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
@@ -3148,7 +3188,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_email_field',
-                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
@@ -3185,7 +3225,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_website_field',
-                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
@@ -3221,7 +3261,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_zip_field',
-                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
@@ -3257,7 +3297,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_social_info_field',
-                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
@@ -3292,7 +3332,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_map_field',
-                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
 
@@ -3318,7 +3358,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_prv_field',
-                    'label' => __('Display Preview Image', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable Preview Image', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
@@ -3331,7 +3371,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_gellery_field',
-                    'label' => __('Display Gallery Image', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable Gallery Image', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
@@ -3381,7 +3421,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_video_field',
-                    'label' => __('Display', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
@@ -3604,44 +3644,6 @@ The Administrator of ==SITE_NAME==
                 ),
                 array(
                     'type' => 'select',
-                    'name' => 'new_listing_status',
-                    'label' => __('New Listing\'s Default Status', ATBDP_TEXTDOMAIN),
-                    'items' => array(
-                        array(
-                            'value' => 'publish',
-                            'label' => __('Published', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'pending',
-                            'label' => __('Pending', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'publish',
-                        'label' => __('Published', ATBDP_TEXTDOMAIN),
-                    ),
-                ),
-                array(
-                    'type' => 'select',
-                    'name' => 'edit_listing_status',
-                    'label' => __('Edited Listing\'s Default Status', ATBDP_TEXTDOMAIN),
-                    'items' => array(
-                        array(
-                            'value' => 'publish',
-                            'label' => __('Published', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'pending',
-                            'label' => __('Pending', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'publish',
-                        'label' => __('Published', ATBDP_TEXTDOMAIN),
-                    ),
-                ),
-                array(
-                    'type' => 'select',
                     'name' => 'edit_listing_redirect',
                     'label' => __('Redirect after Editing a Listing', ATBDP_TEXTDOMAIN),
                     'items' => array(
@@ -3745,19 +3747,19 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_social_share',
-                    'label' => __('Enable Social Share Button', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display Social Share Button', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_favourite',
-                    'label' => __('Enable Favourite Button', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display Favourite Button', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_report_abuse',
-                    'label' => __('Enable Report Abuse', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display Report Abuse', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
@@ -3795,13 +3797,13 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'atbd_video_url',
-                    'label' => __('Enable Listing Video', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display Listing Video', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_rel_listing',
-                    'label' => __('Enable Related Listings', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display Related Listings', ATBDP_TEXTDOMAIN),
                     'default' => 4,
                 ),
 
@@ -3902,13 +3904,13 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'enable_tagline',
-                        'label' => __('Enable Tagline', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Tagline', ATBDP_TEXTDOMAIN),
                         'default' => 0,
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'enable_excerpt',
-                        'label' => __('Enable Excerpt', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Excerpt', ATBDP_TEXTDOMAIN),
                         'default' => 0,
                     ),
                     array(

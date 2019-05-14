@@ -111,9 +111,10 @@ $display_prv_img_for    = get_directorist_option('display_prv_img_for', 0);
 $display_glr_img_for    = get_directorist_option('display_glr_img_for', 0);
 $display_video_for = get_directorist_option('display_video_for', 0);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
+$container_fluid             = is_directoria_active() ? 'container' : 'container-fluid';
 ?>
 <div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
-    <div class="<?php echo is_directoria_active() ? 'container' : ' container-fluid'; ?>">
+    <div class="<?php echo apply_filters('atbdp_add_listing_container_fluid',$container_fluid) ?>">
         <form action="<?= esc_url($_SERVER['REQUEST_URI']); ?>" method="post">
             <fieldset>
             <?php

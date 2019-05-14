@@ -117,17 +117,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                      * It applies a filter to the meta values that are going to be saved with the listing submitted from the front end
                      * @param array $metas the array of meta keys and meta values
                     */
-                    $metas = apply_filters('atbdp_listing_meta_user_submission', $metas);
-                    $args = array(
-                        'post_content' => $content,
-                        'post_title' => $title,
-                        'post_type' => ATBDP_POST_TYPE,
-                        'tax_input' =>!empty($_POST['tax_input'])? atbdp_sanitize_array( $_POST['tax_input'] ) : array(),
-                        'meta_input'=>  $metas,
-
-                    );
-
-
 
                     //@todo need to shift FM validation code to extension itself
                     if (is_fee_manager_active()) {
@@ -137,36 +126,52 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $midway_package_id =!empty($midway_package_id)?$midway_package_id:$sub_plan_id;
                         $plan_purchased = subscribed_package_or_PPL_plans($user_id, 'completed',$midway_package_id);
                         $subscribed_package_id = $midway_package_id;
+                        $plan_type = package_or_PPL($subscribed_package_id);
+                        $order_id = !empty($plan_purchased)?(int)$plan_purchased[0]->ID:'';
+                        $user_featured_listing = listings_data_with_plan($user_id, '1', $subscribed_package_id, $order_id);
+                        $user_regular_listing = listings_data_with_plan($user_id, '0', $subscribed_package_id, $order_id);
+                        $num_regular = get_post_meta($subscribed_package_id, 'num_regular', true);
+                        $num_featured = get_post_meta($subscribed_package_id, 'num_featured', true);
+                        $total_regular_listing = $num_regular;
+                        $total_featured_listing = $num_featured;
 
-                        $subscribed_date = get_user_meta($user_id, '_subscribed_time', true);
-                        $package_length = get_post_meta($subscribed_package_id, 'fm_length', true);
-                        $plan_type = get_post_meta($subscribed_package_id, 'plan_type', true);
-                        $package_length = $package_length ? $package_length : '1';
+                        if ($plan_purchased){
+                            $listing_id = get_post_meta($plan_purchased[0]->ID, '_listing_id', true);
+                            $featured = get_post_meta($listing_id, '_featured', true);
+                            $total_regular_listing = $num_regular - ('0' === $featured?$user_regular_listing+1:$user_regular_listing);
+                            $total_featured_listing = $num_featured - ('1' === $featured?$user_featured_listing+1:$user_featured_listing);
+                            $subscribed_date = $plan_purchased[0]->post_date;
+                            $package_length = get_post_meta($subscribed_package_id, 'fm_length', true);
+                            $package_length = $package_length ? $package_length : '1';
+                            // Current time
+                            $start_date = !empty($subscribed_date) ? $subscribed_date : '';
+                            // Calculate new date
+                            $date = new DateTime($start_date);
+                            $date->add(new DateInterval("P{$package_length}D")); // set the interval in days
+                            $expired_date = $date->format('Y-m-d H:i:s');
+                            $current_d = current_time('mysql');
+                            $remaining_days = ($expired_date > $current_d) ? (floor(strtotime($expired_date) / (60 * 60 * 24)) - floor(strtotime($current_d) / (60 * 60 * 24))) : 0; //calculate the number of days remaining in a plan
+                            if (($remaining_days <= 0)){
+                                //if user exit the plan allowance the change the status of that order to cancelled
+                                $order_id = $plan_purchased[0]->ID;
+                                update_post_meta($order_id, '_payment_status', 'cancelled');
+                            }
+                        }
 
-                        // Current time
-                        $start_date = !empty($subscribed_date) ? $subscribed_date : '';
-                        // Calculate new date
-                        $date = new DateTime($start_date);
-                        $date->add(new DateInterval("P{$package_length}D")); // set the interval in days
-                        $expired_date = $date->format('Y-m-d H:i:s');
-                        $current_d = current_time('mysql');
-                        $remaining_days = ($expired_date > $current_d) ? (floor(strtotime($expired_date) / (60 * 60 * 24)) - floor(strtotime($current_d) / (60 * 60 * 24))) : 0; //calculate the number of days remaining in a plan
                         $listing_type = !empty($_POST['listing_type']) ? sanitize_text_field($_POST['listing_type']) : '';
-                        $_general_type = listings_data_with_plan($user_id, '0', $subscribed_package_id, 'regular');// find the user has subscribed or not
-                        $has_featured_type = listings_data_with_plan($user_id, '1', $subscribed_package_id, 'featured');
                         //store the plan meta
                         $plan_meta = get_post_meta($subscribed_package_id);
                         $slider_image = $plan_meta['fm_allow_slider'][0];
                         $slider = !empty($slider_image)?$slider_image:'';
+
                         if (('regular' === $listing_type) && ('package' === $plan_type)) {
-                            if (($plan_meta['num_regular'][0] < $_general_type) && empty($plan_meta['num_regular_unl'][0])) {
+                            if (( ($plan_meta['num_regular'][0] < $total_regular_listing) || (0 >= $total_regular_listing)) && empty($plan_meta['num_regular_unl'][0])) {
                                 $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for regular listing!', ATBDP_TEXTDOMAIN) . '</strong></div>';
                                 return $msg;
                             }
                         }
                         if (('featured' === $listing_type) && ('package' === $plan_type)) {
-                            //var_dump($has_featured_type);die();
-                            if (($plan_meta['num_featured'][0] <= $has_featured_type) && empty($plan_meta['num_featured_unl'][0])) {
+                            if (( ($plan_meta['num_featured'][0] < $total_featured_listing) || (0 === $total_featured_listing)) && empty($plan_meta['num_featured_unl'][0])) {
                                 $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for featured listing!', ATBDP_TEXTDOMAIN) . '</strong></div>';
                                 return $msg;
 
@@ -179,15 +184,27 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 return $msg;
                             }
                         }
-                       if (class_exists('BD_Gallery')){
-                           $_gallery_img = count($metas['_gallery_img']);
-                           if ($plan_meta['num_gallery_image'][0]<$_gallery_img && empty($plan_meta['num_gallery_image_unl'][0])){
-                               $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_gallery_image'][0].' gallery image(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
-                               return $msg;
-                           }
-                       }
+                        if (class_exists('BD_Gallery')){
+                            $_gallery_img = count($metas['_gallery_img']);
+                            if ($plan_meta['num_gallery_image'][0]<$_gallery_img && empty($plan_meta['num_gallery_image_unl'][0])){
+                                $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_gallery_image'][0].' gallery image(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
+                                return $msg;
+                            }
+                        }
 
                     }
+
+
+                    $metas = apply_filters('atbdp_listing_meta_user_submission', $metas);
+                    $args = array(
+                        'post_content' => $content,
+                        'post_title' => $title,
+                        'post_type' => ATBDP_POST_TYPE,
+                        'tax_input' =>!empty($_POST['tax_input'])? atbdp_sanitize_array( $_POST['tax_input'] ) : array(),
+                        'meta_input'=>  $metas,
+
+                    );
+
                     /**
                      * @since 4.4.0
                      *

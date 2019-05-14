@@ -2219,6 +2219,12 @@ The Administrator of ==SITE_NAME==
                         'default' => 1,
                     ),
                     array(
+                        'type' => 'toggle',
+                        'name' => 'search_button',
+                        'label' => __('Display Search Button', ATBDP_TEXTDOMAIN),
+                        'default' => 1,
+                    ),
+                    array(
                         'type' => 'select',
                         'name' => 'home_display_filter',
                         'label' => __('Open Filter Fields', ATBDP_TEXTDOMAIN),

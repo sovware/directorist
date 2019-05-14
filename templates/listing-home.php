@@ -116,18 +116,22 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                     </div>
                     <!--More Filters  & Search Button-->
                     <?php
-                    $html = '<div class="atbd_submit_btn_wrapper">';
+                    $html = '';
+                    if('yes' == $more_filters_button || 'yes' == $search_button) {
+                        $html .= '<div class="atbd_submit_btn_wrapper">';
 
-                    if(('yes' == $more_filters_button) && ('yes' == $price_min_max_field || 'yes' == $price_range_field || 'yes' == $rating_field || 'yes' == $tag_field || 'yes' == $open_now_field || 'yes' == $custom_fields || 'yes' == $website_field || 'yes' == $email_field || 'yes' == $phone_field || 'yes' == $address_field || 'yes' == $zip_code_field)) {
-                        $html .= '<button class="more-filter btn btn-outline btn-lg btn-outline-primary"><span class="fa fa-filter"></span>'.__($more_filters_text, ATBDP_TEXTDOMAIN).'</button>';
+                        if (('yes' == $more_filters_button) && ('yes' == $price_min_max_field || 'yes' == $price_range_field || 'yes' == $rating_field || 'yes' == $tag_field || 'yes' == $open_now_field || 'yes' == $custom_fields || 'yes' == $website_field || 'yes' == $email_field || 'yes' == $phone_field || 'yes' == $address_field || 'yes' == $zip_code_field)) {
+                            $html .= '<button class="more-filter btn btn-outline btn-lg btn-outline-primary"><span class="fa fa-filter"></span>' . __($more_filters_text, ATBDP_TEXTDOMAIN) . '</button>';
+                        }
+                        if ('yes' == $search_button) {
+                            $html .= '<div class="atbd_submit_btn">';
+                            $html .= '<button type="submit" class="btn btn-primary btn-lg btn_search">';
+                            $html .= '<span class="fa fa-search"></span>' . __($search_button_text, ATBDP_TEXTDOMAIN) . '';
+                            $html .= '</button>';
+                            $html .= '</div>';
+                        }
+                        $html .= '</div>';
                     }
-                    $html .= '<div class="atbd_submit_btn">';
-                    $html .= '<button type="submit" class="btn btn-primary btn-lg btn_search">';
-                    $html .= '<span class="fa fa-search"></span>'.__($search_button_text, ATBDP_TEXTDOMAIN).'';
-                    $html .= '</button>';
-                    $html .= '</div>';
-                    $html .= '</div>';
-
                     /**
                      * @since 5.0
                      * It show the search button

@@ -37,7 +37,10 @@
   .atbd_content_active #directorist.atbd_wrapper .atbdp_column {
     width: 33.3333% !important;
   }
-
+  #directorist.atbd_wrapper .atbdp_col-5 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -54,6 +57,10 @@
   }
   .ads-advanced .price-frequency{
     margin-left: -2px;
+  }
+  #directorist.atbd_wrapper .atbdp_col-5 {
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
   }
 }
 
@@ -76,6 +83,10 @@
   }
   .ads-advanced .bottom-inputs > div{
     width: 50%;
+  }
+  #directorist.atbd_wrapper .atbdp_col-5 {
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
   }
 }
 
@@ -143,6 +154,10 @@
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_listing_action_btn{
     margin-left: 0;
     flex-wrap: wrap;
+  }
+  #directorist.atbd_wrapper .atbdp_col-5 {
+    flex: 0 0 100%;
+    max-width: 100%;
   }
 }
 

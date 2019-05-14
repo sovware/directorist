@@ -3606,6 +3606,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #fff;
   margin: 0 2px;
   text-align: center;
+  font-size: 18px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure figcaption p {
@@ -3648,7 +3649,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .col-md-3 .atbd_location_grid {
-  height: 150px;
+  height: 160px;
   margin-bottom: 15px;
 }
 
@@ -3677,6 +3678,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .col-md-12 .atbd_location_grid img {
+  width: 100%;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbdp_col-5 .atbd_location_grid {
+  height: 140px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbdp_col-5 .atbd_location_grid img {
   width: 100%;
 }
 
@@ -3774,6 +3783,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
   width: 100%;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .atbdp_col-5 .atbd_category_single {
+  height: 140px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .atbdp_col-5 .atbd_category_single img {
+  width: 100%;
+}
+
 #directorist.atbd_wrapper .atbdp_child_category li {
   margin-bottom: 7px;
 }
@@ -3844,6 +3861,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #444752;
 }
 
+#directorist.atbd_wrapper .atbdp_col-5 {
+  position: relative;
+  width: 20%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
 /*responsive css */
 @media (min-width: 992px) and (max-width: 1199px) {
   .atbd_content_active .widget.atbd_widget .atbd_categorized_listings,
@@ -3864,6 +3889,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   .atbd_content_active #directorist.atbd_wrapper .atbdp_column {
     width: 33.3333% !important;
   }
+  #directorist.atbd_wrapper .atbdp_col-5 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
@@ -3878,6 +3907,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
   .ads-advanced .price-frequency {
     margin-left: -2px;
+  }
+  #directorist.atbd_wrapper .atbdp_col-5 {
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
   }
 }
 
@@ -3898,6 +3931,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
   .ads-advanced .bottom-inputs > div {
     width: 50%;
+  }
+  #directorist.atbd_wrapper .atbdp_col-5 {
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
   }
 }
 
@@ -3965,6 +4002,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_listing_action_btn {
     margin-left: 0;
     flex-wrap: wrap;
+  }
+  #directorist.atbd_wrapper .atbdp_col-5 {
+    flex: 0 0 100%;
+    max-width: 100%;
   }
 }
 

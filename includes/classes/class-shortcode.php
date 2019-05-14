@@ -2731,6 +2731,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 ", ATBDP_TEXTDOMAIN));
             $search_fields               = get_directorist_option('search_tsc_fields',array('search_text','search_category','search_location'));
             $search_more_filter          = get_directorist_option('search_more_filter',1);
+            $search_button               = get_directorist_option('search_button',1);
             $search_more_filters_fields  = get_directorist_option('search_more_filters_fields',array('search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
             $search_filters              = get_directorist_option('search_filters',array('search_reset_filters','search_apply_filters'));
             $search_more_filters         = get_directorist_option('search_more_filters',  __('More Filters', ATBDP_TEXTDOMAIN));
@@ -2739,11 +2740,12 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $search_apply_text           = get_directorist_option('search_apply_filter',  __('Apply Filters', ATBDP_TEXTDOMAIN));
             $atts = shortcode_atts(array(
                 'show_title_subtitle'      => 'yes',
-                'search_bar_title'         => !empty($search_title) ? $search_title : 'Search here',
-                'search_bar_sub_title'     => !empty($search_subtitle) ? $search_subtitle : 'Find the best match of your interest',
+                'search_bar_title'         => !empty($search_title) ? $search_title : '',
+                'search_bar_sub_title'     => !empty($search_subtitle) ? $search_subtitle : '',
                 'text_field'               => in_array( 'search_text', $search_fields ) ? 'yes' : '',
                 'category_field'           => in_array( 'search_category', $search_fields ) ? 'yes' : '',
                 'location_field'           => in_array( 'search_location', $search_fields ) ? 'yes' : '',
+                'search_button'            => !empty($search_button) ? 'yes' : '',
                 'search_button_text'       => !empty($search_listing_text) ? $search_listing_text : 'Search Listing',
                 'more_filters_button'      => !empty($search_more_filter) ? 'yes' : '',
                 'more_filters_text'        => !empty($search_more_filters) ? $search_more_filters : 'More Filters',
@@ -2769,6 +2771,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $text_field             = (!empty($atts['text_field']) && 'yes' == $atts['text_field']) ? $atts['text_field'] : '';
             $category_field         = (!empty($atts['category_field']) && 'yes' == $atts['category_field']) ? $atts['category_field'] : '';
             $location_field         = (!empty($atts['location_field']) && 'yes' == $atts['location_field']) ? $atts['location_field'] : '';
+            $search_button          = (!empty($atts['search_button']) && 'yes' == $atts['search_button']) ? $atts['search_button'] : '';
             $search_button_text     = (!empty($atts['search_button_text']) ) ? $atts['search_button_text'] : '';
             $more_filters_button    = (!empty($atts['more_filters_button']) && 'yes' == $atts['more_filters_button']) ? $atts['more_filters_button'] : '';
             $more_filters_text      = (!empty($atts['more_filters_text']) ) ? $atts['more_filters_text'] : '';

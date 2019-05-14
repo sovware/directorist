@@ -108,11 +108,7 @@
   .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar .atbd_auth_nd{
     margin-left: 0;
   }
-  .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title{
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
+
   .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields > li{
     display: block;
   }
@@ -158,6 +154,19 @@
   #directorist.atbd_wrapper .atbdp_col-5 {
     flex: 0 0 100%;
     max-width: 100%;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header{
+    .atbd_generic_header_title{
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      margin: 5px 0;
+      h3{
+        margin-right: 10px;
+      }
+    }
+    .atbd_listing_action_btn{
+      margin: 5px 0;
+    }
   }
 }
 

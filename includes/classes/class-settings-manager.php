@@ -1514,6 +1514,46 @@ The Administrator of ==SITE_NAME==
         {
             $business_hours = '<a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a>';
             return apply_filters('atbdp_listings_settings_fields', array(
+
+                    array(
+                        'type' => 'select',
+                        'name' => 'new_listing_status',
+                        'label' => __('New Listing\'s Default Status', ATBDP_TEXTDOMAIN),
+                        'items' => array(
+                            array(
+                                'value' => 'publish',
+                                'label' => __('Published', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'pending',
+                                'label' => __('Pending', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'publish',
+                            'label' => __('Published', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    array(
+                        'type' => 'select',
+                        'name' => 'edit_listing_status',
+                        'label' => __('Edited Listing\'s Default Status', ATBDP_TEXTDOMAIN),
+                        'items' => array(
+                            array(
+                                'value' => 'publish',
+                                'label' => __('Published', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'pending',
+                                'label' => __('Pending', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'publish',
+                            'label' => __('Published', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+
                     array(
                         'type' => 'toggle',
                         'name' => 'display_listings_header',
@@ -3601,44 +3641,6 @@ The Administrator of ==SITE_NAME==
                     'name' => 'atbdp_listing_slug',
                     'label' => __('Listing Slug', ATBDP_TEXTDOMAIN),
                     'default' => 'directory',
-                ),
-                array(
-                    'type' => 'select',
-                    'name' => 'new_listing_status',
-                    'label' => __('New Listing\'s Default Status', ATBDP_TEXTDOMAIN),
-                    'items' => array(
-                        array(
-                            'value' => 'publish',
-                            'label' => __('Published', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'pending',
-                            'label' => __('Pending', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'publish',
-                        'label' => __('Published', ATBDP_TEXTDOMAIN),
-                    ),
-                ),
-                array(
-                    'type' => 'select',
-                    'name' => 'edit_listing_status',
-                    'label' => __('Edited Listing\'s Default Status', ATBDP_TEXTDOMAIN),
-                    'items' => array(
-                        array(
-                            'value' => 'publish',
-                            'label' => __('Published', ATBDP_TEXTDOMAIN),
-                        ),
-                        array(
-                            'value' => 'pending',
-                            'label' => __('Pending', ATBDP_TEXTDOMAIN),
-                        ),
-                    ),
-                    'default' => array(
-                        'value' => 'publish',
-                        'label' => __('Published', ATBDP_TEXTDOMAIN),
-                    ),
                 ),
                 array(
                     'type' => 'select',

@@ -44,6 +44,7 @@
             color: #fff;
             margin: 0 2px;
             text-align: center;
+            font-size: 18px;
           }
           p{
             margin: 0 2px;
@@ -86,7 +87,7 @@
     }
     .col-md-3{
       .atbd_location_grid{
-        height: 150px;
+        height: 160px;
         margin-bottom: 15px;
         img{
           width: 100%;
@@ -112,6 +113,14 @@
     .col-md-12{
       .atbd_location_grid{
         height: 600px;
+        img{
+          width: 100%;
+        }
+      }
+    }
+    .atbdp_col-5{
+      .atbd_location_grid {
+        height: 140px;
         img{
           width: 100%;
         }
@@ -202,6 +211,14 @@
         }
       }
     }
+    .atbdp_col-5{
+      .atbd_category_single{
+        height: 140px;
+        img{
+          width: 100%;
+        }
+      }
+    }
   }
 }
 
@@ -269,4 +286,12 @@
       }
     }
   }
+}
+
+#directorist.atbd_wrapper .atbdp_col-5 {
+  position: relative;
+  width: 20%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
 }

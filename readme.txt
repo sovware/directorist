@@ -129,6 +129,11 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
+= 5.0.5 - May 10, 2019 =
+
+* Tweak - Change listing default review 1 to 5
+* Remove - 'Z' edit listing button
+
 = 5.0.4 - May 10, 2019 =
 
 * Fix - Listings header issue

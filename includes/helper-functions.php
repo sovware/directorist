@@ -3452,7 +3452,6 @@ if (!function_exists('atbdp_deactivate_reasons')) {
 
 }
 
-
 /**
  * Check that page is.
  *

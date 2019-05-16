@@ -157,6 +157,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
   max-width: 100%;
 }
 
+#directorist.atbd_wrapper input[type="radio"] {
+  padding: 0 0 0 10px;
+}
+
+#directorist.atbd_wrapper input[type="checkbox"] {
+  padding: 0 0 0 15px;
+}
+
 #directorist.atbd_wrapper .row {
   float: none;
 }

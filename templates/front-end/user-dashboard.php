@@ -289,7 +289,7 @@ $container_fluid         = is_directoria_active() ? 'container' : 'container-flu
                                                                 $exp_text = !empty($never_exp)
                                                                     ? __('Never Expires', ATBDP_TEXTDOMAIN)
                                                                     : date_i18n($date_format, strtotime($exp_date)); ?>
-                                                                <p><?php printf(__('<span>Expiration:</span> %s', ATBDP_TEXTDOMAIN), (($interval) && ('renewal' == $lstatus || 'expired' == $lstatus))?'<span style="color: red">'.ucfirst($lstatus).'</span>':$exp_text); ?></p>
+                                                                <p><?php printf(__('<span>Expiration:</span> %s', ATBDP_TEXTDOMAIN), (($interval) && ('expired' == $lstatus))?'<span style="color: red">'.__('Expired', ATBDP_TEXTDOMAIN).'</span>':$exp_text); ?></p>
                                                                 <p><?php printf(__('<span>Listing Status:</span> %s', ATBDP_TEXTDOMAIN), get_post_status_object($post->post_status)->label); ?></p>
                                                                 <?php
                                                                 /**

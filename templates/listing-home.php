@@ -132,6 +132,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                         }
                         $html .= '</div>';
                     }
+
                     /**
                      * @since 5.0
                      * It show the search button

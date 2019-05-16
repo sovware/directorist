@@ -251,7 +251,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                             }
                                             ?>
 
-                                            <small>(Optional - Uncheck to hide pricing for this listing)</small>
+                                            <small><?php _e('(Optional - Uncheck to hide pricing for this listing)',ATBDP_TEXTDOMAIN) ?></small>
                                         </div>
 
                                         <?php

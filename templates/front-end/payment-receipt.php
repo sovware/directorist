@@ -26,7 +26,7 @@ $container_fluid = 'container-fluid';
                     <p class="atbd_payment_summary"><?php _e( 'Here is your order summery:', ATBDP_TEXTDOMAIN ); ?></p>
                 </div>
                 <div class="col-lg-6">
-                    <table class="table table-bordered">
+                    <div class="table-responsive"><table class="table table-bordered">
                         <tr>
                             <td><?php _e( 'ORDER', ATBDP_TEXTDOMAIN ); ?> #</td>
                             <td><?php echo (!empty($order_id)) ? $order_id : ''; ?></td>
@@ -60,10 +60,11 @@ $container_fluid = 'container-fluid';
                             </td>
                         </tr>
                     </table>
+                    </div>
                 </div>
 
                 <div class="col-lg-6">
-                    <table class="table table-bordered">
+                    <div class="table-responsive"><table class="table table-bordered">
                         <tr>
                             <td><?php _e( 'Payment Method', ATBDP_TEXTDOMAIN ); ?></td>
                             <td>
@@ -94,6 +95,7 @@ $container_fluid = 'container-fluid';
                             <td><?php echo isset( $o_metas['_transaction_id'] ) ? $o_metas['_transaction_id'][0] : 'NIL'; ?></td>
                         </tr>
                     </table>
+                    </div>
                 </div>
             </div>
 
@@ -102,7 +104,7 @@ $container_fluid = 'container-fluid';
             if (!empty($order_items)){
                 echo '<p class="atbd_payment_summary">'.__( 'Ordered Item(s)', ATBDP_TEXTDOMAIN ).'</p>';
                 ?>
-                <table class="table table-bordered">
+                <div class="table-responsive"><table class="table table-bordered">
                     <thead class="thead-light">
                         <tr>
                             <th><?php _e( 'Name', ATBDP_TEXTDOMAIN ); ?></th>
@@ -139,7 +141,7 @@ $container_fluid = 'container-fluid';
                             <strong><?php echo atbdp_format_payment_amount($total) ; ?></strong>
                         </td>
                     </tr>
-                </table>
+                </table></div>
             <?php } ?>
 
         </div>

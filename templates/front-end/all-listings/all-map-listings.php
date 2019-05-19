@@ -12,7 +12,7 @@ $pagenation                 = get_directorist_option('paginate_all_listings',1);
 $select_listing_map         = get_directorist_option('select_listing_map',1);
 $zoom                       = get_directorist_option('map_zoom_level', 4);
 $container                  = 'container';
-$map_container              = apply_filters('listings_map_container',$container);
+$map_container              = apply_filters('atbdp_map_container',$container);
 wp_enqueue_script('atbdp-map-view',ATBDP_PUBLIC_ASSETS . 'js/map-view.js');
 $data = array(
     'plugin_url' => ATBDP_URL,

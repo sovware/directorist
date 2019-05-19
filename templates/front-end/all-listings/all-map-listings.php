@@ -11,6 +11,8 @@ $display_viewas_dropdown    = get_directorist_option('display_view_as',1);
 $pagenation                 = get_directorist_option('paginate_all_listings',1);
 $select_listing_map         = get_directorist_option('select_listing_map',1);
 $zoom                       = get_directorist_option('map_zoom_level', 4);
+$container                  = 'container';
+$map_container              = apply_filters('listings_map_container',$container);
 wp_enqueue_script('atbdp-map-view',ATBDP_PUBLIC_ASSETS . 'js/map-view.js');
 $data = array(
     'plugin_url' => ATBDP_URL,
@@ -26,7 +28,7 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
     <?php
     $listings_map_height = get_directorist_option('listings_map_height',350);
     ?>
-    <div class="container">
+    <div class="<?php echo !empty($map_container) ? $map_container : '';?>">
         <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($listings_map_height)?$listings_map_height:'';?>px;">
             <?php while( $all_listings->have_posts() ) : $all_listings->the_post();
                 global $post;

@@ -144,7 +144,7 @@
                                                     $args = array(
                                                         'show_option_none' =>  __($location_placeholder, ATBDP_TEXTDOMAIN),
                                                         'taxonomy' => ATBDP_LOCATION,
-                                                        'id' => 'cat-type',
+                                                        'id' => 'loc-type',
                                                         'option_none_value'  => '',
                                                         'class' => 'form-control directory_field',
                                                         'name' => 'in_loc',

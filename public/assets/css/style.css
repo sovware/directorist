@@ -1404,7 +1404,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listting_category a {
-  word-break: break-all;
+  word-break: break-word;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listting_category a span {
@@ -3841,6 +3841,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_single figure .cat-info {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_single figure .cat-info > span {

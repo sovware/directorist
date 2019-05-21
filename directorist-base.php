@@ -187,6 +187,14 @@ final class Directorist_Base
     public $validator;
 
     /**
+     * ATBDP_Single_Templates Object.
+     *
+     * @var ATBDP_Single_Templates
+     * @since 5.0.5
+     */
+    public $ATBDP_Single_Templates;
+
+    /**
      * Main Directorist_Base Instance.
      *
      * Insures that only one instance of Directorist_Base exists in memory at any one
@@ -227,6 +235,7 @@ final class Directorist_Base
             self::$instance->email = new ATBDP_Email;
             self::$instance->seo = new ATBDP_SEO;
             self::$instance->validator = new ATBDP_Validator;
+            self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
 
 
             // new settings
@@ -305,6 +314,7 @@ final class Directorist_Base
      */
     private function includes()
     {
+        require_once ATBDP_TEMPLATES_DIR . 'single-template-shortcode.php';
         require_once ATBDP_LIB_DIR . 'vafpress/bootstrap.php'; // load option framework.
         require_once ATBDP_INC_DIR . 'helper-functions.php';
         require_once ATBDP_INC_DIR . 'login-register.php';
@@ -446,6 +456,10 @@ final class Directorist_Base
             'all_listing_page' => array(
                 'title' => __('All Listings', ATBDP_TEXTDOMAIN),
                 'content' => '[directorist_all_listing]'
+            ),
+            'single_listing_page' => array(
+                'title' => __('Single Listings', ATBDP_TEXTDOMAIN),
+                'content' => '[directorist_listing_header]'
             ),
             'all_categories_page' => array(
                 'title' => __('All Categories', ATBDP_TEXTDOMAIN),

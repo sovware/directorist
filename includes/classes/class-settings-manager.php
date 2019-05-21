@@ -4314,6 +4314,15 @@ The Administrator of ==SITE_NAME==
                     ),
                     array(
                         'type' => 'select',
+                        'name' => 'single_listing_page',
+                        'label' => __('Single Listing Page', ATBDP_TEXTDOMAIN),
+                        'items' => $this->get_pages_vl_arrays(),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_single_listing]</strong>'),
+                        'default' => atbdp_get_option('single_listing_page', 'atbdp_general'),
+                        'validation' => 'numeric',
+                    ),
+                    array(
+                        'type' => 'select',
                         'name' => 'user_dashboard',
                         'label' => __('Dashboard Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),

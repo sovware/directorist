@@ -57,13 +57,43 @@ class ATBDP_Listing{
 
     public function the_content($content)
     {
+        $id = get_directorist_option('single_listing_page');
         if( is_singular(ATBDP_POST_TYPE ) && in_the_loop() && is_main_query() ) {
-            global $post;
-            ob_start();
+            if(!empty($id)) {
+                ob_start();
+                global $post;
+                $content = get_post_field( 'post_content', $id );
+                $content = do_shortcode( $content );
+                $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
+                // run block content if its available
+                ?>
+                <section id="directorist" class="directorist atbd_wrapper">
+                    <div class="row">
+                        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
+                            <div class="edit_btn_wrap">
+                                <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
+                                   class="btn btn-success"><span
+                                        class="fa fa-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN) ?></a>
+                            </div>
+                <?php
+                if(function_exists('do_blocks')){
+                    echo do_blocks( $content );
+                } ?>
+                        </div>
+                        <?php include ATBDP_TEMPLATES_DIR . 'sidebar-listing.php'; ?>
+                    </div>
+                </section>
+                <?php
+                return ob_get_clean();
+            } else {
+                global $post;
+                ob_start();
 
-            // echo 'hello from the function';
-            include ATBDP_TEMPLATES_DIR . 'single-at_biz_dir.php';
-            return ob_get_clean();
+                // echo 'hello from the function';
+                include ATBDP_TEMPLATES_DIR . 'single-at_biz_dir.php';
+                return ob_get_clean();
+            }
+
         }
 
         return $content;

@@ -250,8 +250,10 @@ $column_width = 100 / $columns . '%';
                                                 <?php
                                                 $meta_html .= '<div class="atbd_listing_meta">';
                                                 $average = ATBDP()->review->get_average(get_the_ID());
-                                                $meta_html .= '<span class="atbd_meta atbd_listing_rating">'.$average.'<i class="fa fa-star"></i>
+                                                if(!empty($display_review)) {
+                                                    $meta_html .= '<span class="atbd_meta atbd_listing_rating">' . $average . '<i class="fa fa-star"></i>
         </span>';
+                                                }
                                                 $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
                                                 if (!empty($display_price) && !empty($display_pricing_field)) {
                                                     if (!empty($price_range) && ('range' === $atbd_listing_pricing)) {

@@ -323,13 +323,15 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 
                             $average = ATBDP()->review->get_average($post->ID);
                             $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
+                        if (!empty($enable_review)) {
                             $data_info .= '<span class="atbd_meta atbd_listing_rating">
                             ' . $average . '<i class="fa fa-star"></i>
                         </span>';
+                        }
 
                             $data_info .= '</div>';
                             ?>
-                            <?php if ($enable_review) {
+                            <?php if (!empty($enable_review)) {
                                 $reviews = ($reviews_count > 1) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
                                 $data_info .= '<div class="atbd_rating_count">';
 
@@ -561,6 +563,17 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             }
             ?>
 
+
+
+
+
+
+
+
+
+
+
+
             <?php
 
             if ($enable_video_url && !empty($videourl) && 'none' != $display_video_for) { ?>
@@ -582,6 +595,13 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             <?php } ?>
             <?php do_action('atbdp_after_video_gallery'); ?>
             <!--Google map section-->
+
+
+
+
+
+
+
             <?php
             if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) && !empty($display_map_field)) { ?>
                 <div class="atbd_content_module">
@@ -598,6 +618,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php } ?>
+
+
+
+
 
 
             <?php if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>
@@ -679,6 +703,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php } ?>
+
+
+
             <?php
             $plan_permission = true;
             global $post;
@@ -723,6 +750,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     </form>
                 </div>
             <?php } ?>
+
+
+
+
             <?php
             // if business hour is active then add the following markup...
             $plan_hours = true;
@@ -732,6 +763,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing) && (!is_empty_v($business_hours) || !empty($enable247hour))) {
                 BD_Business_Hour()->show_business_hour_module($business_hours, $business_hour_title, $enable247hour); // show the business hour in an unordered list
             } ?>
+
+
 
 
             <?php

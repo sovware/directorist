@@ -262,6 +262,8 @@
     .cat-info{
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
       &>span{
         margin: 0 3px;
         font-size: 18px;

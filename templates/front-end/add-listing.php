@@ -658,7 +658,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                     <?php } ?>
 
                                     <?php
-                                    if (empty($display_map_for || $display_address_for) && !empty($display_map_field && $display_address_field)) { ?>
+                                    if (empty($display_map_for || $display_address_for) && !empty($display_map_field || $display_address_field)) { ?>
                                         <div class="form-group" id="atbdp_address">
                                             <label for="address"><?php
                                                 $address_label = get_directorist_option('address_label', __('Google Address', ATBDP_TEXTDOMAIN));
@@ -675,6 +675,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
 
                                             <!--Show map only if it is not disabled in the settings-->
                                             <!--Google map will be generated here using js-->
+                                        <?php if(!empty($display_map_field)) {?>
                                             <div class="form-group">
                                                 <div class="map_wrapper">
                                                     <?php if ('google' == $select_listing_map) {?>
@@ -738,7 +739,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                                     </div>
                                                 </div> <!--ends .row-->
                                             </div><!--ends .row-->
-                                    <?php }
+                                    <?php } }
 
                                 /**
                                  * It fires after the google map preview area
@@ -852,7 +853,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                             }
                             if (is_business_hour_active() && $plan_hours) {
                                 ?>
-                                <div class="atbd_content_module">
+                                <div class="atbd_content_module atbd_business_hour_module">
                                     <div class="atbd_content_module__tittle_area">
                                         <div class="atbd_area_title">
                                             <h4><?php _e('Opening/Business Hour Information', ATBDP_TEXTDOMAIN); ?></h4>

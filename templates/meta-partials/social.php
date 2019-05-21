@@ -35,7 +35,8 @@ $social_info = (array_key_exists('social_info', $args)) ? $args['social_info'] :
                     </div>
                     <div class="col-md-3 col-sm-12">
                     <span data-id="<?= $index; ?>" class="removeSocialField dashicons dashicons-trash"
-                          title="<?php _e('Remove this item', ATBDP_TEXTDOMAIN); ?>"></span> <span class="adl-move-icon dashicons dashicons-move"></span>
+                          title="<?php _e('Remove this item', ATBDP_TEXTDOMAIN); ?>"></span>
+                       <!-- <span class="adl-move-icon dashicons dashicons-move"></span>-->
                     </div>
                 </div> <!--   ends .row   &  .atbdp_social_field_wrapper-->
 

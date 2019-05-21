@@ -39,10 +39,11 @@ if ( !class_exists('ATBDP_Shortcode') ):
             add_action('wp_ajax_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2 );
 
             add_filter( 'body_class', array($this, 'my_body_class'));
-            add_action( 'wp_login_failed', array($this, 'my_login_fail'));
-
+            if(!in_array( 'easy-registration-forms/erforms.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+                // void action if someone use erforams or other plugin
+                add_action( 'wp_login_failed', array($this, 'my_login_fail'));
+            }
         }
-
 
         /**
          *
@@ -53,13 +54,10 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $referrer = $_SERVER['HTTP_REFERER'];  // where did the post submission come from?
             // if there's a valid referrer, and it's not the default log-in screen
             if ( !empty($referrer) && !strstr($referrer,'wp-login') && !strstr($referrer,'wp-admin') ) {
-
                 wp_redirect( $referrer . '?login=failed' );  // let's append some information (login=failed) to the URL for the theme to use
                 exit;
             }
-
         }
-
 
         /*
          *  add own class in order to push custom style
@@ -2896,7 +2894,16 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 wp_enqueue_script('adminmainassets');
                 echo '<div class="atbdp_login_form_shortcode">';
                 if (isset($_GET['login']) && $_GET['login'] == 'failed'){
+
                     printf('<p class="alert-danger"><span class="fa fa-exclamation"></span>%s</p>',__(' Invalid username or password!', ATBDP_TEXTDOMAIN));
+                    $location = ATBDP_Permalink::get_login_page_link();
+                    ?>
+                    <script>
+                        if(typeof window.history.pushState == 'function') {
+                            window.history.pushState({}, "Hide", '<?php echo $location;?>');
+                        }
+                    </script>
+                    <?php
                 }
                 wp_login_form();
                 echo "<div class='d-flex justify-content-between'>";

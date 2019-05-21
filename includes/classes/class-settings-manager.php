@@ -1512,7 +1512,7 @@ The Administrator of ==SITE_NAME==
          */
         function get_listings_page_settings_fields()
         {
-            $business_hours = '<a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a>';
+            $business_hours = '(Requires <a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a> extension)';
             return apply_filters('atbdp_listings_settings_fields', array(
 
                     array(
@@ -1634,7 +1634,7 @@ The Administrator of ==SITE_NAME==
                             ),
                             array(
                                 'value' => 'search_open_now',
-                                'label' => sprintf(__('Open Now (Requires %s extension)', ATBDP_TEXTDOMAIN), $business_hours)),
+                                'label' => sprintf(__('Open Now %s', ATBDP_TEXTDOMAIN), !class_exists('BD_Business_Hour')?$business_hours:'')),
                             array(
                                 'value' => 'search_custom_fields',
                                 'label' => __('Custom Fields', ATBDP_TEXTDOMAIN),
@@ -2150,7 +2150,7 @@ The Administrator of ==SITE_NAME==
          */
         function get_search_settings_fields()
         {
-            $business_hours = '<a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a>';
+            $business_hours = '(Requires <a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a> extension)';
             return apply_filters('atbdp_search_settings_fields', array(
                     array(
                         'type' => 'textbox',
@@ -2267,7 +2267,7 @@ The Administrator of ==SITE_NAME==
                             ),
                             array(
                                 'value' => 'search_open_now',
-                                'label' => sprintf(__('Open Now (Requires %s extension)', ATBDP_TEXTDOMAIN), $business_hours)),
+                                'label' => sprintf(__('Open Now %s', ATBDP_TEXTDOMAIN), !class_exists('BD_Business_Hour')?$business_hours:'')),
                             array(
                                 'value' => 'search_custom_fields',
                                 'label' => __('Custom Fields', ATBDP_TEXTDOMAIN),
@@ -2395,7 +2395,7 @@ The Administrator of ==SITE_NAME==
          */
         function get_search_form_settings_fields()
         {
-            $business_hours = '<a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a>';
+            $business_hours = '(Requires <a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a> extension)';
             return apply_filters('atbdp_search_result_settings_fields', array(
                     array(
                         'type' => 'toggle',
@@ -2476,7 +2476,7 @@ The Administrator of ==SITE_NAME==
                             ),
                             array(
                                 'value' => 'search_open_now',
-                                'label' => sprintf(__('Open Now (Requires %s extension)', ATBDP_TEXTDOMAIN), $business_hours)),
+                                'label' => sprintf(__('Open Now %s', ATBDP_TEXTDOMAIN), !class_exists('BD_Business_Hour')?$business_hours:'')),
                             array(
                                 'value' => 'search_custom_fields',
                                 'label' => __('Custom Fields', ATBDP_TEXTDOMAIN),

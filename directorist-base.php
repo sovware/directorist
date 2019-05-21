@@ -307,7 +307,6 @@ final class Directorist_Base
     {
         require_once ATBDP_LIB_DIR . 'vafpress/bootstrap.php'; // load option framework.
         require_once ATBDP_INC_DIR . 'helper-functions.php';
-        require_once ATBDP_INC_DIR . 'login-register.php';
         load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
         load_dependencies('all', ATBDP_LIB_DIR); // load all php files from ATBDP_LIB_DIR
         /*LOAD Rating and Review functionality*/

@@ -2,6 +2,9 @@
     <div class="attc_extension_wrapper">
         <div class="container-fluid">
             <div class="row">
+                <?php
+                if (!function_exists('directoria_setup')){
+                    ?>
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--Google reCAPTCHA-->
                     <div class="single_extension single_thm">
@@ -21,25 +24,33 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                    <!--Google reCAPTCHA-->
-                    <div class="single_extension single_thm">
-                        <img src="http://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/04/Direo.jpg"
-                             alt="Direo">
+                <?php
+                }
+                if (!function_exists('direo_setup')){
+                    ?>
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <!--Google reCAPTCHA-->
+                        <div class="single_extension single_thm">
+                            <img src="http://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/04/Direo.jpg"
+                                 alt="Direo">
 
-                        <div class="extension_detail">
-                            <a href="http://directorist.com/theme/direo" target="_blank" class="ext_title">
-                                <h4><?php esc_html_e(' Direo ', ATBDP_TEXTDOMAIN); ?></h4></a>
+                            <div class="extension_detail">
+                                <a href="http://directorist.com/theme/direo" target="_blank" class="ext_title">
+                                    <h4><?php esc_html_e(' Direo ', ATBDP_TEXTDOMAIN); ?></h4></a>
 
-                            <div class="btn_wrapper">
-                                <a href="http://directorist.com/theme/demo/direo" target="_blank"
-                                   class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
-                                <a href="http://directorist.com/theme/direo" target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get theme', ATBDP_TEXTDOMAIN); ?></a>
+                                <div class="btn_wrapper">
+                                    <a href="http://directorist.com/theme/demo/direo" target="_blank"
+                                       class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
+                                    <a href="http://directorist.com/theme/direo" target="_blank"
+                                       class="btn get btn-success"><?php esc_html_e('Get theme', ATBDP_TEXTDOMAIN); ?></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                <?php
+                }
+                ?>
+
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--Google reCAPTCHA-->
                     <div class="single_extension single_thm">

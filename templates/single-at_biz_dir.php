@@ -323,13 +323,15 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 
                             $average = ATBDP()->review->get_average($post->ID);
                             $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
+                        if (!empty($enable_review)) {
                             $data_info .= '<span class="atbd_meta atbd_listing_rating">
                             ' . $average . '<i class="fa fa-star"></i>
                         </span>';
+                        }
 
                             $data_info .= '</div>';
                             ?>
-                            <?php if ($enable_review) {
+                            <?php if (!empty($enable_review)) {
                                 $reviews = ($reviews_count > 1) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
                                 $data_info .= '<div class="atbd_rating_count">';
 

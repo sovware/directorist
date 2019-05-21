@@ -44,9 +44,7 @@ if ($plan_review) {
 }
 ?>
 
-<section id="directorist" class="directorist atbd_wrapper">
-    <div class="row">
-        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
+
 <?php
 /**
  * Fires after the Map is rendered on single listing page
@@ -58,6 +56,4 @@ if ($plan_review) {
  * @param array $listing_info The meta information of the current listing
  */
 do_action('atbdp_after_map', $post, $listing_info); ?>
-        </div>
-    </div>
-</section>
+

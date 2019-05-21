@@ -30,12 +30,7 @@ extract($listing_info);
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 ?>
 
-<section id="directorist" class="directorist atbd_wrapper">
-    <div class="row">
-        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
+
             <?php
             do_action('atbdp_after_single_listing', $post, $listing_info);
             ?>
-        </div>
-    </div>
-</section>

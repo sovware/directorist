@@ -12,9 +12,7 @@ if (is_fee_manager_active()) {
     $plan_permission = is_plan_allowed_owner_contact_widget($fm_plan);
 }
 if ($plan_permission && !$hide_contact_owner && empty($disable_contact_owner)) { ?>
-    <section id="directorist" class="directorist atbd_wrapper">
-        <div class="row">
-            <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
+
                 <div class="atbd_content_module atbd_contact_information_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
@@ -51,7 +49,5 @@ if ($plan_permission && !$hide_contact_owner && empty($disable_contact_owner)) {
                         <button type="submit" class="btn btn-primary"><?php _e('Submit', ATBDP_TEXTDOMAIN); ?></button>
                     </form>
                 </div>
-            </div>
-        </div>
-    </section>
+
 <?php } ?>

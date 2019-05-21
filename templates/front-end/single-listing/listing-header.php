@@ -111,19 +111,11 @@ $display_pricing_field = get_directorist_option('display_pricing_field', 1);
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 ?>
-<section id="directorist" class="directorist atbd_wrapper">
-    <div class="row">
-        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
             <?php
             //is current user is logged in and the original author of the listing
             if (is_user_logged_in() && $listing_author_id == get_current_user_id()) {
                 //ok show the edit option
                 ?>
-                <div class="edit_btn_wrap">
-                    <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
-                       class="btn btn-success"><span
-                            class="fa fa-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN) ?></a>
-                </div>
 
                 <?php
             }
@@ -316,10 +308,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 
                             $average = ATBDP()->review->get_average($post->ID);
                             $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
-                            $data_info .= '<span class="atbd_meta atbd_listing_rating">
-                                        ' . $average . '<i class="fa fa-star"></i>
-                                    </span>';
-
+                            if (!empty($enable_review)) {
+                                $data_info .= '<span class="atbd_meta atbd_listing_rating">
+                                            ' . $average . '<i class="fa fa-star"></i>
+                                        </span>';
+                            }
                             $data_info .= '</div>';
                             ?>
                             <?php if ($enable_review) {
@@ -424,9 +417,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     </div>
                 </div>
             </div> <!-- end .atbd_listing_details -->
-        </div>
-    </div>
-</section>
+
 
 <script>
     jQuery(document).ready(function ($) {

@@ -55,7 +55,7 @@ $info_content .= "<p> {$ad}</p></div>";
 
         </div>
 
-         <?php if (!empty($display_map_field) && !empty($display_address_field)) { ?>
+         <?php if (!empty($display_map_field) || !empty($display_address_field)) { ?>
 
 
     <!--Google map will be generated here using js-->
@@ -73,6 +73,7 @@ $info_content .= "<p> {$ad}</p></div>";
                     </div>
                 </div>
             <?php } ?>
+            <?php if(!empty($display_map_field)) { ?>
             <div class="map_wrapper">
                 <?php if('google' == $select_listing_map) {?>
                 <div id="floating-panel">
@@ -126,6 +127,7 @@ $info_content .= "<p> {$ad}</p></div>";
                     id="hide_map" <?= (!empty($hide_map)) ? 'checked' : ''; ?> >
                 <label for="hide_map"> <?php _e('Hide map for this listing.', ATBDP_TEXTDOMAIN); ?> </label>
             </div>
+                 <?php } ?>
         </div>
 
 <?php

@@ -9,9 +9,7 @@ $video_label              = get_directorist_option('atbd_video_title', __('Video
 $main_col_size            = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 $display_video_for        = get_directorist_option('display_video_for', 'admin_users');
 ?>
-<section id="directorist" class="directorist atbd_wrapper">
-    <div class="row">
-        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
+
             <?php
             if ($enable_video_url && !empty($videourl) && 'none' != $display_video_for) { ?>
                 <div class="atbd_content_module atbd_custom_fields_contents">
@@ -31,6 +29,4 @@ $display_video_for        = get_directorist_option('display_video_for', 'admin_u
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php } ?>
             <?php do_action('atbdp_after_video_gallery'); ?>
-        </div>
-    </div>
-</section>
+

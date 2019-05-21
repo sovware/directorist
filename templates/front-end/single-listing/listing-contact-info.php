@@ -40,9 +40,7 @@ $display_social_info_for                = get_directorist_option('display_social
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>
-<section id="directorist" class="directorist atbd_wrapper">
-    <div class="row">
-        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
+
             <div class="atbd_content_module atbd_contact_information_module">
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">
@@ -120,7 +118,5 @@ if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || 
                     <?php } ?>
                 </div>
             </div><!-- end .atbd_custom_fields_contents -->
-        </div>
-    </div>
-</section>
+
 <?php } ?>

@@ -9,9 +9,7 @@ $custom_section_lable = get_directorist_option('custom_section_lable', __('Detai
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 ?>
-<section id="directorist" class="directorist atbd_wrapper">
-    <div class="row">
-        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
+
             <?php
 
             $term_id = get_post_meta($post->ID, '_admin_category_select', true);
@@ -140,6 +138,4 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                 </div>
             </div><!-- end .atbd_custom_fields_contents -->
             <?php } ?>
-        </div>
-    </div>
-</section>
+

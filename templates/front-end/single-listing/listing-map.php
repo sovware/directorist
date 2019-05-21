@@ -26,9 +26,7 @@ $disable_map = get_directorist_option('disable_map', 0);
 $listing_location_text = get_directorist_option('listing_location_text', __('Location', ATBDP_TEXTDOMAIN));
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) && !empty($display_map_field)) { ?>
-    <section id="directorist" class="directorist atbd_wrapper">
-        <div class="row">
-            <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
+
                 <div class="atbd_content_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
@@ -42,9 +40,7 @@ if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) &&
                         <div id="gmap" class="atbd_google_map"></div>
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
-            </div>
-        </div>
-    </section>
+
 <?php } ?>
 
 <?php

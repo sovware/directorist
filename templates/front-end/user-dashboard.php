@@ -350,7 +350,7 @@ $container_fluid         = is_directoria_active() ? 'container' : 'container-flu
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="full_name">Full Name</label>
+                                                            <label for="full_name"><?php _e('Full Name', ATBDP_TEXTDOMAIN); ?></label>
                                                             <input class="form-control" type="text" name="user[full_name]"
                                                                    value="<?= !empty($c_user->display_name) ? esc_attr($c_user->display_name) : ''; ?>"
                                                                    placeholder="<?php _e('Enter your full name', ATBDP_TEXTDOMAIN); ?>">
@@ -358,7 +358,7 @@ $container_fluid         = is_directoria_active() ? 'container' : 'container-flu
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="user_name">User Name</label>
+                                                            <label for="user_name"><?php _e('User Name', ATBDP_TEXTDOMAIN); ?></label>
                                                             <input class="form-control" id="user_name" type="text"
                                                                    disabled="disabled" name="user[user_name]"
                                                                    value="<?= !empty($c_user->user_login) ? esc_attr($c_user->user_login) : ''; ?>"> <?php _e('(username can not be changed)', ATBDP_TEXTDOMAIN); ?>

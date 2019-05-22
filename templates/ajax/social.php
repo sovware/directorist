@@ -20,6 +20,6 @@ $id = (array_key_exists('id', $args)) ? $args['id'] : 0;
     </div>
     <div class="col-md-2 col-sm-12">
         <span data-id="<?= $id; ?>" class="removeSocialField dashicons dashicons-trash" title="<?php _e('Remove this item', ATBDP_TEXTDOMAIN); ?>"></span>
-       <!-- <span class="adl-move-icon dashicons dashicons-move"></span>-->
+        <span class="adl-move-icon dashicons dashicons-move"></span>
     </div>
 </div>

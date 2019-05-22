@@ -58,14 +58,16 @@
 
     // enable sorting if only the container has any social or skill field
     const $s_wrap = $("#social_info_sortable_container"); // cache it
-    /*if ($s_wrap.length) {
-        $s_wrap.sortable(
-            {
-                axis: 'y',
-                opacity: '0.7'
-            }
-        );
-    }*/
+    if(window.outerWidth > 600) {
+        if ($s_wrap.length) {
+            $s_wrap.sortable(
+                {
+                    axis: 'y',
+                    opacity: '0.7'
+                }
+            );
+        }
+    }
 
     // SOCIAL SECTION
     // Rearrange the IDS and Add new social field

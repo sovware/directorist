@@ -456,3 +456,32 @@ css for Custom Field
     }
   }
 }
+
+@media (max-width: 400px) {
+  #_listing_contact_info #directorist.atbd_wrapper{
+    .form-check{
+      padding-left: 40px;
+    }
+    .form-check-input{
+      margin-left: -40px;
+    }
+    .map-coordinate {
+      #manual_coordinate{
+        display: inline-block;
+      }
+      .cor-wrap{
+        label{
+          display: inline;
+        }
+      }
+    }
+  }
+  #delete-custom-img{
+    margin-top: 10px;
+  }
+  .enable247hour{
+    label{
+      display: inline !important;
+    }
+  }
+}

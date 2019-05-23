@@ -2582,7 +2582,7 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                 <?php }
                 wp_reset_postdata();
             } else { ?>
-                <p><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
+                <p class="atbdp_nlf"><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
             <?php } ?>
 
 
@@ -2989,7 +2989,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                     <?php }
                     wp_reset_postdata();
                 } else { ?>
-                    <p><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
+                    <p class="atbdp_nlf"><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
                 <?php } ?>
 
             </div>

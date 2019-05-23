@@ -511,4 +511,25 @@ css for Custom Field
   margin-bottom: 0;
 }
 
+@media (max-width: 400px) {
+  #_listing_contact_info #directorist.atbd_wrapper .form-check {
+    padding-left: 40px;
+  }
+  #_listing_contact_info #directorist.atbd_wrapper .form-check-input {
+    margin-left: -40px;
+  }
+  #_listing_contact_info #directorist.atbd_wrapper .map-coordinate #manual_coordinate {
+    display: inline-block;
+  }
+  #_listing_contact_info #directorist.atbd_wrapper .map-coordinate .cor-wrap label {
+    display: inline;
+  }
+  #delete-custom-img {
+    margin-top: 10px;
+  }
+  .enable247hour label {
+    display: inline !important;
+  }
+}
+
 /*# sourceMappingURL=map/style.css.map */

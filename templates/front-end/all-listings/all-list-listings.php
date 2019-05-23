@@ -22,7 +22,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
     <?php if ($all_listings->have_posts()) { ?>
         <?php listing_view_by_list($all_listings,$display_image); ?>
     <?php } else { ?>
-        <p><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
+        <p class="atbdp_nlf"><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
     <?php }
     /**
      * @since 5.0

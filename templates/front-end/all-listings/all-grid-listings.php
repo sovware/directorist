@@ -422,7 +422,7 @@ $column_width = 100 / $columns . '%';
                 <?php }
                 wp_reset_postdata();
             }else { ?>
-                <p><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
+                <p class="atbdp_nlf"><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
             <?php }
             ?>
 

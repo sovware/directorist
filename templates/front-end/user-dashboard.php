@@ -1,28 +1,28 @@
 <?php
-$listings                = ATBDP()->user->current_user_listings();
-$fav_listings            = ATBDP()->user->current_user_fav_listings();
-$uid                     = get_current_user_id();
-$c_user                  = get_userdata($uid);
-$u_website               = $c_user->user_url;
-$avatar                  = get_user_meta($uid, 'avatar', true);
-$u_phone                 = get_user_meta($uid, 'phone', true);
-$u_pro_pic_id            = get_user_meta($uid, 'pro_pic', true);
-$u_pro_pic               = wp_get_attachment_image_src($u_pro_pic_id, 'directory-large');
-$facebook                = get_user_meta($uid, 'facebook', true);
-$twitter                 = get_user_meta($uid, 'twitter', true);
-$linkedIn                = get_user_meta($uid, 'linkedIn', true);
-$youtube                 = get_user_meta($uid, 'youtube', true);
-$bio                     = get_user_meta($uid, 'bio', true);
-$u_address               = get_user_meta($uid, 'address', true);
-$date_format             = get_option('date_format');
-$featured_active         = get_directorist_option('enable_featured_listing');
-$is_disable_price        = get_directorist_option('disable_list_price');
-$my_listing_tab          = get_directorist_option('my_listing_tab',1);
-$my_profile_tab          = get_directorist_option('my_profile_tab',1);
-$fav_listings_tab        = get_directorist_option('fav_listings_tab',1);
-$submit_listing_button   = get_directorist_option('submit_listing_button',1);
-$show_title = !empty($show_title)?$show_title:'';
-$container_fluid         = is_directoria_active() ? 'container' : 'container-fluid';
+$listings = ATBDP()->user->current_user_listings();
+$fav_listings = ATBDP()->user->current_user_fav_listings();
+$uid = get_current_user_id();
+$c_user = get_userdata($uid);
+$u_website = $c_user->user_url;
+$avatar = get_user_meta($uid, 'avatar', true);
+$u_phone = get_user_meta($uid, 'phone', true);
+$u_pro_pic_id = get_user_meta($uid, 'pro_pic', true);
+$u_pro_pic = wp_get_attachment_image_src($u_pro_pic_id, 'directory-large');
+$facebook = get_user_meta($uid, 'facebook', true);
+$twitter = get_user_meta($uid, 'twitter', true);
+$linkedIn = get_user_meta($uid, 'linkedIn', true);
+$youtube = get_user_meta($uid, 'youtube', true);
+$bio = get_user_meta($uid, 'bio', true);
+$u_address = get_user_meta($uid, 'address', true);
+$date_format = get_option('date_format');
+$featured_active = get_directorist_option('enable_featured_listing');
+$is_disable_price = get_directorist_option('disable_list_price');
+$my_listing_tab = get_directorist_option('my_listing_tab', 1);
+$my_profile_tab = get_directorist_option('my_profile_tab', 1);
+$fav_listings_tab = get_directorist_option('fav_listings_tab', 1);
+$submit_listing_button = get_directorist_option('submit_listing_button', 1);
+$show_title = !empty($show_title) ? $show_title : '';
+$container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 /*@todo; later show featured listing first on the user dashboard maybe??? */
 ?>
 <!--<div id="change-plan-modal" style="display: block">
@@ -65,17 +65,17 @@ $container_fluid         = is_directoria_active() ? 'container' : 'container-flu
                     printf('</select>');
                     printf('<a target="_blank" href="%s" class="atpp_plans">%s</a>',esc_url(ATBDP_Permalink::get_fee_plan_page_link()), __('Details', 'directorist-pricing-plans'));
                 }
-                */?>
+                */ ?>
             </div>
         </div>
     </div>
 </div>-->
 <div id="directorist" class="directorist atbd_wrapper dashboard_area">
-    <div class="<?php echo apply_filters('atbdp_deshboard_container_fluid',$container_fluid) ?>">
+    <div class="<?php echo apply_filters('atbdp_deshboard_container_fluid', $container_fluid) ?>">
         <div class="row">
             <div class="col-md-12">
                 <?php
-                if ('yes' === $show_title){
+                if ('yes' === $show_title) {
                     ?>
                     <div class="atbd_add_listing_title">
                         <h2><?php _e('My Dashboard', ATBDP_TEXTDOMAIN); ?></h2>
@@ -87,22 +87,23 @@ $container_fluid         = is_directoria_active() ? 'container' : 'container-flu
                     <div class="atbd_user_dashboard_nav">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist" id="atbdp_tabs">
-                            <?php if(!empty($my_listing_tab)) {?>
+                            <?php if (!empty($my_listing_tab)) { ?>
                                 <li role="presentation" class="nav-item">
-                                    <a href="#my_listings" class="active nav-link" aria-controls="my_listings" role="tab"
+                                    <a href="#my_listings" class="active nav-link" aria-controls="my_listings"
+                                       role="tab"
                                        data-toggle="tab">
                                         <?php $list_found = ($listings->found_posts > 0) ? $listings->found_posts : '0';
                                         printf(__('My Listing (%s)', ATBDP_TEXTDOMAIN), $list_found); ?>
                                     </a>
                                 </li>
                             <?php } ?>
-                            <?php if(!empty($my_profile_tab)) {?>
+                            <?php if (!empty($my_profile_tab)) { ?>
                                 <li role="presentation" class="nav-item"><a href="#profile" class="nav-link"
                                                                             aria-controls="profile" role="tab"
                                                                             data-toggle="tab"><?php _e('My Profile', ATBDP_TEXTDOMAIN); ?></a>
                                 </li>
                             <?php } ?>
-                            <?php if(!empty($fav_listings_tab)) {?>
+                            <?php if (!empty($fav_listings_tab)) { ?>
                                 <li role="presentation" class="nav-item"><a href="#saved_items" class="nav-link"
                                                                             aria-controls="profile" role="tab"
                                                                             data-toggle="tab"><?php _e('Favorite Listings', ATBDP_TEXTDOMAIN); ?></a>
@@ -115,8 +116,8 @@ $container_fluid         = is_directoria_active() ? 'container' : 'container-flu
                         </ul>
 
                         <div class="nav_button">
-                            <?php if(!empty($submit_listing_button)) {?>
-                                <a href="<?= (is_fee_manager_active())?esc_url(ATBDP_Permalink::get_fee_plan_page_link()):esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
+                            <?php if (!empty($submit_listing_button)) { ?>
+                                <a href="<?= (is_fee_manager_active()) ? esc_url(ATBDP_Permalink::get_fee_plan_page_link()) : esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
                                    class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Submit Listing', ATBDP_TEXTDOMAIN); ?></a>
                             <?php } ?>
                             <a href="<?= esc_url(wp_logout_url(home_url())); ?>"
@@ -126,7 +127,7 @@ $container_fluid         = is_directoria_active() ? 'container' : 'container-flu
 
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <?php if(!empty($my_listing_tab)) {?>
+                        <?php if (!empty($my_listing_tab)) { ?>
 
                             <div role="tabpanel" class="tab-pane active row" data-uk-grid id="my_listings">
                                 <?php if ($listings->have_posts()) {
@@ -138,25 +139,25 @@ $container_fluid         = is_directoria_active() ? 'container' : 'container-flu
                                         $listing_img = get_post_meta($post->ID, '_listing_img', true);
                                         $listing_prv_img = get_post_meta($post->ID, '_listing_prv_img', true);
                                         $tagline = get_post_meta($post->ID, '_tagline', true);
-                                        $thumbnail_cropping = get_directorist_option('thumbnail_cropping',1);
-                                        $crop_width                    = get_directorist_option('crop_width', 360);
-                                        $crop_height                   = get_directorist_option('crop_height', 300);
-                                        if(!empty($listing_prv_img)) {
+                                        $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
+                                        $crop_width = get_directorist_option('crop_width', 360);
+                                        $crop_height = get_directorist_option('crop_height', 300);
+                                        if (!empty($listing_prv_img)) {
 
-                                            if($thumbnail_cropping) {
+                                            if ($thumbnail_cropping) {
 
                                                 $prv_image = atbdp_image_cropping($listing_prv_img, $crop_width, $crop_height, true, 100)['url'];
 
-                                            }else{
-                                                $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
+                                            } else {
+                                                $prv_image = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
                                             }
 
                                         }
-                                        if(!empty($listing_img[0])) {
-                                            if( $thumbnail_cropping ) {
+                                        if (!empty($listing_img[0])) {
+                                            if ($thumbnail_cropping) {
                                                 $gallery_img = atbdp_image_cropping($listing_img[0], $crop_width, $crop_height, true, 100)['url'];
 
-                                            }else{
+                                            } else {
                                                 $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
                                             }
 
@@ -168,17 +169,19 @@ $container_fluid         = is_directoria_active() ? 'container' : 'container-flu
                                                         class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                                     <figure class="atbd_listing_thumbnail_area">
                                                         <div class="atbd_listing_image">
-                                                            <?php if(!empty($listing_prv_img)){
+                                                            <?php if (!empty($listing_prv_img)) {
 
-                                                                echo '<a href="'.esc_url(get_post_permalink($post->ID)).'"><img src="'.esc_url($prv_image).'" alt="'.esc_html(stripslashes(get_the_title())).'"></a>';
+                                                                echo '<a href="' . esc_url(get_post_permalink($post->ID)) . '"><img src="' . esc_url($prv_image) . '" alt="' . esc_html(stripslashes(get_the_title())) . '"></a>';
 
-                                                            } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
+                                                            }
+                                                            if (!empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                                                echo '<a href="'.esc_url(get_post_permalink($post->ID)).'"><img src="' . esc_url($gallery_img) . '" alt="'.esc_html(stripslashes(get_the_title())).'"></a>';
+                                                                echo '<a href="' . esc_url(get_post_permalink($post->ID)) . '"><img src="' . esc_url($gallery_img) . '" alt="' . esc_html(stripslashes(get_the_title())) . '"></a>';
 
-                                                            }if (empty($listing_img[0]) && empty($listing_prv_img)){
+                                                            }
+                                                            if (empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                                                echo '<a href="'.esc_url(get_post_permalink($post->ID)).'"><img src="'.ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'.'" alt="'.esc_html(stripslashes($post->ID)).'"></a>';
+                                                                echo '<a href="' . esc_url(get_post_permalink($post->ID)) . '"><img src="' . ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' . '" alt="' . esc_html(stripslashes($post->ID)) . '"></a>';
 
                                                             }
                                                             ?>
@@ -235,13 +238,13 @@ $container_fluid         = is_directoria_active() ? 'container' : 'container-flu
                                                                 $interval = $datetime1->diff($datetime2);
                                                                 $interval = $interval->format('%R%a');
                                                                 $result = substr($interval, 0, 1);
-                                                                if ('+' === $result){
+                                                                if ('+' === $result) {
                                                                     $interval = true;
-                                                                }else{
+                                                                } else {
                                                                     $interval = false;
                                                                 }
                                                                 // If the listing needs renewal then there is no need to show promote button
-                                                               if (($interval) && ('renewal' == $lstatus || 'expired' == $lstatus)) {
+                                                                if (($interval) && ('renewal' == $lstatus || 'expired' == $lstatus)) {
 
                                                                     $can_renew = get_directorist_option('can_renew_listing');
                                                                     if (!$can_renew) return false;// vail if renewal option is turned off on the site.
@@ -289,7 +292,7 @@ $container_fluid         = is_directoria_active() ? 'container' : 'container-flu
                                                                 $exp_text = !empty($never_exp)
                                                                     ? __('Never Expires', ATBDP_TEXTDOMAIN)
                                                                     : date_i18n($date_format, strtotime($exp_date)); ?>
-                                                                <p><?php printf(__('<span>Expiration:</span> %s', ATBDP_TEXTDOMAIN), (($interval) && ('expired' == $lstatus))?'<span style="color: red">'.__('Expired', ATBDP_TEXTDOMAIN).'</span>':$exp_text); ?></p>
+                                                                <p><?php printf(__('<span>Expiration:</span> %s', ATBDP_TEXTDOMAIN), (($interval) && ('expired' == $lstatus)) ? '<span style="color: red">' . __('Expired', ATBDP_TEXTDOMAIN) . '</span>' : $exp_text); ?></p>
                                                                 <p><?php printf(__('<span>Listing Status:</span> %s', ATBDP_TEXTDOMAIN), get_post_status_object($post->post_status)->label); ?></p>
                                                                 <?php
                                                                 /**
@@ -310,21 +313,22 @@ $container_fluid         = is_directoria_active() ? 'container' : 'container-flu
                                         <?php
                                     }
                                 } else {
-                                    esc_html_e('Looks like you have not created any listing yet!', ATBDP_TEXTDOMAIN);
+                                    echo '<p class="atbdp_nlf">' . __("Looks like you have not created any listing yet!", ATBDP_TEXTDOMAIN) . '</p>';
                                 }
                                 //@todo;add pagination on dashboard echo atbdp_pagination($listings, $paged);
                                 ?>
 
                             </div> <!--ends #my_listings-->
                         <?php } ?>
-                        <?php if(!empty($my_profile_tab)) {?>
+                        <?php if (!empty($my_profile_tab)) { ?>
                             <div role="tabpanel" class="tab-pane" id="profile">
                                 <form action="#" id="user_profile_form" method="post">
                                     <div class="row">
                                         <div class="col-md-3 col-sm-6 offset-sm-3 offset-md-0">
                                             <div class="user_pro_img_area">
                                                 <div class="user_img" id="profile_pic_container">
-                                                    <div class="cross" id="remove_pro_pic"><span class="fa fa-times"></span>
+                                                    <div class="cross" id="remove_pro_pic"><span
+                                                                class="fa fa-times"></span>
                                                     </div>
                                                     <div class="choose_btn">
                                                         <input type="hidden" name="user[pro_pic]" id="pro_pic"
@@ -340,7 +344,8 @@ $container_fluid         = is_directoria_active() ? 'container' : 'container-flu
                                         </div> <!--ends .col-md-4-->
 
                                         <div class="col-md-9">
-                                            <div class="profile_title"><h4><?php _e('My Profile', ATBDP_TEXTDOMAIN); ?></h4>
+                                            <div class="profile_title">
+                                                <h4><?php _e('My Profile', ATBDP_TEXTDOMAIN); ?></h4>
                                             </div>
 
                                             <div class="user_info_wrap">
@@ -351,7 +356,8 @@ $container_fluid         = is_directoria_active() ? 'container' : 'container-flu
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="full_name"><?php _e('Full Name', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <input class="form-control" type="text" name="user[full_name]"
+                                                            <input class="form-control" type="text"
+                                                                   name="user[full_name]"
                                                                    value="<?= !empty($c_user->display_name) ? esc_attr($c_user->display_name) : ''; ?>"
                                                                    placeholder="<?php _e('Enter your full name', ATBDP_TEXTDOMAIN); ?>">
                                                         </div>
@@ -438,7 +444,8 @@ $container_fluid         = is_directoria_active() ? 'container' : 'container-flu
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="confirm_pass"><?php _e('Confirm New Password', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <input id="confirm_pass" class="form-control" type="password"
+                                                            <input id="confirm_pass" class="form-control"
+                                                                   type="password"
                                                                    name="user[confirm_pass]"
                                                                    value="<?= !empty($confirm_pass) ? esc_attr($confirm_pass) : ''; ?>"
                                                                    placeholder="<?php _e('Confirm your new password', ATBDP_TEXTDOMAIN); ?>">
@@ -510,7 +517,7 @@ $container_fluid         = is_directoria_active() ? 'container' : 'container-flu
                                 </form>
                             </div>
                         <?php } ?>
-                        <?php if(!empty($fav_listings_tab)) {?>
+                        <?php if (!empty($fav_listings_tab)) { ?>
                             <div role="tabpanel" class="tab-pane" id="saved_items">
                                 <div class="atbd_saved_items_wrapper">
                                     <table class="table table-bordered atbd_single_saved_item table-responsive-sm">
@@ -594,13 +601,13 @@ $container_fluid         = is_directoria_active() ? 'container' : 'container-flu
                                             </td>
 
 
-                                        </tr>', $post_link, $img_src, $title,$post_link, $title, $category_link, $category_icon, $category_name, atbdp_get_remove_favourites_page_link($post->ID), __('Remove', ATBDP_TEXTDOMAIN));
+                                        </tr>', $post_link, $img_src, $title, $post_link, $title, $category_link, $category_icon, $category_name, atbdp_get_remove_favourites_page_link($post->ID), __('Remove', ATBDP_TEXTDOMAIN));
                                             }
                                             ?>
                                             </tbody>
                                             <?php
-                                        }else{
-                                            printf('<p>%s</p>',__("No listing found !", ATBDP_TEXTDOMAIN));
+                                        } else {
+                                            printf('<p class="atbdp_nlf">%s</p>', __("No listing found !", ATBDP_TEXTDOMAIN));
                                         }
                                         ?>
                                     </table>

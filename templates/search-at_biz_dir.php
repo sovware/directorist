@@ -437,7 +437,7 @@ $column_width           = 100/$search_listing_columns .'%';
 
                     <?php }
                     } else {?>
-                            <p><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
+                            <p class="atbdp_nlf"><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
                 <?php } ?>
             </div>
             <div class="row">

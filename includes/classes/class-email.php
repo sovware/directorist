@@ -37,7 +37,20 @@ class ATBDP_Email {
         add_action('atbdp_deleted_expired_listings', array($this, 'notify_owner_listing_deleted'));
         add_action('atbdp_deleted_expired_listings', array($this, 'notify_admin_listing_deleted'));
 
+        //send new user confirmation notification to user
+        add_filter( 'wp_new_user_notification_email', array($this, 'custom_wp_new_user_notification_email'), 10, 3 );
+        add_filter( 'wp_mail_from_name', array($this, 'atbdp_wp_mail_from_name') );
 
+
+    }
+
+
+    /**
+     * @since 5.8
+     */
+    public function atbdp_wp_mail_from_name(){
+        $site_name          = get_option('blogname');
+        return $site_name;
     }
 
     /**
@@ -656,6 +669,23 @@ This email is sent automatically for information purpose only. Please do not res
 
 
 
+    /**
+     * @since 5.8
+     */
+    public function custom_wp_new_user_notification_email( $wp_new_user_notification_email, $user, $blogname ) {
+        $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!',ATBDP_TEXTDOMAIN));
+        $body = get_directorist_option('email_tmpl_registration_confirmation', __("
+Dear User,
+
+Congratulations! Your registration is completed!
+
+Thanks,
+The Administrator of $blogname
+", ATBDP_TEXTDOMAIN));
+        $wp_new_user_notification_email['subject'] = sprintf( '%s', $sub );
+        $wp_new_user_notification_email['message'] = $body;
+        return $wp_new_user_notification_email;
+    }
 
 } // ends class
 endif;

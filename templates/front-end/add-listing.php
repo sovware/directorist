@@ -499,21 +499,27 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                         $location_label = get_directorist_option('location_label', __('Location', ATBDP_TEXTDOMAIN));
                                         esc_html_e($location_label.':', ATBDP_TEXTDOMAIN);
                                         echo get_directorist_option('require_location')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
-                                    <?php if (!empty($p_locations)) {
-                                        $output = array();
-                                        foreach ($p_locations as $p_location) {
-                                            $output[] = $p_location->name;
-                                        }
-                                        echo '<p class="c_cat_list">' . __('Current Location: <strong>', ATBDP_TEXTDOMAIN) . join(', ', $output) . '</strong></p>';
-                                    } ?>
-                                    <select name="tax_input[at_biz_dir-location][]" class="form-control"
-                                            id="at_biz_dir-location" <?php if(!empty($multiple_for_user)) { echo 'multiple="multiple"';}?>>
+                                 <?php
+                                    $location = wp_get_object_terms($p_id, ATBDP_LOCATION, array('fields' => 'ids'));
+                                    $selected_location = count($location) ? $location[0] : -1;
+                                    $args = array(
+                                        'show_option_none' => '-- ' . __('Select Location', ATBDP_TEXTDOMAIN) . ' --',
+                                        'taxonomy' => ATBDP_LOCATION,
+                                        'id' => 'loc-type',
+                                        'class' => 'form-control directory_field',
+                                        'name' => 'tax_input[at_biz_dir-location][]',
+                                        'orderby' => 'name',
+                                        'selected' => $selected_location,
+                                        'hierarchical' => true,
+                                        'depth' => 10,
+                                        'exclude' => $plan_cat,
+                                        'show_count' => false,
+                                        'hide_empty' => false,
+                                    );
 
-                                        <?php foreach ($locations as $location) {
-                                            echo "<option id='atbdp_location' value='$location->term_id'>$location->name</option>";
-                                        }
-                                        ?>
-                                    </select>
+                                    wp_dropdown_categories($args);
+                                    ?>
+
                                 </div>
                                 <?php } ?>
                                 <?php

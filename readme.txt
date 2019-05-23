@@ -133,6 +133,9 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 * Tweak - Changed listing default review 1 to 5
 * Remove - 'Z' edit listing button
+* Fix - Style issues
+* Fix - Add new social fields in listing form
+* Tweak - Location field in listing form
 
 = 5.0.4 - May 10, 2019 =
 

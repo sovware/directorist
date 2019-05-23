@@ -465,6 +465,12 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
                             'fields' => $this->listing_contact_email(),
                         ),
+                        'registration_confirmation' => array(
+                            'type' => 'section',
+                            'title' => __('Registration Confirmation', ATBDP_TEXTDOMAIN),
+                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->registration_confirmation_email(),
+                        ),
                     )),
                 ),
             ));
@@ -972,6 +978,48 @@ The Administrator of ==SITE_NAME==
 
 
         /**
+         * Get all the settings fields for the offline new order email template section
+         * @return array
+         * @since 3.1.0
+         */
+        public function registration_confirmation_email()
+        {
+            // let's define default data
+            $sub = __('Registration Confirmation!', ATBDP_TEXTDOMAIN);
+
+            $tmpl = __("
+Dear User,
+
+Congratulations! Your registration is completed!
+
+This email is sent automatically for information purpose only. Please do not respond to this.
+
+Thanks,
+The Administrator
+", ATBDP_TEXTDOMAIN);
+
+            return apply_filters('atbdp_registration_confirmation_tmpl_settings_fields', array(
+                array(
+                    'type' => 'textbox',
+                    'name' => 'email_sub_registration_confirmation',
+                    'label' => __('Email Subject', ATBDP_TEXTDOMAIN),
+                    'description' => __('Edit the subject for sending to the user when listing contact message send.', ATBDP_TEXTDOMAIN),
+                    'default' => $sub,
+                ),
+                array(
+                    'type' => 'textarea',
+                    'name' => 'email_tmpl_registration_confirmation',
+                    'label' => __('Email Body', ATBDP_TEXTDOMAIN),
+                    'description' => __('Edit the email template for sending to the user when when listing contact message send', ATBDP_TEXTDOMAIN),
+                    'default' => $tmpl,
+                ),
+
+
+            ));
+        }
+
+
+     /**
          * Get all the settings fields for the offline new order email template section
          * @return array
          * @since 3.1.0

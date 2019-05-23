@@ -250,6 +250,39 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             $meta_queries = array();
 
+
+            //add keyword to search
+
+      /*      $custom_fields = new WP_Query(array(
+                'post_type' => 'post_type',
+                'posts_per_page' => -1,
+                'post_status' => 'publish',
+            ));
+            $fields = $custom_fields->posts;
+            $post_ids = array();
+            foreach ($fields as $post) {
+                $post_ids[] = $post->ID;
+            }
+            if( count( $post_ids ) > 1 ) {
+                $sub_meta_queries = array();
+                foreach( $post_ids as $value ) {
+                    $sub_meta_queries[] = array(
+                        'key'		=> $value,
+                        'value'		=>  $s_string,
+                        'compare'	=> 'LIKE'
+                    );
+
+                }
+                $meta_queries[] = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
+            } else {
+                $meta_queries[] = array(
+                    'key'		=> $post_ids,
+                    'value'		=> sanitize_text_field( $s_string ),
+                    'compare'	=> 'LIKE'
+                );
+            }*/
+
+
             if( isset( $_GET['cf'] )  ) {
 
                 $cf = array_filter( $_GET['cf'] );
@@ -2952,7 +2985,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
                             $mail = wp_mail( $to, $subject, $message, $headers );
                             if( $mail ){
-                                $success =  __('Check your email address for you new password.', ATBDP_TEXTDOMAIN);
+                                $success =  __('Please check your email for your new password.', ATBDP_TEXTDOMAIN);
                             }else{
                                 $error = __('Oops something went wrong sending email.', ATBDP_TEXTDOMAIN);
                             }
@@ -2977,7 +3010,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                             <div class="modal-body">
                                 <form method="post">
                                     <fieldset>
-                                        <p><?php _e('Please enter your email address. You will receive a link to create a new password via email.', ATBDP_TEXTDOMAIN)?></p>
+                                        <p><?php _e('Please enter your email address. You will receive a new password via email.', ATBDP_TEXTDOMAIN)?></p>
                                         <label for="reset_user_login"><?php _e('Username or E-mail:', ATBDP_TEXTDOMAIN)?></label>
                                             <?php $user_login = isset( $_POST['user_login'] ) ? $_POST['user_login'] : ''; ?>
                                             <input type="text" name="user_login" id="reset_user_login" value="<?php echo $user_login; ?>" placeholder="eg. mail@example.com" />

@@ -12,7 +12,7 @@ Create a classified website, business directory website like Yelp, foursquare et
 
 == Description ==
 
-[Live Demos](https://aazztech.com/demos/plugins/directorist) | [Free Directory Theme](https://aazztech.com/product/directoria-wordpress-theme/) | [Extensions](https://aazztech.com/product/category/extensions/)
+[Live Demos](https://aazztech.com/demos/plugins/directorist) | [Documentation](http://directorist.com/) | [Free Directory Theme](https://aazztech.com/product/directoria-wordpress-theme/) | [Extensions](https://aazztech.com/product/category/extensions/)
 
 The Directorist plugin has just got even better with a new update. Meet New Directorist. It is now updated with a lot of new features like featured listings, basic monetization, listing expiration, improved design, email notifications, ability to add price field to a listing, ability to toggle any options and much more. Best directory plugin just got even better than before.
 

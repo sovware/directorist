@@ -332,6 +332,42 @@ jQuery(function($){
     $('#listing_t_c').on('click', function (e) {
         e.preventDefault();
         $('#tc_container').toggleClass("active");
-    })
+    });
+
+    $(function () {
+        $('#color_code2').wpColorPicker().empty();
+    });
+
+    // Load custom fields of the selected category in the custom post type "atbdp_listings"
+    $('#cat-type').on('change', function () {
+        $('#atbdp-custom-fields-list').html('<div class="spinner"></div>');
+        var data = {
+            'action': 'atbdp_custom_fields_listings_front',
+            'post_id': $('#atbdp-custom-fields-list').data('post_id'),
+            'term_id': $(this).val()
+        };
+        $.post(atbdp_add_listing.ajaxurl, data, function (response) {
+            $('#atbdp-custom-fields-list').html(response);
+            $("[data-toggle='tooltip']").tooltip();
+        });
+        $('#atbdp-custom-fields-list-selected').hide();
+    });
+
+    var selected_cat = $('#value_selected').val();
+    if (!selected_cat) {
+
+    } else {
+        $(window).on("load", function () {
+            $('#atbdp-custom-fields-list-selected').html('<div class="spinner"></div>');
+            var data = {
+                'action': 'atbdp_custom_fields_listings_front_selected',
+                'post_id': $('#atbdp-custom-fields-list-selected').data('post_id'),
+                'term_id': selected_cat
+            };
+            $.post(atbdp_add_listing.ajaxurl, data, function (response) {
+                $('#atbdp-custom-fields-list-selected').html(response);
+            });
+        });
+    }
 
 });

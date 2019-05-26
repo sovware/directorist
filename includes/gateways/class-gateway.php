@@ -121,7 +121,7 @@ class ATBDP_Gateway{
                     'type' => 'toggle',
                     'name' => 'enable_featured_listing',
                     'label' => __('Monetize by Featured Listing', ATBDP_TEXTDOMAIN),
-                    'description' => __('You can enabled this option to collect payment from your user for making their listing featured. Settings this option to NO will disable all sorts of monetization features. This setting gives you a quick way to turn monetization on or off instantly. Default is NO.', ATBDP_TEXTDOMAIN),
+                    'description' => __('You can enabled this option to collect payment from your user for making their listing featured.', ATBDP_TEXTDOMAIN),
                     'default' => '',
                 ),
 

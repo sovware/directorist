@@ -4,15 +4,14 @@ if ( !class_exists('ATBDP_Single_Templates') ) {
     {
         public function __construct()
         {
-            add_shortcode( 'directorist_listing_header', array( $this, 'directorist_listing_header' ));
-            add_shortcode( 'directorist_listing_custom_field',array($this,'directorist_custom_field'));
+            add_shortcode( 'directorist_listing_top_area', array( $this, 'directorist_listing_header' ));
+            add_shortcode( 'directorist_listing_custom_fields',array($this,'directorist_custom_field'));
             add_shortcode( 'directorist_listing_video',array($this,'directorist_listing_video'));
             add_shortcode( 'directorist_listing_map',array($this,'directorist_listing_map'));
             add_shortcode( 'directorist_listing_contact_information',array($this,'directorist_listing_contact_information'));
             add_shortcode( 'directorist_listing_contact_owner',array($this,'directorist_listing_contact_owner'));
             add_shortcode( 'directorist_listing_review',array($this,'directorist_listing_review'));
             add_shortcode( 'directorist_related_listings',array($this,'directorist_related_listings'));
-            add_shortcode( 'directorist_sidebar',array($this,'directorist_sidebar'));
 
         }
 
@@ -63,9 +62,12 @@ if ( !class_exists('ATBDP_Single_Templates') ) {
 
         //listing contact owner area
         public function directorist_listing_contact_owner() {
+            global $post;
+            $listing_id = $post->ID;
             ob_start();
             if(is_singular(ATBDP_POST_TYPE)) {
                 include ATBDP_TEMPLATES_DIR . 'front-end/single-listing/listing-contact-owner.php';
+                do_action('atbdp_after_contact_listing_owner_section', $listing_id);
             }
             return ob_get_clean();
         }
@@ -88,10 +90,6 @@ if ( !class_exists('ATBDP_Single_Templates') ) {
             return ob_get_clean();
         }
 
-        public function directorist_sidebar() { ?>
-
-<?php
-        }
 
     } // end class
 }//end class condition

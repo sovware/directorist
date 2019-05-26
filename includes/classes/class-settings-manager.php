@@ -4365,7 +4365,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'single_listing_page',
                         'label' => __('Single Listing Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_single_listing]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_listing_top_area][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_review][directorist_related_listings]</strong>'),
                         'default' => atbdp_get_option('single_listing_page', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),

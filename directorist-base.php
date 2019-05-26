@@ -458,7 +458,8 @@ final class Directorist_Base
             ),
             'single_listing_page' => array(
                 'title' => __('Single Listing', ATBDP_TEXTDOMAIN),
-                'content' => "[directorist_listing_top_area]\n[directorist_listing_custom_fields]\n[directorist_listing_video][directorist_listing_map]\n[directorist_listing_contact_information]\n[directorist_listing_contact_owner][directorist_listing_review]\n[directorist_related_listings]"
+                'content' => "[directorist_listing_top_area]\n[directorist_listing_custom_fields]\n
+                [directorist_listing_video]\n[directorist_listing_map]\n[directorist_listing_contact_information]\n[directorist_listing_contact_owner]\n[directorist_listing_review]\n[directorist_related_listings]"
             ),
             'all_categories_page' => array(
                 'title' => __('All Categories', ATBDP_TEXTDOMAIN),

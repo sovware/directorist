@@ -512,7 +512,6 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                         'selected' => $selected_location,
                                         'hierarchical' => true,
                                         'depth' => 10,
-                                        'exclude' => $plan_cat,
                                         'show_count' => false,
                                         'hide_empty' => false,
                                     );

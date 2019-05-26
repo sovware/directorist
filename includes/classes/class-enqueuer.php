@@ -332,6 +332,7 @@ class ATBDP_Enqueuer {
         $i18n_text = array(
             'confirmation_text' => __('Are you sure', ATBDP_TEXTDOMAIN),
             'ask_conf_sl_lnk_del_txt' => __('Do you really want to remove this Social Link!', ATBDP_TEXTDOMAIN),
+            'ask_conf_faqs_del_txt' => __('Do you really want to remove this FAQ!', ATBDP_TEXTDOMAIN),
             'confirm_delete' => __('Yes, Delete it!', ATBDP_TEXTDOMAIN),
             'deleted' => __('Deleted!', ATBDP_TEXTDOMAIN),
             'location_selection' => __('Select a location', ATBDP_TEXTDOMAIN),

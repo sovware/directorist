@@ -2866,12 +2866,6 @@ The Administrator of ==SITE_NAME==
                     'default' => 5,
                 ),
                 array(
-                    'type' => 'toggle',
-                    'name' => 'count_loggedin_user',
-                    'label' => __('Count Logged-in User View', ATBDP_TEXTDOMAIN),
-                    'default' => 0,
-                ),
-                array(
                     'type' => 'slider',
                     'name' => 'average_review_for_popular',
                     'label' => __('Threshold in Average Ratings (equal or grater than)', ATBDP_TEXTDOMAIN),
@@ -2881,6 +2875,13 @@ The Administrator of ==SITE_NAME==
                     'default' => '4',
                     'validation' => 'numeric|minlength[1]',
                 ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'count_loggedin_user',
+                    'label' => __('Count Logged-in User View', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+
             ));
         }
 
@@ -3512,9 +3513,6 @@ The Administrator of ==SITE_NAME==
                     'type' => 'toggle',
                     'name' => 'listing_terms_condition',
                     'label' => __('Enable Terms & Conditions', ATBDP_TEXTDOMAIN),
-                    'description' => __('Here YES means users must agree to before submitting a listing from frontend.
-
-', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
@@ -3522,6 +3520,9 @@ The Administrator of ==SITE_NAME==
                     'name' => 'require_terms_conditions',
                     'label' => __('Required', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                    'description' => __('Here YES means users must agree to before submitting a listing from frontend.
+
+', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'wpeditor',

@@ -480,7 +480,7 @@ jQuery(function ($) {
     }
 
     var avg_review = $("#average_review_for_popular").hide();
-    var logged_count = $("#count_loggedin_user, #views_for_popular").hide();
+    var logged_count = $("#views_for_popular").hide();
     if ($('#listing_popular_by select[name="listing_popular_by"]').val() === "average_rating") {
         avg_review.show();
         logged_count.hide();
@@ -805,7 +805,7 @@ jQuery(function ($) {
     }
 
     //Display featured badge
-    var lf_opt16 = $("#popular_badge_text,#listing_popular_by,#average_review_for_popular");
+    var lf_opt16 = $("#popular_badge_text");
     lf_opt16.hide();
     $('input[name="display_popular_badge_cart"]').on("change", function () {
         if($(this).is(":checked") === true){

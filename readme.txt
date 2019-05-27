@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 5.0.4
+Stable tag: 5.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Create a classified website, business directory website like Yelp, foursquare et
 
 == Description ==
 
-[Live Demos](https://aazztech.com/demos/plugins/directorist) | [Documentation](http://directorist.com/) | [Free Directory Theme](https://aazztech.com/product/directoria-wordpress-theme/) | [Extensions](https://aazztech.com/product/category/extensions/)
+[Live Demos](https://aazztech.com/demos/plugins/directorist) | [Documentation](http://directorist.com/docs) | [Free Theme](https://aazztech.com/product/directoria-wordpress-theme/) | [Extensions](https://aazztech.com/product/category/extensions/)
 
 The Directorist plugin has just got even better with a new update. Meet New Directorist. It is now updated with a lot of new features like featured listings, basic monetization, listing expiration, improved design, email notifications, ability to add price field to a listing, ability to toggle any options and much more. Best directory plugin just got even better than before.
 
@@ -129,13 +129,20 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 5.0.5 - May 10, 2019 =
+= 5.0.5 - May 26, 2019 =
 
-* Tweak - Changed listing default review 1 to 5
-* Remove - 'Z' edit listing button
+* Add - Controlling single listing page using shortcodes
+* Add - Registration confirmation email customization
+* Fix - Category custom fields and short description issue
+* Fix - Color field in advanced search/filter
+* Fix - Translation issues
+* Fix - Title and subtitle issues on search
+* Fix - Review badge issue
 * Fix - Style issues
-* Fix - Add new social fields in listing form
-* Tweak - Location field in listing form
+* Fix - Listing form's Social field responsive issue
+* Fix - Removed extra 'Z' from edit listing button
+* Tweak - Location field of listing form
+* Tweak - Changed listing's default review from 1 to 5
 
 = 5.0.4 - May 10, 2019 =
 

@@ -755,19 +755,25 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 
 
             <?php
+
+            /**
+             * @since 5.0.5
+             */
+            do_action('atbdp_after_contact_listing_owner_section', $listing_id);
+
             // if business hour is active then add the following markup...
-            $plan_hours = true;
-            if (is_fee_manager_active()) {
-                $plan_hours = is_plan_allowed_business_hours($fm_plan);
+            if (class_exists('BD_Business_Hour')){
+            if ((BDBH_VERSION < '2.2.8') && (ATBDP_VERSION <= '5.0.5')){
+                $plan_hours = true;
+                if (is_fee_manager_active()) {
+                    $plan_hours = is_plan_allowed_business_hours($fm_plan);
+                }
+                if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing) && (!is_empty_v($business_hours) || !empty($enable247hour))) {
+                    BD_Business_Hour()->show_business_hour_module($business_hours, $business_hour_title, $enable247hour); // show the business hour in an unordered list
+                }
             }
-            if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing) && (!is_empty_v($business_hours) || !empty($enable247hour))) {
-                BD_Business_Hour()->show_business_hour_module($business_hours, $business_hour_title, $enable247hour); // show the business hour in an unordered list
-            } ?>
+            }
 
-
-
-
-            <?php
             /**
              * Fires after the Map is rendered on single listing page
              *

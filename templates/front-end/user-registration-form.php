@@ -10,11 +10,11 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                     <h2><?php _e('Register', ATBDP_TEXTDOMAIN); ?></h2>
                     <?php if(!empty($_GET['success']) && true == $_GET['success']){ ?>
                         <!--registration succeeded, so show notification -->
-                        <p style="padding: 20px" class="alert-success"><span class="fa fa-check"></span><?php _e('Registration completed. Please check your email for a confirmation link to reset your password.', ATBDP_TEXTDOMAIN); ?></p>
-                        <p>
+                        <p style="padding: 20px" class="alert-success"><span class="fa fa-check"></span><?php _e(' Registration completed. Please check your email for confirmation.', ATBDP_TEXTDOMAIN); ?>
                             <?php
-                            printf(__('Or click %s to login now.', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_login_page_link()."'><span style='color: red'> ". __('Here', ATBDP_TEXTDOMAIN)."</span></a>");
+                            printf(__(' Or click %s to login.', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_login_page_link()."'><span style='color: red'> ". __('Here', ATBDP_TEXTDOMAIN)."</span></a>");
                             ?>
+
                         </p>
                         <?php
                         exit();

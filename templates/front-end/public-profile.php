@@ -100,7 +100,10 @@ $container_fluid  = 'container-fluid';
 
                         <div class="atbdb_content_module_contents">
                             <p>
-                                <?php !empty($bio)?_e(esc_html($bio), ATBDP_TEXTDOMAIN):_e('Nothing to show!', ATBDP_TEXTDOMAIN); ?>
+                                <?php
+                                $content = apply_filters('the_content', $bio);
+                                echo !empty($bio) ? $content : __('Nothing to show!', ATBDP_TEXTDOMAIN);
+                                ?>
                             </p>
 
                         </div>

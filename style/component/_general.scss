@@ -9,6 +9,13 @@ body.atbd_content_active #directorist.atbd_wrapper{
 #directorist.atbd_wrapper input[type="checkbox"] {
   padding: 0 0 0 15px;
 }
+#directorist.atbd_wrapper .ads-advanced input[type="checkbox"],
+#directorist.atbd_wrapper .default-ad-search input[type="checkbox"],
+#directorist.atbd_wrapper .ads-advanced input[type="radio"],
+#directorist.atbd_wrapper .default-ad-search input[type="radio"]{
+  display: none;
+}
+
 #directorist.atbd_wrapper .row{
   float: none;
 }

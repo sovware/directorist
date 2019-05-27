@@ -36,6 +36,9 @@
                     <a href="https://aazztech.com/product/directorist-pricing-plans/" target="_blank"><?php _e('Directorist - Pricing Plans', ATBDP_TEXTDOMAIN)?></a>
                 </li>
                 <li>
+                    <a href="https://aazztech.com/product/directorist-claim-listing/" target="_blank"><?php _e('Directorist - Claim Listing', ATBDP_TEXTDOMAIN)?></a>
+                </li>
+                <li>
                     <a href="https://aazztech.com/product/directorist-paypal/" target="_blank"><?php _e('Directorist - PayPal', ATBDP_TEXTDOMAIN)?></a>
                 </li>
                 <li>

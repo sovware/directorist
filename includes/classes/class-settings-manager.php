@@ -465,6 +465,12 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
                             'fields' => $this->listing_contact_email(),
                         ),
+                        'registration_confirmation' => array(
+                            'type' => 'section',
+                            'title' => __('Registration Confirmation', ATBDP_TEXTDOMAIN),
+                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->registration_confirmation_email(),
+                        ),
                     )),
                 ),
             ));
@@ -972,6 +978,48 @@ The Administrator of ==SITE_NAME==
 
 
         /**
+         * Get all the settings fields for the offline new order email template section
+         * @return array
+         * @since 3.1.0
+         */
+        public function registration_confirmation_email()
+        {
+            // let's define default data
+            $sub = __('Registration Confirmation!', ATBDP_TEXTDOMAIN);
+
+            $tmpl = __("
+Dear User,
+
+Congratulations! Your registration is completed!
+
+This email is sent automatically for information purpose only. Please do not respond to this.
+
+Thanks,
+The Administrator
+", ATBDP_TEXTDOMAIN);
+
+            return apply_filters('atbdp_registration_confirmation_tmpl_settings_fields', array(
+                array(
+                    'type' => 'textbox',
+                    'name' => 'email_sub_registration_confirmation',
+                    'label' => __('Email Subject', ATBDP_TEXTDOMAIN),
+                    'description' => __('Edit the subject for sending to the user when listing contact message send.', ATBDP_TEXTDOMAIN),
+                    'default' => $sub,
+                ),
+                array(
+                    'type' => 'textarea',
+                    'name' => 'email_tmpl_registration_confirmation',
+                    'label' => __('Email Body', ATBDP_TEXTDOMAIN),
+                    'description' => __('Edit the email template for sending to the user when when listing contact message send', ATBDP_TEXTDOMAIN),
+                    'default' => $tmpl,
+                ),
+
+
+            ));
+        }
+
+
+     /**
          * Get all the settings fields for the offline new order email template section
          * @return array
          * @since 3.1.0
@@ -2818,12 +2866,6 @@ The Administrator of ==SITE_NAME==
                     'default' => 5,
                 ),
                 array(
-                    'type' => 'toggle',
-                    'name' => 'count_loggedin_user',
-                    'label' => __('Count Logged-in User View', ATBDP_TEXTDOMAIN),
-                    'default' => 0,
-                ),
-                array(
                     'type' => 'slider',
                     'name' => 'average_review_for_popular',
                     'label' => __('Threshold in Average Ratings (equal or grater than)', ATBDP_TEXTDOMAIN),
@@ -2833,6 +2875,13 @@ The Administrator of ==SITE_NAME==
                     'default' => '4',
                     'validation' => 'numeric|minlength[1]',
                 ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'count_loggedin_user',
+                    'label' => __('Count Logged-in User View', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+
             ));
         }
 
@@ -3464,9 +3513,6 @@ The Administrator of ==SITE_NAME==
                     'type' => 'toggle',
                     'name' => 'listing_terms_condition',
                     'label' => __('Enable Terms & Conditions', ATBDP_TEXTDOMAIN),
-                    'description' => __('Here YES means users must agree to before submitting a listing from frontend.
-
-', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
                 array(
@@ -3474,6 +3520,9 @@ The Administrator of ==SITE_NAME==
                     'name' => 'require_terms_conditions',
                     'label' => __('Required', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                    'description' => __('Here YES means users must agree to before submitting a listing from frontend.
+
+', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'wpeditor',
@@ -4317,7 +4366,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'single_listing_page',
                         'label' => __('Single Listing Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_single_listing]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_listing_top_area][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_review][directorist_related_listings]</strong>'),
                         'default' => atbdp_get_option('single_listing_page', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),

@@ -112,6 +112,7 @@
     //remove preload after window load
     $(window).load(function () {
         $("body").removeClass("atbdp_preload");
+        $('.button.wp-color-result').attr('style', ' ');
     });
 
 

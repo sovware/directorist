@@ -61,14 +61,14 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                         /*Translator: % is the name of the currency such eg. USD etc.*/
                         printf(esc_html__('Price [%s]', ATBDP_TEXTDOMAIN), $currency); ?>
                     </label>
-                    <span class="bor">Or</span>
+                    <span class="bor"><?php _e('Or', ATBDP_TEXTDOMAIN)?></span>
                     <label for="price_range_selected" data-option="price_range">
                         <input type="checkbox" id="price_range_selected" value="range" name="atbd_listing_pricing" <?php echo ('range' === $atbd_listing_pricing)?'checked':'';?>>
                         <?php echo __('Price Range', ATBDP_TEXTDOMAIN); ?>
                         <!--<p id='price_range_option'><?php /*echo __('Price Range', ATBDP_TEXTDOMAIN); */ ?></p></label>-->
                     </label>
 
-                    <small> (Optional - Uncheck both to hide pricing for this listing)</small>
+                    <small> <?php _e('(Optional - Uncheck both to hide pricing for this listing)', ATBDP_TEXTDOMAIN)?></small>
                 </div>
 
                 <input type="hidden" id="pricerange_val" value="<?php echo $price_range;?>">
@@ -77,7 +77,7 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                        placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
 
                 <select class="form-control directory_field" id="price_range" style="display: none" name="price_range">
-                    <option value="">Select Price Range</option>
+                    <option value=""><?php _e('Select Price Range', ATBDP_TEXTDOMAIN)?></option>
                     <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
                         Ultra High ($$$$)
                     </option>
@@ -127,13 +127,19 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                 $required = '';
             }
             $post_meta = get_post_meta($post_id);
+            $instructions = get_post_meta(get_the_ID(), 'instructions', true);
 
             ?>
 
             <div class="form-group">
-                <label for=""><?php the_title(); ?><?php if ($cf_required) {
-                        echo '<span style="color: red"> *</span>';
-                    } ?>  <span class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="<?php echo get_post_meta(get_the_ID(), 'instructions', true); ?>"></span></label>
+                <label for=""><?php the_title();
+                if (!empty($instructions)){
+                    ?>
+                    <span class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="<?php echo get_post_meta(get_the_ID(), 'instructions', true); ?>"></span>
+                    <?php
+                    }
+                ?>
+                </label>
                 <?php
                 if (isset($post_meta[$post->ID])) {
                     $value = $post_meta[0];

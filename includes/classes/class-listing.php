@@ -62,6 +62,7 @@ class ATBDP_Listing{
             if(!empty($id)) {
                 ob_start();
                 global $post;
+                $listing_author_id = get_post_field('post_author', $post->ID);
                 $content = get_post_field( 'post_content', $id );
                 $content = do_shortcode( $content );
                 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
@@ -70,12 +71,19 @@ class ATBDP_Listing{
                 <section id="directorist" class="directorist atbd_wrapper">
                     <div class="row">
                         <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
-                            <div class="edit_btn_wrap">
-                                <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
-                                   class="btn btn-success"><span
-                                        class="fa fa-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN) ?></a>
-                            </div>
-                <?php
+                           <?php
+                           if (is_user_logged_in() && $listing_author_id == get_current_user_id()) {
+                               //ok show the edit option
+                               ?>
+                               <div class="edit_btn_wrap">
+                                   <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
+                                      class="btn btn-success"><span
+                                               class="fa fa-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN) ?></a>
+                               </div>
+
+                               <?php
+                           }
+
                 if(function_exists('do_blocks')){
                     echo do_blocks( $content );
                 } ?>

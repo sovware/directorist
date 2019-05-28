@@ -2213,7 +2213,7 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Search Bar Sub-title', ATBDP_TEXTDOMAIN),
                         'default' => atbdp_get_option('search_subtitle', 'atbdp_general'),
                     ),
-                    array(
+                   'search_border_show' => array(
                         'type' => 'toggle',
                         'name' => 'search_border',
                         'label' => __('Search Bar Border', ATBDP_TEXTDOMAIN),
@@ -2260,13 +2260,13 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Location Placeholder', ATBDP_TEXTDOMAIN),
                         'default' => __('Select a location', ATBDP_TEXTDOMAIN),
                     ),
-                    array(
+                   'display_more_filter' => array(
                         'type' => 'toggle',
                         'name' => 'search_more_filter',
                         'label' => __('Display More Filters', ATBDP_TEXTDOMAIN),
                         'default' => 1,
                     ),
-                    array(
+                    'display_search_button' => array(
                         'type' => 'toggle',
                         'name' => 'search_button',
                         'label' => __('Display Search Button', ATBDP_TEXTDOMAIN),
@@ -2426,7 +2426,7 @@ The Administrator of ==SITE_NAME==
                         'default' => '10',
                         'validation' => 'numeric|minlength[1]',
                     ),
-                    array(
+                   'search_home_background' => array(
                         'type' => 'upload',
                         'name' => 'search_home_bg',
                         'label' => __('Search Page Background', ATBDP_TEXTDOMAIN),

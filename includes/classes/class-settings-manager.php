@@ -4530,7 +4530,7 @@ The Administrator of ==SITE_NAME==
         function get_extension_settings_fields()
         {
             return apply_filters('atbdp_extension_settings_fields', array(
-                    array(
+                   'extension_promotion_set' => array(
                         'type' => 'notebox',
                         'name' => 'extension_promotion',
                         'label' => __('Need more Features?', ATBDP_TEXTDOMAIN),

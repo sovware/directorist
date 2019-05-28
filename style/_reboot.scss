@@ -36,4 +36,8 @@
   .dropdown-toggle:after{
     font-size: inherit;
   }
+  input[type="radio"],
+  input[type="checkbox"]{
+    height: auto;
+  }
 }

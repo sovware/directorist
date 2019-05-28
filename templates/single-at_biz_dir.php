@@ -167,8 +167,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         $fb_lnk = "https://www.facebook.com/share.php?u={$p_lnk}&title={$p_title}";
                         $in_link = "http://www.linkedin.com/shareArticle?mini=true&url={$p_lnk}&title={$p_title}";
                         $listing_header .= '
-                        
-                        
+
+
                          <ul>
                         <li>
                             <a href="' . esc_url($fb_lnk) . '" target="_blank">
@@ -567,17 +567,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             }
             ?>
 
-
-
-
-
-
-
-
-
-
-
-
             <?php
 
             if ($enable_video_url && !empty($videourl) && 'none' != $display_video_for) { ?>
@@ -600,7 +589,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             <?php do_action('atbdp_after_video_gallery'); ?>
             <!--Google map section-->
 
-
             <?php
             if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) && !empty($display_map_field)) { ?>
                 <div class="atbd_content_module">
@@ -617,11 +605,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php } ?>
-
-
-
-
-
 
             <?php if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>
                 <div class="atbd_content_module atbd_contact_information_module">

@@ -382,7 +382,7 @@ final class Directorist_Base
     {
         if (!is_registered_sidebar('right-sidebar-listing')) {
             register_sidebar(array(
-                'name' => __('Directorist - Listing Right Sidebar', ATBDP_TEXTDOMAIN),
+                'name' => apply_filters('atbdp_right_sidebar_name', __('Directorist - Listing Right Sidebar', ATBDP_TEXTDOMAIN)),
                 'id' => 'right-sidebar-listing',
                 'description' => __('Add widgets for the right sidebar on single listing page', ATBDP_TEXTDOMAIN),
                 'before_widget' => '<div class="widget atbd_widget">',

@@ -371,30 +371,34 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                          */
                         echo apply_filters('atbdp_before_listing_title', $data_info);
 
-                        $title_html = '<div class="atbd_listing_title">';
-                        $title_html .= '<h2>';
+                        echo '<div class="atbd_listing_title">';
+                        $title_html  = '<h2>';
                         $title_html .= esc_html($p_title);
                         $title_html .= '</h2>';
+                        /**
+                         * @since 5.0.5
+                         */
+                        echo apply_filters('atbdp_listing_title', $title_html);
+                        /**
+                         * It fires after the listing title
+                         */
+                        do_action('atbdp_single_listing_after_title', $listing_id);
 
+                        $tagline_html = '';
                         if (!empty($tagline) && !empty($display_tagline_field)) {
-                            $title_html .= '<p class="atbd_sub_title">' . (!empty($tagline)) ? esc_html(stripslashes($tagline)) : "" . '</p>';
+                            $tagline_html .= '<p class="atbd_sub_title">'. (!empty($tagline)) ? esc_html(stripslashes($tagline)) : "".'</p>';
                         }
+                        /**
+                         * @since 5.0.5
+                         */
+                        echo apply_filters('atbdp_listing_tagline', $tagline_html);
                         /**
                          * Fires after the title and sub title of the listing is rendered on the single listing page
                          *
                          * @since 1.0.0
                          */
                         do_action('atbdp_after_listing_tagline');
-                        $title_html .= '</div>';
-                        /**
-                         * @since 5.0
-                         */
-                        echo apply_filters('atbdp_listing_title_and_tagline', $title_html);
-                        /**
-                         * @since 4.5.2
-                         * It fires after the title in single listing
-                         */
-                        do_action('atbdp_single_listing_after_title', $listing_id);
+                        echo '</div>';
 
                         $listing_content = '<div class="about_detail">';
                         /*

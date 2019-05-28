@@ -415,23 +415,18 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                          */
                         do_action('atbdp_after_listing_tagline');
                         echo '</div>';
-
-                        $listing_content = '<div class="about_detail">';
-                        /*
-                         * Automatic embedding done by WP by hooking to the_content filter
-                         * As we are outputting the data on the content filter before them, therefore it is our duty to parse the embed using the WP_Embed object manually.
-                         * Here run_shortcode() will parse [embed]url[embed]
-                         * and autoembed() will parse any embeddable url like https://youtube.com/?v=vidoecode etc.
-                         * then do_shortcode() will parse the rest of the shortcodes
-                         * */
+                        //listing content
                         $post_object = get_post(get_the_ID());
                         $content = apply_filters('get_the_content', $post_object->post_content);
-                        $listing_content .= do_shortcode(wpautop($content));
-                        /*
-                        global $wp_embed;
-                        $cont = $wp_embed->autoembed($wp_embed->run_shortcode(wp_kses_post($post->post_content)));
-                        echo do_shortcode($cont);*/
-                        $listing_content .= '</div>';
+                        $listing_content = '';
+                        if (!empty($content)){
+                            $listing_content = '<div class="about_detail">';
+                            $listing_content .= do_shortcode(wpautop($content));
+                            $listing_content .= '</div>';
+                        }
+
+
+
                         echo apply_filters('atbdp_listing_content', $listing_content);
                         ?>
                     </div>

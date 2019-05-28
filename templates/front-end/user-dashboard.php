@@ -121,7 +121,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                    class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Submit Listing', ATBDP_TEXTDOMAIN); ?></a>
                             <?php } ?>
                             <a href="<?= esc_url(wp_logout_url(home_url())); ?>"
-                               class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Log Out', ATBDP_TEXTDOMAIN); ?></a>
+                               class="<?= atbdp_directorist_button_classes('secondary'); ?>"><?php _e('Log Out', ATBDP_TEXTDOMAIN); ?></a>
                         </div>
                     </div> <!--ends dashboard_nav-->
 

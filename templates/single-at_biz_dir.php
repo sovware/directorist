@@ -156,8 +156,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     if ($enable_favourite) {
                         $listing_header .= '<div class="atbd_action atbd_save"
                                  id="atbdp-favourites">' . the_atbdp_favourites_link() . '</div>';
-                        }
-                        if ($enable_social_share) {
+                    }
+                    if ($enable_social_share) {
                         $listing_header .= '<div class="atbd_action atbd_share">';
                         $listing_header .= '<span class="fa fa-share-alt"></span>' . __('Share', ATBDP_TEXTDOMAIN) . '';
 
@@ -167,8 +167,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         $fb_lnk = "https://www.facebook.com/share.php?u={$p_lnk}&title={$p_title}";
                         $in_link = "http://www.linkedin.com/shareArticle?mini=true&url={$p_lnk}&title={$p_title}";
                         $listing_header .= '
-                        
-                        
+
+
                          <ul>
                         <li>
                             <a href="' . esc_url($fb_lnk) . '" target="_blank">
@@ -198,9 +198,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         } else {
                             $listing_header .= '<a href="javascript:void(0)"
                                class="atbdp-require-login"><span
-                                        class="fa fa-flag"></span>'.__('Report', ATBDP_TEXTDOMAIN).'</a>';
-                            }
-                        $listing_header .= '<input type="hidden" id="atbdp-post-id" value="'. get_the_ID().'"/>';
+                                        class="fa fa-flag"></span>' . __('Report', ATBDP_TEXTDOMAIN) . '</a>';
+                        }
+                        $listing_header .= '<input type="hidden" id="atbdp-post-id" value="' . get_the_ID() . '"/>';
                         $listing_header .= '</div>';
                     } ?>
                     <div class="modal fade" id="atbdp-report-abuse-modal" tabindex="-1" role="dialog"
@@ -323,11 +323,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 
                             $average = ATBDP()->review->get_average($post->ID);
                             $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
-                        if (!empty($enable_review)) {
-                            $data_info .= '<span class="atbd_meta atbd_listing_rating">
+                            if (!empty($enable_review)) {
+                                $data_info .= '<span class="atbd_meta atbd_listing_rating">
                             ' . $average . '<i class="fa fa-star"></i>
                         </span>';
-                        }
+                            }
 
                             $data_info .= '</div>';
                             ?>
@@ -388,7 +388,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         echo apply_filters('atbdp_before_listing_title', $data_info);
 
                         echo '<div class="atbd_listing_title">';
-                        $title_html  = '<h2>';
+                        $title_html = '<h2>';
                         $title_html .= esc_html($p_title);
                         $title_html .= '</h2>';
                         /**
@@ -402,38 +402,38 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 
                         $tagline_html = '';
                         if (!empty($tagline) && !empty($display_tagline_field)) {
-                                $tagline_html .= '<p class="atbd_sub_title">'. (!empty($tagline)) ? esc_html(stripslashes($tagline)) : "".'</p>';
-                            }
+                            $tagline_html .= '<p>'.$tagline.'</p>';
+                        }
                         /**
                          * @since 5.0.5
                          */
                         echo apply_filters('atbdp_listing_tagline', $tagline_html);
-                            /**
-                             * Fires after the title and sub title of the listing is rendered on the single listing page
-                             *
-                             * @since 1.0.0
-                             */
-                            do_action('atbdp_after_listing_tagline');
-                            echo '</div>';
+                        /**
+                         * Fires after the title and sub title of the listing is rendered on the single listing page
+                         *
+                         * @since 1.0.0
+                         */
+                        do_action('atbdp_after_listing_tagline');
+                        echo '</div>';
 
-                            $listing_content = '<div class="about_detail">';
-                            /*
-                             * Automatic embedding done by WP by hooking to the_content filter
-                             * As we are outputting the data on the content filter before them, therefore it is our duty to parse the embed using the WP_Embed object manually.
-                             * Here run_shortcode() will parse [embed]url[embed]
-                             * and autoembed() will parse any embeddable url like https://youtube.com/?v=vidoecode etc.
-                             * then do_shortcode() will parse the rest of the shortcodes
-                             * */
-                            $post_object = get_post(get_the_ID());
-                            $content = apply_filters('get_the_content', $post_object->post_content);
-                            $listing_content .=  do_shortcode(wpautop($content));
-                            /*
-                            global $wp_embed;
-                            $cont = $wp_embed->autoembed($wp_embed->run_shortcode(wp_kses_post($post->post_content)));
-                            echo do_shortcode($cont);*/
-                            $listing_content .= '</div>';
-                            echo apply_filters('atbdp_listing_content', $listing_content);
-                            ?>
+                        $listing_content = '<div class="about_detail">';
+                        /*
+                         * Automatic embedding done by WP by hooking to the_content filter
+                         * As we are outputting the data on the content filter before them, therefore it is our duty to parse the embed using the WP_Embed object manually.
+                         * Here run_shortcode() will parse [embed]url[embed]
+                         * and autoembed() will parse any embeddable url like https://youtube.com/?v=vidoecode etc.
+                         * then do_shortcode() will parse the rest of the shortcodes
+                         * */
+                        $post_object = get_post(get_the_ID());
+                        $content = apply_filters('get_the_content', $post_object->post_content);
+                        $listing_content .= do_shortcode(wpautop($content));
+                        /*
+                        global $wp_embed;
+                        $cont = $wp_embed->autoembed($wp_embed->run_shortcode(wp_kses_post($post->post_content)));
+                        echo do_shortcode($cont);*/
+                        $listing_content .= '</div>';
+                        echo apply_filters('atbdp_listing_content', $listing_content);
+                        ?>
                     </div>
                 </div>
             </div> <!-- end .atbd_listing_details -->
@@ -744,16 +744,16 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             do_action('atbdp_after_contact_listing_owner_section', $listing_id);
 
             // if business hour is active then add the following markup...
-            if (class_exists('BD_Business_Hour')){
-            if ((BDBH_VERSION < '2.2.8') && (ATBDP_VERSION <= '5.0.5')){
-                $plan_hours = true;
-                if (is_fee_manager_active()) {
-                    $plan_hours = is_plan_allowed_business_hours($fm_plan);
+            if (class_exists('BD_Business_Hour')) {
+                if ((BDBH_VERSION < '2.2.8') && (ATBDP_VERSION <= '5.0.5')) {
+                    $plan_hours = true;
+                    if (is_fee_manager_active()) {
+                        $plan_hours = is_plan_allowed_business_hours($fm_plan);
+                    }
+                    if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing) && (!is_empty_v($business_hours) || !empty($enable247hour))) {
+                        BD_Business_Hour()->show_business_hour_module($business_hours, $business_hour_title, $enable247hour); // show the business hour in an unordered list
+                    }
                 }
-                if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing) && (!is_empty_v($business_hours) || !empty($enable247hour))) {
-                    BD_Business_Hour()->show_business_hour_module($business_hours, $business_hour_title, $enable247hour); // show the business hour in an unordered list
-                }
-            }
             }
 
             /**
@@ -806,8 +806,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 </section>
 <?php
 if ('openstreet' == $select_listing_map) {
-    wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array( 'jquery' ), ATBDP_VERSION, true );
-    wp_enqueue_script( 'openstreet_layer' );
+    wp_register_script('openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
+    wp_enqueue_script('openstreet_layer');
 }
 ?>
 <script>
@@ -929,9 +929,10 @@ if ('openstreet' == $select_listing_map) {
     }); // ends jquery ready function.
 </script>
 <style>
-    #OL_Icon_33{
+    #OL_Icon_33 {
         position: relative;
     }
+
     .mapHover {
         position: absolute;
         background: #fff;
@@ -941,7 +942,8 @@ if ('openstreet' == $select_listing_map) {
         border: 1px solid #ddd;
         display: none;
     }
-    #OL_Icon_33:hover .mapHover{
+
+    #OL_Icon_33:hover .mapHover {
         display: block;
     }
 </style>

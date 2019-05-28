@@ -386,7 +386,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 
                         $tagline_html = '';
                         if (!empty($tagline) && !empty($display_tagline_field)) {
-                            $tagline_html .= '<p class="atbd_sub_title">'. (!empty($tagline)) ? esc_html(stripslashes($tagline)) : "".'</p>';
+                            $tagline_html .= '<p>'.$tagline.'</p>';
                         }
                         /**
                          * @since 5.0.5

@@ -402,15 +402,6 @@ $column_width = 100 / $columns . '%';
                                                                     class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0; ?>
                                                         </li> <?php } ?>
 
-
-                                                    <li class="atbd_save">
-                                                        <div id="atbdp-favourites-all-listing">
-                                                            <input type="hidden" id="listing_ids"
-                                                                   value="<?php echo get_the_ID(); ?>">
-                                                            <?php
-                                                            // do_action('wp_ajax_atbdp-favourites-all-listing', get_the_ID()); ?>
-                                                        </div>
-                                                    </li>
                                                 </ul>
                                             <?php } ?>
                                         </div><!-- end ./atbd_listing_bottom_content -->

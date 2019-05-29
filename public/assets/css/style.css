@@ -1272,7 +1272,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   visibility: hidden;
   opacity: 0;
   bottom: 25px;
-  left: 0;
+  left: -5px;
   transition: 0.3s ease;
   background: #000000;
   line-break: auto;
@@ -1312,6 +1312,18 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper span a span,
 .atbd_content_active .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper span a span {
   display: inline-block;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper:before,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper:before,
+.atbd_content_active .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper:before {
+  position: absolute;
+  content: '';
+  border-top: 8px solid #000;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+  bottom: -8px;
+  left: 10px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category .atbd_cat_popup:hover .atbd_cat_popup_wrapper,
@@ -3673,10 +3685,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid.atbd_location_grid-default figure {
   border: 1px solid #e3e6ef;
+  position: relative;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid.atbd_location_grid-default figure figcaption {
   background: #fff;
+  position: relative;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid.atbd_location_grid-default figure figcaption h3, .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid.atbd_location_grid-default figure figcaption p {
@@ -3690,8 +3704,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .col-md-2 .atbd_location_grid {
-  height: 100px;
+  min-height: 100px;
   margin-bottom: 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .col-md-2 .atbd_location_grid figcaption {
+  min-height: 100px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .col-md-2 .atbd_location_grid img {
@@ -3703,8 +3721,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .col-md-3 .atbd_location_grid {
-  height: 160px;
+  min-height: 160px;
   margin-bottom: 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .col-md-3 .atbd_location_grid figcaption {
+  min-height: 160px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .col-md-3 .atbd_location_grid img {
@@ -3712,7 +3734,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .col-md-4 .atbd_location_grid {
-  height: 200px;
+  min-height: 200px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .col-md-4 .atbd_location_grid figcaption {
+  min-height: 200px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .col-md-4 .atbd_location_grid img {
@@ -3720,7 +3746,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .col-md-6 .atbd_location_grid {
-  height: 350px;
+  min-height: 350px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .col-md-6 .atbd_location_grid img {
@@ -3728,7 +3754,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .col-md-12 .atbd_location_grid {
-  height: 600px;
+  min-height: 600px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .col-md-12 .atbd_location_grid figcaption {
+  min-height: 600px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .col-md-12 .atbd_location_grid img {
@@ -3736,7 +3766,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbdp_col-5 .atbd_location_grid {
-  height: 140px;
+  min-height: 140px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbdp_col-5 .atbd_location_grid figcaption {
+  min-height: 140px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbdp_col-5 .atbd_location_grid img {
@@ -3791,8 +3825,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-2 .atbd_category_single {
-  height: 100px;
+  min-height: 100px;
   margin-bottom: 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-2 .atbd_category_single figcaption {
+  min-height: 100px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-2 .atbd_category_single img {
@@ -3805,8 +3843,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-3 .atbd_category_single {
-  height: 150px;
+  min-height: 150px;
   margin-bottom: 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-3 .atbd_category_single figcaption {
+  min-height: 150px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-3 .atbd_category_single img {
@@ -3814,7 +3856,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-4 .atbd_category_single {
-  height: 200px;
+  min-height: 200px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-4 .atbd_category_single figcaption {
+  min-height: 200px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-4 .atbd_category_single img {
@@ -3822,7 +3868,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-6 .atbd_category_single {
-  height: 350px;
+  min-height: 350px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-6 .atbd_category_single figcaption {
+  min-height: 350px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-6 .atbd_category_single img {
@@ -3830,7 +3880,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-12 .atbd_category_single {
-  height: 600px;
+  min-height: 600px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-12 .atbd_category_single figcaption {
+  min-height: 600px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .col-md-12 .atbd_category_single img {
@@ -3838,7 +3892,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .atbdp_col-5 .atbd_category_single {
-  height: 140px;
+  min-height: 140px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .atbdp_col-5 .atbd_category_single figcaption {
+  min-height: 140px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .atbdp_col-5 .atbd_category_single img {
@@ -3905,12 +3963,17 @@ body.atbd_content_active #directorist.atbd_wrapper {
   line-height: normal;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category-default figure {
+  position: relative;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category-default figure img {
   display: none;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category-default figure figcaption {
   background: #fff;
+  position: relative;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category-default figure figcaption .icon, .atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category-default figure figcaption .cat-name, .atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category-default figure figcaption .cat-info span {

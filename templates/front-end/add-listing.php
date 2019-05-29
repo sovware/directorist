@@ -2,7 +2,7 @@
 $p_id = get_query_var('atbdp_listing_id', 0);
 if (!empty($p_id)) {
     $p_id = absint($p_id);
-    $listing = get_post($p_id); //@TODO; ADD security to prevent user from editing other posts from front end and backend (except admin)
+    $listing = get_post($p_id);
     // kick the user out if he tries to edit the listing of other user
     if ($listing->post_author != get_current_user_id() && !current_user_can('edit_others_at_biz_dirs')) {
         echo '<p class="error">' . __('You do not have permission to edit this listing', ATBDP_TEXTDOMAIN) . '</p>';

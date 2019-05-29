@@ -234,7 +234,6 @@ class ATBDP_Enqueuer {
         wp_enqueue_style('atbd_googlefonts');
         wp_enqueue_style('slickcss');
 
-
         /* Enqueue all scripts */
         wp_enqueue_script('atbdp-bootstrap-script');
         wp_enqueue_script('atbdp-rating');

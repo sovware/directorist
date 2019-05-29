@@ -14,15 +14,15 @@
 }
 
 #directorist.atbd_wrapper ul {
-  padding-left: 0;
+  padding-right: 0;
   list-style-type: none;
 }
 
 #directorist.atbd_wrapper ul li {
   list-style: none;
-  margin-left: 0;
+  margin-right: 0;
   margin-bottom: 0;
-  padding-left: 0;
+  padding-right: 0;
 }
 
 #directorist.atbd_wrapper article {
@@ -160,16 +160,16 @@
 body.atbd_content_active #directorist.atbd_wrapper {
   line-height: 24px;
   max-width: 100%;
-  direction: ltr;
-  text-align: left;
+  direction: rtl;
+  text-align: right;
 }
 
 #directorist.atbd_wrapper input[type="radio"] {
-  padding: 0 0 0 10px;
+  padding: 0 10px 0 0;
 }
 
 #directorist.atbd_wrapper input[type="checkbox"] {
-  padding: 0 0 0 15px;
+  padding: 0 15px 0 0;
 }
 
 #directorist.atbd_wrapper .ads-advanced input[type="checkbox"],
@@ -215,8 +215,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbdp_column {
-  padding-left: 15px;
   padding-right: 15px;
+  padding-left: 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper {
@@ -232,7 +232,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .modal-footer .btn + .btn {
-  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .modal-content {
@@ -243,7 +243,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-size: 15px;
   color: #7a82a6;
   line-height: 24px;
-  text-align: left;
+  text-align: right;
 }
 
 .atbd_content_active #directorist.atbd_wrapper ul {
@@ -273,7 +273,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title .more-filter {
-  margin-right: 15px;
+  margin-left: 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title h3 {
@@ -287,7 +287,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_listing_action_btn {
-  margin-left: auto;
+  margin-right: auto;
 }
 
 .shadow-lg-2 {
@@ -304,11 +304,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 #directorist.atbd_wrapper .list-group-item {
-  padding-left: 10px;
+  padding-right: 10px;
 }
 
 #directorist.atbd_wrapper .gateway_list label input {
-  margin-right: 10px;
+  margin-left: 10px;
 }
 
 #directorist.atbd_wrapper .iris-picker, #directorist.atbd_wrapper .iris-picker * {
@@ -345,7 +345,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper .atbd_rating_stars .br-widget .br-current-rating {
   display: inline-block;
-  margin-left: 20px;
+  margin-right: 20px;
 }
 
 #directorist.atbd_wrapper .atbd_rating_stars .br-widget a:before {
@@ -436,7 +436,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 #directorist.atbd_wrapper .pagination .next {
-  right: auto;
+  left: auto;
 }
 
 #directorist.atbd_wrapper .pagination .next:before {
@@ -463,15 +463,15 @@ body.atbd_content_active #directorist.atbd_wrapper {
   transition: 0.3s;
   color: #7a82a6;
   text-align: center;
-  margin-right: 2px;
-  margin-left: 0;
-  right: auto;
+  margin-left: 2px;
+  margin-right: 0;
+  left: auto;
   float: none;
 }
 
 #directorist.atbd_wrapper .pagination .nav-links .current:last-child, #directorist.atbd_wrapper .pagination .nav-links .page-numbers:last-child {
-  margin-right: 0;
-  margin-left: 2px;
+  margin-left: 0;
+  margin-right: 2px;
 }
 
 #directorist.atbd_wrapper .pagination .nav-links .current {
@@ -526,13 +526,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .modal-dialog .modal-header {
-  padding-left: 0;
+  padding-right: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .modal-dialog .modal-header .close {
   padding: 2px 10px;
   top: 20px;
-  right: 20px;
+  left: 20px;
   position: absolute;
   transform: none;
   background: #444752;
@@ -551,7 +551,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .modal-dialog .modal-footer {
   border: 0;
   padding-bottom: 0;
-  padding-right: 0;
+  padding-left: 0;
 }
 
 .atbdp_login_form_shortcode > p {
@@ -623,7 +623,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 #directorist.atbd_wrapper .directory_regi_btn {
-  text-align: left;
+  text-align: right;
 }
 
 #directorist.atbd_wrapper #listing_image_btn {
@@ -632,7 +632,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 #directorist.atbd_wrapper #listing_image_btn span {
-  margin-right: 8px;
+  margin-left: 8px;
 }
 
 #directorist.atbd_wrapper #listing_image_btn:focus {
@@ -682,23 +682,23 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 #directorist.atbd_wrapper .form-check-label {
-  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .atbd_margin_fix {
-  margin-left: -10px;
   margin-right: -10px;
+  margin-left: -10px;
 }
 
 #directorist.atbd_wrapper .avatar {
   position: relative;
-  left: 0;
+  right: 0;
   top: 0;
   float: none;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
-  text-align: right;
+  text-align: left;
   margin-bottom: 15px;
 }
 
@@ -706,7 +706,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   border: 1px solid #e3e6ef;
   margin-bottom: 35px;
   background: #ffffff;
-  text-align: left;
+  text-align: right;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_directory_image_thumbnail {
@@ -730,7 +730,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  left: 0;
+  right: 0;
   top: 0;
   transition: all 0.2s ease-in-out;
 }
@@ -755,7 +755,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area h4 span {
-  margin-right: 10px;
+  margin-left: 10px;
   display: inline-block;
 }
 
@@ -764,7 +764,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area span {
-  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action {
@@ -780,7 +780,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action + .atbd_action {
-  margin-left: 6px;
+  margin-right: 6px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share {
@@ -799,7 +799,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   z-index: 2;
   visibility: hidden;
   opacity: 0;
-  left: 0;
+  right: 0;
   top: calc(100% + 30px);
   background: #ffffff;
   border-radius: 4px;
@@ -839,7 +839,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area .atbd_review_rating_area .atbd_review_current_rating .rating_label {
-  margin-right: 13px;
+  margin-left: 13px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area .atbd_review_rating_area .atbd_rating_label, .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area .atbd_review_rating_area .atbd_review_current_rating .atbd_rated_stars, .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area .atbd_review_rating_area .atbd_rating_stars {
@@ -848,7 +848,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area .atbd_review_rating_area .atbd_rating_label {
-  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area #atbd_up_preview {
@@ -865,7 +865,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area #atbd_up_preview .atbd_up_prev + .atbd_up_prev {
-  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area #atbd_up_preview .atbd_up_prev img {
@@ -875,7 +875,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area #atbd_up_preview .atbd_up_prev .rmrf {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   background: #d4d3f3;
   color: #ffffff;
   line-height: 15px;
@@ -915,13 +915,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title:after {
   content: ":";
-  margin-left: 3px;
+  margin-right: 3px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title span {
   line-height: 35px;
   width: 35px;
-  margin-right: 10px;
+  margin-left: 10px;
   border-radius: 50%;
   background: #f1f3f8;
   font-size: 14px;
@@ -952,7 +952,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a + a {
-  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_directry_gallery_wrapper {
@@ -992,11 +992,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_directry_gallery_wrapper .prev {
-  left: 10px;
+  right: 10px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_directry_gallery_wrapper .next {
-  right: 10px;
+  left: 10px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_directry_gallery_wrapper .prev, .atbd_content_active #directorist.atbd_wrapper .atbd_directry_gallery_wrapper .next {
@@ -1041,11 +1041,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listing_meta {
   margin-top: 0;
-  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_rating_count {
-  margin-right: 20px;
+  margin-left: 20px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_rating_count p {
@@ -1060,15 +1060,15 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_badges {
-  margin-right: 15px;
+  margin-left: 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listting_category {
-  margin-right: 20px;
+  margin-left: 20px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listing_average_pricing {
-  margin-right: 15px;
+  margin-left: 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listting_category .directory_tags li {
@@ -1084,7 +1084,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listting_category .directory_tags li + li {
-  margin-left: 8px;
+  margin-right: 8px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_listing_title {
@@ -1096,7 +1096,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-size: 30px;
   font-weight: 500;
   display: block;
-  margin-right: 15px;
+  margin-left: 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_listing_title .atbd_sub_title {
@@ -1105,7 +1105,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .about_detail ul {
-  padding: 15px 0 15px 30px;
+  padding: 15px 30px 15px 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .about_detail ul li {
@@ -1146,7 +1146,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_content {
-  border-left: 1px solid #e3e6ef;
+  border-right: 1px solid #e3e6ef;
   width: 60%;
   padding: 10px 15px;
 }
@@ -1182,7 +1182,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   border-radius: 500px;
   position: relative;
   top: 0;
-  left: 0;
+  right: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper #client_review_list .atbd_single_review .atbd_review_top .atbd_review_avatar, .atbd_content_active #directorist.atbd_wrapper #client_review_list .atbd_single_review .atbd_review_top .atbd_name_time {
@@ -1191,7 +1191,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper #client_review_list .atbd_single_review .atbd_review_top .atbd_name_time {
-  margin-left: 12px;
+  margin-right: 12px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper #client_review_list .atbd_single_review .atbd_review_top .atbd_name_time p {
@@ -1203,7 +1203,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper #client_review_list .atbd_single_review .atbd_review_top .atbd_name_time .review_time {
   font-size: 13px;
-  margin-left: 0;
+  margin-right: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper #client_review_list .atbd_single_review .review_content {
@@ -1216,7 +1216,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper #client_review_list .atbd_single_review .review_content a span {
-  margin-right: 7px;
+  margin-left: 7px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_related_listings .atbd_related_listing_title {
@@ -1237,7 +1237,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat,
 .atbd_content_active .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat {
   position: relative;
-  padding-left: 25px;
+  padding-right: 25px;
   display: inline-block;
   word-break: break-all;
 }
@@ -1248,7 +1248,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   position: absolute;
   content: "\f07c";
   font-family: "FontAwesome";
-  left: 0;
+  right: 0;
   top: 0;
 }
 
@@ -1257,7 +1257,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup {
   position: relative;
   display: inline-block;
-  margin-left: 3px;
+  margin-right: 3px;
   color: #444752;
   font-size: 13px;
   cursor: pointer;
@@ -1272,7 +1272,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   visibility: hidden;
   opacity: 0;
   bottom: 25px;
-  left: 0;
+  right: 0;
   transition: 0.3s ease;
   background: #000000;
   line-break: auto;
@@ -1334,8 +1334,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 #directorist.atbd_wrapper .related__carousel .slick-track {
-  margin-left: 0;
   margin-right: 0;
+  margin-left: 0;
 }
 
 .contact_listing_owner {
@@ -1359,20 +1359,20 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-weight: 500;
   display: inline-block;
   line-height: 22px;
-  margin-right: 6px;
+  margin-left: 6px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_badge + .atbd_badge {
-  margin-left: 0;
+  margin-right: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_badge:last-child {
-  margin-right: 0;
+  margin-left: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new {
   background: #122069;
-  margin-left: 0;
+  margin-right: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta {
@@ -1388,16 +1388,16 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #ffffff;
   display: inline-block;
   border-radius: 3px;
-  margin-right: 6px;
+  margin-left: 6px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_meta:last-child {
-  margin-right: 0;
+  margin-left: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_rating i.fa {
   font-size: 12px;
-  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_average_pricing, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_close_now {
@@ -1424,7 +1424,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbd_listting_category a span {
   font-size: 14px;
   display: inline-block;
-  margin-right: 7px;
+  margin-left: 7px;
   line-height: 28px;
   text-align: center;
   color: #444752;
@@ -1467,13 +1467,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area .atbd_upper_badge {
   position: absolute;
   top: 15px;
-  left: 15px;
+  right: 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area .atbd_lower_badge {
   position: absolute;
   bottom: 15px;
-  left: 15px;
+  right: 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper {
@@ -1517,7 +1517,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p span {
   font-size: 15px;
-  margin-right: 8px;
+  margin-left: 8px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content {
@@ -1529,7 +1529,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_left {
-  margin-right: 12px;
+  margin-left: 12px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right {
@@ -1538,11 +1538,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right li + li {
-  margin-left: 6px;
+  margin-right: 6px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right .atbd_count span {
-  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right .atbd_save span {
@@ -1583,7 +1583,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd_listing_image .atbd_author {
   position: absolute;
-  right: 15px;
+  left: 15px;
   bottom: 0;
   transform: translateY(50%);
   width: 46px;
@@ -1608,7 +1608,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-selection__clear {
-  padding-right: 10px;
+  padding-left: 10px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_action_btn {
@@ -1624,7 +1624,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_action_btn .dropdown + .dropdown {
-  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #directorist.atbd_wrapper .atbd_single_line_card_info .atbd_listing_info .atbd_content_upper .atbd_listing_title,
@@ -1653,7 +1653,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .gm-style .gm-style-iw {
   background-color: #fff !important;
   top: 0 !important;
-  left: 0 !important;
+  right: 0 !important;
   width: 100% !important;
   height: 100% !important;
   min-height: 250px !important;
@@ -1720,7 +1720,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget ul li {
   border: none;
   padding: 0;
-  text-align: left;
+  text-align: right;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] ul li:before,
@@ -1794,8 +1794,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_widget_title h4 .atbd_badge,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_widget_title h4 .atbd_badge,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_widget_title h4 .atbd_badge {
-  margin-left: auto;
-  margin-right: 0;
+  margin-right: auto;
+  margin-left: 0;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_widget_title .widget-title,
@@ -1809,7 +1809,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_widget_title .widget-title .atbd_badge,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_widget_title .widget-title .atbd_badge,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_widget_title .widget-title .atbd_badge {
-  margin-left: auto;
+  margin-right: auto;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .directorist,
@@ -1850,7 +1850,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp.atbdp-widget-tags ul li,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directorist.atbdp-widget-tags ul li {
   display: inline-block;
-  margin-right: 5px;
+  margin-left: 5px;
   margin-bottom: 5px;
 }
 
@@ -1971,7 +1971,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_categorized_listings .listings > li .atbd_left_img + .atbd_right_content,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_categorized_listings .listings > li .atbd_left_img + .atbd_right_content,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings .listings > li .atbd_left_img + .atbd_right_content {
-  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories ul li,
@@ -1983,7 +1983,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_category,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories .atbdp_child_category,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_category {
-  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_category li a,
@@ -1997,7 +1997,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_category li a:before {
   position: absolute;
   content: '-';
-  left: -10px;
+  right: -10px;
   top: 50%;
   font-size: 20px;
   transform: translateY(-50%);
@@ -2018,7 +2018,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories > ul.atbdp_parent_category > li > a,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories > ul.atbdp_parent_category > li > a,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li > a {
-  margin-right: 7px;
+  margin-left: 7px;
   margin-bottom: 0;
   display: inline-block;
 }
@@ -2028,7 +2028,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li > a span {
   font-size: 12px;
   display: inline-block;
-  margin-right: 10px;
+  margin-left: 10px;
   line-height: 28px;
   width: 28px;
   text-align: center;
@@ -2047,7 +2047,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget[id^='bd'] #loginform,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] #loginform,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget #loginform {
-  text-align: left;
+  text-align: right;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] #loginform p.login-username, .atbd_content_active .widget.atbd_widget[id^='bd'] #loginform p.login-password,
@@ -2122,7 +2122,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget[id^='bd'] .directory_open_hours ul li.atbd_closed span:last-child,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .directory_open_hours ul li.atbd_closed span:last-child,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directory_open_hours ul li.atbd_closed span:last-child {
-  margin-right: 0;
+  margin-left: 0;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .directory_open_hours ul li > span,
@@ -2168,14 +2168,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_author_info_widget .atbd_avatar_wrapper .atbd_name_time {
   display: inline-block;
   vertical-align: top;
-  margin-left: 7px;
+  margin-right: 7px;
   width: calc(100% - 61px);
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_author_info_widget .atbd_avatar_wrapper .atbd_name_time .review_time,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_author_info_widget .atbd_avatar_wrapper .atbd_name_time .review_time,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_author_info_widget .atbd_avatar_wrapper .atbd_name_time .review_time {
-  margin-left: 0;
+  margin-right: 0;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_author_info_widget .atbd_name_time,
@@ -2201,7 +2201,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_author_info_widget .atbd_widget_contact_info ul li .atbd_info,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_author_info_widget .atbd_widget_contact_info ul li .atbd_info,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_author_info_widget .atbd_widget_contact_info ul li .atbd_info {
-  padding-left: 10px;
+  padding-right: 10px;
   width: calc(100% - 43px);
   display: inline-block;
 }
@@ -2235,7 +2235,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_author_info_widget .atbd_social_wrap p + p,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_author_info_widget .atbd_social_wrap p + p,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p + p {
-  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_author_info_widget .atbd_social_wrap p a,
@@ -2322,34 +2322,34 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-weight: 500;
   display: inline-block;
   line-height: 22px !important;
-  margin-right: 6px;
+  margin-left: 6px;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge + .atbd_badge,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge + .atbd_badge,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge + .atbd_badge {
-  margin-left: 0;
+  margin-right: 0;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge:last-child,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge:last-child,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge:last-child {
-  margin-right: 0;
+  margin-left: 0;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_new,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_new,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_new {
   background: #122069;
-  margin-left: 0;
+  margin-right: 0;
 }
 
 .atbd_content_active .widget.atbd_widget + .modal {
   position: fixed;
   top: 0;
-  right: 0;
-  bottom: 0;
   left: 0;
+  bottom: 0;
+  right: 0;
   z-index: 1050;
   display: none;
   overflow: hidden;
@@ -2394,9 +2394,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget + .modal .modal-backdrop {
   position: fixed;
   top: 0;
-  right: 0;
-  bottom: 0;
   left: 0;
+  bottom: 0;
+  right: 0;
   z-index: 1040;
   background-color: #000;
 }
@@ -2415,13 +2415,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
   justify-content: space-between;
   padding: 1rem;
   border-bottom: 1px solid #e9ecef;
-  border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
+  border-top-left-radius: 0.3rem;
 }
 
 .atbd_content_active .widget.atbd_widget + .modal .modal-header .close {
   padding: 1rem;
-  margin: -1rem -1rem -1rem auto;
+  margin: -1rem auto -1rem -1rem;
 }
 
 .atbd_content_active .widget.atbd_widget + .modal .modal-title {
@@ -2444,11 +2444,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active .widget.atbd_widget + .modal .modal-footer > :not(:first-child) {
-  margin-left: .25rem;
+  margin-right: .25rem;
 }
 
 .atbd_content_active .widget.atbd_widget + .modal .modal-footer > :not(:last-child) {
-  margin-right: .25rem;
+  margin-left: .25rem;
 }
 
 .atbd_content_active .widget.atbd_widget + .modal .modal-scrollbar-measure {
@@ -2591,7 +2591,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .pricing.pricing--1 .pricing__features ul {
   margin: 0;
-  text-align: left;
+  text-align: right;
   padding-bottom: 30px;
 }
 
@@ -2600,7 +2600,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .pricing.pricing--1 .pricing__features ul li span.fa {
-  margin-right: 7px;
+  margin-left: 7px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .pricing.pricing--1 .pricing__features ul li span.fa.fa-check {
@@ -2629,7 +2629,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_upload_btn span {
-  margin-right: 6px;
+  margin-left: 6px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-container--default.select2-container--focus .select2-selection--multiple {
@@ -2661,7 +2661,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper [data-toggle="tooltip"] {
-  margin-left: 4px;
+  margin-right: 4px;
   color: #85889a;
   font-size: 12px;
 }
@@ -2678,7 +2678,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   height: 350px;
   border: 1px solid #ededed;
   padding: 30px;
-  text-align: left;
+  text-align: right;
   overflow-y: scroll;
   margin-bottom: 30px;
   background: #ffffff;
@@ -2717,7 +2717,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .map_wrapper #floating-panel {
   position: absolute;
   top: 10px;
-  right: 58px;
+  left: 58px;
   z-index: 1;
 }
 
@@ -2733,11 +2733,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .hide-map-option label {
-  margin-left: 0;
+  margin-right: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_plan_alert a.btn {
-  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_plan_alert strong {
@@ -2753,7 +2753,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbdp-radio-list li label input, .atbd_content_active #directorist.atbd_wrapper .atbdp-checkbox-list li label input {
   display: inline-block;
   vertical-align: middle;
-  margin-right: 6px;
+  margin-left: 6px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper input.select2-search__field {
@@ -2763,7 +2763,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .close {
   padding: 0;
   top: 50%;
-  right: 10px;
+  left: 10px;
   position: absolute;
   transform: translateY(-50%);
   background: none;
@@ -2805,7 +2805,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   cursor: pointer;
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   background: #d3d1ec;
   color: #fff;
   width: 20px;
@@ -2871,7 +2871,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_type > label + label {
-  margin-left: 25px;
+  margin-right: 25px;
 }
 
 .olMap + .cor-wrap {
@@ -2879,7 +2879,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .olControlAttribution {
-  right: 10px !important;
+  left: 10px !important;
   bottom: 10px !important;
 }
 
@@ -2928,7 +2928,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 #directorist.atbd_wrapper .atbd_location_map_setting .atbdb_content_module_contents .form-group label {
-  margin-left: 0;
+  margin-right: 0;
   margin-bottom: 0;
 }
 
@@ -2947,7 +2947,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper .atbdp_make_str_red {
   color: #f00;
-  padding: 0 0 0 3px;
+  padding: 0 3px 0 0;
 }
 
 #directorist.atbd_wrapper .c_cat_list strong {
@@ -2968,7 +2968,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper #atbdp_custom_field_area .wp-picker-container .button .wp-color-result-text {
   position: absolute;
-  right: 0;
+  left: 0;
   top: 0;
   height: 100%;
   width: 100px;
@@ -3024,8 +3024,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area.db_btn_area--sm .btn {
   line-height: 19px;
   font-size: 13px;
-  padding-left: 8px;
   padding-right: 8px;
+  padding-left: 8px;
   margin: 0 2px;
 }
 
@@ -3053,7 +3053,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img #remove_pro_pic {
   position: absolute;
   z-index: 1;
-  right: 0;
+  left: 0;
   background: #ff4949;
   color: #fff;
   padding: 3px 10px;
@@ -3108,7 +3108,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_saved_items_wrapper .thumb_title .img_wrapper > a {
   display: table-cell;
-  padding-right: 10px;
+  padding-left: 10px;
   width: 82px;
   vertical-align: middle;
 }
@@ -3120,7 +3120,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_saved_items_wrapper td {
   vertical-align: middle;
-  text-align: left;
+  text-align: right;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_saved_items_wrapper .saved_item_category {
@@ -3129,7 +3129,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_saved_items_wrapper .saved_item_category a span {
   font-size: 16px;
-  margin-right: 6px;
+  margin-left: 6px;
 }
 
 #directorist.atbd_wrapper .user_info_wrap .form-group {
@@ -3173,7 +3173,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .select2-container--default .select2-selection--single .select2-selection__arrow {
   height: 35px;
-  right: 10px;
+  left: 10px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-container--default .select2-selection--single .select2-selection__placeholder {
@@ -3218,7 +3218,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .btn_search span, .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter span {
-  margin-right: 7px;
+  margin-left: 7px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter {
@@ -3259,8 +3259,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   border-radius: 3px;
   padding: 10px 20px;
   margin-bottom: 15px;
-  margin-left: 7px;
   margin-right: 7px;
+  margin-left: 7px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .directory_home_category_area .categories li a p {
@@ -3278,7 +3278,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   overflow-y: scroll;
   overflow-x: hidden;
   position: absolute;
-  left: 0;
+  right: 0;
   top: 0;
   width: 100%;
   box-shadow: none;
@@ -3368,23 +3368,23 @@ body.atbd_content_active #directorist.atbd_wrapper {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin-left: 7px;
+  margin-right: 7px;
   margin-bottom: 10px;
   width: auto;
 }
 
 .ads-advanced .price-frequency .pf-btn {
-  margin-right: -1px !important;
+  margin-left: -1px !important;
   overflow: hidden;
   margin-bottom: 0 !important;
 }
 
 .ads-advanced .price-frequency .pf-btn:first-child {
-  border-radius: 3px 0 0 3px;
+  border-radius: 0 3px 3px 0;
 }
 
 .ads-advanced .price-frequency .pf-btn:last-child {
-  border-radius: 0 3px 3px 0;
+  border-radius: 3px 0 0 3px;
 }
 
 .ads-advanced .price-frequency .pf-btn span {
@@ -3441,14 +3441,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .ads-advanced .more-less, .ads-advanced .more-or-less {
   flex: 1;
-  text-align: right;
+  text-align: left;
   color: #272b41;
 }
 
 .ads-advanced .more-less:after, .ads-advanced .more-or-less:after {
   content: '\f106';
   font-family: "FontAwesome";
-  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .ads-advanced .more-less:focus, .ads-advanced .more-or-less:focus {
@@ -3475,12 +3475,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   background: #fff;
   display: flex;
   align-items: center;
-  margin: -1px -1px 0 0;
+  margin: -1px 0 0 -1px;
 }
 
 .ads-advanced .bottom-inputs {
-  margin-left: -5px;
   margin-right: -5px;
+  margin-left: -5px;
   margin-bottom: -10px;
   width: 100%;
   display: flex;
@@ -3490,8 +3490,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .ads-advanced .bottom-inputs > div {
   width: 33.33%;
-  padding-left: 5px;
   padding-right: 5px;
+  padding-left: 5px;
 }
 
 .ads-advanced .bottom-inputs > div .form-control {
@@ -3560,7 +3560,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar .atbd_auth_nd {
-  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_meta {
@@ -3569,13 +3569,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_meta .atbd_listing_meta {
-  margin-right: 7px;
+  margin-left: 7px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_meta .meta-info {
   font-size: 14px;
   line-height: 22px;
-  margin-left: 12px;
+  margin-right: 12px;
   position: relative;
 }
 
@@ -3587,13 +3587,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_meta .meta-info + .meta-info {
-  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_meta .meta-info + .meta-info:before {
   content: "";
   position: absolute;
-  left: 5px;
+  right: 5px;
   height: 100%;
   width: 1px;
   background-color: #e3e6ef;
@@ -3611,12 +3611,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_wrapper span.fa {
   cursor: pointer;
-  margin-left: 7px;
+  margin-right: 7px;
   font-size: 12px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_wrapper .atbdp_child_category {
-  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid {
@@ -3638,13 +3638,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
   position: absolute;
   width: 100%;
   height: 100%;
-  left: 0;
+  right: 0;
   top: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure figcaption {
   position: absolute;
-  left: 0;
+  right: 0;
   top: 0;
   width: 100%;
   height: 100%;
@@ -3746,7 +3746,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper span.expander {
   font-size: 16px;
   font-weight: 500;
-  margin-left: 5px;
+  margin-right: 5px;
   line-height: 15px;
   border-radius: 5px;
   cursor: pointer;
@@ -3866,7 +3866,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   position: absolute;
   width: 100%;
   height: 100%;
-  left: 0;
+  right: 0;
   top: 0;
 }
 
@@ -3875,7 +3875,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  left: 0;
+  right: 0;
   top: 0;
   display: flex;
   flex-direction: column;
@@ -3921,8 +3921,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   position: relative;
   width: 20%;
   min-height: 1px;
-  padding-right: 15px;
   padding-left: 15px;
+  padding-right: 15px;
 }
 
 /*responsive css */
@@ -3962,7 +3962,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
     margin-bottom: 15px;
   }
   .ads-advanced .price-frequency {
-    margin-left: -2px;
+    margin-right: -2px;
   }
   #directorist.atbd_wrapper .atbdp_col-5 {
     flex: 0 0 33.33%;
@@ -4010,14 +4010,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
     margin-top: 15px;
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar .atbd_auth_nd {
-    margin-left: 0;
+    margin-right: 0;
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields > li {
     display: block;
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_title p {
-    padding-left: 0;
     padding-right: 0;
+    padding-left: 0;
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_title,
   .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_content {
@@ -4026,8 +4026,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_content {
     border: 0 none;
     padding-top: 0;
-    padding-right: 0;
     padding-left: 0;
+    padding-right: 0;
   }
   .ads-advanced .bottom-inputs > div {
     width: 100%;
@@ -4047,10 +4047,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
     margin-bottom: 10px !important;
   }
   .ads-advanced .more-less, .ads-advanced .more-or-less {
-    text-align: left;
+    text-align: right;
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_listing_action_btn {
-    margin-left: 0;
+    margin-right: 0;
     flex-wrap: wrap;
   }
   #directorist.atbd_wrapper .atbdp_col-5 {
@@ -4063,7 +4063,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
     margin: 5px 0;
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title h3 {
-    margin-right: 10px;
+    margin-left: 10px;
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_listing_action_btn {
     margin: 5px 0;
@@ -4076,7 +4076,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
     width: 100%;
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
-    padding-left: 45px;
+    padding-right: 45px;
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title .more-filter,
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title h3 {
@@ -4094,8 +4094,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
     margin-bottom: 3px;
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_listing_action_btn .dropdown + .dropdown {
-    margin-left: 0;
+    margin-right: 0;
   }
 }
-
-/*# sourceMappingURL=map/style.css.map */

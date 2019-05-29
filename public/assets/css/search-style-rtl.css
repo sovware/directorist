@@ -1,0 +1,285 @@
+.search-area .form-group .locator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    padding: 0 15px;
+    color: #9299b8;
+    border: 0 none;
+    background: none;
+    cursor: pointer;
+}
+
+.search-area .form-group .locator .fa {
+    font-size: 16px !important;
+}
+
+.search-area .form-group .locator:focus {
+    outline: 0;
+}
+
+/* sort rating widget */
+.sort-rating .custom-checkbox {
+    margin-bottom: 0;
+}
+
+.sort-rating .custom-checkbox:last-child {
+    margin-bottom: 0;
+}
+
+.sort-rating .custom-control {
+    margin-bottom: 4px;
+}
+
+
+.sort-rating .custom-control-label span {
+    width: 17px;
+    height: 17px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: #e96656;
+    border-radius: 300px;
+    opacity: 0.2;
+    margin-left: 1px;
+    position: relative;
+    top: -3px;
+}
+
+.sort-rating .custom-control-label span .fa {
+    font-size: 10px !important;
+}
+
+.sort-rating .custom-control-label span.active {
+    opacity: 1;
+}
+
+.sort-rating .custom-control {
+    padding-right: 0;
+}
+
+.custom-control {
+    position: relative;
+}
+
+.custom-control .custom-control-label {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    padding-right: 30px;
+    font-weight: normal;
+}
+.custom-control .custom-control-label:before{
+    position: absolute;
+    width: 30px;
+    height: 100%;
+    content: '';
+    right: 0;
+    top: 0;
+    background: none;
+}
+.custom-control .custom-control-label:after{
+    content: none;
+}
+.custom-checkbox{
+    padding-right: 0;
+}
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before,
+.custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before{
+    background: transparent;
+}
+.custom-control .custom-control-input {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+}
+
+.custom-control .check--select {
+    position: absolute;
+    right: 0;
+    top: 2px;
+    width: 17px;
+    height: 17px;
+    border: 1px solid #cbd0e3;
+    border-radius: 2px;
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-control .custom-control-input:checked ~ .check--select {
+    background: #444752;
+    border: 1px solid #444752;
+}
+
+.custom-control .custom-control-input:checked ~ .check--select:before {
+    content: '\f00c';
+    font-family: "FontAwesome";
+    color: #fff;
+    font-size: 9px;
+    position: absolute;
+    right: 50%;
+    top: 45%;
+    -webkit-transform: translate(50%, -50%);
+    -moz-transform: translate(50%, -50%);
+    -ms-transform: translate(50%, -50%);
+    -o-transform: translate(50%, -50%);
+    transform: translate(50%, -50%);
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-control .radio--select {
+    position: absolute;
+    right: 0;
+    top: 2px;
+    width: 17px;
+    height: 17px;
+    border: 1px solid #cbd0e3;
+    border-radius: 100%;
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-control .custom-control-input:checked ~ .radio--select {
+    border: 5px solid #444752;
+}
+
+
+.default-ad-search .radio label {
+    padding-right: 22px;
+    margin-bottom: 0 !important;
+    position: relative;
+}
+
+.default-ad-search .radio label input {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.default-ad-search  label {
+    display: block;
+    margin-bottom: 8px;
+}
+.default-ad-search  label.custom-control-label{
+    line-height: 25px;
+}
+.default-ad-search *{
+    box-sizing: border-box;
+    text-align: right;
+}
+.default-ad-search small{
+    color: #7a82a6;
+    line-height: 24px;
+    font-weight: 400;
+}
+.default-ad-search .btn-primary:hover{
+    background: #424550;
+    border-color: #424550;
+}
+.check-btn {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.check-btn label{
+    margin-bottom: 0 !important;
+}
+.default-ad-search .check-btn {
+    margin-bottom: 15px;
+}
+.btn-checkbox {
+    background-color: #fff;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-left: 6px;
+}
+.btn-checkbox:last-child {
+    margin-left: 0;
+}
+.btn-checkbox label {
+    width: 100%;
+    margin: 0;
+    position: relative;
+}
+.btn-checkbox label span {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    transition: 0.3s ease;
+    padding: 10px 18px;
+    font-weight: 500;
+    font-size: 14px;
+    border: 1px solid #e3e6ef;
+}
+.btn-checkbox label span i {
+    font-size: 16px;
+    margin-left: 5px;
+    margin-top: -1px;
+}
+.btn-checkbox label input {
+    position: absolute;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    outline: 0;
+    background: transparent !important;
+}
+.btn-checkbox label input:focus{
+    outline: 0;
+}
+
+.btn-checkbox label input:checked:before{
+    content: none !important;
+}
+
+.btn-checkbox label input:checked + span {
+    color: #fff !important;
+    background: #444752;
+    border-color: #444752;
+}
+.price_ranges{
+    display: flex;
+    margin: 0 -8px;
+}
+.price_ranges div{
+    padding: 0 8px;
+    width: 50%;
+}
+.position-relative{
+    position: relative;
+}
+.iris-picker .iris-square{
+    margin-left: 10px;
+}
+.iris-picker .iris-strip{
+    height: 100% !important;
+}
+.default-ad-search .submit_btn{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: -10px;
+}
+.default-ad-search .submit_btn .btn{
+    margin-left: 10px !important;
+    margin-top: 10px !important;
+    background: #444752;
+    border-color: #444752;
+    color: #fff;
+}
+.bdas-terms .bdas-child-terms{
+    margin-top: 14px;
+}
+.default-ad-search .form-control{
+    width: 100%;
+    height: 44px;
+    box-shadow: none;
+    border-color: #ddd;
+}
+.default-ad-search .form-group{
+    margin-bottom: 15px;
+}

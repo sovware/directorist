@@ -344,173 +344,175 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                         </div> <!--ends .col-md-4-->
 
                                         <div class="col-md-9">
-                                            <div class="profile_title">
-                                                <h4><?php _e('My Profile', ATBDP_TEXTDOMAIN); ?></h4>
-                                            </div>
+                                            <div class="atbd_user_profile_edit">
+                                                <div class="profile_title">
+                                                    <h4><?php _e('My Profile', ATBDP_TEXTDOMAIN); ?></h4>
+                                                </div>
 
-                                            <div class="user_info_wrap">
-                                                <!--hidden inputs-->
-                                                <input type="hidden" name="ID" value="<?= get_current_user_id(); ?>">
-                                                <!--Full name-->
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="full_name"><?php _e('Full Name', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <input class="form-control" type="text"
-                                                                   name="user[full_name]"
-                                                                   value="<?= !empty($c_user->display_name) ? esc_attr($c_user->display_name) : ''; ?>"
-                                                                   placeholder="<?php _e('Enter your full name', ATBDP_TEXTDOMAIN); ?>">
+                                                <div class="user_info_wrap">
+                                                    <!--hidden inputs-->
+                                                    <input type="hidden" name="ID" value="<?= get_current_user_id(); ?>">
+                                                    <!--Full name-->
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="full_name"><?php _e('Full Name', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <input class="form-control" type="text"
+                                                                       name="user[full_name]"
+                                                                       value="<?= !empty($c_user->display_name) ? esc_attr($c_user->display_name) : ''; ?>"
+                                                                       placeholder="<?php _e('Enter your full name', ATBDP_TEXTDOMAIN); ?>">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="user_name"><?php _e('User Name', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <input class="form-control" id="user_name" type="text"
-                                                                   disabled="disabled" name="user[user_name]"
-                                                                   value="<?= !empty($c_user->user_login) ? esc_attr($c_user->user_login) : ''; ?>"> <?php _e('(username can not be changed)', ATBDP_TEXTDOMAIN); ?>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="user_name"><?php _e('User Name', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <input class="form-control" id="user_name" type="text"
+                                                                       disabled="disabled" name="user[user_name]"
+                                                                       value="<?= !empty($c_user->user_login) ? esc_attr($c_user->user_login) : ''; ?>"> <?php _e('(username can not be changed)', ATBDP_TEXTDOMAIN); ?>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div> <!--ends .row-->
-                                                <!--First Name-->
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="first_name"><?php _e('First Name', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <input class="form-control" id="first_name" type="text"
-                                                                   name="user[first_name]"
-                                                                   value="<?= !empty($c_user->first_name) ? esc_attr($c_user->first_name) : ''; ?>">
+                                                    </div> <!--ends .row-->
+                                                    <!--First Name-->
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="first_name"><?php _e('First Name', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <input class="form-control" id="first_name" type="text"
+                                                                       name="user[first_name]"
+                                                                       value="<?= !empty($c_user->first_name) ? esc_attr($c_user->first_name) : ''; ?>">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="last_name"><?php _e('Last Name', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <input class="form-control" id="last_name" type="text"
-                                                                   name="user[last_name]"
-                                                                   value="<?= !empty($c_user->last_name) ? esc_attr($c_user->last_name) : ''; ?>">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="last_name"><?php _e('Last Name', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <input class="form-control" id="last_name" type="text"
+                                                                       name="user[last_name]"
+                                                                       value="<?= !empty($c_user->last_name) ? esc_attr($c_user->last_name) : ''; ?>">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div> <!--ends .row-->
-                                                <!--Email-->
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="req_email"><?php _e('Email (required)', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <input class="form-control" id="req_email" type="text"
-                                                                   name="user[user_email]"
-                                                                   value="<?= !empty($c_user->user_email) ? esc_attr($c_user->user_email) : ''; ?>"
-                                                                   required>
+                                                    </div> <!--ends .row-->
+                                                    <!--Email-->
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="req_email"><?php _e('Email (required)', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <input class="form-control" id="req_email" type="text"
+                                                                       name="user[user_email]"
+                                                                       value="<?= !empty($c_user->user_email) ? esc_attr($c_user->user_email) : ''; ?>"
+                                                                       required>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="phone"><?php _e('Cell Number', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <input class="form-control" type="tel" name="user[phone]"
-                                                                   value="<?= !empty($u_phone) ? esc_attr($u_phone) : ''; ?>"
-                                                                   placeholder="<?php _e('Enter your phone number', ATBDP_TEXTDOMAIN); ?>">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="phone"><?php _e('Cell Number', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <input class="form-control" type="tel" name="user[phone]"
+                                                                       value="<?= !empty($u_phone) ? esc_attr($u_phone) : ''; ?>"
+                                                                       placeholder="<?php _e('Enter your phone number', ATBDP_TEXTDOMAIN); ?>">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div> <!--ends .row-->
-                                                <!--Website-->
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="website"><?php _e('Website', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <input class="form-control" id="website" type="text"
-                                                                   name="user[website]"
-                                                                   value="<?= !empty($u_website) ? esc_url($u_website) : ''; ?>">
+                                                    </div> <!--ends .row-->
+                                                    <!--Website-->
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="website"><?php _e('Website', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <input class="form-control" id="website" type="text"
+                                                                       name="user[website]"
+                                                                       value="<?= !empty($u_website) ? esc_url($u_website) : ''; ?>">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="address"><?php _e('Address', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <input class="form-control" id="address" type="text"
-                                                                   name="user[address]"
-                                                                   value="<?= !empty($u_address) ? esc_attr($u_address) : ''; ?>">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="address"><?php _e('Address', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <input class="form-control" id="address" type="text"
+                                                                       name="user[address]"
+                                                                       value="<?= !empty($u_address) ? esc_attr($u_address) : ''; ?>">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div> <!--ends .row-->
-
-
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="new_pass"><?php _e('New Password', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <input id="new_pass" class="form-control" type="password"
-                                                                   name="user[new_pass]"
-                                                                   value="<?= !empty($new_pass) ? esc_attr($new_pass) : ''; ?>"
-                                                                   placeholder="<?php _e('Enter a new password', ATBDP_TEXTDOMAIN); ?>">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="confirm_pass"><?php _e('Confirm New Password', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <input id="confirm_pass" class="form-control"
-                                                                   type="password"
-                                                                   name="user[confirm_pass]"
-                                                                   value="<?= !empty($confirm_pass) ? esc_attr($confirm_pass) : ''; ?>"
-                                                                   placeholder="<?php _e('Confirm your new password', ATBDP_TEXTDOMAIN); ?>">
-                                                        </div>
-                                                    </div>
-                                                </div><!--ends .row-->
-                                                <!--social info-->
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="facebook"><?php _e('Facebook', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
-                                                            <input id="facebook" class="form-control" type="url"
-                                                                   name="user[facebook]"
-                                                                   value="<?= !empty($facebook) ? esc_attr($facebook) : ''; ?>"
-                                                                   placeholder="<?php _e('Enter your facebook url', ATBDP_TEXTDOMAIN); ?>">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="twitter"><?php _e('Twitter', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
-                                                            <input id="twitter" class="form-control" type="url"
-                                                                   name="user[twitter]"
-                                                                   value="<?= !empty($twitter) ? esc_attr($twitter) : ''; ?>"
-                                                                   placeholder="<?php _e('Enter your twitter url', ATBDP_TEXTDOMAIN); ?>">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="linkedIn"><?php _e('LinkedIn', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
-                                                            <input id="linkedIn" class="form-control" type="url"
-                                                                   name="user[linkedIn]"
-                                                                   value="<?= !empty($linkedIn) ? esc_attr($linkedIn) : ''; ?>"
-                                                                   placeholder="<?php _e('Enter linkedIn url', ATBDP_TEXTDOMAIN); ?>">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="youtube"><?php _e('Youtube', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
-                                                            <input id="youtube" class="form-control" type="url"
-                                                                   name="user[youtube]"
-                                                                   value="<?= !empty($youtube) ? esc_attr($youtube) : ''; ?>"
-                                                                   placeholder="<?php _e('Enter youtube url', ATBDP_TEXTDOMAIN); ?>">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label for="bio"><?php _e('About Author', ATBDP_TEXTDOMAIN); ?></label>
-                                                            <textarea class="wp-editor-area form-control"
-                                                                      style="height: 200px" autocomplete="off" cols="40"
-                                                                      name="user[bio]"
-                                                                      id="bio"><?= !empty($bio) ? esc_attr($bio) : ''; ?></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div><!--ends social info .row-->
+                                                    </div> <!--ends .row-->
 
 
-                                                <button type="submit" class="btn btn-primary"
-                                                        id="update_user_profile"><?php _e('Save Changes', ATBDP_TEXTDOMAIN); ?></button>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="new_pass"><?php _e('New Password', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <input id="new_pass" class="form-control" type="password"
+                                                                       name="user[new_pass]"
+                                                                       value="<?= !empty($new_pass) ? esc_attr($new_pass) : ''; ?>"
+                                                                       placeholder="<?php _e('Enter a new password', ATBDP_TEXTDOMAIN); ?>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="confirm_pass"><?php _e('Confirm New Password', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <input id="confirm_pass" class="form-control"
+                                                                       type="password"
+                                                                       name="user[confirm_pass]"
+                                                                       value="<?= !empty($confirm_pass) ? esc_attr($confirm_pass) : ''; ?>"
+                                                                       placeholder="<?php _e('Confirm your new password', ATBDP_TEXTDOMAIN); ?>">
+                                                            </div>
+                                                        </div>
+                                                    </div><!--ends .row-->
+                                                    <!--social info-->
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="facebook"><?php _e('Facebook', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
+                                                                <input id="facebook" class="form-control" type="url"
+                                                                       name="user[facebook]"
+                                                                       value="<?= !empty($facebook) ? esc_attr($facebook) : ''; ?>"
+                                                                       placeholder="<?php _e('Enter your facebook url', ATBDP_TEXTDOMAIN); ?>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="twitter"><?php _e('Twitter', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
+                                                                <input id="twitter" class="form-control" type="url"
+                                                                       name="user[twitter]"
+                                                                       value="<?= !empty($twitter) ? esc_attr($twitter) : ''; ?>"
+                                                                       placeholder="<?php _e('Enter your twitter url', ATBDP_TEXTDOMAIN); ?>">
+                                                            </div>
+                                                        </div>
 
-                                                <div id="pro_notice" style="padding: 20px"></div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="linkedIn"><?php _e('LinkedIn', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
+                                                                <input id="linkedIn" class="form-control" type="url"
+                                                                       name="user[linkedIn]"
+                                                                       value="<?= !empty($linkedIn) ? esc_attr($linkedIn) : ''; ?>"
+                                                                       placeholder="<?php _e('Enter linkedIn url', ATBDP_TEXTDOMAIN); ?>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="youtube"><?php _e('Youtube', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
+                                                                <input id="youtube" class="form-control" type="url"
+                                                                       name="user[youtube]"
+                                                                       value="<?= !empty($youtube) ? esc_attr($youtube) : ''; ?>"
+                                                                       placeholder="<?php _e('Enter youtube url', ATBDP_TEXTDOMAIN); ?>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="bio"><?php _e('About Author', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <textarea class="wp-editor-area form-control"
+                                                                          style="height: 200px" autocomplete="off" cols="40"
+                                                                          name="user[bio]"
+                                                                          id="bio"><?= !empty($bio) ? esc_attr($bio) : ''; ?></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div><!--ends social info .row-->
+
+
+                                                    <button type="submit" class="btn btn-primary"
+                                                            id="update_user_profile"><?php _e('Save Changes', ATBDP_TEXTDOMAIN); ?></button>
+
+                                                    <div id="pro_notice" style="padding: 20px"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -513,7 +513,7 @@
       visibility: hidden;
       opacity: 0;
       bottom: 25px;
-      left: 0;
+      left: -5px;
       transition: 0.3s ease;
       background: #000000;
       line-break: auto;
@@ -539,6 +539,15 @@
             display: inline-block;
           }
         }
+      }
+      &:before{
+        position: absolute;
+        content: '';
+        border-top: 8px solid #000;
+        border-right: 6px solid transparent;
+        border-left: 6px solid transparent;
+        bottom: -8px;
+        left: 10px;
       }
     }
     &:hover .atbd_cat_popup_wrapper{

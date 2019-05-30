@@ -46,12 +46,8 @@ foreach ($listing_imgs as $id) {
     }
 
     $image_links_thumbnails[$id] = wp_get_attachment_image_src($id, 'thumbnail')[0]; // store the attachment id and url
-
-    //@todo; instead of getting a full size image, define a an image size and then fetch that size and let the user change that image size via a hook.
 }
-
 /*Code for Business Hour Extensions*/
-/*@todo; Make business hour settings compatible to our new settings panel. It is good to prefix all settings of extensions with their prefix*/
 $text247 = get_directorist_option('text247', __('Open 24/7', ATBDP_TEXTDOMAIN)); // text for 24/7 type listing
 $business_hour_title = get_directorist_option('business_hour_title', __('Business Hour', ATBDP_TEXTDOMAIN)); // text Business Hour Title
 
@@ -135,7 +131,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                        class="btn btn-success"><span
                                 class="fa fa-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN) ?></a>
                 </div>
-
                 <?php
             }
             /**
@@ -167,8 +162,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         $fb_lnk = "https://www.facebook.com/share.php?u={$p_lnk}&title={$p_title}";
                         $in_link = "http://www.linkedin.com/shareArticle?mini=true&url={$p_lnk}&title={$p_title}";
                         $listing_header .= '
-
-
                          <ul>
                         <li>
                             <a href="' . esc_url($fb_lnk) . '" target="_blank">
@@ -374,9 +367,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                                 </span>
                                         </p>
                                     </li>';
-                            ?>
-
-                            <?php
                         }
                         $data_info .= '</ul></div>';
 
@@ -424,9 +414,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                             $listing_content .= do_shortcode(wpautop($content));
                             $listing_content .= '</div>';
                         }
-
-
-
                         echo apply_filters('atbdp_listing_content', $listing_content);
                         ?>
                     </div>
@@ -455,7 +442,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         );
                     }
                 }
-
             }
             $custom_fields = new WP_Query(array(
                 'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
@@ -547,7 +533,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                                     echo do_shortcode(wpautop($content));
                                                     //echo esc_attr($field_details);
                                                 } ?></p>
-
                                         </div>
                                     </li>
                                     <?php
@@ -560,10 +545,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                 </div><!-- end .atbd_custom_fields_contents -->
                 <?php
             }
-            ?>
-
-            <?php
-
             if ($enable_video_url && !empty($videourl) && 'none' != $display_video_for) { ?>
                 <div class="atbd_content_module atbd_custom_fields_contents">
                     <div class="atbd_content_module__tittle_area">
@@ -581,10 +562,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php } ?>
-            <?php do_action('atbdp_after_video_gallery'); ?>
-            <!--Google map section-->
-
-            <?php
+            <?php do_action('atbdp_after_video_gallery');
             if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) && !empty($display_map_field)) { ?>
                 <div class="atbd_content_module">
                     <div class="atbd_content_module__tittle_area">
@@ -599,9 +577,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         <div id="gmap" class="atbd_google_map"></div>
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
-            <?php } ?>
-
-            <?php if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>
+            <?php }
+            if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>
                 <div class="atbd_content_module atbd_contact_information_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
@@ -679,11 +656,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         <?php } ?>
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
-            <?php } ?>
-
-
-
-            <?php
+            <?php }
             $plan_permission = true;
             global $post;
             if (is_fee_manager_active()) {
@@ -726,18 +699,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         <button type="submit" class="btn btn-primary"><?php _e('Submit', ATBDP_TEXTDOMAIN); ?></button>
                     </form>
                 </div>
-            <?php } ?>
-
-
-
-
-            <?php
-
+            <?php }
             /**
              * @since 5.0.5
              */
             do_action('atbdp_after_contact_listing_owner_section', $listing_id);
-
             // if business hour is active then add the following markup...
             if (class_exists('BD_Business_Hour')) {
                 if ((BDBH_VERSION < '2.2.8') && (ATBDP_VERSION <= '5.0.5')) {
@@ -765,10 +731,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             if ($plan_review) {
                 do_action('atbdp_before_review_section', $post, $listing_info);
             }
-            ?>
-
-
-            <?php
             /**
              * Fires after the Map is rendered on single listing page
              *
@@ -942,6 +904,3 @@ if ('openstreet' == $select_listing_map) {
         display: block;
     }
 </style>
-
-
-

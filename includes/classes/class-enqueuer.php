@@ -176,15 +176,26 @@ class ATBDP_Enqueuer {
      */
     public function front_end_enqueue_scripts($force=false) {
         global $typenow, $post;
+        $select_listing_map       = get_directorist_option('select_listing_map','google');
         $front_scripts_dependency = array('jquery');
         $disable_map = false;
         if (!$disable_map){
-            // get the map api from the user settings
-            $map_api_key = get_directorist_option('map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo'); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
-            //Google map needs to be enqueued from google server with a valid API key. So, it is not possible to store map js file locally as this file will be unique for all users based on their MAP API key.
-            wp_register_script( 'atbdp-google-map-front', '//maps.googleapis.com/maps/api/js?key='.$map_api_key.'&libraries=places', false, ATBDP_VERSION, true );
-            wp_register_script( 'atbdp-markerclusterer', ATBDP_PUBLIC_ASSETS . 'js/markerclusterer.js', array('atbdp-google-map-front') );
-            $front_scripts_dependency[] = 'atbdp-google-map-front';
+            if('google' == $select_listing_map) {
+                // get the map api from the user settings
+                $map_api_key = get_directorist_option('map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo'); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
+                //Google map needs to be enqueued from google server with a valid API key. So, it is not possible to store map js file locally as this file will be unique for all users based on their MAP API key.
+                wp_register_script('atbdp-google-map-front', '//maps.googleapis.com/maps/api/js?key=' . $map_api_key . '&libraries=places', false, ATBDP_VERSION, true);
+                wp_register_script('atbdp-markerclusterer', ATBDP_PUBLIC_ASSETS . 'js/markerclusterer.js', array('atbdp-google-map-front'));
+                $front_scripts_dependency[] = 'atbdp-google-map-front';
+            }elseif('openstreet' == $select_listing_map) {
+                wp_enqueue_style('leaf-style',ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/css/openstreet.css');
+                wp_enqueue_script('unpkg',ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/unpkg-min.js');
+                wp_enqueue_script('unpkg-index',ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/unpkg-index.js',array('unpkg'));
+                wp_enqueue_script('unpkg-libs',ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/unpkg-libs.js',array('unpkg-index'));
+                wp_enqueue_script('leaflet-versions',ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/leaflet-versions.js',array('unpkg-libs'));
+                wp_enqueue_script('markercluster-version',ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/leaflet.markercluster-versions.js',array('leaflet-versions'));
+                wp_enqueue_script('leaflet-setup',ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/libs-setup.js',array('markercluster-version'));
+            }
         }
         // Registration of all styles and js for the front end should be done here
         // but the inclusion should be limited to the scope of the page user viewing.
@@ -233,7 +244,6 @@ class ATBDP_Enqueuer {
         /* Enqueue google Directorist google font */
         wp_enqueue_style('atbd_googlefonts');
         wp_enqueue_style('slickcss');
-
 
         /* Enqueue all scripts */
         wp_enqueue_script('atbdp-bootstrap-script');

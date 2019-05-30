@@ -214,7 +214,7 @@ class ATBDP_Gateway{
                     'description' => __('Choose whether you want to accept offline Payment or not. Default is YES.', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
-                array(
+               'gateway_promotion' => array(
                     'type' => 'notebox',
                     'name' => 'paypal_gateway_promotion',
                     'label' => __('Need more gateways?', ATBDP_TEXTDOMAIN),

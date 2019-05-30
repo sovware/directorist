@@ -57,8 +57,10 @@
         }
         figure{
           border: 1px solid #e3e6ef;
+          position: relative;
           figcaption{
             background: #fff;
+            position: relative;
             h3, p{
               color: #444752;
             }
@@ -75,8 +77,11 @@
     }
     .col-md-2{
       .atbd_location_grid{
-        height: 100px;
+        min-height: 100px;
         margin-bottom: 15px;
+        figcaption{
+          min-height: 100px;
+        }
         img{
           width: 100%;
         }
@@ -87,8 +92,11 @@
     }
     .col-md-3{
       .atbd_location_grid{
-        height: 160px;
+        min-height: 160px;
         margin-bottom: 15px;
+        figcaption{
+          min-height: 160px;
+        }
         img{
           width: 100%;
         }
@@ -96,7 +104,10 @@
     }
     .col-md-4{
       .atbd_location_grid{
-        height: 200px;
+        min-height: 200px;
+        figcaption{
+          min-height: 200px;
+        }
         img{
           width: 100%;
         }
@@ -104,7 +115,7 @@
     }
     .col-md-6{
       .atbd_location_grid{
-        height: 350px;
+        min-height: 350px;
         img{
           width: 100%;
         }
@@ -112,7 +123,10 @@
     }
     .col-md-12{
       .atbd_location_grid{
-        height: 600px;
+        min-height: 600px;
+        figcaption{
+          min-height: 600px;
+        }
         img{
           width: 100%;
         }
@@ -120,7 +134,10 @@
     }
     .atbdp_col-5{
       .atbd_location_grid {
-        height: 140px;
+        min-height: 140px;
+        figcaption{
+          min-height: 140px;
+        }
         img{
           width: 100%;
         }
@@ -167,8 +184,11 @@
     }
     .col-md-2{
       .atbd_category_single{
-        height: 100px;
+        min-height: 100px;
         margin-bottom: 15px;
+        figcaption{
+          min-height: 100px;
+        }
         img{
           width: 100%;
         }
@@ -180,8 +200,11 @@
     }
     .col-md-3{
       .atbd_category_single{
-        height: 150px;
+        min-height: 150px;
         margin-bottom: 15px;
+        figcaption{
+          min-height: 150px;
+        }
         img{
           width: 100%;
         }
@@ -189,7 +212,10 @@
     }
     .col-md-4{
       .atbd_category_single{
-        height: 200px;
+        min-height: 200px;
+        figcaption{
+          min-height: 200px;
+        }
         img{
           width: 100%;
         }
@@ -197,7 +223,10 @@
     }
     .col-md-6{
       .atbd_category_single{
-        height: 350px;
+        min-height: 350px;
+        figcaption{
+          min-height: 350px;
+        }
         img{
           width: 100%;
         }
@@ -205,7 +234,10 @@
     }
     .col-md-12{
       .atbd_category_single{
-        height: 600px;
+        min-height: 600px;
+        figcaption{
+          min-height: 600px;
+        }
         img{
           width: 100%;
         }
@@ -213,7 +245,10 @@
     }
     .atbdp_col-5{
       .atbd_category_single{
-        height: 140px;
+        min-height: 140px;
+        figcaption{
+          min-height: 140px;
+        }
         img{
           width: 100%;
         }
@@ -277,11 +312,13 @@
   }
   &.atbd_category-default{
     figure{
+      position: relative;
       img{
         display: none;
       }
       figcaption{
         background: #fff;
+        position: relative;
         .icon, .cat-name, .cat-info span{
           color: #444752;
         }

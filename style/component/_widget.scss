@@ -221,6 +221,11 @@
         font-size: 10px;
       }
     }
+    form{
+      .select2-container{
+        width: 100% !important;
+      }
+    }
   }
   #loginform {
     text-align: left;

@@ -697,6 +697,19 @@ body.atbd_content_active #directorist.atbd_wrapper {
   float: none;
 }
 
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container {
+  margin-bottom: 30px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper {
+  border-radius: 3px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content {
+  margin: 15px;
+  width: 220px !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   text-align: right;
   margin-bottom: 15px;
@@ -2054,6 +2067,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li > span {
   cursor: pointer;
   font-size: 10px;
+}
+
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories form .select2-container,
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories form .select2-container,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories form .select2-container {
+  width: 100% !important;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] #loginform,

@@ -1111,6 +1111,20 @@ jQuery(function ($) {
     if($('input[name="enable_monetization"]').is(":checked") === true){
         lf_opt36.show();
     }
+
+    //Map setting options
+    var g_map_api = $("#map_api_key");
+    g_map_api.hide();
+    $('select[name="select_listing_map"]').on("change", function () {
+        if($(this).val() === "google"){
+            g_map_api.show();
+        }else{
+            g_map_api.hide();
+        }
+    });
+    if($('select[name="select_listing_map"]').val() === "google"){
+        g_map_api.show();
+    }
 });
 
 

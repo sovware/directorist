@@ -33,7 +33,6 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
         <?php if( ! empty( $manual_lat ) && ! empty( $manual_lng ) ) : ?>
             <div class="marker" data-latitude="<?php echo $manual_lat; ?>" data-longitude="<?php echo $manual_lng; ?>">
                 <div>
-
                     <div class="media-left">
                         <a href="<?php the_permalink(); ?>">
                             <?php

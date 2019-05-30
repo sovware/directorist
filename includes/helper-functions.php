@@ -2934,7 +2934,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                                 <?php
                                                                 if ($totalTerm > 1) {
                                                                     ?>
-                                                                    <span class="atbd_cat_popup">  +<?php echo $totalTerm - 1; ?>
+                                                                    <span class="atbd_cat_popup">  <span>+<?php echo $totalTerm - 1; ?></span>
                                                                         <span class="atbd_cat_popup_wrapper">
                                                                     <?php
                                                                     $output = array();

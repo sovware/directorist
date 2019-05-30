@@ -24,7 +24,7 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
         }
         if(!empty($listing_img[0])) {
 
-            $default_img = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $crop_width, $crop_height, true, 100)['url'];;
+            $default_img = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $crop_width, $crop_height, true, 100)['url'];
             $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
 
         }

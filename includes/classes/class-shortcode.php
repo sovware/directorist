@@ -149,6 +149,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
         public function search_result($atts)
         {
+            wp_enqueue_script('adminmainassets');
             $listing_orderby           = get_directorist_option('search_order_listing_by');
             $listing_view              = get_directorist_option('search_view_as');
             $listing_order             = get_directorist_option('search_sort_by');
@@ -1643,16 +1644,19 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'view'              => $display_categories_as,
                 'orderby'           => $categories_settings['orderby'],
                 'order'             => $categories_settings['order'],
-                'cat_per_page'       => 100,
-                'columns'           => ''
+                'cat_per_page'      => 100,
+                'columns'           => '',
+                'slug'              => ''
             ), $atts );
+            $categories          = !empty($atts['slug'] ) ? explode(',', $atts['slug'] ) : array();
             $categories_settings['columns'] = !empty($atts['columns'])?$atts['columns']:get_directorist_option('categories_column_number',3);
             $args = array(
                 'orderby'      => $atts['orderby'],
                 'order'        => $atts['order'],
                 'hide_empty'   => ! empty( $categories_settings['hide_empty'] ) ? 1 : 0,
                 'parent'       => 0,
-                'hierarchical' => ! empty( $categories_settings['hide_empty'] ) ? true : false
+                'hierarchical' => ! empty( $categories_settings['hide_empty'] ) ? true : false,
+                'slug'         => !empty($categories) ? $categories : ''
             );
 
             $terms = get_terms( ATBDP_CATEGORY, $args );
@@ -2034,16 +2038,19 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'view'              => $display_locations_as,
                 'orderby'           => $locations_settings['orderby'],
                 'order'             => $locations_settings['order'],
-                'loc_per_page'       => 100,
-                'columns'           => ''
+                'loc_per_page'      => 100,
+                'columns'           => '',
+                'slug'              => ''
             ), $atts );
             $locations_settings['columns'] = !empty($atts['columns'])?$atts['columns']:get_directorist_option('locations_column_number',3);
+            $locations          = !empty($atts['slug'] ) ? explode(',', $atts['slug'] ) : array();
             $args = array(
                 'orderby'      => $atts['orderby'],
                 'order'        => $atts['order'],
                 'hide_empty'   => ! empty( $locations_settings['hide_empty'] ) ? 1 : 0,
                 'parent'       => 0,
                 'hierarchical' => ! empty( $locations_settings['hide_empty'] ) ? true : false,
+                'slug'         => !empty($locations) ? $locations : ''
             );
 
             $terms = get_terms( ATBDP_LOCATION, $args );

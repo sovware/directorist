@@ -23,28 +23,28 @@
             $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
 
         }
-        $html              = '<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom"">';
-        $html              = '<div class="media-left">';
-        $html             .= '<a href="'.get_the_permalink().'">';
+        $html              = "<div class='atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom'>";
+        $html              = "<div class='media-left'>";
+        $html             .= "<a href='".get_the_permalink()."'>";
         $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
         if(!empty($listing_prv_img)){
-            $html    .= '<img src="'.esc_url($prv_image).'" alt="'.esc_html(stripslashes(get_the_title())).'">';
+            $html    .= "<img src='".esc_url($prv_image)."' alt='".esc_html(stripslashes(get_the_title()))."'>";
         } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
-            $html    .= '<img src="' . esc_url($gallery_img) . '" alt="'.esc_html(stripslashes(get_the_title())).'">';
+            $html    .= "<img src='" . esc_url($gallery_img) . "' alt='".esc_html(stripslashes(get_the_title()))."'>";
         }if (empty($listing_img[0]) && empty($listing_prv_img)){
-            $html    .= '<img src="'.$default_image.'" alt="'.esc_html(stripslashes(get_the_title())).'">';
+            $html    .= "<img src='".$default_image."' alt='".esc_html(stripslashes(get_the_title()))."'>";
         }
-        $html            .= '</a>';
-        $html            .= '</div>';
-        $html            .= '<div class="media-body">';
-        $html            .= '<div class="atbdp-listings-title-block">';
-        $html            .= '<h3 class="atbdp-no-margin"><a href="'.get_the_permalink().'">'.get_the_title().'</a></h3>';
-        $html            .= '</div>';
-        $html            .= '<span class="fa fa-briefcase"></span> <a href="" class="map-info-link">'.$address.'</a>';
-        $html            .= '</div>';
-        $html            .= '</div>';
+        $html            .= "</a>";
+        $html            .= "</div>";
+        $html            .= "<div class='media-body'>";
+        $html            .= "<div class='atbdp-listings-title-block'>";
+        $html            .= "<h3 class='atbdp-no-margin'><a href='".get_the_permalink()."'>".get_the_title()."</a></h3>";
+        $html            .= "</div>";
+        $html            .= "<span class='fa fa-briefcase'></span> <a href='' class='map-info-link'>".$address."</a>";
+        $html            .= "</div>";
+        $html            .= "</div>";
         ?>
-        [<?php echo !empty($manual_lat) ? $manual_lat : '';?>, <?php echo !empty($manual_lng) ? $manual_lng : '';?>, '<?php echo !empty($html) ? $html : "";?>'],
+        [<?php echo !empty($manual_lat) ? $manual_lat : '';?>, <?php echo !empty($manual_lng) ? $manual_lng : '';?>, "<?php echo !empty($html) ? $html : '';?>"],
         <?php endwhile;?>
     ];
 
@@ -78,4 +78,6 @@
             delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).
         });
     }
+
+
 </script>

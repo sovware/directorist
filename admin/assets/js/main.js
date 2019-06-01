@@ -1111,6 +1111,47 @@ jQuery(function ($) {
     if($('input[name="enable_monetization"]').is(":checked") === true){
         lf_opt36.show();
     }
+
+    //Map setting options
+    var g_map_api = $("#map_api_key");
+    g_map_api.hide();
+    $('select[name="select_listing_map"]').on("change", function () {
+        if($(this).val() === "google"){
+            g_map_api.show();
+        }else{
+            g_map_api.hide();
+        }
+    });
+    if($('select[name="select_listing_map"]').val() === "google"){
+        g_map_api.show();
+    }
+
+    //Category & Location default settings js
+    var subc_depth = $("#categories_depth_number");
+    subc_depth.hide();
+    $('select[name="display_categories_as"]').on("change", function () {
+        if($(this).val() === "list"){
+            subc_depth.show();
+        }else{
+            subc_depth.hide();
+        }
+    });
+    if($('select[name="display_categories_as"]').val() === "list"){
+        subc_depth.show();
+    }
+
+    var subl_depth = $("#locations_depth_number");
+    subl_depth.hide();
+    $('select[name="display_locations_as"]').on("change", function () {
+        if($(this).val() === "list"){
+            subl_depth.show();
+        }else{
+            subl_depth.hide();
+        }
+    });
+    if($('select[name="display_locations_as"]').val() === "list"){
+        subl_depth.show();
+    }
 });
 
 

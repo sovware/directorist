@@ -2,6 +2,8 @@
 body.atbd_content_active #directorist.atbd_wrapper{
   line-height: 24px;
   max-width: 100%;
+  direction: ltr;
+  text-align: left;
 }
 #directorist.atbd_wrapper input[type="radio"] {
   padding: 0 0 0 10px;
@@ -503,4 +505,14 @@ body.atbd_content_active #directorist.atbd_wrapper{
   left: 0;
   top: 0;
   float: none;
+}
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container{
+  margin-bottom: 30px;
+  .leaflet-popup-content-wrapper{
+    border-radius: 3px;
+    .leaflet-popup-content{
+      margin: 15px;
+      width: 220px !important;
+    }
+  }
 }

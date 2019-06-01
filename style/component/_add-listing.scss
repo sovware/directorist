@@ -283,6 +283,14 @@
 
 #directorist.atbd_wrapper #atbdp-custom-fields-list{
   margin: 13px 0 0 0;
+  #custom_field_for_cat{
+    ul li label{
+      padding-left: 0;
+      input{
+        position: relative;
+      }
+    }
+  }
 }
 
 #directorist.atbd_wrapper .atbdp_social_field_wrapper{

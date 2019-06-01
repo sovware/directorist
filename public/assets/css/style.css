@@ -2973,6 +2973,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin: 13px 0 0 0;
 }
 
+#directorist.atbd_wrapper #atbdp-custom-fields-list #custom_field_for_cat ul li label {
+  padding-left: 0;
+}
+
+#directorist.atbd_wrapper #atbdp-custom-fields-list #custom_field_for_cat ul li label input {
+  position: relative;
+}
+
 #directorist.atbd_wrapper .atbdp_social_field_wrapper {
   margin-bottom: 15px;
 }

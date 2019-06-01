@@ -54,13 +54,11 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                         </a>
                     </div>
 
-
                     <div class="media-body">
                         <div class="atbdp-listings-title-block">
                             <h3 class="atbdp-no-margin"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-
                         </div>
-                        <?php if(!empty($address)) {?>
+                        <?php if(!empty($address)) { ?>
                         <span class="fa fa-briefcase"></span> <a href="" class="map-info-link"><?php echo $address;?></a>
                         <?php } ?>
 

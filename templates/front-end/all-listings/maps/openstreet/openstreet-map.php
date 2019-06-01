@@ -40,7 +40,9 @@
         $html            .= "<div class='atbdp-listings-title-block'>";
         $html            .= "<h3 class='atbdp-no-margin'><a href='".get_the_permalink()."'>".get_the_title()."</a></h3>";
         $html            .= "</div>";
-        $html            .= "<span class='fa fa-briefcase'></span> <a href='' class='map-info-link'>".$address."</a>";
+        if(!empty($address)) {
+            $html .= "<span class='fa fa-briefcase'></span> <a href='' class='map-info-link'>" . $address . "</a>";
+        }
         $html            .= "</div>";
         $html            .= "</div>";
         ?>

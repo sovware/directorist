@@ -544,7 +544,7 @@ jQuery(function ($) {
             // Validate contact form
             var atbdp_contact_submitted = false;
 
-            $('#atbdp-contact-form').validator({
+            $('#atbdp-contact-form,#atbdp-contact-form-widget').validator({
                 disable: false
             }).on('submit', function (e) {
 

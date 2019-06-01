@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         echo '</div>';
                         ?>
                         <div class="atbdp directorist atbdp-widget-listing-contact">
-                            <form id="atbdp-contact-form" class="form-vertical" role="form">
+                            <form id="atbdp-contact-form-widget" class="form-vertical" role="form">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="atbdp-contact-name" placeholder="<?php _e( 'Name', ATBDP_TEXTDOMAIN ); ?>" required />
                                 </div>

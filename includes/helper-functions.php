@@ -2000,7 +2000,7 @@ function atbdp_get_listings_view_options($view_as_items)
     if(!in_array( 'listings_list', $view_as_items )) {
         unset($options[1]);
     }
-    if(empty($display_map) || 'google' != $select_listing_map || !in_array( 'listings_map', $view_as_items )) {
+    if(empty($display_map) || !in_array( 'listings_map', $view_as_items )) {
         unset($options[2]);
     }
     $options[] = isset($_GET['view']) ? sanitize_text_field($_GET['view']) : $listings_settings;

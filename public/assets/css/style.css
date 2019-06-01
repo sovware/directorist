@@ -2073,6 +2073,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories form .select2-container,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories form .select2-container {
   width: 100% !important;
+  border: 1px solid #e3e6ef;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] #loginform,

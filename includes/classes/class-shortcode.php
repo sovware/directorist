@@ -197,7 +197,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $s_string            = !empty($_GET['q']) ? sanitize_text_field($_GET['q']) : '';// get the searched query
             $args = array(
                 'post_type'      => ATBDP_POST_TYPE,
-                's'              => $s_string,
+                '_meta_or_title' => $s_string,   // Our new custom argument!
                 'post_status'    => 'publish',
                 'posts_per_page' => (int) $atts['listings_per_page'],
                 'paged'          => $paged,

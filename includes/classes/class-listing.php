@@ -47,7 +47,7 @@ class ATBDP_Listing{
         $this->add_listing = new ATBDP_Add_Listing;
         $this->db = new ATBDP_Listing_DB;
         // for search functionality
-        //add_action('pre_get_posts', array($this, 'modify_search_query'), 1, 10);
+        add_action('pre_get_posts', array($this, 'modify_search_query'), 1, 10);
         // remove adjacent_posts_rel_link_wp_head for accurate post views
         remove_action( 'wp_head',  array($this, 'adjacent_posts_rel_link_wp_head', 10));
         add_action( 'wp_head',  array($this, 'track_post_views'));

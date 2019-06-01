@@ -23,7 +23,7 @@ mcg.addTo(map);
 for (i = 0; i < fullCount; i++) {
   a = addressPoints[i];
   title = a[2];
-  marker = L.marker([a[0], a[1]], { title: title });
+  marker = L.marker([a[0], a[1]], { title: "" });
   marker.bindPopup(title);
 
   marker.addTo(i < quarterCount ? group1 : i < quarterCount * 2 ? group2 : i < quarterCount * 3 ? group3 : group4);

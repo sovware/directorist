@@ -474,6 +474,10 @@ class ATBDP_Order
                 update_post_meta($listing_id, '_featured', 0);
             } else if (in_array($old_status, $non_complete_statuses) && 'completed' == $new_status) {
                 update_post_meta($listing_id, '_featured', 1);
+                $my_post = array();
+                $my_post['ID'] = $listing_id;
+                $my_post['post_status'] = 'publish';
+                wp_update_post( $my_post );
             }
         }
         // Update new status

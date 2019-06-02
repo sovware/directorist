@@ -129,6 +129,12 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
+= 5.0.7 - Jun 02, 2019 =
+
+* Fix - OpenStreetMap issue
+* Fix - Category and Location issue in search
+* Add - Option to disable Directorist's bootstrap to avoid conflict
+
 = 5.0.6 - Jun 01, 2019 =
 
 * Add - Map view of OpenStreetMap on listings page

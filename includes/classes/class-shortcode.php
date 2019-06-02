@@ -195,13 +195,17 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $current_order       = atbdp_get_listings_current_order( $atts['orderby'].'-'.$atts['order'] );
             $view                = atbdp_get_listings_current_view_name( $atts['view'] );
             $s_string            = !empty($_GET['q']) ? sanitize_text_field($_GET['q']) : '';// get the searched query
-            $args2 = array(
-                'post_type'      => ATBDP_POST_TYPE,
-                's'              => $s_string,   // Our new custom argument!
-                'post_status'    => 'publish',
-                'posts_per_page' => -1,
 
-            );
+            $args2 = array();
+            if (!empty($s_string)){
+                $args2 = array(
+                    'post_type'      => ATBDP_POST_TYPE,
+                    's'              => $s_string,   // Our new custom argument!
+                    'post_status'    => 'publish',
+                    'posts_per_page' => -1,
+
+                );
+            }
 
             $args = array(
                 'post_type'      => ATBDP_POST_TYPE,
@@ -1115,10 +1119,10 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $args['meta_query'] = ( $count_meta_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $meta_queries ) : $meta_queries;
             }
 
-            $q1 = new WP_Query($args);
-            $q2 = new WP_Query($args2);
-
-            $merged = array_merge( $q1->posts, $q2->posts );
+            $q1 = get_posts($args);
+            $q2 = get_posts($args2);
+            
+            $merged = array_merge( $q1, $q2 );
             $post_ids = array();
             foreach( $merged as $item ) {
                 $post_ids[] = $item->ID;

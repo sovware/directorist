@@ -1658,6 +1658,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
         public function all_categories ( $atts )
         {
             wp_enqueue_script('loc_cat_assets');
+
             ob_start();
             $display_categories_as   = get_directorist_option('display_categories_as','grid');
             $categories_settings = array();
@@ -1703,7 +1704,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
         }
 
         public function atbdp_category ($atts) {
-
+            wp_enqueue_script('adminmainassets');
             $term_slug = get_query_var( 'atbdp_category' );
 
             $term = '';
@@ -2097,7 +2098,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
         }
 
         public function atbdp_location ($atts) {
-
+            wp_enqueue_script('adminmainassets');
             $term_slug = get_query_var( 'atbdp_location' );
 
             $term = '';
@@ -2445,7 +2446,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
         }
 
         public function atbdp_tag ($atts) {
-
+            wp_enqueue_script('adminmainassets');
             $term_slug = get_query_var( 'atbdp_tag' );
 
             $term = '';

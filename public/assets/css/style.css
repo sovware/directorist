@@ -1107,19 +1107,18 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_listing_title {
   padding-bottom: 10px;
   padding-top: 18px;
-  display: flex;
-  align-items: center;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_listing_title h2 {
   font-size: 30px;
   font-weight: 500;
-  display: block;
+  display: inline;
   margin: 0 15px 0 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_listing_title .dcl_claimed {
-  top: 0;
+  top: -5px;
+  display: inline-block;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_listing_title .atbd_sub_title {

@@ -306,7 +306,7 @@
   }
 }
 
-#directorist.atbd_wrapper #atbdp_custom_field_area{
+#directorist.atbd_wrapper{
   .wp-picker-container{
     .button{
       position: relative;
@@ -314,6 +314,7 @@
       border: 0 none;
       width: 140px;
       transition: $transition-base;
+      border-radius: 3px;
       &:hover{
         background: $body-color;
       }

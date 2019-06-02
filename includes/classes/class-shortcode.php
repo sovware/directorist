@@ -432,9 +432,14 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                       */
                                         if ($interval < $time_now) {
                                             //pm
-                                            if (($time_start < $time_now) && ($time_now > $time_end)) {
+                                            if (($time_start < $time_now) && ($time_now < $time_end) && ($time_start != $time_end)){
                                                 $_day = true;
-
+                                            }elseif($time_now > $time_end) {
+                                                if (($time_end < $time_start) && ($time_start < $time_now)){
+                                                    $_day = true;
+                                                } else {
+                                                    $_day = false;
+                                                }
                                             }
 
                                         } else {
@@ -459,7 +464,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                         }
                                     }
 
-
                                     break;
                                 case 'Sun' :
                                     $start_time = date('h:i a', strtotime(esc_attr($business_hours['sunday']['start'])));
@@ -482,10 +486,16 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                       */
                                         if ($interval < $time_now) {
                                             //pm
-                                            if (($time_start < $time_now) && ($time_now > $time_end)) {
+                                            if (($time_start < $time_now) && ($time_now < $time_end) && ($time_start != $time_end)){
                                                 $_day = true;
-
+                                            }elseif($time_now > $time_end) {
+                                                if (($time_end < $time_start) && ($time_start < $time_now)){
+                                                    $_day = true;
+                                                } else {
+                                                    $_day = false;
+                                                }
                                             }
+
 
                                         } else {
                                             //am
@@ -507,6 +517,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                         if (($time_now > $time_start) && ($time_now < $time_end)) {
                                             $_day = true;
                                         }
+
                                     }
 
                                     break;
@@ -531,9 +542,14 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                       */
                                         if ($interval < $time_now) {
                                             //pm
-                                            if (($time_start < $time_now) && ($time_now > $time_end)) {
+                                            if (($time_start < $time_now) && ($time_now < $time_end) && ($time_start != $time_end)){
                                                 $_day = true;
-
+                                            }elseif($time_now > $time_end) {
+                                                if (($time_end < $time_start) && ($time_start < $time_now)){
+                                                    $_day = true;
+                                                } else {
+                                                    $_day = false;
+                                                }
                                             }
 
                                         } else {
@@ -581,9 +597,14 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                       */
                                         if ($interval < $time_now) {
                                             //pm
-                                            if (($time_start < $time_now) && ($time_now > $time_end)) {
+                                            if (($time_start < $time_now) && ($time_now < $time_end) && ($time_start != $time_end)){
                                                 $_day = true;
-
+                                            }elseif($time_now > $time_end) {
+                                                if (($time_end < $time_start) && ($time_start < $time_now)){
+                                                    $_day = true;
+                                                } else {
+                                                    $_day = false;
+                                                }
                                             }
 
                                         } else {
@@ -630,9 +651,14 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                       */
                                         if ($interval < $time_now) {
                                             //pm
-                                            if (($time_start < $time_now) && ($time_now > $time_end)) {
+                                            if (($time_start < $time_now) && ($time_now < $time_end) && ($time_start != $time_end)){
                                                 $_day = true;
-
+                                            }elseif($time_now > $time_end) {
+                                                if (($time_end < $time_start) && ($time_start < $time_now)){
+                                                    $_day = true;
+                                                } else {
+                                                    $_day = false;
+                                                }
                                             }
 
                                         } else {
@@ -679,9 +705,14 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                       */
                                         if ($interval < $time_now) {
                                             //pm
-                                            if (($time_start < $time_now) && ($time_now > $time_end)) {
+                                            if (($time_start < $time_now) && ($time_now < $time_end) && ($time_start != $time_end)){
                                                 $_day = true;
-
+                                            }elseif($time_now > $time_end) {
+                                                if (($time_end < $time_start) && ($time_start < $time_now)){
+                                                    $_day = true;
+                                                } else {
+                                                    $_day = false;
+                                                }
                                             }
 
                                         } else {
@@ -728,9 +759,14 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                       */
                                         if ($interval < $time_now) {
                                             //pm
-                                            if (($time_start < $time_now) && ($time_now > $time_end)) {
+                                            if (($time_start < $time_now) && ($time_now < $time_end) && ($time_start != $time_end)){
                                                 $_day = true;
-
+                                            }elseif($time_now > $time_end) {
+                                                if (($time_end < $time_start) && ($time_start < $time_now)){
+                                                    $_day = true;
+                                                } else {
+                                                    $_day = false;
+                                                }
                                             }
 
                                         } else {
@@ -759,6 +795,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                             }
 
                         }
+
                         if (empty($_day)){
                             $closed[] = get_the_ID();
                         }
@@ -1121,7 +1158,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             $q1 = get_posts($args);
             $q2 = get_posts($args2);
-            
+
             $merged = array_merge( $q1, $q2 );
             $post_ids = array();
             foreach( $merged as $item ) {

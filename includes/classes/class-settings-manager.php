@@ -3902,6 +3902,13 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_all_listings_settings_fields', array(
                     array(
                         'type' => 'toggle',
+                        'name' => 'fix_js_conflict',
+                        'label' => __('Fix Conflict with Bootstrap JS', ATBDP_TEXTDOMAIN),
+                        'description' => __('If you use a theme that uses Bootstrap Framework especially Bootstrap JS, then Check this setting to fix any conflict with theme bootstrap js.', ATBDP_TEXTDOMAIN),
+                        'default' => 0,
+                    ),
+                    array(
+                        'type' => 'toggle',
                         'name' => 'display_preview_image',
                         'label' => __('Show Preview Image', ATBDP_TEXTDOMAIN),
                         'description' => __('Hide/show preview image from all listing page.', ATBDP_TEXTDOMAIN),
@@ -4173,7 +4180,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'single_listing_page',
                         'label' => __('Single Listing Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_listing_top_area][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_review][directorist_related_listings]</strong>'),
+                        'description' => sprintf(__('Following shortcodes can be used for the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_listing_top_area][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_review][directorist_related_listings]</strong>'),
                         'default' => atbdp_get_option('single_listing_page', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),

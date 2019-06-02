@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2019-05-23 17:43+0600\n"
+"POT-Creation-Date: 2019-06-01 16:29+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -58,159 +58,161 @@ msgid "All Listings"
 msgstr ""
 
 #: directorist-base.php:460
-msgid "Single Listings"
+#: includes/classes/class-settings-manager.php:192
+#: includes/classes/class-settings-manager.php:198
+msgid "Single Listing"
 msgstr ""
 
-#: directorist-base.php:464
+#: directorist-base.php:465
 msgid "All Categories"
 msgstr ""
 
-#: directorist-base.php:468
+#: directorist-base.php:469
 msgid "Single Category"
 msgstr ""
 
-#: directorist-base.php:472 includes/classes/class-custom-taxonomy.php:303
+#: directorist-base.php:473 includes/classes/class-custom-taxonomy.php:303
 msgid "All Locations"
 msgstr ""
 
-#: directorist-base.php:476
+#: directorist-base.php:477
 msgid "Single Location"
 msgstr ""
 
-#: directorist-base.php:480
+#: directorist-base.php:481
 msgid "Single Tag"
 msgstr ""
 
-#: directorist-base.php:484
+#: directorist-base.php:485
 msgid "Author Profile"
 msgstr ""
 
-#: directorist-base.php:488
+#: directorist-base.php:489
 msgid "Dashboard"
 msgstr ""
 
-#: directorist-base.php:492
+#: directorist-base.php:493
 msgid "Registration"
 msgstr ""
 
-#: directorist-base.php:495 directorist-base.php:1250
+#: directorist-base.php:496 directorist-base.php:1251
 msgid "Login"
 msgstr ""
 
-#: directorist-base.php:499
+#: directorist-base.php:500
 msgid "Checkout"
 msgstr ""
 
-#: directorist-base.php:503
+#: directorist-base.php:504
 msgid "Payment Receipt"
 msgstr ""
 
-#: directorist-base.php:507
+#: directorist-base.php:508
 msgid "Transaction Failure"
 msgstr ""
 
-#: directorist-base.php:929
+#: directorist-base.php:930
 msgid ""
 "If you have time, please let us know why you are deactivating so that "
 "we can improve."
 msgstr ""
 
-#: directorist-base.php:946
+#: directorist-base.php:947
 msgid "Skip & Deactivate"
 msgstr ""
 
-#: directorist-base.php:947
+#: directorist-base.php:948
 msgid "Submit & Deactivate"
 msgstr ""
 
-#: directorist-base.php:948 includes/classes/class-enqueuer.php:273
+#: directorist-base.php:949 includes/classes/class-enqueuer.php:282
 #: includes/libs/vafpress/classes/shortcodegenerator.php:261
 msgid "Cancel"
 msgstr ""
 
-#: directorist-base.php:1091
+#: directorist-base.php:1092
 #: templates/front-end/single-listing/listing-header.php:319
-#: templates/single-at_biz_dir.php:335
+#: templates/single-at_biz_dir.php:322
 msgid " Reviews"
 msgstr ""
 
-#: directorist-base.php:1091
+#: directorist-base.php:1092
 #: templates/front-end/single-listing/listing-header.php:319
-#: templates/single-at_biz_dir.php:335
+#: templates/single-at_biz_dir.php:322
 msgid " Review"
 msgstr ""
 
-#: directorist-base.php:1103
+#: directorist-base.php:1104
 msgid "Add a review"
 msgstr ""
 
-#: directorist-base.php:1126
+#: directorist-base.php:1127
 #, php-format
 msgid "%s ago"
 msgstr ""
 
-#: directorist-base.php:1142
+#: directorist-base.php:1143
 msgid "No reviews found. Be the first to post a review !"
 msgstr ""
 
-#: directorist-base.php:1165
+#: directorist-base.php:1166
 msgid "Update Review"
 msgstr ""
 
-#: directorist-base.php:1165
+#: directorist-base.php:1166
 msgid "Leave a Review"
 msgstr ""
 
-#: directorist-base.php:1178
+#: directorist-base.php:1179
 msgid "Your name"
 msgstr ""
 
-#: directorist-base.php:1191
+#: directorist-base.php:1192
 msgid "Current Rating:"
 msgstr ""
 
-#: directorist-base.php:1199
+#: directorist-base.php:1200
 msgid "Update Rating:"
 msgstr ""
 
-#: directorist-base.php:1199
+#: directorist-base.php:1200
 msgid "Your Rating:"
 msgstr ""
 
-#: directorist-base.php:1213
+#: directorist-base.php:1214
 msgid "Update your review....."
 msgstr ""
 
-#: directorist-base.php:1213
+#: directorist-base.php:1214
 msgid "Write your review....."
 msgstr ""
 
-#: directorist-base.php:1230
+#: directorist-base.php:1231
 msgid "Update"
 msgstr ""
 
-#: directorist-base.php:1232
+#: directorist-base.php:1233
 #: includes/libs/vafpress/classes/metabox.php:566
 #: includes/libs/vafpress/classes/metabox/alchemy.php:493
-#: templates/front-end/user-dashboard.php:604
+#: templates/front-end/user-dashboard.php:606
 msgid "Remove"
 msgstr ""
 
-#: directorist-base.php:1235
+#: directorist-base.php:1236
 msgid "Submit Review"
 msgstr ""
 
-#: directorist-base.php:1251
+#: directorist-base.php:1252
 #: templates/front-end/user-registration-form.php:10
 msgid "Register"
 msgstr ""
 
-#: directorist-base.php:1253
+#: directorist-base.php:1254
 #, php-format
 msgid "You need to %s or %s to submit a review"
 msgstr ""
 
-#: directorist-base.php:1261
+#: directorist-base.php:1262
 msgid "View More Review"
 msgstr ""
 
@@ -329,7 +331,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1874
 #: includes/classes/class-settings-manager.php:2636
 #: includes/helper-functions.php:2021
-#: templates/widget-templates/all-map.php:4
+#: templates/widget-templates/all-map.php:5
 msgid "Map"
 msgstr ""
 
@@ -376,7 +378,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:247
 #: includes/classes/class-settings-manager.php:1918
 #: includes/classes/class-settings-manager.php:2708
-#: includes/classes/class-settings-manager.php:2901
+#: includes/classes/class-settings-manager.php:2902
 #: includes/custom-fields/class-custom-field.php:696
 #: includes/gateways/class-gateway.php:131
 #: templates/front-end/add-listing.php:165
@@ -478,7 +480,7 @@ msgstr ""
 #: includes/classes/class-tags-widget.php:146
 #: templates/front-end/payment-receipt.php:110
 #: templates/front-end/single-listing/listing-contact-owner.php:27
-#: templates/single-at_biz_dir.php:727
+#: templates/single-at_biz_dir.php:670
 msgid "Name"
 msgstr ""
 
@@ -543,9 +545,9 @@ msgid "Directorist - Contact Listing Owner"
 msgstr ""
 
 #: includes/classes/class-contact-form-widget.php:47
-#: includes/classes/class-settings-manager.php:3748
+#: includes/classes/class-settings-manager.php:3749
 #: templates/front-end/single-listing/listing-contact-owner.php:8
-#: templates/single-at_biz_dir.php:110
+#: templates/single-at_biz_dir.php:106
 msgid "Contact Listing Owner"
 msgstr ""
 
@@ -554,28 +556,28 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1696
 #: includes/classes/class-settings-manager.php:2329
 #: includes/classes/class-settings-manager.php:2538
-#: includes/classes/class-settings-manager.php:3252
-#: templates/contact-info.php:167 templates/front-end/add-listing.php:798
+#: includes/classes/class-settings-manager.php:3253
+#: templates/contact-info.php:167 templates/front-end/add-listing.php:797
 #: templates/front-end/all-listings/listings-header.php:255
-#: templates/front-end/single-listing/listing-contact-info.php:79
+#: templates/front-end/single-listing/listing-contact-info.php:80
 #: templates/front-end/single-listing/listing-contact-owner.php:32
 #: templates/front-end/user-registration-form.php:64
-#: templates/listing-home.php:233 templates/single-at_biz_dir.php:663
-#: templates/single-at_biz_dir.php:732
+#: templates/listing-home.php:233 templates/single-at_biz_dir.php:610
+#: templates/single-at_biz_dir.php:675
 msgid "Email"
 msgstr ""
 
 #: includes/classes/class-contact-form-widget.php:64
 #: templates/front-end/single-listing/listing-contact-owner.php:37
 #: templates/front-end/single-listing/listing-header.php:206
-#: templates/single-at_biz_dir.php:223 templates/single-at_biz_dir.php:737
+#: templates/single-at_biz_dir.php:214 templates/single-at_biz_dir.php:680
 msgid "Message"
 msgstr ""
 
 #: includes/classes/class-contact-form-widget.php:76
 #: templates/front-end/single-listing/listing-contact-owner.php:49
 #: templates/front-end/single-listing/listing-header.php:216
-#: templates/single-at_biz_dir.php:233 templates/single-at_biz_dir.php:749
+#: templates/single-at_biz_dir.php:224 templates/single-at_biz_dir.php:692
 msgid "Submit"
 msgstr ""
 
@@ -652,7 +654,7 @@ msgid "Directory Listing"
 msgstr ""
 
 #: includes/classes/class-custom-post.php:168
-#: templates/front-end/user-dashboard.php:529
+#: templates/front-end/user-dashboard.php:531
 msgid "Listing Name"
 msgstr ""
 
@@ -661,11 +663,11 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1665
 #: includes/classes/class-settings-manager.php:2238
 #: includes/classes/class-settings-manager.php:2507
-#: includes/classes/class-settings-manager.php:3001
-#: includes/classes/class-settings-manager.php:3736
+#: includes/classes/class-settings-manager.php:3002
+#: includes/classes/class-settings-manager.php:3737
 #: templates/front-end/add-listing.php:499
 #: templates/front-end/single-listing/listing-map.php:26
-#: templates/single-at_biz_dir.php:108
+#: templates/single-at_biz_dir.php:104
 msgid "Location"
 msgstr ""
 
@@ -710,7 +712,7 @@ msgstr ""
 #: includes/classes/class-custom-taxonomy.php:103
 #: includes/classes/class-custom-taxonomy.php:114
 #: includes/custom-fields/class-custom-field.php:719
-#: includes/payments/class-order.php:562
+#: includes/payments/class-order.php:566
 msgid "View"
 msgstr ""
 
@@ -1066,24 +1068,24 @@ msgid "Current Color"
 msgstr ""
 
 #: includes/classes/class-enqueuer.php:137
-#: includes/classes/class-enqueuer.php:333
+#: includes/classes/class-enqueuer.php:342
 msgid "Are you sure"
 msgstr ""
 
 #: includes/classes/class-enqueuer.php:138
-#: includes/classes/class-enqueuer.php:334
+#: includes/classes/class-enqueuer.php:343
 msgid "Do you really want to remove this Social Link!"
 msgstr ""
 
 #: includes/classes/class-enqueuer.php:139
-#: includes/classes/class-enqueuer.php:272
-#: includes/classes/class-enqueuer.php:277
-#: includes/classes/class-enqueuer.php:335
+#: includes/classes/class-enqueuer.php:281
+#: includes/classes/class-enqueuer.php:286
+#: includes/classes/class-enqueuer.php:345
 msgid "Yes, Delete it!"
 msgstr ""
 
 #: includes/classes/class-enqueuer.php:140
-#: includes/classes/class-enqueuer.php:336
+#: includes/classes/class-enqueuer.php:346
 msgid "Deleted!"
 msgstr ""
 
@@ -1092,7 +1094,7 @@ msgid "Select an icon"
 msgstr ""
 
 #: includes/classes/class-enqueuer.php:142
-#: includes/classes/class-enqueuer.php:340
+#: includes/classes/class-enqueuer.php:350
 msgid "Select or Upload Slider Image"
 msgstr ""
 
@@ -1101,199 +1103,203 @@ msgid "Select Category Image"
 msgstr ""
 
 #: includes/classes/class-enqueuer.php:144
-#: includes/classes/class-enqueuer.php:282
-#: includes/classes/class-enqueuer.php:341
+#: includes/classes/class-enqueuer.php:291
+#: includes/classes/class-enqueuer.php:351
 msgid "Use this Image"
 msgstr ""
 
 #: includes/classes/class-enqueuer.php:145
-#: includes/classes/class-enqueuer.php:342
+#: includes/classes/class-enqueuer.php:352
 msgid "Select Preview Image"
 msgstr ""
 
 #: includes/classes/class-enqueuer.php:146
-#: includes/classes/class-enqueuer.php:343
+#: includes/classes/class-enqueuer.php:353
 msgid "Insert Preview Image"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:261
+#: includes/classes/class-enqueuer.php:270
 msgid "Sorry, you need to login first."
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:263
+#: includes/classes/class-enqueuer.php:272
 msgid "WARNING!!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:264
+#: includes/classes/class-enqueuer.php:273
 msgid ""
 "You can not add more than one review. Refresh the page to edit or "
 "delete your review!!!,"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:265
+#: includes/classes/class-enqueuer.php:274
 msgid "Reviews Saved Successfully!!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:266
+#: includes/classes/class-enqueuer.php:275
 msgid "Something went wrong. Check the form and try again!!!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:267
+#: includes/classes/class-enqueuer.php:276
 msgid "Reviews Loaded!!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:268
+#: includes/classes/class-enqueuer.php:277
 msgid "NO MORE REVIEWS AVAILABLE!!!,"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:269
+#: includes/classes/class-enqueuer.php:278
 msgid ""
 "You do not have any review to delete. Refresh the page to submit new "
 "review!!!,"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:270
-#: includes/classes/class-enqueuer.php:275
+#: includes/classes/class-enqueuer.php:279
+#: includes/classes/class-enqueuer.php:284
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:271
+#: includes/classes/class-enqueuer.php:280
 msgid "Do you really want to remove this review!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:274
-#: includes/classes/class-enqueuer.php:280
+#: includes/classes/class-enqueuer.php:283
+#: includes/classes/class-enqueuer.php:289
 msgid "Something went wrong!!!, Try again"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:276
+#: includes/classes/class-enqueuer.php:285
 msgid "Do you really want to delete this item?!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:278
+#: includes/classes/class-enqueuer.php:287
 msgid "Deleted!!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:279
+#: includes/classes/class-enqueuer.php:288
 msgid "ERROR!!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:281
+#: includes/classes/class-enqueuer.php:290
 msgid "Select or Upload a profile picture"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:337
-#: includes/classes/class-enqueuer.php:685
+#: includes/classes/class-enqueuer.php:344
+msgid "Do you really want to remove this FAQ!"
+msgstr ""
+
+#: includes/classes/class-enqueuer.php:347
+#: includes/classes/class-enqueuer.php:695
 #: includes/classes/class-settings-manager.php:1770
 #: includes/classes/class-settings-manager.php:2261
 #: includes/classes/class-settings-manager.php:2612
-#: includes/classes/class-shortcode.php:1121
-#: includes/classes/class-shortcode.php:1586
-#: includes/classes/class-shortcode.php:1995
-#: includes/classes/class-shortcode.php:2387
-#: includes/classes/class-shortcode.php:2737 templates/listing-home.php:6
+#: includes/classes/class-shortcode.php:1153
+#: includes/classes/class-shortcode.php:1618
+#: includes/classes/class-shortcode.php:2030
+#: includes/classes/class-shortcode.php:2425
+#: includes/classes/class-shortcode.php:2775 templates/listing-home.php:6
 msgid "Select a location"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:338
-#: includes/classes/class-enqueuer.php:686
+#: includes/classes/class-enqueuer.php:348
+#: includes/classes/class-enqueuer.php:696
 #: includes/classes/class-settings-manager.php:1764
 #: includes/classes/class-settings-manager.php:2255
 #: includes/classes/class-settings-manager.php:2606
-#: includes/classes/class-shortcode.php:1120
-#: includes/classes/class-shortcode.php:1585
-#: includes/classes/class-shortcode.php:1994
-#: includes/classes/class-shortcode.php:2386
-#: includes/classes/class-shortcode.php:2736
-#: includes/helper-functions.php:3618 templates/listing-home.php:5
+#: includes/classes/class-shortcode.php:1152
+#: includes/classes/class-shortcode.php:1617
+#: includes/classes/class-shortcode.php:2029
+#: includes/classes/class-shortcode.php:2424
+#: includes/classes/class-shortcode.php:2774
+#: includes/helper-functions.php:3620 templates/listing-home.php:5
 #: templates/search-widget-front.php:28
 msgid "Select a category"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:339
+#: includes/classes/class-enqueuer.php:349
 msgid "Select or insert new tags separated by a comma, or space"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:388
+#: includes/classes/class-enqueuer.php:398
 msgid "Title field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:394
+#: includes/classes/class-enqueuer.php:404
 msgid "Description field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:398
+#: includes/classes/class-enqueuer.php:408
 msgid "Category field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:405
+#: includes/classes/class-enqueuer.php:415
 msgid "Excerpt field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:417
+#: includes/classes/class-enqueuer.php:427
 msgid "Price field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:427
+#: includes/classes/class-enqueuer.php:437
 msgid "Price range field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:448
+#: includes/classes/class-enqueuer.php:458
 msgid "Tag field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:466
+#: includes/classes/class-enqueuer.php:476
 msgid "Location field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:475
+#: includes/classes/class-enqueuer.php:485
 msgid "Address field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:487
+#: includes/classes/class-enqueuer.php:497
 msgid "Phone field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:499
+#: includes/classes/class-enqueuer.php:509
 msgid "Email field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:511
+#: includes/classes/class-enqueuer.php:521
 msgid "Website link field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:521
+#: includes/classes/class-enqueuer.php:531
 msgid "Zip/Post Code field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:534
+#: includes/classes/class-enqueuer.php:544
 msgid "Social information is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:550
+#: includes/classes/class-enqueuer.php:560
 msgid "Preview image is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:552
+#: includes/classes/class-enqueuer.php:562
 msgid "Gallery image is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:565
+#: includes/classes/class-enqueuer.php:575
 msgid "Video is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:572
+#: includes/classes/class-enqueuer.php:582
 msgid "Agree to Terms & Conditions is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:687
+#: includes/classes/class-enqueuer.php:697
 #: templates/custom-field-search-form.php:79
 #: templates/front-end/all-listings/listings-header.php:239
 #: templates/listing-home.php:216
 msgid "Show More"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:688
+#: includes/classes/class-enqueuer.php:698
 msgid "Show Less"
 msgstr ""
 
@@ -1302,8 +1308,7 @@ msgid "Get Extensions"
 msgstr ""
 
 #: includes/classes/class-extension.php:36
-msgid ""
-"<span style=\"color: #01b0ff; font-weight: 600;\">Extensions</span>"
+msgid "<span>Extensions</span>"
 msgstr ""
 
 #: includes/classes/class-featured-widget.php:16
@@ -1338,15 +1343,15 @@ msgstr ""
 
 #: includes/classes/class-helper.php:69
 #: templates/front-end/single-listing/listing-header.php:156
-#: templates/front-end/user-dashboard.php:459
-#: templates/single-at_biz_dir.php:175
+#: templates/front-end/user-dashboard.php:460
+#: templates/single-at_biz_dir.php:167
 msgid "Facebook"
 msgstr ""
 
 #: includes/classes/class-helper.php:70
 #: templates/front-end/single-listing/listing-header.php:160
-#: templates/front-end/user-dashboard.php:469
-#: templates/single-at_biz_dir.php:179
+#: templates/front-end/user-dashboard.php:470
+#: templates/single-at_biz_dir.php:171
 msgid "Twitter"
 msgstr ""
 
@@ -1356,8 +1361,8 @@ msgstr ""
 
 #: includes/classes/class-helper.php:72
 #: templates/front-end/single-listing/listing-header.php:164
-#: templates/front-end/user-dashboard.php:480
-#: templates/single-at_biz_dir.php:183
+#: templates/front-end/user-dashboard.php:481
+#: templates/single-at_biz_dir.php:175
 msgid "LinkedIn"
 msgstr ""
 
@@ -1386,7 +1391,7 @@ msgid "Reddit"
 msgstr ""
 
 #: includes/classes/class-helper.php:79
-#: templates/front-end/user-dashboard.php:490
+#: templates/front-end/user-dashboard.php:491
 msgid "Youtube"
 msgstr ""
 
@@ -1440,8 +1445,8 @@ msgstr ""
 msgid "Read More"
 msgstr ""
 
-#: includes/classes/class-listing.php:76
-#: templates/single-at_biz_dir.php:136
+#: includes/classes/class-listing.php:81
+#: templates/single-at_biz_dir.php:132
 msgid " Edit Listing"
 msgstr ""
 
@@ -1497,14 +1502,14 @@ msgstr ""
 #: includes/classes/class-map-widget.php:45 templates/add-listing.php:7
 #: templates/front-end/single-listing/listing-header.php:71
 #: templates/front-end/single-listing/listing-map.php:14
-#: templates/single-at_biz_dir.php:71
+#: templates/single-at_biz_dir.php:67
 msgid "No Title"
 msgstr ""
 
 #: includes/classes/class-map-widget.php:49
 #: templates/front-end/single-listing/listing-header.php:79
 #: templates/front-end/single-listing/listing-map.php:22
-#: templates/single-at_biz_dir.php:79
+#: templates/single-at_biz_dir.php:75
 msgid "View On Google Maps"
 msgstr ""
 
@@ -1513,11 +1518,11 @@ msgid "General Information"
 msgstr ""
 
 #: includes/classes/class-metabox.php:179
-#: includes/classes/class-settings-manager.php:3742
-#: includes/classes/class-settings-manager.php:4000
-#: templates/front-end/add-listing.php:641
+#: includes/classes/class-settings-manager.php:3743
+#: includes/classes/class-settings-manager.php:4001
+#: templates/front-end/add-listing.php:640
 #: templates/front-end/single-listing/listing-contact-info.php:32
-#: templates/single-at_biz_dir.php:109
+#: templates/single-at_biz_dir.php:105
 msgid "Contact Information"
 msgstr ""
 
@@ -1530,8 +1535,8 @@ msgid "Add Video for the Listing"
 msgstr ""
 
 #: includes/classes/class-metabox.php:291
-#: includes/classes/class-settings-manager.php:3485
-#: templates/front-end/add-listing.php:955
+#: includes/classes/class-settings-manager.php:3486
+#: templates/front-end/add-listing.php:954
 msgid "Video Url"
 msgstr ""
 
@@ -1545,23 +1550,20 @@ msgstr ""
 #: templates/front-end/add-listing.php:220
 #: templates/front-end/add-listing.php:306
 #: templates/front-end/add-listing.php:500
-#: templates/front-end/add-listing.php:535
-#: templates/front-end/add-listing.php:575
-#: templates/front-end/add-listing.php:671
-#: templates/front-end/add-listing.php:762
-#: templates/front-end/add-listing.php:782
-#: templates/front-end/add-listing.php:799
-#: templates/front-end/add-listing.php:816
-#: templates/front-end/add-listing.php:956
-#: templates/front-end/front-media-upload.php:39
-#: templates/front-end/front-media-upload.php:78
-#: templates/media-upload.php:32 templates/media-upload.php:67
+#: templates/front-end/add-listing.php:534
+#: templates/front-end/add-listing.php:574
+#: templates/front-end/add-listing.php:670
+#: templates/front-end/add-listing.php:761
+#: templates/front-end/add-listing.php:781
+#: templates/front-end/add-listing.php:798
+#: templates/front-end/add-listing.php:815
+#: templates/front-end/add-listing.php:955
 #: templates/meta-partials/social.php:8
 msgid ":"
 msgstr ""
 
 #: includes/classes/class-metabox.php:293
-#: templates/front-end/add-listing.php:961
+#: templates/front-end/add-listing.php:960
 msgid "Only YouTube & Vimeo URLs."
 msgstr ""
 
@@ -1640,7 +1642,7 @@ msgid "Pages, Links & Views"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:87
-#: includes/classes/class-settings-manager.php:4327
+#: includes/classes/class-settings-manager.php:4328
 #: templates/upgrade-directorist.php:7
 msgid "Upgrade/Regenerate Pages"
 msgstr ""
@@ -1705,11 +1707,6 @@ msgstr ""
 msgid "You can Customize all Listings related settings here"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:192
-#: includes/classes/class-settings-manager.php:198
-msgid "Single Listing"
-msgstr ""
-
 #: includes/classes/class-settings-manager.php:199
 msgid "You can Customize Listings Form related settings here"
 msgstr ""
@@ -1752,7 +1749,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1661
 #: includes/classes/class-settings-manager.php:2234
 #: includes/classes/class-settings-manager.php:2503
-#: templates/front-end/user-dashboard.php:530
+#: templates/front-end/user-dashboard.php:532
 msgid "Category"
 msgstr ""
 
@@ -1760,12 +1757,12 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1681
 #: includes/classes/class-settings-manager.php:2314
 #: includes/classes/class-settings-manager.php:2523
-#: includes/classes/class-settings-manager.php:3036
+#: includes/classes/class-settings-manager.php:3037
 msgid "Tag"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:272
-#: includes/classes/class-settings-manager.php:3072
+#: includes/classes/class-settings-manager.php:3073
 #: templates/add-listing.php:34 templates/front-end/add-listing.php:192
 msgid "Tagline"
 msgstr ""
@@ -1783,19 +1780,19 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1704
 #: includes/classes/class-settings-manager.php:2337
 #: includes/classes/class-settings-manager.php:2546
-#: includes/classes/class-settings-manager.php:3179
-#: includes/classes/class-settings-manager.php:3985
+#: includes/classes/class-settings-manager.php:3180
+#: includes/classes/class-settings-manager.php:3986
 #: templates/front-end/all-listings/listings-header.php:263
-#: templates/front-end/single-listing/listing-contact-info.php:59
-#: templates/front-end/user-dashboard.php:425
-#: templates/listing-home.php:241 templates/single-at_biz_dir.php:643
+#: templates/front-end/single-listing/listing-contact-info.php:60
+#: templates/front-end/user-dashboard.php:426
+#: templates/listing-home.php:241 templates/single-at_biz_dir.php:590
 msgid "Address"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:292
 #: templates/contact-info.php:158 templates/contact-info.php:162
-#: templates/front-end/add-listing.php:781
-#: templates/front-end/add-listing.php:787
+#: templates/front-end/add-listing.php:780
+#: templates/front-end/add-listing.php:786
 #: templates/front-end/all-listings/listings-header.php:259
 #: templates/listing-home.php:237
 msgid "Phone Number"
@@ -1805,13 +1802,13 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1692
 #: includes/classes/class-settings-manager.php:2325
 #: includes/classes/class-settings-manager.php:2534
-#: includes/classes/class-settings-manager.php:3289
-#: templates/contact-info.php:176 templates/front-end/add-listing.php:815
+#: includes/classes/class-settings-manager.php:3290
+#: templates/contact-info.php:176 templates/front-end/add-listing.php:814
 #: templates/front-end/all-listings/listings-header.php:251
-#: templates/front-end/single-listing/listing-contact-info.php:89
-#: templates/front-end/user-dashboard.php:417
+#: templates/front-end/single-listing/listing-contact-info.php:90
+#: templates/front-end/user-dashboard.php:418
 #: templates/front-end/user-registration-form.php:69
-#: templates/listing-home.php:229 templates/single-at_biz_dir.php:673
+#: templates/listing-home.php:229 templates/single-at_biz_dir.php:620
 msgid "Website"
 msgstr ""
 
@@ -1819,11 +1816,11 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1708
 #: includes/classes/class-settings-manager.php:2341
 #: includes/classes/class-settings-manager.php:2550
-#: includes/classes/class-settings-manager.php:3325
-#: templates/contact-info.php:147 templates/front-end/add-listing.php:761
+#: includes/classes/class-settings-manager.php:3326
+#: templates/contact-info.php:147 templates/front-end/add-listing.php:760
 #: templates/front-end/all-listings/listings-header.php:268
-#: templates/front-end/single-listing/listing-contact-info.php:100
-#: templates/listing-home.php:246 templates/single-at_biz_dir.php:684
+#: templates/front-end/single-listing/listing-contact-info.php:101
+#: templates/listing-home.php:246 templates/single-at_biz_dir.php:631
 msgid "Zip/Post Code"
 msgstr ""
 
@@ -1832,10 +1829,10 @@ msgid "Social Info"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:327
-#: includes/classes/class-settings-manager.php:3754
+#: includes/classes/class-settings-manager.php:3755
 #: templates/front-end/single-listing/listing-header.php:91
 #: templates/front-end/single-listing/listing-video.php:8
-#: templates/single-at_biz_dir.php:91
+#: templates/single-at_biz_dir.php:87
 msgid "Video"
 msgstr ""
 
@@ -2723,23 +2720,23 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1582
 #: includes/classes/class-settings-manager.php:1592
 #: includes/classes/class-settings-manager.php:1601
-#: includes/classes/class-settings-manager.php:4214
-#: includes/classes/class-settings-manager.php:4235
-#: includes/classes/class-settings-manager.php:4246
+#: includes/classes/class-settings-manager.php:4215
+#: includes/classes/class-settings-manager.php:4236
+#: includes/classes/class-settings-manager.php:4247
 msgid "Published"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:1577
 #: includes/classes/class-settings-manager.php:1596
-#: includes/classes/class-settings-manager.php:4218
-#: includes/classes/class-settings-manager.php:4225
-#: includes/classes/class-settings-manager.php:4239
+#: includes/classes/class-settings-manager.php:4219
+#: includes/classes/class-settings-manager.php:4226
+#: includes/classes/class-settings-manager.php:4240
 #: includes/payments/functions.php:48
 msgid "Pending"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:1588
-#: includes/classes/class-settings-manager.php:4231
+#: includes/classes/class-settings-manager.php:4232
 msgid "Edited Listing's Default Status"
 msgstr ""
 
@@ -2769,11 +2766,11 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:1628
 #: includes/classes/class-settings-manager.php:2470
-#: includes/classes/class-shortcode.php:1118
-#: includes/classes/class-shortcode.php:1583
-#: includes/classes/class-shortcode.php:1992
-#: includes/classes/class-shortcode.php:2384
-#: includes/classes/class-shortcode.php:2734
+#: includes/classes/class-shortcode.php:1150
+#: includes/classes/class-shortcode.php:1615
+#: includes/classes/class-shortcode.php:2027
+#: includes/classes/class-shortcode.php:2422
+#: includes/classes/class-shortcode.php:2772
 msgid "Filters"
 msgstr ""
 
@@ -2842,15 +2839,18 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1688
 #: includes/classes/class-settings-manager.php:2321
 #: includes/classes/class-settings-manager.php:2530
+#: includes/custom-fields/class-custom-field.php:365
+#: includes/custom-fields/class-custom-field.php:366
+#: includes/custom-fields/class-custom-field.php:367
 msgid "Custom Fields"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:1700
 #: includes/classes/class-settings-manager.php:2333
 #: includes/classes/class-settings-manager.php:2542
-#: includes/classes/class-settings-manager.php:3215
-#: templates/front-end/single-listing/listing-contact-info.php:70
-#: templates/single-at_biz_dir.php:654
+#: includes/classes/class-settings-manager.php:3216
+#: templates/front-end/single-listing/listing-contact-info.php:71
+#: templates/single-at_biz_dir.php:601
 msgid "Phone"
 msgstr ""
 
@@ -2879,12 +2879,12 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1746
 #: includes/classes/class-settings-manager.php:2383
 #: includes/classes/class-settings-manager.php:2588
-#: includes/classes/class-shortcode.php:1125
-#: includes/classes/class-shortcode.php:1590
-#: includes/classes/class-shortcode.php:1999
-#: includes/classes/class-shortcode.php:2391
-#: includes/classes/class-shortcode.php:2741
-#: includes/classes/class-shortcode.php:2770
+#: includes/classes/class-shortcode.php:1157
+#: includes/classes/class-shortcode.php:1622
+#: includes/classes/class-shortcode.php:2034
+#: includes/classes/class-shortcode.php:2429
+#: includes/classes/class-shortcode.php:2779
+#: includes/classes/class-shortcode.php:2808
 msgid "Reset Filters"
 msgstr ""
 
@@ -2896,12 +2896,12 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1752
 #: includes/classes/class-settings-manager.php:2389
 #: includes/classes/class-settings-manager.php:2594
-#: includes/classes/class-shortcode.php:1126
-#: includes/classes/class-shortcode.php:1591
-#: includes/classes/class-shortcode.php:2000
-#: includes/classes/class-shortcode.php:2392
-#: includes/classes/class-shortcode.php:2742
-#: includes/classes/class-shortcode.php:2771
+#: includes/classes/class-shortcode.php:1158
+#: includes/classes/class-shortcode.php:1623
+#: includes/classes/class-shortcode.php:2035
+#: includes/classes/class-shortcode.php:2430
+#: includes/classes/class-shortcode.php:2780
+#: includes/classes/class-shortcode.php:2809
 msgid "Apply Filters"
 msgstr ""
 
@@ -2914,11 +2914,12 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1758
 #: includes/classes/class-settings-manager.php:2249
 #: includes/classes/class-settings-manager.php:2600
-#: includes/classes/class-shortcode.php:1119
-#: includes/classes/class-shortcode.php:1584
-#: includes/classes/class-shortcode.php:1993
-#: includes/classes/class-shortcode.php:2385
-#: includes/classes/class-shortcode.php:2735 templates/listing-home.php:4
+#: includes/classes/class-shortcode.php:1151
+#: includes/classes/class-shortcode.php:1616
+#: includes/classes/class-shortcode.php:2028
+#: includes/classes/class-shortcode.php:2423
+#: includes/classes/class-shortcode.php:2773 templates/listing-home.php:4
+#: templates/search-widget-front.php:5
 msgid "What are you looking for?"
 msgstr ""
 
@@ -3051,7 +3052,7 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:1926
 #: includes/classes/class-settings-manager.php:2716
-#: includes/classes/class-settings-manager.php:3101
+#: includes/classes/class-settings-manager.php:3102
 msgid "Price"
 msgstr ""
 
@@ -3159,7 +3160,7 @@ msgid "Search Button Text"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2371
-#: includes/classes/class-shortcode.php:2769
+#: includes/classes/class-shortcode.php:2807
 msgid "Search Listing"
 msgstr ""
 
@@ -3168,7 +3169,7 @@ msgid "More Filters Button Text"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2377
-#: includes/classes/class-shortcode.php:2768
+#: includes/classes/class-shortcode.php:2806
 msgid "More Filters"
 msgstr ""
 
@@ -3199,7 +3200,8 @@ msgid "Connector Text"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2409
-#: templates/front-end/add-listing.php:240 templates/listing-home.php:11
+#: templates/add-listing.php:64 templates/front-end/add-listing.php:240
+#: templates/listing-home.php:11
 msgid "Or"
 msgstr ""
 
@@ -3208,7 +3210,7 @@ msgid "Popular Categories Title"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2416
-#: includes/classes/class-settings-manager.php:4288
+#: includes/classes/class-settings-manager.php:4289
 #: templates/listing-home.php:12
 msgid "Browse by popular categories"
 msgstr ""
@@ -3291,618 +3293,618 @@ msgid "Threshold in Views Count"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2871
-msgid "Count Logged-in User View"
-msgstr ""
-
-#: includes/classes/class-settings-manager.php:2877
 msgid "Threshold in Average Ratings (equal or grater than)"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:2900
-#: includes/classes/class-settings-manager.php:2929
-#: includes/classes/class-settings-manager.php:2958
-#: includes/classes/class-settings-manager.php:3000
-#: includes/classes/class-settings-manager.php:3035
-#: includes/classes/class-settings-manager.php:3071
-#: includes/classes/class-settings-manager.php:3100
-#: includes/classes/class-settings-manager.php:3142
-#: includes/classes/class-settings-manager.php:3178
-#: includes/classes/class-settings-manager.php:3214
-#: includes/classes/class-settings-manager.php:3251
-#: includes/classes/class-settings-manager.php:3288
-#: includes/classes/class-settings-manager.php:3324
-#: includes/classes/class-settings-manager.php:3360
-#: includes/classes/class-settings-manager.php:3484
+#: includes/classes/class-settings-manager.php:2881
+msgid "Count Logged-in User View"
+msgstr ""
+
+#: includes/classes/class-settings-manager.php:2901
+#: includes/classes/class-settings-manager.php:2930
+#: includes/classes/class-settings-manager.php:2959
+#: includes/classes/class-settings-manager.php:3001
+#: includes/classes/class-settings-manager.php:3036
+#: includes/classes/class-settings-manager.php:3072
+#: includes/classes/class-settings-manager.php:3101
+#: includes/classes/class-settings-manager.php:3143
+#: includes/classes/class-settings-manager.php:3179
+#: includes/classes/class-settings-manager.php:3215
+#: includes/classes/class-settings-manager.php:3252
+#: includes/classes/class-settings-manager.php:3289
+#: includes/classes/class-settings-manager.php:3325
+#: includes/classes/class-settings-manager.php:3361
+#: includes/classes/class-settings-manager.php:3485
 msgid "Label"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:2906
-#: includes/classes/class-settings-manager.php:2935
-#: includes/classes/class-settings-manager.php:2964
-#: includes/classes/class-settings-manager.php:3006
-#: includes/classes/class-settings-manager.php:3041
-#: includes/classes/class-settings-manager.php:3148
-#: includes/classes/class-settings-manager.php:3184
-#: includes/classes/class-settings-manager.php:3220
-#: includes/classes/class-settings-manager.php:3257
-#: includes/classes/class-settings-manager.php:3294
-#: includes/classes/class-settings-manager.php:3330
-#: includes/classes/class-settings-manager.php:3366
-#: includes/classes/class-settings-manager.php:3490
-#: includes/classes/class-settings-manager.php:3523
+#: includes/classes/class-settings-manager.php:2907
+#: includes/classes/class-settings-manager.php:2936
+#: includes/classes/class-settings-manager.php:2965
+#: includes/classes/class-settings-manager.php:3007
+#: includes/classes/class-settings-manager.php:3042
+#: includes/classes/class-settings-manager.php:3149
+#: includes/classes/class-settings-manager.php:3185
+#: includes/classes/class-settings-manager.php:3221
+#: includes/classes/class-settings-manager.php:3258
+#: includes/classes/class-settings-manager.php:3295
+#: includes/classes/class-settings-manager.php:3331
+#: includes/classes/class-settings-manager.php:3367
+#: includes/classes/class-settings-manager.php:3491
+#: includes/classes/class-settings-manager.php:3521
 #: includes/custom-fields/class-custom-field.php:699
 msgid "Required"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:2912
-#: includes/classes/class-settings-manager.php:2941
-#: includes/classes/class-settings-manager.php:3012
-#: includes/classes/class-settings-manager.php:3047
-#: includes/classes/class-settings-manager.php:3077
-#: includes/classes/class-settings-manager.php:3118
-#: includes/classes/class-settings-manager.php:3154
-#: includes/classes/class-settings-manager.php:3190
-#: includes/classes/class-settings-manager.php:3226
-#: includes/classes/class-settings-manager.php:3263
-#: includes/classes/class-settings-manager.php:3300
-#: includes/classes/class-settings-manager.php:3336
-#: includes/classes/class-settings-manager.php:3372
-#: includes/classes/class-settings-manager.php:3396
-#: includes/classes/class-settings-manager.php:3496
+#: includes/classes/class-settings-manager.php:2913
+#: includes/classes/class-settings-manager.php:2942
+#: includes/classes/class-settings-manager.php:3013
+#: includes/classes/class-settings-manager.php:3048
+#: includes/classes/class-settings-manager.php:3078
+#: includes/classes/class-settings-manager.php:3119
+#: includes/classes/class-settings-manager.php:3155
+#: includes/classes/class-settings-manager.php:3191
+#: includes/classes/class-settings-manager.php:3227
+#: includes/classes/class-settings-manager.php:3264
+#: includes/classes/class-settings-manager.php:3301
+#: includes/classes/class-settings-manager.php:3337
+#: includes/classes/class-settings-manager.php:3373
+#: includes/classes/class-settings-manager.php:3397
+#: includes/classes/class-settings-manager.php:3497
 msgid "Only For Admin Use"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:2930
+#: includes/classes/class-settings-manager.php:2931
 msgid "Long Details"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:2959
-#: templates/front-end/add-listing.php:574
-#: templates/front-end/add-listing.php:585
+#: includes/classes/class-settings-manager.php:2960
+#: templates/front-end/add-listing.php:573
+#: templates/front-end/add-listing.php:584
 msgid "Select Category"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3018
+#: includes/classes/class-settings-manager.php:3019
 msgid "Multi Location for User"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3065
-#: includes/classes/class-settings-manager.php:3095
-#: includes/classes/class-settings-manager.php:3137
-#: includes/classes/class-settings-manager.php:3172
-#: includes/classes/class-settings-manager.php:3208
-#: includes/classes/class-settings-manager.php:3245
-#: includes/classes/class-settings-manager.php:3282
-#: includes/classes/class-settings-manager.php:3318
-#: includes/classes/class-settings-manager.php:3354
-#: includes/classes/class-settings-manager.php:3389
-#: includes/classes/class-settings-manager.php:3478
+#: includes/classes/class-settings-manager.php:3066
+#: includes/classes/class-settings-manager.php:3096
+#: includes/classes/class-settings-manager.php:3138
+#: includes/classes/class-settings-manager.php:3173
+#: includes/classes/class-settings-manager.php:3209
+#: includes/classes/class-settings-manager.php:3246
+#: includes/classes/class-settings-manager.php:3283
+#: includes/classes/class-settings-manager.php:3319
+#: includes/classes/class-settings-manager.php:3355
+#: includes/classes/class-settings-manager.php:3390
+#: includes/classes/class-settings-manager.php:3479
 msgid "Enable"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3106
+#: includes/classes/class-settings-manager.php:3107
 msgid "Required Price"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3112
+#: includes/classes/class-settings-manager.php:3113
 msgid "Required Price Range"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3143
+#: includes/classes/class-settings-manager.php:3144
 #: templates/add-listing.php:99 templates/front-end/add-listing.php:305
 msgid "Short Description/Excerpt"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3361
+#: includes/classes/class-settings-manager.php:3362
 #: templates/meta-partials/social.php:7
 msgid "Social Information"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3415
+#: includes/classes/class-settings-manager.php:3416
 msgid "Enable Preview Image"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3421
+#: includes/classes/class-settings-manager.php:3422
 msgid "Preview Image Label"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3422
+#: includes/classes/class-settings-manager.php:3423
 #: templates/front-end/front-media-upload.php:38
 #: templates/media-upload.php:31
 msgid "Upload Preview Image"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3428
+#: includes/classes/class-settings-manager.php:3429
 msgid "Enable Gallery Image"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3434
+#: includes/classes/class-settings-manager.php:3435
 msgid "Gallery Image Label"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3435
+#: includes/classes/class-settings-manager.php:3436
 #: templates/front-end/front-media-upload.php:77
 #: templates/media-upload.php:66
 msgid "Upload Slider Images"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3440
+#: includes/classes/class-settings-manager.php:3441
 msgid "Required Preview Image"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3446
+#: includes/classes/class-settings-manager.php:3447
 msgid "Required Gallery"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3452
+#: includes/classes/class-settings-manager.php:3453
 msgid "Preview Image Only For Admin Use"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3458
+#: includes/classes/class-settings-manager.php:3459
 msgid "Gallery Image Only For Admin Use"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3514
+#: includes/classes/class-settings-manager.php:3515
 msgid "Enable Terms & Conditions"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3515
+#: includes/classes/class-settings-manager.php:3523
 msgid ""
 "Here YES means users must agree to before submitting a listing from "
 "frontend.\n"
 "\n"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3529
+#: includes/classes/class-settings-manager.php:3530
 msgid "Terms & Conditions Text"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3530
+#: includes/classes/class-settings-manager.php:3531
 msgid ""
 "If Terms & Conditions is enabled, enter the agreement terms and "
 "conditions here."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3535
+#: includes/classes/class-settings-manager.php:3536
 msgid "Submit listing label"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3536
-#: templates/front-end/add-listing.php:1005
+#: includes/classes/class-settings-manager.php:3537
+#: templates/front-end/add-listing.php:1004
 msgid "Submit listing"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3549
+#: includes/classes/class-settings-manager.php:3550
 msgid "Display My Listing Tab"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3555
+#: includes/classes/class-settings-manager.php:3556
 msgid "Display My Profile Tab"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3561
+#: includes/classes/class-settings-manager.php:3562
 msgid "Display Favourite Listings Tab"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3567
+#: includes/classes/class-settings-manager.php:3568
 msgid "Display Submit Listing Button"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3579
+#: includes/classes/class-settings-manager.php:3580
 msgid "Select Map"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3583
-#: includes/classes/class-settings-manager.php:3592
+#: includes/classes/class-settings-manager.php:3584
+#: includes/classes/class-settings-manager.php:3593
 msgid "Google Map"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3587
+#: includes/classes/class-settings-manager.php:3588
 msgid "OpenStreetMap"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3598
+#: includes/classes/class-settings-manager.php:3599
 msgid "Google Map API key"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3599
+#: includes/classes/class-settings-manager.php:3600
 #, php-format
 msgid ""
 "Please replace it by your own API. It's required to use Google Map. You "
 "can find detailed information %s."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3605
+#: includes/classes/class-settings-manager.php:3606
 msgid "Default Latitude"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3606
-#: includes/classes/class-settings-manager.php:3613
+#: includes/classes/class-settings-manager.php:3607
+#: includes/classes/class-settings-manager.php:3614
 #, php-format
 msgid "You can find it %s."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3612
+#: includes/classes/class-settings-manager.php:3613
 msgid "Default Longitude"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3619
+#: includes/classes/class-settings-manager.php:3620
 msgid "Adjust Map Zoom Level"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3620
+#: includes/classes/class-settings-manager.php:3621
 msgid ""
 "Here 0 means 100% zoom-out. 22 means 100% zoom-in. Minimum Zoom Allowed "
 "= 1. Max Zoom Allowed = 22."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3630
+#: includes/classes/class-settings-manager.php:3631
 msgid "Map Height"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3631
+#: includes/classes/class-settings-manager.php:3632
 msgid "In pixel."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3653
+#: includes/classes/class-settings-manager.php:3654
 msgid "Enable Reviews & Rating"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3660
+#: includes/classes/class-settings-manager.php:3661
 msgid "Enable Owner Review"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3661
+#: includes/classes/class-settings-manager.php:3662
 msgid "Allow a listing owner to post a review on his/her own listing."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3668
+#: includes/classes/class-settings-manager.php:3669
 msgid "Number of Reviews"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3669
+#: includes/classes/class-settings-manager.php:3670
 msgid "Enter how many reviews to show on Single listing page."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3690
+#: includes/classes/class-settings-manager.php:3691
 msgid "Disable Single Listing View"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3696
+#: includes/classes/class-settings-manager.php:3697
 msgid "Listing Slug"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3702
+#: includes/classes/class-settings-manager.php:3703
 msgid "Redirect after Editing a Listing"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3706
+#: includes/classes/class-settings-manager.php:3707
 msgid "Frontend of the Listing"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3710
+#: includes/classes/class-settings-manager.php:3711
 msgid "User Dashboard"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3713
+#: includes/classes/class-settings-manager.php:3714
 msgid ""
 "Select where user will be redirected after editing a listing on the "
 "frontend."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3717
+#: includes/classes/class-settings-manager.php:3718
 msgid "View Listing"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3723
+#: includes/classes/class-settings-manager.php:3724
 msgid "Section Title of Listing Details"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3724
+#: includes/classes/class-settings-manager.php:3725
 #: templates/front-end/single-listing/listing-header.php:107
-#: templates/single-at_biz_dir.php:107
+#: templates/single-at_biz_dir.php:103
 msgid "Listing Details"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3729
+#: includes/classes/class-settings-manager.php:3730
 msgid "Section Title of Custom Fields"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3730
+#: includes/classes/class-settings-manager.php:3731
 msgid "Features"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3735
+#: includes/classes/class-settings-manager.php:3736
 msgid "Section Title of Location"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3741
+#: includes/classes/class-settings-manager.php:3742
 msgid "Section Title of Contact Info"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3747
+#: includes/classes/class-settings-manager.php:3748
 msgid "Section Title of Contact Owner"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3753
+#: includes/classes/class-settings-manager.php:3754
 msgid "Section Title of Video"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3759
-#: includes/classes/class-settings-manager.php:3905
+#: includes/classes/class-settings-manager.php:3760
+#: includes/classes/class-settings-manager.php:3906
 msgid "Show Preview Image"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3760
+#: includes/classes/class-settings-manager.php:3761
 msgid "Hide/show preview image from single listing page."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3767
+#: includes/classes/class-settings-manager.php:3768
 msgid "Show Slider Image"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3768
+#: includes/classes/class-settings-manager.php:3769
 msgid "Hide/show slider image from single listing page."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3775
+#: includes/classes/class-settings-manager.php:3776
 msgid "Slider Image Cropping"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3776
+#: includes/classes/class-settings-manager.php:3777
 msgid ""
 "If the slider images are not in the same size, it helps automatically "
 "resizing."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3783
-#: includes/classes/class-settings-manager.php:3926
+#: includes/classes/class-settings-manager.php:3784
+#: includes/classes/class-settings-manager.php:3927
 msgid "Image Cropping Width"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3794
-#: includes/classes/class-settings-manager.php:3937
+#: includes/classes/class-settings-manager.php:3795
+#: includes/classes/class-settings-manager.php:3938
 msgid "Image Cropping Height"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3804
+#: includes/classes/class-settings-manager.php:3805
 msgid "Display Social Share Button"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3810
+#: includes/classes/class-settings-manager.php:3811
 msgid "Display Favourite Button"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3816
+#: includes/classes/class-settings-manager.php:3817
 msgid "Display Report Abuse"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3822
+#: includes/classes/class-settings-manager.php:3823
 msgid "Disable Listing Price"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3828
+#: includes/classes/class-settings-manager.php:3829
 msgid "Disable Contact Information"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3835
+#: includes/classes/class-settings-manager.php:3836
 msgid "Disable Contact Listing Owner Form"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3841
+#: includes/classes/class-settings-manager.php:3842
 msgid "Use rel=\"nofollow\" in Website Link"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3847
+#: includes/classes/class-settings-manager.php:3848
 msgid "Disable Google Map"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3854
+#: includes/classes/class-settings-manager.php:3855
 msgid "Display Listing Video"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3860
+#: includes/classes/class-settings-manager.php:3861
 msgid "Display Related Listings"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3867
+#: includes/classes/class-settings-manager.php:3868
 msgid "Number of Related Listings"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3877
+#: includes/classes/class-settings-manager.php:3878
 msgid "Columns of Related Listings"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3906
+#: includes/classes/class-settings-manager.php:3907
 msgid "Hide/show preview image from all listing page."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3912
+#: includes/classes/class-settings-manager.php:3913
 msgid "Preview Image Cropping"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3913
+#: includes/classes/class-settings-manager.php:3914
 msgid ""
 "If the preview images are not in the same size, it helps automatically "
 "resizing."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3919
+#: includes/classes/class-settings-manager.php:3920
 msgid "Default Preview Image"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3948
+#: includes/classes/class-settings-manager.php:3949
 msgid "Display Each Grid Info on Single Line"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3949
+#: includes/classes/class-settings-manager.php:3950
 msgid ""
 "Here Yes means display all the informations (i.e. title, tagline, "
 "excerpt etc.) of grid view on single line"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3955
+#: includes/classes/class-settings-manager.php:3956
 msgid "Display Title"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3961
+#: includes/classes/class-settings-manager.php:3962
 msgid "Display Tagline"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3967
+#: includes/classes/class-settings-manager.php:3968
 msgid "Display Excerpt"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3973
+#: includes/classes/class-settings-manager.php:3974
 msgid "Display Price"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3979
+#: includes/classes/class-settings-manager.php:3980
 msgid "Display Contact Information"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3989
+#: includes/classes/class-settings-manager.php:3990
 msgid "Display From Location"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3993
+#: includes/classes/class-settings-manager.php:3994
 msgid "Display From Contact Information"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:3996
+#: includes/classes/class-settings-manager.php:3997
 msgid "Choose which address you want to show on listings page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4006
+#: includes/classes/class-settings-manager.php:4007
 msgid "Display Publish date"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4012
+#: includes/classes/class-settings-manager.php:4013
 msgid "Display Category"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4018
+#: includes/classes/class-settings-manager.php:4019
 msgid "Display View Count"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4024
+#: includes/classes/class-settings-manager.php:4025
 msgid "Display Author Image"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4030
-#: includes/classes/class-settings-manager.php:4139
+#: includes/classes/class-settings-manager.php:4031
+#: includes/classes/class-settings-manager.php:4140
 msgid "Default Listing Expires in Days"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4031
+#: includes/classes/class-settings-manager.php:4032
 msgid "Set it to 0 to keep it alive forever."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4041
-#: includes/classes/class-settings-manager.php:4150
+#: includes/classes/class-settings-manager.php:4042
+#: includes/classes/class-settings-manager.php:4151
 msgid "Can User Renew Listing?"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4042
+#: includes/classes/class-settings-manager.php:4043
 msgid "Here YES means users can renew their listings."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4048
-#: includes/classes/class-settings-manager.php:4171
+#: includes/classes/class-settings-manager.php:4049
+#: includes/classes/class-settings-manager.php:4172
 msgid "Delete/Trash Expired Listings"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4054
-#: includes/classes/class-settings-manager.php:4178
+#: includes/classes/class-settings-manager.php:4055
+#: includes/classes/class-settings-manager.php:4179
 msgid "Delete/Trash Expired Listings After (days) of Expiration"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4064
-#: includes/classes/class-settings-manager.php:4189
+#: includes/classes/class-settings-manager.php:4065
+#: includes/classes/class-settings-manager.php:4190
 msgid "Delete or Trash Expired Listings"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4068
-#: includes/classes/class-settings-manager.php:4193
+#: includes/classes/class-settings-manager.php:4069
+#: includes/classes/class-settings-manager.php:4194
 msgid "Delete Permanently"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4072
-#: includes/classes/class-settings-manager.php:4079
-#: includes/classes/class-settings-manager.php:4197
-#: includes/classes/class-settings-manager.php:4204
+#: includes/classes/class-settings-manager.php:4073
+#: includes/classes/class-settings-manager.php:4080
+#: includes/classes/class-settings-manager.php:4198
+#: includes/classes/class-settings-manager.php:4205
 msgid "Move to Trash"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4075
-#: includes/classes/class-settings-manager.php:4200
+#: includes/classes/class-settings-manager.php:4076
+#: includes/classes/class-settings-manager.php:4201
 msgid ""
 "Choose the Default actions after a listing reaches its deletion "
 "threshold."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4086
+#: includes/classes/class-settings-manager.php:4087
 msgid "Paginate All Listings"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4093
+#: includes/classes/class-settings-manager.php:4094
 msgid "Paginate Author Listings"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4099
+#: includes/classes/class-settings-manager.php:4100
 msgid "Author Email"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4103
-#: includes/classes/class-settings-manager.php:4117
+#: includes/classes/class-settings-manager.php:4104
+#: includes/classes/class-settings-manager.php:4118
 msgid "Display"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4107
+#: includes/classes/class-settings-manager.php:4108
 msgid "Display only for Logged in Users"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4112
+#: includes/classes/class-settings-manager.php:4113
 msgid "Hide"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4140
+#: includes/classes/class-settings-manager.php:4141
 msgid ""
 "Set how many days after publishing a listing, you would like to expire "
 "a listing by default ? Set it to 0 to keep it alive forever."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4151
+#: includes/classes/class-settings-manager.php:4152
 msgid ""
 "Here YES means users can renew their listings. NO means users can not "
 "renew their listings. Default is YES."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4157
+#: includes/classes/class-settings-manager.php:4158
 msgid "Required Terms & Conditions"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4158
+#: includes/classes/class-settings-manager.php:4159
 msgid ""
 "Here YES means restrict user to submit listing from front end without "
 "checking it."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4164
+#: includes/classes/class-settings-manager.php:4165
 msgid "Custom Terms & Conditions"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4165
+#: includes/classes/class-settings-manager.php:4166
 msgid "You may include and any of your business policy here."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4172
+#: includes/classes/class-settings-manager.php:4173
 msgid ""
 "Here YES means expired listings will be deleted (after threshold of "
 "course). NO means expired listings will not be deleted. Default is YES."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4179
+#: includes/classes/class-settings-manager.php:4180
 msgid ""
 "Set how many days after the expiration of a listing you would like the "
 "listings gets tashed/deleted. Set it 0 to delete/trash expired listings "
@@ -3910,218 +3912,218 @@ msgid ""
 "Listings\" option"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4210
+#: includes/classes/class-settings-manager.php:4211
 msgid "New Listing's Default status"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4221
+#: includes/classes/class-settings-manager.php:4222
 msgid ""
 "Choose the Default Listing Status for a new listing when a user submits "
 "it from the Front End"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4242
+#: includes/classes/class-settings-manager.php:4243
 msgid ""
 "Select the Default Listing Status for Edited listing when a user edits "
 "it on the front end."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4252
+#: includes/classes/class-settings-manager.php:4253
 msgid "Title for all listing page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4253
+#: includes/classes/class-settings-manager.php:4254
 msgid ""
 "Enter a title for the page where all listings will be shown using the "
 "shortcode [all_listing] . Eg. All Listings/ Items."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4259
+#: includes/classes/class-settings-manager.php:4260
 msgid "Paginate Listings On \"All listings\" Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4260
+#: includes/classes/class-settings-manager.php:4261
 msgid ""
 "If you do not want to show pagination on all listings page, turn it off."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4267
+#: includes/classes/class-settings-manager.php:4268
 msgid "Listings Per Page on All listing page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4268
+#: includes/classes/class-settings-manager.php:4269
 msgid ""
 "Set how many listings you would like to show per page on the All "
 "Listings page. Eg. 6. Default is 6. If pagination is off, then this "
 "number will be the total listings to show."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4278
+#: includes/classes/class-settings-manager.php:4279
 msgid "Show popular category on the search page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4279
+#: includes/classes/class-settings-manager.php:4280
 msgid ""
 "You can show popular category on search page or you can hide it here."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4286
+#: includes/classes/class-settings-manager.php:4287
 msgid "Popular Category Title"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4287
+#: includes/classes/class-settings-manager.php:4288
 msgid ""
 "Enter the title for popular category on listing search page eg. Browse "
 "by popular categories"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4294
+#: includes/classes/class-settings-manager.php:4295
 msgid "Number of Popular Category"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4295
+#: includes/classes/class-settings-manager.php:4296
 msgid ""
 "Set how many popular categories you would like to show on your listing "
 "main search page. Eg. 10. Default is 10"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4306
+#: includes/classes/class-settings-manager.php:4307
 msgid "Number of Popular Listings"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4307
+#: includes/classes/class-settings-manager.php:4308
 msgid ""
 "Set how many popular listings you would like to show on your website. "
 "Eg. 5. Default is 5."
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4345
+#: includes/classes/class-settings-manager.php:4346
 msgid "Add Listing Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4347
-#: includes/classes/class-settings-manager.php:4358
-#: includes/classes/class-settings-manager.php:4368
-#: includes/classes/class-settings-manager.php:4377
-#: includes/classes/class-settings-manager.php:4388
-#: includes/classes/class-settings-manager.php:4399
-#: includes/classes/class-settings-manager.php:4410
-#: includes/classes/class-settings-manager.php:4421
-#: includes/classes/class-settings-manager.php:4432
-#: includes/classes/class-settings-manager.php:4443
-#: includes/classes/class-settings-manager.php:4454
-#: includes/classes/class-settings-manager.php:4465
-#: includes/classes/class-settings-manager.php:4476
-#: includes/classes/class-settings-manager.php:4486
-#: includes/classes/class-settings-manager.php:4495
-#: includes/classes/class-settings-manager.php:4505
-#: includes/classes/class-settings-manager.php:4514
+#: includes/classes/class-settings-manager.php:4348
+#: includes/classes/class-settings-manager.php:4359
+#: includes/classes/class-settings-manager.php:4369
+#: includes/classes/class-settings-manager.php:4378
+#: includes/classes/class-settings-manager.php:4389
+#: includes/classes/class-settings-manager.php:4400
+#: includes/classes/class-settings-manager.php:4411
+#: includes/classes/class-settings-manager.php:4422
+#: includes/classes/class-settings-manager.php:4433
+#: includes/classes/class-settings-manager.php:4444
+#: includes/classes/class-settings-manager.php:4455
+#: includes/classes/class-settings-manager.php:4466
+#: includes/classes/class-settings-manager.php:4477
+#: includes/classes/class-settings-manager.php:4487
+#: includes/classes/class-settings-manager.php:4496
+#: includes/classes/class-settings-manager.php:4506
+#: includes/classes/class-settings-manager.php:4515
 #, php-format
 msgid "Following shortcode must be in the selected page %s"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4356
+#: includes/classes/class-settings-manager.php:4357
 msgid "All Listings Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4366
+#: includes/classes/class-settings-manager.php:4367
 msgid "Single Listing Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4375
+#: includes/classes/class-settings-manager.php:4376
 msgid "Dashboard Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4386
+#: includes/classes/class-settings-manager.php:4387
 msgid "User Profile Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4397
+#: includes/classes/class-settings-manager.php:4398
 msgid "All Categories Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4408
+#: includes/classes/class-settings-manager.php:4409
 msgid "Single Category Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4419
+#: includes/classes/class-settings-manager.php:4420
 msgid "All Locations Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4430
+#: includes/classes/class-settings-manager.php:4431
 msgid "Single Location Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4441
+#: includes/classes/class-settings-manager.php:4442
 msgid "Single Tag Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4452
+#: includes/classes/class-settings-manager.php:4453
 msgid "Registration Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4463
+#: includes/classes/class-settings-manager.php:4464
 msgid "Login Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4474
+#: includes/classes/class-settings-manager.php:4475
 msgid "Listing Search Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4484
+#: includes/classes/class-settings-manager.php:4485
 msgid "Listing Search Result Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4493
+#: includes/classes/class-settings-manager.php:4494
 msgid "Checkout Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4503
+#: includes/classes/class-settings-manager.php:4504
 msgid "Payment/Order Receipt Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4512
+#: includes/classes/class-settings-manager.php:4513
 msgid "Transaction Failure Page"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4535
+#: includes/classes/class-settings-manager.php:4536
 msgid "Need more Features?"
 msgstr ""
 
-#: includes/classes/class-settings-manager.php:4536
+#: includes/classes/class-settings-manager.php:4537
 #, php-format
 msgid ""
 "You can add new features and expand the functionality of the plugin "
 "even more by using extensions. %s"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:155
+#: includes/classes/class-shortcode.php:158
 msgid "Total Found: "
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1112
+#: includes/classes/class-shortcode.php:1144
 #, php-format
 msgid "for %s"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1113
+#: includes/classes/class-shortcode.php:1145
 #, php-format
 msgid "in %s"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1116
+#: includes/classes/class-shortcode.php:1148
 #, php-format
 msgid "%d result%s %s %s"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1149
-#: includes/classes/class-shortcode.php:2080
-#: includes/classes/class-shortcode.php:2428
+#: includes/classes/class-shortcode.php:1181
+#: includes/classes/class-shortcode.php:2118
+#: includes/classes/class-shortcode.php:2466
 msgid "All Items"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1617
-#: includes/classes/class-shortcode.php:2909
+#: includes/classes/class-shortcode.php:1649
+#: includes/classes/class-shortcode.php:2947
 #: includes/helper-functions.php:1335
 #, php-format
 msgid ""
@@ -4129,115 +4131,115 @@ msgid ""
 "login %s. Don't have an account? %s"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1617
-#: includes/classes/class-shortcode.php:2909
+#: includes/classes/class-shortcode.php:1649
+#: includes/classes/class-shortcode.php:2947
 #: includes/helper-functions.php:1335
 #: templates/front-end/user-registration-form.php:15
 #: templates/front-end/user-registration-form.php:103
 msgid "Here"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1617
-#: includes/classes/class-shortcode.php:2909
-#: includes/classes/class-shortcode.php:2943
+#: includes/classes/class-shortcode.php:1649
+#: includes/classes/class-shortcode.php:2947
+#: includes/classes/class-shortcode.php:2981
 #: templates/front-end/user-registration-form.php:97
 msgid "Sign Up"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1664
-#: includes/classes/class-shortcode.php:2055
+#: includes/classes/class-shortcode.php:1699
+#: includes/classes/class-shortcode.php:2093
 msgid "<p>No Results found!</p>"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1689
-#: includes/classes/class-shortcode.php:2429
+#: includes/classes/class-shortcode.php:1724
+#: includes/classes/class-shortcode.php:2467
 #: templates/search-at_biz_dir.php:10
 msgid "Total Listing Found: "
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2013
-#: includes/classes/class-shortcode.php:2405
-#: includes/classes/class-shortcode.php:2755
+#: includes/classes/class-shortcode.php:2048
+#: includes/classes/class-shortcode.php:2443
+#: includes/classes/class-shortcode.php:2793
 msgid "No Results Found."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2760
+#: includes/classes/class-shortcode.php:2798
 msgid "Search here"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2761
+#: includes/classes/class-shortcode.php:2799
 msgid "Find the best match of your interest\n"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2931
+#: includes/classes/class-shortcode.php:2969
 #: templates/widget-templates/login-form.php:13
 msgid " Invalid username or password!"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2943
+#: includes/classes/class-shortcode.php:2981
 #: templates/widget-templates/login-form.php:17
 #, php-format
 msgid "<p>Don't have an account? %s</p>"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2944
+#: includes/classes/class-shortcode.php:2982
 #, php-format
 msgid "<p>%s</p>"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2944
+#: includes/classes/class-shortcode.php:2982
 msgid "Recover Password"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2957
+#: includes/classes/class-shortcode.php:2995
 msgid "Enter a username or e-mail address.."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2959
+#: includes/classes/class-shortcode.php:2997
 msgid "Invalid username or e-mail address."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2961
+#: includes/classes/class-shortcode.php:2999
 msgid "There is no user registered with that email address."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2988
+#: includes/classes/class-shortcode.php:3026
 msgid "Please check your email for your new password."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2990
+#: includes/classes/class-shortcode.php:3028
 msgid "Oops something went wrong sending email."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2994
+#: includes/classes/class-shortcode.php:3032
 msgid "Oops something went wrong updaing your account."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3000
+#: includes/classes/class-shortcode.php:3038
 msgid "ERROR:"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3013
+#: includes/classes/class-shortcode.php:3051
 msgid ""
 "Please enter your email address. You will receive a new password via "
 "email."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3014
+#: includes/classes/class-shortcode.php:3052
 msgid "Username or E-mail:"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3019
+#: includes/classes/class-shortcode.php:3057
 msgid "Get New Password"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3030
+#: includes/classes/class-shortcode.php:3068
 #, php-format
 msgid ""
 "Login page is not for logged-in user. <a href=\"%s\">Go Back To Home</a>"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3044
+#: includes/classes/class-shortcode.php:3082
 #, php-format
 msgid ""
 "Registration page is only for unregistered user. <a href=\"%s\">Go Back "
@@ -4280,7 +4282,7 @@ msgstr ""
 #: includes/classes/class-tags-widget.php:38
 #: includes/classes/class-tags-widget.php:112
 #: includes/classes/class-tags-widget.php:124
-#: templates/front-end/add-listing.php:534
+#: templates/front-end/add-listing.php:533
 #: templates/front-end/all-listings/listings-header.php:226
 #: templates/listing-home.php:202
 msgid "Tags"
@@ -4299,9 +4301,7 @@ msgid "Get Themes"
 msgstr ""
 
 #: includes/classes/class-themes.php:36
-msgid ""
-"<span style=\"color: #01b0ff; font-weight: 600;\">Directory Themes</"
-"span>"
+msgid "<span>Directory Themes</span>"
 msgstr ""
 
 #: includes/classes/class-upgrade.php:29
@@ -4415,17 +4415,11 @@ msgstr ""
 
 #: includes/custom-fields/class-custom-field.php:363
 msgctxt "Post Type General Name"
-msgid "Custom Field"
+msgid "Custom Fields"
 msgstr ""
 
 #: includes/custom-fields/class-custom-field.php:364
 msgctxt "Post Type Singular Name"
-msgid "Custom Field"
-msgstr ""
-
-#: includes/custom-fields/class-custom-field.php:365
-#: includes/custom-fields/class-custom-field.php:366
-#: includes/custom-fields/class-custom-field.php:367
 msgid "Custom Field"
 msgstr ""
 
@@ -4643,9 +4637,7 @@ msgstr ""
 #: includes/gateways/class-gateway.php:124
 msgid ""
 "You can enabled this option to collect payment from your user for "
-"making their listing featured. Settings this option to NO will disable "
-"all sorts of monetization features. This setting gives you a quick way "
-"to turn monetization on or off instantly. Default is NO."
+"making their listing featured."
 msgstr ""
 
 #: includes/gateways/class-gateway.php:132
@@ -4915,7 +4907,7 @@ msgstr ""
 msgid "Favorite"
 msgstr ""
 
-#: includes/helper-functions.php:2346 includes/helper-functions.php:2752
+#: includes/helper-functions.php:2346 includes/helper-functions.php:2753
 #: templates/front-end/all-listings/all-grid-listings.php:175
 #: templates/front-end/all-listings/listings-header.php:211
 #: templates/front-end/all-listings/listings-header.php:216
@@ -4924,23 +4916,23 @@ msgstr ""
 msgid "Open Now"
 msgstr ""
 
-#: includes/helper-functions.php:2498 includes/helper-functions.php:2903
-#: includes/helper-functions.php:3267
+#: includes/helper-functions.php:2498 includes/helper-functions.php:2904
+#: includes/helper-functions.php:3268
 #: templates/front-end/all-listings/all-grid-listings.php:335
 #: templates/search-at_biz_dir.php:369
 #, php-format
 msgid "Posted %s ago"
 msgstr ""
 
-#: includes/helper-functions.php:2549 includes/helper-functions.php:2956
-#: includes/helper-functions.php:3321
+#: includes/helper-functions.php:2550 includes/helper-functions.php:2957
+#: includes/helper-functions.php:3323
 #: templates/front-end/all-listings/all-grid-listings.php:391
 #: templates/search-at_biz_dir.php:419
 msgid "Uncategorized"
 msgstr ""
 
-#: includes/helper-functions.php:2585 includes/helper-functions.php:2992
-#: templates/front-end/all-listings/all-grid-listings.php:425
+#: includes/helper-functions.php:2586 includes/helper-functions.php:2993
+#: templates/front-end/all-listings/all-grid-listings.php:416
 #: templates/front-end/all-listings/all-list-listings.php:25
 #: templates/search-at_biz_dir.php:440
 msgid "No listing found."
@@ -5145,7 +5137,7 @@ msgstr ""
 
 #: includes/libs/vafpress/views/option/set.php:69
 #: includes/libs/vafpress/views/option/set.php:84
-#: templates/front-end/user-dashboard.php:511
+#: templates/front-end/user-dashboard.php:512
 msgid "Save Changes"
 msgstr ""
 
@@ -5235,7 +5227,7 @@ msgstr ""
 #: includes/payments/class-order.php:274
 #: templates/front-end/single-listing/listing-custom-fields.php:7
 #: templates/front-end/single-listing/listing-header.php:106
-#: templates/single-at_biz_dir.php:106
+#: templates/single-at_biz_dir.php:102
 msgid "Details"
 msgstr ""
 
@@ -5316,7 +5308,7 @@ msgstr ""
 msgid "Invalid"
 msgstr ""
 
-#: templates/add-listing-custom-field.php:76 templates/add-listing.php:189
+#: templates/add-listing-custom-field.php:76 templates/add-listing.php:195
 #: templates/custom-field-search-form.php:32
 #: templates/front-end/add-listing.php:409
 msgid "Select an Option"
@@ -5326,8 +5318,16 @@ msgstr ""
 msgid "Your Listing's motto or tag-line"
 msgstr ""
 
+#: templates/add-listing.php:71
+msgid "(Optional - Uncheck both to hide pricing for this listing)"
+msgstr ""
+
 #: templates/add-listing.php:77 templates/front-end/add-listing.php:263
 msgid "Price of this listing. Eg. 100"
+msgstr ""
+
+#: templates/add-listing.php:80 templates/front-end/add-listing.php:270
+msgid "Select Price Range"
 msgstr ""
 
 #: templates/add-listing.php:105 templates/front-end/add-listing.php:312
@@ -5346,59 +5346,59 @@ msgstr ""
 msgid "Check it to hide listing contact owner form"
 msgstr ""
 
-#: templates/contact-info.php:54 templates/front-end/add-listing.php:652
+#: templates/contact-info.php:54 templates/front-end/add-listing.php:651
 msgid "Check it to hide Contact Information for this listing"
 msgstr ""
 
-#: templates/contact-info.php:66 templates/front-end/add-listing.php:670
+#: templates/contact-info.php:66 templates/front-end/add-listing.php:669
 msgid "Google Address"
 msgstr ""
 
-#: templates/contact-info.php:70 templates/front-end/add-listing.php:676
+#: templates/contact-info.php:70 templates/front-end/add-listing.php:675
 msgid "Listing address eg. New York, USA"
 msgstr ""
 
-#: templates/contact-info.php:81 templates/front-end/add-listing.php:690
+#: templates/contact-info.php:81 templates/front-end/add-listing.php:689
 msgid "Delete Marker"
 msgstr ""
 
-#: templates/contact-info.php:86 templates/front-end/add-listing.php:695
+#: templates/contact-info.php:86 templates/front-end/add-listing.php:694
 msgid "You can drag pinpoint to place the correct address manually."
 msgstr ""
 
-#: templates/contact-info.php:92 templates/front-end/add-listing.php:702
+#: templates/contact-info.php:92 templates/front-end/add-listing.php:701
 msgid "Or Enter Coordinates (latitude and longitude) Manually."
 msgstr ""
 
-#: templates/contact-info.php:101 templates/front-end/add-listing.php:713
+#: templates/contact-info.php:101 templates/front-end/add-listing.php:712
 msgid "Latitude"
 msgstr ""
 
-#: templates/contact-info.php:105 templates/front-end/add-listing.php:717
+#: templates/contact-info.php:105 templates/front-end/add-listing.php:716
 msgid "Enter Latitude eg. 24.89904"
 msgstr ""
 
-#: templates/contact-info.php:110 templates/front-end/add-listing.php:723
+#: templates/contact-info.php:110 templates/front-end/add-listing.php:722
 msgid "Longitude"
 msgstr ""
 
-#: templates/contact-info.php:114 templates/front-end/add-listing.php:727
+#: templates/contact-info.php:114 templates/front-end/add-listing.php:726
 msgid "Enter Longitude eg. 91.87198"
 msgstr ""
 
-#: templates/contact-info.php:121 templates/front-end/add-listing.php:734
+#: templates/contact-info.php:121 templates/front-end/add-listing.php:733
 msgid "Generate on Map"
 msgstr ""
 
-#: templates/contact-info.php:128 templates/front-end/add-listing.php:743
+#: templates/contact-info.php:128 templates/front-end/add-listing.php:742
 msgid "Hide map for this listing."
 msgstr ""
 
-#: templates/contact-info.php:152 templates/front-end/add-listing.php:768
+#: templates/contact-info.php:152 templates/front-end/add-listing.php:767
 msgid "Enter Zip/Post Code"
 msgstr ""
 
-#: templates/contact-info.php:171 templates/front-end/add-listing.php:804
+#: templates/contact-info.php:171 templates/front-end/add-listing.php:803
 msgid "Enter Email"
 msgstr ""
 
@@ -5411,12 +5411,12 @@ msgid "Enter Information about Businss/Opening Hours"
 msgstr ""
 
 #: templates/contact-info.php:327 templates/contact-info.php:408
-#: templates/front-end/add-listing.php:1160
-#: templates/front-end/add-listing.php:1239
+#: templates/front-end/add-listing.php:1125
+#: templates/front-end/add-listing.php:1204
 msgid "You can drag the marker to your desired place to place a marker"
 msgstr ""
 
-#: templates/contact-info.php:387 templates/front-end/add-listing.php:1218
+#: templates/contact-info.php:387 templates/front-end/add-listing.php:1183
 msgid "Geocode was not successful for the following reason: "
 msgstr ""
 
@@ -5577,7 +5577,7 @@ msgid "No Title "
 msgstr ""
 
 #: templates/front-end/add-listing.php:126
-#: templates/front-end/add-listing.php:1006
+#: templates/front-end/add-listing.php:1005
 msgid "Update Listing"
 msgstr ""
 
@@ -5596,10 +5596,6 @@ msgstr ""
 
 #: templates/front-end/add-listing.php:254
 msgid "(Optional - Uncheck to hide pricing for this listing)"
-msgstr ""
-
-#: templates/front-end/add-listing.php:270
-msgid "Select Price Range"
 msgstr ""
 
 #: templates/front-end/add-listing.php:272
@@ -5622,31 +5618,31 @@ msgstr ""
 msgid "Select Location"
 msgstr ""
 
-#: templates/front-end/add-listing.php:542
+#: templates/front-end/add-listing.php:541
 msgid "Current Tags: <strong>"
 msgstr ""
 
-#: templates/front-end/add-listing.php:662
+#: templates/front-end/add-listing.php:661
 msgid "Check it to hide Contact listing owner"
 msgstr ""
 
-#: templates/front-end/add-listing.php:698
+#: templates/front-end/add-listing.php:697
 msgid "SET 0 to LAT & LONG Field to HIDE MAP FOR THIS LISTING"
 msgstr ""
 
-#: templates/front-end/add-listing.php:822
+#: templates/front-end/add-listing.php:821
 msgid "Listing website eg. http://example.com"
 msgstr ""
 
-#: templates/front-end/add-listing.php:865
+#: templates/front-end/add-listing.php:864
 msgid "Opening/Business Hour Information"
 msgstr ""
 
-#: templates/front-end/add-listing.php:987
+#: templates/front-end/add-listing.php:986
 msgid "I Agree with all "
 msgstr ""
 
-#: templates/front-end/add-listing.php:989
+#: templates/front-end/add-listing.php:988
 msgid "terms & conditions"
 msgstr ""
 
@@ -5791,55 +5787,55 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: templates/front-end/public-profile.php:103
+#: templates/front-end/public-profile.php:105
 msgid "Nothing to show!"
 msgstr ""
 
-#: templates/front-end/public-profile.php:112
+#: templates/front-end/public-profile.php:115
 msgid "Contact Info"
 msgstr ""
 
-#: templates/front-end/public-profile.php:198
+#: templates/front-end/public-profile.php:201
 msgid "Author Listings"
 msgstr ""
 
-#: templates/front-end/public-profile.php:202
+#: templates/front-end/public-profile.php:205
 msgid "Filter by category"
 msgstr ""
 
 #: templates/front-end/single-listing/listing-header.php:55
-#: templates/single-at_biz_dir.php:55
+#: templates/single-at_biz_dir.php:51
 msgid "Open 24/7"
 msgstr ""
 
 #: templates/front-end/single-listing/listing-header.php:56
-#: templates/single-at_biz_dir.php:56
+#: templates/single-at_biz_dir.php:52
 msgid "Business Hour"
 msgstr ""
 
 #: templates/front-end/single-listing/listing-header.php:143
-#: templates/single-at_biz_dir.php:162
+#: templates/single-at_biz_dir.php:156
 msgid "Share"
 msgstr ""
 
 #: templates/front-end/single-listing/listing-header.php:178
 #: templates/front-end/single-listing/listing-header.php:182
-#: templates/single-at_biz_dir.php:197 templates/single-at_biz_dir.php:201
+#: templates/single-at_biz_dir.php:188 templates/single-at_biz_dir.php:192
 msgid "Report"
 msgstr ""
 
 #: templates/front-end/single-listing/listing-header.php:194
-#: templates/single-at_biz_dir.php:213
+#: templates/single-at_biz_dir.php:204
 msgid "Report Abuse"
 msgstr ""
 
 #: templates/front-end/single-listing/listing-header.php:201
-#: templates/single-at_biz_dir.php:219
+#: templates/single-at_biz_dir.php:210
 msgid "Your Complaint"
 msgstr ""
 
 #: templates/front-end/single-listing/listing-header.php:214
-#: templates/single-at_biz_dir.php:231
+#: templates/single-at_biz_dir.php:222
 msgid "Close"
 msgstr ""
 
@@ -5853,7 +5849,7 @@ msgid "My Listing (%s)"
 msgstr ""
 
 #: templates/front-end/user-dashboard.php:103
-#: templates/front-end/user-dashboard.php:348
+#: templates/front-end/user-dashboard.php:349
 msgid "My Profile"
 msgstr ""
 
@@ -5907,92 +5903,92 @@ msgstr ""
 msgid "Change"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:358
+#: templates/front-end/user-dashboard.php:359
 msgid "Full Name"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:362
+#: templates/front-end/user-dashboard.php:363
 msgid "Enter your full name"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:367
+#: templates/front-end/user-dashboard.php:368
 msgid "User Name"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:370
+#: templates/front-end/user-dashboard.php:371
 msgid "(username can not be changed)"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:378
+#: templates/front-end/user-dashboard.php:379
 #: templates/front-end/user-registration-form.php:74
 msgid "First Name"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:386
+#: templates/front-end/user-dashboard.php:387
 #: templates/front-end/user-registration-form.php:79
 msgid "Last Name"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:397
+#: templates/front-end/user-dashboard.php:398
 msgid "Email (required)"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:406
+#: templates/front-end/user-dashboard.php:407
 msgid "Cell Number"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:409
+#: templates/front-end/user-dashboard.php:410
 msgid "Enter your phone number"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:437
+#: templates/front-end/user-dashboard.php:438
 msgid "New Password"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:441
+#: templates/front-end/user-dashboard.php:442
 msgid "Enter a new password"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:446
+#: templates/front-end/user-dashboard.php:447
 msgid "Confirm New Password"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:451
+#: templates/front-end/user-dashboard.php:452
 msgid "Confirm your new password"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:460
-#: templates/front-end/user-dashboard.php:470
-#: templates/front-end/user-dashboard.php:481
-#: templates/front-end/user-dashboard.php:491
+#: templates/front-end/user-dashboard.php:461
+#: templates/front-end/user-dashboard.php:471
+#: templates/front-end/user-dashboard.php:482
+#: templates/front-end/user-dashboard.php:492
 msgid "Leave it empty to hide"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:464
+#: templates/front-end/user-dashboard.php:465
 msgid "Enter your facebook url"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:474
+#: templates/front-end/user-dashboard.php:475
 msgid "Enter your twitter url"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:485
+#: templates/front-end/user-dashboard.php:486
 msgid "Enter linkedIn url"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:495
+#: templates/front-end/user-dashboard.php:496
 msgid "Enter youtube url"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:500
+#: templates/front-end/user-dashboard.php:501
 msgid "About Author"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:536
+#: templates/front-end/user-dashboard.php:538
 msgid "Untitled"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:610
+#: templates/front-end/user-dashboard.php:612
 msgid "No listing found !"
 msgstr ""
 
@@ -6083,34 +6079,38 @@ msgid "Directorist - Pricing Plans"
 msgstr ""
 
 #: templates/help-and-support.php:39
-msgid "Directorist - PayPal"
+msgid "Directorist - Claim Listing"
 msgstr ""
 
 #: templates/help-and-support.php:42
-msgid "Directorist - Strip"
+msgid "Directorist - PayPal"
 msgstr ""
 
 #: templates/help-and-support.php:45
+msgid "Directorist - Strip"
+msgstr ""
+
+#: templates/help-and-support.php:48
 msgid ""
 "Directorist -\n"
 "                        Business Hours"
 msgstr ""
 
-#: templates/help-and-support.php:49
+#: templates/help-and-support.php:52
 msgid ""
 "Directorist - Google\n"
 "                        reCaptcha"
 msgstr ""
 
-#: templates/help-and-support.php:53
+#: templates/help-and-support.php:56
 msgid "Directorist - Image Gallery"
 msgstr ""
 
-#: templates/help-and-support.php:56
+#: templates/help-and-support.php:59
 msgid "Directorist - FAQs"
 msgstr ""
 
-#: templates/help-and-support.php:59
+#: templates/help-and-support.php:62
 msgid "Directorist - Listings Slider & Carousel"
 msgstr ""
 

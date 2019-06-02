@@ -342,4 +342,13 @@
       }
     }
   }
+  .default-ad-search{
+    .wp-picker-container .wp-picker-input-wrap label{
+      margin: 0;
+      .search-color-field{
+        border: 0 none;
+        background: none;
+      }
+    }
+  }
 }

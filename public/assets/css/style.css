@@ -3034,6 +3034,15 @@ body.atbd_content_active #directorist.atbd_wrapper {
   text-align: center;
 }
 
+#directorist.atbd_wrapper .default-ad-search .wp-picker-container .wp-picker-input-wrap label {
+  margin: 0;
+}
+
+#directorist.atbd_wrapper .default-ad-search .wp-picker-container .wp-picker-input-wrap label .search-color-field {
+  border: 0 none;
+  background: none;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav {
   display: flex;
   justify-content: space-between;

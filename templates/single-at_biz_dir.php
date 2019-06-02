@@ -384,9 +384,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                          */
                         do_action('atbdp_single_listing_after_title', $listing_id);
 
+
+                        echo '</div>';
+
                         $tagline_html = '';
                         if (!empty($tagline) && !empty($display_tagline_field)) {
-                            $tagline_html .= '<p>'.$tagline.'</p>';
+                            $tagline_html .= '<p class="atbd_single_listing_tagline">'.$tagline.'</p>';
                         }
                         /**
                          * @since 5.0.5
@@ -398,7 +401,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                          * @since 1.0.0
                          */
                         do_action('atbdp_after_listing_tagline');
-                        echo '</div>';
                         //listing content
                         $post_object = get_post(get_the_ID());
                         $content = apply_filters('get_the_content', $post_object->post_content);

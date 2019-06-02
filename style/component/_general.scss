@@ -22,6 +22,10 @@ body.atbd_content_active #directorist.atbd_wrapper{
   float: none;
 }
 
+#directorist.atbd_wrapper .dropdown-menu{
+  z-index: 10000;
+}
+
 //stop preload transition
 .atbdp_preload * {
   -webkit-transition: none !important;

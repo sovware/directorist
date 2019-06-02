@@ -477,7 +477,9 @@ class ATBDP_Order
                 $my_post = array();
                 $my_post['ID'] = $listing_id;
                 $my_post['post_status'] = 'publish';
-                wp_update_post( $my_post );
+                if (!is_fee_manager_active()){
+                    wp_update_post( $my_post );
+                }
             }
         }
         // Update new status

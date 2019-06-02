@@ -372,7 +372,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         echo apply_filters('atbdp_before_listing_title', $data_info);
 
                         echo '<div class="atbd_listing_title">';
-                        $title_html  = '<h2>';
+                        $title_html = '<h2>';
                         $title_html .= esc_html($p_title);
                         $title_html .= '</h2>';
                         /**
@@ -384,9 +384,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                          */
                         do_action('atbdp_single_listing_after_title', $listing_id);
 
+
+                        echo '</div>';
+
                         $tagline_html = '';
                         if (!empty($tagline) && !empty($display_tagline_field)) {
-                            $tagline_html .= '<p>'.$tagline.'</p>';
+                            $tagline_html .= '<p class="atbd_single_listing_tagline">'.$tagline.'</p>';
                         }
                         /**
                          * @since 5.0.5
@@ -398,7 +401,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                          * @since 1.0.0
                          */
                         do_action('atbdp_after_listing_tagline');
-                        echo '</div>';
 
                         $listing_content = '<div class="about_detail">';
                         /*
@@ -410,12 +412,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                          * */
                         $post_object = get_post(get_the_ID());
                         $content = apply_filters('get_the_content', $post_object->post_content);
-                        $listing_content .= do_shortcode(wpautop($content));
-                        /*
-                        global $wp_embed;
-                        $cont = $wp_embed->autoembed($wp_embed->run_shortcode(wp_kses_post($post->post_content)));
-                        echo do_shortcode($cont);*/
-                        $listing_content .= '</div>';
+                        $listing_content = '';
+                        if (!empty($content)){
+                            $listing_content = '<div class="about_detail">';
+                            $listing_content .= do_shortcode(wpautop($content));
+                            $listing_content .= '</div>';
+                        }
                         echo apply_filters('atbdp_listing_content', $listing_content);
                         ?>
                     </div>

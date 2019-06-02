@@ -183,6 +183,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   float: none;
 }
 
+#directorist.atbd_wrapper .dropdown-menu {
+  z-index: 10000;
+}
+
 .atbdp_preload * {
   -webkit-transition: none !important;
   -moz-transition: none !important;
@@ -2994,19 +2998,20 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-weight: 500;
 }
 
-#directorist.atbd_wrapper #atbdp_custom_field_area .wp-picker-container .button {
+#directorist.atbd_wrapper .wp-picker-container .button {
   position: relative;
   height: 40px;
   border: 0 none;
   width: 140px;
   transition: all 0.2s ease-in-out;
+  border-radius: 3px;
 }
 
-#directorist.atbd_wrapper #atbdp_custom_field_area .wp-picker-container .button:hover {
+#directorist.atbd_wrapper .wp-picker-container .button:hover {
   background: #5a6671;
 }
 
-#directorist.atbd_wrapper #atbdp_custom_field_area .wp-picker-container .button .wp-color-result-text {
+#directorist.atbd_wrapper .wp-picker-container .button .wp-color-result-text {
   position: absolute;
   right: 0;
   top: 0;
@@ -3017,16 +3022,25 @@ body.atbd_content_active #directorist.atbd_wrapper {
   justify-content: center;
 }
 
-#directorist.atbd_wrapper #atbdp_custom_field_area .wp-picker-container .wp-picker-input-wrap label {
+#directorist.atbd_wrapper .wp-picker-container .wp-picker-input-wrap label {
   width: 90px;
   margin: 0 10px;
 }
 
-#directorist.atbd_wrapper #atbdp_custom_field_area .wp-picker-container .wp-picker-input-wrap label input {
+#directorist.atbd_wrapper .wp-picker-container .wp-picker-input-wrap label input {
   width: 100%;
   height: 40px;
   padding: 0;
   text-align: center;
+}
+
+#directorist.atbd_wrapper .default-ad-search .wp-picker-container .wp-picker-input-wrap label {
+  margin: 0;
+}
+
+#directorist.atbd_wrapper .default-ad-search .wp-picker-container .wp-picker-input-wrap label .search-color-field {
+  border: 0 none;
+  background: none;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav {

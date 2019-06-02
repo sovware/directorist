@@ -145,7 +145,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                             <span class="fa fa-file-text atbd_area_icon"></span><?php _e($listing_details_text, ATBDP_TEXTDOMAIN) ?>
                         </h4>
                     </div>
-
                     <?php
                     $listing_header = '<div class="atbd_listing_action_area">';
                     if ($enable_favourite) {
@@ -182,7 +181,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         <?php
                         $listing_header .= '</div>';
                     }
-
                     if ($enable_report_abuse) {
                         $listing_header .= '<div class="atbd_action atbd_report">';
                         if (is_user_logged_in()) {
@@ -236,7 +234,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     echo apply_filters('atbdp_header_before_image_slider', $listing_header);
                     ?>
                 </div>
-
                 <div class="atbdb_content_module_contents">
                     <?php
                     $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
@@ -248,7 +245,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                 $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
                             }
                             array_unshift($image_links, $listing_prv_imgurl);
-
                         }
                         ?>
                         <div class="atbd_directry_gallery_wrapper">
@@ -311,9 +307,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     }
                                 }
                             }
-
                             do_action('atbdp_after_listing_price');
-
                             $average = ATBDP()->review->get_average($post->ID);
                             $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
                             if (!empty($enable_review)) {
@@ -457,7 +451,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     $meta_array
                 )
             ));
-
             $custom_fields_posts = $custom_fields->posts;
             $has_field_value = array();
             foreach ($custom_fields_posts as $custom_fields_post) {
@@ -716,7 +709,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     }
                 }
             }
-
             /**
              * Fires after the Map is rendered on single listing page
              *
@@ -740,9 +732,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
              * @param object|WP_post $post The current post object which is our listing post
              * @param array $listing_info The meta information of the current listing
              */
-
             do_action('atbdp_after_map', $post, $listing_info);
-
             /**
              * Fires after the single listing is rendered on single listing page
              *
@@ -752,7 +742,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
              * @param object|WP_post $post The current post object which is our listing post
              * @param array $listing_info The meta information of the current listing
              */
-
             do_action('atbdp_after_single_listing', $post, $listing_info);
             ?>
         </div>
@@ -768,7 +757,6 @@ if ('openstreet' == $select_listing_map) {
 }
 ?>
 <script>
-
     jQuery(document).ready(function ($) {
         // Do not show map if lat long is empty or map is globally disabled.
         <?php if (!$disable_map && (!empty($manual_lat) && !empty($manual_lng)) && !empty($display_map_field) && empty($hide_map) ){
@@ -787,8 +775,6 @@ if ('openstreet' == $select_listing_map) {
             content: info_content,
             maxWidth: 400/*Add configuration for max width*/
         });
-
-
         function initMap() {
             /* Create new map instance*/
             map = new google.maps.Map(document.getElementById('gmap'), {
@@ -803,7 +789,6 @@ if ('openstreet' == $select_listing_map) {
                 info_window.open(map, marker);
             });
         }
-
 
         initMap();
         //Convert address tags to google map links -

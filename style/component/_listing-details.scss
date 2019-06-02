@@ -355,16 +355,15 @@
     .atbd_listing_title {
       padding-bottom: 10px;
       padding-top: 18px;
-      display: flex;
-      align-items: center;
       h2 {
         font-size: 30px;
         font-weight: 500;
-        display: block;
+        display: inline;
         margin:0 15px 0 0;
       }
       .dcl_claimed{
-        top:0;
+        top:-5px;
+        display: inline-block;
       }
       .atbd_sub_title {
         font-size: 16px;

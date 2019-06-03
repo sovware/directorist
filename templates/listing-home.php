@@ -21,6 +21,12 @@ $search_filters              = get_directorist_option('search_filters',array('re
 $search_more_filters_fields  = get_directorist_option('search_more_filters_fields',array('search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
 $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_image : $search_home_bg;
 wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
+wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
+wp_localize_script('atbdp-search-listing','atbdp_search',array(
+    'ajaxnonce'         => wp_create_nonce( 'bdas_ajax_nonce' ),
+    'ajax_url'           => admin_url( 'admin-ajax.php' ),
+));
+wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
 $container_fluid             = is_directoria_active() ? 'container' : 'container-fluid';
 ?>
 <!-- start search section -->

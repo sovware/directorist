@@ -234,9 +234,11 @@ class ATBDP_Enqueuer {
         wp_enqueue_style('select2style');
         wp_enqueue_script('select2script');
         wp_enqueue_script('atbdp_validator');
-        wp_enqueue_script('atbdp_open_street');
-        wp_enqueue_script('atbdp_open_street_src');
-
+        $disable_map = get_directorist_option('display_map_field');
+        if (!empty($disable_map)){
+            wp_enqueue_script('atbdp_open_street');
+            wp_enqueue_script('atbdp_open_street_src');
+        }
         /* Enqueue all styles*/
         wp_enqueue_style('atbdp-bootstrap-style');
         wp_enqueue_style('atbdp-font-awesome');

@@ -31,6 +31,10 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
         <div class="row">
             <div class="col-md-12">
                 <?php
+                /**
+                 * @since 5.0.8
+                 */
+                do_action('atbdp_search_listing_before_title');
                 if (!empty($search_bar_title || $search_bar_sub_title) && (!empty($show_title_subtitle))) { ?>
                     <div class="atbd_search_title_area">
                         <?php echo !empty($search_bar_title) ? '<h2 class="title">' . esc_html($search_bar_title) . '</h2>' : ''; ?>

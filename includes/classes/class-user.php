@@ -68,8 +68,7 @@ class ATBDP_User {
             return $redirect_to;
         }
 
-        /*@todo; redirect non admin users to their front-end dashboard. */
-        if ( ! in_array( 'administrator', (array) $user->roles ) ) {
+        if ( ! array_intersect( apply_filters('atbdp_login_redirect_to_wp_dashboard', array('administrator')), (array) $user->roles ) ) {
             $redirect_to  = ATBDP_Permalink::get_dashboard_page_link();
         }else{
             $redirect_to = admin_url();

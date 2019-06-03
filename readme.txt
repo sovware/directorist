@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 5.0.6
+Stable tag: 5.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -131,9 +131,10 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 = 5.0.7 - Jun 02, 2019 =
 
+* Add - Option to disable Directorist's Bootstrap JavaScript file to avoid conflict with theme's Bootstrap JavaScript
 * Fix - OpenStreetMap issue
-* Fix - Category and Location issue in search
-* Add - Option to disable Directorist's bootstrap to avoid conflict
+* Fix - Category and Location issues in search
+* Tweak - Increased "Listing Per Page" limit
 
 = 5.0.6 - Jun 01, 2019 =
 

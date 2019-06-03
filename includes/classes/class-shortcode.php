@@ -196,21 +196,12 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $view                = atbdp_get_listings_current_view_name( $atts['view'] );
             $s_string            = !empty($_GET['q']) ? sanitize_text_field($_GET['q']) : '';// get the searched query
 
-            $args2 = array();
-            if (!empty($s_string)){
-                $args2 = array(
-                    'post_type'      => ATBDP_POST_TYPE,
-                    's'              => $s_string,   // Our new custom argument!
-                    'post_status'    => 'publish',
-                    'posts_per_page' => -1,
-
-                );
-            }
-
             $args = array(
                 'post_type'      => ATBDP_POST_TYPE,
                 'post_status'    => 'publish',
-                'posts_per_page' => -1,
+                'posts_per_page' => (int) $atts['listings_per_page'],
+                's'              => $s_string,   // Our new custom argument!
+                'paged'          => $paged,
             );
 
             if( $has_featured ) {
@@ -266,7 +257,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             //add keyword to search
 
-            if (!empty($s_string)){
+           /* if (!empty($s_string)){
                 $custom_fields = new WP_Query(array(
                     'post_type' => 'atbdp_fields',
                     'posts_per_page' => -1,
@@ -295,7 +286,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                         'compare'	=> 'LIKE'
                     );
                 }
-            }
+            }*/
 
 
             if( isset( $_GET['cf'] )  ) {
@@ -1156,28 +1147,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $args['meta_query'] = ( $count_meta_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $meta_queries ) : $meta_queries;
             }
 
-            $q1 = get_posts($args);
-            $q2 = get_posts($args2);
-
-            $merged = array_merge( $q1, $q2 );
-            $post_ids = array();
-            foreach( $merged as $item ) {
-                $post_ids[] = $item->ID;
-            }
-            $unique = array_unique($post_ids);
-            if(!$unique){
-                $unique=array('0');
-            }
-
-            $args3 = array(
-                'post_type'      => ATBDP_POST_TYPE,
-                'post_status'    => 'publish',
-                'posts_per_page' => (int) $atts['listings_per_page'],
-                'post__in'      => $unique,
-                'paged'          => $paged,
-            );
-
-            $all_listings = new WP_Query($args3);
+            $all_listings = new WP_Query($args);
             $cat_id = !empty($_GET['in_cat']) ? $_GET['in_cat'] : '';
             $loc_id = !empty($_GET['in_loc']) ? $_GET['in_loc'] : '';
             $cat_name =  get_term_by('id',$cat_id,ATBDP_CATEGORY);

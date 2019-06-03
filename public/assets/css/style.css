@@ -3341,7 +3341,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .ads-advaced--wrapper .ads_float .ads-advanced {
   border-radius: 3px;
-  z-index: 100;
+  z-index: 10000;
   overflow-y: scroll;
   overflow-x: hidden;
   position: absolute;

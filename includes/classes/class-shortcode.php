@@ -1212,6 +1212,11 @@ if ( !class_exists('ATBDP_Shortcode') ):
         public function all_listing( $atts )
         {
             wp_enqueue_script('adminmainassets');
+            wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
+            wp_localize_script('atbdp-search-listing','atbdp_search',array(
+                'ajaxnonce'         => wp_create_nonce( 'bdas_ajax_nonce' ),
+                'ajax_url'           => admin_url( 'admin-ajax.php' ),
+            ));
             $listing_orderby           = get_directorist_option('order_listing_by');
             $listing_view              = get_directorist_option('default_listing_view');
             $filters_display           = get_directorist_option('listings_display_filter','sliding');
@@ -1746,6 +1751,11 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
         public function atbdp_category ($atts) {
             wp_enqueue_script('adminmainassets');
+            wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
+            wp_localize_script('atbdp-search-listing','atbdp_search',array(
+                'ajaxnonce'         => wp_create_nonce( 'bdas_ajax_nonce' ),
+                'ajax_url'           => admin_url( 'admin-ajax.php' ),
+            ));
             $term_slug = get_query_var( 'atbdp_category' );
 
             $term = '';
@@ -2141,6 +2151,11 @@ if ( !class_exists('ATBDP_Shortcode') ):
         public function atbdp_location ($atts) {
             wp_enqueue_script('adminmainassets');
             $term_slug = get_query_var( 'atbdp_location' );
+            wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
+            wp_localize_script('atbdp-search-listing','atbdp_search',array(
+                'ajaxnonce'         => wp_create_nonce( 'bdas_ajax_nonce' ),
+                'ajax_url'           => admin_url( 'admin-ajax.php' ),
+            ));
 
             $term = '';
 
@@ -2488,6 +2503,11 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
         public function atbdp_tag ($atts) {
             wp_enqueue_script('adminmainassets');
+            wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
+            wp_localize_script('atbdp-search-listing','atbdp_search',array(
+                'ajaxnonce'         => wp_create_nonce( 'bdas_ajax_nonce' ),
+                'ajax_url'           => admin_url( 'admin-ajax.php' ),
+            ));
             $term_slug = get_query_var( 'atbdp_tag' );
 
             $term = '';

@@ -91,6 +91,16 @@
       margin-top: 25px;
       padding: 0!important;
     }
+    .atbd_single_listing{
+      .atbd_listing_bottom_content{
+        .listing-meta{
+          p:first-child{
+            line-height: 20px;
+            margin-bottom: 2px;
+          }
+        }
+      }
+    }
   }
   .atbd_saved_items_wrapper {
     .atbd_single_saved_item {

@@ -3150,6 +3150,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 0 !important;
 }
 
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content .listing-meta p:first-child {
+  line-height: 20px;
+  margin-bottom: 2px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_saved_items_wrapper .atbd_single_saved_item {
   border-bottom: 1px solid #e3e6ef;
   padding: 20px 0;

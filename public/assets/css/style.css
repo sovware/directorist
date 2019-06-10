@@ -3078,14 +3078,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area {
-  padding: 20px 10px;
+  padding: 15px 10px;
   border-top: 1px solid #e3e6ef;
   margin-top: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .btn {
   line-height: 25px;
-  margin: 0 2px;
+  margin: 4px 2px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area.db_btn_area--sm .btn {

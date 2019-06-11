@@ -248,6 +248,18 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
                                                                     $can_renew = get_directorist_option('can_renew_listing');
                                                                     if (!$can_renew) return false;// vail if renewal option is turned off on the site.
+                                                                    if (is_fee_manager_active()){
+                                                                        ?>
+                                                                        <a href="javascript:void(0)"
+                                                                           id="directorist-renew"
+                                                                           data-toggle="modal"
+                                                                           data-target="#dwpp-plan-renew-modal"
+                                                                           data-listing_id="<?= $post->ID; ?>"
+                                                                           class="directory_btn btn btn-outline-success">
+                                                                            <?php _e('Renew', ATBDP_TEXTDOMAIN); ?>
+                                                                        </a>
+                                                                        <?php
+                                                                    }else{
                                                                     ?>
                                                                     <a href="<?php echo esc_url(ATBDP_Permalink::get_renewal_page_link($post->ID)) ?>"
                                                                        id="directorist-renew"
@@ -256,7 +268,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                         <?php _e('Renew', ATBDP_TEXTDOMAIN); ?>
                                                                     </a>
                                                                     <!--@todo; add expiration and renew date-->
-                                                                <?php } else {
+                                                                <?php }} else {
                                                                     // show promotions if the featured is available
                                                                     // featured available but the listing is not featured, show promotion button
                                                                     if ($featured_active && empty($featured) && !is_fee_manager_active()) {

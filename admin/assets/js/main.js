@@ -1152,6 +1152,49 @@ jQuery(function ($) {
     if($('select[name="display_locations_as"]').val() === "list"){
         subl_depth.show();
     }
+
+    //Display website in registration form
+    var lf_opt37 = $("#reg_website,#require_website_reg");
+    lf_opt37.hide();
+    $('input[name="display_website_reg"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt37.show();
+        }else{
+            lf_opt37.hide();
+        }
+    });
+    if($('input[name="display_website_reg"]').is(":checked") === true){
+        lf_opt37.show();
+    }
+
+    //Display first name in registration form
+    var lf_opt38 = $("#reg_fname,#require_fname_reg");
+    lf_opt38.hide();
+    $('input[name="display_fname_reg"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt38.show();
+        }else{
+            lf_opt38.hide();
+        }
+    });
+    if($('input[name="display_fname_reg"]').is(":checked") === true){
+        lf_opt38.show();
+    }
+
+    //Display last name in registration form
+    var lf_opt39 = $("#reg_lname,#require_lname_reg");
+    lf_opt39.hide();
+    $('input[name="display_lname_reg"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt39.show();
+        }else{
+            lf_opt39.hide();
+        }
+    });
+    if($('input[name="display_lname_reg"]').is(":checked") === true){
+        lf_opt39.show();
+    }
+
 });
 
 

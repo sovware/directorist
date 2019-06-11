@@ -23,12 +23,12 @@
   }
   &.dashboard_area{
     .db_btn_area{
-      padding: 20px 10px;
+      padding: 15px 10px;
       border-top: 1px solid $border-color;
       margin-top: 0;
       .btn{
         line-height: 25px;
-        margin: 0 2px;
+        margin: 4px 2px;
       }
       &.db_btn_area--sm{
         .btn{
@@ -90,6 +90,16 @@
       display: block;
       margin-top: 25px;
       padding: 0!important;
+    }
+    .atbd_single_listing{
+      .atbd_listing_bottom_content{
+        .listing-meta{
+          p:first-child{
+            line-height: 20px;
+            margin-bottom: 2px;
+          }
+        }
+      }
     }
   }
   .atbd_saved_items_wrapper {

@@ -1293,8 +1293,8 @@ jQuery(function ($) {
         lf_opt45.show();
     }
 
-    //Display recover message in login form
-    var lf_opt46 = $("#excerpt_limit");
+    //Display excerpt
+    var lf_opt46 = $("#excerpt_limit,#display_readmore,#excerpt_limit,#readmore_text");
     lf_opt46.hide();
     $('input[name="enable_excerpt"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -1305,6 +1305,20 @@ jQuery(function ($) {
     });
     if($('input[name="enable_excerpt"]').is(":checked") === true){
         lf_opt46.show();
+    }
+
+    //Display readmore
+    var lf_opt47 = $("#readmore_text");
+    lf_opt47.hide();
+    $('input[name="display_readmore"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt47.show();
+        }else{
+            lf_opt47.hide();
+        }
+    });
+    if($('input[name="display_readmore"]').is(":checked") === true){
+        lf_opt47.show();
     }
 
 });

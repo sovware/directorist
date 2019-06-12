@@ -4461,9 +4461,15 @@ The Administrator of ==SITE_NAME==
                     ),
                     array(
                         'type' => 'toggle',
-                        'name' => 'display_reamore',
+                        'name' => 'display_readmore',
                         'label' => __('Display Excerpt Readmore', ATBDP_TEXTDOMAIN),
                         'default' => '0',
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'readmore_text',
+                        'label' => __('Read More Text', ATBDP_TEXTDOMAIN),
+                        'default' => __('Read More', ATBDP_TEXTDOMAIN),
                     ),
                     array(
                         'type' => 'toggle',

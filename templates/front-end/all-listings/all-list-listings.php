@@ -1,7 +1,6 @@
 <?php
 !empty($args['data']) ? extract($args['data']) : array(); // data array contains all required var.
 $all_listings               = !empty($all_listings) ? $all_listings : new WP_Query;
-$pagenation                 = get_directorist_option('paginate_all_listings', 1);
 $display_sortby_dropdown    = get_directorist_option('display_sort_by', 1);
 $display_viewas_dropdown    = get_directorist_option('display_view_as', 1);
 $display_image              = !empty($display_image) ? $display_image : '';
@@ -41,9 +40,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
     do_action('atbdp_before_listings_pagination');
 
     $show_pagination = !empty($show_pagination) ? $show_pagination : '';
-    if (('yes' === $show_pagination)) {
-        if (1 == $pagenation) {
-            ?>
+    if ('yes' == $show_pagination) { ?>
             <div class="row">
                 <div class="col-md-12">
                     <?php
@@ -52,7 +49,6 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
                     ?>
                 </div>
             </div>
-        <?php }
-    } ?>
+    <?php } ?>
 </div> <!--ends .row -->
 

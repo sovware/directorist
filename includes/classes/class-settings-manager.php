@@ -2424,16 +2424,6 @@ The Administrator of ==SITE_NAME==
                             'label' => __('Descending', ATBDP_TEXTDOMAIN),
                         ),
                     ),
-                    array(
-                        'type' => 'slider',
-                        'name' => 'all_listing_page_items',
-                        'label' => __('Listings Per Page', ATBDP_TEXTDOMAIN),
-                        'min' => '1',
-                        'max' => '100',
-                        'step' => '1',
-                        'default' => '6',
-                        'validation' => 'numeric|minlength[1]',
-                    ),
 
                 )
             );
@@ -4574,6 +4564,16 @@ The Administrator of ==SITE_NAME==
                         'name' => 'paginate_author_listings',
                         'label' => __('Paginate Author Listings', ATBDP_TEXTDOMAIN),
                         'default' => '1',
+                    ),
+                    array(
+                        'type' => 'slider',
+                        'name' => 'all_listing_page_items',
+                        'label' => __('Listings Per Page', ATBDP_TEXTDOMAIN),
+                        'min' => '1',
+                        'max' => '100',
+                        'step' => '1',
+                        'default' => '6',
+                        'validation' => 'numeric|minlength[1]',
                     ),
                     array(
                         'type' => 'select',

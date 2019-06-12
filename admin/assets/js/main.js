@@ -1195,6 +1195,76 @@ jQuery(function ($) {
         lf_opt39.show();
     }
 
+    //Display bio in registration form
+    var lf_opt40 = $("#reg_bio,#require_bio_reg");
+    lf_opt40.hide();
+    $('input[name="display_bio_reg"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt40.show();
+        }else{
+            lf_opt40.hide();
+        }
+    });
+    if($('input[name="display_bio_reg"]').is(":checked") === true){
+        lf_opt40.show();
+    }
+
+    //Display login message in registration form
+    var lf_opt41 = $("#reg_login");
+    lf_opt41.hide();
+    $('input[name="display_login"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt41.show();
+        }else{
+            lf_opt41.hide();
+        }
+    });
+    if($('input[name="display_login"]').is(":checked") === true){
+        lf_opt41.show();
+    }
+
+    //Display remember login information in login form
+    var lf_opt42 = $("#log_rememberme");
+    lf_opt42.hide();
+    $('input[name="display_rememberme"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt42.show();
+        }else{
+            lf_opt42.hide();
+        }
+    });
+    if($('input[name="display_rememberme"]').is(":checked") === true){
+        lf_opt42.show();
+    }
+
+    //Display sign up login message in login form
+    var lf_opt43 = $("#log_signup");
+    lf_opt43.hide();
+    $('input[name="display_signup"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt43.show();
+        }else{
+            lf_opt43.hide();
+        }
+    });
+    if($('input[name="display_signup"]').is(":checked") === true){
+        lf_opt43.show();
+    }
+
+    //Display recover message in login form
+    var lf_opt44 = $("#recpass_text,#recpass_desc,#recpass_username,#recpass_placeholder,#recpass_button");
+    lf_opt44.hide();
+    $('input[name="display_recpass"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt44.show();
+        }else{
+            lf_opt44.hide();
+        }
+    });
+    if($('input[name="display_recpass"]').is(":checked") === true){
+        lf_opt44.show();
+    }
+
 });
 
 

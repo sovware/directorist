@@ -4,7 +4,6 @@ $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
 $is_disable_price = get_directorist_option('disable_list_price');
 $display_sortby_dropdown = get_directorist_option('display_sort_by', 1);
 $display_viewas_dropdown = get_directorist_option('display_view_as', 1);
-$pagenation = get_directorist_option('paginate_all_listings', 1);
 $view_as = get_directorist_option('grid_view_as', 'normal_grid');
 
 wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
@@ -439,8 +438,8 @@ $column_width = 100 / $columns . '%';
     do_action('atbdp_before_listings_pagination');
 
     $show_pagination = !empty($show_pagination) ? $show_pagination : '';
-    if (('yes' === $show_pagination)) {
-        if (1 == $pagenation) {
+        if ('yes' == $show_pagination) {
+
             ?>
             <div class="row atbd_listing_pagination">
                 <div class="col-md-12">
@@ -450,8 +449,7 @@ $column_width = 100 / $columns . '%';
                     ?>
                 </div>
             </div>
-        <?php }
-    } ?>
+        <?php } ?>
 
 
 </div>

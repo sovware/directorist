@@ -1,7 +1,7 @@
 <?php
 !empty($args['data']) ? extract($args['data']) : array(); // data array contains all required var.
 $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
-$pagenation = get_directorist_option('paginate_author_listings',1);
+$paginate     = !empty($paginate) ? $paginate : '';
 $is_disable_price = get_directorist_option('disable_list_price');
 $container_fluid  = 'container-fluid';
 ?>
@@ -220,7 +220,7 @@ $container_fluid  = 'container-fluid';
         <div class="row atbd_authors_listing">
 
                 <?php
-                listing_view_by_grid($all_listings, $pagenation, $is_disable_price);
+                listing_view_by_grid($all_listings, $paginate, $is_disable_price);
                 ?>
 
         </div>

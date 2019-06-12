@@ -1334,10 +1334,10 @@ if (!function_exists('atbdp_only_logged_in_user')) {
             $error_message = (empty($message))
                 ? sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', ATBDP_TEXTDOMAIN) . "</a>", "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign up', ATBDP_TEXTDOMAIN) . "</a>")
                 : $message;
-            $container_fluid              = is_directoria_active() ? 'container' : 'container-fluid';
+            $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
             ?>
             <section class="directory_wrapper single_area">
-                <div class="<?php echo apply_filters('atbdp_login_message_container_fluid',$container_fluid) ?>">
+                <div class="<?php echo apply_filters('atbdp_login_message_container_fluid', $container_fluid) ?>">
                     <div class="row">
                         <div class="col-md-12">
                             <?php ATBDP()->helper->show_login_message($error_message); ?>
@@ -1891,38 +1891,38 @@ function atbdp_get_listings_current_order($default_order = '')
 function atbdp_get_listings_orderby_options($sort_by_items)
 {
     $options = array(
-        'title-asc'   => __("A to Z ( title )", ATBDP_TEXTDOMAIN),
-        'title-desc'  => __("Z to A ( title )", ATBDP_TEXTDOMAIN),
-        'date-desc'   => __("Latest listings", ATBDP_TEXTDOMAIN),
-        'date-asc'    => __("Oldest listings", ATBDP_TEXTDOMAIN),
-        'views-desc'  => __("Popular listings", ATBDP_TEXTDOMAIN),
-        'price-asc'   => __("Price ( low to high )", ATBDP_TEXTDOMAIN),
-        'price-desc'  => __("Price ( high to low )", ATBDP_TEXTDOMAIN),
-        'rand'        => __("Random listings", ATBDP_TEXTDOMAIN),
+        'title-asc' => __("A to Z ( title )", ATBDP_TEXTDOMAIN),
+        'title-desc' => __("Z to A ( title )", ATBDP_TEXTDOMAIN),
+        'date-desc' => __("Latest listings", ATBDP_TEXTDOMAIN),
+        'date-asc' => __("Oldest listings", ATBDP_TEXTDOMAIN),
+        'views-desc' => __("Popular listings", ATBDP_TEXTDOMAIN),
+        'price-asc' => __("Price ( low to high )", ATBDP_TEXTDOMAIN),
+        'price-desc' => __("Price ( high to low )", ATBDP_TEXTDOMAIN),
+        'rand' => __("Random listings", ATBDP_TEXTDOMAIN),
     );
 
-    if(!in_array( 'a_z', $sort_by_items )) {
+    if (!in_array('a_z', $sort_by_items)) {
         unset($options['title-asc']);
     }
-    if(!in_array( 'z_a', $sort_by_items )) {
+    if (!in_array('z_a', $sort_by_items)) {
         unset($options['title-desc']);
     }
-    if(!in_array( 'latest', $sort_by_items )) {
+    if (!in_array('latest', $sort_by_items)) {
         unset($options['date-desc']);
     }
-    if(!in_array( 'oldest', $sort_by_items )) {
+    if (!in_array('oldest', $sort_by_items)) {
         unset($options['date-asc']);
     }
-    if(!in_array( 'popular', $sort_by_items )) {
+    if (!in_array('popular', $sort_by_items)) {
         unset($options['views-desc']);
     }
-    if(!in_array( 'price_low_high', $sort_by_items )) {
+    if (!in_array('price_low_high', $sort_by_items)) {
         unset($options['price-asc']);
     }
-    if(!in_array( 'price_high_low', $sort_by_items )) {
+    if (!in_array('price_high_low', $sort_by_items)) {
         unset($options['price-desc']);
     }
-    if(!in_array( 'random', $sort_by_items )) {
+    if (!in_array('random', $sort_by_items)) {
         unset($options['rand']);
     }
     $args = array(
@@ -1965,7 +1965,7 @@ function atbdp_get_listings_current_view_name($view)
         $view = sanitize_text_field($_GET['view']);
     }
 
-    $allowed_views = array('list', 'grid','map');
+    $allowed_views = array('list', 'grid', 'map');
     if (!in_array($view, $allowed_views)) {
         $listing_view = get_directorist_option('default_listing_view');
         $listings_settings = !empty($listing_view) ? $listing_view : 'grid';
@@ -1989,18 +1989,18 @@ function atbdp_get_listings_view_options($view_as_items)
     $listing_view = get_directorist_option('default_listing_view');
     $listings_settings = !empty($listing_view) ? $listing_view : 'grid';
 
-    $options = array('grid', 'list','map');
-    $display_map = get_directorist_option('display_map_field',1);
-    $select_listing_map = get_directorist_option('select_listing_map','google');
+    $options = array('grid', 'list', 'map');
+    $display_map = get_directorist_option('display_map_field', 1);
+    $select_listing_map = get_directorist_option('select_listing_map', 'google');
 
 
-    if(!in_array( 'listings_grid', $view_as_items )) {
+    if (!in_array('listings_grid', $view_as_items)) {
         unset($options[0]);
     }
-    if(!in_array( 'listings_list', $view_as_items )) {
+    if (!in_array('listings_list', $view_as_items)) {
         unset($options[1]);
     }
-    if(empty($display_map) || !in_array( 'listings_map', $view_as_items )) {
+    if (empty($display_map) || !in_array('listings_map', $view_as_items)) {
         unset($options[2]);
     }
     $options[] = isset($_GET['view']) ? sanitize_text_field($_GET['view']) : $listings_settings;
@@ -2067,7 +2067,7 @@ function directorist_clean($var)
  *
  * @since    4.0
  *
- * @param    int          $post_id Post ID.
+ * @param    int $post_id Post ID.
  * @return   mixed        Included the favourites and unfavourites button
  */
 function the_atbdp_favourites_link($post_id = 0)
@@ -2162,13 +2162,13 @@ if (!function_exists('new_badge')) {
         $new_badge_text = get_directorist_option('new_badge_text', 'New');
         $enable_new_listing = get_directorist_option('display_new_badge_cart', 1);
         $each_hours = 60 * 60 * 24; // seconds in a day
-        $s_date1 = strtotime( current_time( 'mysql' ) ); // seconds for date 1
-        $s_date2 = strtotime( $post->post_date ); // seconds for date 2
-        $s_date_diff = abs( $s_date1 - $s_date2 ); // different of the two dates in seconds
-        $days = round( $s_date_diff / $each_hours ); // divided the different with second in a day
+        $s_date1 = strtotime(current_time('mysql')); // seconds for date 1
+        $s_date2 = strtotime($post->post_date); // seconds for date 2
+        $s_date_diff = abs($s_date1 - $s_date2); // different of the two dates in seconds
+        $days = round($s_date_diff / $each_hours); // divided the different with second in a day
         $new = '<span class="atbd_badge atbd_badge_new">' . $new_badge_text . '</span>';
-        if( $days <= (int) $new_listing_time ) {
-            if (!empty($enable_new_listing)){
+        if ($days <= (int)$new_listing_time) {
+            if (!empty($enable_new_listing)) {
                 return $new;
             }
 
@@ -2274,7 +2274,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                         }
 
                     }
-                    $columns      = get_directorist_option('all_listing_columns',3);
+                    $columns = get_directorist_option('all_listing_columns', 3);
                     $column_width = 100 / $columns . '%';
 
                     /*Code for Business Hour Extensions*/
@@ -2334,10 +2334,10 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                     }
                                     if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
                                         //lets check is it 24/7
-                                        if ('2.2.6'>BDBH_VERSION){
+                                        if ('2.2.6' > BDBH_VERSION) {
                                             ?>
                                             <style>
-                                                .atbd_badge_close, .atbd_badge_open{
+                                                .atbd_badge_close, .atbd_badge_open {
                                                     position: absolute;
                                                     left: 15px;
                                                     top: 15px;
@@ -2347,7 +2347,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                         }
                                         $open = get_directorist_option('open_badge_text', __('Open Now', ATBDP_TEXTDOMAIN));
                                         if (!empty($enable247hour)) {
-                                            $u_badge_html .= ' <span class="atbd_badge atbd_badge_open">'.$open.'</span>';
+                                            $u_badge_html .= ' <span class="atbd_badge atbd_badge_open">' . $open . '</span>';
 
                                         } else {
                                             $u_badge_html .= BD_Business_Hour()->show_business_open_close($business_hours);
@@ -2420,7 +2420,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                             <?php
                                             $meta_html .= '<div class="atbd_listing_meta">';
                                             $average = ATBDP()->review->get_average(get_the_ID());
-                                            $meta_html .= '<span class="atbd_meta atbd_listing_rating">'.$average.'<i class="fa fa-star"></i>
+                                            $meta_html .= '<span class="atbd_meta atbd_listing_rating">' . $average . '<i class="fa fa-star"></i>
         </span>';
                                             $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
                                             if (!empty($display_price) && !empty($display_pricing_field)) {
@@ -2428,7 +2428,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                                     $output = atbdp_display_price_range($price_range);
                                                     $meta_html .= $output;
                                                 } else {
-                                                    $meta_html .=  atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false);
+                                                    $meta_html .= atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false);
                                                 }
                                             }
                                             /**
@@ -2444,7 +2444,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                          * @since 5.0
                                          * universal action to fire after the price
                                          */
-                                        echo apply_filters('atbdp_listings_review_price',$meta_html);
+                                        echo apply_filters('atbdp_listings_review_price', $meta_html);
                                         ?>
                                         <?php if (!empty($display_contact_info) || !empty($display_publish_date)) { ?>
                                             <div class="atbd_listing_data_list">
@@ -2510,7 +2510,12 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                             <?php
                                         }
                                         if (!empty($excerpt) && !empty($enable_excerpt) && !empty($display_excerpt_field)) { ?>
-                                            <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20))); ?></p>
+                                            <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20)));
+                                                /**
+                                                 * @since 5.0.9
+                                                 */
+                                                do_action('atbdp_listings_after_exerpt');
+                                                ?></p>
                                         <?php } ?>
                                     </div><!-- end ./atbd_content_upper -->
                                     <?php if (!empty($display_category) || !empty($display_view_count)) { ?>
@@ -2589,11 +2594,11 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
             <?php } ?>
         </div> <!--ends .row -->
 
-            <style>
-        #directorist.atbd_wrapper .atbdp_column {
-            width: <?php echo $column_width;?>;
-        }
-</style>
+        <style>
+            #directorist.atbd_wrapper .atbdp_column {
+                width: <?php echo $column_width;?>;
+            }
+        </style>
 
         <?php
         if (!empty($paginate)) {
@@ -2746,10 +2751,10 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                         }
                                         if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
                                             //lets check is it 24/7
-                                            if ('2.2.6'>BDBH_VERSION){
+                                            if ('2.2.6' > BDBH_VERSION) {
                                                 ?>
                                                 <style>
-                                                    .atbd_badge_close, .atbd_badge_open{
+                                                    .atbd_badge_close, .atbd_badge_open {
                                                         position: absolute;
                                                         left: 15px;
                                                         top: 15px;
@@ -2759,7 +2764,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                             }
                                             $open = get_directorist_option('open_badge_text', __('Open Now', ATBDP_TEXTDOMAIN));
                                             if (!empty($enable247hour)) {
-                                                $u_badge_html .= ' <span class="atbd_badge atbd_badge_open">'.$open.'</span>';
+                                                $u_badge_html .= ' <span class="atbd_badge atbd_badge_open">' . $open . '</span>';
 
                                             } else {
                                                 $bh_statement = BD_Business_Hour()->show_business_open_close($business_hours);
@@ -2817,7 +2822,8 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                     ?>
 
                                                     <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
-                                                <?php } /**
+                                                <?php }
+                                                /**
                                                  * Fires after the title and sub title of the listing is rendered
                                                  *
                                                  *
@@ -2833,7 +2839,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                     <?php
                                                     $meta_html .= '<div class="atbd_listing_meta">';
                                                     $average = ATBDP()->review->get_average(get_the_ID());
-                                                    $meta_html .= '<span class="atbd_meta atbd_listing_rating">'.$average.'<i class="fa fa-star"></i>
+                                                    $meta_html .= '<span class="atbd_meta atbd_listing_rating">' . $average . '<i class="fa fa-star"></i>
         </span>';
                                                     $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
                                                     if (!empty($display_price) && !empty($display_pricing_field)) {
@@ -2841,7 +2847,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                             $output = atbdp_display_price_range($price_range);
                                                             $meta_html .= $output;
                                                         } else {
-                                                            $meta_html .=  atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false);
+                                                            $meta_html .= atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false);
                                                         }
                                                     }
                                                     /**
@@ -2857,7 +2863,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                  * @since 5.0
                                                  * universal action to fire after the price
                                                  */
-                                                echo apply_filters('atbdp_listings_review_price',$meta_html);
+                                                echo apply_filters('atbdp_listings_review_price', $meta_html);
                                                 ?>
                                                 <?php if (!empty($display_contact_info) || !empty($display_publish_date)) { ?>
                                                     <div class="atbd_listing_data_list">
@@ -2921,7 +2927,12 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                     <?php
                                                 }
                                                 if (!empty($excerpt) && !empty($enable_excerpt) && !empty($display_excerpt_field)) { ?>
-                                                    <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20))); ?></p>
+                                                    <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20)));
+                                                        /**
+                                                         * @since 5.0.9
+                                                         */
+                                                        do_action('atbdp_listings_after_exerpt');
+                                                        ?></p>
                                                 <?php } ?>
                                             </div><!-- end ./atbd_content_upper -->
 
@@ -2941,18 +2952,19 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                                 <?php
                                                                 if ($totalTerm > 1) {
                                                                     ?>
-                                                                    <div class="atbd_cat_popup">  <span>+<?php echo $totalTerm - 1; ?></span>
+                                                                    <div class="atbd_cat_popup">
+                                                                        <span>+<?php echo $totalTerm - 1; ?></span>
                                                                         <div class="atbd_cat_popup_wrapper">
-                                                                    <?php
-                                                                    $output = array();
-                                                                    foreach (array_slice($cats, 1) as $cat) {
-                                                                        $link = ATBDP_Permalink::atbdp_get_category_page($cat);
-                                                                        $space = str_repeat(' ', 1);
-                                                                        $output [] = "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
-                                                                    } ?>
+                                                                            <?php
+                                                                            $output = array();
+                                                                            foreach (array_slice($cats, 1) as $cat) {
+                                                                                $link = ATBDP_Permalink::atbdp_get_category_page($cat);
+                                                                                $space = str_repeat(' ', 1);
+                                                                                $output [] = "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
+                                                                            } ?>
                                                                             <span><?php echo join($output); ?></span>
-                                                                </div>
-                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 <?php } ?>
                                                             </div>
                                                         </div>
@@ -3019,9 +3031,9 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
     return true;
 }
 
-function listing_view_by_list($all_listings,$display_image)
+function listing_view_by_list($all_listings, $display_image)
 { ?>
-    <div class="<?php echo apply_filters('atbdp_listing_list_view_html_class', 'col-md-12')?>">
+    <div class="<?php echo apply_filters('atbdp_listing_list_view_html_class', 'col-md-12') ?>">
         <?php
         while ($all_listings->have_posts()) {
             $all_listings->the_post(); ?>
@@ -3133,21 +3145,21 @@ function listing_view_by_list($all_listings,$display_image)
                             //Start lower badge
                             $l_badge_html = '<span class="atbd_lower_badge">';
 
-                                    if ($featured && !empty($display_feature_badge_cart)) {
-                                        $l_badge_html .= '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>';
-                                    }
-                                    $popular_listing_id = atbdp_popular_listings(get_the_ID());
-                                    $badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
-                                    if ($popular_listing_id === get_the_ID()) {
-                                        $l_badge_html .= $badge;
-                                    }
-                                    //print the new badge
-                                    $l_badge_html .= new_badge();
-                                    $l_badge_html .= '</span>';
+                            if ($featured && !empty($display_feature_badge_cart)) {
+                                $l_badge_html .= '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>';
+                            }
+                            $popular_listing_id = atbdp_popular_listings(get_the_ID());
+                            $badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
+                            if ($popular_listing_id === get_the_ID()) {
+                                $l_badge_html .= $badge;
+                            }
+                            //print the new badge
+                            $l_badge_html .= new_badge();
+                            $l_badge_html .= '</span>';
 
                             /**
-                            * @since 5.0
-                            */
+                             * @since 5.0
+                             */
                             echo apply_filters('atbdp_lower_badges', $l_badge_html);
                             ?>
                     </figure>
@@ -3167,7 +3179,8 @@ function listing_view_by_list($all_listings,$display_image)
                             <?php } ?>
                             <?php if (!empty($tagline) && !empty($enable_tagline) && !empty($display_tagline_field)) { ?>
                                 <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
-                            <?php } /**
+                            <?php }
+                            /**
                              * Fires after the title and sub title of the listing is rendered
                              *
                              *
@@ -3187,13 +3200,13 @@ function listing_view_by_list($all_listings,$display_image)
         </span>
                                         <?php
                                     }
-                                    $listing_pricing = !empty($listing_pricing)?$listing_pricing:'';
+                                    $listing_pricing = !empty($listing_pricing) ? $listing_pricing : '';
                                     if (!empty($display_price) && !empty($display_pricing_field)) {
 
-                                        if (!empty($price_range)  && ('range' === $listing_pricing)) {
+                                        if (!empty($price_range) && ('range' === $listing_pricing)) {
                                             $output = atbdp_display_price_range($price_range);
                                             echo $output;
-                                        }else{
+                                        } else {
                                             atbdp_display_price($price, $is_disable_price);
                                         }
                                     }
@@ -3287,7 +3300,12 @@ function listing_view_by_list($all_listings,$display_image)
                             //show category and location info
                             ?>
                             <?php if (!empty($excerpt) && !empty($enable_excerpt) && !empty($display_excerpt_field)) { ?>
-                                <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20))); ?></p>
+                                <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20)));
+                                    /**
+                                     * @since 5.0.9
+                                     */
+                                    do_action('atbdp_listings_after_exerpt');
+                                    ?></p>
                             <?php } ?>
 
                         </div><!-- end ./atbd_content_upper -->

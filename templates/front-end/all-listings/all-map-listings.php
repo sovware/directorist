@@ -8,7 +8,6 @@ $all_listings               = !empty($all_listings) ? $all_listings : new WP_Que
 $is_disable_price           = get_directorist_option('disable_list_price');
 $display_sortby_dropdown    = get_directorist_option('display_sort_by',1);
 $display_viewas_dropdown    = get_directorist_option('display_view_as',1);
-$pagenation                 = get_directorist_option('paginate_all_listings',1);
 $select_listing_map         = get_directorist_option('select_listing_map','google');
 $zoom                       = get_directorist_option('map_zoom_level', 4);
 $container                  = 'container';
@@ -29,8 +28,6 @@ $map_container              = apply_filters('atbdp_map_container',$container);
         } else {
             include ATBDP_TEMPLATES_DIR . 'front-end/all-listings/maps/openstreet/openstreet-map.php';
         } ?>
-
-
         <!-- end of the loop -->
     </div>
     <!-- Use reset postdata to restore orginal query -->
@@ -38,12 +35,13 @@ $map_container              = apply_filters('atbdp_map_container',$container);
 
     <div class="row atbd_listing_pagination">
         <?php
-        if (1 == $pagenation){
+        $show_pagination = !empty($show_pagination) ? $show_pagination : '';
+        if ('yes' == $show_pagination){
             ?>
             <div class="col-md-12">
                 <div class="">
                     <?php
-                    $paged = !empty($paged)?$paged:'';
+                    $paged = !empty($paged) ? $paged : '';
                     echo atbdp_pagination($all_listings, $paged);
                     ?>
                 </div>

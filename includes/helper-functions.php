@@ -2196,7 +2196,7 @@ function atbdp_image_cropping($attachmentId, $width, $height, $crop = true, $qua
 }
 
 
-function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
+function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
 {
     ?>
     <div class="col-lg-12">
@@ -2274,11 +2274,13 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
                         }
 
                     }
+                    $columns      = get_directorist_option('all_listing_columns',3);
+                    $column_width = 100 / $columns . '%';
 
                     /*Code for Business Hour Extensions*/
 
                     ?>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="atbdp_column">
                         <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : ''; ?>">
                             <article
                                     class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
@@ -2585,16 +2587,21 @@ function listing_view_by_grid($all_listings, $pagenation, $is_disable_price)
             } else { ?>
                 <p class="atbdp_nlf"><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
             <?php } ?>
-
-
         </div> <!--ends .row -->
+
+            <style>
+        #directorist.atbd_wrapper .atbdp_column {
+            width: <?php echo $column_width;?>;
+        }
+</style>
+
         <?php
-        if (1 == $pagenation) {
+        if (!empty($paginate)) {
             ?>
             <div class="row">
                 <div class="col-md-12">
                     <?php
-                    $paged = !empty($paged) ? $paged : '';
+                    $paged = atbdp_get_paged_num();
                     echo atbdp_pagination($all_listings, $paged);
                     ?>
                 </div>

@@ -157,7 +157,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $display_listings_header   = get_directorist_option('search_header',1);
             $listings_header_title     = get_directorist_option('search_header_title',__('Total Found: ', ATBDP_TEXTDOMAIN));
             $filters_display           = get_directorist_option('search_result_display_filter','sliding');
-
+            $paginate                  = get_directorist_option('paginate_search_results');
             $atts = shortcode_atts( array(
                 'view'              => !empty($listing_view) ? $listing_view : 'grid',
                 '_featured'         => 1,
@@ -165,27 +165,20 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'orderby'           => !empty($listing_orderby) ? $listing_orderby : 'date',
                 'order'             => !empty($listing_order) ? $listing_order : 'asc',
                 'listings_per_page' => (int) get_directorist_option('search_posts_num', 6),
-                'pagination'        => 1,
-                'show_pagination'   => 'yes',
+                'show_pagination'   => !empty($paginate) ? 'yes' : '',
                 'header'            => !empty($display_listings_header) ? 'yes' : '',
                 'header_title'      => !empty($listings_header_title) ? $listings_header_title : '',
                 'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                 'featured_only'     => '',
                 'popular_only'      => '',
             ), $atts );
-
-
             $columns             = !empty($atts['columns']) ? $atts['columns'] : 3;
             $display_header      = !empty($atts['header']) ? $atts['header'] : '';
-            $show_pagination       = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
-
+            $show_pagination     = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
             $feature_only        = !empty($atts['featured_only']) ? $atts['featured_only'] : '';
             $popular_only        = !empty($atts['popular_only']) ? $atts['popular_only'] : '';
             //for pagination
             $paged               = atbdp_get_paged_num();
-            $paginate            = get_directorist_option('paginate_search_results');
-
-            if (!$paginate) $args['no_found_rows'] = true;
 
             $has_featured        = get_directorist_option('enable_featured_listing');
             if( $has_featured || is_fee_manager_active()) {
@@ -195,14 +188,16 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $current_order       = atbdp_get_listings_current_order( $atts['orderby'].'-'.$atts['order'] );
             $view                = atbdp_get_listings_current_view_name( $atts['view'] );
             $s_string            = !empty($_GET['q']) ? sanitize_text_field($_GET['q']) : '';// get the searched query
-
             $args = array(
                 'post_type'      => ATBDP_POST_TYPE,
                 'post_status'    => 'publish',
-                'posts_per_page' => (int) $atts['listings_per_page'],
                 's'              => $s_string,   // Our new custom argument!
-                'paged'          => $paged,
             );
+
+            if('yes' == $show_pagination) {
+                $args['posts_per_page'] = (int) $atts['listings_per_page'];
+                $args['paged']          = $paged;
+            }
 
             if( $has_featured ) {
                 $args['meta_key'] = '_featured';
@@ -1244,7 +1239,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $args = array(
                 'post_type'      => ATBDP_POST_TYPE,
                 'post_status'    => 'publish',
-
             );
 
             if('yes' == $show_pagination) {

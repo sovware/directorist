@@ -1293,6 +1293,20 @@ jQuery(function ($) {
         lf_opt45.show();
     }
 
+    //Display recover message in login form
+    var lf_opt46 = $("#excerpt_limit");
+    lf_opt46.hide();
+    $('input[name="enable_excerpt"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt46.show();
+        }else{
+            lf_opt46.hide();
+        }
+    });
+    if($('input[name="enable_excerpt"]').is(":checked") === true){
+        lf_opt46.show();
+    }
+
 });
 
 

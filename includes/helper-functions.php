@@ -2507,8 +2507,10 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                             </div><!-- End atbd listing meta -->
                                             <?php
                                         }
-                                        if (!empty($excerpt) && !empty($enable_excerpt) && !empty($display_excerpt_field)) { ?>
-                                            <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20))); ?></p>
+                                        if (!empty($excerpt) && !empty($enable_excerpt) && !empty($display_excerpt_field)) {
+                                            $excerpt_limit = get_directorist_option('excerpt_limit',20);
+                                            ?>
+                                            <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, $excerpt_limit))); ?></p>
                                         <?php } ?>
                                     </div><!-- end ./atbd_content_upper -->
                                     <?php if (!empty($display_category) || !empty($display_view_count)) { ?>
@@ -2918,8 +2920,10 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                     </div><!-- End atbd listing meta -->
                                                     <?php
                                                 }
-                                                if (!empty($excerpt) && !empty($enable_excerpt) && !empty($display_excerpt_field)) { ?>
-                                                    <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20))); ?></p>
+                                                if (!empty($excerpt) && !empty($enable_excerpt) && !empty($display_excerpt_field)) {
+                                                    $excerpt_limit = get_directorist_option('excerpt_limit',20);
+                                                    ?>
+                                                    <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, $excerpt_limit))); ?></p>
                                                 <?php } ?>
                                             </div><!-- end ./atbd_content_upper -->
 
@@ -3284,8 +3288,10 @@ function listing_view_by_list($all_listings,$display_image)
                             }
                             //show category and location info
                             ?>
-                            <?php if (!empty($excerpt) && !empty($enable_excerpt) && !empty($display_excerpt_field)) { ?>
-                                <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, 20))); ?></p>
+                            <?php if (!empty($excerpt) && !empty($enable_excerpt) && !empty($display_excerpt_field)) {
+                                $excerpt_limit = get_directorist_option('excerpt_limit',20);
+                                ?>
+                                <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, $excerpt_limit))); ?></p>
                             <?php } ?>
 
                         </div><!-- end ./atbd_content_upper -->

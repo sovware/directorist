@@ -4451,6 +4451,21 @@ The Administrator of ==SITE_NAME==
                         'default' => 0,
                     ),
                     array(
+                        'type' => 'slider',
+                        'name' => 'excerpt_limit',
+                        'label' => __('Excerpt Words Limit', ATBDP_TEXTDOMAIN),
+                        'min' => '5',
+                        'max' => '200',
+                        'step' => '1',
+                        'default' => '20',
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_reamore',
+                        'label' => __('Display Excerpt Readmore', ATBDP_TEXTDOMAIN),
+                        'default' => '0',
+                    ),
+                    array(
                         'type' => 'toggle',
                         'name' => 'display_price',
                         'label' => __('Display Price', ATBDP_TEXTDOMAIN),

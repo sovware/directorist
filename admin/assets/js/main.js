@@ -1279,6 +1279,20 @@ jQuery(function ($) {
         lf_opt44.show();
     }
 
+    //Display recover message in login form
+    var lf_opt45 = $("#reg_password,#require_password_reg");
+    lf_opt45.hide();
+    $('input[name="display_password_reg"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt45.show();
+        }else{
+            lf_opt45.hide();
+        }
+    });
+    if($('input[name="display_password_reg"]').is(":checked") === true){
+        lf_opt45.show();
+    }
+
 });
 
 

@@ -2276,9 +2276,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                     }
                     $columns      = get_directorist_option('all_listing_columns',3);
                     $column_width = 100 / $columns . '%';
-
                     /*Code for Business Hour Extensions*/
-
                     ?>
                     <div class="atbdp_column">
                         <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : ''; ?>">

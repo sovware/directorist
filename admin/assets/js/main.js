@@ -360,11 +360,25 @@ jQuery(function ($) {
             $('.listing_prv_img').val(prv_url);
             $('.change_listing_prv_img').attr('src', prv_img_url);
             $('.upload-header').html('Change Preview Image');
+            $('.remove_prev_img').show();
 
         });
 
         imageUpload.open();
     });
+
+    $('.remove_prev_img').on('click', function(e){
+        $(this).hide();
+        $('.listing_prv_img').attr('value', '');
+        $('.change_listing_prv_img').attr('src', '');
+        e.preventDefault();
+    })
+    if($('.change_listing_prv_img').attr('src') === ''){
+        $('.remove_prev_img').hide();
+    }else if($('.change_listing_prv_img').attr('src') !== ''){
+        $('.remove_prev_img').show();
+    }
+
 
     //price range
     $("#price_range").hide();
@@ -1263,6 +1277,20 @@ jQuery(function ($) {
     });
     if($('input[name="display_recpass"]').is(":checked") === true){
         lf_opt44.show();
+    }
+
+    //Display recover message in login form
+    var lf_opt45 = $("#reg_password,#require_password_reg");
+    lf_opt45.hide();
+    $('input[name="display_password_reg"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt45.show();
+        }else{
+            lf_opt45.hide();
+        }
+    });
+    if($('input[name="display_password_reg"]').is(":checked") === true){
+        lf_opt45.show();
     }
 
 });

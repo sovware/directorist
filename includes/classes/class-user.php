@@ -133,6 +133,12 @@ class ATBDP_User {
         $require_lname               = get_directorist_option('require_lname_reg',0);
         $display_bio                 = get_directorist_option('display_bio_reg',1);
         $require_bio                 = get_directorist_option('require_bio_reg',0);
+        $display_password             = get_directorist_option('display_password_reg',0);
+        $require_password                 = get_directorist_option('require_password_reg',0);
+        //password validation
+        if(!empty($require_password) && !empty($display_password) && empty($password)){
+            $password_validation = 'yes';
+        }
         //website validation
         if(!empty($require_website) && !empty($display_website) && empty($website)){
             $website_validation = 'yes';
@@ -150,7 +156,7 @@ class ATBDP_User {
             $bio_validation = 'yes';
         }
         $reg_errors = new WP_Error;
-        if ( empty( $username ) || empty( $password ) || empty( $email ) || !empty($website_validation) || !empty($fname_validation) || !empty($lname_validation) || !empty($bio_validation)) {
+        if ( empty( $username ) || !empty( $password_validation ) || empty( $email ) || !empty($website_validation) || !empty($fname_validation) || !empty($lname_validation) || !empty($bio_validation)) {
             $reg_errors->add('field', __('Required form field is missing. Please fill all required fields.', ATBDP_TEXTDOMAIN));
         }
 
@@ -223,6 +229,8 @@ class ATBDP_User {
         $require_lname               = get_directorist_option('require_lname_reg',0);
         $display_bio                 = get_directorist_option('display_bio_reg',1);
         $require_bio                 = get_directorist_option('require_bio_reg',0);
+        $display_password             = get_directorist_option('display_password_reg',0);
+        $require_password                 = get_directorist_option('require_password_reg',0);
         // if the form is submitted then save the form
         if ( isset($_POST['atbdp_user_submit'] ) ) {
             /**
@@ -232,13 +240,17 @@ class ATBDP_User {
              * */
             do_action('atbdp_before_processing_submitted_user_registration', $_POST);
 
-                $username = !empty($_POST['username']) ? $_POST[ 'username' ] : '';
-                $password = !empty($_POST['password']) ? $_POST[ 'password' ] : '';
-                $email = !empty($_POST['email']) ? $_POST[ 'email' ] : '';
-                $website = !empty($_POST['website']) ? $_POST[ 'website' ] : '';
-                $first_name = !empty($_POST['fname']) ? $_POST[ 'fname' ] : '';
-                $last_name = !empty($_POST['lname']) ? $_POST[ 'lname' ] : '';
-                $bio = !empty($_POST['bio']) ? $_POST[ 'bio' ] : '';
+            $username = !empty($_POST['username']) ? $_POST[ 'username' ] : '';
+            $password = !empty($_POST['password']) ? $_POST[ 'password' ] : '';
+            $email = !empty($_POST['email']) ? $_POST[ 'email' ] : '';
+            $website = !empty($_POST['website']) ? $_POST[ 'website' ] : '';
+            $first_name = !empty($_POST['fname']) ? $_POST[ 'fname' ] : '';
+            $last_name = !empty($_POST['lname']) ? $_POST[ 'lname' ] : '';
+            $bio = !empty($_POST['bio']) ? $_POST[ 'bio' ] : '';
+            //password validation
+            if(!empty($require_password) && !empty($display_password) && empty($password)){
+                $password_validation = 'yes';
+            }
              //website validation
             if(!empty($require_website) && !empty($display_website) && empty($website)){
                 $website_validation = 'yes';
@@ -258,7 +270,7 @@ class ATBDP_User {
             // validate all the inputs
             $validation = $this->registration_validation( $username, $password, $email, $website, $first_name, $last_name, $bio );
             if ('passed' !== $validation){
-                if (empty( $username ) || empty( $password ) || empty( $email ) || !empty($website_validation) || !empty($fname_validation) || !empty($lname_validation) || !empty($bio_validation)){
+                if (empty( $username ) || !empty( $password_validation ) || empty( $email ) || !empty($website_validation) || !empty($fname_validation) || !empty($lname_validation) || !empty($bio_validation)){
                     wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('errors' => 1)));
                     exit();
                 }elseif(email_exists($email)){

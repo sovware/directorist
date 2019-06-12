@@ -468,12 +468,23 @@ if (!class_exists('ATBDP_Settings_Manager')):
         {
             return apply_filters('atbdp_reg_password_field_setting', array(
                 array(
+                    'type' => 'toggle',
+                    'name' => 'display_password_reg',
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+                array(
                     'type' => 'textbox',
                     'name' => 'reg_password',
                     'label' => __('Label', ATBDP_TEXTDOMAIN),
                     'default' => __('Password', ATBDP_TEXTDOMAIN),
                 ),
-
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_password_reg',
+                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
             ));
         }
 

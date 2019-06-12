@@ -60,6 +60,26 @@ css for Custom Field
   text-align: center;
 }
 
+#directorist.atbd_wrapper .single_prv_attachment div{
+  position: relative;
+  display: inline-block;
+}
+#directorist.atbd_wrapper .single_prv_attachment div .remove_prev_img{
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #d3d1ec;
+  line-height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  transition: 0.2s;
+  cursor: pointer;
+  color: #ffffff;
+}
+#directorist.atbd_wrapper .single_prv_attachment div .remove_prev_img:hover{
+  color: #e23636;
+}
+
 #directorist.atbd_wrapper #listing_image_btn span {
   vertical-align: text-bottom;
 }

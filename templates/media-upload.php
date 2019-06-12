@@ -20,8 +20,11 @@ $active_mi_ext = is_multiple_images_active(); // default is no
                 <div class="single_prv_attachment">
                     <input class="listing_prv_img" name="listing_prv_img" type="hidden"
                            value="<?php echo $listing_prv_img_id; ?>">
-                    <img style="max-height: 150px;max-width: 150px" class="change_listing_prv_img"
-                         src="<?php echo esc_url($listing_prv_img[0]) ?>">
+                    <div>
+                        <img style="max-height: 150px;max-width: 150px" class="change_listing_prv_img"
+                             src="<?php echo esc_url($listing_prv_img[0]) ?>">
+                        <a href="" class="remove_prev_img"><span class="fa fa-times" title="Remove it"></span></a>
+                    </div>
                 </div>
                 <div class="default_img">
             </div>

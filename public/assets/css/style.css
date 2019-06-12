@@ -1534,6 +1534,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-top: 15px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_excerpt_content a {
+  font-size: 13px;
+  font-weight: 500;
+  color: #444752;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_title {
   padding-top: 0;
   text-transform: none;

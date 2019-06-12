@@ -135,6 +135,11 @@
         padding: 20px 20px 15px;
         .atbd_excerpt_content{
           margin-top: 15px;
+          a{
+            font-size: 13px;
+            font-weight: 500;
+            color: $primary;
+          }
         }
         .atbd_listing_title {
           padding-top: 0;

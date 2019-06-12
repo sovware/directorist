@@ -2,6 +2,8 @@
 $container_fluid             = is_directoria_active() ? 'container' : 'container-fluid';
 $username                    = get_directorist_option('reg_username','Username');
 $password                    = get_directorist_option('reg_password','Password');
+$display_password_reg        = get_directorist_option('display_password_reg',0);
+$require_password            = get_directorist_option('require_password_reg',0);
 $email                       = get_directorist_option('reg_email','Email');
 $display_website             = get_directorist_option('display_website_reg',1);
 $website                     = get_directorist_option('reg_website','Website');
@@ -72,12 +74,15 @@ $reg_login                   = get_directorist_option('reg_login',__('Already ha
                                     <label for="username"><?php printf(__('%s', ATBDP_TEXTDOMAIN),$username); ?> <strong>*</strong></label>
                                     <input id="username" class="form-control" type="text" name="username" value="<?= ( isset( $_POST['username'] ) ? esc_attr($_POST['username']) : null ); ?>">
                                 </div>
-
+                                <?php if(!empty($display_password_reg)) {?>
                                 <div class="form-group">
-                                    <label for="password"><?php printf(__('%s', ATBDP_TEXTDOMAIN),'Password'); ?> <strong>*</strong></label>
+                                    <label for="password">
+                                        <?php printf(__('%s ', ATBDP_TEXTDOMAIN),'Password');
+                                        echo !empty($require_password) ? '<strong>*</strong>': '';
+                                    ?></label>
                                     <input id="password" class="form-control" type="password" name="password" value="<?= ( isset( $_POST['password'] ) ? esc_attr($_POST['password']) : null ); ?>">
                                 </div>
-
+                                <?php } ?>
                                 <div class="form-group">
                                     <label for="email"><?php printf(__('%s', ATBDP_TEXTDOMAIN),$email); ?> <strong>*</strong></label>
                                     <input id="email" class="form-control" type="text" name="email" value="<?= ( isset( $_POST['email']) ? $_POST['email'] : null ); ?>">
@@ -117,7 +122,11 @@ $reg_login                   = get_directorist_option('reg_login',__('Already ha
                                  */
                                 do_action('atbdp_before_user_registration_submit');
                                 ?>
-
+                                <?php if(!$display_password_reg) {?>
+                                <div class="directory_regi_btn">
+                                    <p><?php _e('Password will be e-mailed to you.',ATBDP_TEXTDOMAIN);?></p>
+                                </div>
+                                <?php } ?>
                                 <div class="directory_regi_btn">
                                     <button type="submit" class="btn btn-primary btn-lg" name="atbdp_user_submit"><?php printf(__('%s ', ATBDP_TEXTDOMAIN),$reg_signup); ?></button>
                                 </div>

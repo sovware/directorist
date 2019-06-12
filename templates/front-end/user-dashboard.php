@@ -251,11 +251,10 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                     if (is_fee_manager_active()){
                                                                         ?>
                                                                         <a href="javascript:void(0)"
-                                                                           id="directorist-renew"
                                                                            data-toggle="modal"
-                                                                           data-target="#dwpp-plan-renew-modal"
+                                                                           data-target="#atpp-plan-change-modal"
                                                                            data-listing_id="<?= $post->ID; ?>"
-                                                                           class="directory_btn btn btn-outline-success">
+                                                                           class="directory_btn btn btn-outline-success atbdp_renew_with_plan">
                                                                             <?php _e('Renew', ATBDP_TEXTDOMAIN); ?>
                                                                         </a>
                                                                         <?php

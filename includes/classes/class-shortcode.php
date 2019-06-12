@@ -3008,10 +3008,34 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     </script>
                     <?php
                 }
-                wp_login_form();
+                $log_username        = get_directorist_option('log_username','Username or Email Address');
+                $log_password        = get_directorist_option('log_password','Password');
+                $display_rememberMe  = get_directorist_option('display_rememberme',1);
+                $log_rememberMe      = get_directorist_option('log_rememberme','Remember Me');
+                $log_button          = get_directorist_option('log_button','Log In');
+                $display_recpass     = get_directorist_option('display_recpass',1);
+                $recpass_text        = get_directorist_option('recpass_text',__('Recover Password',ATBDP_TEXTDOMAIN));
+                $recpass_desc        = get_directorist_option('recpass_desc',__('Please enter your email address. You will receive a new password via email.',ATBDP_TEXTDOMAIN));
+                $recpass_username    = get_directorist_option('recpass_username',__('Username or E-mail:',ATBDP_TEXTDOMAIN));
+                $recpass_placeholder = get_directorist_option('recpass_placeholder',__('eg. mail@example.com',ATBDP_TEXTDOMAIN));
+                $recpass_button      = get_directorist_option('recpass_button',__('Get New Password',ATBDP_TEXTDOMAIN));
+                $log_signup         = get_directorist_option('log_signup',__('Don\'t have an account? <a href="'.ATBDP_Permalink::get_registration_page_link().'">Sign Up</a>', ATBDP_TEXTDOMAIN));
+                $display_signup     = get_directorist_option('display_signup',1);
+                $args = array(
+                    'label_username' => sprintf(__( '%s', ATBDP_TEXTDOMAIN),$log_username),
+                    'label_password' => sprintf(__( '%s', ATBDP_TEXTDOMAIN),$log_password),
+                    'label_remember' => sprintf(__( '%s', ATBDP_TEXTDOMAIN),$log_rememberMe),
+                    'label_log_in'   => sprintf(__( '%s', ATBDP_TEXTDOMAIN),$log_button),
+                    'remember'       => !empty($display_rememberMe) ? true : false,
+                );
+                wp_login_form($args);
                 echo "<div class='d-flex justify-content-between'>";
-                printf(__('<p>Don\'t have an account? %s</p>', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>");
-                printf(__('<p>%s</p>', ATBDP_TEXTDOMAIN), "<a href='' class='atbdp_recovery_pass'> ". __('Recover Password', ATBDP_TEXTDOMAIN)."</a>");
+                if(!empty($display_signup)) { ?>
+                <p><?php echo $log_signup;?></p>
+                <?php }
+                if($display_recpass) {
+                    printf(__('<p>%s</p>', ATBDP_TEXTDOMAIN), "<a href='' class='atbdp_recovery_pass'> " . __($recpass_text, ATBDP_TEXTDOMAIN) . "</a>");
+                }
                 echo "</div>";
                 global $wpdb;
 
@@ -3080,13 +3104,13 @@ if ( !class_exists('ATBDP_Shortcode') ):
                             <div class="modal-body">
                                 <form method="post">
                                     <fieldset>
-                                        <p><?php _e('Please enter your email address. You will receive a new password via email.', ATBDP_TEXTDOMAIN)?></p>
-                                        <label for="reset_user_login"><?php _e('Username or E-mail:', ATBDP_TEXTDOMAIN)?></label>
+                                        <p><?php printf(__('%s', ATBDP_TEXTDOMAIN),$recpass_desc); ?></p>
+                                        <label for="reset_user_login"><?php printf(__('%s', ATBDP_TEXTDOMAIN),$recpass_username);?></label>
                                             <?php $user_login = isset( $_POST['user_login'] ) ? $_POST['user_login'] : ''; ?>
-                                            <input type="text" name="user_login" id="reset_user_login" value="<?php echo $user_login; ?>" placeholder="eg. mail@example.com" />
+                                            <input type="text" name="user_login" id="reset_user_login" value="<?php echo $user_login; ?>" placeholder="<?php echo $recpass_placeholder?>" />
                                         <p>
                                             <input type="hidden" name="action" value="reset" />
-                                            <input type="submit" value="<?php _e('Get New Password', ATBDP_TEXTDOMAIN)?>" class="btn btn-primary" id="submit" />
+                                            <input type="submit" value="<?php printf(__('%s', ATBDP_TEXTDOMAIN),$recpass_button);?>" class="btn btn-primary" id="submit" />
                                         </p>
                                     </fieldset>
                                 </form>

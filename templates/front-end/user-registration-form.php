@@ -1,5 +1,23 @@
 <?php
 $container_fluid             = is_directoria_active() ? 'container' : 'container-fluid';
+$username                    = get_directorist_option('reg_username','Username');
+$password                    = get_directorist_option('reg_password','Password');
+$email                       = get_directorist_option('reg_email','Email');
+$display_website             = get_directorist_option('display_website_reg',1);
+$website                     = get_directorist_option('reg_website','Website');
+$require_website             = get_directorist_option('require_website_reg',0);
+$display_fname               = get_directorist_option('display_fname_reg',1);
+$first_name                  = get_directorist_option('reg_fname','First Name');
+$require_fname               = get_directorist_option('require_fname_reg',0);
+$display_lname               = get_directorist_option('display_lname_reg',1);
+$last_name                   = get_directorist_option('reg_lname','Last Name');
+$require_lname               = get_directorist_option('require_lname_reg',0);
+$display_bio                 = get_directorist_option('display_bio_reg',1);
+$bio                         = get_directorist_option('reg_bio','About/bio');
+$require_bio                 = get_directorist_option('require_bio_reg',0);
+$reg_signup                  = get_directorist_option('reg_signup','Sign Up');
+$display_login               = get_directorist_option('display_login',1);
+$reg_login                   = get_directorist_option('reg_login',__('Already have an account? Please login <a href="'.ATBDP_Permalink::get_login_page_link().'">Here</a>', ATBDP_TEXTDOMAIN));
 ?>
 <div id="directorist" class="atbd_wrapper directorist">
     <div class="<?php echo apply_filters('atbdp_registration_container_fluid',$container_fluid) ?>">
@@ -51,41 +69,48 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                         <div class="directory_register_form_wrap">
                             <form action="<?= esc_url(get_the_permalink()); ?>" method="post">
                                 <div class="form-group">
-                                    <label for="username"><?php _e('Username', ATBDP_TEXTDOMAIN); ?> <strong>*</strong></label>
+                                    <label for="username"><?php printf(__('%s', ATBDP_TEXTDOMAIN),$username); ?> <strong>*</strong></label>
                                     <input id="username" class="form-control" type="text" name="username" value="<?= ( isset( $_POST['username'] ) ? esc_attr($_POST['username']) : null ); ?>">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="password"><?php _e('Password', ATBDP_TEXTDOMAIN); ?> <strong>*</strong></label>
+                                    <label for="password"><?php printf(__('%s', ATBDP_TEXTDOMAIN),'Password'); ?> <strong>*</strong></label>
                                     <input id="password" class="form-control" type="password" name="password" value="<?= ( isset( $_POST['password'] ) ? esc_attr($_POST['password']) : null ); ?>">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="email"><?php _e('Email', ATBDP_TEXTDOMAIN); ?> <strong>*</strong></label>
+                                    <label for="email"><?php printf(__('%s', ATBDP_TEXTDOMAIN),$email); ?> <strong>*</strong></label>
                                     <input id="email" class="form-control" type="text" name="email" value="<?= ( isset( $_POST['email']) ? $_POST['email'] : null ); ?>">
                                 </div>
-
+                                <?php if(!empty($display_website)) { ?>
                                 <div class="form-group">
-                                    <label for="website"><?php _e('Website', ATBDP_TEXTDOMAIN); ?></label>
+                                    <label for="website"><?php printf(__('%s ', ATBDP_TEXTDOMAIN),$website);
+                                    echo !empty($require_website) ? '<strong>*</strong>': '';
+                                    ?></label>
                                     <input id="website" class="form-control" type="text" name="website" value="<?= ( isset( $_POST['website']) ? esc_url($_POST['website']) : null ); ?>">
                                 </div>
-
+                                <?php } if(!empty($display_fname)) {?>
                                 <div class="form-group">
-                                    <label for="fname"><?php _e('First Name', ATBDP_TEXTDOMAIN); ?></label>
+                                    <label for="fname"><?php printf(__('%s ', ATBDP_TEXTDOMAIN),$first_name);
+                                        echo !empty($require_fname) ? '<strong>*</strong>': '';
+                                    ?></label>
                                     <input id="fname" class="form-control" type="text" name="fname" value="<?= ( isset( $_POST['fname']) ? esc_attr($_POST['fname']) : null ); ?>">
                                 </div>
-
+                                <?php } if(!empty($display_lname)) {?>
                                 <div class="form-group">
-                                    <label for="lname"><?php _e('Last Name', ATBDP_TEXTDOMAIN); ?></label>
+                                    <label for="lname"><?php printf(__('%s ', ATBDP_TEXTDOMAIN),$last_name);
+                                        echo !empty($require_lname) ? '<strong>*</strong>': '';
+                                    ?></label>
                                     <input class="form-control" id="lname" type="text" name="lname" value="<?= ( isset( $_POST['lname']) ? esc_attr($_POST['lname']) : null ); ?>">
                                 </div>
-
-
+                                <?php } if(!empty($display_bio)) { ?>
                                 <div class="form-group">
-                                    <label for="bio"><?php _e('About/bio', ATBDP_TEXTDOMAIN); ?></label>
+                                    <label for="bio"><?php printf(__('%s ', ATBDP_TEXTDOMAIN),$bio);
+                                        echo !empty($require_bio) ? '<strong>*</strong>': '';
+                                    ?></label>
                                     <textarea id="bio" class="form-control" name="bio" rows="10"><?= ( isset( $_POST['bio']) ? esc_textarea($_POST['bio']) : null ); ?></textarea>
-
                                 </div>
+                                <?php } ?>
                                 <?php
                                 /*
                                  * @since 4.4.0
@@ -94,17 +119,17 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                 ?>
 
                                 <div class="directory_regi_btn">
-                                    <button type="submit" class="btn btn-primary btn-lg" name="atbdp_user_submit"><?php _e('Sign Up', ATBDP_TEXTDOMAIN); ?></button>
+                                    <button type="submit" class="btn btn-primary btn-lg" name="atbdp_user_submit"><?php printf(__('%s ', ATBDP_TEXTDOMAIN),$reg_signup); ?></button>
                                 </div>
-
+                                <?php if(!empty($display_login)) {?>
                                 <div class="directory_regi_btn">
                                  <p>
                                      <?php
-                                     printf(__('Already have an account? Please login %s.', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_login_page_link()."'><span style='color: red'> ". __('Here', ATBDP_TEXTDOMAIN)."</span></a>");
+                                     echo $reg_login;
                                      ?>
                                  </p>
                                 </div>
-
+                                <?php } ?>
                             </form>
                         </div>
                     </div>

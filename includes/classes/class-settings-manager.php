@@ -156,6 +156,480 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'icon' => 'font-awesome:fa-envelope',
                     'menus' => $this->get_email_settings_submenus(),
                 ),
+                'registration_login' => array(
+                    'title' => __('Registration & Login', ATBDP_TEXTDOMAIN),
+                    'name' => 'registration_login',
+                    'icon' => 'font-awesome:fa-align-right',
+                    'menus' => $this->get_reg_log_settings_submenus(),
+                ),
+            ));
+        }
+
+        /**
+         * Get all the submenus for registration & login menu
+         * @return array It returns an array of submenus
+         * @since 5.1.0
+         */
+        public function get_reg_log_settings_submenus()
+        {
+            return apply_filters('atbdp_reg_log_settings_submenus', array(
+                /*Submenu : Registration Settings */
+                array(
+                    'title' => __('Registration Form', ATBDP_TEXTDOMAIN),
+                    'name' => 'registration_form',
+                    'icon' => 'font-awesome:fa-home',
+                    'controls' => apply_filters('atbdp_registration_settings_controls', array(
+                        'reg_username_field' => array(
+                            'type' => 'section',
+                            'title' => __('Username', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_reg_username_field(),
+                        ),
+                        'reg_password_field' => array(
+                            'type' => 'section',
+                            'title' => __('Password', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_reg_password_field(),
+                        ),
+                        'reg_email_field' => array(
+                            'type' => 'section',
+                            'title' => __('Email', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_reg_email_field(),
+                        ),
+                        'reg_website_field' => array(
+                            'type' => 'section',
+                            'title' => __('Website', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_reg_website_field(),
+                        ),
+                        'reg_fname_field' => array(
+                            'type' => 'section',
+                            'title' => __('First Name', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_reg_fname_field(),
+                        ),
+                        'reg_lname_field' => array(
+                            'type' => 'section',
+                            'title' => __('Last Name', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_reg_lname_field(),
+                        ),
+                        'reg_bio_field' => array(
+                            'type' => 'section',
+                            'title' => __('About/bio', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_reg_bio_field(),
+                        ),
+                        'signUp_button' => array(
+                            'type' => 'section',
+                            'title' => __('Sign Up Button', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_reg_signUp_button(),
+                        ),
+                        'login_text' => array(
+                            'type' => 'section',
+                            'title' => __('Login Message', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_reg_Login_text(),
+                        ),
+                    )),
+                ),
+                /*Submenu : login form settings*/
+                array(
+                    'title' => __('Login Form', ATBDP_TEXTDOMAIN),
+                    'name' => 'login_form',
+                    'icon' => 'font-awesome:fa-home',
+                    'controls' => apply_filters('atbdp_email_settings_controls', array(
+                        'log_username' => array(
+                            'type' => 'section',
+                            'title' => __('Username or Email Address', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_user_email_login(),
+                        ),
+                        'log_password' => array(
+                            'type' => 'section',
+                            'title' => __('Password', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_password_login(),
+                        ),
+                        'log_remember' => array(
+                            'type' => 'section',
+                            'title' => __('Remember Login Information', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_remember_login(),
+                        ),
+                        'log_loginButton' => array(
+                            'type' => 'section',
+                            'title' => __('Log In Button', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_button_login(),
+                        ),
+                        'log_signup' => array(
+                            'type' => 'section',
+                            'title' => __('Sign Up Message', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_signup_login(),
+                        ),
+                        'log_recoverPassword' => array(
+                            'type' => 'section',
+                            'title' => __('Recover Password', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_recoverPassword_login(),
+                        ),
+                    )),
+                ),
+            ));
+        }
+
+        /**
+         * Get login text setting field for login form
+         * @return array
+         * @since 5.1.0
+         */
+        public function get_reg_Login_text()
+        {
+            return apply_filters('atbdp_log_signup_text_setting', array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_login',
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textarea',
+                    'name' => 'reg_login',
+                    'label' => __('Text', ATBDP_TEXTDOMAIN),
+                    'default' => __('Already have an account? Please login <a href="'.ATBDP_Permalink::get_login_page_link().'">Here</a>', ATBDP_TEXTDOMAIN),
+                ),
+
+            ));
+        }
+
+
+
+        /**
+         * Get username setting field for login form
+         * @return array
+         * @since 5.1.0
+         */
+        public function get_user_email_login()
+        {
+            return apply_filters('atbdp_log_username_field_setting', array(
+                array(
+                    'type' => 'textbox',
+                    'name' => 'log_username',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Username or Email Address', ATBDP_TEXTDOMAIN),
+                ),
+
+            ));
+        }
+
+        /**
+         * Get password field for login form
+         * @return array
+         * @since 5.1.0
+         */
+        public function get_password_login()
+        {
+            return apply_filters('atbdp_log_password_field_setting', array(
+
+                array(
+                    'type' => 'textbox',
+                    'name' => 'log_password',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Password', ATBDP_TEXTDOMAIN),
+                ),
+
+            ));
+        }
+
+        /**
+         * Get remember me text setting field for login form
+         * @return array
+         * @since 5.1.0
+         */
+        public function get_remember_login()
+        {
+            return apply_filters('atbdp_log_remember_field_setting', array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_rememberme',
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'log_rememberme',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Remember Me', ATBDP_TEXTDOMAIN),
+                ),
+            ));
+        }
+
+        /**
+         * Get login button text setting field for login form
+         * @return array
+         * @since 5.1.0
+         */
+        public function get_button_login()
+        {
+            return apply_filters('atbdp_log_login_button_setting', array(
+                array(
+                    'type' => 'textbox',
+                    'name' => 'log_button',
+                    'label' => __('Text', ATBDP_TEXTDOMAIN),
+                    'default' => __('Log In', ATBDP_TEXTDOMAIN),
+                ),
+            ));
+        }
+
+        /**
+         * Get sign up setting field for login form
+         * @return array
+         * @since 5.1.0
+         */
+        public function get_signup_login()
+        {
+            return apply_filters('atbdp_log_signup_text_setting', array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_signup',
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'log_signup',
+                    'label' => __('Text', ATBDP_TEXTDOMAIN),
+                    'default' => __('Don\'t have an account? <a href="'.ATBDP_Permalink::get_registration_page_link().'">Sign Up</a>', ATBDP_TEXTDOMAIN),
+                ),
+
+            ));
+        }
+
+        /**
+         * Get recover password setting field for login form
+         * @return array
+         * @since 5.1.0
+         */
+        public function get_recoverPassword_login()
+        {
+            return apply_filters('atbdp_log_rec_pass_setting', array(
+                array(
+                    'type'    => 'toggle',
+                    'name'    => 'display_recpass',
+                    'label'   => __('Enable', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'recpass_text',
+                    'label' => __('Name', ATBDP_TEXTDOMAIN),
+                    'default' => __('Recover Password', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textarea',
+                    'name' => 'recpass_desc',
+                    'label' => __('Description', ATBDP_TEXTDOMAIN),
+                    'default' => __('Please enter your email address. You will receive a new password via email.', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'recpass_username',
+                    'label' => __('Username or Email Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Username or E-mail', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'recpass_placeholder',
+                    'label' => __('Username or Email Placeholder', ATBDP_TEXTDOMAIN),
+                    'default' => __('eg. mail@example.com', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'recpass_button',
+                    'label' => __('Button Text', ATBDP_TEXTDOMAIN),
+                    'default' => __('Get New Password', ATBDP_TEXTDOMAIN),
+                ),
+            ));
+        }
+
+        /**
+         * Get username setting field for registration
+         * @return array
+         * @since 5.1.0
+         */
+        public function get_reg_username_field()
+        {
+            return apply_filters('atbdp_reg_username_field_setting', array(
+                array(
+                    'type' => 'textbox',
+                    'name' => 'reg_username',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Username', ATBDP_TEXTDOMAIN),
+                ),
+
+            ));
+        }
+
+        /**
+         * Get password setting field for registration
+         * @return array
+         * @since 5.1.0
+         */
+        public function get_reg_password_field()
+        {
+            return apply_filters('atbdp_reg_password_field_setting', array(
+                array(
+                    'type' => 'textbox',
+                    'name' => 'reg_password',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Password', ATBDP_TEXTDOMAIN),
+                ),
+
+            ));
+        }
+
+        /**
+         * Get email setting field for registration
+         * @return array
+         * @since 5.1.0
+         */
+        public function get_reg_email_field()
+        {
+            return apply_filters('atbdp_reg_email_field_setting', array(
+                array(
+                    'type' => 'textbox',
+                    'name' => 'reg_email',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Email', ATBDP_TEXTDOMAIN),
+                ),
+
+            ));
+        }
+
+        /**
+         * Get website setting field for registration
+         * @return array
+         * @since 5.1.0
+         */
+        public function get_reg_website_field()
+        {
+            return apply_filters('atbdp_reg_website_field_setting', array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_website_reg',
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'reg_website',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Website', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_website_reg',
+                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+
+            ));
+        }
+
+        /**
+         * Get First Name setting field for registration
+         * @return array
+         * @since 5.1.0
+         */
+        public function get_reg_fname_field()
+        {
+            return apply_filters('atbdp_reg_fname_field_setting', array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_fname_reg',
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'reg_fname',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('First Name', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_fname_reg',
+                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+
+            ));
+        }
+
+        /**
+         * Get Last Name setting field for registration
+         * @return array
+         * @since 5.1.0
+         */
+        public function get_reg_lname_field()
+        {
+            return apply_filters('atbdp_reg_lname_field_setting', array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_lname_reg',
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'reg_lname',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Last Name', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_lname_reg',
+                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+
+            ));
+        }
+
+        /**
+         * Get bio setting field for registration
+         * @return array
+         * @since 5.1.0
+         */
+        public function get_reg_bio_field()
+        {
+            return apply_filters('atbdp_reg_bio_field_setting', array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_bio_reg',
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'reg_bio',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('About/bio', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_bio_reg',
+                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+
+            ));
+        }
+
+        /**
+         * Get signup button setting field for registration
+         * @return array
+         * @since 5.1.0
+         */
+        public function get_reg_signUp_button()
+        {
+            return apply_filters('atbdp_reg_signUp_button_setting', array(
+                array(
+                    'type' => 'textbox',
+                    'name' => 'reg_signup',
+                    'label' => __('Text', ATBDP_TEXTDOMAIN),
+                    'default' => __('Sign Up', ATBDP_TEXTDOMAIN),
+                ),
+
             ));
         }
 
@@ -4091,7 +4565,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'paginate_all_listings',
-                        'label' => __('Paginate All Listings', ATBDP_TEXTDOMAIN),
+                        'label' => __('Paginate Listings', ATBDP_TEXTDOMAIN),
                         'default' => '1',
                     ),
 

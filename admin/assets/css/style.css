@@ -533,6 +533,31 @@ css for Custom Field
   margin-bottom: 0;
 }
 
+#atbdp-categories-image-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+#atbdp-categories-image-wrapper .remove_cat_img {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #c4c4c4;
+  right: -5px;
+  top: -5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+#atbdp-categories-image-wrapper .remove_cat_img:hover {
+  background: #ff0000;
+  color: #fff;
+}
+
 @media (max-width: 400px) {
   #_listing_contact_info #directorist.atbd_wrapper .form-check {
     padding-left: 40px;

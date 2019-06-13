@@ -476,6 +476,29 @@ css for Custom Field
   }
 }
 
+#atbdp-categories-image-wrapper{
+  position: relative;
+  display: inline-block;
+  .remove_cat_img{
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #c4c4c4;
+    right: -5px;
+    top: -5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: 0.2s ease;
+    &:hover{
+      background: #ff0000;
+      color: #fff;
+    }
+  }
+}
+
 @media (max-width: 400px) {
   #_listing_contact_info #directorist.atbd_wrapper{
     .form-check{
@@ -503,5 +526,4 @@ css for Custom Field
       display: inline !important;
     }
   }
-
 }

@@ -379,13 +379,6 @@ jQuery(function ($) {
         $('.remove_prev_img').show();
     }
 
-    $('.remove_cat_img').on('click', function (e) {
-        e.preventDefault();
-        $(this).hide();
-        $(this).prev("img").remove();
-        $('#atbdp-categories-image-id').attr("value",'');
-    })
-
     //price range
     $("#price_range").hide();
     var is_checked = $('#atbd_listing_pricing').val();
@@ -600,7 +593,7 @@ jQuery(function ($) {
             } else {
 
                 $('#atbdp-categories-image-id').val(json.id);
-                $('#atbdp-categories-image-wrapper').html('<img src="' + json.url + '" /><a href="" class="remove_prev_img"><span class="fa fa-times" title="Remove it"></span></a>');
+                $('#atbdp-categories-image-wrapper').html('<img src="' + json.url + '" /><a href="" class="remove_cat_img"><span class="fa fa-times" title="Remove it"></span></a>');
 
             }
 
@@ -623,8 +616,14 @@ jQuery(function ($) {
     $('#submit').on('click', function () {
         $('#atbdp-categories-image-wrapper img').attr('src', '');
     });
-    
 
+
+    $(document).on('click', '.remove_cat_img', function (e) {
+        e.preventDefault();
+        $(this).hide();
+        $(this).prev("img").remove();
+        $('#atbdp-categories-image-id').attr("value",'');
+    });
 
     //
     var lf_opt2 = $("#search_result_filter_button_text, #search_result_filters_fields, #search_result_search_text_placeholder, #search_result_category_placeholder, #search_result_location_placeholder,#search_result_display_filter,#search_result_filters_button,#sresult_reset_text,#sresult_apply_text");

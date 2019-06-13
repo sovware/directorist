@@ -215,10 +215,7 @@ class ATBDP_User {
         }
         return 'passed';
 
-
-
     }
-
 
     public function handle_user_registration() {
         $require_website             = get_directorist_option('require_website_reg',0);
@@ -294,7 +291,11 @@ class ATBDP_User {
             // sanitize user form input
             global $username, $password, $email, $website, $first_name, $last_name, $bio;
             $username   =   sanitize_user( $_POST['username'] );
-            $password   =   sanitize_text_field( $_POST['password'] );
+            if (empty($display_password)){
+                $password   =   wp_generate_password( 12, false );
+            }else{
+                $password   =   sanitize_text_field( $_POST['password'] );
+            }
             $email      =   sanitize_email( $_POST['email'] );
             $website    =   esc_url_raw( $_POST['website'] );
             $first_name =   sanitize_text_field( $_POST['fname'] );
@@ -305,6 +306,7 @@ class ATBDP_User {
             // only when no WP_error is found
             $user_id = $this->complete_registration($username, $password, $email, $website, $first_name, $last_name, $bio);
             if ($user_id && !is_wp_error( $user_id )) {
+                update_user_meta($user_id, '_atbdp_generated_password', $password);
                 // user has been created successfully, now work on activation process
                 wp_new_user_notification($user_id, null, 'both'); // send activation to the user and the admin
                 wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('success' => true)));

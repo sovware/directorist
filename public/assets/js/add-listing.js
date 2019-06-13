@@ -322,11 +322,24 @@ jQuery(function($){
             $('.listing_prv_img').val(prv_url);
             $('.change_listing_prv_img').attr('src', prv_img_url);
             $('.upload-header').html('Change Preview Image');
+            $('.remove_prev_img').show();
 
         });
 
         imageUpload.open();
     });
+
+    $('.remove_prev_img').on('click', function(e){
+        $(this).hide();
+        $('.listing_prv_img').attr('value', '');
+        $('.change_listing_prv_img').attr('src', '');
+        e.preventDefault();
+    })
+    if($('.change_listing_prv_img').attr('src') === ''){
+        $('.remove_prev_img').hide();
+    }else if($('.change_listing_prv_img').attr('src') !== ''){
+        $('.remove_prev_img').show();
+    }
 
     //it shows the hidden term and conditions
     $('#listing_t_c').on('click', function (e) {

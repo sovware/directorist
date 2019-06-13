@@ -193,8 +193,10 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 <td>
                     <input type="hidden" id="atbdp-categories-image-id" name="image" value="<?php echo $image_id; ?>"/>
                     <div id="atbdp-categories-image-wrapper">
-                        <?php if ($image_src) : ?>
+                        <?php
+                        if ($image_src) : ?>
                             <img src="<?php echo $image_src; ?>"/>
+                            <a href="" class="remove_cat_img"><span class="fa fa-times" title="Remove it"></span></a>
                         <?php endif; ?>
                     </div>
                     <p>
@@ -221,6 +223,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                     <div id="atbdp-categories-image-wrapper">
                         <?php if ($image_src) : ?>
                             <img src="<?php echo $image_src; ?>"/>
+                            <a href="" class="remove_cat_img"><span class="fa fa-times" title="Remove it"></span></a>
                         <?php endif; ?>
                     </div>
                     <p>

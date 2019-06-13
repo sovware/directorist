@@ -2901,6 +2901,29 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 15px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .single_prv_attachment div {
+  position: relative;
+  display: inline-block;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .single_prv_attachment div .remove_prev_img {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #d3d1ec;
+  line-height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  transition: 0.2s;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .single_prv_attachment div .remove_prev_img:hover {
+  color: #c81d1d;
+}
+
 .atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .atbd_term_and_condition_area {
   text-align: center;
   margin-bottom: 20px;

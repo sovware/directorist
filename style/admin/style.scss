@@ -43,6 +43,25 @@
   }
   .single_prv_attachment{
     text-align: center;
+    div{
+      position: relative;
+      display: inline-block;
+      .remove_prev_img{
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #d3d1ec;
+        line-height: 26px;
+        width: 26px;
+        border-radius: 50%;
+        transition: 0.2s;
+        cursor: pointer;
+        color: #ffffff;
+        &:hover{
+          color: #c81d1d;
+        }
+      }
+    }
   }
   #listing_image_btn span {
     vertical-align: text-bottom;
@@ -484,4 +503,5 @@ css for Custom Field
       display: inline !important;
     }
   }
+
 }

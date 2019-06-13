@@ -678,8 +678,15 @@ This email is sent automatically for information purpose only. Please do not res
         public function custom_wp_new_user_notification_email($wp_new_user_notification_email, $user, $blogname)
         {
             $display_password = get_directorist_option('display_password_reg', 0);
+            $require_password = get_directorist_option('require_password_reg',0);
             $user_password = get_user_meta($user->ID, '_atbdp_generated_password',true);
             if (empty($display_password)) {
+                $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!', ATBDP_TEXTDOMAIN));
+                $body = "Hi there, Welcome to $blogname! You can login now using the below credentials: Username: $user->user_login Password: $user_password If you have any problems, please contact us. Thank you!";
+                $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
+                $wp_new_user_notification_email['message'] = $body;
+                return $wp_new_user_notification_email;
+            }elseif (empty($require_password)){
                 $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!', ATBDP_TEXTDOMAIN));
                 $body = "Hi there, Welcome to $blogname! You can login now using the below credentials: Username: $user->user_login Password: $user_password If you have any problems, please contact us. Thank you!";
                 $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);

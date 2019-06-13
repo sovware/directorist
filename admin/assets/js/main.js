@@ -594,7 +594,7 @@ jQuery(function ($) {
             } else {
 
                 $('#atbdp-categories-image-id').val(json.id);
-                $('#atbdp-categories-image-wrapper').html('<img src="' + json.url + '" />');
+                $('#atbdp-categories-image-wrapper').html('<img src="' + json.url + '" /><a href="" class="remove_prev_img"><span class="fa fa-times" title="Remove it"></span></a>');
 
             }
 

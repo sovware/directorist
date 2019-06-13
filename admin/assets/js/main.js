@@ -379,6 +379,12 @@ jQuery(function ($) {
         $('.remove_prev_img').show();
     }
 
+    $('.remove_cat_img').on('click', function (e) {
+        e.preventDefault();
+        $(this).hide();
+        $(this).prev("img").remove();
+        $('#atbdp-categories-image-id').attr("value",'');
+    })
 
     //price range
     $("#price_range").hide();

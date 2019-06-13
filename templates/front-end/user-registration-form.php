@@ -28,15 +28,25 @@ $reg_login                   = get_directorist_option('reg_login',__('Already ha
                 <div class="add_listing_title atbd_success_mesage">
 
                     <h2><?php _e('Register', ATBDP_TEXTDOMAIN); ?></h2>
-                    <?php if(!empty($_GET['success']) && true == $_GET['success']){ ?>
-                        <!--registration succeeded, so show notification -->
-                        <p style="padding: 20px" class="alert-success"><span class="fa fa-check"></span><?php _e(' Registration completed. Please check your email for confirmation.', ATBDP_TEXTDOMAIN); ?>
-                            <?php
-                            printf(__(' Or click %s to login.', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_login_page_link()."'><span style='color: red'> ". __('Here', ATBDP_TEXTDOMAIN)."</span></a>");
+                    <?php
+                    $display_password = get_directorist_option('display_password_reg', 0);
+                    if(!empty($_GET['success']) && true == $_GET['success']){
+                        if (empty($display_password)){
                             ?>
-
-                        </p>
-                        <?php
+                            <p style="padding: 20px" class="alert-success"><span class="fa fa-check"></span><?php _e(' Go to your inbox or spam/junk and get your password.', ATBDP_TEXTDOMAIN); ?>
+                            </p>
+                            <?php
+                        }else {
+                            ?>
+                            <!--registration succeeded, so show notification -->
+                            <p style="padding: 20px" class="alert-success"><span
+                                        class="fa fa-check"></span><?php _e(' Registration completed. Please check your email for confirmation.', ATBDP_TEXTDOMAIN); ?>
+                                <?php
+                                printf(__(' Or click %s to login.', ATBDP_TEXTDOMAIN), "<a href='" . ATBDP_Permalink::get_login_page_link() . "'><span style='color: red'> " . __('Here', ATBDP_TEXTDOMAIN) . "</span></a>");
+                                ?>
+                            </p>
+                            <?php
+                        }
                         exit();
                     }
                     ?>

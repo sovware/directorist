@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 5.0.8
+Stable tag: 5.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -128,6 +128,16 @@ Directorist is not developed by a single person. A team of dedicated developers 
 18. Add New Custom Field
 
 == Changelog ==
+
+= 5.1.0 - Jun 13, 2019 =
+
+* Add - Registration and Login form customization options
+* Add - Excerpt word limit and Read More link
+* Add - Control listings columns of author page
+* Add - Option to remove preview, category and location images
+* Fix - Business Hours extension compatibility with related listings
+* Fix - Pagination issues
+* Tweak - Listings renew button
 
 = 5.0.8 - Jun 07, 2019 =
 

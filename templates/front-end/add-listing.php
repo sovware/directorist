@@ -1049,7 +1049,7 @@ if('openstreet' == $select_listing_map) {
         saved_lat_lng = {
             lat:<?= (!empty($manual_lat)) ? floatval($manual_lat) : $default_latitude ?>,
             lng: <?= (!empty($manual_lng)) ? floatval($manual_lng) : $default_longitude ?> }; // default is London city
-        info_content = "<?= $info_content; ?>";
+        info_content = "<?= $info_content ?>";
         markers = [];// initialize the array to keep track all the marker
         info_window = new google.maps.InfoWindow({
             content: info_content,

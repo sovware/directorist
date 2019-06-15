@@ -2572,16 +2572,6 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                                                     class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0; ?>
                                                         </li> <?php } ?>
 
-
-                                                    <li class="atbd_save">
-                                                        <div id="atbdp-favourites-all-listing">
-                                                            <input type="hidden" id="listing_ids"
-                                                                   value="<?php echo get_the_ID(); ?>">
-                                                            <?php
-                                                            // do_action('wp_ajax_atbdp-favourites-all-listing', get_the_ID()); ?>
-                                                        </div>
-                                                    </li>
-
                                                 </ul>
                                             <?php } ?>
                                         </div><!-- end ./atbd_listing_bottom_content -->
@@ -2994,16 +2984,6 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                                         class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0; ?>
                                                             </li> <?php } ?>
 
-
-                                                        <li class="atbd_save">
-                                                            <div id="atbdp-favourites-all-listing">
-                                                                <input type="hidden" id="listing_ids"
-                                                                       value="<?php echo get_the_ID(); ?>">
-                                                                <?php
-                                                                // do_action('wp_ajax_atbdp-favourites-all-listing', get_the_ID()); ?>
-                                                            </div>
-                                                        </li>
-
                                                     </ul>
                                                 <?php } ?>
                                             </div><!-- end ./atbd_listing_bottom_content -->
@@ -3372,16 +3352,6 @@ function listing_view_by_list($all_listings, $display_image)
                                             <li class="atbd_count"><span
                                                         class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0; ?>
                                             </li> <?php } ?>
-
-
-                                        <li class="atbd_save">
-                                            <div id="atbdp-favourites-all-listing">
-                                                <input type="hidden" id="listing_ids"
-                                                       value="<?php echo get_the_ID(); ?>">
-                                                <?php
-                                                // do_action('wp_ajax_atbdp-favourites-all-listing', get_the_ID()); ?>
-                                            </div>
-                                        </li>
                                         <?php if (!empty($display_author_image)) {
                                             $author = get_userdata($author_id);
                                             ?>

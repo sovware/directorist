@@ -162,6 +162,8 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             }
 
                                         }
+                                        $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+
                                         ?>
                                         <div class="col-lg-4 col-sm-6" id="listing_id_<?= $post->ID; ?>">
                                             <div class="atbd_single_listing atbd_listing_card">
@@ -171,17 +173,17 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                         <div class="atbd_listing_image">
                                                             <?php if (!empty($listing_prv_img)) {
 
-                                                                echo '<a href="' . esc_url(get_post_permalink($post->ID)) . '"><img src="' . esc_url($prv_image) . '" alt="' . esc_html(stripslashes(get_the_title())) . '"></a>';
+                                                                echo '<a href="' . esc_url(get_post_permalink($post->ID)) . '"><img src="' . esc_url($prv_image) . '" alt="' . esc_html(stripslashes(get_the_title($post->ID))) . '"></a>';
 
                                                             }
                                                             if (!empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                                                echo '<a href="' . esc_url(get_post_permalink($post->ID)) . '"><img src="' . esc_url($gallery_img) . '" alt="' . esc_html(stripslashes(get_the_title())) . '"></a>';
+                                                                echo '<a href="' . esc_url(get_post_permalink($post->ID)) . '"><img src="' . esc_url($gallery_img) . '" alt="' . esc_html(stripslashes(get_the_title($post->ID))) . '"></a>';
 
                                                             }
                                                             if (empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                                                echo '<a href="' . esc_url(get_post_permalink($post->ID)) . '"><img src="' . ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' . '" alt="' . esc_html(stripslashes($post->ID)) . '"></a>';
+                                                                echo '<a href="' . esc_url(get_post_permalink($post->ID)) . '"><img src="' . esc_url($default_image) . '" alt="' . esc_html(get_the_title($post->ID)) . '"></a>';
 
                                                             }
                                                             ?>

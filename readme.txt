@@ -129,6 +129,14 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
+= 5.1.1 - Jun 15, 2019 =
+
+* Fix - Registration form password field issue
+* Tweak - Listing's default preview image of Dashboard page
+* Fix - Translation issues
+* Tweak - Added 'Random' for default order-by option in search listing settings.
+* Fix - Conflict with Social Warfare plugin
+
 = 5.1.0 - Jun 13, 2019 =
 
 * Add - Registration and Login form customization options

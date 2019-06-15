@@ -426,7 +426,6 @@ $column_width           = 100/$search_listing_columns .'%';
                                                 <?php if(!empty($display_view_count)) {?>
                                                 <li class="atbd_count"><span class="fa fa-eye"></span><?php echo !empty($post_view) ? $post_view : 0 ;?></li>
                                                 <?php } ?>
-                                                <!--<li class="atbd_save"><span class="fa fa-heart"></span></li>-->
                                             </ul>
                                         </div><!-- end ./atbd_listing_bottom_content -->
                                         <?php } ?>

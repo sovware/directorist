@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 5.1.0
+Stable tag: 5.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,15 +129,15 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 5.1.1 - Jun 15, 2019 =
+= 5.2.0 - Jun 15, 2019 =
 
+* Add - Option to display default search results randomly
 * Fix - Registration form's password field issue
-* Fix - Pagination issue in listings list view
+* Fix - Pagination issue of listings list view
 * Fix - Translation issues
 * Fix - Conflict with WooCommerce Membership and Social Warfare plugins
-* Tweak - Listing's default preview image of Dashboard page
-* Tweak - Added 'Random' for default order-by option in search listing settings.
-* Remove - Unnecessary stuff form listings page
+* Tweak - Listing default preview image of User Dashboard
+* Improve - Listings page's code
 
 = 5.1.0 - Jun 13, 2019 =
 

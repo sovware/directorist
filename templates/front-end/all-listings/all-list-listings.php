@@ -19,6 +19,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
     }
     ?>
     <?php if ($all_listings->have_posts()) { ?>
+    <div class="row">
         <?php listing_view_by_list($all_listings,$display_image); ?>
     <?php } else { ?>
         <p class="atbdp_nlf"><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
@@ -41,7 +42,7 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
 
     $show_pagination = !empty($show_pagination) ? $show_pagination : '';
     if ('yes' == $show_pagination) { ?>
-            <div class="row">
+
                 <div class="col-md-12">
                     <?php
                     $paged = !empty($paged) ? $paged : '';

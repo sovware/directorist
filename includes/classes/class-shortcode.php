@@ -184,8 +184,13 @@ if ( !class_exists('ATBDP_Shortcode') ):
             if( $has_featured || is_fee_manager_active()) {
                 $has_featured    = $atts['_featured'];
             }
+            if('rand' == $atts['orderby']) {
+                $current_order       = atbdp_get_listings_current_order( $atts['orderby']);
+            } else{
+                $current_order       = atbdp_get_listings_current_order( $atts['orderby'].'-'.$atts['order'] );
+            }
 
-            $current_order       = atbdp_get_listings_current_order( $atts['orderby'].'-'.$atts['order'] );
+
             $view                = atbdp_get_listings_current_view_name( $atts['view'] );
             $s_string            = !empty($_GET['q']) ? sanitize_text_field($_GET['q']) : '';// get the searched query
             $args = array(
@@ -1702,7 +1707,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             $terms = get_terms( ATBDP_CATEGORY, $args );
             $terms = array_slice($terms, 0, $atts['cat_per_page'] );
-            //var_dump($terms);
+            
             if( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
                 if('grid' == $atts['view']) {
                     include ATBDP_TEMPLATES_DIR . 'front-end/categories-page/categories-grid.php';
@@ -2951,6 +2956,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
         public function add_listing($atts, $content = null, $sc_name) {
             ob_start();
+            wp_enqueue_script('adminmainassets');
             if (is_user_logged_in()) {
                 global $wp;
                 global $pagenow;

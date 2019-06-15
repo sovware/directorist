@@ -53,11 +53,11 @@
             $(abc2).slice(4, abc2.length).hide();
             if (count%2 == 1) {
                 $(this).removeClass('active');
-                $(this).text('Show More');
+                $(this).text(atbdp_search_listing.i18n_text.show_more);
                 $(abc2).slice(4, abc2.length).hide();
             } else {
                 $(this).addClass('active');
-                $(this).text('Show Less');
+                $(this).text(atbdp_search_listing.i18n_text.show_less);
                 $(abc2).slice(4, abc2.length).show();
             }
 

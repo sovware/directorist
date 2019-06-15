@@ -3190,6 +3190,10 @@ The Administrator of ==SITE_NAME==
                                 'value' => 'price',
                                 'label' => __('Price', ATBDP_TEXTDOMAIN),
                             ),
+                            array(
+                                'value' => 'rand',
+                                'label' => __('Random', ATBDP_TEXTDOMAIN),
+                            ),
                         ),
                         'default' => array(
                             'value' => 'date',

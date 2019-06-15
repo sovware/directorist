@@ -293,6 +293,8 @@ class ATBDP_User {
             $username   =   sanitize_user( $_POST['username'] );
             if (empty($display_password)){
                 $password   =   wp_generate_password( 12, false );
+            }elseif (empty($password && $require_password)){
+                $password   =   wp_generate_password( 12, false );
             }else{
                 $password   =   sanitize_text_field( $_POST['password'] );
             }

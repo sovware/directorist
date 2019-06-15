@@ -2666,6 +2666,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                         $bdbh = get_post_meta(get_the_ID(), '_bdbh', true);
                         $enable247hour = get_post_meta(get_the_ID(), '_enable247hour', true);
                         $business_hours = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
+                        $disable_bz_hour_listing = get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true);
                         $author_id = get_the_author_meta('ID');
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                         $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');

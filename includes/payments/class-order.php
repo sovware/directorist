@@ -221,7 +221,7 @@ class ATBDP_Order
 
             echo '<select name="payment_status">';
             echo '<option value="all">' . __("All orders", ATBDP_TEXTDOMAIN) . '</option>';
-            foreach (array($statuses) as $value => $title) {
+            foreach ($statuses as $value => $title) {
                 printf('<option value="%s" %s>%s</option>', $value, selected($value, $current_status), $title);
             }
             echo '</select>';

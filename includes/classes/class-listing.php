@@ -111,19 +111,24 @@ class ATBDP_Listing{
 
     public function modify_search_query(WP_Query $query)
     {
-        global $wp_query;
-        $post_type = get_query_var('post_type');
-        $s = get_query_var('s');
-        $post_type = (!empty( $post_type)) ?  $post_type : ( !empty( $query->post_type ) ? $query->post_type : 'any');
+        if( !is_admin() && $query->is_main_query() && $query->is_archive() ){
+            global $wp_query;
+            $post_type = get_query_var('post_type');
+            $s = get_query_var('s');
+            $post_type = (!empty( $post_type)) ?  $post_type : ( !empty( $query->post_type ) ? $query->post_type : 'any');
 
-        if( $query->is_search() && $post_type == ATBDP_POST_TYPE )
-        {
-            /*@TODO; make the number of items to show dynamic using setting panel*/
-            $srch_p_num = get_directorist_option('search_posts_num', 6);
-           $query->set('posts_per_page', absint($srch_p_num));
+            if( $query->is_search() && $post_type == ATBDP_POST_TYPE )
+            {
+                /*@TODO; make the number of items to show dynamic using setting panel*/
+                $srch_p_num = get_directorist_option('search_posts_num', 6);
+                $query->set('posts_per_page', absint($srch_p_num));
 
+            }
+            return $query;
+        }else{
+            return $query;
         }
-        return $query;
+
     }
 
     public function include_files()

@@ -41,14 +41,13 @@ wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.
 
     $show_pagination = !empty($show_pagination) ? $show_pagination : '';
     if ('yes' == $show_pagination) { ?>
-            <div class="row">
+
                 <div class="col-md-12">
                     <?php
                     $paged = !empty($paged) ? $paged : '';
                     echo atbdp_pagination($all_listings, $paged);
                     ?>
                 </div>
-            </div>
     <?php } ?>
 </div> <!--ends .row -->
 

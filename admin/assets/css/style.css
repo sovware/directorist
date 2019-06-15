@@ -210,18 +210,20 @@ css for Custom Field
 }
 
 #directorist.atbd_wrapper .ext_title {
+  text-align: center;
+}
+
+#directorist.atbd_wrapper .ext_title a {
   text-decoration: none;
-}
-
-#directorist.atbd_wrapper .ext_title:hover h4 {
-  color: #6e63ff;
-}
-
-#directorist.atbd_wrapper .ext_title h4 {
   font-weight: 500;
   font-size: 18px;
   color: #202428;
   transition: 0.3s;
+  display: block;
+}
+
+#directorist.atbd_wrapper .ext_title:hover a {
+  color: #6e63ff;
 }
 
 #directorist.atbd_wrapper .ext_title .text-center {
@@ -246,6 +248,28 @@ css for Custom Field
 
 #directorist.atbd_wrapper .attc_extension_wrapper .single_extension img {
   width: 100%;
+}
+
+#directorist.atbd_wrapper .attc_extension_wrapper .single_extension.coming_soon img {
+  opacity: 0.6;
+}
+
+#directorist.atbd_wrapper .attc_extension_wrapper .single_extension.coming_soon a {
+  pointer-events: none !important;
+}
+
+#directorist.atbd_wrapper .attc_extension_wrapper .single_extension.coming_soon .ext_title a:after {
+  content: '(Coming Soon)';
+  color: #ff0000;
+  font-size: 14px;
+}
+
+#directorist.atbd_wrapper .attc_extension_wrapper .single_extension.coming_soon .ext_title:hover a {
+  color: inherit;
+}
+
+#directorist.atbd_wrapper .attc_extension_wrapper .single_extension.coming_soon .btn {
+  opacity: 0.5;
 }
 
 #directorist.atbd_wrapper .btn_wrapper a + a {

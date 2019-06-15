@@ -167,17 +167,19 @@
     }
   }
   .ext_title {
-    text-decoration: none;
-    &:hover {
-      h4 {
-        color: #6e63ff;
-      }
-    }
-    h4 {
+    text-align: center;
+    a{
+      text-decoration: none;
       font-weight: 500;
       font-size: 18px;
       color: $dark;
       transition: 0.3s;
+      display: block;
+    }
+    &:hover {
+      a{
+        color: #6e63ff;
+      }
     }
     .text-center{
       text-align: center;
@@ -200,6 +202,27 @@
       padding: 25px;
       img {
         width: 100%;
+      }
+      &.coming_soon{
+        img{
+          opacity: 0.6;
+        }
+        a{
+          pointer-events: none !important;
+        }
+        .ext_title{
+          a:after{
+            content: '(Coming Soon)';
+            color: #ff0000;
+            font-size: 14px;
+          }
+          &:hover a{
+            color: inherit;
+          }
+        }
+        .btn{
+          opacity: 0.5;
+        }
       }
     }
   }

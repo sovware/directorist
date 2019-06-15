@@ -131,7 +131,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 = 5.1.1 - Jun 15, 2019 =
 
-* Fix - Registration form password field issue
+* Fix - Registration form's password field issue
 * Fix - Pagination issue in listings list view
 * Fix - Translation issues
 * Fix - Conflict with WooCommerce Membership and Social Warfare plugins

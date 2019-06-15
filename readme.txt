@@ -132,10 +132,12 @@ Directorist is not developed by a single person. A team of dedicated developers 
 = 5.1.1 - Jun 15, 2019 =
 
 * Fix - Registration form password field issue
-* Tweak - Listing's default preview image of Dashboard page
+* Fix - Pagination issue in listings list view
 * Fix - Translation issues
+* Fix - Conflict with WooCommerce Membership and Social Warfare plugins
+* Tweak - Listing's default preview image of Dashboard page
 * Tweak - Added 'Random' for default order-by option in search listing settings.
-* Fix - Conflict with Social Warfare plugin
+* Remove - Unnecessary stuff form listings page
 
 = 5.1.0 - Jun 13, 2019 =
 

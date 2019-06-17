@@ -47,4 +47,4 @@ const aazztechModal = (selector) => {
 	});
 }
 
-aazztechModal('#dcl-claim-modal');
+aazztechModal('#dcl-claim-modal, #modal-login-alert');

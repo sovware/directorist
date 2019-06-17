@@ -11,8 +11,6 @@ if(!class_exists('ATBDP_Custom_Post')):
             // Add the listing post type and taxonomies
             add_action( 'init', array( $this, 'register_new_post_types' ) );
 
-
-
             // add new columns for ATBDP_SHORT_CODE_POST_TYPE
             add_filter('manage_'.ATBDP_POST_TYPE.'_posts_columns', array($this, 'add_new_listing_columns'));
             add_action('manage_'.ATBDP_POST_TYPE.'_posts_custom_column', array($this, 'manage_listing_columns'), 10, 2);
@@ -23,10 +21,6 @@ if(!class_exists('ATBDP_Custom_Post')):
             add_filter( 'enter_title_here', array($this, 'change_title_text') );
             add_filter('post_row_actions', array($this, 'add_row_actions_for_quick_view'), 10, 2);
             add_filter('load-edit.php', array($this, 'work_row_actions_for_quick_view'), 10, 2);
-            //hook for polylang competeblity
-            //add_filter('pll_get_post_types', array($this, 'add_cpt_to_pll'), 10, 2);
-
-
         }
 
         public function add_cpt_to_pll($post_types, $hide) {
@@ -42,7 +36,6 @@ if(!class_exists('ATBDP_Custom_Post')):
             return $post_types;
 
         }
-
 
         public function work_row_actions_for_quick_view(){
             $nonce = isset( $_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : null;
@@ -80,10 +73,6 @@ if(!class_exists('ATBDP_Custom_Post')):
             return $actions;
 
         }
-
-
-
-
         /**
          * This function will register our custom post(s)
          * Initiate registrations of post types and taxonomies.

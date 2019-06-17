@@ -131,6 +131,10 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 = 5.2.0 - Jun 15, 2019 =
 
+* Fix - Display each grid info on single line for related listing slider
+
+= 5.2.0 - Jun 15, 2019 =
+
 * Add - Option to display default search results randomly
 * Fix - Registration form's password field issue
 * Fix - Pagination issue of listings list view

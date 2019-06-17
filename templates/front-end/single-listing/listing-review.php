@@ -42,10 +42,7 @@ $plan_review = true;
 if ($plan_review) {
     do_action('atbdp_before_review_section', $post, $listing_info);
 }
-?>
 
-
-<?php
 /**
  * Fires after the Map is rendered on single listing page
  *

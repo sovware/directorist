@@ -120,16 +120,23 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 ?>
 <section id="directorist" class="directorist atbd_wrapper">
     <div class="row">
-        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
+        <div class="col-lg-8">
             <?php
             //is current user is logged in and the original author of the listing
             if (is_user_logged_in() && $listing_author_id == get_current_user_id()) {
                 //ok show the edit option
                 ?>
                 <div class="edit_btn_wrap">
+                    <a href="" class="atbd_go_back"><i class="fa fa-angle-left"></i> Go Back</a>
                     <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
                        class="btn btn-success"><span
                                 class="fa fa-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN) ?></a>
+                </div>
+                <?php
+            } else{
+                ?>
+                <div class="edit_btn_wrap">
+                    <a href="" class="atbd_go_back"><i class="fa fa-angle-left"></i> Go Back</a>
                 </div>
                 <?php
             }
@@ -138,6 +145,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
              */
             do_action('atbdp_before_listing_section');
             ?>
+        </div>
+        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
             <div class="atbd_content_module atbd_listing_details">
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">

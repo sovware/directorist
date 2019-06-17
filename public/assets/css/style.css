@@ -723,8 +723,23 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
-  text-align: right;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
   margin-bottom: 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap .atbd_go_back {
+  color: #444752;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap .atbd_go_back i {
+  font-size: 16px;
+  padding-right: 2px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap .btn {
+  margin-left: auto;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module {

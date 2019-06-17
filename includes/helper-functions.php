@@ -2689,7 +2689,6 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                             }
 
                         }
-
                         /*Code for Business Hour Extensions*/
                         ?>
                         <div class="related_single_carousel" style="margin: 0 10px;">

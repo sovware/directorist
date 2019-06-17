@@ -206,6 +206,7 @@ class ATBDP_Enqueuer {
         wp_register_style( 'sweetalertcss', ATBDP_PUBLIC_ASSETS.'css/sweetalert.min.css', false, ATBDP_VERSION );
         wp_register_style( 'select2style', ATBDP_PUBLIC_ASSETS.'css/select2.min.css', false, ATBDP_VERSION );
         wp_register_style( 'slickcss', ATBDP_PUBLIC_ASSETS.'css/slick.css', false, ATBDP_VERSION );
+        wp_register_style( 'atmodal', ATBDP_PUBLIC_ASSETS.'css/atmodal.css', false, ATBDP_VERSION );
         wp_register_style( 'atbd_googlefonts', '//fonts.googleapis.com/css?family=Roboto:400,500', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-style', ATBDP_PUBLIC_ASSETS . 'css/style.css', array( 'atbdp-font-awesome',), ATBDP_VERSION);
 
@@ -225,6 +226,7 @@ class ATBDP_Enqueuer {
         wp_register_script( 'atbdp_slick_slider', ATBDP_PUBLIC_ASSETS . 'js/slick.min.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'adminmainassets', ATBDP_PUBLIC_ASSETS . 'js/main.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'loc_cat_assets', ATBDP_PUBLIC_ASSETS . 'js/loc_cat.js', array( 'jquery' ), ATBDP_VERSION, true );
+        wp_register_script( 'at_modal', ATBDP_PUBLIC_ASSETS . 'js/atmodal.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp_open_street', ATBDP_PUBLIC_ASSETS . 'openstreet/openlayers/OpenLayers.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp_open_street_src', ATBDP_PUBLIC_ASSETS . 'openstreet/openlayers4jgsi/Crosshairs.js', array( 'jquery' ), ATBDP_VERSION, true );
 
@@ -234,6 +236,7 @@ class ATBDP_Enqueuer {
         wp_enqueue_style('select2style');
         wp_enqueue_script('select2script');
         wp_enqueue_script('atbdp_validator');
+        wp_enqueue_script('at_modal');
         $disable_map = get_directorist_option('display_map_field');
         if (!empty($disable_map)){
             wp_enqueue_script('atbdp_open_street');
@@ -247,6 +250,7 @@ class ATBDP_Enqueuer {
         /* Enqueue google Directorist google font */
         wp_enqueue_style('atbd_googlefonts');
         wp_enqueue_style('slickcss');
+        wp_enqueue_style('atmodal');
 
         /* Enqueue all scripts */
         wp_enqueue_script('atbdp-bootstrap-script');

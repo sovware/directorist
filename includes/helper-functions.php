@@ -2689,11 +2689,10 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                             }
 
                         }
-
                         /*Code for Business Hour Extensions*/
                         ?>
                         <div class="related_single_carousel" style="margin: 0 10px;">
-                            <div class="atbd_single_listing atbd_listing_card">
+                            <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : ''; ?>">
                                 <article
                                         class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                     <figure class="atbd_listing_thumbnail_area"

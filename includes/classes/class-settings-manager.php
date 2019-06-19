@@ -4031,6 +4031,22 @@ The Administrator of ==SITE_NAME==
                 ),
                 array(
                     'type' => 'toggle',
+                    'name' => 'user_listings_pagination',
+                    'label' => __('Listings Pagination', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'user_listings_per_page',
+                    'label' => __('Listings Per Page', ATBDP_TEXTDOMAIN),
+                    'min' => '1',
+                    'max' => '30',
+                    'step' => '1',
+                    'default' => '9',
+
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'my_profile_tab',
                     'label' => __('Display My Profile Tab', ATBDP_TEXTDOMAIN),
                     'default' => 1,

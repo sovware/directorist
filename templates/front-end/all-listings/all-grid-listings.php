@@ -462,7 +462,6 @@ $column_width = 100 / $columns . '%';
             </div>
         <?php } ?>
 
-
 </div>
 <style>
     .atbd_content_active #directorist.atbd_wrapper .atbdp_column {

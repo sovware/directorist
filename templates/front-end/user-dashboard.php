@@ -556,7 +556,6 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                 $category_link = !empty($cats) ? esc_url(ATBDP_Permalink::atbdp_get_category_page($cats[0])) : '#';
                                                 $post_link = esc_url(get_post_permalink($post->ID));
 
-
                                                 $listing_img = get_post_meta($post->ID, '_listing_img', true);
                                                 $listing_prv_img = get_post_meta($post->ID, '_listing_prv_img', true);
                                                 $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
@@ -637,5 +636,19 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
             </div>
         </div>
     </div>
+    <?php
+    $pagination = get_directorist_option('user_listings_pagination',1);
+    $paged                     = atbdp_get_paged_num();
+    if (!empty($pagination)) {
+    ?>
+    <div class="row atbd_listing_pagination">
+        <div class="col-md-12">
+            <?php
+            $paged = !empty($paged) ? $paged : '';
+            echo atbdp_pagination($listings, $paged);
+            ?>
+        </div>
+    </div>
+    <?php } ?>
 </div>
 

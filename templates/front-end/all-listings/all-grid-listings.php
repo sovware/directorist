@@ -439,16 +439,15 @@ $column_width = 100 / $columns . '%';
             do_action('atbdp_after_grid_listings_loop');
         }
         ?>
-    </div>
 
-    <?php
+        <?php
 
-    /**
-     * @since 5.0
-     */
-    do_action('atbdp_before_listings_pagination');
+        /**
+         * @since 5.0
+         */
+        do_action('atbdp_before_listings_pagination');
 
-    $show_pagination = !empty($show_pagination) ? $show_pagination : '';
+        $show_pagination = !empty($show_pagination) ? $show_pagination : '';
         if ('yes' == $show_pagination) {
 
             ?>
@@ -462,6 +461,7 @@ $column_width = 100 / $columns . '%';
             </div>
         <?php } ?>
 
+    </div>
 
 </div>
 <style>

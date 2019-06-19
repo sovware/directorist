@@ -1326,6 +1326,34 @@ jQuery(function ($) {
         lf_opt47.show();
     }
 
+    //Display my listing tab
+    var lf_opt47 = $("#user_listings_pagination,#user_listings_per_page");
+    lf_opt47.hide();
+    $('input[name="my_listing_tab"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt47.show();
+        }else{
+            lf_opt47.hide();
+        }
+    });
+    if($('input[name="my_listing_tab"]').is(":checked") === true){
+        lf_opt47.show();
+    }
+
+    //Display my listing pagination
+    var lf_opt47 = $("#user_listings_per_page");
+    lf_opt47.hide();
+    $('input[name="user_listings_pagination"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt47.show();
+        }else{
+            lf_opt47.hide();
+        }
+    });
+    if($('input[name="user_listings_pagination"]').is(":checked") === true){
+        lf_opt47.show();
+    }
+
 });
 
 

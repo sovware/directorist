@@ -328,8 +328,17 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                 } else {
                                     echo '<p class="atbdp_nlf">' . __("Looks like you have not created any listing yet!", ATBDP_TEXTDOMAIN) . '</p>';
                                 }
-                                //@todo;add pagination on dashboard echo atbdp_pagination($listings, $paged);
-                                ?>
+                                $pagination = get_directorist_option('user_listings_pagination',1);
+                                $paged      = atbdp_get_paged_num();
+                                if (!empty($pagination)) {
+                                    ?>
+                                    <div class="col-md-12">
+                                        <?php
+                                        $paged = !empty($paged) ? $paged : '';
+                                        echo atbdp_pagination($listings, $paged);
+                                        ?>
+                                    </div>
+                                <?php } ?>
 
                             </div> <!--ends #my_listings-->
                         <?php } ?>
@@ -636,19 +645,5 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
             </div>
         </div>
     </div>
-    <?php
-    $pagination = get_directorist_option('user_listings_pagination',1);
-    $paged                     = atbdp_get_paged_num();
-    if (!empty($pagination)) {
-    ?>
-    <div class="row atbd_listing_pagination">
-        <div class="col-md-12">
-            <?php
-            $paged = !empty($paged) ? $paged : '';
-            echo atbdp_pagination($listings, $paged);
-            ?>
-        </div>
-    </div>
-    <?php } ?>
 </div>
 

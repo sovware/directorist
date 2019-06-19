@@ -6,13 +6,13 @@ echo '<div class="atbd_widget_title">';
 echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
 echo '</div>';
 $common_args = array(
-    'post_type'      => ATBDP_POST_TYPE,
-    'post_status'    => 'publish',
-    'posts_per_page' => (int) $f_listing_num,
-    'meta_query'     =>array(
+    'post_type' => ATBDP_POST_TYPE,
+    'post_status' => 'publish',
+    'posts_per_page' => (int)$f_listing_num,
+    'meta_query' => array(
         array(
-            'key'     => '_featured',
-            'value'   => 1,
+            'key' => '_featured',
+            'value' => 1,
             'compare' => '='
         )
     )
@@ -23,8 +23,9 @@ $featured_listings = new WP_Query($common_args);
     <div class="atbd_categorized_listings">
         <ul class="listings">
             <?php
-            if($featured_listings -> have_posts()) {
-                while ($featured_listings->have_posts()) { $featured_listings->the_post();
+            if ($featured_listings->have_posts()) {
+                while ($featured_listings->have_posts()) {
+                    $featured_listings->the_post();
                     // get only one parent or high level term object
                     $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
                     $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
@@ -55,7 +56,7 @@ $featured_listings = new WP_Query($common_args);
                                 <?php if (!empty($price) && ('price' === $listing_pricing)) { ?>
                                     <span><?php atbdp_display_price($price); ?></span>
 
-                                <?php }else{
+                                <?php } else {
                                     $output = atbdp_display_price_range($price_range);
                                     echo $output;
                                 } ?>
@@ -66,8 +67,8 @@ $featured_listings = new WP_Query($common_args);
                                 ?>
 
                                 <p class="directory_tag">
-                                        <span class="fa fa-folder-open">
-                                        <span>
+                                    <span class="fa fa-folder-open"></span>
+                                    <span>
                                                 <a href="<?= ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
                                                                      <?= esc_html($cats[0]->name); ?>
                                                 </a>
@@ -100,4 +101,4 @@ $featured_listings = new WP_Query($common_args);
     </div> <!--ends featured listing-->
 
 
-<?php  echo $args['after_widget'];
+<?php echo $args['after_widget'];

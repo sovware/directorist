@@ -4360,6 +4360,12 @@ The Administrator of ==SITE_NAME==
                 ),
 
                 array(
+                    'type' => 'textbox',
+                    'name' => 'rel_listing_title',
+                    'label' => __('Related Listings Title', ATBDP_TEXTDOMAIN),
+                    'default' => __('Related Listings', ATBDP_TEXTDOMAIN),
+                ),
+                array(
                     'type' => 'slider',
                     'name' => 'rel_listing_num',
                     'label' => __('Number of Related Listings', ATBDP_TEXTDOMAIN),

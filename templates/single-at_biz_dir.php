@@ -127,26 +127,36 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                 //ok show the edit option
                 ?>
                 <div class="edit_btn_wrap">
-                    <a href="javascript:history.back()" class="atbd_go_back"><i class="fa fa-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN)?></a>
+                    <a href="javascript:history.back()" class="atbd_go_back"><i
+                                class="fa fa-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?></a>
                     <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
                        class="btn btn-success"><span
                                 class="fa fa-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN) ?></a>
                 </div>
                 <?php
-            } else{
+            } else {
                 ?>
                 <div class="edit_btn_wrap">
-                    <a href="javascript:history.back()" class="atbd_go_back"><i class="fa fa-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN)?></a>
+                    <a href="javascript:history.back()" class="atbd_go_back"><i
+                                class="fa fa-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?></a>
                 </div>
                 <?php
             }
-            /**
-             * @since 5.0
-             */
-            do_action('atbdp_before_listing_section');
             ?>
         </div>
+        <?php
+        /**
+         * @since 5.0
+         */
+        do_action('atbdp_before_single_listing_section');
+        ?>
         <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
+            <?php
+            /**
+             * @since 5.2.1
+             */
+            do_action('atbdp_before_single_listing_details_section');
+            ?>
             <div class="atbd_content_module atbd_listing_details">
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">
@@ -398,7 +408,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 
                         $tagline_html = '';
                         if (!empty($tagline) && !empty($display_tagline_field)) {
-                            $tagline_html .= '<p class="atbd_single_listing_tagline">'.$tagline.'</p>';
+                            $tagline_html .= '<p class="atbd_single_listing_tagline">' . $tagline . '</p>';
                         }
                         /**
                          * @since 5.0.5
@@ -414,7 +424,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         $post_object = get_post(get_the_ID());
                         $content = apply_filters('get_the_content', $post_object->post_content);
                         $listing_content = '';
-                        if (!empty($content)){
+                        if (!empty($content)) {
                             $listing_content = '<div class="about_detail">';
                             $listing_content .= do_shortcode(wpautop($content));
                             $listing_content .= '</div>';
@@ -786,6 +796,7 @@ if ('openstreet' == $select_listing_map) {
             content: info_content,
             maxWidth: 400/*Add configuration for max width*/
         });
+
         function initMap() {
             /* Create new map instance*/
             map = new google.maps.Map(document.getElementById('gmap'), {

@@ -10,7 +10,7 @@
             }
             foreach ($terms as $term) {
                 $image = get_term_meta($term->term_id, 'image', true);
-                $location_image = wp_get_attachment_image_src($image, array('350', '280'))[0];
+                $location_image = wp_get_attachment_image_src($image, apply_filters('atbdp_location_image_size', array('350', '280')))[0];
                 $count = 0;
                 if (!empty($locations_settings['hide_empty']) || !empty($locations_settings['show_count'])) {
                     $count = atbdp_listings_count_by_location($term->term_id);

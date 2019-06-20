@@ -129,7 +129,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 5.2.0 - Jun 15, 2019 =
+= 5.2.1 - Jun 15, 2019 =
 
 * Fix - Display each grid info on single line for related listing slider
 

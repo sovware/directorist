@@ -28,26 +28,18 @@ $map_container              = apply_filters('atbdp_map_container',$container);
         } else {
             include ATBDP_TEMPLATES_DIR . 'front-end/all-listings/maps/openstreet/openstreet-map.php';
         } ?>
-        <!-- end of the loop -->
+            <?php
+            $show_pagination = !empty($show_pagination) ? $show_pagination : '';
+            if ('yes' == $show_pagination){
+                ?>
+                        <?php
+                        $paged = !empty($paged) ? $paged : '';
+                        echo atbdp_pagination($all_listings, $paged);
+                        ?>
+            <?php } ?>
     </div>
     <!-- Use reset postdata to restore orginal query -->
     <?php wp_reset_postdata(); ?>
-
-    <div class="row atbd_listing_pagination">
-        <?php
-        $show_pagination = !empty($show_pagination) ? $show_pagination : '';
-        if ('yes' == $show_pagination){
-            ?>
-            <div class="col-md-12">
-                <div class="">
-                    <?php
-                    $paged = !empty($paged) ? $paged : '';
-                    echo atbdp_pagination($all_listings, $paged);
-                    ?>
-                </div>
-            </div>
-        <?php } ?>
-    </div>
 </div>
 
 

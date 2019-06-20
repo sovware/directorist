@@ -127,7 +127,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                 //ok show the edit option
                 ?>
                 <div class="edit_btn_wrap">
-                    <a href="" class="atbd_go_back"><i class="fa fa-angle-left"></i> Go Back</a>
+                    <a href="javascript:history.back()" class="atbd_go_back"><i class="fa fa-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN)?></a>
                     <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
                        class="btn btn-success"><span
                                 class="fa fa-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN) ?></a>
@@ -136,7 +136,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             } else{
                 ?>
                 <div class="edit_btn_wrap">
-                    <a href="" class="atbd_go_back"><i class="fa fa-angle-left"></i> Go Back</a>
+                    <a href="javascript:history.back()" class="atbd_go_back"><i class="fa fa-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN)?></a>
                 </div>
                 <?php
             }

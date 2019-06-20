@@ -150,13 +150,15 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'icon' => 'font-awesome:fa-magic',
                     'menus' => $this->get_extension_settings_submenus(),
                 ),
+                /*lets make the settings for email*/
                 'email_menu' => array(
                     'title' => __('Emails Settings', ATBDP_TEXTDOMAIN),
                     'name' => 'email_menu1',
                     'icon' => 'font-awesome:fa-envelope',
                     'menus' => $this->get_email_settings_submenus(),
                 ),
-                'registration_login' => array(
+                /*lets make the settings for registration & login*/
+                'registration_login_menu' => array(
                     'title' => __('Registration & Login', ATBDP_TEXTDOMAIN),
                     'name' => 'registration_login',
                     'icon' => 'font-awesome:fa-align-right',
@@ -231,7 +233,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'title' => __('Login Form', ATBDP_TEXTDOMAIN),
                     'name' => 'login_form',
                     'icon' => 'font-awesome:fa-home',
-                    'controls' => apply_filters('atbdp_email_settings_controls', array(
+                    'controls' => apply_filters('atbdp_login_form_settings_controls', array(
                         'log_username' => array(
                             'type' => 'section',
                             'title' => __('Username or Email Address', ATBDP_TEXTDOMAIN),
@@ -385,7 +387,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'default' => 1,
                 ),
                 array(
-                    'type' => 'textbox',
+                    'type' => 'textarea',
                     'name' => 'log_signup',
                     'label' => __('Text', ATBDP_TEXTDOMAIN),
                     'default' => __('Don\'t have an account? <a href="'.ATBDP_Permalink::get_registration_page_link().'">Sign Up</a>', ATBDP_TEXTDOMAIN),

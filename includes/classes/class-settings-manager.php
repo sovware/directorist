@@ -2050,7 +2050,7 @@ The Administrator of ==SITE_NAME==
             $business_hours = '(Requires <a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a> extension)';
             return apply_filters('atbdp_listings_settings_fields', array(
 
-                    array(
+                    'new_listing_status' => array(
                         'type' => 'select',
                         'name' => 'new_listing_status',
                         'label' => __('New Listing\'s Default Status', ATBDP_TEXTDOMAIN),
@@ -2069,7 +2069,7 @@ The Administrator of ==SITE_NAME==
                             'label' => __('Published', ATBDP_TEXTDOMAIN),
                         ),
                     ),
-                    array(
+                    'edit_listing_status' => array(
                         'type' => 'select',
                         'name' => 'edit_listing_status',
                         'label' => __('Edited Listing\'s Default Status', ATBDP_TEXTDOMAIN),
@@ -2089,32 +2089,32 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
 
-                    array(
+                    'display_listings_header' => array(
                         'type' => 'toggle',
                         'name' => 'display_listings_header',
                         'label' => __('Display Header', ATBDP_TEXTDOMAIN),
                         'default' => 1,
                     ),
-                    array(
+                    'all_listing_title' => array(
                         'type' => 'textbox',
                         'name' => 'all_listing_title',
                         'label' => __('Header Title', ATBDP_TEXTDOMAIN),
                         'default' => __('Total Listings Found:', ATBDP_TEXTDOMAIN),
                     ),
-                    array(
+                    'listing_filters_button' => array(
                         'type' => 'toggle',
                         'name' => 'listing_filters_button',
                         'label' => __('Display Filters Button', ATBDP_TEXTDOMAIN),
                         'default' => 1,
                     ),
 
-                    array(
+                    'listings_filter_button_text' => array(
                         'type' => 'textbox',
                         'name' => 'listings_filter_button_text',
                         'label' => __('Filters Button Text', ATBDP_TEXTDOMAIN),
                         'default' => __('Filters', ATBDP_TEXTDOMAIN),
                     ),
-                    array(
+                    'listings_display_filter' => array(
                         'type' => 'select',
                         'name' => 'listings_display_filter',
                         'label' => __('Open Filter Fields', ATBDP_TEXTDOMAIN),
@@ -2133,7 +2133,7 @@ The Administrator of ==SITE_NAME==
                             'label' => __('Sliding', ATBDP_TEXTDOMAIN),
                         ),
                     ),
-                    array(
+                    'listing_filters_fields' => array(
                         'type' => 'checkbox',
                         'name' => 'listing_filters_fields',
                         'label' => __('Filter Fields', ATBDP_TEXTDOMAIN),
@@ -2206,7 +2206,7 @@ The Administrator of ==SITE_NAME==
                             'search_custom_fields'
                         ),
                     ),
-                    array(
+                    'listings_filters_button' =>  array(
                         'type' => 'checkbox',
                         'name' => 'listings_filters_button',
                         'label' => __('Filter Buttons', ATBDP_TEXTDOMAIN),
@@ -2226,43 +2226,43 @@ The Administrator of ==SITE_NAME==
                             'apply_button',
                         ),
                     ),
-                    array(
+                    'listings_reset_text' => array(
                         'type' => 'textbox',
                         'name' => 'listings_reset_text',
                         'label' => __('Reset Filters Button text', ATBDP_TEXTDOMAIN),
                         'default' => __('Reset Filters', ATBDP_TEXTDOMAIN),
                     ),
-                    array(
+                    'listings_apply_text' =>  array(
                         'type' => 'textbox',
                         'name' => 'listings_apply_text',
                         'label' => __('Apply Filters Button text', ATBDP_TEXTDOMAIN),
                         'default' => __('Apply Filters', ATBDP_TEXTDOMAIN),
                     ),
-                    array(
+                    'listings_search_text_placeholder' =>  array(
                         'type' => 'textbox',
                         'name' => 'listings_search_text_placeholder',
                         'label' => __('Search Bar Placeholder', ATBDP_TEXTDOMAIN),
                         'default' => __('What are you looking for?', ATBDP_TEXTDOMAIN),
                     ),
-                    array(
+                    'listings_category_placeholder' =>  array(
                         'type' => 'textbox',
                         'name' => 'listings_category_placeholder',
                         'label' => __('Category Placeholder', ATBDP_TEXTDOMAIN),
                         'default' => __('Select a category', ATBDP_TEXTDOMAIN),
                     ),
-                    array(
+                    'listings_location_placeholder' =>  array(
                         'type' => 'textbox',
                         'name' => 'listings_location_placeholder',
                         'label' => __('Location Placeholder', ATBDP_TEXTDOMAIN),
                         'default' => __('Select a location', ATBDP_TEXTDOMAIN),
                     ),
-                    array(
+                    'display_sort_by' =>  array(
                         'type' => 'toggle',
                         'name' => 'display_sort_by',
                         'label' => __('Display "Sort By" Dropdown', ATBDP_TEXTDOMAIN),
                         'default' => 1,
                     ),
-                    array(
+                    'listings_sort_by_items' =>  array(
                         'type' => 'checkbox',
                         'name' => 'listings_sort_by_items',
                         'label' => __('"Sort By" Dropdown', ATBDP_TEXTDOMAIN),
@@ -2312,13 +2312,13 @@ The Administrator of ==SITE_NAME==
                             'random'
                         ),
                     ),
-                    array(
+                    'display_view_as' => array(
                         'type' => 'toggle',
                         'name' => 'display_view_as',
                         'label' => __('Display "View As" Dropdown', ATBDP_TEXTDOMAIN),
                         'default' => 1,
                     ),
-                    array(
+                    'listings_view_as_items' => array(
                         'type' => 'checkbox',
                         'name' => 'listings_view_as_items',
                         'label' => __('"View As" Dropdown', ATBDP_TEXTDOMAIN),
@@ -2343,7 +2343,7 @@ The Administrator of ==SITE_NAME==
                             'listings_map'
                         ),
                     ),
-                    array(
+                    'default_listing_view' => array(
                         'type' => 'select',
                         'name' => 'default_listing_view',
                         'label' => __('Default View', ATBDP_TEXTDOMAIN),
@@ -2366,7 +2366,7 @@ The Administrator of ==SITE_NAME==
                             'label' => __('Grid', ATBDP_TEXTDOMAIN),
                         ),
                     ),
-                    array(
+                    'grid_view_as' => array(
                         'type' => 'select',
                         'name' => 'grid_view_as',
                         'label' => __('Grid View', ATBDP_TEXTDOMAIN),
@@ -2385,7 +2385,7 @@ The Administrator of ==SITE_NAME==
                             'label' => __('Normal', ATBDP_TEXTDOMAIN),
                         ),
                     ),
-                    array(
+                    'all_listing_columns' => array(
                         'type' => 'slider',
                         'name' => 'all_listing_columns',
                         'label' => __('Number of Columns', ATBDP_TEXTDOMAIN),
@@ -2395,7 +2395,7 @@ The Administrator of ==SITE_NAME==
                         'default' => '3',
                         'validation' => 'numeric|minlength[1]',
                     ),
-                    array(
+                    'order_listing_by' =>  array(
                         'type' => 'select',
                         'name' => 'order_listing_by',
                         'label' => __('Listings Order By', ATBDP_TEXTDOMAIN),
@@ -2418,7 +2418,7 @@ The Administrator of ==SITE_NAME==
                             'label' => __('Date', ATBDP_TEXTDOMAIN),
                         ),
                     ),
-                    array(
+                    'sort_listing_by' =>  array(
                         'type' => 'select',
                         'name' => 'sort_listing_by',
                         'label' => __('Listings Sort By', ATBDP_TEXTDOMAIN),

@@ -46,14 +46,22 @@ class ATBDP_Listing_DB {
      */
     public function get_listing_by_user($user_id=0)
     {
-        /*@Todo; Add pagination later, better use ajax pagination*/
+       $pagination = get_directorist_option('user_listings_pagination',1);
+       $listingS_per_page = get_directorist_option('user_listings_per_page',9);
+        //for pagination
+        $paged                     = atbdp_get_paged_num();
         $args = array(
             'author'=> !empty($user_id) ? absint($user_id) :  get_current_user_id(),
             'post_type'=> ATBDP_POST_TYPE,
-            'posts_per_page' => -1, //@todo; Add pagination in future.
             'order'=> 'DESC',
             'orderby' => 'date'
         );
+        if(!empty($pagination)) {
+            $args['posts_per_page'] = (int) $listingS_per_page;
+            $args['paged']          = $paged;
+        }else{
+            $args['no_found_rows']  = true;
+        }
         return new WP_Query($args);
     }
 

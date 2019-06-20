@@ -24,10 +24,10 @@ if (!class_exists('BD_Author_Info_Widget')) {
         /**
          * Front-end display of widget.
          *
-         * @see WP_Widget::widget()
-         *
          * @param array $args Widget arguments.
          * @param array $instance Saved values from database.
+         * @see WP_Widget::widget()
+         *
          */
         public function widget($args, $instance)
         {
@@ -72,12 +72,12 @@ if (!class_exists('BD_Author_Info_Widget')) {
                             $website = get_the_author_meta('user_url', $author_id);;
                             $facebook = get_user_meta($author_id, 'facebook', true);
                             $twitter = get_user_meta($author_id, 'twitter', true);
-                            $linkedIn = get_user_meta($author_id, 'linkedIn', true);
+                            $linkedIn = get_user_meta($author_id, 'linkedin', true);
                             $youtube = get_user_meta($author_id, 'youtube', true);
                             if (!empty($address)) { ?>
                                 <li>
                                     <span class="fa fa-map-marker"></span>
-                                    <span class="atbd_info"><?= !empty($address)?esc_html($address):''; ?></span>
+                                    <span class="atbd_info"><?= !empty($address) ? esc_html($address) : ''; ?></span>
                                 </li>
                             <?php } ?>
 
@@ -93,8 +93,8 @@ if (!class_exists('BD_Author_Info_Widget')) {
                             <?php
 
                             $email_show = get_directorist_option('display_author_email', 'public');
-                            if ('public' === $email_show){
-                                if (!empty($email)){
+                            if ('public' === $email_show) {
+                                if (!empty($email)) {
                                     ?>
                                     <li>
                                         <span class="fa fa-envelope"></span>
@@ -102,9 +102,9 @@ if (!class_exists('BD_Author_Info_Widget')) {
                                     </li>
                                     <?php
                                 }
-                            }elseif ('logged_in' === $email_show){
-                                if (is_user_logged_in()){
-                                    if (!empty($email)){
+                            } elseif ('logged_in' === $email_show) {
+                                if (is_user_logged_in()) {
+                                    if (!empty($email)) {
                                         ?>
                                         <li>
                                             <span class="fa fa-envelope"></span>
@@ -114,33 +114,37 @@ if (!class_exists('BD_Author_Info_Widget')) {
                                     }
                                 }
                             }
-                             if (!empty($website)) { ?>
+                            if (!empty($website)) { ?>
                                 <li>
                                     <span class="fa fa-globe"></span>
-                                    <a href="<?= esc_url($website); ?>" class="atbd_info" <?php echo is_directoria_active() ? 'style="text-transform: none;"': '';?>><?= esc_url($website); ?></a>
+                                    <a href="<?= esc_url($website); ?>"
+                                       class="atbd_info" <?php echo is_directoria_active() ? 'style="text-transform: none;"' : ''; ?>><?= esc_url($website); ?></a>
                                 </li>
                             <?php } ?>
 
                         </ul>
                     </div>
-                    <div class="atbd_social_wrap">
-                        <?php
-                        if ($facebook) {
-                            printf('<p><a target="_blank" href="%s"><span class="fa fa-facebook"></span></a></p>', $facebook);
-                        }
-                        if ($twitter) {
-                            printf('<p><a target="_blank" href="%s"><span class="fa fa-twitter"></span></a></p>', $twitter);
-                        }
-                        if ($linkedIn) {
-                            printf('<p><a target="_blank" href="%s"><span class="fa fa-linkedin"></span></a></p>', $linkedIn);
-                        }
-                        if ($youtube) {
-                            printf('<p><a target="_blank" href="%s"><span class="fa fa-youtube"></span></a></p>', $youtube);
-                        }
-                        ?>
-                    </div>
-                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', ATBDP_TEXTDOMAIN); ?>
-                       </a>
+                    <?php if (!empty($facebook || $twitter || $linkedIn || $youtube )) { ?>
+                        <div class="atbd_social_wrap">
+                            <?php
+                            if ($facebook) {
+                                printf('<p><a target="_blank" href="%s"><span class="fa fa-facebook"></span></a></p>', $facebook);
+                            }
+                            if ($twitter) {
+                                printf('<p><a target="_blank" href="%s"><span class="fa fa-twitter"></span></a></p>', $twitter);
+                            }
+                            if ($linkedIn) {
+                                printf('<p><a target="_blank" href="%s"><span class="fa fa-linkedin"></span></a></p>', $linkedIn);
+                            }
+                            if ($youtube) {
+                                printf('<p><a target="_blank" href="%s"><span class="fa fa-youtube"></span></a></p>', $youtube);
+                            }
+                            ?>
+                        </div>
+                    <?php } ?>
+                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
+                       class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', ATBDP_TEXTDOMAIN); ?>
+                    </a>
                 </div>
                 <?php
 
@@ -152,10 +156,10 @@ if (!class_exists('BD_Author_Info_Widget')) {
         /**
          * Back-end widget form.
          *
-         * @see WP_Widget::form()
-         *
          * @param array $instance Previously saved values from database.
          * @return void
+         * @see WP_Widget::form()
+         *
          */
         public function form($instance)
         {
@@ -174,12 +178,12 @@ if (!class_exists('BD_Author_Info_Widget')) {
         /**
          * Sanitize widget form values as they are saved.
          *
-         * @see WP_Widget::update()
-         *
          * @param array $new_instance Values just sent to be saved.
          * @param array $old_instance Previously saved values from database.
          *
          * @return array Updated safe values to be saved.
+         * @see WP_Widget::update()
+         *
          */
         public function update($new_instance, $old_instance)
         {

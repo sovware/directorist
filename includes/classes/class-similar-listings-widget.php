@@ -25,14 +25,14 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
         /**
          * Front-end display of widget.
          *
-         * @see WP_Widget::widget()
-         *
          * @param array $args Widget arguments.
          * @param array $instance Saved values from database.
+         * @see WP_Widget::widget()
+         *
          */
         public function widget($args, $instance)
         {
-            if(is_singular(ATBDP_POST_TYPE)) {
+            if (is_singular(ATBDP_POST_TYPE)) {
                 $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Similar Listings', ATBDP_TEXTDOMAIN);
                 $sim_listing_num = !empty($instance['sim_listing_num']) ? $instance['sim_listing_num'] : 5;
                 echo $args['before_widget'];
@@ -104,8 +104,8 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
                                         ?>
 
                                         <p class="directory_tag">
-                                        <span class="fa fa-folder-open">
-                                        <span>
+                                            <span class="fa fa-folder-open"></span>
+                                            <span>
                                                 <a href="<?= ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
                                                                      <?= esc_html($cats[0]->name); ?>
                                                 </a>
@@ -144,10 +144,10 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
         /**
          * Back-end widget form.
          *
-         * @see WP_Widget::form()
-         *
          * @param array $instance Previously saved values from database.
          * @return void
+         * @see WP_Widget::form()
+         *
          */
         public function form($instance)
         {
@@ -174,12 +174,12 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
         /**
          * Sanitize widget form values as they are saved.
          *
-         * @see WP_Widget::update()
-         *
          * @param array $new_instance Values just sent to be saved.
          * @param array $old_instance Previously saved values from database.
          *
          * @return array Updated safe values to be saved.
+         * @see WP_Widget::update()
+         *
          */
         public function update($new_instance, $old_instance)
         {

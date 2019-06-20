@@ -1326,6 +1326,62 @@ jQuery(function ($) {
         lf_opt47.show();
     }
 
+    //Display my listing tab
+    var lf_opt47 = $("#user_listings_pagination,#user_listings_per_page");
+    lf_opt47.hide();
+    $('input[name="my_listing_tab"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt47.show();
+        }else{
+            lf_opt47.hide();
+        }
+    });
+    if($('input[name="my_listing_tab"]').is(":checked") === true){
+        lf_opt47.show();
+    }
+
+    //Display my listing pagination
+    var lf_opt48 = $("#user_listings_per_page");
+    lf_opt48.hide();
+    $('input[name="user_listings_pagination"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt48.show();
+        }else{
+            lf_opt48.hide();
+        }
+    });
+    if($('input[name="user_listings_pagination"]').is(":checked") === true){
+        lf_opt48.show();
+    }
+
+    //Display popular categories
+    var lf_opt49 = $("#show_connector,#connectors_title,#popular_cat_title,#popular_cat_num");
+    lf_opt49.hide();
+    $('input[name="show_popular_category"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt49.show();
+        }else{
+            lf_opt49.hide();
+        }
+    });
+    if($('input[name="show_popular_category"]').is(":checked") === true){
+        lf_opt49.show();
+    }
+
+    //Display popular categories
+    var lf_opt50 = $("#connectors_title");
+    lf_opt50.hide();
+    $('input[name="show_connector"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt50.show();
+        }else{
+            lf_opt50.hide();
+        }
+    });
+    if($('input[name="show_connector"]').is(":checked") === true){
+        lf_opt50.show();
+    }
+
 });
 
 

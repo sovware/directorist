@@ -675,18 +675,18 @@ jQuery(function ($) {
             //Do your particular tab toggling
         }
     });
-    $('#nav-item a').click(function(e) {
+    $('#nav-item a').on("click", function(e) {
         e.preventDefault();
         $(this).tab('show');
     });
 
-// store the currently selected tab in the hash value
-    $("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
+    // store the currently selected tab in the hash value
+    $("ul.nav-tabs > li > a").on("click", function(e) {
         var id = $(e.target).attr("href").substr(1);
         window.location.hash = id;
     });
 
-// on load of the page: switch to the currently selected tab
+    // on load of the page: switch to the currently selected tab
     var hash = window.location.hash;
     $('#nav-item a[href="' + hash + '"]').tab('show');
 

@@ -2615,7 +2615,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
     ?>
     <div class="<?php echo is_directoria_active() ? 'containere' : 'containess-fluid'; ?>">
         <div class="atbdp-related-listing-header">
-            <?php echo $rel_listing_title; ?>
+            <h4><?php echo $rel_listing_title; ?></h4>
         </div>
         <div class="atbd_margin_fix">
             <div class="related__carousel">

@@ -339,7 +339,6 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                         ?>
                                     </div>
                                 <?php } ?>
-
                             </div> <!--ends #my_listings-->
                         <?php } ?>
                         <?php if (!empty($my_profile_tab)) { ?>

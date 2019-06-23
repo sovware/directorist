@@ -45,8 +45,13 @@
   font-size: inherit;
 }
 
-#directorist.atbd_wrapper input[type="radio"],
-#directorist.atbd_wrapper input[type="checkbox"] {
+#directorist.atbd_wrapper input[type="radio"]:checked:before,
+#directorist.atbd_wrapper input[type="checkbox"]:checked:before {
+  margin-left: -15px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
   height: auto;
 }
 
@@ -488,6 +493,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper .pagination .nav-links .page-numbers span {
   font-size: 10px;
+  border: 0 none;
+  margin: 0;
+  height: auto;
+}
+
+#directorist.atbd_wrapper .pagination .nav-links .page-numbers:after {
+  content: none;
 }
 
 #directorist.atbd_wrapper .pagination .nav-links:before, #directorist.atbd_wrapper .pagination .nav-links:after {
@@ -1442,6 +1454,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   margin-top: 8px;
 }
@@ -1454,6 +1467,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   display: inline-block;
   border-radius: 3px;
   margin-right: 6px;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_meta:last-child {
@@ -1570,11 +1585,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #7a82a6;
   line-height: 26px;
   font-size: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list {
-  margin-top: 16px;
+  margin-top: 13px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li:last-child p {
@@ -2752,6 +2767,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #505058;
 }
 
+.atbd_content_active #directorist.atbd_wrapper label[data-option] input {
+  height: auto;
+}
+
 .atbd_content_active #directorist.atbd_wrapper #tc_container {
   height: 350px;
   border: 1px solid #ededed;
@@ -2969,6 +2988,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_type > label {
   display: inline-block;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_type > label input[type="radio"] {
+  height: auto;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_type > label + label {

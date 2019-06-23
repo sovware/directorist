@@ -205,7 +205,7 @@
         <?php } ?>
         <div class="form-group submit_btn">
             <button type="reset" class="btn btn-default"><?php _e( 'Reset', ATBDP_TEXTDOMAIN ); ?></button>
-            <button type="submit" class="btn btn-primary btn-block btn-icon icon-right"><?php _e( 'Search Listings', ATBDP_TEXTDOMAIN ); ?></button>
+            <button type="submit" class="btn btn-primary btn-icon icon-right"><?php _e( 'Search Listings', ATBDP_TEXTDOMAIN ); ?></button>
         </div>
     </form><!-- ends: form -->
 </div><!-- ends: .default-ad-search -->

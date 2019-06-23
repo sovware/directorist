@@ -38,6 +38,12 @@
   }
   input[type="radio"],
   input[type="checkbox"]{
-    height: auto;
+    &:checked:before{
+      margin-left: -15px;
+    }
   }
+}
+input[type="radio"],
+input[type="checkbox"]{
+  height: auto;
 }

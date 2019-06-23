@@ -319,7 +319,6 @@ class ATBDP_User {
                 exit();
             }
 
-
         }
 
     }

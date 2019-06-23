@@ -308,6 +308,12 @@ body.atbd_content_active #directorist.atbd_wrapper{
     .page-numbers{
       span{
         font-size: 10px;
+        border: 0 none;
+        margin: 0;
+        height: auto;
+      }
+      &:after{
+        content: none;
       }
     }
     &:before, &:after{
@@ -500,6 +506,7 @@ body.atbd_content_active #directorist.atbd_wrapper{
 #directorist.atbd_wrapper .form-check-label{
   margin-left: 10px;
 }
+
 .atbd_margin_fix{
   margin-left: -10px;
   margin-right: -10px;

@@ -45,8 +45,13 @@
   font-size: inherit;
 }
 
-#directorist.atbd_wrapper input[type="radio"],
-#directorist.atbd_wrapper input[type="checkbox"] {
+#directorist.atbd_wrapper input[type="radio"]:checked:before,
+#directorist.atbd_wrapper input[type="checkbox"]:checked:before {
+  margin-left: -15px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
   height: auto;
 }
 
@@ -488,6 +493,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper .pagination .nav-links .page-numbers span {
   font-size: 10px;
+  border: 0 none;
+  margin: 0;
+  height: auto;
+}
+
+#directorist.atbd_wrapper .pagination .nav-links .page-numbers:after {
+  content: none;
 }
 
 #directorist.atbd_wrapper .pagination .nav-links:before, #directorist.atbd_wrapper .pagination .nav-links:after {
@@ -2755,6 +2767,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #505058;
 }
 
+.atbd_content_active #directorist.atbd_wrapper label[data-option] input {
+  height: auto;
+}
+
 .atbd_content_active #directorist.atbd_wrapper #tc_container {
   height: 350px;
   border: 1px solid #ededed;
@@ -2972,6 +2988,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_type > label {
   display: inline-block;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_type > label input[type="radio"] {
+  height: auto;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_type > label + label {

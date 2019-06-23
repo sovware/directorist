@@ -22,7 +22,7 @@ $container_fluid = 'container-fluid';
                         }
                         $icon = get_term_meta($term->term_id, 'category_icon', true);
                         $image = get_term_meta($term->term_id, 'image', true);
-                        $cat_image = wp_get_attachment_image_src($image, array('350', '280'))[0];
+                        $cat_image = wp_get_attachment_image_src($image, apply_filters('atbdp_category_image_size', array('350', '280')))[0];
                         $icon = !empty($icon) ? $icon : '';
 
                         ?>

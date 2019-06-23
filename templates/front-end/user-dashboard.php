@@ -88,7 +88,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist" id="atbdp_tabs">
                             <?php if (!empty($my_listing_tab)) { ?>
-                                <li role="presentation" class="nav-item">
+                                <li class="nav-item">
                                     <a href="#my_listings" class="active nav-link" aria-controls="my_listings"
                                        role="tab"
                                        data-toggle="tab">
@@ -98,14 +98,14 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                 </li>
                             <?php } ?>
                             <?php if (!empty($my_profile_tab)) { ?>
-                                <li role="presentation" class="nav-item"><a href="#profile" class="nav-link"
+                                <li class="nav-item"><a href="#profile" class="nav-link"
                                                                             aria-controls="profile" role="tab"
                                                                             data-toggle="tab"><?php _e('My Profile', ATBDP_TEXTDOMAIN); ?></a>
                                 </li>
                             <?php } ?>
                             <?php if (!empty($fav_listings_tab)) { ?>
-                                <li role="presentation" class="nav-item"><a href="#saved_items" class="nav-link"
-                                                                            aria-controls="profile" role="tab"
+                                <li class="nav-item"><a href="#saved_items" class="nav-link"
+                                                                            aria-controls="saved_items" role="tab"
                                                                             data-toggle="tab"><?php _e('Favorite Listings', ATBDP_TEXTDOMAIN); ?></a>
                                 </li>
                             <?php } ?>
@@ -129,7 +129,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                     <div class="tab-content">
                         <?php if (!empty($my_listing_tab)) { ?>
 
-                            <div role="tabpanel" class="tab-pane active row" data-uk-grid id="my_listings">
+                            <div role="tabpanel" class="tab-pane active fade show row" data-uk-grid id="my_listings">
                                 <?php if ($listings->have_posts()) {
                                     foreach ($listings->posts as $post) {
                                         // get only one parent or high level term object
@@ -342,7 +342,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                             </div> <!--ends #my_listings-->
                         <?php } ?>
                         <?php if (!empty($my_profile_tab)) { ?>
-                            <div role="tabpanel" class="tab-pane" id="profile">
+                            <div role="tabpanel" class="tab-pane fade" id="profile">
                                 <form action="#" id="user_profile_form" method="post">
                                     <div class="row">
                                         <div class="col-md-3 col-sm-6 offset-sm-3 offset-md-0">
@@ -541,7 +541,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                             </div>
                         <?php } ?>
                         <?php if (!empty($fav_listings_tab)) { ?>
-                            <div role="tabpanel" class="tab-pane" id="saved_items">
+                            <div role="tabpanel" class="tab-pane fade" id="saved_items">
                                 <div class="atbd_saved_items_wrapper">
                                     <table class="table table-bordered atbd_single_saved_item table-responsive-sm">
                                         <?php

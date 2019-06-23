@@ -1340,20 +1340,6 @@ jQuery(function ($) {
         lf_opt47.show();
     }
 
-    //Display my listing pagination
-    var lf_opt48 = $("#user_listings_per_page");
-    lf_opt48.hide();
-    $('input[name="user_listings_pagination"]').on("change", function () {
-        if($(this).is(":checked") === true){
-            lf_opt48.show();
-        }else{
-            lf_opt48.hide();
-        }
-    });
-    if($('input[name="user_listings_pagination"]').is(":checked") === true){
-        lf_opt48.show();
-    }
-
     //Display popular categories
     var lf_opt49 = $("#show_connector,#connectors_title,#popular_cat_title,#popular_cat_num");
     lf_opt49.hide();

@@ -53,11 +53,11 @@ class ATBDP_Listing_DB {
         $args = array(
             'author'=> !empty($user_id) ? absint($user_id) :  get_current_user_id(),
             'post_type'=> ATBDP_POST_TYPE,
+            'posts_per_page'=> (int) $listingS_per_page,
             'order'=> 'DESC',
             'orderby' => 'date'
         );
         if(!empty($pagination)) {
-            $args['posts_per_page'] = (int) $listingS_per_page;
             $args['paged']          = $paged;
         }else{
             $args['no_found_rows']  = true;

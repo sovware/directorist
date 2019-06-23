@@ -734,6 +734,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #ff0000;
 }
 
+.fade.show {
+  opacity: 1;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

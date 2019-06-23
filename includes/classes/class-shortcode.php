@@ -1206,10 +1206,10 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $args = array(
                 'post_type'      => ATBDP_POST_TYPE,
                 'post_status'    => 'publish',
+                'posts_per_page' => (int) $atts['listings_per_page']
             );
 
             if('yes' == $show_pagination) {
-                $args['posts_per_page'] = (int) $atts['listings_per_page'];
                 $args['paged']          = $paged;
             }else{
                 $args['no_found_rows']  = true;
@@ -1743,10 +1743,10 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $args = array(
                     'post_type'      => ATBDP_POST_TYPE,
                     'post_status'    => 'publish',
+                    'posts_per_page' => (int) $atts['listings_per_page']
                 );
 
                 if('yes' == $show_pagination) {
-                    $args['posts_per_page'] = (int) $atts['listings_per_page'];
                     $args['paged']          = $paged;
                 }else{
                     $args['no_found_rows']  = true;
@@ -2141,9 +2141,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $args = array(
                     'post_type'      => ATBDP_POST_TYPE,
                     'post_status'    => 'publish',
+                    'posts_per_page' => (int) $atts['listings_per_page']
                 );
                 if('yes' == $show_pagination) {
-                    $args['posts_per_page'] = (int) $atts['listings_per_page'];
                     $args['paged']          = $paged;
                 }else{
                     $args['no_found_rows']  = true;
@@ -2496,9 +2496,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $args = array(
                     'post_type'      => ATBDP_POST_TYPE,
                     'post_status'    => 'publish',
+                    'posts_per_page' => (int) $atts['listings_per_page']
                 );
                 if('yes' == $show_pagination) {
-                    $args['posts_per_page'] = (int) $atts['listings_per_page'];
                     $args['paged']          = $paged;
                 }else{
                     $args['no_found_rows']  = true;
@@ -2872,9 +2872,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'post_type'      => ATBDP_POST_TYPE,
                 'post_status'    => 'publish',
                 'author'         => $author_id,
+                'posts_per_page'=> (int) get_directorist_option('all_listing_page_items', 6)
             );
             if(!empty($paginate)) {
-                $args['posts_per_page'] = (int) get_directorist_option('all_listing_page_items', 6);
                 $args['paged']          = $paged;
             }else{
                 $args['no_found_rows'] = true;

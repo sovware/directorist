@@ -508,7 +508,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                     $location = wp_get_object_terms($p_id, ATBDP_LOCATION, array('fields' => 'ids'));
                                     $selected_location = count($location) ? $location[0] : -1;
                                     $args = array(
-                                        'show_option_none' => '-- ' . __('Select Location', ATBDP_TEXTDOMAIN) . ' --',
+                                        'show_option_none' => apply_filters('atbdp_listing_form_location_placeholder','-- ' .__('Select Location', ATBDP_TEXTDOMAIN) . ' --'),
                                         'taxonomy' => ATBDP_LOCATION,
                                         'id' => 'loc-type',
                                         'class' => 'form-control directory_field',

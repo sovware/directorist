@@ -35,6 +35,9 @@
   }
   label[data-option] {
     color: #505058;
+    input{
+      height: auto;
+    }
   }
   #tc_container {
     height: 350px;
@@ -229,6 +232,9 @@
     padding-bottom: 20px;
     > label {
       display: inline-block;
+      input[type="radio"]{
+        height: auto;
+      }
       & + label {
         margin-left: 25px;
       }

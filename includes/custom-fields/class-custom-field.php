@@ -545,6 +545,7 @@ class ATBDP_Custom_Field
 
         $types = array(
             'text' => __('Text', ATBDP_TEXTDOMAIN),
+            'number' => __('Number', ATBDP_TEXTDOMAIN),
             'textarea' => __('Text Area', ATBDP_TEXTDOMAIN),
             'select' => __('Select', ATBDP_TEXTDOMAIN),
             'checkbox' => __('Checkbox', ATBDP_TEXTDOMAIN),

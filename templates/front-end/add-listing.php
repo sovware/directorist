@@ -370,6 +370,11 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                                 printf('<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post_id, $cf_placeholder, $value);
                                                 echo '</div>';
                                                 break;
+                                            case 'number' :
+                                                echo '<div>';
+                                                printf('<input type="number" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post_id, $cf_placeholder, $value);
+                                                echo '</div>';
+                                                break;
                                             case 'textarea' :
                                                 echo '<div>';
                                                 printf('<textarea  class="form-control directory_field" name="custom_field[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $post->ID, (int)$cf_rows, esc_attr($cf_placeholder), esc_textarea($value));

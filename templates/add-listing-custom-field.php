@@ -30,8 +30,12 @@
 
                         case 'text' :
                             echo '<div>';
-
                             printf( '<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="" value="%s"/>', $post->ID, esc_attr( $value ) );
+                            echo '</div>';
+                            break;
+                        case 'number' :
+                            echo '<div>';
+                            printf( '<input type="number" name="custom_field[%d]" class="form-control directory_field" placeholder="" value="%s"/>', $post->ID, esc_attr( $value ) );
                             echo '</div>';
                             break;
                         case 'textarea' :

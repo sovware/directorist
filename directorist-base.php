@@ -439,7 +439,7 @@ final class Directorist_Base
         Use normal update_option() instead if you need to add custom option that is not available in the settings fields of VP Framework.
         */
 
-        $directorist_pages = array(
+        $directorist_pages = apply_filters('atbdp_create_custom_pages', array(
             'search_listing' => array(
                 'title' => __('Search Home', ATBDP_TEXTDOMAIN),
                 'content' => '[directorist_search_listing]'
@@ -508,7 +508,7 @@ final class Directorist_Base
                 'title' => __('Transaction Failure', ATBDP_TEXTDOMAIN),
                 'content' => '[directorist_transaction_failure]'
             ),
-        );
+        ));
         $new_settings = 0; // lets keep track of new settings so that we do not update option unnecessarily.
         // lets iterate over the array and insert a new page with with the appropriate shortcode if the page id is not available in the option array.
         foreach ($directorist_pages as $op_name => $page_settings) {

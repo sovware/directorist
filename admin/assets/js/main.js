@@ -615,6 +615,7 @@ jQuery(function ($) {
 
     $('#submit').on('click', function () {
         $('#atbdp-categories-image-wrapper img').attr('src', '');
+        $('.remove_cat_img').remove();
     });
 
 

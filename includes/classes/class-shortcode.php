@@ -3051,7 +3051,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                             }
 
                         } else {
-                            $error = __('Oops something went wrong updaing your account.', ATBDP_TEXTDOMAIN);
+                            $error = __('Oops something went wrong updating your account.', ATBDP_TEXTDOMAIN);
                         }
 
                     }

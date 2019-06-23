@@ -40,6 +40,7 @@
   }
   .atbd_listing_meta {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     margin-top: 8px;
     .atbd_meta {
@@ -50,6 +51,8 @@
       display: inline-block;
       border-radius: 3px;
       margin-right: 6px;
+      margin-top: 3px;
+      margin-bottom: 3px;
       &:last-child{
         margin-right: 0;
       }
@@ -152,10 +155,10 @@
           color: #7a82a6;
           line-height: 26px;
           font-size: 15px;
-          margin-bottom: 10px;
+          margin-bottom: 7px;
         }
         .atbd_listing_data_list {
-          margin-top: 16px;
+          margin-top: 13px;
           ul li {
             &:last-child{
               p{

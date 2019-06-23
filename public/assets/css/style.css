@@ -1442,6 +1442,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   margin-top: 8px;
 }
@@ -1454,6 +1455,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   display: inline-block;
   border-radius: 3px;
   margin-right: 6px;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_meta:last-child {
@@ -1570,11 +1573,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #7a82a6;
   line-height: 26px;
   font-size: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list {
-  margin-top: 16px;
+  margin-top: 13px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li:last-child p {

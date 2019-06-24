@@ -24,6 +24,7 @@ $container_fluid = 'container-fluid';
                         $image = get_term_meta($term->term_id, 'image', true);
                         $cat_image = wp_get_attachment_image_src($image, apply_filters('atbdp_category_image_size', array('350', '280')))[0];
                         $icon = !empty($icon) ? $icon : '';
+                        $icon_type = substr($icon, 0,2);
 
                         ?>
                         <div class="<?php echo $span; ?>">
@@ -43,7 +44,7 @@ $container_fluid = 'container-fluid';
                                                     ?>
                                                     <div class="icon">
 
-                                                        <span class="fa <?php echo !empty($icon) ? $icon : ''; ?>"></span>
+                                                        <span class="<?php echo ('la' === $icon_type)?$icon_type.' '. $icon:'fa '. $icon;?>"></span>
 
                                                     </div>
                                                     <?php

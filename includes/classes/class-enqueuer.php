@@ -89,10 +89,11 @@ class ATBDP_Enqueuer {
             /*Public Common Asset: */
 
             wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false, ATBDP_VERSION);
+            wp_register_style( 'atbdp-line-awesome', ATBDP_PUBLIC_ASSETS . 'css/line-awesome.min.css', false, ATBDP_VERSION);
             wp_register_style( 'sweetalertcss', ATBDP_PUBLIC_ASSETS.'css/sweetalert.min.css', false, ATBDP_VERSION );
             wp_register_style( 'select2style', ATBDP_PUBLIC_ASSETS.'css/select2.min.css', false, ATBDP_VERSION );
             wp_register_style( 'atbdp-admin-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION);
-            wp_register_style( 'atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', array( 'atbdp-font-awesome', 'select2style'), ATBDP_VERSION);
+            wp_register_style( 'atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', array( 'atbdp-line-awesome','atbdp-font-awesome', 'select2style'), ATBDP_VERSION);
 
 
             wp_register_script( 'sweetalert', ATBDP_PUBLIC_ASSETS . 'js/sweetalert.min.js', array( 'jquery' ), ATBDP_VERSION, true );
@@ -115,6 +116,7 @@ class ATBDP_Enqueuer {
             /* enqueue all styles*/
             wp_enqueue_style('atbdp-admin-bootstrap-style');
             wp_enqueue_style('atbdp-font-awesome');
+            wp_enqueue_style('atbdp-line-awesome');
             wp_enqueue_style('sweetalertcss');
             wp_enqueue_style('select2style');
             /* WP COLOR PICKER */
@@ -203,12 +205,13 @@ class ATBDP_Enqueuer {
         // @Todo; make unminified css minified then enqueue them.
         wp_register_style( 'atbdp-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION);
         wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false, ATBDP_VERSION);
+        wp_register_style( 'atbdp-line-awesome', ATBDP_PUBLIC_ASSETS . 'css/line-awesome.min.css', false, ATBDP_VERSION);
         wp_register_style( 'sweetalertcss', ATBDP_PUBLIC_ASSETS.'css/sweetalert.min.css', false, ATBDP_VERSION );
         wp_register_style( 'select2style', ATBDP_PUBLIC_ASSETS.'css/select2.min.css', false, ATBDP_VERSION );
         wp_register_style( 'slickcss', ATBDP_PUBLIC_ASSETS.'css/slick.css', false, ATBDP_VERSION );
         wp_register_style( 'atmodal', ATBDP_PUBLIC_ASSETS.'css/atmodal.css', false, ATBDP_VERSION );
         wp_register_style( 'atbd_googlefonts', '//fonts.googleapis.com/css?family=Roboto:400,500', false, ATBDP_VERSION );
-        wp_register_style( 'atbdp-style', ATBDP_PUBLIC_ASSETS . 'css/style.css', array( 'atbdp-font-awesome',), ATBDP_VERSION);
+        wp_register_style( 'atbdp-style', ATBDP_PUBLIC_ASSETS . 'css/style.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
 
 
         wp_register_script('atbdp-popper-script', ATBDP_PUBLIC_ASSETS . 'js/popper.js', array('jquery'), ATBDP_VERSION, false);
@@ -245,6 +248,7 @@ class ATBDP_Enqueuer {
         /* Enqueue all styles*/
         wp_enqueue_style('atbdp-bootstrap-style');
         wp_enqueue_style('atbdp-font-awesome');
+        wp_enqueue_style('atbdp-line-awesome');
         wp_enqueue_style('atbdp-style');
 
         /* Enqueue google Directorist google font */
@@ -668,6 +672,7 @@ class ATBDP_Enqueuer {
         wp_enqueue_style('atbdp-bootstrap-style');
         wp_enqueue_style('atbdp-stars');
         wp_enqueue_style('atbdp-font-awesome');
+        wp_enqueue_style('atbdp-line-awesome');
         wp_enqueue_style('atbdp-style');
         wp_enqueue_style('atbdp-responsive');
 

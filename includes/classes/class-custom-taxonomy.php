@@ -170,12 +170,12 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             // get current group
             $icon_name = get_term_meta($term->term_id, 'category_icon', true);
 
-            $fa_icons = get_fa_icons_full(); // returns the array of FA icon names
+            $fa_icons = get_fa_icons(); // returns the array of FA icon names
             ?>
             <tr class="form-field term-group-wrap">
             <th scope="row"><label for="category_icon"><?php _e('Category Icon', ATBDP_TEXTDOMAIN); ?></label></th>
             <td><select class="postform" id="category_icon" name="category_icon">
-                    <?php foreach ($fa_icons as $_fa_name => $unicode) : ?>
+                    <?php foreach ($fa_icons as $_fa_name ) : ?>
                         <option value="<?php echo $_fa_name; ?>" <?php selected($_fa_name, $icon_name, true); ?>>
                             <?php echo $_fa_name; ?>
                         </option>
@@ -256,12 +256,12 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
         public function add_category_icon_field($taxonomy)
         {
-            $fa_icons = get_fa_icons_full(); // returns the array of FA icon names
+            $fa_icons = get_fa_icons(); // returns the array of FA icon names
             ?>
             <div class="form-field term-group">
                 <label for="category_icon"><?php _e('Category Icon', ATBDP_TEXTDOMAIN); ?></label>
                 <select class="postform" id="category_icon" name="category_icon">
-                    <?php foreach ($fa_icons as $_fa_name => $unicode) : ?>
+                    <?php foreach ($fa_icons as $_fa_name ) : ?>
                         <option value="<?php echo $_fa_name; ?>">
                             <?php echo $_fa_name; ?>
                         </option>

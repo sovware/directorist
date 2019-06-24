@@ -4411,6 +4411,25 @@ The Administrator of ==SITE_NAME==
                         'default' => 0,
                     ),
                     array(
+                        'type' => 'select',
+                        'name' => 'font_type',
+                        'label' => __('Icon Supported by', ATBDP_TEXTDOMAIN),
+                        'items' => array(
+                            array(
+                                'value' => 'font',
+                                'label' => __('Font Awesome', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'line',
+                                'label' => __('Line Awesome', ATBDP_TEXTDOMAIN),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'line',
+                            'label' => __('Line Awesome', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    array(
                         'type' => 'toggle',
                         'name' => 'display_preview_image',
                         'label' => __('Show Preview Image', ATBDP_TEXTDOMAIN),

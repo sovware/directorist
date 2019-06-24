@@ -72,7 +72,7 @@ $container_fluid  = 'container-fluid';
                         ?>
                         <div class="atbd_listing_meta">
                             <span class="atbd_meta atbd_listing_rating">
-                                <?php echo $author_rating;?><i class="fa fa-star"></i>
+                                <?php echo $author_rating;?><i class="<?php atbdp_icon_type(true);?>-star"></i>
                             </span>
                         </div>
                         <p class="meta-info">
@@ -94,7 +94,7 @@ $container_fluid  = 'container-fluid';
                     <div class="atbd_content_module">
                         <div class="atbd_content_module__tittle_area">
                             <div class="atbd_area_title">
-                                <h4><span class="fa fa-user"></span><?php _e('About', ATBDP_TEXTDOMAIN); ?></h4>
+                                <h4><span class="<?php atbdp_icon_type(true);?>-user"></span><?php _e('About', ATBDP_TEXTDOMAIN); ?></h4>
                             </div>
                         </div>
 
@@ -120,7 +120,7 @@ $container_fluid  = 'container-fluid';
                                 if (!empty($address)){
                                     ?>
                                     <li>
-                                        <span class="fa fa-map-marker"></span>
+                                        <span class="<?php atbdp_icon_type(true);?>-map-marker"></span>
                                         <span class="atbd_info"><?= !empty($address)?esc_html($address):''; ?></span>
                                     </li>
                                     <?php
@@ -129,7 +129,7 @@ $container_fluid  = 'container-fluid';
                                     ?>
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
-                                        <span class="fa fa-phone"></span>
+                                        <span class="<?php atbdp_icon_type(true);?>-phone"></span>
                                         <span class="atbd_info"><?= !empty($phone)?esc_html($phone):''; ?></span>
                                     </li>
                                     <?php
@@ -139,7 +139,7 @@ $container_fluid  = 'container-fluid';
                                     if (!empty($email)){
                                         ?>
                                         <li>
-                                            <span class="fa fa-envelope"></span>
+                                            <span class="<?php atbdp_icon_type(true);?>-envelope"></span>
                                             <span class="atbd_info"><?= !empty($email)?esc_html($email):''; ?></span>
                                         </li>
                                         <?php
@@ -149,7 +149,7 @@ $container_fluid  = 'container-fluid';
                                         if (!empty($email)){
                                             ?>
                                             <li>
-                                                <span class="fa fa-envelope"></span>
+                                                <span class="<?php atbdp_icon_type(true);?>-envelope"></span>
                                                 <span class="atbd_info"><?= !empty($email)?esc_html($email):''; ?></span>
                                             </li>
                                             <?php
@@ -160,7 +160,7 @@ $container_fluid  = 'container-fluid';
                                 if (!empty($website)){
                                     ?>
                                     <li>
-                                        <span class="fa fa-globe"></span>
+                                        <span class="<?php atbdp_icon_type(true);?>-globe"></span>
                                         <span class="atbd_info"><?= !empty($website)?esc_html($website):''; ?></span>
                                     </li>
                                     <?php
@@ -174,16 +174,16 @@ $container_fluid  = 'container-fluid';
                             <div class="atbd_social_wrap">
                                 <?php
                                 if ($facebook) {
-                                    printf('<p><a target="_blank" href="%s"><span class="fa fa-facebook"></span></a></p>', $facebook);
+                                    printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-facebook"></span></a></p>', $facebook);
                                 }
                                 if ($twitter) {
-                                    printf('<p><a target="_blank" href="%s"><span class="fa fa-twitter"></span></a></p>', $twitter);
+                                    printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-twitter"></span></a></p>', $twitter);
                                 }
                                 if ($linkedIn) {
-                                    printf('<p><a target="_blank" href="%s"><span class="fa fa-linkedin"></span></a></p>', $linkedIn);
+                                    printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-linkedin"></span></a></p>', $linkedIn);
                                 }
                                 if ($youtube) {
-                                    printf('<p><a target="_blank" href="%s"><span class="fa fa-youtube"></span></a></p>', $youtube);
+                                    printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-youtube"></span></a></p>', $youtube);
                                 }
                                 ?>
                             </div>

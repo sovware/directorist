@@ -67,7 +67,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">
                         <h4>
-                            <span class="fa fa-bars atbd_area_icon"></span><?php _e($custom_section_lable, ATBDP_TEXTDOMAIN) ?>
+                            <span class="<?php atbdp_icon_type(true);?>-bars atbd_area_icon"></span><?php _e($custom_section_lable, ATBDP_TEXTDOMAIN) ?>
                         </h4>
                     </div>
                 </div>

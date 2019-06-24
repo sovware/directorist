@@ -46,7 +46,7 @@ if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || 
         <div class="atbd_content_module__tittle_area">
             <div class="atbd_area_title">
                 <h4>
-                    <span class="fa fa-envelope-o"></span><?php _e($contact_info_text, ATBDP_TEXTDOMAIN); ?>
+                    <span class="<?php atbdp_icon_type(true);?>-envelope-o"></span><?php _e($contact_info_text, ATBDP_TEXTDOMAIN); ?>
                 </h4>
             </div>
         </div>
@@ -57,7 +57,7 @@ if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || 
                     <?php if (!empty($address) && !empty($display_address_field)) { ?>
                         <li>
                             <div class="atbd_info_title"><span
-                                        class="fa fa-map-marker"></span><?php _e('Address', ATBDP_TEXTDOMAIN); ?>
+                                        class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php _e('Address', ATBDP_TEXTDOMAIN); ?>
                             </div>
                             <div class="atbd_info"><?= esc_html($address); ?></div>
                         </li>
@@ -68,7 +68,7 @@ if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || 
                         <!-- In Future, We will have to use a loop to print more than 1 number-->
                         <li>
                             <div class="atbd_info_title"><span
-                                        class="fa fa-phone"></span><?php _e('Phone', ATBDP_TEXTDOMAIN); ?>
+                                        class="<?php atbdp_icon_type(true);?>-phone"></span><?php _e('Phone', ATBDP_TEXTDOMAIN); ?>
                             </div>
                             <div class="atbd_info"><?= esc_html($phone); ?></div>
                         </li>
@@ -77,7 +77,7 @@ if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || 
                     <?php if (!empty($email) && !empty($display_email_field)) { ?>
                         <li>
                             <div class="atbd_info_title"><span
-                                        class="fa fa-envelope"></span><?php _e('Email', ATBDP_TEXTDOMAIN); ?>
+                                        class="<?php atbdp_icon_type(true);?>-envelope"></span><?php _e('Email', ATBDP_TEXTDOMAIN); ?>
                             </div>
                             <span class="atbd_info"><a target="_top"
                                                        href="mailto:<?= esc_html($email); ?>"><?= esc_html($email); ?></a></span>
@@ -87,7 +87,7 @@ if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || 
                     <?php if (!empty($website) && !empty($display_website_field)) { ?>
                         <li>
                             <div class="atbd_info_title"><span
-                                        class="fa fa-globe"></span><?php _e('Website', ATBDP_TEXTDOMAIN); ?>
+                                        class="<?php atbdp_icon_type(true);?>-globe"></span><?php _e('Website', ATBDP_TEXTDOMAIN); ?>
                             </div>
                             <a target="_blank" href="<?= esc_url($website); ?>"
                                class="atbd_info" <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?= esc_html($website); ?></a>
@@ -98,7 +98,7 @@ if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || 
                         <!-- In Future, We will have to use a loop to print more than 1 number-->
                         <li>
                             <div class="atbd_info_title"><span
-                                        class="fa fa-address-card"></span><?php _e('Zip/Post Code', ATBDP_TEXTDOMAIN); ?>
+                                        class="<?php atbdp_icon_type(true);?>-address-card"></span><?php _e('Zip/Post Code', ATBDP_TEXTDOMAIN); ?>
                             </div>
                             <div class="atbd_info"><?= esc_html($zip); ?></div>
                         </li>
@@ -113,7 +113,7 @@ if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || 
                         $l = esc_url($link['url']);
                         ?>
                         <a target='_blank' href="<?php echo $l; ?>"><span
-                                    class="fa fa-<?php echo $n; ?>"></span></a>
+                                    class="<?php atbdp_icon_type(true);?>-<?php echo $n; ?>"></span></a>
                     <?php } ?>
                 </div>
             <?php } ?>

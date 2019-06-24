@@ -161,7 +161,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">
                         <h4>
-                            <span class="fa fa-file-text atbd_area_icon"></span><?php _e($listing_details_text, ATBDP_TEXTDOMAIN) ?>
+                            <span class="<?php atbdp_icon_type(true);?>-file-text atbd_area_icon"></span><?php _e($listing_details_text, ATBDP_TEXTDOMAIN) ?>
                         </h4>
                     </div>
                     <?php
@@ -172,7 +172,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     }
                     if ($enable_social_share) {
                         $listing_header .= '<div class="atbd_action atbd_share">';
-                        $listing_header .= '<span class="fa fa-share-alt"></span>' . __('Share', ATBDP_TEXTDOMAIN) . '';
+                        $listing_header .= '<span class="'.atbdp_icon_type().'-share"></span>' . __('Share', ATBDP_TEXTDOMAIN) . '';
 
                         $listing_header .= '<div class="atbd_director_social_wrap">';
                         //prepare the data for the links because links needs to be escaped
@@ -203,12 +203,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     if ($enable_report_abuse) {
                         $listing_header .= '<div class="atbd_action atbd_report">';
                         if (is_user_logged_in()) {
-                            $listing_header .= '<span class="fa fa-flag"></span><a href="javascript:void(0)" data-toggle="modal"
+                            $listing_header .= '<span class="'.atbdp_icon_type().'-flag"></span><a href="javascript:void(0)" data-toggle="modal"
                                                                data-target="#atbdp-report-abuse-modal">' . __('Report', ATBDP_TEXTDOMAIN) . '</a>'; //Modal (report abuse form)
                         } else {
                             $listing_header .= '<a href="javascript:void(0)"
                                class="atbdp-require-login"><span
-                                        class="fa fa-flag"></span>' . __('Report', ATBDP_TEXTDOMAIN) . '</a>';
+                                        class="'.atbdp_icon_type().'-flag"></span>' . __('Report', ATBDP_TEXTDOMAIN) . '</a>';
                         }
                         $listing_header .= '<input type="hidden" id="atbdp-post-id" value="' . get_the_ID() . '"/>';
                         $listing_header .= '</div>';
@@ -331,7 +331,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                             $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
                             if (!empty($enable_review)) {
                                 $data_info .= '<span class="atbd_meta atbd_listing_rating">
-                            ' . $average . '<i class="fa fa-star"></i>
+                            ' . $average . '<i class="'.atbdp_icon_type().'-star"></i>
                         </span>';
                             }
 
@@ -364,7 +364,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         }
                         $data_info .= '<div class="atbd_listting_category"><ul class="directory_cats">';
                         if (!empty($cats)) {
-                            $data_info .= '<span class="fa fa-folder-open"></span>';
+                            $data_info .= '<span class="'.atbdp_icon_type().'-tags"></span>';
                             $numberOfCat = count($cats);
                             $output = array();
                             foreach ($cats as $cat) {
@@ -488,7 +488,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="fa fa-bars atbd_area_icon"></span><?php _e($custom_section_lable, ATBDP_TEXTDOMAIN) ?>
+                                <span class="<?php atbdp_icon_type(true);?>-bars atbd_area_icon"></span><?php _e($custom_section_lable, ATBDP_TEXTDOMAIN) ?>
                             </h4>
                         </div>
                     </div>
@@ -564,7 +564,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="fa fa-video-camera atbd_area_icon"></span><?php _e($video_label, ATBDP_TEXTDOMAIN) ?>
+                                <span class="<?php atbdp_icon_type(true);?>-video-camera atbd_area_icon"></span><?php _e($video_label, ATBDP_TEXTDOMAIN) ?>
                             </h4>
                         </div>
                     </div>
@@ -582,7 +582,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="fa fa fa-map atbd_area_icon"></span><?php _e($listing_location_text, ATBDP_TEXTDOMAIN); ?>
+                                <span class="<?php atbdp_icon_type(true);?>-map atbd_area_icon"></span><?php _e($listing_location_text, ATBDP_TEXTDOMAIN); ?>
                             </h4>
                         </div>
                     </div>
@@ -597,7 +597,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="fa fa-envelope-o"></span><?php _e($contact_info_text, ATBDP_TEXTDOMAIN); ?>
+                                <span class="<?php atbdp_icon_type(true);?>-envelope-o"></span><?php _e($contact_info_text, ATBDP_TEXTDOMAIN); ?>
                             </h4>
                         </div>
                     </div>
@@ -608,7 +608,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                 <?php if (!empty($address) && !empty($display_address_field)) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="fa fa-map-marker"></span><?php _e('Address', ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php _e('Address', ATBDP_TEXTDOMAIN); ?>
                                         </div>
                                         <div class="atbd_info"><?= esc_html($address); ?></div>
                                     </li>
@@ -619,7 +619,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="fa fa-phone"></span><?php _e('Phone', ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-phone"></span><?php _e('Phone', ATBDP_TEXTDOMAIN); ?>
                                         </div>
                                         <div class="atbd_info"><?= esc_html($phone); ?></div>
                                     </li>
@@ -628,7 +628,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                 <?php if (!empty($email) && !empty($display_email_field)) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="fa fa-envelope"></span><?php _e('Email', ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-envelope"></span><?php _e('Email', ATBDP_TEXTDOMAIN); ?>
                                         </div>
                                         <span class="atbd_info"><a target="_top"
                                                                    href="mailto:<?= esc_html($email); ?>"><?= esc_html($email); ?></a></span>
@@ -638,7 +638,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                 <?php if (!empty($website) && !empty($display_website_field)) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="fa fa-globe"></span><?php _e('Website', ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-globe"></span><?php _e('Website', ATBDP_TEXTDOMAIN); ?>
                                         </div>
                                         <a target="_blank" href="<?= esc_url($website); ?>"
                                            class="atbd_info" <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?= esc_html($website); ?></a>
@@ -649,7 +649,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="fa fa-address-card"></span><?php _e('Zip/Post Code', ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-address-card"></span><?php _e('Zip/Post Code', ATBDP_TEXTDOMAIN); ?>
                                         </div>
                                         <div class="atbd_info"><?= esc_html($zip); ?></div>
                                     </li>
@@ -664,7 +664,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     $l = esc_url($link['url']);
                                     ?>
                                     <a target='_blank' href="<?php echo $l; ?>"><span
-                                                class="fa fa-<?php echo $n; ?>"></span></a>
+                                                class="<?php atbdp_icon_type(true);?>-<?php echo $n; ?>"></span></a>
                                 <?php } ?>
                             </div>
                         <?php } ?>

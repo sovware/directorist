@@ -57,7 +57,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             if (!is_feed()) {
 
 
-                // If ACADP Categories Page
+                // If Categories Page
                 if (is_tax(ATBDP_CATEGORY)) {
 
                     $term = get_queried_object();

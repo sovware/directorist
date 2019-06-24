@@ -671,8 +671,8 @@ class ATBDP_Enqueuer {
         /* Enqueue all styles*/
         wp_enqueue_style('atbdp-bootstrap-style');
         wp_enqueue_style('atbdp-stars');
-        wp_enqueue_style('atbdp-font-awesome');
         wp_enqueue_style('atbdp-line-awesome');
+        wp_enqueue_style('atbdp-font-awesome');
         wp_enqueue_style('atbdp-style');
         wp_enqueue_style('atbdp-responsive');
 

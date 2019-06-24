@@ -1584,7 +1584,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             $all_listings                    = new WP_Query($args);
             $paginate                        = get_directorist_option('paginate_all_listings');
-            if ($paginate){
+            if ('yes' == $show_pagination){
                 $listing_count               =  '<span>'.$all_listings->found_posts.'</span>';
             }else{
                 $listing_count               =  '<span>'.count($all_listings->posts).'</span>';

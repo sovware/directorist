@@ -649,7 +649,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-address-card"></span><?php _e('Zip/Post Code', ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-at"></span><?php _e('Zip/Post Code', ATBDP_TEXTDOMAIN); ?>
                                         </div>
                                         <div class="atbd_info"><?= esc_html($zip); ?></div>
                                     </li>

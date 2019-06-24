@@ -4413,7 +4413,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'font_type',
-                        'label' => __('Icon Supported by', ATBDP_TEXTDOMAIN),
+                        'label' => __('Icon Library', ATBDP_TEXTDOMAIN),
                         'items' => array(
                             array(
                                 'value' => 'font',

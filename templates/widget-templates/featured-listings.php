@@ -67,7 +67,8 @@ $featured_listings = new WP_Query($common_args);
                                 ?>
 
                                 <p class="directory_tag">
-                                    <span class="fa fa-folder-open"></span>
+                                    <span class="
+<?php atbdp_icon_type(true);?>-tags"></span>
                                     <span>
                                                 <a href="<?= ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
                                                                      <?= esc_html($cats[0]->name); ?>

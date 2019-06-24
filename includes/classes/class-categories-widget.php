@@ -217,7 +217,7 @@ if (!class_exists('BD_Categories_Widget')) {
                 $html .= '<ul class="' .$child_class. '">';
                 foreach( $terms as $term ) {
                     $child_category = get_term_children($term->term_id,ATBDP_CATEGORY);
-                    $plus_icon = (!empty($child_category) && empty($parent) )? '<span class="fa fa-plus"></span>' : '';
+                    $plus_icon = (!empty($child_category) && empty($parent) )? '<span class="'.atbdp_icon_type().'-plus"></span>' : '';
 
 
                     $icon = get_term_meta($term->term_id,'category_icon',true);

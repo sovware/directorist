@@ -238,7 +238,7 @@ if(!class_exists('ATBDP_Custom_Post')):
                 case 'atbdp_featured':
                     $featured = get_post_meta($post_id, '_featured', true);
                     echo '<span style="margin-left: 15px">';
-                    echo !empty($featured) ? '<i class="fa fa-check-circle"></i>' : '<i class="fa fa-times-circle"></i>';
+                    echo !empty($featured) ? '<i class="'.atbdp_icon_type().'-check-circle"></i>' : '<i class="fa fa-times-circle"></i>';
                     echo '</span>';
                     break;
 

@@ -128,17 +128,17 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                 ?>
                 <div class="edit_btn_wrap">
                     <a href="javascript:history.back()" class="atbd_go_back"><i
-                                class="fa fa-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?></a>
+                                class="<?php atbdp_icon_type(true);?>-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?></a>
                     <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
                        class="btn btn-success"><span
-                                class="fa fa-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN) ?></a>
+                                class="<?php atbdp_icon_type(true);?>-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN) ?></a>
                 </div>
                 <?php
             } else {
                 ?>
                 <div class="edit_btn_wrap">
                     <a href="javascript:history.back()" class="atbd_go_back"><i
-                                class="fa fa-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?></a>
+                                class="<?php atbdp_icon_type(true);?>-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?></a>
                 </div>
                 <?php
             }
@@ -183,15 +183,15 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                          <ul>
                         <li>
                             <a href="' . esc_url($fb_lnk) . '" target="_blank">
-                                <span class="fa fa-facebook"></span>' . __('Facebook', ATBDP_TEXTDOMAIN) . '</a>
+                                <span class="'.atbdp_icon_type().'-facebook"></span>' . __('Facebook', ATBDP_TEXTDOMAIN) . '</a>
                         </li>
                         <li>
                             <a href="' . esc_url($twt_lnk) . '" target="_blank">
-                                <span class="fa fa-twitter"></span>' . __('Twitter', ATBDP_TEXTDOMAIN) . '</a>
+                                <span class="'.atbdp_icon_type().'-twitter"></span>' . __('Twitter', ATBDP_TEXTDOMAIN) . '</a>
                         </li>
                         <li>
                             <a href="' . esc_url($in_link) . '" target="_blank">
-                                <span class="fa fa-linkedin"></span>' . __('LinkedIn', ATBDP_TEXTDOMAIN) . '</a>
+                                <span class="'.atbdp_icon_type().'-linkedin"></span>' . __('LinkedIn', ATBDP_TEXTDOMAIN) . '</a>
                         </li>
                     </ul>';
                         $listing_header .= '</div>'; //Ends social share
@@ -279,8 +279,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     } ?>
                                 </div>
                                 <?php if (count($image_links) > 1) { ?>
-                                    <span class="prev fa fa-angle-left"></span>
-                                    <span class="next fa fa-angle-right"></span>
+                                    <span class="prev <?php atbdp_icon_type(true);?>-angle-left"></span>
+                                    <span class="next <?php atbdp_icon_type(true);?>-angle-right"></span>
                                 <?php } ?>
                             </div>
                             <div class="atbd_directory_image_thumbnail">
@@ -681,7 +681,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="fa fa-paper-plane"></span><?php _e($contact_listing_owner, ATBDP_TEXTDOMAIN); ?>
+                                <span class="<?php atbdp_icon_type(true);?>-paper-plane"></span><?php _e($contact_listing_owner, ATBDP_TEXTDOMAIN); ?>
                             </h4>
                         </div>
                     </div>

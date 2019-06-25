@@ -28,9 +28,20 @@
 
     var content = "";
     // Category icon selection
+    function selecWithIcon(selected) {
+        if (!selected.id) {
+            return selected.text;
+        }
+        var $elem = $(
+            "<span><span class='fa " + selected.element.value + "'></span> " + selected.text + "</span>"
+        );
+        return $elem;
+    }
+
     $('#category_icon').select2({
         placeholder: atbdp_admin_data.i18n_text.icon_choose_text,
-        allowClear: true
+        allowClear: true,
+        templateResult: selecWithIcon
     });
 
     /* Show and hide manual coordinate input field*/
@@ -1382,6 +1393,7 @@ jQuery(function ($) {
     if($('input[name="show_connector"]').is(":checked") === true){
         lf_opt50.show();
     }
+
 
 });
 

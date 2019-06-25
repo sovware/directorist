@@ -553,7 +553,8 @@ class ATBDP_Custom_Field
             'url' => __('URL', ATBDP_TEXTDOMAIN),
             'date' => __('Date', ATBDP_TEXTDOMAIN),
             'color' => __('Color', ATBDP_TEXTDOMAIN),
-            'time' => __('Time', ATBDP_TEXTDOMAIN)
+            'time' => __('Time', ATBDP_TEXTDOMAIN),
+            'file' => __('File', ATBDP_TEXTDOMAIN)
         );
 
         // Return

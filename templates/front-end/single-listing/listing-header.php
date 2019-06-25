@@ -153,15 +153,15 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                      <ul>
                                     <li>
                                         <a href="' . esc_url($fb_lnk) . '" target="_blank">
-                                            <span class="fa fa-facebook"></span>' . __('Facebook', ATBDP_TEXTDOMAIN) . '</a>
+                                            <span class="'.atbdp_icon_type().'-facebook"></span>' . __('Facebook', ATBDP_TEXTDOMAIN) . '</a>
                                     </li>
                                     <li>
                                         <a href="' . esc_url($twt_lnk) . '" target="_blank">
-                                            <span class="fa fa-twitter"></span>' . __('Twitter', ATBDP_TEXTDOMAIN) . '</a>
+                                            <span class="'.atbdp_icon_type().'-twitter"></span>' . __('Twitter', ATBDP_TEXTDOMAIN) . '</a>
                                     </li>
                                     <li>
                                         <a href="' . esc_url($in_link) . '" target="_blank">
-                                            <span class="fa fa-linkedin"></span>' . __('LinkedIn', ATBDP_TEXTDOMAIN) . '</a>
+                                            <span class="'.atbdp_icon_type().'-linkedin"></span>' . __('LinkedIn', ATBDP_TEXTDOMAIN) . '</a>
                                     </li>
                                 </ul>';
                         $listing_header .= '</div>'; //Ends social share

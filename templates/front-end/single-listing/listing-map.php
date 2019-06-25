@@ -5,6 +5,7 @@ $fm_plan = get_post_meta($listing_id, '_fm_plans', true);
 $listing_info['address'] = get_post_meta($post->ID, '_address', true);
 $listing_info['manual_lat'] = get_post_meta($post->ID, '_manual_lat', true);
 $listing_info['manual_lng'] = get_post_meta($post->ID, '_manual_lng', true);
+$listing_info['listing_prv_img'] = get_post_meta($post->ID, '_listing_prv_img', true);
 $listing_info['hide_map'] = get_post_meta($post->ID, '_hide_map', true);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
 $display_map_field = get_directorist_option('display_map_field', 1);
@@ -12,14 +13,33 @@ extract($listing_info);
 /*INFO WINDOW CONTENT*/
 $t = get_the_title();
 $t = !empty($t) ? $t : __('No Title', ATBDP_TEXTDOMAIN);
+
+$average = ATBDP()->review->get_average($listing_id);
+$reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
+$reviews = ($reviews_count > 1) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
+$review_info = '';
+$review_info = '';
+if (!empty($enable_review)) {
+    $review_info = "<div class='miwl-rating'><span class='atbd_meta atbd_listing_rating'>$average<i class='".atbdp_icon_type()."-star'></i></span>";
+
+    $review_info .= "<div class='atbd_rating_count'>";
+
+    $review_info .= "<p>" . $reviews_count . $reviews . "</p>";
+
+    $review_info .= "</div></div>";
+}
+
 $tg = !empty($tagline) ? esc_html($tagline) : '';
 $ad = !empty($address) ? esc_html($address) : '';
-$image = (!empty($attachment_id[0])) ? "<img src='" . esc_url(wp_get_attachment_image_url($attachment_id[0], 'thumbnail')) . "'>" : '';
-$info_content  = "<div class='map_info_window'> <h3>{$t}</h3>";
-$info_content .= "<p> {$tg} </p>";
-$info_content .= $image; // add the image if available
+$default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+$listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'small')[0];
+$img_url = !empty($listing_prv_imgurl)?$listing_prv_imgurl:$default_image;
+$image = "<img src=". $img_url.">";
+
+$info_content = "<div class='map_info_window'>$image <div class='miw-contents'><h3>{$t}</h3>";
 $info_content .= "<address>{$ad}</address>";
-$info_content .= "<a href='http://www.google.com/maps/place/{$manual_lat},{$manual_lng}' target='_blank'> " . __('View On Google Maps', ATBDP_TEXTDOMAIN) . "</a></div>";
+$info_content .= "<div class='miw-contents-footer'>{$review_info}";
+$info_content .= "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', ATBDP_TEXTDOMAIN) . "</a></div></div></div>";
 /*END INFO WINDOW CONTENT*/
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map', 0);

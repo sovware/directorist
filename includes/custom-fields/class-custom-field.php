@@ -311,6 +311,12 @@ class ATBDP_Custom_Field
                 $field_choices = esc_textarea($_POST['choices']);
                 update_post_meta($post_id, 'choices', $field_choices);
 
+                $field_choices = sanitize_key($_POST['file_type']);
+                update_post_meta($post_id, 'file_type', $field_choices);
+
+                $field_choices = sanitize_text_field($_POST['file_size']);
+                update_post_meta($post_id, 'file_size', $field_choices);
+
                 if ('checkbox' == $field_type || 'textarea' == $field_type) {
                     $field_default_value = esc_textarea($_POST['default_value_' . $field_type]);
                 } else if ('url' == $field_type) {
@@ -630,6 +636,32 @@ class ATBDP_Custom_Field
                     </ul>
                 </div>
 
+
+                <div class="field-options field-option-file"
+                     style="display:none;">
+                    <label><?php _e('File Type', ATBDP_TEXTDOMAIN); ?></label>
+                    <p class="description">
+                        <?php _e('Select file type', ATBDP_TEXTDOMAIN); ?><br/>
+                    </p>
+                    <?php
+                    $file_type = esc_attr($post_meta['file_type'][0]);
+                    ?>
+                    <select name="file_type" class="select form-control">
+                        <option value="12">fdsfsdf</option>
+                        <option value="13">fdsfsdfdsfdsfsdgtrewtdfsdfdsfgdsf</option>
+                        <option>fdsdsfdsfsdf</option>
+                        <option>fdsfsdfdsfdsfsdgtrewtdf</option>
+                    </select>
+                </div>
+
+                <div class="field-options field-option-file"
+                     style="display:none;">
+                    <label><?php _e('File Size', ATBDP_TEXTDOMAIN); ?></label>
+                    <p class="description">
+                        <?php _e('Set maximum file size to upload', ATBDP_TEXTDOMAIN); ?><br/>
+                    </p>
+                    <input class="text form-control" type="text" value="<?php if (isset($post_meta['file_size'])) echo esc_attr($post_meta['file_size'][0]); ?>" name="file_size">
+                </div>
 
                 <div class="field-options field-option-select field-option-checkbox field-option-radio"
                      style="display:none;">

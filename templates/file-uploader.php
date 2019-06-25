@@ -15,7 +15,7 @@ $plupload_init = array(
     //'drop_element' => 'dropbox', // will be adjusted per uploader
     'file_data_name' => 'async-upload', // will be adjusted per uploader
     'multiple_queues' => true,
-    'max_file_size' => '2mb',
+    'max_file_size' => '20mb',
     'url' => admin_url('admin-ajax.php'),
     'flash_swf_url' => includes_url('js/plupload/plupload.flash.swf'),
     'silverlight_xap_url' => includes_url('js/plupload/plupload.silverlight.xap'),
@@ -55,7 +55,7 @@ $base_plupload_config = json_encode($plupload_init);
 $gd_plupload_init = array('base_plupload_config' => $base_plupload_config,
     'totalImg' => 0,
     'image_limit' => 0,
-    'upload_img_size' => 2);
+    'upload_img_size' => '20mb');
 
 wp_localize_script('atbdp-plupload', 'geodir_plupload_params', $gd_plupload_init);
 wp_localize_script('atbdp-plupload-min', 'geodir_plupload_params', $gd_plupload_init);
@@ -67,7 +67,7 @@ $image_limit         = 0;
 $total_files         = 0;
 $allowed_file_types  = "*";
 $display_file_types  = ".*";
-$multiple            = true;
+$multiple            = false;
 ?>
 <div class="geodir-add-files">
     <div class="geodir_form_row clearfix geodir-files-dropbox" id="<?php echo $id; ?>dropbox">

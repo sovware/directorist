@@ -157,6 +157,10 @@
                             printf( '<input type="time" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr( $cf_placeholder ), esc_attr( $value ) );
                             echo '</div>';
                             break;
+
+                        case 'file'  :
+                            require ATBDP_TEMPLATES_DIR . 'file-uploader.php';
+                            break;
                     }
                     ?>
                 </div>

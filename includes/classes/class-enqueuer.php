@@ -229,7 +229,7 @@ class ATBDP_Enqueuer {
         wp_register_script( 'atbdp_open_street', ATBDP_PUBLIC_ASSETS . 'openstreet/openlayers/OpenLayers.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp_open_street_src', ATBDP_PUBLIC_ASSETS . 'openstreet/openlayers4jgsi/Crosshairs.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script('atbdp-plupload-min', ATBDP_ADMIN_ASSETS.'js/directorist-plupload.min.js', array('jquery'), ATBDP_VERSION);
-        wp_register_script('atbdp-plupload', ATBDP_ADMIN_ASSETS.'js/directorist-plupload.js', array('atbdp-plupload-min','jquery-ui-datepicker'), ATBDP_VERSION);
+        wp_register_script('atbdp-plupload', ATBDP_ADMIN_ASSETS.'js/directorist-plupload.js', array('atbdp-plupload-min'), ATBDP_VERSION);
 
         // we need select2 js on taxonomy edit screen to let the use to select the fonts-awesome icons ans search the icons easily
         // @TODO; make the styles and the scripts specific to the scripts where they are used specifically. For example. load select2js scripts and styles in

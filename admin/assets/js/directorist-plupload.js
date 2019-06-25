@@ -15,7 +15,11 @@ jQuery(document).ready(function($) {
         }
 
 
-        $(".plupload-upload-uic").each(function() {
+        $(".plupload-upload-uic").each(function(ind, el) {
+            setTimeout(() => {
+                var chlNod = el.childNodes;
+                chlNod[13].innerHTML = '';
+            }, 200)
             var $this = $(this);
             var id1 = $this.attr("id");
             var imgId = id1.replace("plupload-upload-ui", "");
@@ -207,6 +211,7 @@ jQuery(document).ready(function($) {
             });
         });
     }
+
 });
 
 function geodir_esc_entities(str){
@@ -329,7 +334,7 @@ function plu_show_thumbs(imgId) {
                 image_caption_html +
                 '<div class="gd-thumb-actions">' +
                 '<span class="thumbeditlink" onclick="gd_edit_image_meta(' + imgId + ',' + i + ');"><i class="far fa-edit" aria-hidden="true"></i></span>' +
-                '<span class="thumbremovelink" id="thumbremovelink' + imgId + i + '"><i class="fas fa-trash-alt" aria-hidden="true"></i></span>' +
+                '<span class="thumbremovelink" id="thumbremovelink' + imgId + i + '"><i class="fa fa-trash" aria-hidden="true"></i></span>' +
                 '</div>' +
                 '</div>');
 
@@ -418,3 +423,4 @@ function gd_set_image_meta(input_id, order_id) {
     plu_show_thumbs(input_id);
     jQuery('[data-lity-close]', window.parent.document).trigger('click');
 }
+

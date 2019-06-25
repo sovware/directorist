@@ -73,13 +73,13 @@ $reviews = ($reviews_count > 1) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review
 $review_info = '';
 $review_info = '';
 if (!empty($enable_review)) {
-    $review_info = "<span class='atbd_meta atbd_listing_rating'>$average<i class='".atbdp_icon_type()."-star'></i></span>";
+    $review_info = "<div class='miwl-rating'><span class='atbd_meta atbd_listing_rating'>$average<i class='".atbdp_icon_type()."-star'></i></span>";
 
     $review_info .= "<div class='atbd_rating_count'>";
 
     $review_info .= "<p>" . $reviews_count . $reviews . "</p>";
 
-    $review_info .= "</div>";
+    $review_info .= "</div></div>";
 }
 
 $tg = !empty($tagline) ? esc_html($tagline) : '';
@@ -89,12 +89,10 @@ $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'small')[0];
 $img_url = !empty($listing_prv_imgurl)?$listing_prv_imgurl:$default_image;
 $image = "<img src=". $img_url.">";
 
-$info_content = "<div class='map_info_window'> <h3>{$t}</h3>";
-$info_content .= $review_info;
-$info_content .= "<p> {$tg} </p>";
-$info_content .= $image; // add the image if available
+$info_content = "<div class='map_info_window'>$image <div class='miw-contents'><h3>{$t}</h3>";
 $info_content .= "<address>{$ad}</address>";
-$info_content .= "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', ATBDP_TEXTDOMAIN) . "</a></div>";
+$info_content .= "<div class='miw-contents-footer'>{$review_info}";
+$info_content .= "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', ATBDP_TEXTDOMAIN) . "</a></div></div></div>";
 /*END INFO WINDOW CONTENT*/
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map', 0);

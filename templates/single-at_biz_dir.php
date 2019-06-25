@@ -33,6 +33,7 @@ $gallery_cropping = get_directorist_option('gallery_cropping', 1);
 $custom_gl_width = get_directorist_option('gallery_crop_width', 670);
 $custom_gl_height = get_directorist_option('gallery_crop_height', 750);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
+$enable_review = get_directorist_option('enable_review', 'yes');
 extract($listing_info);
 /*Prepare Listing Image links*/
 $listing_imgs = (!empty($listing_img) && !empty($display_slider_image)) ? $listing_img : array();
@@ -65,6 +66,22 @@ $hide_contact_owner = !empty($hide_contact_owner) ? $hide_contact_owner : false;
 /*INFO WINDOW CONTENT*/
 $t = get_the_title();
 $t = !empty($t) ? $t : __('No Title', ATBDP_TEXTDOMAIN);
+
+$average = ATBDP()->review->get_average($listing_id);
+$reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
+$reviews = ($reviews_count > 1) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
+$review_info = '';
+$review_info = '';
+if (!empty($enable_review)) {
+    $review_info = "<span class='atbd_meta atbd_listing_rating'>$average<i class='".atbdp_icon_type()."-star'></i></span>";
+
+    $review_info .= "<div class='atbd_rating_count'>";
+
+    $review_info .= "<p>" . $reviews_count . $reviews . "</p>";
+
+    $review_info .= "</div>";
+}
+
 $tg = !empty($tagline) ? esc_html($tagline) : '';
 $ad = !empty($address) ? esc_html($address) : '';
 $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
@@ -73,6 +90,7 @@ $img_url = !empty($listing_prv_imgurl)?$listing_prv_imgurl:$default_image;
 $image = "<img src=". $img_url.">";
 
 $info_content = "<div class='map_info_window'> <h3>{$t}</h3>";
+$info_content .= $review_info;
 $info_content .= "<p> {$tg} </p>";
 $info_content .= $image; // add the image if available
 $info_content .= "<address>{$ad}</address>";
@@ -102,7 +120,6 @@ $feature_badge_text = get_directorist_option('feature_badge_text', 'Feature');
 $new_badge_text = get_directorist_option('new_badge_text', 'New');
 $enable_new_listing = get_directorist_option('display_new_badge_cart', 1);
 $use_nofollow = get_directorist_option('use_nofollow');
-$enable_review = get_directorist_option('enable_review', 'yes');
 $custom_section_lable = get_directorist_option('custom_section_lable', __('Details', ATBDP_TEXTDOMAIN));
 $listing_details_text = get_directorist_option('listing_details_text', __('Listing Details', ATBDP_TEXTDOMAIN));
 $listing_location_text = get_directorist_option('listing_location_text', __('Location', ATBDP_TEXTDOMAIN));

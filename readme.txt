@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 5.2.0
+Stable tag: 5.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,9 +129,16 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 5.2.1 - Jun 15, 2019 =
+= 5.3.0 - Jun 24, 2019 =
 
-* Fix - Display each grid info on single line for related listing slider
+* Add - Line Awesome support
+* Add - Pagination on user dashboard
+* Add - Number type in Custom Fields
+* Add - Back link on single listing's page
+* Add - Related listings slider title
+* Fix - Search by custom fields issue
+* Extend - Category icons
+* Improve - Pagination
 
 = 5.2.0 - Jun 15, 2019 =
 

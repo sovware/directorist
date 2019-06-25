@@ -314,8 +314,8 @@
   left: 0 !important;
   width: 250px !important;
   height: 100% !important;
-  min-height: 282px !important;
-  padding-top: 10px;
+  min-height: 285px !important;
+  padding: 18px 0 0 18px !important;
   display: block !important;
   border-radius: 3px !important;
   .gm-style-iw-d{
@@ -343,7 +343,7 @@
       }
     }
     img{
-      width: auto;
+      width: 100%;
       max-height: 150px;
     }
     .miw-contents{
@@ -375,6 +375,10 @@
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
+        a{
+          font-size: 14px !important;
+          font-weight: 500;
+        }
       }
     }
   }

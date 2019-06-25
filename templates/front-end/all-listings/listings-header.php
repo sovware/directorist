@@ -9,7 +9,7 @@
                         if((!empty($listing_filters_button) && !empty($search_more_filters_fields)) ||!empty($header_title) ) {?>
                             <div class="atbd_generic_header_title">
                             <?php if(!empty($listing_filters_button)) {?>
-                                <button class="more-filter btn btn-outline btn-outline-primary"><span class="fa fa-filter"></span> <?php echo $filters;?></button>
+                                <button class="more-filter btn btn-outline btn-outline-primary"><span class="<?php atbdp_icon_type(true);?>-filter"></span> <?php echo $filters;?></button>
                                 <?php } ?>
                                 <?php
                                     if(!empty($header_title)) { ?>

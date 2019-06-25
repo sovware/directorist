@@ -128,7 +128,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">
                         <h4>
-                                            <span class="fa fa-file-text atbd_area_icon"></span><?php _e($listing_details_text, ATBDP_TEXTDOMAIN) ?>
+                                            <span class="<?php atbdp_icon_type(true);?>-file-text atbd_area_icon"></span><?php _e($listing_details_text, ATBDP_TEXTDOMAIN) ?>
                         </h4>
                     </div>
 
@@ -140,7 +140,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     }
                     if ($enable_social_share) {
                         $listing_header .= '<div class="atbd_action atbd_share">';
-                        $listing_header .= '<span class="fa fa-share-alt"></span>' . __('Share', ATBDP_TEXTDOMAIN) . '';
+                        $listing_header .= '<span class="'.atbdp_icon_type().'-share"></span>' . __('Share', ATBDP_TEXTDOMAIN) . '';
 
                         $listing_header .= '<div class="atbd_director_social_wrap">';
                         //prepare the data for the links because links needs to be escaped
@@ -174,12 +174,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     if ($enable_report_abuse) {
                         $listing_header .= '<div class="atbd_action atbd_report">';
                         if (is_user_logged_in()) {
-                            $listing_header .= '<span class="fa fa-flag"></span><a href="javascript:void(0)" data-toggle="modal"
+                            $listing_header .= '<span class="'.atbdp_icon_type().'-flag"></span><a href="javascript:void(0)" data-toggle="modal"
                                                                            data-target="#atbdp-report-abuse-modal">' . __('Report', ATBDP_TEXTDOMAIN) . '</a>'; //Modal (report abuse form)
                         } else {
                             $listing_header .= '<a href="javascript:void(0)"
                                            class="atbdp-require-login"><span
-                                                    class="fa fa-flag"></span>' . __('Report', ATBDP_TEXTDOMAIN) . '</a>';
+                                                    class="'.atbdp_icon_type().'-flag"></span>' . __('Report', ATBDP_TEXTDOMAIN) . '</a>';
                         }
                         $listing_header .= '<input type="hidden" id="atbdp-post-id" value="' . get_the_ID() . '"/>';
                         $listing_header .= '</div>';
@@ -310,7 +310,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                             $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
                             if (!empty($enable_review)) {
                                 $data_info .= '<span class="atbd_meta atbd_listing_rating">
-                                            ' . $average . '<i class="fa fa-star"></i>
+                                            ' . $average . '<i class="'.atbdp_icon_type().'-star"></i>
                                         </span>';
                             }
                             $data_info .= '</div>';
@@ -342,7 +342,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         }
                         $data_info .= '<div class="atbd_listting_category"><ul class="directory_cats">';
                         if (!empty($cats)) {
-                            $data_info .= '<span class="fa fa-folder-open"></span>';
+                            $data_info .= '<span class="'.atbdp_icon_type().'-tags"></span>';
                             $numberOfCat = count($cats);
                             $output = array();
                             foreach ($cats as $cat) {

@@ -78,7 +78,7 @@ class ATBDP_Listing{
                                <div class="edit_btn_wrap">
                                    <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
                                       class="btn btn-success"><span
-                                               class="fa fa-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN) ?></a>
+                                               class="<?php atbdp_icon_type(true);?>-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN) ?></a>
                                </div>
 
                                <?php

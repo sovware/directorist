@@ -1206,10 +1206,10 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $args = array(
                 'post_type'      => ATBDP_POST_TYPE,
                 'post_status'    => 'publish',
+                'posts_per_page' => (int) $atts['listings_per_page']
             );
 
             if('yes' == $show_pagination) {
-                $args['posts_per_page'] = (int) $atts['listings_per_page'];
                 $args['paged']          = $paged;
             }else{
                 $args['no_found_rows']  = true;
@@ -1584,7 +1584,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             $all_listings                    = new WP_Query($args);
             $paginate                        = get_directorist_option('paginate_all_listings');
-            if ($paginate){
+            if ('yes' == $show_pagination){
                 $listing_count               =  '<span>'.$all_listings->found_posts.'</span>';
             }else{
                 $listing_count               =  '<span>'.count($all_listings->posts).'</span>';
@@ -1743,10 +1743,10 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $args = array(
                     'post_type'      => ATBDP_POST_TYPE,
                     'post_status'    => 'publish',
+                    'posts_per_page' => (int) $atts['listings_per_page']
                 );
 
                 if('yes' == $show_pagination) {
-                    $args['posts_per_page'] = (int) $atts['listings_per_page'];
                     $args['paged']          = $paged;
                 }else{
                     $args['no_found_rows']  = true;
@@ -2141,9 +2141,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $args = array(
                     'post_type'      => ATBDP_POST_TYPE,
                     'post_status'    => 'publish',
+                    'posts_per_page' => (int) $atts['listings_per_page']
                 );
                 if('yes' == $show_pagination) {
-                    $args['posts_per_page'] = (int) $atts['listings_per_page'];
                     $args['paged']          = $paged;
                 }else{
                     $args['no_found_rows']  = true;
@@ -2496,9 +2496,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $args = array(
                     'post_type'      => ATBDP_POST_TYPE,
                     'post_status'    => 'publish',
+                    'posts_per_page' => (int) $atts['listings_per_page']
                 );
                 if('yes' == $show_pagination) {
-                    $args['posts_per_page'] = (int) $atts['listings_per_page'];
                     $args['paged']          = $paged;
                 }else{
                     $args['no_found_rows']  = true;
@@ -2872,9 +2872,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'post_type'      => ATBDP_POST_TYPE,
                 'post_status'    => 'publish',
                 'author'         => $author_id,
+                'posts_per_page'=> (int) get_directorist_option('all_listing_page_items', 6)
             );
             if(!empty($paginate)) {
-                $args['posts_per_page'] = (int) get_directorist_option('all_listing_page_items', 6);
                 $args['paged']          = $paged;
             }else{
                 $args['no_found_rows'] = true;
@@ -2942,7 +2942,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
             }else{
                 // user not logged in;
-                $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_login_page_link()."'> ". __('Here', ATBDP_TEXTDOMAIN)."</a>","<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>"); ?>
+                $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), apply_filters('atbdp_listing_form_login_link',"<a href='".ATBDP_Permalink::get_login_page_link()."'> ". __('Here', ATBDP_TEXTDOMAIN)."</a>"),apply_filters('atbdp_listing_form_signup_link',"<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>")); ?>
 
 
                 <section class="directory_wrapper single_area">

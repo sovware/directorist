@@ -31,7 +31,7 @@ if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) &&
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="fa fa fa-map atbd_area_icon"></span><?php _e($listing_location_text, ATBDP_TEXTDOMAIN); ?>
+                                <span class="<?php atbdp_icon_type(true);?>-map atbd_area_icon"></span><?php _e($listing_location_text, ATBDP_TEXTDOMAIN); ?>
                             </h4>
                         </div>
                     </div>

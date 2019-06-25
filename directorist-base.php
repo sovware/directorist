@@ -635,7 +635,7 @@ final class Directorist_Base
                                     ?>
 
                                     <p class="directory_tag">
-                                        <span class="fa fa-folder-open"></span>
+                                        <span class="<?php atbdp_icon_type(true);?>-tags"></span>
                                         <span>
                                                 <a href="<?= ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
                                                                      <?= esc_html($cats[0]->name); ?>
@@ -1094,7 +1094,7 @@ final class Directorist_Base
             <div class="atbd_content_module atbd_review_module">
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">
-                        <h4><span class="fa fa-star atbd_area_icon"></span><span
+                        <h4><span class="<?php atbdp_icon_type(true);?>-star atbd_area_icon"></span><span
                                     id="reviewCounter"><?php echo $reviews_count; ?></span><?php
                             echo $count_review;
                             ?></h4>
@@ -1139,7 +1139,7 @@ final class Directorist_Base
                             <?php }
                         } else { ?>
                             <div class="notice alert alert-info" role="alert" id="review_notice">
-                                <span class="fa fa-info-circle" aria-hidden="true"></span>
+                                <span class="<?php atbdp_icon_type(true);?>-info-circle" aria-hidden="true"></span>
                                 <?php _e('No reviews found. Be the first to post a review !', ATBDP_TEXTDOMAIN);
                                 ?>
                             </div>
@@ -1162,7 +1162,7 @@ final class Directorist_Base
                     <div class="atbd_content_module">
                         <div class="atbd_content_module__tittle_area">
                             <div class="atbd_area_title">
-                                <h4><span class="fa fa-star"
+                                <h4><span class="<?php atbdp_icon_type(true);?>-star"
                                           aria-hidden="true"></span><?= !empty($cur_user_review) ? __('Update Review', ATBDP_TEXTDOMAIN) : __('Leave a Review', ATBDP_TEXTDOMAIN); ?>
                                 </h4>
                             </div>
@@ -1241,7 +1241,7 @@ final class Directorist_Base
                 <?php };
             } else { ?>
                 <div class="atbd_notice alert alert-info" role="alert">
-                    <span class="fa fa-info-circle" aria-hidden="true"></span>
+                    <span class="<?php atbdp_icon_type(true);?>-info-circle" aria-hidden="true"></span>
                     <?php
                     // get the custom registration page id from the db and create a permalink
                     $reg_link_custom = ATBDP_Permalink::get_registration_page_link();

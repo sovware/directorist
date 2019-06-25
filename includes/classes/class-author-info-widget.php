@@ -76,7 +76,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
                             $youtube = get_user_meta($author_id, 'youtube', true);
                             if (!empty($address)) { ?>
                                 <li>
-                                    <span class="fa fa-map-marker"></span>
+                                    <span class="<?php atbdp_icon_type(true);?>-map-marker"></span>
                                     <span class="atbd_info"><?= !empty($address) ? esc_html($address) : ''; ?></span>
                                 </li>
                             <?php } ?>
@@ -85,7 +85,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
                             if (isset($phone) && !is_empty_v($phone)) { ?>
                                 <!-- In Future, We will have to use a loop to print more than 1 number-->
                                 <li>
-                                    <span class="fa fa-phone"></span>
+                                    <span class="<?php atbdp_icon_type(true);?>-phone"></span>
                                     <span class="atbd_info"><?= esc_html($phone); ?></span>
                                 </li>
                             <?php } ?>
@@ -97,7 +97,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
                                 if (!empty($email)) {
                                     ?>
                                     <li>
-                                        <span class="fa fa-envelope"></span>
+                                        <span class="<?php atbdp_icon_type(true);?>-envelope"></span>
                                         <span class="atbd_info"><?= esc_html($email); ?></span>
                                     </li>
                                     <?php
@@ -107,7 +107,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
                                     if (!empty($email)) {
                                         ?>
                                         <li>
-                                            <span class="fa fa-envelope"></span>
+                                            <span class="<?php atbdp_icon_type(true);?>-envelope"></span>
                                             <span class="atbd_info"><?= esc_html($email); ?></span>
                                         </li>
                                         <?php
@@ -116,7 +116,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
                             }
                             if (!empty($website)) { ?>
                                 <li>
-                                    <span class="fa fa-globe"></span>
+                                    <span class="<?php atbdp_icon_type(true);?>-globe"></span>
                                     <a href="<?= esc_url($website); ?>"
                                        class="atbd_info" <?php echo is_directoria_active() ? 'style="text-transform: none;"' : ''; ?>><?= esc_url($website); ?></a>
                                 </li>
@@ -128,16 +128,16 @@ if (!class_exists('BD_Author_Info_Widget')) {
                         <div class="atbd_social_wrap">
                             <?php
                             if ($facebook) {
-                                printf('<p><a target="_blank" href="%s"><span class="fa fa-facebook"></span></a></p>', $facebook);
+                                printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-facebook"></span></a></p>', $facebook);
                             }
                             if ($twitter) {
-                                printf('<p><a target="_blank" href="%s"><span class="fa fa-twitter"></span></a></p>', $twitter);
+                                printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-twitter"></span></a></p>', $twitter);
                             }
                             if ($linkedIn) {
-                                printf('<p><a target="_blank" href="%s"><span class="fa fa-linkedin"></span></a></p>', $linkedIn);
+                                printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-linkedin"></span></a></p>', $linkedIn);
                             }
                             if ($youtube) {
-                                printf('<p><a target="_blank" href="%s"><span class="fa fa-youtube"></span></a></p>', $youtube);
+                                printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-youtube"></span></a></p>', $youtube);
                             }
                             ?>
                         </div>
@@ -147,8 +147,6 @@ if (!class_exists('BD_Author_Info_Widget')) {
                     </a>
                 </div>
                 <?php
-
-
                 echo $args['after_widget'];
             }
         }

@@ -131,7 +131,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                         $html .= '<div class="atbd_submit_btn_wrapper">';
 
                         if (('yes' == $more_filters_button) && ('yes' == $price_min_max_field || 'yes' == $price_range_field || 'yes' == $rating_field || 'yes' == $tag_field || 'yes' == $open_now_field || 'yes' == $custom_fields || 'yes' == $website_field || 'yes' == $email_field || 'yes' == $phone_field || 'yes' == $address_field || 'yes' == $zip_code_field)) {
-                            $html .= '<button class="more-filter btn btn-outline btn-lg btn-outline-primary"><span class="fa fa-filter"></span>' . __($more_filters_text, ATBDP_TEXTDOMAIN) . '</button>';
+                            $html .= '<button class="more-filter btn btn-outline btn-lg btn-outline-primary"><span class="'.atbdp_icon_type().'-filter"></span>' . __($more_filters_text, ATBDP_TEXTDOMAIN) . '</button>';
                         }
                         if ('yes' == $search_button) {
                             $html .= '<div class="atbd_submit_btn">';
@@ -307,10 +307,13 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
 
                             <ul class="categories">
                                 <?php
-                                foreach ($top_categories as $cat) { ?>
+                                foreach ($top_categories as $cat) {
+                                    $icon = get_cat_icon($cat->term_id);
+                                    $icon_type = substr($icon, 0,2);
+                                    ?>
                                     <li>
-                                        <a href="<?= ATBDP_Permalink::atbdp_get_category_page($cat); ?>">
-                                            <span class="fa <?= get_cat_icon($cat->term_id); ?>"
+                                        <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cat); ?>">
+                                            <span class="<?php echo ('la' === $icon_type)?$icon_type.' '. $icon:'fa '. $icon;?>"
                                                   aria-hidden="true"></span>
                                             <p><?= $cat->name; ?></p>
                                         </a>

@@ -87,7 +87,7 @@ if(!empty($display_map) && 'google' == $select_listing_map) {
 
                             </div>
 
-                            <span class="fa fa-briefcase"></span> <a
+                            <span class="<?php atbdp_icon_type(true);?>-map-marker"></span> <a
                                 href="" class="map-info-link"><?php echo $address; ?></a>
 
 

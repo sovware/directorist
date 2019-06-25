@@ -218,7 +218,7 @@ if (!class_exists('BD_Locations_Widget')) {
 
                 foreach( $terms as $term ) {
                     $child_category = get_term_children($term->term_id,ATBDP_LOCATION);
-                    $plus_icon = (!empty($child_category) && empty($parent) ) ? '<span class="fa fa-plus"></span>' : '';
+                    $plus_icon = (!empty($child_category) && empty($parent) ) ? '<span class="'.atbdp_icon_type().'-plus"></span>' : '';
                     $settings['term_id'] = $term->term_id;
 
                     $count = 0;

@@ -10,7 +10,7 @@ if (!is_user_logged_in()) {
     <div class="directorist">
         <?php
         if (isset($_GET['login']) && $_GET['login'] == 'failed'){
-            printf('<p class="alert-danger">  <span class="fa fa-exclamation"></span>%s</p>',__(' Invalid username or password!', ATBDP_TEXTDOMAIN));
+            printf('<p class="alert-danger">  <span class="'.atbdp_icon_type().'-exclamation"></span>%s</p>',__(' Invalid username or password!', ATBDP_TEXTDOMAIN));
         }
         wp_login_form();
         wp_register();

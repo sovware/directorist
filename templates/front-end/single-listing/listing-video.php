@@ -16,7 +16,7 @@ $display_video_for        = get_directorist_option('display_video_for', 'admin_u
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="fa fa-video-camera atbd_area_icon"></span><?php _e($video_label, ATBDP_TEXTDOMAIN) ?>
+                                <span class="<?php atbdp_icon_type(true);?>-video-camera atbd_area_icon"></span><?php _e($video_label, ATBDP_TEXTDOMAIN) ?>
                             </h4>
                         </div>
                     </div>

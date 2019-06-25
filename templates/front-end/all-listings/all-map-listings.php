@@ -13,7 +13,6 @@ $zoom                       = get_directorist_option('map_zoom_level', 4);
 $container                  = 'container';
 $map_container              = apply_filters('atbdp_map_container',$container);
 
-
 ?>
 <div id="directorist" class="atbd_wrapper">
     <?php  include ATBDP_TEMPLATES_DIR . "front-end/all-listings/listings-header.php"; ?>

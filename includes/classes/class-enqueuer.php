@@ -109,6 +109,7 @@ class ATBDP_Enqueuer {
             //@todo; later minify the bootstrap
             /*@todo; we can also load scripts and style using very strict checking like loading based on post.php or edit.php etc. For example, sweetalert should be included in the post.php file where the user will add/edit listing */
             /* enqueue all styles*/
+
             wp_enqueue_style('atbdp-admin-bootstrap-style');
             wp_enqueue_style('atbdp-font-awesome');
             wp_enqueue_style('atbdp-line-awesome');

@@ -3,8 +3,64 @@
  * Directorist file uploader
  *
  */
+wp_enqueue_style('atbdp-pluploadcss');
 wp_enqueue_script('atbdp-plupload-min');
 wp_enqueue_script('atbdp-plupload');
+$allowed_img_types =  array( 'jpg', 'jpeg', 'jpe', 'gif', 'png' );
+// place js config array for plupload
+$plupload_init = array(
+    'runtimes' => 'html5,silverlight,html4',
+    'browse_button' => 'plupload-browse-button', // will be adjusted per uploader
+    'container' => 'plupload-upload-ui', // will be adjusted per uploader
+    //'drop_element' => 'dropbox', // will be adjusted per uploader
+    'file_data_name' => 'async-upload', // will be adjusted per uploader
+    'multiple_queues' => true,
+    'max_file_size' => '2mb',
+    'url' => admin_url('admin-ajax.php'),
+    'flash_swf_url' => includes_url('js/plupload/plupload.flash.swf'),
+    'silverlight_xap_url' => includes_url('js/plupload/plupload.silverlight.xap'),
+    'filters' => array(array('title' => __('Allowed Files', 'geodirectory'), 'extensions' => '*')),
+    'multipart' => true,
+    'urlstream_upload' => true,
+    'multi_selection' => false, // will be added per uploader
+    // additional post data to send to our ajax hook
+    'multipart_params' => array(
+        '_ajax_nonce' => wp_create_nonce( "geodir_attachment_upload" ), // will be added per uploader
+        'action' => 'geodir_post_attachment_upload', // the ajax action name
+        'imgid' => 0 // will be added per uploader
+    )
+);
+
+$text_value = array(
+    'gd_allowed_img_types'                         => ! empty( $allowed_img_types ) ? implode( ',', $allowed_img_types ) : '',
+    'txt_all_files'                                => __( 'Allowed files', 'geodirectory' ),
+    'err_max_file_size'                            => __( 'File size error : You tried to upload a file over %s', 'geodirectory' ),
+    'err_file_type'                                => __( 'File type error. Allowed file types: %s', 'geodirectory' ),
+    'err_file_upload_limit'                        => __( 'You have reached your upload limit of %s files.', 'geodirectory' ),
+    'err_pkg_upload_limit'                         => __( 'You may only upload %s files with this package, please try again.', 'geodirectory' ),
+    'action_remove'                                => __( 'Remove', 'geodirectory' ),
+    'button_set'                                   => __( 'Set', 'geodirectory' ),
+);
+$thumb_img_arr = array();
+
+if (isset($_REQUEST['pid']) && $_REQUEST['pid'] != '')
+    $thumb_img_arr = geodir_get_images($_REQUEST['pid']);
+
+$totImg = '';
+$image_limit = '';
+if (!empty($thumb_img_arr)) {
+    $totImg = count($thumb_img_arr);
+}
+$base_plupload_config = json_encode($plupload_init);
+$gd_plupload_init = array('base_plupload_config' => $base_plupload_config,
+    'totalImg' => 0,
+    'image_limit' => 0,
+    'upload_img_size' => 2);
+
+wp_localize_script('atbdp-plupload', 'geodir_plupload_params', $gd_plupload_init);
+wp_localize_script('atbdp-plupload-min', 'geodir_plupload_params', $gd_plupload_init);
+wp_localize_script('atbdp-plupload', 'geodir_params', $text_value);
+wp_localize_script('atbdp-plupload-min', 'geodir_params', $text_value);
 $id= $post_id;
 $is_required = 0;
 $image_limit         = 0;

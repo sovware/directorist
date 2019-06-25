@@ -67,12 +67,16 @@ $t = get_the_title();
 $t = !empty($t) ? $t : __('No Title', ATBDP_TEXTDOMAIN);
 $tg = !empty($tagline) ? esc_html($tagline) : '';
 $ad = !empty($address) ? esc_html($address) : '';
-$image = (!empty($attachment_id[0])) ? "<img src='" . esc_url(wp_get_attachment_image_url($attachment_id[0], 'thumbnail')) . "'>" : '';
+$default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+$listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'small')[0];
+$img_url = !empty($listing_prv_imgurl)?$listing_prv_imgurl:$default_image;
+$image = "<img src=". $img_url.">";
+
 $info_content = "<div class='map_info_window'> <h3>{$t}</h3>";
 $info_content .= "<p> {$tg} </p>";
 $info_content .= $image; // add the image if available
 $info_content .= "<address>{$ad}</address>";
-$info_content .= "<a href='http://www.google.com/maps/place/{$manual_lat},{$manual_lng}' target='_blank'> " . __('View On Google Maps', ATBDP_TEXTDOMAIN) . "</a></div>";
+$info_content .= "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', ATBDP_TEXTDOMAIN) . "</a></div>";
 /*END INFO WINDOW CONTENT*/
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map', 0);

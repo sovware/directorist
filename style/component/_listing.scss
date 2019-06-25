@@ -58,8 +58,10 @@
       }
     }
     .atbd_listing_rating {
+      display: flex;
+      align-items: center;
       @extend .atbd_bg-primary;
-      i.fa {
+      i.fa, i.la {
         font-size: 12px;
         margin-left: 5px;
       }

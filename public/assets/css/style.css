@@ -1479,7 +1479,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-right: 0;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_rating i.fa {
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_rating {
+  display: flex;
+  align-items: center;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_rating i.fa, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_rating i.la {
   font-size: 12px;
   margin-left: 5px;
 }

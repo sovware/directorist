@@ -1744,10 +1744,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   background-color: #fff !important;
   top: 0 !important;
   left: 0 !important;
-  width: 100% !important;
+  width: 250px !important;
   height: 100% !important;
-  min-height: 250px !important;
-  padding-top: 10px;
+  min-height: 285px !important;
+  padding: 18px 0 0 18px !important;
   display: block !important;
   border-radius: 3px !important;
 }
@@ -1755,7 +1755,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .gm-style .gm-style-iw .gm-style-iw-d {
   height: 100% !important;
   max-height: 100% !important;
-  overflow: hidden !important;
+  overflow-ys: scroll;
 }
 
 .gm-style .gm-style-iw .gm-style-iw-d .media-left, .gm-style .gm-style-iw .gm-style-iw-d .media-right {
@@ -1771,7 +1771,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .gm-style .gm-style-iw .gm-style-iw-d .media-body .atbdp-listings-title-block h3 {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 18px;
   font-weight: 500;
 }
@@ -1779,6 +1779,54 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .gm-style .gm-style-iw .gm-style-iw-d .media-body a.map-info-link {
   font-size: 15px;
   font-weight: 300;
+}
+
+.gm-style .gm-style-iw .gm-style-iw-d img {
+  width: 100%;
+  max-height: 150px;
+}
+
+.gm-style .gm-style-iw .gm-style-iw-d .miw-contents {
+  padding: 10px 10px 10px 0;
+}
+
+.gm-style .gm-style-iw .gm-style-iw-d .miw-contents h3 {
+  font-size: 15px !important;
+  line-height: 18px !important;
+  font-weight: 500 !important;
+}
+
+.gm-style .gm-style-iw .gm-style-iw-d .miw-contents address {
+  margin-bottom: 7px !important;
+}
+
+.gm-style .gm-style-iw .gm-style-iw-d .miw-contents .miwl-rating {
+  display: flex;
+  align-items: center;
+}
+
+.gm-style .gm-style-iw .gm-style-iw-d .miw-contents .miwl-rating .atbd_meta {
+  margin-right: 5px;
+  background: #444752;
+  color: #fff;
+  padding: 3px 7px;
+  border-radius: 3px;
+}
+
+.gm-style .gm-style-iw .gm-style-iw-d .miw-contents .miwl-rating .atbd_meta i {
+  margin-left: 3px;
+}
+
+.gm-style .gm-style-iw .gm-style-iw-d .miw-contents .miw-contents-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.gm-style .gm-style-iw .gm-style-iw-d .miw-contents .miw-contents-footer a {
+  font-size: 14px !important;
+  font-weight: 500;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'],

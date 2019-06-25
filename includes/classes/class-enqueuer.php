@@ -94,7 +94,7 @@ class ATBDP_Enqueuer {
             wp_register_style( 'select2style', ATBDP_PUBLIC_ASSETS.'css/select2.min.css', false, ATBDP_VERSION );
             wp_register_style( 'atbdp-admin-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION);
             wp_register_style( 'atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', array( 'atbdp-line-awesome','atbdp-font-awesome', 'select2style'), ATBDP_VERSION);
-
+            wp_register_style( 'atbdp-pluploadcss', ATBDP_ADMIN_ASSETS . 'css/directorist-plupload.min.css', array( 'atbdp-font-awesome', 'select2style'), ATBDP_VERSION);
 
             wp_register_script( 'sweetalert', ATBDP_PUBLIC_ASSETS . 'js/sweetalert.min.js', array( 'jquery' ), ATBDP_VERSION, true );
 
@@ -102,17 +102,12 @@ class ATBDP_Enqueuer {
             wp_register_script( 'select2script', ATBDP_PUBLIC_ASSETS . 'js/select2.min.js', array( 'jquery' ), ATBDP_VERSION, true );
             wp_register_script('popper', ATBDP_ADMIN_ASSETS.'js/popper.min.js', array('jquery'), ATBDP_VERSION, true);
             wp_register_script('bs-tooltip', ATBDP_ADMIN_ASSETS.'js/tooltip.js', array('jquery', 'popper'), ATBDP_VERSION, true);
-
-
-
-
             wp_register_script( 'atbdp-admin-script', ATBDP_ADMIN_ASSETS . 'js/main.js', $admin_scripts_dependency , ATBDP_VERSION, true );
-
-
+            wp_register_script('atbdp-plupload-min', ATBDP_ADMIN_ASSETS.'js/directorist-plupload.min.js', array('jquery'), ATBDP_VERSION);
+            wp_register_script('atbdp-plupload', ATBDP_ADMIN_ASSETS.'js/directorist-plupload.js', array('atbdp-plupload-min','jquery-ui-datepicker'), ATBDP_VERSION);
             // Styles
             //@todo; later minify the bootstrap
             /*@todo; we can also load scripts and style using very strict checking like loading based on post.php or edit.php etc. For example, sweetalert should be included in the post.php file where the user will add/edit listing */
-
             /* enqueue all styles*/
             wp_enqueue_style('atbdp-admin-bootstrap-style');
             wp_enqueue_style('atbdp-font-awesome');
@@ -212,7 +207,7 @@ class ATBDP_Enqueuer {
         wp_register_style( 'atmodal', ATBDP_PUBLIC_ASSETS.'css/atmodal.css', false, ATBDP_VERSION );
         wp_register_style( 'atbd_googlefonts', '//fonts.googleapis.com/css?family=Roboto:400,500', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-style', ATBDP_PUBLIC_ASSETS . 'css/style.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
-
+        wp_register_style( 'atbdp-pluploadcss', ATBDP_ADMIN_ASSETS . 'css/directorist-plupload.min.css', array( 'atbdp-font-awesome', 'select2style'), ATBDP_VERSION);
 
         wp_register_script('atbdp-popper-script', ATBDP_PUBLIC_ASSETS . 'js/popper.js', array('jquery'), ATBDP_VERSION, false);
         if ( ! get_directorist_option( 'fix_js_conflict' )){
@@ -232,7 +227,8 @@ class ATBDP_Enqueuer {
         wp_register_script( 'at_modal', ATBDP_PUBLIC_ASSETS . 'js/atmodal.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp_open_street', ATBDP_PUBLIC_ASSETS . 'openstreet/openlayers/OpenLayers.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp_open_street_src', ATBDP_PUBLIC_ASSETS . 'openstreet/openlayers4jgsi/Crosshairs.js', array( 'jquery' ), ATBDP_VERSION, true );
-
+        wp_register_script('atbdp-plupload-min', ATBDP_ADMIN_ASSETS.'js/directorist-plupload.min.js', array('jquery'), ATBDP_VERSION);
+        wp_register_script('atbdp-plupload', ATBDP_ADMIN_ASSETS.'js/directorist-plupload.js', array('atbdp-plupload-min','jquery-ui-datepicker'), ATBDP_VERSION);
 
         // we need select2 js on taxonomy edit screen to let the use to select the fonts-awesome icons ans search the icons easily
         // @TODO; make the styles and the scripts specific to the scripts where they are used specifically. For example. load select2js scripts and styles in

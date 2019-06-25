@@ -1746,7 +1746,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   left: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  min-height: 250px !important;
+  min-height: 200px !important;
   padding-top: 10px;
   display: block !important;
   border-radius: 3px !important;

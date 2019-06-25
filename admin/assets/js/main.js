@@ -33,7 +33,7 @@
             return selected.text;
         }
         var $elem = $(
-            "<span><span class='fa " + selected.element.value + "'></span> " + selected.text + "</span>"
+            "<span><span class='la " + selected.element.value + "'></span> " + selected.text + "</span>"
         );
         return $elem;
     }

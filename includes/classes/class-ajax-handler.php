@@ -55,13 +55,13 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         add_action( 'wp_ajax_nopriv_atbdp_custom_fields_search', array($this,'custom_field_search'),10, 1 );
         //add_action( 'wp_ajax_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all') );
         //add_action( 'wp_ajax_nopriv_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all') );
-        add_action( 'wp_ajax_geodir_post_attachment_upload', array($this,'geodir_post_attachment_upload') );
-        add_action( 'wp_ajax_nopriv_geodir_post_attachment_upload', array($this,'geodir_post_attachment_upload') );
+        add_action( 'wp_ajax_atbdp_post_attachment_upload', array($this,'atbdp_post_attachment_upload') );
+        add_action( 'wp_ajax_nopriv_atbdp_post_attachment_upload', array($this,'atbdp_post_attachment_upload') );
     }
 
-        public function geodir_post_attachment_upload () {
+        public function atbdp_post_attachment_upload () {
             // security
-            check_ajax_referer( 'geodir_attachment_upload', '_ajax_nonce' );
+            check_ajax_referer( 'atbdp_attachment_upload', '_ajax_nonce' );
             $field_id = isset($_POST["imgid"]) ? esc_attr($_POST["imgid"]) : '';
             $post_id = isset($_POST["post_id"]) ? absint($_POST["post_id"]) : '';
             // set GD temp upload dir
@@ -72,7 +72,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
             // handle file upload
             $status = wp_handle_upload( $fixed_file, array(
                 'test_form' => true,
-                'action'    => 'geodir_post_attachment_upload'
+                'action'    => 'atbdp_post_attachment_upload'
             ) );
             // unset GD temp upload dir
             remove_filter( 'upload_dir', array( __CLASS__, 'temp_upload_dir' ) );
@@ -88,7 +88,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
                 $file_info = update_post_meta($post_id,$field_id,$status['url']);
 
                 if ( is_wp_error( $file_info ) ) {
-                    //geodir_error_log( $file_info->get_error_message(), 'post_attachment_upload', __FILE__, __LINE__ );
+                    //atbdp_error_log( $file_info->get_error_message(), 'post_attachment_upload', __FILE__, __LINE__ );
                 } else {
                     $wp_upload_dir = wp_upload_dir() ;
                     echo $status['url'];
@@ -106,13 +106,13 @@ if(!class_exists('ATBDP_Ajax_Handler')):
             /*if(!empty($status['file']) && $post_id){
                 wp_delete_file( $status['file'] );
             }*/
-            // GeoDir_Media::post_attachment_upload();
-            //ATBDP()->GeoDir_Media->post_attachment_upload();
+            // atbdp_Media::post_attachment_upload();
+            //ATBDP()->atbdp_Media->post_attachment_upload();
             wp_die();
         }
 
         public static function temp_upload_dir( $upload ) {
-            $upload['subdir'] = "/geodir_temp";
+            $upload['subdir'] = "/atbdp_temp";
             $upload['path']   = $upload['basedir'] . $upload['subdir'];
             $upload['url']    = $upload['baseurl'] . $upload['subdir'];
 

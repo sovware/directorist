@@ -3508,7 +3508,7 @@ if (!function_exists('atbdp_deactivate_reasons')) {
  * @since   1.0.0
  * @since   1.5.6 Added to check GD invoices and GD checkout pages.
  * @since   1.5.7 Updated to validate buddypress dashboard listings page as a author page.
- * @package GeoDirectory
+ * @package atbdpectory
  * @global object $wp_query WordPress Query object.
  * @global object $post The current post object.
  *

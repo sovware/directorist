@@ -43,8 +43,8 @@ jQuery(document).ready(function($) {
 
             var allowed_exts = jQuery('#' + imgId + '_allowed_types').val();
             allowed_exts = allowed_exts && allowed_exts != '' ? allowed_exts : '';
-            if (imgId == 'post_images' && typeof atbdp_params.gd_allowed_img_types != 'undefined' && atbdp_params.gd_allowed_img_types != '') {
-                allowed_exts = atbdp_params.gd_allowed_img_types;
+            if (imgId == 'post_images' && typeof atbdp_params.atbdp_allowed_img_types != 'undefined' && atbdp_params.atbdp_allowed_img_types != '') {
+                allowed_exts = atbdp_params.atbdp_allowed_img_types;
             }
 
             if (allowed_exts && allowed_exts != '') {
@@ -302,12 +302,12 @@ function plu_show_thumbs(imgId) {
             var file_display = '';
             var file_display_class = '';
             if (file_ext == 'jpg' || file_ext == 'jpe' || file_ext == 'jpeg' || file_ext == 'png' || file_ext == 'gif' || file_ext == 'bmp' || file_ext == 'ico') {
-                file_display = '<img class="gd-file-info" data-id="' + image_id + '" data-title="' + image_title + '" data-caption="' + image_caption + '" data-src="' + image_url + '" src="' + image_url + '" alt=""  />';
+                file_display = '<img class="atbdp-file-info" data-id="' + image_id + '" data-title="' + image_title + '" data-caption="' + image_caption + '" data-src="' + image_url + '" src="' + image_url + '" alt=""  />';
                 if(!!image_title.trim()){
-                    image_title_html = '<span class="gd-title-preview">' + image_title + '</span>';
+                    image_title_html = '<span class="atbdp-title-preview">' + image_title + '</span>';
                 }
                 if(!!image_caption.trim()){
-                    image_caption_html = '<span class="gd-caption-preview">' + image_caption + '</span>';
+                    image_caption_html = '<span class="atbdp-caption-preview">' + image_caption + '</span>';
                 }
             } else {
                 var file_type_class = 'la-file';
@@ -325,14 +325,14 @@ function plu_show_thumbs(imgId) {
                     file_type_class = 'la-file-video-0';
                 }
                 file_display_class = 'file-thumb';
-                file_display = '<i title="' + file_name + '" class="la ' + file_type_class + ' gd-file-info" data-id="' + image_id + '" data-title="' + image_title + '" data-caption="' + image_caption + '" data-src="' + image_url + '" aria-hidden="true"></i>';
+                file_display = '<i title="' + file_name + '" class="la ' + file_type_class + ' atbdp-file-info" data-id="' + image_id + '" data-title="' + image_title + '" data-caption="' + image_caption + '" data-src="' + image_url + '" aria-hidden="true"></i>';
             }
 
             var thumb = $('<div class="thumb ' + file_display_class + '" id="thumb' + imgId + i + '">' +
                 image_title_html +
                 file_display +
                 image_caption_html +
-                '<div class="gd-thumb-actions">' +
+                '<div class="atbdp-thumb-actions">' +
                 '<span class="thumbremovelink" id="thumbremovelink' + imgId + i + '"><i class="fa fa-trash" aria-hidden="true"></i></span>' +
                 '</div>' +
                 '</div>');
@@ -370,7 +370,7 @@ function plu_show_thumbs(imgId) {
         thumbsC.sortable({
             update: function(event, ui) {
                 var kimages = [];
-                thumbsC.find(".gd-file-info").each(function() {
+                thumbsC.find(".atbdp-file-info").each(function() {
                     kimages[kimages.length] = $(this).data("src") + "|" + $(this).data("id") + "|" + $(this).data("title") + "|" + $(this).data("caption");
                     $("#" + imgId, $('#' + imgId + 'plupload-upload-ui').parent()).val(kimages.join("::"));
                     plu_show_thumbs(imgId);
@@ -385,7 +385,7 @@ function plu_show_thumbs(imgId) {
     //console.log("run basics");
 
     var kimages = [];
-    thumbsC.find(".gd-file-info").each(function() {
+    thumbsC.find(".atbdp-file-info").each(function() {
         kimages[kimages.length] = $(this).data("src") + "|" + $(this).data("id") + "|" + $(this).data("title") + "|" + $(this).data("caption");
         $("#" + imgId, $('#' + imgId + 'plupload-upload-ui').parent()).val(kimages.join("::"));
     });
@@ -399,11 +399,11 @@ function gd_edit_image_meta(input, order_id) {
     var image_caption = img_arr[3];
     var html = '';
 
-    html = html + "<div class='gd-modal-text'><label for='gd-image-meta-title'>" + atbdp_params.label_title + "</label><input id='gd-image-meta-title' value='" + image_title + "'></div>"; // title value
-    html = html + "<div class='gd-modal-text'><label for='gd-image-meta-caption'>" + atbdp_params.label_caption + "</label><input id='gd-image-meta-caption' value='" + image_caption + "'></div>"; // caption value
-    html = html + "<div class='gd-modal-button'><button class='button button-primary button-large' onclick='gd_set_image_meta(\"" + input.id + "\"," + order_id + ")'>" + atbdp_params.button_set + "</button></div>"; // caption value
-    jQuery('#gd-image-meta-input').html(html);
-    lity('#gd-image-meta-input');
+    html = html + "<div class='atbdp-modal-text'><label for='atbdp-image-meta-title'>" + atbdp_params.label_title + "</label><input id='atbdp-image-meta-title' value='" + image_title + "'></div>"; // title value
+    html = html + "<div class='atbdp-modal-text'><label for='atbdp-image-meta-caption'>" + atbdp_params.label_caption + "</label><input id='atbdp-image-meta-caption' value='" + image_caption + "'></div>"; // caption value
+    html = html + "<div class='atbdp-modal-button'><button class='button button-primary button-large' onclick='gd_set_image_meta(\"" + input.id + "\"," + order_id + ")'>" + atbdp_params.button_set + "</button></div>"; // caption value
+    jQuery('#atbdp-image-meta-input').html(html);
+    lity('#atbdp-image-meta-input');
 
 }
 
@@ -414,8 +414,8 @@ function gd_set_image_meta(input_id, order_id) {
     var img_arr = images[order_id].split("|");
     var image_url = img_arr[0];
     var image_id = img_arr[1];
-    var image_title = atbdp_esc_entities(jQuery('#gd-image-meta-title').val());
-    var image_caption = atbdp_esc_entities(jQuery('#gd-image-meta-caption').val());
+    var image_title = atbdp_esc_entities(jQuery('#atbdp-image-meta-title').val());
+    var image_caption = atbdp_esc_entities(jQuery('#atbdp-image-meta-caption').val());
     images[order_id] = image_url + "|" + image_id + "|" + image_title + "|" + image_caption;
     imagesS = images.join("::");
     jQuery("#" + input_id, jQuery('#' + input_id + 'plupload-upload-ui').parent()).val(imagesS);

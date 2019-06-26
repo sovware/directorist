@@ -64,7 +64,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
             check_ajax_referer( 'atbdp_attachment_upload', '_ajax_nonce' );
             $field_id = isset($_POST["imgid"]) ? esc_attr($_POST["imgid"]) : '';
             $post_id = isset($_POST["post_id"]) ? absint($_POST["post_id"]) : '';
-            // set GD temp upload dir
+            // set directory temp upload dir
             add_filter( 'upload_dir', array( __CLASS__, 'temp_upload_dir' ) );
 
             $fixed_file = $_FILES[ $field_id . 'async-upload' ];

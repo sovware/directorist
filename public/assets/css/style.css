@@ -874,6 +874,15 @@ body.atbd_content_active #directorist.atbd_wrapper {
   border-top: 1px solid #e3e6ef;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_director_social_wrap:before {
+  position: absolute;
+  content: '';
+  height: 9px;
+  width: 100%;
+  top: -9px;
+  left: 0;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbdb_content_module_contents {
   padding: 30px;
 }

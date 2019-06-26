@@ -115,7 +115,7 @@ if ( !class_exists('ATBDP_SEO') ):
                  * @since 1.5.4
                  *
                  * @param string $meta_desc   The page description including variables.
-                 * @param string $gd_page The GeoDirectory page type if any.
+                 * @param string $gd_page The atbdpectory page type if any.
                  */
                 $meta_desc = apply_filters( 'atbdp_seo_meta_description_pre', __( $meta_desc, ATBDP_TEXTDOMAIN ), $atbdp_page, '' );
 
@@ -136,7 +136,7 @@ if ( !class_exists('ATBDP_SEO') ):
          *
          * @since 1.0.0
          * @since 1.6.18 Option added to disable overwrite by Yoast SEO titles & metas on GD pages.
-         * @package GeoDirectory
+         * @package atbdpectory
          * @global object $wp WordPress object.
          * @param string $title Old title.
          * @param string $sep Title separator.
@@ -241,7 +241,7 @@ if ( !class_exists('ATBDP_SEO') ):
              *
              * @since 1.5.4
              * @param string $title The page title including variables.
-             * @param string $atbdp_page The GeoDirectory page type if any.
+             * @param string $atbdp_page The atbdpectory page type if any.
              * @param string $sep The title separator symbol.
              */
             return apply_filters('atbdp_seo_meta_title', __($title, ATBDP_TEXTDOMAIN), $atbdp_page, $sep);

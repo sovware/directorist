@@ -121,6 +121,14 @@
             -webkit-box-shadow: $box-shadow;
             -moz-box-shadow: $box-shadow;
             box-shadow: $box-shadow;
+            &:before{
+              position: absolute;
+              content: '';
+              height: 9px;
+              width: 100%;
+              top: -9px;
+              left: 0;
+            }
           }
         }
       }

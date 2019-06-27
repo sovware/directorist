@@ -63,6 +63,14 @@
 				</div>
 			</div>
 			<div class="vp-right-panel">
+
+                <div class="atbdp_searchable_settings">
+                    <h3 for="atbdp_sSearch"><?php _e('Search', ATBDP_TEXTDOMAIN); ?></h3>
+
+                    <input class="vp-input input-large" id="atbdp_sSearch" placeholder="<?php _e('Search Settings Now', ATBDP_TEXTDOMAIN); ?>" type="text">
+
+                </div>
+
 				<form id="vp-option-form" class="vp-option-form vp-js-option-form" method="POST">
 					<div id="vp-submit-top" class="vp-submit top">
 						<div class="inner">

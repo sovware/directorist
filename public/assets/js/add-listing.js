@@ -125,12 +125,20 @@
     });
 
     // Tags
-    $('#at_biz_dir-tags').select2({
-        placeholder: atbdp_add_listing.i18n_text.tag_selection,
-        /*tags: true,
-        tokenSeparators: [',', ' ']*/
-        allowClear: true
-    });
+    var createTag = atbdp_add_listing.create_new_tag;
+    if(createTag){
+        $('#at_biz_dir-tags').select2({
+            placeholder: atbdp_add_listing.i18n_text.tag_selection,
+            tags: true,
+            tokenSeparators: [',', ' '],
+        });
+    }else {
+        $('#at_biz_dir-tags').select2({
+            placeholder: atbdp_add_listing.i18n_text.tag_selection,
+            allowClear: true
+        });
+    }
+
 
 })(jQuery);
 

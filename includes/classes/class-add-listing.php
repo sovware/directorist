@@ -213,6 +213,10 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
                     if (!empty($_POST['listing_id'])){
+                        /**
+                         * @since 5.4.1
+                         */
+                        do_action('atbdp_before_processing_to_update_listing');
                         $edit_l_status = get_directorist_option('edit_listing_status');
                         // update the post
                         $args['ID']= absint($_POST['listing_id']); // set the ID of the post to update the post

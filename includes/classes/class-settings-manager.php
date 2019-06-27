@@ -3519,6 +3519,12 @@ The Administrator of ==SITE_NAME==
                 ),
                 array(
                     'type' => 'toggle',
+                    'name' => 'create_new_tag',
+                    'label' => __('Allow Creating New Tag', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'require_tags',
                     'label' => __('Required', ATBDP_TEXTDOMAIN),
                     'default' => 0,
@@ -4554,7 +4560,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'display_publish_date',
-                        'label' => __('Display Publish date', ATBDP_TEXTDOMAIN),
+                        'label' => __('Hide Publish date', ATBDP_TEXTDOMAIN),
                         'default' => '1',
                     ),
                     array(

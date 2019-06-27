@@ -8,21 +8,25 @@ jQuery(document).ready(function($) {
         var msgErr = '';
         var post_id = '';
         // set the post id
-        if (jQuery("#geodirectory-add-post input[name='ID']").length) {
-            var post_id = jQuery("#geodirectory-add-post input[name='ID']").val(); // frontend
+        if (jQuery("#atbdpectory-add-post input[name='ID']").length) {
+            var post_id = jQuery("#atbdpectory-add-post input[name='ID']").val(); // frontend
         } else {
             post_id = jQuery("#post input[name='post_ID']").val(); // backend
         }
 
 
-        $(".plupload-upload-uic").each(function() {
+        $(".plupload-upload-uic").each(function(ind, el) {
+            setTimeout(() => {
+                var chlNod = el.childNodes;
+                chlNod[13].innerHTML = '';
+            }, 200)
             var $this = $(this);
             var id1 = $this.attr("id");
             var imgId = id1.replace("plupload-upload-ui", "");
 
             plu_show_thumbs(imgId);
 
-            pconfig = JSON.parse(geodir_plupload_params.base_plupload_config);
+            pconfig = JSON.parse(atbdp_plupload_params.base_plupload_config);
             pconfig["browse_button"] = imgId + pconfig["browse_button"];
             pconfig["container"] = imgId + pconfig["container"];
             if (jQuery('#' + imgId + 'dropbox').length) {
@@ -39,12 +43,12 @@ jQuery(document).ready(function($) {
 
             var allowed_exts = jQuery('#' + imgId + '_allowed_types').val();
             allowed_exts = allowed_exts && allowed_exts != '' ? allowed_exts : '';
-            if (imgId == 'post_images' && typeof geodir_params.gd_allowed_img_types != 'undefined' && geodir_params.gd_allowed_img_types != '') {
-                allowed_exts = geodir_params.gd_allowed_img_types;
+            if (imgId == 'post_images' && typeof atbdp_params.gd_allowed_img_types != 'undefined' && atbdp_params.gd_allowed_img_types != '') {
+                allowed_exts = atbdp_params.gd_allowed_img_types;
             }
 
             if (allowed_exts && allowed_exts != '') {
-                var txt_all_files = (typeof geodir_params.txt_all_files != 'undefined' && geodir_params.txt_all_files != '') ? geodir_params.txt_all_files : 'Allowed files';
+                var txt_all_files = (typeof atbdp_params.txt_all_files != 'undefined' && atbdp_params.txt_all_files != '') ? atbdp_params.txt_all_files : 'Allowed files';
                 pconfig['filters'] = [{
                     'title': txt_all_files,
                     'extensions': allowed_exts
@@ -81,19 +85,19 @@ jQuery(document).ready(function($) {
                 if (files.code == -600) {
                     jQuery('#' + imgId + 'upload-error').addClass('upload-error');
 
-                    if (typeof geodir_params.err_max_file_size != 'undefined' && geodir_params.err_max_file_size != '') {
-                        msgErr = geodir_params.err_max_file_size;
+                    if (typeof atbdp_params.err_max_file_size != 'undefined' && atbdp_params.err_max_file_size != '') {
+                        msgErr = atbdp_params.err_max_file_size;
                     } else {
                         msgErr = 'File size error : You tried to upload a file over %s';
                     }
-                    msgErr = msgErr.replace("%s", geodir_plupload_params.upload_img_size);
+                    msgErr = msgErr.replace("%s", atbdp_plupload_params.upload_img_size);
 
                     jQuery('#' + imgId + 'upload-error').html(msgErr);
                 } else if (files.code == -601) {
                     jQuery('#' + imgId + 'upload-error').addClass('upload-error');
 
-                    if (typeof geodir_params.err_file_type != 'undefined' && geodir_params.err_file_type != '') {
-                        msgErr = geodir_params.err_file_type;
+                    if (typeof atbdp_params.err_file_type != 'undefined' && atbdp_params.err_file_type != '') {
+                        msgErr = atbdp_params.err_file_type;
                     } else {
                         msgErr = 'File type error. Allowed file types: %s';
                     }
@@ -112,8 +116,8 @@ jQuery(document).ready(function($) {
             });
 
             //a file was added in the queue
-            //totalImg = geodir_plupload_params.totalImg;
-            //limitImg = geodir_plupload_params.image_limit;
+            //totalImg = atbdp_plupload_params.totalImg;
+            //limitImg = atbdp_plupload_params.image_limit;
             uploader.bind('FilesAdded', function(up, files) {
                 var totalImg = parseInt(jQuery("#" + imgId + "totImg").val());
                 var limitImg = parseInt(jQuery("#" + imgId + "image_limit").val());
@@ -126,8 +130,8 @@ jQuery(document).ready(function($) {
                             up.removeFile(up.files[0]);
                         } // remove images
 
-                        if (typeof geodir_params.err_file_upload_limit != 'undefined' && geodir_params.err_file_upload_limit != '') {
-                            msgErr = geodir_params.err_file_upload_limit;
+                        if (typeof atbdp_params.err_file_upload_limit != 'undefined' && atbdp_params.err_file_upload_limit != '') {
+                            msgErr = atbdp_params.err_file_upload_limit;
                         } else {
                             msgErr = 'You have reached your upload limit of %s files.';
                         }
@@ -144,8 +148,8 @@ jQuery(document).ready(function($) {
                             up.removeFile(up.files[0]);
                         } // remove images
 
-                        if (typeof geodir_params.err_pkg_upload_limit != 'undefined' && geodir_params.err_pkg_upload_limit != '') {
-                            msgErr = geodir_params.err_pkg_upload_limit;
+                        if (typeof atbdp_params.err_pkg_upload_limit != 'undefined' && atbdp_params.err_pkg_upload_limit != '') {
+                            msgErr = atbdp_params.err_pkg_upload_limit;
                         } else {
                             msgErr = 'You may only upload %s files with this package, please try again.';
                         }
@@ -179,7 +183,7 @@ jQuery(document).ready(function($) {
                 indexes[i] = up;
                 clearInterval(timer);
                 timer = setTimeout(function() {
-                    //geodir_remove_file_index(indexes);
+                    //atbdp_remove_file_index(indexes);
                 }, 1000);
                 i++;
                 $('#' + file.id).fadeOut();
@@ -207,9 +211,10 @@ jQuery(document).ready(function($) {
             });
         });
     }
+
 });
 
-function geodir_esc_entities(str){
+function atbdp_esc_entities(str){
     var entityMap = {
         '&': '&amp;',
         '<': '&lt;',
@@ -226,7 +231,7 @@ function geodir_esc_entities(str){
     });
 }
 
-function geodir_remove_file_index(indexes) {
+function atbdp_remove_file_index(indexes) {
     for (var i = 0; i < indexes.length; i++) {
         if (indexes[i].files.length > 0) {
             indexes[i].removeFile(indexes[i].files[0]);
@@ -245,8 +250,8 @@ function plu_show_thumbs(imgId) {
     var imagesS = $("#" + imgId, $('#' + imgId + 'plupload-upload-ui').parent()).val();
 
     var txtRemove = 'Remove';
-    if (typeof geodir_params.action_remove != 'undefined' && geodir_params.action_remove != '') {
-        txtRemove = geodir_params.action_remove;
+    if (typeof atbdp_params.action_remove != 'undefined' && atbdp_params.action_remove != '') {
+        txtRemove = atbdp_params.action_remove;
     }
 
     if (!imagesS) { return; }
@@ -278,8 +283,8 @@ function plu_show_thumbs(imgId) {
             }
 
             //Esc title and caption
-            image_title   = geodir_esc_entities(image_title);
-            image_caption = geodir_esc_entities(image_caption);
+            image_title   = atbdp_esc_entities(image_title);
+            image_caption = atbdp_esc_entities(image_caption);
 
             var file_ext = image_url.substring(image_url.lastIndexOf('.') + 1);
 
@@ -305,22 +310,22 @@ function plu_show_thumbs(imgId) {
                     image_caption_html = '<span class="gd-caption-preview">' + image_caption + '</span>';
                 }
             } else {
-                var file_type_class = 'fa-file';
+                var file_type_class = 'la-file';
                 if (file_ext == 'pdf') {
-                    file_type_class = 'fa-file-pdf';
+                    file_type_class = 'la-file-pdf-o';
                 } else if (file_ext == 'zip' || file_ext == 'tar') {
-                    file_type_class = 'fa-file-archive';
+                    file_type_class = 'la-file-archive-0';
                 } else if (file_ext == 'doc' || file_ext == 'odt') {
-                    file_type_class = 'fa-file-word';
+                    file_type_class = 'la-file-word-0';
                 } else if (file_ext == 'txt' || file_ext == 'text') {
-                    file_type_class = 'fa-file-text';
+                    file_type_class = 'la-file-text-0';
                 } else if (file_ext == 'csv' || file_ext == 'ods' || file_ext == 'ots') {
-                    file_type_class = 'fa-file-excel';
+                    file_type_class = 'la-file-excel-0';
                 } else if (file_ext == 'avi' || file_ext == 'mp4' || file_ext == 'mov') {
-                    file_type_class = 'fa-file-video';
+                    file_type_class = 'la-file-video-0';
                 }
                 file_display_class = 'file-thumb';
-                file_display = '<i title="' + file_name + '" class="fa ' + file_type_class + ' gd-file-info" data-id="' + image_id + '" data-title="' + image_title + '" data-caption="' + image_caption + '" data-src="' + image_url + '" aria-hidden="true"></i>';
+                file_display = '<i title="' + file_name + '" class="la ' + file_type_class + ' gd-file-info" data-id="' + image_id + '" data-title="' + image_title + '" data-caption="' + image_caption + '" data-src="' + image_url + '" aria-hidden="true"></i>';
             }
 
             var thumb = $('<div class="thumb ' + file_display_class + '" id="thumb' + imgId + i + '">' +
@@ -328,8 +333,7 @@ function plu_show_thumbs(imgId) {
                 file_display +
                 image_caption_html +
                 '<div class="gd-thumb-actions">' +
-                '<span class="thumbeditlink" onclick="gd_edit_image_meta(' + imgId + ',' + i + ');"><i class="far fa-edit" aria-hidden="true"></i></span>' +
-                '<span class="thumbremovelink" id="thumbremovelink' + imgId + i + '"><i class="fas fa-trash-alt" aria-hidden="true"></i></span>' +
+                '<span class="thumbremovelink" id="thumbremovelink' + imgId + i + '"><i class="fa fa-trash" aria-hidden="true"></i></span>' +
                 '</div>' +
                 '</div>');
 
@@ -395,9 +399,9 @@ function gd_edit_image_meta(input, order_id) {
     var image_caption = img_arr[3];
     var html = '';
 
-    html = html + "<div class='gd-modal-text'><label for='gd-image-meta-title'>" + geodir_params.label_title + "</label><input id='gd-image-meta-title' value='" + image_title + "'></div>"; // title value
-    html = html + "<div class='gd-modal-text'><label for='gd-image-meta-caption'>" + geodir_params.label_caption + "</label><input id='gd-image-meta-caption' value='" + image_caption + "'></div>"; // caption value
-    html = html + "<div class='gd-modal-button'><button class='button button-primary button-large' onclick='gd_set_image_meta(\"" + input.id + "\"," + order_id + ")'>" + geodir_params.button_set + "</button></div>"; // caption value
+    html = html + "<div class='gd-modal-text'><label for='gd-image-meta-title'>" + atbdp_params.label_title + "</label><input id='gd-image-meta-title' value='" + image_title + "'></div>"; // title value
+    html = html + "<div class='gd-modal-text'><label for='gd-image-meta-caption'>" + atbdp_params.label_caption + "</label><input id='gd-image-meta-caption' value='" + image_caption + "'></div>"; // caption value
+    html = html + "<div class='gd-modal-button'><button class='button button-primary button-large' onclick='gd_set_image_meta(\"" + input.id + "\"," + order_id + ")'>" + atbdp_params.button_set + "</button></div>"; // caption value
     jQuery('#gd-image-meta-input').html(html);
     lity('#gd-image-meta-input');
 
@@ -410,11 +414,12 @@ function gd_set_image_meta(input_id, order_id) {
     var img_arr = images[order_id].split("|");
     var image_url = img_arr[0];
     var image_id = img_arr[1];
-    var image_title = geodir_esc_entities(jQuery('#gd-image-meta-title').val());
-    var image_caption = geodir_esc_entities(jQuery('#gd-image-meta-caption').val());
+    var image_title = atbdp_esc_entities(jQuery('#gd-image-meta-title').val());
+    var image_caption = atbdp_esc_entities(jQuery('#gd-image-meta-caption').val());
     images[order_id] = image_url + "|" + image_id + "|" + image_title + "|" + image_caption;
     imagesS = images.join("::");
     jQuery("#" + input_id, jQuery('#' + input_id + 'plupload-upload-ui').parent()).val(imagesS);
     plu_show_thumbs(input_id);
     jQuery('[data-lity-close]', window.parent.document).trigger('click');
 }
+

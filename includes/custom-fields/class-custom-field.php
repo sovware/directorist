@@ -644,23 +644,64 @@ class ATBDP_Custom_Field
                         <?php _e('Select file type', ATBDP_TEXTDOMAIN); ?><br/>
                     </p>
                     <?php
-                    $file_type = esc_attr($post_meta['file_type'][0]);
+                    $file_type = isset($post_meta['file_type']) ? esc_attr($post_meta['file_type'][0]) : '*';
                     ?>
                     <select name="file_type" class="select form-control">
-                        <option value="12">fdsfsdf</option>
-                        <option value="13">fdsfsdfdsfdsfsdgtrewtdfsdfdsfgdsf</option>
-                        <option>fdsdsfdsfsdf</option>
-                        <option>fdsfsdfdsfdsfsdgtrewtdf</option>
+                        <option value="all_types" <?php selected('*', $file_type); ?>>All Types</option>
+                        <option disabled >Image Formats</option>
+                        <option value="jpg" <?php selected('jpg', $file_type); ?>>.jpg</option>
+                        <option value="jpeg" <?php selected('jpeg', $file_type); ?>>.jpeg</option>
+                        <option value="gif" <?php selected('gif', $file_type); ?>>.gif</option>
+                        <option value="png" <?php selected('png', $file_type); ?>>.png</option>
+                        <option value="bmp" <?php selected('bmp', $file_type); ?>>.bmp</option>
+                        <option value="ico" <?php selected('ico', $file_type); ?>>.ico</option>
+                        <option disabled>Video Formats</option>
+                        <option value="asf" <?php selected('asf', $file_type); ?>>.asf</option>
+                        <option value="flv" <?php selected('flv', $file_type); ?>>.flv</option>
+                        <option value="avi" <?php selected('avi', $file_type); ?>>.avi</option>
+                        <option value="mkv" <?php selected('mkv', $file_type); ?>>.mkv</option>
+                        <option value="mp4" <?php selected('mp4', $file_type); ?>>.mp4</option>
+                        <option value="mpeg" <?php selected('mpeg', $file_type); ?>>.mpeg</option>
+                        <option value="mpg" <?php selected('mpg', $file_type); ?>>.mpg</option>
+                        <option value="wmv" <?php selected('wmv', $file_type); ?>>.wmv</option>
+                        <option value="3gp" <?php selected('3gp', $file_type); ?>>.3gp</option>
+                        <option disabled>Audio Formats</option>
+                        <option value="ogg" <?php selected('ogg', $file_type); ?>>.ogg</option>
+                        <option value="mp3" <?php selected('mp3', $file_type); ?>>.mp3</option>
+                        <option value="wav" <?php selected('wav', $file_type); ?>>.wav</option>
+                        <option value="wma" <?php selected('wma', $file_type); ?>>.wma</option>
+                        <option disabled>Text Formats</option>
+                        <option value="css" <?php selected('css', $file_type); ?>>.css</option>
+                        <option value="csv" <?php selected('csv', $file_type); ?>>.csv</option>
+                        <option value="htm" <?php selected('htm', $file_type); ?>>.htm</option>
+                        <option value="html" <?php selected('html', $file_type); ?>>.html</option>
+                        <option value="txt" <?php selected('txt', $file_type); ?>>.txt</option>
+                        <option value="rtx" <?php selected('rtx', $file_type); ?>>.rtx</option>
+                        <option value="vtt" <?php selected('vtt', $file_type); ?>>.vtt</option>
+                        <option disabled>Application Formats</option>
+                        <option value="doc" <?php selected('doc', $file_type); ?>>.doc</option>
+                        <option value="docx" <?php selected('docx', $file_type); ?>>.docx</option>
+                        <option value="odt" <?php selected('odt', $file_type); ?>>.odt</option>
+                        <option value="pdf" <?php selected('pdf', $file_type); ?>>.pdf</option>
+                        <option value="pot" <?php selected('pot', $file_type); ?>>.pot</option>
+                        <option value="ppt" <?php selected('ppt', $file_type); ?>>.ppt</option>
+                        <option value="pptx" <?php selected('pptx', $file_type); ?>>.pptx</option>
+                        <option value="rar" <?php selected('rar', $file_type); ?>>.rar</option>
+                        <option value="rtf" <?php selected('rtf', $file_type); ?>>.rtf</option>
+                        <option value="swf" <?php selected('swf', $file_type); ?>>.swf</option>
+                        <option value="tar" <?php selected('tar', $file_type); ?>>.tar</option>
+                        <option value="xls" <?php selected('xls', $file_type); ?>>.xls</option>
+                        <option value="xlsx" <?php selected('xlsx', $file_type); ?>>.xlsx</option>
+                        <option value="gpx" <?php selected('gpx', $file_type); ?>>.gpx</option>
                     </select>
                 </div>
-
                 <div class="field-options field-option-file"
                      style="display:none;">
                     <label><?php _e('File Size', ATBDP_TEXTDOMAIN); ?></label>
                     <p class="description">
                         <?php _e('Set maximum file size to upload', ATBDP_TEXTDOMAIN); ?><br/>
                     </p>
-                    <input class="text form-control" type="text" value="<?php if (isset($post_meta['file_size'])) echo esc_attr($post_meta['file_size'][0]); ?>" name="file_size">
+                    <input class="text form-control" type="text" value="<?php echo !empty($post_meta['file_size']) ?   esc_attr($post_meta['file_size'][0]) : '2mb'; ?>" name="file_size">
                 </div>
 
                 <div class="field-options field-option-select field-option-checkbox field-option-radio"

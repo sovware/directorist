@@ -189,7 +189,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 #directorist.atbd_wrapper .dropdown-menu {
-  z-index: 10000;
+  z-index: 100000;
 }
 
 .atbdp_preload * {
@@ -872,6 +872,15 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_director_social_wrap ul li + li {
   border-top: 1px solid #e3e6ef;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_director_social_wrap:before {
+  position: absolute;
+  content: '';
+  height: 9px;
+  width: 100%;
+  top: -9px;
+  left: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbdb_content_module_contents {
@@ -3487,6 +3496,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   width: 100%;
   box-shadow: none;
   visibility: hidden;
+}
+
+.ads_float .ads-advanced {
+  overflow-y: scroll;
 }
 
 .directory_search_area .ads-advanced {

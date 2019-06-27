@@ -778,7 +778,7 @@ final class Directorist_Base
                                 slidesToShow: <?php echo $rel_listing_column;?>,
                                 slidesToScroll: 1,
                                 infinite: true,
-                                dots: true
+                                dots: false
                             }
                         },
                         {

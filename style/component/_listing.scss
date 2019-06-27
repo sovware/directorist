@@ -93,6 +93,9 @@
         line-height: 28px;
         text-align: center;
         color: #444752;
+        &.la{
+          font-size: 15px;
+        }
       }
     }
   }
@@ -174,6 +177,9 @@
                 @extend .atbd_color-primary;
                 font-size: 15px;
                 margin-right: 8px;
+                &.la{
+                  font-size: 17px;
+                }
               }
             }
           }
@@ -278,6 +284,10 @@
       margin-left: 10px;
     }
   }
+}
+
+#directorist.atbd_wrapper span.la{
+  font-size: 17px;
 }
 
 #directorist.atbd_wrapper .atbd_single_line_card_info{

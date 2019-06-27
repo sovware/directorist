@@ -993,6 +993,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   text-align: center;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title span.la {
+  font-size: 17px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
   width: 65%;
   display: inline-block;
@@ -1528,6 +1532,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #444752;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_listting_category a span.la {
+  font-size: 15px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing {
   margin-bottom: 30px;
   background: #ffffff;
@@ -1622,6 +1630,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p span {
   font-size: 15px;
   margin-right: 8px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p span.la {
+  font-size: 17px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content {
@@ -1729,6 +1741,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_action_btn .dropdown + .dropdown {
   margin-left: 10px;
+}
+
+#directorist.atbd_wrapper span.la {
+  font-size: 17px;
 }
 
 #directorist.atbd_wrapper .atbd_single_line_card_info .atbd_listing_info .atbd_content_upper .atbd_listing_title,

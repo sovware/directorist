@@ -231,6 +231,9 @@
           font-size: 14px;
           @extend .atbd_color-primary;
           text-align: center;
+          &.la{
+            font-size: 17px;
+          }
         }
       }
       .atbd_info {

@@ -4734,7 +4734,7 @@ The Administrator of ==SITE_NAME==
                         'default' => atbdp_get_option('all_listing_page', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),
-                    array(
+                   'single_listing_page' => array(
                         'type' => 'select',
                         'name' => 'single_listing_page',
                         'label' => __('Single Listing Page', ATBDP_TEXTDOMAIN),

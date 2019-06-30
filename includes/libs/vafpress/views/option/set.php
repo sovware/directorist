@@ -206,7 +206,7 @@
 				console.log(panel_id)
 				$(`a[href=#${panel_id}]`).click();
 				$(document).scrollTop(el_len[tg_index].offsetTop);
-				el_len[tg_index].classList.add('select');
+				el_len[tg_index].classList.add('vp_select');
 
 			} else if(el_len[tg_index].closest('.vp-left-panel')){
 				el_len[tg_index].closest('a').click();
@@ -217,7 +217,7 @@
 		})
 
 		$('.vp-save').on('click', () => {
-			$('*').removeClass('select');
+			$('*').removeClass('vp_select');
 		});
 
 

@@ -99,7 +99,7 @@
 				</form>
 			</div>
 		</div>
-		
+
 	</div>
 </div>
 
@@ -110,12 +110,12 @@
 	}
 	.search_detail {
 		position: absolute;
-		background: #fff;		
+		background: #fff;
 		z-index: 111111;
 		border: 1px solid #eee;
-		box-shadow: 0px 0px 1px #777;	
+		box-shadow: 0px 0px 1px #777;
 		display: none;
-		overflow-y: scroll;			
+		overflow-y: scroll;
 	}
 	.search_detail.active{
 		display: block;
@@ -126,77 +126,60 @@
 </style>
 <script>
 	$(document).ready(() => {
+
 		$('.atbdp_searchable_settings').append('<div class="search_detail"></div>');
-		// data get
+		// data get use gloval variable
 		const 	data_arr = [],
 				data_arr_el = [],
 				data = $('#vp-wrap').find('p, label, span'),
 				data_split = data,
 				s_index = [];
 
-			$('#vp-wrap').find('h3, h1, h4, h5').map((index, el) => {
-				data_arr.push(el.innerText.trim().toLowerCase());				
-				data_arr_el.push(el);
-			})
-
-		
-			data_split.map((key, value) => {
+		$('#vp-wrap').find('h3, h1, h4, h5').map((index, el) => {
+			data_arr.push(el.innerText.trim().toLowerCase());
+			data_arr_el.push(el);
+		})
+		data_split.map((key, value) => {
 			const text = value.innerText;
-			if(text !== undefined ){				
+			if(text !== undefined ){
 				data_arr.push(text.trim().toLowerCase());
 				data_arr_el.push(value);
 				s_index.push(key);
 			}
 		});
 
-		
-		
-		
 		// search section
 		var search = document.querySelector('#atbdp_sSearch');
-		var filter3 = null;		
-		$(search).on('keyup', (e) => {						
-			var val = e.target.value.toLowerCase();			
+		var filter3 = null;
+		$(search).on('keyup', (e) => {
+			//filter for search
+			var val = e.target.value.toLowerCase();
 			var filter = data_arr.filter((el, index) => {
 				return el.startsWith(val);
 			});
 
-			
+			// data filter for add subtitle
 			var search_store = [];
-	
-		
 			var filter2 = data_arr_el.filter((el, index) => {
 				return el.innerText.trim().toLowerCase().startsWith(val)
 			})
-
 			filter3 = filter2;
-
 			if(val !== '') {
 				filter2.map((key, value) => {
 					if(key.closest('.vp-right-panel' && '.vp-panel')){
-						var panel_id = key.closest('.vp-panel').getAttribute('id');				
+						var panel_id = key.closest('.vp-panel').getAttribute('id');
 						search_store.push($(`a[href=#${panel_id}]`).text().trim());
-					} else if(key.closest('.vp-left-panel' && '.vp-menu-level-1')){									
+					} else if(key.closest('.vp-left-panel' && '.vp-menu-level-1')){
 						search_store.push($(key).closest('a').text().trim());
 					}
 				})
 			}
-		
 
-			
-
-				
-
-			
-
-
-		var filter_item = '<ul>';
-
+			// filter data and insert data
+			var filter_item = '<ul>';
 			filter.map((el, index) =>{
 				filter_item += `<li><a href="#" class="s_item" index=${index}>${el}</a><b>(${search_store[index]})</b></li>`;
-			})
-
-
+			});
 			filter_item += '</ul>';
 			$('.search_detail').addClass('active');
 			if(e.target.value) {
@@ -204,58 +187,50 @@
 			} else {
 				$('.search_detail').html('');
 			}
-		});	
+		});
 
-			
-			
-			$('body').on('click', '.s_item', (e) => {
+		// click to tab	for data finding
+		$('body').on('click', '.s_item', (e) => {
 			var tg_content = '';
 			var el_len = [];
-				e.preventDefault();
-				tg_content = e.target.text;				
-				tg_index 	= e.target.getAttribute('index');
-				
-				console.log(tg_index)
-				console.log(el_len)
+			e.preventDefault();
+			tg_content = e.target.text;
+			tg_index 	= e.target.getAttribute('index');
 
-				// data_arr_el.map((el, index) => {
-				// 	if(el.innerText.toLowerCase().trim() == tg_content){						
-				// 		el_len.push(el);
-				// 	};
-				// })
-
-				filter3.map((el, index) => {
-					el_len.push(el);
-					// if(el.innerText.toLowerCase().trim() == tg_content){						
-					// };
-				})
-
-				if(el_len[tg_index].closest('.vp-right-panel' && '.vp-panel')){
-					var panel_id = el_len[tg_index].closest('.vp-panel').getAttribute('id');
-					console.log(panel_id)
-					$(`a[href=#${panel_id}]`).click();
-
-				} else if(el_len[tg_index].closest('.vp-left-panel')){									
-					el_len[tg_index].closest('a').click();
-				}
-
-				$('.search_detail').removeClass('active');
+			filter3.map((el, index) => {
+				el_len.push(el);
 			})
 
-		
-		
-			$('body').on('click', (e) => {									
-				$('.search_detail').removeClass('active');
-			});
+			if(el_len[tg_index].closest('.vp-right-panel' && '.vp-panel')){
+				var panel_id = el_len[tg_index].closest('.vp-panel').getAttribute('id');
+				console.log(panel_id)
+				$(`a[href=#${panel_id}]`).click();
+				$(document).scrollTop(el_len[tg_index].offsetTop);
+				el_len[tg_index].classList.add('select');
 
-				
-	
-		
+			} else if(el_len[tg_index].closest('.vp-left-panel')){
+				el_len[tg_index].closest('a').click();
+			}
+			$('.search_detail').removeClass('active');
+
+
+		})
+
+		$('.vp-save').on('click', () => {
+			$('*').removeClass('select');
+		});
+
+
+		// popup remove
+		$('body').on('click', (e) => {
+			$('.search_detail').removeClass('active');
+		});
+		// write css
 		$('.search_detail').css({
-			width : search.offsetWidth, 
+			width : search.offsetWidth,
 			maxHeight : search.offsetWidth / 2,
 			left : search.offsetLeft+'px',
 			top : search.offsetTop+search.offsetHeight+'px'
 		});
-	})		
+	})
 </script>

@@ -560,7 +560,9 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                 $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
                                                 $category = get_post_meta($post->ID, '_admin_category_select', true);
                                                 $category_name = !empty($cats) ? $cats[0]->name : 'Uncategorized';
-                                                $category_icon = !empty($cats) ? esc_attr(get_cat_icon($cats[0]->term_id)) : 'fa fa-square-o';
+                                                $category_icon = !empty($cats) ? esc_attr(get_cat_icon($cats[0]->term_id)) : atbdp_icon_type().'-tags';
+
+                                                $icon_type = substr($category_icon, 0,2);
                                                 $category_link = !empty($cats) ? esc_url(ATBDP_Permalink::atbdp_get_category_page($cats[0])) : '#';
                                                 $post_link = esc_url(get_post_permalink($post->ID));
 
@@ -619,11 +621,11 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             </td>
 
                                             <td class="saved_item_category">
-                                                <a href="%s"><span class="fa %s"></span>%s</a>
+                                                <a href="%s"><span class="%s"></span>%s</a>
                                             </td>
 
 
-                                        </tr>', $post_link, $img_src, $title, $post_link, $title, $category_link, $category_icon, $category_name, atbdp_get_remove_favourites_page_link($post->ID), __('Remove', ATBDP_TEXTDOMAIN));
+                                        </tr>', $post_link, $img_src, $title, $post_link, $title, $category_link, ('la' === $icon_type)?$icon_type.' '. $category_icon:'fa '. $category_icon , $category_name, atbdp_get_remove_favourites_page_link($post->ID), __('Remove', ATBDP_TEXTDOMAIN));
                                             }
                                             ?>
                                             </tbody>

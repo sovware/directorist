@@ -815,41 +815,96 @@
     flex-wrap: wrap;
     overflow: visible !important;
 }
-.inner.search-wrapper .atbdp_searchable_wrapper{
+.inner.search-wrapper .atbdp_searchable{
     display: flex;
     flex-wrap: wrap;
     margin-left: auto;
     align-items: center;
 }
-.inner.search-wrapper .atbdp_searchable_wrapper .atbdp_searchable_settings{
+.inner.search-wrapper .atbdp_searchable_settings{
     position: relative;
-    margin-right: 30px;
 }
-.inner.search-wrapper .atbdp_searchable_wrapper .search_detail {
+.inner.search-wrapper .atbdp_searchable_settings .search_detail {
     position: absolute;
     background: #fff;
     z-index: 111111;
     border: 1px solid #eee;
     box-shadow: 0px 0px 1px #ddd;
     display: none;
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
-.inner.search-wrapper .atbdp_searchable_wrapper .search_detail.active{
+.inner.search-wrapper .atbdp_searchable_settings .search_detail.active{
     display: block;
 }
-.inner.search-wrapper .atbdp_searchable_wrapper #atbdp_sSearch {
+.inner.search-wrapper .atbdp_searchable_settings #atbdp_sSearch {
     width: 230px;
     height: 29px;
     border-radius: 3px;
     padding: 0 10px;
-    box-shadow: 0 1px 0 #eee;
 }
-.inner.search-wrapper .atbdp_searchable_wrapper .search_detail ul{
+.inner.search-wrapper .atbdp_searchable_settings .search_detail ul{
     padding: 10px 10px;
     margin:0;
 }
-.inner.search-wrapper .atbdp_searchable_wrapper .search_detail ul li a{
+.inner.search-wrapper .atbdp_searchable_settings .search_detail ul li a{
     text-decoration: none;
     padding-right: 5px;
     text-transform: capitalize;
+}
+.vp-wrap .vp-field.vp_select{
+    background: rgba(0,133,186,0.1);
+    animation: fadeIn ease 2s;
+    -webkit-animation: fadeIn ease 2s;
+    -moz-animation: fadeIn ease 2s;
+    -o-animation: fadeIn ease 2s;
+    -ms-animation: fadeIn ease 2s;
+}
+
+.vp-section.vp_select > h3{
+    border: 1px solid #e1d815 !important;
+}
+
+@keyframes fadeIn{
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+
+@-moz-keyframes fadeIn {
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+
+@-o-keyframes fadeIn {
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+
+@-ms-keyframes fadeIn {
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
 }

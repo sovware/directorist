@@ -288,8 +288,9 @@
 
     });
 
-
-    $("[data-toggle='tooltip']").tooltip();
+    if($.fn.tooltip){
+        $("[data-toggle='tooltip']").tooltip();
+    }
 
     /*USER DASHBOARD RELATED SCRIPTS*/
     $(document).on('click', '#remove_listing', function (e) {
@@ -427,7 +428,7 @@
     }
 
     /* Responsive grid control */
-    setTimeout(()=>{
+    $(document).ready(function () {
         var d_wrapper = $("#directorist.atbd_wrapper");
         var columnLeft = $(".atbd_col_left.col-lg-8");
         var columnRight = $(".directorist.col-lg-4");
@@ -446,7 +447,7 @@
         if(listing_size < 200){
             $(".atbd_single_listing .db_btn_area").addClass("db_btn_area--sm");
         }
-    }, 2000)
+    })
 
 
 })(jQuery);

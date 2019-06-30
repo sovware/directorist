@@ -66,21 +66,19 @@
 
 
 
-                <div class="atbdp_searchable_settings">
-                    <h3 for="atbdp_sSearch"><?php _e('Search', ATBDP_TEXTDOMAIN); ?></h3>
-
-                    <input class="vp-input input-large" id="atbdp_sSearch" placeholder="<?php _e('Search Settings Now', ATBDP_TEXTDOMAIN); ?>" type="text">
-
-                </div>
-
-
-
 				<form id="vp-option-form" class="vp-option-form vp-js-option-form" method="POST">
 					<div id="vp-submit-top" class="vp-submit top">
-						<div class="inner">
-							<input class="vp-save vp-button button button-primary" type="submit" value="<?php _e('Save Changes', ATBDP_TEXTDOMAIN); ?>" />
-							<p class="vp-js-save-loader save-loader" style="display: none;"><img src="<?php VP_Util_Res::img_out('ajax-loader.gif', ''); ?>" /><?php _e('Saving Now', ATBDP_TEXTDOMAIN); ?></p>
-							<p class="vp-js-save-status save-status" style="display: none;"></p>
+						<div class="inner search-wrapper">
+                            <p class="vp-js-save-loader save-loader" style="display: none;"><img src="<?php VP_Util_Res::img_out('ajax-loader.gif', ''); ?>" /><?php _e('Saving Now', ATBDP_TEXTDOMAIN); ?></p>
+                            <p class="vp-js-save-status save-status" style="display: none;"></p>
+
+                            <div class="atbdp_searchable_wrapper">
+                                <div class="atbdp_searchable_settings">
+                                    <input class="vp-input input-large" id="atbdp_sSearch" placeholder="<?php _e('Search Settings Now', ATBDP_TEXTDOMAIN); ?>" type="text">
+
+                                </div>
+                                <input class="vp-save vp-button button button-primary" type="submit" value="<?php _e('Save Changes', ATBDP_TEXTDOMAIN); ?>" />
+                            </div>
 						</div>
 					</div>
 					<?php foreach ($set->get_menus() as $menu): ?>
@@ -101,33 +99,30 @@
 				</form>
 			</div>
 		</div>
-		
+
 	</div>
 </div>
 
 
 <style>
-	.atbdp_searchable_settings{
+	/*.atbdp_searchable_settings{
 		position: relative;
 	}
 	.search_detail {
 		position: absolute;
-		background: #fff;		
+		background: #fff;
 		z-index: 111111;
 		border: 1px solid #eee;
-		box-shadow: 0px 0px 1px #777;	
+		box-shadow: 0px 0px 1px #777;
 		display: none;
-		overflow-y: scroll;			
+		overflow-y: scroll;
 	}
 	.search_detail.active{
 		display: block;
 	}
 	#atbdp_sSearch {
 		width: 400px;
-	}
-	.select{
-		background: #dddddd90 !important;		
-	}
+	}*/
 </style>
 <script>
 	$(document).ready(() => {
@@ -141,12 +136,12 @@
 				s_index = [];
 
 		$('#vp-wrap').find('h3, h1, h4, h5').map((index, el) => {
-			data_arr.push(el.innerText.trim().toLowerCase());				
+			data_arr.push(el.innerText.trim().toLowerCase());
 			data_arr_el.push(el);
-		})		
+		})
 		data_split.map((key, value) => {
 			const text = value.innerText;
-			if(text !== undefined ){				
+			if(text !== undefined ){
 				data_arr.push(text.trim().toLowerCase());
 				data_arr_el.push(value);
 				s_index.push(key);
@@ -155,16 +150,16 @@
 
 		// search section
 		var search = document.querySelector('#atbdp_sSearch');
-		var filter3 = null;		
+		var filter3 = null;
 		$(search).on('keyup', (e) => {
-			//filter for search						
-			var val = e.target.value.toLowerCase();						
+			//filter for search
+			var val = e.target.value.toLowerCase();
 			var filter = data_arr.filter((el, index) => {
 				return el.startsWith(val);
 			});
-			
+
 			// data filter for add subtitle
-			var search_store = [];		
+			var search_store = [];
 			var filter2 = data_arr_el.filter((el, index) => {
 				return el.innerText.trim().toLowerCase().startsWith(val)
 			})
@@ -172,13 +167,13 @@
 			if(val !== '') {
 				filter2.map((key, value) => {
 					if(key.closest('.vp-right-panel' && '.vp-panel')){
-						var panel_id = key.closest('.vp-panel').getAttribute('id');				
+						var panel_id = key.closest('.vp-panel').getAttribute('id');
 						search_store.push($(`a[href=#${panel_id}]`).text().trim());
-					} else if(key.closest('.vp-left-panel' && '.vp-menu-level-1')){									
+					} else if(key.closest('.vp-left-panel' && '.vp-menu-level-1')){
 						search_store.push($(key).closest('a').text().trim());
 					}
 				})
-			}			
+			}
 
 			// filter data and insert data
 			var filter_item = '<ul>';
@@ -192,18 +187,18 @@
 			} else {
 				$('.search_detail').html('');
 			}
-		});	
-			
+		});
+
 		// click to tab	for data finding
 		$('body').on('click', '.s_item', (e) => {
 			var tg_content = '';
 			var el_len = [];
 			e.preventDefault();
-			tg_content = e.target.text;				
+			tg_content = e.target.text;
 			tg_index 	= e.target.getAttribute('index');
 
 			filter3.map((el, index) => {
-				el_len.push(el);					
+				el_len.push(el);
 			})
 
 			if(el_len[tg_index].closest('.vp-right-panel' && '.vp-panel')){
@@ -211,31 +206,31 @@
 				console.log(panel_id)
 				$(`a[href=#${panel_id}]`).click();
 				$(document).scrollTop(el_len[tg_index].offsetTop);
-				el_len[tg_index].classList.add('select');				
+				el_len[tg_index].classList.add('vp_select');
 
-			} else if(el_len[tg_index].closest('.vp-left-panel')){									
+			} else if(el_len[tg_index].closest('.vp-left-panel')){
 				el_len[tg_index].closest('a').click();
 			}
 			$('.search_detail').removeClass('active');
 
-		
-		})	
-		
+
+		})
+
 		$('.vp-save').on('click', () => {
-			$('*').removeClass('select');
+			$('*').removeClass('vp_select');
 		});
-			
-		
+
+
 		// popup remove
-		$('body').on('click', (e) => {									
+		$('body').on('click', (e) => {
 			$('.search_detail').removeClass('active');
 		});
-		// write css	
+		// write css
 		$('.search_detail').css({
-			width : search.offsetWidth, 
+			width : search.offsetWidth,
 			maxHeight : search.offsetWidth / 2,
 			left : search.offsetLeft+'px',
 			top : search.offsetTop+search.offsetHeight+'px'
 		});
-	})		
+	})
 </script>

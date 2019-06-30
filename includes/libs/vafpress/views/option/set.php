@@ -69,14 +69,14 @@
 				<form id="vp-option-form" class="vp-option-form vp-js-option-form" method="POST">
 					<div id="vp-submit-top" class="vp-submit top">
 						<div class="inner search-wrapper">
-                            <p class="vp-js-save-loader save-loader" style="display: none;"><img src="<?php VP_Util_Res::img_out('ajax-loader.gif', ''); ?>" /><?php _e('Saving Now', ATBDP_TEXTDOMAIN); ?></p>
-                            <p class="vp-js-save-status save-status" style="display: none;"></p>
+                            <div class="atbdp_searchable_settings">
+                                <input class="vp-input input-large" id="atbdp_sSearch" placeholder="<?php _e('Search settings here...', ATBDP_TEXTDOMAIN); ?>" type="text">
 
-                            <div class="atbdp_searchable_wrapper">
-                                <div class="atbdp_searchable_settings">
-                                    <input class="vp-input input-large" id="atbdp_sSearch" placeholder="<?php _e('Search Settings Now', ATBDP_TEXTDOMAIN); ?>" type="text">
+                            </div>
 
-                                </div>
+                            <div class="atbdp_searchable">
+                                <p class="vp-js-save-loader save-loader" style="display: none;"><img src="<?php VP_Util_Res::img_out('ajax-loader.gif', ''); ?>" /><?php _e('Saving Now', ATBDP_TEXTDOMAIN); ?></p>
+                                <p class="vp-js-save-status save-status" style="display: none;"></p>
                                 <input class="vp-save vp-button button button-primary" type="submit" value="<?php _e('Save Changes', ATBDP_TEXTDOMAIN); ?>" />
                             </div>
 						</div>

@@ -245,32 +245,32 @@
 
 		var count = 0;
 		$(search).on('keyup', (e) => {
-
-			$('.search_detail a').removeClass('vp_item_active');
-			if(e.keyCode === 40){
-				count ++;
-				if(count >= $('.search_detail a').length){
-					count = 0;
+			if(e.target.value !== ''){
+				$('.search_detail a').removeClass('vp_item_active');
+				if(e.keyCode === 40){
+					count ++;
+					if(count > $('.search_detail a').length -1){
+						count = 0;
+					}
+				} else if(e.keyCode === 38){
+					count --;
+					if(count <= 0){
+						count = $('.search_detail a').length -1;
+					}
 				}
-			} else if(e.keyCode === 38){
-				count --;
-				if(count <= 0){
-					count = $('.search_detail a').length;
+				
+				var elemaent = $('.search_detail a');
+				elemaent[count].classList.add('vp_item_active');
+				if(e.keyCode === 13) {
+					e.preventDefault();
+					e.stopPropagation();
+					if(filter3[count].closest('.vp-right-panel' && '.vp-panel')){
+						var id = filter3[count].closest('.vp-panel').getAttribute('id');						
+						$(`a[href=#${id}]`).click();
+						$(document).scrollTop(filter3[count].offsetTop);
+					}
 				}
-			}
-			
-			var elemaent = $('.search_detail a');
-			elemaent[count].classList.add('vp_item_active');
-			if(e.keyCode === 13) {
-				e.preventDefault();
-				e.stopPropagation();
-				if(filter3[count].closest('.vp-right-panel' && '.vp-panel')){
-					var id = filter3[count].closest('.vp-panel').getAttribute('id');
-					$(`a[href=#${id}]`).click();
-
-				}
-			}
-									
+			}							
 		});
 	})
 </script>

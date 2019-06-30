@@ -74,7 +74,7 @@
 
                             <div class="atbdp_searchable_wrapper">
                                 <div class="atbdp_searchable_settings">
-                                    <input class="vp-input input-large" id="atbdp_sSearch" placeholder="<?php _e('Search Settings Now', ATBDP_TEXTDOMAIN); ?>" type="text">
+                                    <input class="vp-input input-large" autocomplete="off" id="atbdp_sSearch" placeholder="<?php _e('Search Settings Now', ATBDP_TEXTDOMAIN); ?>" type="text">
 
                                 </div>
                                 <input class="vp-save vp-button button button-primary" type="submit" value="<?php _e('Save Changes', ATBDP_TEXTDOMAIN); ?>" />
@@ -123,6 +123,10 @@
 	#atbdp_sSearch {
 		width: 400px;
 	}*/
+
+	.vp_item_active {
+		background: #ddd;
+	}
 </style>
 <script>
 	$(document).ready(() => {
@@ -241,15 +245,32 @@
 
 		var count = 0;
 		$(search).on('keyup', (e) => {
+
+			$('.search_detail a').removeClass('vp_item_active');
 			if(e.keyCode === 40){
 				count ++;
 				if(count >= $('.search_detail a').length){
 					count = 0;
 				}
-				var elemaent = $('.search_detail a');
-				elemaent[count].classList.add('vp_item');
-				
-			};
+			} else if(e.keyCode === 38){
+				count --;
+				if(count <= 0){
+					count = $('.search_detail a').length;
+				}
+			}
+			
+			var elemaent = $('.search_detail a');
+			elemaent[count].classList.add('vp_item_active');
+			if(e.keyCode === 13) {
+				e.preventDefault();
+				e.stopPropagation();
+				if(filter3[count].closest('.vp-right-panel' && '.vp-panel')){
+					var id = filter3[count].closest('.vp-panel').getAttribute('id');
+					$(`a[href=#${id}]`).click();
+
+				}
+			}
+									
 		});
 	})
 </script>

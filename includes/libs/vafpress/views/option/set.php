@@ -66,21 +66,19 @@
 
 
 
-                <div class="atbdp_searchable_settings">
-                    <h3 for="atbdp_sSearch"><?php _e('Search', ATBDP_TEXTDOMAIN); ?></h3>
-
-                    <input class="vp-input input-large" id="atbdp_sSearch" placeholder="<?php _e('Search Settings Now', ATBDP_TEXTDOMAIN); ?>" type="text">
-
-                </div>
-
-
-
 				<form id="vp-option-form" class="vp-option-form vp-js-option-form" method="POST">
 					<div id="vp-submit-top" class="vp-submit top">
-						<div class="inner">
-							<input class="vp-save vp-button button button-primary" type="submit" value="<?php _e('Save Changes', ATBDP_TEXTDOMAIN); ?>" />
-							<p class="vp-js-save-loader save-loader" style="display: none;"><img src="<?php VP_Util_Res::img_out('ajax-loader.gif', ''); ?>" /><?php _e('Saving Now', ATBDP_TEXTDOMAIN); ?></p>
-							<p class="vp-js-save-status save-status" style="display: none;"></p>
+						<div class="inner search-wrapper">
+                            <p class="vp-js-save-loader save-loader" style="display: none;"><img src="<?php VP_Util_Res::img_out('ajax-loader.gif', ''); ?>" /><?php _e('Saving Now', ATBDP_TEXTDOMAIN); ?></p>
+                            <p class="vp-js-save-status save-status" style="display: none;"></p>
+
+                            <div class="atbdp_searchable_wrapper">
+                                <div class="atbdp_searchable_settings">
+                                    <input class="vp-input input-large" id="atbdp_sSearch" placeholder="<?php _e('Search Settings Now', ATBDP_TEXTDOMAIN); ?>" type="text">
+
+                                </div>
+                                <input class="vp-save vp-button button button-primary" type="submit" value="<?php _e('Save Changes', ATBDP_TEXTDOMAIN); ?>" />
+                            </div>
 						</div>
 					</div>
 					<?php foreach ($set->get_menus() as $menu): ?>
@@ -107,7 +105,7 @@
 
 
 <style>
-	.atbdp_searchable_settings{
+	/*.atbdp_searchable_settings{
 		position: relative;
 	}
 	.search_detail {
@@ -124,7 +122,7 @@
 	}
 	#atbdp_sSearch {
 		width: 400px;
-	}
+	}*/
 </style>
 <script>
 	$(document).ready(() => {

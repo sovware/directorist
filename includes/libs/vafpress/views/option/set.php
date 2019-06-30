@@ -197,16 +197,23 @@
 			tg_content = e.target.text;
 			tg_index 	= e.target.getAttribute('index');
 
+			$(search).val(tg_content);
+
 			filter3.map((el, index) => {
 				el_len.push(el);
 			})
 
 			if(el_len[tg_index].closest('.vp-right-panel' && '.vp-panel')){
 				var panel_id = el_len[tg_index].closest('.vp-panel').getAttribute('id');
-				console.log(panel_id)
+				
 				$(`a[href=#${panel_id}]`).click();
 				$(document).scrollTop(el_len[tg_index].offsetTop);
-				el_len[tg_index].classList.add('vp_select');
+				
+				if(el_len[tg_index].closest('.vp-field')) {
+					el_len[tg_index].closest('.vp-field').classList.add('vp_select');
+				} else if(el_len[tg_index].closest('.vp-section')) {
+					el_len[tg_index].closest('.vp-section').classList.add('vp_select');
+				}
 
 			} else if(el_len[tg_index].closest('.vp-left-panel')){
 				el_len[tg_index].closest('a').click();
@@ -227,10 +234,22 @@
 		});
 		// write css
 		$('.search_detail').css({
-			width : search.offsetWidth,
-			maxHeight : search.offsetWidth / 2,
+			width : search.offsetWidth,			
 			left : search.offsetLeft+'px',
 			top : search.offsetTop+search.offsetHeight+'px'
+		});
+
+		var count = 0;
+		$(search).on('keyup', (e) => {
+			if(e.keyCode === 40){
+				count ++;
+				if(count >= $('.search_detail a').length){
+					count = 0;
+				}
+				var elemaent = $('.search_detail a');
+				elemaent[count].classList.add('vp_item');
+				
+			};
 		});
 	})
 </script>

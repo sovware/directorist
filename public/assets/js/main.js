@@ -288,8 +288,9 @@
 
     });
 
-
-    $("[data-toggle='tooltip']").tooltip();
+    if($.fn.tooltip){
+        $("[data-toggle='tooltip']").tooltip();
+    }
 
     /*USER DASHBOARD RELATED SCRIPTS*/
     $(document).on('click', '#remove_listing', function (e) {

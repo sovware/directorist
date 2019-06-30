@@ -2807,6 +2807,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-right: 6px;
 }
 
+#directorist.atbd_wrapper .btn-sm {
+  font-size: 14px;
+  padding: 4px 8px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .select2-container--default.select2-container--focus .select2-selection--multiple {
   border-color: #e3e6ef;
 }

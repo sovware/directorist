@@ -10,8 +10,6 @@
         allowClear: true
     });
 
-    $("[data-toggle='tooltip']").tooltip();
-
     //ad search js
     var showMore = atbdp_search_listing.i18n_text.show_more;
     var showLess = atbdp_search_listing.i18n_text.show_less;

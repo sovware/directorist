@@ -130,7 +130,6 @@
 </style>
 <script>
 	$(document).ready(() => {
-
 		$('.atbdp_searchable_settings').append('<div class="search_detail"></div>');
 		// data get use gloval variable
 		const 	data_arr = [],
@@ -210,8 +209,11 @@
 			if(el_len[tg_index].closest('.vp-right-panel' && '.vp-panel')){
 				var panel_id = el_len[tg_index].closest('.vp-panel').getAttribute('id');
 
+				// click to tab
 				$(`a[href=#${panel_id}]`).click();
-				$(document).scrollTop(el_len[tg_index].offsetTop);
+				// animation add
+				var body = $("html, body");
+				body.stop().animate({scrollTop: el_len[tg_index].offsetTop}, 500, 'swing');				
 
 				if(el_len[tg_index].closest('.vp-field')) {
 					el_len[tg_index].closest('.vp-field').classList.add('vp_select');
@@ -223,30 +225,14 @@
 				el_len[tg_index].closest('a').click();
 			}
 			$('.search_detail').removeClass('active');
-
-
 		})
 
-		$('.vp-save').on('click', () => {
-			$('*').removeClass('vp_select');
-		});
-
-
-		// popup remove
-		$('body').on('click', (e) => {
-			$('.search_detail').removeClass('active');
-		});
-		// write css
-		$('.search_detail').css({
-			width : search.offsetWidth,
-			left : search.offsetLeft+'px',
-			top : search.offsetTop+search.offsetHeight+'px'
-		});
-
+		// arrow key and enter key functional start
 		var count = 0;
-		$(search).on('keyup', (e) => {
+		$(search).on('keyup', (e) => { //key event
 			if(e.target.value !== ''){
 				$('.search_detail a').removeClass('vp_item_active');
+				// key code condition for up and down arrow
 				if(e.keyCode === 40){
 					count ++;
 					if(count > $('.search_detail a').length -1){
@@ -259,18 +245,45 @@
 					}
 				}
 				
-				var elemaent = $('.search_detail a');
-				elemaent[count].classList.add('vp_item_active');
+				var elemaent = $('.search_detail a'); // search item list
+				elemaent[count].classList.add('vp_item_active'); // search item list add class for active
+				// press enter key functional
 				if(e.keyCode === 13) {
 					e.preventDefault();
 					e.stopPropagation();
 					if(filter3[count].closest('.vp-right-panel' && '.vp-panel')){
-						var id = filter3[count].closest('.vp-panel').getAttribute('id');						
+						var id = filter3[count].closest('.vp-panel').getAttribute('id');
+						// click tab use enter key						
 						$(`a[href=#${id}]`).click();
-						$(document).scrollTop(filter3[count].offsetTop);
+						// animation scroll top for enter key
+						var body = $("html, body");
+						body.stop().animate({scrollTop: filter3[count].offsetTop}, 500, 'swing');
+						// select class add use enter key
+						if(filter3[count].closest('.vp-field')) {
+							filter3[count].closest('.vp-field').classList.add('vp_select');
+						} else if(filter3[count].closest('.vp-section')) {
+							filter3[count].closest('.vp-section').classList.add('vp_select');
+						}
+
 					}
 				}
 			}							
 		});
+		// select class remove
+		$('.vp-save').on('click', () => {
+			$('*').removeClass('vp_select');
+		});
+
+		// popup remove
+		$('body').on('click', (e) => {
+			$('.search_detail').removeClass('active');
+		});
+		// write css
+		$('.search_detail').css({
+			width : search.offsetWidth,
+			left : search.offsetLeft+'px',
+			top : search.offsetTop+search.offsetHeight+'px'
+		});
+
 	})
 </script>

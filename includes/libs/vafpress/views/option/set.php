@@ -268,6 +268,7 @@
 						var id = filter3[count].closest('.vp-panel').getAttribute('id');						
 						$(`a[href=#${id}]`).click();
 						$(document).scrollTop(filter3[count].offsetTop);
+						$(search).val(elemaent[count].innerText.trim())
 					}
 				}
 			}							

@@ -174,7 +174,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     if ($enable_report_abuse) {
                         $listing_header .= '<div class="atbd_action atbd_report">';
                         if (is_user_logged_in()) {
-                            $listing_header .= '<span class="'.atbdp_icon_type().'-flag"></span><a href="javascript:void(0)" data-toggle="modal"
+                            $listing_header .= '<span class="'.atbdp_icon_type().'-flag"></span><a href="" 
                                                                            data-target="#atbdp-report-abuse-modal">' . __('Report', ATBDP_TEXTDOMAIN) . '</a>'; //Modal (report abuse form)
                         } else {
                             $listing_header .= '<a href="javascript:void(0)"
@@ -184,16 +184,14 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         $listing_header .= '<input type="hidden" id="atbdp-post-id" value="' . get_the_ID() . '"/>';
                         $listing_header .= '</div>';
                     } ?>
-                    <div class="modal fade" id="atbdp-report-abuse-modal" tabindex="-1" role="dialog"
-                         aria-labelledby="atbdp-report-abuse-modal-label" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content modal-dialog-centered">
+                    <div class="modal fade" id="atbdp-report-abuse-modal">
+                        <div class="at-modal-content">
+                            <div class="atm-contents-inner">
                                 <form id="atbdp-report-abuse-form" class="form-vertical" role="form">
                                     <div class="modal-header">
                                         <h3 class="modal-title"
                                             id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', ATBDP_TEXTDOMAIN); ?></h3>
-                                        <button type="button" class="close" data-dismiss="modal"><span
-                                                aria-hidden="true">&times;</span></button>
+                                        <a href="" class="at-modal-close"><span aria-hidden="true">&times;</span></a>
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group">

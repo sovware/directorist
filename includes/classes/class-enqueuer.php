@@ -346,6 +346,7 @@ class ATBDP_Enqueuer {
         wp_enqueue_script('atbdp_add_listing_validator');
         wp_enqueue_script('atbdp_custom_field_validator');
 
+        $new_tag = get_directorist_option('create_new_tag',0);
         // Internationalization text for javascript file especially add-listing.js
         $i18n_text = array(
             'confirmation_text' => __('Are you sure', ATBDP_TEXTDOMAIN),
@@ -392,7 +393,8 @@ class ATBDP_Enqueuer {
             'PublicAssetPath'  => ATBDP_PUBLIC_ASSETS,
             'i18n_text'        => $i18n_text,
             'active_mi_ext'    => $active_mi_extension, // 1 or 0
-            'plan_image'       => $plan_image
+            'plan_image'       => $plan_image,
+            'create_new_tag' => $new_tag,
         );
 
         wp_localize_script( 'atbdp_add_listing_js', 'atbdp_add_listing', $data );

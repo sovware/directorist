@@ -513,6 +513,7 @@ css for Custom Field
   border: 1px solid #eee;
   left: 20px;
   background: #f2f4f7;
+  z-index: 1;
 }
 
 #shortcode-updated .input label span {

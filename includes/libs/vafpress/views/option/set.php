@@ -63,17 +63,13 @@
 				</div>
 			</div>
 			<div class="vp-right-panel">
-
-
+                <div class="atbdp_searchable_settings">
+                    <input class="vp-input input-large" id="atbdp_sSearch" autocomplete="off" placeholder="<?php _e('Search settings here...', ATBDP_TEXTDOMAIN); ?>" type="text">
+                </div>
 
 				<form id="vp-option-form" class="vp-option-form vp-js-option-form" method="POST">
 					<div id="vp-submit-top" class="vp-submit top">
 						<div class="inner search-wrapper">
-                            <div class="atbdp_searchable_settings">
-                                <input class="vp-input input-large" id="atbdp_sSearch" autocomplete="off" placeholder="<?php _e('Search settings here...', ATBDP_TEXTDOMAIN); ?>" type="text">
-
-                            </div>
-
                             <div class="atbdp_searchable">
                                 <p class="vp-js-save-loader save-loader" style="display: none;"><img src="<?php VP_Util_Res::img_out('ajax-loader.gif', ''); ?>" /><?php _e('Saving Now', ATBDP_TEXTDOMAIN); ?></p>
                                 <p class="vp-js-save-status save-status" style="display: none;"></p>
@@ -103,31 +99,6 @@
 	</div>
 </div>
 
-
-<style>
-	/*.atbdp_searchable_settings{
-		position: relative;
-	}
-	.search_detail {
-		position: absolute;
-		background: #fff;
-		z-index: 111111;
-		border: 1px solid #eee;
-		box-shadow: 0px 0px 1px #777;
-		display: none;
-		overflow-y: scroll;
-	}
-	.search_detail.active{
-		display: block;
-	}
-	#atbdp_sSearch {
-		width: 400px;
-	}*/
-
-	.vp_item_active {
-		background: #ddd;
-	}
-</style>
 <script>
 	$(document).ready(() => {
 		$('.atbdp_searchable_settings').append('<div class="search_detail"></div>');
@@ -181,7 +152,7 @@
 			// filter data and insert data
 			var filter_item = '<ul>';
 			filter.map((el, index) =>{
-				filter_item += `<li><a href="#" class="s_item" index=${index}>${el}</a><b>(${search_store[index]})</b></li>`;
+				filter_item += `<li><a href="#" class="s_item" index=${index}>${el} <b>(${search_store[index]})</b></a></li>`;
 			});
 			filter_item += '</ul>';
 			$('.search_detail').addClass('active');

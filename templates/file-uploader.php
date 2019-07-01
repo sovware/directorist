@@ -36,7 +36,7 @@ $plupload_init = array(
 );
 
 $text_value = array(
-    'gd_allowed_img_types'                         => ! empty( $allowed_img_types ) ? implode( ',', $allowed_img_types ) : '',
+    'atbdp_allowed_img_types'                      => !empty( $allowed_img_types ) ? implode( ',', $allowed_img_types ) : '',
     'txt_all_files'                                => __( 'Allowed files', ATBDP_TEXTDOMAIN ),
     'err_max_file_size'                            => __( 'File size error : You tried to upload a file over %s', ATBDP_TEXTDOMAIN ),
     'err_file_type'                                => __( 'File type error. Allowed file types: %s', ATBDP_TEXTDOMAIN ),
@@ -110,6 +110,6 @@ $multiple            = false;
             echo "plupload-thumbs-multiple";
         } ?> clearfix" id="<?php echo $id; ?>plupload-thumbs"></div>
         <span id="<?php echo $id; ?>upload-error" style="display:none"></span>
-        <span style="display: none" id="gd-image-meta-input" class="lity-hide lity-show"></span>
+        <span style="display: none" id="atbdp-image-meta-input" class="lity-hide lity-show"></span>
     </div>
 </div>

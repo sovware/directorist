@@ -821,10 +821,13 @@
     margin-left: auto;
     align-items: center;
 }
-.inner.search-wrapper .atbdp_searchable_settings{
-    position: relative;
+.vp-right-panel .atbdp_searchable_settings{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 2;
 }
-.inner.search-wrapper .atbdp_searchable_settings .search_detail {
+.vp-right-panel .atbdp_searchable_settings .search_detail {
     position: absolute;
     background: #fff;
     z-index: 111111;
@@ -832,24 +835,32 @@
     box-shadow: 0px 0px 1px #ddd;
     display: none;
     overflow-y: hidden;
+    z-index: 2;
 }
-.inner.search-wrapper .atbdp_searchable_settings .search_detail.active{
+.vp-right-panel .atbdp_searchable_settings .search_detail.active{
     display: block;
 }
-.inner.search-wrapper .atbdp_searchable_settings #atbdp_sSearch {
+.vp-right-panel .atbdp_searchable_settings #atbdp_sSearch {
     width: 230px;
     height: 29px;
     border-radius: 3px;
     padding: 0 10px;
 }
-.inner.search-wrapper .atbdp_searchable_settings .search_detail ul{
-    padding: 10px 10px;
+.vp-right-panel .atbdp_searchable_settings .search_detail ul{
+    padding: 5px 0 10px;
     margin:0;
 }
-.inner.search-wrapper .atbdp_searchable_settings .search_detail ul li a{
+.vp-right-panel .atbdp_searchable_settings .search_detail ul li{
+    margin: 0;
+}
+.vp-right-panel .atbdp_searchable_settings .search_detail ul li a{
     text-decoration: none;
-    padding-right: 5px;
+    padding: 5px 10px;
     text-transform: capitalize;
+    display: block;
+}
+.vp-right-panel .atbdp_searchable_settings .search_detail ul li a.vp_item_active{
+    background: #eee;
 }
 .vp-wrap .vp-field.vp_select{
     background: rgba(0,133,186,0.1);

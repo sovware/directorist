@@ -63,17 +63,13 @@
 				</div>
 			</div>
 			<div class="vp-right-panel">
-
-
+                <div class="atbdp_searchable_settings">
+                    <input class="vp-input input-large" id="atbdp_sSearch" autocomplete="off" placeholder="<?php _e('Search settings here...', ATBDP_TEXTDOMAIN); ?>" type="text">
+                </div>
 
 				<form id="vp-option-form" class="vp-option-form vp-js-option-form" method="POST">
 					<div id="vp-submit-top" class="vp-submit top">
 						<div class="inner search-wrapper">
-                            <div class="atbdp_searchable_settings">
-                                <input class="vp-input input-large" id="atbdp_sSearch" autocomplete="off" placeholder="<?php _e('Search settings here...', ATBDP_TEXTDOMAIN); ?>" type="text">
-
-                            </div>
-
                             <div class="atbdp_searchable">
                                 <p class="vp-js-save-loader save-loader" style="display: none;"><img src="<?php VP_Util_Res::img_out('ajax-loader.gif', ''); ?>" /><?php _e('Saving Now', ATBDP_TEXTDOMAIN); ?></p>
                                 <p class="vp-js-save-status save-status" style="display: none;"></p>
@@ -103,34 +99,8 @@
 	</div>
 </div>
 
-
-<style>
-	/*.atbdp_searchable_settings{
-		position: relative;
-	}
-	.search_detail {
-		position: absolute;
-		background: #fff;
-		z-index: 111111;
-		border: 1px solid #eee;
-		box-shadow: 0px 0px 1px #777;
-		display: none;
-		overflow-y: scroll;
-	}
-	.search_detail.active{
-		display: block;
-	}
-	#atbdp_sSearch {
-		width: 400px;
-	}*/
-
-	.vp_item_active {
-		background: #ddd;
-	}
-</style>
 <script>
 	$(document).ready(() => {
-
 		$('.atbdp_searchable_settings').append('<div class="search_detail"></div>');
 		// data get use gloval variable
 		const 	data_arr = [],
@@ -182,7 +152,7 @@
 			// filter data and insert data
 			var filter_item = '<ul>';
 			filter.map((el, index) =>{
-				filter_item += `<li><a href="#" class="s_item" index=${index}>${el}</a><b>(${search_store[index]})</b></li>`;
+				filter_item += `<li><a href="#" class="s_item" index=${index}>${el} <b>(${search_store[index]})</b></a></li>`;
 			});
 			filter_item += '</ul>';
 			$('.search_detail').addClass('active');
@@ -210,8 +180,11 @@
 			if(el_len[tg_index].closest('.vp-right-panel' && '.vp-panel')){
 				var panel_id = el_len[tg_index].closest('.vp-panel').getAttribute('id');
 
+				// click to tab
 				$(`a[href=#${panel_id}]`).click();
-				$(document).scrollTop(el_len[tg_index].offsetTop);
+				// animation add
+				var body = $("html, body");
+				body.stop().animate({scrollTop: el_len[tg_index].closest('.vp-section').offsetTop}, 500, 'swing');				
 
 				if(el_len[tg_index].closest('.vp-field')) {
 					el_len[tg_index].closest('.vp-field').classList.add('vp_select');
@@ -223,30 +196,14 @@
 				el_len[tg_index].closest('a').click();
 			}
 			$('.search_detail').removeClass('active');
-
-
 		})
 
-		$('.vp-save').on('click', () => {
-			$('*').removeClass('vp_select');
-		});
-
-
-		// popup remove
-		$('body').on('click', (e) => {
-			$('.search_detail').removeClass('active');
-		});
-		// write css
-		$('.search_detail').css({
-			width : search.offsetWidth,
-			left : search.offsetLeft+'px',
-			top : search.offsetTop+search.offsetHeight+'px'
-		});
-
+		// arrow key and enter key functional start
 		var count = 0;
-		$(search).on('keyup', (e) => {
+		$(search).on('keyup', (e) => { //key event
 			if(e.target.value !== ''){
 				$('.search_detail a').removeClass('vp_item_active');
+				// key code condition for up and down arrow
 				if(e.keyCode === 40){
 					count ++;
 					if(count > $('.search_detail a').length -1){
@@ -259,19 +216,46 @@
 					}
 				}
 				
-				var elemaent = $('.search_detail a');
-				elemaent[count].classList.add('vp_item_active');
+				var elemaent = $('.search_detail a'); // search item list
+				elemaent[count].classList.add('vp_item_active'); // search item list add class for active
+				// press enter key functional
 				if(e.keyCode === 13) {
 					e.preventDefault();
 					e.stopPropagation();
+					$(search).val(filter3[count].innerText.trim());
 					if(filter3[count].closest('.vp-right-panel' && '.vp-panel')){
-						var id = filter3[count].closest('.vp-panel').getAttribute('id');						
+						var id = filter3[count].closest('.vp-panel').getAttribute('id');
+						// click tab use enter key						
 						$(`a[href=#${id}]`).click();
-						$(document).scrollTop(filter3[count].offsetTop);
-						$(search).val(elemaent[count].innerText.trim())
+						// animation scroll top for enter key
+						var body = $("html, body");
+						body.stop().animate({scrollTop: filter3[count].closest('.vp-section').offsetTop}, 500, 'swing');
+						// select class add use enter key
+						if(filter3[count].closest('.vp-field')) {
+							filter3[count].closest('.vp-field').classList.add('vp_select');
+						} else if(filter3[count].closest('.vp-section')) {
+							filter3[count].closest('.vp-section').classList.add('vp_select');
+						}
+
 					}
 				}
 			}							
 		});
+		// select class remove
+		$('.vp-save').on('click', () => {
+			$('*').removeClass('vp_select');
+		});
+
+		// popup remove
+		$('body').on('click', (e) => {
+			$('.search_detail').removeClass('active');
+		});
+		// write css
+		$('.search_detail').css({
+			width : search.offsetWidth,
+			left : search.offsetLeft+'px',
+			top : search.offsetTop+search.offsetHeight+'px'
+		});
+
 	})
 </script>

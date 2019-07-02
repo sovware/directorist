@@ -872,6 +872,8 @@ if ('openstreet' == $select_listing_map) {
         $('#OL_Icon_33').append('<div class="mapHover"></div>');
         $('.mapHover').html(abc);
 
+        $('#OL_Icon_33').append('<div class="mapHover"><span><i class="fa fa-times"></i></span><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
+
         <?php } }?>
         /* initialize slick  */
 
@@ -895,6 +897,16 @@ if ('openstreet' == $select_listing_map) {
             asNavFor: '.atbd_directory_image_thumbnail',
             rtl: <?php echo is_rtl() ? 'true' : 'false'; ?>
         });
+
+       
+
+        $(".olAlphaImg").on("click", function(){
+            $('.mapHover').addClass('active');
+        })
+
+        $('.mapHover span i.fa-times').on('click', (e) => {
+            $('.mapHover').removeClass('active');
+        })
 
         /* image gallery slider */
         sliderNavigation($listingGallerySlider, '.atbd_directry_gallery_wrapper .prev', '.atbd_directry_gallery_wrapper .next');
@@ -925,8 +937,7 @@ if ('openstreet' == $select_listing_map) {
         border: 1px solid #ddd;
         display: none;
     }
-
-    #OL_Icon_33:hover .mapHover {
+    .mapHover.active{
         display: block;
     }
 </style>

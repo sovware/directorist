@@ -31,7 +31,7 @@ if ( !class_exists('ATBDP_SEO') ):
                             $title = $term->name;
                         }
                     }
-                    // Change Location page title
+                    // Change Category page title
                     if( $post->ID == $CAT_page_ID ) {
 
                         if( $slug = get_query_var( 'atbdp_category' ) ) {
@@ -40,7 +40,7 @@ if ( !class_exists('ATBDP_SEO') ):
                         }
                     }
 
-                    // Change Location page title
+                    // Change Tag page title
                     if( $post->ID == $Tag_page_ID ) {
                         if( $slug = get_query_var( 'atbdp_tag' ) ) {
                             $term = get_term_by( 'slug', $slug, ATBDP_TAGS );

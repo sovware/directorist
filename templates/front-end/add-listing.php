@@ -1259,26 +1259,83 @@ if('openstreet' == $select_listing_map) {
 
 
         let mymap = (lon, lat) => {
-            map.addLayer(new OpenLayers.Layer.OSM());
-            let pois = new OpenLayers.Layer.Text( "My Points",
-                { location:"",
-                    projection: map.displayProjection
-                });
-            map.addLayer(pois);
-            // create layer switcher widget in top right corner of map.
-            let layer_switcher= new OpenLayers.Control.LayerSwitcher({});
-            map.addControl(layer_switcher);
-            //Set start centrepoint and zoom
-            let lonLat = new OpenLayers.LonLat( lon, lat )
-                .transform(
-                    new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                    map.getProjectionObject() // to Spherical Mercator Projection
-                );
-            let zoom= <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 4; ?>;
-            let markers = new OpenLayers.Layer.Markers( "Markers" );
-            map.addLayer(markers);
-            markers.addMarker(new OpenLayers.Marker(lonLat));
-            map.setCenter (lonLat, zoom);
+
+           
+
+			map.addLayer(new OpenLayers.Layer.OSM());
+	            var pois = new OpenLayers.Layer.Text( "My Points",
+	                            { location:"./textfile.txt",
+	                              projection: map.displayProjection
+	                            });
+	            map.addLayer(pois);
+	         // create layer switcher widget in top right corner of map.
+	            var layer_switcher= new OpenLayers.Control.LayerSwitcher({});
+	            map.addControl(layer_switcher);
+
+	            var EPSG4326        = new OpenLayers.Projection( "EPSG:4326" );
+    			var EPSG900913      = new OpenLayers.Projection("EPSG:900913");
+
+	            //Set start centrepoint and zoom
+	            var XY = new OpenLayers.LonLat( lon, lat )
+	                  .transform(
+	                    new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+	                    map.getProjectionObject() // to Spherical Mercator Projection
+	                  );
+                      
+                let zoom= <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 4; ?>;
+	            
+
+
+	            map.setCenter (XY, zoom);
+	             	var	deftColor     = "#00FF00";
+				    var	deftIcon      = "http://icons.iconarchive.com/icons/icons-land/vista-map-markers/256/Map-Marker-Push-Pin-1-Right-Pink-icon.png";
+				    var	featureHeight = 40;
+				    var	featureWidth  = 40;
+				    var	featureStyle  =	{
+				        fillColor:      deftColor,
+				        strokeColor:    deftColor,
+				        pointRadius:    1,
+				        externalGraphic:deftIcon,
+				        graphicWidth:   featureWidth,
+				        graphicHeight:  featureHeight,
+				        graphicXOffset: -featureWidth/2,
+				        graphicYOffset: -featureHeight,
+				        label:          "",
+				        fontColor:      "#000000",
+				        fontSize:       "10px",
+				        fontWeight:     "bold",
+				        labelAlign:     "rm"
+				    };
+
+	            var	vectorL = new OpenLayers.Layer.Vector(  "Vector Layer", {
+                     styleMap:   new OpenLayers.StyleMap(  featureStyle  )
+			    });
+			    map.addLayer( vectorL );
+
+	            var	dragVectorC = new OpenLayers.Control.DragFeature(   vectorL, { 
+	              onDrag: function(feature, pixel){
+
+			        //Don´t user the position of the pixel or the feature, use the point position instead!
+			        var point = feature.geometry.components[0];
+
+			        var llpoint = point.clone()
+			        llpoint.transform(  new OpenLayers.Projection(EPSG900913), 
+			                            new OpenLayers.Projection(EPSG4326));
+			       
+
+			        $('#manual_lat').val(llpoint.y);
+					$('#manual_lng').val(llpoint.x);
+
+
+			    }});
+
+		    map.addControl( dragVectorC );
+		    dragVectorC.activate();
+
+		    var	point       = new OpenLayers.Geometry.Point( XY.lon, XY.lat );
+		    var	featureOb   = new OpenLayers.Feature.Vector( new OpenLayers.Geometry.Collection([point]) );
+		    vectorL.addFeatures( [featureOb] );
+
         }
 
         let lat = $('#manual_lat').val(),

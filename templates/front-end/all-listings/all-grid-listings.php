@@ -413,11 +413,13 @@ $column_width = 100 / $columns . '%';
                                                         <li class="atbd_count"><span
                                                                     class="<?php atbdp_icon_type(true);?>-eye"></span><?php echo !empty($post_view) ? $post_view : 0; ?>
                                                         </li> <?php } ?>
-
                                                 </ul>
-                                            <?php } ?>
+                                            <?php }
+                                            ?>
                                         </div><!-- end ./atbd_listing_bottom_content -->
-                                    <?php } ?>
+                                    <?php }
+
+                                    ?>
                                 </div>
                             </article>
                         </div>

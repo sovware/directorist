@@ -587,7 +587,21 @@ class ATBDP_Custom_Field
                             if (--fields_number > 0) return;
                             $('.field-option-' + option, '#atbdp-field-details').fadeIn(400);
                         });
+
+
+
                     }).change();
+                    
+                    $('.field-type select', '#atbdp-field-details').on('change', function () {
+
+                        var fieldType = $('.field-type select[name="type"]').val();
+                        if ('file' === fieldType){
+                            $('#atbdp-field-options').hide()
+                        }else {
+                            $('#atbdp-field-options').show()
+                        }
+                    }).change();
+
                 });
             })(jQuery);
         </script>

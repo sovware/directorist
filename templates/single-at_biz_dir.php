@@ -873,7 +873,8 @@ if ('openstreet' == $select_listing_map) {
             lon = <?php echo !empty($manual_lng) ? floatval($manual_lng) : false; ?>;
 
         mymap(lon, lat);
-        var abc = `<?php echo !empty($info_content)?$info_content:'' ?>`;
+        var abc = `<?php echo !empty($info_content)?$info_content:'' ?>` + '<span><i class="fa fa-times"></i></span>';
+
         $('#OL_Icon_33').append('<div class="mapHover"></div>');
         $('.mapHover').html(abc);
 
@@ -899,6 +900,16 @@ if ('openstreet' == $select_listing_map) {
             arrows: false,
             asNavFor: '.atbd_directory_image_thumbnail',
             rtl: <?php echo is_rtl() ? 'true' : 'false'; ?>
+        });
+
+       
+
+        $(".olAlphaImg").on("click", function(){
+            $('.mapHover').addClass('active');
+        });
+
+        $('.mapHover span i.fa-times').on('click', (e) => {
+            $('.mapHover').removeClass('active');
         });
 
         /* image gallery slider */
@@ -929,9 +940,15 @@ if ('openstreet' == $select_listing_map) {
         border-radius: 3px;
         border: 1px solid #ddd;
         display: none;
+        left: 50%;
+        bottom: 100%;
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        transform: translateX(-50%);
     }
-
-    #OL_Icon_33:hover .mapHover {
+    .mapHover.active{
         display: block;
     }
 </style>

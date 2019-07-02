@@ -129,6 +129,15 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
+= 5.4.0 - Jul 02, 2019 =
+
+* Tweak - Info window on map
+* Tweak - Theme compatibility
+* Fix - Pagination issue in single tag page
+* Fix - Line awesome css issue
+* Add - Moving marker in OpenStreetMap
+* Add - Login and Registration link customization
+
 = 5.3.0 - Jun 24, 2019 =
 
 * Add - Line Awesome support

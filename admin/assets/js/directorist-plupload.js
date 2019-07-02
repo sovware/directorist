@@ -314,7 +314,7 @@ function plu_show_thumbs(imgId) {
                 if (file_ext == 'pdf') {
                     file_type_class = 'la-file-pdf-o';
                 } else if (file_ext == 'zip' || file_ext == 'tar') {
-                    file_type_class = 'la-file-archive-0';
+                    file_type_class = 'la-file-zip-o';
                 } else if (file_ext == 'doc' || file_ext == 'odt') {
                     file_type_class = 'la-file-word-0';
                 } else if (file_ext == 'txt' || file_ext == 'text') {

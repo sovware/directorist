@@ -513,7 +513,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         <ul class="atbd_custom_fields">
                             <!--  get data from custom field-->
                             <?php
-
                             foreach ($custom_fields_posts as $post) {
                                 setup_postdata($post);
                                 $field_id = $post->ID;

@@ -120,9 +120,19 @@ if ('openstreet' == $select_listing_map) {
         let lat = <?php echo !empty($manual_lat) ? floatval($manual_lat) : false;?>,
             lon = <?php echo !empty($manual_lng) ? floatval($manual_lng) : false; ?>;
         mymap(lon, lat);
-        $('#OL_Icon_33').append('<div class="mapHover"><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
-        <?php } } ?>
+
+        $('#OL_Icon_33').append('<div class="mapHover"><span><i class="fa fa-times"></i></span><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
+        <?php } }?>
         /* initialize slick  */
+
+        $(".olAlphaImg").on("click", function(){
+            $('.mapHover').addClass('active');
+        })
+
+        $('.mapHover span i.fa-times').on('click', (e) => {
+            $('.mapHover').removeClass('active');
+        })
+
     }); // ends jquery ready function.
 </script>
 <style>
@@ -138,7 +148,7 @@ if ('openstreet' == $select_listing_map) {
         border: 1px solid #ddd;
         display: none;
     }
-    #OL_Icon_33:hover .mapHover{
+    .mapHover.active{
         display: block;
     }
 </style>

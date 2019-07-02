@@ -226,10 +226,8 @@ $info_content .= "<p> {$ad}</p></div>";
 </div>
 <?php
     if('openstreet' == $select_listing_map) {
-
         wp_register_script('openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
         wp_enqueue_script('openstreet_layer');
-
     }
 ?>
 <script>

@@ -18,17 +18,17 @@ function compileSass(src, dest){
 }
 
 // compile bootstrap
-gulp.task('bs', compileSass('bootstrap/bootstrap.scss', 'public/assets/css/'));
-gulp.task('style', compileSass('style/style.scss','public/assets/css/'));
-gulp.task('admin', compileSass('style/admin/style.scss','admin/assets/css/'));
-gulp.task('bsHour', compileSass('style/business-hour/bh-main.scss', '../directorist-business-hour/assets/css/'));
+gulp.task('bs', compileSass('public/assets/bootstrap/bootstrap.scss', 'public/assets/css/'));
+gulp.task('style', compileSass('public/assets/style/style.scss','public/assets/css/'));
+gulp.task('admin', compileSass('public/assets/style/admin/style.scss','admin/assets/css/'));
+gulp.task('bsHour', compileSass('public/assets/style/business-hour/bh-main.scss', '../directorist-business-hour/assets/css/'));
 
 // default gulp task\
 gulp.task('default',['bs', 'style', 'admin'], function(){
-    gulp.watch('bootstrap/*.scss', ['bs']);
-    gulp.watch('style/**/*.scss', ['style']);
-    gulp.watch('style/admin/**/*.scss', ['admin']);
-    gulp.watch('style/business-hour/**/*.scss', ['bsHour']);
+    gulp.watch('public/assets/bootstrap/*.scss', ['bs']);
+    gulp.watch('public/assets/style/**/*.scss', ['style']);
+    gulp.watch('public/assets/style/admin/**/*.scss', ['admin']);
+    gulp.watch('public/assets/style/business-hour/**/*.scss', ['bsHour']);
 });
 
 //rtl css generator
@@ -37,7 +37,7 @@ gulp.task('rtl', function () {
         style = gulpfilter('**/style.css', {restore: true}),
         search_style = gulpfilter('**/search-style.css', {restore: true});
 
-    gulp.src(['bootstrap/bootstrap.css', 'public/assets/css/style.css', 'public/assets/css/search-style.css'])
+    gulp.src(['public/assets/bootstrap/bootstrap.css', 'public/assets/css/style.css', 'public/assets/css/search-style.css'])
         .pipe(rtlcss({
             'stringMap': [
                 {

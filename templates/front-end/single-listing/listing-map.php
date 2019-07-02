@@ -147,9 +147,17 @@ if ('openstreet' == $select_listing_map) {
 
         mymap(lon, lat);
 
-        $('#OL_Icon_33').append('<div class="mapHover"><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
+        $('#OL_Icon_33').append('<div class="mapHover"><span><i class="fa fa-times"></i></span><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
         <?php } }?>
         /* initialize slick  */
+
+        $(".olAlphaImg").on("click", function(){
+            $('.mapHover').addClass('active');
+        })
+
+        $('.mapHover span i.fa-times').on('click', (e) => {
+            $('.mapHover').removeClass('active');
+        })
 
 
     }); // ends jquery ready function.
@@ -165,9 +173,12 @@ if ('openstreet' == $select_listing_map) {
         width: 150px;
         border-radius: 3px;
         border: 1px solid #ddd;
-        display: none;
+        /* display: none; */
     }
-    #OL_Icon_33:hover .mapHover{
+    .mapHover.active{
         display: block;
     }
+    /* #OL_Icon_33:hover .mapHover{
+        display: block;
+    } */
 </style>

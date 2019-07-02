@@ -456,11 +456,6 @@ final class Directorist_Base
                 'title' => __('All Listings', ATBDP_TEXTDOMAIN),
                 'content' => '[directorist_all_listing]'
             ),
-            'single_listing_page' => array(
-                'title' => __('Single Listing', ATBDP_TEXTDOMAIN),
-                'content' => "[directorist_listing_top_area]\n[directorist_listing_custom_fields]\n
-                [directorist_listing_video]\n[directorist_listing_map]\n[directorist_listing_contact_information]\n[directorist_listing_contact_owner]\n[directorist_listing_review]\n[directorist_related_listings]"
-            ),
             'all_categories_page' => array(
                 'title' => __('All Categories', ATBDP_TEXTDOMAIN),
                 'content' => '[directorist_all_categories]'

@@ -534,6 +534,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                                     echo date('h:i A', strtotime($field_details));
                                                 } elseif ($field_type === 'url') {
                                                     printf('<a href="%s" target="_blank">%s</a>', esc_url($field_details), esc_url($field_details));
+                                                } elseif ($field_type === 'file') {
+                                                    $done = str_replace('|||','',$field_details);
+                                                    $name_arr = explode('/', $done);
+                                                    $filename = end($name_arr);
+                                                    printf('<a href="%s" target="_blank" download>%s</a>', esc_url($done), $filename);
                                                 } elseif ($field_type === 'checkbox') {
                                                     $choices = get_post_meta($field_id, 'choices', true);
                                                     $choices = explode("\n", $choices);

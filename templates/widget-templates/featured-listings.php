@@ -5,7 +5,7 @@ echo $args['before_widget'];
 echo '<div class="atbd_widget_title">';
 echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
 echo '</div>';
-$common_args = array(
+$featured_args = array(
     'post_type' => ATBDP_POST_TYPE,
     'post_status' => 'publish',
     'posts_per_page' => (int)$f_listing_num,
@@ -17,7 +17,7 @@ $common_args = array(
         )
     )
 );
-$featured_listings = new WP_Query($common_args);
+$featured_listings = new WP_Query($featured_args);
 
 ?>
     <div class="atbd_categorized_listings">
@@ -39,11 +39,11 @@ $featured_listings = new WP_Query($common_args);
                             <?php
                             $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                             if (!empty($listing_prv_img)) {
-                                echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_prv_img, array(90, 90))) . '" alt="listing image">';
+                                echo '<a href="'.get_the_permalink().'"><img src="' . esc_url(wp_get_attachment_image_url($listing_prv_img, array(90, 90))) . '" alt="listing image"></a>';
                             } elseif (!empty($listing_img[0]) && empty($listing_prv_img)) {
-                                echo '<img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="listing image">';
+                                echo '<a href="'.get_the_permalink().'"><img src="' . esc_url(wp_get_attachment_image_url($listing_img[0], array(90, 90))) . '" alt="listing image"></a>';
                             } else {
-                                echo '<img src="' . $default_image . '" alt="listing image">';
+                                echo '<a href="'.get_the_permalink().'"><img src="' . $default_image . '" alt="listing image"></a>';
                             }
 
                             ?>
@@ -97,6 +97,7 @@ $featured_listings = new WP_Query($common_args);
                     </li>
                     <?php
                 }
+                wp_reset_postdata();
             }; ?>
         </ul>
     </div> <!--ends featured listing-->

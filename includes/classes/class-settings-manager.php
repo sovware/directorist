@@ -293,7 +293,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'type' => 'textbox',
                     'name' => 'login_url',
                     'label' => __('Url', ATBDP_TEXTDOMAIN),
-                    'default' => __(ATBDP_Permalink::get_login_page_link(), ATBDP_TEXTDOMAIN),
+                    'default' => ATBDP_Permalink::get_login_page_link(),
                 ),
                 array(
                     'type' => 'textbox',
@@ -303,8 +303,6 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 ),
             ));
         }
-
-
 
         /**
          * Get username setting field for login form

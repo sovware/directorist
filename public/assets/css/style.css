@@ -1440,6 +1440,34 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-top: 20px;
 }
 
+.olMap .mapHover {
+  min-width: 250px;
+  padding: 10px;
+}
+
+.olMap .mapHover .map_info_window h3 {
+  font-size: 15px !important;
+  margin-top: 10px !important;
+}
+
+.olMap .mapHover .map_info_window address {
+  font-size: 14px !important;
+}
+
+.olMap .mapHover .map_info_window .miw-contents-footer {
+  padding-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.olMap .mapHover .map_info_window .miw-contents-footer .miwl-rating {
+  display: flex;
+}
+
+.olMap .mapHover .map_info_window .miw-contents-footer .miwl-rating .atbd_rating_count {
+  margin-left: 5px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper p {
   margin: 0;
   padding: 0;

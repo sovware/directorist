@@ -17,7 +17,7 @@
 
     // enable sorting if only the container has any social or skill field
     var $s_wrap = $("#social_info_sortable_container");// cache it
-    if(window.outerWidth > 600) {
+    if(window.outerWidth > 1700) {
         if ($s_wrap.length) {
             $s_wrap.sortable(
                 {

@@ -152,7 +152,7 @@
 			// filter data and insert data
 			var filter_item = '<ul>';
 			filter.map((el, index) =>{
-				filter_item += `<li><a href="#" class="s_item" index=${index}>${el} <b>(${search_store[index]})</b></a></li>`;
+				filter_item += `<li><a href="#" class="s_item" index=${index}>${el} <b index=${index}>(${search_store[index]})</b></a></li>`;
 			});
 			filter_item += '</ul>';
 			$('.search_detail').addClass('active');
@@ -172,11 +172,10 @@
 			tg_index 	= e.target.getAttribute('index');
 
 			$(search).val(tg_content);
-
 			filter3.map((el, index) => {
 				el_len.push(el);
 			})
-
+				
 			if(el_len[tg_index].closest('.vp-right-panel' && '.vp-panel')){
 				var panel_id = el_len[tg_index].closest('.vp-panel').getAttribute('id');
 
@@ -184,12 +183,13 @@
 				$(`a[href=#${panel_id}]`).click();
 				// animation add
 				var body = $("html, body");
+
 				if(el_len[tg_index].closest('.vp-section')){
 					body.stop().animate({scrollTop: el_len[tg_index].closest('.vp-section').offsetTop}, 500, 'swing');				
 				} else {
 					body.stop().animate({scrollTop: el_len[tg_index].offsetTop}, 500, 'swing');				
 				}
-				
+
 				if(el_len[tg_index].closest('.vp-field')) {
 					el_len[tg_index].closest('.vp-field').classList.add('vp_select');
 				} else if(el_len[tg_index].closest('.vp-section')) {

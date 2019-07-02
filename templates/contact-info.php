@@ -487,9 +487,9 @@ $info_content .= "<p> {$ad}</p></div>";
 
 	            map.setCenter (XY, zoom);
 	             	var	deftColor     = "#00FF00";
-				    var	deftIcon      = "https://images.vexels.com/media/users/3/142675/isolated/preview/84e468a8fff79b66406ef13d3b8653e2-house-location-marker-icon-by-vexels.png";
-				    var	featureHeight = 34;
-				    var	featureWidth  = 34;
+				    var	deftIcon      = "<?php echo ATBDP_PUBLIC_ASSETS . 'images/map-icon.png'; ?>";
+				    var	featureHeight = 40;
+				    var	featureWidth  = 30;
 				    var	featureStyle  =	{
 				        fillColor:      deftColor,
 				        strokeColor:    deftColor,
@@ -505,6 +505,7 @@ $info_content .= "<p> {$ad}</p></div>";
 				        fontWeight:     "bold",
 				        labelAlign:     "rm"
 				    };
+                    console.log(deftIcon);
 
 	            var	vectorL = new OpenLayers.Layer.Vector(  "Vector Layer", {
                      styleMap:   new OpenLayers.StyleMap(  featureStyle  )

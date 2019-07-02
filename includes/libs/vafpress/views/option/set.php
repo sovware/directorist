@@ -204,7 +204,8 @@
 
 		// arrow key and enter key functional start
 		var count = 0;
-		$(search).on('keyup', (e) => { //key event
+		$(search).on('keyup', (e) => {
+			 //key event
 			if(e.target.value !== ''){
 				$('.search_detail a').removeClass('vp_item_active');
 				// key code condition for up and down arrow
@@ -248,6 +249,8 @@
 						}
 
 					}
+				} else if(e.keyCode === 27) {
+					$('.search_detail').removeClass('active');
 				}
 			}							
 		});

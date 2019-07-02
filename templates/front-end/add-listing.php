@@ -1288,9 +1288,9 @@ if('openstreet' == $select_listing_map) {
 
 	            map.setCenter (XY, zoom);
 	             	var	deftColor     = "#00FF00";
-				    var	deftIcon      = "http://icons.iconarchive.com/icons/icons-land/vista-map-markers/256/Map-Marker-Push-Pin-1-Right-Pink-icon.png";
+				    var	deftIcon      = "<?php echo ATBDP_PUBLIC_ASSETS . 'images/map-icon.png'; ?>";
 				    var	featureHeight = 40;
-				    var	featureWidth  = 40;
+				    var	featureWidth  = 30;
 				    var	featureStyle  =	{
 				        fillColor:      deftColor,
 				        strokeColor:    deftColor,

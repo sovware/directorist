@@ -184,8 +184,12 @@
 				$(`a[href=#${panel_id}]`).click();
 				// animation add
 				var body = $("html, body");
-				body.stop().animate({scrollTop: el_len[tg_index].offsetTop}, 500, 'swing');				
-
+				if(el_len[tg_index].closest('.vp-section')){
+					body.stop().animate({scrollTop: el_len[tg_index].closest('.vp-section').offsetTop}, 500, 'swing');				
+				} else {
+					body.stop().animate({scrollTop: el_len[tg_index].offsetTop}, 500, 'swing');				
+				}
+				
 				if(el_len[tg_index].closest('.vp-field')) {
 					el_len[tg_index].closest('.vp-field').classList.add('vp_select');
 				} else if(el_len[tg_index].closest('.vp-section')) {
@@ -211,24 +215,31 @@
 					}
 				} else if(e.keyCode === 38){
 					count --;
-					if(count <= 0){
+					if(count < 0){
 						count = $('.search_detail a').length -1;
 					}
 				}
 				
 				var elemaent = $('.search_detail a'); // search item list
-				elemaent[count].classList.add('vp_item_active'); // search item list add class for active
+				if(elemaent.length){
+					elemaent[count].classList.add('vp_item_active'); // search item list add class for active
+				}
 				// press enter key functional
 				if(e.keyCode === 13) {
 					e.preventDefault();
 					e.stopPropagation();
+					$(search).val(filter3[count].innerText.trim());
 					if(filter3[count].closest('.vp-right-panel' && '.vp-panel')){
 						var id = filter3[count].closest('.vp-panel').getAttribute('id');
 						// click tab use enter key						
 						$(`a[href=#${id}]`).click();
 						// animation scroll top for enter key
 						var body = $("html, body");
-						body.stop().animate({scrollTop: filter3[count].offsetTop}, 500, 'swing');
+						if(filter3[count].closest('.vp-section')){
+							body.stop().animate({scrollTop: filter3[count].closest('.vp-section').offsetTop}, 500, 'swing');
+						} else {
+							body.stop().animate({scrollTop: filter3[count].offsetTop}, 500, 'swing');
+						}
 						// select class add use enter key
 						if(filter3[count].closest('.vp-field')) {
 							filter3[count].closest('.vp-field').classList.add('vp_select');

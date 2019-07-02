@@ -558,6 +558,10 @@ css for Custom Field
   margin-bottom: 0;
 }
 
+.plupload-thumbs .thumb {
+  float: none !important;
+}
+
 #atbdp-categories-image-wrapper {
   position: relative;
   display: inline-block;

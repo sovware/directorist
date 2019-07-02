@@ -604,3 +604,34 @@
 .hide-contant-owner{
   margin-top: 20px;
 }
+
+.olMap .mapHover{
+  min-width: 250px;
+  padding: 10px;
+  & > span{
+    position: absolute;
+    right: 4px;
+    top: 2px;
+    line-height: normal;
+  }
+  .map_info_window{
+    h3{
+      font-size: 15px !important;
+      margin-top: 10px !important;
+    }
+    address{
+      font-size: 14px !important;
+    }
+    .miw-contents-footer{
+      padding-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      .miwl-rating{
+        display: flex;
+        .atbd_rating_count{
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}

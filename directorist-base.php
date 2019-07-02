@@ -385,7 +385,7 @@ final class Directorist_Base
                 'name' => apply_filters('atbdp_right_sidebar_name', __('Directorist - Listing Right Sidebar', ATBDP_TEXTDOMAIN)),
                 'id' => 'right-sidebar-listing',
                 'description' => __('Add widgets for the right sidebar on single listing page', ATBDP_TEXTDOMAIN),
-                'before_widget' => '<div class="widget atbd_widget">',
+                'before_widget' => '<div class="widget atbd_widget %2$s">',
                 'after_widget' => '</div>',
                 'before_title' => '<div class="atbd_widget_title"><h4>',
                 'after_title' => '</h4></div>',

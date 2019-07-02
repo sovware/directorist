@@ -418,7 +418,7 @@ $column_width = 100 / $columns . '%';
                                             ?>
                                         </div><!-- end ./atbd_listing_bottom_content -->
                                     <?php }
-                                    
+
                                     ?>
                                 </div>
                             </article>

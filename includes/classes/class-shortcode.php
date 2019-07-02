@@ -2128,7 +2128,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $display_header      = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title        = !empty($atts['header_title']) ? $atts['header_title'] : '';
                 $header_sub_title    = !empty($atts['header_sub_title']) ? $atts['header_sub_title'] : '';
-                $show_pagination    = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
+                $show_pagination     = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
                 //for pagination
                 $paged               = atbdp_get_paged_num();
 
@@ -2489,10 +2489,8 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 if( $has_featured || is_fee_manager_active()) {
                     $has_featured    = $atts['_featured'];
                 }
-
                 $current_order       = atbdp_get_listings_current_order( $atts['orderby'].'-'.$atts['order'] );
                 $view                = atbdp_get_listings_current_view_name( $atts['view'] );
-
                 $args = array(
                     'post_type'      => ATBDP_POST_TYPE,
                     'post_status'    => 'publish',
@@ -2647,7 +2645,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                         if ($average_review_for_popular <= $average) {
                                             $rated[] = get_the_ID();
                                         }
-
                                     }
                                     $rating_id = array(
                                         'post__in' => !empty($rated) ? $rated : array()
@@ -2676,7 +2673,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                         if ($average_review_for_popular <= $average) {
                                             $rated[] = get_the_ID();
                                         }
-
                                     }
                                     $rating_id = array(
                                         'post__in' => !empty($rated) ? $rated : array()
@@ -2684,10 +2680,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                     $args = array_merge($args, $rating_id);
                                 }
                             }
-
                             $args['orderby']  = array(
-                                '_featured' => 'DESC',
-                                '_atbdp_post_views_count'    => 'DESC',
+                                '_featured'                => 'DESC',
+                                '_atbdp_post_views_count'  => 'DESC',
                             );
                         } else {
                             if ('average_rating' === $listing_popular_by) {
@@ -2985,8 +2980,10 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $recpass_username    = get_directorist_option('recpass_username',__('Username or E-mail:',ATBDP_TEXTDOMAIN));
                 $recpass_placeholder = get_directorist_option('recpass_placeholder',__('eg. mail@example.com',ATBDP_TEXTDOMAIN));
                 $recpass_button      = get_directorist_option('recpass_button',__('Get New Password',ATBDP_TEXTDOMAIN));
-                $log_signup         = get_directorist_option('log_signup',__('Don\'t have an account? <a href="'.ATBDP_Permalink::get_registration_page_link().'">Sign Up</a>', ATBDP_TEXTDOMAIN));
-                $display_signup     = get_directorist_option('display_signup',1);
+                $reg_text         = get_directorist_option('reg_text',__('Don\'t have an account?', ATBDP_TEXTDOMAIN));
+                $reg_url         = get_directorist_option('reg_url',ATBDP_Permalink::get_registration_page_link());
+                $reg_linktxt      = get_directorist_option('reg_linktxt',__('Sign Up', ATBDP_TEXTDOMAIN));
+                $display_signup   = get_directorist_option('display_signup',1);
                 $args = array(
                     'label_username' => sprintf(__( '%s', ATBDP_TEXTDOMAIN),$log_username),
                     'label_password' => sprintf(__( '%s', ATBDP_TEXTDOMAIN),$log_password),
@@ -2997,7 +2994,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 wp_login_form($args);
                 echo "<div class='d-flex justify-content-between'>";
                 if(!empty($display_signup)) { ?>
-                <p><?php echo $log_signup;?></p>
+                <p><?php echo $reg_text; ?><a href="<?php echo $reg_url; ?>"><?php echo $reg_linktxt; ?></a></p>
                 <?php }
                 if($display_recpass) {
                     printf(__('<p>%s</p>', ATBDP_TEXTDOMAIN), "<a href='' class='atbdp_recovery_pass'> " . __($recpass_text, ATBDP_TEXTDOMAIN) . "</a>");

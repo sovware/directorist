@@ -19,7 +19,9 @@ $bio                         = get_directorist_option('reg_bio','About/bio');
 $require_bio                 = get_directorist_option('require_bio_reg',0);
 $reg_signup                  = get_directorist_option('reg_signup','Sign Up');
 $display_login               = get_directorist_option('display_login',1);
-$reg_login                   = get_directorist_option('reg_login',__('Already have an account? Please login <a href="'.ATBDP_Permalink::get_login_page_link().'">Here</a>', ATBDP_TEXTDOMAIN));
+$login_text                  = get_directorist_option('login_text',__('Already have an account? Please login', ATBDP_TEXTDOMAIN));
+$login_url                   = get_directorist_option('login_url',ATBDP_Permalink::get_login_page_link());
+$log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here', ATBDP_TEXTDOMAIN));
 ?>
 <div id="directorist" class="atbd_wrapper directorist">
     <div class="<?php echo apply_filters('atbdp_registration_container_fluid',$container_fluid) ?>">
@@ -143,13 +145,9 @@ $reg_login                   = get_directorist_option('reg_login',__('Already ha
                                 <div class="directory_regi_btn">
                                     <button type="submit" class="btn btn-primary btn-lg" name="atbdp_user_submit"><?php printf(__('%s ', ATBDP_TEXTDOMAIN),$reg_signup); ?></button>
                                 </div>
-                                <?php if(!empty($display_login)) {?>
+                                <?php if(!empty($display_login)) { ?>
                                 <div class="directory_regi_btn">
-                                 <p>
-                                     <?php
-                                     echo $reg_login;
-                                     ?>
-                                 </p>
+                                 <p><?php echo $login_text; ?> <a href="<?php echo $login_url; ?>"><?php echo $log_linkingmsg;?></a></p>
                                 </div>
                                 <?php } ?>
                             </form>

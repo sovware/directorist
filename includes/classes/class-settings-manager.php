@@ -285,11 +285,22 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 ),
                 array(
                     'type' => 'textarea',
-                    'name' => 'reg_login',
+                    'name' => 'login_text',
                     'label' => __('Text', ATBDP_TEXTDOMAIN),
-                    'default' => __('Already have an account? Please login <a href="'.ATBDP_Permalink::get_login_page_link().'">Here</a>', ATBDP_TEXTDOMAIN),
+                    'default' => __('Already have an account? Please login', ATBDP_TEXTDOMAIN),
                 ),
-
+                array(
+                    'type' => 'textbox',
+                    'name' => 'login_url',
+                    'label' => __('Url', ATBDP_TEXTDOMAIN),
+                    'default' => __(ATBDP_Permalink::get_login_page_link(), ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'log_linkingmsg',
+                    'label' => __('Linking Text', ATBDP_TEXTDOMAIN),
+                    'default' => __('here', ATBDP_TEXTDOMAIN),
+                ),
             ));
         }
 
@@ -388,11 +399,22 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 ),
                 array(
                     'type' => 'textarea',
-                    'name' => 'log_signup',
+                    'name' => 'reg_text',
                     'label' => __('Text', ATBDP_TEXTDOMAIN),
-                    'default' => __('Don\'t have an account? <a href="'.ATBDP_Permalink::get_registration_page_link().'">Sign Up</a>', ATBDP_TEXTDOMAIN),
+                    'default' => __('Don\'t have an account?', ATBDP_TEXTDOMAIN),
                 ),
-
+                array(
+                    'type' => 'textbox',
+                    'name' => 'reg_url',
+                    'label' => __('Url', ATBDP_TEXTDOMAIN),
+                    'default' => ATBDP_Permalink::get_registration_page_link(),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'reg_linktxt',
+                    'label' => __('Linking Text', ATBDP_TEXTDOMAIN),
+                    'default' => __('Sign Up', ATBDP_TEXTDOMAIN),
+                ),
             ));
         }
 

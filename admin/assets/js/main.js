@@ -1241,7 +1241,7 @@ jQuery(function ($) {
     }
 
     //Display login message in registration form
-    var lf_opt41 = $("#reg_login");
+    var lf_opt41 = $("#login_text,#login_url,#log_linkingmsg");
     lf_opt41.hide();
     $('input[name="display_login"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -1269,7 +1269,7 @@ jQuery(function ($) {
     }
 
     //Display sign up login message in login form
-    var lf_opt43 = $("#log_signup");
+    var lf_opt43 = $("#reg_text,#reg_url,#reg_linktxt");
     lf_opt43.hide();
     $('input[name="display_signup"]').on("change", function () {
         if($(this).is(":checked") === true){

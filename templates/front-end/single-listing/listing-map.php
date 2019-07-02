@@ -13,7 +13,6 @@ extract($listing_info);
 /*INFO WINDOW CONTENT*/
 $t = get_the_title();
 $t = !empty($t) ? $t : __('No Title', ATBDP_TEXTDOMAIN);
-
 $average = ATBDP()->review->get_average($listing_id);
 $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
 $reviews = ($reviews_count > 1) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
@@ -21,21 +20,16 @@ $review_info = '';
 $review_info = '';
 if (!empty($enable_review)) {
     $review_info = "<div class='miwl-rating'><span class='atbd_meta atbd_listing_rating'>$average<i class='".atbdp_icon_type()."-star'></i></span>";
-
     $review_info .= "<div class='atbd_rating_count'>";
-
     $review_info .= "<p>" . $reviews_count . $reviews . "</p>";
-
     $review_info .= "</div></div>";
 }
-
 $tg = !empty($tagline) ? esc_html($tagline) : '';
 $ad = !empty($address) ? esc_html($address) : '';
 $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'small')[0];
 $img_url = !empty($listing_prv_imgurl)?$listing_prv_imgurl:$default_image;
 $image = "<img src=". $img_url.">";
-
 $info_content = "<div class='map_info_window'>$image <div class='miw-contents'><h3>{$t}</h3>";
 $info_content .= "<address>{$ad}</address>";
 $info_content .= "<div class='miw-contents-footer'>{$review_info}";
@@ -46,7 +40,6 @@ $disable_map = get_directorist_option('disable_map', 0);
 $listing_location_text = get_directorist_option('listing_location_text', __('Location', ATBDP_TEXTDOMAIN));
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) && !empty($display_map_field)) { ?>
-
                 <div class="atbd_content_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
@@ -55,42 +48,30 @@ if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) &&
                             </h4>
                         </div>
                     </div>
-
                     <div class="atbdb_content_module_contents">
                         <div id="gmap" class="atbd_google_map"></div>
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
-
-<?php } ?>
-
-<?php
+<?php }
 if ('openstreet' == $select_listing_map) {
     wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array( 'jquery' ), ATBDP_VERSION, true );
     wp_enqueue_script( 'openstreet_layer' );
-}
-?>
+} ?>
 <script>
-
     jQuery(document).ready(function ($) {
         // Do not show map if lat long is empty or map is globally disabled.
-        <?php if (!$disable_map && (!empty($manual_lat) && !empty($manual_lng)) && !empty($display_map_field) && empty($hide_map) ){
-        if('google' == $select_listing_map) {
-        ?>
-
+        <?php if (!$disable_map && (!empty($manual_lat) && !empty($manual_lng)) && !empty($display_map_field) && empty($hide_map) ){ if('google' == $select_listing_map) { ?>
         // initialize all vars here to avoid hoisting related misunderstanding.
         var map, info_window, saved_lat_lng, info_content;
         saved_lat_lng = {
             lat:<?= (!empty($manual_lat)) ? floatval($manual_lat) : false ?>,
             lng: <?= (!empty($manual_lng)) ? floatval($manual_lng) : false ?> }; // default is London city
         info_content = "<?= $info_content; ?>";
-
         // create an info window for map
         info_window = new google.maps.InfoWindow({
             content: info_content,
             maxWidth: 400/*Add configuration for max width*/
         });
-
-
         function initMap() {
             /* Create new map instance*/
             map = new google.maps.Map(document.getElementById('gmap'), {
@@ -105,8 +86,6 @@ if ('openstreet' == $select_listing_map) {
                 info_window.open(map, marker);
             });
         }
-
-
         initMap();
         //Convert address tags to google map links -
         $('address').each(function () {
@@ -114,10 +93,7 @@ if ('openstreet' == $select_listing_map) {
             $(this).html(link);
         });
         <?php } elseif('openstreet' == $select_listing_map) { ?>
-
-
         map = new OpenLayers.Map("gmap");
-
         let mymap = (lon, lat) => {
             map.addLayer(new OpenLayers.Layer.OSM());
             let pois = new OpenLayers.Layer.Text("My Points",
@@ -141,10 +117,8 @@ if ('openstreet' == $select_listing_map) {
             markers.addMarker(new OpenLayers.Marker(lonLat));
             map.setCenter(lonLat, zoom);
         }
-
         let lat = <?php echo !empty($manual_lat) ? floatval($manual_lat) : false;?>,
             lon = <?php echo !empty($manual_lng) ? floatval($manual_lng) : false; ?>;
-
         mymap(lon, lat);
 
         $('#OL_Icon_33').append('<div class="mapHover"><span><i class="fa fa-times"></i></span><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
@@ -159,7 +133,6 @@ if ('openstreet' == $select_listing_map) {
             $('.mapHover').removeClass('active');
         })
 
-
     }); // ends jquery ready function.
 </script>
 <style>
@@ -173,12 +146,9 @@ if ('openstreet' == $select_listing_map) {
         width: 150px;
         border-radius: 3px;
         border: 1px solid #ddd;
-        /* display: none; */
+        display: none;
     }
     .mapHover.active{
         display: block;
     }
-    /* #OL_Icon_33:hover .mapHover{
-        display: block;
-    } */
 </style>

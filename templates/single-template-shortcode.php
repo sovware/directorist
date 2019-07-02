@@ -12,7 +12,6 @@ if ( !class_exists('ATBDP_Single_Templates') ) {
             add_shortcode( 'directorist_listing_contact_owner',array($this,'directorist_listing_contact_owner'));
             add_shortcode( 'directorist_listing_review',array($this,'directorist_listing_review'));
             add_shortcode( 'directorist_related_listings',array($this,'directorist_related_listings'));
-
         }
 
         // listing header area

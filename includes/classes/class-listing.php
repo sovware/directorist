@@ -98,9 +98,8 @@ if (!class_exists('ATBDP_Listing')):
                                     </div>
                                     <?php
                                 }
-
                                 if (function_exists('do_blocks')) {
-                                    echo do_blocks($content);
+                                    echo $content;
                                 } ?>
                             </div>
                             <?php include ATBDP_TEMPLATES_DIR . 'sidebar-listing.php'; ?>

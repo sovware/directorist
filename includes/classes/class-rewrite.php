@@ -78,7 +78,7 @@ class ATBDP_Rewrite {
             $link = trim( $link, '/' );
 
 
-            add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id='.$tag.'&atbdp_location=$matches[1]&paged=$matches[2]', 'top' );
+            add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id='.$tag.'&atbdp_tag=$matches[1]&paged=$matches[2]', 'top' );
             add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id='.$tag.'&atbdp_tag=$matches[1]', 'top' );
         }
 

@@ -872,6 +872,7 @@ if ('openstreet' == $select_listing_map) {
             lon = <?php echo !empty($manual_lng) ? floatval($manual_lng) : false; ?>;
 
         mymap(lon, lat);
+
         var abc = `<?php echo !empty($info_content)?$info_content:'' ?>` + '<span><i class="fa fa-times"></i></span>';
 
         $('#OL_Icon_33').append('<div class="mapHover"></div>');

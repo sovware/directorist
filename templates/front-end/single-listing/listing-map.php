@@ -121,7 +121,10 @@ if ('openstreet' == $select_listing_map) {
             lon = <?php echo !empty($manual_lng) ? floatval($manual_lng) : false; ?>;
         mymap(lon, lat);
 
-        $('#OL_Icon_33').append('<div class="mapHover"><span><i class="fa fa-times"></i></span><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
+        var abc = `<?php echo !empty($info_content)?$info_content:'' ?>` + '<span><i class="fa fa-times"></i></span>';
+
+        $('#OL_Icon_33').append('<div class="mapHover"></div>');
+        $('.mapHover').html(abc);
         <?php } }?>
         /* initialize slick  */
 

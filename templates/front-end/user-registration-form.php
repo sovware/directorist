@@ -37,7 +37,7 @@ $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here'
                             ?>
                             <p style="padding: 20px" class="alert-success"><span class="fa fa-check"></span><?php _e(' Go to your inbox or spam/junk and get your password.', ATBDP_TEXTDOMAIN); ?>
                                 <?php
-                                printf(__(' Or click %s to login.', ATBDP_TEXTDOMAIN), "<a href='" . ATBDP_Permalink::get_login_page_link() . "'><span style='color: red'> " . __('Here', ATBDP_TEXTDOMAIN) . "</span></a>");
+                                printf(__(' Click %s to login.', ATBDP_TEXTDOMAIN), "<a href='" . ATBDP_Permalink::get_login_page_link() . "'><span style='color: red'> " . __('Here', ATBDP_TEXTDOMAIN) . "</span></a>");
                                 ?>
                             </p>
                             <?php

@@ -93,6 +93,7 @@ $info_content = "<div class='map_info_window'>$image <div class='miw-contents'><
 $info_content .= "<address>{$ad}</address>";
 $info_content .= "<div class='miw-contents-footer'>{$review_info}";
 $info_content .= "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', ATBDP_TEXTDOMAIN) . "</a></div></div></div>";
+
 /*END INFO WINDOW CONTENT*/
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map', 0);
@@ -867,8 +868,10 @@ if ('openstreet' == $select_listing_map) {
             lon = <?php echo !empty($manual_lng) ? floatval($manual_lng) : false; ?>;
 
         mymap(lon, lat);
+        var abc = `<?php echo !empty($info_content)?$info_content:'' ?>`;
+        $('#OL_Icon_33').append('<div class="mapHover"></div>');
+        $('.mapHover').html(abc);
 
-        $('#OL_Icon_33').append('<div class="mapHover"><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
         <?php } }?>
         /* initialize slick  */
 

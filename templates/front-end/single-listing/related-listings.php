@@ -29,8 +29,6 @@ $listing_info['expiry_date'] = get_post_meta($post->ID, '_expiry_date', true);
 extract($listing_info);
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 ?>
-
-
-            <?php
-            do_action('atbdp_after_single_listing', $post, $listing_info);
-            ?>
+<?php
+do_action('atbdp_after_single_listing', $post, $listing_info);
+?>

@@ -2128,7 +2128,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $display_header      = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title        = !empty($atts['header_title']) ? $atts['header_title'] : '';
                 $header_sub_title    = !empty($atts['header_sub_title']) ? $atts['header_sub_title'] : '';
-                $show_pagination    = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
+                $show_pagination     = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
                 //for pagination
                 $paged               = atbdp_get_paged_num();
 
@@ -2489,10 +2489,8 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 if( $has_featured || is_fee_manager_active()) {
                     $has_featured    = $atts['_featured'];
                 }
-
                 $current_order       = atbdp_get_listings_current_order( $atts['orderby'].'-'.$atts['order'] );
                 $view                = atbdp_get_listings_current_view_name( $atts['view'] );
-
                 $args = array(
                     'post_type'      => ATBDP_POST_TYPE,
                     'post_status'    => 'publish',
@@ -2647,7 +2645,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                         if ($average_review_for_popular <= $average) {
                                             $rated[] = get_the_ID();
                                         }
-
                                     }
                                     $rating_id = array(
                                         'post__in' => !empty($rated) ? $rated : array()
@@ -2676,7 +2673,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                         if ($average_review_for_popular <= $average) {
                                             $rated[] = get_the_ID();
                                         }
-
                                     }
                                     $rating_id = array(
                                         'post__in' => !empty($rated) ? $rated : array()
@@ -2684,10 +2680,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
                                     $args = array_merge($args, $rating_id);
                                 }
                             }
-
                             $args['orderby']  = array(
-                                '_featured' => 'DESC',
-                                '_atbdp_post_views_count'    => 'DESC',
+                                '_featured'                => 'DESC',
+                                '_atbdp_post_views_count'  => 'DESC',
                             );
                         } else {
                             if ('average_rating' === $listing_popular_by) {

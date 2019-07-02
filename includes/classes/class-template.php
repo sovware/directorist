@@ -60,12 +60,8 @@ if (!class_exists('ATBDP_Template')):
 
         public function custom_search_template($template)
         {
-
             global $wp_query;
             global $post; //culprit
-
-
-
             $post_type = get_query_var('post_type');
             $post_type = (!empty( $post_type)) ?  $post_type : ((is_object($post) && !empty($post->post_type)) ? $post->post_type : 'any');
 

@@ -116,7 +116,7 @@ if ('openstreet' == $select_listing_map) {
             map.addLayer(markers);
             markers.addMarker(new OpenLayers.Marker(lonLat));
             map.setCenter(lonLat, zoom);
-        }
+        };
         let lat = <?php echo !empty($manual_lat) ? floatval($manual_lat) : false;?>,
             lon = <?php echo !empty($manual_lng) ? floatval($manual_lng) : false; ?>;
         mymap(lon, lat);
@@ -127,11 +127,11 @@ if ('openstreet' == $select_listing_map) {
 
         $(".olAlphaImg").on("click", function(){
             $('.mapHover').addClass('active');
-        })
+        });
 
         $('.mapHover span i.fa-times').on('click', (e) => {
             $('.mapHover').removeClass('active');
-        })
+        });
 
     }); // ends jquery ready function.
 </script>

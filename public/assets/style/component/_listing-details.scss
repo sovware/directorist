@@ -608,6 +608,12 @@
 .olMap .mapHover{
   min-width: 250px;
   padding: 10px;
+  & > span{
+    position: absolute;
+    right: 4px;
+    top: 2px;
+    line-height: normal;
+  }
   .map_info_window{
     h3{
       font-size: 15px !important;

@@ -1445,6 +1445,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 10px;
 }
 
+.olMap .mapHover > span {
+  position: absolute;
+  right: 4px;
+  top: 2px;
+  line-height: normal;
+}
+
 .olMap .mapHover .map_info_window h3 {
   font-size: 15px !important;
   margin-top: 10px !important;

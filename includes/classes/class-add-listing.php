@@ -214,7 +214,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
                     if (!empty($_POST['listing_id'])){
                         /**
-                         * @since 5.4.1
+                         * @since 5.4.0
                          */
                         do_action('atbdp_before_processing_to_update_listing');
                         $edit_l_status = get_directorist_option('edit_listing_status');
@@ -363,10 +363,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 if (('package' === package_or_PPL($plan=null)) && $plan_purchased){
                                     $args['post_status'] = 'publish';
                                 }else{
-                                    $args['post_status'] = 'pending';
-                                }
-                            }else{
-                                if (!empty($featured_enabled)){
                                     $args['post_status'] = 'pending';
                                 }
                             }

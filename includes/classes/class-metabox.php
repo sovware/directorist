@@ -10,6 +10,7 @@ class ATBDP_Metabox {
     public function __construct() {
         if ( is_admin() ) {
             add_action('add_meta_boxes_'.ATBDP_POST_TYPE,	array($this, 'listing_info_meta'));
+            add_action('publish_'.ATBDP_POST_TYPE,	array($this, 'publish_atbdp_listings'), 10, 2);
             // edit_post hooks is better than save_post hook for nice checkbox
             // http://wordpress.stackexchange.com/questions/228322/how-to-set-default-value-for-checkbox-in-wordpress
             add_action( 'edit_post', array($this, 'save_post_meta'), 10, 2);
@@ -21,6 +22,14 @@ class ATBDP_Metabox {
 
         }
      }
+
+    /**
+     * @since 5.4.0
+     */
+    public function publish_atbdp_listings($ID, $post ){
+        do_action('atbdp_listing_published', $ID);//for sending email notification
+    }
+
 
     /**
      * Display custom fields.

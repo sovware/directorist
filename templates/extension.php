@@ -22,7 +22,7 @@
                                        target="_blank"
                                        class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
                                     <a href="https://aazztech.com/product/directorist-pricing-plans" target="_blank"
-                                       class="btn get btn-success"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
+                                       class="btn get btn-success"><?php esc_html_e('Get It Now', ATBDP_TEXTDOMAIN); ?></a>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                                     <a href="https://aazztech.com/product/google-recaptcha/#screenshots" target="_blank"
                                        class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
                                     <a href="https://aazztech.com/product/google-recaptcha" target="_blank"
-                                       class="btn get btn-success"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
+                                       class="btn get btn-success"><?php esc_html_e('Get It Now', ATBDP_TEXTDOMAIN); ?></a>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                 <a href="https://aazztech.com/product/directorist-stripe/#screenshots" target="_blank"
                                    class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
                                 <a href="https://aazztech.com/product/directorist-stripe" target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
+                                   class="btn get btn-success"><?php esc_html_e('Get It Now', ATBDP_TEXTDOMAIN); ?></a>
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                                 <a href="https://aazztech.com/product/directorist-paypal/#screenshots" target="_blank"
                                    class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
                                 <a href="https://aazztech.com/product/directorist-paypal" target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
+                                   class="btn get btn-success"><?php esc_html_e('Get It Now', ATBDP_TEXTDOMAIN); ?></a>
                             </div>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                                    target="_blank"
                                    class="btn demo btn-primary"><?php esc_html_e('View Demo', ATBDP_TEXTDOMAIN); ?></a>
                                 <a href="https://aazztech.com/product/directorist-business-hour/" target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
+                                   class="btn get btn-success"><?php esc_html_e('Get It Now', ATBDP_TEXTDOMAIN); ?></a>
                             </div>
                         </div>
                     </div>
@@ -149,7 +149,7 @@
                                    class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
                                 <a href="https://aazztech.com/product/directorist-woocommerce-pricing-plans"
                                    target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
+                                   class="btn get btn-success"><?php esc_html_e('Get It Now', ATBDP_TEXTDOMAIN); ?></a>
                             </div>
                         </div>
                     </div>
@@ -176,7 +176,7 @@
                                    class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
                                 <a href="https://aazztech.com/product/directorist-listings-slider-and-carousel"
                                    target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
+                                   class="btn get btn-success"><?php esc_html_e('Get It Now', ATBDP_TEXTDOMAIN); ?></a>
                             </div>
                         </div>
                     </div>
@@ -202,7 +202,7 @@
                                    target="_blank"
                                    class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
                                 <a href="https://aazztech.com/product/directorist-image-gallery" target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
+                                   class="btn get btn-success"><?php esc_html_e('Get It Now', ATBDP_TEXTDOMAIN); ?></a>
                             </div>
                         </div>
                     </div>
@@ -228,7 +228,7 @@
                                    target="_blank"
                                    class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
                                 <a href="https://aazztech.com/product/directorist-listing-faqs" target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
+                                   class="btn get btn-success"><?php esc_html_e('Get It Now', ATBDP_TEXTDOMAIN); ?></a>
                             </div>
                         </div>
                     </div>
@@ -252,7 +252,7 @@
                                 <a href="https://aazztech.com/product/directorist-coupon/#screenshots" target="_blank"
                                    class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
                                 <a href="https://aazztech.com/product/directorist-coupon" target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
+                                   class="btn get btn-success"><?php esc_html_e('Get It Now', ATBDP_TEXTDOMAIN); ?></a>
                             </div>
                         </div>
                     </div>
@@ -275,7 +275,7 @@
                                    target="_blank"
                                    class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
                                 <a href="https://aazztech.com/product/directorist-reservation" target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
+                                   class="btn get btn-success"><?php esc_html_e('Get It Now', ATBDP_TEXTDOMAIN); ?></a>
                             </div>
                         </div>
                     </div>
@@ -301,7 +301,7 @@
                                    target="_blank"
                                    class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
                                 <a href="https://aazztech.com/product/directorist-claim-listing" target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
+                                   class="btn get btn-success"><?php esc_html_e('Get It Now', ATBDP_TEXTDOMAIN); ?></a>
                             </div>
                         </div>
                     </div>
@@ -326,7 +326,7 @@
                                    target="_blank"
                                    class="btn demo btn-primary"><?php esc_html_e('View demo', ATBDP_TEXTDOMAIN); ?></a>
                                 <a href="https://aazztech.com/product/directorist-claim-listing" target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get extension', ATBDP_TEXTDOMAIN); ?></a>
+                                   class="btn get btn-success"><?php esc_html_e('Get It Now', ATBDP_TEXTDOMAIN); ?></a>
                             </div>
                         </div>
                     </div>

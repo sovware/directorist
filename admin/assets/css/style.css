@@ -250,28 +250,6 @@ css for Custom Field
   width: 100%;
 }
 
-#directorist.atbd_wrapper .attc_extension_wrapper .single_extension.coming_soon img {
-  opacity: 0.6;
-}
-
-#directorist.atbd_wrapper .attc_extension_wrapper .single_extension.coming_soon a {
-  pointer-events: none !important;
-}
-
-#directorist.atbd_wrapper .attc_extension_wrapper .single_extension.coming_soon .ext_title a:after {
-  content: '(Coming Soon)';
-  color: #ff0000;
-  font-size: 14px;
-}
-
-#directorist.atbd_wrapper .attc_extension_wrapper .single_extension.coming_soon .ext_title:hover a {
-  color: inherit;
-}
-
-#directorist.atbd_wrapper .attc_extension_wrapper .single_extension.coming_soon .btn {
-  opacity: 0.5;
-}
-
 #directorist.atbd_wrapper .btn_wrapper a + a {
   margin-left: 10px;
 }

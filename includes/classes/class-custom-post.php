@@ -45,6 +45,10 @@ if(!class_exists('ATBDP_Custom_Post')):
                 $my_post['ID'] = $_REQUEST['update_id'];
                 $my_post['post_status'] = 'publish';
                 wp_update_post( $my_post );
+                /**
+                 * @since 5.4.0
+                 */
+                do_action('atbdp_listing_published', $my_post['ID']);//for sending email notification
             }
         }
 

@@ -16,8 +16,9 @@ jQuery(document).ready(function ($) {
             return false;
         }
         //description
-         var iframe = $('#listing_content_ifr');
+        var iframe = $('#listing_content_ifr');
         var description = $('#tinymce[data-id="listing_content"]', iframe.contents()).text();
+        console.log(description);
         var required_description = add_listing_validator.description;
         if ('' === description && '' !== required_description) {
             $("#wp-listing_content-wrap").after('<span class="atbdp_required">' + w_icon  + required_description + '</span>');

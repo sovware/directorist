@@ -65,41 +65,42 @@ $t = !empty($t) ? $t : __('No Title', ATBDP_TEXTDOMAIN);
 $tg = !empty($tagline) ? esc_html($tagline) : '';
 $ad = !empty($address) ? esc_html($address) : '';
 $image = (!empty($attachment_id[0])) ? "<img src='" . esc_url(wp_get_attachment_image_url($attachment_id[0], 'thumbnail')) . "'>" : '';
-$info_content = "<div class='map_info_window'> <h3>{$t}</h3>";
+$info_content  = "<div class='map_info_window'> <h3>{$t}</h3>";
 $info_content .= "<p> {$tg} </p>";
 $info_content .= $image; // add the image if available
 $info_content .= "<address>{$ad}</address>";
 $info_content .= "<a href='http://www.google.com/maps/place/{$manual_lat},{$manual_lng}' target='_blank'> " . __('View On Google Maps', ATBDP_TEXTDOMAIN) . "</a></div>";
 /*END INFO WINDOW CONTENT*/
-$map_zoom_level = get_directorist_option('map_zoom_level', 16);
-$disable_map = get_directorist_option('disable_map', 0);
-$disable_sharing = get_directorist_option('disable_sharing', 0);
-$disable_contact_info = get_directorist_option('disable_contact_info', 0);
-$disable_contact_owner = get_directorist_option('disable_contact_owner', 1);
-$is_disable_price = get_directorist_option('disable_list_price');
-$enable_social_share = get_directorist_option('enable_social_share', 1);
-$enable_favourite = get_directorist_option('enable_favourite', 1);
-$enable_report_abuse = get_directorist_option('enable_report_abuse', 1);
-$enable_video_url = get_directorist_option('atbd_video_url', 1);
-$video_label = get_directorist_option('atbd_video_title', __('Video', ATBDP_TEXTDOMAIN));
-$p_lnk = get_the_permalink();
-$p_title = get_the_title();
-$featured = get_post_meta(get_the_ID(), '_featured', true);
-$cats = get_the_terms($post->ID, ATBDP_CATEGORY);
-$reviews_count = ATBDP()->review->db->count(array('post_id' => $listing_id)); // get total review count for this post
-$listing_author_id = get_post_field('post_author', $listing_id);
-$display_feature_badge_single = get_directorist_option('display_feature_badge_cart', 1);
-$display_popular_badge_single = get_directorist_option('display_popular_badge_cart', 1);
-$popular_badge_text = get_directorist_option('popular_badge_text', 'Popular');
-$feature_badge_text = get_directorist_option('feature_badge_text', 'Feature');
-$new_badge_text = get_directorist_option('new_badge_text', 'New');
-$enable_new_listing = get_directorist_option('display_new_badge_cart', 1);
-$use_nofollow = get_directorist_option('use_nofollow');
-$enable_review = get_directorist_option('enable_review', 'yes');
-$custom_section_lable = get_directorist_option('custom_section_lable', __('Details', ATBDP_TEXTDOMAIN));
-$listing_details_text = get_directorist_option('listing_details_text', __('Listing Details', ATBDP_TEXTDOMAIN));
-$display_tagline_field = get_directorist_option('display_tagline_field', 0);
-$display_pricing_field = get_directorist_option('display_pricing_field', 1);
+$map_zoom_level                 = get_directorist_option('map_zoom_level', 16);
+$disable_map                    = get_directorist_option('disable_map', 0);
+$disable_sharing                = get_directorist_option('disable_sharing', 0);
+$disable_contact_info           = get_directorist_option('disable_contact_info', 0);
+$disable_contact_owner          = get_directorist_option('disable_contact_owner', 1);
+$is_disable_price               = get_directorist_option('disable_list_price');
+$enable_social_share            = get_directorist_option('enable_social_share', 1);
+$enable_favourite               = get_directorist_option('enable_favourite', 1);
+$enable_report_abuse            = get_directorist_option('enable_report_abuse', 1);
+$enable_video_url               = get_directorist_option('atbd_video_url', 1);
+$video_label                    = get_directorist_option('atbd_video_title', __('Video', ATBDP_TEXTDOMAIN));
+$p_lnk                          = get_the_permalink();
+$p_title                        = get_the_title();
+$featured                       = get_post_meta(get_the_ID(), '_featured', true);
+$cats                           = get_the_terms($post->ID, ATBDP_CATEGORY);
+$reviews_count                  = ATBDP()->review->db->count(array('post_id' => $listing_id)); // get total review count for this post
+$listing_author_id              = get_post_field('post_author', $listing_id);
+$display_feature_badge_single   = get_directorist_option('display_feature_badge_cart', 1);
+$display_popular_badge_single   = get_directorist_option('display_popular_badge_cart', 1);
+$popular_badge_text             = get_directorist_option('popular_badge_text', 'Popular');
+$feature_badge_text             = get_directorist_option('feature_badge_text', 'Feature');
+$new_badge_text                 = get_directorist_option('new_badge_text', 'New');
+$enable_new_listing             = get_directorist_option('display_new_badge_cart', 1);
+$use_nofollow                   = get_directorist_option('use_nofollow');
+$enable_review                  = get_directorist_option('enable_review', 'yes');
+$custom_section_lable           = get_directorist_option('custom_section_lable', __('Details', ATBDP_TEXTDOMAIN));
+$listing_details_text           = get_directorist_option('listing_details_text', __('Listing Details', ATBDP_TEXTDOMAIN));
+$display_tagline_field          = get_directorist_option('display_tagline_field', 0);
+$display_pricing_field          = get_directorist_option('display_pricing_field', 1);
+$display_thumbnail_img          = get_directorist_option('dsiplay_thumbnail_img', 1);
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 //is current user is logged in and the original author of the listing
@@ -231,6 +232,7 @@ do_action('atbdp_before_listing_section');
                         <span class="next fa fa-angle-right"></span>
                     <?php } ?>
                 </div>
+                <?php if(!empty($display_thumbnail_img)) {?>
                 <div class="atbd_directory_image_thumbnail">
                     <?php
                     $listing_prv_imgurl_thumb = wp_get_attachment_image_src($listing_prv_img, 'thumbnail')['0'];
@@ -247,6 +249,7 @@ do_action('atbdp_before_listing_section');
                         if (!is_multiple_images_active()) break;
                     } ?>
                 </div><!-- end /.atbd_directory_image_wrapper -->
+                <?php } ?>
             </div>
         <?php } elseif (!empty($display_prv_image)) {
             $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
@@ -395,7 +398,7 @@ do_action('atbdp_before_listing_section');
             slidesToShow: 1,
             slidesToScroll: 1,
             arrows: false,
-            asNavFor: '.atbd_directory_image_thumbnail',
+            asNavFor: '<?php echo !empty($display_thumbnail_img) ? ".atbd_directory_image_thumbnail" : ""; ?>',
             rtl: <?php echo is_rtl() ? 'true' : 'false'; ?>
         });
         /* image gallery slider */

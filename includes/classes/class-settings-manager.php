@@ -4187,6 +4187,14 @@ The Administrator of ==SITE_NAME==
                 ),
 
                 array(
+                    'type' => 'toggle',
+                    'name' => 'enable_reviewer_img',
+                    'label' => __('Enable Reviewer Image', ATBDP_TEXTDOMAIN),
+                    'description' => __('Allow to display image of reviewer on single listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+
+                array(
                     'type' => 'slider',
                     'name' => 'review_num',
                     'label' => __('Number of Reviews', ATBDP_TEXTDOMAIN),
@@ -4290,6 +4298,14 @@ The Administrator of ==SITE_NAME==
                     'name' => 'dsiplay_slider_single_page',
                     'label' => __('Show Slider Image', ATBDP_TEXTDOMAIN),
                     'description' => __('Hide/show slider image from single listing page.', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+
+                array(
+                    'type' => 'toggle',
+                    'name' => 'dsiplay_thumbnail_img',
+                    'label' => __('Show Slider Thumbnail', ATBDP_TEXTDOMAIN),
+                    'description' => __('Hide/show slider thumbnail from single listing page.', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
 

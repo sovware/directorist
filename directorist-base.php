@@ -1069,18 +1069,19 @@ final class Directorist_Base
      */
     public function show_review($post)
     {
-        $enable_review = get_directorist_option('enable_review', 1);
+        $enable_review          = get_directorist_option('enable_review', 1);
         if (!$enable_review) return; // vail if review is not enabled
-        $enable_owner_review = get_directorist_option('enable_owner_review');
-        $review_num = get_directorist_option('review_num', 5); // how many reviews to show?
-        $reviews = ATBDP()->_get_reviews($post, $review_num);
-        $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
-        $plan_review = true;
+        $enable_owner_review    = get_directorist_option('enable_owner_review');
+        $enable_reviewer_img    = get_directorist_option('enable_reviewer_img',1);
+        $review_num             = get_directorist_option('review_num', 5); // how many reviews to show?
+        $reviews                = ATBDP()->_get_reviews($post, $review_num);
+        $reviews_count          = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
+        $plan_review            = true;
         if (is_fee_manager_active()) {
-            $plan_review = is_plan_allowed_listing_review(get_post_meta($post->ID, '_fm_plans', true));
+            $plan_review        = is_plan_allowed_listing_review(get_post_meta($post->ID, '_fm_plans', true));
         }
         if ($plan_review) {
-            $count_review = ($reviews_count > 1) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
+            $count_review       = ($reviews_count > 1) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
             ?>
             <div class="atbd_content_module atbd_review_module">
                 <div class="atbd_content_module__tittle_area">
@@ -1106,12 +1107,13 @@ final class Directorist_Base
                                     <div class="atbd_review_top">
                                         <div class="atbd_avatar_wrapper">
                                             <?php $avata_img = get_avatar($review->by_user_id, 32);
-                                            ?>
+                                            if(!empty($enable_reviewer_img)) { ?>
                                             <div class="atbd_review_avatar"><?php if ($avata_img) {
                                                     echo $avata_img;
                                                 } else { ?><img
                                                     src="<?php echo ATBDP_PUBLIC_ASSETS . 'images/revav.png' ?>"
                                                     alt="Avatar Image"><?php } ?></div>
+                                            <?php } ?>
                                             <div class="atbd_name_time">
                                                 <p><?= esc_html($review->name); ?></p>
                                                 <span class="review_time"><?php

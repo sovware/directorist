@@ -591,7 +591,7 @@ class ATBDP_Custom_Field
 
 
                     }).change();
-                    
+
                     $('.field-type select', '#atbdp-field-details').on('change', function () {
 
                         var fieldType = $('.field-type select[name="type"]').val();

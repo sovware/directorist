@@ -85,11 +85,11 @@ class ATBDP_Permalink{
         $link = home_url();
         $id = get_directorist_option('custom_registration'); // get the page id of the custom registration page.
         if( $id ) $link = get_permalink( $id );
-
+        $custom_link = get_directorist_option('reg_url');
         if (!empty($query_vars) && is_array($query_vars)){
             $link = add_query_arg( $query_vars, $link );
         }
-        return apply_filters('atbdp_registration_page_url', $link );
+        return apply_filters('atbdp_registration_page_url', ($link === $custom_link)?$link:$custom_link );
     }
 
 
@@ -122,10 +122,11 @@ class ATBDP_Permalink{
         $id = get_directorist_option('user_login'); // get the page id of the custom registration page.
         if( $id ) $link = get_permalink( $id );
 
+        $custom_link = get_directorist_option('login_url');
         if (!empty($query_vars) && is_array($query_vars)){
             $link = add_query_arg( $query_vars, $link );
         }
-        return apply_filters('atbdp_user_login_page_url', $link );
+        return apply_filters('atbdp_user_login_page_url', ($link === $custom_link)?$link:$custom_link );
     }
 
 

@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 5.3.0
+Stable tag: 5.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -131,12 +131,16 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 = 5.4.0 - Jul 02, 2019 =
 
-* Tweak - Info window on map
-* Tweak - Theme compatibility
-* Fix - Pagination issue in single tag page
-* Fix - Line awesome css issue
-* Add - Moving marker in OpenStreetMap
-* Add - Login and Registration link customization
+* Add - Settings Search Box on top of the Settings Panel to find out settings quickly & easily
+* Add - File type (audio, video, image, pdf, document and so on..) in Custom Fields
+* Add - OpenStreetMap map's marker move
+* Add - Control the link of Login and Registration
+* Tweak - Info window of Map
+* Tweak - Listing columns to work more effectively
+* Fix - Pagination issue on single tag page
+* Fix - Line Awesome icon css issue
+* Fix - Featured widget
+* Fix - Shortcodes of Single Listing page
 
 = 5.3.0 - Jun 24, 2019 =
 

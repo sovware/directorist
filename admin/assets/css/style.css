@@ -250,6 +250,28 @@ css for Custom Field
   width: 100%;
 }
 
+#directorist.atbd_wrapper .attc_extension_wrapper .single_extension.coming_soon img {
+  opacity: 0.6;
+}
+
+#directorist.atbd_wrapper .attc_extension_wrapper .single_extension.coming_soon a {
+  pointer-events: none !important;
+}
+
+#directorist.atbd_wrapper .attc_extension_wrapper .single_extension.coming_soon .ext_title a:after {
+  content: '(Coming Soon)';
+  color: #ff0000;
+  font-size: 14px;
+}
+
+#directorist.atbd_wrapper .attc_extension_wrapper .single_extension.coming_soon .ext_title:hover a {
+  color: inherit;
+}
+
+#directorist.atbd_wrapper .attc_extension_wrapper .single_extension.coming_soon .btn {
+  opacity: 0.5;
+}
+
 #directorist.atbd_wrapper .btn_wrapper a + a {
   margin-left: 10px;
 }
@@ -563,6 +585,41 @@ css for Custom Field
 #atbdp-categories-image-wrapper .remove_cat_img:hover {
   background: #ff0000;
   color: #fff;
+}
+
+.plupload-upload-uic {
+  width: 420px;
+  margin: 0 auto !important;
+  border: 1px dashed #dbdee9;
+  padding: 30px;
+}
+
+.plupload-upload-uic .atbdp-dropbox-title {
+  font-weight: 500;
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.plupload-upload-uic .atbdp_button {
+  border: 1px solid #e3e6ef;
+  background: #f8f9fb;
+  font-size: 14px;
+  box-shadow: none;
+  line-height: 40px !important;
+  padding: 0 30px !important;
+  height: auto !important;
+  transition: 0.3s ease;
+}
+
+.plupload-upload-uic .atbdp-dropbox-file-types {
+  margin-top: 10px;
+  color: #9299b8;
+}
+
+@media (max-width: 575px) {
+  .plupload-upload-uic {
+    width: 100%;
+  }
 }
 
 @media (max-width: 400px) {

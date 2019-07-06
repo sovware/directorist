@@ -82,6 +82,19 @@ class ATBDP_Permalink{
      */
     public static function get_registration_page_link($query_vars=array())
     {
+
+        $reg_url = get_directorist_option('reg_url',ATBDP_Permalink::get_registration_page_url()); // get the page id of the custom registration page.
+
+        return apply_filters('atbdp_registration_page_url', $reg_url);
+    }
+
+    /**
+     * It returns the link to the custom search archive page of ATBDP
+     * @param array $query_vars [optional] Array of query vars to be added to the registration page url
+     * @return string
+     */
+    public static function get_registration_page_url($query_vars=array())
+    {
         $link = home_url();
         $id = get_directorist_option('custom_registration'); // get the page id of the custom registration page.
         if( $id ) $link = get_permalink( $id );
@@ -116,6 +129,17 @@ class ATBDP_Permalink{
      * @return string
      */
     public static function get_login_page_link($query_vars=array())
+    {
+        $login_url = get_directorist_option('login_url',ATBDP_Permalink::get_login_page_url());
+        return apply_filters('atbdp_user_login_page_url', $login_url);
+    }
+
+    /**
+     * It returns the link to the custom search archive page of ATBDP
+     * @param array $query_vars [optional] Array of query vars to be added to the registration page url
+     * @return string
+     */
+    public static function get_login_page_url($query_vars=array())
     {
         $link = home_url();
         $id = get_directorist_option('user_login'); // get the page id of the custom registration page.

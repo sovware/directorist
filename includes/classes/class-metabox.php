@@ -425,7 +425,6 @@ wp_reset_postdata();
                 }
 
                 update_post_meta( $post_id, $key, $value );
-                set_post_thumbnail( $post_id, sanitize_text_field($p['listing_prv_img']) );
             }
 
         }
@@ -442,6 +441,7 @@ wp_reset_postdata();
         foreach ($metas as $meta_key => $meta_value) {
             update_post_meta($post_id, $meta_key, $meta_value); // array value will be serialize automatically by update post meta
         }
+        set_post_thumbnail( $post_id, sanitize_text_field($p['listing_prv_img']) );
     }
 
 

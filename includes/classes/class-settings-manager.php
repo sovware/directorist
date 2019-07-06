@@ -293,13 +293,13 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'type' => 'textbox',
                     'name' => 'login_url',
                     'label' => __('Url', ATBDP_TEXTDOMAIN),
-                    'default' => ATBDP_Permalink::get_login_page_link(),
+                    'default' => ATBDP_Permalink::get_login_page_url(),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'log_linkingmsg',
                     'label' => __('Linking Text', ATBDP_TEXTDOMAIN),
-                    'default' => __('here', ATBDP_TEXTDOMAIN),
+                    'default' => __('Here', ATBDP_TEXTDOMAIN),
                 ),
             ));
         }
@@ -405,7 +405,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'type' => 'textbox',
                     'name' => 'reg_url',
                     'label' => __('Url', ATBDP_TEXTDOMAIN),
-                    'default' => ATBDP_Permalink::get_registration_page_link(),
+                    'default' => ATBDP_Permalink::get_registration_page_url(),
                 ),
                 array(
                     'type' => 'textbox',

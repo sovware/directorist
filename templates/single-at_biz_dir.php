@@ -196,7 +196,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 
                         $listing_header .= '<div class="atbd_director_social_wrap">';
                         //prepare the data for the links because links needs to be escaped
-                        $twt_lnk = "http://twitter.com/share?url={$p_lnk}";
+                        $twt_lnk = 'https://twitter.com/intent/tweet?text='.$p_title.'&amp;url='.$p_lnk;
                         $fb_lnk = "https://www.facebook.com/share.php?u={$p_lnk}&title={$p_title}";
                         $in_link = "http://www.linkedin.com/shareArticle?mini=true&url={$p_lnk}&title={$p_title}";
                         $listing_header .= '
@@ -208,7 +208,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         <li>
                             <a href="' . esc_url($twt_lnk) . '" target="_blank">
                                 <span class="'.atbdp_icon_type().'-twitter"></span>' . __('Twitter', ATBDP_TEXTDOMAIN) . '</a>
-                                <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+                              
                         </li>
                         <li>
                             <a href="' . esc_url($in_link) . '" target="_blank">

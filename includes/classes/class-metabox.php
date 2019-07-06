@@ -424,6 +424,7 @@ wp_reset_postdata();
                 }
 
                 update_post_meta( $post_id, $key, $value );
+                set_post_thumbnail( $post_id, sanitize_text_field($p['listing_prv_img']) );
             }
 
         }

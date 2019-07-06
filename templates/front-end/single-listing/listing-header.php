@@ -130,7 +130,7 @@ do_action('atbdp_before_listing_section');
             $listing_header .= '<span class="'.atbdp_icon_type().'-share"></span>' . __('Share', ATBDP_TEXTDOMAIN) . '';
             $listing_header .= '<div class="atbd_director_social_wrap">';
             //prepare the data for the links because links needs to be escaped
-            $twt_lnk = "http://twitter.com/share?url={$p_lnk}";
+            $twt_lnk = 'https://twitter.com/intent/tweet?text='.$p_title.'&amp;url='.$p_lnk;
             $fb_lnk = "https://www.facebook.com/share.php?u={$p_lnk}&title={$p_title}";
             $in_link = "http://www.linkedin.com/shareArticle?mini=true&url={$p_lnk}&title={$p_title}";
             $listing_header .= '                                                               
@@ -140,15 +140,13 @@ do_action('atbdp_before_listing_section');
                         </li>
                         <li>
                             <a href="' . esc_url($twt_lnk) . '" target="_blank"><span class="'.atbdp_icon_type().'-twitter"></span>' . __('Twitter', ATBDP_TEXTDOMAIN) . '</a>
+                           
                         </li>
                         <li>
                             <a href="' . esc_url($in_link) . '" target="_blank"><span class="'.atbdp_icon_type().'-linkedin"></span>' . __('LinkedIn', ATBDP_TEXTDOMAIN) . '</a>
                         </li>
                     </ul>';
             $listing_header .= '</div>'; //Ends social share
-            ?>
-            <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-            <?php
             $listing_header .= '</div>';
         }
         if ($enable_report_abuse) {

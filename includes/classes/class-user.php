@@ -30,7 +30,6 @@ class ATBDP_User {
 
     }
 
-
     public function user_functions_ready_hook()
     {
         //Allow Contributors/Subscriber to Add Media

@@ -55,6 +55,65 @@ if (!class_exists('ATBDP_Listing')):
             remove_action('wp_head', array($this, 'adjacent_posts_rel_link_wp_head', 10));
             add_action('wp_head', array($this, 'track_post_views'));
             add_filter('the_content', array($this, 'the_content'), 20); // add the output of the single page when the content filter fires in our post type. This way is better than using a custom post template because it will not match the style of all theme.
+            add_filter( 'post_thumbnail_html', array($this, 'post_thumbnail_html'), 10, 3 );
+            add_action('wp_head', array($this, 'og_metatags'));
+
+        }
+
+        /**
+         * Adds the Facebook OG tags and Twitter Cards.
+         *
+         * @since    1.0.0
+         * @access   public
+         */
+        public function og_metatags() {
+
+            global $post;
+
+            if( ! isset( $post ) ) return;
+
+
+            $title = get_the_title();
+
+            // Get Location page title
+
+
+            echo '<meta property="og:url" content="'.atbdp_get_current_url().'" />';
+            echo '<meta property="og:type" content="article" />';
+            echo '<meta property="og:title" content="'.$title.'" />';
+
+            if( ! empty( $post->post_content ) ) {
+                echo '<meta property="og:description" content="'.wp_trim_words( $post->post_content, 150 ).'" />';
+            }
+
+            $images = get_post_meta( $post->ID, '_listing_prv_img', true );
+            if( ! empty( $images ) ) {
+                $thumbnail = wp_get_attachment_image_src( $images, 'full' )[0];
+                if( ! empty( $thumbnail ) ) echo '<meta property="og:image" content="'.$thumbnail.'" />';
+            }
+
+            echo '<meta property="og:site_name" content="'.get_bloginfo( 'name' ).'" />';
+            echo '<meta name="twitter:card" content="summary">';
+
+
+        }
+
+        /**
+         * Filter the post content.
+         *
+         * @since    5.4.0
+         * @access   public
+         *
+         * @param    string    $html    The post thumbnail HTML.
+         * @return   string    $html    Filtered thumbnail HTML.
+         */
+        public function post_thumbnail_html( $html ) {
+
+            if( is_singular('at_biz_dir') ) {
+                return '';
+            }
+
+            return $html;
 
         }
 

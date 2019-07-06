@@ -205,6 +205,7 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     );
 
+
                     /**
                      * @since 4.4.0
                      *
@@ -273,6 +274,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 }
                             }
                             $post_id = wp_update_post($args);
+                            set_post_thumbnail( $post_id, sanitize_text_field($p['listing_prv_img']) );
                             $append = false;
                             if (count($location)>1){
                                 $append = true;

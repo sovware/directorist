@@ -460,8 +460,10 @@
         .atbd_review_avatar {
           height: 50px;
           width: 50px;
+          margin-right: 12px;
           img {
             width: 100%;
+            height: auto;
             border-radius: 500px;
             position: relative;
             top: 0;
@@ -473,7 +475,6 @@
           vertical-align: middle;
         }
         .atbd_name_time {
-          margin-left: 12px;
           p {
             font-size: 16px;
             color: $dark;

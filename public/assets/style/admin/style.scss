@@ -527,6 +527,38 @@ css for Custom Field
   }
 }
 
+.plupload-upload-uic{
+  width: 420px;
+  margin: 0 auto !important;
+  border: 1px dashed #dbdee9;
+  padding: 30px;
+  .atbdp-dropbox-title{
+    font-weight: 500;
+    margin-bottom: 15px;
+    font-size: 15px;
+  }
+  .atbdp_button{
+    border: 1px solid $border-color;
+    background: #f8f9fb;
+    font-size: 14px;
+    box-shadow: none;
+    line-height: 40px !important;
+    padding: 0 30px !important;
+    height: auto !important;
+    transition: 0.3s ease;
+  }
+  .atbdp-dropbox-file-types{
+    margin-top: 10px;
+    color: #9299b8;
+  }
+}
+
+@media (max-width: 575px){
+  .plupload-upload-uic{
+    width: 100%;
+  }
+}
+
 @media (max-width: 400px) {
   #_listing_contact_info #directorist.atbd_wrapper{
     .form-check{

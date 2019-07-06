@@ -251,7 +251,7 @@ $column_width = 100 / $columns . '%';
                                                 $meta_html .= '<div class="atbd_listing_meta">';
                                                 $average = ATBDP()->review->get_average(get_the_ID());
                                                 if (!empty($display_review)) {
-                                                    $meta_html .= '<span class="atbd_meta atbd_listing_rating">' . $average . '<i class="'.atbdp_icon_type().'-star"></i></span>';
+                                                    $meta_html .= '<span class="atbd_meta atbd_listing_rating">' . $average . '<i class="' . atbdp_icon_type() . '-star"></i></span>';
                                                 }
                                                 $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
                                                 if (!empty($display_price) && !empty($display_pricing_field)) {
@@ -290,7 +290,7 @@ $column_width = 100 / $columns . '%';
                                                         if (!empty($display_contact_info)) {
                                                             if (!empty($address) && 'contact' == $address_location && !empty($display_address_field)) { ?>
                                                                 <li><p>
-                                                                        <span class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php echo esc_html(stripslashes($address)); ?>
+                                                                        <span class="<?php atbdp_icon_type(true); ?>-map-marker"></span><?php echo esc_html(stripslashes($address)); ?>
                                                                     </p></li>
                                                             <?php } elseif (!empty($locs) && 'location' == $address_location) {
 
@@ -307,7 +307,7 @@ $column_width = 100 / $columns . '%';
 
                                                     <span>
                                                     <?php
-                                                    echo "<span class='".atbdp_icon_type()."-map-marker'></span>" . join(',', $output); ?>
+                                                    echo "<span class='" . atbdp_icon_type() . "-map-marker'></span>" . join(',', $output); ?>
                                                 </span>
                                                                     </p>
                                                                 </li>
@@ -319,7 +319,7 @@ $column_width = 100 / $columns . '%';
                                                             ?>
                                                             <?php if (!empty($phone_number) && !empty($display_phone_field)) { ?>
                                                                 <li><p>
-                                                                        <span class="<?php atbdp_icon_type(true);?>-phone"></span><?php echo esc_html(stripslashes($phone_number)); ?>
+                                                                        <span class="<?php atbdp_icon_type(true); ?>-phone"></span><?php echo esc_html(stripslashes($phone_number)); ?>
                                                                     </p></li>
                                                                 <?php
                                                             }
@@ -330,7 +330,8 @@ $column_width = 100 / $columns . '%';
                                                         do_action('atbdp_listings_before_post_date');
 
                                                         if (!empty($display_publish_date)) { ?>
-                                                            <li><p><span class="<?php atbdp_icon_type(true);?>-clock-o"></span><?php
+                                                            <li><p>
+                                                                    <span class="<?php atbdp_icon_type(true); ?>-clock-o"></span><?php
                                                                     printf(__('Posted %s ago', ATBDP_TEXTDOMAIN), human_time_diff(get_the_time('U'), current_time('timestamp')));
                                                                     ?></p></li>
                                                         <?php }
@@ -374,7 +375,7 @@ $column_width = 100 / $columns . '%';
                                                     <div class="atbd_content_left">
                                                         <div class="atbd_listting_category">
                                                             <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)) { ?>
-                                                                    <span class="<?php atbdp_icon_type(true);?>-tags"></span><?php } ?><?php echo $cats[0]->name; ?>
+                                                                <span class="<?php atbdp_icon_type(true); ?>-tags"></span><?php } ?><?php echo $cats[0]->name; ?>
                                                             </a>
                                                             <?php
                                                             if ($totalTerm > 1) {
@@ -400,21 +401,24 @@ $column_width = 100 / $columns . '%';
                                                     <div class="atbd_content_left">
                                                         <div class="atbd_listting_category">
                                                             <a href=""><span
-                                                                        class="<?php atbdp_icon_type(true);?>-tags"></span><?php echo __('Uncategorized', ATBDP_TEXTDOMAIN); ?>
+                                                                        class="<?php atbdp_icon_type(true); ?>-tags"></span><?php echo __('Uncategorized', ATBDP_TEXTDOMAIN); ?>
                                                             </a>
                                                         </div>
                                                     </div>
 
                                                 <?php }
-                                            } ?>
-                                            <?php if (!empty($display_view_count)) { ?>
-                                                <ul class="atbd_content_right">
-                                                    <?php if (!empty($display_view_count)) { ?>
-                                                        <li class="atbd_count"><span
-                                                                    class="<?php atbdp_icon_type(true);?>-eye"></span><?php echo !empty($post_view) ? $post_view : 0; ?>
-                                                        </li> <?php } ?>
-                                                </ul>
-                                            <?php }
+                                            }  if (!empty($display_view_count)) {
+                                                /**
+                                                 * @since 5.5.0
+                                                 */
+                                                $fotter_right = '<ul class="atbd_content_right">';
+                                                $fotter_right .= '<li class="atbd_count">';
+                                                $fotter_right .= '<span class="'.atbdp_icon_type().'-eye"></span>';
+                                                $fotter_right .= !empty($post_view) ? $post_view : 0;
+                                            $fotter_right .= '</li>';
+                                            $fotter_right .= '</ul>';
+                                            echo apply_filters('atbdp_grid_fotter_right_html', $fotter_right);
+                                            }
                                             ?>
                                         </div><!-- end ./atbd_listing_bottom_content -->
                                     <?php }

@@ -208,6 +208,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         <li>
                             <a href="' . esc_url($twt_lnk) . '" target="_blank">
                                 <span class="'.atbdp_icon_type().'-twitter"></span>' . __('Twitter', ATBDP_TEXTDOMAIN) . '</a>
+                                <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
                         </li>
                         <li>
                             <a href="' . esc_url($in_link) . '" target="_blank">
@@ -215,9 +216,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         </li>
                     </ul>';
                         $listing_header .= '</div>'; //Ends social share
-                        ?>
-                        <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-                        <?php
                         $listing_header .= '</div>';
                     }
                     if ($enable_report_abuse) {
@@ -872,7 +870,6 @@ if ('openstreet' == $select_listing_map) {
             lon = <?php echo !empty($manual_lng) ? floatval($manual_lng) : false; ?>;
 
         mymap(lon, lat);
-
         var abc = `<?php echo !empty($info_content)?$info_content:'' ?>` + '<span><i class="fa fa-times"></i></span>';
 
         $('#OL_Icon_33').append('<div class="mapHover"></div>');

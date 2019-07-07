@@ -13,7 +13,6 @@ if ( !class_exists('ATBDP_SEO') ):
             add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 100, 2);
             add_filter('the_title', array($this, 'atbdp_title_update'), 10, 2);
             add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 100, 2);
-
             add_filter('wpseo_canonical', array($this, 'wpseo_canonical'));
             add_filter('wpseo_opengraph_url', array($this, 'wpseo_canonical'));
         }

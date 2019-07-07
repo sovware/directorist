@@ -209,7 +209,7 @@ $column_width = 100 / $columns . '%';
                                     /**
                                      * @since 5.0
                                      */
-                                    echo apply_filters('atbdp_lower_badges', $l_badge_html);
+                                    echo apply_filters('atbdp_grid_lower_badges', $l_badge_html);
                                     ?>
                                 </figure>
                                 <div class="atbd_listing_info">

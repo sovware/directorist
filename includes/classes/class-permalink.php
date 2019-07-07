@@ -148,6 +148,7 @@ class ATBDP_Permalink{
         if (!empty($query_vars) && is_array($query_vars)){
             $link = add_query_arg( $query_vars, $link );
         }
+
         return apply_filters('atbdp_user_login_page_url', $link);
     }
 

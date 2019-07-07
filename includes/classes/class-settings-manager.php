@@ -4864,7 +4864,6 @@ The Administrator of ==SITE_NAME==
                         'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_custom_registration]</strong>'),
                         'default' => atbdp_get_option('custom_registration', 'atbdp_general'),
                         'validation' => 'numeric',
-
                     ),
 
                     array(

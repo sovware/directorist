@@ -258,7 +258,7 @@ $column_width           = 100/$search_listing_columns .'%';
                                             /**
                                              * @since 5.0
                                              */
-                                            echo apply_filters('atbdp_lower_badges', $l_badge_html);
+                                            echo apply_filters('atbdp_single_lower_badges', $l_badge_html);
                                             ?>
                                     </figure>
 

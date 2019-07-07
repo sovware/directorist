@@ -2377,7 +2377,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                     /**
                                      * @since 5.0
                                      */
-                                    echo apply_filters('atbdp_lower_badges', $l_badge_html);
+                                    echo apply_filters('atbdp_grid_lower_badges', $l_badge_html);
                                     ?>
                                 </figure>
                                 <div class="atbd_listing_info">
@@ -2800,7 +2800,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                         /**
                                          * @since 5.0
                                          */
-                                        echo apply_filters('atbdp_lower_badges', $l_badge_html);
+                                        echo apply_filters('atbdp_grid_lower_badges', $l_badge_html);
                                         ?>
                                     </figure>
                                     <div class="atbd_listing_info">
@@ -3157,7 +3157,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                 /**
                                  * @since 5.0
                                  */
-                                echo apply_filters('atbdp_lower_badges', $l_badge_html);
+                                echo apply_filters('atbdp_list_lower_badges', $l_badge_html);
                                 ?>
                         </figure>
                         <div class="atbd_listing_info">

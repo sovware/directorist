@@ -67,6 +67,11 @@ class ATBDP_User {
             return $redirect_to;
         }
 
+        /**
+         * @since 5.4.1
+         */
+        do_action('atbdp_before_login_redirect', $redirect_to);
+
         if ( ! array_intersect( apply_filters('atbdp_login_redirect_to_wp_dashboard', array('administrator')), (array) $user->roles ) ) {
             $redirect_to  = ATBDP_Permalink::get_dashboard_page_link();
         }else{

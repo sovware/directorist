@@ -16,10 +16,10 @@ jQuery(document).ready(function($) {
 
 
         $(".plupload-upload-uic").each(function(ind, el) {
-            setTimeout(() => {
-                var chlNod = el.childNodes;
-                chlNod[13].innerHTML = '';
-            }, 200)
+            // setTimeout(() => {
+            //     var chlNod = el.childNodes;
+            //     chlNod[13].innerHTML = '';
+            // }, 200)
             var $this = $(this);
             var id1 = $this.attr("id");
             var imgId = id1.replace("plupload-upload-ui", "");

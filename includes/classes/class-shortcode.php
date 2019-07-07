@@ -1124,6 +1124,8 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $text_placeholder             = get_directorist_option('search_result_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
             $category_placeholder         = get_directorist_option('search_result_category_placeholder',__('Select a category',ATBDP_TEXTDOMAIN));
             $location_placeholder         = get_directorist_option('search_result_location_placeholder',__('Select a location',ATBDP_TEXTDOMAIN));
+            $sort_by_text                 = get_directorist_option('search_sortby_text',__('Sort By',ATBDP_TEXTDOMAIN));
+            $view_as_text                 = get_directorist_option('search_viewas_text',__('View As',ATBDP_TEXTDOMAIN));
             $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
             $search_more_filters_fields   = get_directorist_option('search_result_filters_fields',array('search_text','search_category','search_location','search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
             $filters_button               = get_directorist_option('search_result_filters_button',array('reset_button','apply_button'));
@@ -1195,19 +1197,19 @@ if ( !class_exists('ATBDP_Shortcode') ):
             //for pagination
             $paged                     = atbdp_get_paged_num();
 
-            $has_featured        = get_directorist_option('enable_featured_listing');
+            $has_featured              = get_directorist_option('enable_featured_listing');
             if( $has_featured || is_fee_manager_active()) {
                 $has_featured    = $atts['_featured'];
             }
-
             $current_order       = atbdp_get_listings_current_order( $atts['orderby'].'-'.$atts['order'] );
             $view                = atbdp_get_listings_current_view_name( $atts['view'] );
 
             $args = array(
                 'post_type'      => ATBDP_POST_TYPE,
                 'post_status'    => 'publish',
-                'posts_per_page' => (int) $atts['listings_per_page']
+                'posts_per_page' => (int) $atts['listings_per_page'],
             );
+
 
             if('yes' == $show_pagination) {
                 $args['paged']          = $paged;
@@ -1601,12 +1603,14 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $filters_button                  = get_directorist_option('listings_filters_button',array('reset_button','apply_button'));
             $reset_filters_text              = get_directorist_option('listings_reset_text',__('Reset Filters',ATBDP_TEXTDOMAIN));
             $apply_filters_text              = get_directorist_option('listings_apply_text',__('Apply Filters',ATBDP_TEXTDOMAIN));
+            $sort_by_text                    = get_directorist_option('sort_by_text',__('Sort By',ATBDP_TEXTDOMAIN));
+            $view_as_text                    = get_directorist_option('view_as_text',__('View As',ATBDP_TEXTDOMAIN));
             $view_as_items                   = get_directorist_option('listings_view_as_items',array('listings_grid','listings_list','listings_map'));
             $sort_by_items                   = get_directorist_option('listings_sort_by_items',array('a_z','z_a','latest','oldest','popular','price_low_high','price_high_low','random'));
             $listing_header_container_fluid  = is_directoria_active() ? 'container' : 'container-fluid';
-            $header_container_fluid                 = apply_filters('atbdp_listings_header_container_fluid',$listing_header_container_fluid);
-            $listing_grid_container_fluid  = is_directoria_active() ? 'container' : 'container-fluid';
-            $grid_container_fluid                 = apply_filters('atbdp_listings_grid_container_fluid',$listing_grid_container_fluid);
+            $header_container_fluid          = apply_filters('atbdp_listings_header_container_fluid',$listing_header_container_fluid);
+            $listing_grid_container_fluid    = is_directoria_active() ? 'container' : 'container-fluid';
+            $grid_container_fluid            = apply_filters('atbdp_listings_grid_container_fluid',$listing_grid_container_fluid);
             ob_start();
             include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
             return ob_get_clean();
@@ -2018,9 +2022,11 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $location_placeholder         = get_directorist_option('listings_location_placeholder',__('Select a location',ATBDP_TEXTDOMAIN));
                 $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
                 $search_more_filters_fields   = get_directorist_option('listing_filters_fields',array('search_text','search_category','search_location','search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
-                $filters_button   = get_directorist_option('listings_filters_button',array('reset_button','apply_button'));
+                $filters_button               = get_directorist_option('listings_filters_button',array('reset_button','apply_button'));
                 $reset_filters_text           = get_directorist_option('listings_reset_text',__('Reset Filters',ATBDP_TEXTDOMAIN));
                 $apply_filters_text           = get_directorist_option('listings_apply_text',__('Apply Filters',ATBDP_TEXTDOMAIN));
+                $sort_by_text                    = get_directorist_option('sort_by_text',__('Sort By',ATBDP_TEXTDOMAIN));
+                $view_as_text                    = get_directorist_option('view_as_text',__('View As',ATBDP_TEXTDOMAIN));
                 $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
                 $view_as_items                = get_directorist_option('listings_view_as_items',array('listings_grid','listings_list','listings_map'));
                 $sort_by_items                = get_directorist_option('listings_sort_by_items',array('a_z','z_a','latest','oldest','popular','price_low_high','price_high_low','random'));
@@ -2413,9 +2419,11 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $text_placeholder             = get_directorist_option('listings_search_text_placeholder',__('What are you looking for?',ATBDP_TEXTDOMAIN));
                 $category_placeholder         = get_directorist_option('listings_category_placeholder',__('Select a category',ATBDP_TEXTDOMAIN));
                 $location_placeholder         = get_directorist_option('listings_location_placeholder',__('Select a location',ATBDP_TEXTDOMAIN));
+                $sort_by_text                 = get_directorist_option('sort_by_text',__('Sort By',ATBDP_TEXTDOMAIN));
+                $view_as_text                 = get_directorist_option('view_as_text',__('View As',ATBDP_TEXTDOMAIN));
                 $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
                 $search_more_filters_fields   = get_directorist_option('listing_filters_fields',array('search_text','search_category','search_location','search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
-                $filters_button   = get_directorist_option('listings_filters_button',array('reset_button','apply_button'));
+                $filters_button               = get_directorist_option('listings_filters_button',array('reset_button','apply_button'));
                 $reset_filters_text           = get_directorist_option('listings_reset_text',__('Reset Filters',ATBDP_TEXTDOMAIN));
                 $apply_filters_text           = get_directorist_option('listings_apply_text',__('Apply Filters',ATBDP_TEXTDOMAIN));
                 $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
@@ -2766,6 +2774,8 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $filters_button               = get_directorist_option('listings_filters_button',array('reset_button','apply_button'));
                 $reset_filters_text           = get_directorist_option('listings_reset_text',__('Reset Filters',ATBDP_TEXTDOMAIN));
                 $apply_filters_text           = get_directorist_option('listings_apply_text',__('Apply Filters',ATBDP_TEXTDOMAIN));
+                $sort_by_text                 = get_directorist_option('sort_by_text',__('Sort By',ATBDP_TEXTDOMAIN));
+                $view_as_text                 = get_directorist_option('view_as_text',__('View As',ATBDP_TEXTDOMAIN));
                 $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
                 $view_as_items                = get_directorist_option('listings_view_as_items',array('listings_grid','listings_list','listings_map'));
                 $sort_by_items                = get_directorist_option('listings_sort_by_items',array('a_z','z_a','latest','oldest','popular','price_low_high','price_high_low','random'));
@@ -2980,10 +2990,10 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $recpass_username    = get_directorist_option('recpass_username',__('Username or E-mail:',ATBDP_TEXTDOMAIN));
                 $recpass_placeholder = get_directorist_option('recpass_placeholder',__('eg. mail@example.com',ATBDP_TEXTDOMAIN));
                 $recpass_button      = get_directorist_option('recpass_button',__('Get New Password',ATBDP_TEXTDOMAIN));
-                $reg_text         = get_directorist_option('reg_text',__('Don\'t have an account?', ATBDP_TEXTDOMAIN));
-                $reg_url         = get_directorist_option('reg_url',ATBDP_Permalink::get_registration_page_link());
-                $reg_linktxt      = get_directorist_option('reg_linktxt',__('Sign Up', ATBDP_TEXTDOMAIN));
-                $display_signup   = get_directorist_option('display_signup',1);
+                $reg_text            = get_directorist_option('reg_text',__('Don\'t have an account?', ATBDP_TEXTDOMAIN));
+                $reg_url             = get_directorist_option('reg_url',ATBDP_Permalink::get_registration_page_link());
+                $reg_linktxt         = get_directorist_option('reg_linktxt',__('Sign Up', ATBDP_TEXTDOMAIN));
+                $display_signup      = get_directorist_option('display_signup',1);
                 $args = array(
                     'label_username' => sprintf(__( '%s', ATBDP_TEXTDOMAIN),$log_username),
                     'label_password' => sprintf(__( '%s', ATBDP_TEXTDOMAIN),$log_password),

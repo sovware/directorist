@@ -2282,6 +2282,12 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Display "Sort By" Dropdown', ATBDP_TEXTDOMAIN),
                         'default' => 1,
                     ),
+                    'sort_by_text' =>  array(
+                        'type' => 'textbox',
+                        'name' => 'sort_by_text',
+                        'label' => __('"Sort By" Text', ATBDP_TEXTDOMAIN),
+                        'default' => __('Sort By', ATBDP_TEXTDOMAIN),
+                    ),
                     'listings_sort_by_items' =>  array(
                         'type' => 'checkbox',
                         'name' => 'listings_sort_by_items',
@@ -2337,6 +2343,12 @@ The Administrator of ==SITE_NAME==
                         'name' => 'display_view_as',
                         'label' => __('Display "View As" Dropdown', ATBDP_TEXTDOMAIN),
                         'default' => 1,
+                    ),
+                    'view_as_text' =>  array(
+                        'type' => 'textbox',
+                        'name' => 'view_as_text',
+                        'label' => __('"View As" Text', ATBDP_TEXTDOMAIN),
+                        'default' => __('View As', ATBDP_TEXTDOMAIN),
                     ),
                     'listings_view_as_items' => array(
                         'type' => 'checkbox',
@@ -3115,6 +3127,12 @@ The Administrator of ==SITE_NAME==
                         'default' => 1,
                     ),
                     array(
+                        'type' => 'textbox',
+                        'name' => 'search_viewas_text',
+                        'label' => __('"View As" Text', ATBDP_TEXTDOMAIN),
+                        'default' => __('View As', ATBDP_TEXTDOMAIN),
+                    ),
+                    array(
                         'type' => 'checkbox',
                         'name' => 'search_view_as_items',
                         'label' => __('"View As" Dropdown', ATBDP_TEXTDOMAIN),
@@ -3144,6 +3162,12 @@ The Administrator of ==SITE_NAME==
                         'name' => 'search_sort_by',
                         'label' => __('Display "Sort By" Dropdown', ATBDP_TEXTDOMAIN),
                         'default' => 1,
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'search_sortby_text',
+                        'label' => __('"Sort By" Text', ATBDP_TEXTDOMAIN),
+                        'default' => __('Sort By', ATBDP_TEXTDOMAIN),
                     ),
                     array(
                         'type' => 'checkbox',
@@ -4851,7 +4875,6 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Single Tag Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
                         'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_tag]</strong>'),
-
                         'default' => atbdp_get_option('single_tag_page', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),

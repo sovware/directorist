@@ -35,7 +35,7 @@
                                 <?php if ($display_viewas_dropdown) {
                                     $html = '<div class="dropdown">';
                                     $html .= '<a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        ' . __("View as", ATBDP_TEXTDOMAIN) . '<span class="caret"></span>
+                                        ' . $view_as_text . '<span class="caret"></span>
                                     </a>';
                                     $html .= '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">';
                                     $views = atbdp_get_listings_view_options($view_as_items);
@@ -66,7 +66,7 @@
                                         <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button"
                                            id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true"
                                            aria-expanded="false">' .
-                                        __("Sort by", ATBDP_TEXTDOMAIN) . ' <span class="caret"></span>
+                                        $sort_by_text . ' <span class="caret"></span>
                                         </a>';
                                     $sort_html .= '<div class="dropdown-menu dropdown-menu-right"
                                              aria-labelledby="dropdownMenuLink2">';

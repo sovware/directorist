@@ -766,7 +766,7 @@ jQuery(function ($) {
     }
 
     //
-    var lf_opt11 = $("#atbdp_listing_slug, #new_listing_status, #edit_listing_status, #edit_listing_redirect, #listing_details_text, #custom_section_lable, #listing_location_text, #contact_info_text, #contact_listing_owner, #atbd_video_title, #dsiplay_prv_single_page, #dsiplay_slider_single_page, #gallery_cropping, #gallery_crop_width, #gallery_crop_height, #enable_social_share, #enable_favourite, #enable_report_abuse, #disable_list_price, #disable_contact_info, #disable_contact_owner, #use_nofollow, #disable_map, #atbd_video_url, #enable_rel_listing, #rel_listing_num, #rel_listing_column");
+    var lf_opt11 = $("#atbdp_listing_slug, #new_listing_status, #edit_listing_status, #edit_listing_redirect, #listing_details_text, #custom_section_lable, #listing_location_text, #contact_info_text, #contact_listing_owner, #atbd_video_title, #dsiplay_prv_single_page, #dsiplay_slider_single_page, #gallery_cropping, #gallery_crop_width, #gallery_crop_height, #enable_social_share, #enable_favourite, #enable_report_abuse, #disable_list_price, #disable_contact_info, #disable_contact_owner, #use_nofollow, #disable_map, #atbd_video_url,#dsiplay_thumbnail_img, #enable_rel_listing,#rel_listing_title, #rel_listing_num, #rel_listing_column");
     lf_opt11.show();
     $('input[name="disable_single_listing"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -780,7 +780,7 @@ jQuery(function ($) {
     }
 
     //Display all listings sort by dropdown
-    var lf_opt12 = $("#listings_sort_by_items");
+    var lf_opt12 = $("#listings_sort_by_items,#sort_by_text");
     lf_opt12.hide();
     $('input[name="display_sort_by"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -794,7 +794,7 @@ jQuery(function ($) {
     }
 
     //Display all listings view as dropdown
-    var lf_opt13 = $("#listings_view_as_items");
+    var lf_opt13 = $("#listings_view_as_items,#view_as_text");
     lf_opt13.hide();
     $('input[name="display_view_as"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -850,7 +850,7 @@ jQuery(function ($) {
     }
 
     //Display review rating
-    var lf_opt17 = $("#enable_owner_review,#review_num");
+    var lf_opt17 = $("#enable_owner_review,#review_num,#enable_reviewer_img");
     lf_opt17.hide();
     $('input[name="enable_review"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -1378,6 +1378,76 @@ jQuery(function ($) {
     });
     if($('input[name="show_connector"]').is(":checked") === true){
         lf_opt50.show();
+    }
+
+    //Display popular categories
+    var lf_opt51 = $("#readmore_text");
+    lf_opt51.hide();
+    $('input[name="display_readmore"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt51.show();
+        }else{
+            lf_opt51.hide();
+        }
+    });
+    if($('input[name="display_readmore"]').is(":checked") === true){
+        lf_opt51.show();
+    }
+
+    //Display related listings
+    var lf_opt52 = $("#rel_listing_title,#rel_listing_num,#rel_listing_column");
+    lf_opt52.hide();
+    $('input[name="enable_rel_listing"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt52.show();
+        }else{
+            lf_opt52.hide();
+        }
+    });
+    if($('input[name="enable_rel_listing"]').is(":checked") === true){
+        lf_opt52.show();
+    }
+
+    //Display search button
+    var lf_opt53 = $("#search_listing_text");
+    lf_opt53.hide();
+    $('input[name="search_button"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt53.show();
+        }else{
+            lf_opt53.hide();
+        }
+    });
+    if($('input[name="search_button"]').is(":checked") === true){
+        lf_opt53.show();
+    }
+
+    //Display all listings header
+    var lf_opt54 = $("#all_listing_title,#listing_filters_button,#listings_filter_button_text,#listings_display_filter,#listing_filters_fields,#listings_filters_button,#listings_reset_text,#listings_apply_text,#listings_search_text_placeholder,#listings_category_placeholder,#listings_location_placeholder,#display_sort_by,#sort_by_text,#listings_sort_by_items,#display_view_as,#view_as_text,#listings_view_as_items");
+    lf_opt54.hide();
+    $('input[name="display_listings_header"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt54.show();
+        }else{
+            lf_opt54.hide();
+        }
+    });
+    if($('input[name="display_listings_header"]').is(":checked") === true){
+        lf_opt54.show();
+    }
+
+    //Display search result header
+    var lf_opt55 = $("#search_header_title,#search_result_filters_button_display,#search_result_filter_button_text,#search_result_display_filter,#search_result_filters_fields,#search_result_filters_button,#sresult_reset_text,#sresult_apply_text,#search_result_search_text_placeholder,#search_result_category_placeholder,#search_result_location_placeholder,#search_view_as,#search_viewas_text,#search_view_as_items,#search_sort_by,#search_sortby_text,#search_sort_by_items");
+    lf_opt55.hide();
+    $('input[name="search_header"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt55.show();
+        }else{
+            lf_opt55.hide();
+        }
+    });
+    if($('input[name="search_header"]').is(":checked") === true){
+        lf_opt55.show();
     }
 
 

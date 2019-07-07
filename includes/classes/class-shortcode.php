@@ -1209,8 +1209,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'post_status'    => 'publish',
                 'posts_per_page' => (int) $atts['listings_per_page'],
             );
-
-
             if('yes' == $show_pagination) {
                 $args['paged']          = $paged;
             }else{

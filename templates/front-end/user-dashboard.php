@@ -25,51 +25,7 @@ $show_title = !empty($show_title) ? $show_title : '';
 $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 /*@todo; later show featured listing first on the user dashboard maybe??? */
 ?>
-<!--<div id="change-plan-modal" style="display: block">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="fs-modal-header">
-                <h2>Current Pricing Plan</h2>
-            </div>
-            <div class="modal-body">
-                <?php
-/*                $args = array(
-                    'post_type'      => 'atbdp_pricing_plans',
-                    'posts_per_page' => -1,
-                    'status'         => 'publish',
-                    'meta_query' => array(
-                        'relation' => 'OR',
-                        array(
-                            'key' => '_hide_from_plans',
-                            'compare' => 'NOT EXISTS',
-                        ),
-                        array(
-                            'key' => '_hide_from_plans',
-                            'value'   => 1,
-                            'compare' => '!=',
-                        ),
-                    ),
-                );
 
-                $atbdp_query = new WP_Query( $args );
-
-                if ($atbdp_query->have_posts()){
-                    global $post;
-                    $plans = $atbdp_query->posts;
-                    printf('<label for="select_plans">%s</label>', __('Select Plan', 'directorist-pricing-plans'));
-                    printf('<select id="claimer_plan" name="admin_plan">');
-                    echo '<option value="">'.__('- Select -', 'directorist-pricing-plans').'</option>';
-                    foreach ($plans as $key => $value) {
-                        printf('<option value="%s" %s>%s %s</option>', $value->ID,selected($value->ID, $current_val), $value->post_title, ($active_plan && (get_post_meta($value->ID, 'plan_type', true) != 'pay_per_listng'))?__(' <span class="atbd_plan-active">Active</span>', 'directorist-pricing-plans'):'');
-                    }
-                    printf('</select>');
-                    printf('<a target="_blank" href="%s" class="atpp_plans">%s</a>',esc_url(ATBDP_Permalink::get_fee_plan_page_link()), __('Details', 'directorist-pricing-plans'));
-                }
-                */ ?>
-            </div>
-        </div>
-    </div>
-</div>-->
 <div id="directorist" class="directorist atbd_wrapper dashboard_area">
     <div class="<?php echo apply_filters('atbdp_deshboard_container_fluid', $container_fluid) ?>">
         <div class="row">

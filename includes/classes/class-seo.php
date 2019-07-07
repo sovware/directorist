@@ -13,6 +13,64 @@ if ( !class_exists('ATBDP_SEO') ):
             add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 100, 2);
             add_filter('the_title', array($this, 'atbdp_title_update'), 10, 2);
             add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 100, 2);
+
+            add_filter('wpseo_canonical', array($this, 'wpseo_canonical'));
+            add_filter('wpseo_opengraph_url', array($this, 'wpseo_canonical'));
+        }
+
+
+        /**
+         * Override the Yoast SEO canonical URL on our category, location & user_listings pages.
+         *
+         * @since     1.6.1
+         * @param     array    $url    The Yoast canonical URL.
+         * @return                     Modified canonical URL.
+         */
+        public function wpseo_canonical( $url ) {
+
+            global $post;
+
+            $disable_yoast_seo_metas = get_directorist_option('overwrite_by_yoast', 1);
+            if (!$disable_yoast_seo_metas) return $url;
+
+            if( ! isset( $post ) ) return $url;
+
+            $CAT_page_ID = get_directorist_option('single_category_page');
+            $LOC_page_ID = get_directorist_option('single_location_page');
+            $Tag_page_ID = get_directorist_option('single_tag_page');
+
+            // Category page
+            if( $post->ID == $LOC_page_ID ) {
+
+                if( $slug = get_query_var( 'atbdp_location' ) ) {
+                    $term = get_term_by( 'slug', $slug, ATBDP_LOCATION );
+                    $url = ATBDP_Permalink::atbdp_get_location_page($term );
+                }
+
+            }
+
+            // Location page
+            if( $post->ID == $CAT_page_ID ) {
+
+                if( $slug = get_query_var( 'atbdp_category' ) ) {
+                    $term = get_term_by( 'slug', $slug, ATBDP_CATEGORY );
+                    $url = ATBDP_Permalink::atbdp_get_category_page($term );
+                }
+
+            }
+
+            // User listings page
+            if ( $post->ID == $Tag_page_ID ) {
+
+                if( $slug = get_query_var( 'atbdp_tag' ) ) {
+                    $term = get_term_by( 'slug', $slug, ATBDP_TAGS );
+                    $url = ATBDP_Permalink::atbdp_get_tag_page($term );
+                }
+
+            }
+
+            return $url;
+
         }
 
 

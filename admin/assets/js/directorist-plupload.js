@@ -54,7 +54,6 @@ jQuery(document).ready(function($) {
                     'extensions': allowed_exts
                 }];
             }
-
             var uploader = new plupload.Uploader(pconfig);
             uploader.bind('Init', function(up) {
                 //alert(1);

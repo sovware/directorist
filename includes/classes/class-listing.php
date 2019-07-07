@@ -72,6 +72,7 @@ if (!class_exists('ATBDP_Listing')):
 
             if( ! isset( $post ) ) return;
 
+            if( !is_singular('at_biz_dir') ):
 
             $title = get_the_title();
 
@@ -95,7 +96,7 @@ if (!class_exists('ATBDP_Listing')):
             echo '<meta property="og:site_name" content="'.get_bloginfo( 'name' ).'" />';
             echo '<meta name="twitter:card" content="summary">';
 
-
+            endif;
         }
 
         /**

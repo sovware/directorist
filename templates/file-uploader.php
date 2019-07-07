@@ -4,7 +4,7 @@
  *
  */
 wp_enqueue_style('atbdp-pluploadcss');
-//wp_enqueue_script('atbdp-plupload-min');
+wp_enqueue_script('atbdp-plupload-min');
 wp_enqueue_script('atbdp-plupload');
 $file_type  = get_post_meta($post_id, 'file_type', true);
 $file_size  = get_post_meta($post_id, 'file_size', true);

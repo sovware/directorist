@@ -587,6 +587,41 @@ css for Custom Field
   color: #fff;
 }
 
+.plupload-thumbs .thumb {
+  position: relative;
+}
+
+.plupload-thumbs .thumb:hover .atbdp-thumb-actions {
+  display: flex !important;
+}
+
+.plupload-thumbs .thumb .atbdp-thumb-actions {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  margin-top: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink {
+  background: #000;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: .3s ease;
+  font-size: 14px;
+}
+
+.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink:hover {
+  background: #e23636;
+}
+
 .plupload-upload-uic {
   width: 420px;
   margin: 0 auto !important;

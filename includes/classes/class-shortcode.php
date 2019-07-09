@@ -108,6 +108,11 @@ if ( !class_exists('ATBDP_Shortcode') ):
                         'key'       => 'associate',
                         'value'     => 'categories',
                         'compare'   => 'LIKE',
+                    ),
+                    array(
+                        'key'=> 'admin_use',
+                        'value'=> 1,
+                        'compare'=> '!='
                     )
                 )
             );
@@ -2960,8 +2965,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
         public function custom_user_login()
         {
             ob_start();
-
-
             if (!is_user_logged_in()){
                 wp_enqueue_script('adminmainassets');
                 echo '<div class="atbdp_login_form_shortcode">';

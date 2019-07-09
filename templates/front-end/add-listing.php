@@ -329,7 +329,12 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                     'posts_per_page' => -1,
                                     'post_status' => 'publish',
                                     'meta_key' => 'associate',
-                                    'meta_value' => 'form'
+                                    'meta_value' => 'form',
+                                    'meta_query' => array(
+                                        'key'=> 'admin_use',
+                                        'value'=> 1,
+                                        'compare'=> '!='
+                                    )
                                 ));
                                 $plan_custom_field = true;
                                 if (is_fee_manager_active()){

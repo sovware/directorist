@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 5.4.0
+Stable tag: 5.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -128,6 +128,15 @@ Directorist is not developed by a single person. A team of dedicated developers 
 18. Add New Custom Field
 
 == Changelog ==
+
+= 5.4.1 - Jul 07, 2019 =
+
+* Fix - Login and registration links issue
+* Fix - SEO issues of single category, location and tag pages
+* Fix - Twitter sharing issue
+* Fix - Minor issue of Custom Fields file Uploading type
+* Tweak - View as & Sort by button text change option
+* Improve - Settings Panel
 
 = 5.4.0 - Jul 02, 2019 =
 

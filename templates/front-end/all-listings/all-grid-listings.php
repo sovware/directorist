@@ -367,10 +367,7 @@ $column_width = 100 / $columns . '%';
                                             <?php
                                             if (!empty($display_category)) {
                                                 if (!empty($cats)) {
-                                                    global $post;
                                                     $totalTerm = count($cats);
-
-
                                                     ?>
                                                     <div class="atbd_content_left">
                                                         <div class="atbd_listting_category">

@@ -83,12 +83,15 @@ $display_loc_for = get_directorist_option('display_loc_for',0);
 $multiple_for_user = get_directorist_option('multiple_for_user',1);
 $display_tag_for = get_directorist_option('display_tag_for',0);
 $display_tagline_field = get_directorist_option('display_tagline_field', 0);
+$tagline_placeholder   = get_directorist_option('tagline_placeholder',__('Your Listing\'s motto or tag-line', ATBDP_TEXTDOMAIN));
 $display_tagline_for = get_directorist_option('display_tagline_for', 0);
 // get the custom terms and conditions
 $listing_terms_condition_text = get_directorist_option('listing_terms_condition_text');
 $display_pricing_field = get_directorist_option('display_pricing_field', 1);
+$price_placeholder   = get_directorist_option('price_placeholder',__('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN));
 $display_price_for = get_directorist_option('display_price_for', 'admin_users');
 $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
+$excerpt_placeholder   = get_directorist_option('excerpt_placeholder',__('Short Description or Excerpt', ATBDP_TEXTDOMAIN));
 $display_short_desc_for = get_directorist_option('display_short_desc_for', 0);
 $display_address_field = get_directorist_option('display_address_field', 1);
 $display_address_for = get_directorist_option('display_address_for', 0);
@@ -104,6 +107,7 @@ $display_social_info_field = get_directorist_option('display_social_info_field',
 $display_social_info_for = get_directorist_option('display_social_info_for', 0);
 $display_map_field = get_directorist_option('display_map_field', 1);
 $display_map_for = get_directorist_option('display_map_for', 0);
+$address_placeholder   = get_directorist_option('address_placeholder',__('Listing address eg. New York, USA', ATBDP_TEXTDOMAIN));
 $display_prv_field = get_directorist_option('display_prv_field', 1);
 $display_gellery_field = get_directorist_option('display_gellery_field', 1);
 $display_video_field = get_directorist_option('display_video_field', 1);
@@ -196,7 +200,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                                id="has_tagline"
                                                value="<?= !empty($tagline) ? esc_attr($tagline) : ''; ?>"
                                                class="form-control directory_field"
-                                               placeholder="<?= __('Your Listing\'s motto or tag-line', ATBDP_TEXTDOMAIN); ?>"/>
+                                               placeholder="<?php echo esc_attr($tagline_placeholder); ?>"/>
                                     </div>
                                 <?php }?>
                                 <?php
@@ -260,7 +264,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                         <input type="text" id="price" name="price"
                                                value="<?= !empty($price) ? esc_attr($price) : ''; ?>"
                                                class="form-control directory_field"
-                                               placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
+                                               placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
 
                                         <?php }
                                         if ($plan_average_price) {
@@ -309,7 +313,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                         <input type="hidden" id="has_excerpt" value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) :''; ?>">
                                         <textarea name="excerpt" id="atbdp_excerpt"
                                                   class="form-control directory_field" cols="30" rows="5"
-                                                  placeholder="<?= __('Short Description or Excerpt', ATBDP_TEXTDOMAIN); ?>"><?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) :''; ?></textarea>
+                                                  placeholder="<?php echo esc_attr($excerpt_placeholder); ?>"><?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) :''; ?></textarea>
                                     </div>
                                 <?php }?>
                                 <!--***********************************************************************
@@ -680,7 +684,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                             <input type="text" name="address" id="address"
                                                    value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
                                                    class="form-control directory_field"
-                                                   placeholder="<?php esc_html_e('Listing address eg. New York, USA', ATBDP_TEXTDOMAIN); ?>"/>
+                                                   placeholder="<?php echo esc_attr($address_placeholder); ?>"/>
                                             <div id="result">
                                                 <ul></ul>
                                             </div>
@@ -786,12 +790,13 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                     <div class="form-group" id="atbdp_phone">
                                         <label for="atbdp_phone_number"><?php
                                             $phone_label = get_directorist_option('phone_label', __('Phone Number', ATBDP_TEXTDOMAIN));
+                                            $phone_placeholder = get_directorist_option('phone_placeholder', __('Phone Number', ATBDP_TEXTDOMAIN));
                                             esc_html_e($phone_label.':', ATBDP_TEXTDOMAIN);
                                             echo get_directorist_option('require_phone_number')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
                                         <input type="tel" name="phone" id="atbdp_phone_number"
                                                value="<?= !empty($phone) ? esc_attr($phone) : ''; ?>"
                                                class="form-control directory_field"
-                                               placeholder="<?php esc_attr_e('Phone Number', ATBDP_TEXTDOMAIN); ?>"/>
+                                               placeholder="<?php echo esc_attr($phone_placeholder); ?>"/>
                                     </div>
                                     <?php }
                                     $plan_email = true;
@@ -970,17 +975,13 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                     <?php } ?>
                                 </div>
                             </div>
-
-
                             <?php
                             /*
                              * @since 4.1.0
                              */
                             do_action('atbdp_before_terms_and_conditions_font');
-
                             if (!empty(get_directorist_option('listing_terms_condition'))) {
                                 ?>
-
                                 <div class="atbd_term_and_condition_area">
                                     <?php
                                     if (get_directorist_option('require_terms_conditions') == 1) {
@@ -1034,16 +1035,12 @@ if('openstreet' == $select_listing_map) {
 <script>
 
     jQuery(document).ready(function ($) {
-
         <?php if(is_fee_manager_active() ) { ?>
 //        $('#fm_plans_container').on('click', function(){
 //            $('.atbdp-form-fields').fadeIn(1000);
 //            $('#fm_plans_container').fadeOut(300)
 //        });
         <?php } ?>
-
-
-
         // Bias the auto complete object to the user's geographical location,
         // as supplied by the browser's 'navigator.geolocation' object.
         <?php if ( empty($display_map_for || $display_address_for) && !empty($display_map_field && $display_address_field) ) {
@@ -1063,7 +1060,6 @@ if('openstreet' == $select_listing_map) {
             content: info_content,
             maxWidth: 400
         });
-
 
         address_input = document.getElementById('address');
         address_input.addEventListener('focus', geolocate);

@@ -3604,6 +3604,12 @@ The Administrator of ==SITE_NAME==
                     'default' => __('Tagline', ATBDP_TEXTDOMAIN),
                 ),
                 array(
+                    'type' => 'textbox',
+                    'name' => 'tagline_placeholder',
+                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
+                    'default' => __('Your Listing\'s motto or tag-line', ATBDP_TEXTDOMAIN),
+                ),
+                array(
                     'type' => 'toggle',
                     'name' => 'display_tagline_for',
                     'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
@@ -3620,17 +3626,23 @@ The Administrator of ==SITE_NAME==
         public function get_listings_pricing_field_settings()
         {
             return apply_filters('atbdp_pricing_field_setting', array(
-
                 array(
                     'type' => 'toggle',
                     'name' => 'display_pricing_field',
                     'label' => __('Enable', ATBDP_TEXTDOMAIN),
                     'default' => 1,
-                ), array(
+                ),
+                array(
                     'type' => 'textbox',
                     'name' => 'price_label',
                     'label' => __('Label', ATBDP_TEXTDOMAIN),
                     'default' => __('Price', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'price_placeholder',
+                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
+                    'default' => __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -3650,7 +3662,6 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
-
             ));
         }
 
@@ -3662,28 +3673,34 @@ The Administrator of ==SITE_NAME==
         public function get_listings_short_desc_field_settings()
         {
             return apply_filters('atbdp_short_desc_field_setting', array(
-
                 array(
-                    'type' => 'toggle',
-                    'name' => 'display_excerpt_field',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'type'    => 'toggle',
+                    'name'    => 'display_excerpt_field',
+                    'label'   => __('Enable', ATBDP_TEXTDOMAIN),
                     'default' => 0,
-                ), array(
-                    'type' => 'textbox',
-                    'name' => 'excerpt_label',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type'    => 'textbox',
+                    'name'    => 'excerpt_label',
+                    'label'   => __('Label', ATBDP_TEXTDOMAIN),
                     'default' => __('Short Description/Excerpt', ATBDP_TEXTDOMAIN),
                 ),
                 array(
-                    'type' => 'toggle',
-                    'name' => 'require_excerpt',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'type' => 'textbox',
+                    'name' => 'excerpt_placeholder',
+                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
+                    'default' => __('Short Description or Excerpt', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type'    => 'toggle',
+                    'name'    => 'require_excerpt',
+                    'label'   => __('Required', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
                 array(
-                    'type' => 'toggle',
-                    'name' => 'display_short_desc_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'type'    => 'toggle',
+                    'name'    => 'display_short_desc_for',
+                    'label'   => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
             ));
@@ -3709,6 +3726,12 @@ The Administrator of ==SITE_NAME==
                     'name' => 'address_label',
                     'label' => __('Label', ATBDP_TEXTDOMAIN),
                     'default' => __('Address', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'address_placeholder',
+                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
+                    'default' => __('Listing address eg. New York, USA', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -3745,6 +3768,12 @@ The Administrator of ==SITE_NAME==
                     'name' => 'phone_label',
                     'label' => __('Label', ATBDP_TEXTDOMAIN),
                     'default' => __('Phone', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'phone_placeholder',
+                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
+                    'default' => __('Phone Number', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',

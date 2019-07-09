@@ -13,8 +13,12 @@ $post_ID = $post->ID;
 $disable_price         = get_directorist_option('disable_list_price');
 $currency              = get_directorist_option('g_currency', 'USD');
 $display_tagline_field = get_directorist_option('display_tagline_field', 0);
+$tagline_placeholder   = get_directorist_option('tagline_placeholder',__('Your Listing\'s motto or tag-line', ATBDP_TEXTDOMAIN));
 $display_pricing_field = get_directorist_option('display_pricing_field', 1);
+$price_placeholder     = get_directorist_option('price_placeholder',__('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN));
+$excerpt_placeholder   = get_directorist_option('excerpt_placeholder',__('Short Description or Excerpt', ATBDP_TEXTDOMAIN));
 $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
+
 ?>
 <div id="directorist" class="directorist atbd_wrapper directory_wrapper">
     <?php
@@ -38,7 +42,7 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                        id="has_tagline"
                        value="<?= !empty($tagline) ? esc_attr($tagline) : ''; ?>"
                        class="form-control directory_field"
-                       placeholder="<?= __('Your Listing\'s motto or tag-line', ATBDP_TEXTDOMAIN); ?>"/>
+                       placeholder="<?php echo esc_attr($tagline_placeholder); ?>"/>
             </div>
         <?php }?>
         <?php
@@ -74,7 +78,7 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                 <input type="hidden" id="pricerange_val" value="<?php echo $price_range;?>">
                 <input type="text" id="price" name="price" value="<?= !empty($price) ? esc_attr($price) : ''; ?>"
                        class="form-control directory_field"
-                       placeholder="<?= __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN); ?>"/>
+                       placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
 
                 <select class="form-control directory_field" id="price_range" style="display: none" name="price_range">
                     <option value=""><?php _e('Select Price Range', ATBDP_TEXTDOMAIN)?></option>
@@ -102,7 +106,7 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                 <input type="hidden" id="has_excerpt" value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
                 <textarea name="excerpt" id="atbdp_excerpt"
                           class="form-control directory_field" cols="30" rows="5"
-                          placeholder="<?= __('Short Description or Excerpt', ATBDP_TEXTDOMAIN); ?>"> <?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?> </textarea>
+                          placeholder="<?php echo esc_attr($excerpt_placeholder); ?>"> <?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?> </textarea>
             </div>
         <?php }?>
         <!--***********************************************************************

@@ -83,9 +83,13 @@ class ATBDP_Permalink{
     public static function get_registration_page_link($query_vars=array())
     {
 
-        $reg_url = get_directorist_option('reg_url',ATBDP_Permalink::get_registration_page_url()); // get the page id of the custom registration page.
-
-        return apply_filters('atbdp_registration_page_url', $reg_url);
+        $link = home_url();
+        $id = get_directorist_option('custom_registration'); // get the page id of the custom registration page.
+        if( $id ) $link = get_permalink( $id );
+        if (!empty($query_vars) && is_array($query_vars)){
+            $link = add_query_arg( $query_vars, $link );
+        }
+        return apply_filters('atbdp_registration_page_url', $link);
     }
 
     /**

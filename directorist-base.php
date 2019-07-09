@@ -1236,13 +1236,8 @@ final class Directorist_Base
                 <div class="atbd_notice alert alert-info" role="alert">
                     <span class="<?php atbdp_icon_type(true);?>-info-circle" aria-hidden="true"></span>
                     <?php
-                    // get the custom registration page id from the db and create a permalink
-                    $reg_link_custom = ATBDP_Permalink::get_registration_page_link();
-                    //if we have custom registration page, use it, else use the default registration url.
-                    $reg_link = !empty($reg_link_custom) ? $reg_link_custom : wp_registration_url();
-
-                    $login_url = '<a href="' . ATBDP_Permalink::get_login_page_link() . '">' . __('Login', ATBDP_TEXTDOMAIN) . '</a>';
-                    $register_url = '<a href="' . esc_url($reg_link) . '">' . __('Register', ATBDP_TEXTDOMAIN) . '</a>';
+                    $login_url = apply_filters('atbdp_review_login_link',"<a href='".ATBDP_Permalink::get_login_page_link()."'> ". __('Login', ATBDP_TEXTDOMAIN)."</a>");
+                    $register_url = apply_filters('atbdp_review_signup_link',"<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>");
 
                     printf(__('You need to %s or %s to submit a review', ATBDP_TEXTDOMAIN), $login_url, $register_url);
                     ?>

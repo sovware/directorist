@@ -140,7 +140,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 ?>
 <section id="directorist" class="directorist atbd_wrapper">
     <div class="row">
-        <div class="col-lg-8 col-md-12 atbd_col_left">
+        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
             <?php
             //is current user is logged in and the original author of the listing
             if (is_user_logged_in() && $listing_author_id == get_current_user_id()) {

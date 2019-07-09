@@ -125,9 +125,12 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $sub_plan_id = get_post_meta($_POST['listing_id'], '_fm_plans', true);
                         $midway_package_id =!empty($midway_package_id)?$midway_package_id:$sub_plan_id;
                         $plan_purchased = subscribed_package_or_PPL_plans($user_id, 'completed',$midway_package_id);
+                        if(!class_exists('DWPP_Pricing_Plans')){
+                            $plan_purchased = $plan_purchased[0];
+                        }
                         $subscribed_package_id = $midway_package_id;
                         $plan_type = package_or_PPL($subscribed_package_id);
-                        $order_id = !empty($plan_purchased)?(int)$plan_purchased[0]->ID:'';
+                        $order_id = !empty($plan_purchased)?(int)$plan_purchased->ID:'';
                         $user_featured_listing = listings_data_with_plan($user_id, '1', $subscribed_package_id, $order_id);
                         $user_regular_listing = listings_data_with_plan($user_id, '0', $subscribed_package_id, $order_id);
                         $num_regular = get_post_meta($subscribed_package_id, 'num_regular', true);
@@ -136,11 +139,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $total_featured_listing = $num_featured;
 
                         if ($plan_purchased){
-                            $listing_id = get_post_meta($plan_purchased[0]->ID, '_listing_id', true);
+                            $listing_id = get_post_meta($plan_purchased->ID, '_listing_id', true);
                             $featured = get_post_meta($listing_id, '_featured', true);
                             $total_regular_listing = $num_regular - ('0' === $featured?$user_regular_listing+1:$user_regular_listing);
                             $total_featured_listing = $num_featured - ('1' === $featured?$user_featured_listing+1:$user_featured_listing);
-                            $subscribed_date = $plan_purchased[0]->post_date;
+                            $subscribed_date = $plan_purchased->post_date;
                             $package_length = get_post_meta($subscribed_package_id, 'fm_length', true);
                             $package_length = $package_length ? $package_length : '1';
                             // Current time
@@ -151,10 +154,15 @@ if (!class_exists('ATBDP_Add_Listing')):
                             $expired_date = $date->format('Y-m-d H:i:s');
                             $current_d = current_time('mysql');
                             $remaining_days = ($expired_date > $current_d) ? (floor(strtotime($expired_date) / (60 * 60 * 24)) - floor(strtotime($current_d) / (60 * 60 * 24))) : 0; //calculate the number of days remaining in a plan
-                            if (($remaining_days <= 0)){
+                            if (((0 >= $total_regular_listing) && (0 >= $total_featured_listing)) || ($remaining_days <= 0)){
                                 //if user exit the plan allowance the change the status of that order to cancelled
-                                $order_id = $plan_purchased[0]->ID;
-                                update_post_meta($order_id, '_payment_status', 'cancelled');
+                                $order_id = $plan_purchased->ID;
+                                if (!class_exists('$class_name')){
+                                    $order = new WC_Order($order_id);
+                                    $order->update_status('cancelled', 'order_note');
+                                }else{
+                                    update_post_meta($order_id, '_payment_status', 'cancelled');
+                                }
                             }
                         }
 

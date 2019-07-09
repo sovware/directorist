@@ -123,6 +123,7 @@ if (!class_exists('ATBDP_Review_Rating_DB')):
                     $this->update( $review_exist->id, $args );
                     return $review_exist->id; // return the old id
 
+
                 }
             }
 

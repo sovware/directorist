@@ -137,8 +137,8 @@ class ATBDP_User {
         $require_lname               = get_directorist_option('require_lname_reg',0);
         $display_bio                 = get_directorist_option('display_bio_reg',1);
         $require_bio                 = get_directorist_option('require_bio_reg',0);
-        $display_password             = get_directorist_option('display_password_reg',0);
-        $require_password                 = get_directorist_option('require_password_reg',0);
+        $display_password            = get_directorist_option('display_password_reg',0);
+        $require_password            = get_directorist_option('require_password_reg',0);
         //password validation
         if(!empty($require_password) && !empty($display_password) && empty($password)){
             $password_validation = 'yes';
@@ -230,8 +230,8 @@ class ATBDP_User {
         $require_lname               = get_directorist_option('require_lname_reg',0);
         $display_bio                 = get_directorist_option('display_bio_reg',1);
         $require_bio                 = get_directorist_option('require_bio_reg',0);
-        $display_password             = get_directorist_option('display_password_reg',0);
-        $require_password                 = get_directorist_option('require_password_reg',0);
+        $display_password            = get_directorist_option('display_password_reg',0);
+        $require_password            = get_directorist_option('require_password_reg',0);
         // if the form is submitted then save the form
         if ( isset($_POST['atbdp_user_submit'] ) ) {
             /**

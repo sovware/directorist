@@ -3490,6 +3490,12 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Required', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'cat_placeholder',
+                    'label' => __('Placeholder for User', ATBDP_TEXTDOMAIN),
+                    'default' => __('Select Category', ATBDP_TEXTDOMAIN),
+                ),
                 /*array(
                     'type' => 'select',
                     'name' => 'display_cat_for',
@@ -3533,6 +3539,12 @@ The Administrator of ==SITE_NAME==
                     'default' => 0,
                 ),
                 array(
+                    'type' => 'textbox',
+                    'name' => 'loc_placeholder',
+                    'label' => __('Placeholder for User', ATBDP_TEXTDOMAIN),
+                    'default' => __('Select Location', ATBDP_TEXTDOMAIN),
+                ),
+                array(
                     'type' => 'toggle',
                     'name' => 'display_loc_for',
                     'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
@@ -3560,6 +3572,12 @@ The Administrator of ==SITE_NAME==
                     'name' => 'tag_label',
                     'label' => __('Label', ATBDP_TEXTDOMAIN),
                     'default' => __('Tag', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'tag_placeholder',
+                    'label' => __('Placeholder for User', ATBDP_TEXTDOMAIN),
+                    'default' => __('Select or insert new tags separated by a comma, or space', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -3813,6 +3831,12 @@ The Administrator of ==SITE_NAME==
                     'default' => __('Email', ATBDP_TEXTDOMAIN),
                 ),
                 array(
+                    'type' => 'textbox',
+                    'name' => 'email_placeholder',
+                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
+                    'default' => __('Enter Email', ATBDP_TEXTDOMAIN),
+                ),
+                array(
                     'type' => 'toggle',
                     'name' => 'require_email',
                     'label' => __('Required', ATBDP_TEXTDOMAIN),
@@ -3850,6 +3874,12 @@ The Administrator of ==SITE_NAME==
                     'default' => __('Website', ATBDP_TEXTDOMAIN),
                 ),
                 array(
+                    'type' => 'textbox',
+                    'name' => 'website_placeholder',
+                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
+                    'default' => __('Listing Website eg. http://example.com', ATBDP_TEXTDOMAIN),
+                ),
+                array(
                     'type' => 'toggle',
                     'name' => 'require_website',
                     'label' => __('Required', ATBDP_TEXTDOMAIN),
@@ -3884,6 +3914,12 @@ The Administrator of ==SITE_NAME==
                     'name' => 'zip_label',
                     'label' => __('Label', ATBDP_TEXTDOMAIN),
                     'default' => __('Zip/Post Code', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'zip_placeholder',
+                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
+                    'default' => __('Enter Zip/Post Code', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -4044,6 +4080,12 @@ The Administrator of ==SITE_NAME==
                     'name' => 'video_label',
                     'label' => __('Label', ATBDP_TEXTDOMAIN),
                     'default' => __('Video Url', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'video_placeholder',
+                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
+                    'default' => __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',

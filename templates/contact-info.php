@@ -16,8 +16,11 @@ $address_placeholder   = get_directorist_option('address_placeholder',__('Listin
 $display_phone_field = get_directorist_option('display_phone_field', 1);
 $phone_placeholder = get_directorist_option('phone_placeholder', __('Phone Number', ATBDP_TEXTDOMAIN));
 $display_email_field = get_directorist_option('display_email_field', 1);
+$email_placeholder = get_directorist_option('email_placeholder', __('Enter Email', ATBDP_TEXTDOMAIN));
 $display_website_field = get_directorist_option('display_website_field', 1);
+$website_placeholder = get_directorist_option('website_placeholder', __('Listing Website eg. http://example.com', ATBDP_TEXTDOMAIN));
 $display_zip_field = get_directorist_option('display_zip_field', 1);
+$zip_placeholder = get_directorist_option('zip_placeholder', __('Enter Zip/Post Code', ATBDP_TEXTDOMAIN));
 $display_social_info_field = get_directorist_option('display_social_info_field', 1);
 $display_map_field = get_directorist_option('display_map_field', 1);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
@@ -151,11 +154,11 @@ $info_content .= "<p> {$ad}</p></div>";
 
                 <input type="text" id="atbdp_zip" name="zip"
                        value="<?= !empty($zip) ? esc_attr($zip) : ''; ?>" class="form-control directory_field"
-                       placeholder="<?php esc_attr_e('Enter Zip/Post Code', ATBDP_TEXTDOMAIN); ?>"/>
+                       placeholder="<?php echo esc_attr($zip_placeholder); ?>"/>
             </div>
         <?php } ?>
         <!--phone-->
-        <?php if(!empty($display_phone_field) ) {?>
+        <?php if(!empty($display_phone_field) ) { ?>
         <div class="form-group">
             <label for="atbdp_phone_number"><?php $phone_label = get_directorist_option('phone_label', __('Phone Number', ATBDP_TEXTDOMAIN));
                 esc_html_e($phone_label.':', ATBDP_TEXTDOMAIN); ?></label>
@@ -164,13 +167,13 @@ $info_content .= "<p> {$ad}</p></div>";
                    placeholder="<?php echo esc_attr($phone_placeholder); ?>"/>
         </div>
         <?php } ?>
-        <?php if(!empty($display_email_field)){?>
+        <?php if(!empty($display_email_field)) { ?>
         <div class="form-group">
             <label for="atbdp_email"><?php $email_label = get_directorist_option('email_label', __('Email', ATBDP_TEXTDOMAIN));
                 esc_html_e($email_label.':', ATBDP_TEXTDOMAIN); ?></label>
             <input type="email" name="email" id="atbdp_email" value="<?= !empty($email) ? esc_attr($email) : ''; ?>"
                    class="form-control directory_field"
-                   placeholder="<?php esc_attr_e('Enter Email', ATBDP_TEXTDOMAIN); ?>"/>
+                   placeholder="<?php echo esc_attr($email_placeholder); ?>"/>
         </div>
         <?php } ?>
         <?php if(!empty($display_website_field) ) {?>
@@ -180,7 +183,7 @@ $info_content .= "<p> {$ad}</p></div>";
 
             <input type="text" id="atbdp_website" name="website"
                    value="<?= !empty($website) ? esc_url($website) : ''; ?>" class="form-control directory_field"
-                   placeholder="<?php esc_attr_e('Listing Website eg. http://example.com', ATBDP_TEXTDOMAIN); ?>"/>
+                   placeholder="<?php echo esc_attr($website_placeholder); ?>"/>
         </div>
         <?php } ?>
         <?php } ?>

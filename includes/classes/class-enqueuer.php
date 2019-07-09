@@ -347,6 +347,7 @@ class ATBDP_Enqueuer {
         wp_enqueue_script('atbdp_custom_field_validator');
 
         $new_tag = get_directorist_option('create_new_tag',0);
+        $tag_placeholder = get_directorist_option('tag_placeholder',__('Select or insert new tags separated by a comma, or space', ATBDP_TEXTDOMAIN));
         // Internationalization text for javascript file especially add-listing.js
         $i18n_text = array(
             'confirmation_text' => __('Are you sure', ATBDP_TEXTDOMAIN),
@@ -356,7 +357,7 @@ class ATBDP_Enqueuer {
             'deleted' => __('Deleted!', ATBDP_TEXTDOMAIN),
             'location_selection' => __('Select a location', ATBDP_TEXTDOMAIN),
             'category_selection' => __('Select a category', ATBDP_TEXTDOMAIN),
-            'tag_selection' => __('Select or insert new tags separated by a comma, or space', ATBDP_TEXTDOMAIN),
+            'tag_selection' => esc_attr($tag_placeholder),
             'upload_image' => __('Select or Upload Slider Image', ATBDP_TEXTDOMAIN),
             'choose_image' => __('Use this Image', ATBDP_TEXTDOMAIN),
             'select_prv_img_front' => __('Select Preview Image', ATBDP_TEXTDOMAIN),

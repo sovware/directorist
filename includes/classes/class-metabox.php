@@ -292,14 +292,15 @@ wp_reset_postdata();
     {
         $post_meta = get_post_meta( $post->ID );
         $videourl = get_post_meta($post->ID, '_videourl', true);
-        $enable_video_url = get_directorist_option('atbd_video_url',1); ?>
-
+        $enable_video_url = get_directorist_option('atbd_video_url',1);
+        $video_placeholder = get_directorist_option('video_placeholder',__('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN));
+        ?>
             <div id="directorist" class="directorist atbd_wrapper">
                 <div class="form-group">
                     <label for="videourl"><?php
                         $video_label = get_directorist_option('video_label', __('Video Url', ATBDP_TEXTDOMAIN));
                         esc_html_e($video_label.':', ATBDP_TEXTDOMAIN); ?></label>
-                    <input type="text" id="videourl"  name="videourl" value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>" class="form-control directory_field" placeholder="<?= __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN); ?>"/>
+                    <input type="text" id="videourl"  name="videourl" value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($video_placeholder); ?>"/>
                 </div>
             </div>
     <?php

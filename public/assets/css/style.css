@@ -738,6 +738,75 @@ body.atbd_content_active #directorist.atbd_wrapper {
   opacity: 1;
 }
 
+.plupload-thumbs .thumb {
+  position: relative;
+}
+
+.plupload-thumbs .thumb:hover .atbdp-thumb-actions {
+  display: flex !important;
+}
+
+.plupload-thumbs .thumb .atbdp-thumb-actions {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  margin-top: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink {
+  background: #000;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: .3s ease;
+}
+
+.plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink:hover {
+  background: #e23636;
+}
+
+.plupload-upload-uic {
+  width: 420px;
+  margin: 0 auto !important;
+  border: 1px dashed #dbdee9;
+  padding: 30px;
+}
+
+.plupload-upload-uic .atbdp-dropbox-title {
+  font-weight: 500;
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.plupload-upload-uic .atbdp_button {
+  border: 1px solid #e3e6ef;
+  background: #f8f9fb;
+  font-size: 14px;
+  box-shadow: none;
+  line-height: 40px !important;
+  padding: 0 30px !important;
+  height: auto !important;
+  transition: 0.3s ease;
+}
+
+.plupload-upload-uic .atbdp-dropbox-file-types {
+  margin-top: 10px;
+  color: #9299b8;
+}
+
+@media (max-width: 575px) {
+  .plupload-upload-uic {
+    width: 100%;
+  }
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

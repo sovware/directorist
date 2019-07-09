@@ -1633,7 +1633,8 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 //ATBDP()->user->user_dashboard($show_title);
             }else{
                 // user not logged in;
-                $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), "<a href='".ATBDP_Permalink::get_login_page_link()."'> ". __('Here', ATBDP_TEXTDOMAIN)."</a>","<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>"); ?>
+                $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), apply_filters('atbdp_user_dashboard_login_link',"<a href='".ATBDP_Permalink::get_login_page_link()."'> ". __('Here', ATBDP_TEXTDOMAIN)."</a>"),apply_filters('atbdp_user_dashboard_signup_link',"<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>")); ?>
+
                 <section class="directory_wrapper single_area">
                     <?php  ATBDP()->helper->show_login_message($error_message); ?>
                 </section>

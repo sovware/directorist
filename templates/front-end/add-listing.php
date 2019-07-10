@@ -352,7 +352,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                                 echo '<span style="color: red"> *</span>';
                                             }
                                             if (!empty($instructions)) {
-                                                printf('<span class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="%s"></span>', $instructions);
+                                                printf('<span class="atbd_tooltip atbd_tooltip--fw" aria-label="%s"> <i class="fa fa-question-circle"></i></span>', $instructions);
                                             }
                                             ?>
                                             </label>

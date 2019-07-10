@@ -519,13 +519,39 @@ body.atbd_content_active #directorist.atbd_wrapper {
   background: rgba(0, 0, 0, 0.6);
 }
 
-.atbd_content_active #directorist.atbd_wrapper .modal-content {
+.atbd_content_active #directorist.atbd_wrapper #atbdp-report-abuse-modal .at-modal-close {
+  width: 32px;
+  height: 32px;
+  top: 20px;
+  right: 20px;
+  position: absolute;
+  transform: none;
+  background: #444752;
+  color: #fff;
+  border-radius: 300px;
+  opacity: 1;
+  font-weight: 300;
+  z-index: 2;
+  font-size: 16px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .at-modal-content {
   box-shadow: 0 5px 20px rgba(68, 71, 82, 0.2);
 }
 
-.atbd_content_active #directorist.atbd_wrapper .modal-content #atbdp-report-abuse-form {
+.atbd_content_active #directorist.atbd_wrapper .at-modal-content #atbdp-report-abuse-form {
   width: 100%;
-  padding: 30px;
+  padding: 20px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .at-modal-content #atbdp-report-abuse-form textarea {
+  margin-top: 10px;
+  padding-top: 10px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .modal-dialog .modal-body {
@@ -1959,6 +1985,57 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .gm-style .gm-style-iw .gm-style-iw-d .miw-contents .miw-contents-footer a {
   font-size: 14px !important;
   font-weight: 500;
+}
+
+/* ATBD Tooltip */
+.atbd_tooltip {
+  position: relative;
+}
+
+.atbd_tooltip[aria-label]:before, .atbd_tooltip[aria-label]:after {
+  position: absolute !important;
+  bottom: 100%;
+  display: none;
+  -webkit-animation: showTooltip 0.3s ease;
+  -o-animation: showTooltip 0.3s ease;
+  animation: showTooltip 0.3s ease;
+}
+
+.atbd_tooltip[aria-label]:before {
+  content: "";
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.8);
+}
+
+.atbd_tooltip[aria-label]:after {
+  content: attr(aria-label);
+  left: 50%;
+  transform: translate(-50%, -12px);
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 4px 12px;
+  border-radius: 0.2em;
+  color: #fff;
+  z-index: 9999;
+}
+
+.atbd_tooltip[aria-label]:hover:before, .atbd_tooltip[aria-label]:hover:after {
+  display: block;
+}
+
+.atbd_tooltip.atbd_tooltip--fw[aria-label]:after {
+  white-space: normal;
+  min-width: 120px;
+  max-width: 200px;
+  text-align: center;
+}
+
+@keyframes showTooltip {
+  from {
+    opacity: 0;
+  }
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'],

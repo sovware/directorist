@@ -139,7 +139,7 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                 <label for=""><?php the_title();
                 if (!empty($instructions)){
                     ?>
-                    <span class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="<?php echo get_post_meta(get_the_ID(), 'instructions', true); ?>"></span>
+                    <span class="atbd_tooltip" aria-label="<?php echo get_post_meta(get_the_ID(), 'instructions', true); ?>"><i class="fa fa-question-circle"></i></span>
                     <?php
                     }
                 ?>

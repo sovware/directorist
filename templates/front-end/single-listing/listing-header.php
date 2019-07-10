@@ -379,6 +379,7 @@ do_action('atbdp_before_listing_section');
         </div>
     </div>
 </div> <!-- end .atbd_listing_details -->
+<?php do_action('atbdp_after_single_listing_details_section');?>
 <script>
     jQuery(document).ready(function ($) {
         /* image gallery slider */

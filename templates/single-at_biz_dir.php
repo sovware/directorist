@@ -231,7 +231,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         $listing_header .= '</div>';
                     } ?>
                     <div class="at-modal atm-fade" id="atbdp-report-abuse-modal">
-                        <div class="at-modal-content at-modal-lg">
+                        <div class="at-modal-content at-modal-md">
                             <div class="atm-contents-inner">
                                 <a href="" class="at-modal-close"><span aria-hidden="true">&times;</span></a>
                                 <div class="row align-items-center">
@@ -452,6 +452,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     </div>
                 </div>
             </div> <!-- end .atbd_listing_details -->
+            <?php do_action('atbdp_after_single_listing_details_section');?>
             <?php
             $term_id = get_post_meta($post->ID, '_admin_category_select', true);
             $meta_array = array('relation' => 'AND');

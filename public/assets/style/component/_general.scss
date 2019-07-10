@@ -336,11 +336,37 @@ body.atbd_content_active #directorist.atbd_wrapper{
 
  }
 .atbd_content_active #directorist.atbd_wrapper{
-  .modal-content{
+  #atbdp-report-abuse-modal{
+    .at-modal-close{
+      width: 32px;
+      height: 32px;
+      top: 20px;
+      right: 20px;
+      position: absolute;
+      transform: none;
+      background: #444752;
+      color: #fff;
+      border-radius: 300px;
+      opacity: 1;
+      font-weight: 300;
+      z-index: 2;
+      font-size: 16px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+  }
+  .at-modal-content{
     box-shadow: 0 5px 20px rgba($primary,0.2);
     #atbdp-report-abuse-form{
       width: 100%;
-      padding: 30px;
+      padding: 20px;
+      textarea{
+        margin-top: 10px;
+        padding-top: 10px;
+      }
     }
   }
   .modal-dialog{

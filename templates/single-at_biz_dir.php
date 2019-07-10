@@ -180,11 +180,13 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             ?>
             <div class="atbd_content_module atbd_listing_details">
                 <div class="atbd_content_module__tittle_area">
+                    <?php if(!empty($listing_details_text)) { ?>
                     <div class="atbd_area_title">
                         <h4>
                             <span class="<?php atbdp_icon_type(true);?>-file-text atbd_area_icon"></span><?php _e($listing_details_text, ATBDP_TEXTDOMAIN) ?>
                         </h4>
                     </div>
+                    <?php } ?>
                     <?php
                     $listing_header = '<div class="atbd_listing_action_area">';
                     if ($enable_favourite) {

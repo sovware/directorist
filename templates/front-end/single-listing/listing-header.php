@@ -211,44 +211,38 @@ do_action('atbdp_before_listing_section');
                 }
                 array_unshift($image_links, $listing_prv_imgurl);
             }
+            $gallery_image = '<div class="atbd_directry_gallery_wrapper">';
+            $gallery_image .= '<div class="atbd_big_gallery">';
+            $gallery_image .= '<div class="atbd_directory_gallery">';
+                foreach ($image_links as $image_link) {
+                    $image_link = !empty($image_link) ? $image_link : '';
+                    $gallery_image .= '<div class="single_image">';
+                    $gallery_image .= '<img src="' . esc_url($image_link) . '" alt=" '.esc_html($p_title). '">';
+                    $gallery_image .= '</div>';
+                }
+            $gallery_image .= '</div>';
+            if (count($image_links) > 1) {
+                $gallery_image .= '<span class="prev fa fa-angle-left"></span>';
+                $gallery_image .= '<span class="next fa fa-angle-right"></span>';
+            }
+            $gallery_image .= '</div>';
+            if(!empty($display_thumbnail_img)) {
+                $gallery_image .= '<div class="atbd_directory_image_thumbnail">';
+                $listing_prv_imgurl_thumb = wp_get_attachment_image_src($listing_prv_img, 'thumbnail')['0'];
+                if (!empty($listing_prv_imgurl_thumb && !empty($display_prv_image))) {
+                    array_unshift($image_links_thumbnails, $listing_prv_imgurl_thumb);
+                }
+                foreach ($image_links_thumbnails as $image_links_thumbnail) {
+                    $gallery_image .= '<div class="single_thumbnail">';
+                    $gallery_image .= '<img src="'.esc_url($image_links_thumbnail).'" alt="'.esc_html($p_title).'">';
+                    $gallery_image .= '</div>';
+                    if (!is_multiple_images_active()) break;
+                }
+                $gallery_image .= '</div>';
+            }
+            $gallery_image .= '</div>';
+            echo apply_filters('atbdp_single_listing_gallery_section',$gallery_image);
             ?>
-            <div class="atbd_directry_gallery_wrapper">
-                <div class="atbd_big_gallery">
-                    <div class="atbd_directory_gallery">
-                        <?php foreach ($image_links as $image_link) { ?>
-                            <div class="single_image">
-                                <img
-                                    src="<?= !empty($image_link) ? esc_url($image_link) : ''; ?>"
-                                    alt="<?php echo esc_html($p_title); ?>">
-                            </div>
-
-                            <?php
-                        } ?>
-                    </div>
-                    <?php if (count($image_links) > 1) { ?>
-                        <span class="prev fa fa-angle-left"></span>
-                        <span class="next fa fa-angle-right"></span>
-                    <?php } ?>
-                </div>
-                <?php if(!empty($display_thumbnail_img)) {?>
-                <div class="atbd_directory_image_thumbnail">
-                    <?php
-                    $listing_prv_imgurl_thumb = wp_get_attachment_image_src($listing_prv_img, 'thumbnail')['0'];
-                    if (!empty($listing_prv_imgurl_thumb && !empty($display_prv_image))) {
-                        array_unshift($image_links_thumbnails, $listing_prv_imgurl_thumb);
-                    }
-                    foreach ($image_links_thumbnails as $image_links_thumbnail) { ?>
-                        <div class="single_thumbnail">
-                            <img src="<?= esc_url($image_links_thumbnail); ?>"
-                                 alt="<?php echo esc_html($p_title); ?>">
-                        </div>
-                        <?php
-                        // do not output more than one image if the MI extension is not active
-                        if (!is_multiple_images_active()) break;
-                    } ?>
-                </div><!-- end /.atbd_directory_image_wrapper -->
-                <?php } ?>
-            </div>
         <?php } elseif (!empty($display_prv_image)) {
             $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
             ?>
@@ -379,7 +373,7 @@ do_action('atbdp_before_listing_section');
         </div>
     </div>
 </div> <!-- end .atbd_listing_details -->
-<?php do_action('atbdp_after_single_listing_details_section');?>
+<?php do_action('atbdp_after_single_listing_details_section'); ?>
 <script>
     jQuery(document).ready(function ($) {
         /* image gallery slider */

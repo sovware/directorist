@@ -308,6 +308,9 @@ class ATBDP_Custom_Field
                 $field_required = (int)$_POST['required'];
                 update_post_meta($post_id, 'required', $field_required);
 
+                $admin_use = (int)$_POST['admin_use'];
+                update_post_meta($post_id, 'admin_use', $admin_use);
+
                 $field_choices = esc_textarea($_POST['choices']);
                 update_post_meta($post_id, 'choices', $field_choices);
 
@@ -645,6 +648,23 @@ class ATBDP_Custom_Field
                         <li>
                             <label>
                                 <input type="radio" name="required" value="0" <?php echo checked($selected_required, 0, false); ?>><?php _e('No', ATBDP_TEXTDOMAIN); ?>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="field-required">
+                    <label><?php _e('Is only admin use?', ATBDP_TEXTDOMAIN); ?></label>
+                    <?php $selected_admin_use = isset($post_meta['admin_use']) ? esc_attr($post_meta['admin_use'][0]) : 0; ?>
+                    <ul class="atbdp-radio-list radio horizontal">
+                        <li>
+                            <label>
+                                <input type="radio" name="admin_use" value="1" <?php echo checked($selected_admin_use, 1, false); ?>><?php _e('Yes', ATBDP_TEXTDOMAIN); ?>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" name="admin_use" value="0" <?php echo checked($selected_admin_use, 0, false); ?>><?php _e('No', ATBDP_TEXTDOMAIN); ?>
                             </label>
                         </li>
                     </ul>

@@ -183,8 +183,6 @@ do_action('atbdp_before_listing_section');
                             <div id="atbdp-report-abuse-message-display"></div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger"
-                                    data-dismiss="modal"><?php _e('Close', ATBDP_TEXTDOMAIN); ?></button>
                             <button type="submit"
                                     class="btn btn-primary"><?php _e('Submit', ATBDP_TEXTDOMAIN); ?></button>
                         </div>

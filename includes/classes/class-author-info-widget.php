@@ -86,7 +86,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
                                 <!-- In Future, We will have to use a loop to print more than 1 number-->
                                 <li>
                                     <span class="<?php atbdp_icon_type(true);?>-phone"></span>
-                                    <span class="atbd_info"><?= esc_html($phone); ?></span>
+                                    <span class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($phone)); ?>"><?php echo esc_html(stripslashes($phone)); ?></a></span>
                                 </li>
                             <?php } ?>
 

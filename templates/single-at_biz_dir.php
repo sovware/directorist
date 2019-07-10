@@ -642,7 +642,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                         <div class="atbd_info_title"><span
                                                     class="<?php atbdp_icon_type(true);?>-phone"></span><?php _e('Phone', ATBDP_TEXTDOMAIN); ?>
                                         </div>
-                                        <div class="atbd_info"><?= esc_html($phone); ?></div>
+                                        <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($phone)); ?>"><?php echo esc_html(stripslashes($phone)); ?></a>
+                                        </div>
                                     </li>
                                 <?php } ?>
 

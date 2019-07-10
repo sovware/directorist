@@ -45,7 +45,6 @@ if (!class_exists('ATBDP_Email')):
             //add_action('atbdp_post_insert_review', array($this, 'notify_admin_review_submitted'));
             //add_action('atbdp_post_insert_review', array($this, 'notify_user_review_submitted'));
 
-
         }
 
 

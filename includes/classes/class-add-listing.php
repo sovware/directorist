@@ -157,7 +157,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                             if (((0 >= $total_regular_listing) && (0 >= $total_featured_listing)) || ($remaining_days <= 0)){
                                 //if user exit the plan allowance the change the status of that order to cancelled
                                 $order_id = $plan_purchased->ID;
-                                if (!class_exists('$class_name')){
+                                if (!class_exists('woocommerce')){
                                     $order = new WC_Order($order_id);
                                     $order->update_status('cancelled', 'order_note');
                                 }else{
@@ -345,6 +345,7 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                                     }
 
+                                    update_post_meta( $post_id, $key, $value );
                                     update_post_meta( $post_id, $key, $value );
                                 }
                                 update_post_meta( $post_id, '_admin_category_select', $admin_category_select );

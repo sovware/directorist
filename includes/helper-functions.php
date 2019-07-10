@@ -2482,7 +2482,8 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                                         <?php if (!empty($phone_number) && !empty($display_phone_field)) { ?>
                                                             <li><p>
                                                                     <span class="
-<?php atbdp_icon_type(true); ?>-phone"></span><?php echo esc_html(stripslashes($phone_number)); ?>
+<?php atbdp_icon_type(true); ?>-phone"></span><a href="tel:<?php echo esc_html(stripslashes($phone_number)); ?>"><?php echo esc_html(stripslashes($phone_number)); ?></a>
+
                                                                 </p></li>
                                                             <?php
                                                         }
@@ -2903,7 +2904,8 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                                 ?>
                                                                 <?php if (!empty($phone_number) && !empty($display_phone_field)) { ?>
                                                                     <li><p>
-                                                                            <span class="<?php atbdp_icon_type(true); ?>-phone"></span><?php echo esc_html(stripslashes($phone_number)); ?>
+                                                                            <span class="<?php atbdp_icon_type(true); ?>-phone"></span><a href="tel:<?php echo esc_html(stripslashes($phone_number)); ?>"><?php echo esc_html(stripslashes($phone_number)); ?></a>
+
                                                                         </p></li>
                                                                     <?php
                                                                 }
@@ -3271,7 +3273,8 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                                 ?>
                                                 <?php if (!empty($phone_number) && !empty($display_phone_field)) { ?>
                                                     <li><p>
-                                                            <span class="<?php atbdp_icon_type(true); ?>-phone"></span><?php echo esc_html(stripslashes($phone_number)); ?>
+                                                            <span class="<?php atbdp_icon_type(true); ?>-phone"></span><a href="tel:<?php echo esc_html(stripslashes($phone_number)); ?>"><?php echo esc_html(stripslashes($phone_number)); ?></a>
+
                                                         </p></li>
                                                     <?php
                                                 }

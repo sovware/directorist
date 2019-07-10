@@ -53,7 +53,6 @@ class ATBDP_User {
         $subscriber->add_cap('upload_files');
     }
 
-
     /**
      * If a user trying to login is a subscriber, send him to his dashboard on the front end.
      * @param $redirect_to

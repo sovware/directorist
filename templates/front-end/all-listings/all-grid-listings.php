@@ -139,8 +139,7 @@ $column_width = 100 / $columns . '%';
                                                 ?>
                                                 <div class="atbd_author">
                                                     <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
-                                                       data-toggle="tooltip" data-placement="top"
-                                                       title="<?php echo $author->first_name . ' ' . $author->last_name; ?>"><?php if (empty($u_pro_pic)) {
+                                                       aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>" class="atbd_tooltip"><?php if (empty($u_pro_pic)) {
                                                             echo $avata_img;
                                                         }
                                                         if (!empty($u_pro_pic)) { ?>

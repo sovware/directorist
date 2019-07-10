@@ -194,7 +194,7 @@ $column_width           = 100/$search_listing_columns .'%';
                                                 $author = get_userdata($author_id);
                                                 ?>
                                                 <div class="atbd_author">
-                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $author->first_name.' '.$author->last_name;?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" class="atbd_tooltip" aria-label="<?php echo $author->first_name.' '.$author->last_name;?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
                                                             <img
                                                             src="<?php echo esc_url($u_pro_pic[0]); ?>"
                                                             alt="Author Image"><?php } ?>

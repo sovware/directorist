@@ -678,4 +678,48 @@ css for Custom Field
   }
 }
 
+/* ATBD Tooltip */
+.atbd_tooltip {
+  position: relative;
+}
+
+.atbd_tooltip[aria-label]:before, .atbd_tooltip[aria-label]:after {
+  position: absolute !important;
+  bottom: 100%;
+  display: none;
+  -webkit-animation: showTooltip 0.3s ease;
+  -o-animation: showTooltip 0.3s ease;
+  animation: showTooltip 0.3s ease;
+}
+
+.atbd_tooltip[aria-label]:before {
+  content: "";
+  left: 50%;
+  transform: translate(-50%, 7px);
+  border: 6px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.8);
+}
+
+.atbd_tooltip[aria-label]:after {
+  content: attr(aria-label);
+  left: 50%;
+  transform: translate(-50%, -5px);
+  min-width: 150px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 5px 12px;
+  border-radius: 0.2em;
+  color: #fff;
+}
+
+.atbd_tooltip[aria-label]:hover:before, .atbd_tooltip[aria-label]:hover:after {
+  display: block;
+}
+
+@keyframes showTooltip {
+  from {
+    opacity: 0;
+  }
+}
+
 /*# sourceMappingURL=map/style.css.map */

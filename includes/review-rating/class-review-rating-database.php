@@ -128,6 +128,10 @@ if (!class_exists('ATBDP_Review_Rating_DB')):
             }
 
 
+            /**
+             * @since 5.4.2
+             */
+            do_action('atbdp_before_insert_review', $args);
             // finally insert new data if update was not done.
             return $this->insert( $args, 'review' ); // return the inserted id
 

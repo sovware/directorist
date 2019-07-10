@@ -395,3 +395,50 @@
     }
   }
 }
+
+/* ATBD Tooltip */
+.atbd_tooltip{
+  position: relative;
+  &[aria-label]:before, &[aria-label]:after{
+    position: absolute !important;
+    bottom: 100%;
+    display: none;
+    -webkit-animation: showTooltip 0.3s ease;
+    -o-animation: showTooltip 0.3s ease;
+    animation: showTooltip 0.3s ease;
+  }
+  &[aria-label]:before{
+    content: "";
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.8);
+  }
+  &[aria-label]:after{
+    content: attr(aria-label);
+    left: 50%;
+    transform: translate(-50%, -12px);
+    white-space: nowrap;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 4px 12px;
+    border-radius: 0.2em;
+    color: #fff;
+    z-index: 9999;
+  }
+  &[aria-label]:hover:before, &[aria-label]:hover:after{
+    display: block;
+  }
+  &.atbd_tooltip--fw{
+    &[aria-label]:after{
+      white-space: normal;
+      min-width: 120px;
+      max-width: 200px;
+      text-align: center;
+    }
+  }
+}
+@keyframes showTooltip {
+  from {
+    opacity: 0;
+  }
+}

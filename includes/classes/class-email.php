@@ -42,8 +42,8 @@ if (!class_exists('ATBDP_Email')):
             add_filter('wp_new_user_notification_email', array($this, 'custom_wp_new_user_notification_email'), 10, 3);
             add_filter('wp_mail_from_name', array($this, 'atbdp_wp_mail_from_name'));
             //notification on new review submit
-            add_action('atbdp_post_insert_review', array($this, 'notify_admin_review_submitted'));
-            add_action('atbdp_post_insert_review', array($this, 'notify_user_review_submitted'));
+            //add_action('atbdp_post_insert_review', array($this, 'notify_admin_review_submitted'));
+            //add_action('atbdp_post_insert_review', array($this, 'notify_user_review_submitted'));
 
 
         }

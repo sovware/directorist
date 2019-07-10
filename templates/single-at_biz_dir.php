@@ -140,7 +140,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 ?>
 <section id="directorist" class="directorist atbd_wrapper">
     <div class="row">
-        <div class="col-lg-8 col-md-12 atbd_col_left">
+        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
             <?php
             //is current user is logged in and the original author of the listing
             if (is_user_logged_in() && $listing_author_id == get_current_user_id()) {
@@ -231,7 +231,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         $listing_header .= '</div>';
                     } ?>
                     <div class="at-modal atm-fade" id="atbdp-report-abuse-modal">
-                        <div class="at-modal-content at-modal-lg">
+                        <div class="at-modal-content at-modal-md">
                             <div class="atm-contents-inner">
                                 <a href="" class="at-modal-close"><span aria-hidden="true">&times;</span></a>
                                 <div class="row align-items-center">
@@ -254,8 +254,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                                 <div id="atbdp-report-abuse-message-display"></div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal"><?php _e('Close', ATBDP_TEXTDOMAIN); ?></button>
                                                 <button type="submit"
                                                         class="btn btn-primary"><?php _e('Submit', ATBDP_TEXTDOMAIN); ?></button>
                                             </div>

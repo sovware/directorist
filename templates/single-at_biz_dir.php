@@ -34,6 +34,7 @@ $custom_gl_width = get_directorist_option('gallery_crop_width', 670);
 $custom_gl_height = get_directorist_option('gallery_crop_height', 750);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
 $enable_review = get_directorist_option('enable_review', 'yes');
+$display_thumbnail_img          = get_directorist_option('dsiplay_thumbnail_img', 1);
 extract($listing_info);
 /*Prepare Listing Image links*/
 $listing_imgs = (!empty($listing_img) && !empty($display_slider_image)) ? $listing_img : array();
@@ -179,11 +180,13 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             ?>
             <div class="atbd_content_module atbd_listing_details">
                 <div class="atbd_content_module__tittle_area">
+                    <?php if(!empty($listing_details_text)) { ?>
                     <div class="atbd_area_title">
                         <h4>
                             <span class="<?php atbdp_icon_type(true);?>-file-text atbd_area_icon"></span><?php _e($listing_details_text, ATBDP_TEXTDOMAIN) ?>
                         </h4>
                     </div>
+                    <?php } ?>
                     <?php
                     $listing_header = '<div class="atbd_listing_action_area">';
                     if ($enable_favourite) {
@@ -283,41 +286,38 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                             }
                             array_unshift($image_links, $listing_prv_imgurl);
                         }
+                        $gallery_image = '<div class="atbd_directry_gallery_wrapper">';
+                        $gallery_image .= '<div class="atbd_big_gallery">';
+                        $gallery_image .= '<div class="atbd_directory_gallery">';
+                        foreach ($image_links as $image_link) {
+                            $image_link = !empty($image_link) ? $image_link : '';
+                            $gallery_image .= '<div class="single_image">';
+                            $gallery_image .= '<img src="' . esc_url($image_link) . '" alt=" '.esc_html($p_title). '">';
+                            $gallery_image .= '</div>';
+                        }
+                        $gallery_image .= '</div>';
+                        if (count($image_links) > 1) {
+                            $gallery_image .= '<span class="prev fa fa-angle-left"></span>';
+                            $gallery_image .= '<span class="next fa fa-angle-right"></span>';
+                        }
+                        $gallery_image .= '</div>';
+                        if(!empty($display_thumbnail_img)) {
+                            $gallery_image .= '<div class="atbd_directory_image_thumbnail">';
+                            $listing_prv_imgurl_thumb = wp_get_attachment_image_src($listing_prv_img, 'thumbnail')['0'];
+                            if (!empty($listing_prv_imgurl_thumb && !empty($display_prv_image))) {
+                                array_unshift($image_links_thumbnails, $listing_prv_imgurl_thumb);
+                            }
+                            foreach ($image_links_thumbnails as $image_links_thumbnail) {
+                                $gallery_image .= '<div class="single_thumbnail">';
+                                $gallery_image .= '<img src="'.esc_url($image_links_thumbnail).'" alt="'.esc_html($p_title).'">';
+                                $gallery_image .= '</div>';
+                                if (!is_multiple_images_active()) break;
+                            }
+                            $gallery_image .= '</div>';
+                        }
+                        $gallery_image .= '</div>';
+                        echo apply_filters('atbdp_single_listing_gallery_section',$gallery_image);
                         ?>
-                        <div class="atbd_directry_gallery_wrapper">
-                            <div class="atbd_big_gallery">
-                                <div class="atbd_directory_gallery">
-                                    <?php foreach ($image_links as $image_link) { ?>
-                                        <div class="single_image">
-                                            <img src="<?= !empty($image_link) ? esc_url($image_link) : ''; ?>"
-                                                 alt="<?php echo esc_html($p_title); ?>">
-                                        </div>
-
-                                        <?php
-                                    } ?>
-                                </div>
-                                <?php if (count($image_links) > 1) { ?>
-                                    <span class="prev <?php atbdp_icon_type(true);?>-angle-left"></span>
-                                    <span class="next <?php atbdp_icon_type(true);?>-angle-right"></span>
-                                <?php } ?>
-                            </div>
-                            <div class="atbd_directory_image_thumbnail">
-                                <?php
-                                $listing_prv_imgurl_thumb = wp_get_attachment_image_src($listing_prv_img, 'thumbnail')['0'];
-                                if (!empty($listing_prv_imgurl_thumb && !empty($display_prv_image))) {
-                                    array_unshift($image_links_thumbnails, $listing_prv_imgurl_thumb);
-                                }
-                                foreach ($image_links_thumbnails as $image_links_thumbnail) { ?>
-                                    <div class="single_thumbnail">
-                                        <img src="<?= esc_url($image_links_thumbnail); ?>"
-                                             alt="<?php echo esc_html($p_title); ?>">
-                                    </div>
-                                    <?php
-                                    // do not output more than one image if the MI extension is not active
-                                    if (!is_multiple_images_active()) break;
-                                } ?>
-                            </div><!-- end /.atbd_directory_image_wrapper -->
-                        </div>
                     <?php } elseif (!empty($display_prv_image)) {
                         $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                         ?>
@@ -900,7 +900,7 @@ if ('openstreet' == $select_listing_map) {
             slidesToShow: 1,
             slidesToScroll: 1,
             arrows: false,
-            asNavFor: '.atbd_directory_image_thumbnail',
+            asNavFor: '<?php echo !empty($display_thumbnail_img) ? ".atbd_directory_image_thumbnail" : ""; ?>',
             rtl: <?php echo is_rtl() ? 'true' : 'false'; ?>
         });
 

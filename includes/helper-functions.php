@@ -3946,3 +3946,33 @@ function atbdp_get_current_url() {
     return $current_url;
 
 }
+
+/**
+ * Check if Yoast SEO plugin is active and Directorist can use that.
+ *
+ * @since     5.4.4
+ *
+ * @return    bool     $can_use_yoast    "true" if can use Yoast, "false" if not.
+ */
+function atbdp_can_use_yoast() {
+
+    $can_use_yoast = false;
+
+    if ( in_array( 'wordpress-seo/wp-seo.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+        $can_use_yoast = true;
+    }
+
+    return $can_use_yoast;
+
+}
+
+if (!function_exists('atbdp_page')){
+    function atbdp_page(){
+        $pages = array(
+            get_directorist_option('search_listing'),get_directorist_option('search_result_page'),get_directorist_option('add_listing_page'),get_directorist_option('all_listing_page'),get_directorist_option('all_categories_page'),get_directorist_option('single_category_page'),get_directorist_option('all_locations_page'),get_directorist_option('single_location_page'),get_directorist_option('single_tag_page'),get_directorist_option('author_profile_page'),get_directorist_option('user_dashboard'),get_directorist_option('custom_registration'),get_directorist_option('user_login'),get_directorist_option('checkout_page'),get_directorist_option('payment_receipt_page'),get_directorist_option('transaction_failure_page'),
+        );
+     foreach ($pages as $page){
+         return $page;
+     }
+    }
+}

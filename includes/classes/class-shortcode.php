@@ -156,6 +156,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
         {
             wp_enqueue_script('adminmainassets');
             $listing_orderby           = get_directorist_option('search_order_listing_by');
+            $search_sort_listing_by   = get_directorist_option('search_sort_listing_by');
             $listing_view              = get_directorist_option('search_view_as');
             $listing_order             = get_directorist_option('search_sort_by');
             $listing_grid_columns      = get_directorist_option('search_listing_columns',3);
@@ -168,7 +169,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 '_featured'         => 1,
                 'filterby'          => '',
                 'orderby'           => !empty($listing_orderby) ? $listing_orderby : 'date',
-                'order'             => !empty($listing_order) ? $listing_order : 'asc',
+                'order'             => !empty($search_sort_listing_by) ? $search_sort_listing_by : 'asc',
                 'listings_per_page' => (int) get_directorist_option('search_posts_num', 6),
                 'show_pagination'   => !empty($paginate) ? 'yes' : '',
                 'header'            => !empty($display_listings_header) ? 'yes' : '',

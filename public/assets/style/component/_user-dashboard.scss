@@ -7,18 +7,65 @@
     .nav.nav-tabs, .nav_button{
       margin: 10px 0;
     }
-    .nav-item{
-      &.active{
-        .nav-link{
-          background: #fff;
+    ul{
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      border-bottom: 1px solid $border-color;
+      margin: 5px 0;
+      flex: 1;
+      li{
+        margin: 0;
+        a{
           border: 1px solid transparent;
-          border-color: #e3e6ef #e3e6ef #e3e6ef;
+          border-radius: 3px 3px 0 0;
+          padding: 15px;
+          background: none;
+          &.tabItemActive{
+            border-color: $border-color;
+            border-bottom-color: transparent;
+          }
+          &:focus, &:active{
+            outline: 0;
+            background: none;
+          }
         }
       }
     }
-    .nav-link{
-      padding: 10px 15px;
-      
+    &.tab_nav_slide{
+      display: block;
+      ul{
+        margin-bottom: 30px;
+        li{
+          text-align: center;
+          a{
+            border: 0 none;
+            padding-left: 0;
+            padding-right: 0;
+            display: block;
+            &.tabItemActive{
+              border-bottom: 1px solid #2d2f36;
+              color: #2d2f36;
+            }
+          }
+        }
+        .slick-arrow{
+          position: absolute;
+          top: 50%;
+          -webkit-transform: translateY(-50%);
+          -moz-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+          -o-transform: translateY(-50%);
+          transform: translateY(-50%);
+          font-size: 13px;
+          &.slick-prev{
+            left: -15px;
+          }
+          &.slick-next{
+            right: -15px;
+          }
+        }
+      }
     }
   }
   &.dashboard_area{

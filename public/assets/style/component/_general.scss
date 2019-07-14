@@ -629,3 +629,17 @@ body.atbd_content_active #directorist.atbd_wrapper{
     width: 100%;
   }
 }
+
+.tabContentActive{
+  display: block !important;
+  animation: showTab 0.6s ease;
+}
+.atbd_tab_inner{
+  display: none;
+}
+
+@keyframes showTab {
+  from{
+    opacity: 0;
+  }
+}

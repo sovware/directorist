@@ -1,10 +1,16 @@
+/*
+    File: Main.js
+    Plugin: Directorist - Business Directory Plugin
+    Author: Aazztech
+    Author URI: www.aazztech.com
+*/
+
 (function ($) {
 
     //sorting toggle
     $('.sorting span').on('click', function () {
         $(this).toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
     });
-
 
 
     /* Externel Library init
@@ -36,10 +42,10 @@
 
             var reader = new FileReader();
             reader.onload = (function (aImg) {
-                    return function (e) {
-                        aImg.src = e.target.result;
-                    };
-                })(img);
+                return function (e) {
+                    aImg.src = e.target.result;
+                };
+            })(img);
             reader.readAsDataURL(file);
         }
     }
@@ -70,10 +76,10 @@
             var output = '';
             var deleteBtn = '';
             var d;
-            var name= $form.find("#reviewer_name").val();
-            var content= $form.find("#review_content").val();
-            var rating= $form.find("#review_rating").val();
-            var ava_img= $form.find("#reviewer_img").val();
+            var name = $form.find("#reviewer_name").val();
+            var content = $form.find("#review_content").val();
+            var rating = $form.find("#review_rating").val();
+            var ava_img = $form.find("#reviewer_img").val();
             if (response.success) {
                 d = new Date(); // parse mysql date string to js date object
                 d = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear(); // build the date string, month is 0 based so add 1 to that to get real month.
@@ -112,11 +118,11 @@
                 if (submit_count === 1) {
                     $('#client_review_list').prepend(output); // add the review if it's the first review of the user
                 }
-                var sectionToShow= $("#has_ajax").val();
-                var sectionToHide= $(".atbdp_static");
-                var sectionToHide2= $(".directory_btn");
-                if (sectionToShow){
-                   // $(sectionToHide).hide();
+                var sectionToShow = $("#has_ajax").val();
+                var sectionToHide = $(".atbdp_static");
+                var sectionToHide2 = $(".directory_btn");
+                if (sectionToShow) {
+                    // $(sectionToHide).hide();
                     $(sectionToHide2).hide();
                 }
                 submit_count++;
@@ -193,7 +199,6 @@
                 });
 
 
-
                 if (length < 3) {
                     $this.remove();
                 }
@@ -209,11 +214,7 @@
                     showConfirmButton: false
                 });
             }
-
-
             $('#client_review_list').append(output);
-
-
         });
         review_offset += 3;
         return false;
@@ -325,7 +326,7 @@
                             // show error message
                             swal({
                                 title: atbdp_public_data.listing_error_title,
-                                text:  atbdp_public_data.listing_error_text,
+                                text: atbdp_public_data.listing_error_text,
                                 type: "error",
                                 timer: 2000,
                                 showConfirmButton: false
@@ -430,21 +431,112 @@
         var columnRight = $(".directorist.col-lg-4");
         var tabColumn = $(".atbd_dashboard_wrapper .tab-content .tab-pane .col-lg-4");
         var w_size = d_wrapper.width();
-        if(w_size >= 500 && w_size <= 735){
+        if (w_size >= 500 && w_size <= 735) {
             columnLeft.toggleClass("col-lg-8");
             columnRight.toggleClass("col-lg-4");
         }
-        if(w_size <= 600){
+        if (w_size <= 600) {
             d_wrapper.addClass("size-xs");
             tabColumn.toggleClass("col-lg-4");
         }
 
         var listing_size = $(".atbd_dashboard_wrapper .atbd_single_listing").width();
-        if(listing_size < 200){
+        if (listing_size < 200) {
             $(".atbd_single_listing .db_btn_area").addClass("db_btn_area--sm");
         }
-    })
 
+        var tab_nav = $(".atbd_tab_nav").width();
+        if(tab_nav < 600){
+            $(".atbd_tab_nav").addClass("tab_nav_slide");
+        }
+
+        var nav_tab_slide = $('.tab_nav_slide .atbdp_tab_nav--content').slick({
+            dots: false,
+            infinite: false,
+            speed: 300,
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            prevArrow: "<span class='slick-prev'><i class='la la-angle-left'></i></span>",
+            nextArrow: "<span class='slick-next'><i class='la la-angle-right'></i></span>",
+            responsive: [
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow:2,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+        //Hide the Previous button.
+        $('.slick-prev').hide();
+
+        nav_tab_slide.on('afterChange', function(event, slick, currentSlide) {
+            //If we're on the first slide hide the Previous button and show the Next
+            if (currentSlide === 0) {
+                $('.slick-prev').hide();
+                $('.slick-next').show();
+            }
+            else {
+                $('.slick-prev').show();
+            }
+
+            //If we're on the last slide hide the Next button.
+            if (slick.slideCount === currentSlide + 1) {
+                $('.slick-next').hide();
+            }
+        });
+    });
+
+    /*
+        Plugin: PureScriptTab
+        Version: 1.0.0
+        License: MIT
+    */
+    (function () {
+        pureScriptTab = (selector1) => {
+            var selector = document.querySelectorAll(selector1);
+            selector.forEach((el, index) => {
+                a = el.querySelectorAll('.atbd_tn_link');
+
+
+                a.forEach((element, index) => {
+
+                    element.style.cursor = 'pointer';
+                    element.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        var ul = event.target.closest('.atbd_tab_nav'),
+                            main = ul.nextElementSibling,
+                            item_a = ul.querySelectorAll('.atbd_tn_link'),
+                            section = main.querySelectorAll('.atbd_tab_inner');
+
+                        item_a.forEach((ela, ind) => {
+                            ela.classList.remove('tabItemActive');
+                        });
+                        event.target.classList.add('tabItemActive');
+
+
+                        section.forEach((element1, index) => {
+                            //console.log(element1);
+                            element1.classList.remove('tabContentActive');
+                        });
+                        var target = event.target.target;
+                        document.getElementById(target).classList.add('tabContentActive');
+                    });
+                });
+            });
+        };
+    })();
+    pureScriptTab('.atbd_tab');
 
 })(jQuery);
 
@@ -490,8 +582,6 @@ jQuery(function ($) {
                 imgTag.attr('src', selection.url); // set the preview image url
                 imgIdInput.attr('value', selection.id); // set the value of input field
             }
-
-
         });
 
         // Finally, open the modal on click
@@ -504,8 +594,6 @@ jQuery(function ($) {
         // if no image exist then add placeholder and hide remove image button
         imgTag.attr('src', atbdp_public_data.PublicAssetPath + 'images/no-image.jpg');
         imgIdInput.attr('value', ''); // set the value of input field
-
-
     });
 
 
@@ -556,8 +644,6 @@ jQuery(function ($) {
                     }, 'json');
 
                 }
-                ;
-
             });
 
             // Validate contact form
@@ -602,12 +688,9 @@ jQuery(function ($) {
                 } else {
                     atbdp_contact_submitted = false;
                 }
-                ;
 
             });
-
-
-        };
+        }
 
         // Report abuse [on modal closed]
         $('#atbdp-report-abuse-modal').on('hidden.bs.modal', function (e) {
@@ -656,9 +739,6 @@ jQuery(function ($) {
             e.preventDefault();
             $(this).tab('show');
         });*/
-
-
-
     });
 
     $("#recover-pass-modal").hide();
@@ -667,33 +747,29 @@ jQuery(function ($) {
         $("#recover-pass-modal").slideToggle().show();
     });
 
+    /* atbd tooltip */
+    var atbd_tooltip = $('.atbd_tooltip');
+    if (atbd_tooltip.attr('aria-label') !== " ") {
+        atbd_tooltip.on('hover', function () {
+            $(this).toggleClass('atbd_tooltip_active');
+        })
+    }
 
-    $(function() {
+    /* User Dashboard tab */
+    $(function () {
         var hash = window.location.hash;
-        var selectedTab = $('.navbar .menu li a [href= "'+hash+'"]');
-        if(selectedTab.length){
-            //Do your particular tab toggling
-        }
-    });
-    $('#nav-item a').on("click", function(e) {
-        e.preventDefault();
-        $(this).tab('show');
+        var selectedTab = $('.navbar .menu li a [target= "' + hash + '"]');
     });
 
     // store the currently selected tab in the hash value
-    $("ul.nav-tabs > li > a").on("click", function(e) {
-        var id = $(e.target).attr("href").substr(1);
-        window.location.hash = id;
+    $("ul.atbdp_tab_nav--content > li > a").on("click", function (e) {
+        var id = $(e.target).attr("target").substr();
+        window.location.hash = "#active_" + id;
+        e.stopPropagation();
     });
 
-    // on load of the page: switch to the currently selected tab
-    var hash = window.location.hash;
-    $('#nav-item a[href="' + hash + '"]').tab('show');
+})(jQuery);
 
-    /*console.log(atbdp_public_data.listings_lat);
-    console.log(atbdp_public_data.listings_lng);
-    console.log(atbdp_public_data.listings_name);
-    console.log(atbdp_public_data.l_address);*/
-
-
-})(jQuery)
+// on load of the page: switch to the currently selected tab
+var urlId = window.location.href.split("/").pop().split("#")[1].split("active_")[1];
+document.querySelector(`a[target=${urlId}]`).click();

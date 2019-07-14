@@ -639,7 +639,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                     <div id="atbdp-custom-fields-list" data-post_id="<?php echo $p_id; ?>">
                                         <?php
                                         $selected_category = !empty($selected_category) ? $selected_category : '';
-                                        do_action('wp_ajax_atbdp_custom_fields_listings', $p_id, $selected_category); ?>
+                                        do_action('wp_ajax_atbdp_custom_fields_listings_front', $p_id, $selected_category); ?>
                                     </div>
                                 <?php
                                 }

@@ -10,7 +10,7 @@ if ( !class_exists('ATBDP_SEO') ):
         public function __construct()
         {
 
-            //add_filter('the_title', array($this, 'atbdp_title_update'), 10, 2);
+
             if (atbdp_can_use_yoast()){
                 add_filter( 'wpseo_title', array($this, 'wpseo_title' ));
                 add_filter( 'wpseo_metadesc', array($this, 'wpseo_metadesc' ));
@@ -21,9 +21,51 @@ if ( !class_exists('ATBDP_SEO') ):
                 add_action('wp_head', array($this, 'atbdp_texonomy_canonical'));
                 add_filter('pre_get_document_title', array($this, 'atbdp_custom_page_title'), 100);
                 add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 100, 2);
-                //add_filter('the_title', array($this, 'atbdp_custom_page_title'), 100, 2);
                 add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 100, 2);
             }
+            add_filter('the_title', array($this, 'atbdp_title_update'), 10, 2);
+        }
+
+        public function atbdp_title_update( $title, $id = null ) {
+            if( ! in_the_loop() || ! is_main_query() ) {
+                return $title;
+            }
+
+            if( is_singular(ATBDP_POST_TYPE) ) {
+                return '';
+            }
+
+            global $post;
+            if ( ! is_admin() && ! is_null( $id ) ) {
+                $post = get_post( $id );
+                if ( $post instanceof WP_Post && ( $post->post_type == 'post' || $post->post_type == 'page' ) ) {
+                    $CAT_page_ID = get_directorist_option('single_category_page');
+                    $LOC_page_ID = get_directorist_option('single_location_page');
+                    $Tag_page_ID = get_directorist_option('single_tag_page');
+                    // Change Location page title
+                    if( $post->ID == $LOC_page_ID ) {
+                        if( $slug = get_query_var( 'atbdp_location' ) ) {
+                            $term = get_term_by( 'slug', $slug, ATBDP_LOCATION );
+                            $title = $term->name;
+                        }
+                    }
+                    // Change Category page title
+                    if( $post->ID == $CAT_page_ID ) {
+                        if( $slug = get_query_var( 'atbdp_category' ) ) {
+                            $term = get_term_by( 'slug', $slug, ATBDP_CATEGORY );
+                            $title = !empty($term)?$term->name:'';
+                        }
+                    }
+                    // Change Tag page title
+                    if( $post->ID == $Tag_page_ID ) {
+                        if( $slug = get_query_var( 'atbdp_tag' ) ) {
+                            $term = get_term_by( 'slug', $slug, ATBDP_TAGS );
+                            $title = !empty($term)?$term->name:'';
+                        }
+                    }
+                }
+            }
+            return $title;
         }
 
         public function wpseo_metadesc($desc){

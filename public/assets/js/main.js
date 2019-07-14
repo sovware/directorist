@@ -443,8 +443,50 @@
         if(listing_size < 200){
             $(".atbd_single_listing .db_btn_area").addClass("db_btn_area--sm");
         }
-    })
+    });
 
+    /*
+        Plugin: PureScriptTab
+        Version: 1.0.0
+        License: MIT
+    */
+    (function () {
+        pureScriptTab = (selector1) => {
+            var selector    = document.querySelectorAll(selector1);
+            selector.forEach((el, index) => {
+                    a = el.querySelectorAll('.atbd_tn_link');
+
+
+                a.forEach((element, index) => {
+
+                    element.style.cursor = 'pointer';
+                    element.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        var ul      = event.target.closest('.atbd_tab_nav'),
+                            main    = ul.nextElementSibling,
+                            item_a  = ul.querySelectorAll('.atbd_tn_link'),
+                            section = main.querySelectorAll('.atbd_tab_inner');
+
+                        item_a.forEach((ela, ind) => {
+                            ela.classList.remove('tabItemActive');
+                        });
+                        event.target.classList.add('tabItemActive');
+
+
+                        section.forEach((element1, index) => {
+                            //console.log(element1);
+                            element1.classList.remove('tabContentActive');
+                        });
+                        var target = event.target.target;
+                        document.getElementById(target).classList.add('tabContentActive');
+                    });
+                });
+            });
+        };
+    })();
+    pureScriptTab('.atbd_tab');
 
 })(jQuery);
 
@@ -675,20 +717,17 @@ jQuery(function ($) {
             //Do your particular tab toggling
         }
     });
-    $('#nav-item a').on("click", function(e) {
-        e.preventDefault();
-        $(this).tab('show');
-    });
+
 
     // store the currently selected tab in the hash value
-    $("ul.nav-tabs > li > a").on("click", function(e) {
+    /*$("ul.atbdp_tab_nav--content > li > a").on("click", function(e) {
         var id = $(e.target).attr("href").substr(1);
         window.location.hash = id;
-    });
+    });*/
 
     // on load of the page: switch to the currently selected tab
-    var hash = window.location.hash;
-    $('#nav-item a[href="' + hash + '"]').tab('show');
+    /*var hash = window.location.hash;
+    $('.atbdp_tab_nav--content li a[href="' + hash + '"]').tab('show');*/
 
     /*console.log(atbdp_public_data.listings_lat);
     console.log(atbdp_public_data.listings_lng);
@@ -696,4 +735,4 @@ jQuery(function ($) {
     console.log(atbdp_public_data.l_address);*/
 
 
-})(jQuery)
+})(jQuery);

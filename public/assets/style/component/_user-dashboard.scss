@@ -7,18 +7,27 @@
     .nav.nav-tabs, .nav_button{
       margin: 10px 0;
     }
-    .nav-item{
-      &.active{
-        .nav-link{
-          background: #fff;
+    ul{
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      border-bottom: 1px solid $border-color;
+      margin: 5px 0;
+      li{
+        margin: 0;
+        a{
           border: 1px solid transparent;
-          border-color: #e3e6ef #e3e6ef #e3e6ef;
+          border-radius: 3px 3px 0 0;
+          padding: 15px;
+          &.tabItemActive{
+            border-color: $border-color;
+            border-bottom-color: transparent;
+          }
+          &:focus{
+            outline: 0;
+          }
         }
       }
-    }
-    .nav-link{
-      padding: 10px 15px;
-      
     }
   }
   &.dashboard_area{

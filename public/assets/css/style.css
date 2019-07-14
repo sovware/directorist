@@ -833,6 +833,21 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
 }
 
+.tabContentActive {
+  display: block !important;
+  animation: showTab 0.6s ease;
+}
+
+.atbd_tab_inner {
+  display: none;
+}
+
+@keyframes showTab {
+  from {
+    opacity: 0;
+  }
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;
@@ -3412,14 +3427,31 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin: 10px 0;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .nav-item.active .nav-link {
-  background: #fff;
-  border: 1px solid transparent;
-  border-color: #e3e6ef #e3e6ef #e3e6ef;
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #e3e6ef;
+  margin: 5px 0;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .nav-link {
-  padding: 10px 15px;
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul li {
+  margin: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul li a {
+  border: 1px solid transparent;
+  border-radius: 3px 3px 0 0;
+  padding: 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul li a.tabItemActive {
+  border-color: #e3e6ef;
+  border-bottom-color: transparent;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul li a:focus {
+  outline: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area {

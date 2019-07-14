@@ -109,11 +109,19 @@ if ( !class_exists('ATBDP_Shortcode') ):
                         'value'     => 'categories',
                         'compare'   => 'LIKE',
                     ),
+
+                ),
+                array(
+                        'relation' => 'OR',
+                    array(
+                        'key'=> 'admin_use',
+                        'compare'=> 'NOT EXISTS'
+                    ),
                     array(
                         'key'=> 'admin_use',
                         'value'=> 1,
                         'compare'=> '!='
-                    )
+                    ),
                 )
             );
 

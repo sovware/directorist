@@ -63,7 +63,7 @@ class ATBDP_Metabox {
                             'key'       => 'associate',
                             'value'     => 'categories',
                             'compare'   => 'LIKE',
-                        )
+                        ),
                     )
                 );
                 $atbdp_query = new WP_Query( $args );

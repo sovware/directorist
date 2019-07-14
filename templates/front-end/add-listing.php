@@ -330,10 +330,17 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                     'post_status' => 'publish',
                                     'meta_key' => 'associate',
                                     'meta_value' => 'form',
-                                    'meta_query' => array(
-                                        'key'=> 'admin_use',
-                                        'value'=> 1,
-                                        'compare'=> '!='
+                                    'meta_query' =>  array(
+                                        'relation' => 'OR',
+                                        array(
+                                            'key'=> 'admin_use',
+                                            'compare'=> 'NOT EXISTS'
+                                        ),
+                                        array(
+                                            'key'=> 'admin_use',
+                                            'value'=> 1,
+                                            'compare'=> '!='
+                                        ),
                                     )
                                 ));
                                 $plan_custom_field = true;

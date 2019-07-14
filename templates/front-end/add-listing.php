@@ -60,9 +60,9 @@ $info_content .= "<p> {$tg} </p>";
 $info_content .= $image; // add the image if available
 $info_content .= "<p> {$ad}</p></div>";
 // grab social information
-$social_info = !empty($social) ? (array)$social : array();
-$listing_img = !empty($listing_img) ? (array)$listing_img : array();
-
+$social_info     = !empty($social) ? (array)$social : array();
+$listing_img     = !empty($listing_img) ? (array)$listing_img : array();
+$listing_prv_img = !empty($listing_prv_img) ? $listing_prv_img : '';
 // get the category and location lists/array
 $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
 $locations = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
@@ -330,10 +330,17 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                     'post_status' => 'publish',
                                     'meta_key' => 'associate',
                                     'meta_value' => 'form',
-                                    'meta_query' => array(
-                                        'key'=> 'admin_use',
-                                        'value'=> 1,
-                                        'compare'=> '!='
+                                    'meta_query' =>  array(
+                                        'relation' => 'OR',
+                                        array(
+                                            'key'=> 'admin_use',
+                                            'compare'=> 'NOT EXISTS'
+                                        ),
+                                        array(
+                                            'key'=> 'admin_use',
+                                            'value'=> 1,
+                                            'compare'=> '!='
+                                        ),
                                     )
                                 ));
                                 $plan_custom_field = true;
@@ -632,7 +639,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                     <div id="atbdp-custom-fields-list" data-post_id="<?php echo $p_id; ?>">
                                         <?php
                                         $selected_category = !empty($selected_category) ? $selected_category : '';
-                                        do_action('wp_ajax_atbdp_custom_fields_listings', $p_id, $selected_category); ?>
+                                        do_action('wp_ajax_atbdp_custom_fields_listings_front', $p_id, $selected_category); ?>
                                     </div>
                                 <?php
                                 }

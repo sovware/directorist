@@ -98,23 +98,35 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
                 'posts_per_page' => -1,
                 'meta_query'    => array(
-                    'relation' => 'AND',
+                        'relation' => 'AND',
                     array(
-                        'key'       => 'category_pass',
-                        'value'     => $custom_field_ids,
-                        'compare'   => 'LIKE',
+                        'relation' => 'AND',
+                        array(
+                            'key'       => 'category_pass',
+                            'value'     => $custom_field_ids,
+                            'compare'   => 'LIKE',
+                        ),
+                        array(
+                            'key'       => 'associate',
+                            'value'     => 'categories',
+                            'compare'   => 'LIKE',
+                        ),
+
                     ),
                     array(
-                        'key'       => 'associate',
-                        'value'     => 'categories',
-                        'compare'   => 'LIKE',
-                    ),
-                    array(
-                        'key'=> 'admin_use',
-                        'value'=> 1,
-                        'compare'=> '!='
+                        'relation' => 'OR',
+                        array(
+                            'key'=> 'admin_use',
+                            'compare'=> 'NOT EXISTS'
+                        ),
+                        array(
+                            'key'=> 'admin_use',
+                            'value'=> 1,
+                            'compare'=> '!='
+                        ),
                     )
                 )
+
             );
 
             $atbdp_query = new WP_Query( $args );

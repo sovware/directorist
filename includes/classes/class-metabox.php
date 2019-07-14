@@ -325,6 +325,7 @@ wp_reset_postdata();
 
         $featured               = get_post_meta($post->ID, '_featured', true);
         $listing_status         = get_post_meta($post->ID, '_listing_status', true);
+        $default_expire_in_days = !empty($default_expire_in_days) ? $default_expire_in_days : '';
         // load the meta fields
         $data = compact('f_active', 'never_expire', 'expiry_date', 'featured', 'listing_status', 'default_expire_in_days');
         ATBDP()->load_template('meta-partials/expiration-featured-fields', array('data'=> $data));

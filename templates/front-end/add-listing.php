@@ -60,9 +60,9 @@ $info_content .= "<p> {$tg} </p>";
 $info_content .= $image; // add the image if available
 $info_content .= "<p> {$ad}</p></div>";
 // grab social information
-$social_info = !empty($social) ? (array)$social : array();
-$listing_img = !empty($listing_img) ? (array)$listing_img : array();
-
+$social_info     = !empty($social) ? (array)$social : array();
+$listing_img     = !empty($listing_img) ? (array)$listing_img : array();
+$listing_prv_img = !empty($listing_prv_img) ? $listing_prv_img : '';
 // get the category and location lists/array
 $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
 $locations = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));

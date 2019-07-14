@@ -400,7 +400,7 @@
 }
 
 /* ATBD Tooltip */
-.atbd_tooltip{
+.atbd_tooltip.atbd_tooltip_active{
   position: relative;
   &[aria-label]:before, &[aria-label]:after{
     position: absolute !important;

@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 5.4.2
+Stable tag: 5.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -128,6 +128,18 @@ Directorist is not developed by a single person. A team of dedicated developers 
 18. Add New Custom Field
 
 == Changelog ==
+
+= 5.4.3 - Jul 10, 2019 =
+
+* Fix - "Sort By" issue on search result page
+* Fix - Minor issue of Add listing page
+* Improve - Responsiveness
+* Improve - Translation
+* Improve - Single listing page's code
+* Tweak - Phone number clickable
+* Tweak - Report Abuse popup
+* Extend - Added more hooks to make the plugin more customizable
+
 
 = 5.4.2 - Jul 09, 2019 =
 

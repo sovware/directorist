@@ -277,6 +277,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                 <div class="atbdb_content_module_contents">
                     <?php
                     $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
+                    $gallery_image = '';
                     if (!empty($image_links)) {
                         if (!empty($listing_prv_img && $display_prv_image)) {
                             if (!empty($gallery_cropping)) {
@@ -286,7 +287,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                             }
                             array_unshift($image_links, $listing_prv_imgurl);
                         }
-                        $gallery_image = '<div class="atbd_directry_gallery_wrapper">';
+                        $gallery_image .= '<div class="atbd_directry_gallery_wrapper">';
                         $gallery_image .= '<div class="atbd_big_gallery">';
                         $gallery_image .= '<div class="atbd_directory_gallery">';
                         foreach ($image_links as $image_link) {
@@ -316,7 +317,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                             $gallery_image .= '</div>';
                         }
                         $gallery_image .= '</div>';
-                        echo apply_filters('atbdp_single_listing_gallery_section',$gallery_image);
+
                         ?>
                     <?php } elseif (!empty($display_prv_image)) {
                         $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
@@ -326,7 +327,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                  alt="<?php echo esc_html($p_title); ?>">
                         </div>
                         <?php
-                    } ?>
+                    }
+                    echo apply_filters('atbdp_single_listing_gallery_section',$gallery_image);
+                    ?>
                     <div class="atbd_listing_detail">
                         <?php
                         $data_info = '<div class="atbd_data_info">';

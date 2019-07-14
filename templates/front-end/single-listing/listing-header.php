@@ -65,42 +65,42 @@ $t = !empty($t) ? $t : __('No Title', ATBDP_TEXTDOMAIN);
 $tg = !empty($tagline) ? esc_html($tagline) : '';
 $ad = !empty($address) ? esc_html($address) : '';
 $image = (!empty($attachment_id[0])) ? "<img src='" . esc_url(wp_get_attachment_image_url($attachment_id[0], 'thumbnail')) . "'>" : '';
-$info_content  = "<div class='map_info_window'> <h3>{$t}</h3>";
+$info_content = "<div class='map_info_window'> <h3>{$t}</h3>";
 $info_content .= "<p> {$tg} </p>";
 $info_content .= $image; // add the image if available
 $info_content .= "<address>{$ad}</address>";
 $info_content .= "<a href='http://www.google.com/maps/place/{$manual_lat},{$manual_lng}' target='_blank'> " . __('View On Google Maps', ATBDP_TEXTDOMAIN) . "</a></div>";
 /*END INFO WINDOW CONTENT*/
-$map_zoom_level                 = get_directorist_option('map_zoom_level', 16);
-$disable_map                    = get_directorist_option('disable_map', 0);
-$disable_sharing                = get_directorist_option('disable_sharing', 0);
-$disable_contact_info           = get_directorist_option('disable_contact_info', 0);
-$disable_contact_owner          = get_directorist_option('disable_contact_owner', 1);
-$is_disable_price               = get_directorist_option('disable_list_price');
-$enable_social_share            = get_directorist_option('enable_social_share', 1);
-$enable_favourite               = get_directorist_option('enable_favourite', 1);
-$enable_report_abuse            = get_directorist_option('enable_report_abuse', 1);
-$enable_video_url               = get_directorist_option('atbd_video_url', 1);
-$video_label                    = get_directorist_option('atbd_video_title', __('Video', ATBDP_TEXTDOMAIN));
-$p_lnk                          = get_the_permalink();
-$p_title                        = get_the_title();
-$featured                       = get_post_meta(get_the_ID(), '_featured', true);
-$cats                           = get_the_terms($post->ID, ATBDP_CATEGORY);
-$reviews_count                  = ATBDP()->review->db->count(array('post_id' => $listing_id)); // get total review count for this post
-$listing_author_id              = get_post_field('post_author', $listing_id);
-$display_feature_badge_single   = get_directorist_option('display_feature_badge_cart', 1);
-$display_popular_badge_single   = get_directorist_option('display_popular_badge_cart', 1);
-$popular_badge_text             = get_directorist_option('popular_badge_text', 'Popular');
-$feature_badge_text             = get_directorist_option('feature_badge_text', 'Feature');
-$new_badge_text                 = get_directorist_option('new_badge_text', 'New');
-$enable_new_listing             = get_directorist_option('display_new_badge_cart', 1);
-$use_nofollow                   = get_directorist_option('use_nofollow');
-$enable_review                  = get_directorist_option('enable_review', 'yes');
-$custom_section_lable           = get_directorist_option('custom_section_lable', __('Details', ATBDP_TEXTDOMAIN));
-$listing_details_text           = get_directorist_option('listing_details_text', __('Listing Details', ATBDP_TEXTDOMAIN));
-$display_tagline_field          = get_directorist_option('display_tagline_field', 0);
-$display_pricing_field          = get_directorist_option('display_pricing_field', 1);
-$display_thumbnail_img          = get_directorist_option('dsiplay_thumbnail_img', 1);
+$map_zoom_level = get_directorist_option('map_zoom_level', 16);
+$disable_map = get_directorist_option('disable_map', 0);
+$disable_sharing = get_directorist_option('disable_sharing', 0);
+$disable_contact_info = get_directorist_option('disable_contact_info', 0);
+$disable_contact_owner = get_directorist_option('disable_contact_owner', 1);
+$is_disable_price = get_directorist_option('disable_list_price');
+$enable_social_share = get_directorist_option('enable_social_share', 1);
+$enable_favourite = get_directorist_option('enable_favourite', 1);
+$enable_report_abuse = get_directorist_option('enable_report_abuse', 1);
+$enable_video_url = get_directorist_option('atbd_video_url', 1);
+$video_label = get_directorist_option('atbd_video_title', __('Video', ATBDP_TEXTDOMAIN));
+$p_lnk = get_the_permalink();
+$p_title = get_the_title();
+$featured = get_post_meta(get_the_ID(), '_featured', true);
+$cats = get_the_terms($post->ID, ATBDP_CATEGORY);
+$reviews_count = ATBDP()->review->db->count(array('post_id' => $listing_id)); // get total review count for this post
+$listing_author_id = get_post_field('post_author', $listing_id);
+$display_feature_badge_single = get_directorist_option('display_feature_badge_cart', 1);
+$display_popular_badge_single = get_directorist_option('display_popular_badge_cart', 1);
+$popular_badge_text = get_directorist_option('popular_badge_text', 'Popular');
+$feature_badge_text = get_directorist_option('feature_badge_text', 'Feature');
+$new_badge_text = get_directorist_option('new_badge_text', 'New');
+$enable_new_listing = get_directorist_option('display_new_badge_cart', 1);
+$use_nofollow = get_directorist_option('use_nofollow');
+$enable_review = get_directorist_option('enable_review', 'yes');
+$custom_section_lable = get_directorist_option('custom_section_lable', __('Details', ATBDP_TEXTDOMAIN));
+$listing_details_text = get_directorist_option('listing_details_text', __('Listing Details', ATBDP_TEXTDOMAIN));
+$display_tagline_field = get_directorist_option('display_tagline_field', 0);
+$display_pricing_field = get_directorist_option('display_pricing_field', 1);
+$display_thumbnail_img = get_directorist_option('dsiplay_thumbnail_img', 1);
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 //is current user is logged in and the original author of the listing
@@ -116,11 +116,12 @@ do_action('atbdp_before_listing_section');
 ?>
 <div class="atbd_content_module atbd_listing_details">
     <div class="atbd_content_module__tittle_area">
-        <?php if(!empty($listing_details_text)) { ?>
-        <div class="atbd_area_title">
-            <h4><span class="<?php atbdp_icon_type(true);?>-file-text atbd_area_icon"></span><?php _e($listing_details_text, ATBDP_TEXTDOMAIN) ?>
-            </h4>
-        </div>
+        <?php if (!empty($listing_details_text)) { ?>
+            <div class="atbd_area_title">
+                <h4>
+                    <span class="<?php atbdp_icon_type(true); ?>-file-text atbd_area_icon"></span><?php _e($listing_details_text, ATBDP_TEXTDOMAIN) ?>
+                </h4>
+            </div>
         <?php } ?>
         <?php
         $listing_header = '<div class="atbd_listing_action_area">';
@@ -129,23 +130,23 @@ do_action('atbdp_before_listing_section');
         }
         if ($enable_social_share) {
             $listing_header .= '<div class="atbd_action atbd_share">';
-            $listing_header .= '<span class="'.atbdp_icon_type().'-share"></span>' . __('Share', ATBDP_TEXTDOMAIN) . '';
+            $listing_header .= '<span class="' . atbdp_icon_type() . '-share"></span>' . __('Share', ATBDP_TEXTDOMAIN) . '';
             $listing_header .= '<div class="atbd_director_social_wrap">';
             //prepare the data for the links because links needs to be escaped
-            $twt_lnk = 'https://twitter.com/intent/tweet?text='.$p_title.'&amp;url='.$p_lnk;
+            $twt_lnk = 'https://twitter.com/intent/tweet?text=' . $p_title . '&amp;url=' . $p_lnk;
             $fb_lnk = "https://www.facebook.com/share.php?u={$p_lnk}&title={$p_title}";
             $in_link = "http://www.linkedin.com/shareArticle?mini=true&url={$p_lnk}&title={$p_title}";
             $listing_header .= '                                                               
                          <ul>
                         <li>
-                            <a href="' . esc_url($fb_lnk) . '" target="_blank"><span class="'.atbdp_icon_type().'-facebook"></span>' . __('Facebook', ATBDP_TEXTDOMAIN) . '</a>
+                            <a href="' . esc_url($fb_lnk) . '" target="_blank"><span class="' . atbdp_icon_type() . '-facebook"></span>' . __('Facebook', ATBDP_TEXTDOMAIN) . '</a>
                         </li>
                         <li>
-                            <a href="' . esc_url($twt_lnk) . '" target="_blank"><span class="'.atbdp_icon_type().'-twitter"></span>' . __('Twitter', ATBDP_TEXTDOMAIN) . '</a>
+                            <a href="' . esc_url($twt_lnk) . '" target="_blank"><span class="' . atbdp_icon_type() . '-twitter"></span>' . __('Twitter', ATBDP_TEXTDOMAIN) . '</a>
                            
                         </li>
                         <li>
-                            <a href="' . esc_url($in_link) . '" target="_blank"><span class="'.atbdp_icon_type().'-linkedin"></span>' . __('LinkedIn', ATBDP_TEXTDOMAIN) . '</a>
+                            <a href="' . esc_url($in_link) . '" target="_blank"><span class="' . atbdp_icon_type() . '-linkedin"></span>' . __('LinkedIn', ATBDP_TEXTDOMAIN) . '</a>
                         </li>
                     </ul>';
             $listing_header .= '</div>'; //Ends social share
@@ -154,12 +155,12 @@ do_action('atbdp_before_listing_section');
         if ($enable_report_abuse) {
             $listing_header .= '<div class="atbd_action atbd_report">';
             if (is_user_logged_in()) {
-                $listing_header .= '<span class="'.atbdp_icon_type().'-flag"></span><a href="" 
+                $listing_header .= '<span class="' . atbdp_icon_type() . '-flag"></span><a href="" 
                                                                data-target="#atbdp-report-abuse-modal">' . __('Report', ATBDP_TEXTDOMAIN) . '</a>'; //Modal (report abuse form)
             } else {
                 $listing_header .= '<a href="javascript:void(0)"
                                class="atbdp-require-login"><span
-                                        class="'.atbdp_icon_type().'-flag"></span>' . __('Report', ATBDP_TEXTDOMAIN) . '</a>';
+                                        class="' . atbdp_icon_type() . '-flag"></span>' . __('Report', ATBDP_TEXTDOMAIN) . '</a>';
             }
             $listing_header .= '<input type="hidden" id="atbdp-post-id" value="' . get_the_ID() . '"/>';
             $listing_header .= '</div>';
@@ -168,12 +169,14 @@ do_action('atbdp_before_listing_section');
             <div class="at-modal-content">
                 <div class="atm-contents-inner">
                     <form id="atbdp-report-abuse-form" class="form-vertical" role="form">
-                        <div class="modal-header"><h3 class="modal-title" id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', ATBDP_TEXTDOMAIN); ?></h3><a href="" class="at-modal-close"><span aria-hidden="true">&times;</span></a>
+                        <div class="modal-header"><h3 class="modal-title"
+                                                      id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', ATBDP_TEXTDOMAIN); ?></h3>
+                            <a href="" class="at-modal-close"><span aria-hidden="true">&times;</span></a>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
                                 <label
-                                    for="atbdp-report-abuse-message"><?php _e('Your Complaint', ATBDP_TEXTDOMAIN); ?>
+                                        for="atbdp-report-abuse-message"><?php _e('Your Complaint', ATBDP_TEXTDOMAIN); ?>
                                     <span class="atbdp-star">*</span></label>
                                 <textarea class="form-control"
                                           id="atbdp-report-abuse-message"
@@ -202,6 +205,7 @@ do_action('atbdp_before_listing_section');
     <div class="atbdb_content_module_contents">
         <?php
         $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
+        $gallery_image = '';
         if (!empty($image_links)) {
             if (!empty($listing_prv_img && $display_prv_image)) {
                 if (!empty($gallery_cropping)) {
@@ -211,22 +215,22 @@ do_action('atbdp_before_listing_section');
                 }
                 array_unshift($image_links, $listing_prv_imgurl);
             }
-            $gallery_image = '<div class="atbd_directry_gallery_wrapper">';
+            $gallery_image .= '<div class="atbd_directry_gallery_wrapper">';
             $gallery_image .= '<div class="atbd_big_gallery">';
             $gallery_image .= '<div class="atbd_directory_gallery">';
-                foreach ($image_links as $image_link) {
-                    $image_link = !empty($image_link) ? $image_link : '';
-                    $gallery_image .= '<div class="single_image">';
-                    $gallery_image .= '<img src="' . esc_url($image_link) . '" alt=" '.esc_html($p_title). '">';
-                    $gallery_image .= '</div>';
-                }
+            foreach ($image_links as $image_link) {
+                $image_link = !empty($image_link) ? $image_link : '';
+                $gallery_image .= '<div class="single_image">';
+                $gallery_image .= '<img src="' . esc_url($image_link) . '" alt=" ' . esc_html($p_title) . '">';
+                $gallery_image .= '</div>';
+            }
             $gallery_image .= '</div>';
             if (count($image_links) > 1) {
                 $gallery_image .= '<span class="prev fa fa-angle-left"></span>';
                 $gallery_image .= '<span class="next fa fa-angle-right"></span>';
             }
             $gallery_image .= '</div>';
-            if(!empty($display_thumbnail_img)) {
+            if (!empty($display_thumbnail_img)) {
                 $gallery_image .= '<div class="atbd_directory_image_thumbnail">';
                 $listing_prv_imgurl_thumb = wp_get_attachment_image_src($listing_prv_img, 'thumbnail')['0'];
                 if (!empty($listing_prv_imgurl_thumb && !empty($display_prv_image))) {
@@ -234,25 +238,25 @@ do_action('atbdp_before_listing_section');
                 }
                 foreach ($image_links_thumbnails as $image_links_thumbnail) {
                     $gallery_image .= '<div class="single_thumbnail">';
-                    $gallery_image .= '<img src="'.esc_url($image_links_thumbnail).'" alt="'.esc_html($p_title).'">';
+                    $gallery_image .= '<img src="' . esc_url($image_links_thumbnail) . '" alt="' . esc_html($p_title) . '">';
                     $gallery_image .= '</div>';
                     if (!is_multiple_images_active()) break;
                 }
                 $gallery_image .= '</div>';
             }
             $gallery_image .= '</div>';
-            echo apply_filters('atbdp_single_listing_gallery_section',$gallery_image);
-            ?>
-        <?php } elseif (!empty($display_prv_image)) {
+        } elseif (!empty($display_prv_image)) {
             $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
             ?>
             <div class="single_image">
                 <img
-                    src="<?= !empty($listing_prv_img) ? esc_url($listing_prv_imgurl) : $default_image; ?>"
-                    alt="<?php echo esc_html($p_title); ?>">
+                        src="<?= !empty($listing_prv_img) ? esc_url($listing_prv_imgurl) : $default_image; ?>"
+                        alt="<?php echo esc_html($p_title); ?>">
             </div>
             <?php
-        } ?>
+        }
+        echo apply_filters('atbdp_single_listing_gallery_section', $gallery_image);
+        ?>
         <div class="atbd_listing_detail">
             <?php
             $data_info = '<div class="atbd_data_info">';
@@ -274,7 +278,7 @@ do_action('atbdp_before_listing_section');
                 $average = ATBDP()->review->get_average($post->ID);
                 $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
                 if (!empty($enable_review)) {
-                    $data_info .= '<span class="atbd_meta atbd_listing_rating">' . $average . '<i class="'.atbdp_icon_type().'-star"></i>
+                    $data_info .= '<span class="atbd_meta atbd_listing_rating">' . $average . '<i class="' . atbdp_icon_type() . '-star"></i>
                             </span>';
                 }
                 $data_info .= '</div>';
@@ -305,7 +309,7 @@ do_action('atbdp_before_listing_section');
             }
             $data_info .= '<div class="atbd_listting_category"><ul class="directory_cats">';
             if (!empty($cats)) {
-                $data_info .= '<span class="'.atbdp_icon_type().'-tags"></span>';
+                $data_info .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
                 $numberOfCat = count($cats);
                 $output = array();
                 foreach ($cats as $cat) {
@@ -340,7 +344,7 @@ do_action('atbdp_before_listing_section');
             echo '</div>';
             $tagline_html = '';
             if (!empty($tagline) && !empty($display_tagline_field)) {
-                $tagline_html .= '<p class="atbd_single_listing_tagline">'.$tagline.'</p>';
+                $tagline_html .= '<p class="atbd_single_listing_tagline">' . $tagline . '</p>';
             }
             /**
              * @since 5.0.5
@@ -363,9 +367,9 @@ do_action('atbdp_before_listing_section');
             $post_object = get_post(get_the_ID());
             $content = apply_filters('get_the_content', $post_object->post_content);
             $listing_content = '';
-            if (!empty($content)){
+            if (!empty($content)) {
                 $listing_content = '<div class="about_detail">';
-                $listing_content .= do_shortcode(($content));
+                $listing_content .= do_shortcode(wpautop($content));
                 $listing_content .= '</div>';
             }
             echo apply_filters('atbdp_listing_content', $listing_content);
@@ -385,6 +389,7 @@ do_action('atbdp_before_listing_section');
                 slider.slick('slickNext');
             });
         }
+
         var $listingGallerySlider = $('.atbd_directory_gallery');
         var $listingGalleryThumbnail = $('.atbd_directory_image_thumbnail');
         $listingGallerySlider.slick({

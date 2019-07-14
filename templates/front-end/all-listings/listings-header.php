@@ -27,7 +27,7 @@
                         /**
                          * @since 5.4.0
                          */
-                        do_action('atbdp_after_total_listing_found_in_listings_header');
+                        do_action('atbdp_after_total_listing_found_in_listings_header', $header_title);
 
                          if ($display_viewas_dropdown || $display_sortby_dropdown) { ?>
                             <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">

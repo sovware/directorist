@@ -309,6 +309,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
             );
             if ($id = ATBDP()->review->db->add($data)){
                 wp_send_json_success(array('id'=>$id));
+                $this->atbdp_send_review_email();
             }
         }else{
             echo 'Errors: make sure you wrote something about your review.';
@@ -317,6 +318,48 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
 
         die();
+    }
+
+    public function atbdp_send_review_email() {
+
+        // sanitize form values
+        $post_id = (int) $_POST["post_id"];
+        $message = esc_textarea( $_POST["content"] );
+
+        // vars
+        $user          = wp_get_current_user();
+        $site_name     = get_bloginfo( 'name' );
+        $site_url      = get_bloginfo( 'url' );
+        $listing_title = get_the_title( $post_id );
+        $listing_url   = get_permalink( $post_id );
+
+        $placeholders = array(
+            '{site_name}'       => $site_name,
+            '{site_link}'       => sprintf( '<a href="%s">%s</a>', $site_url, $site_name ),
+            '{site_url}'        => sprintf( '<a href="%s">%s</a>', $site_url, $site_url ),
+            '{listing_title}'   => $listing_title,
+            '{listing_link}'    => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_title ),
+            '{listing_url}'     => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_url ),
+            '{sender_name}'     => $user->display_name,
+            '{sender_email}'    => $user->user_email,
+            '{message}'         => $message
+        );
+        $send_email = get_directorist_option('admin_email_lists');
+
+        $to = 'aazztech4@gmail.com';
+
+        $subject = __( '[{site_name}] Review via "{listing_title}"', ATBDP_TEXTDOMAIN );
+        $subject = strtr( $subject, $placeholders );
+
+        $message =  __( "Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}", ATBDP_TEXTDOMAIN );
+        $message = strtr( $message, $placeholders );
+
+        $headers  = "From: {$user->display_name} <{$user->user_email}>\r\n";
+        $headers .= "Reply-To: {$user->user_email}\r\n";
+
+        // return true or false, based on the result
+        return ATBDP()->email->send_mail( $to, $subject, $message, $headers ) ? true : false;
+
     }
 
 

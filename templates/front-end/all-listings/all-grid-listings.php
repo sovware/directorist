@@ -414,12 +414,19 @@ $column_width = 100 / $columns . '%';
                                                 $fotter_right .= !empty($post_view) ? $post_view : 0;
                                             $fotter_right .= '</li>';
                                             $fotter_right .= '</ul>';
-                                            echo apply_filters('atbdp_grid_fotter_right_html', $fotter_right);
+                                            echo apply_filters('atbdp_grid_footer_right_html', $fotter_right);
                                             }
+
                                             ?>
                                         </div><!-- end ./atbd_listing_bottom_content -->
                                     <?php }
 
+                                    /**
+                                     * @since
+                                     * @param mixed $footer_html
+                                     * @package Directorist
+                                     */
+                                    //apply_filters('atbdp_listings_footer_content')
                                     ?>
                                 </div>
                             </article>

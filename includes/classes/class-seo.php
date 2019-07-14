@@ -32,7 +32,7 @@ if ( !class_exists('ATBDP_SEO') ):
             }
 
             if( is_singular(ATBDP_POST_TYPE) ) {
-                return '';
+                return $title;
             }
 
             global $post;

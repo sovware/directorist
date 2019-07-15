@@ -764,6 +764,7 @@ jQuery(function ($) {
         var selectedTab = $('.navbar .menu li a [target= "' + hash + '"]');
     });
 
+
     // store the currently selected tab in the hash value
     $("ul.atbdp_tab_nav--content > li > a").on("click", function (e) {
         var id = $(e.target).attr("target").substr();
@@ -771,11 +772,21 @@ jQuery(function ($) {
         e.stopPropagation();
     });
 
+    $(window).on("load", function () {
+        UIkit.grid(".data-uk-masonry");
+    });
+    $("ul.atbdp_tab_nav--content > li:first-child > a").on("click", function () {
+        location.reload();
+    });
+
+
 })(jQuery);
 
 // on load of the page: switch to the currently selected tab
 var tab_url = window.location.href.split("/").pop();
 if(tab_url.startsWith("#active_")){
     var urlId = tab_url.split("#").pop().split("active_").pop();
-    document.querySelector(`a[target=${urlId}]`).click();
+    if(urlId !== 'my_listings'){
+        document.querySelector(`a[target=${urlId}]`).click();
+    }
 }

@@ -42,7 +42,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                 <div class="atbd_dashboard_wrapper atbd_tab">
                     <div class="atbd_user_dashboard_nav atbd_tab_nav">
                         <!-- Nav tabs -->
-                        <ul class="atbdp_tab_nav--content">
+                        <div class="atbdp_tab_nav_wrapper"><ul class="atbdp_tab_nav--content">
                             <?php if (!empty($my_listing_tab)) { ?>
                                 <li>
                                     <a href="" target="my_listings" class="atbd_tn_link tabItemActive">
@@ -63,7 +63,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                             do_action('atbdp_tab_after_favorite_listings');
                             ?>
 
-                        </ul>
+                        </ul></div>
 
                         <div class="nav_button">
                             <?php if (!empty($submit_listing_button)) { ?>
@@ -79,7 +79,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                     <div class="atbd_tab-content">
                         <?php if (!empty($my_listing_tab)) { ?>
 
-                            <div class="atbd_tab_inner tabContentActive" data-uk-grid id="my_listings">
+                            <div class="atbd_tab_inner tabContentActive" data-uk-grid id="my_listings"><div class="row">
                                 <?php if ($listings->have_posts()) {
                                     foreach ($listings->posts as $post) {
                                         // get only one parent or high level term object
@@ -115,6 +115,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                         $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 
                                         ?>
+
                                         <div class="col-lg-4 col-sm-6" id="listing_id_<?= $post->ID; ?>">
                                             <div class="atbd_single_listing atbd_listing_card">
                                                 <article
@@ -289,6 +290,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                         ?>
                                     </div>
                                 <?php } ?>
+                                </div>
                             </div> <!--ends #my_listings-->
                         <?php } ?>
                         <?php if (!empty($my_profile_tab)) { ?>
@@ -324,7 +326,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                     <!--hidden inputs-->
                                                     <input type="hidden" name="ID" value="<?= get_current_user_id(); ?>">
                                                     <!--Full name-->
-                                                    <div class="row">
+                                                    <div class="row row_fu_name">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="full_name"><?php _e('Full Name', ATBDP_TEXTDOMAIN); ?></label>
@@ -344,7 +346,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                         </div>
                                                     </div> <!--ends .row-->
                                                     <!--First Name-->
-                                                    <div class="row">
+                                                    <div class="row row_fl_name">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="first_name"><?php _e('First Name', ATBDP_TEXTDOMAIN); ?></label>
@@ -363,7 +365,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                         </div>
                                                     </div> <!--ends .row-->
                                                     <!--Email-->
-                                                    <div class="row">
+                                                    <div class="row row_email_cell">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="req_email"><?php _e('Email (required)', ATBDP_TEXTDOMAIN); ?></label>
@@ -383,7 +385,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                         </div>
                                                     </div> <!--ends .row-->
                                                     <!--Website-->
-                                                    <div class="row">
+                                                    <div class="row row_site_addr">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="website"><?php _e('Website', ATBDP_TEXTDOMAIN); ?></label>
@@ -403,7 +405,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                     </div> <!--ends .row-->
 
 
-                                                    <div class="row">
+                                                    <div class="row row_password">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="new_pass"><?php _e('New Password', ATBDP_TEXTDOMAIN); ?></label>
@@ -425,7 +427,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                         </div>
                                                     </div><!--ends .row-->
                                                     <!--social info-->
-                                                    <div class="row">
+                                                    <div class="row row_socials">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="facebook"><?php _e('Facebook', ATBDP_TEXTDOMAIN); ?></label>

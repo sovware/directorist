@@ -202,7 +202,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper h1, .atbd_content_active #directorist.atbd_wrapper h2, .atbd_content_active #directorist.atbd_wrapper h3, .atbd_content_active #directorist.atbd_wrapper h4, .atbd_content_active #directorist.atbd_wrapper h5, .atbd_content_active #directorist.atbd_wrapper h6,
 .atbd_content_active #directorist.atbd_wrapper .h1, .atbd_content_active #directorist.atbd_wrapper .h2, .atbd_content_active #directorist.atbd_wrapper .h3, .atbd_content_active #directorist.atbd_wrapper .h4, .atbd_content_active #directorist.atbd_wrapper .h5, .atbd_content_active #directorist.atbd_wrapper .h6 {
   margin-bottom: 0.5rem;
-  font-family: "Roboto", sans-serif;
   font-weight: 500;
   line-height: 1.2;
   color: #272b41;
@@ -231,12 +230,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper {
   color: #7a82a6;
   font-size: 15px;
-  font-family: 'Roboto', Sans-serif !important;
   text-align: initial;
 }
 
 .atbd_content_active #directorist.atbd_wrapper div, .atbd_content_active #directorist.atbd_wrapper p, .atbd_content_active #directorist.atbd_wrapper a, .atbd_content_active #directorist.atbd_wrapper li {
-  font-family: 'Roboto', Sans-serif !important;
   font-size: 15px;
 }
 
@@ -1318,6 +1315,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   list-style: decimal;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .about_detail p {
+  margin: 0 0 15px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields > li {
   border-bottom: 1px solid #e3e6ef;
   display: flex;
@@ -2064,7 +2065,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
   background: #ffffff;
   border: 1px solid #e3e6ef;
   margin-bottom: 30px;
-  font-family: "Roboto", sans-serif;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] a,
@@ -2324,7 +2324,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings .listings > li .atbd_right_content .cate_title h4 {
   font-weight: 400;
   font-size: 16px;
-  font-family: "Roboto", sans-serif;
   margin-bottom: 0;
 }
 
@@ -3427,13 +3426,17 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin: 10px 0;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav_wrapper {
+  flex: 1;
+  width: 55%;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   border-bottom: 1px solid #e3e6ef;
   margin: 5px 0;
-  flex: 1;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul li {
@@ -3443,8 +3446,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul li a {
   border: 1px solid transparent;
   border-radius: 3px 3px 0 0;
-  padding: 15px;
+  padding: 10px 15px;
   background: none;
+  display: block;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul li a.tabItemActive {
@@ -3457,31 +3461,27 @@ body.atbd_content_active #directorist.atbd_wrapper {
   background: none;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav.tab_nav_slide {
-  display: block;
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide {
+  margin-right: 30px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav.tab_nav_slide ul {
-  margin-bottom: 30px;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav.tab_nav_slide ul li {
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide li {
   text-align: center;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav.tab_nav_slide ul li a {
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide li a {
   border: 0 none;
   padding-left: 0;
   padding-right: 0;
   display: block;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav.tab_nav_slide ul li a.tabItemActive {
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide li a.tabItemActive {
   border-bottom: 1px solid #2d2f36;
   color: #2d2f36;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav.tab_nav_slide ul .slick-arrow {
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide .slick-arrow {
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -3492,11 +3492,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-size: 13px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav.tab_nav_slide ul .slick-arrow.slick-prev {
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide .slick-arrow.slick-prev {
   left: -15px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav.tab_nav_slide ul .slick-arrow.slick-next {
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide .slick-arrow.slick-next {
   right: -15px;
 }
 
@@ -4520,11 +4520,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
     flex: 0 0 33.33%;
     max-width: 33.33%;
   }
-  .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul {
-    padding-bottom: 10px;
-  }
-  .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul {
+  .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav_wrapper {
+    width: 100%;
     flex: none;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide {
+    margin-right: 0;
   }
 }
 
@@ -4550,7 +4551,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
     flex: 0 0 33.33%;
     max-width: 33.33%;
   }
-  .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav.tab_nav_slide ul {
+  .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav.tab_nav_slide ul,
+  .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide {
     padding-bottom: 0;
   }
 }

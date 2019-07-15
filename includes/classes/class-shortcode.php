@@ -3253,7 +3253,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 wp_login_form($args);
                 echo "<div class='d-flex justify-content-between'>";
                 if(!empty($display_signup)) { ?>
-                <p><?php echo $reg_text; ?><a href="<?php echo $reg_url; ?>"><?php echo $reg_linktxt; ?></a></p>
+                <p><?php echo $reg_text; ?><a href="<?php echo $reg_url; ?>"> <?php echo $reg_linktxt; ?></a></p>
                 <?php }
                 if($display_recpass) {
                     printf(__('<p>%s</p>', ATBDP_TEXTDOMAIN), "<a href='' class='atbdp_recovery_pass'> " . __($recpass_text, ATBDP_TEXTDOMAIN) . "</a>");

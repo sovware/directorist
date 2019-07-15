@@ -37,7 +37,7 @@ body.atbd_content_active #directorist.atbd_wrapper{
 .atbd_content_active #directorist.atbd_wrapper h1, .atbd_content_active #directorist.atbd_wrapper h2, .atbd_content_active #directorist.atbd_wrapper h3, .atbd_content_active #directorist.atbd_wrapper h4, .atbd_content_active #directorist.atbd_wrapper h5, .atbd_content_active #directorist.atbd_wrapper h6,
 .atbd_content_active #directorist.atbd_wrapper .h1, .atbd_content_active #directorist.atbd_wrapper .h2, .atbd_content_active #directorist.atbd_wrapper .h3, .atbd_content_active #directorist.atbd_wrapper .h4, .atbd_content_active #directorist.atbd_wrapper .h5, .atbd_content_active #directorist.atbd_wrapper .h6 {
   margin-bottom: $headings-margin-bottom;
-  font-family: $headings-font-family;
+  //font-family: $headings-font-family;
   font-weight: $headings-font-weight;
   line-height: $headings-line-height;
   color: $headings-color;
@@ -65,12 +65,12 @@ body.atbd_content_active #directorist.atbd_wrapper{
 
 .atbd_content_active #directorist.atbd_wrapper {
   div, p, a, li{
-    font-family: 'Roboto', Sans-serif !important;
+    //font-family: 'Roboto', Sans-serif !important;
     font-size: $font-size-base;
   }
   color: $text-color;
   font-size: 15px;
-  font-family: 'Roboto', Sans-serif !important;
+  //font-family: 'Roboto', Sans-serif !important;
   text-align: initial;
   .modal-footer{
     .btn+.btn{

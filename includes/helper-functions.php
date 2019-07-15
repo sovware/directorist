@@ -2580,7 +2580,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                                 $fotter_right .= !empty($post_view) ? $post_view : 0;
                                                 $fotter_right .= '</li>';
                                                 $fotter_right .= '</ul>';
-                                                echo apply_filters('atbdp_grid_fotter_right_html', $fotter_right);
+                                                echo apply_filters('atbdp_grid_footer_right_html', $fotter_right);
                                             } ?>
                                         </div><!-- end ./atbd_listing_bottom_content -->
                                     <?php } ?>
@@ -2995,7 +2995,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                     $fotter_right .= !empty($post_view) ? $post_view : 0;
                                                     $fotter_right .= '</li>';
                                                     $fotter_right .= '</ul>';
-                                                    echo apply_filters('atbdp_grid_fotter_right_html', $fotter_right);
+                                                    echo apply_filters('atbdp_grid_footer_right_html', $fotter_right);
                                                 } ?>
                                             </div><!-- end ./atbd_listing_bottom_content -->
                                         <?php } ?>

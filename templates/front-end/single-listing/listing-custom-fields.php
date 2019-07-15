@@ -2,16 +2,10 @@
 global $post;
 $listing_id = $post->ID;
 $fm_plan = get_post_meta($listing_id, '_fm_plans', true);
-
 $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
 $custom_section_lable = get_directorist_option('custom_section_lable', __('Details', ATBDP_TEXTDOMAIN));
-
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
-?>
-
-            <?php
-
             $term_id = get_post_meta($post->ID, '_admin_category_select', true);
             $meta_array = array('relation' => 'AND');
             $meta_array = array(
@@ -34,7 +28,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         );
                     }
                 }
-
             }
             $custom_fields = new WP_Query(array(
                 'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
@@ -75,7 +68,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <ul class="atbd_custom_fields">
                         <!--  get data from custom field-->
                         <?php
-
                         foreach ($custom_fields_posts as $post) {
                             setup_postdata($post);
                             $field_id = $post->ID;
@@ -131,7 +123,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                                 echo do_shortcode(wpautop($content));
                                                 //echo esc_attr($field_details);
                                             } ?></p>
-
                                     </div>
                                 </li>
                                 <?php
@@ -142,5 +133,4 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     </ul>
                 </div>
             </div><!-- end .atbd_custom_fields_contents -->
-            <?php } ?>
-
+            <?php }

@@ -24,11 +24,8 @@ foreach ($listing_imgs as $id) {
 
     $image_links_thumbnails[$id] = wp_get_attachment_image_src($id, 'thumbnail')[0]; // store the attachment id and url
 
-    //@todo; instead of getting a full size image, define a an image size and then fetch that size and let the user change that image size via a hook.
 }
-
 /*END INFO WINDOW CONTENT*/
-
 $contact_info_text = get_directorist_option('contact_info_text', __('Contact Information', ATBDP_TEXTDOMAIN));
 $display_address_field = get_directorist_option('display_address_field', 1);
 $display_phone_field = get_directorist_option('display_phone_field', 1);
@@ -41,7 +38,6 @@ $disable_contact_info = get_directorist_option('disable_contact_info', 0);
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>
-
     <div class="atbd_content_module atbd_contact_information_module">
         <div class="atbd_content_module__tittle_area">
             <div class="atbd_area_title">
@@ -50,7 +46,6 @@ if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || 
                 </h4>
             </div>
         </div>
-
         <div class="atbdb_content_module_contents">
             <div class="atbd_contact_info">
                 <ul>
@@ -62,7 +57,6 @@ if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || 
                             <div class="atbd_info"><?= esc_html($address); ?></div>
                         </li>
                     <?php } ?>
-
                     <?php
                     if (isset($phone) && !is_empty_v($phone) && !empty($display_phone_field)) { ?>
                         <!-- In Future, We will have to use a loop to print more than 1 number-->
@@ -103,7 +97,6 @@ if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || 
                             <div class="atbd_info"><?= esc_html($zip); ?></div>
                         </li>
                     <?php } ?>
-
                 </ul>
             </div>
             <?php if (!empty($social) && is_array($social) && !empty($display_social_info_field)) { ?>
@@ -119,5 +112,4 @@ if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || 
             <?php } ?>
         </div>
     </div><!-- end .atbd_custom_fields_contents -->
-
-<?php } ?>
+<?php }

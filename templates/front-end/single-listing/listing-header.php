@@ -103,18 +103,12 @@ $display_pricing_field = get_directorist_option('display_pricing_field', 1);
 $display_thumbnail_img = get_directorist_option('dsiplay_thumbnail_img', 1);
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
-//is current user is logged in and the original author of the listing
-if (is_user_logged_in() && $listing_author_id == get_current_user_id()) {
-    //ok show the edit option
-    ?>
-    <?php
-}
 /**
  * @since 5.0
  */
 do_action('atbdp_before_listing_section');
 ?>
-<div class="atbd_content_module atbd_listing_details">
+<div class="atbd_content_module atbd_listing_details atbdp_listing_ShortCode">
     <div class="atbd_content_module__tittle_area">
         <?php if (!empty($listing_details_text)) { ?>
             <div class="atbd_area_title">

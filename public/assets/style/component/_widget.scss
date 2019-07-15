@@ -8,7 +8,7 @@
   background: $light;
   border: 1px solid $border-color;
   margin-bottom: 30px;
-  font-family: $atbd-font-family;
+  //font-family: $atbd-font-family;
   >ul, >form{
     padding: 20px;
   }
@@ -152,7 +152,7 @@
           .cate_title h4 {
             font-weight: 400;
             font-size: 16px;
-            font-family: $atbd-font-family;
+            //font-family: $atbd-font-family;
             margin-bottom: 0;
           }
           .atbd_rated_stars{

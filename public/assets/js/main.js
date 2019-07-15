@@ -445,12 +445,13 @@
             $(".atbd_single_listing .db_btn_area").addClass("db_btn_area--sm");
         }
 
-        var tab_nav = $(".atbd_tab_nav").width();
+        /* user dashboard nav */
+        var tab_nav = $(".atbd_tab_nav .atbdp_tab_nav--content").width();
         if(tab_nav < 600){
-            $(".atbd_tab_nav").addClass("tab_nav_slide");
+            $(".atbdp_tab_nav--content").addClass("tab_nav_slide");
         }
 
-        var nav_tab_slide = $('.tab_nav_slide .atbdp_tab_nav--content').slick({
+        var nav_tab_slide = $('.atbdp_tab_nav--content.tab_nav_slide ').slick({
             dots: false,
             infinite: false,
             speed: 300,

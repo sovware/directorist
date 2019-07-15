@@ -3086,7 +3086,7 @@
 #directorist.atbd_wrapper h1, #directorist.atbd_wrapper h2, #directorist.atbd_wrapper h3, #directorist.atbd_wrapper h4, #directorist.atbd_wrapper h5, #directorist.atbd_wrapper h6,
 #directorist.atbd_wrapper .h1, #directorist.atbd_wrapper .h2, #directorist.atbd_wrapper .h3, #directorist.atbd_wrapper .h4, #directorist.atbd_wrapper .h5, #directorist.atbd_wrapper .h6 {
   margin-bottom: 0.5rem;
-  font-family: "Roboto", sans-serif;
+  font-family: inherit;
   font-weight: 500;
   line-height: 1.2;
   color: #272b41;

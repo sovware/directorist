@@ -128,7 +128,7 @@
         $('#at_biz_dir-tags').select2({
             placeholder: atbdp_add_listing.i18n_text.tag_selection,
             tags: true,
-            tokenSeparators: [',', ' '],
+            tokenSeparators: [',', ' ']
         });
     }else {
         $('#at_biz_dir-tags').select2({
@@ -136,6 +136,11 @@
             allowClear: true
         });
     }
+    $('#at_biz_dir-categories').select2({
+        placeholder: "Select a category",
+        tags: true,
+        tokenSeparators: [',', ' ']
+    });
 
 
 })(jQuery);

@@ -623,7 +623,19 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                         'hide_empty' => false,
                                     );
 
-                                    wp_dropdown_categories($args);
+                                    //wp_dropdown_categories($args);
+
+                                    ?>
+                                    <label for="at_biz_dir-categories"><span class="atbdp_make_str_red">*</span></label>
+                                    <p class="c_cat_list"> <strong></strong></p>
+                                    <select name="tax_input[at_biz_dir-categories]" class="form-control"
+                                            id="at_biz_dir-categories" multiple="multiple">
+                                        <option id='atbdp_categories' value='d'>dsf</option>
+                                        <option id='atbdp_categories' value='s'>dsfsd</option>
+                                        <option id='atbdp_categories' value='a'>sdfsd</option>
+                                    </select>
+                                    <?php
+
                                     $current_val = esc_attr(get_post_meta($p_id, '_admin_category_select', true));
                                     $term_id_selected = !empty($current_val) ? $current_val : '';
                                     ?>

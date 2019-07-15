@@ -309,7 +309,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
             );
             if ($id = ATBDP()->review->db->add($data)){
                 wp_send_json_success(array('id'=>$id));
-                $this->atbdp_send_review_email();
+                //$this->atbdp_send_review_email();
             }
         }else{
             echo 'Errors: make sure you wrote something about your review.';
@@ -346,7 +346,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         );
         $send_email = get_directorist_option('admin_email_lists');
 
-        $to = 'aazztech4@gmail.com';
+        $to = 'armanul.islam@ymail.com';
 
         $subject = __( '[{site_name}] Review via "{listing_title}"', ATBDP_TEXTDOMAIN );
         $subject = strtr( $subject, $placeholders );

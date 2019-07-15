@@ -44,7 +44,6 @@
       margin-right: 30px;
       li {
         text-align: center;
-
         a {
           border: 0 none;
           padding-left: 0;
@@ -75,6 +74,10 @@
         &.slick-next {
           right: -15px;
         }
+      }
+      .slick-list, .slick-track{
+        width: 100%;
+        display: block;
       }
     }
   }

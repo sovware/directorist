@@ -447,7 +447,9 @@
 
         /* user dashboard nav */
         var tab_nav = $(".atbd_tab_nav .atbdp_tab_nav--content").width();
-        if(tab_nav < 600){
+        //var tab_count = document.querySelectorAll(".atbdp_tab_nav--content li");
+
+        if(tab_nav < 600 /*&& tab_count.length >=4*/){
             $(".atbdp_tab_nav--content").addClass("tab_nav_slide");
         }
 
@@ -455,7 +457,7 @@
             dots: false,
             infinite: false,
             speed: 300,
-            slidesToShow: 4,
+            slidesToShow: 3,
             slidesToScroll: 1,
             prevArrow: "<span class='slick-prev'><i class='la la-angle-left'></i></span>",
             nextArrow: "<span class='slick-next'><i class='la la-angle-right'></i></span>",
@@ -772,5 +774,8 @@ jQuery(function ($) {
 })(jQuery);
 
 // on load of the page: switch to the currently selected tab
-var urlId = window.location.href.split("/").pop().split("#")[1].split("active_")[1];
-document.querySelector(`a[target=${urlId}]`).click();
+var tab_url = window.location.href.split("/").pop();
+if(tab_url.startsWith("#active_")){
+    var urlId = tab_url.split("#").pop().split("active_").pop();
+    document.querySelector(`a[target=${urlId}]`).click();
+}

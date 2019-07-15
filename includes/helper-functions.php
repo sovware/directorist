@@ -3229,7 +3229,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                         }
                                         $meta_html .= '</div>'; // End atbd listing meta
                                 }
-                                echo apply_filters('atbdp_lisings_review_price', $meta_html);
+                                echo apply_filters('atbdp_listings_review_price', $meta_html);
                                 if (!empty($display_contact_info) || !empty($display_publish_date)) { ?>
                                     <div class="atbd_listing_data_list">
                                         <ul>

@@ -3164,6 +3164,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                         </figure>
                         <div class="atbd_listing_info">
                             <div class="atbd_content_upper">
+                                <?php do_action('atbdp_list_view_before_title');?>
                                 <?php if (!empty($display_title)) { ?>
                                     <h4 class="atbd_listing_title">
                                         <?php

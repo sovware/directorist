@@ -3165,6 +3165,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                         </figure>
                         <div class="atbd_listing_info">
                             <div class="atbd_content_upper">
+                                <?php do_action('atbdp_list_view_before_title');?>
                                 <?php if (!empty($display_title)) { ?>
                                     <h4 class="atbd_listing_title">
                                         <?php
@@ -3188,26 +3189,21 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                  */
                                 do_action('atbdp_after_listing_tagline');
                                 ?>
-                                <?php if (!empty($display_review) || !empty($display_price)) { ?>
-                                    <div class="atbd_listing_meta">
-
-                                        <?php
+                                <?php
+                                $meta_html = '';
+                                if (!empty($display_review) || !empty($display_price)) {
+                                    $meta_html .= '<div class="atbd_listing_meta">';
                                         if (!empty($display_review)) {
                                             $average = ATBDP()->review->get_average(get_the_ID());
-                                            ?>
-                                            <span class="atbd_meta atbd_listing_rating">
-            <?php echo $average; ?><i class="<?php atbdp_icon_type(true); ?>-star"></i>
-        </span>
-                                            <?php
+                                            $meta_html .= '<span class="atbd_meta atbd_listing_rating">' . $average . '<i class="' . atbdp_icon_type() . '-star"></i></span>';
                                         }
                                         $listing_pricing = !empty($listing_pricing) ? $listing_pricing : '';
                                         if (!empty($display_price) && !empty($display_pricing_field)) {
-
                                             if (!empty($price_range) && ('range' === $listing_pricing)) {
                                                 $output = atbdp_display_price_range($price_range);
-                                                echo $output;
+                                                $meta_html .= $output;
                                             } else {
-                                                atbdp_display_price($price, $is_disable_price);
+                                                $meta_html .= atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false);
                                             }
                                         }
                                         /**
@@ -3217,11 +3213,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                          * @since 3.1.0
                                          */
                                         do_action('atbdp_after_listing_price');
-                                        ?>
-
-                                        <?php
                                         $plan_hours = true;
-
                                         if (is_fee_manager_active()) {
                                             $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(), '_fm_plans', true));
                                         }
@@ -3229,17 +3221,16 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                             //lets check is it 24/7
                                             if (!empty($enable247hour)) {
                                                 $open = get_directorist_option('open_badge_text');
-                                                ?>
-                                                <span class="atbd_badge atbd_badge_open"><?php echo $open; ?></span>
-                                                <?php
+                                                $meta_html .= '<span class="atbd_badge atbd_badge_open">'.$open.'</span>';
                                             } else {
-                                                BD_Business_Hour()->show_business_open_close($business_hours, true); // show the business hour in an unordered list
+                                                $bh_statement = BD_Business_Hour()->show_business_open_close($business_hours, true); // show the business hour in an unordered list
+                                                $meta_html .=  $bh_statement;
                                             }
-                                        } ?>
-                                    </div><!-- End atbd listing meta -->
-
-                                <?php } ?>
-                                <?php if (!empty($display_contact_info) || !empty($display_publish_date)) { ?>
+                                        }
+                                        $meta_html .= '</div>'; // End atbd listing meta
+                                }
+                                echo apply_filters('atbdp_lisings_review_price', $meta_html);
+                                if (!empty($display_contact_info) || !empty($display_publish_date)) { ?>
                                     <div class="atbd_listing_data_list">
                                         <ul>
                                             <?php

@@ -62,11 +62,12 @@
     flex: 0 0 33.33%;
     max-width: 33.33%;
   }
-  .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul{
-    padding-bottom: 10px;
+  .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav_wrapper{
+    width: 100%;
+    flex: none;
   }
-  .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul{
-     flex: none;
+  .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide{
+    margin-right: 0;
   }
 }
 
@@ -94,7 +95,8 @@
     flex: 0 0 33.33%;
     max-width: 33.33%;
   }
-  .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav.tab_nav_slide ul{
+  .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav.tab_nav_slide ul,
+  .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide{
     padding-bottom: 0;
   }
 }

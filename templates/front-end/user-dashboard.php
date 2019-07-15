@@ -79,7 +79,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                     <div class="atbd_tab-content">
                         <?php if (!empty($my_listing_tab)) { ?>
 
-                            <div class="atbd_tab_inner tabContentActive" id="my_listings"><div class="row" data-uk-grid>
+                            <div class="atbd_tab_inner tabContentActive" id="my_listings"><div class="row data-uk-masonry">
                                 <?php if ($listings->have_posts()) {
                                     foreach ($listings->posts as $post) {
                                         // get only one parent or high level term object

@@ -527,24 +527,26 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                         esc_html_e($location_label.':', ATBDP_TEXTDOMAIN);
                                         echo get_directorist_option('require_location')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
                                  <?php
-                                    $location = wp_get_object_terms($p_id, ATBDP_LOCATION, array('fields' => 'ids'));
-                                    $selected_location = count($location) ? $location[0] : -1;
-                                    $args = array(
-                                        'show_option_none' => apply_filters('atbdp_listing_form_location_placeholder','-- ' .esc_attr($loc_placeholder) . ' --'),
-                                        'taxonomy' => ATBDP_LOCATION,
-                                        'id' => 'loc-type',
-                                        'class' => 'form-control directory_field',
-                                        'name' => 'tax_input[at_biz_dir-location][]',
-                                        'orderby' => 'name',
-                                        'selected' => $selected_location,
-                                        'hierarchical' => true,
-                                        'depth' => 10,
-                                        'show_count' => false,
-                                        'hide_empty' => false,
-                                    );
-
-                                    wp_dropdown_categories($args);
-                                    ?>
+                                 $current_val = get_the_terms($p_id, ATBDP_LOCATION);;
+                                 $ids = array();
+                                 if (!empty($current_val)){
+                                     foreach ($current_val as $single_val){
+                                         $ids[] = $single_val->term_id;
+                                     }
+                                 }
+                                 $locations = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
+                                 ?>
+                                    <label for="at_biz_dir-location"><span class="atbdp_make_str_red">*</span></label>
+                                    <p class="c_cat_list"> <strong></strong></p>
+                                    <select name="tax_input[at_biz_dir-location][]" class="form-control"
+                                            id="at_biz_dir-location" multiple="multiple">
+                                        <?php
+                                        foreach ($locations as $key => $cat_title){
+                                            $checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
+                                            printf( '<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name );
+                                        }
+                                        ?>
+                                    </select>
 
                                 </div>
                                 <?php } ?>
@@ -563,15 +565,16 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                         <?php if (!empty($p_tags)) {
                                             $output = array();
                                             foreach ($p_tags as $p_tag) {
-                                                $output[] = $p_tag->name;
+                                                $output[] = $p_tag->term_id;
                                             }
-                                            echo '<p class="c_cat_list">' . __('Current Tags: <strong>', ATBDP_TEXTDOMAIN) . join(', ', $output) . '</strong></p>';
                                         } ?>
                                         <select name="tax_input[at_biz_dir-tags][]" class="form-control"
                                                 id="at_biz_dir-tags" multiple="multiple">
 
-                                            <?php foreach ($listing_tags as $l_tag) { ?>
-                                                <option id='atbdp_tag'
+                                            <?php foreach ($listing_tags as $l_tag) {
+                                                $checked = in_array($l_tag->term_id, $output) ? 'selected' : '';
+                                                ?>
+                                                <option id='atbdp_tag' <?php echo $checked;?>
                                                         value='<?= $l_tag->name ?>'><?= esc_html($l_tag->name) ?></option>
                                             <?php } ?>
                                         </select>
@@ -604,39 +607,33 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                     <?php
                                     $category = wp_get_object_terms($p_id, ATBDP_CATEGORY, array('fields' => 'ids'));
                                     $selected_category = count($category) ? $category[0] : -1;
-                                    $plan_cat = 0;
+                                    $plan_cat = array();
                                     if (is_fee_manager_active()){
                                         $plan_cat = is_plan_allowed_category($fm_plan);
                                     }
-                                    $args = array(
-                                        'show_option_none' => '-- ' . esc_attr($cat_placeholder) . ' --',
-                                        'taxonomy' => ATBDP_CATEGORY,
-                                        'id' => 'cat-type',
-                                        'class' => 'form-control directory_field',
-                                        'name' => 'admin_category_select',
-                                        'orderby' => 'name',
-                                        'selected' => $selected_category,
-                                        'hierarchical' => true,
-                                        'depth' => 10,
-                                        'exclude' => $plan_cat,
-                                        'show_count' => false,
-                                        'hide_empty' => false,
-                                    );
-
-                                    //wp_dropdown_categories($args);
-
+                                    $current_val = get_the_terms($p_id, ATBDP_CATEGORY);;
+                                    $ids = array();
+                                    if (!empty($current_val)){
+                                        foreach ($current_val as $single_val){
+                                            $ids[] = $single_val->term_id;
+                                        }
+                                    }
+                                    $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0, 'exclude' => $plan_cat));
                                     ?>
                                     <label for="at_biz_dir-categories"><span class="atbdp_make_str_red">*</span></label>
                                     <p class="c_cat_list"> <strong></strong></p>
-                                    <select name="tax_input[at_biz_dir-categories]" class="form-control"
+                                    <select name="admin_category_select[]" class="form-control"
                                             id="at_biz_dir-categories" multiple="multiple">
-                                        <option id='atbdp_categories' value='d'>dsf</option>
-                                        <option id='atbdp_categories' value='s'>dsfsd</option>
-                                        <option id='atbdp_categories' value='a'>sdfsd</option>
+                                        <?php
+                                        foreach ($categories as $key => $cat_title){
+                                            $checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
+                                            printf( '<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name );
+                                        }
+                                        ?>
                                     </select>
                                     <?php
 
-                                    $current_val = esc_attr(get_post_meta($p_id, '_admin_category_select', true));
+                                    $current_val = get_post_meta($p_id, '_admin_category_select', true);
                                     $term_id_selected = !empty($current_val) ? $current_val : '';
                                     ?>
                                     <input type="hidden" id="value_selected" value="<?php echo $term_id_selected ?>">

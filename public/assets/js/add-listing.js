@@ -361,7 +361,6 @@ jQuery(function($){
     $(function () {
         $('#color_code2').wpColorPicker().empty();
     });
-
     // Load custom fields of the selected category in the custom post type "atbdp_listings"
     $('#cat-type').on('change', function () {
         $('#atbdp-custom-fields-list').html('<div class="spinner"></div>');

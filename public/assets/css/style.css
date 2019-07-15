@@ -3500,6 +3500,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   right: -15px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide .slick-list, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide .slick-track {
+  width: 100%;
+  display: block;
+}
+
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area {
   padding: 15px 10px;
   border-top: 1px solid #e3e6ef;

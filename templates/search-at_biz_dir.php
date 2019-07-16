@@ -383,7 +383,7 @@ $column_width           = 100/$search_listing_columns .'%';
                                             <?php } ?>
                                             <?php /* @todo: deleted the read more link */ ?>
                                         </div><!-- end ./atbd_content_upper -->
-                                        <?php if(!empty($display_view_count) || !empty($display_category)) {?>
+                                        <?php if(!empty($display_view_count) || !empty($display_category)) { ?>
                                         <div class="atbd_listing_bottom_content">
                                             <?php
                                             if(!empty($display_category)) {

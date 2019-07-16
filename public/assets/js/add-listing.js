@@ -361,20 +361,28 @@ jQuery(function($){
     $(function () {
         $('#color_code2').wpColorPicker().empty();
     });
+
     // Load custom fields of the selected category in the custom post type "atbdp_listings"
-    $('#cat-type').on('change', function () {
+    $('#at_biz_dir-categories').on('change', function () {
         $('#atbdp-custom-fields-list').html('<div class="spinner"></div>');
+        var length = $('#at_biz_dir-categories option:selected');
+        var id = [];
+        length.each((el, index) => {
+           id.push($(index).val());
+       });
         var data = {
             'action': 'atbdp_custom_fields_listings_front',
             'post_id': $('#atbdp-custom-fields-list').data('post_id'),
-            'term_id': $(this).val()
+            'term_id': id
         };
         $.post(atbdp_add_listing.ajaxurl, data, function (response) {
             $('#atbdp-custom-fields-list').html(response);
-            $("[data-toggle='tooltip']").tooltip();
         });
+        
         $('#atbdp-custom-fields-list-selected').hide();
+
     });
+
 
     var selected_cat = $('#value_selected').val();
     if (!selected_cat) {

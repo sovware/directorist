@@ -128,7 +128,7 @@
         $('#at_biz_dir-tags').select2({
             placeholder: atbdp_add_listing.i18n_text.tag_selection,
             tags: true,
-            tokenSeparators: [',', ' '],
+            tokenSeparators: [',', ' ']
         });
     }else {
         $('#at_biz_dir-tags').select2({
@@ -136,6 +136,11 @@
             allowClear: true
         });
     }
+    $('#at_biz_dir-categories').select2({
+        placeholder: "Select a category",
+        tags: true,
+        tokenSeparators: [',', ' ']
+    });
 
 
 })(jQuery);
@@ -356,7 +361,6 @@ jQuery(function($){
     $(function () {
         $('#color_code2').wpColorPicker().empty();
     });
-
     // Load custom fields of the selected category in the custom post type "atbdp_listings"
     $('#cat-type').on('change', function () {
         $('#atbdp-custom-fields-list').html('<div class="spinner"></div>');

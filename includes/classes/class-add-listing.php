@@ -78,7 +78,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     // we not need to sanitize post vars to be saved to the database,
                     // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');;
                     $featured_enabled = get_directorist_option('enable_featured_listing');
-                    $admin_category_select= !empty($_POST['admin_category_select']) ? sanitize_text_field($_POST['admin_category_select']) : '';
+                    $admin_category_select= !empty($_POST['admin_category_select']) ? atbdp_sanitize_array($_POST['admin_category_select']) : array();
                     $custom_field= !empty($_POST['custom_field']) ? ($_POST['custom_field']) : array();
                     // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');
                     $metas = array();
@@ -349,12 +349,19 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     update_post_meta( $post_id, $key, $value );
                                     update_post_meta( $post_id, $key, $value );
                                 }
-                                update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
-                                $term_by_id =  get_term_by('term_id', $admin_category_select, ATBDP_CATEGORY);
-
-                                wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
                             }
 
+                            update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
+
+                            if (count($admin_category_select)>1){
+                                foreach ($admin_category_select as $category){
+                                    $term_by_id =  get_term_by('term_id', $category, ATBDP_CATEGORY);
+                                    wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY, true);//update the term relationship when a listing updated by author
+                                }
+                            }else{
+                                $term_by_id =  get_term_by('term_id', $admin_category_select[0], ATBDP_CATEGORY);
+                                wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
+                            }
 
                             // for dev
                             do_action('atbdp_listing_updated', $post_id);//for sending email notification
@@ -438,9 +445,17 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                                         update_post_meta( $post_id, $key, $value );
                                     }
-                                    $term_by_id =  get_term_by('term_id', $admin_category_select, ATBDP_CATEGORY);
-                                    $term_name = !empty($term_by_id)?$term_by_id->name:'';
-                                    wp_set_object_terms($post_id, $term_name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
+                                }
+                                update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
+
+                                if (count($admin_category_select)>1){
+                                    foreach ($admin_category_select as $category){
+                                        $term_by_id =  get_term_by('term_id', $category, ATBDP_CATEGORY);
+                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY, true);//update the term relationship when a listing updated by author
+                                    }
+                                }else{
+                                    $term_by_id =  get_term_by('term_id', $admin_category_select[0], ATBDP_CATEGORY);
+                                    wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
                                 }
                             }
                             if ('publish' == $new_l_status){

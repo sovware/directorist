@@ -11,6 +11,12 @@ $search_border               = get_directorist_option('search_border', 1);
 $connectors_title            = get_directorist_option('connectors_title', __('Or', ATBDP_TEXTDOMAIN));
 $popular_cat_title           = get_directorist_option('popular_cat_title', __('Browse by popular categories', ATBDP_TEXTDOMAIN));
 $popular_cat_num             = get_directorist_option('popular_cat_num', 10);
+$require_text               = get_directorist_option('require_search_text');
+$require_cat                = get_directorist_option('require_search_category');
+$require_loc                = get_directorist_option('require_search_location');
+$require_text               = !empty($require_text) ? "required" : "";
+$require_cat                = !empty($require_cat) ? true : false;
+$require_loc                = !empty($require_loc) ? true : false;
 
 
 $default                     = get_template_directory_uri().'/images/home_page_bg.jpg';
@@ -65,6 +71,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
 
                                     $search_html .= '<div class="single_search_field search_query">
                                     <input class="form-control search_fields" type="text" name="q"
+                                    '. $require_text.'
                                            placeholder="'. esc_html($search_placeholder).'">
                                 </div>';
                                     $search_html .= '</div>';
@@ -87,6 +94,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                         'show_count' => false,
                                         'hide_empty' => false,
                                         'echo' => false,
+                                        'required' => $require_cat,
                                     );
                                     $search_html .= wp_dropdown_categories($args);
                                     $search_html .= '</div></div>';
@@ -109,6 +117,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                         'show_count' => false,
                                         'hide_empty' => false,
                                         'echo' => false,
+                                        'required' => $require_loc,
                                     );
 
                                     $search_html .= wp_dropdown_categories($args);

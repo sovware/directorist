@@ -2758,6 +2758,24 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                     array(
+                        'type' => 'toggle',
+                        'name' => 'require_search_text',
+                        'label' => __('Required Text Field', ATBDP_TEXTDOMAIN),
+                        'default' => 0,
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'require_search_category',
+                        'label' => __('Required Category Field', ATBDP_TEXTDOMAIN),
+                        'default' => 0,
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'require_search_location',
+                        'label' => __('Required Location Field', ATBDP_TEXTDOMAIN),
+                        'default' => 0,
+                    ),
+                    array(
                         'type' => 'textbox',
                         'name' => 'search_placeholder',
                         'label' => __('Search Bar Placeholder', ATBDP_TEXTDOMAIN),

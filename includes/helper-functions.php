@@ -3031,7 +3031,8 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
 
 function listing_view_by_list($all_listings, $display_image, $show_pagination, $paged)
 { ?>
-    <div class="row">
+    <div class="container">
+        <div class="row">
         <div class="<?php echo apply_filters('atbdp_listing_list_view_html_class', 'col-md-12') ?>">
             <?php
             while ($all_listings->have_posts()) {
@@ -3404,6 +3405,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
             <?php } ?>
 
         </div>
+    </div>
     </div>
     <?php
     return true;

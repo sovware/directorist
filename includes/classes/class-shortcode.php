@@ -79,56 +79,71 @@ if ( !class_exists('ATBDP_Shortcode') ):
          * @since	 3.2
          * @access   public
          * @param	 int    $post_id	Post ID.
-         * @param	 int    $term_id    Category ID.
+         * @param	 array    $term_id    Category ID.
          */
-        public function ajax_callback_custom_fields( $post_id = 0, $term_id = 0 ) {
+        public function ajax_callback_custom_fields( $post_id = 0, $term_id = array() ) {
 
 
             $ajax = false;
             if( isset( $_POST['term_id'] ) ) {
                 $ajax = true;
                 $post_ID = !empty($_POST['post_id'])?(int)$_POST['post_id']:'' ;
-                $term_id = (int) $_POST['term_id'];
+                $term_id = $_POST['term_id'];
             }
-            // var_dump($post_id);
-
             // Get custom fields
-            $custom_field_ids = $term_id;
+            $custom_field_ids = !empty($term_id) ? $term_id : array();
             $args = array(
                 'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
                 'posts_per_page' => -1,
-                'meta_query'    => array(
-                        'relation' => 'AND',
-                    array(
-                        'relation' => 'AND',
-                        array(
-                            'key'       => 'category_pass',
-                            'value'     => $custom_field_ids,
-                            'compare'   => 'LIKE',
-                        ),
-                        array(
-                            'key'       => 'associate',
-                            'value'     => 'categories',
-                            'compare'   => 'LIKE',
-                        ),
+                'status'        => 'published'
+            );
+            $meta_queries = array();
+            if ($custom_field_ids>1){
+                $sub_meta_queries = array();
+                foreach( $custom_field_ids as $value ) {
+                    $sub_meta_queries[] = array(
+                        'key'		=> 'category_pass',
+                        'value'		=> $value,
+                        'compare'	=> 'LIKE'
+                    );
+                }
 
+                $meta_queries[] = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
+            }else{
+                $meta_queries[] = array(
+                    'key'		=> 'category_pass',
+                    'value'		=> $custom_field_ids[0],
+                    'compare'	=> 'LIKE'
+                );
+            }
+
+            $meta_queries[] = array(
+                array(
+                    'relation' => 'OR',
+                    array(
+                        'key'=> 'admin_use',
+                        'compare'=> 'NOT EXISTS'
                     ),
                     array(
-                        'relation' => 'OR',
-                        array(
-                            'key'=> 'admin_use',
-                            'compare'=> 'NOT EXISTS'
-                        ),
-                        array(
-                            'key'=> 'admin_use',
-                            'value'=> 1,
-                            'compare'=> '!='
-                        ),
-                    )
+                        'key'=> 'admin_use',
+                        'value'=> 1,
+                        'compare'=> '!='
+                    ),
                 )
-
+            );
+            $meta_queries[] = array(
+                array(
+                    'key'       => 'associate',
+                    'value'     => 'categories',
+                    'compare'   => 'LIKE',
+                ),
             );
 
+
+            $count_meta_queries = count( $meta_queries );
+            if( $count_meta_queries ) {
+                $args['meta_query'] = ( $count_meta_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $meta_queries ) : $meta_queries;
+            }
             $atbdp_query = new WP_Query( $args );
 
             if ($atbdp_query->have_posts()){

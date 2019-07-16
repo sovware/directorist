@@ -561,8 +561,9 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                             $tag_label = get_directorist_option('tag_label', __('Tags', ATBDP_TEXTDOMAIN));
                                             esc_html_e($tag_label.':', ATBDP_TEXTDOMAIN);
                                             echo get_directorist_option('require_tags') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
-                                        <?php if (!empty($p_tags)) {
-                                            $output = array();
+                                        <?php
+                                        $output = array();
+                                        if (!empty($p_tags)) {
                                             foreach ($p_tags as $p_tag) {
                                                 $output[] = $p_tag->term_id;
                                             }
@@ -629,12 +630,6 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                         }
                                         ?>
                                     </select>
-                                    <?php
-
-                                    $current_val = get_post_meta($p_id, '_admin_category_select', true);
-                                    $term_id_selected = !empty($current_val) ? $current_val : '';
-                                    ?>
-                                    <input type="hidden" id="value_selected" value="<?php echo $term_id_selected ?>">
                                 </div>
                                 <?php
                                 $plan_custom_field = true;
@@ -653,7 +648,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                 ?>
 
                                 <?php
-                                if ($term_id_selected) {
+                                if ($ids) {
                                     ?>
                                     <div id="atbdp-custom-fields-list-selected" data-post_id="<?php echo $p_id; ?>">
                                         <?php

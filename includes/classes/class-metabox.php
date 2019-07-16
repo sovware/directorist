@@ -18,7 +18,7 @@ class ATBDP_Metabox {
 
 
             add_action('wp_ajax_atbdp_custom_fields_listings', array($this, 'ajax_callback_custom_fields'), 10, 2 );
-            add_action('wp_ajax_atbdp_custom_fields_listings_selected', array($this, 'ajax_callback_custom_fields_selected'), 10, 2 );
+            add_action('wp_ajax_atbdp_custom_fields_listings_selected', array($this, 'ajax_callback_custom_fields'), 10, 2 );
 
         }
      }
@@ -30,117 +30,78 @@ class ATBDP_Metabox {
         do_action('atbdp_listing_published', $ID);//for sending email notification
     }
 
-
     /**
      * Display custom fields.
      *
      * @since	 3.2
      * @access   public
      * @param	 int    $post_id	Post ID.
-     * @param	 int    $term_id    Category ID.
+     * @param	 array    $term_id    Category ID.
      */
-    public function ajax_callback_custom_fields_selected( $post_id = 0, $term_id = 0 ) {
+    public function ajax_callback_custom_fields( $post_id = 0, $term_id = array() ) {
         $ajax = false;
         if( isset( $_POST['term_id'] ) ) {
             $ajax = true;
-            $post_ID = (int) $_POST['post_id'];
-            $term_ids = !empty($_POST['term_id'])?$_POST['term_id']:'';
+            $post_ID = !empty($_POST['post_id'])?(int)$_POST['post_id']:'' ;
+            $term_id = $_POST['term_id'];
         }
-        $args = null;
-        if (!empty($term_ids)){
-            foreach($term_ids as $term_id){
-                $args = array(
-                    'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
-                    'posts_per_page' => -1,
-                    'meta_query'    => array(
-                        'relation' => 'AND',
-                        array(
-                            'key'       => 'category_pass',
-                            'value'     => $term_id,
-                            'compare'   => 'EXISTS',
-                        ),
-                        array(
-                            'key'       => 'associate',
-                            'value'     => 'categories',
-                            'compare'   => 'LIKE',
-                        ),
-                    )
-                );
-                $atbdp_query = new WP_Query( $args );
-                if ($atbdp_query->have_posts()){
-
-                    // Start the Loop
-                    global $post;
-                    // Process output
-                    ob_start();
-
-                    include ATBDP_TEMPLATES_DIR . 'add-listing-custom-field.php';
-                    wp_reset_postdata(); // Restore global post data stomped by the_post()
-                    $output = ob_get_clean();
-
-                    print $output;
-
-                    if( $ajax ) {
-                        wp_die();
-                    }
-                } else{
-                    // Process empty output
-                    ob_start();
-                    ?>
-                    <?php
-                    $output = ob_get_clean();
-                    print $output;
-                    //print "No data found !";
-                }
-            }
-        }
-
-
-    }
-
-    /**
-     * Display custom fields.
-     *
-     * @since	 3.2
-     * @access   public
-     * @param	 int    $post_id	Post ID.
-     * @param	 int    $term_id    Category ID.
-     */
-    public function ajax_callback_custom_fields( $post_id = 0, $term_id = 0 ) {
-        $ajax = false;
-        if( isset( $_POST['term_id'] ) ) {
-            $ajax = true;
-            $post_ID = (int) $_POST['post_id'];
-            $term_ids = !empty($_POST['term_id'])?$_POST['term_id']:'';
-        }
-        $args = null;
-        if (!empty($term_ids)){
-            foreach($term_ids as $term_id){
-                $args = array(
-                    'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
-                    'posts_per_page' => -1,
-                    'meta_query'    => array(
-                        'relation' => 'AND',
-                        array(
-                            'key'       => 'category_pass',
-                            'value'     => $term_id,
-                            'compare'   => 'EXISTS',
-                        ),
-                        array(
-                            'key'       => 'associate',
-                            'value'     => 'categories',
-                            'compare'   => 'LIKE',
-                        )
-                    )
+        // Get custom fields
+        $custom_field_ids = !empty($term_id) ? $term_id : array();
+        $args = array(
+            'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+            'posts_per_page' => -1,
+            'status'        => 'published'
+        );
+        $meta_queries = array();
+        if ($custom_field_ids>1){
+            $sub_meta_queries = array();
+            foreach( $custom_field_ids as $value ) {
+                $sub_meta_queries[] = array(
+                    'key'		=> 'category_pass',
+                    'value'		=> $value,
+                    'compare'	=> 'LIKE'
                 );
             }
+
+            $meta_queries[] = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
+        }else{
+            $meta_queries[] = array(
+                'key'		=> 'category_pass',
+                'value'		=> $custom_field_ids[0],
+                'compare'	=> 'LIKE'
+            );
         }
 
+        $meta_queries[] = array(
+            array(
+                'relation' => 'OR',
+                array(
+                    'key'=> 'admin_use',
+                    'compare'=> 'NOT EXISTS'
+                ),
+                array(
+                    'key'=> 'admin_use',
+                    'value'=> 1,
+                    'compare'=> '!='
+                ),
+            )
+        );
+        $meta_queries[] = array(
+            array(
+                'key'       => 'associate',
+                'value'     => 'categories',
+                'compare'   => 'LIKE',
+            ),
+        );
+
+
+        $count_meta_queries = count( $meta_queries );
+        if( $count_meta_queries ) {
+            $args['meta_query'] = ( $count_meta_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $meta_queries ) : $meta_queries;
+        }
         $atbdp_query = new WP_Query( $args );
 
         if ($atbdp_query->have_posts()){
-
-
             // Start the Loop
             global $post;
             // Process output
@@ -155,16 +116,19 @@ class ATBDP_Metabox {
             if( $ajax ) {
                 wp_die();
             }
-        } else{
-            // Process empty output
-            ob_start();
+        }else{
+            echo '<div class="custom_field_empty_area"></div>';
             ?>
-
+            <script>
+                if(('#custom_field_empty_area').length )         // use this if you are using id to check
+                {
+                    $('#atbdp-custom-fields-list' ).empty();
+                }
+            </script>
             <?php
-            $output = ob_get_clean();
-
-            print $output;
-            //print "No data found !";
+            if( $ajax ) {
+                wp_die();
+            }
         }
     }
 

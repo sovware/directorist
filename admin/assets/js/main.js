@@ -416,60 +416,25 @@ jQuery(function ($) {
 
 
         $('#atbdp-custom-fields-list').append('<div class="spinner"></div>');
-        var termID = $('#at_biz_dir-categorychecklist input:checked').map(function () {
-            return this.value
-        }).get();
 
-        //console.log(termID);
-
-        // This is use for condition match
-        var getid = $('#at_biz_dir-categorychecklist input:checked').last().val();
-        var matchid = $('#at_biz_dir-categorychecklist input:checked').last().val();
-        // This is use for condition match
-
-        var i;
-        var numberOfTermSelected = termID.length;
-
-        for (i = 0; i < numberOfTermSelected; i++) {
-            var substr = termID;
-        }
-
+        var length = $('#at_biz_dir-categorychecklist input:checked');
+        var id = [];
+        length.each((el, index) => {
+            id.push($(index).val());
+        });
 
         var data = {
             'action': 'atbdp_custom_fields_listings',
             'post_id': $('#atbdp-custom-fields-list').data('post_id'),
-            'term_id': termID
+            'term_id': id
         };
 
 
         $.post(ajaxurl, data, function (response) {
-
-            var substr = termID;
-
-
-            $('#at_biz_dir-categorychecklist input[type="checkbox"]').on('click', function () {
-                if ($(this).is(':checked')) {
-                    var val = $(this).val();
-                    $('.block' + val).css({display: "block"});
-                } else {
-                    var val = $(this).val();
-                    $('.block' + val).html(" ");
-                    $('.block' + val).css({display: "none"});
-                }
-            });
-
-            if (matchid === getid) {
-                if (response != 0) {
-                    $('.block' + getid).html(response);
-                    $('[data-toggle="tooltip"]').tooltip();
-                } else {
-                    $('.block' + getid).html(" ");
-                    $('[data-toggle="tooltip"]').tooltip();
-                }
-            }
+            $('#atbdp-custom-fields-list').html(response);
         });
 
-        //$('#atbdp-custom-fields-list-selected').hide();
+        $('#atbdp-custom-fields-list-selected').hide();
 
     });
 
@@ -480,25 +445,21 @@ jQuery(function ($) {
 
     } else {
         $(document).ready(function () {
-
-            var getid = $('#at_biz_dir-categorychecklist input:checked').last().val();
-            var matchid = $('#at_biz_dir-categorychecklist input:checked').last().val();
-
             $('#atbdp-custom-fields-list-selected').html('<div class="spinner"></div>');
+
+            var length = $('#at_biz_dir-categorychecklist input:checked');
+            var id = [];
+            length.each((el, index) => {
+                id.push($(index).val());
+            });
             var data = {
                 'action': 'atbdp_custom_fields_listings_selected',
                 'post_id': $('#atbdp-custom-fields-list-selected').data('post_id'),
-                'term_id': selected_cat
+                'term_id': id
             };
 
             $.post(ajaxurl, data, function (response) {
-                if (response != 0) {
-                    $('.block' + getid).html(response);
-                    $('[data-toggle="tooltip"]').tooltip();
-                } else {
-                    $('.block' + getid).html(" ");
-                    $('[data-toggle="tooltip"]').tooltip();
-                }
+                $('#atbdp-custom-fields-list-selected').html(response);
             });
         });
     }

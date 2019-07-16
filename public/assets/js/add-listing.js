@@ -378,7 +378,7 @@ jQuery(function($){
         $.post(atbdp_add_listing.ajaxurl, data, function (response) {
             $('#atbdp-custom-fields-list').html(response);
         });
-        
+
         $('#atbdp-custom-fields-list-selected').hide();
 
     });

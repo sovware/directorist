@@ -362,48 +362,47 @@ $column_width = 100 / $columns . '%';
                                         </div><!-- end ./atbd_content_upper -->
                                     <?php }
 
-                                    if (!empty($display_category) || !empty($display_view_count)) { ?>
-                                        <div class="atbd_listing_bottom_content">
-                                            <?php
+                                    if (!empty($display_category) || !empty($display_view_count)) {
+                                        $catViewCount = '<div class="atbd_listing_bottom_content">';
                                             if (!empty($display_category)) {
                                                 if (!empty($cats)) {
                                                     $totalTerm = count($cats);
-                                                    ?>
-                                                    <div class="atbd_content_left">
-                                                        <div class="atbd_listting_category">
-                                                            <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)) { ?>
-                                                                <span class="<?php atbdp_icon_type(true); ?>-tags"></span><?php } ?><?php echo $cats[0]->name; ?>
-                                                            </a>
-                                                            <?php
+                                                    $catViewCount .= '<div class="atbd_content_left">';
+                                                    $catViewCount .= '<div class="atbd_listting_category">';
+                                                    $catViewCount .= '<a href="'. ATBDP_Permalink::atbdp_get_category_page($cats[0]).'">';
+                                                    if ('none' != get_cat_icon($cats[0]->term_id)) {
+                                                        $catViewCount .= '<span class="' .atbdp_icon_type().'-tags"></span>';
+                                                    }
+                                                    $catViewCount .=$cats[0]->name;
+                                                    $catViewCount .= '</a>';
                                                             if ($totalTerm > 1) {
-                                                                ?>
-                                                                <div class="atbd_cat_popup">
-                                                                    <span>+<?php echo $totalTerm - 1; ?></span>
-                                                                    <div class="atbd_cat_popup_wrapper">
-                                                                        <?php
+                                                                $totalTerm = $totalTerm - 1;
+                                                                $catViewCount .= '<div class="atbd_cat_popup">';
+                                                                $catViewCount .= '<span>+' .$totalTerm.'</span>';
+                                                                $catViewCount .= '<div class="atbd_cat_popup_wrapper">';
                                                                         $output = array();
                                                                         foreach (array_slice($cats, 1) as $cat) {
                                                                             $link = ATBDP_Permalink::atbdp_get_category_page($cat);
                                                                             $space = str_repeat(' ', 1);
                                                                             $output [] = "{$space}<span><a href='{$link}'>{$cat->name}<span>,</span></a></span>";
-                                                                        } ?>
-                                                                        <span><?php echo join($output); ?></span>
-                                                                    </div>
-                                                                </div>
-                                                            <?php } ?>
-                                                        </div>
-                                                    </div>
-                                                <?php } else {
-                                                    ?>
-                                                    <div class="atbd_content_left">
-                                                        <div class="atbd_listting_category">
-                                                            <a href=""><span
-                                                                        class="<?php atbdp_icon_type(true); ?>-tags"></span><?php echo __('Uncategorized', ATBDP_TEXTDOMAIN); ?>
-                                                            </a>
-                                                        </div>
-                                                    </div>
+                                                                        }
+                                                                        $catViewCount .= '<span>'. join($output).'</span>';
+                                                                        $catViewCount .= '</div>';
+                                                                        $catViewCount .= '</div>';
+                                                            }
+                                                            $catViewCount .= '</div>';
+                                                            $catViewCount .= '</div>';
+                                                } else {
+                                                    $catViewCount .= '<div class="atbd_content_left">';
+                                                    $catViewCount .= '<div class="atbd_listting_category">';
+                                                    $catViewCount .= '<a href="">';
+                                                    $catViewCount .= '<span class="'.atbdp_icon_type().'-tags"></span>';
+                                                    $catViewCount .= __('Uncategorized', ATBDP_TEXTDOMAIN);
+                                                    $catViewCount .= '</a>';
+                                                    $catViewCount .= '</div>';
+                                                    $catViewCount .= '</div>';
 
-                                                <?php }
+                                                }
                                             }  if (!empty($display_view_count)) {
                                                 /**
                                                  * @since 5.5.0
@@ -414,12 +413,11 @@ $column_width = 100 / $columns . '%';
                                                 $fotter_right .= !empty($post_view) ? $post_view : 0;
                                             $fotter_right .= '</li>';
                                             $fotter_right .= '</ul>';
-                                            echo apply_filters('atbdp_grid_footer_right_html', $fotter_right);
+                                            $catViewCount .= apply_filters('atbdp_grid_footer_right_html', $fotter_right);
                                             }
-
-                                            ?>
-                                        </div><!-- end ./atbd_listing_bottom_content -->
-                                    <?php }
+                                        $catViewCount .='</div>'; //end ./atbd_listing_bottom_content
+                                        echo apply_filters('atbdp_listings_grid_cat_view_count',$catViewCount);
+                                           }
 
                                     /**
                                      * @since

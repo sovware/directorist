@@ -449,7 +449,7 @@
         var tab_nav = $(".atbd_tab_nav .atbdp_tab_nav--content").width();
         //var tab_count = document.querySelectorAll(".atbdp_tab_nav--content li");
 
-        if(tab_nav < 600 /*&& tab_count.length >=4*/){
+        if (tab_nav < 600 /*&& tab_count.length >=4*/) {
             $(".atbdp_tab_nav--content").addClass("tab_nav_slide");
         }
 
@@ -472,7 +472,7 @@
                 {
                     breakpoint: 480,
                     settings: {
-                        slidesToShow:2,
+                        slidesToShow: 2,
                         slidesToScroll: 1
                     }
                 }
@@ -481,13 +481,12 @@
         //Hide the Previous button.
         $('.slick-prev').hide();
 
-        nav_tab_slide.on('afterChange', function(event, slick, currentSlide) {
+        nav_tab_slide.on('afterChange', function (event, slick, currentSlide) {
             //If we're on the first slide hide the Previous button and show the Next
             if (currentSlide === 0) {
                 $('.slick-prev').hide();
                 $('.slick-next').show();
-            }
-            else {
+            } else {
                 $('.slick-prev').show();
             }
 
@@ -775,8 +774,17 @@ jQuery(function ($) {
     $(window).on("load", function () {
         UIkit.grid(".data-uk-masonry");
     });
-    $("ul.atbdp_tab_nav--content > li:first-child > a").on("click", function () {
-        location.reload();
+
+    $("ul.atbdp_tab_nav--content > li:first-child > a").one("click", function () {
+        (function () {
+            if (window.localStorage) {
+                if (!localStorage.getItem('firstLoad')) {
+                    localStorage['firstLoad'] = true;
+                    window.location.reload();
+                } else
+                    localStorage.removeItem('firstLoad');
+            }
+        })();
     });
 
 
@@ -784,9 +792,9 @@ jQuery(function ($) {
 
 // on load of the page: switch to the currently selected tab
 var tab_url = window.location.href.split("/").pop();
-if(tab_url.startsWith("#active_")){
+if (tab_url.startsWith("#active_")) {
     var urlId = tab_url.split("#").pop().split("active_").pop();
-    if(urlId !== 'my_listings'){
+    if (urlId !== 'my_listings') {
         document.querySelector(`a[target=${urlId}]`).click();
     }
 }

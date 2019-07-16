@@ -361,9 +361,9 @@ $column_width = 100 / $columns . '%';
                                             } ?>
                                         </div><!-- end ./atbd_content_upper -->
                                     <?php }
-
+                                    $catViewCount = '';
                                     if (!empty($display_category) || !empty($display_view_count)) {
-                                        $catViewCount = '<div class="atbd_listing_bottom_content">';
+                                        $catViewCount .= '<div class="atbd_listing_bottom_content">';
                                             if (!empty($display_category)) {
                                                 if (!empty($cats)) {
                                                     $totalTerm = count($cats);
@@ -416,8 +416,9 @@ $column_width = 100 / $columns . '%';
                                             $catViewCount .= apply_filters('atbdp_grid_footer_right_html', $fotter_right);
                                             }
                                         $catViewCount .='</div>'; //end ./atbd_listing_bottom_content
-                                        echo apply_filters('atbdp_listings_grid_cat_view_count',$catViewCount);
+
                                            }
+                                    echo apply_filters('atbdp_listings_grid_cat_view_count',$catViewCount);
 
                                     /**
                                      * @since

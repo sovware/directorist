@@ -348,6 +348,8 @@ class ATBDP_Enqueuer {
 
         $new_tag = get_directorist_option('create_new_tag',0);
         $tag_placeholder = get_directorist_option('tag_placeholder',__('Select or insert new tags separated by a comma, or space', ATBDP_TEXTDOMAIN));
+        $cat_placeholder = get_directorist_option('cat_placeholder', __('Select Category', ATBDP_TEXTDOMAIN));
+        $loc_placeholder = get_directorist_option('loc_placeholder', __('Select Location', ATBDP_TEXTDOMAIN));
         // Internationalization text for javascript file especially add-listing.js
         $i18n_text = array(
             'confirmation_text' => __('Are you sure', ATBDP_TEXTDOMAIN),
@@ -355,8 +357,8 @@ class ATBDP_Enqueuer {
             'ask_conf_faqs_del_txt' => __('Do you really want to remove this FAQ!', ATBDP_TEXTDOMAIN),
             'confirm_delete' => __('Yes, Delete it!', ATBDP_TEXTDOMAIN),
             'deleted' => __('Deleted!', ATBDP_TEXTDOMAIN),
-            'location_selection' => __('Select a location', ATBDP_TEXTDOMAIN),
-            'category_selection' => __('Select a category', ATBDP_TEXTDOMAIN),
+            'location_selection' => esc_attr($loc_placeholder),
+            'category_selection' => esc_attr($cat_placeholder),
             'tag_selection' => esc_attr($tag_placeholder),
             'upload_image' => __('Select or Upload Slider Image', ATBDP_TEXTDOMAIN),
             'choose_image' => __('Use this Image', ATBDP_TEXTDOMAIN),

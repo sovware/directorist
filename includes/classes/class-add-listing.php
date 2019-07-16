@@ -347,7 +347,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     }
 
                                     update_post_meta( $post_id, $key, $value );
-                                    update_post_meta( $post_id, $key, $value );
                                 }
                             }
 

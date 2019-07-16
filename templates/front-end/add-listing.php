@@ -536,7 +536,6 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                  }
                                  $locations = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
                                  ?>
-                                    <label for="at_biz_dir-location"></label>
                                     <p class="c_cat_list"> <strong></strong></p>
                                     <select name="tax_input[at_biz_dir-location][]" class="form-control"
                                             id="at_biz_dir-location" <?php echo !empty($multiple_loc_for_user)?'multiple="multiple"':''?>>
@@ -620,7 +619,6 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                     }
                                     $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0, 'exclude' => $plan_cat));
                                     ?>
-                                    <label for="at_biz_dir-categories"><span class="atbdp_make_str_red">*</span></label>
                                     <p class="c_cat_list"> <strong></strong></p>
                                     <select name="admin_category_select[]" class="form-control"
                                             id="at_biz_dir-categories" <?php echo !empty($multiple_cat_for_user)?'multiple="multiple"':''?>>

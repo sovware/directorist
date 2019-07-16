@@ -3310,81 +3310,77 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                 } ?>
 
                             </div><!-- end ./atbd_content_upper -->
-                            <?php if (!empty($display_category) || !empty($display_view_count) || !empty($display_author_image)) { ?>
-                                <div class="atbd_listing_bottom_content">
-                                    <?php
+                            <?php
+                            $catViewCountAuthor = '';
+                            if (!empty($display_category) || !empty($display_view_count) || !empty($display_author_image)) {
+                                $catViewCountAuthor .= '<div class="atbd_listing_bottom_content">';
                                     if (!empty($display_category)) {
                                         if (!empty($cats)) {
                                             $totalTerm = count($cats);
-                                            ?>
-                                            <div class="atbd_content_left">
-                                                <div class="atbd_listting_category">
-                                                    <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)) { ?>
-                                                        <span class="<?php atbdp_icon_type(true); ?>-tags"></span><?php } ?><?php echo $cats[0]->name; ?>
-                                                    </a>
-                                                    <?php
-                                                    if ($totalTerm > 1) {
-                                                        ?>
-                                                        <div class="atbd_cat_popup">
-                                                            <span>+<?php echo $totalTerm - 1; ?></span>
-                                                            <div class="atbd_cat_popup_wrapper">
-                                                                <?php
-                                                                $output = array();
-                                                                foreach (array_slice($cats, 1) as $cat) {
-                                                                    $link = ATBDP_Permalink::atbdp_get_category_page($cat);
-                                                                    $space = str_repeat(' ', 1);
-                                                                    $output [] = "{$space}<span><a href='{$link}'>{$cat->name}<span>,</span></a></span>";
-                                                                } ?>
-                                                                <span><?php echo join($output); ?></span>
-                                                            </div>
-                                                        </div>
-                                                    <?php } ?>
-                                                </div>
-                                            </div>
-                                        <?php } else {
-                                            ?>
-                                            <div class="atbd_content_left">
-                                                <div class="atbd_listting_category">
-                                                    <a href=""><span
-                                                                class="<?php atbdp_icon_type(true); ?>-tags"></span><?php echo __('Uncategorized', ATBDP_TEXTDOMAIN); ?>
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                        <?php }
-                                    } ?>
-
-                                    <?php if (!empty($display_view_count) || !empty($display_author_image)) { ?>
-                                        <ul class="atbd_content_right">
-                                            <?php if (!empty($display_view_count)) { ?>
-                                                <li class="atbd_count"><span
-                                                            class="<?php atbdp_icon_type(true); ?>-eye"></span><?php echo !empty($post_view) ? $post_view : 0; ?>
-                                                </li> <?php } ?>
-                                            <?php if (!empty($display_author_image)) {
-                                                $author = get_userdata($author_id);
-                                                ?>
-                                                <li class="atbd_author">
-                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
-                                                       data-toggle="tooltip" data-placement="top"
-                                                       title="<?php echo $author->first_name . ' ' . $author->last_name; ?>"><?php if (empty($u_pro_pic)) {
-                                                            echo $avata_img;
+                                            $catViewCountAuthor .= '<div class="atbd_content_left">';
+                                            $catViewCountAuthor .= '<div class="atbd_listting_category">';
+                                            $catViewCountAuthor .= '<a href="' .ATBDP_Permalink::atbdp_get_category_page($cats[0]).'">';
+                                            if ('none' != get_cat_icon($cats[0]->term_id)) {
+                                                $catViewCountAuthor .='<span class="'.atbdp_icon_type().'-tags"></span>';
+                                            }
+                                            $catViewCountAuthor .= $cats[0]->name;
+                                            $catViewCountAuthor .= '</a>';
+                                            if ($totalTerm > 1) {
+                                                $totalTerm = $totalTerm - 1;
+                                                $catViewCountAuthor .= '<div class="atbd_cat_popup">';
+                                                $catViewCountAuthor .= '<span>+'.$totalTerm.'</span>';
+                                                $catViewCountAuthor .= '<div class="atbd_cat_popup_wrapper">';
+                                                        $output = array();
+                                                        foreach (array_slice($cats, 1) as $cat) {
+                                                            $link = ATBDP_Permalink::atbdp_get_category_page($cat);
+                                                            $space = str_repeat(' ', 1);
+                                                            $output [] = "{$space}<span><a href='{$link}'>{$cat->name}<span>,</span></a></span>";
                                                         }
-                                                        if (!empty($u_pro_pic)) { ?>
-                                                            <img
-                                                            src="<?php echo esc_url($u_pro_pic[0]); ?>"
-                                                            alt="Author Image"><?php } ?>
-                                                    </a>
-                                                </li>
-                                            <?php } ?>
-                                        </ul>
-                                    <?php }
-                                    /**
-                                     * @since 5.5.0
-                                     * It fires
-                                     */
+                                                $catViewCountAuthor .= '<span>' . join($output) . '</span>';
+                                                $catViewCountAuthor .= '</div>';
+                                                $catViewCountAuthor .= '</div>';
+                                                 }
+                                            $catViewCountAuthor .= '</div>';
+                                            $catViewCountAuthor .= '</div>';
+                                        } else {
+                                            $catViewCountAuthor .= '<div class="atbd_content_left">';
+                                            $catViewCountAuthor .= '<div class="atbd_listting_category">';
+                                            $catViewCountAuthor .= '<a href="">';
+                                            $catViewCountAuthor .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
+                                            $catViewCountAuthor .=  __('Uncategorized', ATBDP_TEXTDOMAIN);
+                                            $catViewCountAuthor .= '</a>';
+                                            $catViewCountAuthor .= '</div>';
+                                            $catViewCountAuthor .= '</div>';
+                                        }
+                                    } if (!empty($display_view_count) || !empty($display_author_image)) {
+                                        $catViewCountAuthor .= '<ul class="atbd_content_right">';
+                                         if (!empty($display_view_count)) {
+                                         $catViewCountAuthor .= '<li class="atbd_count">';
+                                         $catViewCountAuthor .= '<span class="'.atbdp_icon_type().'-eye"></span>';
+                                         $catViewCountAuthor .=  !empty($post_view) ? $post_view : 0;
+                                         $catViewCountAuthor .= '</li>';
+                                         }
+                                         if (!empty($display_author_image)) {
+                                             $author = get_userdata($author_id);
+                                             $author_first_last_name = $author->first_name . ' ' . $author->last_name;
+                                                $catViewCountAuthor .= '<li class="atbd_author">';
+                                                $catViewCountAuthor .= '<a href="' . ATBDP_Permalink::get_user_profile_page_link($author_id).'" data-toggle="tooltip" data-placement="top" title="'. $author_first_last_name.'">';
+                                                 if (empty($u_pro_pic)) {
+                                                            $catViewCountAuthor .= $avata_img;
+                                                        }
+                                                        if (!empty($u_pro_pic)) {
+                                                            $catViewCountAuthor .= '<img src="'.esc_url($u_pro_pic[0]).'" alt="Author Image">';
+                                                        }
+                                                        $catViewCountAuthor .='</a>';
+                                                        $catViewCountAuthor .='</li>';
+                                                         }
+                                         $catViewCountAuthor .= ' </ul>';
+                                    }
+                                   $catViewCountAuthor .= ' </div>' //end ./atbd_listing_bottom_content
                                     ?>
-                                </div><!-- end ./atbd_listing_bottom_content -->
-                            <?php } ?>
+                            <?php }
+                            echo apply_filters('atbdp_listings_list_cat_view_count_author',$catViewCountAuthor);
+                            ?>
                         </div>
                     </article>
                 </div>

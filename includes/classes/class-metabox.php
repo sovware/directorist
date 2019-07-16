@@ -41,6 +41,7 @@ class ATBDP_Metabox {
     public function ajax_callback_custom_fields( $post_id = 0, $term_id = array() ) {
         $ajax = false;
         if( isset( $_POST['term_id'] ) ) {
+
             $ajax = true;
             $post_ID = !empty($_POST['post_id'])?(int)$_POST['post_id']:'' ;
             $term_id = $_POST['term_id'];
@@ -118,14 +119,6 @@ class ATBDP_Metabox {
             }
         }else{
             echo '<div class="custom_field_empty_area"></div>';
-            ?>
-            <script>
-                if(('#custom_field_empty_area').length )         // use this if you are using id to check
-                {
-                    $('#atbdp-custom-fields-list' ).empty();
-                }
-            </script>
-            <?php
             if( $ajax ) {
                 wp_die();
             }

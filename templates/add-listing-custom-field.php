@@ -147,6 +147,7 @@
                         case 'color'  :
                             echo '<div>';
 
+                            echo ' <script> jQuery(document).ready(function($){ $(".my-color-field").wpColorPicker().empty(); }); </script>';
                             printf( '<input type="text" name="custom_field[%d]" id="color_code" class="my-color-field" value="%s"/>', $post->ID, $value );
                             echo '</div>';
                             break;
@@ -170,4 +171,3 @@
             }
             wp_reset_postdata();
  ?>
- <script> jQuery(document).ready(function($){ $('.my-color-field').wpColorPicker().empty(); }); </script>

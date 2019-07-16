@@ -1,31 +1,5 @@
 ;(function ($) {
     "use strict";
-    // html element create here
-    var element = $('#at_biz_dir-categorychecklist li input[type="checkbox"]');
-    var container = $("<div>").addClass("container3").appendTo('#atbdp-custom-fields-list');
-    var blockDiv;
-
-    $.each(element, function (key, el) {
-        var value = $(el).attr('value');
-        blockDiv = $("<div>").addClass("block" + value.toString()).appendTo(container);
-        $('<span>').appendTo(blockDiv);
-    });
-
-    // html element create end here
-
-    // html element create here for selected category
-    var element_selected = $('#at_biz_dir-categorychecklist li input[type="checkbox"]');
-    var container_selected = $("<div>").addClass("container3").appendTo('#atbdp-custom-fields-list-selected');
-    var blockDiv_selected;
-
-    $.each(element_selected, function (key, el) {
-        var value = $(el).attr('value');
-        blockDiv_selected = $("<div>").addClass("block" + value.toString()).appendTo(container_selected);
-        $('<span>').appendTo(blockDiv_selected);
-
-    });
-    // html element create end here for selected category
-
     var content = "";
     // Category icon selection
     function selecWithIcon(selected) {
@@ -409,11 +383,7 @@ jQuery(function ($) {
 
 
     // ekhane to apni ul e click event add korecen. eita add howa uchit checkbox e!  Ohh !
-    $('#at_biz_dir-categorychecklist').on('click', function (event) {
-        //event.stopPropagation();
-        //event.preventDefault();
-        //event.stopImmediatePropagation();
-
+    $('#at_biz_dir-categorychecklist').on('change', function (event) {
 
         $('#atbdp-custom-fields-list').append('<div class="spinner"></div>');
 
@@ -422,45 +392,40 @@ jQuery(function ($) {
         length.each((el, index) => {
             id.push($(index).val());
         });
-
         var data = {
             'action': 'atbdp_custom_fields_listings',
             'post_id': $('#atbdp-custom-fields-list').data('post_id'),
             'term_id': id
         };
-
-
         $.post(ajaxurl, data, function (response) {
-            $('#atbdp-custom-fields-list').html(response);
+
+            if(response == " 0"){
+                $('#atbdp-custom-fields-list').hide();
+            }else {
+                $('#atbdp-custom-fields-list').show();
+            }
+                $('#atbdp-custom-fields-list').html(response);
+
         });
-
-        $('#atbdp-custom-fields-list-selected').hide();
-
     });
 
-    var selected_cat = $('#at_biz_dir-categorychecklist input:checked').map(function () {
-        return this.value
-    }).get();
-    if (!selected_cat) {
+    var length = $('#at_biz_dir-categorychecklist input:checked');
+    if (length) {
+        $('#atbdp-custom-fields-list-selected').html('<div class="spinner"></div>');
 
-    } else {
-        $(document).ready(function () {
-            $('#atbdp-custom-fields-list-selected').html('<div class="spinner"></div>');
+        var length = $('#at_biz_dir-categorychecklist input:checked');
+        var id = [];
+        length.each((el, index) => {
+            id.push($(index).val());
+        });
+        var data = {
+            'action': 'atbdp_custom_fields_listings_selected',
+            'post_id': $('#atbdp-custom-fields-list-selected').data('post_id'),
+            'term_id': id
+        };
 
-            var length = $('#at_biz_dir-categorychecklist input:checked');
-            var id = [];
-            length.each((el, index) => {
-                id.push($(index).val());
-            });
-            var data = {
-                'action': 'atbdp_custom_fields_listings_selected',
-                'post_id': $('#atbdp-custom-fields-list-selected').data('post_id'),
-                'term_id': id
-            };
-
-            $.post(ajaxurl, data, function (response) {
-                $('#atbdp-custom-fields-list-selected').html(response);
-            });
+        $.post(ajaxurl, data, function (response) {
+            $('#atbdp-custom-fields-list-selected').html(response);
         });
     }
 

@@ -3514,6 +3514,12 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Placeholder for User', ATBDP_TEXTDOMAIN),
                     'default' => __('Select Category', ATBDP_TEXTDOMAIN),
                 ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'multiple_cat_for_user',
+                    'label' => __('Multi Category for User', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
                 /*array(
                     'type' => 'select',
                     'name' => 'display_cat_for',
@@ -3570,7 +3576,7 @@ The Administrator of ==SITE_NAME==
                 ),
                 array(
                     'type' => 'toggle',
-                    'name' => 'multiple_for_user',
+                    'name' => 'multiple_loc_for_user',
                     'label' => __('Multi Location for User', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),

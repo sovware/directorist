@@ -80,7 +80,8 @@ $display_title_for = get_directorist_option('display_title_for',0);
 $display_desc_for = get_directorist_option('display_desc_for',0);
 $display_cat_for = get_directorist_option('display_cat_for','users');
 $display_loc_for = get_directorist_option('display_loc_for',0);
-$multiple_for_user = get_directorist_option('multiple_for_user',1);
+$multiple_loc_for_user = get_directorist_option('multiple_loc_for_user',1);
+$multiple_cat_for_user = get_directorist_option('multiple_cat_for_user',1);
 $display_tag_for = get_directorist_option('display_tag_for',0);
 $display_tagline_field = get_directorist_option('display_tagline_field', 0);
 $tagline_placeholder   = get_directorist_option('tagline_placeholder',__('Your Listing\'s motto or tag-line', ATBDP_TEXTDOMAIN));
@@ -523,7 +524,6 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                 <div class="form-group" id="atbdp_locations">
                                     <label for="at_biz_dir-location"><?php
                                         $location_label = get_directorist_option('location_label', __('Location', ATBDP_TEXTDOMAIN));
-                                        $loc_placeholder = get_directorist_option('loc_placeholder', __('Select Location', ATBDP_TEXTDOMAIN));
                                         esc_html_e($location_label.':', ATBDP_TEXTDOMAIN);
                                         echo get_directorist_option('require_location')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
                                  <?php
@@ -536,10 +536,10 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                  }
                                  $locations = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
                                  ?>
-                                    <label for="at_biz_dir-location"><span class="atbdp_make_str_red">*</span></label>
+                                    <label for="at_biz_dir-location"></label>
                                     <p class="c_cat_list"> <strong></strong></p>
                                     <select name="tax_input[at_biz_dir-location][]" class="form-control"
-                                            id="at_biz_dir-location" multiple="multiple">
+                                            id="at_biz_dir-location" <?php echo !empty($multiple_loc_for_user)?'multiple="multiple"':''?>>
                                         <?php
                                         foreach ($locations as $key => $cat_title){
                                             $checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
@@ -601,7 +601,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                 <div class="form-group" id="atbdp_categories">
                                     <label for="atbdp_select_cat"><?php
                                         $category_label = get_directorist_option('category_label', __('Select Category', ATBDP_TEXTDOMAIN));
-                                        $cat_placeholder = get_directorist_option('cat_placeholder', __('Select Category', ATBDP_TEXTDOMAIN));
+
                                         esc_html_e($category_label.':', ATBDP_TEXTDOMAIN);
                                         echo get_directorist_option('require_category')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
                                     <?php
@@ -623,7 +623,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                     <label for="at_biz_dir-categories"><span class="atbdp_make_str_red">*</span></label>
                                     <p class="c_cat_list"> <strong></strong></p>
                                     <select name="admin_category_select[]" class="form-control"
-                                            id="at_biz_dir-categories" multiple="multiple">
+                                            id="at_biz_dir-categories" <?php echo !empty($multiple_cat_for_user)?'multiple="multiple"':''?>>
                                         <?php
                                         foreach ($categories as $key => $cat_title){
                                             $checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';

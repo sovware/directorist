@@ -3030,8 +3030,11 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
 }
 
 function listing_view_by_list($all_listings, $display_image, $show_pagination, $paged)
-{ ?>
-    <div class="container">
+{
+    $class_name = 'container';
+    $container = apply_filters('list_view_container',$class_name);
+    ?>
+    <div class="<?php echo !empty($container) ? $container : 'container'; ?>">
         <div class="row">
         <div class="<?php echo apply_filters('atbdp_listing_list_view_html_class', 'col-md-12') ?>">
             <?php

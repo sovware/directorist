@@ -72,7 +72,7 @@ if (!class_exists('ATBDP_Listing')):
 
             if( ! isset( $post ) ) return;
 
-            if( is_singular('at_biz_dir') ) {
+
 
                 $title = get_the_title();
 
@@ -82,7 +82,7 @@ if (!class_exists('ATBDP_Listing')):
                 echo '<meta property="og:url" content="' . atbdp_get_current_url() . '" />';
                 echo '<meta property="og:type" content="article" />';
                 echo '<meta property="og:title" content="' . $title . '" />';
-
+            if( is_singular('at_biz_dir') ) {
                 if (!empty($post->post_content)) {
                     echo '<meta property="og:description" content="' . wp_trim_words($post->post_content, 150) . '" />';
                 }
@@ -92,11 +92,12 @@ if (!class_exists('ATBDP_Listing')):
                     $thumbnail = wp_get_attachment_image_src($images, 'full')[0];
                     if (!empty($thumbnail)) echo '<meta property="og:image" content="' . $thumbnail . '" />';
                 }
+            }
 
                 echo '<meta property="og:site_name" content="' . get_bloginfo('name') . '" />';
                 echo '<meta name="twitter:card" content="summary">';
 
-            }
+
         }
 
         /**

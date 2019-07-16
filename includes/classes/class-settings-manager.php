@@ -1663,6 +1663,7 @@ The Administrator of ==SITE_NAME==
                 'listing_published',
                 'listing_deleted',
                 'listing_contact_form',
+                'listing_review'
             ));
         }
 
@@ -1686,6 +1687,7 @@ The Administrator of ==SITE_NAME==
                 'listing_edited',
                 'listing_deleted',
                 'listing_contact_form',
+                'listing_review'
             ));
         }
 
@@ -1728,6 +1730,10 @@ The Administrator of ==SITE_NAME==
                 array(
                     'value' => 'listing_contact_form',
                     'label' => __('Listing Contact Form', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'value' => 'listing_review',
+                    'label' => __('Listing Review', ATBDP_TEXTDOMAIN),
                 ),
             ));
         }

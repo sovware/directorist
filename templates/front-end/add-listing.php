@@ -524,6 +524,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                 <div class="form-group" id="atbdp_locations">
                                     <label for="at_biz_dir-location"><?php
                                         $location_label = get_directorist_option('location_label', __('Location', ATBDP_TEXTDOMAIN));
+                                        $loc_placeholder = get_directorist_option('loc_placeholder', __('Select Location', ATBDP_TEXTDOMAIN));
                                         esc_html_e($location_label.':', ATBDP_TEXTDOMAIN);
                                         echo get_directorist_option('require_location')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
                                  <?php
@@ -540,6 +541,9 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                     <select name="tax_input[at_biz_dir-location][]" class="form-control"
                                             id="at_biz_dir-location" <?php echo !empty($multiple_loc_for_user)?'multiple="multiple"':''?>>
                                         <?php
+                                        if(empty($multiple_loc_for_user)){
+                                            echo '<option>'.$loc_placeholder.'</option>';
+                                        }
                                         foreach ($locations as $key => $cat_title){
                                             $checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
                                             printf( '<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name );
@@ -601,6 +605,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                 <div class="form-group" id="atbdp_categories">
                                     <label for="atbdp_select_cat"><?php
                                         $category_label = get_directorist_option('category_label', __('Select Category', ATBDP_TEXTDOMAIN));
+                                        $cat_placeholder = get_directorist_option('cat_placeholder', __('Select Category', ATBDP_TEXTDOMAIN));
 
                                         esc_html_e($category_label.':', ATBDP_TEXTDOMAIN);
                                         echo get_directorist_option('require_category')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
@@ -624,6 +629,9 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                     <select name="admin_category_select[]" class="form-control"
                                             id="at_biz_dir-categories" <?php echo !empty($multiple_cat_for_user)?'multiple="multiple"':''?>>
                                         <?php
+                                        if(empty($multiple_cat_for_user)){
+                                            echo '<option>'.$cat_placeholder.'</option>';
+                                        }
                                         foreach ($categories as $key => $cat_title){
                                             $checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
                                             printf( '<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name );

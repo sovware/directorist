@@ -252,7 +252,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 /**
                                                                  * @since 5.0.3
                                                                  */
-                                                                do_action('atbdp_user_dashboard_listings_before_expireation', $post->ID);
+                                                                do_action('atbdp_user_dashboard_listings_before_expiration', $post->ID);
                                                                 $exp_text = !empty($never_exp)
                                                                     ? __('Never Expires', ATBDP_TEXTDOMAIN)
                                                                     : date_i18n($date_format, strtotime($exp_date)); ?>

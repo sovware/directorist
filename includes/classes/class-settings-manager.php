@@ -1908,7 +1908,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'overwrite_by_yoast',
                         'label' => __('Disable Overwrite by Yoast', ATBDP_TEXTDOMAIN),
                         'description' => __('Here Yes means Directorist pages will use titles & metas settings from bellow. Otherwise it will use titles & metas settings from Yoast.', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
+                        'default' => 0,
                     ),
                     array(
                         'type' => 'textbox',

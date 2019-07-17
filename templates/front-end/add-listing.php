@@ -959,51 +959,52 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                 $plan_slider =is_plan_allowed_slider($fm_plan);
                             }
                             ?>
-
-                            <div class="atbd_content_module">
-                                <div class="atbd_content_module__tittle_area">
-                                    <div class="atbd_area_title">
-                                        <h4>
-                                            <?php
-                                           $video_text = $plan_video?'& Video':'';
-                                            _e("Images {$video_text}", ATBDP_TEXTDOMAIN);
-                                            ?></h4>
-                                    </div>
-                                </div>
-
-                                <div class="atbdb_content_module_contents">
-                                    <!--Image Uploader-->
-                                    <?php if((!empty($display_prv_field) && empty($display_prv_img_for)) || (!empty($display_gellery_field) && empty($display_glr_img_for))){?>
-                                    <div id="_listing_gallery">
-                                        <?php ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider', 'p_id'));
-                                        ?>
-                                    </div>
-                                    <?php }?>
-                                    <?php
-                                    /**
-                                     * @since 4.7.1
-                                     * It fires after the tag field
-                                     */
-                                    do_action('atbdp_add_listing_after_listing_slider', 'add_listing_page_frontend', $listing_info);
-                                    ?>
-                                    <?php
-                                    if (empty($display_video_for) && !empty($display_video_field) && $plan_video) {
-                                        ?>
-                                        <div class="form-group">
-                                            <label for="videourl"><?php
-                                                $video_label = get_directorist_option('video_label', __('Video Url', ATBDP_TEXTDOMAIN));
-                                                $video_placeholder = get_directorist_option('video_placeholder',__('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN));
-                                                esc_html_e($video_label.':', ATBDP_TEXTDOMAIN);
-                                                echo get_directorist_option('require_video')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
-                                            <input type="text" id="videourl" name="videourl"
-                                                   value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>"
-                                                   class="form-control directory_field"
-                                                   placeholder="<?php echo esc_attr($video_placeholder); ?>"/>
+                            <?php if((!empty($display_prv_field) && empty($display_prv_img_for)) || (!empty($display_gellery_field) && empty($display_glr_img_for)) || (empty($display_video_for) && !empty($display_video_field) && $plan_video)) { ?>
+                                <div class="atbd_content_module">
+                                    <div class="atbd_content_module__tittle_area">
+                                        <div class="atbd_area_title">
+                                            <h4>
+                                                <?php
+                                                $video_text = $plan_video ? '& Video' : '';
+                                                _e("Images {$video_text}", ATBDP_TEXTDOMAIN);
+                                                ?></h4>
                                         </div>
-                                    <?php } ?>
+                                    </div>
+
+                                    <div class="atbdb_content_module_contents">
+                                        <!--Image Uploader-->
+                                        <?php if ((!empty($display_prv_field) && empty($display_prv_img_for)) || (!empty($display_gellery_field) && empty($display_glr_img_for))) { ?>
+                                            <div id="_listing_gallery">
+                                                <?php ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider', 'p_id'));
+                                                ?>
+                                            </div>
+                                        <?php } ?>
+                                        <?php
+                                        /**
+                                         * @since 4.7.1
+                                         * It fires after the tag field
+                                         */
+                                        do_action('atbdp_add_listing_after_listing_slider', 'add_listing_page_frontend', $listing_info);
+                                        ?>
+                                        <?php
+                                        if (empty($display_video_for) && !empty($display_video_field) && $plan_video) {
+                                            ?>
+                                            <div class="form-group">
+                                                <label for="videourl"><?php
+                                                    $video_label = get_directorist_option('video_label', __('Video Url', ATBDP_TEXTDOMAIN));
+                                                    $video_placeholder = get_directorist_option('video_placeholder', __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN));
+                                                    esc_html_e($video_label . ':', ATBDP_TEXTDOMAIN);
+                                                    echo get_directorist_option('require_video') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
+                                                <input type="text" id="videourl" name="videourl"
+                                                       value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>"
+                                                       class="form-control directory_field"
+                                                       placeholder="<?php echo esc_attr($video_placeholder); ?>"/>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
                                 </div>
-                            </div>
-                            <?php
+                                <?php
+                            }
                             /*
                              * @since 4.1.0
                              */

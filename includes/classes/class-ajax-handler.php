@@ -321,51 +321,51 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         die();
     }
 
-        /*
-         * send email to listing's owner for review
-         * */
-        public function atbdp_send_email_review_to_user() {
+    /*
+     * send email to listing's owner for review
+     * */
+    public function atbdp_send_email_review_to_user() {
 
-            if(! in_array( 'listing_review', get_directorist_option('notify_user', array()) ) ) return false;
-            // sanitize form values
-            $post_id = (int) $_POST["post_id"];
-            $message = esc_textarea( $_POST["content"] );
+        if(! in_array( 'listing_review', get_directorist_option('notify_user', array()) ) ) return false;
+        // sanitize form values
+        $post_id = (int) $_POST["post_id"];
+        $message = esc_textarea( $_POST["content"] );
 
-            // vars
-            $user          = wp_get_current_user();
-            $site_name     = get_bloginfo( 'name' );
-            $site_url      = get_bloginfo( 'url' );
-            $listing_title = get_the_title( $post_id );
-            $listing_url   = get_permalink( $post_id );
+        // vars
+        $user          = wp_get_current_user();
+        $site_name     = get_bloginfo( 'name' );
+        $site_url      = get_bloginfo( 'url' );
+        $listing_title = get_the_title( $post_id );
+        $listing_url   = get_permalink( $post_id );
 
-            $placeholders = array(
-                '{site_name}'       => $site_name,
-                '{site_link}'       => sprintf( '<a href="%s">%s</a>', $site_url, $site_name ),
-                '{site_url}'        => sprintf( '<a href="%s">%s</a>', $site_url, $site_url ),
-                '{listing_title}'   => $listing_title,
-                '{listing_link}'    => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_title ),
-                '{listing_url}'     => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_url ),
-                '{sender_name}'     => $user->display_name,
-                '{sender_email}'    => $user->user_email,
-                '{message}'         => $message
-            );
-            $send_email = get_directorist_option('admin_email_lists');
+        $placeholders = array(
+            '{site_name}'       => $site_name,
+            '{site_link}'       => sprintf( '<a href="%s">%s</a>', $site_url, $site_name ),
+            '{site_url}'        => sprintf( '<a href="%s">%s</a>', $site_url, $site_url ),
+            '{listing_title}'   => $listing_title,
+            '{listing_link}'    => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_title ),
+            '{listing_url}'     => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_url ),
+            '{sender_name}'     => $user->display_name,
+            '{sender_email}'    => $user->user_email,
+            '{message}'         => $message
+        );
+        $send_email = get_directorist_option('admin_email_lists');
 
-            $to = $user->user_email;
+        $to = $user->user_email;
 
-            $subject = __( '[{site_name}] Review via "{listing_title}"', ATBDP_TEXTDOMAIN );
-            $subject = strtr( $subject, $placeholders );
+        $subject = __( '[{site_name}] Review via "{listing_title}"', ATBDP_TEXTDOMAIN );
+        $subject = strtr( $subject, $placeholders );
 
-            $message =  __( "Dear User,<br /><br />This is an email review for a listing at {listing_url}.<br /><br />", ATBDP_TEXTDOMAIN );
-            $message = strtr( $message, $placeholders );
+        $message =  __( "Dear User,<br /><br />This is an email review for a listing at {listing_url}.<br /><br />", ATBDP_TEXTDOMAIN );
+        $message = strtr( $message, $placeholders );
 
-            $headers  = "From: {$user->display_name} <{$user->user_email}>\r\n";
-            $headers .= "Reply-To: {$user->user_email}\r\n";
+        $headers  = "From: {$user->display_name} <{$user->user_email}>\r\n";
+        $headers .= "Reply-To: {$user->user_email}\r\n";
 
-            // return true or false, based on the result
-            return ATBDP()->email->send_mail( $to, $subject, $message, $headers ) ? true : false;
+        // return true or false, based on the result
+        return ATBDP()->email->send_mail( $to, $subject, $message, $headers ) ? true : false;
 
-        }
+    }
     /*
      * send email to admin for review
      * */

@@ -204,7 +204,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                 'featured_only'     => '',
                 'popular_only'      => '',
-                'logged_in'         => '',
+                'logged_in_user_only'         => '',
                 'redirect_page_url' => ''
             ), $atts );
             $columns             = !empty($atts['columns']) ? $atts['columns'] : 3;
@@ -212,7 +212,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $show_pagination     = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
             $feature_only        = !empty($atts['featured_only']) ? $atts['featured_only'] : '';
             $popular_only        = !empty($atts['popular_only']) ? $atts['popular_only'] : '';
-            $logged_in           = !empty($atts['logged_in'])  ? $atts['logged_in'] : '';
+            $logged_in_user_only           = !empty($atts['logged_in_user_only'])  ? $atts['logged_in_user_only'] : '';
             $redirect_page_url   = !empty($atts['redirect_page_url'])  ? $atts['redirect_page_url'] : '';
             //for pagination
             $paged               = atbdp_get_paged_num();
@@ -1181,7 +1181,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $redirect = '<script>window.location="'.esc_url($redirect_page_url).'"</script>';
                 return $redirect;
             }
-            if('user_only' == $logged_in) {
+            if('yes' == $logged_in_user_only) {
                 if(is_user_logged_in()) {
                     include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
                 }else{
@@ -1237,7 +1237,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'advanced_filter'           => '',
                 'display_preview_image'     => 'yes',
                 'action_before_after_loop'  => 'yes',
-                'logged_in'                 => '',
+                'logged_in_user_only'       => '',
                 'redirect_page_url'         => ''
             ), $atts );
 
@@ -1253,7 +1253,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $action_before_after_loop  = !empty($atts['action_before_after_loop']) ? $atts['action_before_after_loop'] : '';
             $show_pagination           = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
             $display_image             = !empty($atts['display_preview_image'])  ? $atts['display_preview_image'] : '';
-            $logged_in                 = !empty($atts['logged_in'])  ? $atts['logged_in'] : '';
+            $logged_in_user_only                 = !empty($atts['logged_in_user_only'])  ? $atts['logged_in_user_only'] : '';
             $redirect_page_url         = !empty($atts['redirect_page_url'])  ? $atts['redirect_page_url'] : '';
             //for pagination
             $paged                     = atbdp_get_paged_num();
@@ -1676,7 +1676,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $redirect = '<script>window.location="'.esc_url($redirect_page_url).'"</script>';
                 return $redirect;
             }
-            if('user_only' == $logged_in) {
+            if('yes' == $logged_in_user_only) {
                 if(is_user_logged_in()) {
                     include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
                 }else{
@@ -1741,12 +1741,12 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'cat_per_page'      => 100,
                 'columns'           => '',
                 'slug'              => '',
-                'logged_in'         => '',
+                'logged_in_user_only'         => '',
                 'redirect_page_url' => ''
             ), $atts );
             $categories          = !empty($atts['slug'] ) ? explode(',', $atts['slug'] ) : array();
             $categories_settings['columns'] = !empty($atts['columns'])?$atts['columns']:get_directorist_option('categories_column_number',3);
-            $logged_in           = !empty($atts['logged_in'])  ? $atts['logged_in'] : '';
+            $logged_in_user_only           = !empty($atts['logged_in_user_only'])  ? $atts['logged_in_user_only'] : '';
             $redirect_page_url   = !empty($atts['redirect_page_url'])  ? $atts['redirect_page_url'] : '';
             $args = array(
                 'orderby'      => $atts['orderby'],
@@ -1764,7 +1764,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $redirect = '<script>window.location="'.esc_url($redirect_page_url).'"</script>';
                 return $redirect;
             }
-            if('user_only' == $logged_in) {
+            if('yes' == $logged_in_user_only) {
                 if(is_user_logged_in()) {
                     if( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
                         if('grid' == $atts['view']) {
@@ -1804,10 +1804,10 @@ if ( !class_exists('ATBDP_Shortcode') ):
         public function atbdp_category ($atts) {
 
             $atts = shortcode_atts( array(
-                'logged_in'         => '',
+                'logged_in_user_only'         => '',
                 'redirect_page_url' => ''
             ), $atts );
-            $logged_in           = !empty($atts['logged_in'])  ? $atts['logged_in'] : '';
+            $logged_in_user_only           = !empty($atts['logged_in_user_only'])  ? $atts['logged_in_user_only'] : '';
             $redirect_page_url   = !empty($atts['redirect_page_url'])  ? $atts['redirect_page_url'] : '';
             wp_enqueue_script('adminmainassets');
             wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
@@ -2160,7 +2160,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     $redirect = '<script>window.location="'.esc_url($redirect_page_url).'"</script>';
                     return $redirect;
                 }
-                if('user_only' == $logged_in) {
+                if('yes' == $logged_in_user_only) {
                     if(is_user_logged_in()) {
                         include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
                     }else{
@@ -2202,12 +2202,12 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'loc_per_page'      => 100,
                 'columns'           => '',
                 'slug'              => '',
-                'logged_in'         => '',
+                'logged_in_user_only'         => '',
                 'redirect_page_url' => ''
             ), $atts );
             $locations_settings['columns'] = !empty($atts['columns'])?$atts['columns']:get_directorist_option('locations_column_number',3);
             $locations          = !empty($atts['slug'] ) ? explode(',', $atts['slug'] ) : array();
-            $logged_in           = !empty($atts['logged_in'])  ? $atts['logged_in'] : '';
+            $logged_in_user_only           = !empty($atts['logged_in_user_only'])  ? $atts['logged_in_user_only'] : '';
             $redirect_page_url   = !empty($atts['redirect_page_url'])  ? $atts['redirect_page_url'] : '';
             $args = array(
                 'orderby'      => $atts['orderby'],
@@ -2224,7 +2224,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $redirect = '<script>window.location="'.esc_url($redirect_page_url).'"</script>';
                 return $redirect;
             }
-            if('user_only' == $logged_in) {
+            if('yes' == $logged_in_user_only) {
                 if(is_user_logged_in()) {
                     if( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
                         if('grid' == $atts['view']) {
@@ -2263,10 +2263,10 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
         public function atbdp_location ($atts) {
             $atts = shortcode_atts( array(
-                'logged_in'         => '',
+                'logged_in_user_only'         => '',
                 'redirect_page_url' => ''
             ), $atts );
-            $logged_in           = !empty($atts['logged_in'])  ? $atts['logged_in'] : '';
+            $logged_in_user_only           = !empty($atts['logged_in_user_only'])  ? $atts['logged_in_user_only'] : '';
             $redirect_page_url   = !empty($atts['redirect_page_url'])  ? $atts['redirect_page_url'] : '';
             wp_enqueue_script('adminmainassets');
             $term_slug = get_query_var( 'atbdp_location' );
@@ -2615,7 +2615,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     $redirect = '<script>window.location="'.esc_url($redirect_page_url).'"</script>';
                     return $redirect;
                 }
-                if('user_only' == $logged_in) {
+                if('yes' == $logged_in_user_only) {
                     if(is_user_logged_in()) {
                         include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
                     }else{
@@ -2640,10 +2640,10 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
         public function atbdp_tag ($atts) {
             $atts = shortcode_atts( array(
-                'logged_in'         => '',
+                'logged_in_user_only'         => '',
                 'redirect_page_url' => ''
             ), $atts );
-            $logged_in           = !empty($atts['logged_in'])  ? $atts['logged_in'] : '';
+            $logged_in_user_only           = !empty($atts['logged_in_user_only'])  ? $atts['logged_in_user_only'] : '';
             $redirect_page_url   = !empty($atts['redirect_page_url'])  ? $atts['redirect_page_url'] : '';
             wp_enqueue_script('adminmainassets');
             wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
@@ -2990,7 +2990,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     $redirect = '<script>window.location="'.esc_url($redirect_page_url).'"</script>';
                     return $redirect;
                 }
-                if('user_only' == $logged_in) {
+                if('yes' == $logged_in_user_only) {
                     if(is_user_logged_in()) {
                         include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
                     }else{
@@ -3052,7 +3052,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'apply_filters_button'     => in_array( 'search_apply_filters', $search_filters ) ? 'yes' : '',
                 'reset_filters_text'       => !empty($search_reset_text) ? $search_reset_text : 'Reset Filters',
                 'apply_filters_text'       => !empty($search_apply_text) ? $search_apply_text : 'Apply Filters',
-                'logged_in'         => '',
+                'logged_in_user_only'         => '',
                 'redirect_page_url' => ''
             ), $atts);
 
@@ -3082,14 +3082,14 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $apply_filters_text     = (!empty($atts['apply_filters_text']) ) ? $atts['apply_filters_text'] : '';
             $show_title_subtitle    = ('yes' === $atts['show_title_subtitle'])?$atts['show_title_subtitle']:'';
             $filters_display        = get_directorist_option('home_display_filter','overlapping');
-            $logged_in           = !empty($atts['logged_in'])  ? $atts['logged_in'] : '';
+            $logged_in_user_only           = !empty($atts['logged_in_user_only'])  ? $atts['logged_in_user_only'] : '';
             $redirect_page_url   = !empty($atts['redirect_page_url'])  ? $atts['redirect_page_url'] : '';
             ob_start();
             if(!empty($redirect_page_url)) {
                 $redirect = '<script>window.location="'.esc_url($redirect_page_url).'"</script>';
                 return $redirect;
             }
-            if('user_only' == $logged_in) {
+            if('yes' == $logged_in_user_only) {
                 if (is_user_logged_in()) {
                     include ATBDP_TEMPLATES_DIR . 'listing-home.php';
                 }else{
@@ -3111,7 +3111,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
         public function author_profile($atts){
             $atts = shortcode_atts( array(
-                'logged_in'         => '',
+                'logged_in_user_only'         => '',
                 'redirect_page_url' => ''
             ), $atts );
             //for pagination
@@ -3119,7 +3119,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $category = !empty($_GET['category'])?$_GET['category']:'';
             $paged = atbdp_get_paged_num();
             $paginate = get_directorist_option('paginate_author_listings',1);
-            $logged_in           = !empty($atts['logged_in'])  ? $atts['logged_in'] : '';
+            $logged_in_user_only           = !empty($atts['logged_in_user_only'])  ? $atts['logged_in_user_only'] : '';
             $redirect_page_url   = !empty($atts['redirect_page_url'])  ? $atts['redirect_page_url'] : '';
             $args = array(
                 'post_type'      => ATBDP_POST_TYPE,
@@ -3169,7 +3169,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $redirect = '<script>window.location="'.esc_url($redirect_page_url).'"</script>';
                 return $redirect;
             }
-            if('user_only' == $logged_in) {
+            if('yes' == $logged_in_user_only) {
                 if (is_user_logged_in()) {
                     ATBDP()->load_template('front-end/public-profile', array( 'data' => $data_for_template ));
                 }else{

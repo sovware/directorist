@@ -321,12 +321,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         ?>
                     <?php } elseif (!empty($display_prv_image)) {
                         $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
-                        ?>
-                        <div class="single_image">
-                            <img src="<?= !empty($listing_prv_img) ? esc_url($listing_prv_imgurl) : $default_image; ?>"
-                                 alt="<?php echo esc_html($p_title); ?>">
-                        </div>
-                        <?php
+                        $gallery_image .= '<div class="single_image">';
+                        $gallery_image .= '<img src="' .!empty($listing_prv_img) ? esc_url($listing_prv_imgurl) : $default_image.'"
+                                 alt="'. esc_html($p_title).'">';
+                        $gallery_image .= '</div>';
                     }
                     echo apply_filters('atbdp_single_listing_gallery_section',$gallery_image);
                     ?>

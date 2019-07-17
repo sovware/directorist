@@ -4417,7 +4417,6 @@ The Administrator of ==SITE_NAME==
                     'description' => __('Hide/show preview image from single listing page.', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
-
                 array(
                     'type' => 'toggle',
                     'name' => 'dsiplay_slider_single_page',
@@ -4425,7 +4424,6 @@ The Administrator of ==SITE_NAME==
                     'description' => __('Hide/show slider image from single listing page.', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
-
                 array(
                     'type' => 'toggle',
                     'name' => 'dsiplay_thumbnail_img',
@@ -4433,7 +4431,6 @@ The Administrator of ==SITE_NAME==
                     'description' => __('Hide/show slider thumbnail from single listing page.', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
-
                 array(
                     'type' => 'toggle',
                     'name' => 'gallery_cropping',
@@ -4441,7 +4438,6 @@ The Administrator of ==SITE_NAME==
                     'description' => __('If the slider images are not in the same size, it helps automatically resizing.', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
-
                 array(
                     'type' => 'slider',
                     'name' => 'gallery_crop_width',

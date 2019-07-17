@@ -1687,7 +1687,6 @@ The Administrator of ==SITE_NAME==
                 'listing_edited',
                 'listing_deleted',
                 'listing_contact_form',
-                'listing_review'
             ));
         }
 
@@ -1773,11 +1772,6 @@ The Administrator of ==SITE_NAME==
                     'value' => 'remind_to_renew',
                     'label' => __('Remind to renew', ATBDP_TEXTDOMAIN),
                 ),
-                array(
-                    'value' => 'listing_renewed',
-                    'label' => __('Listing Renewed', ATBDP_TEXTDOMAIN),
-                ),
-
             ));
         }
 

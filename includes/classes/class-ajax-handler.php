@@ -309,7 +309,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
             );
             if ($id = ATBDP()->review->db->add($data)){
                 //$this->atbdp_send_email_review_to_user();
-               // $this->atbdp_send_email_review_to_admin();
+                $this->atbdp_send_email_review_to_admin();
                 wp_send_json_success(array('id'=>$id));
             }
         }else{
@@ -353,10 +353,10 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
         $to = $user->user_email;
 
-        $subject = __( '[{site_name}] Review via "{listing_title}"', ATBDP_TEXTDOMAIN );
+        $subject = __( '[{site_name}] New review at "{listing_title}"', ATBDP_TEXTDOMAIN );
         $subject = strtr( $subject, $placeholders );
 
-        $message =  __( "Dear User,<br /><br />This is an email review for a listing at {listing_url}.<br /><br />", ATBDP_TEXTDOMAIN );
+        $message =  __( "Dear User,<br /><br />A new review at {listing_url}.<br /><br />", ATBDP_TEXTDOMAIN );
         $message = strtr( $message, $placeholders );
 
         $headers  = "From: {$user->display_name} <{$user->user_email}>\r\n";
@@ -400,10 +400,10 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
         $to = !empty($send_email) ? $send_email : get_bloginfo('admin_email');
 
-        $subject = __( '[{site_name}] Review via "{listing_title}"', ATBDP_TEXTDOMAIN );
+        $subject = __( '[{site_name}] New review at "{listing_title}"', ATBDP_TEXTDOMAIN );
         $subject = strtr( $subject, $placeholders );
 
-        $message =  __( "Dear Administrator,<br /><br />This is an email review for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}", ATBDP_TEXTDOMAIN );
+        $message =  __( "Dear Administrator,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}", ATBDP_TEXTDOMAIN );
         $message = strtr( $message, $placeholders );
 
         $headers  = "From: {$user->display_name} <{$user->user_email}>\r\n";

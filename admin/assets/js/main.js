@@ -407,6 +407,7 @@ jQuery(function ($) {
                 $('#atbdp-custom-fields-list').html(response);
 
         });
+        $('#atbdp-custom-fields-list-selected').hide();
     });
 
     var length = $('#at_biz_dir-categorychecklist input:checked');

@@ -524,6 +524,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                 <div class="form-group" id="atbdp_locations">
                                     <label for="at_biz_dir-location"><?php
                                         $location_label = get_directorist_option('location_label', __('Location', ATBDP_TEXTDOMAIN));
+                                        $loc_placeholder = get_directorist_option('loc_placeholder', __('Select Location', ATBDP_TEXTDOMAIN));
                                         esc_html_e($location_label.':', ATBDP_TEXTDOMAIN);
                                         echo get_directorist_option('require_location')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
                                  <?php
@@ -540,6 +541,9 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                     <select name="tax_input[at_biz_dir-location][]" class="form-control"
                                             id="at_biz_dir-location" <?php echo !empty($multiple_loc_for_user)?'multiple="multiple"':''?>>
                                         <?php
+                                        if(empty($multiple_loc_for_user)){
+                                            echo '<option>'.$loc_placeholder.'</option>';
+                                        }
                                         foreach ($locations as $key => $cat_title){
                                             $checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
                                             printf( '<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name );
@@ -601,6 +605,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                 <div class="form-group" id="atbdp_categories">
                                     <label for="atbdp_select_cat"><?php
                                         $category_label = get_directorist_option('category_label', __('Select Category', ATBDP_TEXTDOMAIN));
+                                        $cat_placeholder = get_directorist_option('cat_placeholder', __('Select Category', ATBDP_TEXTDOMAIN));
 
                                         esc_html_e($category_label.':', ATBDP_TEXTDOMAIN);
                                         echo get_directorist_option('require_category')?'<span class="atbdp_make_str_red">*</span>':'';?></label>
@@ -624,6 +629,9 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                     <select name="admin_category_select[]" class="form-control"
                                             id="at_biz_dir-categories" <?php echo !empty($multiple_cat_for_user)?'multiple="multiple"':''?>>
                                         <?php
+                                        if(empty($multiple_cat_for_user)){
+                                            echo '<option>'.$cat_placeholder.'</option>';
+                                        }
                                         foreach ($categories as $key => $cat_title){
                                             $checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
                                             printf( '<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name );
@@ -951,51 +959,52 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                 $plan_slider =is_plan_allowed_slider($fm_plan);
                             }
                             ?>
-
-                            <div class="atbd_content_module">
-                                <div class="atbd_content_module__tittle_area">
-                                    <div class="atbd_area_title">
-                                        <h4>
-                                            <?php
-                                           $video_text = $plan_video?'& Video':'';
-                                            _e("Images {$video_text}", ATBDP_TEXTDOMAIN);
-                                            ?></h4>
-                                    </div>
-                                </div>
-
-                                <div class="atbdb_content_module_contents">
-                                    <!--Image Uploader-->
-                                    <?php if((!empty($display_prv_field) && empty($display_prv_img_for)) || (!empty($display_gellery_field) && empty($display_glr_img_for))){?>
-                                    <div id="_listing_gallery">
-                                        <?php ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider', 'p_id'));
-                                        ?>
-                                    </div>
-                                    <?php }?>
-                                    <?php
-                                    /**
-                                     * @since 4.7.1
-                                     * It fires after the tag field
-                                     */
-                                    do_action('atbdp_add_listing_after_listing_slider', 'add_listing_page_frontend', $listing_info);
-                                    ?>
-                                    <?php
-                                    if (empty($display_video_for) && !empty($display_video_field) && $plan_video) {
-                                        ?>
-                                        <div class="form-group">
-                                            <label for="videourl"><?php
-                                                $video_label = get_directorist_option('video_label', __('Video Url', ATBDP_TEXTDOMAIN));
-                                                $video_placeholder = get_directorist_option('video_placeholder',__('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN));
-                                                esc_html_e($video_label.':', ATBDP_TEXTDOMAIN);
-                                                echo get_directorist_option('require_video')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
-                                            <input type="text" id="videourl" name="videourl"
-                                                   value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>"
-                                                   class="form-control directory_field"
-                                                   placeholder="<?php echo esc_attr($video_placeholder); ?>"/>
+                            <?php if((!empty($display_prv_field) && empty($display_prv_img_for)) || (!empty($display_gellery_field) && empty($display_glr_img_for)) || (empty($display_video_for) && !empty($display_video_field) && $plan_video)) { ?>
+                                <div class="atbd_content_module">
+                                    <div class="atbd_content_module__tittle_area">
+                                        <div class="atbd_area_title">
+                                            <h4>
+                                                <?php
+                                                $video_text = $plan_video ? '& Video' : '';
+                                                _e("Images {$video_text}", ATBDP_TEXTDOMAIN);
+                                                ?></h4>
                                         </div>
-                                    <?php } ?>
+                                    </div>
+
+                                    <div class="atbdb_content_module_contents">
+                                        <!--Image Uploader-->
+                                        <?php if ((!empty($display_prv_field) && empty($display_prv_img_for)) || (!empty($display_gellery_field) && empty($display_glr_img_for))) { ?>
+                                            <div id="_listing_gallery">
+                                                <?php ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider', 'p_id'));
+                                                ?>
+                                            </div>
+                                        <?php } ?>
+                                        <?php
+                                        /**
+                                         * @since 4.7.1
+                                         * It fires after the tag field
+                                         */
+                                        do_action('atbdp_add_listing_after_listing_slider', 'add_listing_page_frontend', $listing_info);
+                                        ?>
+                                        <?php
+                                        if (empty($display_video_for) && !empty($display_video_field) && $plan_video) {
+                                            ?>
+                                            <div class="form-group">
+                                                <label for="videourl"><?php
+                                                    $video_label = get_directorist_option('video_label', __('Video Url', ATBDP_TEXTDOMAIN));
+                                                    $video_placeholder = get_directorist_option('video_placeholder', __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN));
+                                                    esc_html_e($video_label . ':', ATBDP_TEXTDOMAIN);
+                                                    echo get_directorist_option('require_video') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
+                                                <input type="text" id="videourl" name="videourl"
+                                                       value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>"
+                                                       class="form-control directory_field"
+                                                       placeholder="<?php echo esc_attr($video_placeholder); ?>"/>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
                                 </div>
-                            </div>
-                            <?php
+                                <?php
+                            }
                             /*
                              * @since 4.1.0
                              */

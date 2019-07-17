@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 5.4.3
+Stable tag: 5.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,7 +29,7 @@ Whether you’re creating a business, event, or any other type of directory and 
 = EASY TO USE =
 Make a powerful and beautiful business directory or classified website with the world-first easiest business directory plugin. Anyone can turn his/his website into a powerful and professional directory website with this plugin without having any programming skill.
 
-= CLEAN & EXPRESSIVE SETTINGS OPTIONS =
+= CLEAN, EXPRESSIVE & SEARCHABLE SETTINGS OPTIONS =
 We do not like to scare user with tons of settings and options. We have implemented a very clean and easily-understandable setting panel where a user can easily customize the plugins. This plugin is extremely fast and powerful and it can be extended with add-ons as per user choice.
 
 = MONETIZATION =
@@ -128,6 +128,18 @@ Directorist is not developed by a single person. A team of dedicated developers 
 18. Add New Custom Field
 
 == Changelog ==
+
+= 5.5.0 - Jul 17, 2019 =
+
+* Add - Multiple Locations and Categories for users
+* Add - Private/logged in user only content/directory
+* Add - Forward/redirect any pages
+* Add - Option to make Search fields required
+* Add - Admin Email Notification when someone submits a review
+* Fix - Custom Fields issue of Add Listing form
+* Fix - Minor issue of Image & Video section
+* Fix - Full width issue with Directoria theme
+* Fix - Line break & paragraph issues of single listing
 
 = 5.4.3 - Jul 10, 2019 =
 

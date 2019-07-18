@@ -1377,29 +1377,21 @@ jQuery(function ($) {
         lf_opt55.show();
     }
 
-    $(".vp-field.vp-select .label .description strong").on("click", function () {
-        var sel, range;
-        var el = $(this)[0];
-        if (window.getSelection && document.createRange) { //Browser compatibility
-            sel = document.getSelection();
-            if(sel.toString() === ''){ //no text selection
-                window.setTimeout(function(){
-                    range = document.createRange(); //range object
-                    range.selectNodeContents(el); //sets Range
-                    sel.removeAllRanges(); //remove all ranges from selection
-                    sel.addRange(range);//add Range to a Selection.
-                },1);
-            }
-        }else if (document.selection) { //older ie
-            sel = document.selection.createRange();
-            if(sel.text === ''){ //no text selection
-                range = document.body.createTextRange();//Creates TextRange object
-                range.moveToElementText(el);//sets Range
-                range.select(); //make selection.
-            }
-        }
-    })
+    /* Copy shortcodes on click */
+    var textToCopy = document.querySelectorAll(".vp-field.vp-select .label .description strong");
+    textToCopy.forEach((el, index) =>{
+        el.addEventListener("click", function () {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(el).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+            $(el).after("<p style='color: #32cc6f; margin-top: 5px;'>Copied to clipboard!</p>");
+            setTimeout(function () {
+                $(el).siblings("p").fadeOut();
+            }, 3000);
+        });
+    });
 
 });
-
 

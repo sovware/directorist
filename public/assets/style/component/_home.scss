@@ -10,7 +10,7 @@
     background-clip: padding-box;
     border: 1px solid #dbdaf7;
     border-radius: 0.25rem;
-    min-height: 36px;
+    min-height: 44px;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
   &.directory_search_area{
@@ -22,7 +22,7 @@
     }
   }
   .select2-container--default .select2-selection--single .select2-selection__rendered{
-    line-height: 35px;
+    line-height: 41px;
   }
   .select2-container--default .select2-selection--single .select2-selection__arrow{
     height: 35px;

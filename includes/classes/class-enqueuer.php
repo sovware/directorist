@@ -505,20 +505,28 @@ class ATBDP_Enqueuer {
         }
         $phone = '';
         $phone2 = '';
+        $fax = '';
         $require_phone = get_directorist_option('require_phone_number');
         $require_phone2 = get_directorist_option('require_phone_number2');
+        $require_fax = get_directorist_option('require_fax');
 
         $display_phone = get_directorist_option('display_phone_field', 1);
         $display_phone2 = get_directorist_option('display_phone2_field', 1);
+        $display_fax = get_directorist_option('display_fax', 1);
 
         $phone_visable = get_directorist_option('display_phone_for', 0);
         $phone2_visable = get_directorist_option('display_phone2_for', 0);
+        $fax_visable = get_directorist_option('display_fax_for', 0);
         if(($require_phone && $display_phone) && $plan_phone && empty($phone_visable)){
             $phone = __('Phone field is required!', ATBDP_TEXTDOMAIN);
         }
         if(($require_phone2 && $display_phone2) && $plan_phone && empty($phone2_visable)){
             $phone2 = __('This field is required!', ATBDP_TEXTDOMAIN);
         }
+        if(($require_fax && $display_fax) && empty($fax_visable)){
+            $fax = __('This field is required!', ATBDP_TEXTDOMAIN);
+        }
+
         //email
         $plan_email = true;
         if (is_fee_manager_active()){
@@ -617,6 +625,7 @@ class ATBDP_Enqueuer {
             'address'    => $address,
             'phone'    => $phone,
             'phone2'    => $phone2,
+            'fax'    => $fax,
             'email'    => $email,
             'web'    => $web,
             'zip'    => $zip,

@@ -21,6 +21,7 @@ if (!empty($p_id)) {
     $listing_info['address'] = get_post_meta($p_id, '_address', true);
     $listing_info['phone'] = get_post_meta($p_id, '_phone', true);
     $listing_info['phone2'] = get_post_meta($p_id, '_phone2', true);
+    $listing_info['fax'] = get_post_meta($p_id, '_fax', true);
     $listing_info['email'] = get_post_meta($p_id, '_email', true);
     $listing_info['website'] = get_post_meta($p_id, '_website', true);
     $listing_info['zip'] = get_post_meta($p_id, '_zip', true);
@@ -101,6 +102,8 @@ $display_phone_field = get_directorist_option('display_phone_field', 1);
 $display_phone_for = get_directorist_option('display_phone_for', 0);
 $display_phone2_field = get_directorist_option('display_phone_field2', 1);
 $display_phone2_for = get_directorist_option('display_phone2_for', 0);
+$display_fax_field = get_directorist_option('display_fax', 1);
+$display_fax_for = get_directorist_option('display_fax_for', 0);
 $display_email_field = get_directorist_option('display_email_field', 1);
 $display_email_for = get_directorist_option('display_email_for', 0);
 $display_website_field = get_directorist_option('display_website_field', 1);
@@ -683,7 +686,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
                             </div><!-- end .atbd_custom_fields_contents -->
                             <div class="atbdb_content_module">
-                                <?php if (empty($display_phone_for || $display_address_for || $display_email_for || $display_website_for || $display_zip_for || $display_social_info_for) || !empty($display_address_field || $display_phone_field || $display_email_field || $display_website_field || $display_zip_field || $display_social_info_field)) { ?>
+                                <?php if (empty($display_fax_for ||$display_phone2_for || $display_phone_for || $display_address_for || $display_email_for || $display_website_for || $display_zip_for || $display_social_info_for) || !empty($display_address_field || $display_phone_field || $display_phone2_field || $display_fax_field || $display_email_field || $display_website_field || $display_zip_field || $display_social_info_field)) { ?>
                                     <div class="atbd_content_module atbd_contact_information">
                                         <div class="atbd_content_module__tittle_area">
                                             <div class="atbd_area_title">
@@ -859,6 +862,21 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                            value="<?= !empty($phone2) ? esc_attr($phone2) : ''; ?>"
                                                            class="form-control directory_field"
                                                            placeholder="<?php echo esc_attr($phone_placeholder2); ?>"/>
+                                                </div>
+                                            <?php }
+
+                                            if (empty($display_fax_for) && !empty($display_fax_field)) {
+                                                ?>
+                                                <div class="form-group" id="atbdp_fax">
+                                                    <label for="atbdp_fax"><?php
+                                                        $fax_label = get_directorist_option('fax_label', __('Fax', ATBDP_TEXTDOMAIN));
+                                                        $fax_placeholder = get_directorist_option('fax_placeholder', __('Fax', ATBDP_TEXTDOMAIN));
+                                                        esc_html_e($fax_label . ':', ATBDP_TEXTDOMAIN);
+                                                        echo get_directorist_option('require_fax') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
+                                                    <input type="tel" name="fax" id="atbdp_fax"
+                                                           value="<?= !empty($fax) ? esc_attr($fax) : ''; ?>"
+                                                           class="form-control directory_field"
+                                                           placeholder="<?php echo esc_attr($fax_placeholder); ?>"/>
                                                 </div>
                                             <?php }
                                             $plan_email = true;

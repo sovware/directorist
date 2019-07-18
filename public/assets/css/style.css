@@ -507,6 +507,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 10px 15px;
 }
 
+#directorist.atbd_wrapper .form-control[type="time"], #directorist.atbd_wrapper .form-control[type="date"], .default-ad-search .form-control[type="time"], .default-ad-search .form-control[type="date"] {
+  padding: 9px 15px;
+}
+
 #directorist.atbd_wrapper textarea.form-control, .default-ad-search textarea.form-control {
   padding-top: 0;
 }
@@ -759,6 +763,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .fade.show {
   opacity: 1;
+}
+
+.wp-switch-editor {
+  top: 0 !important;
+  height: 35px !important;
 }
 
 .plupload-thumbs .thumb {
@@ -3282,6 +3291,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-left: 25px;
 }
 
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+  margin-top: 3px !important;
+}
+
 .olMap + .cor-wrap {
   margin-top: 15px;
 }
@@ -3655,7 +3668,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   background-clip: padding-box;
   border: 1px solid #dbdaf7;
   border-radius: 0.25rem;
-  min-height: 36px;
+  min-height: 44px;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -3668,7 +3681,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-container--default .select2-selection--single .select2-selection__rendered {
-  line-height: 35px;
+  line-height: 41px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-container--default .select2-selection--single .select2-selection__arrow {

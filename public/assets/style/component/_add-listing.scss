@@ -241,6 +241,11 @@
     }
   }
 }
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered{
+  margin-top: 3px !important;
+}
+
 .olMap + .cor-wrap{
   margin-top: 15px;
 }

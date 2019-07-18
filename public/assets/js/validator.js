@@ -96,6 +96,14 @@ jQuery(document).ready(function ($) {
             to_top('#atbdp_phone');
             return false;
         }
+        //phone
+        var phone = $("input[name='phone2']").val();
+        var required_phone2 = add_listing_validator.phone2;
+        if ('' === phone && '' !== required_phone2) {
+            $("#atbdp_phone2").append('<span class="atbdp_required">' + w_icon + required_phone2 + '</span>');
+            to_top('#atbdp_phone2');
+            return false;
+        }
         //email
         var email = $("input[name='email']").val();
         var required_email = add_listing_validator.email;

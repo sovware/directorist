@@ -504,11 +504,20 @@ class ATBDP_Enqueuer {
             $plan_phone = is_plan_allowed_listing_phone($fm_plans);
         }
         $phone = '';
+        $phone2 = '';
         $require_phone = get_directorist_option('require_phone_number');
+        $require_phone2 = get_directorist_option('require_phone_number2');
+
         $display_phone = get_directorist_option('display_phone_field', 1);
+        $display_phone2 = get_directorist_option('display_phone2_field', 1);
+
         $phone_visable = get_directorist_option('display_phone_for', 0);
+        $phone2_visable = get_directorist_option('display_phone2_for', 0);
         if(($require_phone && $display_phone) && $plan_phone && empty($phone_visable)){
             $phone = __('Phone field is required!', ATBDP_TEXTDOMAIN);
+        }
+        if(($require_phone2 && $display_phone2) && $plan_phone && empty($phone2_visable)){
+            $phone2 = __('This field is required!', ATBDP_TEXTDOMAIN);
         }
         //email
         $plan_email = true;
@@ -607,6 +616,7 @@ class ATBDP_Enqueuer {
             'location'    => $location,
             'address'    => $address,
             'phone'    => $phone,
+            'phone2'    => $phone2,
             'email'    => $email,
             'web'    => $web,
             'zip'    => $zip,

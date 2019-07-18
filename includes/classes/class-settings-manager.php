@@ -1687,7 +1687,6 @@ The Administrator of ==SITE_NAME==
                 'listing_edited',
                 'listing_deleted',
                 'listing_contact_form',
-                'listing_review'
             ));
         }
 
@@ -1773,11 +1772,6 @@ The Administrator of ==SITE_NAME==
                     'value' => 'remind_to_renew',
                     'label' => __('Remind to renew', ATBDP_TEXTDOMAIN),
                 ),
-                array(
-                    'value' => 'listing_renewed',
-                    'label' => __('Listing Renewed', ATBDP_TEXTDOMAIN),
-                ),
-
             ));
         }
 
@@ -1908,7 +1902,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'overwrite_by_yoast',
                         'label' => __('Disable Overwrite by Yoast', ATBDP_TEXTDOMAIN),
                         'description' => __('Here Yes means Directorist pages will use titles & metas settings from bellow. Otherwise it will use titles & metas settings from Yoast.', ATBDP_TEXTDOMAIN),
-                        'default' => 1,
+                        'default' => 0,
                     ),
                     array(
                         'type' => 'textbox',
@@ -4417,7 +4411,6 @@ The Administrator of ==SITE_NAME==
                     'description' => __('Hide/show preview image from single listing page.', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
-
                 array(
                     'type' => 'toggle',
                     'name' => 'dsiplay_slider_single_page',
@@ -4425,7 +4418,6 @@ The Administrator of ==SITE_NAME==
                     'description' => __('Hide/show slider image from single listing page.', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
-
                 array(
                     'type' => 'toggle',
                     'name' => 'dsiplay_thumbnail_img',
@@ -4433,7 +4425,6 @@ The Administrator of ==SITE_NAME==
                     'description' => __('Hide/show slider thumbnail from single listing page.', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
-
                 array(
                     'type' => 'toggle',
                     'name' => 'gallery_cropping',
@@ -4441,7 +4432,6 @@ The Administrator of ==SITE_NAME==
                     'description' => __('If the slider images are not in the same size, it helps automatically resizing.', ATBDP_TEXTDOMAIN),
                     'default' => 1,
                 ),
-
                 array(
                     'type' => 'slider',
                     'name' => 'gallery_crop_width',

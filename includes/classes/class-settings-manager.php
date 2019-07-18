@@ -869,9 +869,164 @@ if (!class_exists('ATBDP_Settings_Manager')):
                         ),
                     )),
                 ),
+                /*Submenu : Review */
+                array(
+                    'title' => __('Style Setting', ATBDP_TEXTDOMAIN),
+                    'name' => 'style_setting',
+                    'icon' => 'font-awesome:fa-adjust',
+                    'controls' => apply_filters('atbdp_style_controls', array(
+                        'emails' => array(
+                            'type' => 'section',
+                            'title' => __('Style Setting', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_listings_style_settings_fields(),
+                        ),
+                    )),
+                ),
             ));
         }
 
+
+        /**
+         * Get all the submenus for the style menu
+         * @return array It returns an array of submenus
+         * @since 5.5.1
+         */
+        public function get_listings_style_settings_fields(){
+            return apply_filters('atbdp_style_settings_submenus', array(
+                array(
+                    'type' => 'color',
+                    'name' => 'primary_color',
+                    'label' => __('Primary Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_primary_color',
+                    'label' => __('Background Primary Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_primary_color',
+                    'label' => __('Border Primary Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'secondary_color',
+                    'label' => __('Secondary Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#122069',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_secondary_color',
+                    'label' => __('Background Secondary Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#122069',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'success_color',
+                    'label' => __('Success Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#32cc6f',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_success_color',
+                    'label' => __('Background Success Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#32cc6f',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'info_color',
+                    'label' => __('Info Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#3590ec',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_info_color',
+                    'label' => __('Background Info Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#3590ec',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'warning_color',
+                    'label' => __('Warning Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#ffaf00',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_warning_color',
+                    'label' => __('Background Warning Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#ffaf00',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'danger_color',
+                    'label' => __('Danger Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_danger_color',
+                    'label' => __('Background Danger Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'dark_color',
+                    'label' => __('Dark Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#202428',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_dark_color',
+                    'label' => __('Background Dark Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#202428',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'featured_badge_color',
+                    'label' => __('Featured Badge Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#fa8b0c',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'featured_back_color',
+                    'label' => __('Featured Badge Background Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#fa8b0c',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'popular_badge_color',
+                    'label' => __('Popular Badge Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#f51957',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'popular_back_color',
+                    'label' => __('Popular Badge Background Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#f51957',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'heading_color',
+                    'label' => __('Heading Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#272b41',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'text_color',
+                    'label' => __('Text Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#7a82a6',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'rating_color',
+                    'label' => __('Rating Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#fa8b0c',
+                ),
+            ));
+        }
         /**
          * Get all the submenus for the email menu
          * @return array It returns an array of submenus

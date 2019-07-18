@@ -8,6 +8,12 @@ $view_as = get_directorist_option('grid_view_as', 'normal_grid');
 
 wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
 $column_width = 100 / $columns . '%';
+/**
+ * @package Directorist
+ * @since 5.5.1
+ * @param WP_Query $all_listings    It contains all the queried listings by a user
+ */
+do_action('atbdp_before_all_listings_grid', $all_listings);
 ?>
 
 <div id="directorist" class="atbd_wrapper ads-advaced--wrapper">

@@ -33,12 +33,12 @@ wp_localize_script('atbdp-search-listing','atbdp_search',array(
     'ajax_url'           => admin_url( 'admin-ajax.php' ),
 ));
 wp_enqueue_style( 'atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
-$container_fluid             = is_directoria_active() ? 'container' : 'container-fluid';
+$container_fluid      = is_directoria_active() ? 'container' : 'container-fluid';
 $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
 ?>
 <!-- start search section -->
 <div id="directorist" class="directorist atbd_wrapper directory_search_area single_area ads-advaced--wrapper"
-     style="background-image: url('<?php echo is_directoria_active() ? esc_url($search_home_bg_image) : ''; ?>')">
+     style="background-image: url('<?php echo is_directoria_active() ? esc_url($search_home_bg_image) : esc_url($search_home_bg); ?>')">
     <!-- start search area container -->
     <div class="<?php echo apply_filters('atbdp_search_home_container_fluid',$container_fluid) ?>">
         <div class="row">

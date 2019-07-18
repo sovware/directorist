@@ -14,6 +14,8 @@ $listing_info['tagline'] = get_post_meta($post->ID, '_tagline', true);
 $listing_info['excerpt'] = get_post_meta($post->ID, '_excerpt', true);
 $listing_info['address'] = get_post_meta($post->ID, '_address', true);
 $listing_info['phone'] = get_post_meta($post->ID, '_phone', true);
+$listing_info['phone2'] = get_post_meta($post->ID, '_phone2', true);
+$listing_info['fax'] = get_post_meta($post->ID, '_fax', true);
 $listing_info['email'] = get_post_meta($post->ID, '_email', true);
 $listing_info['website'] = get_post_meta($post->ID, '_website', true);
 $listing_info['zip'] = get_post_meta($post->ID, '_zip', true);
@@ -129,6 +131,10 @@ $display_tagline_field = get_directorist_option('display_tagline_field', 0);
 $display_pricing_field = get_directorist_option('display_pricing_field', 1);
 $display_address_field = get_directorist_option('display_address_field', 1);
 $display_phone_field = get_directorist_option('display_phone_field', 1);
+$display_phone2_field = get_directorist_option('display_phone_field2', 1);
+$phone_label2 = get_directorist_option('phone_label2', __('Phone Number 2', ATBDP_TEXTDOMAIN));
+$display_fax_field = get_directorist_option('display_fax', 1);
+$fax_label = get_directorist_option('fax_label', __('Fax', ATBDP_TEXTDOMAIN));
 $display_email_field = get_directorist_option('display_email_field', 1);
 $display_website_field = get_directorist_option('display_website_field', 1);
 $display_zip_field = get_directorist_option('display_zip_field', 1);
@@ -455,19 +461,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             <?php do_action('atbdp_after_single_listing_details_section');?>
 
             <?php
-            $term_id = get_post_meta($post->ID, '_admin_category_select', true);
-            $meta_array = array('relation' => 'AND');
-            $meta_array = array(
-                'key' => 'category_pass',
-                'value' => $term_id,
-                'compare' => 'EXISTS'
-            );
-
-            if (('-1' === $term_id) || empty($term_id)) {
-                $post_ids_array = $cats; //this array will be dynamically generated
-                if (!empty($post_ids_array)) {
+            $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+            if (count($cats)>1) {
                     $meta_array = array('relation' => 'OR');
-                    foreach ($post_ids_array as $key => $value) {
+                    foreach ($cats as $key => $value) {
                         array_push($meta_array,
                             array(
                                 'key' => 'category_pass',
@@ -476,7 +473,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                             )
                         );
                     }
-                }
+            }else{
+                $meta_array =  array(
+                    'key' => 'category_pass',
+                    'value' => $cats[0]->term_id,
+                    'compare' => 'EXISTS'
+                );
             }
             $custom_fields = new WP_Query(array(
                 'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
@@ -616,7 +618,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php }
-            if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>
+            if ((!$hide_contact_info) && !empty($address || $phone || $phone2 || $fax || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>
                 <div class="atbd_content_module atbd_contact_information_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
@@ -646,6 +648,29 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                                     class="<?php atbdp_icon_type(true);?>-phone"></span><?php _e('Phone', ATBDP_TEXTDOMAIN); ?>
                                         </div>
                                         <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($phone)); ?>"><?php echo esc_html(stripslashes($phone)); ?></a>
+                                        </div>
+                                    </li>
+                                <?php } ?>
+
+                                <?php
+                                if (isset($phone2) && !is_empty_v($phone2) && !empty($display_phone2_field)) { ?>
+                                    <!-- In Future, We will have to use a loop to print more than 1 number-->
+                                    <li>
+                                        <div class="atbd_info_title"><span
+                                                    class="<?php atbdp_icon_type(true);?>-phone"></span><?php echo $phone_label2; ?>
+                                        </div>
+                                        <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($phone2)); ?>"><?php echo esc_html(stripslashes($phone2)); ?></a>
+                                        </div>
+                                    </li>
+                                <?php } ?>
+                                <?php
+                                if (isset($fax) && !is_empty_v($fax) && !empty($display_fax_field)) { ?>
+                                    <!-- In Future, We will have to use a loop to print more than 1 number-->
+                                    <li>
+                                        <div class="atbd_info_title"><span
+                                                    class="<?php atbdp_icon_type(true);?>-fax"></span><?php echo $fax_label; ?>
+                                        </div>
+                                        <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($fax)); ?>"><?php echo esc_html(stripslashes($fax)); ?></a>
                                         </div>
                                     </li>
                                 <?php } ?>

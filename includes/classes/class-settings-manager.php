@@ -799,6 +799,16 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'title' => __('Phone Number', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_phone_field_settings(),
                         ),
+                        'phone_field2' => array(
+                            'type' => 'section',
+                            'title' => __('Phone Number 2', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_listings_phone_field2_settings(),
+                        ),
+                        'pax' => array(
+                            'type' => 'section',
+                            'title' => __('Fax', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_listings_fax_settings(),
+                        ),
                         'email_field' => array(
                             'type' => 'section',
                             'title' => __('Email', ATBDP_TEXTDOMAIN),
@@ -3981,6 +3991,91 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_phone_for',
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+
+            ));
+        }
+        /**
+         * Get phone number settings field
+         * @return array
+         * @since 4.7.2
+         */
+        public function get_listings_phone_field2_settings()
+        {
+            return apply_filters('atbdp_phone_field2_setting', array(
+
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_phone_field2',
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'phone_label2',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Phone 2', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'phone_placeholder2',
+                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
+                    'default' => __('Phone Number 2', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_phone_number2',
+                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_phone2_for',
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+
+            ));
+        }
+
+        /**
+         * Get phone number settings field
+         * @return array
+         * @since 4.7.2
+         */
+        public function get_listings_fax_settings()
+        {
+            return apply_filters('atbdp_fax_setting', array(
+
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_fax',
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'fax_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Fax', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'fax_placeholder',
+                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
+                    'default' => __('Enter Fax', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_fax',
+                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_fax_for',
                     'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),

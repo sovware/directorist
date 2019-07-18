@@ -51,7 +51,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
          * @since 4.7.4
          */
         public function my_login_fail($username){
-            include ATBDP_DIR .'public/assets/css/style.php';
+            //include ATBDP_DIR .'public/assets/css/style.php';
             $referrer = $_SERVER['HTTP_REFERER'];  // where did the post submission come from?
             // if there's a valid referrer, and it's not the default log-in screen
             if ( !empty($referrer) && !strstr($referrer,'wp-login') && !strstr($referrer,'wp-admin') ) {
@@ -80,7 +80,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
          * @param	 array    $term_id    Category ID.
          */
         public function ajax_callback_custom_fields( $post_id = 0, $term_id = array() ) {
-            include ATBDP_DIR .'public/assets/css/style.php';
+            //include ATBDP_DIR .'public/assets/css/style.php';
             $ajax = false;
             if( isset( $_POST['term_id'] ) ) {
                 $ajax = true;
@@ -177,7 +177,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
         public function search_result($atts)
         {
-            include ATBDP_DIR .'public/assets/css/style.php';
+            //include ATBDP_DIR .'public/assets/css/style.php';
             wp_enqueue_script('adminmainassets');
             $listing_orderby           = get_directorist_option('search_order_listing_by');
             $search_sort_listing_by   = get_directorist_option('search_sort_listing_by');
@@ -875,11 +875,37 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 );
             }
 
-            if(isset($_GET['phone'])) {
+            /*if(isset($_GET['phone'])) {
                 $phone = $_GET['phone'];
                 $meta_queries[] = array(
                     'key'   => '_phone',
                     'value' => $phone,
+                    'compare' => 'LIKE'
+                );
+            }*/
+
+            if(isset($_GET['phone'])) {
+                $phone = $_GET['phone'];
+                $meta_queries[] = array(
+                    'relation' => 'OR',
+                    array(
+                        'key'   => '_phone2',
+                        'value' => $phone,
+                        'compare' => 'LIKE'
+                    ),
+                    array(
+                        'key'   => '_phone',
+                        'value' => $phone,
+                        'compare' => 'LIKE'
+                    )
+                );
+            }
+
+            if(isset($_GET['fax'])) {
+                $fax = $_GET['fax'];
+                $meta_queries[] = array(
+                    'key'   => '_fax',
+                    'value' => $fax,
                     'compare' => 'LIKE'
                 );
             }
@@ -1199,7 +1225,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
         public function all_listing( $atts )
         {
-            include ATBDP_DIR . 'public/assets/css/style.php';
+           // include ATBDP_DIR . 'public/assets/css/style.php';
             wp_enqueue_script('adminmainassets');
             wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
             wp_localize_script('atbdp-search-listing','atbdp_search',array(
@@ -1697,7 +1723,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
         public function user_dashboard($atts)
         {
-            include ATBDP_DIR .'public/assets/css/style.php';
+            //include ATBDP_DIR .'public/assets/css/style.php';
             ob_start();
             // show user dashboard if the user is logged in, else kick him out of this page or show a message
             if (is_user_logged_in()){
@@ -1722,7 +1748,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
         public function all_categories ( $atts )
         {
-            include ATBDP_DIR .'public/assets/css/style.php';
+            //include ATBDP_DIR .'public/assets/css/style.php';
             wp_enqueue_script('loc_cat_assets');
             ob_start();
             $display_categories_as   = get_directorist_option('display_categories_as','grid');
@@ -1801,7 +1827,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
         }
 
         public function atbdp_category ($atts) {
-            include ATBDP_DIR .'public/assets/css/style.php';
+            //include ATBDP_DIR .'public/assets/css/style.php';
             $atts = shortcode_atts( array(
                 'logged_in_user_only'         => '',
                 'redirect_page_url' => ''
@@ -2184,7 +2210,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
         public function all_locations ($atts)
         {
-            include ATBDP_DIR .'public/assets/css/style.php';
+            //include ATBDP_DIR .'public/assets/css/style.php';
             wp_enqueue_script('loc_cat_assets');
             ob_start();
             $display_locations_as              = get_directorist_option('display_locations_as','grid');
@@ -2262,7 +2288,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
         }
 
         public function atbdp_location ($atts) {
-            include ATBDP_DIR .'public/assets/css/style.php';
+            //include ATBDP_DIR .'public/assets/css/style.php';
             $atts = shortcode_atts( array(
                 'logged_in_user_only'         => '',
                 'redirect_page_url' => ''
@@ -2640,7 +2666,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
         }
 
         public function atbdp_tag ($atts) {
-            include ATBDP_DIR .'public/assets/css/style.php';
+            //include ATBDP_DIR .'public/assets/css/style.php';
             $atts = shortcode_atts( array(
                 'logged_in_user_only'         => '',
                 'redirect_page_url' => ''
@@ -3016,7 +3042,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
         }
 
         public function search_listing($atts, $content = null) {
-            include ATBDP_DIR .'public/assets/css/style.php';
+            //include ATBDP_DIR .'public/assets/css/style.php';
             $search_title                = get_directorist_option('search_title', __("Search here", ATBDP_TEXTDOMAIN));
             $search_subtitle              = get_directorist_option('search_subtitle', __("Find the best match of your interest
 ", ATBDP_TEXTDOMAIN));
@@ -3049,14 +3075,15 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'website_field'            => in_array( 'search_website', $search_more_filters_fields ) ? 'yes' : '',
                 'email_field'              => in_array( 'search_email', $search_more_filters_fields ) ? 'yes' : '',
                 'phone_field'              => in_array( 'search_phone', $search_more_filters_fields ) ? 'yes' : '',
+                'fax'                      => in_array( 'search_fax', $search_more_filters_fields ) ? 'yes' : '',
                 'address_field'            => in_array( 'search_address', $search_more_filters_fields ) ? 'yes' : '',
                 'zip_code_field'           => in_array( 'search_zip_code', $search_more_filters_fields ) ? 'yes' : '',
                 'reset_filters_button'     => in_array( 'search_reset_filters', $search_filters ) ? 'yes' : '',
                 'apply_filters_button'     => in_array( 'search_apply_filters', $search_filters ) ? 'yes' : '',
                 'reset_filters_text'       => !empty($search_reset_text) ? $search_reset_text : 'Reset Filters',
                 'apply_filters_text'       => !empty($search_apply_text) ? $search_apply_text : 'Apply Filters',
-                'logged_in_user_only'         => '',
-                'redirect_page_url' => ''
+                'logged_in_user_only'      => '',
+                'redirect_page_url'        => ''
             ), $atts);
 
             $search_bar_title       = (!empty($atts['search_bar_title']) ) ? $atts['search_bar_title'] : '';
@@ -3077,6 +3104,8 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $website_field          = (!empty($atts['website_field']) && 'yes' == $atts['website_field']) ? $atts['website_field'] : '';
             $email_field            = (!empty($atts['email_field']) && 'yes' == $atts['email_field']) ? $atts['email_field'] : '';
             $phone_field            = (!empty($atts['phone_field']) && 'yes' == $atts['phone_field']) ? $atts['phone_field'] : '';
+            $phone_field2           = (!empty($atts['phone_field2']) && 'yes' == $atts['phone_field2']) ? $atts['phone_field2'] : '';
+            $fax                    = (!empty($atts['fax']) && 'yes' == $atts['fax']) ? $atts['fax'] : '';
             $address_field          = (!empty($atts['address_field']) && 'yes' == $atts['address_field']) ? $atts['address_field'] : '';
             $zip_code_field         = (!empty($atts['zip_code_field']) && 'yes' == $atts['zip_code_field']) ? $atts['zip_code_field'] : '';
             $reset_filters_button   = (!empty($atts['reset_filters_button']) && 'yes' == $atts['reset_filters_button']) ? $atts['reset_filters_button'] : '';
@@ -3113,7 +3142,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
         }
 
         public function author_profile($atts){
-            include ATBDP_DIR .'public/assets/css/style.php';
+            //include ATBDP_DIR .'public/assets/css/style.php';
             $atts = shortcode_atts( array(
                 'logged_in_user_only'         => '',
                 'redirect_page_url' => ''
@@ -3192,7 +3221,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
         }
 
         public function add_listing($atts, $content = null, $sc_name) {
-            include ATBDP_DIR .'public/assets/css/style.php';
+            //include ATBDP_DIR .'public/assets/css/style.php';
             ob_start();
             wp_enqueue_script('adminmainassets');
             if (is_user_logged_in()) {
@@ -3232,7 +3261,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
         public function custom_user_login()
         {
-            include ATBDP_DIR .'public/assets/css/style.php';
+            //include ATBDP_DIR .'public/assets/css/style.php';
             ob_start();
             if (!is_user_logged_in()){
                 wp_enqueue_script('adminmainassets');
@@ -3372,7 +3401,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
 
         public function user_registration()
         {
-            include ATBDP_DIR .'public/assets/css/style.php';
+           // include ATBDP_DIR .'public/assets/css/style.php';
             ob_start();
             // show registration form if the user is not
             if (!is_user_logged_in()){

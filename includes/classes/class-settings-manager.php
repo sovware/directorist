@@ -879,8 +879,8 @@ if (!class_exists('ATBDP_Settings_Manager')):
                         ),
                     )),
                 ),
-                /*Submenu : Review */
-                array(
+                /*Submenu : Style */
+                /*'style_setting'=> array(
                     'title' => __('Style Setting', ATBDP_TEXTDOMAIN),
                     'name' => 'style_setting',
                     'icon' => 'font-awesome:fa-adjust',
@@ -891,7 +891,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'fields' => $this->get_listings_style_settings_fields(),
                         ),
                     )),
-                ),
+                ),*/
             ));
         }
 
@@ -2372,6 +2372,10 @@ The Administrator of ==SITE_NAME==
                                 'label' => __('Phone', ATBDP_TEXTDOMAIN),
                             ),
                             array(
+                                'value' => 'search_fax',
+                                'label' => __('Fax', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
                                 'value' => 'search_address',
                                 'label' => __('Address', ATBDP_TEXTDOMAIN),
                             ),
@@ -3023,6 +3027,10 @@ The Administrator of ==SITE_NAME==
                             array(
                                 'value' => 'search_phone',
                                 'label' => __('Phone', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_fax',
+                                'label' => __('Fax', ATBDP_TEXTDOMAIN),
                             ),
                             array(
                                 'value' => 'search_address',

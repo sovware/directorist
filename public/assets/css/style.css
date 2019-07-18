@@ -686,7 +686,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbdp_required {
   display: block;
   margin-top: 10px;
-  color: #F44336;
+  color: #e23636;
 }
 
 #directorist.atbd_wrapper .atbdp_custom_field_radio li label {
@@ -754,7 +754,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 #directorist.atbd_wrapper .directory_regi_btn a {
-  color: #ff0000;
+  color: #e23636;
 }
 
 .fade.show {
@@ -3239,7 +3239,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .single_prv_attachment div .remove_prev_img:hover {
-  color: #c81d1d;
+  color: #e23636;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .atbd_term_and_condition_area {
@@ -3549,7 +3549,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   position: absolute;
   z-index: 1;
   right: 0;
-  background: #ff4949;
+  background: #e23636;
   color: #fff;
   padding: 3px 10px;
 }
@@ -4583,10 +4583,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
   .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields > li {
     display: block;
   }
-  .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_title p {
-    padding-left: 0;
-    padding-right: 0;
-  }
   .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_title,
   .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_content {
     width: 100%;
@@ -4594,8 +4590,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_content {
     border: 0 none;
     padding-top: 0;
-    padding-right: 0;
-    padding-left: 0;
+    padding-right: 30px;
+    padding-left: 30px;
   }
   .ads-advanced .bottom-inputs > div {
     width: 100%;
@@ -4635,6 +4631,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_listing_action_btn {
     margin: 5px 0;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title,
+  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
+    width: 100%;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
+    padding-left: 45px;
   }
 }
 

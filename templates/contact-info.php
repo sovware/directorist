@@ -14,7 +14,7 @@ $currency = get_directorist_option('g_currency', 'USD');
 $display_address_field = get_directorist_option('display_address_field', 1);
 $address_placeholder   = get_directorist_option('address_placeholder',__('Listing address eg. New York, USA', ATBDP_TEXTDOMAIN));
 $display_phone_field = get_directorist_option('display_phone_field', 1);
-$display_phone2_field = get_directorist_option('display_phone2_field', 1);
+$display_phone2_field = get_directorist_option('display_phone_field2', 1);
 $phone_placeholder = get_directorist_option('phone_placeholder', __('Phone Number', ATBDP_TEXTDOMAIN));
 $display_email_field = get_directorist_option('display_email_field', 1);
 $email_placeholder = get_directorist_option('email_placeholder', __('Enter Email', ATBDP_TEXTDOMAIN));
@@ -171,10 +171,10 @@ $info_content .= "<p> {$ad}</p></div>";
         <!--phone2-->
         <?php if(!empty($display_phone2_field) ) { ?>
         <div class="form-group">
-            <label for="atbdp_phone_number"><?php $phone_label = get_directorist_option('phone_label', __('Phone Number', ATBDP_TEXTDOMAIN));
-                esc_html_e($phone_label.':', ATBDP_TEXTDOMAIN); ?></label>
-            <input type="tel" name="phone" id="atbdp_phone_number"
-                   value="<?= !empty($phone) ? esc_attr($phone) : ''; ?>" class="form-control directory_field"
+            <label for="atbdp_phone_number2"><?php $phone_label2 = get_directorist_option('phone_label2', __('Phone Number Two', ATBDP_TEXTDOMAIN));
+                esc_html_e($phone_label2.':', ATBDP_TEXTDOMAIN); ?></label>
+            <input type="tel" name="phone2" id="atbdp_phone_number2"
+                   value="<?= !empty($phone2) ? esc_attr($phone2) : ''; ?>" class="form-control directory_field"
                    placeholder="<?php echo esc_attr($phone_placeholder); ?>"/>
         </div>
         <?php } ?>

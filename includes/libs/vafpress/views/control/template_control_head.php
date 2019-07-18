@@ -7,7 +7,7 @@
 	id="<?php echo $name; ?>">
 	<div class="label">
 		<label><?php echo $label; ?></label>
-		<?php VP_Util_Text::print_if_exists($description, '<div class="description">%s</div>'); ?>
+		<?php VP_Util_Text::print_if_exists($description, '<div class="description atbdp_settings_description">%s</div>'); ?>
 	</div>
 	<div class="field">
 		<div class="input">

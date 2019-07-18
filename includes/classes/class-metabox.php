@@ -83,7 +83,7 @@ class ATBDP_Metabox {
                 array(
                     'key'=> 'admin_use',
                     'value'=> 1,
-                    'compare'=> '!='
+                    'compare'=> '='
                 ),
             )
         );

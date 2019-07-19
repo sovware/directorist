@@ -49,8 +49,11 @@ foreach ($custom_fields_posts as $custom_fields_post) {
     $has_field_value[] = $has_field_details;
 }
 $has_field = join($has_field_value);
-
-if (!empty($has_field)) {
+$plan_custom_field = true;
+if (is_fee_manager_active()) {
+    $plan_custom_field = is_plan_allowed_custom_fields($fm_plan);
+}
+if (!empty($has_field) && $plan_custom_field) {
     ?>
     <div class="atbd_content_module atbd_custom_fields_contents">
         <div class="atbd_content_module__tittle_area">

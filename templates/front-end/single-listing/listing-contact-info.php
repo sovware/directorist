@@ -64,7 +64,11 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                         </li>
                     <?php } ?>
                     <?php
-                    if (isset($phone) && !is_empty_v($phone) && !empty($display_phone_field)) { ?>
+                    $plan_phone = true;
+                    if (is_fee_manager_active()) {
+                        $plan_phone = is_plan_allowed_listing_phone($fm_plan);
+                    }
+                    if (isset($phone) && !is_empty_v($phone) && !empty($display_phone_field) && $plan_phone) { ?>
                         <!-- In Future, We will have to use a loop to print more than 1 number-->
                         <li>
                             <div class="atbd_info_title"><span
@@ -95,7 +99,12 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                             </div>
                         </li>
                     <?php } ?>
-                    <?php if (!empty($email) && !empty($display_email_field)) { ?>
+                    <?php
+                    $plan_email = true;
+                    if (is_fee_manager_active()) {
+                        $plan_email = is_plan_allowed_listing_email($fm_plan);
+                    }
+                    if (!empty($email) && !empty($display_email_field) && $plan_email) { ?>
                         <li>
                             <div class="atbd_info_title"><span
                                         class="<?php atbdp_icon_type(true);?>-envelope"></span><?php _e('Email', ATBDP_TEXTDOMAIN); ?>
@@ -104,8 +113,12 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                                                        href="mailto:<?= esc_html($email); ?>"><?= esc_html($email); ?></a></span>
                         </li>
                     <?php } ?>
-
-                    <?php if (!empty($website) && !empty($display_website_field)) { ?>
+                    <?php
+                    $plan_webLink = true;
+                    if (is_fee_manager_active()) {
+                        $plan_webLink = is_plan_allowed_listing_webLink($fm_plan);
+                    }
+                    if (!empty($website) && !empty($display_website_field) && $plan_webLink) { ?>
                         <li>
                             <div class="atbd_info_title"><span
                                         class="<?php atbdp_icon_type(true);?>-globe"></span><?php _e('Website', ATBDP_TEXTDOMAIN); ?>
@@ -126,7 +139,12 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                     <?php } ?>
                 </ul>
             </div>
-            <?php if (!empty($social) && is_array($social) && !empty($display_social_info_field)) { ?>
+            <?php
+            $plan_social_networks = true;
+            if (is_fee_manager_active()) {
+                $plan_social_networks = is_plan_allowed_listing_social_networks($fm_plan);
+            }
+            if (!empty($social) && is_array($social) && !empty($display_social_info_field) && $plan_social_networks) { ?>
                 <div class="atbd_director_social_wrap">
                     <?php foreach ($social as $link) {
                         $n = esc_attr($link['id']);

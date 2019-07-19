@@ -161,10 +161,14 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 //if user exit the plan allowance the change the status of that order to cancelled
                                 $order_id = $plan_purchased->ID;
                                 if (!class_exists('woocommerce')){
-                                    $order = new WC_Order($order_id);
-                                    $order->update_status('cancelled', 'order_note');
+                                    if (('pay_per_listng' != $plan_type)) {
+                                        $order = new WC_Order($order_id);
+                                        $order->update_status('cancelled', 'order_note');
+                                    }
                                 }else{
-                                    update_post_meta($order_id, '_payment_status', 'cancelled');
+                                    if (('pay_per_listng' != $plan_type)) {
+                                        update_post_meta($order_id, '_payment_status', 'cancelled');
+                                    }
                                 }
                             }
                         }

@@ -98,6 +98,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $metas['_address']           = !empty($p['address'])? sanitize_text_field($p['address']) : '';
                     $metas['_phone']             = !empty($p['phone'])? sanitize_text_field($p['phone']) : '';
                     $metas['_phone2']             = !empty($p['phone2'])? sanitize_text_field($p['phone2']) : '';
+                    $metas['_fax']             = !empty($p['fax'])? sanitize_text_field($p['fax']) : '';
                     $metas['_email']             = !empty($p['email'])? sanitize_text_field($p['email']) : '';
                     $metas['_website']           = !empty($p['website'])? sanitize_text_field($p['website']) : '';
                     $metas['_zip']               = !empty($p['zip'])? sanitize_text_field($p['zip']) : '';
@@ -160,10 +161,14 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 //if user exit the plan allowance the change the status of that order to cancelled
                                 $order_id = $plan_purchased->ID;
                                 if (!class_exists('woocommerce')){
-                                    $order = new WC_Order($order_id);
-                                    $order->update_status('cancelled', 'order_note');
+                                    if (('pay_per_listng' != $plan_type)) {
+                                        $order = new WC_Order($order_id);
+                                        $order->update_status('cancelled', 'order_note');
+                                    }
                                 }else{
-                                    update_post_meta($order_id, '_payment_status', 'cancelled');
+                                    if (('pay_per_listng' != $plan_type)) {
+                                        update_post_meta($order_id, '_payment_status', 'cancelled');
+                                    }
                                 }
                             }
                         }

@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 5.5.0
+Stable tag: 5.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,10 +56,10 @@ You can send email notifications to your users in different situations. You can 
 Directorist is developed using Object Oriented PHP and following WordPress Best Coding Practice. It has a highly optimized codebase. Therefore, it will run faster.
 
 = COMPATIBLE WITH ANY THEMES =
-You may know it is very difficult to make a plugin's design compatible with all themes because of the different layouts and markups different themes use. However, it is not a problem with Directorist. We have invested a lot of time on this plugin to make to 95-100% compatible with ANY WORDPRESS THEMES.
+You may know it is very difficult to make a plugin's design compatible with all themes because of the different layouts and markups different themes use. However, it is not a problem with Directorist. We have invested a lot of time on this plugin to make compatible with almost any WordPress themes.
 
 = DEDICATED PREMIUM THEME FOR FREE FOR THE PLUGIN! =
-Maybe your theme is 99% compatible with our plugin. However, you want to get beyond that and want 100% compatibility. No problem. We have crafted a premium theme for this plugin and we are giving it for free to our valuable users of this plugin. Now making a modern and professional directory website is just a matter of some clicks.
+Maybe your theme is not 100% compatible with our plugin. However, you want to get beyond that and want 100% compatibility. No problem. We have crafted a premium theme for this plugin and we are giving it for free to our valuable users of this plugin. Now making a modern and professional directory website is just a matter of some clicks.
 
 You can build an amazing directory site like this plugin demo site. Download it from here: [https://aazztech.com/product/directoria-wordpress-theme/](https://aazztech.com/product/directoria-wordpress-theme/)
 
@@ -129,6 +129,14 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
+= 5.5.1 - Jul 18, 2019 =
+
+* Add - Fax number and another phone number fields in add listing form
+* Fix - Preview image issue
+* Fix - Category icons issue
+* Fix - Custom Fields issue
+* Improve - Styling on several places
+
 = 5.5.0 - Jul 17, 2019 =
 
 * Add - Multiple Locations and Categories for users
@@ -140,6 +148,8 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Fix - Minor issue of Image & Video section
 * Fix - Full width issue with Directoria theme
 * Fix - Line break & paragraph issues of single listing
+* Fix - Twitter issue
+* Fix - SEO issues
 
 = 5.4.3 - Jul 10, 2019 =
 

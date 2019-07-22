@@ -15,6 +15,7 @@ $listing_info['excerpt'] = get_post_meta($post->ID, '_excerpt', true);
 $listing_info['address'] = get_post_meta($post->ID, '_address', true);
 $listing_info['phone'] = get_post_meta($post->ID, '_phone', true);
 $listing_info['phone2'] = get_post_meta($post->ID, '_phone2', true);
+$listing_info['fax'] = get_post_meta($post->ID, '_fax', true);
 $listing_info['email'] = get_post_meta($post->ID, '_email', true);
 $listing_info['website'] = get_post_meta($post->ID, '_website', true);
 $listing_info['zip'] = get_post_meta($post->ID, '_zip', true);
@@ -131,6 +132,9 @@ $display_pricing_field = get_directorist_option('display_pricing_field', 1);
 $display_address_field = get_directorist_option('display_address_field', 1);
 $display_phone_field = get_directorist_option('display_phone_field', 1);
 $display_phone2_field = get_directorist_option('display_phone_field2', 1);
+$phone_label2 = get_directorist_option('phone_label2', __('Phone Number 2', ATBDP_TEXTDOMAIN));
+$display_fax_field = get_directorist_option('display_fax', 1);
+$fax_label = get_directorist_option('fax_label', __('Fax', ATBDP_TEXTDOMAIN));
 $display_email_field = get_directorist_option('display_email_field', 1);
 $display_website_field = get_directorist_option('display_website_field', 1);
 $display_zip_field = get_directorist_option('display_zip_field', 1);
@@ -280,7 +284,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <?php
                     $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
                     $gallery_image = '';
-                    if (!empty($image_links)) {
+                    $plan_slider = true;
+                    if (is_fee_manager_active()) {
+                        $plan_slider = is_plan_allowed_slider($fm_plan);
+                    }
+                    if (!empty($image_links) && $plan_slider) {
                         if (!empty($listing_prv_img && $display_prv_image)) {
                             if (!empty($gallery_cropping)) {
                                 $listing_prv_imgurl = atbdp_image_cropping($listing_prv_img, $custom_gl_width, $custom_gl_height, true, 100)['url'];
@@ -331,17 +339,25 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     ?>
                     <div class="atbd_listing_detail">
                         <?php
+                        $plan_average_price = true;
+                        if (is_fee_manager_active()) {
+                            $plan_average_price = is_plan_allowed_average_price_range($fm_plan);
+                        }
+                        $plan_price = true;
+                        if (is_fee_manager_active()) {
+                            $plan_price = is_plan_allowed_price($fm_plan);
+                        }
                         $data_info = '<div class="atbd_data_info">';
                         if (empty($is_disable_price) || !empty($enable_review)) {
                             $data_info .= '<div class="atbd_listing_meta">';
                             $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
                             if (empty($is_disable_price)) {
                                 if (!empty($display_pricing_field)) {
-                                    if (!empty($price_range) && ('range' === $atbd_listing_pricing)) {
+                                    if (!empty($price_range) && ('range' === $atbd_listing_pricing) && $plan_average_price) {
                                         //is range selected then print it
                                         $output = atbdp_display_price_range($price_range);
                                         $data_info .= $output;
-                                    } else {
+                                    } elseif($plan_price) {
                                         $data_info .= atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false);
                                     }
                                 }
@@ -383,7 +399,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                             $data_info .= ' </div>';
                         }
                         $data_info .= '<div class="atbd_listting_category"><ul class="directory_cats">';
-                        if (!empty($cats)) {
+                        $plan_cat = array();
+                        if (is_fee_manager_active()) {
+                            $plan_cat = is_plan_allowed_category($fm_plan);
+                        }
+                        if (!empty($cats) && $plan_cat) {
                             $data_info .= '<span class="'.atbdp_icon_type().'-tags"></span>';
                             $numberOfCat = count($cats);
                             $output = array();
@@ -499,8 +519,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                 $has_field_value[] = $has_field_details;
             }
             $has_field = join($has_field_value);
+            $plan_custom_field = true;
+            if (is_fee_manager_active()) {
+                $plan_custom_field = is_plan_allowed_custom_fields($fm_plan);
+            }
 
-            if (!empty($has_field)) {
+            if (!empty($has_field) && $plan_custom_field) {
                 ?>
                 <div class="atbd_content_module atbd_custom_fields_contents">
                     <div class="atbd_content_module__tittle_area">
@@ -581,7 +605,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                 </div><!-- end .atbd_custom_fields_contents -->
                 <?php
             }
-            if ($enable_video_url && !empty($videourl) && 'none' != $display_video_for) { ?>
+            $plan_video = true;
+            if (is_fee_manager_active()) {
+                $plan_video = is_plan_allowed_listing_video($fm_plan);
+            }
+            if ($enable_video_url && !empty($videourl) && 'none' != $display_video_for && $plan_video) { ?>
                 <div class="atbd_content_module atbd_custom_fields_contents">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
@@ -614,7 +642,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php }
-            if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>
+            if ((!$hide_contact_info) && !empty($address || $phone || $phone2 || $fax || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>
                 <div class="atbd_content_module atbd_contact_information_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
@@ -637,7 +665,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                 <?php } ?>
 
                                 <?php
-                                if (isset($phone) && !is_empty_v($phone) && !empty($display_phone_field)) { ?>
+                                $plan_phone = true;
+                                if (is_fee_manager_active()) {
+                                    $plan_phone = is_plan_allowed_listing_phone($fm_plan);
+                                }
+                                if (isset($phone) && !is_empty_v($phone) && !empty($display_phone_field) && $plan_phone) { ?>
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
                                         <div class="atbd_info_title"><span
@@ -653,14 +685,29 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-phone"></span><?php _e('Second Phone', ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-phone"></span><?php echo $phone_label2; ?>
                                         </div>
                                         <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($phone2)); ?>"><?php echo esc_html(stripslashes($phone2)); ?></a>
                                         </div>
                                     </li>
                                 <?php } ?>
-
-                                <?php if (!empty($email) && !empty($display_email_field)) { ?>
+                                <?php
+                                if (isset($fax) && !is_empty_v($fax) && !empty($display_fax_field)) { ?>
+                                    <!-- In Future, We will have to use a loop to print more than 1 number-->
+                                    <li>
+                                        <div class="atbd_info_title"><span
+                                                    class="<?php atbdp_icon_type(true);?>-fax"></span><?php echo $fax_label; ?>
+                                        </div>
+                                        <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($fax)); ?>"><?php echo esc_html(stripslashes($fax)); ?></a>
+                                        </div>
+                                    </li>
+                                <?php } ?>
+                                <?php
+                                $plan_email = true;
+                                if (is_fee_manager_active()) {
+                                    $plan_email = is_plan_allowed_listing_email($fm_plan);
+                                }
+                                if (!empty($email) && !empty($display_email_field) && $plan_email) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
                                                     class="<?php atbdp_icon_type(true);?>-envelope"></span><?php _e('Email', ATBDP_TEXTDOMAIN); ?>
@@ -669,8 +716,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                                                    href="mailto:<?= esc_html($email); ?>"><?= esc_html($email); ?></a></span>
                                     </li>
                                 <?php } ?>
-
-                                <?php if (!empty($website) && !empty($display_website_field)) { ?>
+                                <?php
+                                $plan_webLink = true;
+                                if (is_fee_manager_active()) {
+                                    $plan_webLink = is_plan_allowed_listing_webLink($fm_plan);
+                                }
+                                if (!empty($website) && !empty($display_website_field) && $plan_webLink) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
                                                     class="<?php atbdp_icon_type(true);?>-globe"></span><?php _e('Website', ATBDP_TEXTDOMAIN); ?>
@@ -692,7 +743,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 
                             </ul>
                         </div>
-                        <?php if (!empty($social) && is_array($social) && !empty($display_social_info_field)) { ?>
+                        <?php
+                        $plan_social_networks = true;
+                        if (is_fee_manager_active()) {
+                            $plan_social_networks = is_plan_allowed_listing_social_networks($fm_plan);
+                        }
+                        if (!empty($social) && is_array($social) && !empty($display_social_info_field) && $plan_social_networks) { ?>
                             <div class="atbd_director_social_wrap">
                                 <?php foreach ($social as $link) {
                                     $n = esc_attr($link['id']);

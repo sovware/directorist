@@ -276,6 +276,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                         </div> <!--ends . col-lg-3 col-sm-6-->
                                         <?php
                                     }
+
                                 } else {
                                     echo '<p class="atbdp_nlf">' . __("Looks like you have not created any listing yet!", ATBDP_TEXTDOMAIN) . '</p>';
                                 }
@@ -291,6 +292,13 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                     </div>
                                 <?php } ?>
                                 </div>
+                                <?php
+                                /**
+                                 * @package Directorist
+                                 * @since 5.5.2
+                                 */
+                                do_action('atbdp_after_loop_dashboard_listings');
+                                ?>
                             </div> <!--ends #my_listings-->
                         <?php } ?>
                         <?php if (!empty($my_profile_tab)) { ?>

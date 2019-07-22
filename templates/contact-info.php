@@ -15,7 +15,10 @@ $display_address_field = get_directorist_option('display_address_field', 1);
 $address_placeholder   = get_directorist_option('address_placeholder',__('Listing address eg. New York, USA', ATBDP_TEXTDOMAIN));
 $display_phone_field = get_directorist_option('display_phone_field', 1);
 $display_phone2_field = get_directorist_option('display_phone_field2', 1);
+$display_fax = get_directorist_option('display_fax', 1);
 $phone_placeholder = get_directorist_option('phone_placeholder', __('Phone Number', ATBDP_TEXTDOMAIN));
+$phone_placeholder2 = get_directorist_option('phone_placeholder2', __('Phone Number 2', ATBDP_TEXTDOMAIN));
+$fax_placeholder = get_directorist_option('fax_placeholder', __('Fax', ATBDP_TEXTDOMAIN));
 $display_email_field = get_directorist_option('display_email_field', 1);
 $email_placeholder = get_directorist_option('email_placeholder', __('Enter Email', ATBDP_TEXTDOMAIN));
 $display_website_field = get_directorist_option('display_website_field', 1);
@@ -48,7 +51,7 @@ $info_content .= "<p> {$ad}</p></div>";
 
         </div>
     <?php } ?>
-    <?php if (!empty( $display_phone_field || $display_phone2_field || $display_map_field || $display_address_field || $display_email_field || $display_website_field || $display_zip_field)) { ?>
+    <?php if (!empty( $display_phone_field || $display_phone2_field|| $display_fax || $display_map_field || $display_address_field || $display_email_field || $display_website_field || $display_zip_field)) { ?>
 
         <!-- MAP or ADDRESS related information starts here -->
         <div class="form-check">
@@ -175,7 +178,17 @@ $info_content .= "<p> {$ad}</p></div>";
                 esc_html_e($phone_label2.':', ATBDP_TEXTDOMAIN); ?></label>
             <input type="tel" name="phone2" id="atbdp_phone_number2"
                    value="<?= !empty($phone2) ? esc_attr($phone2) : ''; ?>" class="form-control directory_field"
-                   placeholder="<?php echo esc_attr($phone_placeholder); ?>"/>
+                   placeholder="<?php echo esc_attr($phone_placeholder2); ?>"/>
+        </div>
+        <?php } ?>
+        <!--fax-->
+        <?php if(!empty($display_fax) ) { ?>
+        <div class="form-group">
+            <label for="atbdp_fax"><?php $fax_label = get_directorist_option('fax_label', __('Fax', ATBDP_TEXTDOMAIN));
+                esc_html_e($fax_label.':', ATBDP_TEXTDOMAIN); ?></label>
+            <input type="tel" name="fax" id="atbdp_fax"
+                   value="<?= !empty($fax) ? esc_attr($fax) : ''; ?>" class="form-control directory_field"
+                   placeholder="<?php echo esc_attr($fax_placeholder); ?>"/>
         </div>
         <?php } ?>
         <?php if(!empty($display_email_field)) { ?>

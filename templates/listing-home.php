@@ -257,6 +257,10 @@ $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
                                                 <input type="text" name="phone" placeholder="<?php _e('Phone Number', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>" class="form-control">
                                             </div>
                                             <div>
+                                                <?php } if('yes' == $fax) {?>
+                                                <input type="text" name="fax" placeholder="<?php _e('Fax', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>" class="form-control">
+                                            </div>
+                                            <div>
                                                 <?php } if('yes' == $address_field) {?>
                                                 <input type="text" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php _e('Address', ATBDP_TEXTDOMAIN);?>"
                                                        class="form-control location-name">

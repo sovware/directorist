@@ -30,7 +30,7 @@ const aazztechModal = (selector) => {
         	document.body.classList.remove("atm-open");
 			setTimeout(function () {
 				el.style.display = 'none';
-			}, 100)
+			}, 100);
         	document.querySelector("html").removeAttribute("style");
 		});
 		el.addEventListener('click', function (e) {
@@ -40,11 +40,11 @@ const aazztechModal = (selector) => {
             document.body.classList.remove("atm-open");
 			setTimeout(function () {
 				el.style.display = 'none';
-			}, 100)
+			}, 100);
             document.querySelector("html").removeAttribute("style");
 		})
 
 	});
-}
+};
 
-aazztechModal('#dcl-claim-modal, #atbdp-report-abuse-modal');
+aazztechModal('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal');

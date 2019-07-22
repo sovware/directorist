@@ -204,8 +204,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                     if (is_fee_manager_active()){
                                                                         ?>
                                                                         <a href="javascript:void(0)"
-                                                                           data-toggle="modal"
-                                                                           data-target="#atpp-plan-change-modal"
+                                                                           data-target="atpp-plan-change-modal"
                                                                            data-listing_id="<?= $post->ID; ?>"
                                                                            class="directory_btn btn btn-outline-success atbdp_renew_with_plan">
                                                                             <?php _e('Renew', ATBDP_TEXTDOMAIN); ?>

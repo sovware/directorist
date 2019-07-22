@@ -19,7 +19,7 @@ $map_container              = apply_filters('atbdp_map_container',$container);
     <div class="atbdp-divider"></div>
     <!-- the loop -->
     <?php
-    $listings_map_height = get_directorist_option('listings_map_height',350);
+    $listings_map_height = !empty($map_height) ? $map_height : 350;
     ?>
     <div class="<?php echo !empty($map_container) ? $map_container : '';?>">
         <?php if('google' == $select_listing_map) {

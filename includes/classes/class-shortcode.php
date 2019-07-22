@@ -188,6 +188,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $listings_header_title     = get_directorist_option('search_header_title',__('Total Found: ', ATBDP_TEXTDOMAIN));
             $filters_display           = get_directorist_option('search_result_display_filter','sliding');
             $paginate                  = get_directorist_option('paginate_search_results');
+            $listings_map_height       = get_directorist_option('listings_map_height',350);
             $atts = shortcode_atts( array(
                 'view'              => !empty($listing_view) ? $listing_view : 'grid',
                 '_featured'         => 1,
@@ -202,15 +203,17 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'featured_only'     => '',
                 'popular_only'      => '',
                 'logged_in_user_only'         => '',
-                'redirect_page_url' => ''
+                'redirect_page_url' => '',
+                'map_height'                => !empty($listings_map_height) ? $listings_map_height : 350,
             ), $atts );
             $columns             = !empty($atts['columns']) ? $atts['columns'] : 3;
             $display_header      = !empty($atts['header']) ? $atts['header'] : '';
             $show_pagination     = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
             $feature_only        = !empty($atts['featured_only']) ? $atts['featured_only'] : '';
             $popular_only        = !empty($atts['popular_only']) ? $atts['popular_only'] : '';
-            $logged_in_user_only           = !empty($atts['logged_in_user_only'])  ? $atts['logged_in_user_only'] : '';
+            $logged_in_user_only = !empty($atts['logged_in_user_only'])  ? $atts['logged_in_user_only'] : '';
             $redirect_page_url   = !empty($atts['redirect_page_url'])  ? $atts['redirect_page_url'] : '';
+            $map_height          = !empty($atts['map_height'])  ? $atts['map_height'] : '';
             //for pagination
             $paged               = atbdp_get_paged_num();
 
@@ -1241,6 +1244,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $display_listings_header   = get_directorist_option('display_listings_header',1);
             $listings_header_title     = get_directorist_option('all_listing_title',__('All Items', ATBDP_TEXTDOMAIN));
             $pagination                = get_directorist_option('paginate_all_listings');
+            $listings_map_height       = get_directorist_option('listings_map_height',350);
             $atts = shortcode_atts( array(
                 'view'                      => !empty($listing_view) ? $listing_view : 'grid',
                 '_featured'                 => 1,
@@ -1262,7 +1266,8 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 'display_preview_image'     => 'yes',
                 'action_before_after_loop'  => 'yes',
                 'logged_in_user_only'       => '',
-                'redirect_page_url'         => ''
+                'redirect_page_url'         => '',
+                'map_height'                => !empty($listings_map_height) ? $listings_map_height : 350,
             ), $atts );
 
             $categories                = !empty($atts['category'] ) ? explode(',', $atts['category'] ) : '';
@@ -1277,8 +1282,9 @@ if ( !class_exists('ATBDP_Shortcode') ):
             $action_before_after_loop  = !empty($atts['action_before_after_loop']) ? $atts['action_before_after_loop'] : '';
             $show_pagination           = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
             $display_image             = !empty($atts['display_preview_image'])  ? $atts['display_preview_image'] : '';
-            $logged_in_user_only                 = !empty($atts['logged_in_user_only'])  ? $atts['logged_in_user_only'] : '';
+            $logged_in_user_only       = !empty($atts['logged_in_user_only'])  ? $atts['logged_in_user_only'] : '';
             $redirect_page_url         = !empty($atts['redirect_page_url'])  ? $atts['redirect_page_url'] : '';
+            $map_height                = !empty($atts['map_height'])  ? $atts['map_height'] : '';
             //for pagination
             $paged                     = atbdp_get_paged_num();
 
@@ -1860,6 +1866,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $listings_header_title     = get_directorist_option('all_listing_title',__('Total Listing Found: ', ATBDP_TEXTDOMAIN));
                 $filters_display           = get_directorist_option('listings_display_filter','sliding');
                 $pagination                = get_directorist_option('paginate_all_listings');
+                $listings_map_height       = get_directorist_option('listings_map_height',350);
                 $atts = shortcode_atts(array(
                     'view'              => !empty($listing_view) ? $listing_view : 'grid',
                     '_featured'         => 1,
@@ -1872,12 +1879,14 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     'header'            => !empty($display_listings_header) ? 'yes' : '',
                     'header_title'      => !empty($listings_header_title) ? $listings_header_title : '',
                     'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
+                    'map_height'        => !empty($listings_map_height) ? $listings_map_height : 350,
                 ), $atts);
 
                 $columns             = !empty($atts['columns']) ? $atts['columns'] : 3;
                 $display_header      = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title        = !empty($atts['header_title']) ? $atts['header_title'] : '';
                 $show_pagination     = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
+                $map_height                = !empty($atts['map_height'])  ? $atts['map_height'] : '';
                 //for pagination
                 $paged               = atbdp_get_paged_num();
 
@@ -2290,8 +2299,8 @@ if ( !class_exists('ATBDP_Shortcode') ):
         public function atbdp_location ($atts) {
             //include ATBDP_DIR .'public/assets/css/style.php';
             $atts = shortcode_atts( array(
-                'logged_in_user_only'         => '',
-                'redirect_page_url' => ''
+                'logged_in_user_only'  => '',
+                'redirect_page_url'    => ''
             ), $atts );
             $logged_in_user_only           = !empty($atts['logged_in_user_only'])  ? $atts['logged_in_user_only'] : '';
             $redirect_page_url   = !empty($atts['redirect_page_url'])  ? $atts['redirect_page_url'] : '';
@@ -2321,6 +2330,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $listings_header_title     = get_directorist_option('all_listing_title',__('All Items', ATBDP_TEXTDOMAIN));
                 $filters_display           = get_directorist_option('listings_display_filter','sliding');
                 $pagination                = get_directorist_option('paginate_all_listings');
+                $listings_map_height       = get_directorist_option('listings_map_height',350);
                 $atts = shortcode_atts(array(
                     'view'              => !empty($listing_view) ? $listing_view : 'grid',
                     '_featured'         => 1,
@@ -2332,6 +2342,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     'header'            => !empty($display_listings_header) ? 'yes' : '',
                     'header_title'      => !empty($listings_header_title) ? $listings_header_title : '',
                     'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
+                    'map_height'        => !empty($listings_map_height) ? $listings_map_height : 350,
                 ), $atts);
 
                 $columns             = !empty($atts['columns']) ? $atts['columns'] : 3;
@@ -2339,6 +2350,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $header_title        = !empty($atts['header_title']) ? $atts['header_title'] : '';
                 $header_sub_title    = !empty($atts['header_sub_title']) ? $atts['header_sub_title'] : '';
                 $show_pagination     = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
+                $map_height          = !empty($atts['map_height'])  ? $atts['map_height'] : '';
                 //for pagination
                 $paged               = atbdp_get_paged_num();
 
@@ -2700,6 +2712,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 $listings_header_sub_title = get_directorist_option('listings_header_sub_title',__('Total Listing Found: ', ATBDP_TEXTDOMAIN));
                 $filters_display           = get_directorist_option('listings_display_filter','sliding');
                 $pagination                = get_directorist_option('paginate_all_listings');
+                $listings_map_height       = get_directorist_option('listings_map_height',350);
                 $atts = shortcode_atts(array(
                     'view'              => !empty($listing_view) ? $listing_view : 'grid',
                     '_featured'         => 1,
@@ -2713,13 +2726,15 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     'header_title'      => !empty($listings_header_title) ? $listings_header_title : '',
                     'header_sub_title'  => !empty($listings_header_sub_title) ? $listings_header_sub_title : '',
                     'columns'           => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
+                    'map_height'        => !empty($listings_map_height) ? $listings_map_height : 350,
                 ), $atts);
 
                 $columns             = !empty($atts['columns']) ? $atts['columns'] : 3;
                 $display_header      = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title        = !empty($atts['header_title']) ? $atts['header_title'] : '';
                 $header_sub_title    = !empty($atts['header_sub_title']) ? $atts['header_sub_title'] : '';
-                $show_pagination    = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
+                $show_pagination     = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
+                $map_height          = !empty($atts['map_height'])  ? $atts['map_height'] : '';
                 //for pagination
                 $paged               = atbdp_get_paged_num();
 

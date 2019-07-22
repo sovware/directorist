@@ -1378,7 +1378,7 @@ jQuery(function ($) {
     }
 
     /* Copy shortcodes on click */
-    var textToCopy = document.querySelectorAll(".vp-field.vp-select .label .description strong");
+    var textToCopy = document.querySelectorAll(".description.atbdp_settings_description strong");
     textToCopy.forEach((el, index) =>{
         el.addEventListener("click", function () {
             var $temp = $("<input>");

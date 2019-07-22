@@ -25,8 +25,8 @@
                         <figure>
                             <?php if (!empty($location_image)) {
                                 ?>
-                                <img src="<?php echo !empty($location_image) ? $location_image : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' ?>"
-                                     alt="">
+                                <img src="<?php echo !empty($location_image) ? $location_image : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' ?>" title="<?php echo $term->name; ?>"
+                                     alt="<?php echo $term->name; ?>">
                                 <?php
                             } ?>
                             <figcaption>

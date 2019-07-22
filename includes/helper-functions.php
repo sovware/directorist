@@ -364,7 +364,7 @@ if (!function_exists('atbdp_pagination')) {
             'current' => max(1, $paged),
             'total' => $custom_post_query->max_num_pages,
             'prev_text' => apply_filters('atbdp_pagination_prev_text', '<span class="fa fa-chevron-left"></span>'),
-            'next_text' => apply_filters('atbdp_pagination_next_text', '<span class="fa fa-chevron-right"></span>'),
+            'next_text' => apply_filters('atbdp_pagination_next_text', '<span class="fa fa-chevron-right atbdp_right_nav"></span>'),
         ));
 
 

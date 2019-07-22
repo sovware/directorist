@@ -33,8 +33,8 @@ $container_fluid = 'container-fluid';
                                 <figure>
                                     <?php if (!empty($cat_image)) {
                                         ?>
-                                        <img src="<?php echo !empty($cat_image) ? $cat_image : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' ?>"
-                                             alt="">
+                                        <img src="<?php echo !empty($cat_image) ? $cat_image : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' ?>" title="<?php echo $term->name; ?>"
+                                             alt="<?php echo $term->name; ?>">
                                         <?php
                                     } ?>
                                     <figcaption class="overlay-bg">

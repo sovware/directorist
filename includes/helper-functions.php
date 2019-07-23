@@ -3956,7 +3956,7 @@ function atbdp_can_use_yoast() {
 
     $can_use_yoast = false;
     $overwrite_yoast = get_directorist_option('overwrite_by_yoast');
-    if (( in_array( 'wordpress-seo/wp-seo.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) && $overwrite_yoast ) {
+    if (( in_array( 'wordpress-seo/wp-seo.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) && empty($overwrite_yoast) ) {
         $can_use_yoast = true;
     }
 

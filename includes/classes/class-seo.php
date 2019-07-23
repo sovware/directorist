@@ -31,10 +31,6 @@ if ( !class_exists('ATBDP_SEO') ):
                 return $title;
             }
 
-            if( is_singular(ATBDP_POST_TYPE) ) {
-                return $title;
-            }
-
             global $post;
             if ( ! is_admin() && ! is_null( $id ) ) {
                 $post = get_post( $id );

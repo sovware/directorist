@@ -16,7 +16,8 @@ if ( !class_exists('ATBDP_SEO') ):
                 add_filter( 'wpseo_metadesc', array($this, 'wpseo_metadesc' ));
                 add_filter('wpseo_canonical', array($this, 'wpseo_canonical'));
                 add_filter('wpseo_opengraph_url', array($this, 'wpseo_canonical'));
-            }else{
+            }
+            if(atbdp_disable_overwrite_yoast()){
                 remove_action( 'wp_head', 'rel_canonical' );
                 add_action('wp_head', array($this, 'atbdp_texonomy_canonical'));
                 add_filter('pre_get_document_title', array($this, 'atbdp_custom_page_title'), 100);
@@ -66,14 +67,15 @@ if ( !class_exists('ATBDP_SEO') ):
 
         public function wpseo_metadesc($desc){
             global $post;
-
+            $overwrite_yoast = get_directorist_option('overwrite_by_yoast');
             if( ! isset( $post ) ) return $desc;
+
 
             $CAT_page_ID = get_directorist_option('single_category_page');
             $LOC_page_ID = get_directorist_option('single_location_page');
             $Tag_page_ID = get_directorist_option('single_tag_page');
 
-            if( $post->ID != $CAT_page_ID && $post->ID != $LOC_page_ID && $post->ID != $Tag_page_ID ) {
+            if( $post->ID != $CAT_page_ID && $post->ID != $LOC_page_ID && $post->ID != $Tag_page_ID && (!is_singular('at_biz_dir'))) {
                 return $desc;
             }
 
@@ -95,10 +97,17 @@ if ( !class_exists('ATBDP_SEO') ):
             );
 
             $desc_template = '';
+            if (is_singular('at_biz_dir')){
+                if (!empty($overwrite_yoast)){
+                    return '';
+                }
+            }
 
             // Category page
             if( $post->ID == $CAT_page_ID ) {
-
+                if (!empty($overwrite_yoast)){
+                    return '';
+                }
                 if( $slug = get_query_var( 'atbdp_category' ) ) {
 
                     $term = get_term_by( 'slug', $slug, 'at_biz_dir-category' );
@@ -130,7 +139,9 @@ if ( !class_exists('ATBDP_SEO') ):
 
             // Location page
             if( $post->ID == $LOC_page_ID ) {
-
+                if (!empty($overwrite_yoast)){
+                    return '';
+                }
                 if( $slug = get_query_var( 'atbdp_location' ) ) {
 
                     $term = get_term_by( 'slug', $slug, 'at_biz_dir-location' );
@@ -162,7 +173,9 @@ if ( !class_exists('ATBDP_SEO') ):
 
             // Tag page
             if( $post->ID == $Tag_page_ID ) {
-
+                if (!empty($overwrite_yoast)){
+                    return '';
+                }
                 if( $slug = get_query_var( 'atbdp_tag' ) ) {
 
                     $term = get_term_by( 'slug', $slug, 'at_biz_dir-tags' );
@@ -204,14 +217,14 @@ if ( !class_exists('ATBDP_SEO') ):
 
         public function wpseo_title( $title, $id = null ) {
             global $post;
-
+            $overwrite_yoast = get_directorist_option('overwrite_by_yoast');
             if( ! isset( $post ) ) return $title;
 
             $CAT_page_ID = get_directorist_option('single_category_page');
             $LOC_page_ID = get_directorist_option('single_location_page');
             $Tag_page_ID = get_directorist_option('single_tag_page');
 
-            if( $post->ID != $CAT_page_ID && $post->ID != $LOC_page_ID && $post->ID != $Tag_page_ID ) {
+            if( $post->ID != $CAT_page_ID && $post->ID != $LOC_page_ID && $post->ID != $Tag_page_ID && (!is_singular('at_biz_dir'))) {
                 return $title;
             }
 
@@ -233,10 +246,16 @@ if ( !class_exists('ATBDP_SEO') ):
             );
 
             $title_template = '';
-
+            if (is_singular('at_biz_dir')){
+                if (!empty($overwrite_yoast)){
+                    return '';
+                }
+            }
             // Category page
             if( $post->ID == $CAT_page_ID ) {
-
+                if (!empty($overwrite_yoast)){
+                    return '';
+                }
                 if( $slug = get_query_var( 'atbdp_category' ) ) {
 
                     $term = get_term_by( 'slug', $slug, 'at_biz_dir-category' );
@@ -268,7 +287,9 @@ if ( !class_exists('ATBDP_SEO') ):
 
             // Location page
             if( $post->ID == $LOC_page_ID ) {
-
+                if (!empty($overwrite_yoast)){
+                    return '';
+                }
                 if( $slug = get_query_var( 'atbdp_location' ) ) {
 
                     $term = get_term_by( 'slug', $slug, 'at_biz_dir-location' );
@@ -300,7 +321,9 @@ if ( !class_exists('ATBDP_SEO') ):
 
             // Tag page
             if( $post->ID == $Tag_page_ID ) {
-
+                if (!empty($overwrite_yoast)){
+                    return '';
+                }
                 if( $slug = get_query_var( 'atbdp_tag' ) ) {
 
                     $term = get_term_by( 'slug', $slug, 'at_biz_dir-tags' );
@@ -402,6 +425,7 @@ if ( !class_exists('ATBDP_SEO') ):
 
             // Category page
             if( $post->ID == $LOC_page_ID ) {
+
                 if( $slug = get_query_var( 'atbdp_location' ) ) {
                     $term = get_term_by( 'slug', $slug, ATBDP_LOCATION );
                     $url = ATBDP_Permalink::atbdp_get_location_page($term );

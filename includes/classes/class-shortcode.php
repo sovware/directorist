@@ -892,7 +892,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 );
             }
 
-            if(isset($_GET['fax'])) {
+            if(!empty($_GET['fax'])) {
                 $fax = $_GET['fax'];
                 $meta_queries[] = array(
                     'key'   => '_fax',

@@ -10,16 +10,16 @@ $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
 $meta_array = array();
 if (!empty($cats)){
     if (count($cats)>1) {
-        $meta_array = array('relation' => 'OR');
+        $sub_meta_queries = array();
         foreach ($cats as $key => $value) {
-            array_push($meta_array,
-                array(
-                    'key' => 'category_pass',
-                    'value' => $value->term_id,
-                    'compare' => 'EXISTS'
-                )
+            array(
+                $sub_meta_queries[] = 'key' => 'category_pass',
+                'value' => $value->term_id,
+                'compare' => 'EXISTS'
+
             );
         }
+        $meta_array = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
     }else{
         $meta_array =  array(
             'key' => 'category_pass',

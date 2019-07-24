@@ -85,7 +85,11 @@ $video_label = get_directorist_option('atbd_video_title', __('Video', ATBDP_TEXT
 $p_lnk = get_the_permalink();
 $p_title = get_the_title();
 $featured = get_post_meta(get_the_ID(), '_featured', true);
-$cats = get_the_terms($post->ID, ATBDP_CATEGORY);
+$plan_cat = array();
+if (is_fee_manager_active()) {
+    $plan_cat = is_plan_allowed_category($fm_plan);
+}
+$cats = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0, 'exclude' => $plan_cat));
 $reviews_count = ATBDP()->review->db->count(array('post_id' => $listing_id)); // get total review count for this post
 $listing_author_id = get_post_field('post_author', $listing_id);
 $display_feature_badge_single = get_directorist_option('display_feature_badge_cart', 1);
@@ -312,11 +316,7 @@ do_action('atbdp_before_listing_section');
                 $data_info .= ' </div>';
             }
             $data_info .= '<div class="atbd_listting_category"><ul class="directory_cats">';
-            $plan_cat = array();
-            if (is_fee_manager_active()) {
-                $plan_cat = is_plan_allowed_category($fm_plan);
-            }
-            if (!empty($cats) && $plan_cat) {
+            if (!empty($cats)) {
                 $data_info .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
                 $numberOfCat = count($cats);
                 $output = array();

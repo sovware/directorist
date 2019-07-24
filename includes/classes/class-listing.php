@@ -173,8 +173,6 @@ if (!class_exists('ATBDP_Listing')):
                 } else {
                     global $post;
                     ob_start();
-
-                    // echo 'hello from the function';
                     include ATBDP_TEMPLATES_DIR . 'single-at_biz_dir.php';
                     return ob_get_clean();
                 }

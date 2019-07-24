@@ -103,7 +103,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $metas['_website']           = !empty($p['website'])? sanitize_text_field($p['website']) : '';
                     $metas['_zip']               = !empty($p['zip'])? sanitize_text_field($p['zip']) : '';
                     $metas['_social']            = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
-                    $metas['_faqs']              = !empty($p['faqs']) ? atbdp_sanitize_array($p['faqs']) : array(); // we are expecting array value
+                    $metas['_faqs']              = !empty($p['faqs']) ? ($p['faqs']) : array(); // we are expecting array value
                     $metas['_bdbh']              = !empty($p['bdbh'])? atbdp_sanitize_array($p['bdbh']) : array();
                     $metas['_enable247hour']      = !empty($p['enable247hour'])? sanitize_text_field($p['enable247hour']) : '';
                     $metas['_disable_bz_hour_listing']      = !empty($p['disable_bz_hour_listing'])? sanitize_text_field($p['disable_bz_hour_listing']) : '';

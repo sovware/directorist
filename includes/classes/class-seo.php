@@ -9,8 +9,6 @@ if ( !class_exists('ATBDP_SEO') ):
 
         public function __construct()
         {
-
-
             if (atbdp_can_use_yoast()){
                 add_filter( 'wpseo_title', array($this, 'wpseo_title' ));
                 add_filter( 'wpseo_metadesc', array($this, 'wpseo_metadesc' ));
@@ -367,11 +365,6 @@ if ( !class_exists('ATBDP_SEO') ):
 
             if( ! isset( $post ) ) return;
 
-            if (is_singular('at_biz_dir')){
-                $listings_desc = get_post(get_the_ID())->post_content;
-                echo '<meta name="description" content="'.$listings_desc.'"/>';
-            }
-
             $CAT_page_ID = get_directorist_option('single_category_page');
             $LOC_page_ID = get_directorist_option('single_location_page');
             $Tag_page_ID = get_directorist_option('single_tag_page');
@@ -461,6 +454,9 @@ if ( !class_exists('ATBDP_SEO') ):
             global $wp, $post, $wp_query, $wpdb;
             $meta_desc = '';
             $atbdp_page = '';
+            if (is_singular('at_biz_dir')){
+                $meta_desc = get_post(get_the_ID())->post_content;
+            }
             if(atbdp_is_page('home')){
                 $atbdp_page = 'home';
                 $meta_desc = (get_directorist_option('homepage_meta_desc')) ? get_directorist_option('homepage_meta_desc') : $meta_desc;
@@ -555,7 +551,12 @@ if ( !class_exists('ATBDP_SEO') ):
                  */
                 $sep = apply_filters('atbdp_page_title_separator', '|');
             }
-
+            $overwrite_yoast = get_directorist_option('overwrite_by_yoast');
+            if (is_singular('at_biz_dir')){
+                if (!empty($overwrite_yoast)){
+                    $title = get_the_title();
+            }
+            }
 
             $atbdp_page = '';
             if(atbdp_is_page('home')){

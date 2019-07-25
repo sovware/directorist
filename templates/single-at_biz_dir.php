@@ -112,11 +112,7 @@ $video_label = get_directorist_option('atbd_video_title', __('Video', ATBDP_TEXT
 $p_lnk = get_the_permalink();
 $p_title = get_the_title();
 $featured = get_post_meta(get_the_ID(), '_featured', true);
-$plan_cat = array();
-if (is_fee_manager_active()) {
-    $plan_cat = is_plan_allowed_category($fm_plan);
-}
-$cats = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0, 'exclude' => $plan_cat));
+$cats = get_the_terms($post->ID, ATBDP_CATEGORY);
 $reviews_count = ATBDP()->review->db->count(array('post_id' => $listing_id)); // get total review count for this post
 $listing_author_id = get_post_field('post_author', $listing_id);
 $display_feature_badge_single = get_directorist_option('display_feature_badge_cart', 1);
@@ -153,13 +149,21 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
     <div class="row">
         <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
             <?php
+            $display_back_link = get_directorist_option('display_back_link',1);
             //is current user is logged in and the original author of the listing
             if (is_user_logged_in() && $listing_author_id == get_current_user_id()) {
                 //ok show the edit option
                 ?>
                 <div class="edit_btn_wrap">
-                    <a href="javascript:history.back()" class="atbd_go_back"><i
-                                class="<?php atbdp_icon_type(true);?>-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?></a>
+                    <?php
+                    if (!empty($display_back_link)) {
+                        ?>
+                        <a href="javascript:history.back()" class="atbd_go_back"><i
+                                    class="<?php atbdp_icon_type(true); ?>-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?>
+                        </a>
+                        <?php
+                    }
+                    ?>
                     <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
                        class="btn btn-success"><span
                                 class="<?php atbdp_icon_type(true);?>-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN) ?></a>
@@ -167,11 +171,17 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                 <?php
             } else {
                 ?>
+            <?php
+            if (!empty($display_back_link)) {
+                ?>
                 <div class="edit_btn_wrap">
                     <a href="javascript:history.back()" class="atbd_go_back"><i
-                                class="<?php atbdp_icon_type(true);?>-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?></a>
+                                class="<?php atbdp_icon_type(true); ?>-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?>
+                    </a>
+
                 </div>
                 <?php
+            }
             }
             ?>
         </div>
@@ -405,7 +415,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         $data_info .= '<div class="atbd_listting_category"><ul class="directory_cats">';
 
                         if (!empty($cats)) {
-                            $data_info .= '<span class="'.atbdp_icon_type().'-tags"></span>';
+                            $data_info .= '<li><span class="'.atbdp_icon_type().'-tags"></span></li>';
                             $numberOfCat = count($cats);
                             $output = array();
                             foreach ($cats as $cat) {

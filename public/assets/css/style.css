@@ -1248,8 +1248,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-right: 15px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listting_category {
-  margin-right: 20px;
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listting_category .directory_cats {
+  display: flex;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listting_category .directory_cats > li {
+  margin-right: 5px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listing_average_pricing {
@@ -4651,6 +4655,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
     padding-left: 45px;
+    word-break: break-all;
   }
 }
 

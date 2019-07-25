@@ -392,7 +392,7 @@ class ATBDP_User {
         update_user_meta( $ID, 'twitter', $twitter );
         update_user_meta( $ID, 'linkedIn', $linkedIn );
         update_user_meta( $ID, 'youtube', $youtube );
-        update_user_meta( $ID, 'bio', $bio );
+        update_user_meta( $ID, 'description', $bio );
         update_user_meta( $ID, 'first_name', $first_name );
         update_user_meta( $ID, 'last_name', $last_name );
         update_user_meta( $ID, 'phone', $phone );

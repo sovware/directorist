@@ -454,9 +454,7 @@ if ( !class_exists('ATBDP_SEO') ):
             global $wp, $post, $wp_query, $wpdb;
             $meta_desc = '';
             $atbdp_page = '';
-            if (is_singular('at_biz_dir')){
-                $meta_desc = get_post(get_the_ID())->post_content;
-            }
+
             if(atbdp_is_page('home')){
                 $atbdp_page = 'home';
                 $meta_desc = (get_directorist_option('homepage_meta_desc')) ? get_directorist_option('homepage_meta_desc') : $meta_desc;

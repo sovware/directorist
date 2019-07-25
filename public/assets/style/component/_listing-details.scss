@@ -355,7 +355,12 @@
         margin-right: 15px;
       }
       .atbd_listting_category{
-        margin-right: 20px;
+        .directory_cats{
+          display: flex;
+          >li{
+            margin-right: 5px;
+          }
+        }
       }
       .atbd_listing_average_pricing{
         margin-right: 15px;

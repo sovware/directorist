@@ -12,8 +12,8 @@ if (!empty($cats)){
     if (count($cats)>1) {
         $sub_meta_queries = array();
         foreach ($cats as $key => $value) {
-            array(
-                $sub_meta_queries[] = 'key' => 'category_pass',
+            $sub_meta_queries[] = array(
+                 'key' => 'category_pass',
                 'value' => $value->term_id,
                 'compare' => 'EXISTS'
 

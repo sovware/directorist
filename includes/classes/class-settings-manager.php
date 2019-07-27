@@ -4975,7 +4975,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'display_publish_date',
-                        'label' => __('Hide Publish date', ATBDP_TEXTDOMAIN),
+                        'label' => __('Hide Publish Date', ATBDP_TEXTDOMAIN),
                         'default' => '1',
                     ),
                     array(

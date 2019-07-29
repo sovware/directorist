@@ -4671,6 +4671,12 @@ The Administrator of ==SITE_NAME==
                 ),
                 array(
                     'type' => 'toggle',
+                    'name' => 'display_back_link',
+                    'label' => __('Show Back Link', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'dsiplay_slider_single_page',
                     'label' => __('Show Slider Image', ATBDP_TEXTDOMAIN),
                     'description' => __('Hide/show slider image from single listing page.', ATBDP_TEXTDOMAIN),
@@ -4969,7 +4975,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'display_publish_date',
-                        'label' => __('Hide Publish date', ATBDP_TEXTDOMAIN),
+                        'label' => __('Hide Publish Date', ATBDP_TEXTDOMAIN),
                         'default' => '1',
                     ),
                     array(

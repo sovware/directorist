@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 5.5.1
+Stable tag: 5.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -128,6 +128,20 @@ Directorist is not developed by a single person. A team of dedicated developers 
 18. Add New Custom Field
 
 == Changelog ==
+
+= 5.5.3 - Jul 25, 2019 =
+
+* Fix - Category issue in single listing page
+
+= 5.5.2 - Jul 24, 2019 =
+
+* Fix - Listing search issue
+* Fix - Listing submit with more than four categories
+* Fix - SEO issue
+* Add - Connected WordPress user bio with the plugin's user bio
+* Add - Alt attribute to category and location images
+* Add - Option to hide Back Link
+* Improve - Styling on several places
 
 = 5.5.1 - Jul 18, 2019 =
 

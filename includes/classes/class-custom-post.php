@@ -39,7 +39,7 @@ if(!class_exists('ATBDP_Custom_Post')):
 
         public function work_row_actions_for_quick_view(){
             $nonce = isset( $_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : null;
-            if ( wp_verify_nonce( $nonce, 'quick-publish-action' ) && isset( $_REQUEST['update_id'] ) )
+            if ( wp_verify_nonce( $nonce, 'quick-publish-action' ) && isset( $_REQUEST['update_id'] ) && is_admin() )
             {
                 $my_post = array();
                 $my_post['ID'] = $_REQUEST['update_id'];
@@ -49,6 +49,7 @@ if(!class_exists('ATBDP_Custom_Post')):
                  * @since 5.4.0
                  */
                 do_action('atbdp_listing_published', $my_post['ID']);//for sending email notification
+                echo '<script>window.location="'.esc_url(admin_url().'edit.php?post_type=at_biz_dir').'"</script>';
             }
         }
 

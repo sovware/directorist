@@ -1563,20 +1563,20 @@ function atbdp_display_price_range($price_range)
     $output = '';
     if ('skimming' == $price_range) {
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing" data-toggle="tooltip" data-placement="top" title="" data-original-title="Skimming"><span class="atbd_active">$</span><span class="atbd_active">$</span><span class="atbd_active">$</span><span class="atbd_active">$</span>
+            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Skimming"><span class="atbd_active">$</span><span class="atbd_active">$</span><span class="atbd_active">$</span><span class="atbd_active">$</span>
         </span>';
     } elseif ('moderate' == $price_range) {
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing" data-toggle="tooltip" data-placement="top" title="" data-original-title="Moderate"><span class="atbd_active">$</span><span class="atbd_active">$</span><span class="atbd_active">$</span><span>$</span>
+            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Moderate"><span class="atbd_active">$</span><span class="atbd_active">$</span><span class="atbd_active">$</span><span>$</span>
             </span>';
     } elseif ('economy' == $price_range) {
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing" data-toggle="tooltip" data-placement="top" title="" data-original-title="Economy"><span class="atbd_active">$</span><span class="atbd_active">$</span><span>$</span><span>$</span>
+            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Economy"><span class="atbd_active">$</span><span class="atbd_active">$</span><span>$</span><span>$</span>
         </span>';
     } elseif ('bellow_economy' == $price_range) {
 
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cheap"><span class="atbd_active">$</span><span>$</span><span>$</span><span>$</span>
+            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Cheap"><span class="atbd_active">$</span><span>$</span><span>$</span><span>$</span>
         </span>';
 
     }
@@ -2307,9 +2307,8 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                                 $author = get_userdata($author_id);
                                                 ?>
                                                 <div class="atbd_author">
-                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
-                                                       data-toggle="tooltip" data-placement="top"
-                                                       title="<?php echo $author->first_name . ' ' . $author->last_name; ?>"><?php if (empty($u_pro_pic)) {
+                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" class="atbd_tooltip"
+                                                       aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>"><?php if (empty($u_pro_pic)) {
                                                             echo $avata_img;
                                                         }
                                                         if (!empty($u_pro_pic)) { ?>
@@ -2736,9 +2735,8 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                     $author = get_userdata($author_id);
                                                     ?>
                                                     <div class="atbd_author">
-                                                        <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
-                                                           data-toggle="tooltip" data-placement="top"
-                                                           title="<?php echo $author->first_name . ' ' . $author->last_name; ?>"><?php if (empty($u_pro_pic)) {
+                                                        <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" class="atbd_tooltip"
+                                                           aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>"><?php if (empty($u_pro_pic)) {
                                                                 echo $avata_img;
                                                             }
                                                             if (!empty($u_pro_pic)) { ?>
@@ -3373,7 +3371,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                              $author = get_userdata($author_id);
                                              $author_first_last_name = $author->first_name . ' ' . $author->last_name;
                                                 $catViewCountAuthor .= '<li class="atbd_author">';
-                                                $catViewCountAuthor .= '<a href="' . ATBDP_Permalink::get_user_profile_page_link($author_id).'" data-toggle="tooltip" data-placement="top" title="'. $author_first_last_name.'">';
+                                                $catViewCountAuthor .= '<a href="' . ATBDP_Permalink::get_user_profile_page_link($author_id).'" class="atbd_tooltip" aria-label="'. $author_first_last_name.'">';
                                                  if (empty($u_pro_pic)) {
                                                             $catViewCountAuthor .= $avata_img;
                                                         }
@@ -3955,12 +3953,28 @@ function atbdp_get_current_url() {
 function atbdp_can_use_yoast() {
 
     $can_use_yoast = false;
-    $overwrite_yoast = get_directorist_option('overwrite_by_yoast');
-    if (( in_array( 'wordpress-seo/wp-seo.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) && $overwrite_yoast ) {
+    if (( in_array( 'wordpress-seo/wp-seo.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )  ) {
         $can_use_yoast = true;
     }
 
     return $can_use_yoast;
+
+}
+/**
+ *
+ * @since     5.5.2
+ *
+ * @return    bool     $can_use_yoast    "true" if can use Yoast, "false" if not.
+ */
+function atbdp_disable_overwrite_yoast() {
+
+    $overwrite = false;
+    $overwrite_yoast = get_directorist_option('overwrite_by_yoast');
+    if (!empty($overwrite_yoast) || ( !in_array( 'wordpress-seo/wp-seo.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )) {
+        $overwrite = true;
+    }
+
+    return $overwrite;
 
 }
 

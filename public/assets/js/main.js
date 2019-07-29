@@ -787,7 +787,7 @@ jQuery(function ($) {
         })();
     });
 
-/*    $('.atbdp_right_nav').on('click', function (event) {
+/*   $('.atbdp_right_nav').on('click', function (event) {
         event.preventDefault();
         var currentLocation = window.location;
         var split_url = currentLocation.href.split('/');

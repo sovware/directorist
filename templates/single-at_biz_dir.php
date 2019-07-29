@@ -149,13 +149,21 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
     <div class="row">
         <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
             <?php
+            $display_back_link = get_directorist_option('display_back_link',1);
             //is current user is logged in and the original author of the listing
             if (is_user_logged_in() && $listing_author_id == get_current_user_id()) {
                 //ok show the edit option
                 ?>
                 <div class="edit_btn_wrap">
-                    <a href="javascript:history.back()" class="atbd_go_back"><i
-                                class="<?php atbdp_icon_type(true);?>-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?></a>
+                    <?php
+                    if (!empty($display_back_link)) {
+                        ?>
+                        <a href="javascript:history.back()" class="atbd_go_back"><i
+                                    class="<?php atbdp_icon_type(true); ?>-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?>
+                        </a>
+                        <?php
+                    }
+                    ?>
                     <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
                        class="btn btn-success"><span
                                 class="<?php atbdp_icon_type(true);?>-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN) ?></a>
@@ -163,11 +171,17 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                 <?php
             } else {
                 ?>
+            <?php
+            if (!empty($display_back_link)) {
+                ?>
                 <div class="edit_btn_wrap">
                     <a href="javascript:history.back()" class="atbd_go_back"><i
-                                class="<?php atbdp_icon_type(true);?>-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?></a>
+                                class="<?php atbdp_icon_type(true); ?>-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?>
+                    </a>
+
                 </div>
                 <?php
+            }
             }
             ?>
         </div>
@@ -399,12 +413,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                             $data_info .= ' </div>';
                         }
                         $data_info .= '<div class="atbd_listting_category"><ul class="directory_cats">';
-                        $plan_cat = array();
-                        if (is_fee_manager_active()) {
-                            $plan_cat = is_plan_allowed_category($fm_plan);
-                        }
-                        if (!empty($cats) && $plan_cat) {
-                            $data_info .= '<span class="'.atbdp_icon_type().'-tags"></span>';
+
+                        if (!empty($cats)) {
+                            $data_info .= '<li><span class="'.atbdp_icon_type().'-tags"></span></li>';
                             $numberOfCat = count($cats);
                             $output = array();
                             foreach ($cats as $cat) {
@@ -478,24 +489,28 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 
             <?php
             $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-            if (count($cats)>1) {
-                    $meta_array = array('relation' => 'OR');
+            $meta_array = array();
+            if (!empty($cats)){
+                if (count($cats)>1) {
+                    $sub_meta_queries = array();
                     foreach ($cats as $key => $value) {
-                        array_push($meta_array,
-                            array(
-                                'key' => 'category_pass',
+                        $sub_meta_queries[] = array(
+                                 'key' => 'category_pass',
                                 'value' => $value->term_id,
                                 'compare' => 'EXISTS'
-                            )
+
                         );
                     }
-            }else{
-                $meta_array =  array(
-                    'key' => 'category_pass',
-                    'value' => $cats[0]->term_id,
-                    'compare' => 'EXISTS'
-                );
+                    $meta_array = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
+                }else{
+                    $meta_array =  array(
+                        'key' => 'category_pass',
+                        'value' => $cats[0]->term_id,
+                        'compare' => 'EXISTS'
+                    );
+                }
             }
+
             $custom_fields = new WP_Query(array(
                 'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
                 'posts_per_page' => -1,

@@ -312,12 +312,8 @@ do_action('atbdp_before_listing_section');
                 $data_info .= ' </div>';
             }
             $data_info .= '<div class="atbd_listting_category"><ul class="directory_cats">';
-            $plan_cat = array();
-            if (is_fee_manager_active()) {
-                $plan_cat = is_plan_allowed_category($fm_plan);
-            }
-            if (!empty($cats) && $plan_cat) {
-                $data_info .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
+            if (!empty($cats)) {
+                $data_info .= '<li><span class="' . atbdp_icon_type() . '-tags"></span></li>';
                 $numberOfCat = count($cats);
                 $output = array();
                 foreach ($cats as $cat) {

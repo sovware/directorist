@@ -1349,6 +1349,21 @@ jQuery(function ($) {
         lf_opt53.show();
     }
 
+    //Email use field
+    var lf_opt_email_use = $("#user_email");
+    lf_opt_email_use.hide();
+    $('input[name="disable_contact_owner"]').on("change", function () {
+        if($(this).is(":checked") == false){
+            lf_opt_email_use.show();
+        }else{
+            lf_opt_email_use.hide();
+        }
+    });
+    if($('input[name="disable_contact_owner"]').is(":checked") == false){
+        lf_opt_email_use.show();
+    }
+
+
     //Display all listings header
     var lf_opt54 = $("#all_listing_title,#listing_filters_button,#listings_filter_button_text,#listings_display_filter,#listing_filters_fields,#listings_filters_button,#listings_reset_text,#listings_apply_text,#listings_search_text_placeholder,#listings_category_placeholder,#listings_location_placeholder,#display_sort_by,#sort_by_text,#listings_sort_by_items,#display_view_as,#view_as_text,#listings_view_as_items");
     lf_opt54.hide();

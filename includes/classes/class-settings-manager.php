@@ -1665,9 +1665,8 @@ Dear User,
 Congratulations! Your registration is completed!
 
 This email is sent automatically for information purpose only. Please do not respond to this.
+You can login now using the below credentials:
 
-Thanks,
-The Administrator
 ", ATBDP_TEXTDOMAIN);
 
             return apply_filters('atbdp_registration_confirmation_tmpl_settings_fields', array(
@@ -1682,7 +1681,7 @@ The Administrator
                     'type' => 'textarea',
                     'name' => 'email_tmpl_registration_confirmation',
                     'label' => __('Email Body', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the email template for sending to the user when when listing contact message send', ATBDP_TEXTDOMAIN),
+                    'description' => __('Edit the email template for sending to new user after registration [Note: Credentials details included at the bottom of the template]', ATBDP_TEXTDOMAIN),
                     'default' => $tmpl,
                 ),
 

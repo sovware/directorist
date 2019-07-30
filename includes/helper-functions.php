@@ -128,20 +128,17 @@ if (!function_exists('attc_number_to_letter')):
     }
 endif;
 
-if (!function_exists('padded_var_dump')):
+if (!function_exists('atbdp_v_d')):
 
     /**
      * It dumps data to the screen in a div that has margin left 200px.
      * It is good for dumping data in WordPress dashboard
      */
-    function padded_var_dump()
+    function atbdp_v_d($a=null)
     {
-        echo "<div style='margin-left: 200px;'>";
-        $args = func_get_args();
-        if (count($args)) foreach ($args as $a) {
+        echo "<pre>";
             var_dump($a);
-        }
-        echo "</div>";
+        echo "</pre>";
     }
 endif;
 

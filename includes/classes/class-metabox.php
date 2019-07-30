@@ -10,7 +10,7 @@ class ATBDP_Metabox {
     public function __construct() {
         if ( is_admin() ) {
             add_action('add_meta_boxes_'.ATBDP_POST_TYPE,	array($this, 'listing_info_meta'));
-            add_action('publish_'.ATBDP_POST_TYPE,	array($this, 'publish_atbdp_listings'), 10, 2);
+            add_action('transition_post_status',	array($this, 'publish_atbdp_listings'), 10, 3);
             // edit_post hooks is better than save_post hook for nice checkbox
             // http://wordpress.stackexchange.com/questions/228322/how-to-set-default-value-for-checkbox-in-wordpress
             add_action( 'edit_post', array($this, 'save_post_meta'), 10, 2);
@@ -26,8 +26,11 @@ class ATBDP_Metabox {
     /**
      * @since 5.4.0
      */
-    public function publish_atbdp_listings($ID, $post ){
-        do_action('atbdp_listing_published', $ID);//for sending email notification
+    public function publish_atbdp_listings( $new_status, $old_status, $post ){
+        $nonce = isset( $_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : null;
+        if ( ($post->post_type == 'at_biz_dir') && ( $old_status == 'pending'  &&  $new_status == 'publish' ) && !wp_verify_nonce( $nonce, 'quick-publish-action' ) ){
+            do_action('atbdp_listing_published', $post->ID);//for sending email notification
+        }
     }
 
     /**
@@ -41,7 +44,6 @@ class ATBDP_Metabox {
     public function ajax_callback_custom_fields( $post_id = 0, $term_id = array() ) {
         $ajax = false;
         if( isset( $_POST['term_id'] ) ) {
-
             $ajax = true;
             $post_ID = !empty($_POST['post_id'])?(int)$_POST['post_id']:'' ;
             $term_id = $_POST['term_id'];
@@ -83,7 +85,7 @@ class ATBDP_Metabox {
                 array(
                     'key'=> 'admin_use',
                     'value'=> 1,
-                    'compare'=> '='
+                    'compare'=> '!='
                 ),
             )
         );

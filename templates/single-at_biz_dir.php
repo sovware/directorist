@@ -488,17 +488,15 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             <?php do_action('atbdp_after_single_listing_details_section');?>
 
             <?php
-            $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
             $meta_array = array();
             if (!empty($cats)){
                 if (count($cats)>1) {
                     $sub_meta_queries = array();
                     foreach ($cats as $key => $value) {
                         $sub_meta_queries[] = array(
-                                 'key' => 'category_pass',
-                                'value' => $value->term_id,
-                                'compare' => 'EXISTS'
-
+                            'key' => 'category_pass',
+                            'value' => $value->term_id,
+                            'compare' => 'EXISTS'
                         );
                     }
                     $meta_array = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
@@ -510,7 +508,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     );
                 }
             }
-
             $custom_fields = new WP_Query(array(
                 'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
                 'posts_per_page' => -1,

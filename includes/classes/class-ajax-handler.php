@@ -523,6 +523,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         $post_id = (int) $_POST["post_id"];
         $name    = sanitize_text_field( $_POST["name"] );
         $email   = sanitize_email( $_POST["email"] );
+        $listing_email   = sanitize_email( $_POST["listing_email"] );
         $message = stripslashes( esc_textarea( $_POST["message"] ) );
 
         // vars
@@ -538,6 +539,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         $current_time           = current_time( 'timestamp' );
         $contact_email_subject  = get_directorist_option('email_sub_listing_contact_email');
         $contact_email_body     = get_directorist_option('email_tmpl_listing_contact_email');
+        $user_email             = get_directorist_option('user_email','author');
 
         $placeholders = array(
             '==NAME=='            => $user->display_name,
@@ -554,8 +556,12 @@ if(!class_exists('ATBDP_Ajax_Handler')):
             '==TODAY=='           => date_i18n( $date_format, $current_time ),
             '==NOW=='             => date_i18n( $date_format . ' ' . $time_format, $current_time )
         );
+        if('listing_email' == $user_email) {
+            $to = $listing_email;
+        }else{
+            $to      = $user->user_email;
+        }
 
-        $to      = $user->user_email;
 
         $subject = strtr( $contact_email_subject, $placeholders );
 

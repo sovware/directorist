@@ -2,6 +2,7 @@
 global $post;
 $listing_id = $post->ID;
 $fm_plan = get_post_meta($listing_id, '_fm_plans', true);
+$email = get_post_meta($post->ID, '_email', true);
 $plan_permission = true;
 $listing_info['hide_contact_owner'] = get_post_meta($post->ID, '_hide_contact_owner', true);
 $disable_contact_owner = get_directorist_option('disable_contact_owner', 1);
@@ -48,4 +49,6 @@ if ($plan_permission && !$hide_contact_owner && empty($disable_contact_owner)) {
                         <button type="submit" class="btn btn-primary"><?php _e('Submit', ATBDP_TEXTDOMAIN); ?></button>
                     </form>
                 </div>
+                <input type="hidden" id="atbdp-post-id" value="<?php echo $post->ID; ?>" />
+                <input type="hidden" id="atbdp-listing-email" value="<?php echo !empty($email) ? sanitize_email($email) : ''; ?>" />
 <?php } ?>

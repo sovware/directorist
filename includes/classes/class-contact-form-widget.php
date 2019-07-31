@@ -39,6 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 if( is_singular(ATBDP_POST_TYPE)) {
                     $plan_permission = true;
                     global $post;
+                    $email = get_post_meta($post->ID, '_email', true);
                     if (is_fee_manager_active()){
                         $plan_permission = is_plan_allowed_owner_contact_widget(get_post_meta($post->ID, '_fm_plans', true));
                     }
@@ -77,6 +78,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                             </form>
                         </div>
                         <input type="hidden" id="atbdp-post-id" value="<?php echo $post->ID; ?>" />
+                        <input type="hidden" id="atbdp-listing-email" value="<?php echo !empty($email) ? sanitize_email($email) : ''; ?>" />
                         <?php
                         echo $args['after_widget'];
                     }

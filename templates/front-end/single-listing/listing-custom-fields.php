@@ -6,47 +6,45 @@ $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
 $custom_section_lable = get_directorist_option('custom_section_lable', __('Details', ATBDP_TEXTDOMAIN));
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
-$meta_array = array();
-if (!empty($cats)){
-    if (count($cats)>1) {
-        $sub_meta_queries = array();
-        foreach ($cats as $key => $value) {
-            $sub_meta_queries[] = array(
-                'key' => 'category_pass',
-                'value' => $value->term_id,
-                'compare' => 'EXISTS'
-            );
-        }
-        $meta_array = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
-    }else{
-        $meta_array =  array(
-            'key' => 'category_pass',
-            'value' => $cats[0]->term_id,
-            'compare' => 'EXISTS'
-        );
+$category_ids = array();
+if (!empty($cats)) {
+    foreach ($cats as $single_val) {
+        $category_ids[] = $single_val->term_id;
     }
 }
-$custom_fields = new WP_Query(array(
+$c_args = array(
     'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
     'posts_per_page' => -1,
     'post_status' => 'publish',
-    'meta_query' => array(
-        'relation' => 'OR',
-        array(
-            'key' => 'associate',
-            'value' => 'form',
-            'compare' => 'EXISTS'
-        ),
-        $meta_array
-    )
-));
+
+);
+$custom_fields = new WP_Query($c_args);
 $custom_fields_posts = $custom_fields->posts;
 $has_field_value = array();
+$has_field_ids = array();
 foreach ($custom_fields_posts as $custom_fields_post) {
     setup_postdata($custom_fields_post);
-    $has_field_id = $custom_fields_post->ID;
-    $has_field_details = get_post_meta($listing_id, $has_field_id, true);
-    $has_field_value[] = $has_field_details;
+    $id = $custom_fields_post->ID;
+    $fields = get_post_meta($id, 'associate', true);
+    //lets match if the field is associated with a category and the category is selected
+    if ('form' != $fields){
+        $fields_id_with_cat = get_post_meta($id, 'category_pass', true);
+        if (in_array($fields_id_with_cat, $category_ids)){
+            $has_field_details = get_post_meta($listing_id, $custom_fields_post->ID, true);
+            if (!empty($has_field_details)){
+                $has_field_ids[] = $id;
+            }
+            $has_field_value[] = $has_field_details;
+        }
+
+    }else{
+        $has_field_details = get_post_meta($listing_id, $custom_fields_post->ID, true);
+        if (!empty($has_field_details)){
+            $has_field_ids[] = $id;
+        }
+        $has_field_value[] = $has_field_details;
+    }
+
 }
 $has_field = join($has_field_value);
 $plan_custom_field = true;
@@ -67,9 +65,8 @@ if (!empty($has_field) && $plan_custom_field) {
             <ul class="atbd_custom_fields">
                 <!--  get data from custom field-->
                 <?php
-                foreach ($custom_fields_posts as $post) {
-                    setup_postdata($post);
-                    $field_id = $post->ID;
+                foreach ($has_field_ids as $id) {
+                    $field_id = $id;
                     $field_details = get_post_meta($listing_id, $field_id, true);
                     $has_field_value[] = $field_details;
 
@@ -127,7 +124,6 @@ if (!empty($has_field) && $plan_custom_field) {
                         <?php
                     }
                 }
-                wp_reset_postdata();
                 ?>
             </ul>
         </div>

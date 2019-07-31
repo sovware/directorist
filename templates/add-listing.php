@@ -303,12 +303,15 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
 
             <div class="form-group">
                 <?php
-                $category = wp_get_object_terms( $post_ID, ATBDP_CATEGORY, array( 'fields' => 'ids' ) );
-
-                $current_val = $category;
-                $term_id_selected = !empty($current_val) ? array($current_val): array();
+                $current_val = get_the_terms($post_ID, ATBDP_CATEGORY);;
+                $ids = array();
+                if (!empty($current_val)) {
+                    foreach ($current_val as $single_val) {
+                        $ids[] = $single_val->term_id;
+                    }
+                }
                 ?>
-                <input type="hidden" id="value_selected" value="<?php echo json_encode($term_id_selected) ?>">
+                <input type="hidden" id="value_selected" value="<?php echo $ids; ?>">
             </div>
         </div>
 
@@ -319,15 +322,14 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
         </div>
         <?php
 
-        if ($term_id_selected) {
-            foreach ($term_id_selected as $single_term){
+        if ($ids) {
             ?>
             <div id="atbdp-custom-fields-list-selected" data-post_id="<?php echo $post_ID; ?>">
                 <?php
-                do_action('wp_ajax_atbdp_custom_fields_listings_selected', $post_ID, $single_term); ?>
+                do_action('wp_ajax_atbdp_custom_fields_listings_selected', $post_ID, $ids); ?>
             </div>
             <?php
-        }}
+        }
         ?>
     </div>
 

@@ -68,7 +68,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
          * @param	 array    $term_id    Category ID.
          */
         public function ajax_callback_custom_fields( $post_id = 0, $term_id = array() ) {
-            //include ATBDP_DIR .'public/assets/css/style.php';
             $ajax = false;
             if( isset( $_POST['term_id'] ) ) {
                 $ajax = true;
@@ -129,6 +128,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
             if( $count_meta_queries ) {
                 $args['meta_query'] = ( $count_meta_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $meta_queries ) : $meta_queries;
             }
+
             $atbdp_query = new WP_Query( $args );
 
             if ($atbdp_query->have_posts()){

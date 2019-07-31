@@ -4746,12 +4746,30 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Disable Contact Information', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
-
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_contact_owner',
                     'label' => __('Disable Contact Listing Owner Form', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                ),
+                array(
+                    'type' => 'select',
+                    'name' => 'user_email',
+                    'label' => __('Email Used', ATBDP_TEXTDOMAIN),
+                    'items' => array(
+                        array(
+                            'value' => 'author',
+                            'label' => __('Author Email', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'listing_email',
+                            'label' => __('Listing\'s Email', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'author',
+                        'label' => __('Author Email', ATBDP_TEXTDOMAIN),
+                    ),
                 ),
                 array(
                     'type' => 'toggle',

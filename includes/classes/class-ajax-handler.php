@@ -523,6 +523,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         $post_id = (int) $_POST["post_id"];
         $name    = sanitize_text_field( $_POST["name"] );
         $email   = sanitize_email( $_POST["email"] );
+        $listing_email   = sanitize_email( $_POST["listing_email"] );
         $message = stripslashes( esc_textarea( $_POST["message"] ) );
 
         // vars

@@ -673,6 +673,7 @@ jQuery(function ($) {
                         'post_id': $('#atbdp-post-id').val(),
                         'name': $('#atbdp-contact-name').val(),
                         'email': $('#atbdp-contact-email').val(),
+                        'listing_email': $('#atbdp-listing-email').val(),
                         'message': $('#atbdp-contact-message').val(),
                     };
 

@@ -816,6 +816,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         <button type="submit" class="btn btn-primary"><?php _e('Submit', ATBDP_TEXTDOMAIN); ?></button>
                     </form>
                 </div>
+                <input type="hidden" id="atbdp-post-id" value="<?php echo $post->ID; ?>" />
+                <input type="hidden" id="atbdp-listing-email" value="<?php echo !empty($email) ? sanitize_email($email) : ''; ?>" />
             <?php }
             /**
              * @since 5.0.5

@@ -147,45 +147,38 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 ?>
 <section id="directorist" class="directorist atbd_wrapper">
     <div class="row">
-        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
-            <?php
-            $display_back_link = get_directorist_option('display_back_link',1);
-            //is current user is logged in and the original author of the listing
-            if (is_user_logged_in() && $listing_author_id == get_current_user_id()) {
-                //ok show the edit option
-                ?>
-                <div class="edit_btn_wrap">
-                    <?php
-                    if (!empty($display_back_link)) {
-                        ?>
-                        <a href="javascript:history.back()" class="atbd_go_back"><i
-                                    class="<?php atbdp_icon_type(true); ?>-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?>
-                        </a>
-                        <?php
-                    }
-                    ?>
-                    <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
-                       class="btn btn-success"><span
-                                class="<?php atbdp_icon_type(true);?>-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN) ?></a>
-                </div>
-                <?php
-            } else {
-                ?>
-            <?php
-            if (!empty($display_back_link)) {
-                ?>
-                <div class="edit_btn_wrap">
-                    <a href="javascript:history.back()" class="atbd_go_back"><i
-                                class="<?php atbdp_icon_type(true); ?>-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?>
-                    </a>
-
-                </div>
-                <?php
-            }
-            }
-            ?>
-        </div>
         <?php
+        $html_edit_back = '';
+        $html_edit_back .= '<div class="' . esc_attr($main_col_size) . ' col-md-12 atbd_col_left">';
+        //is current user is logged in and the original author of the listing
+        if (is_user_logged_in() && $listing_author_id == get_current_user_id()) {
+            //ok show the edit option
+
+            $html_edit_back .= '<div class="edit_btn_wrap">';
+            $display_back_link = get_directorist_option('display_back_link', 1);
+            if (!empty($display_back_link)) {
+                $html_edit_back .= '<a href="javascript:history.back()" class="atbd_go_back"><i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', ATBDP_TEXTDOMAIN) . '</a> ';
+            }
+            $html_edit_back .= '<a href="' . esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)) . '" class="btn btn-success">
+                            <span class="' . atbdp_icon_type() . '-edit"></span>' . esc_html__(' Edit Listing', ATBDP_TEXTDOMAIN) . '</a>';
+            $html_edit_back .= '</div>';
+        } else {
+            if (!empty($display_back_link)) {
+                $html_edit_back .= '<div class="edit_btn_wrap">
+                                <a href="javascript:history.back()" class="atbd_go_back">
+                                    <i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', ATBDP_TEXTDOMAIN) . '
+                                </a>
+                           </div>';
+            }
+        }
+        $html_edit_back .= '</div>';
+
+        /**
+         * @since 5.5.4
+         */
+        echo apply_filters('atbdp_single_listing_edit_back', $html_edit_back);
+
+
         /**
          * @since 5.0
          */

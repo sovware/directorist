@@ -247,11 +247,9 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
 
                                             do_action('atbdp_after_listing_tagline');
                                             ?>
-
                                             <?php
                                             $meta_html = '';
-                                            if (!empty($display_review) || !empty($display_price)) { ?>
-
+                                            if (!empty($display_review) || (!empty($display_price) && (!empty($price) || !empty($price_range)))) { ?>
                                                 <?php
                                                 $meta_html .= '<div class="atbd_listing_meta">';
                                                 $average = ATBDP()->review->get_average(get_the_ID());

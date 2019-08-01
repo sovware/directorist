@@ -1280,7 +1280,12 @@ if ( !class_exists('ATBDP_Shortcode') ):
             if( $has_featured || is_fee_manager_active()) {
                 $has_featured    = $atts['_featured'];
             }
-            $current_order       = atbdp_get_listings_current_order( $atts['orderby'].'-'.$atts['order'] );
+            if('rand' == $atts['orderby']){
+                $current_order       = atbdp_get_listings_current_order( $atts['orderby'] );
+            }else{
+                $current_order       = atbdp_get_listings_current_order( $atts['orderby'].'-'.$atts['order'] );
+            }
+
             $view                = atbdp_get_listings_current_view_name( $atts['view'] );
 
             $args = array(

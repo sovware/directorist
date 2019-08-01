@@ -4434,6 +4434,12 @@ The Administrator of ==SITE_NAME==
                     'default' => 1,
                 ),
                 array(
+                    'type' => 'textbox',
+                    'name' => 'my_listing_tab_text',
+                    'label' => __('"My Listing" Tab Text', ATBDP_TEXTDOMAIN),
+                    'default' => __('My Listing', ATBDP_TEXTDOMAIN),
+                ),
+                array(
                     'type' => 'toggle',
                     'name' => 'user_listings_pagination',
                     'label' => __('Listings Pagination', ATBDP_TEXTDOMAIN),
@@ -4456,10 +4462,22 @@ The Administrator of ==SITE_NAME==
                     'default' => 1,
                 ),
                 array(
+                    'type' => 'textbox',
+                    'name' => 'my_profile_tab_text',
+                    'label' => __('"My Profile" Tab Text', ATBDP_TEXTDOMAIN),
+                    'default' => __('My Profile', ATBDP_TEXTDOMAIN),
+                ),
+                array(
                     'type' => 'toggle',
                     'name' => 'fav_listings_tab',
                     'label' => __('Display Favourite Listings Tab', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'fav_listings_tab_text',
+                    'label' => __('"Favourite Listings" Tab Text', ATBDP_TEXTDOMAIN),
+                    'default' => __('Favorite Listings', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',

@@ -3195,7 +3195,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                 ?>
                                 <?php
                                 $meta_html = '';
-                                if (!empty($display_review) || !empty($display_price)) {
+                                if (!empty($display_review) || (!empty($display_price) && (!empty($price) || !empty($price_range)))) {
                                     $meta_html .= '<div class="atbd_listing_meta">';
                                         if (!empty($display_review)) {
                                             $average = ATBDP()->review->get_average(get_the_ID());

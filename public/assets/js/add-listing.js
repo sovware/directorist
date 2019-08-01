@@ -377,6 +377,12 @@ jQuery(function($){
             'term_id': id
         };
         $.post(atbdp_add_listing.ajaxurl, data, function (response) {
+
+            if(response == " 0"){
+                $('#atbdp-custom-fields-list').hide();
+            }else {
+                $('#atbdp-custom-fields-list').show();
+            }
             $('#atbdp-custom-fields-list').html(response);
         });
 

@@ -18,8 +18,11 @@ $date_format = get_option('date_format');
 $featured_active = get_directorist_option('enable_featured_listing');
 $is_disable_price = get_directorist_option('disable_list_price');
 $my_listing_tab = get_directorist_option('my_listing_tab', 1);
+$my_listing_tab_text = get_directorist_option('my_listing_tab_text', __('My Listing', ATBDP_TEXTDOMAIN));
 $my_profile_tab = get_directorist_option('my_profile_tab', 1);
+$my_profile_tab_text = get_directorist_option('my_profile_tab_text', __('My Profile', ATBDP_TEXTDOMAIN));
 $fav_listings_tab = get_directorist_option('fav_listings_tab', 1);
+$fav_listings_tab_text = get_directorist_option('fav_listings_tab_text', __('Favorite Listings', ATBDP_TEXTDOMAIN));
 $submit_listing_button = get_directorist_option('submit_listing_button', 1);
 $show_title = !empty($show_title) ? $show_title : '';
 $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
@@ -47,16 +50,16 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                 <li>
                                     <a href="" target="my_listings" class="atbd_tn_link tabItemActive">
                                         <?php $list_found = ($listings->found_posts > 0) ? $listings->found_posts : '0';
-                                        printf(__('My Listing (%s)', ATBDP_TEXTDOMAIN), $list_found); ?>
+                                        printf(__('%s (%s)', ATBDP_TEXTDOMAIN), $my_listing_tab_text,$list_found); ?>
                                     </a>
                                 </li>
                             <?php } ?>
                             <?php if (!empty($my_profile_tab)) { ?>
-                                <li><a href="" class="atbd_tn_link" target="profile"><?php _e('My Profile', ATBDP_TEXTDOMAIN); ?></a>
+                                <li><a href="" class="atbd_tn_link" target="profile"><?php _e($my_profile_tab_text, ATBDP_TEXTDOMAIN); ?></a>
                                 </li>
                             <?php } ?>
                             <?php if (!empty($fav_listings_tab)) { ?>
-                                <li><a href="" class="atbd_tn_link" target="saved_items"><?php _e('Favorite Listings', ATBDP_TEXTDOMAIN); ?></a>
+                                <li><a href="" class="atbd_tn_link" target="saved_items"><?php _e($fav_listings_tab_text, ATBDP_TEXTDOMAIN); ?></a>
                                 </li>
                             <?php } ?>
                             <?php

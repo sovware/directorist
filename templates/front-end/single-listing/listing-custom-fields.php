@@ -23,7 +23,6 @@ $custom_fields_posts = $custom_fields->posts;
 $has_field_value = array();
 $has_field_ids = array();
 foreach ($custom_fields_posts as $custom_fields_post) {
-    setup_postdata($custom_fields_post);
     $id = $custom_fields_post->ID;
     $fields = get_post_meta($id, 'associate', true);
     //lets match if the field is associated with a category and the category is selected
@@ -46,6 +45,7 @@ foreach ($custom_fields_posts as $custom_fields_post) {
     }
 
 }
+wp_reset_postdata();
 $has_field = join($has_field_value);
 $plan_custom_field = true;
 if (is_fee_manager_active()) {
@@ -129,3 +129,4 @@ if (!empty($has_field) && $plan_custom_field) {
         </div>
     </div><!-- end .atbd_custom_fields_contents -->
 <?php }
+wp_reset_query();

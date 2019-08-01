@@ -1393,6 +1393,48 @@ jQuery(function ($) {
         lf_opt55.show();
     }
 
+    //Display my listing tab text option for deshboard
+    var lf_opt56 = $("#my_listing_tab_text");
+    lf_opt56.hide();
+    $('input[name="my_listing_tab"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt56.show();
+        }else{
+            lf_opt56.hide();
+        }
+    });
+    if($('input[name="my_listing_tab"]').is(":checked") === true){
+        lf_opt56.show();
+    }
+
+    //Display my profile tab text option for deshboard
+    var lf_opt57 = $("#my_profile_tab_text");
+    lf_opt57.hide();
+    $('input[name="my_profile_tab"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt57.show();
+        }else{
+            lf_opt57.hide();
+        }
+    });
+    if($('input[name="my_profile_tab"]').is(":checked") === true){
+        lf_opt57.show();
+    }
+
+    //Display my profile tab text option for deshboard
+    var lf_opt58 = $("#fav_listings_tab_text");
+    lf_opt58.hide();
+    $('input[name="fav_listings_tab"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt58.show();
+        }else{
+            lf_opt58.hide();
+        }
+    });
+    if($('input[name="fav_listings_tab"]').is(":checked") === true){
+        lf_opt58.show();
+    }
+
     /* Copy shortcodes on click */
     var textToCopy = document.querySelectorAll(".description.atbdp_settings_description strong");
     textToCopy.forEach((el, index) =>{

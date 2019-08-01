@@ -362,7 +362,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                             $plan_price = is_plan_allowed_price($fm_plan);
                         }
                         $data_info = '<div class="atbd_data_info">';
-                        if (empty($is_disable_price) || !empty($enable_review)) {
+                        if ( !empty($enable_review) || (empty($is_disable_price) && (!empty($price) || !empty($price_range)))) {
                             $data_info .= '<div class="atbd_listing_meta">';
                             $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
                             if (empty($is_disable_price)) {
@@ -503,7 +503,6 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             $has_field_value = array();
             $has_field_ids = array();
             foreach ($custom_fields_posts as $custom_fields_post) {
-                setup_postdata($custom_fields_post);
                 $id = $custom_fields_post->ID;
                 $fields = get_post_meta($id, 'associate', true);
                 //lets match if the field is associated with a category and the category is selected
@@ -526,6 +525,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                 }
 
             }
+            wp_reset_postdata();
             $has_field = join($has_field_value);
             $plan_custom_field = true;
             if (is_fee_manager_active()) {
@@ -605,6 +605,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     <?php
                                 }
                             }
+                            wp_reset_query();
                             ?>
                         </ul>
                     </div>
@@ -918,10 +919,20 @@ if ('openstreet' == $select_listing_map) {
             $(this).html(link);
         });
         <?php } elseif('openstreet' == $select_listing_map) { ?>
+        setInterval(() => {
+            $('img.olTileImage').each((index, el) => {
 
+                if($(el).attr('src').startsWith('http:')){
+                    var attr = $(el).attr('src').split('/')[0] = "https:";
 
+                    var url = attr+"/"+$(el).attr('src').split('/').slice(1, 15).join('/');
+                    $(el).attr('src', url)
+
+                }
+
+            })
+        }, 1000);
         map = new OpenLayers.Map("gmap");
-
         let mymap = (lon, lat) => {
             map.addLayer(new OpenLayers.Layer.OSM());
             let pois = new OpenLayers.Layer.Text("My Points",

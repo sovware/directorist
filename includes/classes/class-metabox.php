@@ -56,39 +56,25 @@ class ATBDP_Metabox {
             'status'        => 'published'
         );
         $meta_queries = array();
-        if ($custom_field_ids>1){
-            $sub_meta_queries = array();
-            foreach( $custom_field_ids as $value ) {
-                $sub_meta_queries[] = array(
+        if (!empty($custom_field_ids)){
+            if (count($custom_field_ids)>1){
+                $sub_meta_queries = array();
+                foreach( $custom_field_ids as $value ) {
+                    $sub_meta_queries[] = array(
+                        'key'		=> 'category_pass',
+                        'value'		=> $value,
+                        'compare'	=> 'LIKE'
+                    );
+                }
+                $meta_queries[] = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
+            }else{
+                $meta_queries[] = array(
                     'key'		=> 'category_pass',
-                    'value'		=> $value,
+                    'value'		=> $custom_field_ids[0],
                     'compare'	=> 'LIKE'
                 );
             }
-
-            $meta_queries[] = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
-        }else{
-            $meta_queries[] = array(
-                'key'		=> 'category_pass',
-                'value'		=> $custom_field_ids[0],
-                'compare'	=> 'LIKE'
-            );
         }
-
-        $meta_queries[] = array(
-            array(
-                'relation' => 'OR',
-                array(
-                    'key'=> 'admin_use',
-                    'compare'=> 'NOT EXISTS'
-                ),
-                array(
-                    'key'=> 'admin_use',
-                    'value'=> 1,
-                    'compare'=> '!='
-                ),
-            )
-        );
         $meta_queries[] = array(
             array(
                 'key'       => 'associate',
@@ -96,8 +82,6 @@ class ATBDP_Metabox {
                 'compare'   => 'LIKE',
             ),
         );
-
-
         $count_meta_queries = count( $meta_queries );
         if( $count_meta_queries ) {
             $args['meta_query'] = ( $count_meta_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $meta_queries ) : $meta_queries;

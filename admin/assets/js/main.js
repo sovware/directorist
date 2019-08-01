@@ -1350,17 +1350,18 @@ jQuery(function ($) {
     }
 
     //Email use field
-    var lf_opt_email_use = $("#user_email");
-    lf_opt_email_use.hide();
+    var lf_opt54 = $("#user_email");
+    lf_opt54.hide();
     $('input[name="disable_contact_owner"]').on("change", function () {
         if($(this).is(":checked") == false){
-            lf_opt_email_use.show();
+            console.log()
+            lf_opt54.show();
         }else{
-            lf_opt_email_use.hide();
+            lf_opt54.hide();
         }
     });
     if($('input[name="disable_contact_owner"]').is(":checked") == false){
-        lf_opt_email_use.show();
+        lf_opt54.show();
     }
 
 

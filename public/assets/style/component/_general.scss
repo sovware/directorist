@@ -471,6 +471,9 @@ body.atbd_content_active #directorist.atbd_wrapper{
 #directorist.atbd_wrapper .atbd_author_filter_area .dropdown .dropdown-menu{
   width: 157px;
   word-break: break-all;
+  overflow-y: auto;
+  max-height: 400px;
+  overflow-x: hidden;
 }
 #directorist.atbd_wrapper .atbd_author_filter_area .dropdown .dropdown-menu .dropdown-item{
   white-space: pre-line;

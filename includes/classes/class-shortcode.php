@@ -3231,6 +3231,7 @@ if ( !class_exists('ATBDP_Shortcode') ):
                 global $wp;
                 global $pagenow;
                 $current_url = home_url(add_query_arg(array(),$wp->request));
+
                 if (is_fee_manager_active() && !selected_plan_id()){
                     if( (strpos( $current_url, '/edit/' ) !== false) && ($pagenow = 'at_biz_dir')) {
                         ATBDP()->enquirer->add_listing_scripts_styles();
@@ -3247,7 +3248,6 @@ if ( !class_exists('ATBDP_Shortcode') ):
                     ATBDP()->enquirer->add_listing_scripts_styles();
                     ATBDP()->load_template('front-end/add-listing');
                 }
-
             }else{
                 // user not logged in;
                 $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), apply_filters('atbdp_listing_form_login_link',"<a href='".ATBDP_Permalink::get_login_page_link()."'> ". __('Here', ATBDP_TEXTDOMAIN)."</a>"),apply_filters('atbdp_listing_form_signup_link',"<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', ATBDP_TEXTDOMAIN)."</a>")); ?>

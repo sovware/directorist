@@ -126,7 +126,7 @@ if (!class_exists('ATBDP_Email')):
                 '==TODAY==' => date_i18n($date_format, $current_time),
                 '==NOW==' => date_i18n($date_format . ' ' . $time_format, $current_time),
             );
-            $c = nl2br(strtr($content, $find_replace));
+            $c = strtr($content, $find_replace);
             // we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.
             return str_replace('==ORDER_DETAILS==', ATBDP_Order::get_order_details($order_id), $c);
 
@@ -747,6 +747,8 @@ This email is sent automatically for information purpose only. Please do not res
             if (is_admin()){
                 return $wp_new_user_notification_email;
             }
+            if (get_directorist_option('disable_email_notification')) return $wp_new_user_notification_email;
+
             $display_password = get_directorist_option('display_password_reg', 0);
             $require_password = get_directorist_option('require_password_reg',0);
             $user_password = get_user_meta($user->ID, '_atbdp_generated_password',true);
@@ -761,6 +763,7 @@ This email is sent automatically for information purpose only. Please do not res
 You can login now using the below credentials:
 
 ", ATBDP_TEXTDOMAIN));
+                $body = $this->replace_in_content($body, null, null, $user);
                 $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
                 $wp_new_user_notification_email['message'] = $body."
                 
@@ -778,6 +781,7 @@ This email is sent automatically for information purpose only. Please do not res
 You can login now using the below credentials:
 
 ", ATBDP_TEXTDOMAIN));
+                $body = $this->replace_in_content($body, null, null, $user);
                 $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
                 $wp_new_user_notification_email['message'] = $body."
                 
@@ -795,6 +799,7 @@ This email is sent automatically for information purpose only. Please do not res
 You can login now using the below credentials:
 
 ", ATBDP_TEXTDOMAIN));
+                $body = $this->replace_in_content($body, null, null, $user);
                 $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
                 $wp_new_user_notification_email['message'] = $body."
                 

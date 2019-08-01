@@ -311,7 +311,7 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                     }
                 }
                 ?>
-                <input type="hidden" id="value_selected" value="<?php echo $ids; ?>">
+                <input type="hidden" id="value_selected" value="<?php echo json_encode($ids); ?>">
             </div>
         </div>
 

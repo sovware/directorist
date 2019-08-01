@@ -8,6 +8,12 @@ $view_as = get_directorist_option('grid_view_as', 'normal_grid');
 
 wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
 $column_width = 100 / $columns . '%';
+/**
+ * @package Directorist
+ * @since 5.5.1
+ * @param WP_Query $all_listings    It contains all the queried listings by a user
+ */
+do_action('atbdp_before_all_listings_grid', $all_listings);
 ?>
 
 <div id="directorist" class="atbd_wrapper ads-advaced--wrapper">
@@ -241,11 +247,9 @@ $column_width = 100 / $columns . '%';
 
                                             do_action('atbdp_after_listing_tagline');
                                             ?>
-
                                             <?php
                                             $meta_html = '';
-                                            if (!empty($display_review) || !empty($display_price)) { ?>
-
+                                            if (!empty($display_review) || (!empty($display_price) && (!empty($price) || !empty($price_range)))) { ?>
                                                 <?php
                                                 $meta_html .= '<div class="atbd_listing_meta">';
                                                 $average = ATBDP()->review->get_average(get_the_ID());

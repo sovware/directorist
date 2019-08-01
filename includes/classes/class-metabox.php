@@ -10,7 +10,7 @@ class ATBDP_Metabox {
     public function __construct() {
         if ( is_admin() ) {
             add_action('add_meta_boxes_'.ATBDP_POST_TYPE,	array($this, 'listing_info_meta'));
-            add_action('publish_'.ATBDP_POST_TYPE,	array($this, 'publish_atbdp_listings'), 10, 2);
+            add_action('transition_post_status',	array($this, 'publish_atbdp_listings'), 10, 3);
             // edit_post hooks is better than save_post hook for nice checkbox
             // http://wordpress.stackexchange.com/questions/228322/how-to-set-default-value-for-checkbox-in-wordpress
             add_action( 'edit_post', array($this, 'save_post_meta'), 10, 2);
@@ -26,8 +26,11 @@ class ATBDP_Metabox {
     /**
      * @since 5.4.0
      */
-    public function publish_atbdp_listings($ID, $post ){
-        do_action('atbdp_listing_published', $ID);//for sending email notification
+    public function publish_atbdp_listings( $new_status, $old_status, $post ){
+        $nonce = isset( $_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : null;
+        if ( ($post->post_type == 'at_biz_dir') && ( $old_status == 'pending'  &&  $new_status == 'publish' ) && !wp_verify_nonce( $nonce, 'quick-publish-action' ) ){
+            do_action('atbdp_listing_published', $post->ID);//for sending email notification
+        }
     }
 
     /**
@@ -41,7 +44,6 @@ class ATBDP_Metabox {
     public function ajax_callback_custom_fields( $post_id = 0, $term_id = array() ) {
         $ajax = false;
         if( isset( $_POST['term_id'] ) ) {
-
             $ajax = true;
             $post_ID = !empty($_POST['post_id'])?(int)$_POST['post_id']:'' ;
             $term_id = $_POST['term_id'];
@@ -54,39 +56,25 @@ class ATBDP_Metabox {
             'status'        => 'published'
         );
         $meta_queries = array();
-        if ($custom_field_ids>1){
-            $sub_meta_queries = array();
-            foreach( $custom_field_ids as $value ) {
-                $sub_meta_queries[] = array(
+        if (!empty($custom_field_ids)){
+            if (count($custom_field_ids)>1){
+                $sub_meta_queries = array();
+                foreach( $custom_field_ids as $value ) {
+                    $sub_meta_queries[] = array(
+                        'key'		=> 'category_pass',
+                        'value'		=> $value,
+                        'compare'	=> 'LIKE'
+                    );
+                }
+                $meta_queries[] = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
+            }else{
+                $meta_queries[] = array(
                     'key'		=> 'category_pass',
-                    'value'		=> $value,
+                    'value'		=> $custom_field_ids[0],
                     'compare'	=> 'LIKE'
                 );
             }
-
-            $meta_queries[] = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
-        }else{
-            $meta_queries[] = array(
-                'key'		=> 'category_pass',
-                'value'		=> $custom_field_ids[0],
-                'compare'	=> 'LIKE'
-            );
         }
-
-        $meta_queries[] = array(
-            array(
-                'relation' => 'OR',
-                array(
-                    'key'=> 'admin_use',
-                    'compare'=> 'NOT EXISTS'
-                ),
-                array(
-                    'key'=> 'admin_use',
-                    'value'=> 1,
-                    'compare'=> '!='
-                ),
-            )
-        );
         $meta_queries[] = array(
             array(
                 'key'       => 'associate',
@@ -94,8 +82,6 @@ class ATBDP_Metabox {
                 'compare'   => 'LIKE',
             ),
         );
-
-
         $count_meta_queries = count( $meta_queries );
         if( $count_meta_queries ) {
             $args['meta_query'] = ( $count_meta_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $meta_queries ) : $meta_queries;
@@ -212,6 +198,8 @@ wp_reset_postdata();
         // get all the meta values from the db, prepare them for use and then send in in a single bar to the add listing view
         $listing_contact_info['address']                = get_post_meta($post->ID, '_address', true);
         $listing_contact_info['phone']                  = get_post_meta($post->ID, '_phone', true);
+        $listing_contact_info['phone2']                  = get_post_meta($post->ID, '_phone2', true);
+        $listing_contact_info['fax']                  = get_post_meta($post->ID, '_fax', true);
         $listing_contact_info['email']                 = get_post_meta($post->ID, '_email', true);
         $listing_contact_info['website']               = get_post_meta($post->ID, '_website', true);
         $listing_contact_info['zip']                    = get_post_meta($post->ID, '_zip', true);
@@ -313,15 +301,16 @@ wp_reset_postdata();
         $metas['_excerpt']           = !empty($p['excerpt'])? sanitize_text_field($p['excerpt']) : '';
         $metas['_address']           = !empty($p['address'])? sanitize_text_field($p['address']) : '';
         $metas['_phone']             = !empty($p['phone'])? sanitize_text_field($p['phone']) : '';
+        $metas['_phone2']             = !empty($p['phone2'])? sanitize_text_field($p['phone2']) : '';
+        $metas['_fax']               = !empty($p['fax'])? sanitize_text_field($p['fax']) : '';
         $metas['_email']             = !empty($p['email'])? sanitize_text_field($p['email']) : '';
         $metas['_website']           = !empty($p['website'])? sanitize_text_field($p['website']) : '';
         $metas['_zip']               = !empty($p['zip'])? sanitize_text_field($p['zip']) : '';
         $metas['_social']            = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
-        $metas['_faqs']              = !empty($p['faqs']) ? atbdp_sanitize_array($p['faqs']) : array(); // we are expecting array value
+        $metas['_faqs']              = !empty($p['faqs']) ? ($p['faqs']) : array(); // we are expecting array value
         $metas['_enable247hour']     = !empty($p['enable247hour']) ? sanitize_text_field($p['enable247hour']) : ''; // we are expecting array value
         $metas['_disable_bz_hour_listing']     = !empty($p['disable_bz_hour_listing']) ? sanitize_text_field($p['disable_bz_hour_listing']) : ''; // we are expecting array value
         $metas['_bdbh']              = !empty($p['bdbh']) ? atbdp_sanitize_array($p['bdbh']) : array(); // we are expecting array value
-        $metas['_bdrr']              = !empty($p['bdrr']) ? atbdp_sanitize_array($p['bdrr']) : array(); // we are expecting array value
         $metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
         $metas['_manual_lng']        = !empty($p['manual_lng'])? sanitize_text_field($p['manual_lng']) : '';
         $metas['_hide_map']          = !empty($p['hide_map'])? sanitize_text_field($p['hide_map']) : '';
@@ -444,6 +433,8 @@ wp_reset_postdata();
         $listing_info['excerpt']                = get_post_meta($id, '_excerpt', true);
         $listing_info['address']                = get_post_meta($id, '_address', true);
         $listing_info['phone']                  = get_post_meta($id, '_phone', true);
+        $listing_info['phone2']                  = get_post_meta($id, '_phone2', true);
+        $listing_info['fax']                    = get_post_meta($id, '_fax', true);
         $listing_info['email']                  = get_post_meta($id, '_email', true);
         $listing_info['website']                = get_post_meta($id, '_website', true);
         $listing_info['zip']                    = get_post_meta($id, '_zip', true);
@@ -452,7 +443,7 @@ wp_reset_postdata();
         $listing_info['manual_lng']             = get_post_meta($id, '_manual_lng', true);
         $listing_info['listing_img']            = get_post_meta($id, '_listing_img', true);
         $listing_info['hide_contact_info']      = get_post_meta($id, '_hide_contact_info', true);
-        $listing_info['hide_contact_owner']      = get_post_meta($id, '_hide_contact_owner', true);
+        $listing_info['hide_contact_owner']     = get_post_meta($id, '_hide_contact_owner', true);
         $listing_info['expiry_date']            = get_post_meta($id, '_expiry_date', true);
 
         return apply_filters('atbdp_get_listing_info', $listing_info);

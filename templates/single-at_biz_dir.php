@@ -14,6 +14,8 @@ $listing_info['tagline'] = get_post_meta($post->ID, '_tagline', true);
 $listing_info['excerpt'] = get_post_meta($post->ID, '_excerpt', true);
 $listing_info['address'] = get_post_meta($post->ID, '_address', true);
 $listing_info['phone'] = get_post_meta($post->ID, '_phone', true);
+$listing_info['phone2'] = get_post_meta($post->ID, '_phone2', true);
+$listing_info['fax'] = get_post_meta($post->ID, '_fax', true);
 $listing_info['email'] = get_post_meta($post->ID, '_email', true);
 $listing_info['website'] = get_post_meta($post->ID, '_website', true);
 $listing_info['zip'] = get_post_meta($post->ID, '_zip', true);
@@ -129,6 +131,10 @@ $display_tagline_field = get_directorist_option('display_tagline_field', 0);
 $display_pricing_field = get_directorist_option('display_pricing_field', 1);
 $display_address_field = get_directorist_option('display_address_field', 1);
 $display_phone_field = get_directorist_option('display_phone_field', 1);
+$display_phone2_field = get_directorist_option('display_phone_field2', 1);
+$phone_label2 = get_directorist_option('phone_label2', __('Phone Number 2', ATBDP_TEXTDOMAIN));
+$display_fax_field = get_directorist_option('display_fax', 1);
+$fax_label = get_directorist_option('fax_label', __('Fax', ATBDP_TEXTDOMAIN));
 $display_email_field = get_directorist_option('display_email_field', 1);
 $display_website_field = get_directorist_option('display_website_field', 1);
 $display_zip_field = get_directorist_option('display_zip_field', 1);
@@ -285,7 +291,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <?php
                     $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
                     $gallery_image = '';
-                    if (!empty($image_links)) {
+                    $plan_slider = true;
+                    if (is_fee_manager_active()) {
+                        $plan_slider = is_plan_allowed_slider($fm_plan);
+                    }
+                    if (!empty($image_links) && $plan_slider) {
                         if (!empty($listing_prv_img && $display_prv_image)) {
                             if (!empty($gallery_cropping)) {
                                 $listing_prv_imgurl = atbdp_image_cropping($listing_prv_img, $custom_gl_width, $custom_gl_height, true, 100)['url'];
@@ -336,17 +346,25 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     ?>
                     <div class="atbd_listing_detail">
                         <?php
+                        $plan_average_price = true;
+                        if (is_fee_manager_active()) {
+                            $plan_average_price = is_plan_allowed_average_price_range($fm_plan);
+                        }
+                        $plan_price = true;
+                        if (is_fee_manager_active()) {
+                            $plan_price = is_plan_allowed_price($fm_plan);
+                        }
                         $data_info = '<div class="atbd_data_info">';
-                        if (empty($is_disable_price) || !empty($enable_review)) {
+                        if ( !empty($enable_review) || (empty($is_disable_price) && (!empty($price) || !empty($price_range)))) {
                             $data_info .= '<div class="atbd_listing_meta">';
                             $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
                             if (empty($is_disable_price)) {
                                 if (!empty($display_pricing_field)) {
-                                    if (!empty($price_range) && ('range' === $atbd_listing_pricing)) {
+                                    if (!empty($price_range) && ('range' === $atbd_listing_pricing) && $plan_average_price) {
                                         //is range selected then print it
                                         $output = atbdp_display_price_range($price_range);
                                         $data_info .= $output;
-                                    } else {
+                                    } elseif($plan_price) {
                                         $data_info .= atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false);
                                     }
                                 }
@@ -389,7 +407,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         }
                         $data_info .= '<div class="atbd_listting_category"><ul class="directory_cats">';
                         if (!empty($cats)) {
-                            $data_info .= '<span class="'.atbdp_icon_type().'-tags"></span>';
+                            $data_info .= '<li><span class="'.atbdp_icon_type().'-tags"></span></li>';
                             $numberOfCat = count($cats);
                             $output = array();
                             foreach ($cats as $cat) {
@@ -459,57 +477,55 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     </div>
                 </div>
             </div> <!-- end .atbd_listing_details -->
-            <?php do_action('atbdp_after_single_listing_details_section');?>
+            <?php do_action('atbdp_after_single_listing_details_section');
 
-            <?php
-            $term_id = get_post_meta($post->ID, '_admin_category_select', true);
-            $meta_array = array('relation' => 'AND');
-            $meta_array = array(
-                'key' => 'category_pass',
-                'value' => $term_id,
-                'compare' => 'EXISTS'
-            );
-
-            if (('-1' === $term_id) || empty($term_id)) {
-                $post_ids_array = $cats; //this array will be dynamically generated
-                if (!empty($post_ids_array)) {
-                    $meta_array = array('relation' => 'OR');
-                    foreach ($post_ids_array as $key => $value) {
-                        array_push($meta_array,
-                            array(
-                                'key' => 'category_pass',
-                                'value' => $value->term_id,
-                                'compare' => 'EXISTS'
-                            )
-                        );
-                    }
+            $category_ids = array();
+            if (!empty($cats)) {
+                foreach ($cats as $single_val) {
+                    $category_ids[] = $single_val->term_id;
                 }
             }
-            $custom_fields = new WP_Query(array(
+            $c_args = array(
                 'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
                 'posts_per_page' => -1,
                 'post_status' => 'publish',
-                'meta_query' => array(
-                    'relation' => 'OR',
-                    array(
-                        'key' => 'associate',
-                        'value' => 'form',
-                        'compare' => 'EXISTS'
-                    ),
-                    $meta_array
-                )
-            ));
+
+            );
+            $custom_fields = new WP_Query($c_args);
             $custom_fields_posts = $custom_fields->posts;
             $has_field_value = array();
+            $has_field_ids = array();
             foreach ($custom_fields_posts as $custom_fields_post) {
-                setup_postdata($custom_fields_post);
-                $has_field_id = $custom_fields_post->ID;
-                $has_field_details = get_post_meta($listing_id, $has_field_id, true);
-                $has_field_value[] = $has_field_details;
-            }
-            $has_field = join($has_field_value);
+                $id = $custom_fields_post->ID;
+                $fields = get_post_meta($id, 'associate', true);
+                //lets match if the field is associated with a category and the category is selected
+                if ('form' != $fields){
+                    $fields_id_with_cat = get_post_meta($id, 'category_pass', true);
+                    if (in_array($fields_id_with_cat, $category_ids)){
+                        $has_field_details = get_post_meta($listing_id, $custom_fields_post->ID, true);
+                        if (!empty($has_field_details)){
+                            $has_field_ids[] = $id;
+                        }
+                        $has_field_value[] = $has_field_details;
+                    }
 
-            if (!empty($has_field)) {
+                }else{
+                    $has_field_details = get_post_meta($listing_id, $custom_fields_post->ID, true);
+                    if (!empty($has_field_details)){
+                        $has_field_ids[] = $id;
+                    }
+                    $has_field_value[] = $has_field_details;
+                }
+
+            }
+            wp_reset_postdata();
+            $has_field = join($has_field_value);
+            $plan_custom_field = true;
+            if (is_fee_manager_active()) {
+                $plan_custom_field = is_plan_allowed_custom_fields($fm_plan);
+            }
+
+            if (!empty($has_field) && $plan_custom_field) {
                 ?>
                 <div class="atbd_content_module atbd_custom_fields_contents">
                     <div class="atbd_content_module__tittle_area">
@@ -523,9 +539,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         <ul class="atbd_custom_fields">
                             <!--  get data from custom field-->
                             <?php
-                            foreach ($custom_fields_posts as $post) {
-                                setup_postdata($post);
-                                $field_id = $post->ID;
+                            foreach ($has_field_ids as $id) {
+                                $field_id = $id;
                                 $field_details = get_post_meta($listing_id, $field_id, true);
                                 $has_field_value[] = $field_details;
 
@@ -583,14 +598,18 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     <?php
                                 }
                             }
-                            wp_reset_postdata();
+                            wp_reset_query();
                             ?>
                         </ul>
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
                 <?php
             }
-            if ($enable_video_url && !empty($videourl) && 'none' != $display_video_for) { ?>
+            $plan_video = true;
+            if (is_fee_manager_active()) {
+                $plan_video = is_plan_allowed_listing_video($fm_plan);
+            }
+            if ($enable_video_url && !empty($videourl) && 'none' != $display_video_for && $plan_video) { ?>
                 <div class="atbd_content_module atbd_custom_fields_contents">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
@@ -623,7 +642,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php }
-            if ((!$hide_contact_info) && !empty($address || $phone || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>
+            if ((!$hide_contact_info) && !empty($address || $phone || $phone2 || $fax || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>
                 <div class="atbd_content_module atbd_contact_information_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
@@ -646,7 +665,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                 <?php } ?>
 
                                 <?php
-                                if (isset($phone) && !is_empty_v($phone) && !empty($display_phone_field)) { ?>
+                                $plan_phone = true;
+                                if (is_fee_manager_active()) {
+                                    $plan_phone = is_plan_allowed_listing_phone($fm_plan);
+                                }
+                                if (isset($phone) && !is_empty_v($phone) && !empty($display_phone_field) && $plan_phone) { ?>
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
                                         <div class="atbd_info_title"><span
@@ -657,7 +680,34 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     </li>
                                 <?php } ?>
 
-                                <?php if (!empty($email) && !empty($display_email_field)) { ?>
+                                <?php
+                                if (isset($phone2) && !is_empty_v($phone2) && !empty($display_phone2_field)) { ?>
+                                    <!-- In Future, We will have to use a loop to print more than 1 number-->
+                                    <li>
+                                        <div class="atbd_info_title"><span
+                                                    class="<?php atbdp_icon_type(true);?>-phone"></span><?php echo $phone_label2; ?>
+                                        </div>
+                                        <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($phone2)); ?>"><?php echo esc_html(stripslashes($phone2)); ?></a>
+                                        </div>
+                                    </li>
+                                <?php } ?>
+                                <?php
+                                if (isset($fax) && !is_empty_v($fax) && !empty($display_fax_field)) { ?>
+                                    <!-- In Future, We will have to use a loop to print more than 1 number-->
+                                    <li>
+                                        <div class="atbd_info_title"><span
+                                                    class="<?php atbdp_icon_type(true);?>-fax"></span><?php echo $fax_label; ?>
+                                        </div>
+                                        <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($fax)); ?>"><?php echo esc_html(stripslashes($fax)); ?></a>
+                                        </div>
+                                    </li>
+                                <?php } ?>
+                                <?php
+                                $plan_email = true;
+                                if (is_fee_manager_active()) {
+                                    $plan_email = is_plan_allowed_listing_email($fm_plan);
+                                }
+                                if (!empty($email) && !empty($display_email_field) && $plan_email) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
                                                     class="<?php atbdp_icon_type(true);?>-envelope"></span><?php _e('Email', ATBDP_TEXTDOMAIN); ?>
@@ -666,8 +716,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                                                    href="mailto:<?= esc_html($email); ?>"><?= esc_html($email); ?></a></span>
                                     </li>
                                 <?php } ?>
-
-                                <?php if (!empty($website) && !empty($display_website_field)) { ?>
+                                <?php
+                                $plan_webLink = true;
+                                if (is_fee_manager_active()) {
+                                    $plan_webLink = is_plan_allowed_listing_webLink($fm_plan);
+                                }
+                                if (!empty($website) && !empty($display_website_field) && $plan_webLink) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
                                                     class="<?php atbdp_icon_type(true);?>-globe"></span><?php _e('Website', ATBDP_TEXTDOMAIN); ?>
@@ -689,7 +743,12 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 
                             </ul>
                         </div>
-                        <?php if (!empty($social) && is_array($social) && !empty($display_social_info_field)) { ?>
+                        <?php
+                        $plan_social_networks = true;
+                        if (is_fee_manager_active()) {
+                            $plan_social_networks = is_plan_allowed_listing_social_networks($fm_plan);
+                        }
+                        if (!empty($social) && is_array($social) && !empty($display_social_info_field) && $plan_social_networks) { ?>
                             <div class="atbd_director_social_wrap">
                                 <?php foreach ($social as $link) {
                                     $n = esc_attr($link['id']);
@@ -745,6 +804,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         <button type="submit" class="btn btn-primary"><?php _e('Submit', ATBDP_TEXTDOMAIN); ?></button>
                     </form>
                 </div>
+                <input type="hidden" id="atbdp-post-id" value="<?php echo $post->ID; ?>" />
+                <input type="hidden" id="atbdp-listing-email" value="<?php echo !empty($email) ? sanitize_email($email) : ''; ?>" />
             <?php }
             /**
              * @since 5.0.5
@@ -851,10 +912,20 @@ if ('openstreet' == $select_listing_map) {
             $(this).html(link);
         });
         <?php } elseif('openstreet' == $select_listing_map) { ?>
+        setInterval(() => {
+            $('img.olTileImage').each((index, el) => {
 
+                if($(el).attr('src').startsWith('http:')){
+                    var attr = $(el).attr('src').split('/')[0] = "https:";
 
+                    var url = attr+"/"+$(el).attr('src').split('/').slice(1, 15).join('/');
+                    $(el).attr('src', url)
+
+                }
+
+            })
+        }, 1000);
         map = new OpenLayers.Map("gmap");
-
         let mymap = (lon, lat) => {
             map.addLayer(new OpenLayers.Layer.OSM());
             let pois = new OpenLayers.Layer.Text("My Points",

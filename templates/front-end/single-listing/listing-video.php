@@ -11,7 +11,11 @@ $display_video_for        = get_directorist_option('display_video_for', 'admin_u
 ?>
 
             <?php
-            if ($enable_video_url && !empty($videourl) && 'none' != $display_video_for) { ?>
+            $plan_video = true;
+            if (is_fee_manager_active()) {
+                $plan_video = is_plan_allowed_listing_video($fm_plan);
+            }
+            if ($enable_video_url && !empty($videourl) && 'none' != $display_video_for && $plan_video) { ?>
                 <div class="atbd_content_module atbd_custom_fields_contents">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">

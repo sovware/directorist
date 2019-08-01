@@ -124,6 +124,7 @@
 
     // Tags
     var createTag = atbdp_add_listing.create_new_tag;
+
     if(createTag){
         $('#at_biz_dir-tags').select2({
             placeholder: atbdp_add_listing.i18n_text.tag_selection,
@@ -376,6 +377,12 @@ jQuery(function($){
             'term_id': id
         };
         $.post(atbdp_add_listing.ajaxurl, data, function (response) {
+
+            if(response == " 0"){
+                $('#atbdp-custom-fields-list').hide();
+            }else {
+                $('#atbdp-custom-fields-list').show();
+            }
             $('#atbdp-custom-fields-list').html(response);
         });
 
@@ -385,23 +392,23 @@ jQuery(function($){
 
 
     var length = $('#at_biz_dir-categories option:selected');
-    if (!length) {
 
-    } else {
-        $(window).on("load", function () {
-            $('#atbdp-custom-fields-list-selected').html('<div class="spinner"></div>');
-            var id = [];
-            length.each((el, index) => {
-                id.push($(index).val());
-            });
-            var data = {
-                'action': 'atbdp_custom_fields_listings_front_selected',
-                'post_id': $('#atbdp-custom-fields-list-selected').data('post_id'),
-                'term_id': id
-            };
-            $.post(atbdp_add_listing.ajaxurl, data, function (response) {
-                $('#atbdp-custom-fields-list-selected').html(response);
-            });
+    if (length) {
+        $('#atbdp-custom-fields-list-selected').html('<div class="spinnedsr"></div>');
+
+        var length = $('#at_biz_dir-categories option:selected');
+        var id = [];
+        length.each((el, index) => {
+            id.push($(index).val());
+    });
+        var data = {
+            'action': 'atbdp_custom_fields_listings_front_selected',
+            'post_id': $('#atbdp-custom-fields-list-selected').data('post_id'),
+            'term_id': id
+        };
+
+        $.post(ajaxurl, data, function (response) {
+            $('#atbdp-custom-fields-list-selected').html(response);
         });
     }
 

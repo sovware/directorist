@@ -66,7 +66,7 @@ if ( !class_exists('ATBDP_Single_Templates') ) {
             ob_start();
             if(is_singular(ATBDP_POST_TYPE)) {
                 include ATBDP_TEMPLATES_DIR . 'front-end/single-listing/listing-contact-owner.php';
-                do_action('atbdp_after_contact_listing_owner_section', $listing_id);
+                //do_action('atbdp_after_contact_listing_owner_section', $listing_id);
             }
             return ob_get_clean();
         }

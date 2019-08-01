@@ -54,6 +54,7 @@ class ATBDP_Checkout
      */
     public function display_checkout_content()
     {
+        include ATBDP_DIR . 'public/assets/css/style.php';
         // vail out showing a friendly-message, if user is not logged in. No need to run further code
         if (!atbdp_is_user_logged_in()) return null;
         ob_start();
@@ -119,6 +120,7 @@ class ATBDP_Checkout
      */
     public function payment_receipt()
     {
+        include ATBDP_DIR . 'public/assets/css/style.php';
         if (!atbdp_is_user_logged_in()) return null; // vail out showing a friendly-message, if user is not logged in.
         //content of order receipt should be outputted here.
         $order_id = (int) get_query_var('atbdp_order_id');

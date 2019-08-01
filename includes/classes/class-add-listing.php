@@ -97,11 +97,13 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $metas['_excerpt']           = !empty($p['excerpt'])? sanitize_text_field($p['excerpt']) : '';
                     $metas['_address']           = !empty($p['address'])? sanitize_text_field($p['address']) : '';
                     $metas['_phone']             = !empty($p['phone'])? sanitize_text_field($p['phone']) : '';
+                    $metas['_phone2']             = !empty($p['phone2'])? sanitize_text_field($p['phone2']) : '';
+                    $metas['_fax']             = !empty($p['fax'])? sanitize_text_field($p['fax']) : '';
                     $metas['_email']             = !empty($p['email'])? sanitize_text_field($p['email']) : '';
                     $metas['_website']           = !empty($p['website'])? sanitize_text_field($p['website']) : '';
                     $metas['_zip']               = !empty($p['zip'])? sanitize_text_field($p['zip']) : '';
                     $metas['_social']            = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
-                    $metas['_faqs']              = !empty($p['faqs']) ? atbdp_sanitize_array($p['faqs']) : array(); // we are expecting array value
+                    $metas['_faqs']              = !empty($p['faqs']) ? ($p['faqs']) : array(); // we are expecting array value
                     $metas['_bdbh']              = !empty($p['bdbh'])? atbdp_sanitize_array($p['bdbh']) : array();
                     $metas['_enable247hour']      = !empty($p['enable247hour'])? sanitize_text_field($p['enable247hour']) : '';
                     $metas['_disable_bz_hour_listing']      = !empty($p['disable_bz_hour_listing'])? sanitize_text_field($p['disable_bz_hour_listing']) : '';
@@ -159,10 +161,14 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 //if user exit the plan allowance the change the status of that order to cancelled
                                 $order_id = $plan_purchased->ID;
                                 if (!class_exists('woocommerce')){
-                                    $order = new WC_Order($order_id);
-                                    $order->update_status('cancelled', 'order_note');
+                                    if (('pay_per_listng' != $plan_type)) {
+                                        $order = new WC_Order($order_id);
+                                        $order->update_status('cancelled', 'order_note');
+                                    }
                                 }else{
-                                    update_post_meta($order_id, '_payment_status', 'cancelled');
+                                    if (('pay_per_listng' != $plan_type)) {
+                                        update_post_meta($order_id, '_payment_status', 'cancelled');
+                                    }
                                 }
                             }
                         }
@@ -203,7 +209,6 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     }
 
-
                     $metas = apply_filters('atbdp_listing_meta_user_submission', $metas);
                     $args = array(
                         'post_content' => $content,
@@ -213,8 +218,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                         'meta_input'=>  $metas,
 
                     );
-
-
                     /**
                      * @since 4.4.0
                      *
@@ -305,12 +308,20 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 }
                             }
 
-
-                            //update the location and category term for subscriber
+                            update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
+                            if (count($admin_category_select)>1){
+                                foreach ($admin_category_select as $category){
+                                    $term_by_id =  get_term_by('term_id', $category, ATBDP_CATEGORY);
+                                    wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY, true);//update the term relationship when a listing updated by author
+                                }
+                            }else{
+                                $term_by_id =  get_term_by('term_id', $admin_category_select[0], ATBDP_CATEGORY);
+                                wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
+                            }
 
 
                             /*
-                                  * send the custom field value to the database
+                                 * send the custom field value to the database
                                   */
                             if( isset( $custom_field ) ) {
                                 foreach( $custom_field as $key => $value ) {
@@ -350,18 +361,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 }
                             }
 
-                            update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
-
-                            if (count($admin_category_select)>1){
-                                foreach ($admin_category_select as $category){
-                                    $term_by_id =  get_term_by('term_id', $category, ATBDP_CATEGORY);
-                                    wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY, true);//update the term relationship when a listing updated by author
-                                }
-                            }else{
-                                $term_by_id =  get_term_by('term_id', $admin_category_select[0], ATBDP_CATEGORY);
-                                wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
-                            }
-
                             // for dev
                             do_action('atbdp_listing_updated', $post_id);//for sending email notification
                         }else{
@@ -384,8 +383,55 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     $args['post_status'] = 'pending';
                                 }
                             }
+
+                            if ( isset( $args['tax_input'] ) ) {
+                                foreach ( (array) $args['tax_input'] as $taxonomy => $terms ) {
+                                    // Hierarchical taxonomy data is already sent as term IDs, so no conversion is necessary.
+                                    if ( is_taxonomy_hierarchical( $taxonomy ) ) {
+                                        continue;
+                                    }
+
+                                    /*
+                                     * Assume that a 'tax_input' string is a comma-separated list of term names.
+                                     * Some languages may use a character other than a comma as a delimiter, so we standardize on
+                                     * commas before parsing the list.
+                                     */
+                                    if ( ! is_array( $terms ) ) {
+                                        $comma = _x( ',', 'tag delimiter' );
+                                        if ( ',' !== $comma ) {
+                                            $terms = str_replace( $comma, ',', $terms );
+                                        }
+                                        $terms = explode( ',', trim( $terms, " \n\t\r\0\x0B," ) );
+                                    }
+
+                                    $clean_terms = array();
+                                    foreach ( $terms as $term ) {
+                                        // Empty terms are invalid input.
+                                        if ( empty( $term ) ) {
+                                            continue;
+                                        }
+
+                                        $_term = get_terms( $taxonomy, array(
+                                            'name' => $term,
+                                            'fields' => 'ids',
+                                            'hide_empty' => false,
+                                        ) );
+
+                                        if ( ! empty( $_term ) ) {
+                                            $clean_terms[] = intval( $_term[0] );
+                                        } else {
+                                            // No existing term was found, so pass the string. A new term will be created.
+                                            $clean_terms[] = $term;
+                                        }
+                                    }
+
+                                    $args['tax_input'][ $taxonomy ] = $clean_terms;
+                                }
+                            }
+
                             $post_id = wp_insert_post($args);
                             do_action('atbdp_listing_inserted', $post_id);//for sending email notification
+
 
                             //Every post with the published status should contain all the post meta keys so that we can include them in query.
                             if ('publish' == $new_l_status || 'pending' == $new_l_status) {
@@ -446,7 +492,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     }
                                 }
                                 update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
-
                                 if (count($admin_category_select)>1){
                                     foreach ($admin_category_select as $category){
                                         $term_by_id =  get_term_by('term_id', $category, ATBDP_CATEGORY);
@@ -455,6 +500,27 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 }else{
                                     $term_by_id =  get_term_by('term_id', $admin_category_select[0], ATBDP_CATEGORY);
                                     wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
+                                }
+                                //update location for user
+                                if (count($location)>1){
+                                    foreach ($location as $single_location){
+                                        $term_by_id =  get_term_by('term_id', $single_location, ATBDP_LOCATION);
+                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_LOCATION, true);//update the term relationship when a listing updated by author
+                                    }
+                                }else{
+                                    $term_by_id =  get_term_by('term_id', $location[0], ATBDP_LOCATION);
+                                    wp_set_object_terms($post_id, $term_by_id->name, ATBDP_LOCATION);//update the term relationship when a listing updated by author
+                                }
+
+                                //update TAG for user
+                                if (count($tag)>1){
+                                    foreach ($tag as $single_tag){
+                                        $term_by_id =  get_term_by('term_id', $single_tag, ATBDP_TAGS);
+                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_TAGS, true);//update the term relationship when a listing updated by author
+                                    }
+                                }else{
+                                    $term_by_id =  get_term_by('term_id', $tag[0], ATBDP_TAGS);
+                                    wp_set_object_terms($post_id, $term_by_id->name, ATBDP_TAGS);//update the term relationship when a listing updated by author
                                 }
                             }
                             if ('publish' == $new_l_status){

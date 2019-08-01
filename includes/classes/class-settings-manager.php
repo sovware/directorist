@@ -799,6 +799,16 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'title' => __('Phone Number', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_phone_field_settings(),
                         ),
+                        'phone_field2' => array(
+                            'type' => 'section',
+                            'title' => __('Phone Number 2', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_listings_phone_field2_settings(),
+                        ),
+                        'pax' => array(
+                            'type' => 'section',
+                            'title' => __('Fax', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_listings_fax_settings(),
+                        ),
                         'email_field' => array(
                             'type' => 'section',
                             'title' => __('Email', ATBDP_TEXTDOMAIN),
@@ -869,9 +879,164 @@ if (!class_exists('ATBDP_Settings_Manager')):
                         ),
                     )),
                 ),
+                /*Submenu : Style */
+                /*'style_setting'=> array(
+                    'title' => __('Style Setting', ATBDP_TEXTDOMAIN),
+                    'name' => 'style_setting',
+                    'icon' => 'font-awesome:fa-adjust',
+                    'controls' => apply_filters('atbdp_style_controls', array(
+                        'emails' => array(
+                            'type' => 'section',
+                            'title' => __('Style Setting', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_listings_style_settings_fields(),
+                        ),
+                    )),
+                ),*/
             ));
         }
 
+
+        /**
+         * Get all the submenus for the style menu
+         * @return array It returns an array of submenus
+         * @since 5.5.1
+         */
+        public function get_listings_style_settings_fields(){
+            return apply_filters('atbdp_style_settings_submenus', array(
+                array(
+                    'type' => 'color',
+                    'name' => 'primary_color',
+                    'label' => __('Primary Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_primary_color',
+                    'label' => __('Background Primary Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_primary_color',
+                    'label' => __('Border Primary Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'secondary_color',
+                    'label' => __('Secondary Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#122069',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_secondary_color',
+                    'label' => __('Background Secondary Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#122069',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'success_color',
+                    'label' => __('Success Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#32cc6f',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_success_color',
+                    'label' => __('Background Success Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#32cc6f',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'info_color',
+                    'label' => __('Info Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#3590ec',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_info_color',
+                    'label' => __('Background Info Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#3590ec',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'warning_color',
+                    'label' => __('Warning Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#ffaf00',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_warning_color',
+                    'label' => __('Background Warning Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#ffaf00',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'danger_color',
+                    'label' => __('Danger Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_danger_color',
+                    'label' => __('Background Danger Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'dark_color',
+                    'label' => __('Dark Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#202428',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_dark_color',
+                    'label' => __('Background Dark Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#202428',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'featured_badge_color',
+                    'label' => __('Featured Badge Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#fa8b0c',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'featured_back_color',
+                    'label' => __('Featured Badge Background Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#fa8b0c',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'popular_badge_color',
+                    'label' => __('Popular Badge Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#f51957',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'popular_back_color',
+                    'label' => __('Popular Badge Background Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#f51957',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'heading_color',
+                    'label' => __('Heading Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#272b41',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'text_color',
+                    'label' => __('Text Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#7a82a6',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'rating_color',
+                    'label' => __('Rating Color', ATBDP_TEXTDOMAIN),
+                    'default' => '#fa8b0c',
+                ),
+            ));
+        }
         /**
          * Get all the submenus for the email menu
          * @return array It returns an array of submenus
@@ -1500,9 +1665,8 @@ Dear User,
 Congratulations! Your registration is completed!
 
 This email is sent automatically for information purpose only. Please do not respond to this.
+You can login now using the below credentials:
 
-Thanks,
-The Administrator
 ", ATBDP_TEXTDOMAIN);
 
             return apply_filters('atbdp_registration_confirmation_tmpl_settings_fields', array(
@@ -1517,7 +1681,7 @@ The Administrator
                     'type' => 'textarea',
                     'name' => 'email_tmpl_registration_confirmation',
                     'label' => __('Email Body', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the email template for sending to the user when when listing contact message send', ATBDP_TEXTDOMAIN),
+                    'description' => __('Edit the email template for sending to new user after registration [Note: Credentials details included at the bottom of the template]', ATBDP_TEXTDOMAIN),
                     'default' => $tmpl,
                 ),
 
@@ -2207,6 +2371,10 @@ The Administrator of ==SITE_NAME==
                                 'label' => __('Phone', ATBDP_TEXTDOMAIN),
                             ),
                             array(
+                                'value' => 'search_fax',
+                                'label' => __('Fax', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
                                 'value' => 'search_address',
                                 'label' => __('Address', ATBDP_TEXTDOMAIN),
                             ),
@@ -2858,6 +3026,10 @@ The Administrator of ==SITE_NAME==
                             array(
                                 'value' => 'search_phone',
                                 'label' => __('Phone', ATBDP_TEXTDOMAIN),
+                            ),
+                            array(
+                                'value' => 'search_fax',
+                                'label' => __('Fax', ATBDP_TEXTDOMAIN),
                             ),
                             array(
                                 'value' => 'search_address',
@@ -3832,6 +4004,91 @@ The Administrator of ==SITE_NAME==
 
             ));
         }
+        /**
+         * Get phone number settings field
+         * @return array
+         * @since 4.7.2
+         */
+        public function get_listings_phone_field2_settings()
+        {
+            return apply_filters('atbdp_phone_field2_setting', array(
+
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_phone_field2',
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'phone_label2',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Phone 2', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'phone_placeholder2',
+                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
+                    'default' => __('Phone Number 2', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_phone_number2',
+                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_phone2_for',
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+
+            ));
+        }
+
+        /**
+         * Get phone number settings field
+         * @return array
+         * @since 4.7.2
+         */
+        public function get_listings_fax_settings()
+        {
+            return apply_filters('atbdp_fax_setting', array(
+
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_fax',
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'fax_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Fax', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'fax_placeholder',
+                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
+                    'default' => __('Enter Fax', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_fax',
+                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_fax_for',
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
+
+            ));
+        }
 
         /**
          * Get email settings field
@@ -4177,6 +4434,12 @@ The Administrator of ==SITE_NAME==
                     'default' => 1,
                 ),
                 array(
+                    'type' => 'textbox',
+                    'name' => 'my_listing_tab_text',
+                    'label' => __('"My Listing" Tab Text', ATBDP_TEXTDOMAIN),
+                    'default' => __('My Listing', ATBDP_TEXTDOMAIN),
+                ),
+                array(
                     'type' => 'toggle',
                     'name' => 'user_listings_pagination',
                     'label' => __('Listings Pagination', ATBDP_TEXTDOMAIN),
@@ -4199,10 +4462,22 @@ The Administrator of ==SITE_NAME==
                     'default' => 1,
                 ),
                 array(
+                    'type' => 'textbox',
+                    'name' => 'my_profile_tab_text',
+                    'label' => __('"My Profile" Tab Text', ATBDP_TEXTDOMAIN),
+                    'default' => __('My Profile', ATBDP_TEXTDOMAIN),
+                ),
+                array(
                     'type' => 'toggle',
                     'name' => 'fav_listings_tab',
                     'label' => __('Display Favourite Listings Tab', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'fav_listings_tab_text',
+                    'label' => __('"Favourite Listings" Tab Text', ATBDP_TEXTDOMAIN),
+                    'default' => __('Favorite Listings', ATBDP_TEXTDOMAIN),
                 ),
                 array(
                     'type' => 'toggle',
@@ -4413,6 +4688,12 @@ The Administrator of ==SITE_NAME==
                 ),
                 array(
                     'type' => 'toggle',
+                    'name' => 'display_back_link',
+                    'label' => __('Show Back Link', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'dsiplay_slider_single_page',
                     'label' => __('Show Slider Image', ATBDP_TEXTDOMAIN),
                     'description' => __('Hide/show slider image from single listing page.', ATBDP_TEXTDOMAIN),
@@ -4483,12 +4764,30 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Disable Contact Information', ATBDP_TEXTDOMAIN),
                     'default' => 0,
                 ),
-
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_contact_owner',
                     'label' => __('Disable Contact Listing Owner Form', ATBDP_TEXTDOMAIN),
                     'default' => 1,
+                ),
+                array(
+                    'type' => 'select',
+                    'name' => 'user_email',
+                    'label' => __('Email Used', ATBDP_TEXTDOMAIN),
+                    'items' => array(
+                        array(
+                            'value' => 'author',
+                            'label' => __('Author Email', ATBDP_TEXTDOMAIN),
+                        ),
+                        array(
+                            'value' => 'listing_email',
+                            'label' => __('Listing\'s Email', ATBDP_TEXTDOMAIN),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'author',
+                        'label' => __('Author Email', ATBDP_TEXTDOMAIN),
+                    ),
                 ),
                 array(
                     'type' => 'toggle',
@@ -4711,7 +5010,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'display_publish_date',
-                        'label' => __('Hide Publish date', ATBDP_TEXTDOMAIN),
+                        'label' => __('Hide Publish Date', ATBDP_TEXTDOMAIN),
                         'default' => '1',
                     ),
                     array(

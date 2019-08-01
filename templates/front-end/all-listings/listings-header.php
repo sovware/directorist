@@ -324,6 +324,14 @@
                                                            class="form-control">
                                                 </div>
                                             <?php }
+                                            if (in_array('search_fax', $search_more_filters_fields)) { ?>
+                                                <div>
+                                                    <input type="text" name="phone"
+                                                           placeholder="<?php _e('Fax', ATBDP_TEXTDOMAIN); ?>"
+                                                           value="<?php echo !empty($_GET['fax']) ? $_GET['fax'] : ''; ?>"
+                                                           class="form-control">
+                                                </div>
+                                            <?php }
                                             if (in_array('search_address', $search_more_filters_fields)) { ?>
                                                 <div>
                                                     <input type="text" name="address"

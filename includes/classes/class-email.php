@@ -126,7 +126,7 @@ if (!class_exists('ATBDP_Email')):
                 '==TODAY==' => date_i18n($date_format, $current_time),
                 '==NOW==' => date_i18n($date_format . ' ' . $time_format, $current_time),
             );
-            $c = nl2br(strtr($content, $find_replace));
+            $c = strtr($content, $find_replace);
             // we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.
             return str_replace('==ORDER_DETAILS==', ATBDP_Order::get_order_details($order_id), $c);
 
@@ -499,7 +499,6 @@ This email is sent automatically for information purpose only. Please do not res
             $user = $this->get_owner($listing_id);
             $sub = $this->replace_in_content(get_directorist_option("email_sub_edit_listing"), null, $listing_id, $user);
             $body = $this->replace_in_content(get_directorist_option("email_tmpl_edit_listing"), null, $listing_id, $user);
-
             return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
         }
 
@@ -687,11 +686,11 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_admin_listing_edited($listing_id)
         {
+
             if (get_directorist_option('disable_email_notification')) return false;
             if (!in_array('listing_edited', get_directorist_option('notify_admin', array()))) return false;
             $s = __('[==SITE_NAME==] The Listing #==LISTING_ID== has been edited on your website', ATBDP_TEXTDOMAIN);
             $sub = $this->replace_in_content($s, null, $listing_id);
-
             $body = $this->get_listing_edited_admin_tmpl();
             return $this->send_mail($this->get_admin_email_list(), $sub, $this->replace_in_content($body, null, $listing_id), $this->get_email_headers());
 
@@ -745,20 +744,49 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function custom_wp_new_user_notification_email($wp_new_user_notification_email, $user, $blogname)
         {
+            if (is_admin()){
+                return $wp_new_user_notification_email;
+            }
+            if (get_directorist_option('disable_email_notification')) return $wp_new_user_notification_email;
+
             $display_password = get_directorist_option('display_password_reg', 0);
             $require_password = get_directorist_option('require_password_reg',0);
             $user_password = get_user_meta($user->ID, '_atbdp_generated_password',true);
             if (empty($display_password)) {
                 $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!', ATBDP_TEXTDOMAIN));
-                $body = "Hi there, Welcome to $blogname! You can login now using the below credentials: Username: $user->user_login Password: $user_password If you have any problems, please contact us. Thank you!";
+                $body = get_directorist_option('email_tmpl_registration_confirmation', __("
+Dear User,
+
+Congratulations! Your registration is completed!
+
+This email is sent automatically for information purpose only. Please do not respond to this.
+You can login now using the below credentials:
+
+", ATBDP_TEXTDOMAIN));
+                $body = $this->replace_in_content($body, null, null, $user);
                 $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
-                $wp_new_user_notification_email['message'] = $body;
+                $wp_new_user_notification_email['message'] = $body."
+                
+Username: $user->user_login
+Password: $user_password";
                 return $wp_new_user_notification_email;
             }elseif (empty($require_password)){
                 $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!', ATBDP_TEXTDOMAIN));
-                $body = "Hi there, Welcome to $blogname! You can login now using the below credentials: Username: $user->user_login Password: $user_password If you have any problems, please contact us. Thank you!";
+                $body =  get_directorist_option('email_tmpl_registration_confirmation', __("
+Dear User,
+
+Congratulations! Your registration is completed!
+
+This email is sent automatically for information purpose only. Please do not respond to this.
+You can login now using the below credentials:
+
+", ATBDP_TEXTDOMAIN));
+                $body = $this->replace_in_content($body, null, null, $user);
                 $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
-                $wp_new_user_notification_email['message'] = $body;
+                $wp_new_user_notification_email['message'] = $body."
+                
+Username: $user->user_login
+Password: $user_password";
                 return $wp_new_user_notification_email;
             } else {
                 $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!', ATBDP_TEXTDOMAIN));
@@ -767,15 +795,19 @@ Dear User,
 
 Congratulations! Your registration is completed!
 
-Thanks,
-The Administrator of $blogname
+This email is sent automatically for information purpose only. Please do not respond to this.
+You can login now using the below credentials:
+
 ", ATBDP_TEXTDOMAIN));
+                $body = $this->replace_in_content($body, null, null, $user);
                 $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
-                $wp_new_user_notification_email['message'] = $body;
+                $wp_new_user_notification_email['message'] = $body."
+                
+Username: $user->user_login
+Password: $user_password";
                 return $wp_new_user_notification_email;
             }
         }
-
 
     } // ends class
 endif;

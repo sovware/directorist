@@ -9,7 +9,7 @@
             <div class="form-group">
                 <?php
                 bdas_dropdown_terms( array(
-                    'show_option_none'   => '-- '.__( 'Select a Location', ATBDP_TEXTDOMAIN ).' --',
+                    'show_option_none'   => __( 'Select a Location', ATBDP_TEXTDOMAIN ),
                     'option_none_value'  => -1,
                     'taxonomy'           => 'at_biz_dir-location',
                     'name' 			     => 'in_loc',
@@ -25,7 +25,7 @@
             <div class="form-group">
                 <?php
                 bdas_dropdown_terms( array(
-                    'show_option_none'   => '-- '.__( 'Select a category', ATBDP_TEXTDOMAIN ).' --',
+                    'show_option_none'   => __( 'Select a category', ATBDP_TEXTDOMAIN ),
                     'option_none_value'  => -1,
                     'taxonomy'           => 'at_biz_dir-category',
                     'name' 			     => 'in_cat',

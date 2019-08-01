@@ -507,6 +507,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 10px 15px;
 }
 
+#directorist.atbd_wrapper .form-control[type="time"], #directorist.atbd_wrapper .form-control[type="date"], .default-ad-search .form-control[type="time"], .default-ad-search .form-control[type="date"] {
+  padding: 9px 15px;
+}
+
 #directorist.atbd_wrapper textarea.form-control, .default-ad-search textarea.form-control {
   padding-top: 0;
 }
@@ -654,6 +658,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
 #directorist.atbd_wrapper .atbd_author_filter_area .dropdown .dropdown-menu {
   width: 157px;
   word-break: break-all;
+  overflow-y: auto;
+  max-height: 400px;
+  overflow-x: hidden;
 }
 
 #directorist.atbd_wrapper .atbd_author_filter_area .dropdown .dropdown-menu .dropdown-item {
@@ -686,7 +693,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbdp_required {
   display: block;
   margin-top: 10px;
-  color: #F44336;
+  color: #e23636;
 }
 
 #directorist.atbd_wrapper .atbdp_custom_field_radio li label {
@@ -754,11 +761,16 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 #directorist.atbd_wrapper .directory_regi_btn a {
-  color: #ff0000;
+  color: #e23636;
 }
 
 .fade.show {
   opacity: 1;
+}
+
+.wp-switch-editor {
+  top: 0 !important;
+  height: 35px !important;
 }
 
 .plupload-thumbs .thumb {
@@ -1239,8 +1251,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-right: 15px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listting_category {
-  margin-right: 20px;
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listting_category .directory_cats {
+  display: flex;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listting_category .directory_cats > li {
+  margin-right: 5px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listing_average_pricing {
@@ -3239,7 +3255,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .single_prv_attachment div .remove_prev_img:hover {
-  color: #c81d1d;
+  color: #e23636;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .atbd_term_and_condition_area {
@@ -3280,6 +3296,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_type > label + label {
   margin-left: 25px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+  margin-top: 3px !important;
 }
 
 .olMap + .cor-wrap {
@@ -3549,7 +3569,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   position: absolute;
   z-index: 1;
   right: 0;
-  background: #ff4949;
+  background: #e23636;
   color: #fff;
   padding: 3px 10px;
 }
@@ -3655,7 +3675,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   background-clip: padding-box;
   border: 1px solid #dbdaf7;
   border-radius: 0.25rem;
-  min-height: 36px;
+  min-height: 44px;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -3668,7 +3688,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-container--default .select2-selection--single .select2-selection__rendered {
-  line-height: 35px;
+  line-height: 41px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-container--default .select2-selection--single .select2-selection__arrow {
@@ -4583,10 +4603,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
   .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields > li {
     display: block;
   }
-  .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_title p {
-    padding-left: 0;
-    padding-right: 0;
-  }
   .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_title,
   .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_content {
     width: 100%;
@@ -4594,8 +4610,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   .atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_content {
     border: 0 none;
     padding-top: 0;
-    padding-right: 0;
-    padding-left: 0;
+    padding-right: 30px;
+    padding-left: 30px;
   }
   .ads-advanced .bottom-inputs > div {
     width: 100%;
@@ -4635,6 +4651,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_listing_action_btn {
     margin: 5px 0;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title,
+  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
+    width: 100%;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
+    padding-left: 45px;
+    word-break: break-all;
   }
 }
 

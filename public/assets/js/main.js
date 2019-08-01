@@ -673,6 +673,7 @@ jQuery(function ($) {
                         'post_id': $('#atbdp-post-id').val(),
                         'name': $('#atbdp-contact-name').val(),
                         'email': $('#atbdp-contact-email').val(),
+                        'listing_email': $('#atbdp-listing-email').val(),
                         'message': $('#atbdp-contact-message').val(),
                     };
 
@@ -787,6 +788,22 @@ jQuery(function ($) {
         })();
     });
 
+/*   $('.atbdp_right_nav').on('click', function (event) {
+        event.preventDefault();
+        var currentLocation = window.location;
+        var split_url = currentLocation.href.split('/');
+        var target = split_url[ split_url.length - 2 ];
+
+        if(target === 'new-post-copy') {
+            location.replace(currentLocation.href+2)
+        } else {
+            var url1 = currentLocation.href.split('/')[ split_url.length - 2 ];
+            var change = currentLocation.href.split('/');
+            change[ split_url.length - 2 ] =  parseInt(url1)+1;
+            location.replace(change.join('/'));
+        }
+
+    })*/
 
 })(jQuery);
 

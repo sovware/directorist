@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
  * Description: Create a professional directory listing website like Yelp by a few clicks only. You can list place, any business etc.  with this plugin very easily.
- * Version: 5.5.0
+ * Version: 5.5.3
  * Author: AazzTech
  * Author URI: https://aazztech.com
  * License: GPLv2 or later
@@ -256,7 +256,7 @@ final class Directorist_Base
             add_filter('map_meta_cap', array(self::$instance->roles, 'meta_caps'), 10, 4);
 
             //add dtbdp custom body class
-            add_filter('body_class', array(self::$instance, 'atbdp_body_class'));
+            add_filter('body_class', array(self::$instance, 'atbdp_body_class'),99);
             // display related listings
             add_action('atbdp_after_single_listing', array(self::$instance, 'show_related_listing'));
             //review and rating
@@ -1083,7 +1083,7 @@ final class Directorist_Base
         if ($plan_review) {
             $count_review       = ($reviews_count > 1) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
             ?>
-            <div class="atbd_content_module atbd_review_module" id="atbd_listing_review_area">
+            <div class="atbd_content_module atbd_review_module" id="atbd_reviews_block">
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">
                         <h4><span class="<?php atbdp_icon_type(true);?>-star atbd_area_icon"></span><span

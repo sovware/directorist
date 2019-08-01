@@ -200,7 +200,11 @@ do_action('atbdp_before_listing_section');
         <?php
         $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
         $gallery_image = '';
-        if (!empty($image_links)) {
+        $plan_slider = true;
+        if (is_fee_manager_active()) {
+            $plan_slider = is_plan_allowed_slider($fm_plan);
+        }
+        if (!empty($image_links) && $plan_slider) {
             if (!empty($listing_prv_img && $display_prv_image)) {
                 if (!empty($gallery_cropping)) {
                     $listing_prv_imgurl = atbdp_image_cropping($listing_prv_img, $custom_gl_width, $custom_gl_height, true, 100)['url'];
@@ -251,17 +255,25 @@ do_action('atbdp_before_listing_section');
         ?>
         <div class="atbd_listing_detail">
             <?php
+            $plan_average_price = true;
+            if (is_fee_manager_active()) {
+                $plan_average_price = is_plan_allowed_average_price_range($fm_plan);
+            }
+            $plan_price = true;
+            if (is_fee_manager_active()) {
+                $plan_price = is_plan_allowed_price($fm_plan);
+            }
             $data_info = '<div class="atbd_data_info">';
-            if (empty($is_disable_price) || !empty($enable_review)) {
+            if (!empty($enable_review) || (empty($is_disable_price) && (!empty($price) || !empty($price_range)))) {
                 $data_info .= '<div class="atbd_listing_meta">';
                 $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
                 if (empty($is_disable_price)) {
                     if (!empty($display_pricing_field)) {
-                        if (!empty($price_range) && ('range' === $atbd_listing_pricing)) {
+                        if (!empty($price_range) && ('range' === $atbd_listing_pricing) && $plan_average_price) {
                             //is range selected then print it
                             $output = atbdp_display_price_range($price_range);
                             $data_info .= $output;
-                        } else {
+                        } elseif($plan_price) {
                             $data_info .= atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false);
                         }
                     }
@@ -301,7 +313,7 @@ do_action('atbdp_before_listing_section');
             }
             $data_info .= '<div class="atbd_listting_category"><ul class="directory_cats">';
             if (!empty($cats)) {
-                $data_info .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
+                $data_info .= '<li><span class="' . atbdp_icon_type() . '-tags"></span></li>';
                 $numberOfCat = count($cats);
                 $output = array();
                 foreach ($cats as $cat) {

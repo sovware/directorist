@@ -93,6 +93,19 @@ if ('openstreet' == $select_listing_map) {
             $(this).html(link);
         });
         <?php } elseif('openstreet' == $select_listing_map) { ?>
+        setInterval(() => {
+            $('img.olTileImage').each((index, el) => {
+
+                if($(el).attr('src').startsWith('http:')){
+                    var attr = $(el).attr('src').split('/')[0] = "https:";
+
+                    var url = attr+"/"+$(el).attr('src').split('/').slice(1, 15).join('/');
+                    $(el).attr('src', url)
+
+                }
+
+            })
+        }, 1000);
         map = new OpenLayers.Map("gmap");
         let mymap = (lon, lat) => {
             map.addLayer(new OpenLayers.Layer.OSM());

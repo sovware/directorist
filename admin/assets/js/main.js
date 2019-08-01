@@ -1349,6 +1349,22 @@ jQuery(function ($) {
         lf_opt53.show();
     }
 
+    //Email use field
+    var lf_opt54 = $("#user_email");
+    lf_opt54.hide();
+    $('input[name="disable_contact_owner"]').on("change", function () {
+        if($(this).is(":checked") == false){
+            console.log()
+            lf_opt54.show();
+        }else{
+            lf_opt54.hide();
+        }
+    });
+    if($('input[name="disable_contact_owner"]').is(":checked") == false){
+        lf_opt54.show();
+    }
+
+
     //Display all listings header
     var lf_opt54 = $("#all_listing_title,#listing_filters_button,#listings_filter_button_text,#listings_display_filter,#listing_filters_fields,#listings_filters_button,#listings_reset_text,#listings_apply_text,#listings_search_text_placeholder,#listings_category_placeholder,#listings_location_placeholder,#display_sort_by,#sort_by_text,#listings_sort_by_items,#display_view_as,#view_as_text,#listings_view_as_items");
     lf_opt54.hide();
@@ -1377,7 +1393,63 @@ jQuery(function ($) {
         lf_opt55.show();
     }
 
+    //Display my listing tab text option for deshboard
+    var lf_opt56 = $("#my_listing_tab_text");
+    lf_opt56.hide();
+    $('input[name="my_listing_tab"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt56.show();
+        }else{
+            lf_opt56.hide();
+        }
+    });
+    if($('input[name="my_listing_tab"]').is(":checked") === true){
+        lf_opt56.show();
+    }
+
+    //Display my profile tab text option for deshboard
+    var lf_opt57 = $("#my_profile_tab_text");
+    lf_opt57.hide();
+    $('input[name="my_profile_tab"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt57.show();
+        }else{
+            lf_opt57.hide();
+        }
+    });
+    if($('input[name="my_profile_tab"]').is(":checked") === true){
+        lf_opt57.show();
+    }
+
+    //Display my profile tab text option for deshboard
+    var lf_opt58 = $("#fav_listings_tab_text");
+    lf_opt58.hide();
+    $('input[name="fav_listings_tab"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt58.show();
+        }else{
+            lf_opt58.hide();
+        }
+    });
+    if($('input[name="fav_listings_tab"]').is(":checked") === true){
+        lf_opt58.show();
+    }
+
+    /* Copy shortcodes on click */
+    var textToCopy = document.querySelectorAll(".description.atbdp_settings_description strong");
+    textToCopy.forEach((el, index) =>{
+        el.addEventListener("click", function () {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(el).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+            $(el).after("<p style='color: #32cc6f; margin-top: 5px;'>Copied to clipboard!</p>");
+            setTimeout(function () {
+                $(el).siblings("p").fadeOut();
+            }, 3000);
+        });
+    });
 
 });
-
 

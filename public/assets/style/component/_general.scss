@@ -324,6 +324,9 @@ body.atbd_content_active #directorist.atbd_wrapper{
 #directorist.atbd_wrapper, .default-ad-search{
   .form-control{
     padding: 10px 15px;
+    &[type="time"], &[type="date"]{
+      padding: 9px 15px;
+    }
   }
   textarea.form-control{
     padding-top: 0;
@@ -468,6 +471,9 @@ body.atbd_content_active #directorist.atbd_wrapper{
 #directorist.atbd_wrapper .atbd_author_filter_area .dropdown .dropdown-menu{
   width: 157px;
   word-break: break-all;
+  overflow-y: auto;
+  max-height: 400px;
+  overflow-x: hidden;
 }
 #directorist.atbd_wrapper .atbd_author_filter_area .dropdown .dropdown-menu .dropdown-item{
   white-space: pre-line;
@@ -494,7 +500,7 @@ body.atbd_content_active #directorist.atbd_wrapper{
 .atbdp_required{
   display: block;
   margin-top: 10px;
-  color: #F44336;
+  color: $danger;
 }
 
 #directorist.atbd_wrapper .atbdp_custom_field_radio{
@@ -557,11 +563,15 @@ body.atbd_content_active #directorist.atbd_wrapper{
 #directorist.atbd_wrapper .directory_regi_btn{
   margin-top: 10px;
   a{
-    color: #ff0000;
+    color: $danger;
   }
 }
 .fade.show{
   opacity: 1;
+}
+.wp-switch-editor{
+  top: 0 !important;
+  height: 35px !important;
 }
 
 //file upload

@@ -383,6 +383,9 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 'menu_name' => __('Directory Tags', ATBDP_TEXTDOMAIN),
             );
 
+            $capabilities = array(
+                'assign_terms' => 'publish_at_biz_dirs'
+            );
             $args3 = array(
                 'hierarchical' => false,
                 'labels' => $labels3,
@@ -391,6 +394,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 'query_var' => true,
                 'public' => true,
                 'show_in_nav_menus' => true,
+                'capabilities'   => $capabilities,
             );
 
             // get the rewrite slug from the user settings, if exist use it.

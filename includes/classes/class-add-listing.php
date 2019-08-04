@@ -286,7 +286,12 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 }
                             }
                             $post_id = wp_update_post($args);
-                            set_post_thumbnail( $post_id, sanitize_text_field($p['listing_prv_img']) );
+                            if (!empty($p['listing_prv_img'])){
+                                set_post_thumbnail( $post_id, sanitize_text_field($p['listing_prv_img']) );
+                            }else{
+                                delete_post_thumbnail($post_id);
+                            }
+
                             $append = false;
                             if (count($location)>1){
                                 $append = true;
@@ -536,22 +541,42 @@ if (!class_exists('ATBDP_Add_Listing')):
                         // vail if monetization is not active.
                         if (is_fee_manager_active() ){
                             if(class_exists('DWPP_Pricing_Plans')){
+                                $regular_price = get_post_meta($subscribed_package_id, '_regular_price', true);
+                                $redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
                                 if ('pay_per_listng' === package_or_PPL($plan=null)){
-                                    global $woocommerce;
-                                    $woocommerce->cart->empty_cart();
-                                    $woocommerce->cart->add_to_cart( $subscribed_package_id );
-                                    wp_redirect( wc_get_checkout_url() );
-                                    exit;
+                                    if (!empty($regular_price)){
+                                        global $woocommerce;
+                                        $woocommerce->cart->empty_cart();
+                                        $woocommerce->cart->add_to_cart( $subscribed_package_id );
+                                        wp_redirect( wc_get_checkout_url() );
+                                        exit;
+                                    }else{
+                                        if ('view_listing' == $redirect_page){
+                                            wp_redirect(get_permalink($post_id));
+                                        }else{
+                                            wp_redirect(ATBDP_Permalink::get_dashboard_page_link());
+                                        }
+                                        exit;
+                                    }
+
                                 }elseif(('package' === package_or_PPL($plan=null)) && !$plan_purchased){
                                     //lets redirect to woo checkout page
-                                  global $woocommerce;
-                                    $woocommerce->cart->empty_cart();
-                                    $woocommerce->cart->add_to_cart( $subscribed_package_id );
-                                    wp_redirect( wc_get_checkout_url() );
-                                    exit;
+                                    if (!empty($regular_price)){
+                                        global $woocommerce;
+                                        $woocommerce->cart->empty_cart();
+                                        $woocommerce->cart->add_to_cart( $subscribed_package_id );
+                                        wp_redirect( wc_get_checkout_url() );
+                                        exit;
+                                    }else{
+                                        if ('view_listing' == $redirect_page){
+                                            wp_redirect(get_permalink($post_id));
+                                        }else{
+                                            wp_redirect(ATBDP_Permalink::get_dashboard_page_link());
+                                        }
+                                        exit;
+                                    }
                                 }else{
                                     //yep! listing is saved to db and redirect user to admin panel or listing itself
-                                    $redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
                                     if ('view_listing' == $redirect_page){
                                         wp_redirect(get_permalink($post_id));
                                     }else{

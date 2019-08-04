@@ -32,5 +32,5 @@ $display_video_for        = get_directorist_option('display_video_for', 'admin_u
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php } ?>
-            <?php do_action('atbdp_after_video_gallery'); ?>
+            <?php //do_action('atbdp_after_video_gallery'); ?>
 

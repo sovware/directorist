@@ -147,45 +147,38 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 ?>
 <section id="directorist" class="directorist atbd_wrapper">
     <div class="row">
-        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
-            <?php
-            $display_back_link = get_directorist_option('display_back_link',1);
-            //is current user is logged in and the original author of the listing
-            if (is_user_logged_in() && $listing_author_id == get_current_user_id()) {
-                //ok show the edit option
-                ?>
-                <div class="edit_btn_wrap">
-                    <?php
-                    if (!empty($display_back_link)) {
-                        ?>
-                        <a href="javascript:history.back()" class="atbd_go_back"><i
-                                    class="<?php atbdp_icon_type(true); ?>-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?>
-                        </a>
-                        <?php
-                    }
-                    ?>
-                    <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
-                       class="btn btn-success"><span
-                                class="<?php atbdp_icon_type(true);?>-edit"></span><?PHP _e(' Edit Listing', ATBDP_TEXTDOMAIN) ?></a>
-                </div>
-                <?php
-            } else {
-                ?>
-            <?php
-            if (!empty($display_back_link)) {
-                ?>
-                <div class="edit_btn_wrap">
-                    <a href="javascript:history.back()" class="atbd_go_back"><i
-                                class="<?php atbdp_icon_type(true); ?>-angle-left"></i><?php _e(' Go Back', ATBDP_TEXTDOMAIN) ?>
-                    </a>
-
-                </div>
-                <?php
-            }
-            }
-            ?>
-        </div>
         <?php
+        $html_edit_back = '';
+        $html_edit_back .= '<div class="' . esc_attr($main_col_size) . ' col-md-12 atbd_col_left">';
+        //is current user is logged in and the original author of the listing
+        if (is_user_logged_in() && $listing_author_id == get_current_user_id()) {
+            //ok show the edit option
+
+            $html_edit_back .= '<div class="edit_btn_wrap">';
+            $display_back_link = get_directorist_option('display_back_link', 1);
+            if (!empty($display_back_link)) {
+                $html_edit_back .= '<a href="javascript:history.back()" class="atbd_go_back"><i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', ATBDP_TEXTDOMAIN) . '</a> ';
+            }
+            $html_edit_back .= '<a href="' . esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)) . '" class="btn btn-success">
+                            <span class="' . atbdp_icon_type() . '-edit"></span>' . esc_html__(' Edit Listing', ATBDP_TEXTDOMAIN) . '</a>';
+            $html_edit_back .= '</div>';
+        } else {
+            if (!empty($display_back_link)) {
+                $html_edit_back .= '<div class="edit_btn_wrap">
+                                <a href="javascript:history.back()" class="atbd_go_back">
+                                    <i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', ATBDP_TEXTDOMAIN) . '
+                                </a>
+                           </div>';
+            }
+        }
+        $html_edit_back .= '</div>';
+
+        /**
+         * @since 5.5.4
+         */
+        echo apply_filters('atbdp_single_listing_edit_back', $html_edit_back);
+
+
         /**
          * @since 5.0
          */
@@ -649,7 +642,13 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php }
-            if ((!$hide_contact_info) && !empty($address || $phone || $phone2 || $fax || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>
+            if ((!$hide_contact_info) && !empty($address || $phone || $phone2 || $fax || $email || $website || $zip || $social) && empty($disable_contact_info)) {
+                $address_label = get_directorist_option('address_label', __('Address', ATBDP_TEXTDOMAIN));
+                $phone_label = get_directorist_option('phone_label', __('Phone', ATBDP_TEXTDOMAIN));
+                $email_label = get_directorist_option('email_label', __('Email', ATBDP_TEXTDOMAIN));
+                $website_label = get_directorist_option('website_label', __('Website', ATBDP_TEXTDOMAIN));
+                $zip_label = get_directorist_option('zip_label', __('Zip/Post Code', ATBDP_TEXTDOMAIN));
+                ?>
                 <div class="atbd_content_module atbd_contact_information_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
@@ -665,7 +664,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                 <?php if (!empty($address) && !empty($display_address_field)) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php _e('Address', ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php _e($address_label, ATBDP_TEXTDOMAIN); ?>
                                         </div>
                                         <div class="atbd_info"><?= esc_html($address); ?></div>
                                     </li>
@@ -680,7 +679,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-phone"></span><?php _e('Phone', ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-phone"></span><?php _e($phone_label, ATBDP_TEXTDOMAIN); ?>
                                         </div>
                                         <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($phone)); ?>"><?php echo esc_html(stripslashes($phone)); ?></a>
                                         </div>
@@ -717,7 +716,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                 if (!empty($email) && !empty($display_email_field) && $plan_email) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-envelope"></span><?php _e('Email', ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-envelope"></span><?php _e($email_label, ATBDP_TEXTDOMAIN); ?>
                                         </div>
                                         <span class="atbd_info"><a target="_top"
                                                                    href="mailto:<?= esc_html($email); ?>"><?= esc_html($email); ?></a></span>
@@ -731,7 +730,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                 if (!empty($website) && !empty($display_website_field) && $plan_webLink) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-globe"></span><?php _e('Website', ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-globe"></span><?php _e($website_label, ATBDP_TEXTDOMAIN); ?>
                                         </div>
                                         <a target="_blank" href="<?= esc_url($website); ?>"
                                            class="atbd_info" <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?= esc_html($website); ?></a>
@@ -742,7 +741,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-at"></span><?php _e('Zip/Post Code', ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-at"></span><?php _e($zip_label, ATBDP_TEXTDOMAIN); ?>
                                         </div>
                                         <div class="atbd_info"><?= esc_html($zip); ?></div>
                                     </li>
@@ -844,6 +843,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             if ($plan_review) {
                 do_action('atbdp_before_review_section', $post, $listing_info);
             }
+
+            do_action('atbdp_listing_faqs', $post, $listing_info);
             /**
              * Fires after the Map is rendered on single listing page
              *

@@ -1083,7 +1083,7 @@ final class Directorist_Base
         if ($plan_review) {
             $count_review       = ($reviews_count > 1) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
             ?>
-            <div class="atbd_content_module atbd_review_module">
+            <div class="atbd_content_module atbd_review_module" id="atbd_reviews_block">
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">
                         <h4><span class="<?php atbdp_icon_type(true);?>-star atbd_area_icon"></span><span
@@ -1152,7 +1152,7 @@ final class Directorist_Base
                     // if user has a review then fetch it.
                     $cur_user_review = ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), get_the_ID());
                     ?>
-                    <div class="atbd_content_module" id="atbd_reviews_block">
+                    <div class="atbd_content_module">
                         <div class="atbd_content_module__tittle_area">
                             <div class="atbd_area_title">
                                 <h4><span class="<?php atbdp_icon_type(true);?>-star"

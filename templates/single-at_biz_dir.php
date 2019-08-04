@@ -649,7 +649,13 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php }
-            if ((!$hide_contact_info) && !empty($address || $phone || $phone2 || $fax || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>
+            if ((!$hide_contact_info) && !empty($address || $phone || $phone2 || $fax || $email || $website || $zip || $social) && empty($disable_contact_info)) {
+                $address_label = get_directorist_option('address_label', __('Address', ATBDP_TEXTDOMAIN));
+                $phone_label = get_directorist_option('phone_label', __('Phone', ATBDP_TEXTDOMAIN));
+                $email_label = get_directorist_option('email_label', __('Email', ATBDP_TEXTDOMAIN));
+                $website_label = get_directorist_option('website_label', __('Website', ATBDP_TEXTDOMAIN));
+                $zip_label = get_directorist_option('zip_label', __('Zip/Post Code', ATBDP_TEXTDOMAIN));
+                ?>
                 <div class="atbd_content_module atbd_contact_information_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
@@ -665,7 +671,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                 <?php if (!empty($address) && !empty($display_address_field)) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php _e('Address', ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php _e($address_label, ATBDP_TEXTDOMAIN); ?>
                                         </div>
                                         <div class="atbd_info"><?= esc_html($address); ?></div>
                                     </li>
@@ -680,7 +686,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-phone"></span><?php _e('Phone', ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-phone"></span><?php _e($phone_label, ATBDP_TEXTDOMAIN); ?>
                                         </div>
                                         <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($phone)); ?>"><?php echo esc_html(stripslashes($phone)); ?></a>
                                         </div>
@@ -717,7 +723,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                 if (!empty($email) && !empty($display_email_field) && $plan_email) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-envelope"></span><?php _e('Email', ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-envelope"></span><?php _e($email_label, ATBDP_TEXTDOMAIN); ?>
                                         </div>
                                         <span class="atbd_info"><a target="_top"
                                                                    href="mailto:<?= esc_html($email); ?>"><?= esc_html($email); ?></a></span>
@@ -731,7 +737,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                 if (!empty($website) && !empty($display_website_field) && $plan_webLink) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-globe"></span><?php _e('Website', ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-globe"></span><?php _e($website_label, ATBDP_TEXTDOMAIN); ?>
                                         </div>
                                         <a target="_blank" href="<?= esc_url($website); ?>"
                                            class="atbd_info" <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?= esc_html($website); ?></a>
@@ -742,7 +748,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-at"></span><?php _e('Zip/Post Code', ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-at"></span><?php _e($zip_label, ATBDP_TEXTDOMAIN); ?>
                                         </div>
                                         <div class="atbd_info"><?= esc_html($zip); ?></div>
                                     </li>
@@ -844,6 +850,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             if ($plan_review) {
                 do_action('atbdp_before_review_section', $post, $listing_info);
             }
+
+            do_action('atbdp_listing_faqs', $post, $listing_info);
             /**
              * Fires after the Map is rendered on single listing page
              *

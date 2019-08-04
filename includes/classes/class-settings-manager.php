@@ -3928,7 +3928,6 @@ The Administrator of ==SITE_NAME==
         public function get_listings_address_field_settings()
         {
             return apply_filters('atbdp_address_field_setting', array(
-
                 array(
                     'type' => 'toggle',
                     'name' => 'display_address_field',
@@ -5189,7 +5188,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'single_listing_page',
                         'label' => __('Single Listing Page', ATBDP_TEXTDOMAIN),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcodes can be used for the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_listing_top_area][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_review][directorist_related_listings]</strong>'),
+                        'description' => sprintf(__('Following shortcodes can be used for the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_listing_top_area][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_author_info][directorist_listing_review][directorist_related_listings]</strong>'),
                         'default' => atbdp_get_option('single_listing_page', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),

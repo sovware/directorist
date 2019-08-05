@@ -4679,6 +4679,12 @@ The Administrator of ==SITE_NAME==
                     'default' => __('Video', ATBDP_TEXTDOMAIN),
                 ),
                 array(
+                    'type' => 'textbox',
+                    'name' => 'atbd_author_info_title',
+                    'label' => __('Section Title of Author Info', ATBDP_TEXTDOMAIN),
+                    'default' => __('Author Info', ATBDP_TEXTDOMAIN),
+                ),
+                array(
                     'type' => 'toggle',
                     'name' => 'dsiplay_prv_single_page',
                     'label' => __('Show Preview Image', ATBDP_TEXTDOMAIN),

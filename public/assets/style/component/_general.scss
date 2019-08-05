@@ -259,6 +259,7 @@ body.atbd_content_active #directorist.atbd_wrapper{
 //pagination css
 #directorist.atbd_wrapper .pagination{
   width: 100%;
+  margin: 0;
   &:before, &:after{
     content: none;
   }
@@ -274,6 +275,7 @@ body.atbd_content_active #directorist.atbd_wrapper{
   .nav-links{
     background: none;
     margin: 0;
+    padding: 0;
     justify-content: center;
     .current, .page-numbers{
       padding: 0;

@@ -441,18 +441,20 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                 <p class="atbdp_nlf"><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
             <?php }
             ?>
-            <?php
-            /**
-             * @since 5.0
-             */
-            do_action('atbdp_before_listings_pagination');
-            $show_pagination = !empty($show_pagination) ? $show_pagination : '';
-            if ('yes' == $show_pagination) {
-                $paged = !empty($paged) ? $paged : '';
-                echo atbdp_pagination($all_listings, $paged);
-            } ?>
 
         </div> <!--end row-->
+
+        <?php
+        /**
+         * @since 5.0
+         */
+        do_action('atbdp_before_listings_pagination');
+        $show_pagination = !empty($show_pagination) ? $show_pagination : '';
+        if ('yes' == $show_pagination) {
+            $paged = !empty($paged) ? $paged : '';
+            echo atbdp_pagination($all_listings, $paged);
+        } ?>
+
         <?php
         /**
          * @since 5.0

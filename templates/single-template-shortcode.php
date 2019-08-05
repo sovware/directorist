@@ -9,6 +9,7 @@ if ( !class_exists('ATBDP_Single_Templates') ) {
             add_shortcode( 'directorist_listing_video',array($this,'directorist_listing_video'));
             add_shortcode( 'directorist_listing_map',array($this,'directorist_listing_map'));
             add_shortcode( 'directorist_listing_contact_information',array($this,'directorist_listing_contact_information'));
+            add_shortcode('directorist_listing_author_info', array($this,'directorist_listing_author_details'));
             add_shortcode( 'directorist_listing_contact_owner',array($this,'directorist_listing_contact_owner'));
             add_shortcode( 'directorist_listing_review',array($this,'directorist_listing_review'));
             add_shortcode( 'directorist_related_listings',array($this,'directorist_related_listings'));
@@ -55,6 +56,15 @@ if ( !class_exists('ATBDP_Single_Templates') ) {
             ob_start();
             if(is_singular(ATBDP_POST_TYPE)) {
                 include ATBDP_TEMPLATES_DIR . 'front-end/single-listing/listing-contact-info.php';
+            }
+            return ob_get_clean();
+        }
+
+        //listing author details
+        public function directorist_listing_author_details() {
+            ob_start();
+            if(is_singular(ATBDP_POST_TYPE)) {
+                include ATBDP_TEMPLATES_DIR . 'front-end/single-listing/listing-author-info.php';
             }
             return ob_get_clean();
         }

@@ -397,7 +397,6 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             $cf_meta_val = get_post_meta(get_the_ID(), 'type', true);
                                             $cf_rows = get_post_meta(get_the_ID(), 'rows', true);
                                             $cf_placeholder = '';
-
                                             switch ($cf_meta_val) {
                                                 case 'text' :
                                                     echo '<div>';

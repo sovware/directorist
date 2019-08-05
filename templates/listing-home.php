@@ -1,6 +1,6 @@
 <?php
-$categories                           = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
-$locations                            = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
+$categories                           = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0, 'orderby' => 'count'));
+$locations                            = get_terms(ATBDP_LOCATION, array('hide_empty' => 0, 'orderby' => 'count'));
 $search_placeholder                   = get_directorist_option('search_placeholder', __('What are you looking for?', ATBDP_TEXTDOMAIN));
 $search_category_placeholder          = get_directorist_option('search_category_placeholder', __('Select a category', ATBDP_TEXTDOMAIN));
 $search_location_placeholder          = get_directorist_option('search_location_placeholder', __('Select a location', ATBDP_TEXTDOMAIN));
@@ -84,7 +84,7 @@ $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
                                     $search_html .= '<option value="">'. $search_category_placeholder.'</option>';
 
                                     foreach ($categories as $category) {
-                                        $current_term_level = get_tax_level($category->term_id, $category->taxonomy);
+                                        $current_term_level = atbdp_get_tax_level($category->term_id, $category->taxonomy);
                                         $class ='';
                                         if ($current_term_level === 1) {
                                             $class =  'class="term_parent"';
@@ -109,7 +109,7 @@ $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
                                     $search_html .= '<option value="">'. $search_location_placeholder.'</option>';
 
                                     foreach ($locations as $location) {
-                                        $current_term_level = get_tax_level($location->term_id, $location->taxonomy);
+                                        $current_term_level = atbdp_get_tax_level($location->term_id, $location->taxonomy);
                                         $class ='';
                                         if ($current_term_level === 1) {
                                             $class =  'class="term_parent"';

@@ -1,7 +1,10 @@
+<?php
+$atbd_author_info_title = get_directorist_option('atbd_author_info_title', __('Author Info', ATBDP_TEXTDOMAIN));
+?>
 <div class="atbd_content_module author_info_module">
     <div class="atbd_content_module__tittle_area">
         <div class="atbd_area_title">
-            <h4><span class="la la-user atbd_area_icon"></span> Author Info</h4>
+            <h4><span class="la la-user atbd_area_icon"></span> <?php echo $atbd_author_info_title; ?></h4>
         </div>
     </div>
     <div class="atbdb_content_module_contents">

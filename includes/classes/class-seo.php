@@ -30,7 +30,7 @@ if ( !class_exists('ATBDP_SEO') ):
                 return $title;
             }
 
-            global $post;
+           // global $post;
             if ( ! is_admin() && ! is_null( $id ) ) {
                 $post = get_post( $id );
                 if ( $post instanceof WP_Post && ( $post->post_type == 'post' || $post->post_type == 'page' ) ) {

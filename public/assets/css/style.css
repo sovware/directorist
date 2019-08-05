@@ -3885,6 +3885,22 @@ body.atbd_content_active #directorist.atbd_wrapper {
   width: 100% !important;
 }
 
+.select2-container .select2-results__option .first_child {
+  padding-left: 10px;
+}
+
+.select2-container .select2-results__option .second_child {
+  padding-left: 20px;
+}
+
+.select2-container .select2-results__option .third_child {
+  padding-left: 30px;
+}
+
+.select2-container .select2-results__option .forth_child {
+  padding-left: 40px;
+}
+
 /* ads advance search */
 .ads-advaced--wrapper .ads_float {
   position: relative;

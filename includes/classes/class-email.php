@@ -126,7 +126,7 @@ if (!class_exists('ATBDP_Email')):
                 '==TODAY==' => date_i18n($date_format, $current_time),
                 '==NOW==' => date_i18n($date_format . ' ' . $time_format, $current_time),
             );
-            $c = strtr($content, $find_replace);
+            $c = nl2br(strtr($content, $find_replace));
             // we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.
             return str_replace('==ORDER_DETAILS==', ATBDP_Order::get_order_details($order_id), $c);
 

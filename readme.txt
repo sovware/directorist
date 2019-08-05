@@ -165,6 +165,23 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Fix - Twitter issue
 * Fix - SEO issues
 
+= 5.4.4 - Aug 05, 2019 =
+
+* Fix - Email notification for edited listing
+* Fix - Conflict with Event Calender plugin
+* Fix - OpenStreetMap issue
+* Fix - Repeating email notification issue
+* Fix - Assigning tag capability of frontend user
+* Fix - Location Saving issue of frontend user
+* Fix - New user notification email
+* Fix - Styling issues
+* Add -  orderby='rand' to display listings randomly ([directorist_all_listing orderby='rand'])
+* Add - Options to change the labels of User Dashboard tabs
+* Add - New shortcode to display author information on single listing page
+* Add - Searchability of location and category search fields
+* Tweak - Option to choose email recipient for receiving email from Contact Listing Owner Form
+
+
 = 5.4.3 - Jul 10, 2019 =
 
 * Fix - "Sort By" issue on search result page

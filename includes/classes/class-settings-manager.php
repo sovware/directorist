@@ -4778,7 +4778,8 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'select',
                     'name' => 'user_email',
-                    'label' => __('Email Used', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Send to', ATBDP_TEXTDOMAIN),
+                    'description' => __('Email recipient for receiving email from Contact Listing Owner Form.', ATBDP_TEXTDOMAIN),
                     'items' => array(
                         array(
                             'value' => 'author',

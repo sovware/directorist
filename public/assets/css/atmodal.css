@@ -99,6 +99,7 @@
 @media (min-width: 992px) and (max-width: 1199.98px) {
     .at-modal-content.at-modal-xl,
     .at-modal-content.at-modal-lg,
+    .at-modal-content.at-modal-md,
     .at-modal-content.at-modal-sm{
         width: calc(100% - 60px);
     }
@@ -108,6 +109,7 @@
 @media (min-width: 768px) and (max-width: 991.98px) {
     .at-modal-content.at-modal-xl,
     .at-modal-content.at-modal-lg,
+    .at-modal-content.at-modal-md,
     .at-modal-content.at-modal-sm{
         width: calc(100% - 60px);
     }
@@ -117,6 +119,7 @@
 @media (min-width: 576px) and (max-width: 767.98px) {
     .at-modal-content.at-modal-xl,
     .at-modal-content.at-modal-lg,
+    .at-modal-content.at-modal-md,
     .at-modal-content.at-modal-sm{
         width: calc(100% - 60px);
     }
@@ -126,6 +129,7 @@
 @media (max-width: 575.98px) {
     .at-modal-content.at-modal-xl,
     .at-modal-content.at-modal-lg,
+    .at-modal-content.at-modal-md,
     .at-modal-content.at-modal-sm{
         width: calc(100% - 30px);
     }

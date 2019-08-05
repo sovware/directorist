@@ -109,6 +109,20 @@
 }
 .select2-container{
   width: 100% !important;
+  .select2-results__option{
+    .first_child{
+      padding-left: 10px;
+    }
+    .second_child{
+      padding-left: 20px;
+    }
+    .third_child{
+      padding-left: 30px;
+    }
+    .forth_child{
+      padding-left: 40px;
+    }
+  }
 }
 
 

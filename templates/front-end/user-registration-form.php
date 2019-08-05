@@ -32,7 +32,7 @@ $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here'
                     <h2><?php _e('Register', ATBDP_TEXTDOMAIN); ?></h2>
                     <?php
                     $display_password = get_directorist_option('display_password_reg', 0);
-                    if(!empty($_GET['success']) && true == $_GET['success']){
+                    if(!empty($_GET['registration_status']) && true == $_GET['registration_status']){
                         if (empty($display_password)){
                             ?>
                             <p style="padding: 20px" class="alert-success"><span class="fa fa-check"></span><?php _e(' Go to your inbox or spam/junk and get your password.', ATBDP_TEXTDOMAIN); ?>
@@ -52,7 +52,7 @@ $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here'
                             </p>
                             <?php
                         }
-                        exit();
+
                     }
                     ?>
                     <!--Registration failed, so show notification.-->

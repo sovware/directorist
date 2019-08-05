@@ -314,8 +314,7 @@ class ATBDP_User {
                 update_user_meta($user_id, '_atbdp_generated_password', $password);
                 // user has been created successfully, now work on activation process
                 wp_new_user_notification($user_id, null, 'both'); // send activation to the user and the admin
-                wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('success' => true)));
-
+                wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('registration_status' => true)));
                 exit();
             } else {
                 wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('errors' => true)));

@@ -15,8 +15,8 @@ $require_text               = get_directorist_option('require_search_text');
 $require_cat                = get_directorist_option('require_search_category');
 $require_loc                = get_directorist_option('require_search_location');
 $require_text               = !empty($require_text) ? "required" : "";
-$require_cat                = !empty($require_cat) ? true : false;
-$require_loc                = !empty($require_loc) ? true : false;
+$require_cat                = !empty($require_cat) ? "required" : "";
+$require_loc                = !empty($require_loc) ? "required" : "";
 
 
 $default                     = get_template_directory_uri().'/images/home_page_bg.jpg';
@@ -80,49 +80,51 @@ $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
                                 if('yes' == $category_field) {
                                     $search_html .= '<div class="col-md-6 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_category">';
-                                    $args = array(
-                                        'show_option_none' =>  $search_category_placeholder,
-                                        'taxonomy' => ATBDP_CATEGORY,
-                                        'id' => 'cat-type',
-                                        'option_none_value'  => '',
-                                        'class' => 'form-control directory_field bdas-category-search',
-                                        'name' => 'in_cat',
-                                        'orderby' => 'name',
-                                        'selected' => isset( $_GET['in_cat'] ) ? $_GET['in_cat'] : -1,
-                                        'hierarchical' => true,
-                                        'value_field'  => 'term_id',
-                                        'depth' => 10,
-                                        'show_count' => false,
-                                        'hide_empty' => false,
-                                        'echo' => false,
-                                        'required' => $require_cat,
-                                    );
-                                    $search_html .= wp_dropdown_categories($args);
+                                    $search_html .= '<select '.$require_cat.' name="in_cat" class="search_fields form-control" id="at_biz_dir-category">';
+                                    $search_html .= '<option value="">'. $search_category_placeholder.'</option>';
+
+                                    foreach ($categories as $category) {
+                                        $current_term_level = get_tax_level($category->term_id, $category->taxonomy);
+                                        $class ='';
+                                        if ($current_term_level === 1) {
+                                            $class =  'class="term_parent"';
+                                        } if ($current_term_level === 2) {
+                                            $class = 'class="first_child"';
+                                        }if ($current_term_level === 3) {
+                                            $class = 'class="second_child"';
+                                        } if ($current_term_level === 4) {
+                                            $class = 'class="third_child"';
+                                        } if ($current_term_level === 5) {
+                                            $class = 'class="forth_child"';
+                                        }
+                                        $search_html .= "<option id='atbdp_category' $class value='$category->term_id'>$category->name</option>";
+                                    }
+                                    $search_html .= '</select>';
                                     $search_html .= '</div></div>';
                                 }
                                 if('yes' == $location_field) {
                                     $search_html .= '<div class="col-md-12 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_location">';
-                                    $args = array(
-                                        'show_option_none' =>  $search_location_placeholder,
-                                        'taxonomy' => ATBDP_LOCATION,
-                                        'id' => 'loc-type',
-                                        'option_none_value'  => '',
-                                        'class' => 'form-control directory_field',
-                                        'name' => 'in_loc',
-                                        'orderby' => 'name',
-                                        'selected' => isset( $_GET['in_loc'] ) ? $_GET['in_loc'] : -1,
-                                        'hierarchical' => true,
-                                        'value_field'  => 'term_id',
-                                        'depth' => 10,
-                                        'show_count' => false,
-                                        'hide_empty' => false,
-                                        'echo' => false,
-                                        'required' => $require_loc,
-                                    );
+                                    $search_html .= '<select '.$require_loc.' name="in_loc" class="search_fields form-control" id="at_biz_dir-location">';
+                                    $search_html .= '<option value="">'. $search_location_placeholder.'</option>';
 
-                                    $search_html .= wp_dropdown_categories($args);
-
+                                    foreach ($locations as $location) {
+                                        $current_term_level = get_tax_level($location->term_id, $location->taxonomy);
+                                        $class ='';
+                                        if ($current_term_level === 1) {
+                                            $class =  'class="term_parent"';
+                                        } if ($current_term_level === 2) {
+                                            $class = 'class="first_child"';
+                                        }if ($current_term_level === 3) {
+                                            $class = 'class="second_child"';
+                                        } if ($current_term_level === 4) {
+                                            $class = 'class="third_child"';
+                                        } if ($current_term_level === 5) {
+                                            $class = 'class="forth_child"';
+                                        }
+                                        $search_html .= "<option id='atbdp_location' $class value='$location->term_id'>$location->name</option>";
+                                    }
+                                    $search_html .= '</select>';
                                     $search_html .= ' </div></div>';
                                 }
                                 /**

@@ -3985,3 +3985,13 @@ if (!function_exists('atbdp_page')){
      }
     }
 }
+/**
+ * @since 5.5.4
+ * @return integer  Return the level of the term
+ * @param $id
+ * @param $tax
+ */
+function atbdp_get_tax_level($id, $tax){
+    $ancestors = get_ancestors($id, $tax);
+    return count($ancestors)+1;
+}

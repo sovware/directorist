@@ -75,6 +75,10 @@ if (!class_exists('ATBDP_Listing')):
 
             if (is_singular('at_biz_dir')) {
 
+                if (!empty(get_post_thumbnail_id($post))) {
+                    delete_post_thumbnail($post);
+                }
+
                 $title = get_the_title();
 
                 // Get Location page title

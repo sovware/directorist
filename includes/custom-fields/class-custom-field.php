@@ -527,7 +527,7 @@ class ATBDP_Custom_Field
                         $current_val = isset($post_meta['category_pass']) ? esc_attr($post_meta['category_pass'][0]) : '';
                         $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
                         echo '<select name="category_pass" class="form-control">';
-                        echo '<option>' . __("-Select a category-", ATBDP_TEXTDOMAIN) . '</option>';
+                        echo '<option>' . __("Select a category", ATBDP_TEXTDOMAIN) . '</option>';
                         foreach ($categories as $key => $cat_title) {
                             printf('<option value="%s" %s>%s</option>', $cat_title->term_id, selected($cat_title->term_id, $current_val), $cat_title->name);
                         }

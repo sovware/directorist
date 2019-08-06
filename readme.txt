@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 5.5.3
+Stable tag: 5.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -128,6 +128,22 @@ Directorist is not developed by a single person. A team of dedicated developers 
 18. Add New Custom Field
 
 == Changelog ==
+
+= 5.6.0 - Aug 06, 2019 =
+
+* Fix - Email notification for edited listing
+* Fix - Conflict with Event Calender plugin
+* Fix - OpenStreetMap issue
+* Fix - Repeating email notification issue
+* Fix - Assigning tag capability of frontend user
+* Fix - Location Saving issue of frontend user
+* Fix - New user notification email
+* Fix - Styling issues
+* Add -  orderby='rand' to display listings randomly ([directorist_all_listing orderby='rand'])
+* Add - Options to change the labels of User Dashboard tabs
+* Add - New shortcode to display author information on single listing page
+* Add - Searchability of location and category search fields
+* Tweak - Option to choose email recipient for receiving email from Contact Listing Owner Form
 
 = 5.5.3 - Jul 25, 2019 =
 

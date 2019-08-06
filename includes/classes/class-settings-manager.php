@@ -4505,8 +4505,8 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                     'default' => array(
-                        'value' => 'google',
-                        'label' => __('Google Map', ATBDP_TEXTDOMAIN),
+                        'value' => 'openstreet',
+                        'label' => __('OpenStreetMap', ATBDP_TEXTDOMAIN),
                     ),
                 ),
                 array(

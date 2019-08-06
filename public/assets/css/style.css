@@ -617,8 +617,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbdp_login_form_shortcode #loginform p input {
-  background: #FEF7E0;
-  padding: 5px 15px;
+  background: none !important;
+  padding: 10px 15px;
   box-shadow: none;
   border: 1px solid #e3e6ef;
   width: 100%;
@@ -632,6 +632,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
   line-height: normal;
 }
 
+.atbdp_login_form_shortcode .login-password {
+  margin-top: 10px !important;
+}
+
+.atbdp_login_form_shortcode .login-remember {
+  margin-top: 10px !important;
+}
+
 .atbdp_login_form_shortcode .login-remember label {
   display: inline-block;
 }
@@ -643,6 +651,26 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbdp_login_form_shortcode .alert-danger {
   background: #F9D7D7;
   padding: 8px 15px;
+}
+
+.atbdp_login_form_shortcode .atbdp_recovery_pass {
+  margin-top: 15px !important;
+  display: block;
+}
+
+.atbdp_login_form_shortcode .atbdp_recovery_pass:focus {
+  outline: 0;
+}
+
+.atbdp_login_form_shortcode #recover-pass-modal {
+  border: 1px solid #e3e6ef;
+  padding: 15px;
+  margin-top: 10px;
+}
+
+.atbdp_login_form_shortcode #recover-pass-modal #reset_user_login {
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 #directorist.atbd_wrapper .atbd_related_listings .atbd_listing_info .atbd_content_upper > p {

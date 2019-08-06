@@ -427,8 +427,8 @@ body.atbd_content_active #directorist.atbd_wrapper{
         display: block;
       }
       input{
-        background: #FEF7E0;
-        padding: 5px 15px;
+        background: none !important;
+        padding: 10px 15px;
         box-shadow: none;
         border: 1px solid #e3e6ef;
         width: 100%;
@@ -442,7 +442,11 @@ body.atbd_content_active #directorist.atbd_wrapper{
       }
     }
   }
+  .login-password{
+    margin-top: 10px !important;
+  }
   .login-remember{
+    margin-top: 10px !important;
     label{
       display: inline-block;
       input{
@@ -454,6 +458,26 @@ body.atbd_content_active #directorist.atbd_wrapper{
     background: #F9D7D7;
     padding: 8px 15px;
   }
+
+  .atbdp_recovery_pass{
+    margin-top: 15px !important;
+    display: block;
+    &:focus{
+      outline: 0;
+    }
+  }
+
+  #recover-pass-modal{
+    border: 1px solid $border-color;
+    padding: 15px;
+    margin-top: 10px;
+    #reset_user_login{
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+  }
+
 }
 
 #directorist.atbd_wrapper .atbd_related_listings .atbd_listing_info .atbd_content_upper{

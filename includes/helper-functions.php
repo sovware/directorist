@@ -2596,15 +2596,20 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
             } else { ?>
                 <p class="atbdp_nlf"><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
             <?php } ?>
-            <?php
-            if (!empty($paginate)) {
-                ?>
-                <?php
-                $paged = atbdp_get_paged_num();
-                echo atbdp_pagination($all_listings, $paged);
-                ?>
-            <?php } ?>
+
         </div> <!--ends .row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <?php
+                if (!empty($paginate)) {
+                    ?>
+                    <?php
+                    $paged = atbdp_get_paged_num();
+                    echo atbdp_pagination($all_listings, $paged);
+                    ?>
+                <?php } ?>
+            </div>
+        </div>
 
         <style>
             #directorist.atbd_wrapper .atbdp_column {

@@ -697,7 +697,7 @@ This email is sent automatically for information purpose only. Please do not res
         }
 
 
-             /**
+        /**
          * It notifies admin via email when a listing is edited
          *
          * @since 5.4.2
@@ -765,7 +765,7 @@ You can login now using the below credentials:
 ", ATBDP_TEXTDOMAIN));
                 $body = $this->replace_in_content($body, null, null, $user);
                 $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
-                $wp_new_user_notification_email['message'] = $body."
+                $wp_new_user_notification_email['message'] = preg_replace( "/<br \/>/", "", $body )."
                 
 Username: $user->user_login
 Password: $user_password";
@@ -783,7 +783,7 @@ You can login now using the below credentials:
 ", ATBDP_TEXTDOMAIN));
                 $body = $this->replace_in_content($body, null, null, $user);
                 $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
-                $wp_new_user_notification_email['message'] = $body."
+                $wp_new_user_notification_email['message'] = preg_replace( "/<br \/>/", "", $body )."
                 
 Username: $user->user_login
 Password: $user_password";
@@ -801,7 +801,7 @@ You can login now using the below credentials:
 ", ATBDP_TEXTDOMAIN));
                 $body = $this->replace_in_content($body, null, null, $user);
                 $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
-                $wp_new_user_notification_email['message'] = $body."
+                $wp_new_user_notification_email['message'] = preg_replace( "/<br \/>/", "", $body )."
                 
 Username: $user->user_login
 Password: $user_password";

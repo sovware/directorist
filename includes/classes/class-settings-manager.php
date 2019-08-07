@@ -784,6 +784,11 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'title' => __('Pricing', ATBDP_TEXTDOMAIN),
                             'fields' => $this->get_listings_pricing_field_settings(),
                         ),
+                        'views_count' => array(
+                            'type' => 'section',
+                            'title' => __('Views Count', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_listings_views_count_settings(),
+                        ),
                         's_desc_field' => array(
                             'type' => 'section',
                             'title' => __('Short Description / Excerpt', ATBDP_TEXTDOMAIN),
@@ -880,7 +885,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     )),
                 ),
                 /*Submenu : Style */
-                /*'style_setting'=> array(
+                'style_setting'=> array(
                     'title' => __('Style Setting', ATBDP_TEXTDOMAIN),
                     'name' => 'style_setting',
                     'icon' => 'font-awesome:fa-adjust',
@@ -891,7 +896,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'fields' => $this->get_listings_style_settings_fields(),
                         ),
                     )),
-                ),*/
+                ),
             ));
         }
 
@@ -3879,6 +3884,28 @@ The Administrator of ==SITE_NAME==
             ));
         }
 
+        public function get_listings_views_count_settings(){
+            return apply_filters('atbdp_views_count_field_setting', array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_views_count',
+                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'views_count_label',
+                    'label' => __('Label', ATBDP_TEXTDOMAIN),
+                    'default' => __('Views Count', ATBDP_TEXTDOMAIN),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_views_count_for',
+                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'default' => 1,
+                ),
+            ));
+        }
         /**
          * Get excerpt settings field
          * @return array

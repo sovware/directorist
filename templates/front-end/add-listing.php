@@ -17,6 +17,7 @@ if (!empty($p_id)) {
     $listing_info['atbd_listing_pricing'] = get_post_meta($p_id, '_atbd_listing_pricing', true);
     $listing_info['listing_status'] = get_post_meta($p_id, '_listing_status', true);
     $listing_info['tagline'] = get_post_meta($p_id, '_tagline', true);
+    $listing_info['atbdp_post_views_count'] = get_post_meta($p_id, '_atbdp_post_views_count', true);
     $listing_info['excerpt'] = get_post_meta($p_id, '_excerpt', true);
     $listing_info['address'] = get_post_meta($p_id, '_address', true);
     $listing_info['phone'] = get_post_meta($p_id, '_phone', true);
@@ -94,6 +95,8 @@ $display_pricing_field = get_directorist_option('display_pricing_field', 1);
 $price_placeholder = get_directorist_option('price_placeholder', __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN));
 $display_price_for = get_directorist_option('display_price_for', 'admin_users');
 $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
+$display_views_count = get_directorist_option('display_views_count', 1);
+$display_views_count_for = get_directorist_option('display_views_count_for', 1);
 $excerpt_placeholder = get_directorist_option('excerpt_placeholder', __('Short Description or Excerpt', ATBDP_TEXTDOMAIN));
 $display_short_desc_for = get_directorist_option('display_short_desc_for', 0);
 $display_address_field = get_directorist_option('display_address_field', 1);
@@ -312,7 +315,17 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             ?>
                                         </div>
 
+                                    <?php }
+                                     if(!empty($display_views_count) && empty($display_views_count_for)) {?>
+                                        <div class="form-group">
+                                            <label for="atbdp_views_count"><?php
+                                                $views_count_label = get_directorist_option('views_count_label', __('Views Count', ATBDP_TEXTDOMAIN));
+                                                esc_html_e($views_count_label.':', ATBDP_TEXTDOMAIN); ?></label>
 
+                                            <input type="number" id="views_Count" name="atbdp_post_views_count"
+                                                   value="<?= !empty($atbdp_post_views_count) ? esc_attr($atbdp_post_views_count) : ''; ?>" class="form-control directory_field"
+                                            />
+                                        </div>
                                     <?php }
                                     /**
                                      * @since 4.7.1
@@ -654,6 +667,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                         </select>
                                     </div>
                                     <?php
+                                    do_action('atbdp_after_general_information');
                                     $plan_custom_field = true;
                                     if (is_fee_manager_active()) {
                                         $plan_custom_field = is_plan_allowed_custom_fields($fm_plan);

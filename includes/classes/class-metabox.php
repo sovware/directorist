@@ -182,6 +182,7 @@ wp_reset_postdata();
         $listing_info['listing_status']         = get_post_meta($post->ID, '_listing_status', true);
         $listing_info['tagline']                = get_post_meta($post->ID, '_tagline', true);
         $listing_info['excerpt']                = get_post_meta($post->ID, '_excerpt', true);
+        $listing_info['atbdp_post_views_count']                = get_post_meta($post->ID, '_atbdp_post_views_count', true);
         $listing_info['expiry_date']            = get_post_meta($post->ID, '_expiry_date', true);
 
 
@@ -299,6 +300,7 @@ wp_reset_postdata();
         $metas['_listing_status']    = !empty($p['listing_status'])? sanitize_text_field($p['listing_status']) : 'post_status';
         $metas['_tagline']           = !empty($p['tagline'])? sanitize_text_field($p['tagline']) : '';
         $metas['_excerpt']           = !empty($p['excerpt'])? sanitize_text_field($p['excerpt']) : '';
+        $metas['_atbdp_post_views_count']    = !empty($p['atbdp_post_views_count']) ? (int) $p['atbdp_post_views_count'] : '';
         $metas['_address']           = !empty($p['address'])? sanitize_text_field($p['address']) : '';
         $metas['_phone']             = !empty($p['phone'])? sanitize_text_field($p['phone']) : '';
         $metas['_phone2']             = !empty($p['phone2'])? sanitize_text_field($p['phone2']) : '';
@@ -436,9 +438,10 @@ wp_reset_postdata();
         $listing_info['listing_status']         = get_post_meta($id, '_listing_status', true);
         $listing_info['tagline']                = get_post_meta($id, '_tagline', true);
         $listing_info['excerpt']                = get_post_meta($id, '_excerpt', true);
+        $listing_info['atbdp_post_views_count'] = get_post_meta($id, '_atbdp_post_views_count', true);
         $listing_info['address']                = get_post_meta($id, '_address', true);
         $listing_info['phone']                  = get_post_meta($id, '_phone', true);
-        $listing_info['phone2']                  = get_post_meta($id, '_phone2', true);
+        $listing_info['phone2']                 = get_post_meta($id, '_phone2', true);
         $listing_info['fax']                    = get_post_meta($id, '_fax', true);
         $listing_info['email']                  = get_post_meta($id, '_email', true);
         $listing_info['website']                = get_post_meta($id, '_website', true);

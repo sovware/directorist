@@ -288,7 +288,7 @@ do_action('atbdp_before_listing_section');
                 $data_info .= '</div>';
                 ?>
                 <?php if ($enable_review) {
-                    $reviews = ($reviews_count > 1) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
+                    $reviews = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
                     $data_info .= '<div class="atbd_rating_count">';
 
                     $data_info .= '<p>' . $reviews_count . $reviews . '</p>';

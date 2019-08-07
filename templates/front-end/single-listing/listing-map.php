@@ -15,7 +15,7 @@ $t = get_the_title();
 $t = !empty($t) ? $t : __('No Title', ATBDP_TEXTDOMAIN);
 $average = ATBDP()->review->get_average($listing_id);
 $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
-$reviews = ($reviews_count > 1) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
+$reviews = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
 $review_info = '';
 $review_info = '';
 if (!empty($enable_review)) {

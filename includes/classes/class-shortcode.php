@@ -52,7 +52,6 @@ if (!class_exists('ATBDP_Shortcode')):
          */
         public function my_login_fail($username)
         {
-            //include ATBDP_DIR .'public/assets/css/style.php';
             $referrer = $_SERVER['HTTP_REFERER'];  // where did the post submission come from?
             // if there's a valid referrer, and it's not the default log-in screen
             if (!empty($referrer) && !strstr($referrer, 'wp-login') && !strstr($referrer, 'wp-admin')) {

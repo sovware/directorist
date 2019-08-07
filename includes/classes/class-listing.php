@@ -74,9 +74,10 @@ if (!class_exists('ATBDP_Listing')):
             if (!isset($post)) return;
 
             if (is_singular('at_biz_dir')) {
-
-                if (!empty(get_post_thumbnail_id($post))) {
-                    delete_post_thumbnail($post);
+                if (ATBDP_POST_TYPE === $post->post_type){
+                    if (!empty(get_post_thumbnail_id($post))) {
+                       delete_post_thumbnail($post);
+                    }
                 }
 
                 $title = get_the_title();
@@ -120,7 +121,12 @@ if (!class_exists('ATBDP_Listing')):
         {
 
             if (is_singular('at_biz_dir')) {
-                return '';
+                global $post;
+                if (!isset($post)) return '';
+                if (ATBDP_POST_TYPE === $post->post_type){
+                    return '';
+                }
+
             }
 
             return $html;

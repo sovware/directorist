@@ -164,6 +164,19 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'icon' => 'font-awesome:fa-align-right',
                     'menus' => $this->get_reg_log_settings_submenus(),
                 ),
+                /*lets make the settings for registration & login*/
+                'style_settings_menu' => array(
+                    'title' => __('Style Settings', ATBDP_TEXTDOMAIN),
+                    'name' => 'style_settings',
+                    'icon' => 'font-awesome:fa-adjust',
+                    'controls' => apply_filters('atbdp_style_settings_controls', array(
+                        'style_settings' => array(
+                            'type' => 'section',
+                            'title' => __('Style Settings', ATBDP_TEXTDOMAIN),
+                            'fields' => $this->get_listings_style_settings_fields(),
+                        ),
+                    )),
+                ),
             ));
         }
 
@@ -885,7 +898,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     )),
                 ),
                 /*Submenu : Style */
-                'style_setting'=> array(
+                /*'style_setting'=> array(
                     'title' => __('Style Setting', ATBDP_TEXTDOMAIN),
                     'name' => 'style_setting',
                     'icon' => 'font-awesome:fa-adjust',
@@ -896,7 +909,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'fields' => $this->get_listings_style_settings_fields(),
                         ),
                     )),
-                ),
+                ),*/
             ));
         }
 

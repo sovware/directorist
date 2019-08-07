@@ -117,6 +117,7 @@
                 $form.append(deleteBtn);
                 if (submit_count === 1) {
                     $('#client_review_list').prepend(output); // add the review if it's the first review of the user
+                    $('.atbdp_static').remove();
                 }
                 var sectionToShow = $("#has_ajax").val();
                 var sectionToHide = $(".atbdp_static");

@@ -1081,7 +1081,7 @@ final class Directorist_Base
             $plan_review        = is_plan_allowed_listing_review(get_post_meta($post->ID, '_fm_plans', true));
         }
         if ($plan_review) {
-            $count_review       = ($reviews_count > 1) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
+            $count_review       = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
             ?>
             <div class="atbd_content_module atbd_review_module" id="atbd_reviews_block">
                 <div class="atbd_content_module__tittle_area">

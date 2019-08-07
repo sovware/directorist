@@ -77,7 +77,7 @@ $container_fluid  = 'container-fluid';
                         </div>
                         <p class="meta-info">
                             <span><?php echo !empty($review_in_post)?$review_in_post:'0'?></span>
-                            <?php echo ($review_in_post>1)?'Reviews':'Review'?>
+                            <?php echo (($reviews_count > 1) || ($reviews_count === 0))?'Reviews':'Review'?>
                         </p>
                         <p class="meta-info">
                             <span><?php echo !empty($total_listing)?$total_listing:'0'?></span>

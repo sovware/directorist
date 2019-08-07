@@ -1435,6 +1435,20 @@ jQuery(function ($) {
         lf_opt58.show();
     }
 
+    //Display view count for add listing
+    var lf_opt59 = $("#views_count_label,#display_views_count_for");
+    lf_opt59.hide();
+    $('input[name="display_views_count"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt59.show();
+        }else{
+            lf_opt59.hide();
+        }
+    });
+    if($('input[name="display_views_count"]').is(":checked") === true){
+        lf_opt59.show();
+    }
+
     /* Copy shortcodes on click */
     var textToCopy = document.querySelectorAll(".description.atbdp_settings_description strong");
     textToCopy.forEach((el, index) =>{

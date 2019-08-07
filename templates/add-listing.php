@@ -18,6 +18,7 @@ $display_pricing_field = get_directorist_option('display_pricing_field', 1);
 $price_placeholder     = get_directorist_option('price_placeholder',__('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN));
 $excerpt_placeholder   = get_directorist_option('excerpt_placeholder',__('Short Description or Excerpt', ATBDP_TEXTDOMAIN));
 $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
+$display_views_count = get_directorist_option('display_views_count', 1);
 
 ?>
 <div id="directorist" class="directorist atbd_wrapper directory_wrapper">
@@ -95,6 +96,17 @@ $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                         Cheap ($)
                     </option>
                 </select>
+            </div>
+        <?php } ?>
+        <?php if(!empty($display_views_count)) { ?>
+            <div class="form-group">
+                <label for="atbdp_views_count"><?php
+                    $views_count_label = get_directorist_option('views_count_label', __('Views Count', ATBDP_TEXTDOMAIN));
+                    esc_html_e($views_count_label.':', ATBDP_TEXTDOMAIN); ?></label>
+
+                <input type="number" id="views_Count" name="atbdp_post_views_count"
+                       value="<?= !empty($atbdp_post_views_count) ? esc_attr($atbdp_post_views_count) : ''; ?>" class="form-control directory_field"
+                />
             </div>
         <?php } ?>
         <?php if (!empty($display_excerpt_field)){ ?>

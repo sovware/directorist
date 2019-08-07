@@ -95,10 +95,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $metas['_videourl']          = !empty($p['videourl'])? sanitize_text_field($p['videourl']) : '';
                     $metas['_tagline']           = !empty($p['tagline'])? sanitize_text_field($p['tagline']) : '';
                     $metas['_excerpt']           = !empty($p['excerpt'])? sanitize_text_field($p['excerpt']) : '';
+                    $metas['_atbdp_post_views_count']           = !empty($p['atbdp_post_views_count']) ? (int)$p['atbdp_post_views_count'] : '';
                     $metas['_address']           = !empty($p['address'])? sanitize_text_field($p['address']) : '';
                     $metas['_phone']             = !empty($p['phone'])? sanitize_text_field($p['phone']) : '';
-                    $metas['_phone2']             = !empty($p['phone2'])? sanitize_text_field($p['phone2']) : '';
-                    $metas['_fax']             = !empty($p['fax'])? sanitize_text_field($p['fax']) : '';
+                    $metas['_phone2']            = !empty($p['phone2'])? sanitize_text_field($p['phone2']) : '';
+                    $metas['_fax']               = !empty($p['fax'])? sanitize_text_field($p['fax']) : '';
                     $metas['_email']             = !empty($p['email'])? sanitize_text_field($p['email']) : '';
                     $metas['_website']           = !empty($p['website'])? sanitize_text_field($p['website']) : '';
                     $metas['_zip']               = !empty($p['zip'])? sanitize_text_field($p['zip']) : '';

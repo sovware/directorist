@@ -137,7 +137,7 @@ if (!class_exists('ATBDP_Listing')):
         {
             $id = get_directorist_option('single_listing_page');
             if (is_singular(ATBDP_POST_TYPE) && in_the_loop() && is_main_query()) {
-                //include ATBDP_DIR .'public/assets/css/style.php';
+                include ATBDP_DIR .'public/assets/css/style.php';
                 if (!empty($id)) {
                     ob_start();
                     global $post;

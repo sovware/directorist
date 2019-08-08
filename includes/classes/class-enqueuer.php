@@ -724,10 +724,12 @@ class ATBDP_Enqueuer {
            apply_filters('atbdp_search_listing_jquery_dependency', $search_dependency), ATBDP_VERSION, true );
 
         /*Internationalization*/
+        $category_placeholder          = get_directorist_option('search_category_placeholder', __('Select a category', ATBDP_TEXTDOMAIN));
+        $location_placeholder          = get_directorist_option('search_location_placeholder', __('Select a location', ATBDP_TEXTDOMAIN));
         $data = array(
             'i18n_text'        => array(
-                'location_selection' => __('Select a location', ATBDP_TEXTDOMAIN),
-                'category_selection' => __('Select a category', ATBDP_TEXTDOMAIN),
+                'location_selection' => $location_placeholder,
+                'category_selection' => $category_placeholder,
                 'show_more' => __('Show More', ATBDP_TEXTDOMAIN),
                 'show_less' => __('Show Less', ATBDP_TEXTDOMAIN),
             )

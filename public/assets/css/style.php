@@ -45,13 +45,13 @@ $rating_color                    = get_directorist_option('rating_color','fa8b0c
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p a:hover, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic, #directorist.atbd_wrapper .pagination .nav-links .current, .atbd_content_active #directorist.atbd_wrapper #atbdp-report-abuse-modal .at-modal-close, .atbd_content_active #directorist.atbd_wrapper .modal-dialog .modal-header .close, .atbd_content_active #directorist.atbd_wrapper .atbd_directry_gallery_wrapper .prev:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_directry_gallery_wrapper .next:hover, .gm-style .gm-style-iw .gm-style-iw-d .miw-contents .miwl-rating .atbd_meta, .atbd_content_active .widget.atbd_widget + #dcl-claim-modal .modal-footer .btn, .ads-advanced .price-frequency .pf-btn input:checked + span, .atbd_content_active .widget.atbd_widget[id^='bd'] .directorist .btn,
     .atbd_content_active .widget.atbd_widget[id^='dcl'] .directorist .btn,
     .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directorist .btn, .atbd_content_active #directorist.atbd_wrapper #dcl-claim-modal .atm-contents-inner .at-modal-close,
-    .atbd_content_active #dcl-claim-modal .atm-contents-inner .at-modal-close, .pricing .price_action .price_action--btn {
+    .atbd_content_active #dcl-claim-modal .atm-contents-inner .at-modal-close, .pricing .price_action .price_action--btn, #directorist.atbd_wrapper .btn-primary, #directorist.atbd_wrapper .author_info_module .atbdb_content_module_contents .atbd_social_wrap p a:hover {
         background: <?php echo !empty($back_primary_color) ? $back_primary_color : '#444752'; ?> !important;
     }
 
     /* Border-color: Primary */
     .ads-advanced .price-frequency .pf-btn input:checked + span, .atbd_content_active .widget.atbd_widget[id^='bd'] .directorist .btn, .atbd_content_active .widget.atbd_widget[id^='dcl'] .directorist .btn,
-    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directorist .btn {
+    .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directorist .btn, #directorist.atbd_wrapper .btn-primary {
         border-color: <?php echo !empty($border_primary_color) ? $border_primary_color : '#444752'; ?> !important;
     }
 

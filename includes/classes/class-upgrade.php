@@ -43,7 +43,7 @@ class ATBDP_Upgrade{
         }
         $link = '<a href="'.$update_link.'">please replace</a>';
         $is_generated_pages = get_user_meta( $user_id, '_atbdp_shortcode_regenerate_notice',true );
-        if (empty($is_generated_pages) && !function_exists('direo_setup')){
+        if (empty($is_generated_pages) && (!function_exists('direo_setup') || !function_exists('dlist_setup') || !function_exists('dservice_setup') || !function_exists('drestaurant_setup'))){
             echo '<div id="message" class="notice notice-info" style="display: flex; background: #ffc733;  justify-content: space-between;"><p>';
             printf(__('If you are an old user of the %s plugin, %s your shortcodes as we have restructured our shortcodes.', ATBDP_TEXTDOMAIN), ATBDP_NAME, $link);
             echo '</p><p><a href="?my-plugin-dismissed">Hide</a></p></div>';

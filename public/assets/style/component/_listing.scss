@@ -415,14 +415,14 @@
     left: 50%;
     transform: translateX(-50%);
     border: 6px solid transparent;
-    border-top-color: rgba(0, 0, 0, 0.8);
+    border-top-color: rgba(0, 0, 0, 1);
   }
   &[aria-label]:after{
     content: attr(aria-label);
     left: 50%;
     transform: translate(-50%, -12px);
     white-space: nowrap;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 1);
     padding: 4px 12px;
     border-radius: 0.2em;
     color: #fff;

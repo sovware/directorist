@@ -2164,7 +2164,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   left: 50%;
   transform: translateX(-50%);
   border: 6px solid transparent;
-  border-top-color: rgba(0, 0, 0, 0.8);
+  border-top-color: black;
 }
 
 .atbd_tooltip.atbd_tooltip_active[aria-label]:after {
@@ -2172,7 +2172,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   left: 50%;
   transform: translate(-50%, -12px);
   white-space: nowrap;
-  background: rgba(0, 0, 0, 0.8);
+  background: black;
   padding: 4px 12px;
   border-radius: 0.2em;
   color: #fff;

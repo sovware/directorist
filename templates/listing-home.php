@@ -1,6 +1,6 @@
 <?php
-$categories                           = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0, 'orderby' => 'id'));
-$locations                            = get_terms(ATBDP_LOCATION, array('hide_empty' => 0, 'orderby' => 'id'));
+$categories                           = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
+$locations                            = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
 $search_placeholder                   = get_directorist_option('search_placeholder', __('What are you looking for?', ATBDP_TEXTDOMAIN));
 $search_category_placeholder          = get_directorist_option('search_category_placeholder', __('Select a category', ATBDP_TEXTDOMAIN));
 $search_location_placeholder          = get_directorist_option('search_location_placeholder', __('Select a location', ATBDP_TEXTDOMAIN));

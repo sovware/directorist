@@ -109,23 +109,31 @@ Directorist is not developed by a single person. A team of dedicated developers 
 == Screenshots ==
 
 1. Home Page
-2. Search Result Page
-3. Single Listing
-4. All Listings Page
-5. All Categories Page
-6. All Locations Page
-7. Author Profile Page
-8. Registration Page
-9. Login Page
-10. User Dashboard
-11. Checkout Page
-12. Payment Receipt Page
-13. Add New Listing (Frontend)
-14. Add New Listing (Backend)
-15. Directorist Listings (Backend)
-16. The Directorist Settings Panel
-17. Order History
-18. Add New Custom Field
+2. Advanced Search/Filter
+3. All Listings Page (Grid View) - Search Result Page
+4. All Listings Page (List View)
+5. All Listings Page (Map View)
+6. Single Listing
+7. Widgets
+8. Advanced Search Widget
+9. Custom Fields
+10. File Upload - Author Profile Page
+11. Maps
+12. Add New Listing (Frontend)
+13. Add New Listing (Backend)
+14. Author Page
+15. User Dashboard (My Listings)
+16. User Dashboard (My Profile)
+17. User Dashboard (Favourite Listings)
+18. Locations Page
+19. Categories Page
+20. Private Directory
+21. Login Page
+22. Registration Page
+23. Checkout Page
+24. Payment Receipt Page
+25. Order History
+26. Directorist Settings Panel
 
 == Changelog ==
 

@@ -4887,6 +4887,12 @@ The Administrator of ==SITE_NAME==
                     'default' => '2',
                     'validation' => 'numeric|minlength[1]',
                 ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'fix_listing_double_thumb',
+                    'label' => __('Fix Repeated Thumbnail of Single Listing', ATBDP_TEXTDOMAIN),
+                    'default' => 0,
+                ),
 
 
             ));

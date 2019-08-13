@@ -74,9 +74,12 @@ if (!class_exists('ATBDP_Listing')):
             if (!isset($post)) return;
 
             if (is_singular('at_biz_dir')) {
+                $double_thumb = get_directorist_option('fix_listing_double_thumb',0);
                 if (ATBDP_POST_TYPE === $post->post_type){
                     if (!empty(get_post_thumbnail_id($post))) {
-                       delete_post_thumbnail($post);
+                        if (!empty($double_thumb)){
+                            delete_post_thumbnail($post);
+                        }
                     }
                 }
 

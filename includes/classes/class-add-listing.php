@@ -496,36 +496,43 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     }
                                 }
                                 update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
-                                if (count($admin_category_select)>1){
-                                    foreach ($admin_category_select as $category){
-                                        $term_by_id =  get_term_by('term_id', $category, ATBDP_CATEGORY);
-                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY, true);//update the term relationship when a listing updated by author
+                                if(!empty($admin_category_select)){
+                                    if (count($admin_category_select)>1){
+                                        foreach ($admin_category_select as $category){
+                                            $term_by_id =  get_term_by('term_id', $category, ATBDP_CATEGORY);
+                                            wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY, true);//update the term relationship when a listing updated by author
+                                        }
+                                    }else{
+                                        $term_by_id =  get_term_by('term_id', $admin_category_select[0], ATBDP_CATEGORY);
+                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
                                     }
-                                }else{
-                                    $term_by_id =  get_term_by('term_id', $admin_category_select[0], ATBDP_CATEGORY);
-                                    wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
                                 }
-                                //update location for user
-                                if (count($location)>1){
-                                    foreach ($location as $single_location){
-                                        $term_by_id =  get_term_by('term_id', $single_location, ATBDP_LOCATION);
-                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_LOCATION, true);//update the term relationship when a listing updated by author
+                                if (!empty($location)){
+                                    //update location for user
+                                    if (count($location)>1){
+                                        foreach ($location as $single_location){
+                                            $term_by_id =  get_term_by('term_id', $single_location, ATBDP_LOCATION);
+                                            wp_set_object_terms($post_id, $term_by_id->name, ATBDP_LOCATION, true);//update the term relationship when a listing updated by author
+                                        }
+                                    }else{
+                                        $term_by_id =  get_term_by('term_id', $location[0], ATBDP_LOCATION);
+                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_LOCATION);//update the term relationship when a listing updated by author
                                     }
-                                }else{
-                                    $term_by_id =  get_term_by('term_id', $location[0], ATBDP_LOCATION);
-                                    wp_set_object_terms($post_id, $term_by_id->name, ATBDP_LOCATION);//update the term relationship when a listing updated by author
                                 }
 
-                                //update TAG for user
-                                if (count($tag)>1){
-                                    foreach ($tag as $single_tag){
-                                        $term_by_id =  get_term_by('term_id', $single_tag, ATBDP_TAGS);
-                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_TAGS, true);//update the term relationship when a listing updated by author
+                                if(!empty($tag)){
+                                    //update TAG for user
+                                    if (count($tag)>1){
+                                        foreach ($tag as $single_tag){
+                                            $term_by_id =  get_term_by('term_id', $single_tag, ATBDP_TAGS);
+                                            wp_set_object_terms($post_id, $term_by_id->name, ATBDP_TAGS, true);//update the term relationship when a listing updated by author
+                                        }
+                                    }else{
+                                        $term_by_id =  get_term_by('term_id', $tag[0], ATBDP_TAGS);
+                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_TAGS);//update the term relationship when a listing updated by author
                                     }
-                                }else{
-                                    $term_by_id =  get_term_by('term_id', $tag[0], ATBDP_TAGS);
-                                    wp_set_object_terms($post_id, $term_by_id->name, ATBDP_TAGS);//update the term relationship when a listing updated by author
                                 }
+
                             }
                             if ('publish' == $new_l_status){
                                 do_action('atbdp_listing_published', $post_id);//for sending email notification

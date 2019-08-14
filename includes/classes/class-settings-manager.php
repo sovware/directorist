@@ -9,7 +9,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
         {
             // the safest hook to use is after_setup_theme, since Vafpress Framework may exists in Theme or Plugin
             add_action('after_setup_theme', array($this, 'display_plugin_settings'));
-            $this->extension_url = sprintf("<a target='_blank' href='%s'>%s</a>", esc_url(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension')), __('Checkout Awesome Extensions', ATBDP_TEXTDOMAIN));
+            $this->extension_url = sprintf("<a target='_blank' href='%s'>%s</a>", esc_url(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension')), __('Checkout Awesome Extensions', 'directorist'));
         }
 
         /**
@@ -28,10 +28,10 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 'use_util_menu' => true, // show import and export menu
                 'minimum_role' => 'manage_options',
                 'layout' => 'fixed',
-                'page_title' => __('Directory Settings', ATBDP_TEXTDOMAIN),
-                'menu_label' => __('Directory Settings', ATBDP_TEXTDOMAIN),
+                'page_title' => __('Directory Settings', 'directorist'),
+                'menu_label' => __('Directory Settings', 'directorist'),
                 'template' => array(
-                    'title' => __('Directory Settings', ATBDP_TEXTDOMAIN),
+                    'title' => __('Directory Settings', 'directorist'),
                     'logo' => esc_url(ATBDP_ADMIN_ASSETS . 'images/settings_icon.png'),
                     'menus' => $this->get_settings_menus(),
                 ),
@@ -52,26 +52,26 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 /*Main Menu 1*/
                 'listings' => array(
                     'name' => 'listings',
-                    'title' => __('Listing Settings', ATBDP_TEXTDOMAIN),
+                    'title' => __('Listing Settings', 'directorist'),
                     'icon' => 'font-awesome:fa-list',
                     'menus' => $this->get_listings_settings_submenus(),
                 ),
                 /*Main Menu 3*/
                 'search' => array(
                     'name' => 'search',
-                    'title' => __('Search Settings', ATBDP_TEXTDOMAIN),
+                    'title' => __('Search Settings', 'directorist'),
                     'icon' => 'font-awesome:fa-search',
                     'controls' => apply_filters('atbdp_search_settings_controls', array(
                         'search_section' => array(
                             'type' => 'section',
-                            'title' => __('Search Form Settings', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Search Form related settings here. After switching any option, Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('Search Form Settings', 'directorist'),
+                            'description' => __('You can Customize Search Form related settings here. After switching any option, Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->get_search_settings_fields(),
                         ), // ends 'search_settings' section
                         'search_result' => array(
                             'type' => 'section',
-                            'title' => __('Search Result Settings', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Search Result related settings here. After switching any option, Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('Search Result Settings', 'directorist'),
+                            'description' => __('You can Customize Search Result related settings here. After switching any option, Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->get_search_form_settings_fields(),
                         ), // ends 'search_settings' section
                     )),
@@ -79,19 +79,19 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 /*Main Menu 4*/
                 'pages' => array(
                     'name' => 'pages',
-                    'title' => __('Pages, Links & Views', ATBDP_TEXTDOMAIN),
+                    'title' => __('Pages, Links & Views', 'directorist'),
                     'icon' => 'font-awesome:fa-line-chart',
                     'controls' => apply_filters('atbdp_pages_settings_controls', array(
                         'page_section' => array(
                             'type' => 'section',
-                            'title' => __('Upgrade/Regenerate Pages', ATBDP_TEXTDOMAIN),
-                            'description' => __('If you are an existing user of the directorist, you have to upgrade your Directorist pages shortcode.', ATBDP_TEXTDOMAIN),
+                            'title' => __('Upgrade/Regenerate Pages', 'directorist'),
+                            'description' => __('If you are an existing user of the directorist, you have to upgrade your Directorist pages shortcode.', 'directorist'),
                             'fields' => $this->get_pages_regenerate_settings_fields(),
                         ),
                         'search_section' => array(
                             'type' => 'section',
-                            'title' => __('Pages, links & views Settings', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Listings related settings here. After switching any option, Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('Pages, links & views Settings', 'directorist'),
+                            'description' => __('You can Customize Listings related settings here. After switching any option, Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->get_pages_settings_fields(),
                         ), // ends 'pages' section
 
@@ -99,13 +99,13 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 ),
                 /*Main Menu 5*/
                 'seo_menu' => array(
-                    'title' => __('Titles & Metas', ATBDP_TEXTDOMAIN),
+                    'title' => __('Titles & Metas', 'directorist'),
                     'name' => 'seo_settings',
                     'icon' => 'font-awesome:fa-bolt',
                     'controls' => apply_filters('atbdp_seo_settings_controls', array(
                         'seo_section' => array(
                             'type' => 'section',
-                            'title' => __('Titles & Metas', ATBDP_TEXTDOMAIN),
+                            'title' => __('Titles & Metas', 'directorist'),
                             'fields' => $this->get_seo_settings_fields(),
                         ),
                     )),
@@ -113,66 +113,66 @@ if (!class_exists('ATBDP_Settings_Manager')):
 
                 /*Main Menu 5*/
                 'general_menu' => array(
-                    'title' => __('Currency Settings', ATBDP_TEXTDOMAIN),
+                    'title' => __('Currency Settings', 'directorist'),
                     'name' => 'currency_settings',
                     'icon' => 'font-awesome:fa-money',
                     'controls' => apply_filters('atbdp_currency_settings_controls', array(
                         'currency_section' => array(
                             'type' => 'section',
-                            'title' => __('Currency Settings', ATBDP_TEXTDOMAIN),
+                            'title' => __('Currency Settings', 'directorist'),
                             'fields' => $this->get_currency_settings_fields(),
                         ),
                     )),
                 ),
                 /*Main Menu 6*/
                 'categories_menu' => array(
-                    'title' => __('Categories & Locations Page', ATBDP_TEXTDOMAIN),
+                    'title' => __('Categories & Locations Page', 'directorist'),
                     'name' => 'categories_menu',
                     'icon' => 'font-awesome:fa-list-alt',
                     'controls' => apply_filters('atbdp_categories_settings_controls', array(
 
                         'category_section' => array(
                             'type' => 'section',
-                            'title' => __('Categories Page Setting', ATBDP_TEXTDOMAIN),
+                            'title' => __('Categories Page Setting', 'directorist'),
                             'fields' => $this->get_categories_settings_fields(),
                         ),
                         'location_section' => array(
                             'type' => 'section',
-                            'title' => __('Locations Page Setting', ATBDP_TEXTDOMAIN),
+                            'title' => __('Locations Page Setting', 'directorist'),
                             'fields' => $this->get_locations_settings_fields()
                         ),
                     )),
                 ),
                 /*Lets make the following extension menu customization by the extensions. Apply a filter on it*/
                 'extensions_menu' => array(
-                    'title' => __('Extensions Settings', ATBDP_TEXTDOMAIN),
+                    'title' => __('Extensions Settings', 'directorist'),
                     'name' => 'menu_1',
                     'icon' => 'font-awesome:fa-magic',
                     'menus' => $this->get_extension_settings_submenus(),
                 ),
                 /*lets make the settings for email*/
                 'email_menu' => array(
-                    'title' => __('Emails Settings', ATBDP_TEXTDOMAIN),
+                    'title' => __('Emails Settings', 'directorist'),
                     'name' => 'email_menu1',
                     'icon' => 'font-awesome:fa-envelope',
                     'menus' => $this->get_email_settings_submenus(),
                 ),
                 /*lets make the settings for registration & login*/
                 'registration_login_menu' => array(
-                    'title' => __('Registration & Login', ATBDP_TEXTDOMAIN),
+                    'title' => __('Registration & Login', 'directorist'),
                     'name' => 'registration_login',
                     'icon' => 'font-awesome:fa-align-right',
                     'menus' => $this->get_reg_log_settings_submenus(),
                 ),
                 /*lets make the settings for registration & login*/
                 /*'style_settings_menu' => array(
-                    'title' => __('Style Settings', ATBDP_TEXTDOMAIN),
+                    'title' => __('Style Settings', 'directorist'),
                     'name' => 'style_settings',
                     'icon' => 'font-awesome:fa-adjust',
                     'controls' => apply_filters('atbdp_style_settings_controls', array(
                         'style_settings' => array(
                             'type' => 'section',
-                            'title' => __('Style Settings', ATBDP_TEXTDOMAIN),
+                            'title' => __('Style Settings', 'directorist'),
                             'fields' => $this->get_listings_style_settings_fields(),
                         ),
                     )),
@@ -190,91 +190,91 @@ if (!class_exists('ATBDP_Settings_Manager')):
             return apply_filters('atbdp_reg_log_settings_submenus', array(
                 /*Submenu : Registration Settings */
                 array(
-                    'title' => __('Registration Form', ATBDP_TEXTDOMAIN),
+                    'title' => __('Registration Form', 'directorist'),
                     'name' => 'registration_form',
                     'icon' => 'font-awesome:fa-home',
                     'controls' => apply_filters('atbdp_registration_settings_controls', array(
                         'reg_username_field' => array(
                             'type' => 'section',
-                            'title' => __('Username', ATBDP_TEXTDOMAIN),
+                            'title' => __('Username', 'directorist'),
                             'fields' => $this->get_reg_username_field(),
                         ),
                         'reg_password_field' => array(
                             'type' => 'section',
-                            'title' => __('Password', ATBDP_TEXTDOMAIN),
+                            'title' => __('Password', 'directorist'),
                             'fields' => $this->get_reg_password_field(),
                         ),
                         'reg_email_field' => array(
                             'type' => 'section',
-                            'title' => __('Email', ATBDP_TEXTDOMAIN),
+                            'title' => __('Email', 'directorist'),
                             'fields' => $this->get_reg_email_field(),
                         ),
                         'reg_website_field' => array(
                             'type' => 'section',
-                            'title' => __('Website', ATBDP_TEXTDOMAIN),
+                            'title' => __('Website', 'directorist'),
                             'fields' => $this->get_reg_website_field(),
                         ),
                         'reg_fname_field' => array(
                             'type' => 'section',
-                            'title' => __('First Name', ATBDP_TEXTDOMAIN),
+                            'title' => __('First Name', 'directorist'),
                             'fields' => $this->get_reg_fname_field(),
                         ),
                         'reg_lname_field' => array(
                             'type' => 'section',
-                            'title' => __('Last Name', ATBDP_TEXTDOMAIN),
+                            'title' => __('Last Name', 'directorist'),
                             'fields' => $this->get_reg_lname_field(),
                         ),
                         'reg_bio_field' => array(
                             'type' => 'section',
-                            'title' => __('About/bio', ATBDP_TEXTDOMAIN),
+                            'title' => __('About/bio', 'directorist'),
                             'fields' => $this->get_reg_bio_field(),
                         ),
                         'signUp_button' => array(
                             'type' => 'section',
-                            'title' => __('Sign Up Button', ATBDP_TEXTDOMAIN),
+                            'title' => __('Sign Up Button', 'directorist'),
                             'fields' => $this->get_reg_signUp_button(),
                         ),
                         'login_text' => array(
                             'type' => 'section',
-                            'title' => __('Login Message', ATBDP_TEXTDOMAIN),
+                            'title' => __('Login Message', 'directorist'),
                             'fields' => $this->get_reg_Login_text(),
                         ),
                     )),
                 ),
                 /*Submenu : login form settings*/
                 array(
-                    'title' => __('Login Form', ATBDP_TEXTDOMAIN),
+                    'title' => __('Login Form', 'directorist'),
                     'name' => 'login_form',
                     'icon' => 'font-awesome:fa-home',
                     'controls' => apply_filters('atbdp_login_form_settings_controls', array(
                         'log_username' => array(
                             'type' => 'section',
-                            'title' => __('Username or Email Address', ATBDP_TEXTDOMAIN),
+                            'title' => __('Username or Email Address', 'directorist'),
                             'fields' => $this->get_user_email_login(),
                         ),
                         'log_password' => array(
                             'type' => 'section',
-                            'title' => __('Password', ATBDP_TEXTDOMAIN),
+                            'title' => __('Password', 'directorist'),
                             'fields' => $this->get_password_login(),
                         ),
                         'log_remember' => array(
                             'type' => 'section',
-                            'title' => __('Remember Login Information', ATBDP_TEXTDOMAIN),
+                            'title' => __('Remember Login Information', 'directorist'),
                             'fields' => $this->get_remember_login(),
                         ),
                         'log_loginButton' => array(
                             'type' => 'section',
-                            'title' => __('Log In Button', ATBDP_TEXTDOMAIN),
+                            'title' => __('Log In Button', 'directorist'),
                             'fields' => $this->get_button_login(),
                         ),
                         'log_signup' => array(
                             'type' => 'section',
-                            'title' => __('Sign Up Message', ATBDP_TEXTDOMAIN),
+                            'title' => __('Sign Up Message', 'directorist'),
                             'fields' => $this->get_signup_login(),
                         ),
                         'log_recoverPassword' => array(
                             'type' => 'section',
-                            'title' => __('Recover Password', ATBDP_TEXTDOMAIN),
+                            'title' => __('Recover Password', 'directorist'),
                             'fields' => $this->get_recoverPassword_login(),
                         ),
                     )),
@@ -293,26 +293,26 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'toggle',
                     'name' => 'display_login',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textarea',
                     'name' => 'login_text',
-                    'label' => __('Text', ATBDP_TEXTDOMAIN),
-                    'default' => __('Already have an account? Please login', ATBDP_TEXTDOMAIN),
+                    'label' => __('Text', 'directorist'),
+                    'default' => __('Already have an account? Please login', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'login_url',
-                    'label' => __('Url', ATBDP_TEXTDOMAIN),
+                    'label' => __('Url', 'directorist'),
                     'default' => ATBDP_Permalink::get_login_page_url(),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'log_linkingmsg',
-                    'label' => __('Linking Text', ATBDP_TEXTDOMAIN),
-                    'default' => __('Here', ATBDP_TEXTDOMAIN),
+                    'label' => __('Linking Text', 'directorist'),
+                    'default' => __('Here', 'directorist'),
                 ),
             ));
         }
@@ -328,8 +328,8 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'textbox',
                     'name' => 'log_username',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Username or Email Address', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Username or Email Address', 'directorist'),
                 ),
 
             ));
@@ -347,8 +347,8 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'textbox',
                     'name' => 'log_password',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Password', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Password', 'directorist'),
                 ),
 
             ));
@@ -365,14 +365,14 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'toggle',
                     'name' => 'display_rememberme',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'log_rememberme',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Remember Me', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Remember Me', 'directorist'),
                 ),
             ));
         }
@@ -388,8 +388,8 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'textbox',
                     'name' => 'log_button',
-                    'label' => __('Text', ATBDP_TEXTDOMAIN),
-                    'default' => __('Log In', ATBDP_TEXTDOMAIN),
+                    'label' => __('Text', 'directorist'),
+                    'default' => __('Log In', 'directorist'),
                 ),
             ));
         }
@@ -405,26 +405,26 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'toggle',
                     'name' => 'display_signup',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textarea',
                     'name' => 'reg_text',
-                    'label' => __('Text', ATBDP_TEXTDOMAIN),
-                    'default' => __('Don\'t have an account?', ATBDP_TEXTDOMAIN),
+                    'label' => __('Text', 'directorist'),
+                    'default' => __('Don\'t have an account?', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'reg_url',
-                    'label' => __('Url', ATBDP_TEXTDOMAIN),
+                    'label' => __('Url', 'directorist'),
                     'default' => ATBDP_Permalink::get_registration_page_url(),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'reg_linktxt',
-                    'label' => __('Linking Text', ATBDP_TEXTDOMAIN),
-                    'default' => __('Sign Up', ATBDP_TEXTDOMAIN),
+                    'label' => __('Linking Text', 'directorist'),
+                    'default' => __('Sign Up', 'directorist'),
                 ),
             ));
         }
@@ -440,38 +440,38 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type'    => 'toggle',
                     'name'    => 'display_recpass',
-                    'label'   => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label'   => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'recpass_text',
-                    'label' => __('Name', ATBDP_TEXTDOMAIN),
-                    'default' => __('Recover Password', ATBDP_TEXTDOMAIN),
+                    'label' => __('Name', 'directorist'),
+                    'default' => __('Recover Password', 'directorist'),
                 ),
                 array(
                     'type' => 'textarea',
                     'name' => 'recpass_desc',
-                    'label' => __('Description', ATBDP_TEXTDOMAIN),
-                    'default' => __('Please enter your email address. You will receive a new password via email.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Description', 'directorist'),
+                    'default' => __('Please enter your email address. You will receive a new password via email.', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'recpass_username',
-                    'label' => __('Username or Email Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Username or E-mail', ATBDP_TEXTDOMAIN),
+                    'label' => __('Username or Email Label', 'directorist'),
+                    'default' => __('Username or E-mail', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'recpass_placeholder',
-                    'label' => __('Username or Email Placeholder', ATBDP_TEXTDOMAIN),
-                    'default' => __('eg. mail@example.com', ATBDP_TEXTDOMAIN),
+                    'label' => __('Username or Email Placeholder', 'directorist'),
+                    'default' => __('eg. mail@example.com', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'recpass_button',
-                    'label' => __('Button Text', ATBDP_TEXTDOMAIN),
-                    'default' => __('Get New Password', ATBDP_TEXTDOMAIN),
+                    'label' => __('Button Text', 'directorist'),
+                    'default' => __('Get New Password', 'directorist'),
                 ),
             ));
         }
@@ -487,8 +487,8 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'textbox',
                     'name' => 'reg_username',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Username', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Username', 'directorist'),
                 ),
 
             ));
@@ -505,19 +505,19 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'toggle',
                     'name' => 'display_password_reg',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'reg_password',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Password', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Password', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_password_reg',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
             ));
@@ -534,8 +534,8 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'textbox',
                     'name' => 'reg_email',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Email', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Email', 'directorist'),
                 ),
 
             ));
@@ -552,19 +552,19 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'toggle',
                     'name' => 'display_website_reg',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'reg_website',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Website', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Website', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_website_reg',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
 
@@ -582,19 +582,19 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'toggle',
                     'name' => 'display_fname_reg',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'reg_fname',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('First Name', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('First Name', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_fname_reg',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
 
@@ -612,19 +612,19 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'toggle',
                     'name' => 'display_lname_reg',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'reg_lname',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Last Name', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Last Name', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_lname_reg',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
 
@@ -642,19 +642,19 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'toggle',
                     'name' => 'display_bio_reg',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'reg_bio',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('About/bio', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('About/bio', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_bio_reg',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
 
@@ -672,8 +672,8 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'textbox',
                     'name' => 'reg_signup',
-                    'label' => __('Text', ATBDP_TEXTDOMAIN),
-                    'default' => __('Sign Up', ATBDP_TEXTDOMAIN),
+                    'label' => __('Text', 'directorist'),
+                    'default' => __('Sign Up', 'directorist'),
                 ),
 
             ));
@@ -689,19 +689,19 @@ if (!class_exists('ATBDP_Settings_Manager')):
             return apply_filters('atbdp_general_listings_submenus', array(
                 /*Submenu : General Listings*/
                 array(
-                    'title' => __('General Listings', ATBDP_TEXTDOMAIN),
+                    'title' => __('General Listings', 'directorist'),
                     'name' => 'general_listings',
                     'icon' => 'font-awesome:fa-sliders',
                     'controls' => apply_filters('atbdp_general_listings_controls', array(
                         'all_listing_section' => array(
                             'type' => 'section',
-                            'title' => __('Listings Page Setting', ATBDP_TEXTDOMAIN),
+                            'title' => __('Listings Page Setting', 'directorist'),
                             'fields' => $this->get_listings_page_settings_fields(),
                         ),
                         'emails' => array(
                             'type' => 'section',
-                            'title' => __('General Listings', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize all Listings related settings here', ATBDP_TEXTDOMAIN),
+                            'title' => __('General Listings', 'directorist'),
+                            'description' => __('You can Customize all Listings related settings here', 'directorist'),
                             'fields' => $this->get_general_listings_settings_fields(),
                         )
                     )),
@@ -709,14 +709,14 @@ if (!class_exists('ATBDP_Settings_Manager')):
 
                 /*Submenu : Listing form */
                 array(
-                    'title' => __('Single Listing', ATBDP_TEXTDOMAIN),
+                    'title' => __('Single Listing', 'directorist'),
                     'name' => 'listings_form',
                     'icon' => 'font-awesome:fa-info',
                     'controls' => apply_filters('atbdp_listings_form_controls', array(
                         'emails' => array(
                             'type' => 'section',
-                            'title' => __('Single Listing', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Listings Form related settings here', ATBDP_TEXTDOMAIN),
+                            'title' => __('Single Listing', 'directorist'),
+                            'description' => __('You can Customize Listings Form related settings here', 'directorist'),
                             'fields' => $this->get_listings_form_settings_fields(),
                         ),
                     )),
@@ -724,33 +724,33 @@ if (!class_exists('ATBDP_Settings_Manager')):
 
                 /*Submenu : Badge Management */
                 array(
-                    'title' => __('Badge Setting', ATBDP_TEXTDOMAIN),
+                    'title' => __('Badge Setting', 'directorist'),
                     'name' => 'badge_management',
                     'icon' => 'font-awesome:fa-certificate',
                     'controls' => apply_filters('atbdp_badge_controls', array(
                         'badges' => array(
                             'type' => 'section',
-                            'title' => __('Badge Management', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Badge here', ATBDP_TEXTDOMAIN),
+                            'title' => __('Badge Management', 'directorist'),
+                            'description' => __('You can Customize Badge here', 'directorist'),
                             'fields' => $this->get_badge_settings_fields(),
                         ),
                         'popular_badge' => array(
                             'type' => 'section',
-                            'title' => __('Popular Badge', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Popular Badge here', ATBDP_TEXTDOMAIN),
+                            'title' => __('Popular Badge', 'directorist'),
+                            'description' => __('You can Customize Popular Badge here', 'directorist'),
                             'fields' => $this->get_popular_badge_settings_fields(),
                         ),
                     )),
                 ),
                 /*Submenu : Review */
                 array(
-                    'title' => __('Review Setting', ATBDP_TEXTDOMAIN),
+                    'title' => __('Review Setting', 'directorist'),
                     'name' => 'review_setting',
                     'icon' => 'font-awesome:fa-star',
                     'controls' => apply_filters('atbdp_review_controls', array(
                         'emails' => array(
                             'type' => 'section',
-                            'title' => __('Review Setting', ATBDP_TEXTDOMAIN),
+                            'title' => __('Review Setting', 'directorist'),
                             'fields' => $this->get_listings_review_settings_fields(),
                         ),
                     )),
@@ -758,113 +758,113 @@ if (!class_exists('ATBDP_Settings_Manager')):
 
                 /*Submenu : Form */
                 array(
-                    'title' => __('Form Fields', ATBDP_TEXTDOMAIN),
+                    'title' => __('Form Fields', 'directorist'),
                     'name' => 'form_fields_setting',
                     'icon' => 'font-awesome:fa-adjust',
                     'controls' => apply_filters('atbdp_review_controls', array(
                         'title_field' => array(
                             'type' => 'section',
-                            'title' => __('Title', ATBDP_TEXTDOMAIN),
+                            'title' => __('Title', 'directorist'),
                             'fields' => $this->get_listings_title_field_settings(),
                         ),
                         'desc_field' => array(
                             'type' => 'section',
-                            'title' => __('Long Description', ATBDP_TEXTDOMAIN),
+                            'title' => __('Long Description', 'directorist'),
                             'fields' => $this->get_listings_desc_field_settings(),
                         ),
                         'cat_field' => array(
                             'type' => 'section',
-                            'title' => __('Category', ATBDP_TEXTDOMAIN),
+                            'title' => __('Category', 'directorist'),
                             'fields' => $this->get_listings_cat_field_settings(),
                         ),
                         'loc_field' => array(
                             'type' => 'section',
-                            'title' => __('Location', ATBDP_TEXTDOMAIN),
+                            'title' => __('Location', 'directorist'),
                             'fields' => $this->get_listings_loc_field_settings(),
                         ),
                         'tag_field' => array(
                             'type' => 'section',
-                            'title' => __('Tag', ATBDP_TEXTDOMAIN),
+                            'title' => __('Tag', 'directorist'),
                             'fields' => $this->get_listings_tag_field_settings(),
                         ),
                         'tagline_field' => array(
                             'type' => 'section',
-                            'title' => __('Tagline', ATBDP_TEXTDOMAIN),
+                            'title' => __('Tagline', 'directorist'),
                             'fields' => $this->get_listings_tagline_field_settings(),
                         ),
                         'pricing_field' => array(
                             'type' => 'section',
-                            'title' => __('Pricing', ATBDP_TEXTDOMAIN),
+                            'title' => __('Pricing', 'directorist'),
                             'fields' => $this->get_listings_pricing_field_settings(),
                         ),
                         'views_count' => array(
                             'type' => 'section',
-                            'title' => __('Views Count', ATBDP_TEXTDOMAIN),
+                            'title' => __('Views Count', 'directorist'),
                             'fields' => $this->get_listings_views_count_settings(),
                         ),
                         's_desc_field' => array(
                             'type' => 'section',
-                            'title' => __('Short Description / Excerpt', ATBDP_TEXTDOMAIN),
+                            'title' => __('Short Description / Excerpt', 'directorist'),
                             'fields' => $this->get_listings_short_desc_field_settings(),
                         ),
                         'address_field' => array(
                             'type' => 'section',
-                            'title' => __('Address', ATBDP_TEXTDOMAIN),
+                            'title' => __('Address', 'directorist'),
                             'fields' => $this->get_listings_address_field_settings(),
                         ),
                         'phone_field' => array(
                             'type' => 'section',
-                            'title' => __('Phone Number', ATBDP_TEXTDOMAIN),
+                            'title' => __('Phone Number', 'directorist'),
                             'fields' => $this->get_listings_phone_field_settings(),
                         ),
                         'phone_field2' => array(
                             'type' => 'section',
-                            'title' => __('Phone Number 2', ATBDP_TEXTDOMAIN),
+                            'title' => __('Phone Number 2', 'directorist'),
                             'fields' => $this->get_listings_phone_field2_settings(),
                         ),
                         'pax' => array(
                             'type' => 'section',
-                            'title' => __('Fax', ATBDP_TEXTDOMAIN),
+                            'title' => __('Fax', 'directorist'),
                             'fields' => $this->get_listings_fax_settings(),
                         ),
                         'email_field' => array(
                             'type' => 'section',
-                            'title' => __('Email', ATBDP_TEXTDOMAIN),
+                            'title' => __('Email', 'directorist'),
                             'fields' => $this->get_listings_email_field_settings(),
                         ),
                         'website_field' => array(
                             'type' => 'section',
-                            'title' => __('Website', ATBDP_TEXTDOMAIN),
+                            'title' => __('Website', 'directorist'),
                             'fields' => $this->get_listings_website_field_settings(),
                         ),
                         'zip_field' => array(
                             'type' => 'section',
-                            'title' => __('Zip/Post Code', ATBDP_TEXTDOMAIN),
+                            'title' => __('Zip/Post Code', 'directorist'),
                             'fields' => $this->get_listings_zip_field_settings(),
                         ),
                         'social_field' => array(
                             'type' => 'section',
-                            'title' => __('Social Info', ATBDP_TEXTDOMAIN),
+                            'title' => __('Social Info', 'directorist'),
                             'fields' => $this->get_listings_social_field_settings(),
                         ),
                         'map_field' => array(
                             'type' => 'section',
-                            'title' => __('Map', ATBDP_TEXTDOMAIN),
+                            'title' => __('Map', 'directorist'),
                             'fields' => $this->get_listings_map_field_settings(),
                         ),
                         'img_field' => array(
                             'type' => 'section',
-                            'title' => __('Image', ATBDP_TEXTDOMAIN),
+                            'title' => __('Image', 'directorist'),
                             'fields' => $this->get_listings_image_field_settings(),
                         ),
                         'video_field' => array(
                             'type' => 'section',
-                            'title' => __('Video', ATBDP_TEXTDOMAIN),
+                            'title' => __('Video', 'directorist'),
                             'fields' => $this->get_listings_video_field_settings(),
                         ),
                         'terms_field' => array(
                             'type' => 'section',
-                            'title' => __('Terms and Condition', ATBDP_TEXTDOMAIN),
+                            'title' => __('Terms and Condition', 'directorist'),
                             'fields' => $this->get_listings_terms_field_settings(),
                         ),
                     )),
@@ -872,13 +872,13 @@ if (!class_exists('ATBDP_Settings_Manager')):
 
                 /*Submenu : Deshboard */
                 array(
-                    'title' => __('User Dashboard Setting', ATBDP_TEXTDOMAIN),
+                    'title' => __('User Dashboard Setting', 'directorist'),
                     'name' => 'dashboard_setting',
                     'icon' => 'font-awesome:fa-bar-chart',
                     'controls' => apply_filters('atbdp_dashboard_controls', array(
                         'emails' => array(
                             'type' => 'section',
-                            'title' => __('User Dashboard Setting', ATBDP_TEXTDOMAIN),
+                            'title' => __('User Dashboard Setting', 'directorist'),
                             'fields' => $this->get_listings_dashboard_settings_fields(),
                         ),
                     )),
@@ -886,26 +886,26 @@ if (!class_exists('ATBDP_Settings_Manager')):
 
                 /*Submenu : Deshboard */
                 array(
-                    'title' => __('Map Setting', ATBDP_TEXTDOMAIN),
+                    'title' => __('Map Setting', 'directorist'),
                     'name' => 'map_setting',
                     'icon' => 'font-awesome:fa-map-signs',
                     'controls' => apply_filters('atbdp_dashboard_controls', array(
                         'emails' => array(
                             'type' => 'section',
-                            'title' => __('Map Setting', ATBDP_TEXTDOMAIN),
+                            'title' => __('Map Setting', 'directorist'),
                             'fields' => $this->get_listings_map_settings_fields(),
                         ),
                     )),
                 ),
                 /*Submenu : Style */
                 /*'style_setting'=> array(
-                    'title' => __('Style Setting', ATBDP_TEXTDOMAIN),
+                    'title' => __('Style Setting', 'directorist'),
                     'name' => 'style_setting',
                     'icon' => 'font-awesome:fa-adjust',
                     'controls' => apply_filters('atbdp_style_controls', array(
                         'emails' => array(
                             'type' => 'section',
-                            'title' => __('Style Setting', ATBDP_TEXTDOMAIN),
+                            'title' => __('Style Setting', 'directorist'),
                             'fields' => $this->get_listings_style_settings_fields(),
                         ),
                     )),
@@ -924,133 +924,133 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'color',
                     'name' => 'primary_color',
-                    'label' => __('Primary Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Primary Color', 'directorist'),
                     'default' => '#444752',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'back_primary_color',
-                    'label' => __('Background Primary Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Background Primary Color', 'directorist'),
                     'default' => '#444752',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'border_primary_color',
-                    'label' => __('Border Primary Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Border Primary Color', 'directorist'),
                     'default' => '#444752',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'secondary_color',
-                    'label' => __('Secondary Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Secondary Color', 'directorist'),
                     'default' => '#122069',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'back_secondary_color',
-                    'label' => __('Background Secondary Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Background Secondary Color', 'directorist'),
                     'default' => '#122069',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'success_color',
-                    'label' => __('Success Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Success Color', 'directorist'),
                     'default' => '#32cc6f',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'back_success_color',
-                    'label' => __('Background Success Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Background Success Color', 'directorist'),
                     'default' => '#32cc6f',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'info_color',
-                    'label' => __('Info Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Info Color', 'directorist'),
                     'default' => '#3590ec',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'back_info_color',
-                    'label' => __('Background Info Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Background Info Color', 'directorist'),
                     'default' => '#3590ec',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'warning_color',
-                    'label' => __('Warning Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Warning Color', 'directorist'),
                     'default' => '#ffaf00',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'back_warning_color',
-                    'label' => __('Background Warning Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Background Warning Color', 'directorist'),
                     'default' => '#ffaf00',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'danger_color',
-                    'label' => __('Danger Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Danger Color', 'directorist'),
                     'default' => '#e23636',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'back_danger_color',
-                    'label' => __('Background Danger Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Background Danger Color', 'directorist'),
                     'default' => '#e23636',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'dark_color',
-                    'label' => __('Dark Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Dark Color', 'directorist'),
                     'default' => '#202428',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'back_dark_color',
-                    'label' => __('Background Dark Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Background Dark Color', 'directorist'),
                     'default' => '#202428',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'featured_badge_color',
-                    'label' => __('Featured Badge Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Featured Badge Color', 'directorist'),
                     'default' => '#fa8b0c',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'featured_back_color',
-                    'label' => __('Featured Badge Background Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Featured Badge Background Color', 'directorist'),
                     'default' => '#fa8b0c',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'popular_badge_color',
-                    'label' => __('Popular Badge Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Popular Badge Color', 'directorist'),
                     'default' => '#f51957',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'popular_back_color',
-                    'label' => __('Popular Badge Background Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Popular Badge Background Color', 'directorist'),
                     'default' => '#f51957',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'heading_color',
-                    'label' => __('Heading Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Heading Color', 'directorist'),
                     'default' => '#272b41',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'text_color',
-                    'label' => __('Text Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Text Color', 'directorist'),
                     'default' => '#7a82a6',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'rating_color',
-                    'label' => __('Rating Color', ATBDP_TEXTDOMAIN),
+                    'label' => __('Rating Color', 'directorist'),
                     'default' => '#fa8b0c',
                 ),
             ));
@@ -1065,100 +1065,100 @@ if (!class_exists('ATBDP_Settings_Manager')):
             return apply_filters('atbdp_email_settings_submenus', array(
                 /*Submenu : Email General*/
                 array(
-                    'title' => __('Email General', ATBDP_TEXTDOMAIN),
+                    'title' => __('Email General', 'directorist'),
                     'name' => 'emails_general',
                     'icon' => 'font-awesome:fa-home',
                     'controls' => apply_filters('atbdp_email_settings_controls', array(
                         'emails' => array(
                             'type' => 'section',
-                            'title' => __('Email General Settings', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Email and Notification-related settings here. You can enable or disable any emails here. Here, YES means Enabled, and NO means disabled. After switching any option, Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('Email General Settings', 'directorist'),
+                            'description' => __('You can Customize Email and Notification-related settings here. You can enable or disable any emails here. Here, YES means Enabled, and NO means disabled. After switching any option, Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->get_email_settings_fields(),
                         ),
                     )),
                 ),
                 /*Submenu : Email Templates*/
                 array(
-                    'title' => __('Email Templates', ATBDP_TEXTDOMAIN),
+                    'title' => __('Email Templates', 'directorist'),
                     'name' => 'emails_templates',
                     'icon' => 'font-awesome:fa-envelope',
                     'controls' => apply_filters('atbdp_email_templates_settings_controls', array(
                         'new_eml_templates' => array(
                             'type' => 'section',
-                            'title' => __('For New Listing', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('For New Listing', 'directorist'),
+                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->get_email_new_tmpl_settings_fields(),
                         ),
                         'publish_eml_templates' => array(
                             'type' => 'section',
-                            'title' => __('For Approved/Published Listings', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('For Approved/Published Listings', 'directorist'),
+                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->get_email_pub_tmpl_settings_fields(),
                         ),
                         'edited_eml_templates' => array(
                             'type' => 'section',
-                            'title' => __('For Edited Listings', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('For Edited Listings', 'directorist'),
+                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->get_email_edit_tmpl_settings_fields(),
                         ),
                         'about_expire_eml_templates' => array(
                             'type' => 'section',
-                            'title' => __('For About to Expire Listings', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('For About to Expire Listings', 'directorist'),
+                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->email_about_expire_tmpl_settings_fields(),
                         ),
                         'expired_eml_templates' => array(
                             'type' => 'section',
-                            'title' => __('For Expired Listings', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('For Expired Listings', 'directorist'),
+                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->email_expired_tmpl_settings_fields(),
                         ),
                         'renewal_eml_templates' => array(
                             'type' => 'section',
-                            'title' => __('For Renewal Listings (Remind to Renew)', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('For Renewal Listings (Remind to Renew)', 'directorist'),
+                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->email_renewal_tmpl_settings_fields(),
                         ),
                         'renewed_eml_templates' => array(
                             'type' => 'section',
-                            'title' => __('For Renewed Listings (After Renewed)', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('For Renewed Listings (After Renewed)', 'directorist'),
+                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->email_renewed_tmpl_settings_fields(),
                         ),
                         'deleted_eml_templates' => array(
                             'type' => 'section',
-                            'title' => __('For deleted/trashed Listings', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('For deleted/trashed Listings', 'directorist'),
+                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->email_deleted_tmpl_settings_fields(),
                         ),
                         'new_order_created' => array(
                             'type' => 'section',
-                            'title' => __('For New Order (Created)', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('For New Order (Created)', 'directorist'),
+                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->email_new_order_tmpl_settings_fields(),
                         ),
                         'offline_new_order_created' => array(
                             'type' => 'section',
-                            'title' => __('For New Order (Created using Offline Bank Transfer)', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('For New Order (Created using Offline Bank Transfer)', 'directorist'),
+                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->email_offline_new_order_tmpl_settings_fields(),
                         ),
                         'completed_order_created' => array(
                             'type' => 'section',
-                            'title' => __('For Completed Order', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('For Completed Order', 'directorist'),
+                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->email_completed_order_tmpl_settings_fields(),
                         ),
                         'listing_contact_email' => array(
                             'type' => 'section',
-                            'title' => __('For Listing contact email', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('For Listing contact email', 'directorist'),
+                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->listing_contact_email(),
                         ),
                         'registration_confirmation' => array(
                             'type' => 'section',
-                            'title' => __('Registration Confirmation', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('Registration Confirmation', 'directorist'),
+                            'description' => __('You can Customize Email and Notification Templates related settings here. Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->registration_confirmation_email(),
                         ),
                     )),
@@ -1174,7 +1174,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
         public function get_email_new_tmpl_settings_fields()
         {
             // let's define default data template
-            $sub = __('[==SITE_NAME==] : Listing "==LISTING_TITLE==" Received', ATBDP_TEXTDOMAIN);
+            $sub = __('[==SITE_NAME==] : Listing "==LISTING_TITLE==" Received', 'directorist');
 
             $tmpl = __("
 Dear ==NAME==,
@@ -1184,7 +1184,7 @@ It may take up to 24 hours to complete the review.
 
 Thanks,
 The Administrator of ==SITE_NAME==
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
             //create small var to highlight important texts
             $c = '<span style="color:#c71585;">'; //color start
             $e = '</span>'; // end color
@@ -1216,22 +1216,22 @@ KAMAL;
                 array(
                     'type' => 'notebox',
                     'name' => 'email_placeholder_info',
-                    'label' => $c . __('You can use Placeholders to output dynamic value', ATBDP_TEXTDOMAIN) . $e,
+                    'label' => $c . __('You can use Placeholders to output dynamic value', 'directorist') . $e,
                     'description' => $ph,
                     'status' => 'normal',
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'email_sub_new_listing',
-                    'label' => __('Email Subject', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the subject for sending to the user when a listing is submitted/received.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Subject', 'directorist'),
+                    'description' => __('Edit the subject for sending to the user when a listing is submitted/received.', 'directorist'),
                     'default' => $sub,
                 ),
                 array(
                     'type' => 'textarea',
                     'name' => 'email_tmpl_new_listing',
-                    'label' => __('Email Body', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the email template for sending to the user when a listing is submitted/received. HTML content is allowed too.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Body', 'directorist'),
+                    'description' => __('Edit the email template for sending to the user when a listing is submitted/received. HTML content is allowed too.', 'directorist'),
                     'default' => $tmpl,
                 ),
 
@@ -1247,28 +1247,28 @@ KAMAL;
         public function get_email_pub_tmpl_settings_fields()
         {
             // let's define default data
-            $sub = __('[==SITE_NAME==] : Listing "==LISTING_TITLE==" published', ATBDP_TEXTDOMAIN);
+            $sub = __('[==SITE_NAME==] : Listing "==LISTING_TITLE==" published', 'directorist');
             $tmpl = __("
 Dear ==NAME==,
 Congratulations! Your listing '==LISTING_TITLE==' has been approved/published. Now it is publicly available at ==LISTING_URL==
 
 Thanks,
 The Administrator of ==SITE_NAME==
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
 
             return apply_filters('atbdp_email_pub_tmpl_settings_fields', array(
                 array(
                     'type' => 'textbox',
                     'name' => 'email_sub_pub_listing',
-                    'label' => __('Email Subject', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the subject for sending to the user when a listing is approved/published.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Subject', 'directorist'),
+                    'description' => __('Edit the subject for sending to the user when a listing is approved/published.', 'directorist'),
                     'default' => $sub,
                 ),
                 array(
                     'type' => 'textarea',
                     'name' => 'email_tmpl_pub_listing',
-                    'label' => __('Email Body', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the email template for sending to the user when a listing is approved/published. HTML content is allowed too.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Body', 'directorist'),
+                    'description' => __('Edit the email template for sending to the user when a listing is approved/published. HTML content is allowed too.', 'directorist'),
                     'default' => $tmpl,
                 ),
             ));
@@ -1282,28 +1282,28 @@ The Administrator of ==SITE_NAME==
         public function get_email_edit_tmpl_settings_fields()
         {
             // let's define default data
-            $sub = __('[==SITE_NAME==] : Listing "==LISTING_TITLE==" Edited', ATBDP_TEXTDOMAIN);
+            $sub = __('[==SITE_NAME==] : Listing "==LISTING_TITLE==" Edited', 'directorist');
             $tmpl = __("
 Dear ==NAME==,
 Congratulations! Your listing '==LISTING_TITLE==' has been edited. It is publicly available at ==LISTING_URL==
 
 Thanks,
 The Administrator of ==SITE_NAME==
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
 
             return apply_filters('atbdp_email_edit_tmpl_settings_fields', array(
                 array(
                     'type' => 'textbox',
                     'name' => 'email_sub_edit_listing',
-                    'label' => __('Email Subject', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the subject for sending to the user when a listing is edited.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Subject', 'directorist'),
+                    'description' => __('Edit the subject for sending to the user when a listing is edited.', 'directorist'),
                     'default' => $sub,
                 ),
                 array(
                     'type' => 'textarea',
                     'name' => 'email_tmpl_edit_listing',
-                    'label' => __('Email Body', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the email template for sending to the user when a listing is edited. HTML content is allowed too.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Body', 'directorist'),
+                    'description' => __('Edit the email template for sending to the user when a listing is edited. HTML content is allowed too.', 'directorist'),
                     'default' => $tmpl,
                 ),
             ));
@@ -1317,7 +1317,7 @@ The Administrator of ==SITE_NAME==
         public function email_about_expire_tmpl_settings_fields()
         {
             // let's define default data
-            $sub = __('[==SITE_NAME==] : Your Listing "==LISTING_TITLE==" is about to expire.', ATBDP_TEXTDOMAIN);
+            $sub = __('[==SITE_NAME==] : Your Listing "==LISTING_TITLE==" is about to expire.', 'directorist');
             /*@todo; includes the number of days remaining to expire the listing*/
             $tmpl = __("
 Dear ==NAME==,
@@ -1325,14 +1325,14 @@ Your listing '==LISTING_TITLE==' is about to expire. It will expire on ==EXPIRAT
 
 Thanks,
 The Administrator of ==SITE_NAME==
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
 
             return apply_filters('atbdp_email_about_expire_tmpl_settings_fields', array(
                 array(
                     'type' => 'slider',
                     'name' => 'email_to_expire_day',
-                    'label' => __('When to send expire notice', ATBDP_TEXTDOMAIN),
-                    'description' => __('Select the days before a listing expires to send an expiration reminder email', ATBDP_TEXTDOMAIN),
+                    'label' => __('When to send expire notice', 'directorist'),
+                    'description' => __('Select the days before a listing expires to send an expiration reminder email', 'directorist'),
                     'min' => '1',
                     'max' => '120',
                     'step' => '1',
@@ -1341,15 +1341,15 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'email_sub_to_expire_listing',
-                    'label' => __('Email Subject', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the subject for sending to the user when a listing is ABOUT TO EXPIRE.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Subject', 'directorist'),
+                    'description' => __('Edit the subject for sending to the user when a listing is ABOUT TO EXPIRE.', 'directorist'),
                     'default' => $sub,
                 ),
                 array(
                     'type' => 'textarea',
                     'name' => 'email_tmpl_to_expire_listing',
-                    'label' => __('Email Body', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the email template for sending to the user when a listing is ABOUT TO EXPIRE. HTML content is allowed too.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Body', 'directorist'),
+                    'description' => __('Edit the email template for sending to the user when a listing is ABOUT TO EXPIRE. HTML content is allowed too.', 'directorist'),
                     'default' => $tmpl,
                 ),
             ));
@@ -1363,28 +1363,28 @@ The Administrator of ==SITE_NAME==
         public function email_expired_tmpl_settings_fields()
         {
             // let's define default data
-            $sub = __("[==SITE_NAME==] : Your Listing '==LISTING_TITLE==' has expired.", ATBDP_TEXTDOMAIN);
+            $sub = __("[==SITE_NAME==] : Your Listing '==LISTING_TITLE==' has expired.", 'directorist');
             $tmpl = __("
 Dear ==NAME==,
 Your listing '==LISTING_TITLE==' has expired on ==EXPIRATION_DATE==. You can renew it at ==RENEWAL_LINK==
 
 Thanks,
 The Administrator of ==SITE_NAME==
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
 
             return apply_filters('atbdp_email_expired_tmpl_settings_fields', array(
                 array(
                     'type' => 'textbox',
                     'name' => 'email_sub_expired_listing',
-                    'label' => __('Email Subject', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the subject for sending to the user when a Listing HAS EXPIRED.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Subject', 'directorist'),
+                    'description' => __('Edit the subject for sending to the user when a Listing HAS EXPIRED.', 'directorist'),
                     'default' => $sub,
                 ),
                 array(
                     'type' => 'textarea',
                     'name' => 'email_tmpl_expired_listing',
-                    'label' => __('Email Body', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the email template for sending to the user when a Listing HAS EXPIRED. HTML content is allowed too.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Body', 'directorist'),
+                    'description' => __('Edit the email template for sending to the user when a Listing HAS EXPIRED. HTML content is allowed too.', 'directorist'),
                     'default' => $tmpl,
                 ),
 
@@ -1399,7 +1399,7 @@ The Administrator of ==SITE_NAME==
         public function email_renewal_tmpl_settings_fields()
         {
             // let's define default data
-            $sub = __('[==SITE_NAME==] : A Reminder to Renew your listing "==LISTING_TITLE=="', ATBDP_TEXTDOMAIN);
+            $sub = __('[==SITE_NAME==] : A Reminder to Renew your listing "==LISTING_TITLE=="', 'directorist');
             $tmpl = __("
 Dear ==NAME==,
 
@@ -1407,14 +1407,14 @@ We have noticed that you might have forgot to renew your listing '==LISTING_TITL
 
 Thanks,
 The Administrator of ==SITE_NAME==
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
 
             return apply_filters('atbdp_email_renewal_tmpl_settings_fields', array(
                 array(
                     'type' => 'slider',
                     'name' => 'email_renewal_day',
-                    'label' => __('When to send renewal reminder', ATBDP_TEXTDOMAIN),
-                    'description' => __('Select the days after a listing expires to send a renewal reminder email', ATBDP_TEXTDOMAIN),
+                    'label' => __('When to send renewal reminder', 'directorist'),
+                    'description' => __('Select the days after a listing expires to send a renewal reminder email', 'directorist'),
                     'min' => '1',
                     'max' => '120',
                     'step' => '1',
@@ -1424,15 +1424,15 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'email_sub_to_renewal_listing',
-                    'label' => __('Email Subject', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the subject for sending to the user to renew his/her listings.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Subject', 'directorist'),
+                    'description' => __('Edit the subject for sending to the user to renew his/her listings.', 'directorist'),
                     'default' => $sub,
                 ),
                 array(
                     'type' => 'textarea',
                     'name' => 'email_tmpl_to_renewal_listing',
-                    'label' => __('Email Body', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the email template for sending to the user to renew his/her listings. HTML content is allowed too.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Body', 'directorist'),
+                    'description' => __('Edit the email template for sending to the user to renew his/her listings. HTML content is allowed too.', 'directorist'),
                     'default' => $tmpl,
                 ),
 
@@ -1448,7 +1448,7 @@ The Administrator of ==SITE_NAME==
         public function email_renewed_tmpl_settings_fields()
         {
             // let's define default data
-            $sub = __('[==SITE_NAME==] : Your Listing "==LISTING_TITLE==" Has Renewed', ATBDP_TEXTDOMAIN);
+            $sub = __('[==SITE_NAME==] : Your Listing "==LISTING_TITLE==" Has Renewed', 'directorist');
             $tmpl = __("
 Dear ==NAME==,
 
@@ -1458,21 +1458,21 @@ Your listing is now publicly viewable at ==LISTING_URL==
 
 Thanks,
 The Administrator of ==SITE_NAME==
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
 
             return apply_filters('atbdp_email_renewed_tmpl_settings_fields', array(
                 array(
                     'type' => 'textbox',
                     'name' => 'email_sub_renewed_listing',
-                    'label' => __('Email Subject', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the subject for sending to the user his/her listings has renewed successfully.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Subject', 'directorist'),
+                    'description' => __('Edit the subject for sending to the user his/her listings has renewed successfully.', 'directorist'),
                     'default' => $sub,
                 ),
                 array(
                     'type' => 'textarea',
                     'name' => 'email_tmpl_renewed_listing',
-                    'label' => __('Email Body', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the email template for sending to the user his/her listings has renewed successfully. HTML content is allowed too.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Body', 'directorist'),
+                    'description' => __('Edit the email template for sending to the user his/her listings has renewed successfully. HTML content is allowed too.', 'directorist'),
                     'default' => $tmpl,
                 ),
 
@@ -1488,7 +1488,7 @@ The Administrator of ==SITE_NAME==
         public function email_deleted_tmpl_settings_fields()
         {
             // let's define default data
-            $sub = __('[==SITE_NAME==] : Your Listing "==LISTING_TITLE==" Has Been Deleted', ATBDP_TEXTDOMAIN);
+            $sub = __('[==SITE_NAME==] : Your Listing "==LISTING_TITLE==" Has Been Deleted', 'directorist');
             $tmpl = __("
 Dear ==NAME==,
 
@@ -1496,21 +1496,21 @@ Your listing '==LISTING_LINK==' with the ID #==LISTING_ID== has been deleted suc
 
 Thanks,
 The Administrator of ==SITE_NAME==
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
 
             return apply_filters('atbdp_email_deleted_tmpl_settings_fields', array(
                 array(
                     'type' => 'textbox',
                     'name' => 'email_sub_deleted_listing',
-                    'label' => __('Email Subject', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the subject for sending to the user when his/her listings has deleted successfully.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Subject', 'directorist'),
+                    'description' => __('Edit the subject for sending to the user when his/her listings has deleted successfully.', 'directorist'),
                     'default' => $sub,
                 ),
                 array(
                     'type' => 'textarea',
                     'name' => 'email_tmpl_deleted_listing',
-                    'label' => __('Email Body', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the email template for sending to the user when his/her listings has deleted successfully. HTML content is allowed too.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Body', 'directorist'),
+                    'description' => __('Edit the email template for sending to the user when his/her listings has deleted successfully. HTML content is allowed too.', 'directorist'),
                     'default' => $tmpl,
                 ),
 
@@ -1527,7 +1527,7 @@ The Administrator of ==SITE_NAME==
         public function email_new_order_tmpl_settings_fields()
         {
             // let's define default data
-            $sub = __('[==SITE_NAME==] : Your Order (#==ORDER_ID==) Received.', ATBDP_TEXTDOMAIN);
+            $sub = __('[==SITE_NAME==] : Your Order (#==ORDER_ID==) Received.', 'directorist');
             $tmpl = __("
 Dear ==NAME==,
 
@@ -1544,21 +1544,21 @@ NB. You need to be logged in your account to access the order details page.
 
 Thanks,
 The Administrator of ==SITE_NAME==
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
 
             return apply_filters('atbdp_new_order_tmpl_settings_fields', array(
                 array(
                     'type' => 'textbox',
                     'name' => 'email_sub_new_order',
-                    'label' => __('Email Subject', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the subject for sending to the user when an order is created.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Subject', 'directorist'),
+                    'description' => __('Edit the subject for sending to the user when an order is created.', 'directorist'),
                     'default' => $sub,
                 ),
                 array(
                     'type' => 'textarea',
                     'name' => 'email_tmpl_new_order',
-                    'label' => __('Email Body', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the email template for sending to the user when an order is created.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Body', 'directorist'),
+                    'description' => __('Edit the email template for sending to the user when an order is created.', 'directorist'),
                     'default' => $tmpl,
                 ),
 
@@ -1575,7 +1575,7 @@ The Administrator of ==SITE_NAME==
         public function email_offline_new_order_tmpl_settings_fields()
         {
             // let's define default data
-            $sub = __('[==SITE_NAME==] : Your Order (#==ORDER_ID==) Received.', ATBDP_TEXTDOMAIN);
+            $sub = __('[==SITE_NAME==] : Your Order (#==ORDER_ID==) Received.', 'directorist');
             $tmpl = sprintf(__("
 Dear ==NAME==,
 
@@ -1595,21 +1595,21 @@ NB. You need to be logged in your account to access the order details page.
 
 Thanks,
 The Administrator of ==SITE_NAME==
-", ATBDP_TEXTDOMAIN), get_directorist_option('bank_transfer_instruction'));
+", 'directorist'), get_directorist_option('bank_transfer_instruction'));
 
             return apply_filters('atbdp_offline_new_order_tmpl_settings_fields', array(
                 array(
                     'type' => 'textbox',
                     'name' => 'email_sub_offline_new_order',
-                    'label' => __('Email Subject', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the subject for sending to the user when an order is created using offline payment like bank transfer.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Subject', 'directorist'),
+                    'description' => __('Edit the subject for sending to the user when an order is created using offline payment like bank transfer.', 'directorist'),
                     'default' => $sub,
                 ),
                 array(
                     'type' => 'textarea',
                     'name' => 'email_tmpl_offline_new_order',
-                    'label' => __('Email Body', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the email template for sending to the user when an order is created using offline payment like bank transfer.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Body', 'directorist'),
+                    'description' => __('Edit the email template for sending to the user when an order is created using offline payment like bank transfer.', 'directorist'),
                     'default' => $tmpl,
                 ),
 
@@ -1625,7 +1625,7 @@ The Administrator of ==SITE_NAME==
         public function email_completed_order_tmpl_settings_fields()
         {
             // let's define default data
-            $sub = __('[==SITE_NAME==] : Congratulation! Your Order #==ORDER_ID== Completed.', ATBDP_TEXTDOMAIN);
+            $sub = __('[==SITE_NAME==] : Congratulation! Your Order #==ORDER_ID== Completed.', 'directorist');
 
 
             $tmpl = __("
@@ -1644,21 +1644,21 @@ NB. You need to be logged in your account to access the order details page.
 
 Thanks,
 The Administrator of ==SITE_NAME==
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
 
             return apply_filters('atbdp_completed_order_tmpl_settings_fields', array(
                 array(
                     'type' => 'textbox',
                     'name' => 'email_sub_completed_order',
-                    'label' => __('Email Subject', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the subject for sending to the user when an order is completed', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Subject', 'directorist'),
+                    'description' => __('Edit the subject for sending to the user when an order is completed', 'directorist'),
                     'default' => $sub,
                 ),
                 array(
                     'type' => 'textarea',
                     'name' => 'email_tmpl_completed_order',
-                    'label' => __('Email Body', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the email template for sending to the user when an order is completed.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Body', 'directorist'),
+                    'description' => __('Edit the email template for sending to the user when an order is completed.', 'directorist'),
                     'default' => $tmpl,
                 ),
 
@@ -1675,7 +1675,7 @@ The Administrator of ==SITE_NAME==
         public function registration_confirmation_email()
         {
             // let's define default data
-            $sub = __('Registration Confirmation!', ATBDP_TEXTDOMAIN);
+            $sub = __('Registration Confirmation!', 'directorist');
 
             $tmpl = __("
 Dear User,
@@ -1685,21 +1685,21 @@ Congratulations! Your registration is completed!
 This email is sent automatically for information purpose only. Please do not respond to this.
 You can login now using the below credentials:
 
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
 
             return apply_filters('atbdp_registration_confirmation_tmpl_settings_fields', array(
                 array(
                     'type' => 'textbox',
                     'name' => 'email_sub_registration_confirmation',
-                    'label' => __('Email Subject', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the subject for sending to the user when listing contact message send.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Subject', 'directorist'),
+                    'description' => __('Edit the subject for sending to the user when listing contact message send.', 'directorist'),
                     'default' => $sub,
                 ),
                 array(
                     'type' => 'textarea',
                     'name' => 'email_tmpl_registration_confirmation',
-                    'label' => __('Email Body', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the email template for sending to new user after registration [Note: Credentials details included at the bottom of the template]', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Body', 'directorist'),
+                    'description' => __('Edit the email template for sending to new user after registration [Note: Credentials details included at the bottom of the template]', 'directorist'),
                     'default' => $tmpl,
                 ),
 
@@ -1716,7 +1716,7 @@ You can login now using the below credentials:
         public function listing_contact_email()
         {
             // let's define default data
-            $sub = __('[==SITE_NAME==] Contact via "[==LISTING_TITLE==]"', ATBDP_TEXTDOMAIN);
+            $sub = __('[==SITE_NAME==] Contact via "[==LISTING_TITLE==]"', 'directorist');
 
             $tmpl = __("
 Dear [==NAME==],
@@ -1730,21 +1730,21 @@ Time: ==NOW==
 
 Thanks,
 The Administrator of ==SITE_NAME==
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
 
             return apply_filters('atbdp_completed_order_tmpl_settings_fields', array(
                 array(
                     'type' => 'textbox',
                     'name' => 'email_sub_listing_contact_email',
-                    'label' => __('Email Subject', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the subject for sending to the user when listing contact message send.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Subject', 'directorist'),
+                    'description' => __('Edit the subject for sending to the user when listing contact message send.', 'directorist'),
                     'default' => $sub,
                 ),
                 array(
                     'type' => 'textarea',
                     'name' => 'email_tmpl_listing_contact_email',
-                    'label' => __('Email Body', ATBDP_TEXTDOMAIN),
-                    'description' => __('Edit the email template for sending to the user when when listing contact message send', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Body', 'directorist'),
+                    'description' => __('Edit the email template for sending to the user when when listing contact message send', 'directorist'),
                     'default' => $tmpl,
                 ),
 
@@ -1764,43 +1764,43 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'disable_email_notification',
-                        'label' => __('Disable all Email Notifications', ATBDP_TEXTDOMAIN),
+                        'label' => __('Disable all Email Notifications', 'directorist'),
                         'default' => '',
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'email_from_name',
-                        'label' => __('Email\'s "From Name"', ATBDP_TEXTDOMAIN),
-                        'description' => __('The name should be used as From Name in the email generated by the plugin.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Email\'s "From Name"', 'directorist'),
+                        'description' => __('The name should be used as From Name in the email generated by the plugin.', 'directorist'),
                         'default' => get_option('blogname'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'email_from_email',
-                        'label' => __('Email\'s "From Email"', ATBDP_TEXTDOMAIN),
-                        'description' => __('The email should be used as From Email in the email generated by the plugin.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Email\'s "From Email"', 'directorist'),
+                        'description' => __('The email should be used as From Email in the email generated by the plugin.', 'directorist'),
                         'default' => get_option('admin_email'),
                     ),
                     array(
                         'type' => 'textarea',
                         'name' => 'admin_email_lists',
-                        'label' => __('Admin Email Address(es)', ATBDP_TEXTDOMAIN),
-                        'description' => __('Enter the one or more admin email addresses (comma separated) to send notification. Eg. admin1@example.com, admin2@example.com etc', ATBDP_TEXTDOMAIN),
+                        'label' => __('Admin Email Address(es)', 'directorist'),
+                        'description' => __('Enter the one or more admin email addresses (comma separated) to send notification. Eg. admin1@example.com, admin2@example.com etc', 'directorist'),
                         'default' => get_option('admin_email'),
                     ),
                     array(
                         'type' => 'multiselect',
                         'name' => 'notify_admin',
-                        'label' => __('Notify the Admin when Any of the Selected Event Happens', ATBDP_TEXTDOMAIN),
-                        'description' => __('Select the situation when you would like to send an email to the Admin', ATBDP_TEXTDOMAIN),
+                        'label' => __('Notify the Admin when Any of the Selected Event Happens', 'directorist'),
+                        'description' => __('Select the situation when you would like to send an email to the Admin', 'directorist'),
                         'items' => $this->events_to_notify_admin(),
                         'default' => $this->default_events_to_notify_admin(),
                     ),
                     array(
                         'type' => 'multiselect',
                         'name' => 'notify_user',
-                        'label' => __('Notify the Listing Owner when Any of the Selected Event Happens', ATBDP_TEXTDOMAIN),
-                        'description' => __('Select the situation when you would like to send an email to the Listing', ATBDP_TEXTDOMAIN),
+                        'label' => __('Notify the Listing Owner when Any of the Selected Event Happens', 'directorist'),
+                        'description' => __('Select the situation when you would like to send an email to the Listing', 'directorist'),
                         'items' => $this->events_to_notify_user(),
                         'default' => $this->default_events_to_notify_user(),
                     ),
@@ -1882,39 +1882,39 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_default_notifiable_events', array(
                 array(
                     'value' => 'order_created',
-                    'label' => __('Order Created', ATBDP_TEXTDOMAIN),
+                    'label' => __('Order Created', 'directorist'),
                 ),
                 array(
                     'value' => 'order_completed',
-                    'label' => __('Order Completed', ATBDP_TEXTDOMAIN),
+                    'label' => __('Order Completed', 'directorist'),
                 ),
                 array(
                     'value' => 'listing_submitted',
-                    'label' => __('New Listing Submitted', ATBDP_TEXTDOMAIN),
+                    'label' => __('New Listing Submitted', 'directorist'),
                 ),
                 array(
                     'value' => 'listing_published',
-                    'label' => __('Listing Approved/Published', ATBDP_TEXTDOMAIN),
+                    'label' => __('Listing Approved/Published', 'directorist'),
                 ),
                 array(
                     'value' => 'listing_edited',
-                    'label' => __('Listing Edited', ATBDP_TEXTDOMAIN),
+                    'label' => __('Listing Edited', 'directorist'),
                 ),
                 array(
                     'value' => 'payment_received',
-                    'label' => __('Payment Received', ATBDP_TEXTDOMAIN),
+                    'label' => __('Payment Received', 'directorist'),
                 ),
                 array(
                     'value' => 'listing_deleted',
-                    'label' => __('Listing Deleted', ATBDP_TEXTDOMAIN),
+                    'label' => __('Listing Deleted', 'directorist'),
                 ),
                 array(
                     'value' => 'listing_contact_form',
-                    'label' => __('Listing Contact Form', ATBDP_TEXTDOMAIN),
+                    'label' => __('Listing Contact Form', 'directorist'),
                 ),
                 array(
                     'value' => 'listing_review',
-                    'label' => __('Listing Review', ATBDP_TEXTDOMAIN),
+                    'label' => __('Listing Review', 'directorist'),
                 ),
             ));
         }
@@ -1929,7 +1929,7 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_only_admin_notifiable_events', array(
                 array(
                     'value' => 'listing_owner_contacted',
-                    'label' => __('Listing owner is contacted', ATBDP_TEXTDOMAIN),
+                    'label' => __('Listing owner is contacted', 'directorist'),
                 ),
             ));
         }
@@ -1944,15 +1944,15 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_only_user_notifiable_events', array(
                 array(
                     'value' => 'listing_to_expire',
-                    'label' => __('Listing nearly Expired', ATBDP_TEXTDOMAIN),
+                    'label' => __('Listing nearly Expired', 'directorist'),
                 ),
                 array(
                     'value' => 'listing_expired',
-                    'label' => __('Listing Expired', ATBDP_TEXTDOMAIN),
+                    'label' => __('Listing Expired', 'directorist'),
                 ),
                 array(
                     'value' => 'remind_to_renew',
-                    'label' => __('Remind to renew', ATBDP_TEXTDOMAIN),
+                    'label' => __('Remind to renew', 'directorist'),
                 ),
             ));
         }
@@ -1991,14 +1991,14 @@ The Administrator of ==SITE_NAME==
 
             return apply_filters('atbdp_extension_settings_submenus', array(
                 'submenu_1' => array(
-                    'title' => __('Extensions General', ATBDP_TEXTDOMAIN),
+                    'title' => __('Extensions General', 'directorist'),
                     'name' => 'extensions_switch',
                     'icon' => 'font-awesome:fa-home',
                     'controls' => apply_filters('atbdp_extension_settings_controls', array(
                         'extensions' => array(
                             'type' => 'section',
-                            'title' => __('Extensions General Settings', ATBDP_TEXTDOMAIN),
-                            'description' => __('You can Customize Extensions-related settings here. You can enable or disable any extensions here. Here, YES means Enabled, and NO means disabled. After switching any option, Do not forget to save the changes.', ATBDP_TEXTDOMAIN),
+                            'title' => __('Extensions General Settings', 'directorist'),
+                            'description' => __('You can Customize Extensions-related settings here. You can enable or disable any extensions here. Here, YES means Enabled, and NO means disabled. After switching any option, Do not forget to save the changes.', 'directorist'),
                             'fields' => $this->get_extension_settings_fields(),
                         ),
                     )),
@@ -2015,15 +2015,15 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'notebox',
                         'name' => 'g_currency_note',
-                        'label' => __('Note About This Currency Settings:', ATBDP_TEXTDOMAIN),
-                        'description' => __('This currency settings lets you customize how you would like to display price amount in your website. However, you can accept currency in a different currency. Therefore, for accepting currency in a different currency, Go to Gateway Settings Tab.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Note About This Currency Settings:', 'directorist'),
+                        'description' => __('This currency settings lets you customize how you would like to display price amount in your website. However, you can accept currency in a different currency. Therefore, for accepting currency in a different currency, Go to Gateway Settings Tab.', 'directorist'),
                         'status' => 'info',
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'g_currency',
-                        'label' => __('Currency Name', ATBDP_TEXTDOMAIN),
-                        'description' => __('Enter the Name of the currency eg. USD or GBP etc.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Currency Name', 'directorist'),
+                        'description' => __('Enter the Name of the currency eg. USD or GBP etc.', 'directorist'),
                         'default' => 'USD',
                     ),
                     /*@todo; lets user use space as thousand separator in future. @see: https://docs.oracle.com/cd/E19455-01/806-0169/overview-9/index.html
@@ -2031,40 +2031,40 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'textbox',
                         'name' => 'g_thousand_separator',
-                        'label' => __('Thousand Separator', ATBDP_TEXTDOMAIN),
-                        'description' => __('Enter the currency thousand separator. Eg. , or . etc.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Thousand Separator', 'directorist'),
+                        'description' => __('Enter the currency thousand separator. Eg. , or . etc.', 'directorist'),
                         'default' => ',',
                     ),
 
                     array(
                         'type' => 'toggle',
                         'name' => 'allow_decimal',
-                        'label' => __('Allow Decimal', ATBDP_TEXTDOMAIN),
+                        'label' => __('Allow Decimal', 'directorist'),
                         'default' => 1,
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'g_decimal_separator',
-                        'label' => __('Decimal Separator', ATBDP_TEXTDOMAIN),
-                        'description' => __('Enter the currency decimal separator. Eg. "." or ",". Default is "."', ATBDP_TEXTDOMAIN),
+                        'label' => __('Decimal Separator', 'directorist'),
+                        'description' => __('Enter the currency decimal separator. Eg. "." or ",". Default is "."', 'directorist'),
                         'default' => '.',
                     ),
                     array(
                         'type' => 'select',
                         'name' => 'g_currency_position',
-                        'label' => __('Currency Position', ATBDP_TEXTDOMAIN),
-                        'description' => __('Select where you would like to show the currency symbol. Default is before. Eg. $5', ATBDP_TEXTDOMAIN),
+                        'label' => __('Currency Position', 'directorist'),
+                        'description' => __('Select where you would like to show the currency symbol. Default is before. Eg. $5', 'directorist'),
                         'default' => array(
                             'before',
                         ),
                         'items' => array(
                             array(
                                 'value' => 'before',
-                                'label' => __('$5 - Before', ATBDP_TEXTDOMAIN),
+                                'label' => __('$5 - Before', 'directorist'),
                             ),
                             array(
                                 'value' => 'after',
-                                'label' => __('After - 5$', ATBDP_TEXTDOMAIN),
+                                'label' => __('After - 5$', 'directorist'),
                             ),
                         ),
                     ),
@@ -2082,160 +2082,160 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'overwrite_by_yoast',
-                        'label' => __('Disable Overwrite by Yoast', ATBDP_TEXTDOMAIN),
-                        'description' => __('Here Yes means Directorist pages will use titles & metas settings from bellow. Otherwise it will use titles & metas settings from Yoast.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Disable Overwrite by Yoast', 'directorist'),
+                        'description' => __('Here Yes means Directorist pages will use titles & metas settings from bellow. Otherwise it will use titles & metas settings from Yoast.', 'directorist'),
                         'default' => 0,
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'add_listing_page_meta_title',
-                        'label' => __('Add Listing Page Meta Title', ATBDP_TEXTDOMAIN),
-                        'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Add Listing Page Meta Title', 'directorist'),
+                        'description' => __('Default the title of the page set as frontpage.', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'add_listing_page_meta_desc',
-                        'label' => __('Add Listing Page Meta Description', ATBDP_TEXTDOMAIN),
+                        'label' => __('Add Listing Page Meta Description', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'all_listing_meta_title',
-                        'label' => __('All Listing Page Meta Title', ATBDP_TEXTDOMAIN),
-                        'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        'label' => __('All Listing Page Meta Title', 'directorist'),
+                        'description' => __('Default the title of the page set as frontpage.', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'all_listing_meta_desc',
-                        'label' => __('All Listing Page Meta Description', ATBDP_TEXTDOMAIN),
+                        'label' => __('All Listing Page Meta Description', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'dashboard_meta_title',
-                        'label' => __('User Dashboard Page Meta Title', ATBDP_TEXTDOMAIN),
-                        'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        'label' => __('User Dashboard Page Meta Title', 'directorist'),
+                        'description' => __('Default the title of the page set as frontpage.', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'dashboard_meta_desc',
-                        'label' => __('Dashboard Page Meta Description', ATBDP_TEXTDOMAIN),
+                        'label' => __('Dashboard Page Meta Description', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'author_profile_meta_title',
-                        'label' => __('Author Page Meta Title', ATBDP_TEXTDOMAIN),
-                        'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Author Page Meta Title', 'directorist'),
+                        'description' => __('Default the title of the page set as frontpage.', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'author_page_meta_desc',
-                        'label' => __('Author Page Meta Description', ATBDP_TEXTDOMAIN),
+                        'label' => __('Author Page Meta Description', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'category_meta_title',
-                        'label' => __('Category Page Meta Title', ATBDP_TEXTDOMAIN),
-                        'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Category Page Meta Title', 'directorist'),
+                        'description' => __('Default the title of the page set as frontpage.', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'category_meta_desc',
-                        'label' => __('Category Page Meta Description', ATBDP_TEXTDOMAIN),
+                        'label' => __('Category Page Meta Description', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'single_category_meta_title',
-                        'label' => __('Single Category Page Meta Title', ATBDP_TEXTDOMAIN),
-                        'description' => __('Default the title of the category.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Single Category Page Meta Title', 'directorist'),
+                        'description' => __('Default the title of the category.', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'single_category_meta_desc',
-                        'label' => __('Single Category Page Meta Description', ATBDP_TEXTDOMAIN),
+                        'label' => __('Single Category Page Meta Description', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'all_locations_meta_title',
-                        'label' => __('All Locations Page Meta Title', ATBDP_TEXTDOMAIN),
-                        'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        'label' => __('All Locations Page Meta Title', 'directorist'),
+                        'description' => __('Default the title of the page set as frontpage.', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'all_locations_meta_desc',
-                        'label' => __('All Locations Page Meta Description', ATBDP_TEXTDOMAIN),
+                        'label' => __('All Locations Page Meta Description', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'single_locations_meta_title',
-                        'label' => __('Single Location Page Meta Title', ATBDP_TEXTDOMAIN),
-                        'description' => __('Default the title of the location.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Single Location Page Meta Title', 'directorist'),
+                        'description' => __('Default the title of the location.', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'single_locations_meta_desc',
-                        'label' => __('Single Locations Page Meta Description', ATBDP_TEXTDOMAIN),
+                        'label' => __('Single Locations Page Meta Description', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'registration_meta_title',
-                        'label' => __('Registration Page Meta Title', ATBDP_TEXTDOMAIN),
-                        'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Registration Page Meta Title', 'directorist'),
+                        'description' => __('Default the title of the page set as frontpage.', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'registration_meta_desc',
-                        'label' => __('Registration Page Meta Description', ATBDP_TEXTDOMAIN),
+                        'label' => __('Registration Page Meta Description', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'login_meta_title',
-                        'label' => __('Login Page Meta Title', ATBDP_TEXTDOMAIN),
-                        'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Login Page Meta Title', 'directorist'),
+                        'description' => __('Default the title of the page set as frontpage.', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'login_meta_desc',
-                        'label' => __('Login Page Meta Description', ATBDP_TEXTDOMAIN),
+                        'label' => __('Login Page Meta Description', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'homepage_meta_title',
-                        'label' => __('Search Home Page Meta Title', ATBDP_TEXTDOMAIN),
-                        'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Search Home Page Meta Title', 'directorist'),
+                        'description' => __('Default the title of the page set as frontpage.', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'homepage_meta_desc',
-                        'label' => __('Search Home Page Meta Description', ATBDP_TEXTDOMAIN),
+                        'label' => __('Search Home Page Meta Description', 'directorist'),
                     ),
                     array(
                         'type' => 'select',
                         'name' => 'meta_title_for_search_result',
-                        'label' => __('Search Result Page Meta Title', ATBDP_TEXTDOMAIN),
+                        'label' => __('Search Result Page Meta Title', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'searched_value',
-                                'label' => __('From User Search', ATBDP_TEXTDOMAIN),
+                                'label' => __('From User Search', 'directorist'),
                             ),
                             array(
                                 'value' => 'custom',
-                                'label' => __('Custom', ATBDP_TEXTDOMAIN),
+                                'label' => __('Custom', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'searched_value',
-                            'label' => __('From User Search', ATBDP_TEXTDOMAIN),
+                            'label' => __('From User Search', 'directorist'),
                         ),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_result_meta_title',
-                        'label' => __('Custom Meta Title', ATBDP_TEXTDOMAIN),
-                        'description' => __('Default the title of the page set as frontpage.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Custom Meta Title', 'directorist'),
+                        'description' => __('Default the title of the page set as frontpage.', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_result_meta_desc',
-                        'label' => __('Search Result Page Meta Description', ATBDP_TEXTDOMAIN),
+                        'label' => __('Search Result Page Meta Description', 'directorist'),
                     ),
 
                 )
@@ -2255,150 +2255,150 @@ The Administrator of ==SITE_NAME==
                     'new_listing_status' => array(
                         'type' => 'select',
                         'name' => 'new_listing_status',
-                        'label' => __('New Listing\'s Default Status', ATBDP_TEXTDOMAIN),
+                        'label' => __('New Listing\'s Default Status', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'publish',
-                                'label' => __('Published', ATBDP_TEXTDOMAIN),
+                                'label' => __('Published', 'directorist'),
                             ),
                             array(
                                 'value' => 'pending',
-                                'label' => __('Pending', ATBDP_TEXTDOMAIN),
+                                'label' => __('Pending', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'publish',
-                            'label' => __('Published', ATBDP_TEXTDOMAIN),
+                            'label' => __('Published', 'directorist'),
                         ),
                     ),
                     'edit_listing_status' => array(
                         'type' => 'select',
                         'name' => 'edit_listing_status',
-                        'label' => __('Edited Listing\'s Default Status', ATBDP_TEXTDOMAIN),
+                        'label' => __('Edited Listing\'s Default Status', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'publish',
-                                'label' => __('Published', ATBDP_TEXTDOMAIN),
+                                'label' => __('Published', 'directorist'),
                             ),
                             array(
                                 'value' => 'pending',
-                                'label' => __('Pending', ATBDP_TEXTDOMAIN),
+                                'label' => __('Pending', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'publish',
-                            'label' => __('Published', ATBDP_TEXTDOMAIN),
+                            'label' => __('Published', 'directorist'),
                         ),
                     ),
 
                     'display_listings_header' => array(
                         'type' => 'toggle',
                         'name' => 'display_listings_header',
-                        'label' => __('Display Header', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Header', 'directorist'),
                         'default' => 1,
                     ),
                     'all_listing_title' => array(
                         'type' => 'textbox',
                         'name' => 'all_listing_title',
-                        'label' => __('Header Title', ATBDP_TEXTDOMAIN),
-                        'default' => __('Total Listings Found:', ATBDP_TEXTDOMAIN),
+                        'label' => __('Header Title', 'directorist'),
+                        'default' => __('Total Listings Found:', 'directorist'),
                     ),
                     'listing_filters_button' => array(
                         'type' => 'toggle',
                         'name' => 'listing_filters_button',
-                        'label' => __('Display Filters Button', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Filters Button', 'directorist'),
                         'default' => 1,
                     ),
 
                     'listings_filter_button_text' => array(
                         'type' => 'textbox',
                         'name' => 'listings_filter_button_text',
-                        'label' => __('Filters Button Text', ATBDP_TEXTDOMAIN),
-                        'default' => __('Filters', ATBDP_TEXTDOMAIN),
+                        'label' => __('Filters Button Text', 'directorist'),
+                        'default' => __('Filters', 'directorist'),
                     ),
                     'listings_display_filter' => array(
                         'type' => 'select',
                         'name' => 'listings_display_filter',
-                        'label' => __('Open Filter Fields', ATBDP_TEXTDOMAIN),
+                        'label' => __('Open Filter Fields', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'overlapping',
-                                'label' => __('Overlapping', ATBDP_TEXTDOMAIN),
+                                'label' => __('Overlapping', 'directorist'),
                             ),
                             array(
                                 'value' => 'sliding',
-                                'label' => __('Sliding', ATBDP_TEXTDOMAIN),
+                                'label' => __('Sliding', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'sliding',
-                            'label' => __('Sliding', ATBDP_TEXTDOMAIN),
+                            'label' => __('Sliding', 'directorist'),
                         ),
                     ),
                     'listing_filters_fields' => array(
                         'type' => 'checkbox',
                         'name' => 'listing_filters_fields',
-                        'label' => __('Filter Fields', ATBDP_TEXTDOMAIN),
+                        'label' => __('Filter Fields', 'directorist'),
                         'validation' => 'minselected[0]|maxselected[15]',
                         'items' => array(
                             array(
                                 'value' => 'search_text',
-                                'label' => __('Text', ATBDP_TEXTDOMAIN),
+                                'label' => __('Text', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_category',
-                                'label' => __('Category', ATBDP_TEXTDOMAIN),
+                                'label' => __('Category', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_location',
-                                'label' => __('Location', ATBDP_TEXTDOMAIN),
+                                'label' => __('Location', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_price',
-                                'label' => __('Price (Min - Max)', ATBDP_TEXTDOMAIN),
+                                'label' => __('Price (Min - Max)', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_price_range',
-                                'label' => __('Price Range', ATBDP_TEXTDOMAIN),
+                                'label' => __('Price Range', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_rating',
-                                'label' => __('Rating', ATBDP_TEXTDOMAIN),
+                                'label' => __('Rating', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_tag',
-                                'label' => __('Tag', ATBDP_TEXTDOMAIN),
+                                'label' => __('Tag', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_open_now',
-                                'label' => sprintf(__('Open Now %s', ATBDP_TEXTDOMAIN), !class_exists('BD_Business_Hour')?$business_hours:'')),
+                                'label' => sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour')?$business_hours:'')),
                             array(
                                 'value' => 'search_custom_fields',
-                                'label' => __('Custom Fields', ATBDP_TEXTDOMAIN),
+                                'label' => __('Custom Fields', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_website',
-                                'label' => __('Website', ATBDP_TEXTDOMAIN),
+                                'label' => __('Website', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_email',
-                                'label' => __('Email', ATBDP_TEXTDOMAIN),
+                                'label' => __('Email', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_phone',
-                                'label' => __('Phone', ATBDP_TEXTDOMAIN),
+                                'label' => __('Phone', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_fax',
-                                'label' => __('Fax', ATBDP_TEXTDOMAIN),
+                                'label' => __('Fax', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_address',
-                                'label' => __('Address', ATBDP_TEXTDOMAIN),
+                                'label' => __('Address', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_zip_code',
-                                'label' => __('Zip/Post Code', ATBDP_TEXTDOMAIN),
+                                'label' => __('Zip/Post Code', 'directorist'),
                             ),
                         ),
                         'default' => array(
@@ -2415,16 +2415,16 @@ The Administrator of ==SITE_NAME==
                     'listings_filters_button' =>  array(
                         'type' => 'checkbox',
                         'name' => 'listings_filters_button',
-                        'label' => __('Filter Buttons', ATBDP_TEXTDOMAIN),
+                        'label' => __('Filter Buttons', 'directorist'),
                         'validation' => 'minselected[0]|maxselected[5]',
                         'items' => array(
                             array(
                                 'value' => 'reset_button',
-                                'label' => __('Reset', ATBDP_TEXTDOMAIN),
+                                'label' => __('Reset', 'directorist'),
                             ),
                             array(
                                 'value' => 'apply_button',
-                                'label' => __('Apply', ATBDP_TEXTDOMAIN),
+                                'label' => __('Apply', 'directorist'),
                             ),
                         ),
                         'default' => array(
@@ -2435,82 +2435,82 @@ The Administrator of ==SITE_NAME==
                     'listings_reset_text' => array(
                         'type' => 'textbox',
                         'name' => 'listings_reset_text',
-                        'label' => __('Reset Filters Button text', ATBDP_TEXTDOMAIN),
-                        'default' => __('Reset Filters', ATBDP_TEXTDOMAIN),
+                        'label' => __('Reset Filters Button text', 'directorist'),
+                        'default' => __('Reset Filters', 'directorist'),
                     ),
                     'listings_apply_text' =>  array(
                         'type' => 'textbox',
                         'name' => 'listings_apply_text',
-                        'label' => __('Apply Filters Button text', ATBDP_TEXTDOMAIN),
-                        'default' => __('Apply Filters', ATBDP_TEXTDOMAIN),
+                        'label' => __('Apply Filters Button text', 'directorist'),
+                        'default' => __('Apply Filters', 'directorist'),
                     ),
                     'listings_search_text_placeholder' =>  array(
                         'type' => 'textbox',
                         'name' => 'listings_search_text_placeholder',
-                        'label' => __('Search Bar Placeholder', ATBDP_TEXTDOMAIN),
-                        'default' => __('What are you looking for?', ATBDP_TEXTDOMAIN),
+                        'label' => __('Search Bar Placeholder', 'directorist'),
+                        'default' => __('What are you looking for?', 'directorist'),
                     ),
                     'listings_category_placeholder' =>  array(
                         'type' => 'textbox',
                         'name' => 'listings_category_placeholder',
-                        'label' => __('Category Placeholder', ATBDP_TEXTDOMAIN),
-                        'default' => __('Select a category', ATBDP_TEXTDOMAIN),
+                        'label' => __('Category Placeholder', 'directorist'),
+                        'default' => __('Select a category', 'directorist'),
                     ),
                     'listings_location_placeholder' =>  array(
                         'type' => 'textbox',
                         'name' => 'listings_location_placeholder',
-                        'label' => __('Location Placeholder', ATBDP_TEXTDOMAIN),
-                        'default' => __('Select a location', ATBDP_TEXTDOMAIN),
+                        'label' => __('Location Placeholder', 'directorist'),
+                        'default' => __('Select a location', 'directorist'),
                     ),
                     'display_sort_by' =>  array(
                         'type' => 'toggle',
                         'name' => 'display_sort_by',
-                        'label' => __('Display "Sort By" Dropdown', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display "Sort By" Dropdown', 'directorist'),
                         'default' => 1,
                     ),
                     'sort_by_text' =>  array(
                         'type' => 'textbox',
                         'name' => 'sort_by_text',
-                        'label' => __('"Sort By" Text', ATBDP_TEXTDOMAIN),
-                        'default' => __('Sort By', ATBDP_TEXTDOMAIN),
+                        'label' => __('"Sort By" Text', 'directorist'),
+                        'default' => __('Sort By', 'directorist'),
                     ),
                     'listings_sort_by_items' =>  array(
                         'type' => 'checkbox',
                         'name' => 'listings_sort_by_items',
-                        'label' => __('"Sort By" Dropdown', ATBDP_TEXTDOMAIN),
+                        'label' => __('"Sort By" Dropdown', 'directorist'),
                         'validation' => 'minselected[0]|maxselected[10]',
                         'items' => array(
                             array(
                                 'value' => 'a_z',
-                                'label' => __('A to Z (title)', ATBDP_TEXTDOMAIN),
+                                'label' => __('A to Z (title)', 'directorist'),
                             ),
                             array(
                                 'value' => 'z_a',
-                                'label' => __('Z to A (title)', ATBDP_TEXTDOMAIN),
+                                'label' => __('Z to A (title)', 'directorist'),
                             ),
                             array(
                                 'value' => 'latest',
-                                'label' => __('Latest listings', ATBDP_TEXTDOMAIN),
+                                'label' => __('Latest listings', 'directorist'),
                             ),
                             array(
                                 'value' => 'oldest',
-                                'label' => __('Oldest listings', ATBDP_TEXTDOMAIN),
+                                'label' => __('Oldest listings', 'directorist'),
                             ),
                             array(
                                 'value' => 'popular',
-                                'label' => __('Popular listings', ATBDP_TEXTDOMAIN),
+                                'label' => __('Popular listings', 'directorist'),
                             ),
                             array(
                                 'value' => 'price_low_high',
-                                'label' => __('Price (low to high)', ATBDP_TEXTDOMAIN),
+                                'label' => __('Price (low to high)', 'directorist'),
                             ),
                             array(
                                 'value' => 'price_high_low',
-                                'label' => __('Price (high to low)', ATBDP_TEXTDOMAIN),
+                                'label' => __('Price (high to low)', 'directorist'),
                             ),
                             array(
                                 'value' => 'random',
-                                'label' => __('Random listings', ATBDP_TEXTDOMAIN),
+                                'label' => __('Random listings', 'directorist'),
                             ),
                         ),
                         'default' => array(
@@ -2527,32 +2527,32 @@ The Administrator of ==SITE_NAME==
                     'display_view_as' => array(
                         'type' => 'toggle',
                         'name' => 'display_view_as',
-                        'label' => __('Display "View As" Dropdown', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display "View As" Dropdown', 'directorist'),
                         'default' => 1,
                     ),
                     'view_as_text' =>  array(
                         'type' => 'textbox',
                         'name' => 'view_as_text',
-                        'label' => __('"View As" Text', ATBDP_TEXTDOMAIN),
-                        'default' => __('View As', ATBDP_TEXTDOMAIN),
+                        'label' => __('"View As" Text', 'directorist'),
+                        'default' => __('View As', 'directorist'),
                     ),
                     'listings_view_as_items' => array(
                         'type' => 'checkbox',
                         'name' => 'listings_view_as_items',
-                        'label' => __('"View As" Dropdown', ATBDP_TEXTDOMAIN),
+                        'label' => __('"View As" Dropdown', 'directorist'),
                         'validation' => 'minselected[0]|maxselected[3]',
                         'items' => array(
                             array(
                                 'value' => 'listings_grid',
-                                'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                                'label' => __('Grid', 'directorist'),
                             ),
                             array(
                                 'value' => 'listings_list',
-                                'label' => __('List', ATBDP_TEXTDOMAIN),
+                                'label' => __('List', 'directorist'),
                             ),
                             array(
                                 'value' => 'listings_map',
-                                'label' => __('Map', ATBDP_TEXTDOMAIN),
+                                'label' => __('Map', 'directorist'),
                             ),
                         ),
                         'default' => array(
@@ -2564,49 +2564,49 @@ The Administrator of ==SITE_NAME==
                     'default_listing_view' => array(
                         'type' => 'select',
                         'name' => 'default_listing_view',
-                        'label' => __('Default View', ATBDP_TEXTDOMAIN),
+                        'label' => __('Default View', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'grid',
-                                'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                                'label' => __('Grid', 'directorist'),
                             ),
                             array(
                                 'value' => 'list',
-                                'label' => __('List', ATBDP_TEXTDOMAIN),
+                                'label' => __('List', 'directorist'),
                             ),
                             array(
                                 'value' => 'map',
-                                'label' => __('Map', ATBDP_TEXTDOMAIN),
+                                'label' => __('Map', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'grid',
-                            'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                            'label' => __('Grid', 'directorist'),
                         ),
                     ),
                     'grid_view_as' => array(
                         'type' => 'select',
                         'name' => 'grid_view_as',
-                        'label' => __('Grid View', ATBDP_TEXTDOMAIN),
+                        'label' => __('Grid View', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'masonry_grid',
-                                'label' => __('Masonry', ATBDP_TEXTDOMAIN),
+                                'label' => __('Masonry', 'directorist'),
                             ),
                             array(
                                 'value' => 'normal_grid',
-                                'label' => __('Normal', ATBDP_TEXTDOMAIN),
+                                'label' => __('Normal', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'normal_grid',
-                            'label' => __('Normal', ATBDP_TEXTDOMAIN),
+                            'label' => __('Normal', 'directorist'),
                         ),
                     ),
                     'all_listing_columns' => array(
                         'type' => 'slider',
                         'name' => 'all_listing_columns',
-                        'label' => __('Number of Columns', ATBDP_TEXTDOMAIN),
+                        'label' => __('Number of Columns', 'directorist'),
                         'min' => '1',
                         'max' => '5',
                         'step' => '1',
@@ -2616,43 +2616,43 @@ The Administrator of ==SITE_NAME==
                     'order_listing_by' =>  array(
                         'type' => 'select',
                         'name' => 'order_listing_by',
-                        'label' => __('Listings Order By', ATBDP_TEXTDOMAIN),
+                        'label' => __('Listings Order By', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'title',
-                                'label' => __('Title', ATBDP_TEXTDOMAIN),
+                                'label' => __('Title', 'directorist'),
                             ),
                             array(
                                 'value' => 'date',
-                                'label' => __('Date', ATBDP_TEXTDOMAIN),
+                                'label' => __('Date', 'directorist'),
                             ),
                             array(
                                 'value' => 'price',
-                                'label' => __('Price', ATBDP_TEXTDOMAIN),
+                                'label' => __('Price', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'date',
-                            'label' => __('Date', ATBDP_TEXTDOMAIN),
+                            'label' => __('Date', 'directorist'),
                         ),
                     ),
                     'sort_listing_by' =>  array(
                         'type' => 'select',
                         'name' => 'sort_listing_by',
-                        'label' => __('Listings Sort By', ATBDP_TEXTDOMAIN),
+                        'label' => __('Listings Sort By', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'asc',
-                                'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                                'label' => __('Ascending', 'directorist'),
                             ),
                             array(
                                 'value' => 'desc',
-                                'label' => __('Descending', ATBDP_TEXTDOMAIN),
+                                'label' => __('Descending', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'desc',
-                            'label' => __('Descending', ATBDP_TEXTDOMAIN),
+                            'label' => __('Descending', 'directorist'),
                         ),
                     ),
 
@@ -2672,27 +2672,27 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'display_categories_as',
-                        'label' => __('Default View', ATBDP_TEXTDOMAIN),
+                        'label' => __('Default View', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'grid',
-                                'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                                'label' => __('Grid', 'directorist'),
                             ),
                             array(
                                 'value' => 'list',
-                                'label' => __('List', ATBDP_TEXTDOMAIN),
+                                'label' => __('List', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'grid',
-                            'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                            'label' => __('Grid', 'directorist'),
                         ),
                     ),
                     array(
                         'type' => 'slider',
                         'name' => 'categories_column_number',
-                        'label' => __('Number of  Columns', ATBDP_TEXTDOMAIN),
-                        'description' => __('Set how many columns to display on categories page.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Number of  Columns', 'directorist'),
+                        'description' => __('Set how many columns to display on categories page.', 'directorist'),
                         'min' => '1',
                         'max' => '5',
                         'step' => '1',
@@ -2702,8 +2702,8 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'slider',
                         'name' => 'categories_depth_number',
-                        'label' => __('Sub-category Depth', ATBDP_TEXTDOMAIN),
-                        'description' => __('Set how many sub-categories to display.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Sub-category Depth', 'directorist'),
+                        'description' => __('Set how many sub-categories to display.', 'directorist'),
                         'min' => '1',
                         'max' => '15',
                         'step' => '1',
@@ -2713,59 +2713,59 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'order_category_by',
-                        'label' => __('Categories Order By', ATBDP_TEXTDOMAIN),
+                        'label' => __('Categories Order By', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'id',
-                                'label' => __('ID', ATBDP_TEXTDOMAIN),
+                                'label' => __('ID', 'directorist'),
                             ),
                             array(
                                 'value' => 'count',
-                                'label' => __('Count', ATBDP_TEXTDOMAIN),
+                                'label' => __('Count', 'directorist'),
                             ),
                             array(
                                 'value' => 'name',
-                                'label' => __('Name', ATBDP_TEXTDOMAIN),
+                                'label' => __('Name', 'directorist'),
                             ),
                             array(
                                 'value' => 'slug',
-                                'label' => __('Slug', ATBDP_TEXTDOMAIN),
+                                'label' => __('Slug', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'id',
-                            'label' => __('ID', ATBDP_TEXTDOMAIN),
+                            'label' => __('ID', 'directorist'),
                         ),
                     ),
                     array(
                         'type' => 'select',
                         'name' => 'sort_category_by',
-                        'label' => __('Categories Sort By', ATBDP_TEXTDOMAIN),
+                        'label' => __('Categories Sort By', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'asc',
-                                'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                                'label' => __('Ascending', 'directorist'),
                             ),
                             array(
                                 'value' => 'desc',
-                                'label' => __('Descending', ATBDP_TEXTDOMAIN),
+                                'label' => __('Descending', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'asc',
-                            'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                            'label' => __('Ascending', 'directorist'),
                         ),
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'display_listing_count',
-                        'label' => __('Display Listing Count', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Listing Count', 'directorist'),
                         'default' => 1,
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'hide_empty_categories',
-                        'label' => __('Hide Empty Categories', ATBDP_TEXTDOMAIN),
+                        'label' => __('Hide Empty Categories', 'directorist'),
                         'default' => 0,
                     ),
 
@@ -2784,27 +2784,27 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'display_locations_as',
-                        'label' => __('Default View', ATBDP_TEXTDOMAIN),
+                        'label' => __('Default View', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'grid',
-                                'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                                'label' => __('Grid', 'directorist'),
                             ),
                             array(
                                 'value' => 'list',
-                                'label' => __('List', ATBDP_TEXTDOMAIN),
+                                'label' => __('List', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'grid',
-                            'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                            'label' => __('Grid', 'directorist'),
                         ),
                     ),
                     array(
                         'type' => 'slider',
                         'name' => 'locations_column_number',
-                        'label' => __('Number of  Columns', ATBDP_TEXTDOMAIN),
-                        'description' => __('Set how many columns to display on locations page.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Number of  Columns', 'directorist'),
+                        'description' => __('Set how many columns to display on locations page.', 'directorist'),
                         'min' => '1',
                         'max' => '5',
                         'step' => '1',
@@ -2814,8 +2814,8 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'slider',
                         'name' => 'locations_depth_number',
-                        'label' => __('Sub-location Depth', ATBDP_TEXTDOMAIN),
-                        'description' => __('Set how many sub-locations to display.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Sub-location Depth', 'directorist'),
+                        'description' => __('Set how many sub-locations to display.', 'directorist'),
                         'min' => '1',
                         'max' => '15',
                         'step' => '1',
@@ -2825,59 +2825,59 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'order_location_by',
-                        'label' => __('Locations Order By', ATBDP_TEXTDOMAIN),
+                        'label' => __('Locations Order By', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'id',
-                                'label' => __('ID', ATBDP_TEXTDOMAIN),
+                                'label' => __('ID', 'directorist'),
                             ),
                             array(
                                 'value' => 'count',
-                                'label' => __('Count', ATBDP_TEXTDOMAIN),
+                                'label' => __('Count', 'directorist'),
                             ),
                             array(
                                 'value' => 'name',
-                                'label' => __('Name', ATBDP_TEXTDOMAIN),
+                                'label' => __('Name', 'directorist'),
                             ),
                             array(
                                 'value' => 'slug',
-                                'label' => __('Slug', ATBDP_TEXTDOMAIN),
+                                'label' => __('Slug', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'id',
-                            'label' => __('ID', ATBDP_TEXTDOMAIN),
+                            'label' => __('ID', 'directorist'),
                         ),
                     ),
                     array(
                         'type' => 'select',
                         'name' => 'sort_location_by',
-                        'label' => __('Locations Sort By', ATBDP_TEXTDOMAIN),
+                        'label' => __('Locations Sort By', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'asc',
-                                'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                                'label' => __('Ascending', 'directorist'),
                             ),
                             array(
                                 'value' => 'desc',
-                                'label' => __('Descending', ATBDP_TEXTDOMAIN),
+                                'label' => __('Descending', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'asc',
-                            'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                            'label' => __('Ascending', 'directorist'),
                         ),
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'display_location_listing_count',
-                        'label' => __('Display Listing Count', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Listing Count', 'directorist'),
                         'default' => 1,
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'hide_empty_locations',
-                        'label' => __('Hide Empty Locations', ATBDP_TEXTDOMAIN),
+                        'label' => __('Hide Empty Locations', 'directorist'),
                         'default' => 0,
                     ),
 
@@ -2898,39 +2898,39 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'textbox',
                         'name' => 'search_title',
-                        'label' => __('Search Bar Title', ATBDP_TEXTDOMAIN),
-                        'description' => __('Enter the title for search bar on Home Page.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Search Bar Title', 'directorist'),
+                        'description' => __('Enter the title for search bar on Home Page.', 'directorist'),
                         'default' => atbdp_get_option('search_title', 'atbdp_general'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_subtitle',
-                        'label' => __('Search Bar Sub-title', ATBDP_TEXTDOMAIN),
+                        'label' => __('Search Bar Sub-title', 'directorist'),
                         'default' => atbdp_get_option('search_subtitle', 'atbdp_general'),
                     ),
                    'search_border_show' => array(
                         'type' => 'toggle',
                         'name' => 'search_border',
-                        'label' => __('Search Bar Border', ATBDP_TEXTDOMAIN),
+                        'label' => __('Search Bar Border', 'directorist'),
                         'default' => 1,
                     ),
                     array(
                         'type' => 'checkbox',
                         'name' => 'search_tsc_fields',
-                        'label' => __('Search Fields', ATBDP_TEXTDOMAIN),
+                        'label' => __('Search Fields', 'directorist'),
                         'validation' => 'minselected[0]|maxselected[3]',
                         'items' => array(
                             array(
                                 'value' => 'search_text',
-                                'label' => __('Text', ATBDP_TEXTDOMAIN),
+                                'label' => __('Text', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_category',
-                                'label' => __('Category', ATBDP_TEXTDOMAIN),
+                                'label' => __('Category', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_location',
-                                'label' => __('Location', ATBDP_TEXTDOMAIN),
+                                'label' => __('Location', 'directorist'),
                             ),
                         ),
                         'default' => array(
@@ -2940,122 +2940,122 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'require_search_text',
-                        'label' => __('Required Text Field', ATBDP_TEXTDOMAIN),
+                        'label' => __('Required Text Field', 'directorist'),
                         'default' => 0,
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'require_search_category',
-                        'label' => __('Required Category Field', ATBDP_TEXTDOMAIN),
+                        'label' => __('Required Category Field', 'directorist'),
                         'default' => 0,
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'require_search_location',
-                        'label' => __('Required Location Field', ATBDP_TEXTDOMAIN),
+                        'label' => __('Required Location Field', 'directorist'),
                         'default' => 0,
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_placeholder',
-                        'label' => __('Search Bar Placeholder', ATBDP_TEXTDOMAIN),
-                        'default' => __('What are you looking for?', ATBDP_TEXTDOMAIN),
+                        'label' => __('Search Bar Placeholder', 'directorist'),
+                        'default' => __('What are you looking for?', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_category_placeholder',
-                        'label' => __('Category Placeholder', ATBDP_TEXTDOMAIN),
-                        'default' => __('Select a category', ATBDP_TEXTDOMAIN),
+                        'label' => __('Category Placeholder', 'directorist'),
+                        'default' => __('Select a category', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_location_placeholder',
-                        'label' => __('Location Placeholder', ATBDP_TEXTDOMAIN),
-                        'default' => __('Select a location', ATBDP_TEXTDOMAIN),
+                        'label' => __('Location Placeholder', 'directorist'),
+                        'default' => __('Select a location', 'directorist'),
                     ),
                    'display_more_filter' => array(
                         'type' => 'toggle',
                         'name' => 'search_more_filter',
-                        'label' => __('Display More Filters', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display More Filters', 'directorist'),
                         'default' => 1,
                     ),
                     'display_search_button' => array(
                         'type' => 'toggle',
                         'name' => 'search_button',
-                        'label' => __('Display Search Button', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Search Button', 'directorist'),
                         'default' => 1,
                     ),
                     array(
                         'type' => 'select',
                         'name' => 'home_display_filter',
-                        'label' => __('Open Filter Fields', ATBDP_TEXTDOMAIN),
+                        'label' => __('Open Filter Fields', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'overlapping',
-                                'label' => __('Overlapping', ATBDP_TEXTDOMAIN),
+                                'label' => __('Overlapping', 'directorist'),
                             ),
                             array(
                                 'value' => 'sliding',
-                                'label' => __('Sliding', ATBDP_TEXTDOMAIN),
+                                'label' => __('Sliding', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'sliding',
-                            'label' => __('Sliding', ATBDP_TEXTDOMAIN),
+                            'label' => __('Sliding', 'directorist'),
                         ),
                     ),
                     array(
                         'type' => 'checkbox',
                         'name' => 'search_more_filters_fields',
-                        'label' => __('Filter Fields', ATBDP_TEXTDOMAIN),
+                        'label' => __('Filter Fields', 'directorist'),
                         'validation' => 'minselected[0]|maxselected[12]',
                         'items' => array(
                             array(
                                 'value' => 'search_price',
-                                'label' => __('Price (Min - Max)', ATBDP_TEXTDOMAIN),
+                                'label' => __('Price (Min - Max)', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_price_range',
-                                'label' => __('Price Range', ATBDP_TEXTDOMAIN),
+                                'label' => __('Price Range', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_rating',
-                                'label' => __('Rating', ATBDP_TEXTDOMAIN),
+                                'label' => __('Rating', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_tag',
-                                'label' => __('Tag', ATBDP_TEXTDOMAIN),
+                                'label' => __('Tag', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_open_now',
-                                'label' => sprintf(__('Open Now %s', ATBDP_TEXTDOMAIN), !class_exists('BD_Business_Hour')?$business_hours:'')),
+                                'label' => sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour')?$business_hours:'')),
                             array(
                                 'value' => 'search_custom_fields',
-                                'label' => __('Custom Fields', ATBDP_TEXTDOMAIN),
+                                'label' => __('Custom Fields', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_website',
-                                'label' => __('Website', ATBDP_TEXTDOMAIN),
+                                'label' => __('Website', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_email',
-                                'label' => __('Email', ATBDP_TEXTDOMAIN),
+                                'label' => __('Email', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_phone',
-                                'label' => __('Phone', ATBDP_TEXTDOMAIN),
+                                'label' => __('Phone', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_fax',
-                                'label' => __('Fax', ATBDP_TEXTDOMAIN),
+                                'label' => __('Fax', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_address',
-                                'label' => __('Address', ATBDP_TEXTDOMAIN),
+                                'label' => __('Address', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_zip_code',
-                                'label' => __('Zip/Post Code', ATBDP_TEXTDOMAIN),
+                                'label' => __('Zip/Post Code', 'directorist'),
                             ),
                         ),
                         'default' => array(
@@ -3065,16 +3065,16 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'checkbox',
                         'name' => 'search_filters',
-                        'label' => __('Filters Button', ATBDP_TEXTDOMAIN),
+                        'label' => __('Filters Button', 'directorist'),
                         'validation' => 'minselected[0]|maxselected[2]',
                         'items' => array(
                             array(
                                 'value' => 'search_reset_filters',
-                                'label' => __('Reset', ATBDP_TEXTDOMAIN),
+                                'label' => __('Reset', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_apply_filters',
-                                'label' => __('Apply', ATBDP_TEXTDOMAIN),
+                                'label' => __('Apply', 'directorist'),
                             ),
                         ),
                         'default' => array(
@@ -3084,59 +3084,59 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'textbox',
                         'name' => 'search_listing_text',
-                        'label' => __('Search Button Text', ATBDP_TEXTDOMAIN),
-                        'default' => __('Search Listing', ATBDP_TEXTDOMAIN)
+                        'label' => __('Search Button Text', 'directorist'),
+                        'default' => __('Search Listing', 'directorist')
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_more_filters',
-                        'label' => __('More Filters Button Text', ATBDP_TEXTDOMAIN),
-                        'default' => __('More Filters', ATBDP_TEXTDOMAIN)
+                        'label' => __('More Filters Button Text', 'directorist'),
+                        'default' => __('More Filters', 'directorist')
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_reset_text',
-                        'label' => __('Reset Filters Button Text', ATBDP_TEXTDOMAIN),
-                        'default' => __('Reset Filters', ATBDP_TEXTDOMAIN)
+                        'label' => __('Reset Filters Button Text', 'directorist'),
+                        'default' => __('Reset Filters', 'directorist')
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_apply_filter',
-                        'label' => __('Apply Filters Button Text', ATBDP_TEXTDOMAIN),
-                        'default' => __('Apply Filters', ATBDP_TEXTDOMAIN)
+                        'label' => __('Apply Filters Button Text', 'directorist'),
+                        'default' => __('Apply Filters', 'directorist')
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'show_popular_category',
-                        'label' => __('Display Popular Categories', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Popular Categories', 'directorist'),
                         'default' => '0',
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'show_connector',
-                        'label' => __('Display Connector', ATBDP_TEXTDOMAIN),
-                        'description' => __('Whether to display a connector between Search Bar and Popular Categories.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Connector', 'directorist'),
+                        'description' => __('Whether to display a connector between Search Bar and Popular Categories.', 'directorist'),
                         'default' => '0',
                     ),
 
                     array(
                         'type' => 'textbox',
                         'name' => 'connectors_title',
-                        'label' => __('Connector Text', ATBDP_TEXTDOMAIN),
-                        'default' => __('Or', ATBDP_TEXTDOMAIN),
+                        'label' => __('Connector Text', 'directorist'),
+                        'default' => __('Or', 'directorist'),
                     ),
 
                     array(
                         'type' => 'textbox',
                         'name' => 'popular_cat_title',
-                        'label' => __('Popular Categories Title', ATBDP_TEXTDOMAIN),
-                        'default' => __('Browse by popular categories', ATBDP_TEXTDOMAIN),
+                        'label' => __('Popular Categories Title', 'directorist'),
+                        'default' => __('Browse by popular categories', 'directorist'),
                     ),
 
                     array(
                         'type' => 'slider',
                         'name' => 'popular_cat_num',
-                        'label' => __('Number of Popular Categories', ATBDP_TEXTDOMAIN),
+                        'label' => __('Number of Popular Categories', 'directorist'),
                         'min' => '1',
                         'max' => '30',
                         'step' => '1',
@@ -3146,7 +3146,7 @@ The Administrator of ==SITE_NAME==
                    'search_home_background' => array(
                         'type' => 'upload',
                         'name' => 'search_home_bg',
-                        'label' => __('Search Page Background', ATBDP_TEXTDOMAIN),
+                        'label' => __('Search Page Background', 'directorist'),
                     ),
 
                 )
@@ -3165,106 +3165,106 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'search_header',
-                        'label' => __('Display Header', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Header', 'directorist'),
                         'default' => 1,
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_header_title',
-                        'label' => __('Header Title', ATBDP_TEXTDOMAIN),
-                        'default' => __('Search Result ', ATBDP_TEXTDOMAIN),
+                        'label' => __('Header Title', 'directorist'),
+                        'default' => __('Search Result ', 'directorist'),
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'search_result_filters_button_display',
-                        'label' => __('Display Filters Button', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Filters Button', 'directorist'),
                         'default' => 1,
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_result_filter_button_text',
-                        'label' => __('Filters Button Text', ATBDP_TEXTDOMAIN),
-                        'default' => __('Filters', ATBDP_TEXTDOMAIN),
+                        'label' => __('Filters Button Text', 'directorist'),
+                        'default' => __('Filters', 'directorist'),
                     ),
                     array(
                         'type' => 'select',
                         'name' => 'search_result_display_filter',
-                        'label' => __('Open Filter Fields', ATBDP_TEXTDOMAIN),
+                        'label' => __('Open Filter Fields', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'overlapping',
-                                'label' => __('Overlapping', ATBDP_TEXTDOMAIN),
+                                'label' => __('Overlapping', 'directorist'),
                             ),
                             array(
                                 'value' => 'sliding',
-                                'label' => __('Sliding', ATBDP_TEXTDOMAIN),
+                                'label' => __('Sliding', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'sliding',
-                            'label' => __('Sliding', ATBDP_TEXTDOMAIN),
+                            'label' => __('Sliding', 'directorist'),
                         ),
                     ),
                     array(
                         'type' => 'checkbox',
                         'name' => 'search_result_filters_fields',
-                        'label' => __('Filter Fields', ATBDP_TEXTDOMAIN),
+                        'label' => __('Filter Fields', 'directorist'),
                         'validation' => 'minselected[0]|maxselected[15]',
                         'items' => array(
                             array(
                                 'value' => 'search_text',
-                                'label' => __('Text', ATBDP_TEXTDOMAIN),
+                                'label' => __('Text', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_category',
-                                'label' => __('Category', ATBDP_TEXTDOMAIN),
+                                'label' => __('Category', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_location',
-                                'label' => __('Location', ATBDP_TEXTDOMAIN),
+                                'label' => __('Location', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_price',
-                                'label' => __('Price (Min - Max)', ATBDP_TEXTDOMAIN),
+                                'label' => __('Price (Min - Max)', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_price_range',
-                                'label' => __('Price Range', ATBDP_TEXTDOMAIN),
+                                'label' => __('Price Range', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_rating',
-                                'label' => __('Rating', ATBDP_TEXTDOMAIN),
+                                'label' => __('Rating', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_tag',
-                                'label' => __('Tag', ATBDP_TEXTDOMAIN),
+                                'label' => __('Tag', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_open_now',
-                                'label' => sprintf(__('Open Now %s', ATBDP_TEXTDOMAIN), !class_exists('BD_Business_Hour')?$business_hours:'')),
+                                'label' => sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour')?$business_hours:'')),
                             array(
                                 'value' => 'search_custom_fields',
-                                'label' => __('Custom Fields', ATBDP_TEXTDOMAIN),
+                                'label' => __('Custom Fields', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_website',
-                                'label' => __('Website', ATBDP_TEXTDOMAIN),
+                                'label' => __('Website', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_email',
-                                'label' => __('Email', ATBDP_TEXTDOMAIN),
+                                'label' => __('Email', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_phone',
-                                'label' => __('Phone', ATBDP_TEXTDOMAIN),
+                                'label' => __('Phone', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_address',
-                                'label' => __('Address', ATBDP_TEXTDOMAIN),
+                                'label' => __('Address', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_zip_code',
-                                'label' => __('Zip/Post Code', ATBDP_TEXTDOMAIN),
+                                'label' => __('Zip/Post Code', 'directorist'),
                             ),
                         ),
                         'default' => array(
@@ -3281,16 +3281,16 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'checkbox',
                         'name' => 'search_result_filters_button',
-                        'label' => __('Filters Button', ATBDP_TEXTDOMAIN),
+                        'label' => __('Filters Button', 'directorist'),
                         'validation' => 'minselected[0]|maxselected[5]',
                         'items' => array(
                             array(
                                 'value' => 'reset_button',
-                                'label' => __('Reset', ATBDP_TEXTDOMAIN),
+                                'label' => __('Reset', 'directorist'),
                             ),
                             array(
                                 'value' => 'apply_button',
-                                'label' => __('Apply', ATBDP_TEXTDOMAIN),
+                                'label' => __('Apply', 'directorist'),
                             ),
                         ),
                         'default' => array(
@@ -3301,62 +3301,62 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'textbox',
                         'name' => 'sresult_reset_text',
-                        'label' => __('Reset Filters Button text', ATBDP_TEXTDOMAIN),
-                        'default' => __('Reset Filters', ATBDP_TEXTDOMAIN),
+                        'label' => __('Reset Filters Button text', 'directorist'),
+                        'default' => __('Reset Filters', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'sresult_apply_text',
-                        'label' => __('Apply Filters Button text', ATBDP_TEXTDOMAIN),
-                        'default' => __('Apply Filters', ATBDP_TEXTDOMAIN),
+                        'label' => __('Apply Filters Button text', 'directorist'),
+                        'default' => __('Apply Filters', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_result_search_text_placeholder',
-                        'label' => __('Search Bar Placeholder', ATBDP_TEXTDOMAIN),
-                        'default' => __('What are you looking for?', ATBDP_TEXTDOMAIN),
+                        'label' => __('Search Bar Placeholder', 'directorist'),
+                        'default' => __('What are you looking for?', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_result_category_placeholder',
-                        'label' => __('Category Placeholder', ATBDP_TEXTDOMAIN),
-                        'default' => __('Select a category', ATBDP_TEXTDOMAIN),
+                        'label' => __('Category Placeholder', 'directorist'),
+                        'default' => __('Select a category', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_result_location_placeholder',
-                        'label' => __('Location Placeholder', ATBDP_TEXTDOMAIN),
-                        'default' => __('Select a location', ATBDP_TEXTDOMAIN),
+                        'label' => __('Location Placeholder', 'directorist'),
+                        'default' => __('Select a location', 'directorist'),
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'search_view_as',
-                        'label' => __('Display "View As" Dropdown', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display "View As" Dropdown', 'directorist'),
                         'default' => 1,
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_viewas_text',
-                        'label' => __('"View As" Text', ATBDP_TEXTDOMAIN),
-                        'default' => __('View As', ATBDP_TEXTDOMAIN),
+                        'label' => __('"View As" Text', 'directorist'),
+                        'default' => __('View As', 'directorist'),
                     ),
                     array(
                         'type' => 'checkbox',
                         'name' => 'search_view_as_items',
-                        'label' => __('"View As" Dropdown', ATBDP_TEXTDOMAIN),
+                        'label' => __('"View As" Dropdown', 'directorist'),
                         'validation' => 'minselected[0]|maxselected[3]',
                         'items' => array(
                             array(
                                 'value' => 'listings_grid',
-                                'label' => __('Grid', ATBDP_TEXTDOMAIN),
+                                'label' => __('Grid', 'directorist'),
                             ),
                             array(
                                 'value' => 'listings_list',
-                                'label' => __('List', ATBDP_TEXTDOMAIN),
+                                'label' => __('List', 'directorist'),
                             ),
                             array(
                                 'value' => 'listings_map',
-                                'label' => __('Map', ATBDP_TEXTDOMAIN),
+                                'label' => __('Map', 'directorist'),
                             ),
                         ),
                         'default' => array(
@@ -3368,52 +3368,52 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'search_sort_by',
-                        'label' => __('Display "Sort By" Dropdown', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display "Sort By" Dropdown', 'directorist'),
                         'default' => 1,
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'search_sortby_text',
-                        'label' => __('"Sort By" Text', ATBDP_TEXTDOMAIN),
-                        'default' => __('Sort By', ATBDP_TEXTDOMAIN),
+                        'label' => __('"Sort By" Text', 'directorist'),
+                        'default' => __('Sort By', 'directorist'),
                     ),
                     array(
                         'type' => 'checkbox',
                         'name' => 'search_sort_by_items',
-                        'label' => __('"Sort By" Dropdown', ATBDP_TEXTDOMAIN),
+                        'label' => __('"Sort By" Dropdown', 'directorist'),
                         'validation' => 'minselected[0]|maxselected[10]',
                         'items' => array(
                             array(
                                 'value' => 'a_z',
-                                'label' => __('A to Z (title)', ATBDP_TEXTDOMAIN),
+                                'label' => __('A to Z (title)', 'directorist'),
                             ),
                             array(
                                 'value' => 'z_a',
-                                'label' => __('Z to A (title)', ATBDP_TEXTDOMAIN),
+                                'label' => __('Z to A (title)', 'directorist'),
                             ),
                             array(
                                 'value' => 'latest',
-                                'label' => __('Latest listings', ATBDP_TEXTDOMAIN),
+                                'label' => __('Latest listings', 'directorist'),
                             ),
                             array(
                                 'value' => 'oldest',
-                                'label' => __('Oldest listings', ATBDP_TEXTDOMAIN),
+                                'label' => __('Oldest listings', 'directorist'),
                             ),
                             array(
                                 'value' => 'popular',
-                                'label' => __('Popular listings', ATBDP_TEXTDOMAIN),
+                                'label' => __('Popular listings', 'directorist'),
                             ),
                             array(
                                 'value' => 'price_low_high',
-                                'label' => __('Price (low to high)', ATBDP_TEXTDOMAIN),
+                                'label' => __('Price (low to high)', 'directorist'),
                             ),
                             array(
                                 'value' => 'price_high_low',
-                                'label' => __('Price (high to low)', ATBDP_TEXTDOMAIN),
+                                'label' => __('Price (high to low)', 'directorist'),
                             ),
                             array(
                                 'value' => 'random',
-                                'label' => __('Random listings', ATBDP_TEXTDOMAIN),
+                                'label' => __('Random listings', 'directorist'),
                             ),
                         ),
                         'default' => array(
@@ -3430,53 +3430,53 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'search_order_listing_by',
-                        'label' => __('Order By', ATBDP_TEXTDOMAIN),
+                        'label' => __('Order By', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'title',
-                                'label' => __('Title', ATBDP_TEXTDOMAIN),
+                                'label' => __('Title', 'directorist'),
                             ),
                             array(
                                 'value' => 'date',
-                                'label' => __('Date', ATBDP_TEXTDOMAIN),
+                                'label' => __('Date', 'directorist'),
                             ),
                             array(
                                 'value' => 'price',
-                                'label' => __('Price', ATBDP_TEXTDOMAIN),
+                                'label' => __('Price', 'directorist'),
                             ),
                             array(
                                 'value' => 'rand',
-                                'label' => __('Random', ATBDP_TEXTDOMAIN),
+                                'label' => __('Random', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'date',
-                            'label' => __('Date', ATBDP_TEXTDOMAIN),
+                            'label' => __('Date', 'directorist'),
                         ),
                     ),
                     array(
                         'type' => 'select',
                         'name' => 'search_sort_listing_by',
-                        'label' => __('Sort By', ATBDP_TEXTDOMAIN),
+                        'label' => __('Sort By', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'asc',
-                                'label' => __('Ascending', ATBDP_TEXTDOMAIN),
+                                'label' => __('Ascending', 'directorist'),
                             ),
                             array(
                                 'value' => 'desc',
-                                'label' => __('Descending', ATBDP_TEXTDOMAIN),
+                                'label' => __('Descending', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'desc',
-                            'label' => __('Descending', ATBDP_TEXTDOMAIN),
+                            'label' => __('Descending', 'directorist'),
                         ),
                     ),
                     array(
                         'type' => 'slider',
                         'name' => 'search_listing_columns',
-                        'label' => __('Number of Columns', ATBDP_TEXTDOMAIN),
+                        'label' => __('Number of Columns', 'directorist'),
                         'min' => '1',
                         'max' => '5',
                         'step' => '1',
@@ -3486,13 +3486,13 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'paginate_search_results',
-                        'label' => __('Paginate Search Result', ATBDP_TEXTDOMAIN),
+                        'label' => __('Paginate Search Result', 'directorist'),
                         'default' => 1,
                     ),
                     array(
                         'type' => 'slider',
                         'name' => 'search_posts_num',
-                        'label' => __('Search Results Per Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('Search Results Per Page', 'directorist'),
                         'min' => '1',
                         'max' => '100',
                         'step' => '1',
@@ -3514,19 +3514,19 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_new_badge_cart',
-                    'label' => __('Display New Badge', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display New Badge', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'new_badge_text',
-                    'label' => __('New Badge Text', ATBDP_TEXTDOMAIN),
-                    'default' => __('New', ATBDP_TEXTDOMAIN),
+                    'label' => __('New Badge Text', 'directorist'),
+                    'default' => __('New', 'directorist'),
                 ),
                 array(
                     'type' => 'slider',
                     'name' => 'new_listing_day',
-                    'label' => __('New Badge Duration in Days', ATBDP_TEXTDOMAIN),
+                    'label' => __('New Badge Duration in Days', 'directorist'),
                     'min' => '1',
                     'max' => '100',
                     'step' => '1',
@@ -3536,14 +3536,14 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_feature_badge_cart',
-                    'label' => __('Display Featured Badge', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display Featured Badge', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'feature_badge_text',
-                    'label' => __('Featured Badge Text', ATBDP_TEXTDOMAIN),
-                    'default' => __('Featured', ATBDP_TEXTDOMAIN),
+                    'label' => __('Featured Badge Text', 'directorist'),
+                    'default' => __('Featured', 'directorist'),
                 ),
             ));
         }
@@ -3560,48 +3560,48 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_popular_badge_cart',
-                    'label' => __('Display Popular Badge', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display Popular Badge', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'popular_badge_text',
-                    'label' => __('Popular Badge Text', ATBDP_TEXTDOMAIN),
-                    'default' => __('Popular', ATBDP_TEXTDOMAIN),
+                    'label' => __('Popular Badge Text', 'directorist'),
+                    'default' => __('Popular', 'directorist'),
                 ),
                 array(
                     'type' => 'select',
                     'name' => 'listing_popular_by',
-                    'label' => __('Popular Based on', ATBDP_TEXTDOMAIN),
+                    'label' => __('Popular Based on', 'directorist'),
                     'items' => array(
                         array(
                             'value' => 'view_count',
-                            'label' => __('View Count', ATBDP_TEXTDOMAIN),
+                            'label' => __('View Count', 'directorist'),
                         ),
                         array(
                             'value' => 'average_rating',
-                            'label' => __('Average Rating', ATBDP_TEXTDOMAIN),
+                            'label' => __('Average Rating', 'directorist'),
                         ),
                         array(
                             'value' => 'both_view_rating',
-                            'label' => __('Both', ATBDP_TEXTDOMAIN),
+                            'label' => __('Both', 'directorist'),
                         ),
                     ),
                     'default' => array(
                         'value' => 'view_count',
-                        'label' => __('View Count', ATBDP_TEXTDOMAIN),
+                        'label' => __('View Count', 'directorist'),
                     ),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'views_for_popular',
-                    'label' => __('Threshold in Views Count', ATBDP_TEXTDOMAIN),
+                    'label' => __('Threshold in Views Count', 'directorist'),
                     'default' => 5,
                 ),
                 array(
                     'type' => 'slider',
                     'name' => 'average_review_for_popular',
-                    'label' => __('Threshold in Average Ratings (equal or grater than)', ATBDP_TEXTDOMAIN),
+                    'label' => __('Threshold in Average Ratings (equal or grater than)', 'directorist'),
                     'min' => '.5',
                     'max' => '4.5',
                     'step' => '.5',
@@ -3611,7 +3611,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'count_loggedin_user',
-                    'label' => __('Count Logged-in User View', ATBDP_TEXTDOMAIN),
+                    'label' => __('Count Logged-in User View', 'directorist'),
                     'default' => 0,
                 ),
 
@@ -3631,19 +3631,19 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'title_label',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Title', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Title', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_title',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => atbdp_yes_to_bool($req_title),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_title_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
             ));
@@ -3660,19 +3660,19 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'long_details_label',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Long Details', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Long Details', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_long_details',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_desc_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
             ));
@@ -3689,44 +3689,44 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'category_label',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Select Category', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Select Category', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_category',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'cat_placeholder',
-                    'label' => __('Placeholder for User', ATBDP_TEXTDOMAIN),
-                    'default' => __('Select Category', ATBDP_TEXTDOMAIN),
+                    'label' => __('Placeholder for User', 'directorist'),
+                    'default' => __('Select Category', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'multiple_cat_for_user',
-                    'label' => __('Multi Category for User', ATBDP_TEXTDOMAIN),
+                    'label' => __('Multi Category for User', 'directorist'),
                     'default' => 1,
                 ),
                 /*array(
                     'type' => 'select',
                     'name' => 'display_cat_for',
-                    'label' => __( 'Display For', ATBDP_TEXTDOMAIN ),
+                    'label' => __( 'Display For', 'directorist' ),
                     'items' => array(
                         array(
                             'value' => 'users',
-                            'label' => __('Users', ATBDP_TEXTDOMAIN),
+                            'label' => __('Users', 'directorist'),
                         ),
                         array(
                             'value' => 'none',
-                            'label' => __('None', ATBDP_TEXTDOMAIN),
+                            'label' => __('None', 'directorist'),
                         ),
                     ),
                     'default' => array(
                         'value' => 'users',
-                        'label' => __('Users', ATBDP_TEXTDOMAIN),
+                        'label' => __('Users', 'directorist'),
                     ),
                 ),*/
             ));
@@ -3743,31 +3743,31 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'location_label',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Location', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Location', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_location',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'loc_placeholder',
-                    'label' => __('Placeholder for User', ATBDP_TEXTDOMAIN),
-                    'default' => __('Select Location', ATBDP_TEXTDOMAIN),
+                    'label' => __('Placeholder for User', 'directorist'),
+                    'default' => __('Select Location', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_loc_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'multiple_loc_for_user',
-                    'label' => __('Multi Location for User', ATBDP_TEXTDOMAIN),
+                    'label' => __('Multi Location for User', 'directorist'),
                     'default' => 1,
                 ),
             ));
@@ -3784,31 +3784,31 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'tag_label',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Tag', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Tag', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'tag_placeholder',
-                    'label' => __('Placeholder for User', ATBDP_TEXTDOMAIN),
-                    'default' => __('Select or insert new tags separated by a comma, or space', ATBDP_TEXTDOMAIN),
+                    'label' => __('Placeholder for User', 'directorist'),
+                    'default' => __('Select or insert new tags separated by a comma, or space', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'create_new_tag',
-                    'label' => __('Allow Creating New Tag', ATBDP_TEXTDOMAIN),
+                    'label' => __('Allow Creating New Tag', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_tags',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_tag_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
             ));
@@ -3826,25 +3826,25 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_tagline_field',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'tagline_label',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Tagline', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Tagline', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'tagline_placeholder',
-                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
-                    'default' => __('Your Listing\'s motto or tag-line', ATBDP_TEXTDOMAIN),
+                    'label' => __('Placeholder', 'directorist'),
+                    'default' => __('Your Listing\'s motto or tag-line', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_tagline_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
             ));
@@ -3861,37 +3861,37 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_pricing_field',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'price_label',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Price', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Price', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'price_placeholder',
-                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
-                    'default' => __('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN),
+                    'label' => __('Placeholder', 'directorist'),
+                    'default' => __('Price of this listing. Eg. 100', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_price',
-                    'label' => __('Required Price', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required Price', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_price_range',
-                    'label' => __('Required Price Range', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required Price Range', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_price_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
             ));
@@ -3902,19 +3902,19 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_views_count',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'views_count_label',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Views Count', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Views Count', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_views_count_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 1,
                 ),
             ));
@@ -3930,31 +3930,31 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type'    => 'toggle',
                     'name'    => 'display_excerpt_field',
-                    'label'   => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label'   => __('Enable', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type'    => 'textbox',
                     'name'    => 'excerpt_label',
-                    'label'   => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Short Description/Excerpt', ATBDP_TEXTDOMAIN),
+                    'label'   => __('Label', 'directorist'),
+                    'default' => __('Short Description/Excerpt', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'excerpt_placeholder',
-                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
-                    'default' => __('Short Description or Excerpt', ATBDP_TEXTDOMAIN),
+                    'label' => __('Placeholder', 'directorist'),
+                    'default' => __('Short Description or Excerpt', 'directorist'),
                 ),
                 array(
                     'type'    => 'toggle',
                     'name'    => 'require_excerpt',
-                    'label'   => __('Required', ATBDP_TEXTDOMAIN),
+                    'label'   => __('Required', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type'    => 'toggle',
                     'name'    => 'display_short_desc_for',
-                    'label'   => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label'   => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
             ));
@@ -3971,31 +3971,31 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_address_field',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'address_label',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Address', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Address', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'address_placeholder',
-                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
-                    'default' => __('Listing address eg. New York, USA', ATBDP_TEXTDOMAIN),
+                    'label' => __('Placeholder', 'directorist'),
+                    'default' => __('Listing address eg. New York, USA', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_address',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_address_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
             ));
@@ -4013,31 +4013,31 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_phone_field',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'phone_label',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Phone', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Phone', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'phone_placeholder',
-                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
-                    'default' => __('Phone Number', ATBDP_TEXTDOMAIN),
+                    'label' => __('Placeholder', 'directorist'),
+                    'default' => __('Phone Number', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_phone_number',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_phone_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
 
@@ -4055,31 +4055,31 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_phone_field2',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'phone_label2',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Phone 2', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Phone 2', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'phone_placeholder2',
-                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
-                    'default' => __('Phone Number 2', ATBDP_TEXTDOMAIN),
+                    'label' => __('Placeholder', 'directorist'),
+                    'default' => __('Phone Number 2', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_phone_number2',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_phone2_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
 
@@ -4098,31 +4098,31 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_fax',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'fax_label',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Fax', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Fax', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'fax_placeholder',
-                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
-                    'default' => __('Enter Fax', ATBDP_TEXTDOMAIN),
+                    'label' => __('Placeholder', 'directorist'),
+                    'default' => __('Enter Fax', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_fax',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_fax_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
 
@@ -4141,31 +4141,31 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_email_field',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'email_label',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Email', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Email', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'email_placeholder',
-                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
-                    'default' => __('Enter Email', ATBDP_TEXTDOMAIN),
+                    'label' => __('Placeholder', 'directorist'),
+                    'default' => __('Enter Email', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_email',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_email_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
 
@@ -4184,31 +4184,31 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_website_field',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'website_label',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Website', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Website', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'website_placeholder',
-                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
-                    'default' => __('Listing Website eg. http://example.com', ATBDP_TEXTDOMAIN),
+                    'label' => __('Placeholder', 'directorist'),
+                    'default' => __('Listing Website eg. http://example.com', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_website',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_website_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
             ));
@@ -4226,31 +4226,31 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_zip_field',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'zip_label',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Zip/Post Code', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Zip/Post Code', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'zip_placeholder',
-                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
-                    'default' => __('Enter Zip/Post Code', ATBDP_TEXTDOMAIN),
+                    'label' => __('Placeholder', 'directorist'),
+                    'default' => __('Enter Zip/Post Code', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_zip',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_zip_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
             ));
@@ -4268,25 +4268,25 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_social_info_field',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'social_label',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Social Information', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Social Information', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_social_info',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_social_info_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
             ));
@@ -4303,14 +4303,14 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_map_field',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
 
                 array(
                     'type' => 'toggle',
                     'name' => 'display_map_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
 
@@ -4329,50 +4329,50 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_prv_field',
-                    'label' => __('Enable Preview Image', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable Preview Image', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'preview_label',
-                    'label' => __('Preview Image Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Upload Preview Image', ATBDP_TEXTDOMAIN),
+                    'label' => __('Preview Image Label', 'directorist'),
+                    'default' => __('Upload Preview Image', 'directorist'),
                 ),
 
                 array(
                     'type' => 'toggle',
                     'name' => 'display_gellery_field',
-                    'label' => __('Enable Gallery Image', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable Gallery Image', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'gellery_label',
-                    'label' => __('Gallery Image Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Upload Slider Images', ATBDP_TEXTDOMAIN),
+                    'label' => __('Gallery Image Label', 'directorist'),
+                    'default' => __('Upload Slider Images', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_preview_img',
-                    'label' => __('Required Preview Image', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required Preview Image', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_gallery_img',
-                    'label' => __('Required Gallery', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required Gallery', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_prv_img_for',
-                    'label' => __('Preview Image Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Preview Image Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_glr_img_for',
-                    'label' => __('Gallery Image Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Gallery Image Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
 
@@ -4392,31 +4392,31 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_video_field',
-                    'label' => __('Enable', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'video_label',
-                    'label' => __('Label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Video Url', ATBDP_TEXTDOMAIN),
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Video Url', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'video_placeholder',
-                    'label' => __('Placeholder', ATBDP_TEXTDOMAIN),
-                    'default' => __('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Placeholder', 'directorist'),
+                    'default' => __('Only YouTube & Vimeo URLs.', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_video',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_video_for',
-                    'label' => __('Only For Admin Use', ATBDP_TEXTDOMAIN),
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
 
@@ -4434,29 +4434,29 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'listing_terms_condition',
-                    'label' => __('Enable Terms & Conditions', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable Terms & Conditions', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'require_terms_conditions',
-                    'label' => __('Required', ATBDP_TEXTDOMAIN),
+                    'label' => __('Required', 'directorist'),
                     'default' => 1,
                     'description' => __('Here YES means users must agree to before submitting a listing from frontend.
 
-', ATBDP_TEXTDOMAIN),
+', 'directorist'),
                 ),
                 array(
                     'type' => 'wpeditor',
                     'name' => 'listing_terms_condition_text',
-                    'label' => __('Terms & Conditions Text', ATBDP_TEXTDOMAIN),
-                    'description' => __('If Terms & Conditions is enabled, enter the agreement terms and conditions here.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Terms & Conditions Text', 'directorist'),
+                    'description' => __('If Terms & Conditions is enabled, enter the agreement terms and conditions here.', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'submit_label',
-                    'label' => __('Submit listing label', ATBDP_TEXTDOMAIN),
-                    'default' => __('Submit listing', ATBDP_TEXTDOMAIN),
+                    'label' => __('Submit listing label', 'directorist'),
+                    'default' => __('Submit listing', 'directorist'),
                 ),
 
 
@@ -4469,25 +4469,25 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'my_listing_tab',
-                    'label' => __('Display My Listing Tab', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display My Listing Tab', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'my_listing_tab_text',
-                    'label' => __('"My Listing" Tab Text', ATBDP_TEXTDOMAIN),
-                    'default' => __('My Listing', ATBDP_TEXTDOMAIN),
+                    'label' => __('"My Listing" Tab Text', 'directorist'),
+                    'default' => __('My Listing', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'user_listings_pagination',
-                    'label' => __('Listings Pagination', ATBDP_TEXTDOMAIN),
+                    'label' => __('Listings Pagination', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'slider',
                     'name' => 'user_listings_per_page',
-                    'label' => __('Listings Per Page', ATBDP_TEXTDOMAIN),
+                    'label' => __('Listings Per Page', 'directorist'),
                     'min' => '1',
                     'max' => '30',
                     'step' => '1',
@@ -4497,31 +4497,31 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'my_profile_tab',
-                    'label' => __('Display My Profile Tab', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display My Profile Tab', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'my_profile_tab_text',
-                    'label' => __('"My Profile" Tab Text', ATBDP_TEXTDOMAIN),
-                    'default' => __('My Profile', ATBDP_TEXTDOMAIN),
+                    'label' => __('"My Profile" Tab Text', 'directorist'),
+                    'default' => __('My Profile', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'fav_listings_tab',
-                    'label' => __('Display Favourite Listings Tab', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display Favourite Listings Tab', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'fav_listings_tab_text',
-                    'label' => __('"Favourite Listings" Tab Text', ATBDP_TEXTDOMAIN),
-                    'default' => __('Favorite Listings', ATBDP_TEXTDOMAIN),
+                    'label' => __('"Favourite Listings" Tab Text', 'directorist'),
+                    'default' => __('Favorite Listings', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'submit_listing_button',
-                    'label' => __('Display Submit Listing Button', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display Submit Listing Button', 'directorist'),
                     'default' => 1,
                 ),
             ));
@@ -4533,48 +4533,48 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'select',
                     'name' => 'select_listing_map',
-                    'label' => __('Select Map', ATBDP_TEXTDOMAIN),
+                    'label' => __('Select Map', 'directorist'),
                     'items' => array(
                         array(
                             'value' => 'google',
-                            'label' => __('Google Map', ATBDP_TEXTDOMAIN),
+                            'label' => __('Google Map', 'directorist'),
                         ),
                         array(
                             'value' => 'openstreet',
-                            'label' => __('OpenStreetMap', ATBDP_TEXTDOMAIN),
+                            'label' => __('OpenStreetMap', 'directorist'),
                         ),
                     ),
                     'default' => array(
                         'value' => 'openstreet',
-                        'label' => __('OpenStreetMap', ATBDP_TEXTDOMAIN),
+                        'label' => __('OpenStreetMap', 'directorist'),
                     ),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'map_api_key',
-                    'label' => __('Google Map API key', ATBDP_TEXTDOMAIN),
-                    'description' => sprintf(__('Please replace it by your own API. It\'s required to use Google Map. You can find detailed information %s.', ATBDP_TEXTDOMAIN), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'label' => __('Google Map API key', 'directorist'),
+                    'description' => sprintf(__('Please replace it by your own API. It\'s required to use Google Map. You can find detailed information %s.', 'directorist'), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
                     'default' => 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo',
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'default_latitude',
-                    'label' => __('Default Latitude', ATBDP_TEXTDOMAIN),
-                    'description' => sprintf(__('You can find it %s.', ATBDP_TEXTDOMAIN), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'label' => __('Default Latitude', 'directorist'),
+                    'description' => sprintf(__('You can find it %s.', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
                     'default' => '40.7127753',
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'default_longitude',
-                    'label' => __('Default Longitude', ATBDP_TEXTDOMAIN),
-                    'description' => sprintf(__('You can find it %s.', ATBDP_TEXTDOMAIN), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'label' => __('Default Longitude', 'directorist'),
+                    'description' => sprintf(__('You can find it %s.', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
                     'default' => '-74.0059728',
                 ),
                 array(
                     'type' => 'slider',
                     'name' => 'map_zoom_level',
-                    'label' => __('Adjust Map Zoom Level', ATBDP_TEXTDOMAIN),
-                    'description' => __('Here 0 means 100% zoom-out. 22 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Adjust Map Zoom Level', 'directorist'),
+                    'description' => __('Here 0 means 100% zoom-out. 22 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22.', 'directorist'),
                     'min' => '1',
                     'max' => '22',
                     'step' => '1',
@@ -4584,8 +4584,8 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'listings_map_height',
-                    'label' => __('Map Height', ATBDP_TEXTDOMAIN),
-                    'description' => __('In pixel.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Map Height', 'directorist'),
+                    'description' => __('In pixel.', 'directorist'),
                     'min' => '5',
                     'max' => '1200',
                     'step' => '5',
@@ -4607,31 +4607,31 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_review',
-                    'label' => __('Enable Reviews & Rating', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable Reviews & Rating', 'directorist'),
                     'default' => atbdp_yes_to_bool($e_review),
                 ),
 
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_owner_review',
-                    'label' => __('Enable Owner Review', ATBDP_TEXTDOMAIN),
-                    'description' => __('Allow a listing owner to post a review on his/her own listing.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable Owner Review', 'directorist'),
+                    'description' => __('Allow a listing owner to post a review on his/her own listing.', 'directorist'),
                     'default' => 1,
                 ),
 
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_reviewer_img',
-                    'label' => __('Enable Reviewer Image', ATBDP_TEXTDOMAIN),
-                    'description' => __('Allow to display image of reviewer on single listing page.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Enable Reviewer Image', 'directorist'),
+                    'description' => __('Allow to display image of reviewer on single listing page.', 'directorist'),
                     'default' => 1,
                 ),
 
                 array(
                     'type' => 'slider',
                     'name' => 'review_num',
-                    'label' => __('Number of Reviews', ATBDP_TEXTDOMAIN),
-                    'description' => __('Enter how many reviews to show on Single listing page.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Number of Reviews', 'directorist'),
+                    'description' => __('Enter how many reviews to show on Single listing page.', 'directorist'),
                     'min' => '1',
                     'max' => '20',
                     'step' => '1',
@@ -4652,116 +4652,116 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_single_listing',
-                    'label' => __('Disable Single Listing View', ATBDP_TEXTDOMAIN),
+                    'label' => __('Disable Single Listing View', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'atbdp_listing_slug',
-                    'label' => __('Listing Slug', ATBDP_TEXTDOMAIN),
+                    'label' => __('Listing Slug', 'directorist'),
                     'default' => 'directory',
                 ),
                 array(
                     'type' => 'select',
                     'name' => 'edit_listing_redirect',
-                    'label' => __('Redirect after Editing a Listing', ATBDP_TEXTDOMAIN),
+                    'label' => __('Redirect after Editing a Listing', 'directorist'),
                     'items' => array(
                         array(
                             'value' => 'view_listing',
-                            'label' => __('Frontend of the Listing', ATBDP_TEXTDOMAIN),
+                            'label' => __('Frontend of the Listing', 'directorist'),
                         ),
                         array(
                             'value' => 'dashboard',
-                            'label' => __('User Dashboard', ATBDP_TEXTDOMAIN),
+                            'label' => __('User Dashboard', 'directorist'),
                         ),
                     ),
-                    'description' => __('Select where user will be redirected after editing a listing on the frontend.', ATBDP_TEXTDOMAIN),
+                    'description' => __('Select where user will be redirected after editing a listing on the frontend.', 'directorist'),
 
                     'default' => array(
                         'value' => 'view_listing',
-                        'label' => __('View Listing', ATBDP_TEXTDOMAIN),
+                        'label' => __('View Listing', 'directorist'),
                     ),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'listing_details_text',
-                    'label' => __('Section Title of Listing Details', ATBDP_TEXTDOMAIN),
-                    'default' => __('Listing Details', ATBDP_TEXTDOMAIN),
+                    'label' => __('Section Title of Listing Details', 'directorist'),
+                    'default' => __('Listing Details', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'custom_section_lable',
-                    'label' => __('Section Title of Custom Fields', ATBDP_TEXTDOMAIN),
-                    'default' => __('Features', ATBDP_TEXTDOMAIN),
+                    'label' => __('Section Title of Custom Fields', 'directorist'),
+                    'default' => __('Features', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'listing_location_text',
-                    'label' => __('Section Title of Location', ATBDP_TEXTDOMAIN),
-                    'default' => __('Location', ATBDP_TEXTDOMAIN),
+                    'label' => __('Section Title of Location', 'directorist'),
+                    'default' => __('Location', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'contact_info_text',
-                    'label' => __('Section Title of Contact Info', ATBDP_TEXTDOMAIN),
-                    'default' => __('Contact Information', ATBDP_TEXTDOMAIN),
+                    'label' => __('Section Title of Contact Info', 'directorist'),
+                    'default' => __('Contact Information', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'contact_listing_owner',
-                    'label' => __('Section Title of Contact Owner', ATBDP_TEXTDOMAIN),
-                    'default' => __('Contact Listing Owner', ATBDP_TEXTDOMAIN),
+                    'label' => __('Section Title of Contact Owner', 'directorist'),
+                    'default' => __('Contact Listing Owner', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'atbd_video_title',
-                    'label' => __('Section Title of Video', ATBDP_TEXTDOMAIN),
-                    'default' => __('Video', ATBDP_TEXTDOMAIN),
+                    'label' => __('Section Title of Video', 'directorist'),
+                    'default' => __('Video', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'atbd_author_info_title',
-                    'label' => __('Section Title of Author Info', ATBDP_TEXTDOMAIN),
-                    'default' => __('Author Info', ATBDP_TEXTDOMAIN),
+                    'label' => __('Section Title of Author Info', 'directorist'),
+                    'default' => __('Author Info', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'dsiplay_prv_single_page',
-                    'label' => __('Show Preview Image', ATBDP_TEXTDOMAIN),
-                    'description' => __('Hide/show preview image from single listing page.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Show Preview Image', 'directorist'),
+                    'description' => __('Hide/show preview image from single listing page.', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_back_link',
-                    'label' => __('Show Back Link', ATBDP_TEXTDOMAIN),
+                    'label' => __('Show Back Link', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'dsiplay_slider_single_page',
-                    'label' => __('Show Slider Image', ATBDP_TEXTDOMAIN),
-                    'description' => __('Hide/show slider image from single listing page.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Show Slider Image', 'directorist'),
+                    'description' => __('Hide/show slider image from single listing page.', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'dsiplay_thumbnail_img',
-                    'label' => __('Show Slider Thumbnail', ATBDP_TEXTDOMAIN),
-                    'description' => __('Hide/show slider thumbnail from single listing page.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Show Slider Thumbnail', 'directorist'),
+                    'description' => __('Hide/show slider thumbnail from single listing page.', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'gallery_cropping',
-                    'label' => __('Slider Image Cropping', ATBDP_TEXTDOMAIN),
-                    'description' => __('If the slider images are not in the same size, it helps automatically resizing.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Slider Image Cropping', 'directorist'),
+                    'description' => __('If the slider images are not in the same size, it helps automatically resizing.', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'slider',
                     'name' => 'gallery_crop_width',
-                    'label' => __('Image Cropping Width', ATBDP_TEXTDOMAIN),
+                    'label' => __('Image Cropping Width', 'directorist'),
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
@@ -4772,7 +4772,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'gallery_crop_height',
-                    'label' => __('Image Cropping Height', ATBDP_TEXTDOMAIN),
+                    'label' => __('Image Cropping Height', 'directorist'),
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
@@ -4782,95 +4782,95 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_social_share',
-                    'label' => __('Display Social Share Button', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display Social Share Button', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_favourite',
-                    'label' => __('Display Favourite Button', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display Favourite Button', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_report_abuse',
-                    'label' => __('Display Report Abuse', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display Report Abuse', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_list_price',
-                    'label' => __('Disable Listing Price', ATBDP_TEXTDOMAIN),
+                    'label' => __('Disable Listing Price', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_contact_info',
-                    'label' => __('Disable Contact Information', ATBDP_TEXTDOMAIN),
+                    'label' => __('Disable Contact Information', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_contact_owner',
-                    'label' => __('Disable Contact Listing Owner Form', ATBDP_TEXTDOMAIN),
+                    'label' => __('Disable Contact Listing Owner Form', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'select',
                     'name' => 'user_email',
-                    'label' => __('Email Send to', ATBDP_TEXTDOMAIN),
-                    'description' => __('Email recipient for receiving email from Contact Listing Owner Form.', ATBDP_TEXTDOMAIN),
+                    'label' => __('Email Send to', 'directorist'),
+                    'description' => __('Email recipient for receiving email from Contact Listing Owner Form.', 'directorist'),
                     'items' => array(
                         array(
                             'value' => 'author',
-                            'label' => __('Author Email', ATBDP_TEXTDOMAIN),
+                            'label' => __('Author Email', 'directorist'),
                         ),
                         array(
                             'value' => 'listing_email',
-                            'label' => __('Listing\'s Email', ATBDP_TEXTDOMAIN),
+                            'label' => __('Listing\'s Email', 'directorist'),
                         ),
                     ),
                     'default' => array(
                         'value' => 'author',
-                        'label' => __('Author Email', ATBDP_TEXTDOMAIN),
+                        'label' => __('Author Email', 'directorist'),
                     ),
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'use_nofollow',
-                    'label' => __('Use rel="nofollow" in Website Link', ATBDP_TEXTDOMAIN),
+                    'label' => __('Use rel="nofollow" in Website Link', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_map',
-                    'label' => __('Disable Google Map', ATBDP_TEXTDOMAIN),
+                    'label' => __('Disable Google Map', 'directorist'),
                     'default' => 0,
                 ),
 
                 array(
                     'type' => 'toggle',
                     'name' => 'atbd_video_url',
-                    'label' => __('Display Listing Video', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display Listing Video', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_rel_listing',
-                    'label' => __('Display Related Listings', ATBDP_TEXTDOMAIN),
+                    'label' => __('Display Related Listings', 'directorist'),
                     'default' => 4,
                 ),
 
                 array(
                     'type' => 'textbox',
                     'name' => 'rel_listing_title',
-                    'label' => __('Related Listings Title', ATBDP_TEXTDOMAIN),
-                    'default' => __('Related Listings', ATBDP_TEXTDOMAIN),
+                    'label' => __('Related Listings Title', 'directorist'),
+                    'default' => __('Related Listings', 'directorist'),
                 ),
                 array(
                     'type' => 'slider',
                     'name' => 'rel_listing_num',
-                    'label' => __('Number of Related Listings', ATBDP_TEXTDOMAIN),
+                    'label' => __('Number of Related Listings', 'directorist'),
                     'min' => '1',
                     'max' => '10',
                     'step' => '1',
@@ -4880,7 +4880,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'rel_listing_column',
-                    'label' => __('Columns of Related Listings', ATBDP_TEXTDOMAIN),
+                    'label' => __('Columns of Related Listings', 'directorist'),
                     'min' => '1',
                     'max' => '10',
                     'step' => '1',
@@ -4890,7 +4890,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'fix_listing_double_thumb',
-                    'label' => __('Fix Repeated Thumbnail of Single Listing', ATBDP_TEXTDOMAIN),
+                    'label' => __('Fix Repeated Thumbnail of Single Listing', 'directorist'),
                     'default' => 0,
                 ),
 
@@ -4914,54 +4914,54 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'fix_js_conflict',
-                        'label' => __('Fix Conflict with Bootstrap JS', ATBDP_TEXTDOMAIN),
-                        'description' => __('If you use a theme that uses Bootstrap Framework especially Bootstrap JS, then Check this setting to fix any conflict with theme bootstrap js.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Fix Conflict with Bootstrap JS', 'directorist'),
+                        'description' => __('If you use a theme that uses Bootstrap Framework especially Bootstrap JS, then Check this setting to fix any conflict with theme bootstrap js.', 'directorist'),
                         'default' => 0,
                     ),
                     array(
                         'type' => 'select',
                         'name' => 'font_type',
-                        'label' => __('Icon Library', ATBDP_TEXTDOMAIN),
+                        'label' => __('Icon Library', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'font',
-                                'label' => __('Font Awesome', ATBDP_TEXTDOMAIN),
+                                'label' => __('Font Awesome', 'directorist'),
                             ),
                             array(
                                 'value' => 'line',
-                                'label' => __('Line Awesome', ATBDP_TEXTDOMAIN),
+                                'label' => __('Line Awesome', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'line',
-                            'label' => __('Line Awesome', ATBDP_TEXTDOMAIN),
+                            'label' => __('Line Awesome', 'directorist'),
                         ),
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'display_preview_image',
-                        'label' => __('Show Preview Image', ATBDP_TEXTDOMAIN),
-                        'description' => __('Hide/show preview image from all listing page.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Show Preview Image', 'directorist'),
+                        'description' => __('Hide/show preview image from all listing page.', 'directorist'),
                         'default' => 1,
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'thumbnail_cropping',
-                        'label' => __('Preview Image Cropping', ATBDP_TEXTDOMAIN),
-                        'description' => __('If the preview images are not in the same size, it helps automatically resizing.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Preview Image Cropping', 'directorist'),
+                        'description' => __('If the preview images are not in the same size, it helps automatically resizing.', 'directorist'),
                         'default' => 1,
                     ),
                     array(
                         'type' => 'upload',
                         'name' => 'default_preview_image',
-                        'label' => __('Default Preview Image', ATBDP_TEXTDOMAIN),
+                        'label' => __('Default Preview Image', 'directorist'),
                         'default' => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
                     ),
 
                     array(
                         'type' => 'slider',
                         'name' => 'crop_width',
-                        'label' => __('Image Cropping Width', ATBDP_TEXTDOMAIN),
+                        'label' => __('Image Cropping Width', 'directorist'),
                         'min' => '1',
                         'max' => '1200',
                         'step' => '1',
@@ -4972,7 +4972,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'slider',
                         'name' => 'crop_height',
-                        'label' => __('Image Cropping Height', ATBDP_TEXTDOMAIN),
+                        'label' => __('Image Cropping Height', 'directorist'),
                         'min' => '1',
                         'max' => '1200',
                         'step' => '1',
@@ -4983,32 +4983,32 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'info_display_in_single_line',
-                        'label' => __('Display Each Grid Info on Single Line', ATBDP_TEXTDOMAIN),
-                        'description' => __('Here Yes means display all the informations (i.e. title, tagline, excerpt etc.) of grid view on single line', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Each Grid Info on Single Line', 'directorist'),
+                        'description' => __('Here Yes means display all the informations (i.e. title, tagline, excerpt etc.) of grid view on single line', 'directorist'),
                         'default' => '0',
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'display_title',
-                        'label' => __('Display Title', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Title', 'directorist'),
                         'default' => '1',
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'enable_tagline',
-                        'label' => __('Display Tagline', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Tagline', 'directorist'),
                         'default' => 0,
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'enable_excerpt',
-                        'label' => __('Display Excerpt', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Excerpt', 'directorist'),
                         'default' => 0,
                     ),
                     array(
                         'type' => 'slider',
                         'name' => 'excerpt_limit',
-                        'label' => __('Excerpt Words Limit', ATBDP_TEXTDOMAIN),
+                        'label' => __('Excerpt Words Limit', 'directorist'),
                         'min' => '5',
                         'max' => '200',
                         'step' => '1',
@@ -5017,77 +5017,77 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'display_readmore',
-                        'label' => __('Display Excerpt Readmore', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Excerpt Readmore', 'directorist'),
                         'default' => '0',
                     ),
                     array(
                         'type' => 'textbox',
                         'name' => 'readmore_text',
-                        'label' => __('Read More Text', ATBDP_TEXTDOMAIN),
-                        'default' => __('Read More', ATBDP_TEXTDOMAIN),
+                        'label' => __('Read More Text', 'directorist'),
+                        'default' => __('Read More', 'directorist'),
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'display_price',
-                        'label' => __('Display Price', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Price', 'directorist'),
                         'default' => '1',
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'display_contact_info',
-                        'label' => __('Display Contact Information', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Contact Information', 'directorist'),
                         'default' => '1',
                     ),
                     array(
                         'type' => 'select',
                         'name' => 'address_location',
-                        'label' => __('Address', ATBDP_TEXTDOMAIN),
+                        'label' => __('Address', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'location',
-                                'label' => __('Display From Location', ATBDP_TEXTDOMAIN),
+                                'label' => __('Display From Location', 'directorist'),
                             ),
                             array(
                                 'value' => 'contact',
-                                'label' => __('Display From Contact Information', ATBDP_TEXTDOMAIN),
+                                'label' => __('Display From Contact Information', 'directorist'),
                             ),
                         ),
-                        'description' => __('Choose which address you want to show on listings page', ATBDP_TEXTDOMAIN),
+                        'description' => __('Choose which address you want to show on listings page', 'directorist'),
                         /*@todo; later add option to make listing status hidden or invalid for expired listing, so that admin may retain expired listings without having them deleted after the deletion threshold */
                         'default' => array(
                             'value' => 'contact',
-                            'label' => __('Contact Information', ATBDP_TEXTDOMAIN),
+                            'label' => __('Contact Information', 'directorist'),
                         ),
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'display_publish_date',
-                        'label' => __('Hide Publish Date', ATBDP_TEXTDOMAIN),
+                        'label' => __('Hide Publish Date', 'directorist'),
                         'default' => '1',
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'display_category',
-                        'label' => __('Display Category', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Category', 'directorist'),
                         'default' => '1',
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'display_view_count',
-                        'label' => __('Display View Count', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display View Count', 'directorist'),
                         'default' => '1',
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'display_author_image',
-                        'label' => __('Display Author Image', ATBDP_TEXTDOMAIN),
+                        'label' => __('Display Author Image', 'directorist'),
                         'default' => '1',
                     ),
                     array(
                         'type' => 'slider',
                         'name' => 'listing_expire_in_days',
-                        'label' => __('Default Listing Expires in Days', ATBDP_TEXTDOMAIN),
-                        'description' => __('Set it to 0 to keep it alive forever.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Default Listing Expires in Days', 'directorist'),
+                        'description' => __('Set it to 0 to keep it alive forever.', 'directorist'),
                         'min' => '0',
                         'max' => '730',
                         'step' => '1',
@@ -5097,20 +5097,20 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'can_renew_listing',
-                        'label' => __('Can User Renew Listing?', ATBDP_TEXTDOMAIN),
-                        'description' => __('Here YES means users can renew their listings.', ATBDP_TEXTDOMAIN),
+                        'label' => __('Can User Renew Listing?', 'directorist'),
+                        'description' => __('Here YES means users can renew their listings.', 'directorist'),
                         'default' => 1,
                     ),
                     array(
                         'type' => 'toggle',
                         'name' => 'delete_expired_listing',
-                        'label' => __('Delete/Trash Expired Listings', ATBDP_TEXTDOMAIN),
+                        'label' => __('Delete/Trash Expired Listings', 'directorist'),
                         'default' => 1,
                     ),
                     array(
                         'type' => 'slider',
                         'name' => 'delete_expired_listings_after',
-                        'label' => __('Delete/Trash Expired Listings After (days) of Expiration', ATBDP_TEXTDOMAIN),
+                        'label' => __('Delete/Trash Expired Listings After (days) of Expiration', 'directorist'),
                         'min' => '0',
                         'max' => '180',
                         'step' => '1',
@@ -5120,42 +5120,42 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'deletion_mode',
-                        'label' => __('Delete or Trash Expired Listings', ATBDP_TEXTDOMAIN),
+                        'label' => __('Delete or Trash Expired Listings', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'force_delete',
-                                'label' => __('Delete Permanently', ATBDP_TEXTDOMAIN),
+                                'label' => __('Delete Permanently', 'directorist'),
                             ),
                             array(
                                 'value' => 'trash',
-                                'label' => __('Move to Trash', ATBDP_TEXTDOMAIN),
+                                'label' => __('Move to Trash', 'directorist'),
                             ),
                         ),
-                        'description' => __('Choose the Default actions after a listing reaches its deletion threshold.', ATBDP_TEXTDOMAIN),
+                        'description' => __('Choose the Default actions after a listing reaches its deletion threshold.', 'directorist'),
                         /*@todo; later add option to make listing status hidden or invalid for expired listing, so that admin may retain expired listings without having them deleted after the deletion threshold */
                         'default' => array(
                             'value' => 'trash',
-                            'label' => __('Move to Trash', ATBDP_TEXTDOMAIN),
+                            'label' => __('Move to Trash', 'directorist'),
                         ),
                     ),
 
                     array(
                         'type' => 'toggle',
                         'name' => 'paginate_all_listings',
-                        'label' => __('Paginate Listings', ATBDP_TEXTDOMAIN),
+                        'label' => __('Paginate Listings', 'directorist'),
                         'default' => '1',
                     ),
 
                     array(
                         'type' => 'toggle',
                         'name' => 'paginate_author_listings',
-                        'label' => __('Paginate Author Listings', ATBDP_TEXTDOMAIN),
+                        'label' => __('Paginate Author Listings', 'directorist'),
                         'default' => '1',
                     ),
                     array(
                         'type' => 'slider',
                         'name' => 'all_listing_page_items',
-                        'label' => __('Listings Per Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('Listings Per Page', 'directorist'),
                         'min' => '1',
                         'max' => '100',
                         'step' => '1',
@@ -5165,25 +5165,25 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'display_author_email',
-                        'label' => __('Author Email', ATBDP_TEXTDOMAIN),
+                        'label' => __('Author Email', 'directorist'),
                         'items' => array(
                             array(
                                 'value' => 'public',
-                                'label' => __('Display', ATBDP_TEXTDOMAIN),
+                                'label' => __('Display', 'directorist'),
                             ),
                             array(
                                 'value' => 'logged_in',
-                                'label' => __('Display only for Logged in Users', ATBDP_TEXTDOMAIN),
+                                'label' => __('Display only for Logged in Users', 'directorist'),
                             ),
 
                             array(
                                 'value' => 'none_to_display',
-                                'label' => __('Hide', ATBDP_TEXTDOMAIN),
+                                'label' => __('Hide', 'directorist'),
                             ),
                         ),
                         'default' => array(
                             'value' => 'public',
-                            'label' => __('Display', ATBDP_TEXTDOMAIN),
+                            'label' => __('Display', 'directorist'),
                         ),
                     ),
                 )
@@ -5200,7 +5200,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'shortcode-updated',
-                    'label' => __('Upgrade/Regenerate Pages', ATBDP_TEXTDOMAIN),
+                    'label' => __('Upgrade/Regenerate Pages', 'directorist'),
                     'validation' => 'numeric',
 
                 ),
@@ -5218,9 +5218,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'add_listing_page',
-                        'label' => __('Add Listing Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('Add Listing Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(), // eg. array( array('value'=> 123, 'label'=> 'page_name') );
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_add_listing]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_add_listing]</strong>'),
                         'default' => atbdp_get_option('add_listing_page', 'atbdp_general'),
                         'validation' => 'numeric',
 
@@ -5229,9 +5229,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'all_listing_page',
-                        'label' => __('All Listings Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('All Listings Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_all_listing]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_all_listing]</strong>'),
 
                         'default' => atbdp_get_option('all_listing_page', 'atbdp_general'),
                         'validation' => 'numeric',
@@ -5239,18 +5239,18 @@ The Administrator of ==SITE_NAME==
                    'single_listing_page' => array(
                         'type' => 'select',
                         'name' => 'single_listing_page',
-                        'label' => __('Single Listing Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('Single Listing Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcodes can be used for the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_listing_top_area][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_author_info][directorist_listing_review][directorist_related_listings]</strong>'),
+                        'description' => sprintf(__('Following shortcodes can be used for the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_listing_top_area][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_author_info][directorist_listing_review][directorist_related_listings]</strong>'),
                         'default' => atbdp_get_option('single_listing_page', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),
                     array(
                         'type' => 'select',
                         'name' => 'user_dashboard',
-                        'label' => __('Dashboard Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('Dashboard Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_user_dashboard]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_user_dashboard]</strong>'),
                         'default' => atbdp_get_option('user_dashboard', 'atbdp_general'),
                         'validation' => 'numeric',
 
@@ -5259,9 +5259,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'author_profile_page',
-                        'label' => __('User Profile Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('User Profile Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_author_profile]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_author_profile]</strong>'),
                         'default' => atbdp_get_option('author_profile', 'atbdp_general'),
                         'validation' => 'numeric',
 
@@ -5270,9 +5270,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'all_categories_page',
-                        'label' => __('All Categories Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('All Categories Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_all_categories]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_all_categories]</strong>'),
 
                         'default' => atbdp_get_option('all_categories', 'atbdp_general'),
                         'validation' => 'numeric',
@@ -5281,9 +5281,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'single_category_page',
-                        'label' => __('Single Category Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('Single Category Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_category]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_category]</strong>'),
 
                         'default' => atbdp_get_option('single_category_page', 'atbdp_general'),
                         'validation' => 'numeric',
@@ -5292,9 +5292,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'all_locations_page',
-                        'label' => __('All Locations Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('All Locations Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_all_locations]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_all_locations]</strong>'),
 
                         'default' => atbdp_get_option('all_locations', 'atbdp_general'),
                         'validation' => 'numeric',
@@ -5303,9 +5303,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'single_location_page',
-                        'label' => __('Single Location Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('Single Location Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_location]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_location]</strong>'),
 
                         'default' => atbdp_get_option('single_location_page', 'atbdp_general'),
                         'validation' => 'numeric',
@@ -5314,9 +5314,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'single_tag_page',
-                        'label' => __('Single Tag Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('Single Tag Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_tag]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_tag]</strong>'),
                         'default' => atbdp_get_option('single_tag_page', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),
@@ -5324,9 +5324,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'custom_registration',
-                        'label' => __('Registration Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('Registration Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_custom_registration]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_custom_registration]</strong>'),
                         'default' => atbdp_get_option('custom_registration', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),
@@ -5334,9 +5334,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'user_login',
-                        'label' => __('Login Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('Login Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_user_login]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_user_login]</strong>'),
                         'default' => atbdp_get_option('user_login', 'atbdp_general'),
                         'validation' => 'numeric',
 
@@ -5345,9 +5345,9 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'search_listing',
-                        'label' => __('Listing Search Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('Listing Search Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_search_listing]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_search_listing]</strong>'),
                         'default' => atbdp_get_option('search_listing', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),
@@ -5355,18 +5355,18 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'search_result_page',
-                        'label' => __('Listing Search Result Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('Listing Search Result Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_search_result]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_search_result]</strong>'),
                         'default' => atbdp_get_option('search_result_page', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),
                     array(
                         'type' => 'select',
                         'name' => 'checkout_page',
-                        'label' => __('Checkout Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('Checkout Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_checkout]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_checkout]</strong>'),
                         'default' => '',
                         'validation' => 'numeric',
                     ),
@@ -5374,18 +5374,18 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'select',
                         'name' => 'payment_receipt_page',
-                        'label' => __('Payment/Order Receipt Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('Payment/Order Receipt Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_payment_receipt]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_payment_receipt]</strong>'),
                         'default' => '',
                         'validation' => 'numeric',
                     ),
                     array(
                         'type' => 'select',
                         'name' => 'transaction_failure_page',
-                        'label' => __('Transaction Failure Page', ATBDP_TEXTDOMAIN),
+                        'label' => __('Transaction Failure Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcode must be in the selected page %s', ATBDP_TEXTDOMAIN), '<strong style="color: #ff4500;">[directorist_transaction_failure]</strong>'),
+                        'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_transaction_failure]</strong>'),
                         'default' => '',
                         'validation' => 'numeric',
                     ),
@@ -5406,8 +5406,8 @@ The Administrator of ==SITE_NAME==
                    'extension_promotion_set' => array(
                         'type' => 'notebox',
                         'name' => 'extension_promotion',
-                        'label' => __('Need more Features?', ATBDP_TEXTDOMAIN),
-                        'description' => sprintf(__('You can add new features and expand the functionality of the plugin even more by using extensions. %s', ATBDP_TEXTDOMAIN), $this->extension_url),
+                        'label' => __('Need more Features?', 'directorist'),
+                        'description' => sprintf(__('You can add new features and expand the functionality of the plugin even more by using extensions. %s', 'directorist'), $this->extension_url),
                         'status' => 'warning',
                     ),
                 )

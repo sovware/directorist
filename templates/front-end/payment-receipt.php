@@ -11,7 +11,7 @@ $container_fluid = 'container-fluid';
 <div id="directorist" class="atbd_wrapper directorist directory_wrapper single_area">
     <div class="<?php echo apply_filters('atbdp_payment_receipt_container_fluid',$container_fluid) ?>">
         <div class="atbd_payment_recipt">
-            <p class="atbd_thank_you"><?php _e( 'Thank you for your order!', ATBDP_TEXTDOMAIN ); ?></p>
+            <p class="atbd_thank_you"><?php _e( 'Thank you for your order!', 'directorist' ); ?></p>
 
             <?php
             // show the user instruction for banking gateway
@@ -23,17 +23,17 @@ $container_fluid = 'container-fluid';
 
             <div class="row atbd_payment_summary_wrapper">
                 <div class="col-md-12">
-                    <p class="atbd_payment_summary"><?php _e( 'Here is your order summery:', ATBDP_TEXTDOMAIN ); ?></p>
+                    <p class="atbd_payment_summary"><?php _e( 'Here is your order summery:', 'directorist' ); ?></p>
                 </div>
                 <div class="col-lg-6">
                     <div class="table-responsive"><table class="table table-bordered">
                         <tr>
-                            <td><?php _e( 'ORDER', ATBDP_TEXTDOMAIN ); ?> #</td>
+                            <td><?php _e( 'ORDER', 'directorist' ); ?> #</td>
                             <td><?php echo (!empty($order_id)) ? $order_id : ''; ?></td>
                         </tr>
 
                         <tr>
-                            <td><?php _e( 'Total Amount', ATBDP_TEXTDOMAIN ); ?></td>
+                            <td><?php _e( 'Total Amount', 'directorist' ); ?></td>
                             <td>
                                 <?php
                                 if( !empty( $o_metas['_amount'] ) ) {
@@ -46,7 +46,7 @@ $container_fluid = 'container-fluid';
                         </tr>
 
                         <tr>
-                            <td><?php _e( 'Date', ATBDP_TEXTDOMAIN ); ?></td>
+                            <td><?php _e( 'Date', 'directorist' ); ?></td>
                             <td>
                                 <?php
                                 echo !empty($order) ?
@@ -66,12 +66,12 @@ $container_fluid = 'container-fluid';
                 <div class="col-lg-6">
                     <div class="table-responsive"><table class="table table-bordered">
                         <tr>
-                            <td><?php _e( 'Payment Method', ATBDP_TEXTDOMAIN ); ?></td>
+                            <td><?php _e( 'Payment Method', 'directorist' ); ?></td>
                             <td>
                                 <?php
                                 $gateway = !empty($o_metas['_payment_gateway'][0]) ? $o_metas['_payment_gateway'][0] : 'unknown';
                                 if( 'free' == $gateway ) {
-                                    _e( 'Free Listing', ATBDP_TEXTDOMAIN );
+                                    _e( 'Free Listing', 'directorist' );
                                 } else {
                                     $gw_title = get_directorist_option("{$gateway}_title");
                                     echo ! empty( $gw_title ) ? $gw_title : $gateway;
@@ -81,7 +81,7 @@ $container_fluid = 'container-fluid';
                         </tr>
 
                         <tr>
-                            <td><?php _e( 'Payment Status', ATBDP_TEXTDOMAIN ); ?></td>
+                            <td><?php _e( 'Payment Status', 'directorist' ); ?></td>
                             <td>
                                 <?php
                                 $status = isset( $o_metas['_payment_status'] ) ? $o_metas['_payment_status'][0] : 'Invalid';
@@ -91,7 +91,7 @@ $container_fluid = 'container-fluid';
                         </tr
 
                         ><tr>
-                            <td><?php _e( 'Transaction ID', ATBDP_TEXTDOMAIN ); ?></td>
+                            <td><?php _e( 'Transaction ID', 'directorist' ); ?></td>
                             <td><?php echo isset( $o_metas['_transaction_id'] ) ? $o_metas['_transaction_id'][0] : 'NIL'; ?></td>
                         </tr>
                     </table>
@@ -102,13 +102,13 @@ $container_fluid = 'container-fluid';
             <?php
             /*Show orders item if we have some*/
             if (!empty($order_items)){
-                echo '<p class="atbd_payment_summary">'.__( 'Ordered Item(s)', ATBDP_TEXTDOMAIN ).'</p>';
+                echo '<p class="atbd_payment_summary">'.__( 'Ordered Item(s)', 'directorist' ).'</p>';
                 ?>
                 <div class="table-responsive"><table class="table table-bordered">
                     <thead class="thead-light">
                         <tr>
-                            <th><?php _e( 'Name', ATBDP_TEXTDOMAIN ); ?></th>
-                            <th><?php printf(__('Price [%s]', ATBDP_TEXTDOMAIN), $currency); ?></th>
+                            <th><?php _e( 'Name', 'directorist' ); ?></th>
+                            <th><?php printf(__('Price [%s]', 'directorist'), $currency); ?></th>
                         </tr>
                     </thead>
                     <?php
@@ -136,7 +136,7 @@ $container_fluid = 'container-fluid';
                         </tr>
                     <?php } ?>
                     <tr>
-                        <td class="text-right atbdp-vertical-middle"><strong><?php printf( __( 'Total amount [%s]', ATBDP_TEXTDOMAIN ), $currency ); ?></strong></td>
+                        <td class="text-right atbdp-vertical-middle"><strong><?php printf( __( 'Total amount [%s]', 'directorist' ), $currency ); ?></strong></td>
                         <td class="atbd_tottal">
                             <strong><?php echo atbdp_format_payment_amount($total) ; ?></strong>
                         </td>
@@ -145,6 +145,6 @@ $container_fluid = 'container-fluid';
             <?php } ?>
 
         </div>
-        <div class="text-center"><a href="<?php echo ATBDP_Permalink::get_dashboard_page_link(); ?>" class="btn btn-lg btn-primary"><?php _e( 'View your listings', ATBDP_TEXTDOMAIN ); ?></a></div>
+        <div class="text-center"><a href="<?php echo ATBDP_Permalink::get_dashboard_page_link(); ?>" class="btn btn-lg btn-primary"><?php _e( 'View your listings', 'directorist' ); ?></a></div>
     </div>
 </div>

@@ -159,13 +159,13 @@ if(!class_exists('ATBDP_Custom_Post')):
             $featured_active = get_directorist_option('enable_featured_listing');
             $columns = array();
             $columns['cb']   = '<input type="checkbox" />';
-            $columns['title']   = __('Listing Name', ATBDP_TEXTDOMAIN);
-            $columns['atbdp_location']   = __('Location', ATBDP_TEXTDOMAIN);
-            $columns['atbdp_category']   = __('Categories', ATBDP_TEXTDOMAIN);
-            $columns['atbdp_author']   = __('Author', ATBDP_TEXTDOMAIN);
-            $columns['atbdp_status']   = __('Status', ATBDP_TEXTDOMAIN);
+            $columns['title']   = __('Listing Name', 'directorist');
+            $columns['atbdp_location']   = __('Location', 'directorist');
+            $columns['atbdp_category']   = __('Categories', 'directorist');
+            $columns['atbdp_author']   = __('Author', 'directorist');
+            $columns['atbdp_status']   = __('Status', 'directorist');
             if ($featured_active || is_fee_manager_active()){
-                $columns['atbdp_featured']   = __('Featured', ATBDP_TEXTDOMAIN);
+                $columns['atbdp_featured']   = __('Featured', 'directorist');
             }
             $subscribed_package_id = get_user_meta(get_current_user_id(), '_subscribed_users_plan_id', true);
             $num_featured_unl = get_post_meta($subscribed_package_id, 'num_featured_unl', true);
@@ -173,10 +173,10 @@ if(!class_exists('ATBDP_Custom_Post')):
             $featured_submited = get_user_meta(get_current_user_id(), '_featured_type',true) ? (int)get_user_meta(get_current_user_id(), '_featured_type',true) : 1;
             $featured_available_in_plan = $num_featured - $featured_submited;
             if (is_fee_manager_active() && $featured_available_in_plan>1 || $num_featured_unl){
-                $columns['atbdp_featured']   = __('Featured', ATBDP_TEXTDOMAIN);
+                $columns['atbdp_featured']   = __('Featured', 'directorist');
             }
-            $columns['atbdp_expiry_date']   = __('Expires on', ATBDP_TEXTDOMAIN);
-            $columns['atbdp_date']   = __('Created on', ATBDP_TEXTDOMAIN);
+            $columns['atbdp_expiry_date']   = __('Expires on', 'directorist');
+            $columns['atbdp_date']   = __('Created on', 'directorist');
             return (apply_filters('atbdp_add_new_listing_column', $columns));
         }
         public function manage_listing_columns( $column_name, $post_id ) {
@@ -250,12 +250,12 @@ if(!class_exists('ATBDP_Custom_Post')):
                 case 'atbdp_expiry_date':
                     $exp_date           = get_post_meta($post_id, '_expiry_date', true);
                     $never_exp           = get_post_meta($post_id, '_never_expire', true);
-                    echo ! empty( $never_exp ) ? __( 'Never Expires', ATBDP_TEXTDOMAIN ) :  date_i18n( "$date_format @  $time_format" , strtotime( $exp_date ) );
+                    echo ! empty( $never_exp ) ? __( 'Never Expires', 'directorist' ) :  date_i18n( "$date_format @  $time_format" , strtotime( $exp_date ) );
                     break;
                 case 'atbdp_date':
                     $t = get_the_time( 'U' );
                     echo date_i18n( $date_format , $t );
-                    printf(__(' ( %s ago )', ATBDP_TEXTDOMAIN), human_time_diff($t));
+                    printf(__(' ( %s ago )', 'directorist'), human_time_diff($t));
 
                     break;
 
@@ -285,7 +285,7 @@ if(!class_exists('ATBDP_Custom_Post')):
         public function change_title_text( $title ){
            global $typenow;
             if ( ATBDP_POST_TYPE == $typenow ) {
-                $title = esc_html__('Enter your listing name', ATBDP_TEXTDOMAIN);
+                $title = esc_html__('Enter your listing name', 'directorist');
             }
             return $title;
 

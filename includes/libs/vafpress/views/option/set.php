@@ -64,16 +64,16 @@
 			</div>
 			<div class="vp-right-panel">
                 <div class="atbdp_searchable_settings">
-                    <input class="vp-input input-large" id="atbdp_sSearch" autocomplete="off" placeholder="<?php _e('Search settings here...', ATBDP_TEXTDOMAIN); ?>" type="text">
+                    <input class="vp-input input-large" id="atbdp_sSearch" autocomplete="off" placeholder="<?php _e('Search settings here...', 'directorist'); ?>" type="text">
                 </div>
 
 				<form id="vp-option-form" class="vp-option-form vp-js-option-form" method="POST">
 					<div id="vp-submit-top" class="vp-submit top">
 						<div class="inner search-wrapper">
                             <div class="atbdp_searchable">
-                                <p class="vp-js-save-loader save-loader" style="display: none;"><img src="<?php VP_Util_Res::img_out('ajax-loader.gif', ''); ?>" /><?php _e('Saving Now', ATBDP_TEXTDOMAIN); ?></p>
+                                <p class="vp-js-save-loader save-loader" style="display: none;"><img src="<?php VP_Util_Res::img_out('ajax-loader.gif', ''); ?>" /><?php _e('Saving Now', 'directorist'); ?></p>
                                 <p class="vp-js-save-status save-status" style="display: none;"></p>
-                                <input class="vp-save vp-button button button-primary" type="submit" value="<?php _e('Save Changes', ATBDP_TEXTDOMAIN); ?>" />
+                                <input class="vp-save vp-button button button-primary" type="submit" value="<?php _e('Save Changes', 'directorist'); ?>" />
                             </div>
 						</div>
 					</div>
@@ -87,8 +87,8 @@
 					<?php endforeach; ?>
 					<div id="vp-submit-bottom" class="vp-submit bottom">
 						<div class="inner">
-							<input class="vp-save vp-button button button-primary" type="submit" value="<?php _e('Save Changes', ATBDP_TEXTDOMAIN); ?>" />
-							<p class="vp-js-save-loader save-loader" style="display: none;"><img src="<?php VP_Util_Res::img_out('ajax-loader.gif', ''); ?>" /><?php _e('Saving Now', ATBDP_TEXTDOMAIN); ?></p>
+							<input class="vp-save vp-button button button-primary" type="submit" value="<?php _e('Save Changes', 'directorist'); ?>" />
+							<p class="vp-js-save-loader save-loader" style="display: none;"><img src="<?php VP_Util_Res::img_out('ajax-loader.gif', ''); ?>" /><?php _e('Saving Now', 'directorist'); ?></p>
 							<p class="vp-js-save-status save-status" style="display: none;"></p>
 						</div>
 					</div>

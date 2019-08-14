@@ -16,11 +16,11 @@ if ( !class_exists('BD_Search_Widget')) {
         {
             $widget_options = array(
                 'classname' => 'atbd_widget',
-                'description' => esc_html__('You can show search listing form by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show search listing form by this widget', 'directorist'),
             );
             parent::__construct(
                 'bdsw_widget', // Base ID
-                esc_html__('Directorist - Search Listings', ATBDP_TEXTDOMAIN), // Name
+                esc_html__('Directorist - Search Listings', 'directorist'), // Name
                 $widget_options // Args
             );
         }
@@ -35,7 +35,7 @@ if ( !class_exists('BD_Search_Widget')) {
          */
         public function widget ($args, $instance)
         {
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Advance Search', ATBDP_TEXTDOMAIN);
+            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Advance Search', 'directorist');
             $search_by_text_field          = ! empty( $instance['search_by_text_field'] ) ? 1 : 0;
             $search_by_category            = ! empty( $instance['search_by_category'] ) ? 1 : 0;
             $search_by_location            = ! empty( $instance['search_by_location'] ) ? 1 : 0;
@@ -78,7 +78,7 @@ if ( !class_exists('BD_Search_Widget')) {
         {
             // Define the array of defaults
             $defaults = array(
-                'title'                   =>  __( 'Search', ATBDP_TEXTDOMAIN ),
+                'title'                   =>  __( 'Search', 'directorist' ),
                 'search_by_text_field'    => 1,
                 'search_by_category'      => 1,
                 'search_by_location'      => 1,

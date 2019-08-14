@@ -59,14 +59,14 @@ class ATBDP_Checkout
         if (!atbdp_is_user_logged_in()) return null;
         ob_start();
         // vail if monetization is not active.
-        if (! get_directorist_option('enable_monetization')) { return __('Monetization is not active on this site. if you are an admin, you can enable it from the settings panel.', ATBDP_TEXTDOMAIN);}
+        if (! get_directorist_option('enable_monetization')) { return __('Monetization is not active on this site. if you are an admin, you can enable it from the settings panel.', 'directorist');}
         wp_enqueue_script( 'atbdp_checkout_script' );
         // user logged in & monetization is active, so lets continue
         // get the listing id from the url query var
         $listing_id = get_query_var('atbdp_listing_id');
         // vail if the id is empty or post type is not our post type.
         if ( empty($listing_id) || (!empty($listing_id) && ATBDP_POST_TYPE != get_post_type($listing_id)) ) {
-            return __('Sorry, Something went wrong. Listing ID is missing. Please try again.', ATBDP_TEXTDOMAIN);
+            return __('Sorry, Something went wrong. Listing ID is missing. Please try again.', 'directorist');
         }
         // if the checkout form is submitted, then process placing order
         if ('POST' == $_SERVER['REQUEST_METHOD'] && ATBDP()->helper->verify_nonce( $this->nonce, $this->nonce_action )){
@@ -78,7 +78,7 @@ class ATBDP_Checkout
             // let's add featured listing data
             $featured_active = get_directorist_option('enable_featured_listing');
             if ($featured_active && !is_fee_manager_active()){
-                $title = get_directorist_option('featured_listing_title', __('Featured', ATBDP_TEXTDOMAIN));
+                $title = get_directorist_option('featured_listing_title', __('Featured', 'directorist'));
                 $desc = get_directorist_option('featured_listing_desc');
                 $price = get_directorist_option('featured_listing_price');
                 $form_data[] = array(
@@ -103,7 +103,7 @@ class ATBDP_Checkout
             }
 
             // if data is empty then vail,
-            if (empty($form_data)) { return __('Sorry, Nothing is available to buy. Please try again.', ATBDP_TEXTDOMAIN); }
+            if (empty($form_data)) { return __('Sorry, Nothing is available to buy. Please try again.', 'directorist'); }
 
             // pass the data using a data var, so that we can add to it more item later.
             $data = array(
@@ -124,7 +124,7 @@ class ATBDP_Checkout
         if (!atbdp_is_user_logged_in()) return null; // vail out showing a friendly-message, if user is not logged in.
         //content of order receipt should be outputted here.
         $order_id = (int) get_query_var('atbdp_order_id');
-        if (empty($order_id)) { return __('Sorry! No order id has been provided.', ATBDP_TEXTDOMAIN); }
+        if (empty($order_id)) { return __('Sorry! No order id has been provided.', 'directorist'); }
         $meta = get_post_meta($order_id);
         $listing_id = $meta['_listing_id'];
         $data = apply_filters('atbdp_payment_receipt_data', array(), $order_id, $listing_id);
@@ -141,7 +141,7 @@ class ATBDP_Checkout
         // let's add featured listing data if the order has featured listing in it
         $featured_active = get_directorist_option('enable_featured_listing');
         if ($featured_active && !empty($meta['_featured'])){
-            $title = get_directorist_option('featured_listing_title', __('Featured', ATBDP_TEXTDOMAIN));
+            $title = get_directorist_option('featured_listing_title', __('Featured', 'directorist'));
             $desc = get_directorist_option('featured_listing_desc');
             $price = get_directorist_option('featured_listing_price');
             $order_items[] = array(
@@ -312,7 +312,7 @@ class ATBDP_Checkout
      */
     public function transaction_failure()
     {
-        return __('Your Transaction was not successful. Please contact support', ATBDP_TEXTDOMAIN);
+        return __('Your Transaction was not successful. Please contact support', 'directorist');
     }
 
 } // ends class

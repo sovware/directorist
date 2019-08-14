@@ -18,11 +18,11 @@ $date_format = get_option('date_format');
 $featured_active = get_directorist_option('enable_featured_listing');
 $is_disable_price = get_directorist_option('disable_list_price');
 $my_listing_tab = get_directorist_option('my_listing_tab', 1);
-$my_listing_tab_text = get_directorist_option('my_listing_tab_text', __('My Listing', ATBDP_TEXTDOMAIN));
+$my_listing_tab_text = get_directorist_option('my_listing_tab_text', __('My Listing', 'directorist'));
 $my_profile_tab = get_directorist_option('my_profile_tab', 1);
-$my_profile_tab_text = get_directorist_option('my_profile_tab_text', __('My Profile', ATBDP_TEXTDOMAIN));
+$my_profile_tab_text = get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist'));
 $fav_listings_tab = get_directorist_option('fav_listings_tab', 1);
-$fav_listings_tab_text = get_directorist_option('fav_listings_tab_text', __('Favorite Listings', ATBDP_TEXTDOMAIN));
+$fav_listings_tab_text = get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist'));
 $submit_listing_button = get_directorist_option('submit_listing_button', 1);
 $show_title = !empty($show_title) ? $show_title : '';
 $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
@@ -37,7 +37,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                 if ('yes' === $show_title) {
                     ?>
                     <div class="atbd_add_listing_title">
-                        <h2><?php _e('My Dashboard', ATBDP_TEXTDOMAIN); ?></h2>
+                        <h2><?php _e('My Dashboard', 'directorist'); ?></h2>
                     </div> <!--ends add_listing_title-->
                     <?php
                 }
@@ -50,16 +50,16 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                 <li>
                                     <a href="" target="my_listings" class="atbd_tn_link tabItemActive">
                                         <?php $list_found = ($listings->found_posts > 0) ? $listings->found_posts : '0';
-                                        printf(__('%s (%s)', ATBDP_TEXTDOMAIN), $my_listing_tab_text,$list_found); ?>
+                                        printf(__('%s (%s)', 'directorist'), $my_listing_tab_text,$list_found); ?>
                                     </a>
                                 </li>
                             <?php } ?>
                             <?php if (!empty($my_profile_tab)) { ?>
-                                <li><a href="" class="atbd_tn_link" target="profile"><?php _e($my_profile_tab_text, ATBDP_TEXTDOMAIN); ?></a>
+                                <li><a href="" class="atbd_tn_link" target="profile"><?php _e($my_profile_tab_text, 'directorist'); ?></a>
                                 </li>
                             <?php } ?>
                             <?php if (!empty($fav_listings_tab)) { ?>
-                                <li><a href="" class="atbd_tn_link" target="saved_items"><?php _e($fav_listings_tab_text, ATBDP_TEXTDOMAIN); ?></a>
+                                <li><a href="" class="atbd_tn_link" target="saved_items"><?php _e($fav_listings_tab_text, 'directorist'); ?></a>
                                 </li>
                             <?php } ?>
                             <?php
@@ -71,10 +71,10 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                         <div class="nav_button">
                             <?php if (!empty($submit_listing_button)) { ?>
                                 <a href="<?= (is_fee_manager_active()) ? esc_url(ATBDP_Permalink::get_fee_plan_page_link()) : esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
-                                   class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Submit Listing', ATBDP_TEXTDOMAIN); ?></a>
+                                   class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Submit Listing', 'directorist'); ?></a>
                             <?php } ?>
                             <a href="<?= esc_url(wp_logout_url(home_url())); ?>"
-                               class="<?= atbdp_directorist_button_classes('secondary'); ?>"><?php _e('Log Out', ATBDP_TEXTDOMAIN); ?></a>
+                               class="<?= atbdp_directorist_button_classes('secondary'); ?>"><?php _e('Log Out', 'directorist'); ?></a>
                         </div>
                     </div> <!--ends dashboard_nav-->
 
@@ -147,10 +147,10 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
                                                             <div class="atbd_lower_badge">
                                                                 <?php
-                                                                $featured_text = get_directorist_option('feature_badge_text', esc_html__('Featured', ATBDP_TEXTDOMAIN));
+                                                                $featured_text = get_directorist_option('feature_badge_text', esc_html__('Featured', 'directorist'));
                                                                 if ($featured) {
                                                                     printf(
-                                                                        '<span class="atbd_badge atbd_badge_featured">%s</span>', __($featured_text, ATBDP_TEXTDOMAIN)
+                                                                        '<span class="atbd_badge atbd_badge_featured">%s</span>', __($featured_text, 'directorist')
 
                                                                     );
                                                                 }
@@ -210,7 +210,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                            data-target="atpp-plan-change-modal"
                                                                            data-listing_id="<?= $post->ID; ?>"
                                                                            class="directory_btn btn btn-outline-success atbdp_renew_with_plan">
-                                                                            <?php _e('Renew', ATBDP_TEXTDOMAIN); ?>
+                                                                            <?php _e('Renew', 'directorist'); ?>
                                                                         </a>
                                                                         <?php
                                                                     }else{
@@ -219,7 +219,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                        id="directorist-renew"
                                                                        data-listing_id="<?= $post->ID; ?>"
                                                                        class="directory_btn btn btn-outline-success">
-                                                                        <?php _e('Renew', ATBDP_TEXTDOMAIN); ?>
+                                                                        <?php _e('Renew', 'directorist'); ?>
                                                                     </a>
                                                                     <!--@todo; add expiration and renew date-->
                                                                 <?php }} else {
@@ -232,7 +232,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                                id="directorist-promote"
                                                                                data-listing_id="<?= $post->ID; ?>"
                                                                                class="directory_btn btn btn-primary">
-                                                                                <?php _e('Promote Your listing', ATBDP_TEXTDOMAIN); ?>
+                                                                                <?php _e('Promote Your listing', 'directorist'); ?>
                                                                             </a>
                                                                         </div>
                                                                     <?php }
@@ -240,10 +240,10 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
                                                                 <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
                                                                    id="edit_listing"
-                                                                   class="directory_edit_btn btn btn-outline-primary"><?php _e('Edit', ATBDP_TEXTDOMAIN); ?></a>
+                                                                   class="directory_edit_btn btn btn-outline-primary"><?php _e('Edit', 'directorist'); ?></a>
                                                                 <a href="#" id="remove_listing"
                                                                    data-listing_id="<?= $post->ID; ?>"
-                                                                   class="directory_remove_btn btn btn-outline-danger"><?php _e('Delete', ATBDP_TEXTDOMAIN); ?></a>
+                                                                   class="directory_remove_btn btn btn-outline-danger"><?php _e('Delete', 'directorist'); ?></a>
                                                             </div> <!--ends .db_btn_area-->
                                                             <?php /* @todo: deleted the read more link */ ?>
                                                         </div><!-- end ./atbd_content_upper -->
@@ -256,10 +256,10 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                  */
                                                                 do_action('atbdp_user_dashboard_listings_before_expiration', $post->ID);
                                                                 $exp_text = !empty($never_exp)
-                                                                    ? __('Never Expires', ATBDP_TEXTDOMAIN)
+                                                                    ? __('Never Expires', 'directorist')
                                                                     : date_i18n($date_format, strtotime($exp_date)); ?>
-                                                                <p><?php printf(__('<span>Expiration:</span> %s', ATBDP_TEXTDOMAIN), (($interval) && ('expired' == $lstatus)) ? '<span style="color: red">' . __('Expired', ATBDP_TEXTDOMAIN) . '</span>' : $exp_text); ?></p>
-                                                                <p><?php printf(__('<span>Listing Status:</span> %s', ATBDP_TEXTDOMAIN), get_post_status_object($post->post_status)->label); ?></p>
+                                                                <p><?php printf(__('<span>Expiration:</span> %s', 'directorist'), (($interval) && ('expired' == $lstatus)) ? '<span style="color: red">' . __('Expired', 'directorist') . '</span>' : $exp_text); ?></p>
+                                                                <p><?php printf(__('<span>Listing Status:</span> %s', 'directorist'), get_post_status_object($post->post_status)->label); ?></p>
                                                                 <?php
                                                                 /**
                                                                  * Fires after the price of the listing is rendered
@@ -280,7 +280,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                     }
 
                                 } else {
-                                    echo '<p class="atbdp_nlf">' . __("Looks like you have not created any listing yet!", ATBDP_TEXTDOMAIN) . '</p>';
+                                    echo '<p class="atbdp_nlf">' . __("Looks like you have not created any listing yet!", 'directorist') . '</p>';
                                 }
                                 $pagination = get_directorist_option('user_listings_pagination',1);
                                 $paged      = atbdp_get_paged_num();
@@ -317,7 +317,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                         <input type="hidden" name="user[pro_pic]" id="pro_pic"
                                                                value="<?= !empty($u_pro_pic_id) ? esc_attr($u_pro_pic_id) : ''; ?>">
                                                         <label for="pro_pic"
-                                                               id="upload_pro_pic"><?php _e('Change', ATBDP_TEXTDOMAIN); ?></label>
+                                                               id="upload_pro_pic"><?php _e('Change', 'directorist'); ?></label>
                                                     </div> <!--ends .choose_btn-->
                                                     <img src="<?= !empty($u_pro_pic) ? esc_url($u_pro_pic[0]) : esc_url(ATBDP_PUBLIC_ASSETS . 'images/no-image.jpg'); ?>"
                                                          id="pro_img" alt="">
@@ -329,7 +329,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                         <div class="col-md-9">
                                             <div class="atbd_user_profile_edit">
                                                 <div class="profile_title">
-                                                    <h4><?php _e('My Profile', ATBDP_TEXTDOMAIN); ?></h4>
+                                                    <h4><?php _e('My Profile', 'directorist'); ?></h4>
                                                 </div>
 
                                                 <div class="user_info_wrap">
@@ -339,19 +339,19 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                     <div class="row row_fu_name">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="full_name"><?php _e('Full Name', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <label for="full_name"><?php _e('Full Name', 'directorist'); ?></label>
                                                                 <input class="form-control" type="text"
                                                                        name="user[full_name]"
                                                                        value="<?= !empty($c_user->display_name) ? esc_attr($c_user->display_name) : ''; ?>"
-                                                                       placeholder="<?php _e('Enter your full name', ATBDP_TEXTDOMAIN); ?>">
+                                                                       placeholder="<?php _e('Enter your full name', 'directorist'); ?>">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="user_name"><?php _e('User Name', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <label for="user_name"><?php _e('User Name', 'directorist'); ?></label>
                                                                 <input class="form-control" id="user_name" type="text"
                                                                        disabled="disabled" name="user[user_name]"
-                                                                       value="<?= !empty($c_user->user_login) ? esc_attr($c_user->user_login) : ''; ?>"> <?php _e('(username can not be changed)', ATBDP_TEXTDOMAIN); ?>
+                                                                       value="<?= !empty($c_user->user_login) ? esc_attr($c_user->user_login) : ''; ?>"> <?php _e('(username can not be changed)', 'directorist'); ?>
                                                             </div>
                                                         </div>
                                                     </div> <!--ends .row-->
@@ -359,7 +359,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                     <div class="row row_fl_name">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="first_name"><?php _e('First Name', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <label for="first_name"><?php _e('First Name', 'directorist'); ?></label>
                                                                 <input class="form-control" id="first_name" type="text"
                                                                        name="user[first_name]"
                                                                        value="<?= !empty($c_user->first_name) ? esc_attr($c_user->first_name) : ''; ?>">
@@ -367,7 +367,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="last_name"><?php _e('Last Name', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <label for="last_name"><?php _e('Last Name', 'directorist'); ?></label>
                                                                 <input class="form-control" id="last_name" type="text"
                                                                        name="user[last_name]"
                                                                        value="<?= !empty($c_user->last_name) ? esc_attr($c_user->last_name) : ''; ?>">
@@ -378,7 +378,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                     <div class="row row_email_cell">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="req_email"><?php _e('Email (required)', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <label for="req_email"><?php _e('Email (required)', 'directorist'); ?></label>
                                                                 <input class="form-control" id="req_email" type="text"
                                                                        name="user[user_email]"
                                                                        value="<?= !empty($c_user->user_email) ? esc_attr($c_user->user_email) : ''; ?>"
@@ -387,10 +387,10 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="phone"><?php _e('Cell Number', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <label for="phone"><?php _e('Cell Number', 'directorist'); ?></label>
                                                                 <input class="form-control" type="tel" name="user[phone]"
                                                                        value="<?= !empty($u_phone) ? esc_attr($u_phone) : ''; ?>"
-                                                                       placeholder="<?php _e('Enter your phone number', ATBDP_TEXTDOMAIN); ?>">
+                                                                       placeholder="<?php _e('Enter your phone number', 'directorist'); ?>">
                                                             </div>
                                                         </div>
                                                     </div> <!--ends .row-->
@@ -398,7 +398,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                     <div class="row row_site_addr">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="website"><?php _e('Website', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <label for="website"><?php _e('Website', 'directorist'); ?></label>
                                                                 <input class="form-control" id="website" type="text"
                                                                        name="user[website]"
                                                                        value="<?= !empty($u_website) ? esc_url($u_website) : ''; ?>">
@@ -406,7 +406,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="address"><?php _e('Address', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <label for="address"><?php _e('Address', 'directorist'); ?></label>
                                                                 <input class="form-control" id="address" type="text"
                                                                        name="user[address]"
                                                                        value="<?= !empty($u_address) ? esc_attr($u_address) : ''; ?>">
@@ -418,21 +418,21 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                     <div class="row row_password">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="new_pass"><?php _e('New Password', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <label for="new_pass"><?php _e('New Password', 'directorist'); ?></label>
                                                                 <input id="new_pass" class="form-control" type="password"
                                                                        name="user[new_pass]"
                                                                        value="<?= !empty($new_pass) ? esc_attr($new_pass) : ''; ?>"
-                                                                       placeholder="<?php _e('Enter a new password', ATBDP_TEXTDOMAIN); ?>">
+                                                                       placeholder="<?php _e('Enter a new password', 'directorist'); ?>">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="confirm_pass"><?php _e('Confirm New Password', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <label for="confirm_pass"><?php _e('Confirm New Password', 'directorist'); ?></label>
                                                                 <input id="confirm_pass" class="form-control"
                                                                        type="password"
                                                                        name="user[confirm_pass]"
                                                                        value="<?= !empty($confirm_pass) ? esc_attr($confirm_pass) : ''; ?>"
-                                                                       placeholder="<?php _e('Confirm your new password', ATBDP_TEXTDOMAIN); ?>">
+                                                                       placeholder="<?php _e('Confirm your new password', 'directorist'); ?>">
                                                             </div>
                                                         </div>
                                                     </div><!--ends .row-->
@@ -440,48 +440,48 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                     <div class="row row_socials">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="facebook"><?php _e('Facebook', ATBDP_TEXTDOMAIN); ?></label>
-                                                                <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
+                                                                <label for="facebook"><?php _e('Facebook', 'directorist'); ?></label>
+                                                                <p><?php _e('Leave it empty to hide', 'directorist') ?></p>
                                                                 <input id="facebook" class="form-control" type="url"
                                                                        name="user[facebook]"
                                                                        value="<?= !empty($facebook) ? esc_attr($facebook) : ''; ?>"
-                                                                       placeholder="<?php _e('Enter your facebook url', ATBDP_TEXTDOMAIN); ?>">
+                                                                       placeholder="<?php _e('Enter your facebook url', 'directorist'); ?>">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="twitter"><?php _e('Twitter', ATBDP_TEXTDOMAIN); ?></label>
-                                                                <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
+                                                                <label for="twitter"><?php _e('Twitter', 'directorist'); ?></label>
+                                                                <p><?php _e('Leave it empty to hide', 'directorist') ?></p>
                                                                 <input id="twitter" class="form-control" type="url"
                                                                        name="user[twitter]"
                                                                        value="<?= !empty($twitter) ? esc_attr($twitter) : ''; ?>"
-                                                                       placeholder="<?php _e('Enter your twitter url', ATBDP_TEXTDOMAIN); ?>">
+                                                                       placeholder="<?php _e('Enter your twitter url', 'directorist'); ?>">
                                                             </div>
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="linkedIn"><?php _e('LinkedIn', ATBDP_TEXTDOMAIN); ?></label>
-                                                                <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
+                                                                <label for="linkedIn"><?php _e('LinkedIn', 'directorist'); ?></label>
+                                                                <p><?php _e('Leave it empty to hide', 'directorist') ?></p>
                                                                 <input id="linkedIn" class="form-control" type="url"
                                                                        name="user[linkedIn]"
                                                                        value="<?= !empty($linkedIn) ? esc_attr($linkedIn) : ''; ?>"
-                                                                       placeholder="<?php _e('Enter linkedIn url', ATBDP_TEXTDOMAIN); ?>">
+                                                                       placeholder="<?php _e('Enter linkedIn url', 'directorist'); ?>">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="youtube"><?php _e('Youtube', ATBDP_TEXTDOMAIN); ?></label>
-                                                                <p><?php _e('Leave it empty to hide', ATBDP_TEXTDOMAIN) ?></p>
+                                                                <label for="youtube"><?php _e('Youtube', 'directorist'); ?></label>
+                                                                <p><?php _e('Leave it empty to hide', 'directorist') ?></p>
                                                                 <input id="youtube" class="form-control" type="url"
                                                                        name="user[youtube]"
                                                                        value="<?= !empty($youtube) ? esc_attr($youtube) : ''; ?>"
-                                                                       placeholder="<?php _e('Enter youtube url', ATBDP_TEXTDOMAIN); ?>">
+                                                                       placeholder="<?php _e('Enter youtube url', 'directorist'); ?>">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">
                                                             <div class="form-group">
-                                                                <label for="bio"><?php _e('About Author', ATBDP_TEXTDOMAIN); ?></label>
+                                                                <label for="bio"><?php _e('About Author', 'directorist'); ?></label>
                                                                 <textarea class="wp-editor-area form-control"
                                                                           style="height: 200px" autocomplete="off" cols="40"
                                                                           name="user[bio]"
@@ -492,7 +492,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
 
                                                     <button type="submit" class="btn btn-primary"
-                                                            id="update_user_profile"><?php _e('Save Changes', ATBDP_TEXTDOMAIN); ?></button>
+                                                            id="update_user_profile"><?php _e('Save Changes', 'directorist'); ?></button>
 
                                                     <div id="pro_notice" style="padding: 20px"></div>
                                                 </div>
@@ -511,14 +511,14 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             ?>
                                             <thead>
                                             <tr>
-                                                <th><?php _e('Listing Name', ATBDP_TEXTDOMAIN) ?></th>
-                                                <th><?php _e('Category', ATBDP_TEXTDOMAIN) ?></th>
+                                                <th><?php _e('Listing Name', 'directorist') ?></th>
+                                                <th><?php _e('Category', 'directorist') ?></th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <?php
                                             foreach ($fav_listings->posts as $post) {
-                                                $title = !empty($post->post_title) ? $post->post_title : __('Untitled', ATBDP_TEXTDOMAIN);
+                                                $title = !empty($post->post_title) ? $post->post_title : __('Untitled', 'directorist');
                                                 $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
                                                 $category = get_post_meta($post->ID, '_admin_category_select', true);
                                                 $category_name = !empty($cats) ? $cats[0]->name : 'Uncategorized';
@@ -587,13 +587,13 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             </td>
 
 
-                                        </tr>', $post_link, $img_src, $title, $post_link, $title, $category_link, ('la' === $icon_type)?$icon_type.' '. $category_icon:'fa '. $category_icon , $category_name, atbdp_get_remove_favourites_page_link($post->ID), __('Remove', ATBDP_TEXTDOMAIN));
+                                        </tr>', $post_link, $img_src, $title, $post_link, $title, $category_link, ('la' === $icon_type)?$icon_type.' '. $category_icon:'fa '. $category_icon , $category_name, atbdp_get_remove_favourites_page_link($post->ID), __('Remove', 'directorist'));
                                             }
                                             ?>
                                             </tbody>
                                             <?php
                                         } else {
-                                            printf('<p class="atbdp_nlf">%s</p>', __("No listing found !", ATBDP_TEXTDOMAIN));
+                                            printf('<p class="atbdp_nlf">%s</p>', __("No listing found !", 'directorist'));
                                         }
                                         ?>
                                     </table>

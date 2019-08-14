@@ -5,7 +5,7 @@ $fm_plan                  = get_post_meta($listing_id, '_fm_plans', true);
 $listing_info['videourl'] = get_post_meta($post->ID, '_videourl', true);
 extract($listing_info);
 $enable_video_url         = get_directorist_option('atbd_video_url', 1);
-$video_label              = get_directorist_option('atbd_video_title', __('Video', ATBDP_TEXTDOMAIN));
+$video_label              = get_directorist_option('atbd_video_title', __('Video', 'directorist'));
 $main_col_size            = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 $display_video_for        = get_directorist_option('display_video_for', 'admin_users');
 ?>
@@ -20,7 +20,7 @@ $display_video_for        = get_directorist_option('display_video_for', 'admin_u
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="<?php atbdp_icon_type(true);?>-video-camera atbd_area_icon"></span><?php _e($video_label, ATBDP_TEXTDOMAIN) ?>
+                                <span class="<?php atbdp_icon_type(true);?>-video-camera atbd_area_icon"></span><?php _e($video_label, 'directorist') ?>
                             </h4>
                         </div>
                     </div>

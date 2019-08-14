@@ -12,11 +12,11 @@ if (!class_exists('BD_Author_Info_Widget')) {
         {
             $widget_options = array(
                 'classname' => 'atbd_widget',
-                'description' => esc_html__('You can show author info by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show author info by this widget', 'directorist'),
             );
             parent::__construct(
                 'bdsi_widget', // Base ID
-                esc_html__('Directorist - Author Info', ATBDP_TEXTDOMAIN), // Name
+                esc_html__('Directorist - Author Info', 'directorist'), // Name
                 $widget_options // Args
             );
         }
@@ -32,7 +32,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
         public function widget($args, $instance)
         {
             if (is_singular(ATBDP_POST_TYPE)) {
-                $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Title', ATBDP_TEXTDOMAIN);
+                $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Title', 'directorist');
                 echo $args['before_widget'];
                 echo '<div class="atbd_widget_title">';
                 echo $args['before_title'] . esc_html(apply_filters('widget_submit_item_title', $title)) . $args['after_title'];
@@ -59,7 +59,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
                         <div class="atbd_name_time">
                             <h4><?= esc_html($author_name); ?></h4>
                             <span class="review_time"><?php
-                                printf(__('Member since %s ago', ATBDP_TEXTDOMAIN), human_time_diff(strtotime($user_registered), current_time('timestamp'))); ?></span>
+                                printf(__('Member since %s ago', 'directorist'), human_time_diff(strtotime($user_registered), current_time('timestamp'))); ?></span>
                         </div>
                     </div>
 
@@ -143,7 +143,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
                         </div>
                     <?php } ?>
                     <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
-                       class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', ATBDP_TEXTDOMAIN); ?>
+                       class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', 'directorist'); ?>
                     </a>
                 </div>
                 <?php
@@ -161,10 +161,10 @@ if (!class_exists('BD_Author_Info_Widget')) {
          */
         public function form($instance)
         {
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Author Info', ATBDP_TEXTDOMAIN);
+            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Author Info', 'directorist');
             ?>
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', 'directorist'); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
                        name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
                        value="<?php echo esc_attr($title); ?>">

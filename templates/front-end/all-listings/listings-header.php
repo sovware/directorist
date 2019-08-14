@@ -108,7 +108,7 @@
                                             <div class="col-md-6 col-sm-12 col-lg-4">
                                                 <div class="single_search_field search_query">
                                                     <input class="form-control search_fields" type="text" name="q"
-                                                           placeholder="<?php _e($text_placeholder, ATBDP_TEXTDOMAIN); ?>">
+                                                           placeholder="<?php _e($text_placeholder, 'directorist'); ?>">
                                                 </div>
                                             </div>
                                         <?php }
@@ -124,7 +124,7 @@
                                                 <div class="single_search_field search_category">
                                                     <?php
                                                     $args = array(
-                                                        'show_option_none' => __($category_placeholder, ATBDP_TEXTDOMAIN),
+                                                        'show_option_none' => __($category_placeholder, 'directorist'),
                                                         'taxonomy' => ATBDP_CATEGORY,
                                                         'id' => 'cat-type',
                                                         'option_none_value' => '',
@@ -156,7 +156,7 @@
                                                 <div class="single_search_field search_location">
                                                     <?php
                                                     $args = array(
-                                                        'show_option_none' => __($location_placeholder, ATBDP_TEXTDOMAIN),
+                                                        'show_option_none' => __($location_placeholder, 'directorist'),
                                                         'taxonomy' => ATBDP_LOCATION,
                                                         'id' => 'loc-type',
                                                         'option_none_value' => '',
@@ -188,17 +188,17 @@
                                 <?php if (in_array('search_price', $search_more_filters_fields) || in_array('search_price_range', $search_more_filters_fields)) { ?>
                                     <div class="form-group ">
 
-                                        <label class=""><?php _e('Price Range', ATBDP_TEXTDOMAIN); ?></label>
+                                        <label class=""><?php _e('Price Range', 'directorist'); ?></label>
                                         <div class="price_ranges">
                                             <?php if (in_array('search_price', $search_more_filters_fields)) { ?>
                                                 <div class="range_single">
                                                     <input type="text" name="price[0]" class="form-control"
-                                                           placeholder="<?php _e('Min Price', ATBDP_TEXTDOMAIN); ?>"
+                                                           placeholder="<?php _e('Min Price', 'directorist'); ?>"
                                                            value="<?php if (isset($_GET['price'])) echo esc_attr($_GET['price'][0]); ?>">
                                                 </div>
                                                 <div class="range_single">
                                                     <input type="text" name="price[1]" class="form-control"
-                                                           placeholder="<?php _e('Max Price', ATBDP_TEXTDOMAIN); ?>"
+                                                           placeholder="<?php _e('Max Price', 'directorist'); ?>"
                                                            value="<?php if (isset($_GET['price'])) echo esc_attr($_GET['price'][1]); ?>">
                                                 </div>
                                             <?php }
@@ -227,30 +227,30 @@
                                 <?php } ?>
                                 <?php if (in_array('search_rating', $search_more_filters_fields)) { ?>
                                     <div class="form-group">
-                                        <label><?php _e('Filter by Ratings', ATBDP_TEXTDOMAIN); ?></label>
+                                        <label><?php _e('Filter by Ratings', 'directorist'); ?></label>
                                         <select name='search_by_rating' class="select-basic form-control">
-                                            <option value=""><?php _e('Select Ratings', ATBDP_TEXTDOMAIN); ?></option>
+                                            <option value=""><?php _e('Select Ratings', 'directorist'); ?></option>
                                             <option value="5" <?php if (!empty($_GET['search_by_rating']) && '5' == $_GET['search_by_rating']) {
                                                 echo "selected";
-                                            } ?>><?php _e('5 Star', ATBDP_TEXTDOMAIN); ?></option>
+                                            } ?>><?php _e('5 Star', 'directorist'); ?></option>
                                             <option value="4" <?php if (!empty($_GET['search_by_rating']) && '4' == $_GET['search_by_rating']) {
                                                 echo "selected";
-                                            } ?>><?php _e('4 Star & Up', ATBDP_TEXTDOMAIN); ?></option>
+                                            } ?>><?php _e('4 Star & Up', 'directorist'); ?></option>
                                             <option value="3" <?php if (!empty($_GET['search_by_rating']) && '3' == $_GET['search_by_rating']) {
                                                 echo "selected";
-                                            } ?>><?php _e('3 Star & Up', ATBDP_TEXTDOMAIN); ?></option>
+                                            } ?>><?php _e('3 Star & Up', 'directorist'); ?></option>
                                             <option value="2" <?php if (!empty($_GET['search_by_rating']) && '2' == $_GET['search_by_rating']) {
                                                 echo "selected";
-                                            } ?>><?php _e('2 Star & Up', ATBDP_TEXTDOMAIN); ?></option>
+                                            } ?>><?php _e('2 Star & Up', 'directorist'); ?></option>
                                             <option value="1" <?php if (!empty($_GET['search_by_rating']) && '1' == $_GET['search_by_rating']) {
                                                 echo "selected";
-                                            } ?>><?php _e('1 Star & Up', ATBDP_TEXTDOMAIN); ?></option>
+                                            } ?>><?php _e('1 Star & Up', 'directorist'); ?></option>
                                         </select>
                                     </div><!-- ends: .form-group -->
                                 <?php }
                                 if (in_array('search_open_now', $search_more_filters_fields) && in_array('directorist-business-hours/bd-business-hour.php', apply_filters('active_plugins', get_option('active_plugins')))) { ?>
                                     <div class="form-group">
-                                        <label><?php _e('Open Now', ATBDP_TEXTDOMAIN); ?></label>
+                                        <label><?php _e('Open Now', 'directorist'); ?></label>
                                         <div class="check-btn">
                                             <div class="btn-checkbox">
                                                 <label>
@@ -258,7 +258,7 @@
                                                            value="open_now" <?php if (!empty($_GET['open_now']) && 'open_now' == $_GET['open_now']) {
                                                         echo "checked='checked'";
                                                     } ?>>
-                                                    <span><i class="fa fa-clock-o"></i><?php _e('Open Now', ATBDP_TEXTDOMAIN); ?> </span>
+                                                    <span><i class="fa fa-clock-o"></i><?php _e('Open Now', 'directorist'); ?> </span>
                                                 </label>
                                             </div>
                                         </div>
@@ -269,7 +269,7 @@
                                     if (!empty($terms)) {
                                         ?>
                                         <div class="form-group ads-filter-tags">
-                                            <label><?php _e('Tags', ATBDP_TEXTDOMAIN); ?></label>
+                                            <label><?php _e('Tags', 'directorist'); ?></label>
                                             <div class="bads-tags">
                                                 <?php
                                                 $rand = rand();
@@ -288,7 +288,7 @@
                                                 <?php } ?>
                                             </div>
                                             <a href="#"
-                                               class="more-less ad"><?php _e('Show More', ATBDP_TEXTDOMAIN); ?></a>
+                                               class="more-less ad"><?php _e('Show More', 'directorist'); ?></a>
                                         </div><!-- ends: .form-control -->
                                     <?php }
                                 }
@@ -303,7 +303,7 @@
                                             <?php if (in_array('search_website', $search_more_filters_fields)) { ?>
                                                 <div>
                                                     <input type="text" name="website"
-                                                           placeholder="<?php _e('Website', ATBDP_TEXTDOMAIN); ?>"
+                                                           placeholder="<?php _e('Website', 'directorist'); ?>"
                                                            value="<?php echo !empty($_GET['website']) ? $_GET['website'] : ''; ?>"
                                                            class="form-control">
                                                 </div>
@@ -311,7 +311,7 @@
                                             if (in_array('search_email', $search_more_filters_fields)) { ?>
                                                 <div>
                                                     <input type="text" name="email"
-                                                           placeholder=" <?php _e('Email', ATBDP_TEXTDOMAIN); ?>"
+                                                           placeholder=" <?php _e('Email', 'directorist'); ?>"
                                                            value="<?php echo !empty($_GET['email']) ? $_GET['email'] : ''; ?>"
                                                            class="form-control">
                                                 </div>
@@ -319,7 +319,7 @@
                                             if (in_array('search_phone', $search_more_filters_fields)) { ?>
                                                 <div>
                                                     <input type="text" name="phone"
-                                                           placeholder="<?php _e('Phone Number', ATBDP_TEXTDOMAIN); ?>"
+                                                           placeholder="<?php _e('Phone Number', 'directorist'); ?>"
                                                            value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>"
                                                            class="form-control">
                                                 </div>
@@ -327,7 +327,7 @@
                                             if (in_array('search_fax', $search_more_filters_fields)) { ?>
                                                 <div>
                                                     <input type="text" name="phone"
-                                                           placeholder="<?php _e('Fax', ATBDP_TEXTDOMAIN); ?>"
+                                                           placeholder="<?php _e('Fax', 'directorist'); ?>"
                                                            value="<?php echo !empty($_GET['fax']) ? $_GET['fax'] : ''; ?>"
                                                            class="form-control">
                                                 </div>
@@ -336,14 +336,14 @@
                                                 <div>
                                                     <input type="text" name="address"
                                                            value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>"
-                                                           placeholder="<?php _e('Address', ATBDP_TEXTDOMAIN); ?>"
+                                                           placeholder="<?php _e('Address', 'directorist'); ?>"
                                                            class="form-control location-name">
                                                 </div>
                                             <?php }
                                             if (in_array('search_zip_code', $search_more_filters_fields)) { ?>
                                                 <div>
                                                     <input type="text" name="zip_code"
-                                                           placeholder=" <?php _e('Zip/Post Code', ATBDP_TEXTDOMAIN); ?>"
+                                                           placeholder=" <?php _e('Zip/Post Code', 'directorist'); ?>"
                                                            value="<?php echo !empty($_GET['zip_code']) ? $_GET['zip_code'] : ''; ?>"
                                                            class="form-control">
                                                 </div>
@@ -354,11 +354,11 @@
                                 <div class="bdas-filter-actions">
                                     <?php if (in_array('reset_button', $filters_button)) { ?>
                                         <button type="reset"
-                                                class="btn btn-outline btn-outline-primary btn-sm"><?php _e($reset_filters_text, ATBDP_TEXTDOMAIN); ?></button>
+                                                class="btn btn-outline btn-outline-primary btn-sm"><?php _e($reset_filters_text, 'directorist'); ?></button>
                                     <?php }
                                     if (in_array('apply_button', $filters_button)) { ?>
                                         <button type="submit"
-                                                class="btn btn-primary btn-sm"><?php _e($apply_filters_text, ATBDP_TEXTDOMAIN); ?></button>
+                                                class="btn btn-primary btn-sm"><?php _e($apply_filters_text, 'directorist'); ?></button>
                                     <?php } ?>
 
                                 </div><!-- ends: .bdas-filter-actions -->

@@ -2,7 +2,7 @@
 
 <input class="vp-input" type="text" readonly id="<?php echo $name; ?>" name="<?php echo $name; ?>" value="<?php echo $value; ?>" />
 <div class="buttons">
-	<input class="vp-js-upload vp-button button" type="button" value="<?php _e('Choose File', ATBDP_TEXTDOMAIN); ?>" />
+	<input class="vp-js-upload vp-button button" type="button" value="<?php _e('Choose File', 'directorist'); ?>" />
 	<input class="vp-js-remove-upload vp-button button" type="button" value="x" />
 </div>
 <div class="image">

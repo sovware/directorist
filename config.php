@@ -9,7 +9,7 @@ if ( ! defined( 'ATBDP_URL' ) ) { define( 'ATBDP_URL', plugin_dir_url( __FILE__ 
 if ( ! defined( 'ATBDP_FILE' ) ) { define( 'ATBDP_FILE', __FILE__ ); }
 if ( ! defined( 'ATBDP_BASE' ) ) { define( 'ATBDP_BASE', plugin_basename( __FILE__ ) ); }
 // Plugin Text domain File.
-if ( ! defined( 'ATBDP_TEXTDOMAIN' ) ) { define( 'ATBDP_TEXTDOMAIN', 'directorist' ); }
+if ( ! defined( ATBDP_TEXTDOMAIN ) ) { define( ATBDP_TEXTDOMAIN, 'directorist' ); }
 // Plugin Includes Path
 if ( !defined('ATBDP_INC_DIR') ) { define('ATBDP_INC_DIR', ATBDP_DIR.'includes/'); }
 // Plugin Class Path
@@ -38,4 +38,4 @@ if ( !defined('ATBDP_LOCATION') ) { define('ATBDP_LOCATION', ATBDP_POST_TYPE.'-l
 if ( !defined('ATBDP_TAGS') ) { define('ATBDP_TAGS', ATBDP_POST_TYPE.'-tags'); }
 
 // Plugin Alert Message
-if ( !defined('ATBDP_ALERT_MSG') ) { define('ATBDP_ALERT_MSG', __('You do not have the right to access this file directly', ATBDP_TEXTDOMAIN)); }
+if ( !defined('ATBDP_ALERT_MSG') ) { define('ATBDP_ALERT_MSG', __('You do not have the right to access this file directly', 'directorist')); }

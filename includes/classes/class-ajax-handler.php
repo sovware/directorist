@@ -195,9 +195,9 @@ if(!class_exists('ATBDP_Ajax_Handler')):
             // update the user data and also its meta
             $success = ATBDP()->user->update_profile($_POST['user']); // update_profile() will handle sanitisation, so we can just the pass the data through it
             if ($success) {
-                wp_send_json_success(array('message'=>__('Profile updated successfully', ATBDP_TEXTDOMAIN)));
+                wp_send_json_success(array('message'=>__('Profile updated successfully', 'directorist')));
             }else{
-                wp_send_json_error(array('message'=>__('Ops! something went wrong. Try again.', ATBDP_TEXTDOMAIN)));
+                wp_send_json_error(array('message'=>__('Ops! something went wrong. Try again.', 'directorist')));
             };
         }
         wp_die();
@@ -353,10 +353,10 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
         $to = $user->user_email;
 
-        $subject = __( '[{site_name}] New review at "{listing_title}"', ATBDP_TEXTDOMAIN );
+        $subject = __( '[{site_name}] New review at "{listing_title}"', 'directorist' );
         $subject = strtr( $subject, $placeholders );
 
-        $message =  __( "Dear User,<br /><br />A new review at {listing_url}.<br /><br />", ATBDP_TEXTDOMAIN );
+        $message =  __( "Dear User,<br /><br />A new review at {listing_url}.<br /><br />", 'directorist' );
         $message = strtr( $message, $placeholders );
 
         $headers  = "From: {$user->display_name} <{$user->user_email}>\r\n";
@@ -400,10 +400,10 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
         $to = !empty($send_email) ? $send_email : get_bloginfo('admin_email');
 
-        $subject = __( '[{site_name}] New review at "{listing_title}"', ATBDP_TEXTDOMAIN );
+        $subject = __( '[{site_name}] New review at "{listing_title}"', 'directorist' );
         $subject = strtr( $subject, $placeholders );
 
-        $message =  __( "Dear Administrator,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}", ATBDP_TEXTDOMAIN );
+        $message =  __( "Dear Administrator,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}", 'directorist' );
         $message = strtr( $message, $placeholders );
 
         $headers  = "From: {$user->display_name} <{$user->user_email}>\r\n";
@@ -465,10 +465,10 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
         $to = !empty($send_email) ? $send_email : get_bloginfo('admin_email');
 
-        $subject = __( '[{site_name}] Report Abuse via "{listing_title}"', ATBDP_TEXTDOMAIN );
+        $subject = __( '[{site_name}] Report Abuse via "{listing_title}"', 'directorist' );
         $subject = strtr( $subject, $placeholders );
 
-        $message =  __( "Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}", ATBDP_TEXTDOMAIN );
+        $message =  __( "Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}", 'directorist' );
         $message = strtr( $message, $placeholders );
 
         $headers  = "From: {$user->display_name} <{$user->user_email}>\r\n";
@@ -488,12 +488,12 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
             if( $this->atbdp_email_admin_report_abuse() ) {
 
-                $data['message'] = __( 'Your message sent successfully.', ATBDP_TEXTDOMAIN );
+                $data['message'] = __( 'Your message sent successfully.', 'directorist' );
 
             } else {
 
                 $data['error']   = 1;
-                $data['message'] = __( 'Sorry! Please try again.', ATBDP_TEXTDOMAIN );
+                $data['message'] = __( 'Sorry! Please try again.', 'directorist' );
 
             }
 
@@ -618,10 +618,10 @@ if(!class_exists('ATBDP_Ajax_Handler')):
             $send_emails = ATBDP()->email->get_admin_email_list();
             $to = !empty($send_emails) ? $send_emails : get_bloginfo('admin_email');
 
-            $subject = __( '[{site_name}] Contact via "{listing_title}"', ATBDP_TEXTDOMAIN );
+            $subject = __( '[{site_name}] Contact via "{listing_title}"', 'directorist' );
             $subject = strtr( $subject, $placeholders );
 
-            $message =  __( "Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary.", ATBDP_TEXTDOMAIN );
+            $message =  __( "Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary.", 'directorist' );
             $message = strtr( $message, $placeholders );
 
             $headers  = "From: {$name} <{$email}>\r\n";
@@ -649,12 +649,12 @@ if(!class_exists('ATBDP_Ajax_Handler')):
             // Send a copy to admin( only if applicable ).
             $this->atbdp_email_admin_listing_contact();
 
-            $data['message'] = __( 'Your message sent successfully.', ATBDP_TEXTDOMAIN );
+            $data['message'] = __( 'Your message sent successfully.', 'directorist' );
 
         } else {
 
             $data['error']   = 1;
-            $data['message'] = __( 'Sorry! Please try again.', ATBDP_TEXTDOMAIN );
+            $data['message'] = __( 'Sorry! Please try again.', 'directorist' );
 
         }
 
@@ -702,7 +702,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
 
 
-            $data['message'] = __( 'Thanks for information', ATBDP_TEXTDOMAIN );
+            $data['message'] = __( 'Thanks for information', 'directorist' );
 
         }
 

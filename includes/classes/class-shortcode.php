@@ -175,7 +175,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $listing_order = get_directorist_option('search_sort_by');
             $listing_grid_columns = get_directorist_option('search_listing_columns', 3);
             $display_listings_header = get_directorist_option('search_header', 1);
-            $listings_header_title = get_directorist_option('search_header_title', __('Total Found: ', ATBDP_TEXTDOMAIN));
+            $listings_header_title = get_directorist_option('search_header_title', __('Total Found: ', 'directorist'));
             $filters_display = get_directorist_option('search_result_display_filter', 'sliding');
             $paginate = get_directorist_option('paginate_search_results');
             $listings_map_height = get_directorist_option('listings_map_height', 350);
@@ -1165,24 +1165,24 @@ if (!class_exists('ATBDP_Shortcode')):
             $loc_id = !empty($_GET['in_loc']) ? $_GET['in_loc'] : '';
             $cat_name = get_term_by('id', $cat_id, ATBDP_CATEGORY);
             $loc_name = get_term_by('id', $loc_id, ATBDP_LOCATION);
-            $for_cat = !empty($cat_name) ? sprintf(__('for %s', ATBDP_TEXTDOMAIN), $cat_name->name) : '';
-            $in_loc = !empty($loc_name) ? sprintf(__('in %s', ATBDP_TEXTDOMAIN), $loc_name->name) : '';
+            $for_cat = !empty($cat_name) ? sprintf(__('for %s', 'directorist'), $cat_name->name) : '';
+            $in_loc = !empty($loc_name) ? sprintf(__('in %s', 'directorist'), $loc_name->name) : '';
             $_s = (1 < count($all_listings->posts)) ? 's' : '';
 
-            $header_title = sprintf(__('%d result%s %s %s', ATBDP_TEXTDOMAIN), $all_listings->found_posts, $_s, $for_cat, $in_loc);
+            $header_title = sprintf(__('%d result%s %s %s', 'directorist'), $all_listings->found_posts, $_s, $for_cat, $in_loc);
             $listing_filters_button = get_directorist_option('search_result_filters_button_display', 1);
-            $filters = get_directorist_option('search_result_filter_button_text', __('Filters', ATBDP_TEXTDOMAIN));
-            $text_placeholder = get_directorist_option('search_result_search_text_placeholder', __('What are you looking for?', ATBDP_TEXTDOMAIN));
-            $category_placeholder = get_directorist_option('search_result_category_placeholder', __('Select a category', ATBDP_TEXTDOMAIN));
-            $location_placeholder = get_directorist_option('search_result_location_placeholder', __('Select a location', ATBDP_TEXTDOMAIN));
-            $sort_by_text = get_directorist_option('search_sortby_text', __('Sort By', ATBDP_TEXTDOMAIN));
-            $view_as_text = get_directorist_option('search_viewas_text', __('View As', ATBDP_TEXTDOMAIN));
+            $filters = get_directorist_option('search_result_filter_button_text', __('Filters', 'directorist'));
+            $text_placeholder = get_directorist_option('search_result_search_text_placeholder', __('What are you looking for?', 'directorist'));
+            $category_placeholder = get_directorist_option('search_result_category_placeholder', __('Select a category', 'directorist'));
+            $location_placeholder = get_directorist_option('search_result_location_placeholder', __('Select a location', 'directorist'));
+            $sort_by_text = get_directorist_option('search_sortby_text', __('Sort By', 'directorist'));
+            $view_as_text = get_directorist_option('search_viewas_text', __('View As', 'directorist'));
             $all_listing_title = !empty($all_listing_title) ? $all_listing_title : '';
             $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
             $search_more_filters_fields = get_directorist_option('search_result_filters_fields', array('search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields'));
             $filters_button = get_directorist_option('search_result_filters_button', array('reset_button', 'apply_button'));
-            $reset_filters_text = get_directorist_option('sresult_reset_text', __('Reset Filters', ATBDP_TEXTDOMAIN));
-            $apply_filters_text = get_directorist_option('sresult_apply_text', __('Apply Filters', ATBDP_TEXTDOMAIN));
+            $reset_filters_text = get_directorist_option('sresult_reset_text', __('Reset Filters', 'directorist'));
+            $apply_filters_text = get_directorist_option('sresult_apply_text', __('Apply Filters', 'directorist'));
             $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
             $view_as_items = get_directorist_option('search_view_as_items', array('listings_grid', 'listings_list', 'listings_map'));
             $sort_by_items = get_directorist_option('search_sort_by_items', array('a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random'));
@@ -1200,7 +1200,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
                 } else {
                     // user not logged in;
-                    $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', ATBDP_TEXTDOMAIN) . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', ATBDP_TEXTDOMAIN) . "</a>")); ?>
+                    $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
 
 
                     <section class="directory_wrapper single_area">
@@ -1230,7 +1230,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $listing_order = get_directorist_option('sort_listing_by');
             $listing_grid_columns = get_directorist_option('all_listing_columns', 3);
             $display_listings_header = get_directorist_option('display_listings_header', 1);
-            $listings_header_title = get_directorist_option('all_listing_title', __('All Items', ATBDP_TEXTDOMAIN));
+            $listings_header_title = get_directorist_option('all_listing_title', __('All Items', 'directorist'));
             $pagination = get_directorist_option('paginate_all_listings');
             $listings_map_height = get_directorist_option('listings_map_height', 350);
             $atts = shortcode_atts(array(
@@ -1675,18 +1675,18 @@ if (!class_exists('ATBDP_Shortcode')):
             $display_header = !empty($display_header) ? $display_header : '';
             $header_title = !empty($header_title) ? $header_title . ' ' . $listing_count : '';
             $listing_filters_button = !empty($atts['advanced_filter']) ? (('yes' === $atts['advanced_filter']) ? 1 : (('no' === $atts['advanced_filter']) ? 0 : $listing_filters_button)) : $listing_filters_button;
-            $filters = get_directorist_option('listings_filter_button_text', __('Filters', ATBDP_TEXTDOMAIN));
-            $text_placeholder = get_directorist_option('listings_search_text_placeholder', __('What are you looking for?', ATBDP_TEXTDOMAIN));
-            $category_placeholder = get_directorist_option('listings_category_placeholder', __('Select a category', ATBDP_TEXTDOMAIN));
-            $location_placeholder = get_directorist_option('listings_location_placeholder', __('Select a location', ATBDP_TEXTDOMAIN));
+            $filters = get_directorist_option('listings_filter_button_text', __('Filters', 'directorist'));
+            $text_placeholder = get_directorist_option('listings_search_text_placeholder', __('What are you looking for?', 'directorist'));
+            $category_placeholder = get_directorist_option('listings_category_placeholder', __('Select a category', 'directorist'));
+            $location_placeholder = get_directorist_option('listings_location_placeholder', __('Select a location', 'directorist'));
             $all_listing_title = !empty($all_listing_title) ? $all_listing_title : '';
             $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
             $search_more_filters_fields = get_directorist_option('listing_filters_fields', array('search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields'));
             $filters_button = get_directorist_option('listings_filters_button', array('reset_button', 'apply_button'));
-            $reset_filters_text = get_directorist_option('listings_reset_text', __('Reset Filters', ATBDP_TEXTDOMAIN));
-            $apply_filters_text = get_directorist_option('listings_apply_text', __('Apply Filters', ATBDP_TEXTDOMAIN));
-            $sort_by_text = get_directorist_option('sort_by_text', __('Sort By', ATBDP_TEXTDOMAIN));
-            $view_as_text = get_directorist_option('view_as_text', __('View As', ATBDP_TEXTDOMAIN));
+            $reset_filters_text = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
+            $apply_filters_text = get_directorist_option('listings_apply_text', __('Apply Filters', 'directorist'));
+            $sort_by_text = get_directorist_option('sort_by_text', __('Sort By', 'directorist'));
+            $view_as_text = get_directorist_option('view_as_text', __('View As', 'directorist'));
             $view_as_items = get_directorist_option('listings_view_as_items', array('listings_grid', 'listings_list', 'listings_map'));
             $sort_by_items = get_directorist_option('listings_sort_by_items', array('a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random'));
             $listing_header_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
@@ -1703,7 +1703,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
                 } else {
                     // user not logged in;
-                    $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', ATBDP_TEXTDOMAIN) . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', ATBDP_TEXTDOMAIN) . "</a>")); ?>
+                    $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
 
 
                     <section class="directory_wrapper single_area">
@@ -1734,7 +1734,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 //ATBDP()->user->user_dashboard($show_title);
             } else {
                 // user not logged in;
-                $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), apply_filters('atbdp_user_dashboard_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', ATBDP_TEXTDOMAIN) . "</a>"), apply_filters('atbdp_user_dashboard_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', ATBDP_TEXTDOMAIN) . "</a>")); ?>
+                $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_user_dashboard_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_user_dashboard_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
 
                 <section class="directory_wrapper single_area">
                     <?php ATBDP()->helper->show_login_message($error_message); ?>
@@ -1796,11 +1796,11 @@ if (!class_exists('ATBDP_Shortcode')):
                             include ATBDP_TEMPLATES_DIR . 'front-end/categories-page/categories-list.php';
                         }
                     } else {
-                        _e('<p>No Results found!</p>', ATBDP_TEXTDOMAIN);
+                        _e('<p>No Results found!</p>', 'directorist');
                     }
                 } else {
                     // user not logged in;
-                    $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', ATBDP_TEXTDOMAIN) . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', ATBDP_TEXTDOMAIN) . "</a>")); ?>
+                    $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
 
 
                     <section class="directory_wrapper single_area">
@@ -1816,7 +1816,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         include ATBDP_TEMPLATES_DIR . 'front-end/categories-page/categories-list.php';
                     }
                 } else {
-                    _e('<p>No Results found!</p>', ATBDP_TEXTDOMAIN);
+                    _e('<p>No Results found!</p>', 'directorist');
                 }
             }
 
@@ -1856,7 +1856,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $listing_order = get_directorist_option('sort_listing_by');
                 $listing_grid_columns = get_directorist_option('all_listing_columns', 3);
                 $display_listings_header = get_directorist_option('display_listings_header', 1);
-                $listings_header_title = get_directorist_option('all_listing_title', __('Total Listing Found: ', ATBDP_TEXTDOMAIN));
+                $listings_header_title = get_directorist_option('all_listing_title', __('Total Listing Found: ', 'directorist'));
                 $filters_display = get_directorist_option('listings_display_filter', 'sliding');
                 $pagination = get_directorist_option('paginate_all_listings');
                 $listings_map_height = get_directorist_option('listings_map_height', 350);
@@ -2164,17 +2164,17 @@ if (!class_exists('ATBDP_Shortcode')):
                 $display_header = !empty($display_header) ? $display_header : '';
                 $header_title = !empty($header_title) ? $header_title . ' ' . $listing_count : '';
                 $listing_filters_button = get_directorist_option('listing_filters_button', 1);
-                $filters = get_directorist_option('listings_filter_button_text', __('Filters', ATBDP_TEXTDOMAIN));
-                $text_placeholder = get_directorist_option('listings_search_text_placeholder', __('What are you looking for?', ATBDP_TEXTDOMAIN));
-                $category_placeholder = get_directorist_option('listings_category_placeholder', __('Select a category', ATBDP_TEXTDOMAIN));
-                $location_placeholder = get_directorist_option('listings_location_placeholder', __('Select a location', ATBDP_TEXTDOMAIN));
+                $filters = get_directorist_option('listings_filter_button_text', __('Filters', 'directorist'));
+                $text_placeholder = get_directorist_option('listings_search_text_placeholder', __('What are you looking for?', 'directorist'));
+                $category_placeholder = get_directorist_option('listings_category_placeholder', __('Select a category', 'directorist'));
+                $location_placeholder = get_directorist_option('listings_location_placeholder', __('Select a location', 'directorist'));
                 //$data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
                 $search_more_filters_fields = get_directorist_option('listing_filters_fields', array('search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields'));
                 $filters_button = get_directorist_option('listings_filters_button', array('reset_button', 'apply_button'));
-                $reset_filters_text = get_directorist_option('listings_reset_text', __('Reset Filters', ATBDP_TEXTDOMAIN));
-                $apply_filters_text = get_directorist_option('listings_apply_text', __('Apply Filters', ATBDP_TEXTDOMAIN));
-                $sort_by_text = get_directorist_option('sort_by_text', __('Sort By', ATBDP_TEXTDOMAIN));
-                $view_as_text = get_directorist_option('view_as_text', __('View As', ATBDP_TEXTDOMAIN));
+                $reset_filters_text = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
+                $apply_filters_text = get_directorist_option('listings_apply_text', __('Apply Filters', 'directorist'));
+                $sort_by_text = get_directorist_option('sort_by_text', __('Sort By', 'directorist'));
+                $view_as_text = get_directorist_option('view_as_text', __('View As', 'directorist'));
                 //$data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
                 $view_as_items = get_directorist_option('listings_view_as_items', array('listings_grid', 'listings_list', 'listings_map'));
                 $sort_by_items = get_directorist_option('listings_sort_by_items', array('a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random'));
@@ -2192,7 +2192,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
                     } else {
                         // user not logged in;
-                        $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', ATBDP_TEXTDOMAIN) . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', ATBDP_TEXTDOMAIN) . "</a>")); ?>
+                        $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
 
 
                         <section class="directory_wrapper single_area">
@@ -2206,7 +2206,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 return ob_get_clean();
 
             }
-            return '<span>' . __('No Results Found.', ATBDP_TEXTDOMAIN
+            return '<span>' . __('No Results Found.', 'directorist'
                 ) . '</span>';
         }
 
@@ -2261,11 +2261,11 @@ if (!class_exists('ATBDP_Shortcode')):
                             include ATBDP_TEMPLATES_DIR . 'front-end/locations-page/locations-list.php';
                         }
                     } else {
-                        _e('<p>No Results found!</p>', ATBDP_TEXTDOMAIN);
+                        _e('<p>No Results found!</p>', 'directorist');
                     }
                 } else {
                     // user not logged in;
-                    $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', ATBDP_TEXTDOMAIN) . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', ATBDP_TEXTDOMAIN) . "</a>")); ?>
+                    $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
 
                     <section class="directory_wrapper single_area">
                         <?php ATBDP()->helper->show_login_message($error_message); ?>
@@ -2280,7 +2280,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         include ATBDP_TEMPLATES_DIR . 'front-end/locations-page/locations-list.php';
                     }
                 } else {
-                    _e('<p>No Results found!</p>', ATBDP_TEXTDOMAIN);
+                    _e('<p>No Results found!</p>', 'directorist');
                 }
             }
 
@@ -2321,7 +2321,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $listing_order = get_directorist_option('sort_listing_by');
                 $listing_grid_columns = get_directorist_option('all_listing_columns', 3);
                 $display_listings_header = get_directorist_option('display_listings_header', 1);
-                $listings_header_title = get_directorist_option('all_listing_title', __('All Items', ATBDP_TEXTDOMAIN));
+                $listings_header_title = get_directorist_option('all_listing_title', __('All Items', 'directorist'));
                 $filters_display = get_directorist_option('listings_display_filter', 'sliding');
                 $pagination = get_directorist_option('paginate_all_listings');
                 $listings_map_height = get_directorist_option('listings_map_height', 350);
@@ -2625,17 +2625,17 @@ if (!class_exists('ATBDP_Shortcode')):
                 $display_header = !empty($display_header) ? $display_header : '';
                 $header_title = !empty($header_title) ? $header_title . ' ' . $listing_count : '';
                 $listing_filters_button = get_directorist_option('listing_filters_button', 1);
-                $filters = get_directorist_option('listings_filter_button_text', __('Filters', ATBDP_TEXTDOMAIN));
-                $text_placeholder = get_directorist_option('listings_search_text_placeholder', __('What are you looking for?', ATBDP_TEXTDOMAIN));
-                $category_placeholder = get_directorist_option('listings_category_placeholder', __('Select a category', ATBDP_TEXTDOMAIN));
-                $location_placeholder = get_directorist_option('listings_location_placeholder', __('Select a location', ATBDP_TEXTDOMAIN));
-                $sort_by_text = get_directorist_option('sort_by_text', __('Sort By', ATBDP_TEXTDOMAIN));
-                $view_as_text = get_directorist_option('view_as_text', __('View As', ATBDP_TEXTDOMAIN));
+                $filters = get_directorist_option('listings_filter_button_text', __('Filters', 'directorist'));
+                $text_placeholder = get_directorist_option('listings_search_text_placeholder', __('What are you looking for?', 'directorist'));
+                $category_placeholder = get_directorist_option('listings_category_placeholder', __('Select a category', 'directorist'));
+                $location_placeholder = get_directorist_option('listings_location_placeholder', __('Select a location', 'directorist'));
+                $sort_by_text = get_directorist_option('sort_by_text', __('Sort By', 'directorist'));
+                $view_as_text = get_directorist_option('view_as_text', __('View As', 'directorist'));
                 //  $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
                 $search_more_filters_fields = get_directorist_option('listing_filters_fields', array('search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields'));
                 $filters_button = get_directorist_option('listings_filters_button', array('reset_button', 'apply_button'));
-                $reset_filters_text = get_directorist_option('listings_reset_text', __('Reset Filters', ATBDP_TEXTDOMAIN));
-                $apply_filters_text = get_directorist_option('listings_apply_text', __('Apply Filters', ATBDP_TEXTDOMAIN));
+                $reset_filters_text = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
+                $apply_filters_text = get_directorist_option('listings_apply_text', __('Apply Filters', 'directorist'));
                 // $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
                 $view_as_items = get_directorist_option('listings_view_as_items', array('listings_grid', 'listings_list', 'listings_map'));
                 $sort_by_items = get_directorist_option('listings_sort_by_items', array('a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random'));
@@ -2653,7 +2653,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
                     } else {
                         // user not logged in;
-                        $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', ATBDP_TEXTDOMAIN) . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', ATBDP_TEXTDOMAIN) . "</a>")); ?>
+                        $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
 
 
                         <section class="directory_wrapper single_area">
@@ -2667,7 +2667,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 return ob_get_clean();
 
             }
-            return '<span>' . __('No Results Found.', ATBDP_TEXTDOMAIN
+            return '<span>' . __('No Results Found.', 'directorist'
                 ) . '</span>';
         }
 
@@ -2703,8 +2703,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 $listing_order = get_directorist_option('sort_listing_by');
                 $listing_grid_columns = get_directorist_option('all_listing_columns', 3);
                 $display_listings_header = get_directorist_option('display_listings_header', 1);
-                $listings_header_title = get_directorist_option('all_listing_title', __('All Items', ATBDP_TEXTDOMAIN));
-                $listings_header_sub_title = get_directorist_option('listings_header_sub_title', __('Total Listing Found: ', ATBDP_TEXTDOMAIN));
+                $listings_header_title = get_directorist_option('all_listing_title', __('All Items', 'directorist'));
+                $listings_header_sub_title = get_directorist_option('listings_header_sub_title', __('Total Listing Found: ', 'directorist'));
                 $filters_display = get_directorist_option('listings_display_filter', 'sliding');
                 $pagination = get_directorist_option('paginate_all_listings');
                 $listings_map_height = get_directorist_option('listings_map_height', 350);
@@ -3005,17 +3005,17 @@ if (!class_exists('ATBDP_Shortcode')):
                 $display_header = !empty($display_header) ? $display_header : '';
                 $header_title = !empty($header_sub_title) ? $header_sub_title . ' ' . $listing_count : '';
                 $listing_filters_button = get_directorist_option('listing_filters_button', 1);
-                $filters = get_directorist_option('listings_filter_button_text', __('Filters', ATBDP_TEXTDOMAIN));
-                $text_placeholder = get_directorist_option('listings_search_text_placeholder', __('What are you looking for?', ATBDP_TEXTDOMAIN));
-                $category_placeholder = get_directorist_option('listings_category_placeholder', __('Select a category', ATBDP_TEXTDOMAIN));
-                $location_placeholder = get_directorist_option('listings_location_placeholder', __('Select a location', ATBDP_TEXTDOMAIN));
+                $filters = get_directorist_option('listings_filter_button_text', __('Filters', 'directorist'));
+                $text_placeholder = get_directorist_option('listings_search_text_placeholder', __('What are you looking for?', 'directorist'));
+                $category_placeholder = get_directorist_option('listings_category_placeholder', __('Select a category', 'directorist'));
+                $location_placeholder = get_directorist_option('listings_location_placeholder', __('Select a location', 'directorist'));
                 //$data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
                 $search_more_filters_fields = get_directorist_option('listing_filters_fields', array('search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields'));
                 $filters_button = get_directorist_option('listings_filters_button', array('reset_button', 'apply_button'));
-                $reset_filters_text = get_directorist_option('listings_reset_text', __('Reset Filters', ATBDP_TEXTDOMAIN));
-                $apply_filters_text = get_directorist_option('listings_apply_text', __('Apply Filters', ATBDP_TEXTDOMAIN));
-                $sort_by_text = get_directorist_option('sort_by_text', __('Sort By', ATBDP_TEXTDOMAIN));
-                $view_as_text = get_directorist_option('view_as_text', __('View As', ATBDP_TEXTDOMAIN));
+                $reset_filters_text = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
+                $apply_filters_text = get_directorist_option('listings_apply_text', __('Apply Filters', 'directorist'));
+                $sort_by_text = get_directorist_option('sort_by_text', __('Sort By', 'directorist'));
+                $view_as_text = get_directorist_option('view_as_text', __('View As', 'directorist'));
                 //$data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
                 $view_as_items = get_directorist_option('listings_view_as_items', array('listings_grid', 'listings_list', 'listings_map'));
                 $sort_by_items = get_directorist_option('listings_sort_by_items', array('a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random'));
@@ -3033,7 +3033,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
                     } else {
                         // user not logged in;
-                        $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', ATBDP_TEXTDOMAIN) . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', ATBDP_TEXTDOMAIN) . "</a>")); ?>
+                        $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
 
 
                         <section class="directory_wrapper single_area">
@@ -3047,25 +3047,25 @@ if (!class_exists('ATBDP_Shortcode')):
                 return ob_get_clean();
 
             }
-            return '<span>' . __('No Results Found.', ATBDP_TEXTDOMAIN
+            return '<span>' . __('No Results Found.', 'directorist'
                 ) . '</span>';
         }
 
         public function search_listing($atts, $content = null)
         {
             //include ATBDP_DIR .'public/assets/css/style.php';
-            $search_title = get_directorist_option('search_title', __("Search here", ATBDP_TEXTDOMAIN));
+            $search_title = get_directorist_option('search_title', __("Search here", 'directorist'));
             $search_subtitle = get_directorist_option('search_subtitle', __("Find the best match of your interest
-", ATBDP_TEXTDOMAIN));
+", 'directorist'));
             $search_fields = get_directorist_option('search_tsc_fields', array('search_text', 'search_category', 'search_location'));
             $search_more_filter = get_directorist_option('search_more_filter', 1);
             $search_button = get_directorist_option('search_button', 1);
             $search_more_filters_fields = get_directorist_option('search_more_filters_fields', array('search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields'));
             $search_filters = get_directorist_option('search_filters', array('search_reset_filters', 'search_apply_filters'));
-            $search_more_filters = get_directorist_option('search_more_filters', __('More Filters', ATBDP_TEXTDOMAIN));
-            $search_listing_text = get_directorist_option('search_listing_text', __('Search Listing', ATBDP_TEXTDOMAIN));
-            $search_reset_text = get_directorist_option('search_reset_text', __('Reset Filters', ATBDP_TEXTDOMAIN));
-            $search_apply_text = get_directorist_option('search_apply_filter', __('Apply Filters', ATBDP_TEXTDOMAIN));
+            $search_more_filters = get_directorist_option('search_more_filters', __('More Filters', 'directorist'));
+            $search_listing_text = get_directorist_option('search_listing_text', __('Search Listing', 'directorist'));
+            $search_reset_text = get_directorist_option('search_reset_text', __('Reset Filters', 'directorist'));
+            $search_apply_text = get_directorist_option('search_apply_filter', __('Apply Filters', 'directorist'));
             $atts = shortcode_atts(array(
                 'show_title_subtitle' => 'yes',
                 'search_bar_title' => !empty($search_title) ? $search_title : '',
@@ -3137,7 +3137,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     include ATBDP_TEMPLATES_DIR . 'listing-home.php';
                 } else {
                     // user not logged in;
-                    $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', ATBDP_TEXTDOMAIN) . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', ATBDP_TEXTDOMAIN) . "</a>")); ?>
+                    $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
 
                     <section class="directory_wrapper single_area">
                         <?php ATBDP()->helper->show_login_message($error_message); ?>
@@ -3219,7 +3219,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     ATBDP()->load_template('front-end/public-profile', array('data' => $data_for_template));
                 } else {
                     // user not logged in;
-                    $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', ATBDP_TEXTDOMAIN) . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', ATBDP_TEXTDOMAIN) . "</a>")); ?>
+                    $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
 
                     <section class="directory_wrapper single_area">
                         <?php ATBDP()->helper->show_login_message($error_message); ?>
@@ -3260,7 +3260,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
             } else {
                 // user not logged in;
-                $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', ATBDP_TEXTDOMAIN), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', ATBDP_TEXTDOMAIN) . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', ATBDP_TEXTDOMAIN) . "</a>")); ?>
+                $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
 
 
                 <section class="directory_wrapper single_area">
@@ -3282,7 +3282,7 @@ if (!class_exists('ATBDP_Shortcode')):
     <div class="container-fluid"><div class="row"> <div class="col-md-8 offset-md-2"><div class="atbdp_login_form_shortcode">';
                 if (isset($_GET['login']) && $_GET['login'] == 'failed') {
 
-                    printf('<p class="alert-danger"><span class="fa fa-exclamation"></span>%s</p>', __(' Invalid username or password!', ATBDP_TEXTDOMAIN));
+                    printf('<p class="alert-danger"><span class="fa fa-exclamation"></span>%s</p>', __(' Invalid username or password!', 'directorist'));
                     $location = ATBDP_Permalink::get_login_page_link();
                     ?>
                     <script>
@@ -3298,20 +3298,20 @@ if (!class_exists('ATBDP_Shortcode')):
                 $log_rememberMe = get_directorist_option('log_rememberme', 'Remember Me');
                 $log_button = get_directorist_option('log_button', 'Log In');
                 $display_recpass = get_directorist_option('display_recpass', 1);
-                $recpass_text = get_directorist_option('recpass_text', __('Recover Password', ATBDP_TEXTDOMAIN));
-                $recpass_desc = get_directorist_option('recpass_desc', __('Please enter your email address. You will receive a new password via email.', ATBDP_TEXTDOMAIN));
-                $recpass_username = get_directorist_option('recpass_username', __('Username or E-mail:', ATBDP_TEXTDOMAIN));
-                $recpass_placeholder = get_directorist_option('recpass_placeholder', __('eg. mail@example.com', ATBDP_TEXTDOMAIN));
-                $recpass_button = get_directorist_option('recpass_button', __('Get New Password', ATBDP_TEXTDOMAIN));
-                $reg_text = get_directorist_option('reg_text', __('Don\'t have an account?', ATBDP_TEXTDOMAIN));
+                $recpass_text = get_directorist_option('recpass_text', __('Recover Password', 'directorist'));
+                $recpass_desc = get_directorist_option('recpass_desc', __('Please enter your email address. You will receive a new password via email.', 'directorist'));
+                $recpass_username = get_directorist_option('recpass_username', __('Username or E-mail:', 'directorist'));
+                $recpass_placeholder = get_directorist_option('recpass_placeholder', __('eg. mail@example.com', 'directorist'));
+                $recpass_button = get_directorist_option('recpass_button', __('Get New Password', 'directorist'));
+                $reg_text = get_directorist_option('reg_text', __('Don\'t have an account?', 'directorist'));
                 $reg_url = get_directorist_option('reg_url', ATBDP_Permalink::get_registration_page_link());
-                $reg_linktxt = get_directorist_option('reg_linktxt', __('Sign Up', ATBDP_TEXTDOMAIN));
+                $reg_linktxt = get_directorist_option('reg_linktxt', __('Sign Up', 'directorist'));
                 $display_signup = get_directorist_option('display_signup', 1);
                 $args = array(
-                    'label_username' => sprintf(__('%s', ATBDP_TEXTDOMAIN), $log_username),
-                    'label_password' => sprintf(__('%s', ATBDP_TEXTDOMAIN), $log_password),
-                    'label_remember' => sprintf(__('%s', ATBDP_TEXTDOMAIN), $log_rememberMe),
-                    'label_log_in' => sprintf(__('%s', ATBDP_TEXTDOMAIN), $log_button),
+                    'label_username' => sprintf(__('%s', 'directorist'), $log_username),
+                    'label_password' => sprintf(__('%s', 'directorist'), $log_password),
+                    'label_remember' => sprintf(__('%s', 'directorist'), $log_rememberMe),
+                    'label_log_in' => sprintf(__('%s', 'directorist'), $log_button),
                     'remember' => !empty($display_rememberMe) ? true : false,
                 );
                 wp_login_form($args);
@@ -3320,7 +3320,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     <p><?php echo $reg_text; ?><a href="<?php echo $reg_url; ?>"> <?php echo $reg_linktxt; ?></a></p>
                 <?php }
                 if ($display_recpass) {
-                    printf(__('<p>%s</p>', ATBDP_TEXTDOMAIN), "<a href='' class='atbdp_recovery_pass'> " . __($recpass_text, ATBDP_TEXTDOMAIN) . "</a>");
+                    printf(__('<p>%s</p>', 'directorist'), "<a href='' class='atbdp_recovery_pass'> " . __($recpass_text, 'directorist') . "</a>");
                 }
                 echo "</div>";
                 global $wpdb;
@@ -3333,11 +3333,11 @@ if (!class_exists('ATBDP_Shortcode')):
                     $email = trim($_POST['user_login']);
 
                     if (empty($email)) {
-                        $error = __('Enter a username or e-mail address..', ATBDP_TEXTDOMAIN);
+                        $error = __('Enter a username or e-mail address..', 'directorist');
                     } else if (!is_email($email)) {
-                        $error = __('Invalid username or e-mail address.', ATBDP_TEXTDOMAIN);
+                        $error = __('Invalid username or e-mail address.', 'directorist');
                     } else if (!email_exists($email)) {
-                        $error = __('There is no user registered with that email address.', ATBDP_TEXTDOMAIN);
+                        $error = __('There is no user registered with that email address.', 'directorist');
                     } else {
 
                         $random_password = wp_generate_password(12, false);
@@ -3364,19 +3364,19 @@ if (!class_exists('ATBDP_Shortcode')):
 
                             $mail = wp_mail($to, $subject, $message, $headers);
                             if ($mail) {
-                                $success = __('Please check your email for your new password.', ATBDP_TEXTDOMAIN);
+                                $success = __('Please check your email for your new password.', 'directorist');
                             } else {
-                                $error = __('Oops something went wrong sending email.', ATBDP_TEXTDOMAIN);
+                                $error = __('Oops something went wrong sending email.', 'directorist');
                             }
 
                         } else {
-                            $error = __('Oops something went wrong updating your account.', ATBDP_TEXTDOMAIN);
+                            $error = __('Oops something went wrong updating your account.', 'directorist');
                         }
 
                     }
 
                     if (!empty($error))
-                        echo '<div class="message"><p class="error"><strong>' . __("ERROR:", ATBDP_TEXTDOMAIN) . '</strong> ' . $error . '</p></div>';
+                        echo '<div class="message"><p class="error"><strong>' . __("ERROR:", 'directorist') . '</strong> ' . $error . '</p></div>';
 
                     if (!empty($success))
                         echo '<div class="error_login"><p class="success">' . $success . '</p></div>';
@@ -3386,14 +3386,14 @@ if (!class_exists('ATBDP_Shortcode')):
                 <div id="recover-pass-modal">
                     <form method="post">
                         <fieldset>
-                            <p><?php printf(__('%s', ATBDP_TEXTDOMAIN), $recpass_desc); ?></p>
-                            <label for="reset_user_login"><?php printf(__('%s', ATBDP_TEXTDOMAIN), $recpass_username); ?></label>
+                            <p><?php printf(__('%s', 'directorist'), $recpass_desc); ?></p>
+                            <label for="reset_user_login"><?php printf(__('%s', 'directorist'), $recpass_username); ?></label>
                             <?php $user_login = isset($_POST['user_login']) ? $_POST['user_login'] : ''; ?>
                             <input type="text" name="user_login" id="reset_user_login"
                                    value="<?php echo $user_login; ?>" placeholder="<?php echo $recpass_placeholder ?>"/>
                             <p>
                                 <input type="hidden" name="action" value="reset"/>
-                                <button type="submit" class="btn btn-primary" id="submit"><?php printf(__('%s', ATBDP_TEXTDOMAIN), $recpass_button); ?></button>
+                                <button type="submit" class="btn btn-primary" id="submit"><?php printf(__('%s', 'directorist'), $recpass_button); ?></button>
                             </p>
                         </fieldset>
                     </form>
@@ -3401,7 +3401,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 <?php
                 echo '</div></div></div></div></div>';
             } else {
-                $error_message = sprintf(__('Login page is not for logged-in user. <a href="%s">Go Back To Home</a>', ATBDP_TEXTDOMAIN), esc_url(get_home_url()));
+                $error_message = sprintf(__('Login page is not for logged-in user. <a href="%s">Go Back To Home</a>', 'directorist'), esc_url(get_home_url()));
                 ATBDP()->helper->show_login_message($error_message);
             }
             return ob_get_clean();
@@ -3415,7 +3415,7 @@ if (!class_exists('ATBDP_Shortcode')):
             if (!is_user_logged_in()) {
                 ATBDP()->user->registration_form();
             } else {
-                $error_message = sprintf(__('Registration page is only for unregistered user. <a href="%s">Go Back To Home</a>', ATBDP_TEXTDOMAIN), esc_url(get_home_url()));
+                $error_message = sprintf(__('Registration page is only for unregistered user. <a href="%s">Go Back To Home</a>', 'directorist'), esc_url(get_home_url()));
                 ?>
                 <?php ATBDP()->helper->show_login_message($error_message); ?>
 

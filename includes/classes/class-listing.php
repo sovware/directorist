@@ -163,16 +163,16 @@ if (!class_exists('ATBDP_Listing')):
                                     $html_edit_back .= '<div class="edit_btn_wrap">';
                                     $display_back_link = get_directorist_option('display_back_link', 1);
                                     if (!empty($display_back_link)) {
-                                        $html_edit_back .= '<a href="javascript:history.back()" class="atbd_go_back"><i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', ATBDP_TEXTDOMAIN) . '</a> ';
+                                        $html_edit_back .= '<a href="javascript:history.back()" class="atbd_go_back"><i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', 'directorist') . '</a> ';
                                     }
                                     $html_edit_back .= '<a href="' . esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)) . '" class="btn btn-success">
-                            <span class="' . atbdp_icon_type() . '-edit"></span>' . esc_html__(' Edit Listing', ATBDP_TEXTDOMAIN) . '</a>';
+                            <span class="' . atbdp_icon_type() . '-edit"></span>' . esc_html__(' Edit Listing', 'directorist') . '</a>';
                                     $html_edit_back .= '</div>';
                                 } else {
                                     if (!empty($display_back_link)) {
                                         $html_edit_back .= '<div class="edit_btn_wrap">
                                 <a href="javascript:history.back()" class="atbd_go_back">
-                                    <i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', ATBDP_TEXTDOMAIN) . '
+                                    <i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', 'directorist') . '
                                 </a>
                            </div>';
                                     }

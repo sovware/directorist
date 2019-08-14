@@ -258,7 +258,7 @@ class ATBDP_Custom_Field
             case 'asign' :
 
                 $value = esc_attr(get_post_meta($post_id, 'associate', true));
-                echo ('form' == $value) ? __('Form', ATBDP_TEXTDOMAIN) : $selected_cat . __(' Category', ATBDP_TEXTDOMAIN);
+                echo ('form' == $value) ? __('Form', 'directorist') : $selected_cat . __(' Category', 'directorist');
 
                 break;
 
@@ -369,25 +369,25 @@ class ATBDP_Custom_Field
     {
 
         $labels = array(
-            'name' => _x('Custom Fields', 'Post Type General Name', ATBDP_TEXTDOMAIN),
-            'singular_name' => _x('Custom Field', 'Post Type Singular Name', ATBDP_TEXTDOMAIN),
-            'menu_name' => __('Custom Fields', ATBDP_TEXTDOMAIN),
-            'name_admin_bar' => __('Custom Fields', ATBDP_TEXTDOMAIN),
-            'all_items' => __('Custom Fields', ATBDP_TEXTDOMAIN),
-            'add_new_item' => __('Add New Field', ATBDP_TEXTDOMAIN),
-            'add_new' => __('Add New Field', ATBDP_TEXTDOMAIN),
-            'new_item' => __('New Field', ATBDP_TEXTDOMAIN),
-            'edit_item' => __('Edit Field', ATBDP_TEXTDOMAIN),
-            'update_item' => __('Update Field', ATBDP_TEXTDOMAIN),
-            'view_item' => __('View Field', ATBDP_TEXTDOMAIN),
-            'search_items' => __('Search Field', ATBDP_TEXTDOMAIN),
-            'not_found' => __('No orders found', ATBDP_TEXTDOMAIN),
-            'not_found_in_trash' => __('No orders found in Trash', ATBDP_TEXTDOMAIN),
+            'name' => _x('Custom Fields', 'Post Type General Name', 'directorist'),
+            'singular_name' => _x('Custom Field', 'Post Type Singular Name', 'directorist'),
+            'menu_name' => __('Custom Fields', 'directorist'),
+            'name_admin_bar' => __('Custom Fields', 'directorist'),
+            'all_items' => __('Custom Fields', 'directorist'),
+            'add_new_item' => __('Add New Field', 'directorist'),
+            'add_new' => __('Add New Field', 'directorist'),
+            'new_item' => __('New Field', 'directorist'),
+            'edit_item' => __('Edit Field', 'directorist'),
+            'update_item' => __('Update Field', 'directorist'),
+            'view_item' => __('View Field', 'directorist'),
+            'search_items' => __('Search Field', 'directorist'),
+            'not_found' => __('No orders found', 'directorist'),
+            'not_found_in_trash' => __('No orders found in Trash', 'directorist'),
         );
 
         $args = array(
             'labels' => $labels,
-            'description' => __('This order post type will keep track of user\'s order and payment status', ATBDP_TEXTDOMAIN),
+            'description' => __('This order post type will keep track of user\'s order and payment status', 'directorist'),
             'supports' => array('title'),
             'taxonomies' => array(''),
             'hierarchical' => false,
@@ -420,8 +420,8 @@ class ATBDP_Custom_Field
 
         remove_meta_box('cf_metabox', 'atbdp_fields', 'normal');
 
-        add_meta_box('atbdp-field-details', __('Field Details', ATBDP_TEXTDOMAIN), array($this, 'atbdp_meta_box_field_details'), 'atbdp_fields', 'normal', 'high');
-        add_meta_box('atbdp-field-options', __('Display Options', ATBDP_TEXTDOMAIN), array($this, 'atbdp_display_meta_box_field_options'), 'atbdp_fields', 'normal', 'high');
+        add_meta_box('atbdp-field-details', __('Field Details', 'directorist'), array($this, 'atbdp_meta_box_field_details'), 'atbdp_fields', 'normal', 'high');
+        add_meta_box('atbdp-field-options', __('Display Options', 'directorist'), array($this, 'atbdp_display_meta_box_field_options'), 'atbdp_fields', 'normal', 'high');
 
     }
 
@@ -451,7 +451,7 @@ class ATBDP_Custom_Field
 
                  <tr>
                 <td class="label">
-                    <label><?php _e( 'Include this field in the search form?', ATBDP_TEXTDOMAIN );
+                    <label><?php _e( 'Include this field in the search form?', 'directorist' );
                 ?></label>
                 </td>
                 <td>
@@ -461,14 +461,14 @@ class ATBDP_Custom_Field
                         <li>
                             <label>
                                 <input type="radio" name="searchable" value="1" <?php echo checked( $searchable, 1, false );
-                ?>><?php _e( 'Yes', ATBDP_TEXTDOMAIN );
+                ?>><?php _e( 'Yes', 'directorist' );
                 ?>
                             </label>
                         </li>
                         <li>
                             <label>
                                 <input type="radio" name="searchable" value="0" <?php echo checked( $searchable, 0, false );
-                ?>><?php _e( 'No', ATBDP_TEXTDOMAIN );
+                ?>><?php _e( 'No', 'directorist' );
                 ?>
                             </label>
                         </li>
@@ -477,7 +477,7 @@ class ATBDP_Custom_Field
             </tr>
 
 
-                <label><?php _e('Assign to', ATBDP_TEXTDOMAIN); ?></label>
+                <label><?php _e('Assign to', 'directorist'); ?></label>
 
                 <?php
                 $associate = isset($post_meta['associate']) ? esc_attr($post_meta['associate'][0]) : 'form'; ?>
@@ -487,7 +487,7 @@ class ATBDP_Custom_Field
                         <label>
                             <input id="custom_cat_tohide" type="radio" name="associate"
                                    value="form" <?php echo checked($associate, 'form', false); ?>>
-                            <?php _e('Listing Form', ATBDP_TEXTDOMAIN); ?>
+                            <?php _e('Listing Form', 'directorist'); ?>
                         </label>
                     </li>
                     <script>
@@ -515,7 +515,7 @@ class ATBDP_Custom_Field
                         <label>
                             <input id="custom_cat" type="radio" name="associate"
                                    value="categories" <?php echo checked($associate, 'categories', false); ?>>
-                            <?php _e('Specific Category', ATBDP_TEXTDOMAIN); ?>
+                            <?php _e('Specific Category', 'directorist'); ?>
                         </label>
                     </li>
                 </ul>
@@ -527,7 +527,7 @@ class ATBDP_Custom_Field
                         $current_val = isset($post_meta['category_pass']) ? esc_attr($post_meta['category_pass'][0]) : '';
                         $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
                         echo '<select name="category_pass" class="form-control">';
-                        echo '<option>' . __("Select a category", ATBDP_TEXTDOMAIN) . '</option>';
+                        echo '<option>' . __("Select a category", 'directorist') . '</option>';
                         foreach ($categories as $key => $cat_title) {
                             printf('<option value="%s" %s>%s</option>', $cat_title->term_id, selected($cat_title->term_id, $current_val), $cat_title->name);
                         }
@@ -553,17 +553,17 @@ class ATBDP_Custom_Field
     {
 
         $types = array(
-            'text' => __('Text', ATBDP_TEXTDOMAIN),
-            'number' => __('Number', ATBDP_TEXTDOMAIN),
-            'textarea' => __('Text Area', ATBDP_TEXTDOMAIN),
-            'select' => __('Select', ATBDP_TEXTDOMAIN),
-            'checkbox' => __('Checkbox', ATBDP_TEXTDOMAIN),
-            'radio' => __('Radio Button', ATBDP_TEXTDOMAIN),
-            'url' => __('URL', ATBDP_TEXTDOMAIN),
-            'date' => __('Date', ATBDP_TEXTDOMAIN),
-            'color' => __('Color', ATBDP_TEXTDOMAIN),
-            'time' => __('Time', ATBDP_TEXTDOMAIN),
-            'file' => __('File', ATBDP_TEXTDOMAIN)
+            'text' => __('Text', 'directorist'),
+            'number' => __('Number', 'directorist'),
+            'textarea' => __('Text Area', 'directorist'),
+            'select' => __('Select', 'directorist'),
+            'checkbox' => __('Checkbox', 'directorist'),
+            'radio' => __('Radio Button', 'directorist'),
+            'url' => __('URL', 'directorist'),
+            'date' => __('Date', 'directorist'),
+            'color' => __('Color', 'directorist'),
+            'time' => __('Time', 'directorist'),
+            'file' => __('File', 'directorist')
         );
 
         // Return
@@ -613,7 +613,7 @@ class ATBDP_Custom_Field
             <div class="atbdp-input widefat" id="atbdp-field-details">
 
                 <div class="field-type">
-                    <label class="widefat"><?php _e('Field Type', ATBDP_TEXTDOMAIN); ?></label>
+                    <label class="widefat"><?php _e('Field Type', 'directorist'); ?></label>
                     <div class="field_lable form-group">
                         <select class="select form-control" name="type">
                             <?php
@@ -630,41 +630,41 @@ class ATBDP_Custom_Field
                 </div>
 
                 <div class="field-instructions form-group">
-                    <label><?php _e('Field Description', ATBDP_TEXTDOMAIN); ?></label>
-                    <p class="description"><?php _e('Tooltip instructions for author', ATBDP_TEXTDOMAIN); ?></p>
+                    <label><?php _e('Field Description', 'directorist'); ?></label>
+                    <p class="description"><?php _e('Tooltip instructions for author', 'directorist'); ?></p>
                     <textarea class="textarea form-control" name="instructions"
                               rows="6"><?php if (isset($post_meta['instructions'])) echo esc_textarea($post_meta['instructions'][0]); ?></textarea>
                 </div>
 
                 <div class="field-required">
-                    <label><?php _e('Required?', ATBDP_TEXTDOMAIN); ?></label>
+                    <label><?php _e('Required?', 'directorist'); ?></label>
                     <?php $selected_required = isset($post_meta['required']) ? esc_attr($post_meta['required'][0]) : 0; ?>
                     <ul class="atbdp-radio-list radio horizontal">
                         <li>
                             <label>
-                                <input type="radio" name="required" value="1" <?php echo checked($selected_required, 1, false); ?>><?php _e('Yes', ATBDP_TEXTDOMAIN); ?>
+                                <input type="radio" name="required" value="1" <?php echo checked($selected_required, 1, false); ?>><?php _e('Yes', 'directorist'); ?>
                             </label>
                         </li>
                         <li>
                             <label>
-                                <input type="radio" name="required" value="0" <?php echo checked($selected_required, 0, false); ?>><?php _e('No', ATBDP_TEXTDOMAIN); ?>
+                                <input type="radio" name="required" value="0" <?php echo checked($selected_required, 0, false); ?>><?php _e('No', 'directorist'); ?>
                             </label>
                         </li>
                     </ul>
                 </div>
 
                 <div class="field-required">
-                    <label><?php _e('Is only admin use?', ATBDP_TEXTDOMAIN); ?></label>
+                    <label><?php _e('Is only admin use?', 'directorist'); ?></label>
                     <?php $selected_admin_use = isset($post_meta['admin_use']) ? esc_attr($post_meta['admin_use'][0]) : 0; ?>
                     <ul class="atbdp-radio-list radio horizontal">
                         <li>
                             <label>
-                                <input type="radio" name="admin_use" value="1" <?php echo checked($selected_admin_use, 1, false); ?>><?php _e('Yes', ATBDP_TEXTDOMAIN); ?>
+                                <input type="radio" name="admin_use" value="1" <?php echo checked($selected_admin_use, 1, false); ?>><?php _e('Yes', 'directorist'); ?>
                             </label>
                         </li>
                         <li>
                             <label>
-                                <input type="radio" name="admin_use" value="0" <?php echo checked($selected_admin_use, 0, false); ?>><?php _e('No', ATBDP_TEXTDOMAIN); ?>
+                                <input type="radio" name="admin_use" value="0" <?php echo checked($selected_admin_use, 0, false); ?>><?php _e('No', 'directorist'); ?>
                             </label>
                         </li>
                     </ul>
@@ -673,9 +673,9 @@ class ATBDP_Custom_Field
 
                 <div class="field-options field-option-file"
                      style="display:none;">
-                    <label><?php _e('File Type', ATBDP_TEXTDOMAIN); ?></label>
+                    <label><?php _e('File Type', 'directorist'); ?></label>
                     <p class="description">
-                        <?php _e('Select file type', ATBDP_TEXTDOMAIN); ?><br/>
+                        <?php _e('Select file type', 'directorist'); ?><br/>
                     </p>
                     <?php
                     $file_type = isset($post_meta['file_type']) ? esc_attr($post_meta['file_type'][0]) : '*';
@@ -731,21 +731,21 @@ class ATBDP_Custom_Field
                 </div>
                 <div class="field-options field-option-file"
                      style="display:none;">
-                    <label><?php _e('File Size', ATBDP_TEXTDOMAIN); ?></label>
+                    <label><?php _e('File Size', 'directorist'); ?></label>
                     <p class="description">
-                        <?php _e('Set maximum file size to upload', ATBDP_TEXTDOMAIN); ?><br/>
+                        <?php _e('Set maximum file size to upload', 'directorist'); ?><br/>
                     </p>
                     <input class="text form-control" type="text" value="<?php echo !empty($post_meta['file_size']) ?   esc_attr($post_meta['file_size'][0]) : '2mb'; ?>" name="file_size">
                 </div>
 
                 <div class="field-options field-option-select field-option-checkbox field-option-radio"
                      style="display:none;">
-                    <label><?php _e('Options', ATBDP_TEXTDOMAIN); ?></label>
+                    <label><?php _e('Options', 'directorist'); ?></label>
                     <p class="description">
-                        <?php _e('Each on a new line, for example,', ATBDP_TEXTDOMAIN); ?><br/>
-                        <?php _e('Male: Male', ATBDP_TEXTDOMAIN); ?><br/>
-                        <?php _e('Female: Female', ATBDP_TEXTDOMAIN); ?><br/>
-                        <?php _e('Other: Other', ATBDP_TEXTDOMAIN); ?>
+                        <?php _e('Each on a new line, for example,', 'directorist'); ?><br/>
+                        <?php _e('Male: Male', 'directorist'); ?><br/>
+                        <?php _e('Female: Female', 'directorist'); ?><br/>
+                        <?php _e('Other: Other', 'directorist'); ?>
 
                     </p>
                     <textarea class="textarea form-control" name="choices"
@@ -753,26 +753,26 @@ class ATBDP_Custom_Field
                 </div>
 
                 <div class="field-options field-option-textarea" style="display:none;">
-                    <label><?php _e('Rows', ATBDP_TEXTDOMAIN); ?></label>
-                    <p class="description"><?php _e('Textarea height', ATBDP_TEXTDOMAIN); ?></p>
+                    <label><?php _e('Rows', 'directorist'); ?></label>
+                    <p class="description"><?php _e('Textarea height', 'directorist'); ?></p>
                     <div class="atbdp-input-wrap">
                         <input type="text" class="text form-control" name="rows" placeholder="8" value="<?php if (isset($post_meta['rows'])) echo esc_attr($post_meta['rows'][0]); ?>"/>
                     </div>
                 </div>
 
                 <div class="field-options field-option-url" style="display:none;">
-                    <label><?php _e('Open link in a new window?', ATBDP_TEXTDOMAIN); ?></label>
+                    <label><?php _e('Open link in a new window?', 'directorist'); ?></label>
 
                     <?php $selected_target = isset($post_meta['target']) ? esc_attr($post_meta['target'][0]) : '_blank'; ?>
                     <ul class="atbdp-radio-list radio horizontal">
                         <li>
                             <label><input type="radio" name="target"
-                                          value="_blank" <?php echo checked($selected_target, '_blank', false); ?>><?php _e('Yes', ATBDP_TEXTDOMAIN); ?>
+                                          value="_blank" <?php echo checked($selected_target, '_blank', false); ?>><?php _e('Yes', 'directorist'); ?>
                             </label>
                         </li>
                         <li>
                             <label><input type="radio" name="target"
-                                          value="_self" <?php echo checked($selected_target, '_self', false); ?>><?php _e('No', ATBDP_TEXTDOMAIN); ?>
+                                          value="_self" <?php echo checked($selected_target, '_self', false); ?>><?php _e('No', 'directorist'); ?>
                             </label>
                         </li>
                     </ul>
@@ -802,12 +802,12 @@ class ATBDP_Custom_Field
 
         $columns = array(
             'cb' => '<input type="checkbox" />', // Render a checkbox instead of text
-            'title' => __('Title', ATBDP_TEXTDOMAIN),
-            'type' => __('Type', ATBDP_TEXTDOMAIN),
-            'asign' => __('Assigned to', ATBDP_TEXTDOMAIN),
-            'require' => __('Required', ATBDP_TEXTDOMAIN),
-            /* 'searchable'         => __( 'Is Searchable', ATBDP_TEXTDOMAIN ),*/
-            'date' => __('Date', ATBDP_TEXTDOMAIN)
+            'title' => __('Title', 'directorist'),
+            'type' => __('Type', 'directorist'),
+            'asign' => __('Assigned to', 'directorist'),
+            'require' => __('Required', 'directorist'),
+            /* 'searchable'         => __( 'Is Searchable', 'directorist' ),*/
+            'date' => __('Date', 'directorist')
         );
 
         return $columns;
@@ -825,7 +825,7 @@ class ATBDP_Custom_Field
     public function set_custom_field_link($actions, WP_Post $post)
     {
         if ($post->post_type != 'atbdp_fields') return $actions;
-        $actions['view'] = sprintf("<a href='%s'>%s</a>", ATBDP_Permalink::get_payment_receipt_page_link($post->ID), __('View', ATBDP_TEXTDOMAIN));
+        $actions['view'] = sprintf("<a href='%s'>%s</a>", ATBDP_Permalink::get_payment_receipt_page_link($post->ID), __('View', 'directorist'));
         return $actions;
     }
 

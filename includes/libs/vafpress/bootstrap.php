@@ -16,7 +16,7 @@ require_once 'autoload.php';
 //////////////////////////
 // Load Languages       //
 //////////////////////////
-load_theme_textdomain(ATBDP_TEXTDOMAIN, VP_DIR . '/lang');
+load_theme_textdomain('directorist', VP_DIR . '/lang');
 
 //////////////////////////
 // Setup FileSystem     //
@@ -85,7 +85,7 @@ if( !function_exists('vp_ajax_wrapper') )
 			try {
 				$result['data']    = call_user_func_array($function, $params);
 				$result['status']  = true;
-				$result['message'] = __("Successful", ATBDP_TEXTDOMAIN);
+				$result['message'] = __("Successful", 'directorist');
 			} catch (Exception $e) {
 				$result['data']    = '';
 				$result['status']  = false;
@@ -96,7 +96,7 @@ if( !function_exists('vp_ajax_wrapper') )
 		{
 			$result['data']    = '';
 			$result['status']  = false;
-			$result['message'] = __("Unauthorized function", ATBDP_TEXTDOMAIN);
+			$result['message'] = __("Unauthorized function", 'directorist');
 		}
 
 		if (ob_get_length()) ob_clean();

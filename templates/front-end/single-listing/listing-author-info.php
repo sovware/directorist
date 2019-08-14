@@ -1,5 +1,5 @@
 <?php
-$atbd_author_info_title = get_directorist_option('atbd_author_info_title', __('Author Info', ATBDP_TEXTDOMAIN));
+$atbd_author_info_title = get_directorist_option('atbd_author_info_title', __('Author Info', 'directorist'));
 ?>
 <div class="atbd_content_module author_info_module">
     <div class="atbd_content_module__tittle_area">
@@ -27,7 +27,7 @@ $atbd_author_info_title = get_directorist_option('atbd_author_info_title', __('A
             <div class="atbd_name_time">
                 <h4><?= esc_html($author_name); ?></h4>
                 <span class="review_time"><?php
-                    printf(__('Member since %s ago', ATBDP_TEXTDOMAIN), human_time_diff(strtotime($user_registered), current_time('timestamp'))); ?></span>
+                    printf(__('Member since %s ago', 'directorist'), human_time_diff(strtotime($user_registered), current_time('timestamp'))); ?></span>
             </div>
         </div>
 
@@ -111,7 +111,7 @@ $atbd_author_info_title = get_directorist_option('atbd_author_info_title', __('A
             </div>
         <?php } ?>
         <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
-           class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', ATBDP_TEXTDOMAIN); ?>
+           class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', 'directorist'); ?>
         </a>
     </div>
 </div>

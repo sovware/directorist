@@ -13,11 +13,11 @@ if (!class_exists('BD_Popular_Listing_Widget')) {
         {
             $widget_options = array(
                 'classname' => 'atbd_widget',
-                'description' => esc_html__('You can show popular listing by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show popular listing by this widget', 'directorist'),
             );
             parent::__construct(
                 'bdpl_widget', // Base ID
-                esc_html__('Directorist - Popular Listings', ATBDP_TEXTDOMAIN), // Name
+                esc_html__('Directorist - Popular Listings', 'directorist'), // Name
                 $widget_options // Args
             );
         }
@@ -54,19 +54,19 @@ if (!class_exists('BD_Popular_Listing_Widget')) {
          */
         public function form($instance)
         {
-            $title              = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Popular Listings', ATBDP_TEXTDOMAIN);
+            $title              = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Popular Listings', 'directorist');
             $pop_listing_num    = !empty($instance['pop_listing_num']) ? $instance['pop_listing_num'] : 5;
             $single_only        = !empty($instance['single_only']) ? 1 : 0;
             ?>
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', 'directorist'); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
                        name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
                        value="<?php echo esc_attr($title); ?>">
             </p>
 
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('pop_listing_num')); ?>"><?php esc_attr_e('Number of Listings:', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="<?php echo esc_attr($this->get_field_id('pop_listing_num')); ?>"><?php esc_attr_e('Number of Listings:', 'directorist'); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('pop_listing_num')); ?>"
                        name="<?php echo esc_attr($this->get_field_name('pop_listing_num')); ?>" type="text"
                        value="<?php echo esc_attr($pop_listing_num); ?>">
@@ -74,7 +74,7 @@ if (!class_exists('BD_Popular_Listing_Widget')) {
 
             <p>
                 <input <?php checked( $single_only,1 ); ?> id="<?php echo $this->get_field_id( 'single_only' ); ?>" name="<?php echo $this->get_field_name( 'single_only' ); ?>" value="1" type="checkbox" />
-                <label for="<?php echo $this->get_field_id( 'single_only' ); ?>"><?php _e( 'Display only on single listing', ATBDP_TEXTDOMAIN ); ?></label>
+                <label for="<?php echo $this->get_field_id( 'single_only' ); ?>"><?php _e( 'Display only on single listing', 'directorist' ); ?></label>
             </p>
             <?php
         }

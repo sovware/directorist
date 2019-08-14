@@ -177,7 +177,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                             </style>
                                             <?php
                                         }
-                                        $open = get_directorist_option('open_badge_text', __('Open Now', ATBDP_TEXTDOMAIN));
+                                        $open = get_directorist_option('open_badge_text', __('Open Now', 'directorist'));
                                         if (!empty($enable247hour)) {
                                             $u_badge_html .= ' <span class="atbd_badge atbd_badge_open">' . $open . '</span>';
 
@@ -336,7 +336,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                         if (!empty($display_publish_date)) { ?>
                                                             <li><p>
                                                                     <span class="<?php atbdp_icon_type(true); ?>-clock-o"></span><?php
-                                                                    printf(__('Posted %s ago', ATBDP_TEXTDOMAIN), human_time_diff(get_the_time('U'), current_time('timestamp')));
+                                                                    printf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
                                                                     ?></p></li>
                                                         <?php }
                                                         /**
@@ -351,7 +351,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                             if (!empty($excerpt) && !empty($enable_excerpt) && !empty($display_excerpt_field)) {
                                                 $excerpt_limit = get_directorist_option('excerpt_limit', 20);
                                                 $display_readmore = get_directorist_option('display_readmore', 0);
-                                                $readmore_text = get_directorist_option('readmore_text', __('Read More', ATBDP_TEXTDOMAIN));
+                                                $readmore_text = get_directorist_option('readmore_text', __('Read More', 'directorist'));
                                                 ?>
                                                 <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, $excerpt_limit)));
                                                 /**
@@ -360,7 +360,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                 do_action('atbdp_listings_after_exerpt');
                                                 if (!empty($display_readmore)) {
                                                     ?><a
-                                                    href="<?php the_permalink(); ?>"><?php printf(__(' %s', ATBDP_TEXTDOMAIN), $readmore_text); ?></a></p>
+                                                    href="<?php the_permalink(); ?>"><?php printf(__(' %s', 'directorist'), $readmore_text); ?></a></p>
                                                 <?php }
                                             } ?>
                                         </div><!-- end ./atbd_content_upper -->
@@ -401,7 +401,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                     $catViewCount .= '<div class="atbd_listting_category">';
                                                     $catViewCount .= '<a href="">';
                                                     $catViewCount .= '<span class="'.atbdp_icon_type().'-tags"></span>';
-                                                    $catViewCount .= __('Uncategorized', ATBDP_TEXTDOMAIN);
+                                                    $catViewCount .= __('Uncategorized', 'directorist');
                                                     $catViewCount .= '</a>';
                                                     $catViewCount .= '</div>';
                                                     $catViewCount .= '</div>';
@@ -438,7 +438,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                 <?php }
                 wp_reset_postdata();
             } else { ?>
-                <p class="atbdp_nlf"><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
+                <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
             <?php }
             ?>
 

@@ -23,7 +23,7 @@ $plupload_init = array(
     'url' => admin_url('admin-ajax.php'),
     'flash_swf_url' => includes_url('js/plupload/plupload.flash.swf'),
     'silverlight_xap_url' => includes_url('js/plupload/plupload.silverlight.xap'),
-    'filters' => array(array('title' => __('Allowed Files', ATBDP_TEXTDOMAIN), 'extensions' => '*')),
+    'filters' => array(array('title' => __('Allowed Files', 'directorist'), 'extensions' => '*')),
     'multipart' => true,
     'urlstream_upload' => true,
     'multi_selection' => false, // will be added per uploader
@@ -37,13 +37,13 @@ $plupload_init = array(
 
 $text_value = array(
     'atbdp_allowed_img_types'                      => !empty( $allowed_img_types ) ? implode( ',', $allowed_img_types ) : '',
-    'txt_all_files'                                => __( 'Allowed files', ATBDP_TEXTDOMAIN ),
-    'err_max_file_size'                            => __( 'File size error : You tried to upload a file over %s', ATBDP_TEXTDOMAIN ),
-    'err_file_type'                                => __( 'File type error. Allowed file types: %s', ATBDP_TEXTDOMAIN ),
-    'err_file_upload_limit'                        => __( 'You have reached your upload limit of %s files.', ATBDP_TEXTDOMAIN ),
-    'err_pkg_upload_limit'                         => __( 'You may only upload %s files with this package, please try again.', ATBDP_TEXTDOMAIN ),
-    'action_remove'                                => __( 'Remove', ATBDP_TEXTDOMAIN ),
-    'button_set'                                   => __( 'Set', ATBDP_TEXTDOMAIN ),
+    'txt_all_files'                                => __( 'Allowed files', 'directorist' ),
+    'err_max_file_size'                            => __( 'File size error : You tried to upload a file over %s', 'directorist' ),
+    'err_file_type'                                => __( 'File type error. Allowed file types: %s', 'directorist' ),
+    'err_file_upload_limit'                        => __( 'You have reached your upload limit of %s files.', 'directorist' ),
+    'err_pkg_upload_limit'                         => __( 'You may only upload %s files with this package, please try again.', 'directorist' ),
+    'action_remove'                                => __( 'Remove', 'directorist' ),
+    'button_set'                                   => __( 'Set', 'directorist' ),
 );
 $thumb_img_arr = array();
 
@@ -90,16 +90,16 @@ $multiple            = false;
         <div class="plupload-upload-uic hide-if-no-js <?php if ( $multiple ) {
             echo "plupload-upload-uic-multiple";
         } ?>" id="<?php echo $id; ?>plupload-upload-ui">
-            <div class="atbdp-dropbox-title"><?php _e( 'Drop files here <small>or</small>', ATBDP_TEXTDOMAIN ); ?></div>
+            <div class="atbdp-dropbox-title"><?php _e( 'Drop files here <small>or</small>', 'directorist' ); ?></div>
             <input id="<?php echo $id; ?>plupload-browse-button" type="button"
-                   value="<?php esc_attr_e( 'Select Files', ATBDP_TEXTDOMAIN ); ?>" class="atbdp_button button "/>
-            <div class="atbdp-dropbox-file-types"><?php echo( $display_file_types != '' ? __( 'Allowed file types:', ATBDP_TEXTDOMAIN ) . ' ' . $display_file_types : '' ); ?></div>
+                   value="<?php esc_attr_e( 'Select Files', 'directorist' ); ?>" class="atbdp_button button "/>
+            <div class="atbdp-dropbox-file-types"><?php echo( $display_file_types != '' ? __( 'Allowed file types:', 'directorist' ) . ' ' . $display_file_types : '' ); ?></div>
             <div class="atbdp-dropbox-file-limit">
                 <?php if ( $image_limit == 1 ) {
-                    echo '(' . __( 'You can upload', ATBDP_TEXTDOMAIN ) . ' ' . $image_limit . ' ' . __( 'file', ATBDP_TEXTDOMAIN ) . ')';
+                    echo '(' . __( 'You can upload', 'directorist' ) . ' ' . $image_limit . ' ' . __( 'file', 'directorist' ) . ')';
                 } ?>
                 <?php if ( $image_limit > 1 ) {
-                    echo '(' . __( 'You can upload', ATBDP_TEXTDOMAIN ) . ' ' . $image_limit . ' ' . __( 'files', ATBDP_TEXTDOMAIN ) . ')';
+                    echo '(' . __( 'You can upload', 'directorist' ) . ' ' . $image_limit . ' ' . __( 'files', 'directorist' ) . ')';
                 } ?>
             </div>
             <span class="ajaxnonceplu" id="ajaxnonceplu<?php echo wp_create_nonce( $id . 'pluploadan' ); ?>"></span>

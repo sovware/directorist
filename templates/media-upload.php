@@ -31,8 +31,8 @@ $active_mi_ext = is_multiple_images_active(); // default is no
         </div>
         <!--  add & remove image links -->
         <p class="hide-if-no-js">
-            <a href="#" class="upload-header btn btn-secondary"><?php $preview_label = get_directorist_option('preview_label', __('Upload Preview Image', ATBDP_TEXTDOMAIN));
-                esc_html_e($preview_label, ATBDP_TEXTDOMAIN); ?></a>
+            <a href="#" class="upload-header btn btn-secondary"><?php $preview_label = get_directorist_option('preview_label', __('Upload Preview Image', 'directorist'));
+                esc_html_e($preview_label, 'directorist'); ?></a>
         </p>
     </div>
     <?php } ?>
@@ -47,15 +47,15 @@ $active_mi_ext = is_multiple_images_active(); // default is no
                                value="<?= intval($id); ?>">
                         <img style="width: 100%; height: 100%;"
                              src="<?= esc_url($image_link) ?>"
-                             alt="<?php esc_attr_e('Listing Image', ATBDP_TEXTDOMAIN); ?>">
+                             alt="<?php esc_attr_e('Listing Image', 'directorist'); ?>">
                         <span class="remove_image  dashicons dashicons-dismiss"
-                              title="<?= __('Remove it', ATBDP_TEXTDOMAIN); ?>"></span>
+                              title="<?= __('Remove it', 'directorist'); ?>"></span>
                     </div>
                 <?php }  // ends foreach for looping image
             } else { ?>
                 <img src="<?= esc_url(ATBDP_ADMIN_ASSETS . 'images/no-image.png'); ?>"
-                     alt="<?php esc_attr_e('No Image Found', ATBDP_TEXTDOMAIN); ?>">
-                <p><?php esc_attr_e('No Images', ATBDP_TEXTDOMAIN); ?></p>
+                     alt="<?php esc_attr_e('No Image Found', 'directorist'); ?>">
+                <p><?php esc_attr_e('No Images', 'directorist'); ?></p>
             <?php } //  ends if statement  ?>
         </div>
         <?php
@@ -66,11 +66,11 @@ $active_mi_ext = is_multiple_images_active(); // default is no
         <p class="hide-if-no-js">
             <a href="#" id="listing_image_btn" class="btn btn-primary">
                 <span class="dashicons dashicons-format-image"></span>
-                <?php $gellery_label = get_directorist_option('gellery_label', __('Upload Slider Images', ATBDP_TEXTDOMAIN));
-                esc_html_e($gellery_label, ATBDP_TEXTDOMAIN); ?>
+                <?php $gellery_label = get_directorist_option('gellery_label', __('Upload Slider Images', 'directorist'));
+                esc_html_e($gellery_label, 'directorist'); ?>
             </a>
             <a id="delete-custom-img" class="btn btn-danger <?= (!empty($image_links)) ? '' : 'hidden' ?>"
-               href="#"> <?php echo (1 == $active_mi_ext) ? esc_html__('Remove Images',ATBDP_TEXTDOMAIN) : esc_html__('Remove Image',ATBDP_TEXTDOMAIN); ?></a>
+               href="#"> <?php echo (1 == $active_mi_ext) ? esc_html__('Remove Images','directorist') : esc_html__('Remove Image','directorist'); ?></a>
         </p>
     </div>
     <?php } ?>

@@ -52,8 +52,8 @@ foreach ($listing_imgs as $id) {
     $image_links_thumbnails[$id] = wp_get_attachment_image_src($id, 'thumbnail')[0]; // store the attachment id and url
 }
 /*Code for Business Hour Extensions*/
-$text247 = get_directorist_option('text247', __('Open 24/7', ATBDP_TEXTDOMAIN)); // text for 24/7 type listing
-$business_hour_title = get_directorist_option('business_hour_title', __('Business Hour', ATBDP_TEXTDOMAIN)); // text Business Hour Title
+$text247 = get_directorist_option('text247', __('Open 24/7', 'directorist')); // text for 24/7 type listing
+$business_hour_title = get_directorist_option('business_hour_title', __('Business Hour', 'directorist')); // text Business Hour Title
 
 $bdbh = get_post_meta($listing_id, '_bdbh', true);
 $enable247hour = get_post_meta($listing_id, '_enable247hour', true);
@@ -68,11 +68,11 @@ $hide_contact_owner = !empty($hide_contact_owner) ? $hide_contact_owner : false;
 
 /*INFO WINDOW CONTENT*/
 $t = get_the_title();
-$t = !empty($t) ? $t : __('No Title', ATBDP_TEXTDOMAIN);
+$t = !empty($t) ? $t : __('No Title', 'directorist');
 
 $average = ATBDP()->review->get_average($listing_id);
 $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
-$reviews = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
+$reviews = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', 'directorist') : __(' Review', 'directorist');
 $review_info = '';
 $review_info = '';
 if (!empty($enable_review)) {
@@ -95,7 +95,7 @@ $image = "<img src=". $img_url.">";
 $info_content = "<div class='map_info_window'>$image <div class='miw-contents'><h3>{$t}</h3>";
 $info_content .= "<address>{$ad}</address>";
 $info_content .= "<div class='miw-contents-footer'>{$review_info}";
-$info_content .= "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', ATBDP_TEXTDOMAIN) . "</a></div></div></div>";
+$info_content .= "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div></div></div>";
 
 /*END INFO WINDOW CONTENT*/
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
@@ -108,7 +108,7 @@ $enable_social_share = get_directorist_option('enable_social_share', 1);
 $enable_favourite = get_directorist_option('enable_favourite', 1);
 $enable_report_abuse = get_directorist_option('enable_report_abuse', 1);
 $enable_video_url = get_directorist_option('atbd_video_url', 1);
-$video_label = get_directorist_option('atbd_video_title', __('Video', ATBDP_TEXTDOMAIN));
+$video_label = get_directorist_option('atbd_video_title', __('Video', 'directorist'));
 $p_lnk = get_the_permalink();
 $p_title = get_the_title();
 $featured = get_post_meta(get_the_ID(), '_featured', true);
@@ -122,19 +122,19 @@ $feature_badge_text = get_directorist_option('feature_badge_text', 'Feature');
 $new_badge_text = get_directorist_option('new_badge_text', 'New');
 $enable_new_listing = get_directorist_option('display_new_badge_cart', 1);
 $use_nofollow = get_directorist_option('use_nofollow');
-$custom_section_lable = get_directorist_option('custom_section_lable', __('Details', ATBDP_TEXTDOMAIN));
-$listing_details_text = get_directorist_option('listing_details_text', __('Listing Details', ATBDP_TEXTDOMAIN));
-$listing_location_text = get_directorist_option('listing_location_text', __('Location', ATBDP_TEXTDOMAIN));
-$contact_info_text = get_directorist_option('contact_info_text', __('Contact Information', ATBDP_TEXTDOMAIN));
-$contact_listing_owner = get_directorist_option('contact_listing_owner', __('Contact Listing Owner', ATBDP_TEXTDOMAIN));
+$custom_section_lable = get_directorist_option('custom_section_lable', __('Details', 'directorist'));
+$listing_details_text = get_directorist_option('listing_details_text', __('Listing Details', 'directorist'));
+$listing_location_text = get_directorist_option('listing_location_text', __('Location', 'directorist'));
+$contact_info_text = get_directorist_option('contact_info_text', __('Contact Information', 'directorist'));
+$contact_listing_owner = get_directorist_option('contact_listing_owner', __('Contact Listing Owner', 'directorist'));
 $display_tagline_field = get_directorist_option('display_tagline_field', 0);
 $display_pricing_field = get_directorist_option('display_pricing_field', 1);
 $display_address_field = get_directorist_option('display_address_field', 1);
 $display_phone_field = get_directorist_option('display_phone_field', 1);
 $display_phone2_field = get_directorist_option('display_phone_field2', 1);
-$phone_label2 = get_directorist_option('phone_label2', __('Phone Number 2', ATBDP_TEXTDOMAIN));
+$phone_label2 = get_directorist_option('phone_label2', __('Phone Number 2', 'directorist'));
 $display_fax_field = get_directorist_option('display_fax', 1);
-$fax_label = get_directorist_option('fax_label', __('Fax', ATBDP_TEXTDOMAIN));
+$fax_label = get_directorist_option('fax_label', __('Fax', 'directorist'));
 $display_email_field = get_directorist_option('display_email_field', 1);
 $display_website_field = get_directorist_option('display_website_field', 1);
 $display_zip_field = get_directorist_option('display_zip_field', 1);
@@ -157,16 +157,16 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             $html_edit_back .= '<div class="edit_btn_wrap">';
             $display_back_link = get_directorist_option('display_back_link', 1);
             if (!empty($display_back_link)) {
-                $html_edit_back .= '<a href="javascript:history.back()" class="atbd_go_back"><i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', ATBDP_TEXTDOMAIN) . '</a> ';
+                $html_edit_back .= '<a href="javascript:history.back()" class="atbd_go_back"><i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', 'directorist') . '</a> ';
             }
             $html_edit_back .= '<a href="' . esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)) . '" class="btn btn-success">
-                            <span class="' . atbdp_icon_type() . '-edit"></span>' . esc_html__(' Edit Listing', ATBDP_TEXTDOMAIN) . '</a>';
+                            <span class="' . atbdp_icon_type() . '-edit"></span>' . esc_html__(' Edit Listing', 'directorist') . '</a>';
             $html_edit_back .= '</div>';
         } else {
             if (!empty($display_back_link)) {
                 $html_edit_back .= '<div class="edit_btn_wrap">
                                 <a href="javascript:history.back()" class="atbd_go_back">
-                                    <i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', ATBDP_TEXTDOMAIN) . '
+                                    <i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', 'directorist') . '
                                 </a>
                            </div>';
             }
@@ -196,7 +196,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <?php if(!empty($listing_details_text)) { ?>
                     <div class="atbd_area_title">
                         <h4>
-                            <span class="<?php atbdp_icon_type(true);?>-file-text atbd_area_icon"></span><?php _e($listing_details_text, ATBDP_TEXTDOMAIN) ?>
+                            <span class="<?php atbdp_icon_type(true);?>-file-text atbd_area_icon"></span><?php _e($listing_details_text, 'directorist') ?>
                         </h4>
                     </div>
                     <?php } ?>
@@ -208,7 +208,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     }
                     if ($enable_social_share) {
                         $listing_header .= '<div class="atbd_action atbd_share">';
-                        $listing_header .= '<span class="'.atbdp_icon_type().'-share"></span>' . __('Share', ATBDP_TEXTDOMAIN) . '';
+                        $listing_header .= '<span class="'.atbdp_icon_type().'-share"></span>' . __('Share', 'directorist') . '';
 
                         $listing_header .= '<div class="atbd_director_social_wrap">';
                         //prepare the data for the links because links needs to be escaped
@@ -219,16 +219,16 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                          <ul>
                         <li>
                             <a href="' . esc_url($fb_lnk) . '" target="_blank">
-                                <span class="'.atbdp_icon_type().'-facebook"></span>' . __('Facebook', ATBDP_TEXTDOMAIN) . '</a>
+                                <span class="'.atbdp_icon_type().'-facebook"></span>' . __('Facebook', 'directorist') . '</a>
                         </li>
                         <li>
                             <a href="' . esc_url($twt_lnk) . '" target="_blank">
-                                <span class="'.atbdp_icon_type().'-twitter"></span>' . __('Twitter', ATBDP_TEXTDOMAIN) . '</a>
+                                <span class="'.atbdp_icon_type().'-twitter"></span>' . __('Twitter', 'directorist') . '</a>
                               
                         </li>
                         <li>
                             <a href="' . esc_url($in_link) . '" target="_blank">
-                                <span class="'.atbdp_icon_type().'-linkedin"></span>' . __('LinkedIn', ATBDP_TEXTDOMAIN) . '</a>
+                                <span class="'.atbdp_icon_type().'-linkedin"></span>' . __('LinkedIn', 'directorist') . '</a>
                         </li>
                     </ul>';
                         $listing_header .= '</div>'; //Ends social share
@@ -237,11 +237,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     if ($enable_report_abuse) {
                         $listing_header .= '<div class="atbd_action atbd_report">';
                         if (is_user_logged_in()) {
-                            $listing_header .= '<span class="'.atbdp_icon_type().'-flag"></span><a href="javascript:void(0)" data-target="atbdp-report-abuse-modal">' . __('Report', ATBDP_TEXTDOMAIN) . '</a>'; //Modal (report abuse form)
+                            $listing_header .= '<span class="'.atbdp_icon_type().'-flag"></span><a href="javascript:void(0)" data-target="atbdp-report-abuse-modal">' . __('Report', 'directorist') . '</a>'; //Modal (report abuse form)
                         } else {
                             $listing_header .= '<a href="javascript:void(0)"
                                class="atbdp-require-login"><span
-                                        class="'.atbdp_icon_type().'-flag"></span>' . __('Report', ATBDP_TEXTDOMAIN) . '</a>';
+                                        class="'.atbdp_icon_type().'-flag"></span>' . __('Report', 'directorist') . '</a>';
                         }
                         $listing_header .= '<input type="hidden" id="atbdp-post-id" value="' . get_the_ID() . '"/>';
                         $listing_header .= '</div>';
@@ -255,15 +255,15 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                         <form id="atbdp-report-abuse-form" class="form-vertical" role="form">
                                             <div class="modal-header">
                                                 <h3 class="modal-title"
-                                                    id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', ATBDP_TEXTDOMAIN); ?></h3>
+                                                    id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', 'directorist'); ?></h3>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="form-group">
-                                                    <label for="atbdp-report-abuse-message"><?php _e('Your Complaint', ATBDP_TEXTDOMAIN); ?>
+                                                    <label for="atbdp-report-abuse-message"><?php _e('Your Complaint', 'directorist'); ?>
                                                         <span class="atbdp-star">*</span></label>
                                                     <textarea class="form-control" id="atbdp-report-abuse-message"
                                                               rows="3"
-                                                              placeholder="<?php _e('Message', ATBDP_TEXTDOMAIN); ?>..."
+                                                              placeholder="<?php _e('Message', 'directorist'); ?>..."
                                                               required></textarea>
                                                 </div>
                                                 <div id="atbdp-report-abuse-g-recaptcha"></div>
@@ -271,7 +271,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="submit"
-                                                        class="btn btn-primary"><?php _e('Submit', ATBDP_TEXTDOMAIN); ?></button>
+                                                        class="btn btn-primary"><?php _e('Submit', 'directorist'); ?></button>
                                             </div>
                                         </form>
                                     </div>
@@ -381,7 +381,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                             $data_info .= '</div>';
                             ?>
                             <?php if (!empty($enable_review)) {
-                                $reviews = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
+                                $reviews = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', 'directorist') : __(' Review', 'directorist');
                                 $data_info .= '<div class="atbd_rating_count">';
 
                                 $data_info .= '<p>' . $reviews_count . $reviews . '</p>';
@@ -531,7 +531,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="<?php atbdp_icon_type(true);?>-bars atbd_area_icon"></span><?php _e($custom_section_lable, ATBDP_TEXTDOMAIN) ?>
+                                <span class="<?php atbdp_icon_type(true);?>-bars atbd_area_icon"></span><?php _e($custom_section_lable, 'directorist') ?>
                             </h4>
                         </div>
                     </div>
@@ -614,7 +614,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="<?php atbdp_icon_type(true);?>-video-camera atbd_area_icon"></span><?php _e($video_label, ATBDP_TEXTDOMAIN) ?>
+                                <span class="<?php atbdp_icon_type(true);?>-video-camera atbd_area_icon"></span><?php _e($video_label, 'directorist') ?>
                             </h4>
                         </div>
                     </div>
@@ -632,7 +632,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="<?php atbdp_icon_type(true);?>-map atbd_area_icon"></span><?php _e($listing_location_text, ATBDP_TEXTDOMAIN); ?>
+                                <span class="<?php atbdp_icon_type(true);?>-map atbd_area_icon"></span><?php _e($listing_location_text, 'directorist'); ?>
                             </h4>
                         </div>
                     </div>
@@ -643,17 +643,17 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php }
             if ((!$hide_contact_info) && !empty($address || $phone || $phone2 || $fax || $email || $website || $zip || $social) && empty($disable_contact_info)) {
-                $address_label = get_directorist_option('address_label', __('Address', ATBDP_TEXTDOMAIN));
-                $phone_label = get_directorist_option('phone_label', __('Phone', ATBDP_TEXTDOMAIN));
-                $email_label = get_directorist_option('email_label', __('Email', ATBDP_TEXTDOMAIN));
-                $website_label = get_directorist_option('website_label', __('Website', ATBDP_TEXTDOMAIN));
-                $zip_label = get_directorist_option('zip_label', __('Zip/Post Code', ATBDP_TEXTDOMAIN));
+                $address_label = get_directorist_option('address_label', __('Address', 'directorist'));
+                $phone_label = get_directorist_option('phone_label', __('Phone', 'directorist'));
+                $email_label = get_directorist_option('email_label', __('Email', 'directorist'));
+                $website_label = get_directorist_option('website_label', __('Website', 'directorist'));
+                $zip_label = get_directorist_option('zip_label', __('Zip/Post Code', 'directorist'));
                 ?>
                 <div class="atbd_content_module atbd_contact_information_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="<?php atbdp_icon_type(true);?>-envelope-o"></span><?php _e($contact_info_text, ATBDP_TEXTDOMAIN); ?>
+                                <span class="<?php atbdp_icon_type(true);?>-envelope-o"></span><?php _e($contact_info_text, 'directorist'); ?>
                             </h4>
                         </div>
                     </div>
@@ -664,7 +664,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                 <?php if (!empty($address) && !empty($display_address_field)) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php _e($address_label, ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php _e($address_label, 'directorist'); ?>
                                         </div>
                                         <div class="atbd_info"><?= esc_html($address); ?></div>
                                     </li>
@@ -679,7 +679,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-phone"></span><?php _e($phone_label, ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-phone"></span><?php _e($phone_label, 'directorist'); ?>
                                         </div>
                                         <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($phone)); ?>"><?php echo esc_html(stripslashes($phone)); ?></a>
                                         </div>
@@ -716,7 +716,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                 if (!empty($email) && !empty($display_email_field) && $plan_email) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-envelope"></span><?php _e($email_label, ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-envelope"></span><?php _e($email_label, 'directorist'); ?>
                                         </div>
                                         <span class="atbd_info"><a target="_top"
                                                                    href="mailto:<?= esc_html($email); ?>"><?= esc_html($email); ?></a></span>
@@ -730,7 +730,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                 if (!empty($website) && !empty($display_website_field) && $plan_webLink) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-globe"></span><?php _e($website_label, ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-globe"></span><?php _e($website_label, 'directorist'); ?>
                                         </div>
                                         <a target="_blank" href="<?= esc_url($website); ?>"
                                            class="atbd_info" <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?= esc_html($website); ?></a>
@@ -741,7 +741,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-at"></span><?php _e($zip_label, ATBDP_TEXTDOMAIN); ?>
+                                                    class="<?php atbdp_icon_type(true);?>-at"></span><?php _e($zip_label, 'directorist'); ?>
                                         </div>
                                         <div class="atbd_info"><?= esc_html($zip); ?></div>
                                     </li>
@@ -778,24 +778,24 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="<?php atbdp_icon_type(true);?>-paper-plane"></span><?php _e($contact_listing_owner, ATBDP_TEXTDOMAIN); ?>
+                                <span class="<?php atbdp_icon_type(true);?>-paper-plane"></span><?php _e($contact_listing_owner, 'directorist'); ?>
                             </h4>
                         </div>
                     </div>
                     <form id="atbdp-contact-form" class="form-vertical contact_listing_owner" role="form">
                         <div class="form-group">
                             <input type="text" class="form-control" id="atbdp-contact-name"
-                                   placeholder="<?php _e('Name', ATBDP_TEXTDOMAIN); ?>" required/>
+                                   placeholder="<?php _e('Name', 'directorist'); ?>" required/>
                         </div>
 
                         <div class="form-group">
                             <input type="email" class="form-control" id="atbdp-contact-email"
-                                   placeholder="<?php _e('Email', ATBDP_TEXTDOMAIN); ?>" required/>
+                                   placeholder="<?php _e('Email', 'directorist'); ?>" required/>
                         </div>
 
                         <div class="form-group">
                             <textarea class="form-control" id="atbdp-contact-message" rows="3"
-                                      placeholder="<?php _e('Message', ATBDP_TEXTDOMAIN); ?>..." required></textarea>
+                                      placeholder="<?php _e('Message', 'directorist'); ?>..." required></textarea>
                         </div>
                         <?php
                         /**
@@ -807,7 +807,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         ?>
                         <p id="atbdp-contact-message-display" style="margin-bottom: 10px"></p>
 
-                        <button type="submit" class="btn btn-primary"><?php _e('Submit', ATBDP_TEXTDOMAIN); ?></button>
+                        <button type="submit" class="btn btn-primary"><?php _e('Submit', 'directorist'); ?></button>
                     </form>
                 </div>
                 <input type="hidden" id="atbdp-post-id" value="<?php echo $post->ID; ?>" />

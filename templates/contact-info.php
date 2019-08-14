@@ -12,24 +12,24 @@ $disable_contact_info = get_directorist_option('disable_contact_info');
 $disable_contact_owner = get_directorist_option('disable_contact_owner',1);
 $currency = get_directorist_option('g_currency', 'USD');
 $display_address_field = get_directorist_option('display_address_field', 1);
-$address_placeholder   = get_directorist_option('address_placeholder',__('Listing address eg. New York, USA', ATBDP_TEXTDOMAIN));
+$address_placeholder   = get_directorist_option('address_placeholder',__('Listing address eg. New York, USA', 'directorist'));
 $display_phone_field = get_directorist_option('display_phone_field', 1);
 $display_phone2_field = get_directorist_option('display_phone_field2', 1);
 $display_fax = get_directorist_option('display_fax', 1);
-$phone_placeholder = get_directorist_option('phone_placeholder', __('Phone Number', ATBDP_TEXTDOMAIN));
-$phone_placeholder2 = get_directorist_option('phone_placeholder2', __('Phone Number 2', ATBDP_TEXTDOMAIN));
-$fax_placeholder = get_directorist_option('fax_placeholder', __('Fax', ATBDP_TEXTDOMAIN));
+$phone_placeholder = get_directorist_option('phone_placeholder', __('Phone Number', 'directorist'));
+$phone_placeholder2 = get_directorist_option('phone_placeholder2', __('Phone Number 2', 'directorist'));
+$fax_placeholder = get_directorist_option('fax_placeholder', __('Fax', 'directorist'));
 $display_email_field = get_directorist_option('display_email_field', 1);
-$email_placeholder = get_directorist_option('email_placeholder', __('Enter Email', ATBDP_TEXTDOMAIN));
+$email_placeholder = get_directorist_option('email_placeholder', __('Enter Email', 'directorist'));
 $display_website_field = get_directorist_option('display_website_field', 1);
-$website_placeholder = get_directorist_option('website_placeholder', __('Listing Website eg. http://example.com', ATBDP_TEXTDOMAIN));
+$website_placeholder = get_directorist_option('website_placeholder', __('Listing Website eg. http://example.com', 'directorist'));
 $display_zip_field = get_directorist_option('display_zip_field', 1);
-$zip_placeholder = get_directorist_option('zip_placeholder', __('Enter Zip/Post Code', ATBDP_TEXTDOMAIN));
+$zip_placeholder = get_directorist_option('zip_placeholder', __('Enter Zip/Post Code', 'directorist'));
 $display_social_info_field = get_directorist_option('display_social_info_field', 1);
 $display_map_field = get_directorist_option('display_map_field', 1);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
 $t = '';//later need to configure the marker info window
-//$t = !empty( $t ) ? esc_html($t) : __('No Title ', ATBDP_TEXTDOMAIN);
+//$t = !empty( $t ) ? esc_html($t) : __('No Title ', 'directorist');
 $tg = !empty( $tagline ) ? esc_html($tagline) : '';
 $ad = !empty( $address ) ? esc_html($address) : '';
 $image = (!empty($attachment_id[0])) ? "<img src='". esc_url(wp_get_attachment_image_url($attachment_id[0], 'thumbnail'))."'>": '';
@@ -47,7 +47,7 @@ $info_content .= "<p> {$ad}</p></div>";
                 checked($hide_contact_owner);
             } ?> >
             <label class="form-check-label"
-                   for="hide_contact_owner"><?php esc_html_e('Check it to hide listing contact owner form', ATBDP_TEXTDOMAIN); ?></label>
+                   for="hide_contact_owner"><?php esc_html_e('Check it to hide listing contact owner form', 'directorist'); ?></label>
 
         </div>
     <?php } ?>
@@ -60,7 +60,7 @@ $info_content .= "<p> {$ad}</p></div>";
                 checked($hide_contact_info);
             } ?> >
             <label class="form-check-label"
-                   for="hide_contact_info"><?php esc_html_e('Check it to hide Contact Information for this listing', ATBDP_TEXTDOMAIN); ?></label>
+                   for="hide_contact_info"><?php esc_html_e('Check it to hide Contact Information for this listing', 'directorist'); ?></label>
 
         </div>
 
@@ -72,8 +72,8 @@ $info_content .= "<p> {$ad}</p></div>";
             <?php if(!empty($display_address_field)) { ?>
                 <div class="g_address_wrap">
                     <label for="address"><?php
-                        $address_label = get_directorist_option('address_label', __('Google Address', ATBDP_TEXTDOMAIN));
-                        esc_html_e($address_label.':', ATBDP_TEXTDOMAIN); ?></label>
+                        $address_label = get_directorist_option('address_label', __('Google Address', 'directorist'));
+                        esc_html_e($address_label.':', 'directorist'); ?></label>
                     <input type="text" name="address" id="address" value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
                         class="form-control directory_field"
                         placeholder="<?php echo esc_attr($address_placeholder); ?>"/>
@@ -87,18 +87,18 @@ $info_content .= "<p> {$ad}</p></div>";
                 <?php if('google' == $select_listing_map) {?>
                 <div id="floating-panel">
                     <button class="btn btn-danger"
-                            id="delete_marker"> <?php _e('Delete Marker', ATBDP_TEXTDOMAIN); ?></button>
+                            id="delete_marker"> <?php _e('Delete Marker', 'directorist'); ?></button>
                 </div>
                 <?php } ?>
                 <div id="gmap"></div>
                 <?php if('google' == $select_listing_map) {?>
-                <small class="map_drag_info"><i class="fa fa-info-circle" aria-hidden="true"></i> <?php _e('You can drag pinpoint to place the correct address manually.', ATBDP_TEXTDOMAIN); ?></small>
+                <small class="map_drag_info"><i class="fa fa-info-circle" aria-hidden="true"></i> <?php _e('You can drag pinpoint to place the correct address manually.', 'directorist'); ?></small>
                  <?php } ?>
                 <div class="map-coordinate form-group">
                     <div class="cor-wrap map_cor">
                         <input type="checkbox" name="manual_coordinate" value="1"
                             id="manual_coordinate" <?= (!empty($manual_coordinate)) ? 'checked' : ''; ?> >
-                        <label for="manual_coordinate"> <?php _e('Or Enter Coordinates (latitude and longitude) Manually.', ATBDP_TEXTDOMAIN); ?> </label>
+                        <label for="manual_coordinate"> <?php _e('Or Enter Coordinates (latitude and longitude) Manually.', 'directorist'); ?> </label>
                     </div>
                 </div>
             </div>
@@ -107,34 +107,34 @@ $info_content .= "<p> {$ad}</p></div>";
                     <div class="row">
                         <div class="col-md-5 col-sm-12 v_middle">
                             <div class="form-group">
-                                <label for="manual_lat"> <?php _e('Latitude', ATBDP_TEXTDOMAIN); ?>  </label>
+                                <label for="manual_lat"> <?php _e('Latitude', 'directorist'); ?>  </label>
                                 <input type="text" name="manual_lat" id="manual_lat"
                                     value="<?= (!empty($manual_lat)) ? $manual_lat : $default_latitude ?>"
                                     class="form-control directory_field"
-                                    placeholder="<?php esc_attr_e('Enter Latitude eg. 24.89904', ATBDP_TEXTDOMAIN); ?>"/>
+                                    placeholder="<?php esc_attr_e('Enter Latitude eg. 24.89904', 'directorist'); ?>"/>
                             </div>
                         </div>
                         <div class="col-md-5 col-sm-12 v_middle">
                             <div class="form-group">
-                                <label for="manual_lng"> <?php _e('Longitude', ATBDP_TEXTDOMAIN); ?> </label>
+                                <label for="manual_lng"> <?php _e('Longitude', 'directorist'); ?> </label>
                                 <input type="text" name="manual_lng" id="manual_lng"
                                     value="<?= (!empty($manual_lng)) ? $manual_lng : $default_longitude ?>"
                                     class="form-control directory_field"
-                                    placeholder="<?php esc_attr_e('Enter Longitude eg. 91.87198', ATBDP_TEXTDOMAIN); ?>"/>
+                                    placeholder="<?php esc_attr_e('Enter Longitude eg. 91.87198', 'directorist'); ?>"/>
                             </div>
                         </div>
                     </div>
 
                     <div class="lat_btn_wrap">
                         <button class="btn btn-primary btn-sm"
-                                id="generate_admin_map"><?php _e('Generate on Map', ATBDP_TEXTDOMAIN); ?></button>
+                                id="generate_admin_map"><?php _e('Generate on Map', 'directorist'); ?></button>
                     </div>
                 </div>
             </div> <!--ends #hide_if_no_manual_cor -->
             <div class="atbd_map_hide form-group">
                 <input type="checkbox" name="hide_map" value="1"
                     id="hide_map" <?= (!empty($hide_map)) ? 'checked' : ''; ?> >
-                <label for="hide_map"> <?php _e('Hide map for this listing.', ATBDP_TEXTDOMAIN); ?> </label>
+                <label for="hide_map"> <?php _e('Hide map for this listing.', 'directorist'); ?> </label>
             </div>
                  <?php } ?>
         </div>
@@ -153,8 +153,8 @@ $info_content .= "<p> {$ad}</p></div>";
     <!--    zip code-->
         <?php if(!empty($display_zip_field) ) {?>
             <div class="form-group">
-                <label for="atbdp_zip"><?php $zip_label = get_directorist_option('zip_label', __('Zip/Post Code', ATBDP_TEXTDOMAIN));
-                    esc_html_e($zip_label.':', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="atbdp_zip"><?php $zip_label = get_directorist_option('zip_label', __('Zip/Post Code', 'directorist'));
+                    esc_html_e($zip_label.':', 'directorist'); ?></label>
 
                 <input type="text" id="atbdp_zip" name="zip"
                        value="<?= !empty($zip) ? esc_attr($zip) : ''; ?>" class="form-control directory_field"
@@ -164,8 +164,8 @@ $info_content .= "<p> {$ad}</p></div>";
         <!--phone-->
         <?php if(!empty($display_phone_field) ) { ?>
         <div class="form-group">
-            <label for="atbdp_phone_number"><?php $phone_label = get_directorist_option('phone_label', __('Phone Number', ATBDP_TEXTDOMAIN));
-                esc_html_e($phone_label.':', ATBDP_TEXTDOMAIN); ?></label>
+            <label for="atbdp_phone_number"><?php $phone_label = get_directorist_option('phone_label', __('Phone Number', 'directorist'));
+                esc_html_e($phone_label.':', 'directorist'); ?></label>
             <input type="tel" name="phone" id="atbdp_phone_number"
                    value="<?= !empty($phone) ? esc_attr($phone) : ''; ?>" class="form-control directory_field"
                    placeholder="<?php echo esc_attr($phone_placeholder); ?>"/>
@@ -174,8 +174,8 @@ $info_content .= "<p> {$ad}</p></div>";
         <!--phone2-->
         <?php if(!empty($display_phone2_field) ) { ?>
         <div class="form-group">
-            <label for="atbdp_phone_number2"><?php $phone_label2 = get_directorist_option('phone_label2', __('Phone Number Two', ATBDP_TEXTDOMAIN));
-                esc_html_e($phone_label2.':', ATBDP_TEXTDOMAIN); ?></label>
+            <label for="atbdp_phone_number2"><?php $phone_label2 = get_directorist_option('phone_label2', __('Phone Number Two', 'directorist'));
+                esc_html_e($phone_label2.':', 'directorist'); ?></label>
             <input type="tel" name="phone2" id="atbdp_phone_number2"
                    value="<?= !empty($phone2) ? esc_attr($phone2) : ''; ?>" class="form-control directory_field"
                    placeholder="<?php echo esc_attr($phone_placeholder2); ?>"/>
@@ -184,8 +184,8 @@ $info_content .= "<p> {$ad}</p></div>";
         <!--fax-->
         <?php if(!empty($display_fax) ) { ?>
         <div class="form-group">
-            <label for="atbdp_fax"><?php $fax_label = get_directorist_option('fax_label', __('Fax', ATBDP_TEXTDOMAIN));
-                esc_html_e($fax_label.':', ATBDP_TEXTDOMAIN); ?></label>
+            <label for="atbdp_fax"><?php $fax_label = get_directorist_option('fax_label', __('Fax', 'directorist'));
+                esc_html_e($fax_label.':', 'directorist'); ?></label>
             <input type="tel" name="fax" id="atbdp_fax"
                    value="<?= !empty($fax) ? esc_attr($fax) : ''; ?>" class="form-control directory_field"
                    placeholder="<?php echo esc_attr($fax_placeholder); ?>"/>
@@ -193,8 +193,8 @@ $info_content .= "<p> {$ad}</p></div>";
         <?php } ?>
         <?php if(!empty($display_email_field)) { ?>
         <div class="form-group">
-            <label for="atbdp_email"><?php $email_label = get_directorist_option('email_label', __('Email', ATBDP_TEXTDOMAIN));
-                esc_html_e($email_label.':', ATBDP_TEXTDOMAIN); ?></label>
+            <label for="atbdp_email"><?php $email_label = get_directorist_option('email_label', __('Email', 'directorist'));
+                esc_html_e($email_label.':', 'directorist'); ?></label>
             <input type="email" name="email" id="atbdp_email" value="<?= !empty($email) ? esc_attr($email) : ''; ?>"
                    class="form-control directory_field"
                    placeholder="<?php echo esc_attr($email_placeholder); ?>"/>
@@ -202,8 +202,8 @@ $info_content .= "<p> {$ad}</p></div>";
         <?php } ?>
         <?php if(!empty($display_website_field) ) {?>
         <div class="form-group">
-            <label for="atbdp_website"><?php  $website_label = get_directorist_option('website_label', __('Website', ATBDP_TEXTDOMAIN));
-                esc_html_e($website_label.':', ATBDP_TEXTDOMAIN); ?></label>
+            <label for="atbdp_website"><?php  $website_label = get_directorist_option('website_label', __('Website', 'directorist'));
+                esc_html_e($website_label.':', 'directorist'); ?></label>
 
             <input type="text" id="atbdp_website" name="website"
                    value="<?= !empty($website) ? esc_url($website) : ''; ?>" class="form-control directory_field"
@@ -240,7 +240,7 @@ $info_content .= "<p> {$ad}</p></div>";
         <div class="atbd_backend_business_hour">
                 <div class="row">
                     <div class="col-md-12">
-                        <h6 class="atbd_backend_area_title"><?php _e('Enter Information about Businss/Opening Hours', ATBDP_TEXTDOMAIN); ?></h6>
+                        <h6 class="atbd_backend_area_title"><?php _e('Enter Information about Businss/Opening Hours', 'directorist'); ?></h6>
                     </div>
                 </div>
         <?php do_action('atbdp_edit_after_contact_info_fields', 'add_listing_page_backend', $args['listing_contact_info']); ?>
@@ -351,7 +351,7 @@ $info_content .= "<p> {$ad}</p></div>";
                 map: map,
                 position: saved_lat_lng,
                 draggable: true,
-                title: '<?php _e('You can drag the marker to your desired place to place a marker', ATBDP_TEXTDOMAIN); ?>'
+                title: '<?php _e('You can drag the marker to your desired place to place a marker', 'directorist'); ?>'
             });
             marker.addListener('click', function () {
                 info_window.open(map, marker);
@@ -411,7 +411,7 @@ $info_content .= "<p> {$ad}</p></div>";
                     // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
                     markers.push(marker);
                 } else {
-                    alert('<?php _e('Geocode was not successful for the following reason: ', ATBDP_TEXTDOMAIN); ?>' + status);
+                    alert('<?php _e('Geocode was not successful for the following reason: ', 'directorist'); ?>' + status);
                 }
             });
         }
@@ -432,7 +432,7 @@ $info_content .= "<p> {$ad}</p></div>";
                 position: location,
                 /*label: labels[labelIndex++ % labels.length],*/
                 draggable: true,
-                title: '<?php _e('You can drag the marker to your desired place to place a marker', ATBDP_TEXTDOMAIN); ?>',
+                title: '<?php _e('You can drag the marker to your desired place to place a marker', 'directorist'); ?>',
                 map: map
             });
             marker.addListener('click', function () {

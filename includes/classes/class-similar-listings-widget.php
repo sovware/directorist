@@ -13,11 +13,11 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
         {
             $widget_options = array(
                 'classname' => 'atbd_widget',
-                'description' => esc_html__('You can show similar listing by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show similar listing by this widget', 'directorist'),
             );
             parent::__construct(
                 'bdsl_widget', // Base ID
-                esc_html__('Directorist - Similar Listings', ATBDP_TEXTDOMAIN), // Name
+                esc_html__('Directorist - Similar Listings', 'directorist'), // Name
                 $widget_options // Args
             );
         }
@@ -33,7 +33,7 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
         public function widget($args, $instance)
         {
             if (is_singular(ATBDP_POST_TYPE)) {
-                $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Similar Listings', ATBDP_TEXTDOMAIN);
+                $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Similar Listings', 'directorist');
                 $sim_listing_num = !empty($instance['sim_listing_num']) ? $instance['sim_listing_num'] : 5;
                 echo $args['before_widget'];
                 echo '<div class="atbd_widget_title">';
@@ -151,18 +151,18 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
          */
         public function form($instance)
         {
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Similar Listings', ATBDP_TEXTDOMAIN);
+            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Similar Listings', 'directorist');
             $sim_listing_num = !empty($instance['sim_listing_num']) ? $instance['sim_listing_num'] : 5;
             ?>
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', 'directorist'); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
                        name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
                        value="<?php echo esc_attr($title); ?>">
             </p>
 
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('sim_listing_num')); ?>"><?php esc_attr_e('Number of Listings:', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="<?php echo esc_attr($this->get_field_id('sim_listing_num')); ?>"><?php esc_attr_e('Number of Listings:', 'directorist'); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('sim_listing_num')); ?>"
                        name="<?php echo esc_attr($this->get_field_name('sim_listing_num')); ?>" type="text"
                        value="<?php echo esc_attr($sim_listing_num); ?>">

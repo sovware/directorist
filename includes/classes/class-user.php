@@ -160,45 +160,45 @@ class ATBDP_User {
         }
         $reg_errors = new WP_Error;
         if ( empty( $username ) || !empty( $password_validation ) || empty( $email ) || !empty($website_validation) || !empty($fname_validation) || !empty($lname_validation) || !empty($bio_validation)) {
-            $reg_errors->add('field', __('Required form field is missing. Please fill all required fields.', ATBDP_TEXTDOMAIN));
+            $reg_errors->add('field', __('Required form field is missing. Please fill all required fields.', 'directorist'));
         }
 
         if (!empty( $username ) && 4 > strlen( $username ) ) {
-            $reg_errors->add( 'username_length', __('Username too short. At least 4 characters is required', ATBDP_TEXTDOMAIN) );
+            $reg_errors->add( 'username_length', __('Username too short. At least 4 characters is required', 'directorist') );
         }
 
         if ( username_exists( $username ) )
-            $reg_errors->add('user_name', __('Sorry, that username already exists!', ATBDP_TEXTDOMAIN));
+            $reg_errors->add('user_name', __('Sorry, that username already exists!', 'directorist'));
 
 
         if ( ! validate_username( $username ) ) {
-            $reg_errors->add( 'username_invalid', __('Sorry, the username you entered is not valid', ATBDP_TEXTDOMAIN) );
+            $reg_errors->add( 'username_invalid', __('Sorry, the username you entered is not valid', 'directorist') );
         }
 
         if ( ! empty( $password ) && 5 > strlen( $password ) ) {
-            $reg_errors->add( 'password', __('Password length must be greater than 5', ATBDP_TEXTDOMAIN) );
+            $reg_errors->add( 'password', __('Password length must be greater than 5', 'directorist') );
         }
 
         if ( !is_email( $email ) ) {
-            $reg_errors->add( 'email_invalid', __('Email is not valid', ATBDP_TEXTDOMAIN) );
+            $reg_errors->add( 'email_invalid', __('Email is not valid', 'directorist') );
         }
         if ( email_exists( $email ) ) {
-            $reg_errors->add( 'email', __('Email Already in use', ATBDP_TEXTDOMAIN) );
+            $reg_errors->add( 'email', __('Email Already in use', 'directorist') );
         }
         if ( ! empty( $first_name ) ) {
             if (!is_string($first_name)) {
-                $reg_errors->add('First Name', __('First Name must be letters or combination of letters and number', ATBDP_TEXTDOMAIN));
+                $reg_errors->add('First Name', __('First Name must be letters or combination of letters and number', 'directorist'));
             }
         }
         if ( ! empty( $last_name ) ) {
             if (!is_string($last_name)) {
-                $reg_errors->add('Last Name', __('Last Name must be letters or combination of letters and number', ATBDP_TEXTDOMAIN));
+                $reg_errors->add('Last Name', __('Last Name must be letters or combination of letters and number', 'directorist'));
             }
         }
 
         if ( ! empty( $website ) ) {
             if ( ! filter_var( $website, FILTER_VALIDATE_URL ) ) {
-                $reg_errors->add( 'website', __('Website is not a valid URL', ATBDP_TEXTDOMAIN) );
+                $reg_errors->add( 'website', __('Website is not a valid URL', 'directorist') );
             }
         }
         // if we have errors then returns a string of error message.
@@ -402,15 +402,15 @@ class ATBDP_User {
             if ( ( $new_pass == $confirm_pass ) && ( strlen( $confirm_pass) > 5 ) ){
                 wp_set_password($new_pass, $ID); // set the password to the database
             }else{
-                wp_send_json_error('Password should be matched and more than five character', ATBDP_TEXTDOMAIN);
+                wp_send_json_error('Password should be matched and more than five character', 'directorist');
 
             }
         }
         if (!is_wp_error($uid)){
-            wp_send_json_success('Congratulations! Your profile updated successfully', ATBDP_TEXTDOMAIN);
+            wp_send_json_success('Congratulations! Your profile updated successfully', 'directorist');
             return true;
         }else{
-            wp_send_json_error('Oops! Something wrong.', ATBDP_TEXTDOMAIN);
+            wp_send_json_error('Oops! Something wrong.', 'directorist');
         }
 
 

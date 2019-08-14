@@ -132,16 +132,16 @@ class ATBDP_Enqueuer {
 
             // Internationalization text for javascript file especially add-listing.js
             $i18n_text = array(
-                'confirmation_text' => __('Are you sure', ATBDP_TEXTDOMAIN),
-                'ask_conf_sl_lnk_del_txt' => __('Do you really want to remove this Social Link!', ATBDP_TEXTDOMAIN),
-                'confirm_delete' => __('Yes, Delete it!', ATBDP_TEXTDOMAIN),
-                'deleted' => __('Deleted!', ATBDP_TEXTDOMAIN),
-                'icon_choose_text' => __('Select an icon', ATBDP_TEXTDOMAIN),
-                'upload_image' => __('Select or Upload Slider Image', ATBDP_TEXTDOMAIN),
-                'upload_cat_image' => __('Select Category Image', ATBDP_TEXTDOMAIN),
-                'choose_image' => __('Use this Image', ATBDP_TEXTDOMAIN),
-                'select_prv_img' => __('Select Preview Image', ATBDP_TEXTDOMAIN),
-                'insert_prv_img' => __('Insert Preview Image', ATBDP_TEXTDOMAIN),
+                'confirmation_text' => __('Are you sure', 'directorist'),
+                'ask_conf_sl_lnk_del_txt' => __('Do you really want to remove this Social Link!', 'directorist'),
+                'confirm_delete' => __('Yes, Delete it!', 'directorist'),
+                'deleted' => __('Deleted!', 'directorist'),
+                'icon_choose_text' => __('Select an icon', 'directorist'),
+                'upload_image' => __('Select or Upload Slider Image', 'directorist'),
+                'upload_cat_image' => __('Select Category Image', 'directorist'),
+                'choose_image' => __('Use this Image', 'directorist'),
+                'select_prv_img' => __('Select Preview Image', 'directorist'),
+                'insert_prv_img' => __('Insert Preview Image', 'directorist'),
             );
             // is MI extension enabled and active?
             $data = array(
@@ -276,28 +276,28 @@ class ATBDP_Enqueuer {
             'ajaxurl'                       => admin_url('admin-ajax.php'),
             'nonceName'                     => 'atbdp_nonce_js',
             'PublicAssetPath'               => ATBDP_PUBLIC_ASSETS,
-            'login_alert_message'           => __( 'Sorry, you need to login first.', ATBDP_TEXTDOMAIN ),
+            'login_alert_message'           => __( 'Sorry, you need to login first.', 'directorist' ),
             'rtl'                           => is_rtl() ? 'true': 'false',
-            'warning'                       => __( 'WARNING!!', ATBDP_TEXTDOMAIN ),
-            'not_add_more_than_one'         => __( 'You can not add more than one review. Refresh the page to edit or delete your review!!!,', ATBDP_TEXTDOMAIN ),
+            'warning'                       => __( 'WARNING!!', 'directorist' ),
+            'not_add_more_than_one'         => __( 'You can not add more than one review. Refresh the page to edit or delete your review!!!,', 'directorist' ),
             'review_success'                => __( 'Reviews Saved Successfully!!', 'directorist' ),
-            'review_error'                  => __( 'Something went wrong. Check the form and try again!!!', ATBDP_TEXTDOMAIN ),
-            'review_loaded'                 => __( 'Reviews Loaded!!', ATBDP_TEXTDOMAIN ),
-            'review_not_available'          => __( 'NO MORE REVIEWS AVAILABLE!!!,', ATBDP_TEXTDOMAIN ),
-            'review_have_not_for_delete'    => __( 'You do not have any review to delete. Refresh the page to submit new review!!!,', ATBDP_TEXTDOMAIN ),
-            'review_sure_msg'               => __( 'Are you sure?', ATBDP_TEXTDOMAIN ),
-            'review_want_to_remove'         => __( 'Do you really want to remove this review!', ATBDP_TEXTDOMAIN ),
-            'review_delete_msg'             => __( 'Yes, Delete it!', ATBDP_TEXTDOMAIN ),
+            'review_error'                  => __( 'Something went wrong. Check the form and try again!!!', 'directorist' ),
+            'review_loaded'                 => __( 'Reviews Loaded!!', 'directorist' ),
+            'review_not_available'          => __( 'NO MORE REVIEWS AVAILABLE!!!,', 'directorist' ),
+            'review_have_not_for_delete'    => __( 'You do not have any review to delete. Refresh the page to submit new review!!!,', 'directorist' ),
+            'review_sure_msg'               => __( 'Are you sure?', 'directorist' ),
+            'review_want_to_remove'         => __( 'Do you really want to remove this review!', 'directorist' ),
+            'review_delete_msg'             => __( 'Yes, Delete it!', 'directorist' ),
             'review_cancel_btn_text'        => __( 'Cancel','directorist'),
-            'review_wrong_msg'              => __( 'Something went wrong!!!, Try again', ATBDP_TEXTDOMAIN ),
-            'listing_remove_title'          => __( 'Are you sure?', ATBDP_TEXTDOMAIN ),
-            'listing_remove_text'           => __( 'Do you really want to delete this item?!', ATBDP_TEXTDOMAIN ),
-            'listing_remove_confirm_text'   => __( 'Yes, Delete it!', ATBDP_TEXTDOMAIN ),
-            'listing_delete'                => __( 'Deleted!!', ATBDP_TEXTDOMAIN ),
-            'listing_error_title'           => __( 'ERROR!!', ATBDP_TEXTDOMAIN ),
-            'listing_error_text'            => __( 'Something went wrong!!!, Try again', ATBDP_TEXTDOMAIN ),
-            'upload_pro_pic_title'          => __( 'Select or Upload a profile picture', ATBDP_TEXTDOMAIN ),
-            'upload_pro_pic_text'           => __( 'Use this Image', ATBDP_TEXTDOMAIN ),
+            'review_wrong_msg'              => __( 'Something went wrong!!!, Try again', 'directorist' ),
+            'listing_remove_title'          => __( 'Are you sure?', 'directorist' ),
+            'listing_remove_text'           => __( 'Do you really want to delete this item?!', 'directorist' ),
+            'listing_remove_confirm_text'   => __( 'Yes, Delete it!', 'directorist' ),
+            'listing_delete'                => __( 'Deleted!!', 'directorist' ),
+            'listing_error_title'           => __( 'ERROR!!', 'directorist' ),
+            'listing_error_text'            => __( 'Something went wrong!!!, Try again', 'directorist' ),
+            'upload_pro_pic_title'          => __( 'Select or Upload a profile picture', 'directorist' ),
+            'upload_pro_pic_text'           => __( 'Use this Image', 'directorist' ),
             'plugin_url'                    => ATBDP_URL,
 
         );
@@ -347,23 +347,23 @@ class ATBDP_Enqueuer {
         wp_enqueue_script('atbdp_custom_field_validator');
 
         $new_tag = get_directorist_option('create_new_tag',0);
-        $tag_placeholder = get_directorist_option('tag_placeholder',__('Select or insert new tags separated by a comma, or space', ATBDP_TEXTDOMAIN));
-        $cat_placeholder = get_directorist_option('cat_placeholder', __('Select Category', ATBDP_TEXTDOMAIN));
-        $loc_placeholder = get_directorist_option('loc_placeholder', __('Select Location', ATBDP_TEXTDOMAIN));
+        $tag_placeholder = get_directorist_option('tag_placeholder',__('Select or insert new tags separated by a comma, or space', 'directorist'));
+        $cat_placeholder = get_directorist_option('cat_placeholder', __('Select Category', 'directorist'));
+        $loc_placeholder = get_directorist_option('loc_placeholder', __('Select Location', 'directorist'));
         // Internationalization text for javascript file especially add-listing.js
         $i18n_text = array(
-            'confirmation_text' => __('Are you sure', ATBDP_TEXTDOMAIN),
-            'ask_conf_sl_lnk_del_txt' => __('Do you really want to remove this Social Link!', ATBDP_TEXTDOMAIN),
-            'ask_conf_faqs_del_txt' => __('Do you really want to remove this FAQ!', ATBDP_TEXTDOMAIN),
-            'confirm_delete' => __('Yes, Delete it!', ATBDP_TEXTDOMAIN),
-            'deleted' => __('Deleted!', ATBDP_TEXTDOMAIN),
+            'confirmation_text' => __('Are you sure', 'directorist'),
+            'ask_conf_sl_lnk_del_txt' => __('Do you really want to remove this Social Link!', 'directorist'),
+            'ask_conf_faqs_del_txt' => __('Do you really want to remove this FAQ!', 'directorist'),
+            'confirm_delete' => __('Yes, Delete it!', 'directorist'),
+            'deleted' => __('Deleted!', 'directorist'),
             'location_selection' => esc_attr($loc_placeholder),
             'category_selection' => esc_attr($cat_placeholder),
             'tag_selection' => esc_attr($tag_placeholder),
-            'upload_image' => __('Select or Upload Slider Image', ATBDP_TEXTDOMAIN),
-            'choose_image' => __('Use this Image', ATBDP_TEXTDOMAIN),
-            'select_prv_img_front' => __('Select Preview Image', ATBDP_TEXTDOMAIN),
-            'insert_prv_img_front' => __('Insert Preview Image', ATBDP_TEXTDOMAIN),
+            'upload_image' => __('Select or Upload Slider Image', 'directorist'),
+            'choose_image' => __('Use this Image', 'directorist'),
+            'select_prv_img_front' => __('Select Preview Image', 'directorist'),
+            'insert_prv_img_front' => __('Insert Preview Image', 'directorist'),
         );
 
         //get listing is if the screen in edit listing
@@ -409,24 +409,24 @@ class ATBDP_Enqueuer {
         $require_title = get_directorist_option('require_title');
         $title = '';
         if(!empty($require_title) && empty($title_visable)){
-            $title = __('Title field is required!', ATBDP_TEXTDOMAIN);
+            $title = __('Title field is required!', 'directorist');
         }
         $show_description = get_directorist_option('display_desc_for', 0);
         $description = '';
         $require_description = get_directorist_option('require_long_details');
         if(!empty($require_description)  && empty($show_description)){
-            $description = __('Description field is required!', ATBDP_TEXTDOMAIN);
+            $description = __('Description field is required!', 'directorist');
         }
         $category = '';
         if((get_directorist_option('require_category') == 1)){
-            $category = __('Category field is required!', ATBDP_TEXTDOMAIN);
+            $category = __('Category field is required!', 'directorist');
         }
         $excerpt = '';
         $require_excerpt = get_directorist_option('require_excerpt');
         $display_excerpt = get_directorist_option('display_excerpt_field', 0);
         $excerpt_visable = get_directorist_option('display_short_desc_for', 0);
         if(!empty($require_excerpt && $display_excerpt) && empty($excerpt_visable)){
-            $excerpt = __('Excerpt field is required!', ATBDP_TEXTDOMAIN);
+            $excerpt = __('Excerpt field is required!', 'directorist');
         }
         //price
         $plan_price = true;
@@ -438,7 +438,7 @@ class ATBDP_Enqueuer {
         $price_required = get_directorist_option('require_price', 0);
         $price = '';
         if(!empty($price_required && $price_display) && $plan_price && empty($price_visable)){
-            $price = __('Price field is required!', ATBDP_TEXTDOMAIN);
+            $price = __('Price field is required!', 'directorist');
         }
         //price range
         $plan_price_range = true;
@@ -448,7 +448,7 @@ class ATBDP_Enqueuer {
         $price_range = '';
         $require_price_range = get_directorist_option('require_price_range');
         if(!empty($require_price_range && $price_display) && $plan_price_range){
-            $price_range = __('Price range field is required!', ATBDP_TEXTDOMAIN);
+            $price_range = __('Price range field is required!', 'directorist');
         }
         //tag
         $plan_tag = true;
@@ -469,7 +469,7 @@ class ATBDP_Enqueuer {
         $require_tag = get_directorist_option('require_tags');
         $tag_visable = get_directorist_option('display_tag_for', 0);
         if(!empty($require_tag && $p_tags) && $plan_tag && empty($tag_visable)){
-            $tag = __('Tag field is required!', ATBDP_TEXTDOMAIN);
+            $tag = __('Tag field is required!', 'directorist');
         }
 
         //location
@@ -487,7 +487,7 @@ class ATBDP_Enqueuer {
         $required_location = get_directorist_option('require_location');
         $location_visable = get_directorist_option('display_loc_for', 0);
         if((!empty($required_location && $p_locations)) && empty($location_visable)) {
-            $location = __('Location field is required!', ATBDP_TEXTDOMAIN);
+            $location = __('Location field is required!', 'directorist');
         }
 
         //address
@@ -496,7 +496,7 @@ class ATBDP_Enqueuer {
         $display_address = get_directorist_option('display_address_field', 1);
         $address_visable = get_directorist_option('display_address_for', 0);
         if(!empty($require_address && $display_address) && empty($address_visable)){
-            $address = __('Address field is required!', ATBDP_TEXTDOMAIN);
+            $address = __('Address field is required!', 'directorist');
         }
         //phone
         $plan_phone = true;
@@ -518,13 +518,13 @@ class ATBDP_Enqueuer {
         $phone2_visable = get_directorist_option('display_phone2_for', 0);
         $fax_visable = get_directorist_option('display_fax_for', 0);
         if(($require_phone && $display_phone) && $plan_phone && empty($phone_visable)){
-            $phone = __('Phone field is required!', ATBDP_TEXTDOMAIN);
+            $phone = __('Phone field is required!', 'directorist');
         }
         if(($require_phone2 && $display_phone2) && $plan_phone && empty($phone2_visable)){
-            $phone2 = __('This field is required!', ATBDP_TEXTDOMAIN);
+            $phone2 = __('This field is required!', 'directorist');
         }
         if(($require_fax && $display_fax) && empty($fax_visable)){
-            $fax = __('This field is required!', ATBDP_TEXTDOMAIN);
+            $fax = __('This field is required!', 'directorist');
         }
 
         //email
@@ -537,7 +537,7 @@ class ATBDP_Enqueuer {
         $display_email = get_directorist_option('display_email_field', 1);
         $email_visable = get_directorist_option('display_email_for', 0);
         if(!empty($require_email && $display_email) && $plan_email && empty($email_visable)){
-            $email = __('Email field is required!', ATBDP_TEXTDOMAIN);
+            $email = __('Email field is required!', 'directorist');
         }
         //website
         $plan_webLink = true;
@@ -549,7 +549,7 @@ class ATBDP_Enqueuer {
         $display_web = get_directorist_option('display_website_field', 1);
         $web_visable = get_directorist_option('display_website_for', 0);
         if(!empty($require_web && $display_web) && $plan_webLink && empty($web_visable)){
-            $web = __('Website link field is required!', ATBDP_TEXTDOMAIN);
+            $web = __('Website link field is required!', 'directorist');
         }
 
         //zip
@@ -559,7 +559,7 @@ class ATBDP_Enqueuer {
         $display_zip = get_directorist_option('display_zip_field', 1);
         $zip_visable = get_directorist_option('display_zip_for', 0);
         if(!empty($require_zip && $display_zip) && empty($zip_visable)){
-            $zip = __('Zip/Post Code field is required!', ATBDP_TEXTDOMAIN);
+            $zip = __('Zip/Post Code field is required!', 'directorist');
         }
 
         //social link
@@ -572,7 +572,7 @@ class ATBDP_Enqueuer {
         $display_Sinfo = get_directorist_option('display_social_info_field', 1);
         $Sinfo_visable = get_directorist_option('display_social_info_for', 0);
         if(!empty($require_Sinfo && $display_Sinfo) && $plan_social_networks && empty($Sinfo_visable)){
-            $Sinfo = __('Social information is required!', ATBDP_TEXTDOMAIN);
+            $Sinfo = __('Social information is required!', 'directorist');
         }
         //image slider
         $plan_slider = true;
@@ -588,9 +588,9 @@ class ATBDP_Enqueuer {
         $req_gallery_image = get_directorist_option('require_gallery_img');
         $display_gallery_image = get_directorist_option('display_gellery_field',1);
         if(!empty($req_preview_image && $display_preview_image) && empty($preview_visable)){
-            $preview_image = __('Preview image is required!', ATBDP_TEXTDOMAIN);
+            $preview_image = __('Preview image is required!', 'directorist');
         }if(!empty($req_gallery_image && $display_gallery_image) && $plan_slider && empty($gallery_visable)){
-        $gallery_image = __('Gallery image is required!', ATBDP_TEXTDOMAIN);
+        $gallery_image = __('Gallery image is required!', 'directorist');
     }
 
     //video
@@ -603,14 +603,14 @@ class ATBDP_Enqueuer {
         $display_video = get_directorist_option('display_video_field', 1);
         $video = '';
         if(!empty($require_video && $display_video) && $plan_video && empty($video_visable)){
-            $video = __('Video is required!', ATBDP_TEXTDOMAIN);
+            $video = __('Video is required!', 'directorist');
         }
         //t & c
         $term_visable = get_directorist_option('listing_terms_condition');
         $terms = '';
         $req_terms = get_directorist_option('require_terms_conditions');
         if(!empty($req_terms) &&  $term_visable){
-            $terms = __('Agree to Terms & Conditions is required!', ATBDP_TEXTDOMAIN);
+            $terms = __('Agree to Terms & Conditions is required!', 'directorist');
         }
 
         $validator = array(
@@ -724,14 +724,14 @@ class ATBDP_Enqueuer {
            apply_filters('atbdp_search_listing_jquery_dependency', $search_dependency), ATBDP_VERSION, true );
 
         /*Internationalization*/
-        $category_placeholder          = get_directorist_option('search_category_placeholder', __('Select a category', ATBDP_TEXTDOMAIN));
-        $location_placeholder          = get_directorist_option('search_location_placeholder', __('Select a location', ATBDP_TEXTDOMAIN));
+        $category_placeholder          = get_directorist_option('search_category_placeholder', __('Select a category', 'directorist'));
+        $location_placeholder          = get_directorist_option('search_location_placeholder', __('Select a location', 'directorist'));
         $data = array(
             'i18n_text'        => array(
                 'location_selection' => $location_placeholder,
                 'category_selection' => $category_placeholder,
-                'show_more' => __('Show More', ATBDP_TEXTDOMAIN),
-                'show_less' => __('Show Less', ATBDP_TEXTDOMAIN),
+                'show_more' => __('Show More', 'directorist'),
+                'show_less' => __('Show Less', 'directorist'),
             )
         );
         wp_localize_script( 'atbdp_search_listing', 'atbdp_search_listing', $data );

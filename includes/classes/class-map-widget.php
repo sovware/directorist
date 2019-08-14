@@ -16,11 +16,11 @@ if ( !class_exists('BD_Map_Widget')) {
         {
             $widget_options = array(
                 'classname' => 'atbd_widget',
-                'description' => esc_html__('You can show single listing map by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show single listing map by this widget', 'directorist'),
             );
             parent::__construct(
                 'bdmw_widget', // Base ID
-                esc_html__('Directorist - Map (Single Listing)', ATBDP_TEXTDOMAIN), // Name
+                esc_html__('Directorist - Map (Single Listing)', 'directorist'), // Name
                 $widget_options // Args
             );
         }
@@ -42,13 +42,13 @@ if ( !class_exists('BD_Map_Widget')) {
                 $tagline    = get_post_meta($post->ID, '_tagline', true);
                 $address = get_post_meta($post->ID, '_address', true);
                 $t = get_the_title();
-                $t = !empty($t) ? $t : __('No Title', ATBDP_TEXTDOMAIN);
+                $t = !empty($t) ? $t : __('No Title', 'directorist');
                 $info_content = "<div class='map_info_window'> <h3>{$t}</h3>";
                 $info_content .= "<p> {$tagline} </p>";
                 $info_content .= "<address>{$address}</address>";
-                $info_content .= "<a href='http://www.google.com/maps/place/{$manual_lat},{$manual_lng}' target='_blank'> " . __('View On Google Maps', ATBDP_TEXTDOMAIN) . "</a></div>";
+                $info_content .= "<a href='http://www.google.com/maps/place/{$manual_lat},{$manual_lng}' target='_blank'> " . __('View On Google Maps', 'directorist') . "</a></div>";
                 $select_listing_map = get_directorist_option('select_listing_map', 'google');
-                $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Map', ATBDP_TEXTDOMAIN);
+                $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Map', 'directorist');
                 $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 16;
                 echo $args['before_widget'];
                 echo '<div class="atbd_widget_title">';
@@ -182,18 +182,18 @@ if ( !class_exists('BD_Map_Widget')) {
          */
         public function form ($instance)
         {
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : __( 'Map',ATBDP_TEXTDOMAIN );
+            $title = !empty($instance['title']) ? esc_html($instance['title']) : __( 'Map','directorist' );
             $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 16;
             ?>
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', 'directorist'); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
                        name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
                        value="<?php echo esc_attr($title); ?>">
             </p>
 
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('zoom')); ?>"><?php esc_attr_e('Map zoom level:', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="<?php echo esc_attr($this->get_field_id('zoom')); ?>"><?php esc_attr_e('Map zoom level:', 'directorist'); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('zoom')); ?>"
                        name="<?php echo esc_attr($this->get_field_name('zoom')); ?>" type="number"
                        value="<?php echo esc_attr($map_zoom_level); ?>">

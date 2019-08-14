@@ -48,8 +48,8 @@ foreach ($listing_imgs as $id) {
 }
 /*Code for Business Hour Extensions*/
 /*@todo; Make business hour settings compatible to our new settings panel. It is good to prefix all settings of extensions with their prefix*/
-$text247 = get_directorist_option('text247', __('Open 24/7', ATBDP_TEXTDOMAIN)); // text for 24/7 type listing
-$business_hour_title = get_directorist_option('business_hour_title', __('Business Hour', ATBDP_TEXTDOMAIN)); // text Business Hour Title
+$text247 = get_directorist_option('text247', __('Open 24/7', 'directorist')); // text for 24/7 type listing
+$business_hour_title = get_directorist_option('business_hour_title', __('Business Hour', 'directorist')); // text Business Hour Title
 $bdbh = get_post_meta($listing_id, '_bdbh', true);
 $enable247hour = get_post_meta($listing_id, '_enable247hour', true);
 $disable_bz_hour_listing = get_post_meta($listing_id, '_disable_bz_hour_listing', true);
@@ -61,7 +61,7 @@ $hide_contact_info = !empty($hide_contact_info) ? $hide_contact_info : false;
 $hide_contact_owner = !empty($hide_contact_owner) ? $hide_contact_owner : false;
 /*INFO WINDOW CONTENT*/
 $t = get_the_title();
-$t = !empty($t) ? $t : __('No Title', ATBDP_TEXTDOMAIN);
+$t = !empty($t) ? $t : __('No Title', 'directorist');
 $tg = !empty($tagline) ? esc_html($tagline) : '';
 $ad = !empty($address) ? esc_html($address) : '';
 $image = (!empty($attachment_id[0])) ? "<img src='" . esc_url(wp_get_attachment_image_url($attachment_id[0], 'thumbnail')) . "'>" : '';
@@ -69,7 +69,7 @@ $info_content = "<div class='map_info_window'> <h3>{$t}</h3>";
 $info_content .= "<p> {$tg} </p>";
 $info_content .= $image; // add the image if available
 $info_content .= "<address>{$ad}</address>";
-$info_content .= "<a href='http://www.google.com/maps/place/{$manual_lat},{$manual_lng}' target='_blank'> " . __('View On Google Maps', ATBDP_TEXTDOMAIN) . "</a></div>";
+$info_content .= "<a href='http://www.google.com/maps/place/{$manual_lat},{$manual_lng}' target='_blank'> " . __('View On Google Maps', 'directorist') . "</a></div>";
 /*END INFO WINDOW CONTENT*/
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map', 0);
@@ -81,7 +81,7 @@ $enable_social_share = get_directorist_option('enable_social_share', 1);
 $enable_favourite = get_directorist_option('enable_favourite', 1);
 $enable_report_abuse = get_directorist_option('enable_report_abuse', 1);
 $enable_video_url = get_directorist_option('atbd_video_url', 1);
-$video_label = get_directorist_option('atbd_video_title', __('Video', ATBDP_TEXTDOMAIN));
+$video_label = get_directorist_option('atbd_video_title', __('Video', 'directorist'));
 $p_lnk = get_the_permalink();
 $p_title = get_the_title();
 $featured = get_post_meta(get_the_ID(), '_featured', true);
@@ -96,8 +96,8 @@ $new_badge_text = get_directorist_option('new_badge_text', 'New');
 $enable_new_listing = get_directorist_option('display_new_badge_cart', 1);
 $use_nofollow = get_directorist_option('use_nofollow');
 $enable_review = get_directorist_option('enable_review', 'yes');
-$custom_section_lable = get_directorist_option('custom_section_lable', __('Details', ATBDP_TEXTDOMAIN));
-$listing_details_text = get_directorist_option('listing_details_text', __('Listing Details', ATBDP_TEXTDOMAIN));
+$custom_section_lable = get_directorist_option('custom_section_lable', __('Details', 'directorist'));
+$listing_details_text = get_directorist_option('listing_details_text', __('Listing Details', 'directorist'));
 $display_tagline_field = get_directorist_option('display_tagline_field', 0);
 $display_pricing_field = get_directorist_option('display_pricing_field', 1);
 $display_thumbnail_img = get_directorist_option('dsiplay_thumbnail_img', 1);
@@ -113,7 +113,7 @@ do_action('atbdp_before_listing_section');
         <?php if (!empty($listing_details_text)) { ?>
             <div class="atbd_area_title">
                 <h4>
-                    <span class="<?php atbdp_icon_type(true); ?>-file-text atbd_area_icon"></span><?php _e($listing_details_text, ATBDP_TEXTDOMAIN) ?>
+                    <span class="<?php atbdp_icon_type(true); ?>-file-text atbd_area_icon"></span><?php _e($listing_details_text, 'directorist') ?>
                 </h4>
             </div>
         <?php } ?>
@@ -124,7 +124,7 @@ do_action('atbdp_before_listing_section');
         }
         if ($enable_social_share) {
             $listing_header .= '<div class="atbd_action atbd_share">';
-            $listing_header .= '<span class="' . atbdp_icon_type() . '-share"></span>' . __('Share', ATBDP_TEXTDOMAIN) . '';
+            $listing_header .= '<span class="' . atbdp_icon_type() . '-share"></span>' . __('Share', 'directorist') . '';
             $listing_header .= '<div class="atbd_director_social_wrap">';
             //prepare the data for the links because links needs to be escaped
             $twt_lnk = 'https://twitter.com/intent/tweet?text=' . $p_title . '&amp;url=' . $p_lnk;
@@ -133,14 +133,14 @@ do_action('atbdp_before_listing_section');
             $listing_header .= '                                                               
                          <ul>
                         <li>
-                            <a href="' . esc_url($fb_lnk) . '" target="_blank"><span class="' . atbdp_icon_type() . '-facebook"></span>' . __('Facebook', ATBDP_TEXTDOMAIN) . '</a>
+                            <a href="' . esc_url($fb_lnk) . '" target="_blank"><span class="' . atbdp_icon_type() . '-facebook"></span>' . __('Facebook', 'directorist') . '</a>
                         </li>
                         <li>
-                            <a href="' . esc_url($twt_lnk) . '" target="_blank"><span class="' . atbdp_icon_type() . '-twitter"></span>' . __('Twitter', ATBDP_TEXTDOMAIN) . '</a>
+                            <a href="' . esc_url($twt_lnk) . '" target="_blank"><span class="' . atbdp_icon_type() . '-twitter"></span>' . __('Twitter', 'directorist') . '</a>
                            
                         </li>
                         <li>
-                            <a href="' . esc_url($in_link) . '" target="_blank"><span class="' . atbdp_icon_type() . '-linkedin"></span>' . __('LinkedIn', ATBDP_TEXTDOMAIN) . '</a>
+                            <a href="' . esc_url($in_link) . '" target="_blank"><span class="' . atbdp_icon_type() . '-linkedin"></span>' . __('LinkedIn', 'directorist') . '</a>
                         </li>
                     </ul>';
             $listing_header .= '</div>'; //Ends social share
@@ -150,11 +150,11 @@ do_action('atbdp_before_listing_section');
             $listing_header .= '<div class="atbd_action atbd_report">';
             if (is_user_logged_in()) {
                 $listing_header .= '<span class="' . atbdp_icon_type() . '-flag"></span><a href="" 
-                                                               data-target="#atbdp-report-abuse-modal">' . __('Report', ATBDP_TEXTDOMAIN) . '</a>'; //Modal (report abuse form)
+                                                               data-target="#atbdp-report-abuse-modal">' . __('Report', 'directorist') . '</a>'; //Modal (report abuse form)
             } else {
                 $listing_header .= '<a href="javascript:void(0)"
                                class="atbdp-require-login"><span
-                                        class="' . atbdp_icon_type() . '-flag"></span>' . __('Report', ATBDP_TEXTDOMAIN) . '</a>';
+                                        class="' . atbdp_icon_type() . '-flag"></span>' . __('Report', 'directorist') . '</a>';
             }
             $listing_header .= '<input type="hidden" id="atbdp-post-id" value="' . get_the_ID() . '"/>';
             $listing_header .= '</div>';
@@ -164,18 +164,18 @@ do_action('atbdp_before_listing_section');
                 <div class="atm-contents-inner">
                     <form id="atbdp-report-abuse-form" class="form-vertical" role="form">
                         <div class="modal-header"><h3 class="modal-title"
-                                                      id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', ATBDP_TEXTDOMAIN); ?></h3>
+                                                      id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', 'directorist'); ?></h3>
                             <a href="" class="at-modal-close"><span aria-hidden="true">&times;</span></a>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
                                 <label
-                                        for="atbdp-report-abuse-message"><?php _e('Your Complaint', ATBDP_TEXTDOMAIN); ?>
+                                        for="atbdp-report-abuse-message"><?php _e('Your Complaint', 'directorist'); ?>
                                     <span class="atbdp-star">*</span></label>
                                 <textarea class="form-control"
                                           id="atbdp-report-abuse-message"
                                           rows="3"
-                                          placeholder="<?php _e('Message', ATBDP_TEXTDOMAIN); ?>..."
+                                          placeholder="<?php _e('Message', 'directorist'); ?>..."
                                           required></textarea>
                             </div>
                             <div id="atbdp-report-abuse-g-recaptcha"></div>
@@ -183,7 +183,7 @@ do_action('atbdp_before_listing_section');
                         </div>
                         <div class="modal-footer">
                             <button type="submit"
-                                    class="btn btn-primary"><?php _e('Submit', ATBDP_TEXTDOMAIN); ?></button>
+                                    class="btn btn-primary"><?php _e('Submit', 'directorist'); ?></button>
                         </div>
                     </form>
                 </div>
@@ -288,7 +288,7 @@ do_action('atbdp_before_listing_section');
                 $data_info .= '</div>';
                 ?>
                 <?php if ($enable_review) {
-                    $reviews = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
+                    $reviews = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', 'directorist') : __(' Review', 'directorist');
                     $data_info .= '<div class="atbd_rating_count">';
 
                     $data_info .= '<p>' . $reviews_count . $reviews . '</p>';

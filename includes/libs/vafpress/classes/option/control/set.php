@@ -356,7 +356,7 @@ class VP_Option_Control_Set
 		{
 			$result['status']  = true;
 			$result['code']    = self::SAVE_SUCCESS;
-			$result['message'] = __('Saving successful', ATBDP_TEXTDOMAIN);
+			$result['message'] = __('Saving successful', 'directorist');
 			$curr_opt = get_option($option_key, array());
 		}
 		else
@@ -367,13 +367,13 @@ class VP_Option_Control_Set
 			{
 				$result['status']  = false;
 				$result['code']    = self::SAVE_FAILED;
-				$result['message'] = __('Saving failed', ATBDP_TEXTDOMAIN);
+				$result['message'] = __('Saving failed', 'directorist');
 			}
 			else
 			{
 				$result['status']  = true;
 				$result['code']    = self::SAVE_NOCHANGES;
-				$result['message'] = __('No changes made', ATBDP_TEXTDOMAIN);
+				$result['message'] = __('No changes made', 'directorist');
 			}
 		}
 

@@ -1,6 +1,6 @@
 <?php
 global $post;
-$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Popular Listings', ATBDP_TEXTDOMAIN);
+$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Popular Listings', 'directorist');
 $pop_listing_num = !empty($instance['pop_listing_num']) ? $instance['pop_listing_num'] : 5;
 echo $args['before_widget'];
 echo '<div class="atbd_widget_title">';

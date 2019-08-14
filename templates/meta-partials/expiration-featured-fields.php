@@ -6,8 +6,8 @@ if (!empty($args['data']) ) extract($args['data']) ;
  if( empty($never_expire) && isset( $expiry_date ) ) : ?>
     <div class="misc-pub-section misc-pub-atbdp-expiration-time">
 		<span id="atbdp-timestamp">
-			<strong><?php _e( "Expiration", ATBDP_TEXTDOMAIN ); ?></strong>
-            <?php _e( "Date & Time", ATBDP_TEXTDOMAIN ); ?>
+			<strong><?php _e( "Expiration", 'directorist' ); ?></strong>
+            <?php _e( "Date & Time", 'directorist' ); ?>
     	</span>
         <div id="atbdp-timestamp-wrap" class="atbdp-timestamp-wrap">
             <label>
@@ -40,7 +40,7 @@ if (!empty($args['data']) ) extract($args['data']) ;
 <div class="misc-pub-section misc-pub-atbdp-never-expires">
     <label>
         <input type="checkbox" name="never_expire" value="1" <?php checked(1, $never_expire, true); ?>>
-        <strong><?php _e( "Never Expires", ATBDP_TEXTDOMAIN ); ?></strong>
+        <strong><?php _e( "Never Expires", 'directorist' ); ?></strong>
     </label>
 </div>
 
@@ -49,8 +49,8 @@ if (!empty($args['data']) ) extract($args['data']) ;
     <div class="misc-pub-section misc-pub-atbdp-featured">
         <label>
             <input type="checkbox" name="featured" value="1" <?php checked(1, $featured, true); ?>>
-            <?php _e( "Mark as", ATBDP_TEXTDOMAIN ); ?>
-            <strong><?php _e( "Featured", ATBDP_TEXTDOMAIN ); ?></strong>
+            <?php _e( "Mark as", 'directorist' ); ?>
+            <strong><?php _e( "Featured", 'directorist' ); ?></strong>
         </label>
     </div>
 <?php } ?>

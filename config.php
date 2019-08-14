@@ -9,7 +9,7 @@ if ( ! defined( 'ATBDP_URL' ) ) { define( 'ATBDP_URL', plugin_dir_url( __FILE__ 
 if ( ! defined( 'ATBDP_FILE' ) ) { define( 'ATBDP_FILE', __FILE__ ); }
 if ( ! defined( 'ATBDP_BASE' ) ) { define( 'ATBDP_BASE', plugin_basename( __FILE__ ) ); }
 // Plugin Text domain File.
-if ( ! defined( ATBDP_TEXTDOMAIN ) ) { define( ATBDP_TEXTDOMAIN, 'directorist' ); }
+if ( ! defined( 'ATBDP_TEXTDOMAIN' ) ) { define( 'ATBDP_TEXTDOMAIN' , 'directorist' ); }
 // Plugin Includes Path
 if ( !defined('ATBDP_INC_DIR') ) { define('ATBDP_INC_DIR', ATBDP_DIR.'includes/'); }
 // Plugin Class Path

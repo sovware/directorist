@@ -1604,7 +1604,20 @@ function atbdp_listings_count_by_category($term_id)
                 'terms' => $term_id,
                 'include_children' => true
             )
-        )
+        ),
+        'meta_query'  => array(
+            'relation' => 'OR',
+            array(
+                'key' => '_expiry_date',
+                'value' => current_time('mysql'),
+                'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
+                'type' => 'DATETIME'
+            ),
+            array(
+                'key' => '_never_expire',
+                'value' => 1,
+            )
+        ),
     );
     return count(get_posts($args));
 }
@@ -1693,7 +1706,20 @@ function atbdp_listings_count_by_location($term_id)
                 'terms' => $term_id,
                 'include_children' => true
             )
-        )
+        ),
+        'meta_query'  => array(
+            'relation' => 'OR',
+            array(
+                'key' => '_expiry_date',
+                'value' => current_time('mysql'),
+                'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
+                'type' => 'DATETIME'
+            ),
+            array(
+                'key' => '_never_expire',
+                'value' => 1,
+            )
+        ),
     );
 
     return count(get_posts($args));

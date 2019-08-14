@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 5.6.1
+Stable tag: 5.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -136,6 +136,13 @@ Directorist is not developed by a single person. A team of dedicated developers 
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 5.6.2 - Aug 14, 2019 =
+
+* Fix - Translation issue
+* Fix - Listings count
+* Fix - Styling issues
+* Fix - Preview image issue
 
 = 5.6.1 - Aug 07, 2019 =
 

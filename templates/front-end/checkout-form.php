@@ -94,8 +94,7 @@ $symbol = atbdp_currency_symbol($currency);
         <?php wp_nonce_field('checkout_action', 'checkout_nonce'); ?>
         <input type="hidden" name="listing_id" value="<?php echo $listing_id; ?>"/>
         <div class="pull-right">
-            <a href="<?php echo ATBDP_Permalink::get_dashboard_page_link(); ?>"
-               class="btn btn-danger"><?php _e('Not Now', 'directorist'); ?></a>
+
             <input type="submit" id="atbdp_checkout_submit_btn" class="btn btn-primary"
                    value="<?php _e('Pay Now', 'directorist'); ?>"/>
         </div> <!--ends pull-right-->

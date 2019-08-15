@@ -364,6 +364,7 @@ class ATBDP_Enqueuer {
             'choose_image' => __('Use this Image', 'directorist'),
             'select_prv_img_front' => __('Select Preview Image', 'directorist'),
             'insert_prv_img_front' => __('Insert Preview Image', 'directorist'),
+            'change_prv_img_front' => __('Change Preview Image', 'directorist'),
         );
 
         //get listing is if the screen in edit listing

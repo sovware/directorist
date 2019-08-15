@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2019-08-14 21:12+0600\n"
+"POT-Creation-Date: 2019-08-15 17:13+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -1285,84 +1285,88 @@ msgstr ""
 msgid "Do you really want to remove this FAQ!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:412
+#: includes/classes/class-enqueuer.php:367
+msgid "Change Preview Image"
+msgstr ""
+
+#: includes/classes/class-enqueuer.php:413
 msgid "Title field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:418
+#: includes/classes/class-enqueuer.php:419
 msgid "Description field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:422
+#: includes/classes/class-enqueuer.php:423
 msgid "Category field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:429
+#: includes/classes/class-enqueuer.php:430
 msgid "Excerpt field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:441
+#: includes/classes/class-enqueuer.php:442
 msgid "Price field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:451
+#: includes/classes/class-enqueuer.php:452
 msgid "Price range field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:472
+#: includes/classes/class-enqueuer.php:473
 msgid "Tag field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:490
+#: includes/classes/class-enqueuer.php:491
 msgid "Location field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:499
+#: includes/classes/class-enqueuer.php:500
 msgid "Address field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:521
+#: includes/classes/class-enqueuer.php:522
 msgid "Phone field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:524
-#: includes/classes/class-enqueuer.php:527
+#: includes/classes/class-enqueuer.php:525
+#: includes/classes/class-enqueuer.php:528
 msgid "This field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:540
+#: includes/classes/class-enqueuer.php:541
 msgid "Email field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:552
+#: includes/classes/class-enqueuer.php:553
 msgid "Website link field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:562
+#: includes/classes/class-enqueuer.php:563
 msgid "Zip/Post Code field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:575
+#: includes/classes/class-enqueuer.php:576
 msgid "Social information is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:591
+#: includes/classes/class-enqueuer.php:592
 msgid "Preview image is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:593
+#: includes/classes/class-enqueuer.php:594
 msgid "Gallery image is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:606
+#: includes/classes/class-enqueuer.php:607
 msgid "Video is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:613
+#: includes/classes/class-enqueuer.php:614
 msgid "Agree to Terms & Conditions is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:727
+#: includes/classes/class-enqueuer.php:728
 #: includes/classes/class-settings-manager.php:2457
 #: includes/classes/class-settings-manager.php:2968
 #: includes/classes/class-settings-manager.php:3323
@@ -1377,7 +1381,7 @@ msgstr ""
 msgid "Select a category"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:728
+#: includes/classes/class-enqueuer.php:729
 #: includes/classes/class-settings-manager.php:2463
 #: includes/classes/class-settings-manager.php:2974
 #: includes/classes/class-settings-manager.php:3329
@@ -1389,14 +1393,14 @@ msgstr ""
 msgid "Select a location"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:733
+#: includes/classes/class-enqueuer.php:734
 #: templates/custom-field-search-form.php:79
 #: templates/front-end/all-listings/listings-header.php:291
 #: templates/listing-home.php:238
 msgid "Show More"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:734
+#: includes/classes/class-enqueuer.php:735
 msgid "Show Less"
 msgstr ""
 
@@ -6240,11 +6244,7 @@ msgstr ""
 msgid "Choose a payment method"
 msgstr ""
 
-#: templates/front-end/checkout-form.php:98
-msgid "Not Now"
-msgstr ""
-
-#: templates/front-end/checkout-form.php:100
+#: templates/front-end/checkout-form.php:99
 msgid "Pay Now"
 msgstr ""
 

@@ -458,8 +458,8 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'textbox',
                     'name' => 'recpass_username',
-                    'label' => __('Username or Email Label', 'directorist'),
-                    'default' => __('Username or E-mail', 'directorist'),
+                    'label' => __('Email Label', 'directorist'),
+                    'default' => __('E-mail', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',

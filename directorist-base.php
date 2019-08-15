@@ -691,29 +691,139 @@ final class Directorist_Base
         $p_count = apply_filters('atbdp_popular_listing_number', $p_count);
         $args = array(
             'post_type' => ATBDP_POST_TYPE,
-            'meta_key' => '_atbdp_post_views_count',
-            'orderby' => 'meta_value_num',
-            'order' => 'DESC',
+            'post_status' => 'publish',
             'posts_per_page' => (int)$p_count,
 
         );
+        $has_featured = get_directorist_option('enable_featured_listing');
+        if ($has_featured || is_fee_manager_active()) {
+            $has_featured = 1;
+        }
+
+        $listings = get_atbdp_listings_ids();
+        $rated = array();
         $listing_popular_by = get_directorist_option('listing_popular_by');
-        if ((('average_rating') === $listing_popular_by) || (('both_view_rating') === $listing_popular_by)) {
-            $average = ATBDP()->review->get_average($listing_id);
-            $average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
-            if ($average_review_for_popular <= $average) {
-                $args['p'] = $listing_id;
+        $average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
+        $view_to_popular = get_directorist_option('views_for_popular');
+
+        $meta_queries = array();
+        if ($has_featured) {
+            if ('average_rating' === $listing_popular_by) {
+                if ($listings->have_posts()) {
+                    while ($listings->have_posts()) {
+                        $listings->the_post();
+                        $listing_id = get_the_ID();
+                        $average = ATBDP()->review->get_average($listing_id);
+                        if ($average_review_for_popular <= $average) {
+                            $rated[] = get_the_ID();
+                        }
+
+                    }
+                    $rating_id = array(
+                        'post__in' => !empty($rated) ? $rated : array()
+                    );
+                    $args = array_merge($args, $rating_id);
+                }
+            } elseif ('view_count' === $listing_popular_by) {
+                $meta_queries['views'] = array(
+                    'key' => '_atbdp_post_views_count',
+                    'value' => $view_to_popular,
+                    'type' => 'NUMERIC',
+                    'compare' => '>=',
+                );
+
+                $args['orderby'] = array(
+                    '_featured' => 'DESC',
+                    'views' => 'DESC',
+                );
+
+            } else {
+                $meta_queries['views'] = array(
+                    'key' => '_atbdp_post_views_count',
+                    'value' => $view_to_popular,
+                    'type' => 'NUMERIC',
+                    'compare' => '>=',
+                );
+                $args['orderby'] = array(
+                    '_featured' => 'DESC',
+                    'views' => 'DESC',
+                );
+                if ($listings->have_posts()) {
+                    while ($listings->have_posts()) {
+                        $listings->the_post();
+                        $listing_id = get_the_ID();
+                        $average = ATBDP()->review->get_average($listing_id);
+                        if ($average_review_for_popular <= $average) {
+                            $rated[] = get_the_ID();
+                        }
+
+                    }
+                    $rating_id = array(
+                        'post__in' => !empty($rated) ? $rated : array()
+                    );
+                    $args = array_merge($args, $rating_id);
+                }
             }
 
+        } else {
+            if ('average_rating' === $listing_popular_by) {
+                if ($listings->have_posts()) {
+                    while ($listings->have_posts()) {
+                        $listings->the_post();
+                        $listing_id = get_the_ID();
+                        $average = ATBDP()->review->get_average($listing_id);
+                        if ($average_review_for_popular <= $average) {
+                            $rated[] = get_the_ID();
+                        }
+
+                    }
+                    $rating_id = array(
+                        'post__in' => !empty($rated) ? $rated : array()
+                    );
+                    $args = array_merge($args, $rating_id);
+                }
+            } elseif ('view_count' === $listing_popular_by) {
+                $meta_queries['views'] = array(
+                    'key' => '_atbdp_post_views_count',
+                    'value' => $view_to_popular,
+                    'type' => 'NUMERIC',
+                    'compare' => '>=',
+                );
+                $args['orderby'] = array(
+                    'views' => 'DESC',
+                );
+            } else {
+                $meta_queries['views'] = array(
+                    'key' => '_atbdp_post_views_count',
+                    'value' => (int)$view_to_popular,
+                    'type' => 'NUMERIC',
+                    'compare' => '>=',
+                );
+                $args['orderby'] = array(
+                    'views' => 'DESC',
+                );
+                if ($listings->have_posts()) {
+                    while ($listings->have_posts()) {
+                        $listings->the_post();
+                        $listing_id = get_the_ID();
+                        $average = ATBDP()->review->get_average($listing_id);
+                        if ($average_review_for_popular <= $average) {
+                            $rated[] = get_the_ID();
+                        }
+
+                    }
+                    $rating_id = array(
+                        'post__in' => !empty($rated) ? $rated : array()
+                    );
+                    $args = array_merge($args, $rating_id);
+                }
+            }
+        }
+        $count_meta_queries = count($meta_queries);
+        if ($count_meta_queries) {
+            $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
         }
 
-        if ((('view_count') === $listing_popular_by) || (('both_view_rating') === $listing_popular_by)) {
-            $args['meta_query'] = array(
-                'key' => '_atbdp_post_views_count',
-                'value' => $view_to_popular,
-                'compare' => '>=',
-            );
-        }
         return new WP_Query(apply_filters('atbdp_popular_listing_args', $args));
 
     }

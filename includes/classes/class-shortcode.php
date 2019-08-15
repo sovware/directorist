@@ -1487,12 +1487,22 @@ if (!class_exists('ATBDP_Shortcode')):
                             'type' => 'NUMERIC',
                             'compare' => '>=',
                         );
+
+                        $args['orderby'] = array(
+                            '_featured' => 'DESC',
+                            'views' => 'DESC',
+                        );
+
                     } else {
                         $meta_queries['views'] = array(
                             'key' => '_atbdp_post_views_count',
                             'value' => $view_to_popular,
                             'type' => 'NUMERIC',
                             'compare' => '>=',
+                        );
+                        $args['orderby'] = array(
+                            '_featured' => 'DESC',
+                            'views' => 'DESC',
                         );
                         if ($listings->have_posts()) {
                             while ($listings->have_posts()) {
@@ -1511,10 +1521,6 @@ if (!class_exists('ATBDP_Shortcode')):
                         }
                     }
 
-                    $args['orderby'] = array(
-                        '_featured' => 'DESC',
-                        '_atbdp_post_views_count' => 'DESC',
-                    );
                 } else {
                     if ('average_rating' === $listing_popular_by) {
                         if ($listings->have_posts()) {
@@ -1539,12 +1545,18 @@ if (!class_exists('ATBDP_Shortcode')):
                             'type' => 'NUMERIC',
                             'compare' => '>=',
                         );
+                        $args['orderby'] = array(
+                            'views' => 'DESC',
+                        );
                     } else {
                         $meta_queries['views'] = array(
                             'key' => '_atbdp_post_views_count',
                             'value' => (int)$view_to_popular,
                             'type' => 'NUMERIC',
                             'compare' => '>=',
+                        );
+                        $args['orderby'] = array(
+                            'views' => 'DESC',
                         );
                         if ($listings->have_posts()) {
                             while ($listings->have_posts()) {
@@ -3300,7 +3312,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $display_recpass = get_directorist_option('display_recpass', 1);
                 $recpass_text = get_directorist_option('recpass_text', __('Recover Password', 'directorist'));
                 $recpass_desc = get_directorist_option('recpass_desc', __('Please enter your email address. You will receive a new password via email.', 'directorist'));
-                $recpass_username = get_directorist_option('recpass_username', __('Username or E-mail:', 'directorist'));
+                $recpass_username = get_directorist_option('recpass_username', __('E-mail:', 'directorist'));
                 $recpass_placeholder = get_directorist_option('recpass_placeholder', __('eg. mail@example.com', 'directorist'));
                 $recpass_button = get_directorist_option('recpass_button', __('Get New Password', 'directorist'));
                 $reg_text = get_directorist_option('reg_text', __('Don\'t have an account?', 'directorist'));
@@ -3353,7 +3365,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         if ($update_user) {
                             $to = $email;
                             $subject = 'Your new password';
-                            $sender = get_option('name');
+                            $sender = get_option('blogname');
 
                             $message = 'Your new password is: ' . $random_password;
 
@@ -3366,7 +3378,7 @@ if (!class_exists('ATBDP_Shortcode')):
                             if ($mail) {
                                 $success = __('Please check your email for your new password.', 'directorist');
                             } else {
-                                $error = __('Oops something went wrong sending email.', 'directorist');
+                                $error = __('Password updated! But something went wrong sending email.', 'directorist');
                             }
 
                         } else {

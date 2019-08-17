@@ -307,6 +307,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
                 'by_guest'        => !empty( $user->ID )? 0 : 1,
                 'by_user_id'        => !empty( $user->ID )? $user->ID : 0,
             );
+
             if ($id = ATBDP()->review->db->add($data)){
                 //$this->atbdp_send_email_review_to_user();
                 $this->atbdp_send_email_review_to_admin();

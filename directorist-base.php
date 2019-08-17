@@ -265,7 +265,7 @@ final class Directorist_Base
             add_filter('map_meta_cap', array(self::$instance->roles, 'meta_caps'), 10, 4);
 
             //add dtbdp custom body class
-            add_filter('body_class', array(self::$instance, 'atbdp_body_class'),99);
+            add_filter('body_class', array(self::$instance, 'atbdp_body_class'), 99);
             // display related listings
             add_action('atbdp_after_single_listing', array(self::$instance, 'show_related_listing'));
             //review and rating
@@ -639,7 +639,7 @@ final class Directorist_Base
                                     ?>
 
                                     <p class="directory_tag">
-                                        <span class="<?php atbdp_icon_type(true);?>-tags"></span>
+                                        <span class="<?php atbdp_icon_type(true); ?>-tags"></span>
                                         <span>
                                                 <a href="<?= ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
                                                                      <?= esc_html($cats[0]->name); ?>
@@ -882,6 +882,7 @@ final class Directorist_Base
                     slidesToShow: <?php echo $rel_listing_column;?>,
                     slidesToScroll: 1,
                     autoplay: true,
+                    rtl: <?php echo is_rtl() ? 'true' : 'false'; ?>,
                     responsive: [
                         {
                             breakpoint: 1024,
@@ -1188,24 +1189,24 @@ final class Directorist_Base
      */
     public function show_review($post)
     {
-        $enable_review          = get_directorist_option('enable_review', 1);
+        $enable_review = get_directorist_option('enable_review', 1);
         if (!$enable_review) return; // vail if review is not enabled
-        $enable_owner_review    = get_directorist_option('enable_owner_review');
-        $enable_reviewer_img    = get_directorist_option('enable_reviewer_img',1);
-        $review_num             = get_directorist_option('review_num', 5); // how many reviews to show?
-        $reviews                = ATBDP()->_get_reviews($post, $review_num);
-        $reviews_count          = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
-        $plan_review            = true;
+        $enable_owner_review = get_directorist_option('enable_owner_review');
+        $enable_reviewer_img = get_directorist_option('enable_reviewer_img', 1);
+        $review_num = get_directorist_option('review_num', 5); // how many reviews to show?
+        $reviews = ATBDP()->_get_reviews($post, $review_num);
+        $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
+        $plan_review = true;
         if (is_fee_manager_active()) {
-            $plan_review        = is_plan_allowed_listing_review(get_post_meta($post->ID, '_fm_plans', true));
+            $plan_review = is_plan_allowed_listing_review(get_post_meta($post->ID, '_fm_plans', true));
         }
         if ($plan_review) {
-            $count_review       = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', 'directorist') : __(' Review', 'directorist');
+            $count_review = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', 'directorist') : __(' Review', 'directorist');
             ?>
             <div class="atbd_content_module atbd_review_module" id="atbd_reviews_block">
                 <div class="atbd_content_module__tittle_area">
                     <div class="atbd_area_title">
-                        <h4><span class="<?php atbdp_icon_type(true);?>-star atbd_area_icon"></span><span
+                        <h4><span class="<?php atbdp_icon_type(true); ?>-star atbd_area_icon"></span><span
                                     id="reviewCounter"><?php echo $reviews_count; ?></span><?php
                             echo $count_review;
                             ?></h4>
@@ -1226,12 +1227,12 @@ final class Directorist_Base
                                     <div class="atbd_review_top">
                                         <div class="atbd_avatar_wrapper">
                                             <?php $avata_img = get_avatar($review->by_user_id, 32);
-                                            if(!empty($enable_reviewer_img)) { ?>
-                                            <div class="atbd_review_avatar"><?php if ($avata_img) {
-                                                    echo $avata_img;
-                                                } else { ?><img
-                                                    src="<?php echo ATBDP_PUBLIC_ASSETS . 'images/revav.png' ?>"
-                                                    alt="Avatar Image"><?php } ?></div>
+                                            if (!empty($enable_reviewer_img)) { ?>
+                                                <div class="atbd_review_avatar"><?php if ($avata_img) {
+                                                        echo $avata_img;
+                                                    } else { ?><img
+                                                        src="<?php echo ATBDP_PUBLIC_ASSETS . 'images/revav.png' ?>"
+                                                        alt="Avatar Image"><?php } ?></div>
                                             <?php } ?>
                                             <div class="atbd_name_time">
                                                 <p><?= esc_html($review->name); ?></p>
@@ -1251,7 +1252,7 @@ final class Directorist_Base
                             <?php }
                         } else { ?>
                             <div class="notice alert alert-info" role="alert" id="review_notice">
-                                <span class="<?php atbdp_icon_type(true);?>-info-circle" aria-hidden="true"></span>
+                                <span class="<?php atbdp_icon_type(true); ?>-info-circle" aria-hidden="true"></span>
                                 <?php _e('No reviews found. Be the first to post a review !', 'directorist');
                                 ?>
                             </div>
@@ -1274,7 +1275,7 @@ final class Directorist_Base
                     <div class="atbd_content_module">
                         <div class="atbd_content_module__tittle_area">
                             <div class="atbd_area_title">
-                                <h4><span class="<?php atbdp_icon_type(true);?>-star"
+                                <h4><span class="<?php atbdp_icon_type(true); ?>-star"
                                           aria-hidden="true"></span><?= !empty($cur_user_review) ? __('Update Review', 'directorist') : __('Leave a Review', 'directorist'); ?>
                                 </h4>
                             </div>
@@ -1353,10 +1354,10 @@ final class Directorist_Base
                 <?php };
             } else { ?>
                 <div class="atbd_notice alert alert-info" role="alert">
-                    <span class="<?php atbdp_icon_type(true);?>-info-circle" aria-hidden="true"></span>
+                    <span class="<?php atbdp_icon_type(true); ?>-info-circle" aria-hidden="true"></span>
                     <?php
-                    $login_url = apply_filters('atbdp_review_login_link',"<a href='".ATBDP_Permalink::get_login_page_link()."'> ". __('Login', 'directorist')."</a>");
-                    $register_url = apply_filters('atbdp_review_signup_link',"<a href='".ATBDP_Permalink::get_registration_page_link()."'> ". __('Sign Up', 'directorist')."</a>");
+                    $login_url = apply_filters('atbdp_review_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Login', 'directorist') . "</a>");
+                    $register_url = apply_filters('atbdp_review_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>");
 
                     printf(__('You need to %s or %s to submit a review', 'directorist'), $login_url, $register_url);
                     ?>

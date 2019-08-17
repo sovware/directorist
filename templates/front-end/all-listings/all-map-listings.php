@@ -2,7 +2,11 @@
 /**
  * This template displays the Directorist listings in map view.
  */
-wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
+if (is_rtl()){
+    wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
+}else{
+    wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
+}
 !empty($args['data']) ? extract($args['data']) : array(); // data array contains all required var.
 $all_listings               = !empty($all_listings) ? $all_listings : new WP_Query;
 $is_disable_price           = get_directorist_option('disable_list_price');

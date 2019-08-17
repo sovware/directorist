@@ -200,6 +200,7 @@ class ATBDP_Enqueuer {
 
         // @Todo; make unminified css minified then enqueue them.
         wp_register_style( 'atbdp-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION);
+        wp_register_style( 'atbdp-bootstrap-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/bootstrap-rtl.css', false, ATBDP_VERSION);
         wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false, ATBDP_VERSION);
         wp_register_style( 'atbdp-line-awesome', ATBDP_PUBLIC_ASSETS . 'css/line-awesome.min.css', false, ATBDP_VERSION);
         wp_register_style( 'sweetalertcss', ATBDP_PUBLIC_ASSETS.'css/sweetalert.min.css', false, ATBDP_VERSION );
@@ -208,6 +209,7 @@ class ATBDP_Enqueuer {
         wp_register_style( 'atmodal', ATBDP_PUBLIC_ASSETS.'css/atmodal.css', false, ATBDP_VERSION );
         wp_register_style( 'atbd_googlefonts', '//fonts.googleapis.com/css?family=Roboto:400,500', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-style', ATBDP_PUBLIC_ASSETS . 'css/style.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
+        wp_register_style( 'atbdp-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/style-rtl.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
         wp_register_style( 'atbdp-pluploadcss', ATBDP_ADMIN_ASSETS . 'css/directorist-plupload.min.css', array( 'atbdp-font-awesome', 'select2style'), ATBDP_VERSION);
 
         wp_register_script('atbdp-popper-script', ATBDP_PUBLIC_ASSETS . 'js/popper.js', array('jquery'), ATBDP_VERSION, false);
@@ -243,10 +245,15 @@ class ATBDP_Enqueuer {
             wp_enqueue_script('atbdp_open_street_src');
         }
         /* Enqueue all styles*/
-        wp_enqueue_style('atbdp-bootstrap-style');
+        if (is_rtl()){
+            wp_enqueue_style('atbdp-bootstrap-style-rtl');
+            wp_enqueue_style('atbdp-style-rtl');
+        }else{
+            wp_enqueue_style('atbdp-bootstrap-style');
+            wp_enqueue_style('atbdp-style');
+        }
         wp_enqueue_style('atbdp-font-awesome');
         wp_enqueue_style('atbdp-line-awesome');
-        wp_enqueue_style('atbdp-style');
 
         /* Enqueue google Directorist google font */
         wp_enqueue_style('atbd_googlefonts');

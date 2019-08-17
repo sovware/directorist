@@ -888,6 +888,18 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
 }
 
+.atbd_content_active #directorist.atbd_wrapper.directory_search_area .single_search_field .select2-selection {
+  height: 40px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.directory_search_area .single_search_field .select2-selection .select2-selection__rendered {
+  line-height: 42px !important;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.directory_search_area .single_search_field .select2-selection .select2-selection__arrow {
+  height: 42px !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

@@ -2985,7 +2985,7 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Display Search Button', 'directorist'),
                         'default' => 1,
                     ),
-                    array(
+                    'listings_display_filter' => array(
                         'type' => 'select',
                         'name' => 'home_display_filter',
                         'label' => __('Open Filter Fields', 'directorist'),

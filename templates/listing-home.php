@@ -1,15 +1,15 @@
 <?php
 $categories                           = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
 $locations                            = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
-$search_placeholder                   = get_directorist_option('search_placeholder', __('What are you looking for?', ATBDP_TEXTDOMAIN));
-$search_category_placeholder          = get_directorist_option('search_category_placeholder', __('Select a category', ATBDP_TEXTDOMAIN));
-$search_location_placeholder          = get_directorist_option('search_location_placeholder', __('Select a location', ATBDP_TEXTDOMAIN));
+$search_placeholder                   = get_directorist_option('search_placeholder', __('What are you looking for?', 'directorist'));
+$search_category_placeholder          = get_directorist_option('search_category_placeholder', __('Select a category', 'directorist'));
+$search_location_placeholder          = get_directorist_option('search_location_placeholder', __('Select a location', 'directorist'));
 $show_popular_category       = get_directorist_option('show_popular_category', 1);
 $show_connector              = get_directorist_option('show_connector', 1);
 $search_border               = get_directorist_option('search_border', 1);
 
-$connectors_title            = get_directorist_option('connectors_title', __('Or', ATBDP_TEXTDOMAIN));
-$popular_cat_title           = get_directorist_option('popular_cat_title', __('Browse by popular categories', ATBDP_TEXTDOMAIN));
+$connectors_title            = get_directorist_option('connectors_title', __('Or', 'directorist'));
+$popular_cat_title           = get_directorist_option('popular_cat_title', __('Browse by popular categories', 'directorist'));
 $popular_cat_num             = get_directorist_option('popular_cat_num', 10);
 $require_text               = get_directorist_option('require_search_text');
 $require_cat                = get_directorist_option('require_search_category');
@@ -143,12 +143,12 @@ $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
                         $html .= '<div class="atbd_submit_btn_wrapper">';
 
                         if (('yes' == $more_filters_button) && ('yes' == $price_min_max_field || 'yes' == $price_range_field || 'yes' == $rating_field || 'yes' == $tag_field || 'yes' == $open_now_field || 'yes' == $custom_fields || 'yes' == $website_field || 'yes' == $email_field || 'yes' == $phone_field || 'yes' == $address_field || 'yes' == $zip_code_field)) {
-                            $html .= '<button class="more-filter btn btn-outline btn-lg btn-outline-primary"><span class="'.atbdp_icon_type().'-filter"></span>' . __($more_filters_text, ATBDP_TEXTDOMAIN) . '</button>';
+                            $html .= '<button class="more-filter btn btn-outline btn-lg btn-outline-primary"><span class="'.atbdp_icon_type().'-filter"></span>' . __($more_filters_text, 'directorist') . '</button>';
                         }
                         if ('yes' == $search_button) {
                             $html .= '<div class="atbd_submit_btn">';
                             $html .= '<button type="submit" class="btn btn-primary btn-lg btn_search">';
-                            $html .= '<span class="fa fa-search"></span>' . __($search_button_text, ATBDP_TEXTDOMAIN) . '';
+                            $html .= '<span class="fa fa-search"></span>' . __($search_button_text, 'directorist') . '';
                             $html .= '</button>';
                             $html .= '</div>';
                         }
@@ -169,7 +169,7 @@ $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
                             <div class="ads-advanced">
                                 <?php if('yes' == $price_min_max_field || 'yes' == $price_range_field)  { ?>
                                     <div class="form-group ">
-                                        <label class=""><?php _e('Price Range', ATBDP_TEXTDOMAIN);?></label>
+                                        <label class=""><?php _e('Price Range', 'directorist');?></label>
                                         <div class="price_ranges">
                                             <?php if('yes' == $price_min_max_field) { ?>
                                                 <div class="range_single">
@@ -192,25 +192,25 @@ $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
                                 <?php } ?>
                                 <?php if('yes' == $rating_field) { ?>
                                     <div class="form-group">
-                                        <label><?php _e('Filter by Ratings', ATBDP_TEXTDOMAIN);?></label>
+                                        <label><?php _e('Filter by Ratings', 'directorist');?></label>
                                         <select name='search_by_rating' class="select-basic form-control">
-                                            <option value=""><?php _e('Select Ratings', ATBDP_TEXTDOMAIN);?></option>
-                                            <option  value="5" <?php if(!empty($_GET['search_by_rating']) && '5' == $_GET['search_by_rating']) { echo "selected";}?>><?php _e('5 Star', ATBDP_TEXTDOMAIN);?></option>
-                                            <option value="4" <?php if(!empty($_GET['search_by_rating']) && '4' == $_GET['search_by_rating']) { echo "selected";}?>><?php _e('4 Star & Up', ATBDP_TEXTDOMAIN);?></option>
-                                            <option value="3" <?php if(!empty($_GET['search_by_rating']) && '3' == $_GET['search_by_rating']) { echo "selected";}?>><?php _e('3 Star & Up', ATBDP_TEXTDOMAIN);?></option>
-                                            <option value="2" <?php if(!empty($_GET['search_by_rating']) && '2' == $_GET['search_by_rating']) { echo "selected";}?>><?php _e('2 Star & Up', ATBDP_TEXTDOMAIN);?></option>
-                                            <option value="1" <?php if(!empty($_GET['search_by_rating']) && '1' == $_GET['search_by_rating']) { echo "selected";}?>><?php _e('1 Star & Up', ATBDP_TEXTDOMAIN);?></option>
+                                            <option value=""><?php _e('Select Ratings', 'directorist');?></option>
+                                            <option  value="5" <?php if(!empty($_GET['search_by_rating']) && '5' == $_GET['search_by_rating']) { echo "selected";}?>><?php _e('5 Star', 'directorist');?></option>
+                                            <option value="4" <?php if(!empty($_GET['search_by_rating']) && '4' == $_GET['search_by_rating']) { echo "selected";}?>><?php _e('4 Star & Up', 'directorist');?></option>
+                                            <option value="3" <?php if(!empty($_GET['search_by_rating']) && '3' == $_GET['search_by_rating']) { echo "selected";}?>><?php _e('3 Star & Up', 'directorist');?></option>
+                                            <option value="2" <?php if(!empty($_GET['search_by_rating']) && '2' == $_GET['search_by_rating']) { echo "selected";}?>><?php _e('2 Star & Up', 'directorist');?></option>
+                                            <option value="1" <?php if(!empty($_GET['search_by_rating']) && '1' == $_GET['search_by_rating']) { echo "selected";}?>><?php _e('1 Star & Up', 'directorist');?></option>
                                         </select>
                                     </div><!-- ends: .form-group -->
                                 <?php } ?>
                                 <?php if('yes' == $open_now_field && in_array( 'directorist-business-hours/bd-business-hour.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) )) { ?>
                                     <div class="form-group">
-                                        <label><?php _e('Open Now', ATBDP_TEXTDOMAIN);?></label>
+                                        <label><?php _e('Open Now', 'directorist');?></label>
                                         <div class="check-btn">
                                             <div class="btn-checkbox">
                                                 <label>
                                                     <input type="checkbox" name="open_now" value="open_now" <?php if(!empty($_GET['open_now']) && 'open_now' == $_GET['open_now']) { echo "checked='checked'";}?>>
-                                                    <span><i class="fa fa-clock-o"></i><?php _e('Open Now', ATBDP_TEXTDOMAIN);?> </span>
+                                                    <span><i class="fa fa-clock-o"></i><?php _e('Open Now', 'directorist');?> </span>
                                                 </label>
                                             </div>
                                         </div>
@@ -221,7 +221,7 @@ $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
                                     if(!empty($terms)) {
                                         ?>
                                         <div class="form-group ads-filter-tags">
-                                            <label><?php _e('Tags', ATBDP_TEXTDOMAIN);?></label>
+                                            <label><?php _e('Tags', 'directorist');?></label>
                                             <div class="bads-custom-checks">
                                                 <?php
                                                 $rand = rand();
@@ -235,7 +235,7 @@ $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
                                                     </div>
                                                 <?php } ?>
                                             </div>
-                                            <a href="#" class="more-or-less sml"><?php _e('Show More', ATBDP_TEXTDOMAIN);?></a>
+                                            <a href="#" class="more-or-less sml"><?php _e('Show More', 'directorist');?></a>
                                         </div><!-- ends: .form-control -->
                                     <?php } } ?>
                                 <?php if('yes' == $custom_fields) { ?>
@@ -248,28 +248,28 @@ $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
                                         <div class="bottom-inputs">
                                             <div>
                                                 <?php if('yes' == $website_field) {?>
-                                                <input type="text" name="website" placeholder="<?php _e('Website', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['website']) ? $_GET['website'] : ''; ?>" class="form-control">
+                                                <input type="text" name="website" placeholder="<?php _e('Website', 'directorist');?>" value="<?php echo !empty($_GET['website']) ? $_GET['website'] : ''; ?>" class="form-control">
                                             </div>
                                             <div>
                                                 <?php } if('yes' == $email_field) {?>
-                                                <input type="text" name="email" placeholder=" <?php _e('Email', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['email']) ? $_GET['email'] : ''; ?>" class="form-control">
+                                                <input type="text" name="email" placeholder=" <?php _e('Email', 'directorist');?>" value="<?php echo !empty($_GET['email']) ? $_GET['email'] : ''; ?>" class="form-control">
                                             </div>
                                             <div>
                                                 <?php } if('yes' == $phone_field) {?>
-                                                <input type="text" name="phone" placeholder="<?php _e('Phone Number', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>" class="form-control">
+                                                <input type="text" name="phone" placeholder="<?php _e('Phone Number', 'directorist');?>" value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>" class="form-control">
                                             </div>
                                             <div>
                                                 <?php } if('yes' == $fax) {?>
-                                                <input type="text" name="fax" placeholder="<?php _e('Fax', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>" class="form-control">
+                                                <input type="text" name="fax" placeholder="<?php _e('Fax', 'directorist');?>" value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>" class="form-control">
                                             </div>
                                             <div>
                                                 <?php } if('yes' == $address_field) {?>
-                                                <input type="text" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php _e('Address', ATBDP_TEXTDOMAIN);?>"
+                                                <input type="text" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php _e('Address', 'directorist');?>"
                                                        class="form-control location-name">
                                             </div>
                                             <div>
                                                 <?php } if('yes' == $zip_code_field) {?>
-                                                <input type="text" name="zip_code" placeholder=" <?php _e('Zip/Post Code', ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['zip_code']) ? $_GET['zip_code'] : ''; ?>" class="form-control">
+                                                <input type="text" name="zip_code" placeholder=" <?php _e('Zip/Post Code', 'directorist');?>" value="<?php echo !empty($_GET['zip_code']) ? $_GET['zip_code'] : ''; ?>" class="form-control">
                                             </div>
                                         </div>
                                         <?php } ?>
@@ -279,9 +279,9 @@ $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
                                 if('yes' == $reset_filters_button || 'yes' == $apply_filters_button) {?>
                                     <div class="bdas-filter-actions">
                                         <?php if('yes' == $reset_filters_button) { ?>
-                                            <button type="reset" class="btn btn-outline-primary btn-lg"><?php _e($reset_filters_text, ATBDP_TEXTDOMAIN);?></button>
+                                            <button type="reset" class="btn btn-outline-primary btn-lg"><?php _e($reset_filters_text, 'directorist');?></button>
                                         <?php } if('yes' == $apply_filters_button) {?>
-                                            <button type="submit" class="btn btn-primary btn-lg"><?php _e($apply_filters_text, ATBDP_TEXTDOMAIN);?></button>
+                                            <button type="submit" class="btn btn-primary btn-lg"><?php _e($apply_filters_text, 'directorist');?></button>
                                         <?php } ?>
                                     </div><!-- ends: .bdas-filter-actions -->
                                 <?php } ?>

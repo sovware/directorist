@@ -509,7 +509,7 @@ if ( !class_exists('ATBDP_SEO') ):
                  * @param string $meta_desc   The page description including variables.
                  * @param string $gd_page The atbdpectory page type if any.
                  */
-                $meta_desc = apply_filters( 'atbdp_seo_meta_description_pre', __( $meta_desc, ATBDP_TEXTDOMAIN ), $atbdp_page, '' );
+                $meta_desc = apply_filters( 'atbdp_seo_meta_description_pre', __( $meta_desc, 'directorist' ), $atbdp_page, '' );
 
                 /**
                  * Filter SEO meta description.
@@ -571,9 +571,9 @@ if ( !class_exists('ATBDP_SEO') ):
                 $location =  get_term_by('id',$location,ATBDP_LOCATION);
 
 
-                $in_s_string_text       = !empty($query) ? sprintf(__('%s', ATBDP_TEXTDOMAIN), $query) : '';
-                $in_cat_text            = !empty($category) ? sprintf(__(' %s %s ', ATBDP_TEXTDOMAIN), !empty($query)?'from':'', $category->name) : '';
-                $in_loc_text            = !empty($location) ? sprintf(__('%s %s', ATBDP_TEXTDOMAIN), !empty($category)?'in':'', $location->name) : '';
+                $in_s_string_text       = !empty($query) ? sprintf(__('%s', 'directorist'), $query) : '';
+                $in_cat_text            = !empty($category) ? sprintf(__(' %s %s ', 'directorist'), !empty($query)?'from':'', $category->name) : '';
+                $in_loc_text            = !empty($location) ? sprintf(__('%s %s', 'directorist'), !empty($category)?'in':'', $location->name) : '';
 
                 $how_to = get_directorist_option('meta_title_for_search_result', 'searched_value');
                 if ('searched_value' === $how_to){
@@ -637,7 +637,7 @@ if ( !class_exists('ATBDP_SEO') ):
              * @param string $atbdp_page The atbdpectory page type if any.
              * @param string $sep The title separator symbol.
              */
-            return apply_filters('atbdp_seo_meta_title', __($title, ATBDP_TEXTDOMAIN), $atbdp_page, $sep);
+            return apply_filters('atbdp_seo_meta_title', __($title, 'directorist'), $atbdp_page, $sep);
 
         }
 

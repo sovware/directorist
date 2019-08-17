@@ -161,7 +161,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                             if (((0 >= $total_regular_listing) && (0 >= $total_featured_listing)) || ($remaining_days <= 0)){
                                 //if user exit the plan allowance the change the status of that order to cancelled
                                 $order_id = $plan_purchased->ID;
-                                if (!class_exists('woocommerce')){
+                                if (class_exists('woocommerce')){
                                     if (('pay_per_listng' != $plan_type)) {
                                         $order = new WC_Order($order_id);
                                         $order->update_status('cancelled', 'order_note');
@@ -182,13 +182,13 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                         if (('regular' === $listing_type) && ('package' === $plan_type)) {
                             if (( ($plan_meta['num_regular'][0] < $total_regular_listing) || (0 >= $total_regular_listing)) && empty($plan_meta['num_regular_unl'][0])) {
-                                $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for regular listing!', ATBDP_TEXTDOMAIN) . '</strong></div>';
+                                $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for regular listing!', 'directorist') . '</strong></div>';
                                 return $msg;
                             }
                         }
                         if (('featured' === $listing_type) && ('package' === $plan_type)) {
                             if (( ($plan_meta['num_featured'][0] < $total_featured_listing) || (0 === $total_featured_listing)) && empty($plan_meta['num_featured_unl'][0])) {
-                                $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for featured listing!', ATBDP_TEXTDOMAIN) . '</strong></div>';
+                                $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for featured listing!', 'directorist') . '</strong></div>';
                                 return $msg;
 
                             }
@@ -196,20 +196,18 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $totat_image = count($metas['_listing_img']);
                         if ($slider){
                             if ($plan_meta['num_image'][0]<$totat_image && empty($plan_meta['num_image_unl'][0])){
-                                $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_image'][0].' image(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
+                                $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_image'][0].' image(s)', 'directorist') . '</strong></div>';
                                 return $msg;
                             }
                         }
                         if (class_exists('BD_Gallery')){
                             $_gallery_img = count($metas['_gallery_img']);
                             if ($plan_meta['num_gallery_image'][0]<$_gallery_img && empty($plan_meta['num_gallery_image_unl'][0])){
-                                $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_gallery_image'][0].' gallery image(s)', ATBDP_TEXTDOMAIN) . '</strong></div>';
+                                $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_gallery_image'][0].' gallery image(s)', 'directorist') . '</strong></div>';
                                 return $msg;
                             }
                         }
-
                     }
-
                     $metas = apply_filters('atbdp_listing_meta_user_submission', $metas);
                     $args = array(
                         'post_content' => $content,
@@ -498,36 +496,43 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     }
                                 }
                                 update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
-                                if (count($admin_category_select)>1){
-                                    foreach ($admin_category_select as $category){
-                                        $term_by_id =  get_term_by('term_id', $category, ATBDP_CATEGORY);
-                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY, true);//update the term relationship when a listing updated by author
+                                if(!empty($admin_category_select)){
+                                    if (count($admin_category_select)>1){
+                                        foreach ($admin_category_select as $category){
+                                            $term_by_id =  get_term_by('term_id', $category, ATBDP_CATEGORY);
+                                            wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY, true);//update the term relationship when a listing updated by author
+                                        }
+                                    }else{
+                                        $term_by_id =  get_term_by('term_id', $admin_category_select[0], ATBDP_CATEGORY);
+                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
                                     }
-                                }else{
-                                    $term_by_id =  get_term_by('term_id', $admin_category_select[0], ATBDP_CATEGORY);
-                                    wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
                                 }
-                                //update location for user
-                                if (count($location)>1){
-                                    foreach ($location as $single_location){
-                                        $term_by_id =  get_term_by('term_id', $single_location, ATBDP_LOCATION);
-                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_LOCATION, true);//update the term relationship when a listing updated by author
+                                if (!empty($location)){
+                                    //update location for user
+                                    if (count($location)>1){
+                                        foreach ($location as $single_location){
+                                            $term_by_id =  get_term_by('term_id', $single_location, ATBDP_LOCATION);
+                                            wp_set_object_terms($post_id, $term_by_id->name, ATBDP_LOCATION, true);//update the term relationship when a listing updated by author
+                                        }
+                                    }else{
+                                        $term_by_id =  get_term_by('term_id', $location[0], ATBDP_LOCATION);
+                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_LOCATION);//update the term relationship when a listing updated by author
                                     }
-                                }else{
-                                    $term_by_id =  get_term_by('term_id', $location[0], ATBDP_LOCATION);
-                                    wp_set_object_terms($post_id, $term_by_id->name, ATBDP_LOCATION);//update the term relationship when a listing updated by author
                                 }
 
-                                //update TAG for user
-                                if (count($tag)>1){
-                                    foreach ($tag as $single_tag){
-                                        $term_by_id =  get_term_by('term_id', $single_tag, ATBDP_TAGS);
-                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_TAGS, true);//update the term relationship when a listing updated by author
+                                if(!empty($tag)){
+                                    //update TAG for user
+                                    if (count($tag)>1){
+                                        foreach ($tag as $single_tag){
+                                            $term_by_id =  get_term_by('term_id', $single_tag, ATBDP_TAGS);
+                                            wp_set_object_terms($post_id, $term_by_id->name, ATBDP_TAGS, true);//update the term relationship when a listing updated by author
+                                        }
+                                    }else{
+                                        $term_by_id =  get_term_by('term_id', $tag[0], ATBDP_TAGS);
+                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_TAGS);//update the term relationship when a listing updated by author
                                     }
-                                }else{
-                                    $term_by_id =  get_term_by('term_id', $tag[0], ATBDP_TAGS);
-                                    wp_set_object_terms($post_id, $term_by_id->name, ATBDP_TAGS);//update the term relationship when a listing updated by author
                                 }
+
                             }
                             if ('publish' == $new_l_status){
                                 do_action('atbdp_listing_published', $post_id);//for sending email notification
@@ -549,7 +554,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                         global $woocommerce;
                                         $woocommerce->cart->empty_cart();
                                         $woocommerce->cart->add_to_cart( $subscribed_package_id );
-                                        wp_redirect( wc_get_checkout_url() );
+                                        wp_redirect(add_query_arg( 'atbdp_listing', $post_id,  wc_get_checkout_url() ) );
                                         exit;
                                     }else{
                                         if ('view_listing' == $redirect_page){
@@ -566,7 +571,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                         global $woocommerce;
                                         $woocommerce->cart->empty_cart();
                                         $woocommerce->cart->add_to_cart( $subscribed_package_id );
-                                        wp_redirect( wc_get_checkout_url() );
+                                        wp_redirect(add_query_arg( 'atbdp_listing', $post_id,  wc_get_checkout_url() ) );
                                         exit;
                                     }else{
                                         if ('view_listing' == $redirect_page){

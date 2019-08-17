@@ -16,11 +16,11 @@ if ( !class_exists('BD_All_Map_Widget')) {
         {
             $widget_options = array(
                 'classname' => 'atbd_widget',
-                'description' => esc_html__('You can show all listings map by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show all listings map by this widget', 'directorist'),
             );
             parent::__construct(
                 'bdamw_widget', // Base ID
-                esc_html__('Directorist - Map', ATBDP_TEXTDOMAIN), // Name
+                esc_html__('Directorist - Map', 'directorist'), // Name
                 $widget_options // Args
             );
         }
@@ -56,19 +56,19 @@ if ( !class_exists('BD_All_Map_Widget')) {
          */
         public function form ($instance)
         {
-            $title          = !empty($instance['title']) ? esc_html($instance['title']) : __( 'Map',ATBDP_TEXTDOMAIN );
+            $title          = !empty($instance['title']) ? esc_html($instance['title']) : __( 'Map','directorist' );
             $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 16;
             $single_only    = !empty($instance['single_only']) ? 1 : 0;
             ?>
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', 'directorist'); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
                        name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
                        value="<?php echo esc_attr($title); ?>">
             </p>
 
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('zoom')); ?>"><?php esc_attr_e('Map zoom level:', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="<?php echo esc_attr($this->get_field_id('zoom')); ?>"><?php esc_attr_e('Map zoom level:', 'directorist'); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('zoom')); ?>"
                        name="<?php echo esc_attr($this->get_field_name('zoom')); ?>" type="number"
                        value="<?php echo esc_attr($map_zoom_level); ?>">
@@ -76,7 +76,7 @@ if ( !class_exists('BD_All_Map_Widget')) {
 
             <p>
                 <input <?php checked( $single_only,1 ); ?> id="<?php echo $this->get_field_id( 'single_only' ); ?>" name="<?php echo $this->get_field_name( 'single_only' ); ?>" value="1" type="checkbox" />
-                <label for="<?php echo $this->get_field_id( 'single_only' ); ?>"><?php _e( 'Display only on single listing', ATBDP_TEXTDOMAIN ); ?></label>
+                <label for="<?php echo $this->get_field_id( 'single_only' ); ?>"><?php _e( 'Display only on single listing', 'directorist' ); ?></label>
             </p>
             <?php
         }

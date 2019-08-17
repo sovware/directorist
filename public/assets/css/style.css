@@ -3798,16 +3798,16 @@ body.atbd_content_active #directorist.atbd_wrapper {
   background-clip: padding-box;
   border: 1px solid #dbdaf7;
   border-radius: 0.25rem;
-  min-height: 44px;
+  min-height: 43px;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.directory_search_area .select2-selection {
-  height: 49px;
+  height: 43px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.directory_search_area .select2-container--default .select2-selection--single .select2-selection__rendered {
-  line-height: 47px;
+  line-height: 41px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-container--default .select2-selection--single .select2-selection__rendered {
@@ -3843,7 +3843,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .single_search_field .select2-container--default .select2-selection--single .select2-selection__arrow {
-  height: 48px;
+  height: 44px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper {

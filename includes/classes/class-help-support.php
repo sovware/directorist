@@ -12,7 +12,7 @@ class ATBDP_Help_Support{
      */
     public function add_help_and_support_submenu()
     {
-        add_submenu_page('edit.php?post_type=at_biz_dir', __('Documentation', ATBDP_TEXTDOMAIN), __('Documentation', ATBDP_TEXTDOMAIN), 'manage_options', 'directorist-help-and-support', array($this, 'display_help_and_support_menu'));
+        add_submenu_page('edit.php?post_type=at_biz_dir', __('Documentation', 'directorist'), __('Documentation', 'directorist'), 'manage_options', 'directorist-help-and-support', array($this, 'display_help_and_support_menu'));
     }
 
     /**

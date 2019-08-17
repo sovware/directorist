@@ -14,7 +14,7 @@ $symbol = atbdp_currency_symbol($currency);
         <?php do_action('atbdp_after_checkout_form_start'); ?>
         <div class="alert alert-info alert-dismissable fade show" role="alert">
             <span class="fa fa-info-circle"></span>
-            <?php esc_html_e('Your order details are given below. Please review it and click on Proceed to Payment to complete this order.', ATBDP_TEXTDOMAIN); ?>
+            <?php esc_html_e('Your order details are given below. Please review it and click on Proceed to Payment to complete this order.', 'directorist'); ?>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">×</span>
             </button>
@@ -25,7 +25,7 @@ $symbol = atbdp_currency_symbol($currency);
                     <th colspan="2">
                         Details<?php //if( !empty( $op['title'] ) ) echo esc_html($op['title']);?>
                     </th>
-                    <th><strong><?php printf(__('Price [%s]', ATBDP_TEXTDOMAIN), $currency); ?></strong></th>
+                    <th><strong><?php printf(__('Price [%s]', 'directorist'), $currency); ?></strong></th>
                 </tr>
             </thead>
 
@@ -63,7 +63,7 @@ $symbol = atbdp_currency_symbol($currency);
                 } ?>
                 <tr>
                     <td colspan="2" class="text-right vertical-middle">
-                        <strong><?php printf(__('Total amount [%s]', ATBDP_TEXTDOMAIN), $currency); ?></strong>
+                        <strong><?php printf(__('Total amount [%s]', 'directorist'), $currency); ?></strong>
                     </td>
                     <td class="text-right vertical-middle">
                         <div id="atbdp_checkout_total_amount"></div><!--total amount will be populated by JS-->
@@ -74,7 +74,7 @@ $symbol = atbdp_currency_symbol($currency);
         <div class="atbd_content_module" id="directorist_payment_gateways">
             <div class="atbd_content_module__tittle_area">
                 <div class="atbd_area_title">
-                    <h4><?php esc_html_e('Choose a payment method', ATBDP_TEXTDOMAIN); ?></h4>
+                    <h4><?php esc_html_e('Choose a payment method', 'directorist'); ?></h4>
                 </div>
             </div>
 
@@ -94,10 +94,9 @@ $symbol = atbdp_currency_symbol($currency);
         <?php wp_nonce_field('checkout_action', 'checkout_nonce'); ?>
         <input type="hidden" name="listing_id" value="<?php echo $listing_id; ?>"/>
         <div class="pull-right">
-            <a href="<?php echo ATBDP_Permalink::get_dashboard_page_link(); ?>"
-               class="btn btn-danger"><?php _e('Not Now', ATBDP_TEXTDOMAIN); ?></a>
+
             <input type="submit" id="atbdp_checkout_submit_btn" class="btn btn-primary"
-                   value="<?php _e('Pay Now', ATBDP_TEXTDOMAIN); ?>"/>
+                   value="<?php _e('Pay Now', 'directorist'); ?>"/>
         </div> <!--ends pull-right-->
 
         <?php do_action('atbdp_before_checkout_form_end'); ?>

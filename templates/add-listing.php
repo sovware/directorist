@@ -4,7 +4,7 @@ if (!empty($args['listing_info'])) {
 }
 //@TODO: I will have to add a text area to get the content for the info window of the map later
 $t = get_the_title();
-$t = !empty($t) ? $t : __('No Title', ATBDP_TEXTDOMAIN);
+$t = !empty($t) ? $t : __('No Title', 'directorist');
 $tg = !empty($tagline) ? esc_html($tagline) : '';
 $ad = !empty($address) ? esc_html($address) : '';
 $image = (!empty($attachment_id[0])) ? "<img src='" . esc_url(wp_get_attachment_image_url($attachment_id[0], 'thumbnail')) . "'>" : '';
@@ -13,10 +13,10 @@ $post_ID = $post->ID;
 $disable_price         = get_directorist_option('disable_list_price');
 $currency              = get_directorist_option('g_currency', 'USD');
 $display_tagline_field = get_directorist_option('display_tagline_field', 0);
-$tagline_placeholder   = get_directorist_option('tagline_placeholder',__('Your Listing\'s motto or tag-line', ATBDP_TEXTDOMAIN));
+$tagline_placeholder   = get_directorist_option('tagline_placeholder',__('Your Listing\'s motto or tag-line', 'directorist'));
 $display_pricing_field = get_directorist_option('display_pricing_field', 1);
-$price_placeholder     = get_directorist_option('price_placeholder',__('Price of this listing. Eg. 100', ATBDP_TEXTDOMAIN));
-$excerpt_placeholder   = get_directorist_option('excerpt_placeholder',__('Short Description or Excerpt', ATBDP_TEXTDOMAIN));
+$price_placeholder     = get_directorist_option('price_placeholder',__('Price of this listing. Eg. 100', 'directorist'));
+$excerpt_placeholder   = get_directorist_option('excerpt_placeholder',__('Short Description or Excerpt', 'directorist'));
 $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
 $display_views_count = get_directorist_option('display_views_count', 1);
 
@@ -36,8 +36,8 @@ $display_views_count = get_directorist_option('display_views_count', 1);
         <?php if (!empty($display_tagline_field)){ ?>
             <div class="form-group">
                 <label for="atbdp_excerpt"><?php
-                    $tagline_label = get_directorist_option('tagline_label', __('Tagline', ATBDP_TEXTDOMAIN));
-                    esc_html_e($tagline_label.':', ATBDP_TEXTDOMAIN);
+                    $tagline_label = get_directorist_option('tagline_label', __('Tagline', 'directorist'));
+                    esc_html_e($tagline_label.':', 'directorist');
                     ?></label>
                 <input type="text" name="tagline"
                        id="has_tagline"
@@ -54,8 +54,8 @@ $display_views_count = get_directorist_option('display_views_count', 1);
                 <input type="hidden" id="atbd_listing_pricing" value="<?php echo $atbd_listing_pricing?>">
                 <label for="#">
                     <?php
-                    $price_label = get_directorist_option('price_label', __('Pricing', ATBDP_TEXTDOMAIN));
-                    esc_html_e($price_label.':', ATBDP_TEXTDOMAIN);
+                    $price_label = get_directorist_option('price_label', __('Pricing', 'directorist'));
+                    esc_html_e($price_label.':', 'directorist');
                     ?>
                 </label>
                 <div class="atbd_pricing_options">
@@ -64,16 +64,16 @@ $display_views_count = get_directorist_option('display_views_count', 1);
                         <?php
                         $currency = get_directorist_option('g_currency', 'USD');
                         /*Translator: % is the name of the currency such eg. USD etc.*/
-                        printf(esc_html__('Price [%s]', ATBDP_TEXTDOMAIN), $currency); ?>
+                        printf(esc_html__('Price [%s]', 'directorist'), $currency); ?>
                     </label>
-                    <span class="bor"><?php _e('Or', ATBDP_TEXTDOMAIN)?></span>
+                    <span class="bor"><?php _e('Or', 'directorist')?></span>
                     <label for="price_range_selected" data-option="price_range">
                         <input type="checkbox" id="price_range_selected" value="range" name="atbd_listing_pricing" <?php echo ('range' === $atbd_listing_pricing)?'checked':'';?>>
-                        <?php echo __('Price Range', ATBDP_TEXTDOMAIN); ?>
-                        <!--<p id='price_range_option'><?php /*echo __('Price Range', ATBDP_TEXTDOMAIN); */ ?></p></label>-->
+                        <?php echo __('Price Range', 'directorist'); ?>
+                        <!--<p id='price_range_option'><?php /*echo __('Price Range', 'directorist'); */ ?></p></label>-->
                     </label>
 
-                    <small> <?php _e('(Optional - Uncheck both to hide pricing for this listing)', ATBDP_TEXTDOMAIN)?></small>
+                    <small> <?php _e('(Optional - Uncheck both to hide pricing for this listing)', 'directorist')?></small>
                 </div>
 
                 <input type="hidden" id="pricerange_val" value="<?php echo $price_range;?>">
@@ -82,7 +82,7 @@ $display_views_count = get_directorist_option('display_views_count', 1);
                        placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
 
                 <select class="form-control directory_field" id="price_range" style="display: none" name="price_range">
-                    <option value=""><?php _e('Select Price Range', ATBDP_TEXTDOMAIN)?></option>
+                    <option value=""><?php _e('Select Price Range', 'directorist')?></option>
                     <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
                         Ultra High ($$$$)
                     </option>
@@ -101,8 +101,8 @@ $display_views_count = get_directorist_option('display_views_count', 1);
         <?php if(!empty($display_views_count)) { ?>
             <div class="form-group">
                 <label for="atbdp_views_count"><?php
-                    $views_count_label = get_directorist_option('views_count_label', __('Views Count', ATBDP_TEXTDOMAIN));
-                    esc_html_e($views_count_label.':', ATBDP_TEXTDOMAIN); ?></label>
+                    $views_count_label = get_directorist_option('views_count_label', __('Views Count', 'directorist'));
+                    esc_html_e($views_count_label.':', 'directorist'); ?></label>
 
                 <input type="number" id="views_Count" name="atbdp_post_views_count"
                        value="<?= !empty($atbdp_post_views_count) ? esc_attr($atbdp_post_views_count) : ''; ?>" class="form-control directory_field"
@@ -112,8 +112,8 @@ $display_views_count = get_directorist_option('display_views_count', 1);
         <?php if (!empty($display_excerpt_field)){ ?>
             <div class="form-group">
                 <label for="atbdp_excerpt"><?php
-                    $excerpt_label = get_directorist_option('excerpt_label', __('Short Description/Excerpt', ATBDP_TEXTDOMAIN));
-                    esc_html_e($excerpt_label.':', ATBDP_TEXTDOMAIN); ?></label>
+                    $excerpt_label = get_directorist_option('excerpt_label', __('Short Description/Excerpt', 'directorist'));
+                    esc_html_e($excerpt_label.':', 'directorist'); ?></label>
                 <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
                 <input type="hidden" id="has_excerpt" value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
                 <textarea name="excerpt" id="atbdp_excerpt"
@@ -213,7 +213,7 @@ $display_views_count = get_directorist_option('display_views_count', 1);
                         $choices = explode("\n", $choices);
                         printf('<select name="custom_field[%d]" class="form-control directory_field">', $post->ID);
                         if (!empty($field_meta['allow_null'][0])) {
-                            printf('<option value="">%s</option>', '- ' . __('Select an Option', ATBDP_TEXTDOMAIN) . ' -');
+                            printf('<option value="">%s</option>', '- ' . __('Select an Option', 'directorist') . ' -');
                         }
                         foreach ($choices as $choice) {
                             if (strpos($choice, ':') !== false) {

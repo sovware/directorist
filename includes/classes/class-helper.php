@@ -30,7 +30,7 @@ class ATBDP_Helper {
     public function notice() { ?>
         <div class="error"> <p>
                 <?php
-                printf(__('%s requires minimum PHP 5.4 to function properly. Please upgrade PHP version. The Plugin has been auto-deactivated.. You have PHP version %d', ATBDP_TEXTDOMAIN), ATBDP_NAME, PHP_VERSION);
+                printf(__('%s requires minimum PHP 5.4 to function properly. Please upgrade PHP version. The Plugin has been auto-deactivated.. You have PHP version %d', 'directorist'), ATBDP_NAME, PHP_VERSION);
                 ?>
             </p></div>
         <?php
@@ -66,24 +66,24 @@ class ATBDP_Helper {
 
     public function social_links(){
         $s = array(
-            'facebook' => __('Facebook', ATBDP_TEXTDOMAIN),
-            'twitter'   => __('Twitter', ATBDP_TEXTDOMAIN),
-            'google-plus' =>  __('Google+', ATBDP_TEXTDOMAIN),
-            'linkedin' =>  __('LinkedIn', ATBDP_TEXTDOMAIN),
-            'pinterest' =>  __('Pinterest', ATBDP_TEXTDOMAIN),
-            'instagram' =>  __('Instagram', ATBDP_TEXTDOMAIN),
-            'tumblr' =>  __('Tumblr', ATBDP_TEXTDOMAIN),
-            'flickr' =>  __('Flickr', ATBDP_TEXTDOMAIN),
-            'snapchat-ghost' =>  __('Snapchat', ATBDP_TEXTDOMAIN),
-            'reddit' =>  __('Reddit', ATBDP_TEXTDOMAIN),
-            'youtube' =>  __('Youtube', ATBDP_TEXTDOMAIN),
-            'vimeo' =>  __('Vimeo', ATBDP_TEXTDOMAIN),
-            'vine' =>  __('Vine', ATBDP_TEXTDOMAIN),
-            'github' =>  __('Github', ATBDP_TEXTDOMAIN),
-            'dribbble' =>  __('Dribbble', ATBDP_TEXTDOMAIN),
-            'behance' =>  __('Behance', ATBDP_TEXTDOMAIN),
-            'soundcloud' =>  __('SoundCloud', ATBDP_TEXTDOMAIN),
-            'stack-overflow' =>  __('StackOverFLow', ATBDP_TEXTDOMAIN),
+            'facebook' => __('Facebook', 'directorist'),
+            'twitter'   => __('Twitter', 'directorist'),
+            'google-plus' =>  __('Google+', 'directorist'),
+            'linkedin' =>  __('LinkedIn', 'directorist'),
+            'pinterest' =>  __('Pinterest', 'directorist'),
+            'instagram' =>  __('Instagram', 'directorist'),
+            'tumblr' =>  __('Tumblr', 'directorist'),
+            'flickr' =>  __('Flickr', 'directorist'),
+            'snapchat-ghost' =>  __('Snapchat', 'directorist'),
+            'reddit' =>  __('Reddit', 'directorist'),
+            'youtube' =>  __('Youtube', 'directorist'),
+            'vimeo' =>  __('Vimeo', 'directorist'),
+            'vine' =>  __('Vine', 'directorist'),
+            'github' =>  __('Github', 'directorist'),
+            'dribbble' =>  __('Dribbble', 'directorist'),
+            'behance' =>  __('Behance', 'directorist'),
+            'soundcloud' =>  __('SoundCloud', 'directorist'),
+            'stack-overflow' =>  __('StackOverFLow', 'directorist'),
         );
         asort($s);
         return $s;
@@ -166,8 +166,8 @@ class ATBDP_Helper {
             'format' => '?paged=%#%',
             'current' => max( 1, $paged ),
             'total' => $loop->max_num_pages,
-            'prev_text' => __('&laquo; Prev', ATBDP_TEXTDOMAIN),
-            'next_text' => __('Next &raquo;', ATBDP_TEXTDOMAIN),
+            'prev_text' => __('&laquo; Prev', 'directorist'),
+            'next_text' => __('Next &raquo;', 'directorist'),
             'type' => 'list',
         ) );
 
@@ -213,7 +213,7 @@ class ATBDP_Helper {
                 <ul>
                     <?php if (!empty($cat)){ ?>
                         <li>
-                            <p class="info_title"><?php _e('Category:', ATBDP_TEXTDOMAIN);?></p>
+                            <p class="info_title"><?php _e('Category:', 'directorist');?></p>
                             <p class="directory_tag">
                                 <span class="fa <?= esc_attr(get_cat_icon(@$cat->term_id)); ?>" aria-hidden="true"></span>
                                 <span> <?php if (is_object($cat)) { ?>
@@ -225,7 +225,7 @@ class ATBDP_Helper {
                             </p>
                         </li>
                     <?php } if (!empty($loc)){ ?>
-                        <li><p class="info_title"><?php _e('Location:', ATBDP_TEXTDOMAIN);?>
+                        <li><p class="info_title"><?php _e('Location:', 'directorist');?>
                                 <span><?php if (is_object($loc)) { ?>
                                         <a href="<?= ATBDP_Permalink::atbdp_get_location_page($loc); ?>">
                                                                 <?= esc_html($loc->name); ?>
@@ -254,7 +254,7 @@ class ATBDP_Helper {
         ?>
         <div class="read_more_area">
             <a class="btn btn-default " href="<?= esc_url(get_post_permalink($id)); ?>">
-                <?php esc_html_e('Read More', ATBDP_TEXTDOMAIN); ?>
+                <?php esc_html_e('Read More', 'directorist'); ?>
             </a>
         </div>
 <?php
@@ -277,7 +277,7 @@ class ATBDP_Helper {
                     <?php if (!empty($cats) && is_array($cats)){?>
                         <li>
                             <ul>
-                                <p class="info_title"><?php _e('Category:', ATBDP_TEXTDOMAIN);?></p>
+                                <p class="info_title"><?php _e('Category:', 'directorist');?></p>
                                 <?php foreach ($cats as $cat) { ?>
                                 <li>
                                     <p class="directory_tag">
@@ -300,7 +300,7 @@ class ATBDP_Helper {
                         ?>
                         <li>
                             <ul>
-                            <p class="info_title"><?php _e('Location:', ATBDP_TEXTDOMAIN);?></p>
+                            <p class="info_title"><?php _e('Location:', 'directorist');?></p>
                                 <?php foreach ($locs as $loc) { $location_count--;// reduce count to display comma for the right item?>
                                     <li>
                                     <span><?php if (is_object($loc)) { ?>

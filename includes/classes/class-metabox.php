@@ -122,19 +122,19 @@ class ATBDP_Metabox {
         $display_gellery_field = get_directorist_option('display_gellery_field', 1);
         $display_video_field = get_directorist_option('display_video_field', 1);
         add_meta_box('_listing_info',
-            __('General Information', ATBDP_TEXTDOMAIN),
+            __('General Information', 'directorist'),
             array($this, 'listing_info'),
             ATBDP_POST_TYPE,
             'normal', 'high');
 
         add_meta_box('_listing_contact_info',
-            __('Contact Information', ATBDP_TEXTDOMAIN),
+            __('Contact Information', 'directorist'),
             array($this, 'listing_contact_info'),
             ATBDP_POST_TYPE,
             'normal', 'high');
         if (!empty($display_prv_field) || !empty($display_gellery_field)) {
             add_meta_box('_listing_gallery',
-                __('Upload Preview & Slider Images for the Listing', ATBDP_TEXTDOMAIN),
+                __('Upload Preview & Slider Images for the Listing', 'directorist'),
                 array($this, 'listing_gallery'),
                 ATBDP_POST_TYPE,
                 'normal', 'high');
@@ -147,7 +147,7 @@ class ATBDP_Metabox {
         do_action('atbdp_before_video_gallery_backend',$post);
         if(!empty($display_video_field)) {
             add_meta_box('_listing_video_gallery',
-                __('Add Video for the Listing', ATBDP_TEXTDOMAIN),
+                __('Add Video for the Listing', 'directorist'),
                 array($this, 'listing_video_gallery'),
                 ATBDP_POST_TYPE,
                 'normal', 'high');
@@ -239,13 +239,13 @@ wp_reset_postdata();
         $post_meta = get_post_meta( $post->ID );
         $videourl = get_post_meta($post->ID, '_videourl', true);
         $enable_video_url = get_directorist_option('atbd_video_url',1);
-        $video_placeholder = get_directorist_option('video_placeholder',__('Only YouTube & Vimeo URLs.', ATBDP_TEXTDOMAIN));
+        $video_placeholder = get_directorist_option('video_placeholder',__('Only YouTube & Vimeo URLs.', 'directorist'));
         ?>
             <div id="directorist" class="directorist atbd_wrapper">
                 <div class="form-group">
                     <label for="videourl"><?php
-                        $video_label = get_directorist_option('video_label', __('Video Url', ATBDP_TEXTDOMAIN));
-                        esc_html_e($video_label.':', ATBDP_TEXTDOMAIN); ?></label>
+                        $video_label = get_directorist_option('video_label', __('Video Url', 'directorist'));
+                        esc_html_e($video_label.':', 'directorist'); ?></label>
                     <input type="text" id="videourl"  name="videourl" value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($video_placeholder); ?>"/>
                 </div>
             </div>

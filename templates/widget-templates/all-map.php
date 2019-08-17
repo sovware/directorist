@@ -2,7 +2,7 @@
 $display_map = get_directorist_option('display_map_field',1);
 $select_listing_map         = get_directorist_option('select_listing_map','google');
 if(!empty($display_map) && 'google' == $select_listing_map) {
-    $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Map', ATBDP_TEXTDOMAIN);
+    $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Map', 'directorist');
     echo $args['before_widget'];
     echo '<div class="atbd_widget_title">';
     echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];

@@ -15,12 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
             {
                 $widget_options = array(
                     'classname' => 'atbd_widget',
-                    'description' => esc_html__('You can show a form to contact the listing owners by this widget', ATBDP_TEXTDOMAIN),
+                    'description' => esc_html__('You can show a form to contact the listing owners by this widget', 'directorist'),
                 );
 
                 parent::__construct(
                     'bdco_widget', // Base ID
-                    esc_html__('Directorist - Contact Listing Owner', ATBDP_TEXTDOMAIN), // Name
+                    esc_html__('Directorist - Contact Listing Owner', 'directorist'), // Name
                     $widget_options, // Args
                     'fdgfdg'
                 );
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                     }
                     if ($plan_permission){
 
-                        $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact Listing Owner', ATBDP_TEXTDOMAIN);
+                        $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact Listing Owner', 'directorist');
                         echo $args['before_widget'];
                         echo '<div class="atbd_widget_title">';
                         echo $args['before_title'] . esc_html(apply_filters('widget_contact_form_title', $title)) . $args['after_title'];
@@ -54,15 +54,15 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <div class="atbdp directorist atbdp-widget-listing-contact">
                             <form id="atbdp-contact-form-widget" class="form-vertical" role="form">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="atbdp-contact-name" placeholder="<?php _e( 'Name', ATBDP_TEXTDOMAIN ); ?>" required />
+                                    <input type="text" class="form-control" id="atbdp-contact-name" placeholder="<?php _e( 'Name', 'directorist' ); ?>" required />
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="email" class="form-control" id="atbdp-contact-email" placeholder="<?php _e( 'Email', ATBDP_TEXTDOMAIN ); ?>" required />
+                                    <input type="email" class="form-control" id="atbdp-contact-email" placeholder="<?php _e( 'Email', 'directorist' ); ?>" required />
                                 </div>
 
                                 <div class="form-group">
-                                    <textarea class="form-control" id="atbdp-contact-message" rows="3" placeholder="<?php _e( 'Message', ATBDP_TEXTDOMAIN ); ?>..." required ></textarea>
+                                    <textarea class="form-control" id="atbdp-contact-message" rows="3" placeholder="<?php _e( 'Message', 'directorist' ); ?>..." required ></textarea>
                                 </div>
                                 <?php
                                 /**
@@ -74,7 +74,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 ?>
                                 <p id="atbdp-contact-message-display"></p>
 
-                                <button type="submit" class="btn btn-primary"><?php _e( 'Submit', ATBDP_TEXTDOMAIN ); ?></button>
+                                <button type="submit" class="btn btn-primary"><?php _e( 'Submit', 'directorist' ); ?></button>
                             </form>
                         </div>
                         <input type="hidden" id="atbdp-post-id" value="<?php echo $post->ID; ?>" />
@@ -96,10 +96,10 @@ if ( ! defined( 'ABSPATH' ) ) {
              */
             public function form($instance)
             {
-                $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact the listing owner', ATBDP_TEXTDOMAIN);
+                $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact the listing owner', 'directorist');
                 ?>
                 <p>
-                    <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', ATBDP_TEXTDOMAIN); ?></label>
+                    <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', 'directorist'); ?></label>
                     <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
                            name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
                            value="<?php echo esc_attr($title); ?>">

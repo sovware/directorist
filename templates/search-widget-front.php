@@ -2,14 +2,14 @@
     <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>">
         <?php if(!empty($search_by_text_field)) { ?>
             <div class="form-group">
-                <input type="text" name="q" placeholder="<?php _e('What are you looking for?',ATBDP_TEXTDOMAIN);?>" value="<?php echo !empty($_GET['q']) ? $_GET['q'] : ''; ?>" class="form-control">
+                <input type="text" name="q" placeholder="<?php _e('What are you looking for?','directorist');?>" value="<?php echo !empty($_GET['q']) ? $_GET['q'] : ''; ?>" class="form-control">
             </div><!-- ends: .form-group -->
         <?php } ?>
         <?php if(!empty($search_by_location)) { ?>
             <div class="form-group">
                 <?php
                 bdas_dropdown_terms( array(
-                    'show_option_none'   => __( 'Select a Location', ATBDP_TEXTDOMAIN ),
+                    'show_option_none'   => __( 'Select a Location', 'directorist' ),
                     'option_none_value'  => -1,
                     'taxonomy'           => 'at_biz_dir-location',
                     'name' 			     => 'in_loc',
@@ -25,7 +25,7 @@
             <div class="form-group">
                 <?php
                 bdas_dropdown_terms( array(
-                    'show_option_none'   => __( 'Select a category', ATBDP_TEXTDOMAIN ),
+                    'show_option_none'   => __( 'Select a category', 'directorist' ),
                     'option_none_value'  => -1,
                     'taxonomy'           => 'at_biz_dir-category',
                     'name' 			     => 'in_cat',
@@ -45,13 +45,13 @@
         <?php if(!empty($search_by_price)) {?>
 
             <div class="form-group ">
-                <label><?php _e( 'Price Range', ATBDP_TEXTDOMAIN ); ?></label>
+                <label><?php _e( 'Price Range', 'directorist' ); ?></label>
                 <div class="price_ranges">
                     <div>
-                        <input type="text" name="price[0]" class="form-control" placeholder="<?php _e( 'min', ATBDP_TEXTDOMAIN ); ?>" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][0] ); ?>">
+                        <input type="text" name="price[0]" class="form-control" placeholder="<?php _e( 'min', 'directorist' ); ?>" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][0] ); ?>">
                     </div>
                     <div>
-                        <input type="text" name="price[1]" class="form-control" placeholder="<?php _e( 'max', ATBDP_TEXTDOMAIN ); ?>" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][1] ); ?>">
+                        <input type="text" name="price[1]" class="form-control" placeholder="<?php _e( 'max', 'directorist' ); ?>" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][1] ); ?>">
                     </div>
                 </div>
             </div>
@@ -204,8 +204,8 @@
             </div><!-- ends: .filter-checklist -->
         <?php } ?>
         <div class="form-group submit_btn">
-            <button type="reset" class="btn btn-default"><?php _e( 'Reset', ATBDP_TEXTDOMAIN ); ?></button>
-            <button type="submit" class="btn btn-primary btn-icon icon-right"><?php _e( 'Search Listings', ATBDP_TEXTDOMAIN ); ?></button>
+            <button type="reset" class="btn btn-default"><?php _e( 'Reset', 'directorist' ); ?></button>
+            <button type="submit" class="btn btn-primary btn-icon icon-right"><?php _e( 'Search Listings', 'directorist' ); ?></button>
         </div>
     </form><!-- ends: form -->
 </div><!-- ends: .default-ad-search -->

@@ -44,8 +44,8 @@ class VP_Option
 			'minimum_role'          => 'edit_theme_options',
 			'menu_page'             => 'themes.php',
 			'layout'                => 'fixed',
-			'page_title'            => __( 'Vafpress Options', ATBDP_TEXTDOMAIN ),
-			'menu_label'            => __( 'Vafpress Options', ATBDP_TEXTDOMAIN ),
+			'page_title'            => __( 'Vafpress Options', 'directorist' ),
+			'menu_label'            => __( 'Vafpress Options', 'directorist' ),
 			'priority'              => 10,
 		), $configs);
 
@@ -58,11 +58,11 @@ class VP_Option
 
 		// check and set required configs
 		if(isset($option_key)) $this->set_option_key($option_key);
-		else throw new Exception(__( 'Option Key is required', ATBDP_TEXTDOMAIN ), 1);
+		else throw new Exception(__( 'Option Key is required', 'directorist' ), 1);
 		if(isset($template)) $this->set_template($template);
-		else throw new Exception(__( 'Template Array/File is required', ATBDP_TEXTDOMAIN ), 1);
+		else throw new Exception(__( 'Template Array/File is required', 'directorist' ), 1);
 		if(isset($page_slug)) $this->set_page_slug($page_slug);
-		else throw new Exception(__( 'Page Slug is required', ATBDP_TEXTDOMAIN ), 1);
+		else throw new Exception(__( 'Page Slug is required', 'directorist' ), 1);
 
 		// swim in the pool
 		self::$pool[$this->get_option_key()] = &$this;
@@ -164,7 +164,7 @@ class VP_Option
 
 	public function dev_mode_notice()
 	{
-		VP_WP_Util::admin_notice(__("Development Mode is Active, options' values won't be saved into database.", ATBDP_TEXTDOMAIN), false);
+		VP_WP_Util::admin_notice(__("Development Mode is Active, options' values won't be saved into database.", 'directorist'), false);
 	}
 
 	public function enqueue_scripts_and_styles()
@@ -303,7 +303,7 @@ class VP_Option
 			if(empty($option))
 			{
 				$result['status']  = false;
-				$result['message'] = __("Can not be empty", ATBDP_TEXTDOMAIN);
+				$result['message'] = __("Can not be empty", 'directorist');
 			}
 			else
 			{
@@ -328,7 +328,7 @@ class VP_Option
 				else
 				{
 					$result['status']  = false;
-					$result['message'] = __("Invalid data", ATBDP_TEXTDOMAIN);
+					$result['message'] = __("Invalid data", 'directorist');
 				}
 			}
 		}
@@ -361,7 +361,7 @@ class VP_Option
 
 			$result = array(
 				'status' => true,
-				'message'=> __("Successful", ATBDP_TEXTDOMAIN),
+				'message'=> __("Successful", 'directorist'),
 				'option' => $sr_options,
 			);
 		}
@@ -386,12 +386,12 @@ class VP_Option
 		if($verify)
 		{
 			$result['status']  = true;
-			$result['message'] = __("Successful", ATBDP_TEXTDOMAIN);	
+			$result['message'] = __("Successful", 'directorist');	
 		}
 		else
 		{
 			$result['status']  = true;
-			$result['message'] = __("Successful", ATBDP_TEXTDOMAIN);
+			$result['message'] = __("Successful", 'directorist');
 		}
 		return $result;
 	}
@@ -457,7 +457,7 @@ class VP_Option
 		else if(is_array($this->get_template()))
 			$template = $this->get_template();
 		else
-			throw new Exception(__( 'Invalid template supplied', ATBDP_TEXTDOMAIN ), 1);
+			throw new Exception(__( 'Invalid template supplied', 'directorist' ), 1);
 
 		$parser = new VP_Option_Parser();
 		$set    = $parser->parse_array_options($template, $this->use_auto_group_naming());
@@ -470,13 +470,13 @@ class VP_Option
 		{
 			// setup utility menu
 			$util_menu = new VP_Option_Control_Group_Menu();
-			$util_menu->set_title(__('Import/Export Settings', ATBDP_TEXTDOMAIN));
+			$util_menu->set_title(__('Import/Export Settings', 'directorist'));
 			$util_menu->set_name('menu_util');
 			$util_menu->set_icon('font-awesome:fa-ambulance');
 
 			// setup restore default section
 			$restore_section = new VP_Option_Control_Group_Section();
-			$restore_section->set_title(__('Restore Default', ATBDP_TEXTDOMAIN));
+			$restore_section->set_title(__('Restore Default', 'directorist'));
 			$restore_section->set_name('section_restore');
 
 			// setup restore button
@@ -485,7 +485,7 @@ class VP_Option
 
 			// setup exim section
 			$exim_section = new VP_Option_Control_Group_Section();
-			$exim_section->set_title(__('Export/Import Settings DATA', ATBDP_TEXTDOMAIN));
+			$exim_section->set_title(__('Export/Import Settings DATA', 'directorist'));
 			$exim_section->set_name('section_exim');
 
 			// setup exim field

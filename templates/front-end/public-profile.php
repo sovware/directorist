@@ -39,7 +39,7 @@ $container_fluid = 'container-fluid';
                         <div class="atbd_auth_nd">
                             <h2><?= esc_html($author_name); ?></h2>
                             <p><?php
-                                printf(__('Member since %s ago', ATBDP_TEXTDOMAIN), human_time_diff(strtotime($user_registered), current_time('timestamp'))); ?></p>
+                                printf(__('Member since %s ago', 'directorist'), human_time_diff(strtotime($user_registered), current_time('timestamp'))); ?></p>
                         </div>
                     </div>
 
@@ -77,11 +77,11 @@ $container_fluid = 'container-fluid';
                         </div>
                         <p class="meta-info">
                             <span><?php echo !empty($review_in_post) ? $review_in_post : '0' ?></span>
-                            <?php echo (($review_in_post > 1) || ($review_in_post === 0)) ? __('Reviews', ATBDP_TEXTDOMAIN) : __('Review', ATBDP_TEXTDOMAIN) ?>
+                            <?php echo (($review_in_post > 1) || ($review_in_post === 0)) ? __('Reviews', 'directorist') : __('Review', 'directorist') ?>
                         </p>
                         <p class="meta-info">
                             <span><?php echo !empty($total_listing) ? $total_listing : '0' ?></span>
-                            <?php echo (($total_listing > 1) || ($total_listing === 0)) ? __('Listings', ATBDP_TEXTDOMAIN) : __('Listing', ATBDP_TEXTDOMAIN) ?>
+                            <?php echo (($total_listing > 1) || ($total_listing === 0)) ? __('Listings', 'directorist') : __('Listing', 'directorist') ?>
                         </p>
                     </div>
                 </div>
@@ -95,7 +95,7 @@ $container_fluid = 'container-fluid';
                         <div class="atbd_content_module__tittle_area">
                             <div class="atbd_area_title">
                                 <h4>
-                                    <span class="<?php atbdp_icon_type(true); ?>-user"></span><?php _e('About', ATBDP_TEXTDOMAIN); ?>
+                                    <span class="<?php atbdp_icon_type(true); ?>-user"></span><?php _e('About', 'directorist'); ?>
                                 </h4>
                             </div>
                         </div>
@@ -104,7 +104,7 @@ $container_fluid = 'container-fluid';
                             <p>
                                 <?php
                                 $content = apply_filters('the_content', $bio);
-                                echo !empty($bio) ? $content : __('Nothing to show!', ATBDP_TEXTDOMAIN);
+                                echo !empty($bio) ? $content : __('Nothing to show!', 'directorist');
                                 ?>
                             </p>
 
@@ -114,7 +114,7 @@ $container_fluid = 'container-fluid';
             </div>
             <div class="col-md-4">
                 <div class="widget atbd_widget">
-                    <div class="atbd_widget_title"><h4><?php _e('Contact Info', ATBDP_TEXTDOMAIN); ?></h4></div>
+                    <div class="atbd_widget_title"><h4><?php _e('Contact Info', 'directorist'); ?></h4></div>
                     <div class="atbdp atbd_author_info_widget">
                         <div class="atbd_widget_contact_info">
                             <ul>
@@ -201,12 +201,12 @@ $container_fluid = 'container-fluid';
         <div class="row">
             <div class="col-md-12">
                 <div class="atbd_author_listings_area">
-                    <h1><?php _e("Author Listings", ATBDP_TEXTDOMAIN); ?></h1>
+                    <h1><?php _e("Author Listings", 'directorist'); ?></h1>
                     <div class="atbd_author_filter_area">
                         <div class="dropdown">
                             <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button"
                                id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <?php _e("Filter by category", ATBDP_TEXTDOMAIN); ?> <span class="caret"></span>
+                                <?php _e("Filter by category", 'directorist'); ?> <span class="caret"></span>
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">

@@ -15,11 +15,11 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
         {
             $widget_options = array(
                 'classname' => 'atbd_widget',
-                'description' => esc_html__('You can show listing video by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show listing video by this widget', 'directorist'),
             );
             parent::__construct(
                 'bdvd_widget', // Base ID
-                esc_html__('Directorist - Video', ATBDP_TEXTDOMAIN), // Name
+                esc_html__('Directorist - Video', 'directorist'), // Name
                 $widget_options // Args
             );
         }
@@ -42,7 +42,7 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
             if( is_singular(ATBDP_POST_TYPE) && !empty($videourl)) {
 
                 $videourl   = !empty($videourl) ? esc_attr(ATBDP()->atbdp_parse_videos($videourl)) : '';
-                $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Listing Video', ATBDP_TEXTDOMAIN);
+                $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Listing Video', 'directorist');
                 echo $args['before_widget'];
                 echo '<div class="atbd_widget_title">';
                 echo $args['before_title'] . esc_html(apply_filters('widget_video_title', $title)) . $args['after_title'];
@@ -68,10 +68,10 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
          */
         public function form($instance)
         {
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Listing Video', ATBDP_TEXTDOMAIN);
+            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Listing Video', 'directorist');
             ?>
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', 'directorist'); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
                        name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
                        value="<?php echo esc_attr($title); ?>">

@@ -112,16 +112,16 @@ if (!class_exists('ATBDP_Email')):
                 '==SITE_NAME==' => $site_name,
                 '==SITE_LINK==' => sprintf('<a href="%s">%s</a>', $site_url, $site_name),
                 '==SITE_URL==' => sprintf('<a href="%s">%s</a>', $site_url, $site_url),
-                '==EXPIRATION_DATE==' => !empty($never_exp) ? __('Never Expires', ATBDP_TEXTDOMAIN) : date_i18n($date_format, strtotime($exp_date)),
+                '==EXPIRATION_DATE==' => !empty($never_exp) ? __('Never Expires', 'directorist') : date_i18n($date_format, strtotime($exp_date)),
                 '==CATEGORY_NAME==' => $cat_name,
-                '==RENEWAL_LINK==' => sprintf('<a href="%s">%s</a>', $renewal_link, __('Visit Listing Renewal Page', ATBDP_TEXTDOMAIN)),
+                '==RENEWAL_LINK==' => sprintf('<a href="%s">%s</a>', $renewal_link, __('Visit Listing Renewal Page', 'directorist')),
                 '==LISTING_ID==' => $listing_id,
                 '==LISTING_TITLE==' => $l_title,
                 '==LISTING_EDIT_URL==' => sprintf('<a href="%s">%s</a>', $l_edit_url, $l_title),
                 '==LISTING_LINK==' => sprintf('<a href="%s">%s</a>', $listing_url, $l_title),
                 '==LISTING_URL==' => sprintf('<a href="%s">%s</a>', $listing_url, $listing_url),
                 '==ORDER_ID==' => $order_id,
-                '==ORDER_RECEIPT_URL==' => sprintf('<a href="%s">%s</a>', $order_receipt_link, __('View Order/Payment Receipt', ATBDP_TEXTDOMAIN)),
+                '==ORDER_RECEIPT_URL==' => sprintf('<a href="%s">%s</a>', $order_receipt_link, __('View Order/Payment Receipt', 'directorist')),
                 //'==ORDER_DETAILS=='         => ATBDP_Order::get_order_details( $order_id ),
                 '==TODAY==' => date_i18n($date_format, $current_time),
                 '==NOW==' => date_i18n($date_format . ' ' . $time_format, $current_time),
@@ -191,7 +191,7 @@ Title: ==LISTING_TITLE==
 
 
 This email is sent automatically for information purpose only. Please do not respond to this.
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
         }
 
         /**
@@ -217,7 +217,7 @@ Here is the order summery:
 ==ORDER_DETAILS==
 
 This email is sent automatically for information purpose only. Please do not respond to this.
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
         }
 
         /**
@@ -243,7 +243,7 @@ Here is the order summery:
 ==ORDER_DETAILS==
 
 This email is sent automatically for information purpose only. Please do not respond to this.
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
         }
 
         /**
@@ -267,7 +267,7 @@ You can Edit/Review the listing using the link below:
 ==LISTING_EDIT_URL==
 
 This email is sent automatically for information purpose only. Please do not respond to this.
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
         }
 
         /**
@@ -291,7 +291,7 @@ You can Edit/Review the listing using the link below:
 ==LISTING_EDIT_URL==
 
 This email is sent automatically for information purpose only. Please do not respond to this.
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
         }
 
         /**
@@ -315,7 +315,7 @@ You can Edit/Review the listing using the link below:
 ==LISTING_EDIT_URL==
 
 This email is sent automatically for information purpose only. Please do not respond to this.
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
         }
 
         /**
@@ -339,7 +339,7 @@ You can see the review using the link below:
 ==LISTING_EDIT_URL==
 
 This email is sent automatically for information purpose only. Please do not respond to this.
-", ATBDP_TEXTDOMAIN);
+", 'directorist');
         }
 
         /**
@@ -458,7 +458,7 @@ This email is sent automatically for information purpose only. Please do not res
         {
             if (get_directorist_option('disable_email_notification')) return false;
             if (!in_array('listing_published', get_directorist_option('notify_admin', array()))) return false;
-            $s = __('[==SITE_NAME==] The Listing #==LISTING_ID== has been published on your website', ATBDP_TEXTDOMAIN);
+            $s = __('[==SITE_NAME==] The Listing #==LISTING_ID== has been published on your website', 'directorist');
             $sub = $this->replace_in_content($s, null, $listing_id);
 
             $body = $this->get_listing_published_admin_tmpl();
@@ -606,7 +606,7 @@ This email is sent automatically for information purpose only. Please do not res
         {
             if (get_directorist_option('disable_email_notification')) return false; //vail if email notification is off
             if (!in_array('listing_deleted', get_directorist_option('notify_admin', array()))) return false; // vail if order created notification to admin off
-            $s = __('[==SITE_NAME==] A Listing has been deleted [ID#: ==LISTING_ID==] on your website', ATBDP_TEXTDOMAIN);
+            $s = __('[==SITE_NAME==] A Listing has been deleted [ID#: ==LISTING_ID==] on your website', 'directorist');
             $sub = $this->replace_in_content($s, null, $listing_id);
             $body = $this->replace_in_content($this->get_listing_deleted_admin_tmpl(), null, $listing_id);
             return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
@@ -627,7 +627,7 @@ This email is sent automatically for information purpose only. Please do not res
             /*@todo; think if it is better to assign disabled_email_notification to the class prop*/
             if (get_directorist_option('disable_email_notification')) return false; //vail if email notification is off
             if (!in_array('order_created', get_directorist_option('notify_admin', array()))) return false; // vail if order created notification to admin off
-            $s = __('[==SITE_NAME==] You have a new order #==ORDER_ID== on your website', ATBDP_TEXTDOMAIN);
+            $s = __('[==SITE_NAME==] You have a new order #==ORDER_ID== on your website', 'directorist');
             $sub = $this->replace_in_content($s, $order_id);
 
             $t = $this->get_order_created_admin_tmpl(); // get the email template & replace order_receipt placeholder in it
@@ -649,7 +649,7 @@ This email is sent automatically for information purpose only. Please do not res
         {
             if (get_directorist_option('disable_email_notification')) return false;
             if (!in_array('order_completed', get_directorist_option('notify_admin', array()))) return false;
-            $s = __('[==SITE_NAME==] Payment Notification : Order #==ORDER_ID== Completed', ATBDP_TEXTDOMAIN);
+            $s = __('[==SITE_NAME==] Payment Notification : Order #==ORDER_ID== Completed', 'directorist');
             $sub = $this->replace_in_content($s, $order_id);
 
             $t = $this->get_order_completed_admin_tmpl(); // get the email template & replace order_receipt placeholder in it
@@ -668,7 +668,7 @@ This email is sent automatically for information purpose only. Please do not res
         {
             if (get_directorist_option('disable_email_notification')) return false;
             if (!in_array('listing_submitted', get_directorist_option('notify_admin', array()))) return false;
-            $s = __('[==SITE_NAME==] A new listings is received on your website', ATBDP_TEXTDOMAIN);
+            $s = __('[==SITE_NAME==] A new listings is received on your website', 'directorist');
             $sub = str_replace('==SITE_NAME==', get_option('blogname'), $s);
 
             $body = $this->get_listing_submitted_admin_tmpl();
@@ -689,7 +689,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             if (get_directorist_option('disable_email_notification')) return false;
             if (!in_array('listing_edited', get_directorist_option('notify_admin', array()))) return false;
-            $s = __('[==SITE_NAME==] The Listing #==LISTING_ID== has been edited on your website', ATBDP_TEXTDOMAIN);
+            $s = __('[==SITE_NAME==] The Listing #==LISTING_ID== has been edited on your website', 'directorist');
             $sub = $this->replace_in_content($s, null, $listing_id);
             $body = $this->get_listing_edited_admin_tmpl();
             return $this->send_mail($this->get_admin_email_list(), $sub, $this->replace_in_content($body, null, $listing_id), $this->get_email_headers());
@@ -710,7 +710,7 @@ This email is sent automatically for information purpose only. Please do not res
             $listing_id = $data['post_id'];
             if (get_directorist_option('disable_email_notification')) return false;
             //if (!in_array('listing_edited', get_directorist_option('notify_admin', array()))) return false;
-            $s = __('[==SITE_NAME==] The Listing #==LISTING_ID== has a new review.', ATBDP_TEXTDOMAIN);
+            $s = __('[==SITE_NAME==] The Listing #==LISTING_ID== has a new review.', 'directorist');
             $sub = $this->replace_in_content($s, null, $listing_id);
 
             $body = $this->get_review_submitted_admin_tmpl();
@@ -753,7 +753,7 @@ This email is sent automatically for information purpose only. Please do not res
             $require_password = get_directorist_option('require_password_reg',0);
             $user_password = get_user_meta($user->ID, '_atbdp_generated_password',true);
             if (empty($display_password)) {
-                $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!', ATBDP_TEXTDOMAIN));
+                $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!', 'directorist'));
                 $body = get_directorist_option('email_tmpl_registration_confirmation', __("
 Dear User,
 
@@ -762,7 +762,7 @@ Congratulations! Your registration is completed!
 This email is sent automatically for information purpose only. Please do not respond to this.
 You can login now using the below credentials:
 
-", ATBDP_TEXTDOMAIN));
+", 'directorist'));
                 $body = $this->replace_in_content($body, null, null, $user);
                 $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
                 $wp_new_user_notification_email['message'] = preg_replace( "/<br \/>/", "", $body )."
@@ -771,7 +771,7 @@ Username: $user->user_login
 Password: $user_password";
                 return $wp_new_user_notification_email;
             }elseif (empty($require_password)){
-                $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!', ATBDP_TEXTDOMAIN));
+                $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!', 'directorist'));
                 $body =  get_directorist_option('email_tmpl_registration_confirmation', __("
 Dear User,
 
@@ -780,7 +780,7 @@ Congratulations! Your registration is completed!
 This email is sent automatically for information purpose only. Please do not respond to this.
 You can login now using the below credentials:
 
-", ATBDP_TEXTDOMAIN));
+", 'directorist'));
                 $body = $this->replace_in_content($body, null, null, $user);
                 $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
                 $wp_new_user_notification_email['message'] = preg_replace( "/<br \/>/", "", $body )."
@@ -789,7 +789,7 @@ Username: $user->user_login
 Password: $user_password";
                 return $wp_new_user_notification_email;
             } else {
-                $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!', ATBDP_TEXTDOMAIN));
+                $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!', 'directorist'));
                 $body = get_directorist_option('email_tmpl_registration_confirmation', __("
 Dear User,
 
@@ -798,7 +798,7 @@ Congratulations! Your registration is completed!
 This email is sent automatically for information purpose only. Please do not respond to this.
 You can login now using the below credentials:
 
-", ATBDP_TEXTDOMAIN));
+", 'directorist'));
                 $body = $this->replace_in_content($body, null, null, $user);
                 $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
                 $wp_new_user_notification_email['message'] = preg_replace( "/<br \/>/", "", $body )."

@@ -6,17 +6,17 @@ $is_disable_price       = get_directorist_option('disable_list_price');
 $search_listing_columns = get_directorist_option('search_listing_columns',3);
 $display_header         = get_directorist_option('search_header',1);
 $display_sortby         = get_directorist_option('search_sort_by',1);
-$header_title           = get_directorist_option('search_header_title',__('Search Result: ', ATBDP_TEXTDOMAIN));
-$header_sub_title       = get_directorist_option('search_header_sub_title',__('Total Listing Found: ', ATBDP_TEXTDOMAIN));
+$header_title           = get_directorist_option('search_header_title',__('Search Result: ', 'directorist'));
+$header_sub_title       = get_directorist_option('search_header_sub_title',__('Total Listing Found: ', 'directorist'));
 // Pagination fix
 $temp_query             = $wp_query;
 $wp_query               = NULL;
 $wp_query               = $listings;
 /*build appropriate search result text to display based on different situation*/
-$in_s_string_text       = !empty($s_string) ? sprintf(__('Search Result for: "%s"', ATBDP_TEXTDOMAIN), $s_string) : $header_title;
-$in_tag_text            = !empty($in_tag) ? sprintf(__(' from "%s" Tag', ATBDP_TEXTDOMAIN), $in_tag) : '';
-$in_cat_text            = !empty($in_cat) ? sprintf(__(' from "%s" Category', ATBDP_TEXTDOMAIN), $in_cat) : '';
-$in_loc_text            = !empty($in_loc) ? sprintf(__(' in "%s" Location', ATBDP_TEXTDOMAIN), $in_loc) : '';
+$in_s_string_text       = !empty($s_string) ? sprintf(__('Search Result for: "%s"', 'directorist'), $s_string) : $header_title;
+$in_tag_text            = !empty($in_tag) ? sprintf(__(' from "%s" Tag', 'directorist'), $in_tag) : '';
+$in_cat_text            = !empty($in_cat) ? sprintf(__(' from "%s" Category', 'directorist'), $in_cat) : '';
+$in_loc_text            = !empty($in_loc) ? sprintf(__(' in "%s" Location', 'directorist'), $in_loc) : '';
 $column_width           = 100/$search_listing_columns .'%';
 ?>
     <div id="directorist" class="atbd_wrapper directorist directory_wrapper search_area">
@@ -34,9 +34,9 @@ $column_width           = 100/$search_listing_columns .'%';
                                         echo $in_s_string_text, $in_tag_text, $in_cat_text, $in_loc_text;
                                     }else{
                                         if (!empty($s_string)){
-                                            printf(__('%s for: %s from All categories and locations', ATBDP_TEXTDOMAIN),$header_title, '<span>'."'$s_string'".'</span>');
+                                            printf(__('%s for: %s from All categories and locations', 'directorist'),$header_title, '<span>'."'$s_string'".'</span>');
                                         }else{
-                                            _e('Showing Result from all categories and locations.', ATBDP_TEXTDOMAIN);
+                                            _e('Showing Result from all categories and locations.', 'directorist');
                                         }
                                     }
 
@@ -59,7 +59,7 @@ $column_width           = 100/$search_listing_columns .'%';
                                 <!-- Orderby dropdown -->
                                 <div class="dropdown">
                                     <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <?php _e( "Sort by", ATBDP_TEXTDOMAIN ); ?> <span class="caret"></span>
+                                        <?php _e( "Sort by", 'directorist' ); ?> <span class="caret"></span>
                                     </a>
 
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
@@ -221,7 +221,7 @@ $column_width           = 100/$search_listing_columns .'%';
                                                     </style>
                                                     <?php
                                                 }
-                                                $open = get_directorist_option('open_badge_text', __('Open Now', ATBDP_TEXTDOMAIN));
+                                                $open = get_directorist_option('open_badge_text', __('Open Now', 'directorist'));
                                                 if (!empty($enable247hour)) {
                                                     $u_badge_html .= ' <span class="atbd_badge atbd_badge_open">'.$open.'</span>';
 
@@ -366,7 +366,7 @@ $column_width           = 100/$search_listing_columns .'%';
 
                                                         if(!empty($display_publish_date)) { ?>
                                                             <li><p><span class="fa fa-clock-o"></span><?php
-                                                                    printf( __( 'Posted %s ago', ATBDP_TEXTDOMAIN ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
+                                                                    printf( __( 'Posted %s ago', 'directorist' ), human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) );
                                                                     ?></p></li>
                                                         <?php }
                                                         /**
@@ -416,7 +416,7 @@ $column_width           = 100/$search_listing_columns .'%';
                                                     ?>
                                                     <div class="atbd_content_left">
                                                         <div class="atbd_listting_category">
-                                                            <a href=""><span class="fa fa-folder-open"></span><?php  echo __('Uncategorized', ATBDP_TEXTDOMAIN);?>
+                                                            <a href=""><span class="fa fa-folder-open"></span><?php  echo __('Uncategorized', 'directorist');?>
                                                             </a>
                                                         </div>
                                                     </div>
@@ -436,7 +436,7 @@ $column_width           = 100/$search_listing_columns .'%';
 
                     <?php }
                     } else {?>
-                            <p class="atbdp_nlf"><?php _e('No listing found.', ATBDP_TEXTDOMAIN); ?></p>
+                            <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
                 <?php } ?>
             </div>
             <div class="row">

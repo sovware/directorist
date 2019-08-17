@@ -333,7 +333,7 @@ jQuery(function($){
             //console.log(prv_url);
             $('.listing_prv_img').val(prv_url);
             $('.change_listing_prv_img').attr('src', prv_img_url);
-            $('.upload-header').html('Change Preview Image');
+            $('.upload-header').html(atbdp_add_listing.i18n_text.change_prv_img_front);
             $('.remove_prev_img').show();
 
         });

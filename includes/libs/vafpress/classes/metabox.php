@@ -32,7 +32,7 @@ class VP_Metabox extends WPAlchemy_MetaBox
 		// Modify title in dev mode
 		if( $this->is_dev_mode )
 		{
-			$this->title = __('[Development Mode] ', ATBDP_TEXTDOMAIN) . $this->title;
+			$this->title = __('[Development Mode] ', 'directorist') . $this->title;
 		}
 
 		if ($this->can_output() and VP_WP_Admin::is_post_or_page() )
@@ -563,7 +563,7 @@ class VP_Metabox extends WPAlchemy_MetaBox
 			if ($g === reset($group['groups'])){ $is_first = true; $class = ' first';}
 
 			$html .= '<div id="'. $g['name'] .'" class="vp-wpa-group wpa_group wpa_group-' . $name . $class . '">';
-			$html .= '<div class="vp-wpa-group-heading"><a href="#" class="vp-wpa-group-title">' . $icon . $group['title'] . '</a><a href="#" class="dodelete vp-wpa-group-remove" title="'. __('Remove', ATBDP_TEXTDOMAIN) .'"><i class="fa fa-times"></i> '. __('Remove', ATBDP_TEXTDOMAIN) .'</a></div>';
+			$html .= '<div class="vp-wpa-group-heading"><a href="#" class="vp-wpa-group-title">' . $icon . $group['title'] . '</a><a href="#" class="dodelete vp-wpa-group-remove" title="'. __('Remove', 'directorist') .'"><i class="fa fa-times"></i> '. __('Remove', 'directorist') .'</a></div>';
 			$html .= '<div class="vp-controls' . ((!$is_first) ? ' vp-hide' : '') . '">';
 			if ($g === end($group['groups']))
 			{
@@ -585,7 +585,7 @@ class VP_Metabox extends WPAlchemy_MetaBox
 		}
 
 		$html .= '<div class="vp-wpa-group-add">';
-		$html .= '<a href="#" class="button button-large docopy-' . $name . '">'. __('Add More', ATBDP_TEXTDOMAIN) . ' ' . $group['title'] . '</a>';
+		$html .= '<a href="#" class="button button-large docopy-' . $name . '">'. __('Add More', 'directorist') . ' ' . $group['title'] . '</a>';
 		$html .= '</div>';
 
 		$html .= '</div>';

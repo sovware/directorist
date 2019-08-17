@@ -99,8 +99,8 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                         ATBDP_Permalink::atbdp_get_category_page($tag)
                         ,
                         /* translators: %s: taxonomy term name */
-                        esc_attr(sprintf(__('View &#8220;%s&#8221; archive', ATBDP_TEXTDOMAIN), $tag->name)),
-                        __('View', ATBDP_TEXTDOMAIN)
+                        esc_attr(sprintf(__('View &#8220;%s&#8221; archive', 'directorist'), $tag->name)),
+                        __('View', 'directorist')
                     );
                 }
             } elseif (ATBDP_LOCATION == $tag->taxonomy) {
@@ -110,8 +110,8 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                         ATBDP_Permalink::atbdp_get_location_page($tag)
                         ,
                         /* translators: %s: taxonomy term name */
-                        esc_attr(sprintf(__('View &#8220;%s&#8221; archive', ATBDP_TEXTDOMAIN), $tag->name)),
-                        __('View', ATBDP_TEXTDOMAIN)
+                        esc_attr(sprintf(__('View &#8220;%s&#8221; archive', 'directorist'), $tag->name)),
+                        __('View', 'directorist')
                     );
                 }
             }
@@ -121,7 +121,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
         public function add_category_icon_column_sortable($sortable)
         {
-            $sortable['ID'] = __('ID', ATBDP_TEXTDOMAIN);
+            $sortable['ID'] = __('ID', 'directorist');
             $sortable['atbdp_category_icon'] = 'atbdp_category_icon';
             $sortable['atbdp_category_icon_name'] = 'atbdp_category_icon_name';
             return $sortable;
@@ -173,7 +173,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             $fa_icons = get_fa_icons(); // returns the array of FA icon names
             ?>
             <tr class="form-field term-group-wrap">
-            <th scope="row"><label for="category_icon"><?php _e('Category Icon', ATBDP_TEXTDOMAIN); ?></label></th>
+            <th scope="row"><label for="category_icon"><?php _e('Category Icon', 'directorist'); ?></label></th>
             <td><select class="postform" id="category_icon" name="category_icon">
                     <?php foreach ($fa_icons as $_fa_name ) : ?>
                         <option value="<?php echo $_fa_name; ?>" <?php selected($_fa_name, $icon_name, true); ?>>
@@ -188,7 +188,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             ?>
             <tr class="form-field term-group-wrap">
                 <th scope="row">
-                    <label for="atbdp-categories-image-id"><?php _e('Image', ATBDP_TEXTDOMAIN); ?></label>
+                    <label for="atbdp-categories-image-id"><?php _e('Image', 'directorist'); ?></label>
                 </th>
                 <td>
                     <input type="hidden" id="atbdp-categories-image-id" name="image" value="<?php echo $image_id; ?>"/>
@@ -201,7 +201,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                     </div>
                     <p>
                         <input type="button" class="button button-secondary" id="atbdp-categories-upload-image"
-                               value="<?php _e('Add Image', ATBDP_TEXTDOMAIN); ?>"/>
+                               value="<?php _e('Add Image', 'directorist'); ?>"/>
                     </p>
                 </td>
             </tr>
@@ -216,7 +216,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             ?>
             <tr class="form-field term-group-wrap">
                 <th scope="row">
-                    <label for="atbdp-categories-image-id"><?php _e('Image', ATBDP_TEXTDOMAIN); ?></label>
+                    <label for="atbdp-categories-image-id"><?php _e('Image', 'directorist'); ?></label>
                 </th>
                 <td>
                     <input type="hidden" id="atbdp-categories-image-id" name="image" value="<?php echo $image_id; ?>"/>
@@ -228,7 +228,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                     </div>
                     <p>
                         <input type="button" class="button button-secondary" id="atbdp-categories-upload-image"
-                               value="<?php _e('Add Image', ATBDP_TEXTDOMAIN); ?>"/>
+                               value="<?php _e('Add Image', 'directorist'); ?>"/>
                     </p>
                 </td>
             </tr>
@@ -259,7 +259,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             $fa_icons = get_fa_icons(); // returns the array of FA icon names
             ?>
             <div class="form-field term-group">
-                <label for="category_icon"><?php _e('Category Icon', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="category_icon"><?php _e('Category Icon', 'directorist'); ?></label>
                 <select class="postform" id="category_icon" name="category_icon">
                     <?php foreach ($fa_icons as $_fa_name ) : ?>
                         <option value="<?php echo $_fa_name; ?>">
@@ -269,12 +269,12 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 </select>
             </div>
             <div class="form-field term-group">
-                <label for="atbdp-categories-image-id"><?php _e('Image', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="atbdp-categories-image-id"><?php _e('Image', 'directorist'); ?></label>
                 <input type="hidden" id="atbdp-categories-image-id" name="image"/>
                 <div id="atbdp-categories-image-wrapper"></div>
                 <p>
                     <input type="button" class="button button-secondary" id="atbdp-categories-upload-image"
-                           value="<?php _e('Add Image', ATBDP_TEXTDOMAIN); ?>"/>
+                           value="<?php _e('Add Image', 'directorist'); ?>"/>
                 </p>
             </div>
             <?php
@@ -284,12 +284,12 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
         {
             ?>
             <div class="form-field term-group">
-                <label for="atbdp-categories-image-id"><?php _e('Image', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="atbdp-categories-image-id"><?php _e('Image', 'directorist'); ?></label>
                 <input type="hidden" id="atbdp-categories-image-id" name="image"/>
                 <div id="atbdp-categories-image-wrapper"></div>
                 <p>
                     <input type="button" class="button button-secondary" id="atbdp-categories-upload-image"
-                           value="<?php _e('Add Image', ATBDP_TEXTDOMAIN); ?>"/>
+                           value="<?php _e('Add Image', 'directorist'); ?>"/>
                 </p>
             </div>
             <?php
@@ -300,17 +300,17 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
             /*LOCATION*/
             $labels = array(
-                'name' => _x('Directory Locations', 'Location general name', ATBDP_TEXTDOMAIN),
-                'singular_name' => _x('Directory Location', 'Location singular name', ATBDP_TEXTDOMAIN),
-                'search_items' => __('Search Location', ATBDP_TEXTDOMAIN),
-                'all_items' => __('All Locations', ATBDP_TEXTDOMAIN),
-                'parent_item' => __('Parent Location', ATBDP_TEXTDOMAIN),
-                'parent_item_colon' => __('Parent Location:', ATBDP_TEXTDOMAIN),
-                'edit_item' => __('Edit Location', ATBDP_TEXTDOMAIN),
-                'update_item' => __('Update Location', ATBDP_TEXTDOMAIN),
-                'add_new_item' => __('Add New Location', ATBDP_TEXTDOMAIN),
-                'new_item_name' => __('New Location Name', ATBDP_TEXTDOMAIN),
-                'menu_name' => __('Directory Locations', ATBDP_TEXTDOMAIN),
+                'name' => _x('Directory Locations', 'Location general name', 'directorist'),
+                'singular_name' => _x('Directory Location', 'Location singular name', 'directorist'),
+                'search_items' => __('Search Location', 'directorist'),
+                'all_items' => __('All Locations', 'directorist'),
+                'parent_item' => __('Parent Location', 'directorist'),
+                'parent_item_colon' => __('Parent Location:', 'directorist'),
+                'edit_item' => __('Edit Location', 'directorist'),
+                'update_item' => __('Update Location', 'directorist'),
+                'add_new_item' => __('Add New Location', 'directorist'),
+                'new_item_name' => __('New Location Name', 'directorist'),
+                'menu_name' => __('Directory Locations', 'directorist'),
             );
 
             $args = array(
@@ -336,17 +336,17 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             /*CATEGORY*/
 
             $labels2 = array(
-                'name' => _x('Directory categories', 'Category general name', ATBDP_TEXTDOMAIN),
-                'singular_name' => _x('Directory category', 'Category singular name', ATBDP_TEXTDOMAIN),
-                'search_items' => __('Search category', ATBDP_TEXTDOMAIN),
-                'all_items' => __('All categories', ATBDP_TEXTDOMAIN),
-                'parent_item' => __('Parent category', ATBDP_TEXTDOMAIN),
-                'parent_item_colon' => __('Parent category:', ATBDP_TEXTDOMAIN),
-                'edit_item' => __('Edit category', ATBDP_TEXTDOMAIN),
-                'update_item' => __('Update category', ATBDP_TEXTDOMAIN),
-                'add_new_item' => __('Add New category', ATBDP_TEXTDOMAIN),
-                'new_item_name' => __('New category Name', ATBDP_TEXTDOMAIN),
-                'menu_name' => __('Directory Categories', ATBDP_TEXTDOMAIN),
+                'name' => _x('Directory categories', 'Category general name', 'directorist'),
+                'singular_name' => _x('Directory category', 'Category singular name', 'directorist'),
+                'search_items' => __('Search category', 'directorist'),
+                'all_items' => __('All categories', 'directorist'),
+                'parent_item' => __('Parent category', 'directorist'),
+                'parent_item_colon' => __('Parent category:', 'directorist'),
+                'edit_item' => __('Edit category', 'directorist'),
+                'update_item' => __('Update category', 'directorist'),
+                'add_new_item' => __('Add New category', 'directorist'),
+                'new_item_name' => __('New category Name', 'directorist'),
+                'menu_name' => __('Directory Categories', 'directorist'),
             );
 
             $args2 = array(
@@ -370,17 +370,17 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
             /*TAGS*/
             $labels3 = array(
-                'name' => _x('Directory Tags', 'Tag general name', ATBDP_TEXTDOMAIN),
-                'singular_name' => _x('Directory Tag', 'Tag singular name', ATBDP_TEXTDOMAIN),
-                'search_items' => __('Search tag', ATBDP_TEXTDOMAIN),
-                'all_items' => __('All Tags', ATBDP_TEXTDOMAIN),
-                'parent_item' => __('Parent tag', ATBDP_TEXTDOMAIN),
-                'parent_item_colon' => __('Parent tag:', ATBDP_TEXTDOMAIN),
-                'edit_item' => __('Edit tag', ATBDP_TEXTDOMAIN),
-                'update_item' => __('Update tag', ATBDP_TEXTDOMAIN),
-                'add_new_item' => __('Add New tag', ATBDP_TEXTDOMAIN),
-                'new_item_name' => __('New tag Name', ATBDP_TEXTDOMAIN),
-                'menu_name' => __('Directory Tags', ATBDP_TEXTDOMAIN),
+                'name' => _x('Directory Tags', 'Tag general name', 'directorist'),
+                'singular_name' => _x('Directory Tag', 'Tag singular name', 'directorist'),
+                'search_items' => __('Search tag', 'directorist'),
+                'all_items' => __('All Tags', 'directorist'),
+                'parent_item' => __('Parent tag', 'directorist'),
+                'parent_item_colon' => __('Parent tag:', 'directorist'),
+                'edit_item' => __('Edit tag', 'directorist'),
+                'update_item' => __('Update tag', 'directorist'),
+                'add_new_item' => __('Add New tag', 'directorist'),
+                'new_item_name' => __('New tag Name', 'directorist'),
+                'menu_name' => __('Directory Tags', 'directorist'),
             );
 
             $capabilities = array(
@@ -419,11 +419,11 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             $new_columns = $original_columns;
             array_splice($new_columns, 1); // in this way we could place our columns on the first place after the first checkbox.
 
-            $new_columns['ID'] = __('ID', ATBDP_TEXTDOMAIN);
+            $new_columns['ID'] = __('ID', 'directorist');
 
-            $new_columns['atbdp_category_icon'] = __('Icon', ATBDP_TEXTDOMAIN);
+            $new_columns['atbdp_category_icon'] = __('Icon', 'directorist');
 
-            $new_columns['atbdp_category_icon_name'] = __('Icon Name', ATBDP_TEXTDOMAIN);
+            $new_columns['atbdp_category_icon_name'] = __('Icon Name', 'directorist');
 
 
             return array_merge($new_columns, $original_columns);
@@ -480,7 +480,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 echo join(', ', $out);
             } /* If no terms were found, output a default message. */
             else {
-                _e('No Category', ATBDP_TEXTDOMAIN);
+                _e('No Category', 'directorist');
             }
         }
 

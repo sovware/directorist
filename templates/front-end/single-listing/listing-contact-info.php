@@ -25,21 +25,21 @@ foreach ($listing_imgs as $id) {
     $image_links_thumbnails[$id] = wp_get_attachment_image_src($id, 'thumbnail')[0]; // store the attachment id and url
 }
 /*END INFO WINDOW CONTENT*/
-$contact_info_text = get_directorist_option('contact_info_text', __('Contact Information', ATBDP_TEXTDOMAIN));
+$contact_info_text = get_directorist_option('contact_info_text', __('Contact Information', 'directorist'));
 $display_address_field = get_directorist_option('display_address_field', 1);
-$address_label = get_directorist_option('address_label', __('Address', ATBDP_TEXTDOMAIN));
+$address_label = get_directorist_option('address_label', __('Address', 'directorist'));
 $display_phone_field = get_directorist_option('display_phone_field', 1);
-$phone_label = get_directorist_option('phone_label', __('Phone', ATBDP_TEXTDOMAIN));
+$phone_label = get_directorist_option('phone_label', __('Phone', 'directorist'));
 $display_phone2_field = get_directorist_option('display_phone_field2', 1);
-$phone_label2 = get_directorist_option('phone_label2', __('Phone Number 2', ATBDP_TEXTDOMAIN));
+$phone_label2 = get_directorist_option('phone_label2', __('Phone Number 2', 'directorist'));
 $display_fax_field = get_directorist_option('display_fax', 1);
-$fax_label = get_directorist_option('fax_label', __('Fax', ATBDP_TEXTDOMAIN));
+$fax_label = get_directorist_option('fax_label', __('Fax', 'directorist'));
 $display_email_field = get_directorist_option('display_email_field', 1);
-$email_label = get_directorist_option('email_label', __('Email', ATBDP_TEXTDOMAIN));
+$email_label = get_directorist_option('email_label', __('Email', 'directorist'));
 $display_website_field = get_directorist_option('display_website_field', 1);
-$website_label = get_directorist_option('website_label', __('Website', ATBDP_TEXTDOMAIN));
+$website_label = get_directorist_option('website_label', __('Website', 'directorist'));
 $display_zip_field = get_directorist_option('display_zip_field', 1);
-$zip_label = get_directorist_option('zip_label', __('Zip/Post Code', ATBDP_TEXTDOMAIN));
+$zip_label = get_directorist_option('zip_label', __('Zip/Post Code', 'directorist'));
 $display_social_info_field = get_directorist_option('display_social_info_field', 1);
 $display_social_info_for = get_directorist_option('display_social_info_for', 'admin_users');
 $disable_contact_info = get_directorist_option('disable_contact_info', 0);
@@ -50,7 +50,7 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
         <div class="atbd_content_module__tittle_area">
             <div class="atbd_area_title">
                 <h4>
-                    <span class="<?php atbdp_icon_type(true);?>-envelope-o"></span><?php _e($contact_info_text, ATBDP_TEXTDOMAIN); ?>
+                    <span class="<?php atbdp_icon_type(true);?>-envelope-o"></span><?php _e($contact_info_text, 'directorist'); ?>
                 </h4>
             </div>
         </div>
@@ -60,7 +60,7 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                     <?php if (!empty($address) && !empty($display_address_field)) { ?>
                         <li>
                             <div class="atbd_info_title"><span
-                                        class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php _e($address_label, ATBDP_TEXTDOMAIN); ?>
+                                        class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php _e($address_label, 'directorist'); ?>
                             </div>
                             <div class="atbd_info"><?= esc_html($address); ?></div>
                         </li>
@@ -74,7 +74,7 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                         <!-- In Future, We will have to use a loop to print more than 1 number-->
                         <li>
                             <div class="atbd_info_title"><span
-                                        class="<?php atbdp_icon_type(true);?>-phone"></span><?php _e($phone_label, ATBDP_TEXTDOMAIN); ?>
+                                        class="<?php atbdp_icon_type(true);?>-phone"></span><?php _e($phone_label, 'directorist'); ?>
                             </div>
                             <div class="atbd_info"><?= esc_html($phone); ?></div>
                         </li>
@@ -109,7 +109,7 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                     if (!empty($email) && !empty($display_email_field) && $plan_email) { ?>
                         <li>
                             <div class="atbd_info_title"><span
-                                        class="<?php atbdp_icon_type(true);?>-envelope"></span><?php _e($email_label, ATBDP_TEXTDOMAIN); ?>
+                                        class="<?php atbdp_icon_type(true);?>-envelope"></span><?php _e($email_label, 'directorist'); ?>
                             </div>
                             <span class="atbd_info"><a target="_top"
                                                        href="mailto:<?= esc_html($email); ?>"><?= esc_html($email); ?></a></span>
@@ -123,7 +123,7 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                     if (!empty($website) && !empty($display_website_field) && $plan_webLink) { ?>
                         <li>
                             <div class="atbd_info_title"><span
-                                        class="<?php atbdp_icon_type(true);?>-globe"></span><?php _e($website_label, ATBDP_TEXTDOMAIN); ?>
+                                        class="<?php atbdp_icon_type(true);?>-globe"></span><?php _e($website_label, 'directorist'); ?>
                             </div>
                             <a target="_blank" href="<?= esc_url($website); ?>"
                                class="atbd_info" <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?= esc_html($website); ?></a>
@@ -134,7 +134,7 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                         <!-- In Future, We will have to use a loop to print more than 1 number-->
                         <li>
                             <div class="atbd_info_title"><span
-                                        class="<?php atbdp_icon_type(true);?>-at"></span><?php _e($zip_label, ATBDP_TEXTDOMAIN); ?>
+                                        class="<?php atbdp_icon_type(true);?>-at"></span><?php _e($zip_label, 'directorist'); ?>
                             </div>
                             <div class="atbd_info"><?= esc_html($zip); ?></div>
                         </li>

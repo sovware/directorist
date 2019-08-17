@@ -48,7 +48,7 @@ class ATBDP_Order
      */
     public static function get_order_details($order_id)
     {
-        if (empty($order_id)) return __('No Order ID Provided', ATBDP_TEXTDOMAIN);
+        if (empty($order_id)) return __('No Order ID Provided', 'directorist');
         $c_position = get_directorist_option('payment_currency_position');
         $currency = atbdp_get_payment_currency();
         $symbol = atbdp_currency_symbol($currency);
@@ -68,8 +68,8 @@ class ATBDP_Order
         ?>
         <table border="0" cellspacing="0" cellpadding="7" style="border:1px solid #CCC;">
             <tr style="background-color:#F0F0F0;">
-                <th style="border-right:1px solid #CCC; border-bottom:1px solid #CCC; text-align:left;"><?php _e('Item(s)', ATBDP_TEXTDOMAIN); ?></th>
-                <th style="border-bottom:1px solid #CCC;"><?php printf(__('Price [%s]', ATBDP_TEXTDOMAIN), $currency); ?></th>
+                <th style="border-right:1px solid #CCC; border-bottom:1px solid #CCC; text-align:left;"><?php _e('Item(s)', 'directorist'); ?></th>
+                <th style="border-bottom:1px solid #CCC;"><?php printf(__('Price [%s]', 'directorist'), $currency); ?></th>
             </tr>
             <?php if (!empty($order_items)) {
                 foreach ($order_items as $order) : ?>
@@ -86,7 +86,7 @@ class ATBDP_Order
             } ?>
             <tr>
                 <td style="border-right:1px solid #CCC; text-align:right; vertical-align:middle;">
-                    <?php printf(__('Total amount [%s]', ATBDP_TEXTDOMAIN), $currency); ?>
+                    <?php printf(__('Total amount [%s]', 'directorist'), $currency); ?>
                 </td>
                 <td>
                     <?php
@@ -111,25 +111,25 @@ class ATBDP_Order
 
         $mitization_active = get_directorist_option('enable_monetization');
         $labels = array(
-            'name' => _x('Order History', 'Post Type General Name', ATBDP_TEXTDOMAIN),
-            'singular_name' => _x('Order', 'Post Type Singular Name', ATBDP_TEXTDOMAIN),
-            'menu_name' => __('Order History', ATBDP_TEXTDOMAIN),
-            'name_admin_bar' => __('Order', ATBDP_TEXTDOMAIN),
-            'all_items' => __('Order History', ATBDP_TEXTDOMAIN),
-            'add_new_item' => __('Add New Order', ATBDP_TEXTDOMAIN),
-            'add_new' => __('Add New', ATBDP_TEXTDOMAIN),
-            'new_item' => __('New Order', ATBDP_TEXTDOMAIN),
-            'edit_item' => __('Edit Order', ATBDP_TEXTDOMAIN),
-            'update_item' => __('Update Order', ATBDP_TEXTDOMAIN),
-            'view_item' => __('View Order', ATBDP_TEXTDOMAIN),
-            'search_items' => __('Search Order', ATBDP_TEXTDOMAIN),
-            'not_found' => __('No orders found', ATBDP_TEXTDOMAIN),
-            'not_found_in_trash' => __('No orders found in Trash', ATBDP_TEXTDOMAIN),
+            'name' => _x('Order History', 'Post Type General Name', 'directorist'),
+            'singular_name' => _x('Order', 'Post Type Singular Name', 'directorist'),
+            'menu_name' => __('Order History', 'directorist'),
+            'name_admin_bar' => __('Order', 'directorist'),
+            'all_items' => __('Order History', 'directorist'),
+            'add_new_item' => __('Add New Order', 'directorist'),
+            'add_new' => __('Add New', 'directorist'),
+            'new_item' => __('New Order', 'directorist'),
+            'edit_item' => __('Edit Order', 'directorist'),
+            'update_item' => __('Update Order', 'directorist'),
+            'view_item' => __('View Order', 'directorist'),
+            'search_items' => __('Search Order', 'directorist'),
+            'not_found' => __('No orders found', 'directorist'),
+            'not_found_in_trash' => __('No orders found in Trash', 'directorist'),
         );
 
         $args = array(
             'labels' => $labels,
-            'description' => __('This order post type will keep track of user\'s order and payment status', ATBDP_TEXTDOMAIN),
+            'description' => __('This order post type will keep track of user\'s order and payment status', 'directorist'),
             'supports' => array('title', 'author',),
             'taxonomies' => array(''),
             'hierarchical' => false,
@@ -167,12 +167,12 @@ class ATBDP_Order
             <script type="text/javascript">
                 var atbdp_bulk_actions = <?php echo json_encode(atbdp_get_payment_bulk_actions()); ?>;
                 /*$actions = array(
-                 'set_to_created'   => __( "Set Status to Created", ATBDP_TEXTDOMAIN ),
-                 'set_to_pending'   => __( "Set Status to Pending", ATBDP_TEXTDOMAIN ),
-                 'set_to_completed' => __( "Set Status to Completed", ATBDP_TEXTDOMAIN ),
-                 'set_to_failed'    => __( "Set Status to Failed", ATBDP_TEXTDOMAIN ),
-                 'set_to_cancelled' => __( "Set Status to Cancelled", ATBDP_TEXTDOMAIN ),
-                 'set_to_refunded'  => __( "Set Status to Refunded", ATBDP_TEXTDOMAIN )
+                 'set_to_created'   => __( "Set Status to Created", 'directorist' ),
+                 'set_to_pending'   => __( "Set Status to Pending", 'directorist' ),
+                 'set_to_completed' => __( "Set Status to Completed", 'directorist' ),
+                 'set_to_failed'    => __( "Set Status to Failed", 'directorist' ),
+                 'set_to_cancelled' => __( "Set Status to Cancelled", 'directorist' ),
+                 'set_to_refunded'  => __( "Set Status to Refunded", 'directorist' )
                  );*/
                 jQuery(document).ready(function () {
                     for (var key in atbdp_bulk_actions) {
@@ -209,18 +209,18 @@ class ATBDP_Order
             /*
              * @todo; remove all helper comments once work is done..
              * $statuses = array(
-                    'created'   => __( "Created", ATBDP_TEXTDOMAIN ),
-                    'pending'   => __( "Pending", ATBDP_TEXTDOMAIN ),
-                    'completed' => __( "Completed", ATBDP_TEXTDOMAIN ),
-                    'failed'    => __( "Failed", ATBDP_TEXTDOMAIN ),
-                    'cancelled' => __( "Cancelled", ATBDP_TEXTDOMAIN ),
-                    'refunded'  => __( "Refunded", ATBDP_TEXTDOMAIN )
+                    'created'   => __( "Created", 'directorist' ),
+                    'pending'   => __( "Pending", 'directorist' ),
+                    'completed' => __( "Completed", 'directorist' ),
+                    'failed'    => __( "Failed", 'directorist' ),
+                    'cancelled' => __( "Cancelled", 'directorist' ),
+                    'refunded'  => __( "Refunded", 'directorist' )
                 );
             */
             $current_status = isset($_GET['payment_status']) ? $_GET['payment_status'] : '';
 
             echo '<select name="payment_status">';
-            echo '<option value="all">' . __("All orders", ATBDP_TEXTDOMAIN) . '</option>';
+            echo '<option value="all">' . __("All orders", 'directorist') . '</option>';
             foreach ($statuses as $value => $title) {
                 printf('<option value="%s" %s>%s</option>', $value, selected($value, $current_status), $title);
             }
@@ -270,14 +270,14 @@ class ATBDP_Order
 
         $columns = array(
             'cb' => '<input type="checkbox" />', // Render a checkbox instead of text
-            'ID' => __('Order ID', ATBDP_TEXTDOMAIN),
-            'details' => __('Details', ATBDP_TEXTDOMAIN),
-            'amount' => __('Amount', ATBDP_TEXTDOMAIN),
-            'type' => __('Payment Type', ATBDP_TEXTDOMAIN),
-            'transaction_id' => __('Transaction ID', ATBDP_TEXTDOMAIN),
-            'customer' => __('Customer', ATBDP_TEXTDOMAIN),
-            'date' => __('Date', ATBDP_TEXTDOMAIN),
-            'status' => __('Order Status', ATBDP_TEXTDOMAIN),
+            'ID' => __('Order ID', 'directorist'),
+            'details' => __('Details', 'directorist'),
+            'amount' => __('Amount', 'directorist'),
+            'type' => __('Payment Type', 'directorist'),
+            'transaction_id' => __('Transaction ID', 'directorist'),
+            'customer' => __('Customer', 'directorist'),
+            'date' => __('Date', 'directorist'),
+            'status' => __('Order Status', 'directorist'),
         );
 
         return $columns = apply_filters('atbdp_add_new_order_column', $columns);
@@ -328,7 +328,7 @@ class ATBDP_Order
             case 'type' :
                 $gateway = get_post_meta($post_id, '_payment_gateway', true);
                 if ('free' == $gateway) {
-                    _e('Free Submission', ATBDP_TEXTDOMAIN);
+                    _e('Free Submission', 'directorist');
                 } else {
                     $label = apply_filters('atbdp_' . $gateway . 'gateway_label', '');
                     echo !empty($label) ? $label : $gateway;
@@ -426,7 +426,7 @@ class ATBDP_Order
 
             $modified = 0;
             foreach ($post_ids as $post_id) {
-                if (!$this->update_payment_status($action, $post_id)) wp_die(__('Error updating post.', ATBDP_TEXTDOMAIN));
+                if (!$this->update_payment_status($action, $post_id)) wp_die(__('Error updating post.', 'directorist'));
                 $modified++;
             }
 
@@ -516,7 +516,7 @@ class ATBDP_Order
             foreach ($allowed_actions as $action) {
                 $_action = str_replace('set_to_', '', $action);
                 if (isset($_REQUEST[$action]) && (int)$_REQUEST[$action]) {
-                    $message = sprintf(_n("Order set to $_action.", "%s orders set to $_action.", $_REQUEST[$action], ATBDP_TEXTDOMAIN), number_format_i18n($_REQUEST[$action]));
+                    $message = sprintf(_n("Order set to $_action.", "%s orders set to $_action.", $_REQUEST[$action], 'directorist'), number_format_i18n($_REQUEST[$action]));
                     break;
                 }
             }
@@ -565,7 +565,7 @@ class ATBDP_Order
     public function set_payment_receipt_link($actions, WP_Post $post)
     {
         if ($post->post_type != 'atbdp_orders') return $actions;
-        $actions['view'] = sprintf("<a href='%s'>%s</a>", ATBDP_Permalink::get_payment_receipt_page_link($post->ID), __('View', ATBDP_TEXTDOMAIN));
+        $actions['view'] = sprintf("<a href='%s'>%s</a>", ATBDP_Permalink::get_payment_receipt_page_link($post->ID), __('View', 'directorist'));
         unset($actions['edit']);
         unset($actions['inline hide-if-no-js']);
         return $actions;

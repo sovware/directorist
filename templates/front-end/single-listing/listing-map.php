@@ -12,10 +12,10 @@ $display_map_field = get_directorist_option('display_map_field', 1);
 extract($listing_info);
 /*INFO WINDOW CONTENT*/
 $t = get_the_title();
-$t = !empty($t) ? $t : __('No Title', ATBDP_TEXTDOMAIN);
+$t = !empty($t) ? $t : __('No Title', 'directorist');
 $average = ATBDP()->review->get_average($listing_id);
 $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
-$reviews = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', ATBDP_TEXTDOMAIN) : __(' Review', ATBDP_TEXTDOMAIN);
+$reviews = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', 'directorist') : __(' Review', 'directorist');
 $review_info = '';
 $review_info = '';
 if (!empty($enable_review)) {
@@ -33,18 +33,18 @@ $image = "<img src=". $img_url.">";
 $info_content = "<div class='map_info_window'>$image <div class='miw-contents'><h3>{$t}</h3>";
 $info_content .= "<address>{$ad}</address>";
 $info_content .= "<div class='miw-contents-footer'>{$review_info}";
-$info_content .= "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', ATBDP_TEXTDOMAIN) . "</a></div></div></div>";
+$info_content .= "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div></div></div>";
 /*END INFO WINDOW CONTENT*/
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map', 0);
-$listing_location_text = get_directorist_option('listing_location_text', __('Location', ATBDP_TEXTDOMAIN));
+$listing_location_text = get_directorist_option('listing_location_text', __('Location', 'directorist'));
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) && !empty($display_map_field)) { ?>
                 <div class="atbd_content_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="<?php atbdp_icon_type(true);?>-map atbd_area_icon"></span><?php _e($listing_location_text, ATBDP_TEXTDOMAIN); ?>
+                                <span class="<?php atbdp_icon_type(true);?>-map atbd_area_icon"></span><?php _e($listing_location_text, 'directorist'); ?>
                             </h4>
                         </div>
                     </div>

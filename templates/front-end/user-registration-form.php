@@ -19,9 +19,9 @@ $bio                         = get_directorist_option('reg_bio','About/bio');
 $require_bio                 = get_directorist_option('require_bio_reg',0);
 $reg_signup                  = get_directorist_option('reg_signup','Sign Up');
 $display_login               = get_directorist_option('display_login',1);
-$login_text                  = get_directorist_option('login_text',__('Already have an account? Please login', ATBDP_TEXTDOMAIN));
+$login_text                  = get_directorist_option('login_text',__('Already have an account? Please login', 'directorist'));
 $login_url                   = get_directorist_option('login_url',ATBDP_Permalink::get_login_page_link());
-$log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here', ATBDP_TEXTDOMAIN));
+$log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here', 'directorist'));
 ?>
 <div id="directorist" class="atbd_wrapper directorist">
     <div class="<?php echo apply_filters('atbdp_registration_container_fluid',$container_fluid) ?>">
@@ -29,15 +29,15 @@ $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here'
             <div class="col-md-8 offset-md-2">
                 <div class="add_listing_title atbd_success_mesage">
 
-                    <h2><?php _e('Register', ATBDP_TEXTDOMAIN); ?></h2>
+                    <h2><?php _e('Register', 'directorist'); ?></h2>
                     <?php
                     $display_password = get_directorist_option('display_password_reg', 0);
                     if(!empty($_GET['registration_status']) && true == $_GET['registration_status']){
                         if (empty($display_password)){
                             ?>
-                            <p style="padding: 20px" class="alert-success"><span class="fa fa-check"></span><?php _e(' Go to your inbox or spam/junk and get your password.', ATBDP_TEXTDOMAIN); ?>
+                            <p style="padding: 20px" class="alert-success"><span class="fa fa-check"></span><?php _e(' Go to your inbox or spam/junk and get your password.', 'directorist'); ?>
                                 <?php
-                                printf(__(' Click %s to login.', ATBDP_TEXTDOMAIN), "<a href='" . ATBDP_Permalink::get_login_page_link() . "'><span style='color: red'> " . __('Here', ATBDP_TEXTDOMAIN) . "</span></a>");
+                                printf(__(' Click %s to login.', 'directorist'), "<a href='" . ATBDP_Permalink::get_login_page_link() . "'><span style='color: red'> " . __('Here', 'directorist') . "</span></a>");
                                 ?>
                             </p>
                             <?php
@@ -45,9 +45,9 @@ $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here'
                             ?>
                             <!--registration succeeded, so show notification -->
                             <p style="padding: 20px" class="alert-success"><span
-                                        class="fa fa-check"></span><?php _e(' Registration completed. Please check your email for confirmation.', ATBDP_TEXTDOMAIN); ?>
+                                        class="fa fa-check"></span><?php _e(' Registration completed. Please check your email for confirmation.', 'directorist'); ?>
                                 <?php
-                                printf(__(' Or click %s to login.', ATBDP_TEXTDOMAIN), "<a href='" . ATBDP_Permalink::get_login_page_link() . "'><span style='color: red'> " . __('Here', ATBDP_TEXTDOMAIN) . "</span></a>");
+                                printf(__(' Or click %s to login.', 'directorist'), "<a href='" . ATBDP_Permalink::get_login_page_link() . "'><span style='color: red'> " . __('Here', 'directorist') . "</span></a>");
                                 ?>
                             </p>
                             <?php
@@ -60,22 +60,22 @@ $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here'
                     $errors = !empty($_GET['errors']) ? $_GET['errors'] : '';
                     switch ($errors) {
                         case '1':
-                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation-triangle"></span> <?php _e('Registration failed. Please make sure you filed up all the necessary fields marked with <span style="color: red">*</span>', ATBDP_TEXTDOMAIN); ?></p><?php
+                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation-triangle"></span> <?php _e('Registration failed. Please make sure you filed up all the necessary fields marked with <span style="color: red">*</span>', 'directorist'); ?></p><?php
                            break;
                         case '2':
-                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation-triangle"></span> <?php _e('Sorry, that email already exists!', ATBDP_TEXTDOMAIN); ?></p><?php
+                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation-triangle"></span> <?php _e('Sorry, that email already exists!', 'directorist'); ?></p><?php
                             break;
                         case '3':
-                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation-triangle"></span> <?php _e('Username too short. At least 4 characters is required', ATBDP_TEXTDOMAIN); ?></p><?php
+                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation-triangle"></span> <?php _e('Username too short. At least 4 characters is required', 'directorist'); ?></p><?php
                             break;
                         case '4':
-                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation-triangle"></span> <?php _e('Sorry, that username already exists!', ATBDP_TEXTDOMAIN); ?></p><?php
+                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation-triangle"></span> <?php _e('Sorry, that username already exists!', 'directorist'); ?></p><?php
                             break;
                         case '5':
-                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation-triangle"></span> <?php _e('Password length must be greater than 5', ATBDP_TEXTDOMAIN); ?></p><?php
+                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation-triangle"></span> <?php _e('Password length must be greater than 5', 'directorist'); ?></p><?php
                             break;
                         case '6':
-                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation-triangle"></span> <?php _e('Email is not valid', ATBDP_TEXTDOMAIN); ?></p><?php
+                            ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation-triangle"></span> <?php _e('Email is not valid', 'directorist'); ?></p><?php
                             break;
 
                     }
@@ -86,46 +86,46 @@ $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here'
                         <div class="directory_register_form_wrap">
                             <form action="<?= esc_url(get_the_permalink()); ?>" method="post">
                                 <div class="form-group">
-                                    <label for="username"><?php printf(__('%s', ATBDP_TEXTDOMAIN),$username); ?> <strong>*</strong></label>
+                                    <label for="username"><?php printf(__('%s', 'directorist'),$username); ?> <strong>*</strong></label>
                                     <input id="username" class="form-control" type="text" name="username" value="<?= ( isset( $_POST['username'] ) ? esc_attr($_POST['username']) : null ); ?>">
                                 </div>
                                 <?php if(!empty($display_password_reg)) {?>
                                 <div class="form-group">
                                     <label for="password">
-                                        <?php printf(__('%s ', ATBDP_TEXTDOMAIN),'Password');
+                                        <?php printf(__('%s ', 'directorist'),'Password');
                                         echo !empty($require_password) ? '<strong>*</strong>': '';
                                     ?></label>
                                     <input id="password" class="form-control" type="password" name="password" value="<?= ( isset( $_POST['password'] ) ? esc_attr($_POST['password']) : null ); ?>">
                                 </div>
                                 <?php } ?>
                                 <div class="form-group">
-                                    <label for="email"><?php printf(__('%s', ATBDP_TEXTDOMAIN),$email); ?> <strong>*</strong></label>
+                                    <label for="email"><?php printf(__('%s', 'directorist'),$email); ?> <strong>*</strong></label>
                                     <input id="email" class="form-control" type="text" name="email" value="<?= ( isset( $_POST['email']) ? $_POST['email'] : null ); ?>">
                                 </div>
                                 <?php if(!empty($display_website)) { ?>
                                 <div class="form-group">
-                                    <label for="website"><?php printf(__('%s ', ATBDP_TEXTDOMAIN),$website);
+                                    <label for="website"><?php printf(__('%s ', 'directorist'),$website);
                                     echo !empty($require_website) ? '<strong>*</strong>': '';
                                     ?></label>
                                     <input id="website" class="form-control" type="text" name="website" value="<?= ( isset( $_POST['website']) ? esc_url($_POST['website']) : null ); ?>">
                                 </div>
                                 <?php } if(!empty($display_fname)) {?>
                                 <div class="form-group">
-                                    <label for="fname"><?php printf(__('%s ', ATBDP_TEXTDOMAIN),$first_name);
+                                    <label for="fname"><?php printf(__('%s ', 'directorist'),$first_name);
                                         echo !empty($require_fname) ? '<strong>*</strong>': '';
                                     ?></label>
                                     <input id="fname" class="form-control" type="text" name="fname" value="<?= ( isset( $_POST['fname']) ? esc_attr($_POST['fname']) : null ); ?>">
                                 </div>
                                 <?php } if(!empty($display_lname)) {?>
                                 <div class="form-group">
-                                    <label for="lname"><?php printf(__('%s ', ATBDP_TEXTDOMAIN),$last_name);
+                                    <label for="lname"><?php printf(__('%s ', 'directorist'),$last_name);
                                         echo !empty($require_lname) ? '<strong>*</strong>': '';
                                     ?></label>
                                     <input class="form-control" id="lname" type="text" name="lname" value="<?= ( isset( $_POST['lname']) ? esc_attr($_POST['lname']) : null ); ?>">
                                 </div>
                                 <?php } if(!empty($display_bio)) { ?>
                                 <div class="form-group">
-                                    <label for="bio"><?php printf(__('%s ', ATBDP_TEXTDOMAIN),$bio);
+                                    <label for="bio"><?php printf(__('%s ', 'directorist'),$bio);
                                         echo !empty($require_bio) ? '<strong>*</strong>': '';
                                     ?></label>
                                     <textarea id="bio" class="form-control" name="bio" rows="10"><?= ( isset( $_POST['bio']) ? esc_textarea($_POST['bio']) : null ); ?></textarea>
@@ -139,11 +139,11 @@ $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here'
                                 ?>
                                 <?php if(!$display_password_reg) {?>
                                 <div class="directory_regi_btn">
-                                    <p><?php _e('Password will be e-mailed to you.',ATBDP_TEXTDOMAIN);?></p>
+                                    <p><?php _e('Password will be e-mailed to you.','directorist');?></p>
                                 </div>
                                 <?php } ?>
                                 <div class="directory_regi_btn">
-                                    <button type="submit" class="btn btn-primary btn-lg" name="atbdp_user_submit"><?php printf(__('%s ', ATBDP_TEXTDOMAIN),$reg_signup); ?></button>
+                                    <button type="submit" class="btn btn-primary btn-lg" name="atbdp_user_submit"><?php printf(__('%s ', 'directorist'),$reg_signup); ?></button>
                                 </div>
                                 <?php if(!empty($display_login)) { ?>
                                 <div class="directory_regi_btn">

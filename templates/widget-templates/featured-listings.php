@@ -1,5 +1,5 @@
 <?php
-$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Featured Listings', ATBDP_TEXTDOMAIN);
+$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Featured Listings', 'directorist');
 $f_listing_num = !empty($instance['f_listing_num']) ? $instance['f_listing_num'] : 5;
 echo $args['before_widget'];
 echo '<div class="atbd_widget_title">';

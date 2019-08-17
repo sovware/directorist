@@ -32,8 +32,8 @@ if (!class_exists('ATBDP_Extensions')) {
         public function admin_menu()
         {
             add_submenu_page('edit.php?post_type=at_biz_dir',
-                __('Get Extensions', ATBDP_TEXTDOMAIN),
-                __('<span>Extensions</span>', ATBDP_TEXTDOMAIN),
+                __('Get Extensions', 'directorist'),
+                __('<span>Extensions</span>', 'directorist'),
                 'manage_options',
                 'atbdp-extension',
                 array($this, 'show_extension_view')

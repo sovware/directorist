@@ -32,8 +32,8 @@ if (!class_exists('ATBDP_Themes')) {
         public function admin_menu()
         {
             add_submenu_page('edit.php?post_type=at_biz_dir',
-                __('Get Themes', ATBDP_TEXTDOMAIN),
-                __('<span>Directory Themes</span>', ATBDP_TEXTDOMAIN),
+                __('Get Themes', 'directorist'),
+                __('<span>Directory Themes</span>', 'directorist'),
                 'manage_options',
                 'atbdp-themes',
                 array($this, 'show_themes_view')

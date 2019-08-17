@@ -16,11 +16,11 @@ if (!class_exists('BD_Locations_Widget')) {
         {
             $widget_options = array(
                 'classname' => 'atbd_widget',
-                'description' => esc_html__('You can show Locations by this widget', ATBDP_TEXTDOMAIN),
+                'description' => esc_html__('You can show Locations by this widget', 'directorist'),
             );
             parent::__construct(
                 'bdlw_widget', // Base ID
-                esc_html__('Directorist - Locations', ATBDP_TEXTDOMAIN), // Name
+                esc_html__('Directorist - Locations', 'directorist'), // Name
                 $widget_options // Args
             );
         }
@@ -35,7 +35,7 @@ if (!class_exists('BD_Locations_Widget')) {
          */
         public function widget($args, $instance)
         {
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Directorist Locations', ATBDP_TEXTDOMAIN);
+            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Directorist Locations', 'directorist');
 
             $query_args = array(
                 'template'           => !empty( $instance['display_as'] ) ? sanitize_text_field( $instance['display_as'] ) : 'list',
@@ -72,7 +72,7 @@ if (!class_exists('BD_Locations_Widget')) {
         public function form($instance)
         {
             $values = array(
-                'title'              => __('Locations', ATBDP_TEXTDOMAIN),
+                'title'              => __('Locations', 'directorist'),
                 'display_as'         => 'list',
                 'hide_empty'         => 0,
                 'show_count'         => 0,
@@ -84,10 +84,10 @@ if (!class_exists('BD_Locations_Widget')) {
             );
 
             $instance = wp_parse_args((array)$instance,$values);
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Locations', ATBDP_TEXTDOMAIN);
+            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Locations', 'directorist');
             ?>
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', ATBDP_TEXTDOMAIN); ?></label>
+                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', 'directorist'); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
                        name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
                        value="<?php echo esc_attr($title); ?>">
@@ -96,18 +96,18 @@ if (!class_exists('BD_Locations_Widget')) {
 
 
             <p>
-                <label for="<?php echo $this->get_field_id( 'display_as' ); ?>"><?php _e( 'View as', ATBDP_TEXTDOMAIN ); ?></label>
+                <label for="<?php echo $this->get_field_id( 'display_as' ); ?>"><?php _e( 'View as', 'directorist' ); ?></label>
                 <select class="widefat" id="<?php echo $this->get_field_id( 'display_as' ); ?>" name="<?php echo $this->get_field_name( 'display_as' ); ?>">
-                    <option value="list" <?php selected( $instance['display_as'], 'list' ); ?>><?php _e( 'List', ATBDP_TEXTDOMAIN ); ?></option>
-                    <option value="dropdown" <?php selected( $instance['display_as'], 'dropdown' ); ?>><?php _e( 'Dropdown', ATBDP_TEXTDOMAIN ); ?></option>
+                    <option value="list" <?php selected( $instance['display_as'], 'list' ); ?>><?php _e( 'List', 'directorist' ); ?></option>
+                    <option value="dropdown" <?php selected( $instance['display_as'], 'dropdown' ); ?>><?php _e( 'Dropdown', 'directorist' ); ?></option>
                 </select>
             </p>
 
             <p>
-                <label for="<?php echo $this->get_field_id( 'parent' ); ?>"><?php _e( 'Select Parent', ATBDP_TEXTDOMAIN ); ?></label>
+                <label for="<?php echo $this->get_field_id( 'parent' ); ?>"><?php _e( 'Select Parent', 'directorist' ); ?></label>
                 <?php
                 wp_dropdown_categories( array(
-                    'show_option_none'  => '-- '.__( 'Select Parent', ATBDP_TEXTDOMAIN ).' --',
+                    'show_option_none'  => '-- '.__( 'Select Parent', 'directorist' ).' --',
                     'option_none_value' => 0,
                     'taxonomy'          => ATBDP_LOCATION,
                     'name' 			    => $this->get_field_name( 'parent' ),
@@ -123,41 +123,41 @@ if (!class_exists('BD_Locations_Widget')) {
             </p>
 
             <p>
-                <label for="<?php echo $this->get_field_id( 'order_by' ); ?>"><?php _e( 'Order By', ATBDP_TEXTDOMAIN ); ?></label>
+                <label for="<?php echo $this->get_field_id( 'order_by' ); ?>"><?php _e( 'Order By', 'directorist' ); ?></label>
                 <select class="widefat" id="<?php echo $this->get_field_id( 'order_by' ); ?>" name="<?php echo $this->get_field_name( 'order_by' ); ?>">
-                    <option value="id" <?php selected( $instance['order_by'], 'id' ); ?>><?php _e( 'Id', ATBDP_TEXTDOMAIN ); ?></option>
-                    <option value="count" <?php selected( $instance['order_by'], 'count' ); ?>><?php _e( 'Count', ATBDP_TEXTDOMAIN ); ?></option>
-                    <option value="name" <?php selected( $instance['order_by'], 'name' ); ?>><?php _e( 'Name', ATBDP_TEXTDOMAIN ); ?></option>
-                    <option value="slug" <?php selected( $instance['order_by'], 'slug' ); ?>><?php _e( 'Slug', ATBDP_TEXTDOMAIN ); ?></option>
+                    <option value="id" <?php selected( $instance['order_by'], 'id' ); ?>><?php _e( 'Id', 'directorist' ); ?></option>
+                    <option value="count" <?php selected( $instance['order_by'], 'count' ); ?>><?php _e( 'Count', 'directorist' ); ?></option>
+                    <option value="name" <?php selected( $instance['order_by'], 'name' ); ?>><?php _e( 'Name', 'directorist' ); ?></option>
+                    <option value="slug" <?php selected( $instance['order_by'], 'slug' ); ?>><?php _e( 'Slug', 'directorist' ); ?></option>
                 </select>
             </p>
 
             <p>
-                <label for="<?php echo $this->get_field_id( 'order' ); ?>"><?php _e( 'Sord By', ATBDP_TEXTDOMAIN ); ?></label>
+                <label for="<?php echo $this->get_field_id( 'order' ); ?>"><?php _e( 'Sord By', 'directorist' ); ?></label>
                 <select class="widefat" id="<?php echo $this->get_field_id( 'order' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>">
-                    <option value="asc" <?php selected( $instance['order'], 'asc' ); ?>><?php _e( 'Ascending', ATBDP_TEXTDOMAIN ); ?></option>
-                    <option value="desc" <?php selected( $instance['order'], 'desc' ); ?>><?php _e( 'Descending', ATBDP_TEXTDOMAIN ); ?></option>
+                    <option value="asc" <?php selected( $instance['order'], 'asc' ); ?>><?php _e( 'Ascending', 'directorist' ); ?></option>
+                    <option value="desc" <?php selected( $instance['order'], 'desc' ); ?>><?php _e( 'Descending', 'directorist' ); ?></option>
                 </select>
             </p>
 
             <p>
                 <input <?php checked( $instance['immediate_category'],1 ); ?> id="<?php echo $this->get_field_id( 'immediate_category' ); ?>" name="<?php echo $this->get_field_name( 'immediate_category' ); ?>" value="1" type="checkbox" />
-                <label for="<?php echo $this->get_field_id( 'immediate_category' ); ?>"><?php _e( 'Show all the top level categories only', ATBDP_TEXTDOMAIN ); ?></label>
+                <label for="<?php echo $this->get_field_id( 'immediate_category' ); ?>"><?php _e( 'Show all the top level categories only', 'directorist' ); ?></label>
             </p>
 
             <p>
                 <input <?php checked( $instance['hide_empty'],1 ); ?> id="<?php echo $this->get_field_id( 'hide_empty' ); ?>" name="<?php echo $this->get_field_name( 'hide_empty' ); ?>" value="1" type="checkbox" />
-                <label for="<?php echo $this->get_field_id( 'hide_empty' ); ?>"><?php _e( 'Hide empty locations', ATBDP_TEXTDOMAIN ); ?></label>
+                <label for="<?php echo $this->get_field_id( 'hide_empty' ); ?>"><?php _e( 'Hide empty locations', 'directorist' ); ?></label>
             </p>
 
             <p>
                 <input <?php checked( $instance['show_count'],1 ); ?> id="<?php echo $this->get_field_id( 'show_count' ); ?>" name="<?php echo $this->get_field_name( 'show_count' ); ?>" value="1" type="checkbox" />
-                <label for="<?php echo $this->get_field_id( 'show_count' ); ?>"><?php _e( 'Display listing counts', ATBDP_TEXTDOMAIN ); ?></label>
+                <label for="<?php echo $this->get_field_id( 'show_count' ); ?>"><?php _e( 'Display listing counts', 'directorist' ); ?></label>
             </p>
 
             <p>
                 <input <?php checked( $instance['single_only'],1 ); ?> id="<?php echo $this->get_field_id( 'single_only' ); ?>" name="<?php echo $this->get_field_name( 'single_only' ); ?>" value="1" type="checkbox" />
-                <label for="<?php echo $this->get_field_id( 'single_only' ); ?>"><?php _e( 'Display only on single listing', ATBDP_TEXTDOMAIN ); ?></label>
+                <label for="<?php echo $this->get_field_id( 'single_only' ); ?>"><?php _e( 'Display only on single listing', 'directorist' ); ?></label>
             </p>
             <?php
         }

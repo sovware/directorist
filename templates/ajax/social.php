@@ -15,11 +15,11 @@ $id = (array_key_exists('id', $args)) ? $args['id'] : 0;
     </div>
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
-            <input type="url" name="social[<?= $id; ?>][url]" class="form-control directory_field atbdp_social_input" value="" placeholder="<?php esc_attr_e('eg. http://example.com', ATBDP_TEXTDOMAIN); ?>" required>
+            <input type="url" name="social[<?= $id; ?>][url]" class="form-control directory_field atbdp_social_input" value="" placeholder="<?php esc_attr_e('eg. http://example.com', 'directorist'); ?>" required>
         </div>
     </div>
     <div class="col-md-2 col-sm-12">
-        <span data-id="<?= $id; ?>" class="removeSocialField dashicons dashicons-trash" title="<?php _e('Remove this item', ATBDP_TEXTDOMAIN); ?>"></span>
+        <span data-id="<?= $id; ?>" class="removeSocialField dashicons dashicons-trash" title="<?php _e('Remove this item', 'directorist'); ?>"></span>
         <span class="adl-move-icon dashicons dashicons-move"></span>
     </div>
 </div>

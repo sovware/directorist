@@ -26,7 +26,7 @@ class ATBDP_Upgrade{
             //update notice for single category and location page.
             if ( true != get_user_meta( $user_id, '_atbdp_location_category_page',true )){
                 echo '<div id="message" class="notice notice-info" style="display: flex; background: #f7bdc7;  justify-content: space-between;"><p>';
-                printf(__('Directorist plugin requires two new pages with the [directorist_category] and [directorist_location] shortcodes to function single category and location pages properly. You can create these pages yourself or let the plugin do this for you.<br> %s', ATBDP_TEXTDOMAIN), $link_regen);
+                printf(__('Directorist plugin requires two new pages with the [directorist_category] and [directorist_location] shortcodes to function single category and location pages properly. You can create these pages yourself or let the plugin do this for you.<br> %s', 'directorist'), $link_regen);
                 echo '</p><p><a href="?location-category-page">Hide</a></p></div>';
             }
         }
@@ -35,17 +35,17 @@ class ATBDP_Upgrade{
             $businessH_version = BDBH_VERSION;
             if (empty(get_user_meta($user_id, '_atbdp_bh_notice', true)) && ($businessH_version<'2.0.1')){
                 $BHlink = 'https://aazztech.com/product/directorist-business-hours/';
-                $BHextension = sprintf('<a target="_blank" href="%s">%s</a>', $BHlink, __('Business Hours', ATBDP_TEXTDOMAIN));
+                $BHextension = sprintf('<a target="_blank" href="%s">%s</a>', $BHlink, __('Business Hours', 'directorist'));
                 echo '<div id="message" class="notice notice-info" style="display: flex; background: #ffc733;  justify-content: space-between;"><p>';
-                printf(__('Please update %s extension as we have made a major update (otherwise it may create some issues).', ATBDP_TEXTDOMAIN), $BHextension);
+                printf(__('Please update %s extension as we have made a major update (otherwise it may create some issues).', 'directorist'), $BHextension);
                 echo '</p><p><a href="?bh-update-notice">Hide</a></p></div>';
             }
         }
         $link = '<a href="'.$update_link.'">please replace</a>';
         $is_generated_pages = get_user_meta( $user_id, '_atbdp_shortcode_regenerate_notice',true );
-        if (empty($is_generated_pages) && (!function_exists('direo_setup') || !function_exists('dlist_setup') || !function_exists('dservice_setup') || !function_exists('drestaurant_setup'))){
+        if (empty($is_generated_pages) && (!function_exists('direo_setup') && !function_exists('dlist_setup') && !function_exists('dservice_setup') && !function_exists('drestaurant_setup'))){
             echo '<div id="message" class="notice notice-info" style="display: flex; background: #ffc733;  justify-content: space-between;"><p>';
-            printf(__('If you are an old user of the %s plugin, %s your shortcodes as we have restructured our shortcodes.', ATBDP_TEXTDOMAIN), ATBDP_NAME, $link);
+            printf(__('If you are an old user of the %s plugin, %s your shortcodes as we have restructured our shortcodes.', 'directorist'), ATBDP_NAME, $link);
             echo '</p><p><a href="?my-plugin-dismissed">Hide</a></p></div>';
         }
     }
@@ -71,9 +71,9 @@ class ATBDP_Upgrade{
      */
     public function upgrade_old_pages()
     {
-        //if (!valid_js_nonce()) wp_send_json_error(__('Nonce is invalid', ATBDP_TEXTDOMAIN));
+        //if (!valid_js_nonce()) wp_send_json_error(__('Nonce is invalid', 'directorist'));
 
         update_option('atbdp_pages_version', 0);
-        wp_send_json_success(__('Congratulations! All old pages have been updated successfully', ATBDP_TEXTDOMAIN));
+        wp_send_json_success(__('Congratulations! All old pages have been updated successfully', 'directorist'));
     }
 }

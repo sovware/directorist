@@ -3,7 +3,7 @@ global $post;
 $listing_id = $post->ID;
 $fm_plan = get_post_meta($listing_id, '_fm_plans', true);
 $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
-$custom_section_lable = get_directorist_option('custom_section_lable', __('Details', ATBDP_TEXTDOMAIN));
+$custom_section_lable = get_directorist_option('custom_section_lable', __('Details', 'directorist'));
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 $category_ids = array();
@@ -57,7 +57,7 @@ if (!empty($has_field) && $plan_custom_field) {
         <div class="atbd_content_module__tittle_area">
             <div class="atbd_area_title">
                 <h4>
-                    <span class="<?php atbdp_icon_type(true); ?>-bars atbd_area_icon"></span><?php _e($custom_section_lable, ATBDP_TEXTDOMAIN) ?>
+                    <span class="<?php atbdp_icon_type(true); ?>-bars atbd_area_icon"></span><?php _e($custom_section_lable, 'directorist') ?>
                 </h4>
             </div>
         </div>

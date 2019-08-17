@@ -44,12 +44,12 @@ function atbdp_purchase_form_required_fields(){
 function atbdp_get_payment_statuses() {
 
     $statuses = array(
-        'created'   => __( "Created", ATBDP_TEXTDOMAIN ),
-        'pending'   => __( "Pending", ATBDP_TEXTDOMAIN ),
-        'completed' => __( "Completed", ATBDP_TEXTDOMAIN ),
-        'failed'    => __( "Failed", ATBDP_TEXTDOMAIN ),
-        'cancelled' => __( "Cancelled", ATBDP_TEXTDOMAIN ),
-        'refunded'  => __( "Refunded", ATBDP_TEXTDOMAIN ),
+        'created'   => __( "Created", 'directorist' ),
+        'pending'   => __( "Pending", 'directorist' ),
+        'completed' => __( "Completed", 'directorist' ),
+        'failed'    => __( "Failed", 'directorist' ),
+        'cancelled' => __( "Cancelled", 'directorist' ),
+        'refunded'  => __( "Refunded", 'directorist' ),
     );
 
     return apply_filters( 'atbdp_payment_statuses', $statuses );
@@ -66,12 +66,12 @@ function atbdp_get_payment_statuses() {
 function atbdp_get_payment_bulk_actions() {
 
     $actions = array(
-        'set_to_created'   => __( "Set Status to Created", ATBDP_TEXTDOMAIN ),
-        'set_to_pending'   => __( "Set Status to Pending", ATBDP_TEXTDOMAIN ),
-        'set_to_completed' => __( "Set Status to Completed", ATBDP_TEXTDOMAIN ),
-        'set_to_failed'    => __( "Set Status to Failed", ATBDP_TEXTDOMAIN ),
-        'set_to_cancelled' => __( "Set Status to Cancelled", ATBDP_TEXTDOMAIN ),
-        'set_to_refunded'  => __( "Set Status to Refunded", ATBDP_TEXTDOMAIN ),
+        'set_to_created'   => __( "Set Status to Created", 'directorist' ),
+        'set_to_pending'   => __( "Set Status to Pending", 'directorist' ),
+        'set_to_completed' => __( "Set Status to Completed", 'directorist' ),
+        'set_to_failed'    => __( "Set Status to Failed", 'directorist' ),
+        'set_to_cancelled' => __( "Set Status to Cancelled", 'directorist' ),
+        'set_to_refunded'  => __( "Set Status to Refunded", 'directorist' ),
     );
 
     return apply_filters( 'atbdp_order_bulk_actions', $actions );
@@ -362,7 +362,7 @@ function atbdp_currency_symbol( $currency = '' ) {
 function atbdp_get_payment_status_i18n( $status ) {
 
     $statuses = atbdp_get_payment_statuses();
-    return array_key_exists($status, $statuses ) ? $statuses[ $status ] : __('Invalid', ATBDP_TEXTDOMAIN);
+    return array_key_exists($status, $statuses ) ? $statuses[ $status ] : __('Invalid', 'directorist');
 
 }
 

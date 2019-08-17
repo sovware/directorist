@@ -42,7 +42,7 @@ class ATBDP_Checkout
 
         if (valid_js_nonce()){
             if( !empty( $_POST['amount'] ) ) {
-                echo atbdp_format_payment_amount( $_POST['amount'] );
+                echo $_POST['amount'];
             }
         }
         wp_die();

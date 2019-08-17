@@ -195,6 +195,14 @@ final class Directorist_Base
     public $ATBDP_Single_Templates;
 
     /**
+     * ATBDP_Review_Custom_Post Object.
+     *
+     * @var ATBDP_Review_Custom_Post
+     * @since 5.6.5
+     */
+    public $ATBDP_Review_Custom_Post;
+
+    /**
      * Main Directorist_Base Instance.
      *
      * Insures that only one instance of Directorist_Base exists in memory at any one
@@ -236,6 +244,7 @@ final class Directorist_Base
             self::$instance->seo = new ATBDP_SEO;
             self::$instance->validator = new ATBDP_Validator;
             self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
+            self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
 
 
             // new settings

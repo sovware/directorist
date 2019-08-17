@@ -37,7 +37,7 @@ gulp.task('rtl', function () {
         style = gulpfilter('**/style.css', {restore: true}),
         search_style = gulpfilter('**/search-style.css', {restore: true});
 
-    gulp.src(['public/assets/bootstrap/bootstrap.css', 'public/assets/css/style.css', 'public/assets/css/search-style.css'])
+    gulp.src(['public/assets/css/bootstrap.css', 'public/assets/css/style.css', 'public/assets/css/search-style.css'])
         .pipe(rtlcss({
             'stringMap': [
                 {

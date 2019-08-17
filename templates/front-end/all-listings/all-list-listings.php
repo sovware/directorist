@@ -6,7 +6,12 @@ $display_viewas_dropdown = get_directorist_option('display_view_as', 1);
 $display_image = !empty($display_image) ? $display_image : '';
 $show_pagination = !empty($show_pagination) ? $show_pagination : '';
 $paged = !empty($paged) ? $paged : '';
-wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
+if (is_rtl()){
+    wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
+
+}else{
+    wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
+}
 ?>
 <div id="directorist" class="atbd_wrapper">
     <?php include ATBDP_TEMPLATES_DIR . "front-end/all-listings/listings-header.php";

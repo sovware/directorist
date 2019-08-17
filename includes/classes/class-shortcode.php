@@ -1068,12 +1068,20 @@ if (!class_exists('ATBDP_Shortcode')):
                                 'type' => 'NUMERIC',
                                 'compare' => '>=',
                             );
+                            $args['orderby'] = array(
+                                '_featured' => 'DESC',
+                                'views' => 'DESC',
+                            );
                         } else {
                             $meta_queries['views'] = array(
                                 'key' => '_atbdp_post_views_count',
                                 'value' => $view_to_popular,
                                 'type' => 'NUMERIC',
                                 'compare' => '>=',
+                            );
+                            $args['orderby'] = array(
+                                '_featured' => 'DESC',
+                                'views' => 'DESC',
                             );
                             if ($listings->have_posts()) {
                                 while ($listings->have_posts()) {
@@ -1091,11 +1099,6 @@ if (!class_exists('ATBDP_Shortcode')):
                                 $args = array_merge($args, $rating_id);
                             }
                         }
-
-                        $args['orderby'] = array(
-                            '_featured' => 'DESC',
-                            '_atbdp_post_views_count' => 'DESC',
-                        );
                     } else {
                         if ('average_rating' === $listing_popular_by) {
                             if ($listings->have_posts()) {
@@ -1120,12 +1123,18 @@ if (!class_exists('ATBDP_Shortcode')):
                                 'type' => 'NUMERIC',
                                 'compare' => '>=',
                             );
+                            $args['orderby'] = array(
+                                'views' => 'DESC',
+                            );
                         } else {
                             $meta_queries['views'] = array(
                                 'key' => '_atbdp_post_views_count',
                                 'value' => (int)$view_to_popular,
                                 'type' => 'NUMERIC',
                                 'compare' => '>=',
+                            );
+                            $args['orderby'] = array(
+                                'views' => 'DESC',
                             );
                             if ($listings->have_posts()) {
                                 while ($listings->have_posts()) {
@@ -2075,12 +2084,20 @@ if (!class_exists('ATBDP_Shortcode')):
                                     'type' => 'NUMERIC',
                                     'compare' => '>=',
                                 );
+                                $args['orderby'] = array(
+                                    '_featured' => 'DESC',
+                                    'views' => 'DESC',
+                                );
                             } else {
                                 $meta_queries['views'] = array(
                                     'key' => '_atbdp_post_views_count',
                                     'value' => $view_to_popular,
                                     'type' => 'NUMERIC',
                                     'compare' => '>=',
+                                );
+                                $args['orderby'] = array(
+                                    '_featured' => 'DESC',
+                                    'views' => 'DESC',
                                 );
                                 if ($listings->have_posts()) {
                                     while ($listings->have_posts()) {
@@ -2099,10 +2116,6 @@ if (!class_exists('ATBDP_Shortcode')):
                                 }
                             }
 
-                            $args['orderby'] = array(
-                                '_featured' => 'DESC',
-                                '_atbdp_post_views_count' => 'DESC',
-                            );
                         } else {
                             if ('average_rating' === $listing_popular_by) {
                                 if ($listings->have_posts()) {
@@ -2127,12 +2140,18 @@ if (!class_exists('ATBDP_Shortcode')):
                                     'type' => 'NUMERIC',
                                     'compare' => '>=',
                                 );
+                                $args['orderby'] = array(
+                                    'views' => 'DESC',
+                                );
                             } else {
                                 $meta_queries['views'] = array(
                                     'key' => '_atbdp_post_views_count',
                                     'value' => (int)$view_to_popular,
                                     'type' => 'NUMERIC',
                                     'compare' => '>=',
+                                );
+                                $args['orderby'] = array(
+                                    'views' => 'DESC',
                                 );
                                 if ($listings->have_posts()) {
                                     while ($listings->have_posts()) {
@@ -2536,12 +2555,20 @@ if (!class_exists('ATBDP_Shortcode')):
                                     'type' => 'NUMERIC',
                                     'compare' => '>=',
                                 );
+                                $args['orderby'] = array(
+                                    '_featured' => 'DESC',
+                                    'views' => 'DESC',
+                                );
                             } else {
                                 $meta_queries['views'] = array(
                                     'key' => '_atbdp_post_views_count',
                                     'value' => $view_to_popular,
                                     'type' => 'NUMERIC',
                                     'compare' => '>=',
+                                );
+                                $args['orderby'] = array(
+                                    '_featured' => 'DESC',
+                                    'views' => 'DESC',
                                 );
                                 if ($listings->have_posts()) {
                                     while ($listings->have_posts()) {
@@ -2560,10 +2587,6 @@ if (!class_exists('ATBDP_Shortcode')):
                                 }
                             }
 
-                            $args['orderby'] = array(
-                                '_featured' => 'DESC',
-                                '_atbdp_post_views_count' => 'DESC',
-                            );
                         } else {
                             if ('average_rating' === $listing_popular_by) {
                                 if ($listings->have_posts()) {
@@ -2588,12 +2611,18 @@ if (!class_exists('ATBDP_Shortcode')):
                                     'type' => 'NUMERIC',
                                     'compare' => '>=',
                                 );
+                                $args['orderby'] = array(
+                                    'views' => 'DESC',
+                                );
                             } else {
                                 $meta_queries['views'] = array(
                                     'key' => '_atbdp_post_views_count',
                                     'value' => (int)$view_to_popular,
                                     'type' => 'NUMERIC',
                                     'compare' => '>=',
+                                );
+                                $args['orderby'] = array(
+                                    'views' => 'DESC',
                                 );
                                 if ($listings->have_posts()) {
                                     while ($listings->have_posts()) {
@@ -2918,12 +2947,20 @@ if (!class_exists('ATBDP_Shortcode')):
                                     'type' => 'NUMERIC',
                                     'compare' => '>=',
                                 );
+                                $args['orderby'] = array(
+                                    '_featured' => 'DESC',
+                                    'views' => 'DESC',
+                                );
                             } else {
                                 $meta_queries['views'] = array(
                                     'key' => '_atbdp_post_views_count',
                                     'value' => $view_to_popular,
                                     'type' => 'NUMERIC',
                                     'compare' => '>=',
+                                );
+                                $args['orderby'] = array(
+                                    '_featured' => 'DESC',
+                                    'views' => 'DESC',
                                 );
                                 if ($listings->have_posts()) {
                                     while ($listings->have_posts()) {
@@ -2940,10 +2977,7 @@ if (!class_exists('ATBDP_Shortcode')):
                                     $args = array_merge($args, $rating_id);
                                 }
                             }
-                            $args['orderby'] = array(
-                                '_featured' => 'DESC',
-                                '_atbdp_post_views_count' => 'DESC',
-                            );
+
                         } else {
                             if ('average_rating' === $listing_popular_by) {
                                 if ($listings->have_posts()) {
@@ -2968,12 +3002,18 @@ if (!class_exists('ATBDP_Shortcode')):
                                     'type' => 'NUMERIC',
                                     'compare' => '>=',
                                 );
+                                $args['orderby'] = array(
+                                    'views' => 'DESC',
+                                );
                             } else {
                                 $meta_queries['views'] = array(
                                     'key' => '_atbdp_post_views_count',
                                     'value' => (int)$view_to_popular,
                                     'type' => 'NUMERIC',
                                     'compare' => '>=',
+                                );
+                                $args['orderby'] = array(
+                                    'views' => 'DESC',
                                 );
                                 if ($listings->have_posts()) {
                                     while ($listings->have_posts()) {
@@ -3363,18 +3403,12 @@ if (!class_exists('ATBDP_Shortcode')):
 
                         // if  update user return true then lets send user an email containing the new password
                         if ($update_user) {
-                            $to = $email;
-                            $subject = 'Your new password';
-                            $sender = get_option('blogname');
+                            $subject = esc_html__('Your new password', 'directorist');
+                            $message = esc_html__('Your new password is: ', 'directorist') . $random_password;
 
-                            $message = 'Your new password is: ' . $random_password;
+                            $headers[] = 'Content-Type: text/html; charset=UTF-8';
 
-                            $headers[] = 'MIME-Version: 1.0' . "\r\n";
-                            $headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-                            $headers[] = "X-Mailer: PHP \r\n";
-                            $headers[] = 'From: ' . $sender . ' < ' . $email . '>' . "\r\n";
-
-                            $mail = wp_mail($to, $subject, $message, $headers);
+                            $mail = wp_mail($email, $subject, $message, $headers);
                             if ($mail) {
                                 $success = __('Please check your email for your new password.', 'directorist');
                             } else {

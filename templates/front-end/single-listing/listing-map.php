@@ -31,7 +31,7 @@ $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'small')[0];
 $img_url = !empty($listing_prv_imgurl)?$listing_prv_imgurl:$default_image;
 $image = "<img src=". $img_url.">";
 $info_content = "<div class='map_info_window'>$image <div class='miw-contents'><h3>{$t}</h3>";
-$info_content .= "<address>{$ad}</address>";
+$info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
 $info_content .= "<div class='miw-contents-footer'>{$review_info}";
 $info_content .= "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div></div></div>";
 /*END INFO WINDOW CONTENT*/

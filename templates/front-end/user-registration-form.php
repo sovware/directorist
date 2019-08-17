@@ -28,8 +28,6 @@ $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here'
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="add_listing_title atbd_success_mesage">
-
-                    <h2><?php _e('Register', 'directorist'); ?></h2>
                     <?php
                     $display_password = get_directorist_option('display_password_reg', 0);
                     if(!empty($_GET['registration_status']) && true == $_GET['registration_status']){

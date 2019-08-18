@@ -54,9 +54,9 @@ class ATBDP_Review_Custom_Post
             'taxonomies' => array(''),
             'hierarchical' => false,
             'public' => true,
-            'show_ui' => current_user_can('manage_atbdp_options') ? true : false, // show the menu only to the admin
+            'show_ui' => current_user_can('manage_atbdp_options') ? false : false, // show the menu only to the admin
             'show_in_menu' => current_user_can('manage_atbdp_options') ? 'edit.php?post_type=' . ATBDP_POST_TYPE : false,
-            'show_in_admin_bar' => true,
+            'show_in_admin_bar' => false,
             'show_in_nav_menus' => true,
             'can_export' => true,
             'has_archive' => true,

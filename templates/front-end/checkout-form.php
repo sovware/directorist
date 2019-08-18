@@ -21,55 +21,53 @@ $symbol = atbdp_currency_symbol($currency);
         </div>
         <table id="directorist-checkout-table" class="table table-bordered table-responsive-sm">
             <thead class="thead-light">
-                <tr>
-                    <th colspan="2">
-                        Details<?php //if( !empty( $op['title'] ) ) echo esc_html($op['title']);?>
-                    </th>
-                    <th><strong><?php printf(__('Price [%s]', 'directorist'), $currency); ?></strong></th>
-                </tr>
+            <tr>
+                <th colspan="2">
+                    Details<?php //if( !empty( $op['title'] ) ) echo esc_html($op['title']);?>
+                </th>
+                <th><strong><?php printf(__('Price [%s]', 'directorist'), $currency); ?></strong></th>
+            </tr>
             </thead>
 
             <tbody>
-                <?php
-                // $args is auto available available through the load_template().
-                foreach ($form_data as $op) {
-                    if ('header' == $op['type']) { ?>
+            <?php
+            // $args is auto available available through the load_template().
+            foreach ($form_data as $op) {
+                if ('header' == $op['type']) { ?>
 
-                    <?php } else { /*Display other type of item here*/ ?>
-                        <tr>
-                            <td>
-                                <?php
-                                $price = (float) $op['price'];
-                                /*display proper type of checkbox/radio etc*/
-                                $checked = isset($op['selected']) ? checked(1, $op['selected'], false) : '';
-                                $input_field = sprintf('<input type="checkbox" name="%s" class="atbdp_checkout_item_field" value="%s" data-price="%s" %s/>', esc_attr($op['name']), esc_attr($op['value']), $price, $checked);
-
-                                echo str_replace('checkbox', $op['type'], $input_field);
-                                ?>
-                            </td>
-                            <td>
-                                <?php if (!empty($op['title'])) echo "<h4>" . esc_html($op['title']) . "</h4>"; ?>
-                                <?php if (!empty($op['desc'])) echo esc_html($op['desc']); ?>
-                            </td>
-                            <td align="right" class="text-right">
-                                <?php if (!empty($op['price'])) {
-                                    $before = '';
-                                    $after = '';
-                                    ('after' == $c_position) ? $after = $symbol : $before = $symbol;
-                                    echo $before . esc_html($op['price']) . $after;
-                                } ?>
-                            </td>
-                        </tr>
-                    <?php }
-                } ?>
-                <tr>
-                    <td colspan="2" class="text-right vertical-middle">
-                        <strong><?php printf(__('Total amount [%s]', 'directorist'), $currency); ?></strong>
-                    </td>
-                    <td class="text-right vertical-middle">
-                        <div id="atbdp_checkout_total_amount"></div><!--total amount will be populated by JS-->
-                    </td>
-                </tr>
+                <?php } else { /*Display other type of item here*/ ?>
+                    <tr>
+                        <td>
+                            <?php
+                            /*display proper type of checkbox/radio etc*/
+                            $checked = isset($op['selected']) ? checked(1, $op['selected'], false) : '';
+                            $input_field = sprintf('<input type="checkbox" name="%s" class="atbdp_checkout_item_field" value="%s" data-price="%s" %s/>', esc_attr($op['name']), esc_attr($op['value']), atbdp_format_payment_amount($op['price']), $checked);
+                            echo str_replace('checkbox', $op['type'], $input_field);
+                            ?>
+                        </td>
+                        <td>
+                            <?php if (!empty($op['title'])) echo "<h4>" . esc_html($op['title']) . "</h4>"; ?>
+                            <?php if (!empty($op['desc'])) echo esc_html($op['desc']); ?>
+                        </td>
+                        <td align="right" class="text-right">
+                            <?php if (!empty($op['price'])) {
+                                $before = '';
+                                $after = '';
+                                ('after' == $c_position) ? $after = $symbol : $before = $symbol;
+                                echo $before . esc_html(atbdp_format_payment_amount($op['price'])) . $after;
+                            } ?>
+                        </td>
+                    </tr>
+                <?php }
+            } ?>
+            <tr>
+                <td colspan="2" class="text-right vertical-middle">
+                    <strong><?php printf(__('Total amount [%s]', 'directorist'), $currency); ?></strong>
+                </td>
+                <td class="text-right vertical-middle">
+                    <div id="atbdp_checkout_total_amount"></div><!--total amount will be populated by JS-->
+                </td>
+            </tr>
             </tbody>
         </table> <!--ends table-->
         <div class="atbd_content_module" id="directorist_payment_gateways">

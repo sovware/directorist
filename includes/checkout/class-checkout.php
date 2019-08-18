@@ -8,10 +8,8 @@
  * @license       https://www.gnu.org/licenses/gpl-3.0.en.html GNU Public License
  * @since         3.1.0
  */
-
 // Exit if accessed directly
 if ( !defined( 'ABSPATH' ) ) exit;
-
 /**
  * ATBDP_Checkout Class
  *
@@ -28,27 +26,22 @@ class ATBDP_Checkout
      * @var string
      */
     public $nonce_action = 'checkout_action';
-
     public function __construct()
     {
         add_action('init', array($this, 'buffer_to_fix_redirection'));
     }
-
     /**
      *
      */
     public static function ajax_atbdp_format_total_amount()
     {
-
         if (valid_js_nonce()){
             if( !empty( $_POST['amount'] ) ) {
-                echo $_POST['amount'];
+                echo atbdp_format_payment_amount( $_POST['amount'] );
             }
         }
         wp_die();
-
     }
-
     /**
      * @return string
      */
@@ -82,15 +75,14 @@ class ATBDP_Checkout
                 $desc = get_directorist_option('featured_listing_desc');
                 $price = get_directorist_option('featured_listing_price');
                 $form_data[] = array(
-                        'type' => 'header',
-                        'title' => $title,
-                        'name' => 'feature',
-                        'value' => 1,
-                        'selected' => 1,
-                        'desc' => $desc,
-                        'price' => $price,
+                    'type' => 'header',
+                    'title' => $title,
+                    'name' => 'feature',
+                    'value' => 1,
+                    'selected' => 1,
+                    'desc' => $desc,
+                    'price' => $price,
                 );
-
                 $form_data[] = array(
                     'type' => 'checkbox',
                     'name' => 'feature',
@@ -101,20 +93,17 @@ class ATBDP_Checkout
                     'price' => $price,
                 );
             }
-
             // if data is empty then vail,
             if (empty($form_data)) { return __('Sorry, Nothing is available to buy. Please try again.', 'directorist'); }
-
             // pass the data using a data var, so that we can add to it more item later.
             $data = array(
-                    'form_data' => $form_data,
-                    'listing_id' => $listing_id,
+                'form_data' => $form_data,
+                'listing_id' => $listing_id,
             );
             ATBDP()->load_template('front-end/checkout-form', $data);
         }
         return ob_get_clean();
     }
-
     /**
      * @return string
      */
@@ -135,7 +124,6 @@ class ATBDP_Checkout
             'order_id' => $order_id,
             'o_metas' => $meta,
         ));
-
         // we need to provide payment receipt shortcode with the order details array as we passed in the order checkout form page.
         $order_items = apply_filters( 'atbdp_order_items', array(), $order_id, $listing_id, $data); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
         // let's add featured listing data if the order has featured listing in it
@@ -149,15 +137,12 @@ class ATBDP_Checkout
                 'desc' => $desc,
                 'price' => $price,
             );
-
         }
-
         $data['order_items'] = $order_items;
         ob_start();
         ATBDP()->load_template('front-end/payment-receipt', array('data'=> $data));
         return ob_get_clean();
     }
-
     /**
      * It creates an order for the given listing id
      * @param int $listing_id Listing ID
@@ -190,18 +175,17 @@ class ATBDP_Checkout
                 //lets add the settings of featured listing to the order details
                 $order_details[] = atbdp_get_featured_settings_array();
             }
-
             // now lets calculate the total price of all order item's price
             $amount = 0.00;
             foreach ($order_details as $detail) {
                 if (isset($detail['price'])){
-                    $amount += $detail['price'];
+                    $amount = $detail['price'];
                 }
             }
-
             /*Lowercase alphanumeric characters, dashes and underscores are allowed.*/
             $gateway = ! empty( $amount ) && !empty($data['payment_gateway']) ? sanitize_key( $data['payment_gateway'] ) : 'free';
             // save required data as order post meta
+
             update_post_meta( $order_id, '_listing_id', $listing_id);
             update_post_meta( $order_id, '_amount', $amount);
             update_post_meta( $order_id, '_payment_gateway', $gateway );
@@ -210,14 +194,11 @@ class ATBDP_Checkout
             if (is_fee_manager_active() && $updated_plan_id){
                 update_post_meta( $order_id, '_fm_plan_ordered', $updated_plan_id );
             }
-
             // Hook for developer
             do_action( 'atbdp_order_created', $order_id, $listing_id ); /*@todo; do something to prevent multiple order creation when user try to repeat failed payment*/
             $this->process_payment($amount, $gateway, $order_id, $listing_id, $data);
         }
-
     }
-
     /**
      * It process the payment of the order
      *
@@ -251,27 +232,22 @@ class ATBDP_Checkout
                  */
                 do_action( 'atbdp_process_'.$gateway.'_payment', $order_id, $listing_id, $data );
                 do_action('atbdp_online_order_processed', $order_id, $listing_id);
-
             }
         } else {
             /*@todo; Notify owner based on admin settings that order CREATED*/
             /*complete Free listing Order */
             $this->complete_free_order(
-                    array(
-                        'ID' => $order_id,
-                        'transaction_id' => wp_generate_password( 15, false ),
-                        'listing_id' => $listing_id
-                    )
+                array(
+                    'ID' => $order_id,
+                    'transaction_id' => wp_generate_password( 15, false ),
+                    'listing_id' => $listing_id
+                )
             );
-
             $redirect_url = ATBDP_Permalink::get_payment_receipt_page_link( $order_id );
             wp_redirect( $redirect_url );
             exit;
-
         }
     }
-
-
     /**
     /**
      * It completes order that are free of charge
@@ -287,12 +263,9 @@ class ATBDP_Checkout
         if( ! empty( $featured ) ) {
             update_post_meta( $order_data['listing_id'], '_featured', 1 );
         }
-
         // Order has been completed. Let's fire a hook for a developer to extend if they wish
         do_action( 'atbdp_order_completed', $order_data['ID'], $order_data['listing_id']);
-
     }
-
     /**
      * It starts output buffering if the checkout form has been submitted in order to fix redirection problem.
      */
@@ -303,7 +276,6 @@ class ATBDP_Checkout
             ob_start();
         }
     }
-
     /**
      * It output content for payment failure page
      * @todo; improve this content or page later.
@@ -314,5 +286,4 @@ class ATBDP_Checkout
     {
         return __('Your Transaction was not successful. Please contact support', 'directorist');
     }
-
 } // ends class

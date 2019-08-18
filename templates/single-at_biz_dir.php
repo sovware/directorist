@@ -666,7 +666,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                         <div class="atbd_info_title"><span
                                                     class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php _e($address_label, 'directorist'); ?>
                                         </div>
-                                        <div class="atbd_info"><?= esc_html($address); ?></div>
+                                        <div class="atbd_info"><a target="google_map" href="https://www.google.de/maps/search/�<?= esc_html($address); ?>"><?= esc_html($address); ?></a></div>
                                     </li>
                                 <?php } ?>
 

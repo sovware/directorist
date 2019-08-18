@@ -114,7 +114,10 @@ function atbdp_format_amount( $amount, $decimals = true, $currency_settings = ar
     if( $thousands_sep == ',' && false !== ( $found = strpos( $amount, $thousands_sep ) ) ) {
         $amount = str_replace( ',', '', $amount );
     }
-
+    // Strip . from the amount (if set as the thousands separator)
+    if( $thousands_sep == '.' && false !== ( $found = strpos( $amount, $thousands_sep ) ) ) {
+        $amount = str_replace( '.', '.', $amount );
+    }
     // Strip ' ' from the amount (if set as the thousands separator)
     if( $thousands_sep == ' ' && false !== ( $found = strpos( $amount, $thousands_sep ) ) ) {
         $amount = str_replace( ' ', '', $amount );
@@ -130,9 +133,12 @@ function atbdp_format_amount( $amount, $decimals = true, $currency_settings = ar
         $decimals = 0;
     }
 
-    $formatted = number_format( $amount, $decimals, $decimal_sep, $thousands_sep );
+    /**
+     * @since 5.7.1 skip formatted data in order to deliver the actual amount for featured listing
+     */
+   // $formatted = number_format( $amount, $decimals, $decimal_sep, '' );
 
-    return apply_filters( 'atbdp_format_amount', $formatted, $amount, $decimals, $decimal_sep, $thousands_sep );
+    return apply_filters( 'atbdp_format_amount', $amount, $amount, $decimals, $decimal_sep, $thousands_sep );
 
 }
 

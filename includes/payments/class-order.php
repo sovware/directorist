@@ -79,7 +79,7 @@ class ATBDP_Order
                             <?php if (isset($order['desc'])) echo $order['desc']; ?>
                         </td>
                         <td style="border-bottom:1px solid #CCC;">
-                            <?php echo $before . esc_html(atbdp_format_payment_amount($order['price'])) . $after; ?>
+                            <?php echo $before . esc_html($order['price']) . $after; ?>
                         </td>
                     </tr>
                 <?php endforeach;
@@ -91,7 +91,7 @@ class ATBDP_Order
                 <td>
                     <?php
                     $amount = get_post_meta($order_id, '_amount', true);
-                    echo $before . esc_html(atbdp_format_payment_amount($amount)) . $after;
+                    echo $before . esc_html($amount) . $after;
                     ?>
                 </td>
             </tr>
@@ -320,7 +320,6 @@ class ATBDP_Order
                 break;
             case 'amount' :
                 $amount = get_post_meta($post_id, '_amount', true);
-                $amount = atbdp_format_payment_amount($amount); // get a formatted current amount
 
                 $value = atbdp_payment_currency_filter($amount); // add a currency sign before the price
                 echo $value;

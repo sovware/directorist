@@ -146,6 +146,6 @@ $container_fluid = 'container-fluid';
             <?php } ?>
 
         </div>
-        <div class="text-center"><a href="<?php echo ATBDP_Permalink::get_dashboard_page_link(); ?>" class="btn btn-lg btn-primary"><?php _e( 'View your listings', 'directorist' ); ?></a></div>
+        <div class="atbd-text-center"><a href="<?php echo ATBDP_Permalink::get_dashboard_page_link(); ?>" class="btn btn-lg btn-primary"><?php _e( 'View your listings', 'directorist' ); ?></a></div>
     </div>
 </div>

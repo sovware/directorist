@@ -722,4 +722,21 @@ css for Custom Field
   }
 }
 
+.vp-wrap .vp-field .label .description.atbdp_settings_description p strong {
+  position: relative;
+}
+
+.vp-wrap .vp-field .label .description.atbdp_settings_description p strong:after {
+  content: '\f1a7';
+  font-family: "LineAwesome";
+  color: #000;
+  font-weight: normal;
+  line-height: initial;
+  cursor: pointer;
+  position: absolute;
+  right: -20px;
+  bottom: 0;
+  z-index: 999;
+}
+
 /*# sourceMappingURL=map/style.css.map */

@@ -777,7 +777,7 @@ jQuery(function ($) {
     }
 
     //Display review rating
-    var lf_opt17 = $("#enable_owner_review,#review_num,#enable_reviewer_img");
+    var lf_opt17 = $("#enable_owner_review,#review_num,#enable_reviewer_img,#review_approval");
     lf_opt17.hide();
     $('input[name="enable_review"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -1447,6 +1447,20 @@ jQuery(function ($) {
     });
     if($('input[name="display_views_count"]').is(":checked") === true){
         lf_opt59.show();
+    }
+    //display review approval
+    //Display review rating
+    var lf_opt60 = $("#review_approval_text");
+    lf_opt60.hide();
+    $('input[name="review_approval"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt60.show();
+        }else{
+            lf_opt60.hide();
+        }
+    });
+    if($('input[name="review_approval"]').is(":checked") === true){
+        lf_opt60.show();
     }
 
     /* Copy shortcodes on click */

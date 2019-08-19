@@ -68,8 +68,11 @@ input[type="checkbox"] {
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .directorist.atbdp-widget-tags ul li a:hover,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directorist.atbdp-widget-tags ul li a:hover, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories > ul.atbdp_parent_category > li:hover > a span,
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories > ul.atbdp_parent_location > li:hover > a span,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories > ul.atbdp_parent_category > li:hover > a span,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li:hover > a span, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_author_info_widget .atbd_social_wrap p a:hover,
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories > ul.atbdp_parent_location > li:hover > a span,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li:hover > a span,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_location > li:hover > a span, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_author_info_widget .atbd_social_wrap p a:hover,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_author_info_widget .atbd_social_wrap p a:hover,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p a:hover, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic {
   background: #444752;
@@ -2494,21 +2497,27 @@ body.atbd_content_active #directorist.atbd_wrapper {
   list-style-type: none !important;
 }
 
-.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_category,
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_category, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_location,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories .atbdp_child_category,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_category {
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories .atbdp_child_location,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_category,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_location {
   padding-left: 40px;
 }
 
-.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_category li a,
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_category li a, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_location li a,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories .atbdp_child_category li a,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_category li a {
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories .atbdp_child_location li a,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_category li a,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_location li a {
   position: relative;
 }
 
-.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_category li a:before,
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_category li a:before, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_location li a:before,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories .atbdp_child_category li a:before,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_category li a:before {
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories .atbdp_child_location li a:before,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_category li a:before,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_location li a:before {
   position: absolute;
   content: '-';
   left: -10px;
@@ -2517,35 +2526,59 @@ body.atbd_content_active #directorist.atbd_wrapper {
   transform: translateY(-50%);
 }
 
-.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_category .atbdp_child_category,
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_category .atbdp_child_category, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_category .atbdp_child_location, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_location .atbdp_child_category, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_location .atbdp_child_location,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories .atbdp_child_category .atbdp_child_category,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_category .atbdp_child_category {
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories .atbdp_child_category .atbdp_child_location,
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories .atbdp_child_location .atbdp_child_category,
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories .atbdp_child_location .atbdp_child_location,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_category .atbdp_child_category,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_category .atbdp_child_location,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_location .atbdp_child_category,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_location .atbdp_child_location {
   padding-left: 5px;
 }
 
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_location,
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories .atbdp_child_location,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_location {
+  padding-left: 15px;
+}
+
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories > ul.atbdp_parent_category > li:hover > a span,
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories > ul.atbdp_parent_location > li:hover > a span,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories > ul.atbdp_parent_category > li:hover > a span,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li:hover > a span {
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories > ul.atbdp_parent_location > li:hover > a span,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li:hover > a span,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_location > li:hover > a span {
   color: #ffffff;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories > ul.atbdp_parent_category > li + li,
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories > ul.atbdp_parent_location > li + li,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories > ul.atbdp_parent_category > li + li,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li + li {
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories > ul.atbdp_parent_location > li + li,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li + li,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_location > li + li {
   margin-top: 10px;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories > ul.atbdp_parent_category > li > a,
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories > ul.atbdp_parent_location > li > a,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories > ul.atbdp_parent_category > li > a,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li > a {
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories > ul.atbdp_parent_location > li > a,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li > a,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_location > li > a {
   margin-right: 7px;
   margin-bottom: 0;
   display: inline-block;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories > ul.atbdp_parent_category > li > a span,
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories > ul.atbdp_parent_location > li > a span,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories > ul.atbdp_parent_category > li > a span,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li > a span {
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories > ul.atbdp_parent_location > li > a span,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li > a span,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_location > li > a span {
   font-size: 12px;
   display: inline-block;
   margin-right: 10px;
@@ -2558,8 +2591,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories > ul.atbdp_parent_category > li > span,
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories > ul.atbdp_parent_location > li > span,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories > ul.atbdp_parent_category > li > span,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li > span {
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories > ul.atbdp_parent_location > li > span,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li > span,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_location > li > span {
   cursor: pointer;
   font-size: 10px;
 }

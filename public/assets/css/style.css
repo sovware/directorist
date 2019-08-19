@@ -2497,7 +2497,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_category,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories .atbdp_child_category,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_category {
-  padding-left: 50px;
+  padding-left: 40px;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_category li a,
@@ -2515,6 +2515,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   top: 50%;
   font-size: 20px;
   transform: translateY(-50%);
+}
+
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories .atbdp_child_category .atbdp_child_category,
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories .atbdp_child_category .atbdp_child_category,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories .atbdp_child_category .atbdp_child_category {
+  padding-left: 5px;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-categories > ul.atbdp_parent_category > li:hover > a span,

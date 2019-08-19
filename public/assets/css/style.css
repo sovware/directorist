@@ -541,10 +541,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
   text-decoration: none;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .at-modal-content {
-  box-shadow: 0 5px 20px rgba(68, 71, 82, 0.2);
-}
-
 .atbd_content_active #directorist.atbd_wrapper .at-modal-content #atbdp-report-abuse-form {
   width: 100%;
   padding: 20px;
@@ -553,6 +549,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .at-modal-content #atbdp-report-abuse-form textarea {
   margin-top: 10px;
   padding-top: 10px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .at-modal-content .atm-contents-inner {
+  box-shadow: 0 5px 20px rgba(68, 71, 82, 0.2);
 }
 
 .atbd_content_active #directorist.atbd_wrapper .modal-dialog .modal-body {

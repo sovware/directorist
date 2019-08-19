@@ -415,8 +415,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
 
   .at-modal-content {
-    box-shadow: 0 5px 20px rgba($primary, 0.2);
-
     #atbdp-report-abuse-form {
       width: 100%;
       padding: 20px;
@@ -425,6 +423,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
         margin-top: 10px;
         padding-top: 10px;
       }
+    }
+    .atm-contents-inner{
+      box-shadow: 0 5px 20px rgba($primary, 0.2);
     }
   }
 

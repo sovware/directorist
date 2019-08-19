@@ -150,7 +150,7 @@ do_action('atbdp_before_listing_section');
             $listing_header .= '<div class="atbd_action atbd_report">';
             if (is_user_logged_in()) {
                 $listing_header .= '<span class="' . atbdp_icon_type() . '-flag"></span><a href="" 
-                                                               data-target="#atbdp-report-abuse-modal">' . __('Report', 'directorist') . '</a>'; //Modal (report abuse form)
+                                                               data-target="atbdp-report-abuse-modal">' . __('Report', 'directorist') . '</a>'; //Modal (report abuse form)
             } else {
                 $listing_header .= '<a href="javascript:void(0)"
                                class="atbdp-require-login"><span
@@ -159,33 +159,37 @@ do_action('atbdp_before_listing_section');
             $listing_header .= '<input type="hidden" id="atbdp-post-id" value="' . get_the_ID() . '"/>';
             $listing_header .= '</div>';
         } ?>
-        <div class="modal fade" id="atbdp-report-abuse-modal">
-            <div class="at-modal-content">
+        <div class="at-modal atm-fade" id="atbdp-report-abuse-modal">
+            <div class="at-modal-content at-modal-md">
                 <div class="atm-contents-inner">
-                    <form id="atbdp-report-abuse-form" class="form-vertical" role="form">
-                        <div class="modal-header"><h3 class="modal-title"
-                                                      id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', 'directorist'); ?></h3>
-                            <a href="" class="at-modal-close"><span aria-hidden="true">&times;</span></a>
+                    <a href="" class="at-modal-close"><span aria-hidden="true">&times;</span></a>
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <form id="atbdp-report-abuse-form" class="form-vertical" role="form">
+                                <div class="modal-header">
+                                    <h3 class="modal-title"
+                                        id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', 'directorist'); ?></h3>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="atbdp-report-abuse-message"><?php _e('Your Complaint', 'directorist'); ?>
+                                            <span class="atbdp-star">*</span></label>
+                                        <textarea class="form-control" id="atbdp-report-abuse-message"
+                                                  rows="3"
+                                                  placeholder="<?php _e('Message', 'directorist'); ?>..."
+                                                  required></textarea>
+                                    </div>
+                                    <div id="atbdp-report-abuse-g-recaptcha"></div>
+                                    <div id="atbdp-report-abuse-message-display"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit"
+                                            class="btn btn-primary"><?php _e('Submit', 'directorist'); ?></button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label
-                                        for="atbdp-report-abuse-message"><?php _e('Your Complaint', 'directorist'); ?>
-                                    <span class="atbdp-star">*</span></label>
-                                <textarea class="form-control"
-                                          id="atbdp-report-abuse-message"
-                                          rows="3"
-                                          placeholder="<?php _e('Message', 'directorist'); ?>..."
-                                          required></textarea>
-                            </div>
-                            <div id="atbdp-report-abuse-g-recaptcha"></div>
-                            <div id="atbdp-report-abuse-message-display"></div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit"
-                                    class="btn btn-primary"><?php _e('Submit', 'directorist'); ?></button>
-                        </div>
-                    </form>
+                    </div>
+
                 </div>
             </div>
         </div>

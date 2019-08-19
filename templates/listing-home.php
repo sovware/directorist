@@ -36,11 +36,6 @@ wp_localize_script('atbdp-search-listing','atbdp_search',array(
     'ajaxnonce'         => wp_create_nonce( 'bdas_ajax_nonce' ),
     'ajax_url'           => admin_url( 'admin-ajax.php' ),
 ));
-if (is_rtl()){
-    wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
-}else{
-    wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
-}
 $container_fluid      = is_directoria_active() ? 'container' : 'container-fluid';
 $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
 ?>

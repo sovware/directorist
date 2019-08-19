@@ -169,6 +169,11 @@ if (!class_exists('ATBDP_Shortcode')):
         {
             //include ATBDP_DIR .'public/assets/css/style.php';
             wp_enqueue_script('adminmainassets');
+            wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
+            wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
+                'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
+                'ajax_url' => admin_url('admin-ajax.php'),
+            ));
             $listing_orderby = get_directorist_option('search_order_listing_by');
             $search_sort_listing_by = get_directorist_option('search_sort_listing_by');
             $listing_view = get_directorist_option('search_view_as');

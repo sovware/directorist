@@ -326,7 +326,7 @@
                                             <?php }
                                             if (in_array('search_fax', $search_more_filters_fields)) { ?>
                                                 <div>
-                                                    <input type="text" name="phone"
+                                                    <input type="text" name="fax"
                                                            placeholder="<?php _e('Fax', 'directorist'); ?>"
                                                            value="<?php echo !empty($_GET['fax']) ? $_GET['fax'] : ''; ?>"
                                                            class="form-control">

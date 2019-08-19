@@ -35,6 +35,7 @@ if (!class_exists('BD_Locations_Widget')) {
          */
         public function widget($args, $instance)
         {
+            wp_enqueue_script('loc_cat_assets');
             $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Directorist Locations', 'directorist');
 
             $query_args = array(
@@ -209,13 +210,13 @@ if (!class_exists('BD_Locations_Widget')) {
             );
 
             $terms = get_terms( ATBDP_LOCATION, $args );
-
+            $parent = $args['parent'];
+            $child_class = !empty($parent) ? 'atbdp_child_location' : 'atbdp_parent_location';
             $html = '';
 
             if( count( $terms ) > 0 ) {
 
-                $html .= '<ul>';
-
+                $html .= '<ul class="' .$child_class. '">';
                 foreach( $terms as $term ) {
                     $child_category = get_term_children($term->term_id,ATBDP_LOCATION);
                     $plus_icon = (!empty($child_category) && empty($parent) ) ? '<span class="'.atbdp_icon_type().'-plus"></span>' : '';
@@ -238,11 +239,10 @@ if (!class_exists('BD_Locations_Widget')) {
                         $totat = ($count)?($count-$number_of_expired):$count;
                         $html .= ' (' . $totat . ')';
                     }
-                    $html .= '</a>';
+                    $html .= '</a>'. $plus_icon . '';
                     $html .= $this->list_locations( $settings );
                     $html .= '</li>';
                 }
-
                 $html .= '</ul>';
 
             }

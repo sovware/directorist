@@ -82,7 +82,7 @@
             var ava_img = $form.find("#reviewer_img").val();
             var review_approval = $form.find("#review_approval").val();
             console.log(review_approval);
-            if(review_approval === 'yes') {
+            if (review_approval === 'yes') {
                 swal({
                     title: atbdp_public_data.review_approval_text,
                     type: "success",
@@ -351,12 +351,6 @@
 
         // send an ajax request to the ajax-handler.php and then delete the review of the given id
 
-    });
-
-
-    $('.atbdp_child_category').hide();
-    $('.atbdp_parent_category >li >span').on('click', function () {
-        $(this).siblings('.atbdp_child_category').slideToggle();
     });
 
     $('#user_profile_form').on('submit', function (e) {
@@ -798,22 +792,22 @@ jQuery(function ($) {
         })();
     });
 
-/*   $('.atbdp_right_nav').on('click', function (event) {
-        event.preventDefault();
-        var currentLocation = window.location;
-        var split_url = currentLocation.href.split('/');
-        var target = split_url[ split_url.length - 2 ];
+    /*   $('.atbdp_right_nav').on('click', function (event) {
+            event.preventDefault();
+            var currentLocation = window.location;
+            var split_url = currentLocation.href.split('/');
+            var target = split_url[ split_url.length - 2 ];
 
-        if(target === 'new-post-copy') {
-            location.replace(currentLocation.href+2)
-        } else {
-            var url1 = currentLocation.href.split('/')[ split_url.length - 2 ];
-            var change = currentLocation.href.split('/');
-            change[ split_url.length - 2 ] =  parseInt(url1)+1;
-            location.replace(change.join('/'));
-        }
+            if(target === 'new-post-copy') {
+                location.replace(currentLocation.href+2)
+            } else {
+                var url1 = currentLocation.href.split('/')[ split_url.length - 2 ];
+                var change = currentLocation.href.split('/');
+                change[ split_url.length - 2 ] =  parseInt(url1)+1;
+                location.replace(change.join('/'));
+            }
 
-    })*/
+        })*/
 
 })(jQuery);
 

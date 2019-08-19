@@ -4039,3 +4039,41 @@ function atbdp_get_tax_level($id, $tax){
     $ancestors = get_ancestors($id, $tax);
     return count($ancestors)+1;
 }
+/**
+ * @since 5.6.5
+ * @param $data
+ */
+function send_review_for_approval($data) {
+    $listing_id = $data['post_id'];
+    $review_id = wp_insert_post( array(
+        'post_content' => '',
+        'post_title' => get_the_title($listing_id),
+        'post_status' => 'publish',
+        'post_type' => 'atbdp_listing_review',
+        'comment_status' => false,
+    ) );
+    update_post_meta($review_id, '_review_listing', $listing_id);
+    $listing_reviewer = $data['name'];
+    update_post_meta($review_id, '_listing_reviewer', $listing_reviewer);
+    update_post_meta($review_id, '_review_status', 'pending');
+    $reviewer_details = $data['content'];
+    update_post_meta($review_id, '_reviewer_details', $reviewer_details);
+    $reviewer_rating = $data['rating'];
+    update_post_meta($review_id, '_reviewer_rating', $reviewer_rating);
+
+    $post_id = $data['post_id'];
+    update_post_meta($review_id, '_post_id', $post_id);
+
+    $email = $data['email'];
+    update_post_meta($review_id, '_email', $email);
+
+    $by_guest = $data['by_guest'];
+    update_post_meta($review_id, '_by_guest', $by_guest);
+
+    $by_user_id = $data['by_user_id'];
+    update_post_meta($review_id, '_by_user_id', $by_user_id);
+    //wp_send_json_success(array('id'=>$data));
+   /* $message = array('error' => 0);
+    $message['approve'] = 'plan';
+    wp_send_json_success(array('id'=>$message));*/
+}

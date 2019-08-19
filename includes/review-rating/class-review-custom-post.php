@@ -12,8 +12,11 @@ class ATBDP_Review_Custom_Post
 {
     public function __construct()
     {
-        //create custom post for review
-        add_action('init', array($this, 'review_custom_post_type'));
+        $review_approval = get_directorist_option('review_approval',0);
+        if(!empty($review_approval)) {
+            //create custom post for review
+            add_action('init', array($this, 'review_custom_post_type'));
+        }
         //create meta boxes
         add_action('add_meta_boxes', array($this, 'create_meta_box_for_review'));
         //save meta box
@@ -54,9 +57,9 @@ class ATBDP_Review_Custom_Post
             'taxonomies' => array(''),
             'hierarchical' => false,
             'public' => true,
-            'show_ui' => current_user_can('manage_atbdp_options') ? false : false, // show the menu only to the admin
+            'show_ui' => current_user_can('manage_atbdp_options') ? true : false, // show the menu only to the admin
             'show_in_menu' => current_user_can('manage_atbdp_options') ? 'edit.php?post_type=' . ATBDP_POST_TYPE : false,
-            'show_in_admin_bar' => false,
+            'show_in_admin_bar' => true,
             'show_in_nav_menus' => true,
             'can_export' => true,
             'has_archive' => true,
@@ -126,15 +129,10 @@ class ATBDP_Review_Custom_Post
                     <label for="listing_reviewer" class="widefat"><?php _e( 'Review by', 'directorist' ); ?></label>
                 </td>
                 <td class="field_lable">
-                    <select id="listing_reviewer" name="listing_reviewer" class="atbdp-radio-list radio horizontal">
-                        <?php
-                        $current_author = isset( $post_meta['_listing_reviewer'] ) ? esc_attr($post_meta['_listing_reviewer'][0]) : '';
-                        $users = get_users();
-                        echo '<option>' . __("-Select user-", 'directorist') . '</option>';
-                        foreach($users as $user_id){
-                            printf('<option value="%s" %s>%s</option>', $user_id->ID, selected($user_id->ID, $current_author), $user_id->display_name);
-                        }?>
-                    </select>
+                    <?php
+                    $listing_reviewer = isset( $post_meta['_listing_reviewer'] ) ? esc_attr($post_meta['_listing_reviewer'][0]) : '';
+                    ?>
+                    <input type="text" id="listing_reviewer" name="listing_reviewer" class="atbdp-radio-list radio horizontal" value="<?php echo $listing_reviewer;?>">
                 </td>
             </tr>
 
@@ -180,14 +178,24 @@ class ATBDP_Review_Custom_Post
                             '2' => __('2', 'directorist'),
                             '3' => __('3', 'directorist'),
                             '4' => __('4', 'directorist'),
-                        );;
+                            '5' => __('5', 'directorist'),
+                        );
                         foreach($rating as $key => $value){
                             printf('<option value="%s" %s>%s</option>', $key, selected($key, $reviewer_rating), $value);
                         }?>
                     </select>
                 </td>
             </tr>
-
+            <?php
+            $post_id = isset( $post_meta['_post_id'] ) ? $post_meta['_post_id'][0] : '';
+            $email = isset( $post_meta['_email'] ) ? $post_meta['_email'][0] : '';
+            $by_guest = isset( $post_meta['_by_guest'] ) ? $post_meta['_by_guest'][0] : '';
+            $by_user_id = isset( $post_meta['_by_user_id'] ) ? $post_meta['_by_user_id'][0] : '';
+            ?>
+            <input type="hidden" id="post_id" name="post_id" class="atbdp-radio-list radio horizontal" value="<?php echo $post_id;?>">
+            <input type="hidden" id="email" name="email" class="atbdp-radio-list radio horizontal" value="<?php echo $email;?>">
+            <input type="hidden" id="by_guest" name="by_guest" class="atbdp-radio-list radio horizontal" value="<?php echo $by_guest;?>">
+            <input type="hidden" id="by_user_id" name="by_user_id" class="atbdp-radio-list radio horizontal" value="<?php echo $by_user_id;?>">
             </tbody>
         </table>
     <?php
@@ -223,11 +231,12 @@ class ATBDP_Review_Custom_Post
             // Verify that the nonce is valid
             if (wp_verify_nonce($_POST['atbdp_review_details_nonce'], 'atbdp_review_save_details')) {
                 // OK to save meta data
-                $listing_claimer =  !empty($_POST['listing_reviewer'])?$_POST['listing_reviewer']:'';
-                update_post_meta($post_id, '_listing_reviewer', $listing_claimer);
-
                 $review_listing =  !empty($_POST['review_listing'])?$_POST['review_listing']:'';
                 update_post_meta($post_id, '_review_listing', $review_listing);
+
+                $listing_reviewer =  !empty($_POST['listing_reviewer'])?$_POST['listing_reviewer']:'';
+                update_post_meta($post_id, '_listing_reviewer', $listing_reviewer);
+
 
                 $review_status = isset($_POST['review_status'])?sanitize_text_field($_POST['review_status']):'';
                 update_post_meta($post_id, '_review_status', $review_status);
@@ -237,6 +246,31 @@ class ATBDP_Review_Custom_Post
 
                 $reviewer_rating = isset($_POST['reviewer_rating'])?$_POST['reviewer_rating']:'';
                 update_post_meta($post_id, '_reviewer_rating', $reviewer_rating);
+
+                $post_id = isset($_POST['post_id']) ? $_POST['post_id']:'';
+                update_post_meta($post_id, '_post_id', $post_id);
+
+                $email = isset($_POST['email']) ? $_POST['email']:'';
+                update_post_meta($post_id, '_email', $email);
+
+                $by_guest = isset($_POST['by_guest']) ? $_POST['by_guest']:'';
+                update_post_meta($post_id, '_by_guest', $by_guest);
+
+                $by_user_id = isset($_POST['by_user_id']) ? $_POST['by_user_id']:'';
+                update_post_meta($post_id, '_by_user_id', $by_user_id);
+
+                if('approved' == $review_status) {
+                    $data = array(
+                        'post_id'          => $post_id,
+                        'name'             => $listing_reviewer,
+                        'email'            => $email,
+                        'content'          => $reviewer_details,
+                        'rating'           => $reviewer_rating,
+                        'by_guest'         => $by_guest,
+                        'by_user_id'       => $by_user_id,
+                    );
+                    ATBDP()->review->db->add($data);
+                }
 
             }
         }
@@ -283,9 +317,9 @@ class ATBDP_Review_Custom_Post
 
             case 'reviewer' :
                 $post_meta = get_post_meta($post_id);
-                $current_author = isset($post_meta['_listing_reviewer']) ? esc_attr($post_meta['_listing_reviewer'][0]) : '';
-                $user = get_user_by('id', $current_author);
-                echo $user->display_name;
+                $listing_reviewer = isset($post_meta['_listing_reviewer']) ? esc_attr($post_meta['_listing_reviewer'][0]) : '';
+                //$user = get_user_by('id', $current_author);
+                echo $listing_reviewer;
                 break;
             case 'status' :
                 $post_meta = get_post_meta($post_id);

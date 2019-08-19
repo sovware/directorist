@@ -276,7 +276,7 @@ class ATBDP_Enqueuer {
 
         //listings data
 
-
+        $review_approval = get_directorist_option('review_approval_text',__('Your review has been received. It requires admin approval to publish.','directorist'));
         $data = array(
             'nonce'                         => wp_create_nonce('atbdp_nonce_action_js'),
             'ajax_nonce'                    => wp_create_nonce( 'bdas_ajax_nonce' ),
@@ -288,6 +288,7 @@ class ATBDP_Enqueuer {
             'warning'                       => __( 'WARNING!!', 'directorist' ),
             'not_add_more_than_one'         => __( 'You can not add more than one review. Refresh the page to edit or delete your review!!!,', 'directorist' ),
             'review_success'                => __( 'Reviews Saved Successfully!!', 'directorist' ),
+            'review_approval_text'               => $review_approval,
             'review_error'                  => __( 'Something went wrong. Check the form and try again!!!', 'directorist' ),
             'review_loaded'                 => __( 'Reviews Loaded!!', 'directorist' ),
             'review_not_available'          => __( 'NO MORE REVIEWS AVAILABLE!!!,', 'directorist' ),

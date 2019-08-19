@@ -4618,7 +4618,19 @@ The Administrator of ==SITE_NAME==
                     'description' => __('Allow a listing owner to post a review on his/her own listing.', 'directorist'),
                     'default' => 1,
                 ),
-
+                array(
+                    'type' => 'toggle',
+                    'name' => 'review_approval',
+                    'label' => __('Reviewer Approval', 'directorist'),
+                    'description' => __('Restrict user to submit review before admin approval', 'directorist'),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'textarea',
+                    'name' => 'review_approval_text',
+                    'label' => __('Approval Notification Text', 'directorist'),
+                    'default' => __('Your review has been received. It requires admin approval to publish.','directorist'),
+                ),
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_reviewer_img',

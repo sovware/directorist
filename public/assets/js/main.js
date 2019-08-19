@@ -80,7 +80,16 @@
             var content = $form.find("#review_content").val();
             var rating = $form.find("#review_rating").val();
             var ava_img = $form.find("#reviewer_img").val();
-            if (response.success) {
+            var review_approval = $form.find("#review_approval").val();
+            console.log(review_approval);
+            if(review_approval === 'yes') {
+                swal({
+                    title: atbdp_public_data.review_approval_text,
+                    type: "success",
+                    timer: 4000,
+                    showConfirmButton: false
+                });
+            } else if (response.success) {
                 d = new Date(); // parse mysql date string to js date object
                 d = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear(); // build the date string, month is 0 based so add 1 to that to get real month.
 

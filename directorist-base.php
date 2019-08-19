@@ -1190,6 +1190,7 @@ final class Directorist_Base
     public function show_review($post)
     {
         $enable_review = get_directorist_option('enable_review', 1);
+        $review_approval = get_directorist_option('review_approval', 0);
         if (!$enable_review) return; // vail if review is not enabled
         $enable_owner_review = get_directorist_option('enable_owner_review');
         $enable_reviewer_img = get_directorist_option('enable_reviewer_img', 1);
@@ -1348,6 +1349,7 @@ final class Directorist_Base
                                     <button class="btn btn-primary" type="submit"
                                             id="atbdp_review_form_submit"><?php _e('Submit Review', 'directorist'); ?></button> <!-- submit button -->
                                 <?php } ?>
+                                <input type="hidden" name="review_approval" id="review_approval" value="<?php echo !empty($review_approval) ? 'yes' : '';?>">
                             </form>
                         </div>
                     </div><!-- end .atbd_custom_fields_contents -->

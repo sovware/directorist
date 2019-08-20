@@ -6,7 +6,7 @@ var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     latlng = L.latLng(-37.82, 175.24);
 
 
-var map = L.map('map', {center: latlng, zoom: 11, layers: [tiles]});
+var map = L.map('map', {center: latlng, zoom: 11, scrollWheelZoom: false, layers: [tiles]});
 
 var parent = L.featureGroup(),
     groupA = L.featureGroup.subGroup(parent),// use `L.featureGroup.subGroup(parentGroup)` instead of `L.featureGroup()` or `L.layerGroup()`!

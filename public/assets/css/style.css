@@ -902,6 +902,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   background: #444752 !important;
 }
 
+#OpenLayers_Map_2_OpenLayers_Container {
+  pointer-events: none;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

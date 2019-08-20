@@ -368,12 +368,6 @@
 
     });
 
-
-    $('.atbdp_child_category').hide();
-    $('.atbdp_parent_category >li >span').on('click', function () {
-        $(this).siblings('.atbdp_child_category').slideToggle();
-    });
-
     $('#user_profile_form').on('submit', function (e) {
         // submit the form to the ajax handler and then send a response from the database and then work accordingly and then after finishing the update profile then work on remove listing and also remove the review and rating form the custom table once the listing is deleted successfully.
         var $form = $(this);
@@ -813,22 +807,22 @@ jQuery(function ($) {
         })();
     });
 
-/*   $('.atbdp_right_nav').on('click', function (event) {
-        event.preventDefault();
-        var currentLocation = window.location;
-        var split_url = currentLocation.href.split('/');
-        var target = split_url[ split_url.length - 2 ];
+    /*   $('.atbdp_right_nav').on('click', function (event) {
+            event.preventDefault();
+            var currentLocation = window.location;
+            var split_url = currentLocation.href.split('/');
+            var target = split_url[ split_url.length - 2 ];
 
-        if(target === 'new-post-copy') {
-            location.replace(currentLocation.href+2)
-        } else {
-            var url1 = currentLocation.href.split('/')[ split_url.length - 2 ];
-            var change = currentLocation.href.split('/');
-            change[ split_url.length - 2 ] =  parseInt(url1)+1;
-            location.replace(change.join('/'));
-        }
+            if(target === 'new-post-copy') {
+                location.replace(currentLocation.href+2)
+            } else {
+                var url1 = currentLocation.href.split('/')[ split_url.length - 2 ];
+                var change = currentLocation.href.split('/');
+                change[ split_url.length - 2 ] =  parseInt(url1)+1;
+                location.replace(change.join('/'));
+            }
 
-    })*/
+        })*/
 
 })(jQuery);
 

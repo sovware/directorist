@@ -35,8 +35,7 @@
     });
 
     // load custom fields of the selected category in the search form
-    $( 'body' ).on( 'change', '.bdas-category-search', function() {
-
+    $( 'body' ).on( 'change', '.bdas-category-search, #at_biz_dir-category', function() {
         var $search_elem = $( this ).closest ( 'form' ).find( ".atbdp-custom-fields-search" );
 
         if( $search_elem.length ) {

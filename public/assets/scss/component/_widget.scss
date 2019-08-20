@@ -171,8 +171,8 @@
     ul li{
       list-style-type: none !important;
     }
-    .atbdp_child_category {
-      padding-left: 50px;
+    .atbdp_child_category, .atbdp_child_location {
+      padding-left: 40px;
       li{
         a{
           position: relative;
@@ -186,8 +186,15 @@
           }
         }
       }
+      .atbdp_child_category, .atbdp_child_location{
+        padding-left: 5px;
+      }
     }
-    > ul.atbdp_parent_category > li {
+    .atbdp_child_location{
+      padding-left: 15px;
+    }
+    > ul.atbdp_parent_category > li,
+    > ul.atbdp_parent_location > li{
       &:hover {
         > a {
           span {

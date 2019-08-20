@@ -4077,3 +4077,39 @@ function send_review_for_approval($data) {
     $message['approve'] = 'plan';
     wp_send_json_success(array('id'=>$message));*/
 }
+
+/**
+ * @since 5.7.1
+ * check is user already submitted review for this listing
+ */
+if (!function_exists('tract_duplicate_review')){
+    function tract_duplicate_review($reviewer, $listing){
+        $reviews = new WP_Query(array(
+            'post_type' => 'atbdp_listing_review',
+            'posts_per_page' => -1,
+            'post_status' => 'publish',
+            'meta_query'  => array(
+                'relation' => 'AND',
+                array(
+                    'key'   => '_listing_reviewer',
+                    'value' => $reviewer,
+                ),
+                array(
+                    'key'   => '_review_listing',
+                    'value' => $listing,
+                ),
+                array(
+                    'key'   => '_review_status',
+                    'value' => 'pending',
+                )
+            )
+        ));
+
+        $review_meta = array();
+        foreach ($reviews->posts as $key => $val){
+            $review_meta[] = !empty($val) ? $val : array();
+        }
+
+        return ($review_meta) ? $review_meta : false;
+    }
+}

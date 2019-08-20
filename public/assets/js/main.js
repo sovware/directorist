@@ -60,7 +60,6 @@
     $("#atbdp_review_form").on("submit", function () {
         if (submit_count > 1) {
             // show error message
-            /*@todo; make all the strings on js file translatable*/
             swal({
                 title: atbdp_public_data.warning,
                 text: atbdp_public_data.not_add_more_than_one,
@@ -81,14 +80,30 @@
             var rating = $form.find("#review_rating").val();
             var ava_img = $form.find("#reviewer_img").val();
             var review_approval = $form.find("#review_approval").val();
-            console.log(review_approval);
+            var review_duplicate = $form.find("#review_duplicate").val();
             if(review_approval === 'yes') {
-                swal({
-                    title: atbdp_public_data.review_approval_text,
-                    type: "success",
-                    timer: 4000,
-                    showConfirmButton: false
-                });
+                if (submit_count === 1) {
+                    $('#client_review_list').prepend(output); // add the review if it's the first review of the user
+                    $('.atbdp_static').remove();
+                }
+                submit_count++;
+                if(review_duplicate === 'yes') {
+                    swal({
+                        title: atbdp_public_data.warning,
+                        text: atbdp_public_data.duplicate_review_error,
+                        type: "warning",
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                }else {
+                    swal({
+                        title: atbdp_public_data.review_approval_text,
+                        type: "success",
+                        timer: 4000,
+                        showConfirmButton: false
+                    });
+                }
+
             } else if (response.success) {
                 d = new Date(); // parse mysql date string to js date object
                 d = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear(); // build the date string, month is 0 based so add 1 to that to get real month.

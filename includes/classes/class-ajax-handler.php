@@ -308,8 +308,11 @@ if(!class_exists('ATBDP_Ajax_Handler')):
                 'by_user_id'        => !empty( $user->ID )? $user->ID : 0,
             );
             $review_approval = get_directorist_option('review_approval',0);
+            $review_duplicate = !empty($_POST['review_duplicate']) ? sanitize_text_field($_POST['review_duplicate']) : '';
             if(!empty($review_approval)) {
-                send_review_for_approval($data);
+                if(empty($review_duplicate)) {
+                    send_review_for_approval($data);
+                }
             }elseif ($id = ATBDP()->review->db->add($data)){
                 //$this->atbdp_send_email_review_to_user();
                 $this->atbdp_send_email_review_to_admin();

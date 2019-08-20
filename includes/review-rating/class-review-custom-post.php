@@ -261,7 +261,7 @@ class ATBDP_Review_Custom_Post
 
                 if('approved' == $review_status) {
                     $data = array(
-                        'post_id'          => $post_id,
+                        'post_id'          => $review_listing,
                         'name'             => $listing_reviewer,
                         'email'            => $email,
                         'content'          => $reviewer_details,

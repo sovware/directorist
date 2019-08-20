@@ -1190,7 +1190,7 @@ final class Directorist_Base
     public function show_review($post)
     {
         $enable_review = get_directorist_option('enable_review', 1);
-        $review_approval = get_directorist_option('review_approval', 0);
+        $approve_immediately = get_directorist_option('approve_immediately', 1);
         $review_duplicate = tract_duplicate_review(wp_get_current_user()->display_name, $post->ID);
         if (!$enable_review) return; // vail if review is not enabled
         $enable_owner_review = get_directorist_option('enable_owner_review');
@@ -1350,7 +1350,7 @@ final class Directorist_Base
                                     <button class="btn btn-primary" type="submit"
                                             id="atbdp_review_form_submit"><?php _e('Submit Review', 'directorist'); ?></button> <!-- submit button -->
                                 <?php } ?>
-                                <input type="hidden" name="review_approval" id="review_approval" value="<?php echo !empty($review_approval) ? 'yes' : '';?>">
+                                <input type="hidden" name="approve_immediately" id="approve_immediately" value="<?php echo empty($approve_immediately) ? 'no' : 'yes';?>">
                                 <input type="hidden" name="review_duplicate" id="review_duplicate" value="<?php echo !empty($review_duplicate) ? 'yes' : '';?>">
                             </form>
                         </div>

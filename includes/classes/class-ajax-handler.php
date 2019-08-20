@@ -307,9 +307,9 @@ if(!class_exists('ATBDP_Ajax_Handler')):
                 'by_guest'        => !empty( $user->ID )? 0 : 1,
                 'by_user_id'        => !empty( $user->ID )? $user->ID : 0,
             );
-            $review_approval = get_directorist_option('review_approval',0);
+            $approve_immediately = get_directorist_option('approve_immediately',1);
             $review_duplicate = !empty($_POST['review_duplicate']) ? sanitize_text_field($_POST['review_duplicate']) : '';
-            if(!empty($review_approval)) {
+            if(empty($approve_immediately)) {
                 if(empty($review_duplicate)) {
                     send_review_for_approval($data);
                 }

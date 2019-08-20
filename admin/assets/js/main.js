@@ -1451,16 +1451,16 @@ jQuery(function ($) {
     //display review approval
     //Display review rating
     var lf_opt60 = $("#review_approval_text");
-    lf_opt60.hide();
-    $('input[name="review_approval"]').on("change", function () {
+    lf_opt60.show();
+    $('input[name="approve_immediately"]').on("change", function () {
         if($(this).is(":checked") === true){
-            lf_opt60.show();
-        }else{
             lf_opt60.hide();
+        }else{
+            lf_opt60.show();
         }
     });
-    if($('input[name="review_approval"]').is(":checked") === true){
-        lf_opt60.show();
+    if($('input[name="approve_immediately"]').is(":checked") === true){
+        lf_opt60.hide();
     }
 
     /* Copy shortcodes on click */

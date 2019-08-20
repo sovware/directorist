@@ -4624,16 +4624,15 @@ The Administrator of ==SITE_NAME==
                 ),
                 array(
                     'type' => 'toggle',
-                    'name' => 'review_approval',
-                    'label' => __('Reviewer Approval', 'directorist'),
-                    'description' => __('Restrict user to submit review before admin approval', 'directorist'),
-                    'default' => 0,
+                    'name' => 'approve_immediately',
+                    'label' => __('Approve Immediately?', 'directorist'),
+                    'default' => 1,
                 ),
                 array(
                     'type' => 'textarea',
                     'name' => 'review_approval_text',
                     'label' => __('Approval Notification Text', 'directorist'),
-                    'default' => __('Your review has been received. It requires admin approval to publish.','directorist'),
+                    'default' => __('We have received your review. It requires approval.','directorist'),
                 ),
                 array(
                     'type' => 'toggle',

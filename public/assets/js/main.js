@@ -79,9 +79,9 @@
             var content = $form.find("#review_content").val();
             var rating = $form.find("#review_rating").val();
             var ava_img = $form.find("#reviewer_img").val();
-            var review_approval = $form.find("#review_approval").val();
+            var approve_immediately = $form.find("#approve_immediately").val();
             var review_duplicate = $form.find("#review_duplicate").val();
-            if(review_approval === 'yes') {
+            if(approve_immediately === 'no') {
                 if (submit_count === 1) {
                     $('#client_review_list').prepend(output); // add the review if it's the first review of the user
                     $('.atbdp_static').remove();

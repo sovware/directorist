@@ -12,8 +12,8 @@ class ATBDP_Review_Custom_Post
 {
     public function __construct()
     {
-        $review_approval = get_directorist_option('review_approval',0);
-        if(!empty($review_approval)) {
+        $approve_immediately = get_directorist_option('approve_immediately',1);
+        if(empty($approve_immediately)) {
             //create custom post for review
             add_action('init', array($this, 'review_custom_post_type'));
         }

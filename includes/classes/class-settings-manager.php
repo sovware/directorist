@@ -3259,6 +3259,10 @@ The Administrator of ==SITE_NAME==
                                 'label' => __('Phone', 'directorist'),
                             ),
                             array(
+                                'value' => 'search_fax',
+                                'label' => __('Fax', 'directorist'),
+                            ),
+                            array(
                                 'value' => 'search_address',
                                 'label' => __('Address', 'directorist'),
                             ),

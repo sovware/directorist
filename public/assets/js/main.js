@@ -97,7 +97,8 @@
                     });
                 }else {
                     swal({
-                        title: atbdp_public_data.review_approval_text,
+                        title: atbdp_public_data.success,
+                        text: atbdp_public_data.review_approval_text,
                         type: "success",
                         timer: 4000,
                         showConfirmButton: false

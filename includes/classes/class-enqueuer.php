@@ -286,6 +286,7 @@ class ATBDP_Enqueuer {
             'login_alert_message'           => __( 'Sorry, you need to login first.', 'directorist' ),
             'rtl'                           => is_rtl() ? 'true': 'false',
             'warning'                       => __( 'WARNING!!', 'directorist' ),
+            'success'                       => __( 'SUCCESS!!', 'directorist' ),
             'not_add_more_than_one'         => __( 'You can not add more than one review. Refresh the page to edit or delete your review!!!,', 'directorist' ),
             'duplicate_review_error'        => __( 'Sorry! your review already in process.', 'directorist' ),
             'review_success'                => __( 'Reviews Saved Successfully!!', 'directorist' ),

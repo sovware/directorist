@@ -25,6 +25,12 @@ $search_home_bg              = get_directorist_option('search_home_bg');
 $display_more_filter_search  = get_directorist_option('search_more_filter',1);
 $search_filters              = get_directorist_option('search_filters',array('reset_button','apply_button'));
 $search_more_filters_fields  = get_directorist_option('search_more_filters_fields',array('search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
+$tag_label                   = get_directorist_option('tag_label',__('Tag','directorist'));
+$address_label               = get_directorist_option('address_label',__('Address','directorist'));
+$fax_label                   = get_directorist_option('fax_label',__('Fax','directorist'));
+$email_label                 = get_directorist_option('email_label',__('Email','directorist'));
+$website_label               = get_directorist_option('website_label',__('Website','directorist'));
+$zip_label                   = get_directorist_option('zip_label',__('Website','directorist'));
 $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_image : $search_home_bg;
 if (is_rtl()){
     wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
@@ -224,7 +230,7 @@ $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
                                     if(!empty($terms)) {
                                         ?>
                                         <div class="form-group ads-filter-tags">
-                                            <label><?php _e('Tags', 'directorist');?></label>
+                                            <label><?php echo !empty($tag_label) ? $tag_label : __('Tags','directorist'); ?></label>
                                             <div class="bads-custom-checks">
                                                 <?php
                                                 $rand = rand();
@@ -251,11 +257,11 @@ $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
                                         <div class="bottom-inputs">
                                             <div>
                                                 <?php if('yes' == $website_field) {?>
-                                                <input type="text" name="website" placeholder="<?php _e('Website', 'directorist');?>" value="<?php echo !empty($_GET['website']) ? $_GET['website'] : ''; ?>" class="form-control">
+                                                <input type="text" name="website" placeholder="<?php echo !empty($website_label) ? $website_label : __('Website','directorist'); ?>" value="<?php echo !empty($_GET['website']) ? $_GET['website'] : ''; ?>" class="form-control">
                                             </div>
                                             <div>
                                                 <?php } if('yes' == $email_field) {?>
-                                                <input type="text" name="email" placeholder=" <?php _e('Email', 'directorist');?>" value="<?php echo !empty($_GET['email']) ? $_GET['email'] : ''; ?>" class="form-control">
+                                                <input type="text" name="email" placeholder="<?php echo !empty($email_label) ? $email_label : __('Email','directorist'); ?>" value="<?php echo !empty($_GET['email']) ? $_GET['email'] : ''; ?>" class="form-control">
                                             </div>
                                             <div>
                                                 <?php } if('yes' == $phone_field) {?>
@@ -263,16 +269,16 @@ $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
                                             </div>
                                             <div>
                                                 <?php } if('yes' == $fax) {?>
-                                                <input type="text" name="fax" placeholder="<?php _e('Fax', 'directorist');?>" value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>" class="form-control">
+                                                <input type="text" name="fax" placeholder="<?php echo !empty($fax_label) ? $fax_label : __('Fax','directorist'); ?>" value="<?php echo !empty($_GET['fax']) ? $_GET['fax'] : ''; ?>" class="form-control">
                                             </div>
                                             <div>
                                                 <?php } if('yes' == $address_field) {?>
-                                                <input type="text" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php _e('Address', 'directorist');?>"
+                                                <input type="text" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist'); ?>"
                                                        class="form-control location-name">
                                             </div>
                                             <div>
                                                 <?php } if('yes' == $zip_code_field) {?>
-                                                <input type="text" name="zip_code" placeholder=" <?php _e('Zip/Post Code', 'directorist');?>" value="<?php echo !empty($_GET['zip_code']) ? $_GET['zip_code'] : ''; ?>" class="form-control">
+                                                <input type="text" name="zip_code" placeholder="<?php echo !empty($zip_label) ? $zip_label : __('Zip/Post Code','directorist'); ?>" value="<?php echo !empty($_GET['zip_code']) ? $_GET['zip_code'] : ''; ?>" class="form-control">
                                             </div>
                                         </div>
                                         <?php } ?>

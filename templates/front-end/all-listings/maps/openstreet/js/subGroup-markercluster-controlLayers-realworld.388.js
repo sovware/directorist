@@ -8,7 +8,8 @@ var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     quarterCount = Math.round(fullCount / 4);
 
 
-var map = L.map('map', {center: latlng, zoom: 2, layers: [tiles]});
+var map = L.map('map', {center: latlng, zoom: 2, scrollWheelZoom: false, layers: [tiles]});
+//map.once('focus', function() { map.scrollWheelZoom.enable(); });
 
 var mcg = L.markerClusterGroup(),
     group1 = L.featureGroup.subGroup(mcg),// use `L.featureGroup.subGroup(parentGroup)` instead of `L.featureGroup()` or `L.layerGroup()`!

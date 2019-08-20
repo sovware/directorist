@@ -29,10 +29,10 @@ for (i = 0; i < fullCount; i++) {
   marker.addTo(i < quarterCount ? group1 : i < quarterCount * 2 ? group2 : i < quarterCount * 3 ? group3 : group4);
 }
 
-control.addOverlay(group1, 'First quarter');
+/*control.addOverlay(group1, 'First quarter');
 control.addOverlay(group2, 'Second quarter');
 control.addOverlay(group3, 'Third quarter');
-control.addOverlay(group4, 'Fourth quarter');
+control.addOverlay(group4, 'Fourth quarter');*/
 control.addTo(map);
 
 group1.addTo(map); // Adding to map now adds all child layers into the parent group.

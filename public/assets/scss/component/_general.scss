@@ -801,3 +801,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 #OpenLayers_Map_2_OpenLayers_Container {
   pointer-events: none;
 }
+
+.plupload-thumbs .thumb{
+  height: auto !important;
+}

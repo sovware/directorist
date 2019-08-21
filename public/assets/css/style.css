@@ -906,6 +906,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   pointer-events: none;
 }
 
+.plupload-thumbs .thumb {
+  height: auto !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

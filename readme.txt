@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 5.7.0
+Stable tag: 5.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -136,6 +136,18 @@ Directorist is not developed by a single person. A team of dedicated developers 
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 5.8.0 - Aug 20, 2019 =
+
+* Add - Review approval option
+* Improve - Search fields label
+* Improve - Responsiveness of single listing slider
+* Improve - Made listing address clickable that opens on Google Map
+* Tweak - OpenStreetMap
+* Fix - Custom fields issue on Listings Search and Result pages
+* Fix - Price format of payment system
+* Fix - Styling issues
+* Revert - "Not Now" button of checkout page
 
 = 5.7.0 - Aug 17, 2019 =
 

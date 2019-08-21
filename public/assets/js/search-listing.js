@@ -70,9 +70,11 @@
 
     });
 
+
+
     $('.more-or-less').each(function(index, el) {
         var count = 1;
-        $(el).on('click', function(event) {
+        $("body").on('click', ".more-or-less", function(event) {
             event.preventDefault();
             count++;
             var item = $(this).closest('.ads-filter-tags');

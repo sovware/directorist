@@ -7,7 +7,7 @@
 
 <?php if( $acadp_query->have_posts() ) : ?>
     <?php while( $acadp_query->have_posts() ) : $acadp_query->the_post(); $field_meta = get_post_meta( $post->ID ); ?>
-        <div class="form-group">
+
             <label><?php the_title(); ?></label>
 
             <?php
@@ -124,6 +124,6 @@
                     break;
             }
             ?>
-        </div>
+
     <?php endwhile; ?>
 <?php endif; ?>

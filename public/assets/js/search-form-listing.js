@@ -50,6 +50,17 @@
 
             $.post( atbdp_search.ajax_url, data, function(response) {
                 $search_elem.html( response );
+                var item = $('.custom-control').closest('.bads-custom-checks');
+                item.each(function (index, el) {
+                    var count = 0;
+                    var abc = $(el)[0];
+                    var abc2 = $(abc).children('.custom-control');
+                    if(abc2.length <= 4){
+                        $(abc2).closest('.bads-custom-checks').next('a.more-or-less').hide();
+                    }
+                    $(abc2).slice(4, abc2.length).hide();
+
+                });
             });
 
         };

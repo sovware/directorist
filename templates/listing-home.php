@@ -248,7 +248,7 @@ $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
                                         </div><!-- ends: .form-control -->
                                     <?php } } ?>
                                 <?php if('yes' == $custom_fields) { ?>
-                                    <div id="atbdp-custom-fields-search" class="atbdp-custom-fields-search">
+                                    <div id="atbdp-custom-fields-search" class="form-group ads-filter-tags atbdp-custom-fields-search">
                                         <?php do_action( 'wp_ajax_atbdp_custom_fields_search', isset( $_GET['in_cat'] ) ? $_GET['in_cat'] : 0 ); ?>
                                     </div>
                                 <?php } ?>

@@ -908,6 +908,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .plupload-thumbs .thumb {
   height: auto !important;
+  float: none !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {

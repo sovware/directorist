@@ -1677,7 +1677,7 @@ The Administrator of ==SITE_NAME==
             // let's define default data
             $sub = __('Registration Confirmation!', 'directorist');
 
-            $tmpl = __("
+            $tmpl = __('
 Dear User,
 
 Congratulations! Your registration is completed!
@@ -1685,7 +1685,7 @@ Congratulations! Your registration is completed!
 This email is sent automatically for information purpose only. Please do not respond to this.
 You can login now using the below credentials:
 
-", 'directorist');
+', 'directorist');
 
             return apply_filters('atbdp_registration_confirmation_tmpl_settings_fields', array(
                 array(

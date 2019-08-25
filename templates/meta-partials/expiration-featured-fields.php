@@ -35,15 +35,18 @@ if (!empty($args['data']) ) extract($args['data']) ;
             </label>
         </div>
     </div>
-<?php endif; ?>
-
+<?php endif;
+if (!is_fee_manager_active() || !empty($never_expire)):
+    ?>
 <div class="misc-pub-section misc-pub-atbdp-never-expires">
     <label>
         <input type="checkbox" name="never_expire" value="1" <?php checked(1, $never_expire, true); ?>>
         <strong><?php _e( "Never Expires", 'directorist' ); ?></strong>
     </label>
 </div>
-
+<?php
+endif;
+?>
 <!--Show featured option if it is enabled by the user-->
 <?php if( $f_active || is_fee_manager_active()) { ?>
     <div class="misc-pub-section misc-pub-atbdp-featured">

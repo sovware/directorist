@@ -39,11 +39,12 @@ if (!class_exists('ATBDP_Shortcode')):
             add_action('wp_ajax_atbdp_custom_fields_listings_front', array($this, 'ajax_callback_custom_fields'), 10, 2);
             add_action('wp_ajax_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2);
 
-            if (!in_array('easy-registration-forms/erforms.php', apply_filters('active_plugins', get_option('active_plugins')))) {
+            $active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
+            $haystack = apply_filters('atbdp_login_authenticate', array('easy-registration-forms/erforms.php', 'woocommerce/woocommerce.php'));
+            if (count(array_intersect($haystack, $active_plugins)) == 0) {
                 // void action if someone use erforams or other plugin
                 add_action('wp_login_failed', array($this, 'my_login_fail'));
             }
-
         }
 
         /**

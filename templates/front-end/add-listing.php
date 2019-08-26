@@ -94,6 +94,9 @@ $listing_terms_condition_text = get_directorist_option('listing_terms_condition_
 $display_pricing_field = get_directorist_option('display_pricing_field', 1);
 $price_placeholder = get_directorist_option('price_placeholder', __('Price of this listing. Eg. 100', 'directorist'));
 $display_price_for = get_directorist_option('display_price_for', 'admin_users');
+$display_price_range_field = get_directorist_option('display_price_range_field', 1);
+$price_range_placeholder = get_directorist_option('price_range_placeholder', __('Price Range', 'directorist'));
+$display_price_range_for = get_directorist_option('display_price_range_for', 'admin_users');
 $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
 $display_views_count = get_directorist_option('display_views_count', 1);
 $display_views_count_for = get_directorist_option('display_views_count_for', 1);
@@ -233,7 +236,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                     $price_range = !empty($price_range) ? $price_range : '';
                                     $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
 
-                                    if (empty($display_price_for) && !empty($display_pricing_field) && ($plan_average_price || $plan_price)) { ?>
+                                    if (empty($display_price_for || $display_price_range_for) && !empty($display_pricing_field || $display_price_range_field) && ($plan_average_price || $plan_price)) { ?>
                                         <div class="form-group" id="atbd_pricing">
                                             <input type="hidden" id="atbd_listing_pricing"
                                                    value="<?php echo $atbd_listing_pricing ?>">
@@ -243,7 +246,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                 ?></label>
                                             <div class="atbd_pricing_options">
                                                 <?php
-                                                if ($plan_price) {
+                                                if ($plan_price && empty($display_price_for) && !empty($display_pricing_field)) {
                                                     ?>
                                                     <label for="price_selected" data-option="price">
                                                         <input type="checkbox" id="price_selected" value="price"
@@ -258,8 +261,8 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                 }
                                                 ?>
                                                 <?php
-                                                if ($plan_average_price) {
-                                                    if ($plan_price) {
+                                                if ($plan_average_price && empty($display_price_range_for) && !empty($display_price_range_field )) {
+                                                    if ($plan_price && empty($display_price_for) && !empty($display_pricing_field)) {
                                                         printf('<span>%s</span>', __('Or', 'directorist'));
                                                     }
                                                     ?>
@@ -267,7 +270,9 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                         <input type="checkbox" id="price_range_selected"
                                                                value="range"
                                                                name="atbd_listing_pricing" <?php echo ('range' === $atbd_listing_pricing) ? 'checked' : ''; ?>>
-                                                        <?php echo __('Price Range', 'directorist');
+                                                        <?php
+                                                        $price_label = get_directorist_option('price_range_label', __('Price Range', 'directorist'));
+                                                        echo esc_attr($price_label);
                                                         echo get_directorist_option('require_price_range') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?>
                                                         <!--<p id='price_range_option'><?php /*echo __('Price Range', 'directorist'); */ ?></p></label>-->
                                                     </label>
@@ -279,7 +284,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             </div>
 
                                             <?php
-                                            if ($plan_price) {
+                                            if ($plan_price && empty($display_price_for) && !empty($display_pricing_field)) {
                                                 ?>
                                                 <input type="text" id="price" name="price"
                                                        value="<?= !empty($price) ? esc_attr($price) : ''; ?>"
@@ -287,11 +292,11 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                        placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
 
                                             <?php }
-                                            if ($plan_average_price) {
+                                            if ($plan_average_price && empty($display_price_range_for) && !empty($display_price_range_field )) {
                                                 ?>
                                                 <select class="form-control directory_field" id="price_range"
                                                         name="price_range">
-                                                    <option value=""><?= __('Select Price Range', 'directorist'); ?></option>
+                                                    <option value=""><?= esc_attr($price_range_placeholder); ?></option>
                                                     <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
                                                         <?= __('Ultra High ($$$$)', 'directorist'); ?>
                                                     </option>

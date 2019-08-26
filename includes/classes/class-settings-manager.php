@@ -3865,13 +3865,13 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'display_pricing_field',
-                    'label' => __('Enable', 'directorist'),
+                    'label' => __('Enable Price', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
                     'name' => 'price_label',
-                    'label' => __('Label', 'directorist'),
+                    'label' => __('Price Label', 'directorist'),
                     'default' => __('Price', 'directorist'),
                 ),
                 array(
@@ -3888,13 +3888,37 @@ The Administrator of ==SITE_NAME==
                 ),
                 array(
                     'type' => 'toggle',
+                    'name' => 'display_price_for',
+                    'label' => __('Only For Admin Use', 'directorist'),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_price_range_field',
+                    'label' => __('Enable Price Range', 'directorist'),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'price_range_label',
+                    'label' => __('Price Range Label', 'directorist'),
+                    'default' => __('Price Range', 'directorist'),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'price_range_placeholder',
+                    'label' => __('Placeholder', 'directorist'),
+                    'default' => __('Select Price Range', 'directorist'),
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'require_price_range',
                     'label' => __('Required Price Range', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
-                    'name' => 'display_price_for',
+                    'name' => 'display_price_range_for',
                     'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),

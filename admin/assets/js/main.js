@@ -805,7 +805,7 @@ jQuery(function ($) {
     }
 
     //Display form pricing
-    var lf_opt19 = $("#price_label,#require_price,#require_price_range,#display_price_for");
+    var lf_opt19 = $("#price_label,#require_price,#display_price_for,#price_placeholder");
     lf_opt19.hide();
     $('input[name="display_pricing_field"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -816,6 +816,20 @@ jQuery(function ($) {
     });
     if($('input[name="display_pricing_field"]').is(":checked") === true){
         lf_opt19.show();
+    }
+
+    //Display form price range
+    var lf_opt_price_range = $("#price_range_label,#require_price_range,#display_price_range_for,#price_range_placeholder");
+    lf_opt_price_range.hide();
+    $('input[name="display_price_range_field"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt_price_range.show();
+        }else{
+            lf_opt_price_range.hide();
+        }
+    });
+    if($('input[name="display_price_range_field"]').is(":checked") === true){
+        lf_opt_price_range.show();
     }
 
     //Display form excerpt

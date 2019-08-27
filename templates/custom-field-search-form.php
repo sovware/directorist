@@ -8,7 +8,7 @@
 <?php if( $acadp_query->have_posts() ) : ?>
     <?php while( $acadp_query->have_posts() ) : $acadp_query->the_post(); $field_meta = get_post_meta( $post->ID ); ?>
 
-            <label><?php the_title(); ?></label>
+            <div class="form-group"><label><?php the_title(); ?></label>
 
             <?php
             $value = '';
@@ -19,9 +19,11 @@
             switch( $field_meta['type'][0] ) {
                 case 'text' :
                     printf( '<input type="text" name="custom_field[%d]" class="form-control" value="%s"/>', $post->ID, esc_attr( $value ) );
+                    echo '</div>';
                     break;
                 case 'textarea' :
                     printf( '<textarea name="custom_field[%d]" class="form-control" rows="%d">%s</textarea>', $post->ID, (int) $field_meta['rows'][0], esc_textarea( $value ) );
+                    echo '</div>';
                     break;
                 case 'select' :
                     $choices = $field_meta['choices'][0];
@@ -49,6 +51,7 @@
                         printf( '<option value="%s"%s>%s</option>', $_value, $_selected, $_label );
                     }
                     echo '</select></div>';
+                    echo '</div>';
                     break;
                 case 'checkbox' :
                     $choices = $field_meta['choices'][0];
@@ -77,6 +80,7 @@
                     }
                     echo '</div>';
                     echo '<a href="#" class="more-or-less sml">'.__('Show More', 'directorist').'</a>';
+                    echo '</div>';
                     break;
                 case 'radio' :
                     $choices = $field_meta['choices'][0];
@@ -100,12 +104,15 @@
                         printf( '<div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary"><input type="radio" class="custom-control-input" name="custom_field[%d]" id="%d" value="%s"%s><span class="radio--select"></span><label class="custom-control-label" for="%d">%s</label></div>', $post->ID,$_for, $_value, $_checked,$_for, $_label );
                     }
                     echo "</div>";
+                    echo '</div>';
                     break;
                 case 'url' :
                     printf( '<input type="text" name="custom_field[%d]" class="form-control" value="%s"/>', $post->ID, esc_url( $value ) );
+                    echo '</div>';
                     break;
                 case 'date' :
                     printf( '<input type="date" name="custom_field[%d]" class="form-control" value="%s"/>', $post->ID,  $value  );
+                    echo '</div>';
                     break;
                 case 'color' :
                     ?>
@@ -117,10 +124,11 @@
                     </script>
                 <?php
                     printf( '<input type="color" name="custom_field[%d]" class="search-color-field" value="%s"/>', $post->ID,  $value  );
-
+        echo '</div>';
                     break;
                 case 'time' :
                     printf( '<input type="time" name="custom_field[%d]" class="form-control" value="%s"/>', $post->ID,  $value  );
+                    echo '</div>';
                     break;
             }
             ?>

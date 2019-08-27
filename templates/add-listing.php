@@ -18,7 +18,7 @@ $display_pricing_field = get_directorist_option('display_pricing_field', 1);
 $price_placeholder     = get_directorist_option('price_placeholder',__('Price of this listing. Eg. 100', 'directorist'));
 $excerpt_placeholder   = get_directorist_option('excerpt_placeholder',__('Short Description or Excerpt', 'directorist'));
 $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
-$display_views_count = get_directorist_option('display_views_count', 1);
+$display_views_count   = get_directorist_option('display_views_count', 1);
 
 ?>
 <div id="directorist" class="directorist atbd_wrapper directory_wrapper">

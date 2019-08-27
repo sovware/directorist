@@ -1038,7 +1038,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                 </div>
                                             </div>
 
-                                            <div class="atbdb_content_module_contents">
+                                            <div class="atbdb_content_module_contents atbdp_video_field">
                                                 <!--Image Uploader-->
                                                 <?php if ((!empty($display_prv_field) && empty($display_prv_img_for)) || (!empty($display_gellery_field) && empty($display_glr_img_for))) { ?>
                                                     <div id="_listing_gallery">
@@ -1067,6 +1067,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                class="form-control directory_field"
                                                                placeholder="<?php echo esc_attr($video_placeholder); ?>"/>
                                                     </div>
+                                                    <?php do_action('atbdp_video_field',get_the_ID()); ?>
                                                 <?php } ?>
                                             </div>
                                         </div>

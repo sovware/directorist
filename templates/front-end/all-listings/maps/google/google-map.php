@@ -59,9 +59,9 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                             <h3 class="atbdp-no-margin"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                         </div>
                         <?php if(!empty($address)) { ?>
-                        <span class="fa fa-briefcase"></span> <a href="" class="map-info-link"><?php echo $address;?></a>
+                        <span class="<?php atbdp_icon_type(true); ?>-briefcase"></span> <a href="" class="map-info-link"><?php echo $address;?></a>
                             <br>
-                            <a href='http://www.google.com/maps?daddr=<?php echo $manual_lat; ?>,<?php echo $manual_lng; ?>' target='_blank'><?php _e('Get Direction', 'directorist') ?></a>
+                            <span class="<?php atbdp_icon_type(true); ?>-arrow-right"></span> <a href='http://www.google.com/maps?daddr=<?php echo $manual_lat; ?>,<?php echo $manual_lng; ?>' target='_blank'><?php _e('Get Direction', 'directorist') ?></a>
                         <?php } ?>
 
                         <?php do_action( 'atbdp_after_listing_content', $post->ID, 'map' ); ?>

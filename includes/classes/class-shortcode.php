@@ -39,11 +39,12 @@ if (!class_exists('ATBDP_Shortcode')):
             add_action('wp_ajax_atbdp_custom_fields_listings_front', array($this, 'ajax_callback_custom_fields'), 10, 2);
             add_action('wp_ajax_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2);
 
-            if (!in_array('easy-registration-forms/erforms.php', apply_filters('active_plugins', get_option('active_plugins')))) {
+            $active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
+            $haystack = apply_filters('atbdp_login_authenticate', array('easy-registration-forms/erforms.php', 'woocommerce/woocommerce.php'));
+            if (count(array_intersect($haystack, $active_plugins)) == 0) {
                 // void action if someone use erforams or other plugin
                 add_action('wp_login_failed', array($this, 'my_login_fail'));
             }
-
         }
 
         /**
@@ -54,10 +55,12 @@ if (!class_exists('ATBDP_Shortcode')):
         {
             $referrer = $_SERVER['HTTP_REFERER'];  // where did the post submission come from?
             // if there's a valid referrer, and it's not the default log-in screen
-            if (!empty($referrer) && !strstr($referrer, 'wp-login') && !strstr($referrer, 'wp-admin')) {
-                wp_redirect($referrer . '?login=failed');  // let's append some information (login=failed) to the URL for the theme to use
-                exit;
-            }
+            $login_page = get_directorist_option('user_login');
+
+                if (!empty($referrer) && !strstr($referrer, 'wp-login') && !strstr($referrer, 'wp-admin')) {
+                     wp_redirect($referrer . '?login=failed');  // let's append some information (login=failed) to the URL for the theme to use
+                    exit;
+                }
         }
 
         /**
@@ -221,15 +224,15 @@ if (!class_exists('ATBDP_Shortcode')):
             } else {
                 $current_order = atbdp_get_listings_current_order($atts['orderby'] . '-' . $atts['order']);
             }
-
-
             $view = atbdp_get_listings_current_view_name($atts['view']);
             $s_string = !empty($_GET['q']) ? sanitize_text_field($_GET['q']) : '';// get the searched query
             $args = array(
                 'post_type' => ATBDP_POST_TYPE,
                 'post_status' => 'publish',
-                's' => $s_string,   // Our new custom argument!
             );
+            if (!empty($s_string)){
+                $args['s'] = $s_string;
+            }
 
             if ('yes' == $show_pagination) {
                 $args['posts_per_page'] = (int)$atts['listings_per_page'];
@@ -3338,7 +3341,6 @@ if (!class_exists('ATBDP_Shortcode')):
                 echo '<div id="directorist" class="atbd_wrapper directorist">
     <div class="container-fluid"><div class="row"> <div class="col-md-8 offset-md-2"><div class="atbdp_login_form_shortcode">';
                 if (isset($_GET['login']) && $_GET['login'] == 'failed') {
-
                     printf('<p class="alert-danger"><span class="fa fa-exclamation"></span>%s</p>', __(' Invalid username or password!', 'directorist'));
                     $location = ATBDP_Permalink::get_login_page_link();
                     ?>
@@ -3371,6 +3373,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     'label_log_in' => sprintf(__('%s', 'directorist'), $log_button),
                     'remember' => !empty($display_rememberMe) ? true : false,
                 );
+                
                 wp_login_form($args);
                 echo "<div class='d-flex justify-content-between'>";
                 if (!empty($display_signup)) { ?>
@@ -3390,9 +3393,9 @@ if (!class_exists('ATBDP_Shortcode')):
                     $email = trim($_POST['user_login']);
 
                     if (empty($email)) {
-                        $error = __('Enter a username or e-mail address..', 'directorist');
+                        $error = __('Enter an e-mail address..', 'directorist');
                     } else if (!is_email($email)) {
-                        $error = __('Invalid username or e-mail address.', 'directorist');
+                        $error = __('Invalid e-mail address.', 'directorist');
                     } else if (!email_exists($email)) {
                         $error = __('There is no user registered with that email address.', 'directorist');
                     } else {

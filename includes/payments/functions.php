@@ -335,6 +335,25 @@ function atbdp_currency_symbol($currency = '')
         case "EUR" :
             $symbol = '&euro;';
             break;
+        case "JPY" :
+            $symbol = '&yen;';
+            break;
+        case "RUPEE" :
+        case "INR" :
+            $symbol = '&#8377;';
+            break;
+        case "PHP" :
+            $symbol = '&#8369;'; // Mexican and Philippine Peso Sign
+            break;
+        case "BDT" :
+            $symbol = '&#2547;';
+            break;
+        case "ALL" :
+            $symbol = '&#76;&#101;&#107;';
+            break;
+        case "AFN" :
+            $symbol = '&#1547;';
+            break;
         case "USD" :
         case "AUD" :
         case "NZD" :
@@ -342,28 +361,384 @@ function atbdp_currency_symbol($currency = '')
         case "ARP" :
         case "HKD" :
         case "SGD" :
+        case "ARS" :
+        case "BSD" :
+        case "BBD" :
+        case "BMD" :
+        case "BND" :
+        case "KYD" :
+        case "CLP" :
+        case "COP" :
+        case "XCD" :
+        case "SVC" :
+        case "FJD" :
+        case "GYD" :
+        case "LRD" :
+        case "MXN" :
+        case "NAD" :
+        case "SBD" :
+        case "SRD" :
+        case "TVD" :
+        case "CUC" :
+        case "CVE" :
             $symbol = '&#36;';
             break;
-        case "JPY" :
-            $symbol = '&yen;';
+        case "AWG" :
+            $symbol = '&#402;';
             break;
-        case "RUPEE" :
-        case "MUR" :
+        case "AZN" :
+            $symbol = '&#1084;&#1072;&#1085;';
+            break;
+        case "BYN" :
+            $symbol = '&#66;&#114;';
+            break;
+        case "BZD" :
+            $symbol = '&#66;&#90;&#36;';
+            break;
+        case "BOB" :
+            $symbol = 'Bs.';
+            break;
+        case "BAM" :
+            $symbol = '&#75;&#77;';
+            break;
+        case "BWP" :
+            $symbol = '&#80;';
+            break;
+        case "BGN" :
+            $symbol = '&#1083;&#1074;';
+            break;
+        case "KHR" :
+            $symbol = '&#6107;';
+            break;
+        case "CNY" :
+            $symbol = '&#165;';
+            break;
+        case "CRC" :
+            $symbol = '&#8353;';
+            break;
+        case "HRK" :
+            $symbol = '&#107;&#110;';
+            break;
+        case "CUP" :
+            $symbol = '&#8369;';
+            break;
+        case "CZK" :
+            $symbol = '&#75;&#269;';
+            break;
+        case "DKK" :
+            $symbol = '&#107;&#114;';
+            break;
+        case "DOP" :
+            $symbol = '&#82;&#68;&#36;';
+            break;
+        case "FKP" :
+        case "GIP" :
+        case "GGP" :
+        case "IMP" :
+        case "JEP" :
+        case "SHP" :
+        case "SSP" :
+            $symbol = '&#163;';
+            break;
+        case "EGP" :
+            $symbol = 'E&#163;';
+            break;
+        case "GHS" :
+            $symbol = '&#x20b5;';
+            break;
+        case "GTQ" :
+            $symbol = '&#81;';
+            break;
+        case "HNL" :
+            $symbol = '&#76;';
+            break;
+        case "HUF" :
+            $symbol = '&#70;&#116;';
+            break;
+        case "ISK" :
+            $symbol = '&#107;&#114;';
+            break;
+        case "IDR" :
+            $symbol = '&#82;&#112;';
+            break;
+        case "IRR" :
+        case "SAR" :
+        case "YER" :
+            $symbol = '&#65020;';
+            break;
+        case "ILS" :
+            $symbol = '&#8362;';
+            break;
+        case "JMD" :
+            $symbol = '&#74;&#36;';
+            break;
+        case "KZT" :
+            $symbol = '&#8376;';
+            break;
+        case "KPW" :
+        case "KRW" :
+            $symbol = '&#8361;';
+            break;
+        case "KGS" :
+            $symbol = '&#1083;&#1074;';
+            break;
+        case "LAK" :
+            $symbol = '&#8365;';
+            break;
+        case "MKD" :
+            $symbol = '&#1076;&#1077;&#1085;';
+            break;
+        case "MYR" :
+            $symbol = '&#82;&#77;';
+            break;
+        case "MNT" :
+            $symbol = '&#8366;';
+            break;
+        case "MZN" :
+            $symbol = '&#77;&#84;';
+            break;
+        case "NPR" :
         case "PKR" :
+        case "SCR" :
+        case "LKR" :
+        case "MUR" :
             $symbol = '&#8360;';
             break;
-        case "INR" :
-            $symbol = '&#8377;';
+        case "ANG" :
+            $symbol = '&#402;';
             break;
-        case "MXN" :
-        case "PHP" :
-            $symbol = '&#8369;'; // Mexican and Philippine Peso Sign
+        case "NIO" :
+            $symbol = '&#67;&#36;';
             break;
-        case "BDT" :
-            $symbol = '&#2547;';
+        case "NGN" :
+            $symbol = '&#8358;';
+            break;
+        case "NOK" :
+            $symbol = '&#107;&#114;';
+            break;
+        case "PAB" :
+            $symbol = '&#66;&#47;&#46;';
+            break;
+        case "PYG" :
+            $symbol = '&#8370;';
+            break;
+        case "PEN" :
+            $symbol = '&#83;&#47;&#46;';
+            break;
+        case "PLN" :
+            $symbol = '&#122;&#322;';
+            break;
+        case "RON" :
+            $symbol = '&#108;&#101;&#105;';
+            break;
+        case "RUB" :
+            $symbol = '&#8381;';
+            break;
+        case "RSD" :
+            $symbol = '&#x434;&#x438;&#x43d;.';
+            break;
+        case "SOS" :
+            $symbol = 'Sh';
+            break;
+        case "ZAR" :
+            $symbol = '&#82;';
+            break;
+        case "SEK" :
+            $symbol = '&#107;&#114;';
+            break;
+        case "CHF" :
+            $symbol = '&#67;&#72;&#70;';
+            break;
+        case "TWD" :
+            $symbol = '&#78;&#84;&#36;';
+            break;
+        case "THB" :
+            $symbol = '&#3647;';
+            break;
+        case "TTD" :
+            $symbol = '&#84;&#84;&#36;';
+            break;
+        case "UAH" :
+            $symbol = '&#8372;';
+            break;
+        case "UYU" :
+            $symbol = '&#36;&#85;';
+            break;
+        case "VEF" :
+            $symbol = '&#66;&#115;';
+            break;
+        case "VND" :
+            $symbol = '&#8363;';
+            break;
+        case "ZWD" :
+            $symbol = '&#90;&#36;';
+            break;
+        case "UZS" :
+            $symbol = 'UZS';
+            break;
+        case "TRY" :
+            $symbol = '&#8378;';
+            break;
+        case "AED" :
+            $symbol = '&#x62f;.&#x625;';
+            break;
+        case "AMD" :
+            $symbol = 'AMD';
+            break;
+        case "AOA" :
+            $symbol = 'Kz';
+            break;
+        case "BHD" :
+            $symbol = '.&#x62f;.&#x628;';
+            break;
+        case "BIF" :
+        case "CDF" :
+        case "DJF" :
+        case "GNF" :
+        case "KMF" :
+        case "RWF" :
+            $symbol = 'Fr';
+            break;
+        case "BTC" :
+            $symbol = '&#3647;';
+            break;
+        case "BTN" :
+            $symbol = 'Nu.';
+            break;
+        case "BWP" :
+            $symbol = 'P';
+            break;
+        case "BYR" :
+        case "ETB" :
+            $symbol = 'Br';
             break;
         case "DZD" :
-            $symbol = '&#65020;';
+            $symbol = '&#x62f;.&#x62c;';
+            break;
+        case "ERN" :
+            $symbol = 'Nfk';
+            break;
+        case "GEL" :
+            $symbol = '&#x20be;';
+            break;
+        case "GMD" :
+            $symbol = 'D';
+            break;
+        case "HTG" :
+            $symbol = 'G';
+            break;
+        case "IQD" :
+            $symbol = '&#x639;.&#x62f;';
+            break;
+        case "IRT" :
+            $symbol = '&#x062A;&#x0648;&#x0645;&#x0627;&#x0646;';
+            break;
+        case "JOD" :
+            $symbol = '&#x62f;.&#x627;';
+            break;
+        case "KES" :
+            $symbol = 'KSh';
+            break;
+        case "KWD" :
+            $symbol = '&#x62f;.&#x643;';
+            break;
+        case "LBP" :
+            $symbol = '&#x644;.&#x644;';
+            break;
+        case "LSL" :
+        case "MDL" :
+        case "SZL" :
+            $symbol = 'L';
+            break;
+        case "LYD" :
+            $symbol = '&#x644;.&#x62f;';
+            break;
+        case "MAD" :
+            $symbol = '&#x62f;.&#x645;.';
+            break;
+        case "MGA" :
+            $symbol = 'Ar';
+            break;
+        case "MMK" :
+            $symbol = 'K';
+            break;
+        case "MOP" :
+            $symbol = 'MOP&#36;';
+            break;
+        case "MRU" :
+            $symbol = 'UM';
+            break;
+        case "MVR" :
+            $symbol = '.&#x783;';
+            break;
+        case "MWK" :
+            $symbol = 'MK';
+            break;
+        case "OMR" :
+            $symbol = '&#x631;.&#x639;.';
+            break;
+        case "PGK" :
+            $symbol = 'K';
+            break;
+        case "PRB" :
+            $symbol = '&#x440;.';
+            break;
+        case "QAR" :
+            $symbol = '&#x631;.&#x642;';
+            break;
+        case "RMB" :
+            $symbol = '&yen;';
+            break;
+        case "SDG" :
+            $symbol = '&#x62c;.&#x633;.';
+            break;
+        case "SLL" :
+            $symbol = 'Le';
+            break;
+        case "STN" :
+            $symbol = 'Db';
+            break;
+        case "SYP" :
+            $symbol = '&#x644;.&#x633;';
+            break;
+        case "TJS" :
+            $symbol = '&#x405;&#x41c;';
+            break;
+        case "TMT" :
+            $symbol = 'm';
+            break;
+        case "TND" :
+            $symbol = '&#x62f;.&#x62a;';
+            break;
+        case "TOP" :
+            $symbol = 'T&#36;';
+            break;
+        case "TZS" :
+            $symbol = 'TSh';
+            break;
+        case "UGX" :
+            $symbol = 'USh';
+            break;
+        case "VES" :
+            $symbol = 'Bs.S';
+            break;
+        case "VUV" :
+            $symbol = 'VT';
+            break;
+        case "WST" :
+            $symbol = 'T';
+            break;
+        case "XAF" :
+            $symbol = 'FCFA';
+            break;
+        case "XOF" :
+            $symbol = 'CFA';
+            break;
+        case "XPF" :
+            $symbol = '&#8355;';
+            break;
+        case "ZMW" :
+            $symbol = 'ZK';
             break;
         default :
             $symbol = $currency;

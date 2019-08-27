@@ -1020,7 +1020,7 @@ class Parsedown
 
                         $remainingText = substr($text, $offset);
 
-                        if ($remainingText[0] === '(' and preg_match('/\([ ]*(.*?)(?:[ ]+[\'"](.+?)[\'"])?[ ]*\)/', $remainingText, $matches))
+                        if ($remainingText === '(' and preg_match('/\([ ]*(.*?)(?:[ ]+[\'"](.+?)[\'"])?[ ]*\)/', $remainingText, $matches))
                         {
                             $element['link'] = $matches[1];
 

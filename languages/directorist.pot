@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2019-08-20 20:39+0600\n"
+"POT-Creation-Date: 2019-08-26 10:45+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -203,18 +203,18 @@ msgstr ""
 #: directorist-base.php:1364
 #: includes/classes/class-settings-manager.php:427
 #: includes/classes/class-settings-manager.php:676
-#: includes/classes/class-shortcode.php:1217
-#: includes/classes/class-shortcode.php:1732
-#: includes/classes/class-shortcode.php:1763
-#: includes/classes/class-shortcode.php:1829
-#: includes/classes/class-shortcode.php:2231
-#: includes/classes/class-shortcode.php:2304
-#: includes/classes/class-shortcode.php:2702
-#: includes/classes/class-shortcode.php:3093
-#: includes/classes/class-shortcode.php:3197
-#: includes/classes/class-shortcode.php:3279
-#: includes/classes/class-shortcode.php:3320
-#: includes/classes/class-shortcode.php:3365
+#: includes/classes/class-shortcode.php:1220
+#: includes/classes/class-shortcode.php:1735
+#: includes/classes/class-shortcode.php:1766
+#: includes/classes/class-shortcode.php:1832
+#: includes/classes/class-shortcode.php:2234
+#: includes/classes/class-shortcode.php:2307
+#: includes/classes/class-shortcode.php:2705
+#: includes/classes/class-shortcode.php:3096
+#: includes/classes/class-shortcode.php:3200
+#: includes/classes/class-shortcode.php:3282
+#: includes/classes/class-shortcode.php:3323
+#: includes/classes/class-shortcode.php:3367
 msgid "Sign Up"
 msgstr ""
 
@@ -245,7 +245,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:3550
 #: includes/gateways/class-gateway.php:133
 #: templates/front-end/user-dashboard.php:150
-#: templates/meta-partials/expiration-featured-fields.php:53
+#: templates/meta-partials/expiration-featured-fields.php:56
 msgid "Featured"
 msgstr ""
 
@@ -528,11 +528,11 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:2475
 #: includes/classes/class-settings-manager.php:3382
 #: includes/classes/class-settings-manager.php:3464
-#: includes/classes/class-shortcode.php:1192
-#: includes/classes/class-shortcode.php:1714
-#: includes/classes/class-shortcode.php:2212
-#: includes/classes/class-shortcode.php:2678
-#: includes/classes/class-shortcode.php:3074
+#: includes/classes/class-shortcode.php:1195
+#: includes/classes/class-shortcode.php:1717
+#: includes/classes/class-shortcode.php:2215
+#: includes/classes/class-shortcode.php:2681
+#: includes/classes/class-shortcode.php:3077
 #: includes/classes/class-tags-widget.php:152
 msgid "Sort By"
 msgstr ""
@@ -734,7 +734,7 @@ msgstr ""
 #: includes/classes/class-custom-post.php:253
 #: includes/classes/class-email.php:115
 #: templates/front-end/user-dashboard.php:259
-#: templates/meta-partials/expiration-featured-fields.php:43
+#: templates/meta-partials/expiration-featured-fields.php:44
 msgid "Never Expires"
 msgstr ""
 
@@ -1392,11 +1392,11 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:2457
 #: includes/classes/class-settings-manager.php:2968
 #: includes/classes/class-settings-manager.php:3327
-#: includes/classes/class-shortcode.php:1190
-#: includes/classes/class-shortcode.php:1706
-#: includes/classes/class-shortcode.php:2205
-#: includes/classes/class-shortcode.php:2676
-#: includes/classes/class-shortcode.php:3067
+#: includes/classes/class-shortcode.php:1193
+#: includes/classes/class-shortcode.php:1709
+#: includes/classes/class-shortcode.php:2208
+#: includes/classes/class-shortcode.php:2679
+#: includes/classes/class-shortcode.php:3070
 #: includes/custom-fields/class-custom-field.php:530
 #: includes/helper-functions.php:3699 templates/listing-home.php:5
 #: templates/search-widget-front.php:28
@@ -1407,11 +1407,11 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:2463
 #: includes/classes/class-settings-manager.php:2974
 #: includes/classes/class-settings-manager.php:3333
-#: includes/classes/class-shortcode.php:1191
-#: includes/classes/class-shortcode.php:1707
-#: includes/classes/class-shortcode.php:2206
-#: includes/classes/class-shortcode.php:2677
-#: includes/classes/class-shortcode.php:3068 templates/listing-home.php:6
+#: includes/classes/class-shortcode.php:1194
+#: includes/classes/class-shortcode.php:1710
+#: includes/classes/class-shortcode.php:2209
+#: includes/classes/class-shortcode.php:2680
+#: includes/classes/class-shortcode.php:3071 templates/listing-home.php:6
 msgid "Select a location"
 msgstr ""
 
@@ -1722,13 +1722,13 @@ msgid "Search"
 msgstr ""
 
 #: includes/classes/class-seo.php:574
-#: includes/classes/class-shortcode.php:3368
-#: includes/classes/class-shortcode.php:3369
 #: includes/classes/class-shortcode.php:3370
 #: includes/classes/class-shortcode.php:3371
-#: includes/classes/class-shortcode.php:3440
-#: includes/classes/class-shortcode.php:3441
-#: includes/classes/class-shortcode.php:3447
+#: includes/classes/class-shortcode.php:3372
+#: includes/classes/class-shortcode.php:3373
+#: includes/classes/class-shortcode.php:3443
+#: includes/classes/class-shortcode.php:3444
+#: includes/classes/class-shortcode.php:3450
 #: templates/front-end/user-registration-form.php:87
 #: templates/front-end/user-registration-form.php:100
 #, php-format
@@ -1921,7 +1921,7 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:277
 #: includes/classes/class-settings-manager.php:450
-#: includes/classes/class-shortcode.php:3358
+#: includes/classes/class-shortcode.php:3360
 msgid "Recover Password"
 msgstr ""
 
@@ -1978,17 +1978,17 @@ msgid "Linking Text"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:315
-#: includes/classes/class-shortcode.php:1217
-#: includes/classes/class-shortcode.php:1732
-#: includes/classes/class-shortcode.php:1763
-#: includes/classes/class-shortcode.php:1829
-#: includes/classes/class-shortcode.php:2231
-#: includes/classes/class-shortcode.php:2304
-#: includes/classes/class-shortcode.php:2702
-#: includes/classes/class-shortcode.php:3093
-#: includes/classes/class-shortcode.php:3197
-#: includes/classes/class-shortcode.php:3279
-#: includes/classes/class-shortcode.php:3320
+#: includes/classes/class-shortcode.php:1220
+#: includes/classes/class-shortcode.php:1735
+#: includes/classes/class-shortcode.php:1766
+#: includes/classes/class-shortcode.php:1832
+#: includes/classes/class-shortcode.php:2234
+#: includes/classes/class-shortcode.php:2307
+#: includes/classes/class-shortcode.php:2705
+#: includes/classes/class-shortcode.php:3096
+#: includes/classes/class-shortcode.php:3200
+#: includes/classes/class-shortcode.php:3282
+#: includes/classes/class-shortcode.php:3323
 #: includes/helper-functions.php:1350
 #: templates/front-end/user-registration-form.php:24
 #: templates/front-end/user-registration-form.php:38
@@ -2036,7 +2036,7 @@ msgid "Log In"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:415
-#: includes/classes/class-shortcode.php:3363
+#: includes/classes/class-shortcode.php:3365
 msgid "Don't have an account?"
 msgstr ""
 
@@ -2046,7 +2046,7 @@ msgid "Description"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:456
-#: includes/classes/class-shortcode.php:3359
+#: includes/classes/class-shortcode.php:3361
 msgid ""
 "Please enter your email address. You will receive a new password via "
 "email."
@@ -2065,7 +2065,7 @@ msgid "Username or Email Placeholder"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:468
-#: includes/classes/class-shortcode.php:3361
+#: includes/classes/class-shortcode.php:3363
 msgid "eg. mail@example.com"
 msgstr ""
 
@@ -2074,7 +2074,7 @@ msgid "Button Text"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:474
-#: includes/classes/class-shortcode.php:3362
+#: includes/classes/class-shortcode.php:3364
 msgid "Get New Password"
 msgstr ""
 
@@ -3240,7 +3240,7 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:2266
 #: includes/classes/class-settings-manager.php:2285
-#: includes/payments/functions.php:48
+#: includes/payments/functions.php:52
 #: includes/review-rating/class-review-custom-post.php:148
 msgid "Pending"
 msgstr ""
@@ -3275,11 +3275,11 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:2317
 #: includes/classes/class-settings-manager.php:3187
-#: includes/classes/class-shortcode.php:1188
-#: includes/classes/class-shortcode.php:1704
-#: includes/classes/class-shortcode.php:2203
-#: includes/classes/class-shortcode.php:2674
-#: includes/classes/class-shortcode.php:3065
+#: includes/classes/class-shortcode.php:1191
+#: includes/classes/class-shortcode.php:1707
+#: includes/classes/class-shortcode.php:2206
+#: includes/classes/class-shortcode.php:2677
+#: includes/classes/class-shortcode.php:3068
 msgid "Filters"
 msgstr ""
 
@@ -3383,12 +3383,12 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:2439
 #: includes/classes/class-settings-manager.php:3100
 #: includes/classes/class-settings-manager.php:3309
-#: includes/classes/class-shortcode.php:1198
-#: includes/classes/class-shortcode.php:1712
-#: includes/classes/class-shortcode.php:2210
-#: includes/classes/class-shortcode.php:2683
-#: includes/classes/class-shortcode.php:3072
-#: includes/classes/class-shortcode.php:3124
+#: includes/classes/class-shortcode.php:1201
+#: includes/classes/class-shortcode.php:1715
+#: includes/classes/class-shortcode.php:2213
+#: includes/classes/class-shortcode.php:2686
+#: includes/classes/class-shortcode.php:3075
+#: includes/classes/class-shortcode.php:3127
 msgid "Reset Filters"
 msgstr ""
 
@@ -3400,12 +3400,12 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:2445
 #: includes/classes/class-settings-manager.php:3106
 #: includes/classes/class-settings-manager.php:3315
-#: includes/classes/class-shortcode.php:1199
-#: includes/classes/class-shortcode.php:1713
-#: includes/classes/class-shortcode.php:2211
-#: includes/classes/class-shortcode.php:2684
-#: includes/classes/class-shortcode.php:3073
-#: includes/classes/class-shortcode.php:3125
+#: includes/classes/class-shortcode.php:1202
+#: includes/classes/class-shortcode.php:1716
+#: includes/classes/class-shortcode.php:2214
+#: includes/classes/class-shortcode.php:2687
+#: includes/classes/class-shortcode.php:3076
+#: includes/classes/class-shortcode.php:3128
 msgid "Apply Filters"
 msgstr ""
 
@@ -3418,11 +3418,11 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:2451
 #: includes/classes/class-settings-manager.php:2962
 #: includes/classes/class-settings-manager.php:3321
-#: includes/classes/class-shortcode.php:1189
-#: includes/classes/class-shortcode.php:1705
-#: includes/classes/class-shortcode.php:2204
-#: includes/classes/class-shortcode.php:2675
-#: includes/classes/class-shortcode.php:3066 templates/listing-home.php:4
+#: includes/classes/class-shortcode.php:1192
+#: includes/classes/class-shortcode.php:1708
+#: includes/classes/class-shortcode.php:2207
+#: includes/classes/class-shortcode.php:2678
+#: includes/classes/class-shortcode.php:3069 templates/listing-home.php:4
 #: templates/search-widget-front.php:5
 msgid "What are you looking for?"
 msgstr ""
@@ -3510,11 +3510,11 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:2537
 #: includes/classes/class-settings-manager.php:3345
-#: includes/classes/class-shortcode.php:1193
-#: includes/classes/class-shortcode.php:1715
-#: includes/classes/class-shortcode.php:2213
-#: includes/classes/class-shortcode.php:2679
-#: includes/classes/class-shortcode.php:3075
+#: includes/classes/class-shortcode.php:1196
+#: includes/classes/class-shortcode.php:1718
+#: includes/classes/class-shortcode.php:2216
+#: includes/classes/class-shortcode.php:2682
+#: includes/classes/class-shortcode.php:3078
 msgid "View As"
 msgstr ""
 
@@ -3693,7 +3693,7 @@ msgid "Search Button Text"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:3088
-#: includes/classes/class-shortcode.php:3123
+#: includes/classes/class-shortcode.php:3126
 msgid "Search Listing"
 msgstr ""
 
@@ -3702,7 +3702,7 @@ msgid "More Filters Button Text"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:3094
-#: includes/classes/class-shortcode.php:3122
+#: includes/classes/class-shortcode.php:3125
 msgid "More Filters"
 msgstr ""
 
@@ -4653,36 +4653,36 @@ msgid ""
 "even more by using extensions. %s"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:183
+#: includes/classes/class-shortcode.php:186
 msgid "Total Found: "
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1182
+#: includes/classes/class-shortcode.php:1185
 #, php-format
 msgid "for %s"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1183
+#: includes/classes/class-shortcode.php:1186
 #, php-format
 msgid "in %s"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1186
+#: includes/classes/class-shortcode.php:1189
 #, php-format
 msgid "%d result%s %s %s"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1217
-#: includes/classes/class-shortcode.php:1732
-#: includes/classes/class-shortcode.php:1763
-#: includes/classes/class-shortcode.php:1829
-#: includes/classes/class-shortcode.php:2231
-#: includes/classes/class-shortcode.php:2304
-#: includes/classes/class-shortcode.php:2702
-#: includes/classes/class-shortcode.php:3093
-#: includes/classes/class-shortcode.php:3197
-#: includes/classes/class-shortcode.php:3279
-#: includes/classes/class-shortcode.php:3320
+#: includes/classes/class-shortcode.php:1220
+#: includes/classes/class-shortcode.php:1735
+#: includes/classes/class-shortcode.php:1766
+#: includes/classes/class-shortcode.php:1832
+#: includes/classes/class-shortcode.php:2234
+#: includes/classes/class-shortcode.php:2307
+#: includes/classes/class-shortcode.php:2705
+#: includes/classes/class-shortcode.php:3096
+#: includes/classes/class-shortcode.php:3200
+#: includes/classes/class-shortcode.php:3282
+#: includes/classes/class-shortcode.php:3323
 #: includes/helper-functions.php:1350
 #, php-format
 msgid ""
@@ -4690,96 +4690,96 @@ msgid ""
 "login %s. Don't have an account? %s"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1247
-#: includes/classes/class-shortcode.php:2360
-#: includes/classes/class-shortcode.php:2752
+#: includes/classes/class-shortcode.php:1250
+#: includes/classes/class-shortcode.php:2363
+#: includes/classes/class-shortcode.php:2755
 msgid "All Items"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1825
-#: includes/classes/class-shortcode.php:1845
-#: includes/classes/class-shortcode.php:2300
-#: includes/classes/class-shortcode.php:2319
+#: includes/classes/class-shortcode.php:1828
+#: includes/classes/class-shortcode.php:1848
+#: includes/classes/class-shortcode.php:2303
+#: includes/classes/class-shortcode.php:2322
 msgid "<p>No Results found!</p>"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1885
-#: includes/classes/class-shortcode.php:2753
+#: includes/classes/class-shortcode.php:1888
+#: includes/classes/class-shortcode.php:2756
 #: templates/search-at_biz_dir.php:10
 msgid "Total Listing Found: "
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2245
-#: includes/classes/class-shortcode.php:2716
-#: includes/classes/class-shortcode.php:3107
+#: includes/classes/class-shortcode.php:2248
+#: includes/classes/class-shortcode.php:2719
+#: includes/classes/class-shortcode.php:3110
 msgid "No Results Found."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3114
+#: includes/classes/class-shortcode.php:3117
 msgid "Search here"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3115
+#: includes/classes/class-shortcode.php:3118
 msgid "Find the best match of your interest\n"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3342
+#: includes/classes/class-shortcode.php:3344
 #: templates/widget-templates/login-form.php:13
 msgid " Invalid username or password!"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3360
+#: includes/classes/class-shortcode.php:3362
 msgid "E-mail:"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3380
+#: includes/classes/class-shortcode.php:3383
 #, php-format
 msgid "<p>%s</p>"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3393
-msgid "Enter a username or e-mail address.."
+#: includes/classes/class-shortcode.php:3396
+msgid "Enter an e-mail address.."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3395
-msgid "Invalid username or e-mail address."
+#: includes/classes/class-shortcode.php:3398
+msgid "Invalid e-mail address."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3397
+#: includes/classes/class-shortcode.php:3400
 msgid "There is no user registered with that email address."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3411
+#: includes/classes/class-shortcode.php:3414
 msgid "Your new password"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3412
+#: includes/classes/class-shortcode.php:3415
 msgid "Your new password is: "
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3418
+#: includes/classes/class-shortcode.php:3421
 msgid "Please check your email for your new password."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3420
+#: includes/classes/class-shortcode.php:3423
 msgid "Password updated! But something went wrong sending email."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3424
+#: includes/classes/class-shortcode.php:3427
 msgid "Oops something went wrong updating your account."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3430
+#: includes/classes/class-shortcode.php:3433
 msgid "ERROR:"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3455
+#: includes/classes/class-shortcode.php:3458
 #, php-format
 msgid ""
 "Login page is not for logged-in user. <a href=\"%s\">Go Back To Home</a>"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3469
+#: includes/classes/class-shortcode.php:3472
 #, php-format
 msgid ""
 "Registration page is only for unregistered user. <a href=\"%s\">Go Back "
@@ -5834,51 +5834,51 @@ msgstr ""
 msgid "Error updating post."
 msgstr ""
 
-#: includes/payments/functions.php:47
+#: includes/payments/functions.php:51
 msgid "Created"
 msgstr ""
 
-#: includes/payments/functions.php:49
+#: includes/payments/functions.php:53
 msgid "Completed"
 msgstr ""
 
-#: includes/payments/functions.php:50
+#: includes/payments/functions.php:54
 msgid "Failed"
 msgstr ""
 
-#: includes/payments/functions.php:51
+#: includes/payments/functions.php:55
 msgid "Cancelled"
 msgstr ""
 
-#: includes/payments/functions.php:52
+#: includes/payments/functions.php:56
 msgid "Refunded"
 msgstr ""
 
-#: includes/payments/functions.php:69
+#: includes/payments/functions.php:74
 msgid "Set Status to Created"
 msgstr ""
 
-#: includes/payments/functions.php:70
+#: includes/payments/functions.php:75
 msgid "Set Status to Pending"
 msgstr ""
 
-#: includes/payments/functions.php:71
+#: includes/payments/functions.php:76
 msgid "Set Status to Completed"
 msgstr ""
 
-#: includes/payments/functions.php:72
+#: includes/payments/functions.php:77
 msgid "Set Status to Failed"
 msgstr ""
 
-#: includes/payments/functions.php:73
+#: includes/payments/functions.php:78
 msgid "Set Status to Cancelled"
 msgstr ""
 
-#: includes/payments/functions.php:74
+#: includes/payments/functions.php:79
 msgid "Set Status to Refunded"
 msgstr ""
 
-#: includes/payments/functions.php:371
+#: includes/payments/functions.php:390
 msgid "Invalid"
 msgstr ""
 
@@ -6809,7 +6809,7 @@ msgstr ""
 msgid "Date & Time"
 msgstr ""
 
-#: templates/meta-partials/expiration-featured-fields.php:52
+#: templates/meta-partials/expiration-featured-fields.php:55
 msgid "Mark as"
 msgstr ""
 

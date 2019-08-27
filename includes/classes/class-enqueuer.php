@@ -456,9 +456,11 @@ class ATBDP_Enqueuer {
         if (is_fee_manager_active()){
             $plan_price_range = is_plan_allowed_average_price_range($fm_plans);
         }
+        $price_range_visable = get_directorist_option('display_price_range_for', 0);
+        $price_range_display = get_directorist_option('display_price_range_field', 1);
+        $price_range_required = get_directorist_option('require_price_range', 0);
         $price_range = '';
-        $require_price_range = get_directorist_option('require_price_range');
-        if(!empty($require_price_range && $price_display) && $plan_price_range){
+        if(!empty($price_range_required && $price_range_display) && $plan_price_range && empty($price_range_visable)){
             $price_range = __('Price range field is required!', 'directorist');
         }
         //tag
@@ -630,7 +632,7 @@ class ATBDP_Enqueuer {
             'category' => $category,
             'excerpt' => $excerpt,
             'price'    => $price,
-            'price_range'    => $price_range,
+            'price_range'  => $price_range,
             'tag'    => $tag,
             'location'    => $location,
             'address'    => $address,

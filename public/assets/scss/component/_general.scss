@@ -481,7 +481,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
   .login-username label, .login-password label, .login-remember label {
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 400;
   }
 
   #loginform {
@@ -500,9 +500,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
         width: 100%;
 
         &[type="submit"] {
-          background: #ddd;
-          color: #202428;
+          color: #fff !important;
+          background: #444752 !important;
+          border-color: #444752 !important;
           padding: 8px 13px !important;
+          border-radius: 4px !important;
           width: auto;
           line-height: normal;
         }

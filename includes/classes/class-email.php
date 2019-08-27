@@ -41,12 +41,19 @@ if (!class_exists('ATBDP_Email')):
             //send new user confirmation notification to user
             add_filter('wp_new_user_notification_email', array($this, 'custom_wp_new_user_notification_email'), 10, 3);
             add_filter('wp_mail_from_name', array($this, 'atbdp_wp_mail_from_name'));
-            //notification on new review submit
-            //add_action('atbdp_post_insert_review', array($this, 'notify_admin_review_submitted'));
-            //add_action('atbdp_post_insert_review', array($this, 'notify_user_review_submitted'));
+            add_filter('wp_mail_from', array($this, 'atbdp_wp_mail_from'));
 
         }
 
+
+        /**
+         * @since 5.8.1
+         */
+        public function atbdp_wp_mail_from()
+        {
+            $admin_email = get_option('admin_email');
+            return $admin_email;
+        }
 
         /**
          * @since 5.8
@@ -695,49 +702,6 @@ This email is sent automatically for information purpose only. Please do not res
             return $this->send_mail($this->get_admin_email_list(), $sub, $this->replace_in_content($body, null, $listing_id), $this->get_email_headers());
 
         }
-
-
-        /**
-         * It notifies admin via email when a listing is edited
-         *
-         * @since 5.4.2
-         * @param int $reveiw_id
-         * @param mixed $data
-         * @return bool Whether the email was sent successfully or not.
-         */
-        public function notify_admin_review_submitted($reveiw_id, $data)
-        {
-            $listing_id = $data['post_id'];
-            if (get_directorist_option('disable_email_notification')) return false;
-            //if (!in_array('listing_edited', get_directorist_option('notify_admin', array()))) return false;
-            $s = __('[==SITE_NAME==] The Listing #==LISTING_ID== has a new review.', 'directorist');
-            $sub = $this->replace_in_content($s, null, $listing_id);
-
-            $body = $this->get_review_submitted_admin_tmpl();
-            return $this->send_mail($this->get_admin_email_list(), $sub, $this->replace_in_content($body, null, $listing_id), $this->get_email_headers());
-
-        }
-
-        /**
-         * It notifies the listing owner when the listing is deleted
-         *
-         * @since 5.4.2
-         * @param int $reveiw_id
-         * @return bool Whether the email was sent successfully or not.
-         */
-        public function notify_user_review_submitted($reveiw_id, $data)
-        {
-            $listing_id = $data['post_id'];
-            if (get_directorist_option('disable_email_notification')) return false;
-            //if (!in_array('listing_deleted', get_directorist_option('notify_user', array()))) return false;
-            $user = $this->get_owner($listing_id);
-            $sub = $this->replace_in_content(get_directorist_option("email_sub_deleted_listing"), null, $listing_id, $user);
-            $body = $this->replace_in_content(get_directorist_option("email_tmpl_deleted_listing"), null, $listing_id, $user);
-
-            return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
-
-        }
-
 
         /**
          * @since 5.8

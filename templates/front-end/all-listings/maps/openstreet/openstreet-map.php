@@ -41,7 +41,8 @@
         $html            .= "<h3 class='atbdp-no-margin'><a href='".get_the_permalink()."'>".get_the_title()."</a></h3>";
         $html            .= "</div>";
         if(!empty($address)) {
-            $html .= "<span class='fa fa-briefcase'></span> <a href='' class='map-info-link'>" . $address . "</a>";
+            $html .= "<span class='".atbdp_icon_type()."-briefcase'></span> <a href='' class='map-info-link'>" . $address . "</a>";
+            $html .= " <br><span class='".atbdp_icon_type()."-arrow-right'></span> <a href='http://www.google.com/maps?daddr=".$manual_lat.",". $manual_lng."' target='_blank'>". __('Get Direction', 'directorist') ."</a>";
         }
         $html            .= "</div>";
         $html            .= "</div>";

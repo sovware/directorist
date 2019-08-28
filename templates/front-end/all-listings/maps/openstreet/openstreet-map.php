@@ -12,6 +12,7 @@
         $crop_width                     = get_directorist_option('crop_width', 360);
         $crop_height                    = get_directorist_option('crop_height', 300);
         $address                        = get_post_meta(get_the_ID(), '_address', true);
+        $display_address_map            = get_directorist_option('display_address_map', 1);
         if(!empty($listing_prv_img)) {
 
             $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
@@ -40,7 +41,7 @@
         $html            .= "<div class='atbdp-listings-title-block'>";
         $html            .= "<h3 class='atbdp-no-margin'><a href='".get_the_permalink()."'>".get_the_title()."</a></h3>";
         $html            .= "</div>";
-        if(!empty($address)) {
+        if(!empty($address) && !empty($display_address_map)) {
             $html .= "<span class='".atbdp_icon_type()."-briefcase'></span> <a href='' class='map-info-link'>" . $address . "</a>";
             $html .= " <br><span class='".atbdp_icon_type()."-arrow-right'></span> <a href='http://www.google.com/maps?daddr=".$manual_lat.",". $manual_lng."' target='_blank'>". __('Get Direction', 'directorist') ."</a>";
         }

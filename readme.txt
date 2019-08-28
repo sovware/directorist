@@ -137,6 +137,10 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
+= 5.8.1 - Aug 28, 2019 =
+* Add - Hide/show Option of Address In Map View
+* Fix - Label of Zip filter
+* Fix - Rating's Apostophe issue
 = 5.8.0 - Aug 20, 2019 =
 
 * Add - Review approval option

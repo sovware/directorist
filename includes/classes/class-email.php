@@ -708,17 +708,14 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function custom_wp_new_user_notification_email($wp_new_user_notification_email, $user, $blogname)
         {
-            if (is_admin()){
+            if (is_admin()) {
                 return $wp_new_user_notification_email;
             }
             if (get_directorist_option('disable_email_notification')) return $wp_new_user_notification_email;
 
-            $display_password = get_directorist_option('display_password_reg', 0);
-            $require_password = get_directorist_option('require_password_reg',0);
-            $user_password = get_user_meta($user->ID, '_atbdp_generated_password',true);
-            if (empty($display_password)) {
-                $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!', 'directorist'));
-                $body = get_directorist_option('email_tmpl_registration_confirmation', __("
+            $user_password = get_user_meta($user->ID, '_atbdp_generated_password', true);
+            $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!', 'directorist'));
+            $body = get_directorist_option('email_tmpl_registration_confirmation', __("
 Dear User,
 
 Congratulations! Your registration is completed!
@@ -727,50 +724,13 @@ This email is sent automatically for information purpose only. Please do not res
 You can login now using the below credentials:
 
 ", 'directorist'));
-                $body = $this->replace_in_content($body, null, null, $user);
-                $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
-                $wp_new_user_notification_email['message'] = preg_replace( "/<br \/>/", "", $body )."
+            $body = $this->replace_in_content($body, null, null, $user);
+            $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
+            $wp_new_user_notification_email['message'] = preg_replace("/<br \/>/", "", $body) . "
                 
-Username: $user->user_login
-Password: $user_password";
-                return $wp_new_user_notification_email;
-            }elseif (empty($require_password)){
-                $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!', 'directorist'));
-                $body =  get_directorist_option('email_tmpl_registration_confirmation', __("
-Dear User,
-
-Congratulations! Your registration is completed!
-
-This email is sent automatically for information purpose only. Please do not respond to this.
-You can login now using the below credentials:
-
-", 'directorist'));
-                $body = $this->replace_in_content($body, null, null, $user);
-                $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
-                $wp_new_user_notification_email['message'] = preg_replace( "/<br \/>/", "", $body )."
-                
-Username: $user->user_login
-Password: $user_password";
-                return $wp_new_user_notification_email;
-            } else {
-                $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!', 'directorist'));
-                $body = get_directorist_option('email_tmpl_registration_confirmation', __("
-Dear User,
-
-Congratulations! Your registration is completed!
-
-This email is sent automatically for information purpose only. Please do not respond to this.
-You can login now using the below credentials:
-
-", 'directorist'));
-                $body = $this->replace_in_content($body, null, null, $user);
-                $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
-                $wp_new_user_notification_email['message'] = preg_replace( "/<br \/>/", "", $body )."
-                
-Username: $user->user_login
-Password: $user_password";
-                return $wp_new_user_notification_email;
-            }
+" . __('Username:', 'directorist') . " $user->user_login
+" . __('Password:', 'directorist') . " $user_password";
+            return $wp_new_user_notification_email;
         }
 
     } // ends class

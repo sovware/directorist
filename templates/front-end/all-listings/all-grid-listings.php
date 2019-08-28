@@ -301,13 +301,41 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                                     </p></li>
                                                             <?php } elseif (!empty($locs) && 'location' == $address_location) {
 
-                                                                $numberOfCat = count($locs);
+                                                                /*$numberOfCat = count($locs);
                                                                 $output = array();
                                                                 foreach ($locs as $loc) {
                                                                     $link = ATBDP_Permalink::atbdp_get_location_page($loc);
                                                                     $space = str_repeat(' ', 1);
                                                                     $output [] = "{$space}<a href='{$link}'>{$loc->name}</a>";
-                                                                } ?>
+                                                                }
+                                                                */
+                                                                $local_names = array();
+                                                                $link = array();
+                                                                foreach ($locs as $term) {
+                                                                    $local_names[$term->term_id] = $term->parent == 0 ? $term->slug : $term->name;
+                                                                    ksort($local_names);
+                                                                    $locals = implode(", ", array_reverse($local_names));
+                                                                    // $link[] = ATBDP_Permalink::atbdp_get_location_page($term);
+                                                                    $trm = ATBDP_Permalink::atbdp_get_location_page($term);
+
+                                                                    array_push($link, array(
+                                                                        $trm, $term->name
+                                                                    ));
+                                                                }
+                                                                $total = count($link);
+
+                                                                foreach ($link as $fds) {
+                                                                   echo '<a href="'. $fds[0] .'">'. $fds[1] .'</a>, ';
+                                                                }
+
+                                                               /* for ( $i = 0; $i <= $total; $i++ ) {
+
+                                                                    echo '<a href="'. $fds[0] .'">'. $fds[1] .'</a>';
+                                                                }*/
+
+                                                               // echo '<a href="'.join(',', $link).'">'.$locals.'</a>';
+
+                                                                ?>
 
                                                                 <li>
                                                                     <p>

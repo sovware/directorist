@@ -818,25 +818,25 @@ if (!class_exists('ATBDP_Shortcode')):
                                 $rated[] = array();
                             }
                         } elseif ($q_rating === '4') {
-                            if (($average >= '4') && ($average < '5')) {
+                            if ($average >= '4') {
                                 $rated[] = get_the_ID();
                             } else {
                                 $rated[] = array();
                             }
                         } elseif ($q_rating === '3') {
-                            if (($average >= '3') && ($average < '4')) {
+                            if ($average >= '3') {
                                 $rated[] = get_the_ID();
                             } else {
                                 $rated[] = array();
                             }
                         } elseif ($q_rating === '2') {
-                            if (($average >= '2') && ($average < '3')) {
+                            if ($average >= '2') {
                                 $rated[] = get_the_ID();
                             } else {
                                 $rated[] = array();
                             }
                         } elseif ($q_rating === '1') {
-                            if (($average >= '1') && ($average < '2')) {
+                            if ($average >= '1') {
                                 $rated[] = get_the_ID();
                             } else {
                                 $rated[] = array();

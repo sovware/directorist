@@ -4,6 +4,7 @@ $fax_label                   = get_directorist_option('fax_label',__('Fax','dire
 $email_label                 = get_directorist_option('email_label',__('Email','directorist'));
 $website_label               = get_directorist_option('website_label',__('Website','directorist'));
 $tag_label                   = get_directorist_option('tag_label',__('Tag','directorist'));
+$zip_label                   = get_directorist_option('zip_label',__('Zip','directorist'));
 if ($display_header == 'yes') { ?>
     <div class="header_bar">
         <div class="<?php echo !empty($header_container_fluid) ? $header_container_fluid : ''; ?>">

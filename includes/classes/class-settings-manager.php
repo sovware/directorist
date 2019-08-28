@@ -4620,6 +4620,12 @@ The Administrator of ==SITE_NAME==
                     'default' => '350',
 
                 ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_address_map',
+                    'label' => __('Display Address on Map View', 'directorist'),
+                    'default' => 1,
+                ),
             ));
         }
 

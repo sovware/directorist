@@ -1247,7 +1247,7 @@ final class Directorist_Base
                                         </div>
                                     </div>
                                     <div class="review_content">
-                                        <p><?= esc_html($review->content); ?></p>
+                                        <p><?= stripslashes(esc_html($review->content)); ?></p>
                                         <!--<a href="#"><span class="fa fa-mail-reply-all"></span>Reply</a>-->
                                     </div>
                                 </div>
@@ -1326,7 +1326,7 @@ final class Directorist_Base
                                 </div>
                                 <div class="form-group">
                                 <textarea name="content" id="review_content" class="form-control" cols="20" rows="5"
-                                          placeholder="<?= !empty($cur_user_review) ? __('Update your review.....', 'directorist') : __('Write your review.....', 'directorist'); ?>"><?= !empty($cur_user_review) ? $cur_user_review->content : ''; ?></textarea>
+                                          placeholder="<?= !empty($cur_user_review) ? __('Update your review.....', 'directorist') : __('Write your review.....', 'directorist'); ?>"><?= !empty($cur_user_review) ? stripslashes($cur_user_review->content) : ''; ?></textarea>
                                 </div>
 
                                 <!-- <div class="form-group">

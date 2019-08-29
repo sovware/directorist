@@ -2492,14 +2492,21 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                                                     <span class="<?php atbdp_icon_type(true); ?>-map-marker"></span><?php echo esc_html(stripslashes($address)); ?>
                                                                 </p></li>
                                                         <?php } elseif (!empty($locs) && 'location' == $address_location) {
-
-                                                            $numberOfCat = count($locs);
+                                                            $local_names = array();
+                                                            $locals = array();
+                                                            foreach ($locs as $term) {
+                                                                $local_names[$term->term_id] = $term->parent == 0 ? $term->slug : $term->slug;
+                                                                ksort($local_names);
+                                                                $locals = array_reverse($local_names);
+                                                            }
                                                             $output = array();
-                                                            foreach ($locs as $loc) {
-                                                                $link = ATBDP_Permalink::atbdp_get_location_page($loc);
+                                                            foreach ($locals as $location) {
+                                                                $term = get_term_by('slug', $location, ATBDP_LOCATION);
+                                                                $link = ATBDP_Permalink::atbdp_get_location_page($term);
                                                                 $space = str_repeat(' ', 1);
-                                                                $output [] = "{$space}<a href='{$link}'>{$loc->name}</a>";
-                                                            } ?>
+                                                                $output[] = "{$space}<a href='{$link}'>{$term->name}</a>";
+                                                            }
+                                                            ?>
                                                             <li>
                                                                 <p>
 
@@ -2925,14 +2932,21 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                                             <span class="<?php atbdp_icon_type(true); ?>-map-marker"></span><?php echo esc_html(stripslashes($address)); ?>
                                                                         </p></li>
                                                                 <?php } elseif (!empty($locs) && 'location' == $address_location) {
-
-                                                                    $numberOfCat = count($locs);
+                                                                    $local_names = array();
+                                                                    $locals = array();
+                                                                    foreach ($locs as $term) {
+                                                                        $local_names[$term->term_id] = $term->parent == 0 ? $term->slug : $term->slug;
+                                                                        ksort($local_names);
+                                                                        $locals = array_reverse($local_names);
+                                                                    }
                                                                     $output = array();
-                                                                    foreach ($locs as $loc) {
-                                                                        $link = ATBDP_Permalink::atbdp_get_location_page($loc);
+                                                                    foreach ($locals as $location) {
+                                                                        $term = get_term_by('slug', $location, ATBDP_LOCATION);
+                                                                        $link = ATBDP_Permalink::atbdp_get_location_page($term);
                                                                         $space = str_repeat(' ', 1);
-                                                                        $output [] = "{$space}<a href='{$link}'>{$loc->name}</a>";
-                                                                    } ?>
+                                                                        $output[] = "{$space}<a href='{$link}'>{$term->name}</a>";
+                                                                    }
+                                                                    ?>
                                                                     <li>
                                                                         <p>
 
@@ -3292,12 +3306,21 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                                             <span class="<?php atbdp_icon_type(true); ?>-map-marker"></span><?php echo esc_html(stripslashes($address)); ?>
                                                         </p></li>
                                                 <?php } elseif (!empty($locs) && 'location' == $address_location) {
+                                                    $local_names = array();
+                                                    $locals = array();
+                                                    foreach ($locs as $term) {
+                                                        $local_names[$term->term_id] = $term->parent == 0 ? $term->slug : $term->slug;
+                                                        ksort($local_names);
+                                                        $locals = array_reverse($local_names);
+                                                    }
                                                     $output = array();
-                                                    foreach ($locs as $loc) {
-                                                        $link = ATBDP_Permalink::atbdp_get_location_page($loc);
+                                                    foreach ($locals as $location) {
+                                                        $term = get_term_by('slug', $location, ATBDP_LOCATION);
+                                                        $link = ATBDP_Permalink::atbdp_get_location_page($term);
                                                         $space = str_repeat(' ', 1);
-                                                        $output [] = "{$space}<a href='{$link}'>{$loc->name}</a>";
-                                                    } ?>
+                                                        $output[] = "{$space}<a href='{$link}'>{$term->name}</a>";
+                                                    }
+                                                    ?>
                                                     <li>
                                                         <p>
                                                    <span>

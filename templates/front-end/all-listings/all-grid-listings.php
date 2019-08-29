@@ -5,17 +5,17 @@ $is_disable_price = get_directorist_option('disable_list_price');
 $display_sortby_dropdown = get_directorist_option('display_sort_by', 1);
 $display_viewas_dropdown = get_directorist_option('display_view_as', 1);
 $view_as = get_directorist_option('grid_view_as', 'normal_grid');
-if (is_rtl()){
+if (is_rtl()) {
     wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
 
-}else{
+} else {
     wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
 }
 $column_width = 100 / $columns . '%';
 /**
  * @package Directorist
  * @since 5.5.1
- * @param WP_Query $all_listings    It contains all the queried listings by a user
+ * @param WP_Query $all_listings It contains all the queried listings by a user
  */
 do_action('atbdp_before_all_listings_grid', $all_listings);
 ?>
@@ -149,7 +149,8 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                 ?>
                                                 <div class="atbd_author">
                                                     <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
-                                                       aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>" class="atbd_tooltip"><?php if (empty($u_pro_pic)) {
+                                                       aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>"
+                                                       class="atbd_tooltip"><?php if (empty($u_pro_pic)) {
                                                             echo $avata_img;
                                                         }
                                                         if (!empty($u_pro_pic)) { ?>
@@ -300,46 +301,23 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                                         <span class="<?php atbdp_icon_type(true); ?>-map-marker"></span><?php echo esc_html(stripslashes($address)); ?>
                                                                     </p></li>
                                                             <?php } elseif (!empty($locs) && 'location' == $address_location) {
-
-                                                                /*$numberOfCat = count($locs);
-                                                                $output = array();
-                                                                foreach ($locs as $loc) {
-                                                                    $link = ATBDP_Permalink::atbdp_get_location_page($loc);
-                                                                    $space = str_repeat(' ', 1);
-                                                                    $output [] = "{$space}<a href='{$link}'>{$loc->name}</a>";
-                                                                }
-                                                                */
                                                                 $local_names = array();
-                                                                $link = array();
                                                                 foreach ($locs as $term) {
-                                                                    $local_names[$term->term_id] = $term->parent == 0 ? $term->slug : $term->name;
+                                                                    $local_names[$term->term_id] = $term->parent == 0 ? $term->slug : $term->slug;
                                                                     ksort($local_names);
-                                                                    $locals = implode(", ", array_reverse($local_names));
-                                                                    // $link[] = ATBDP_Permalink::atbdp_get_location_page($term);
-                                                                    $trm = ATBDP_Permalink::atbdp_get_location_page($term);
-
-                                                                    array_push($link, array(
-                                                                        $trm, $term->name
-                                                                    ));
+                                                                    $locals = array_reverse($local_names);
                                                                 }
-                                                                $total = count($link);
-
-                                                                foreach ($link as $fds) {
-                                                                   echo '<a href="'. $fds[0] .'">'. $fds[1] .'</a>, ';
+                                                                $output = array();
+                                                                $link = array();
+                                                                foreach ($locals as $location) {
+                                                                    $term = get_term_by('slug', $location, ATBDP_LOCATION);
+                                                                    $link = ATBDP_Permalink::atbdp_get_location_page($term);
+                                                                    $space = str_repeat(' ', 1);
+                                                                    $output[] = "{$space}<a href='{$link}'>{$term->name}</a>";
                                                                 }
-
-                                                               /* for ( $i = 0; $i <= $total; $i++ ) {
-
-                                                                    echo '<a href="'. $fds[0] .'">'. $fds[1] .'</a>';
-                                                                }*/
-
-                                                               // echo '<a href="'.join(',', $link).'">'.$locals.'</a>';
-
                                                                 ?>
-
                                                                 <li>
                                                                     <p>
-
                                                     <span>
                                                     <?php
                                                     echo "<span class='" . atbdp_icon_type() . "-map-marker'></span>" . join(',', $output); ?>
@@ -354,7 +332,8 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                             ?>
                                                             <?php if (!empty($phone_number) && !empty($display_phone_field)) { ?>
                                                                 <li><p>
-                                                                        <span class="<?php atbdp_icon_type(true); ?>-phone"></span><a href="tel:<?php echo esc_html(stripslashes($phone_number)); ?>"><?php echo esc_html(stripslashes($phone_number)); ?></a>
+                                                                        <span class="<?php atbdp_icon_type(true); ?>-phone"></span><a
+                                                                                href="tel:<?php echo esc_html(stripslashes($phone_number)); ?>"><?php echo esc_html(stripslashes($phone_number)); ?></a>
 
                                                                     </p></li>
                                                                 <?php
@@ -400,61 +379,62 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                     $catViewCount = '';
                                     if (!empty($display_category) || !empty($display_view_count)) {
                                         $catViewCount .= '<div class="atbd_listing_bottom_content">';
-                                            if (!empty($display_category)) {
-                                                if (!empty($cats)) {
-                                                    $totalTerm = count($cats);
-                                                    $catViewCount .= '<div class="atbd_content_left">';
-                                                    $catViewCount .= '<div class="atbd_listting_category">';
-                                                    $catViewCount .= '<a href="'. ATBDP_Permalink::atbdp_get_category_page($cats[0]).'">';
-                                                    if ('none' != get_cat_icon($cats[0]->term_id)) {
-                                                        $catViewCount .= '<span class="' .atbdp_icon_type().'-tags"></span>';
-                                                    }
-                                                    $catViewCount .=$cats[0]->name;
-                                                    $catViewCount .= '</a>';
-                                                            if ($totalTerm > 1) {
-                                                                $totalTerm = $totalTerm - 1;
-                                                                $catViewCount .= '<div class="atbd_cat_popup">';
-                                                                $catViewCount .= '<span>+' .$totalTerm.'</span>';
-                                                                $catViewCount .= '<div class="atbd_cat_popup_wrapper">';
-                                                                        $output = array();
-                                                                        foreach (array_slice($cats, 1) as $cat) {
-                                                                            $link = ATBDP_Permalink::atbdp_get_category_page($cat);
-                                                                            $space = str_repeat(' ', 1);
-                                                                            $output [] = "{$space}<span><a href='{$link}'>{$cat->name}<span>,</span></a></span>";
-                                                                        }
-                                                                        $catViewCount .= '<span>'. join($output).'</span>';
-                                                                        $catViewCount .= '</div>';
-                                                                        $catViewCount .= '</div>';
-                                                            }
-                                                            $catViewCount .= '</div>';
-                                                            $catViewCount .= '</div>';
-                                                } else {
-                                                    $catViewCount .= '<div class="atbd_content_left">';
-                                                    $catViewCount .= '<div class="atbd_listting_category">';
-                                                    $catViewCount .= '<a href="">';
-                                                    $catViewCount .= '<span class="'.atbdp_icon_type().'-tags"></span>';
-                                                    $catViewCount .= __('Uncategorized', 'directorist');
-                                                    $catViewCount .= '</a>';
-                                                    $catViewCount .= '</div>';
-                                                    $catViewCount .= '</div>';
-
+                                        if (!empty($display_category)) {
+                                            if (!empty($cats)) {
+                                                $totalTerm = count($cats);
+                                                $catViewCount .= '<div class="atbd_content_left">';
+                                                $catViewCount .= '<div class="atbd_listting_category">';
+                                                $catViewCount .= '<a href="' . ATBDP_Permalink::atbdp_get_category_page($cats[0]) . '">';
+                                                if ('none' != get_cat_icon($cats[0]->term_id)) {
+                                                    $catViewCount .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
                                                 }
-                                            }  if (!empty($display_view_count)) {
-                                                /**
-                                                 * @since 5.5.0
-                                                 */
-                                                $fotter_right = '<ul class="atbd_content_right">';
-                                                $fotter_right .= '<li class="atbd_count">';
-                                                $fotter_right .= '<span class="'.atbdp_icon_type().'-eye"></span>';
-                                                $fotter_right .= !empty($post_view) ? $post_view : 0;
+                                                $catViewCount .= $cats[0]->name;
+                                                $catViewCount .= '</a>';
+                                                if ($totalTerm > 1) {
+                                                    $totalTerm = $totalTerm - 1;
+                                                    $catViewCount .= '<div class="atbd_cat_popup">';
+                                                    $catViewCount .= '<span>+' . $totalTerm . '</span>';
+                                                    $catViewCount .= '<div class="atbd_cat_popup_wrapper">';
+                                                    $output = array();
+                                                    foreach (array_slice($cats, 1) as $cat) {
+                                                        $link = ATBDP_Permalink::atbdp_get_category_page($cat);
+                                                        $space = str_repeat(' ', 1);
+                                                        $output [] = "{$space}<span><a href='{$link}'>{$cat->name}<span>,</span></a></span>";
+                                                    }
+                                                    $catViewCount .= '<span>' . join($output) . '</span>';
+                                                    $catViewCount .= '</div>';
+                                                    $catViewCount .= '</div>';
+                                                }
+                                                $catViewCount .= '</div>';
+                                                $catViewCount .= '</div>';
+                                            } else {
+                                                $catViewCount .= '<div class="atbd_content_left">';
+                                                $catViewCount .= '<div class="atbd_listting_category">';
+                                                $catViewCount .= '<a href="">';
+                                                $catViewCount .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
+                                                $catViewCount .= __('Uncategorized', 'directorist');
+                                                $catViewCount .= '</a>';
+                                                $catViewCount .= '</div>';
+                                                $catViewCount .= '</div>';
+
+                                            }
+                                        }
+                                        if (!empty($display_view_count)) {
+                                            /**
+                                             * @since 5.5.0
+                                             */
+                                            $fotter_right = '<ul class="atbd_content_right">';
+                                            $fotter_right .= '<li class="atbd_count">';
+                                            $fotter_right .= '<span class="' . atbdp_icon_type() . '-eye"></span>';
+                                            $fotter_right .= !empty($post_view) ? $post_view : 0;
                                             $fotter_right .= '</li>';
                                             $fotter_right .= '</ul>';
                                             $catViewCount .= apply_filters('atbdp_grid_footer_right_html', $fotter_right);
-                                            }
-                                        $catViewCount .='</div>'; //end ./atbd_listing_bottom_content
+                                        }
+                                        $catViewCount .= '</div>'; //end ./atbd_listing_bottom_content
 
-                                           }
-                                    echo apply_filters('atbdp_listings_grid_cat_view_count',$catViewCount);
+                                    }
+                                    echo apply_filters('atbdp_listings_grid_cat_view_count', $catViewCount);
 
                                     /**
                                      * @since

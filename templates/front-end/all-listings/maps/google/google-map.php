@@ -16,7 +16,11 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
         $listing_prv_img                = get_post_meta(get_the_ID(), '_listing_prv_img', true);
         $crop_width                     = get_directorist_option('crop_width', 360);
         $crop_height                    = get_directorist_option('crop_height', 300);
+        $display_map_info               = get_directorist_option('display_map_info', 1);
+        $display_image_map              = get_directorist_option('display_image_map', 1);
+        $display_title_map              = get_directorist_option('display_title_map', 1);
         $display_address_map            = get_directorist_option('display_address_map', 1);
+        $display_direction_map          = get_directorist_option('display_direction_map', 1);
         $address                        = get_post_meta(get_the_ID(), '_address', true);
         if(!empty($listing_prv_img)) {
 
@@ -33,7 +37,9 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
 
         <?php if( ! empty( $manual_lat ) && ! empty( $manual_lng ) ) : ?>
             <div class="marker" data-latitude="<?php echo $manual_lat; ?>" data-longitude="<?php echo $manual_lng; ?>">
+                <?php if(!empty($display_map_info) && (!empty($display_image_map) || !empty($display_title_map) || !empty($display_direction_map))) { ?>
                 <div>
+                    <?php if(!empty($display_image_map)) { ?>
                     <div class="media-left">
                         <a href="<?php the_permalink(); ?>">
                             <?php
@@ -54,20 +60,28 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                             ?>
                         </a>
                     </div>
-
+                    <?php } ?>
+                    <?php if(!empty($display_title_map) || !empty($display_address_map) || !empty($display_direction_map)) { ?>
                     <div class="media-body">
+                        <?php if(!empty($display_title_map)) { ?>
                         <div class="atbdp-listings-title-block">
                             <h3 class="atbdp-no-margin"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                         </div>
-                        <?php if(!empty($address) && !empty($display_address_map)) { ?>
-                        <span class="<?php atbdp_icon_type(true); ?>-briefcase"></span> <a href="" class="map-info-link"><?php echo $address;?></a>
-                            <br>
-                            <span class="<?php atbdp_icon_type(true); ?>-arrow-right"></span> <a href='http://www.google.com/maps?daddr=<?php echo $manual_lat; ?>,<?php echo $manual_lng; ?>' target='_blank'><?php _e('Get Direction', 'directorist') ?></a>
                         <?php } ?>
+                        <?php if(!empty($address)) { ?>
+                            <?php if(!empty(!empty($display_address_map))) {?>
+                        <span class="<?php atbdp_icon_type(true); ?>-briefcase"></span> <a href="" class="map-info-link"><?php echo $address;?></a>
+                        <?php } ?>
+                            <br>
+                            <?php if(!empty($display_direction_map)) {?>
+                            <span class="<?php atbdp_icon_type(true); ?>-arrow-right"></span> <a href='http://www.google.com/maps?daddr=<?php echo $manual_lat; ?>,<?php echo $manual_lng; ?>' target='_blank'><?php _e('Get Direction', 'directorist') ?></a>
+                        <?php } } ?>
 
                         <?php do_action( 'atbdp_after_listing_content', $post->ID, 'map' ); ?>
                     </div>
+                    <?php } ?>
                 </div>
+                <?php } ?>
             </div>
         <?php endif; ?>
 

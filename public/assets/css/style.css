@@ -2086,8 +2086,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   top: 0 !important;
   left: 0 !important;
   width: 250px !important;
-  height: 100% !important;
-  min-height: 285px !important;
+  min-height: auto !important;
+  max-height: none !important;
   padding: 18px 0 0 18px !important;
   display: block !important;
   border-radius: 3px !important;
@@ -2096,19 +2096,21 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .gm-style .gm-style-iw .gm-style-iw-d {
   height: 100% !important;
   max-height: 100% !important;
-  overflow-ys: scroll;
+  overflow-y: scroll;
 }
 
 .gm-style .gm-style-iw .gm-style-iw-d .media-left, .gm-style .gm-style-iw .gm-style-iw-d .media-right {
   display: block !important;
+  padding-right: 0;
 }
 
 .gm-style .gm-style-iw .gm-style-iw-d .media-left {
   text-align: center;
+  margin-bottom: 10px;
 }
 
 .gm-style .gm-style-iw .gm-style-iw-d .media-body .atbdp-listings-title-block {
-  margin-top: 10px;
+  margin-top: 0;
 }
 
 .gm-style .gm-style-iw .gm-style-iw-d .media-body .atbdp-listings-title-block h3 {
@@ -2120,6 +2122,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .gm-style .gm-style-iw .gm-style-iw-d .media-body a.map-info-link {
   font-size: 15px;
   font-weight: 300;
+}
+
+.gm-style .gm-style-iw .gm-style-iw-d .media-body .map_addr {
+  margin-bottom: 5px;
 }
 
 .gm-style .gm-style-iw .gm-style-iw-d img {

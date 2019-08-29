@@ -590,10 +590,8 @@ $query_args = array(
                                                     echo '<option>' . $loc_placeholder . '</option>';
                                                 }
                                                 foreach ($locations as $key => $cat_title) {
-                                                    $locations_fields = add_listing_category_location_filter($query_args, ATBDP_LOCATION, $cat_title->term_id);
-                                                    echo $locations_fields;
-                                                   /* $checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
-                                                    printf('<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name);*/
+                                                    $checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
+                                                    printf('<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name);
                                                 }
                                                 ?>
                                             </select>
@@ -681,10 +679,8 @@ $query_args = array(
                                             }
 
                                             foreach ($categories as $key => $cat_title) {
-                                                $categories_fields = add_listing_category_location_filter( $query_args, ATBDP_CATEGORY,$cat_title->term_id );
-                                                /*$checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
-                                                printf('<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name);*/
-                                                echo $categories_fields;
+                                                $checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
+                                                printf('<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name);
                                             }
                                             ?>
                                         </select>

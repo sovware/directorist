@@ -5,6 +5,21 @@ $email_label                 = get_directorist_option('email_label',__('Email','
 $website_label               = get_directorist_option('website_label',__('Website','directorist'));
 $tag_label                   = get_directorist_option('tag_label',__('Tag','directorist'));
 $zip_label                   = get_directorist_option('zip_label',__('Zip','directorist'));
+$query_args = array(
+    'parent'             => 0,
+    'term_id'            => 0,
+    'hide_empty'         => 0,
+    'orderby'            => 'id',
+    'order'              => 'asc',
+    'show_count'         => 0,
+    'single_only'        => 0,
+    'pad_counts'         => true,
+    'immediate_category' => 0,
+    'active_term_id'     => 0,
+    'ancestors'          => array()
+);
+$categories_fields = search_category_location_filter( $query_args, ATBDP_CATEGORY );
+$locations_fields  = search_category_location_filter( $query_args, ATBDP_LOCATION );
 if ($display_header == 'yes') { ?>
     <div class="header_bar">
         <div class="<?php echo !empty($header_container_fluid) ? $header_container_fluid : ''; ?>">
@@ -130,7 +145,7 @@ if ($display_header == 'yes') { ?>
                                             <div class="col-md-6 col-sm-12 col-lg-4">
                                                 <div class="single_search_field search_category">
                                                     <?php
-                                                    $args = array(
+                                                   /* $args = array(
                                                         'show_option_none' => __($category_placeholder, 'directorist'),
                                                         'taxonomy' => ATBDP_CATEGORY,
                                                         'id' => 'cat-type',
@@ -146,8 +161,12 @@ if ($display_header == 'yes') { ?>
                                                         'hide_empty' => false,
                                                     );
 
-                                                    wp_dropdown_categories($args);
+                                                    wp_dropdown_categories($args);*/
                                                     ?>
+                                                    <select name="in_cat" id="cat-type" class="form-control directory_field bdas-category-search">
+                                                        <option><?php echo $category_placeholder; ?></option>
+                                                        <?php echo $categories_fields;?>
+                                                    </select>
                                                 </div>
                                             </div>
                                         <?php }
@@ -162,7 +181,7 @@ if ($display_header == 'yes') { ?>
                                             <div class="col-md-12 col-sm-12 col-lg-4">
                                                 <div class="single_search_field search_location">
                                                     <?php
-                                                    $args = array(
+                                                    /*$args = array(
                                                         'show_option_none' => __($location_placeholder, 'directorist'),
                                                         'taxonomy' => ATBDP_LOCATION,
                                                         'id' => 'loc-type',
@@ -178,8 +197,12 @@ if ($display_header == 'yes') { ?>
                                                         'hide_empty' => false,
                                                     );
 
-                                                    wp_dropdown_categories($args);
+                                                    wp_dropdown_categories($args);*/
                                                     ?>
+                                                    <select name="in_loc" id="loc-type" class="form-control directory_field bdas-category-location">
+                                                        <option><?php echo $location_placeholder; ?></option>
+                                                        <?php echo $locations_fields;?>
+                                                    </select>
                                                 </div>
                                             </div>
                                         <?php } ?>

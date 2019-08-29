@@ -4146,8 +4146,11 @@ function search_category_location_filter( $settings,$taxonomy_id, $prefix = '' )
         }
 
     }
-
-    $term_slug = get_query_var( $taxonomy_id );
+    if(ATBDP_CATEGORY == $taxonomy_id) {
+        $term_id = isset($_GET['in_cat']) ? $_GET['in_cat'] : '';
+    }else{
+        $term_id = isset($_GET['in_loc']) ? $_GET['in_loc'] : '';
+    }
 
     $args = array(
         'orderby'      => $settings['orderby'],
@@ -4172,8 +4175,8 @@ function search_category_location_filter( $settings,$taxonomy_id, $prefix = '' )
 
                 if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
             }
-
-            $html .= sprintf( '<option value="%s" %s>', $term->term_id, selected( $term->slug, $term_slug, false ) );
+            $selected = ($term_id == $term->term_id) ? "selected" : '';
+            $html .= '<option value="'.$term->term_id.'" '.$selected.'>';
             $html .= $prefix . $term->name;
             if( ! empty( $settings['show_count'] ) ) {
                 $html .= ' (' . $count . ')';

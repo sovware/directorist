@@ -142,6 +142,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Add - Option to show/hide Price Range from Form Fields
 * Add - Option to customize logic of Related Listings
 * Add - Control content of Map Info Window
+* Add - Parent-child relation in category and location dropdowns
 * Extend - Payment Currencies
 * Fix - Conflict of login failed notification with WooCommerce
 * Fix - Advanced Search/Filter's labels

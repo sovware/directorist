@@ -12,7 +12,11 @@
         $crop_width                     = get_directorist_option('crop_width', 360);
         $crop_height                    = get_directorist_option('crop_height', 300);
         $address                        = get_post_meta(get_the_ID(), '_address', true);
+        $display_map_info               = get_directorist_option('display_map_info', 1);
+        $display_image_map              = get_directorist_option('display_image_map', 1);
+        $display_title_map              = get_directorist_option('display_title_map', 1);
         $display_address_map            = get_directorist_option('display_address_map', 1);
+        $display_direction_map          = get_directorist_option('display_direction_map', 1);
         if(!empty($listing_prv_img)) {
 
             $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
@@ -24,29 +28,42 @@
             $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
 
         }
-        $html              = "<div class='atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom'>";
-        $html              = "<div class='media-left'>";
-        $html             .= "<a href='".get_the_permalink()."'>";
-        $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
-        if(!empty($listing_prv_img)){
-            $html    .= "<img src='".esc_url($prv_image)."' alt='".esc_html(stripslashes(get_the_title()))."'>";
-        } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
-            $html    .= "<img src='" . esc_url($gallery_img) . "' alt='".esc_html(stripslashes(get_the_title()))."'>";
-        }if (empty($listing_img[0]) && empty($listing_prv_img)){
-            $html    .= "<img src='".$default_image."' alt='".esc_html(stripslashes(get_the_title()))."'>";
+        $html = '';
+        if(!empty($display_map_info) && (!empty($display_image_map) || !empty($display_title_map) || $display_address_map) || !empty($display_direction_map)) {
+            $html .= "<div class='atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom'>";
+            if (!empty($display_image_map)) {
+                $html .= "<div class='media-left'>";
+                $html .= "<a href='" . get_the_permalink() . "'>";
+                $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+                if (!empty($listing_prv_img)) {
+                    $html .= "<img src='" . esc_url($prv_image) . "' alt='" . esc_html(stripslashes(get_the_title())) . "'>";
+                }
+                if (!empty($listing_img[0]) && empty($listing_prv_img)) {
+                    $html .= "<img src='" . esc_url($gallery_img) . "' alt='" . esc_html(stripslashes(get_the_title())) . "'>";
+                }
+                if (empty($listing_img[0]) && empty($listing_prv_img)) {
+                    $html .= "<img src='" . $default_image . "' alt='" . esc_html(stripslashes(get_the_title())) . "'>";
+                }
+                $html .= "</a>";
+                $html .= "</div>";
+            }
+            $html .= "<div class='media-body'>";
+            if (!empty($display_title_map)) {
+                $html .= "<div class='atbdp-listings-title-block'>";
+                $html .= "<h3 class='atbdp-no-margin'><a href='" . get_the_permalink() . "'>" . get_the_title() . "</a></h3>";
+                $html .= "</div>";
+            }
+            if (!empty($address)) {
+                if (!empty($display_address_map)) {
+                    $html .= "<span class='" . atbdp_icon_type() . "-briefcase'></span> <a href='' class='map-info-link'>" . $address . "</a>";
+                }
+                if (!empty($display_direction_map)) {
+                    $html .= " <br><span class='" . atbdp_icon_type() . "-arrow-right'></span> <a href='http://www.google.com/maps?daddr=" . $manual_lat . "," . $manual_lng . "' target='_blank'>" . __('Get Direction', 'directorist') . "</a>";
+                }
+            }
+            $html .= "</div>";
+            $html .= "</div>";
         }
-        $html            .= "</a>";
-        $html            .= "</div>";
-        $html            .= "<div class='media-body'>";
-        $html            .= "<div class='atbdp-listings-title-block'>";
-        $html            .= "<h3 class='atbdp-no-margin'><a href='".get_the_permalink()."'>".get_the_title()."</a></h3>";
-        $html            .= "</div>";
-        if(!empty($address) && !empty($display_address_map)) {
-            $html .= "<span class='".atbdp_icon_type()."-briefcase'></span> <a href='' class='map-info-link'>" . $address . "</a>";
-            $html .= " <br><span class='".atbdp_icon_type()."-arrow-right'></span> <a href='http://www.google.com/maps?daddr=".$manual_lat.",". $manual_lng."' target='_blank'>". __('Get Direction', 'directorist') ."</a>";
-        }
-        $html            .= "</div>";
-        $html            .= "</div>";
         if(!empty($manual_lat) && !empty($manual_lat)) {
         ?>
         [<?php echo !empty($manual_lat) ? $manual_lat : '';?>, <?php echo !empty($manual_lng) ? $manual_lng : '';?>, "<?php echo !empty($html) ? $html : '';?>"],

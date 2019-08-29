@@ -890,10 +890,15 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'name' => 'map_setting',
                     'icon' => 'font-awesome:fa-map-signs',
                     'controls' => apply_filters('atbdp_dashboard_controls', array(
-                        'emails' => array(
+                        'map_settings' => array(
                             'type' => 'section',
                             'title' => __('Map Setting', 'directorist'),
                             'fields' => $this->get_listings_map_settings_fields(),
+                        ),
+                        'map_info_window' => array(
+                            'type' => 'section',
+                            'title' => __('Map Info Window Setting', 'directorist'),
+                            'fields' => $this->get_listings_map_info_settings_fields(),
                         ),
                     )),
                 ),
@@ -4620,10 +4625,40 @@ The Administrator of ==SITE_NAME==
                     'default' => '350',
 
                 ),
+            ));
+        }
+
+        function get_listings_map_info_settings_fields()
+        {
+            return apply_filters('atbdp_map_info_field_setting', array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_map_info',
+                    'label' => __('Display Map Info Window', 'directorist'),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_image_map',
+                    'label' => __('Display Preview Image', 'directorist'),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_title_map',
+                    'label' => __('Display Title', 'directorist'),
+                    'default' => 1,
+                ),
                 array(
                     'type' => 'toggle',
                     'name' => 'display_address_map',
-                    'label' => __('Display Address on Map View', 'directorist'),
+                    'label' => __('Display Address', 'directorist'),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_direction_map',
+                    'label' => __('Display Get Direction', 'directorist'),
                     'default' => 1,
                 ),
             ));

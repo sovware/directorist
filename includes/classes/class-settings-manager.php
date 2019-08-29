@@ -4905,7 +4905,26 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Display Related Listings', 'directorist'),
                     'default' => 4,
                 ),
-
+                array(
+                    'type' => 'select',
+                    'name' => 'rel_listings_logic',
+                    'label' => __('Logic', 'directorist'),
+                    'description' => __('Match category and/or tag to fetch a listing as related listing.', 'directorist'),
+                    'items' => array(
+                        array(
+                            'value' => 'OR',
+                            'label' => __('Category Or Tag', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'AND',
+                            'label' => __('Category And Tag', 'directorist'),
+                        ),
+                    ),
+                    'default' => array(
+                        'value' => 'OR',
+                        'label' => __('Category Or Tag', 'directorist'),
+                    ),
+                ),
                 array(
                     'type' => 'textbox',
                     'name' => 'rel_listing_title',

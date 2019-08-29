@@ -938,10 +938,11 @@ final class Directorist_Base
                 $atbd_tags_ids[] = $atbd_tag->term_id;
             }
         }
+        $relationship = get_directorist_option('rel_listings_logic','OR');
         $args = array(
             'post_type' => ATBDP_POST_TYPE,
             'tax_query' => array(
-                'relation' => 'OR',
+                'relation' => $relationship,
                 array(
                     'taxonomy' => ATBDP_CATEGORY,
                     'field' => 'term_id',

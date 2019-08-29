@@ -67,16 +67,18 @@
         [<?php echo !empty($manual_lat) ? $manual_lat : '';?>, <?php echo !empty($manual_lng) ? $manual_lng : '';?>, "<?php echo !empty($html) ? $html : '';?>"],
         <?php } endwhile; ?>
     ];
-    console.log('<?php if($html !== ""){ echo "fine"; } ?>')
+   <?php
+   if(empty($display_map_info) && (empty($display_image_map) || empty($display_title_map) || empty($display_address_map) || empty($display_direction_map))) {
+   ?>
     const setIntForIcon = setInterval(() => {
         if(jQuery('.leaflet-marker-icon').length){
 
-           jQuery('.leaflet-pane.leaflet-popup-pane').hide()
+           jQuery('.leaflet-pane.leaflet-popup-pane').hide();
             clearInterval(setIntForIcon)
         }
 
-    },1000)
-
+    },1000);
+    <?php } ?>
 
     bundle1.fillPlaceholders();
     var localVersion = bundle1.getLibVersion('leaflet.featuregroup.subgroup', 'local');

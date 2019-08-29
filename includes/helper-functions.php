@@ -4136,3 +4136,108 @@ if (!function_exists('tract_duplicate_review')){
         return ($review_meta) ? $review_meta : false;
     }
 }
+
+function search_category_location_filter( $settings,$taxonomy_id, $prefix = '' ) {
+
+    if( $settings['immediate_category'] ) {
+
+        if( $settings['term_id'] > $settings['parent'] && ! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
+            return;
+        }
+
+    }
+    if(ATBDP_CATEGORY == $taxonomy_id) {
+        $term_id = isset($_GET['in_cat']) ? $_GET['in_cat'] : '';
+    }else{
+        $term_id = isset($_GET['in_loc']) ? $_GET['in_loc'] : '';
+    }
+
+    $args = array(
+        'orderby'      => $settings['orderby'],
+        'order'        => $settings['order'],
+        'hide_empty'   => $settings['hide_empty'],
+        'parent'       => $settings['term_id'],
+        'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false
+    );
+
+    $terms = get_terms( $taxonomy_id, $args );
+
+    $html = '';
+
+    if( count( $terms ) > 0 ) {
+
+        foreach( $terms as $term ) {
+            $settings['term_id'] = $term->term_id;
+
+            $count = 0;
+            if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
+                $count = atbdp_listings_count_by_category( $term->term_id );
+
+                if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
+            }
+            $selected = ($term_id == $term->term_id) ? "selected" : '';
+            $html .= '<option value="'.$term->term_id.'" '.$selected.'>';
+            $html .= $prefix . $term->name;
+            if( ! empty( $settings['show_count'] ) ) {
+                $html .= ' (' . $count . ')';
+            }
+            $html .= search_category_location_filter( $settings,$taxonomy_id, $prefix . '&nbsp;&nbsp;&nbsp;' );
+            $html .= '</option>';
+        }
+
+    }
+
+    return $html;
+
+}
+
+function add_listing_category_location_filter( $settings,$taxonomy_id,$term_id, $prefix = '' ) {
+
+    if( $settings['immediate_category'] ) {
+
+        if( $settings['term_id'] > $settings['parent'] && ! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
+            return;
+        }
+
+    }
+
+    $term_slug = get_query_var( $taxonomy_id );
+
+    $args = array(
+        'orderby'      => $settings['orderby'],
+        'order'        => $settings['order'],
+        'hide_empty'   => $settings['hide_empty'],
+        'parent'       => $settings['term_id'],
+        'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false
+    );
+
+    $terms = get_terms( $taxonomy_id, $args );
+
+    $html = '';
+
+    if( count( $terms ) > 0 ) {
+
+        foreach( $terms as $term ) {
+            $settings['term_id'] = $term->term_id;
+
+            $count = 0;
+            if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
+                $count = atbdp_listings_count_by_category( $term->term_id );
+
+                if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
+            }
+
+            $html .= sprintf( '<option value="%s" %s>', $term->term_id, selected( $term->term_id, $term_id ) );
+            $html .= $prefix . $term->name;
+            if( ! empty( $settings['show_count'] ) ) {
+                $html .= ' (' . $count . ')';
+            }
+            $html .= add_listing_category_location_filter( $settings,$taxonomy_id,$term_id, $prefix . '&nbsp;&nbsp;&nbsp;' );
+            $html .= '</option>';
+        }
+
+    }
+
+    return $html;
+
+}

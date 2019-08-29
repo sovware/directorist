@@ -1,3 +1,11 @@
+<?php
+$tag_label                   = get_directorist_option('tag_label',__('Tag','directorist'));
+$address_label               = get_directorist_option('address_label',__('Address','directorist'));
+$fax_label                   = get_directorist_option('fax_label',__('Fax','directorist'));
+$email_label                 = get_directorist_option('email_label',__('Email','directorist'));
+$website_label               = get_directorist_option('website_label',__('Website','directorist'));
+$zip_label                   = get_directorist_option('zip_label',__('Zip','directorist'));
+?>
 <div class="atbdp search-area default-ad-search">
     <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>">
         <?php if(!empty($search_by_text_field)) { ?>
@@ -81,23 +89,23 @@
         <?php } ?>
         <?php if(!empty($search_by_website)) { ?>
             <div class="form-group">
-                <input type="text" name="website" placeholder="Website" value="<?php echo !empty($_GET['website']) ? $_GET['website'] : ''; ?>" class="form-control">
+                <input type="text" name="website" placeholder="<?php echo !empty($website_label) ? $website_label : __('Website','directorist');?>" value="<?php echo !empty($_GET['website']) ? $_GET['website'] : ''; ?>" class="form-control">
             </div><!-- ends: .form-group -->
         <?php } ?>
         <?php if(!empty($search_by_email)) { ?>
             <div class="form-group">
-                <input type="text" name="email" placeholder="Email" value="<?php echo !empty($_GET['email']) ? $_GET['email'] : ''; ?>" class="form-control">
+                <input type="text" name="email" placeholder="<?php echo !empty($email_label) ? $email_label : __('Email','directorist');?>" value="<?php echo !empty($_GET['email']) ? $_GET['email'] : ''; ?>" class="form-control">
             </div><!-- ends: .form-group -->
         <?php } ?>
         <?php if(!empty($search_by_phone)) { ?>
             <div class="form-group">
-                <input type="text" name="phone" placeholder="Phone Number" value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>" class="form-control">
+                <input type="text" name="phone" placeholder="<?php _e('Phone Number','directorist');?>" value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>" class="form-control">
             </div><!-- ends: .form-group -->
         <?php } ?>
         <?php if(!empty($search_by_address)) { ?>
             <div class="form-group">
                 <div class="position-relative">
-                    <input type="text" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="Google Address"
+                    <input type="text" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist');?>"
                            class="form-control location-name">
                 </div>
             </div><!-- ends: .form-group -->
@@ -105,7 +113,7 @@
         <?php if(!empty($search_by_zip_code)) { ?>
             <div class="form-group">
                 <div class="position-relative">
-                    <input type="text" name="zip_code" placeholder="Zip/Post Code"
+                    <input type="text" name="zip_code" placeholder="<?php echo !empty($zip_label) ? $zip_label : __('zip','directorist');?>"
                            value="<?php echo !empty($_GET['zip_code']) ? $_GET['zip_code'] : ''; ?>" class="form-control">
                 </div>
             </div><!-- ends: .form-group -->
@@ -115,7 +123,7 @@
             ?>
 
             <div class="form-group filter-checklist">
-                <label>Filter by Tags</label>
+                <label>Filter by <?php echo !empty($tag_label) ? $tag_label : __('Tags','directorist');?></label>
                 <div class="checklist-items">
                     <?php
                     if(!empty($terms)) {

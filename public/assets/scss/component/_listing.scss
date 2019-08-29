@@ -328,24 +328,27 @@
   top: 0 !important;
   left: 0 !important;
   width: 250px !important;
-  height: 100% !important;
-  min-height: 285px !important;
+  //height: 100% !important;
+  min-height: auto !important;
+  max-height: none !important;
   padding: 18px 0 0 18px !important;
   display: block !important;
   border-radius: 3px !important;
   .gm-style-iw-d{
     height: 100% !important;
     max-height: 100% !important;
-    overflow-ys: scroll;
+    overflow-y: scroll;
     .media-left, .media-right{
       display: block !important;
+      padding-right: 0;
     }
     .media-left{
       text-align: center;
+      margin-bottom: 10px;
     }
     .media-body{
       .atbdp-listings-title-block{
-        margin-top: 10px;
+        margin-top: 0;
         h3{
           font-size: 16px;
           line-height: 18px;
@@ -355,6 +358,9 @@
       a.map-info-link{
         font-size: 15px;
         font-weight: 300;
+      }
+      .map_addr{
+        margin-bottom: 5px;
       }
     }
     img{

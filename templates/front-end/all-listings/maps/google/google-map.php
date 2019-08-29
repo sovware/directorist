@@ -79,11 +79,10 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                         <?php } ?>
                         <?php if(!empty($address)) { ?>
                             <?php if(!empty(!empty($display_address_map))) {?>
-                        <span class="<?php atbdp_icon_type(true); ?>-briefcase"></span> <a href="" class="map-info-link"><?php echo $address;?></a>
+                        <div class="map_addr"><span class="<?php atbdp_icon_type(true); ?>-briefcase"></span> <a href="" class="map-info-link"><?php echo $address;?></a></div>
                         <?php } ?>
-                            <br>
                             <?php if(!empty($display_direction_map)) {?>
-                            <span class="<?php atbdp_icon_type(true); ?>-arrow-right"></span> <a href='http://www.google.com/maps?daddr=<?php echo $manual_lat; ?>,<?php echo $manual_lng; ?>' target='_blank'><?php _e('Get Direction', 'directorist') ?></a>
+                            <div class="map_get_dir"><span class="<?php atbdp_icon_type(true); ?>-arrow-right"></span> <a href='http://www.google.com/maps?daddr=<?php echo $manual_lat; ?>,<?php echo $manual_lng; ?></div>' target='_blank'><?php _e('Get Direction', 'directorist') ?></a>
                         <?php } } ?>
 
                         <?php do_action( 'atbdp_after_listing_content', $post->ID, 'map' ); ?>

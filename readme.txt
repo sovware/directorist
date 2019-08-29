@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 5.8.0
+Stable tag: 5.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -137,10 +137,25 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 5.8.1 - Aug 28, 2019 =
-* Add - Hide/show Option of Address In Map View
-* Fix - Label of Zip filter
-* Fix - Rating's Apostophe issue
+= 5.9.0 - Aug 29, 2019 =
+
+* Add - Option to show/hide Price Range from Form Fields
+* Add - Option to customize logic of Related Listings
+* Add - Control content of Map Info Window
+* Extend - Payment Currencies
+* Fix - Conflict of login failed notification with WooCommerce
+* Fix - Advanced Search/Filter's labels
+* Fix - Rating's apostrophe(/) issue
+* Fix - Philippine peso currency issue
+* Fix - 'Show More' link issue of Advanced Search/Filter
+* Fix - Listing status after renewal
+* Fix - Search by Ratings issue
+* Fix - Alphabetically ordering issue of Listings locations
+* Fix - Styling issues
+* Tweak - The email address to send from
+* Improve - Compatibility with Directorist WooCommerce Pricing Plans
+* Improve - Code (white spacing, deprecated function etc.)
+
 = 5.8.0 - Aug 20, 2019 =
 
 * Add - Review approval option

@@ -4908,21 +4908,21 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'select',
                     'name' => 'rel_listings_logic',
-                    'label' => __('Logic', 'directorist'),
-                    'description' => __('Match category and/or tag to fetch a listing as related listing.', 'directorist'),
+                    'label' => __('Based on', 'directorist'),
+                    'description' => __('Display related listings based on category and/or tag.', 'directorist'),
                     'items' => array(
                         array(
                             'value' => 'OR',
-                            'label' => __('Category Or Tag', 'directorist'),
+                            'label' => __('Category or Tag', 'directorist'),
                         ),
                         array(
                             'value' => 'AND',
-                            'label' => __('Category And Tag', 'directorist'),
+                            'label' => __('Category and Tag', 'directorist'),
                         ),
                     ),
                     'default' => array(
                         'value' => 'OR',
-                        'label' => __('Category Or Tag', 'directorist'),
+                        'label' => __('Category or Tag', 'directorist'),
                     ),
                 ),
                 array(

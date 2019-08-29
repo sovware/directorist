@@ -131,6 +131,19 @@ $display_glr_img_for = get_directorist_option('display_glr_img_for', 0);
 $display_video_for = get_directorist_option('display_video_for', 0);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
 $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
+$query_args = array(
+    'parent'             => 0,
+    'term_id'            => 0,
+    'hide_empty'         => 0,
+    'orderby'            => 'id',
+    'order'              => 'asc',
+    'show_count'         => 0,
+    'single_only'        => 0,
+    'pad_counts'         => true,
+    'immediate_category' => 0,
+    'active_term_id'     => 0,
+    'ancestors'          => array()
+);
 ?>
 <div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
     <div class="<?php echo apply_filters('atbdp_add_listing_container_fluid', $container_fluid) ?>">
@@ -577,8 +590,10 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                     echo '<option>' . $loc_placeholder . '</option>';
                                                 }
                                                 foreach ($locations as $key => $cat_title) {
-                                                    $checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
-                                                    printf('<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name);
+                                                    $locations_fields = add_listing_category_location_filter($query_args, ATBDP_LOCATION, $cat_title->term_id);
+                                                    echo $locations_fields;
+                                                   /* $checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
+                                                    printf('<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name);*/
                                                 }
                                                 ?>
                                             </select>
@@ -664,9 +679,12 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             if (empty($multiple_cat_for_user)) {
                                                 echo '<option>' . $cat_placeholder . '</option>';
                                             }
+
                                             foreach ($categories as $key => $cat_title) {
-                                                $checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
-                                                printf('<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name);
+                                                $categories_fields = add_listing_category_location_filter( $query_args, ATBDP_CATEGORY,$cat_title->term_id );
+                                                /*$checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
+                                                printf('<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name);*/
+                                                echo $categories_fields;
                                             }
                                             ?>
                                         </select>

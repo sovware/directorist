@@ -30,7 +30,7 @@ $address_label               = get_directorist_option('address_label',__('Addres
 $fax_label                   = get_directorist_option('fax_label',__('Fax','directorist'));
 $email_label                 = get_directorist_option('email_label',__('Email','directorist'));
 $website_label               = get_directorist_option('website_label',__('Website','directorist'));
-$zip_label                   = get_directorist_option('zip_label',__('Website','directorist'));
+$zip_label                   = get_directorist_option('zip_label',__('Zip','directorist'));
 $front_bg_image              = (!empty($theme_home_bg_image)) ? $theme_home_bg_image : $search_home_bg;
 if (is_rtl()){
     wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
@@ -44,6 +44,21 @@ wp_localize_script('atbdp-search-listing','atbdp_search',array(
 ));
 $container_fluid      = is_directoria_active() ? 'container' : 'container-fluid';
 $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
+$query_args = array(
+    'parent'             => 0,
+    'term_id'            => 0,
+    'hide_empty'         => 0,
+    'orderby'            => 'id',
+    'order'              => 'asc',
+    'show_count'         => 0,
+    'single_only'        => 0,
+    'pad_counts'         => true,
+    'immediate_category' => 0,
+    'active_term_id'     => 0,
+    'ancestors'          => array()
+);
+$categories_fields = search_category_location_filter( $query_args, ATBDP_CATEGORY );
+$locations_fields  = search_category_location_filter( $query_args, ATBDP_LOCATION );
 ?>
 <!-- start search section -->
 <div id="directorist" class="directorist atbd_wrapper directory_search_area single_area ads-advaced--wrapper"
@@ -90,24 +105,7 @@ $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
                                     $search_html .= '<div class="col-md-6 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_category">';
                                     $search_html .= '<select '.$require_cat.' name="in_cat" class="search_fields form-control" id="at_biz_dir-category">';
-                                    $search_html .= '<option value="">'. $search_category_placeholder.'</option>';
-
-                                    foreach ($categories as $category) {
-                                        $current_term_level = atbdp_get_tax_level($category->term_id, $category->taxonomy);
-                                        $class ='';
-                                        if ($current_term_level === 1) {
-                                            $class =  'class="term_parent"';
-                                        } if ($current_term_level === 2) {
-                                            $class = 'class="first_child"';
-                                        }if ($current_term_level === 3) {
-                                            $class = 'class="second_child"';
-                                        } if ($current_term_level === 4) {
-                                            $class = 'class="third_child"';
-                                        } if ($current_term_level === 5) {
-                                            $class = 'class="forth_child"';
-                                        }
-                                        $search_html .= "<option id='atbdp_category' $class value='$category->term_id'>$category->name</option>";
-                                    }
+                                    $search_html .= $categories_fields;
                                     $search_html .= '</select>';
                                     $search_html .= '</div></div>';
                                 }
@@ -115,24 +113,7 @@ $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
                                     $search_html .= '<div class="col-md-12 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_location">';
                                     $search_html .= '<select '.$require_loc.' name="in_loc" class="search_fields form-control" id="at_biz_dir-location">';
-                                    $search_html .= '<option value="">'. $search_location_placeholder.'</option>';
-
-                                    foreach ($locations as $location) {
-                                        $current_term_level = atbdp_get_tax_level($location->term_id, $location->taxonomy);
-                                        $class ='';
-                                        if ($current_term_level === 1) {
-                                            $class =  'class="term_parent"';
-                                        } if ($current_term_level === 2) {
-                                            $class = 'class="first_child"';
-                                        }if ($current_term_level === 3) {
-                                            $class = 'class="second_child"';
-                                        } if ($current_term_level === 4) {
-                                            $class = 'class="third_child"';
-                                        } if ($current_term_level === 5) {
-                                            $class = 'class="forth_child"';
-                                        }
-                                        $search_html .= "<option id='atbdp_location' $class value='$location->term_id'>$location->name</option>";
-                                    }
+                                    $search_html .= $locations_fields;
                                     $search_html .= '</select>';
                                     $search_html .= ' </div></div>';
                                 }

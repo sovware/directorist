@@ -1336,7 +1336,7 @@ jQuery(function ($) {
     }
 
     //Display related listings
-    var lf_opt52 = $("#rel_listing_title,#rel_listing_num,#rel_listing_column");
+    var lf_opt52 = $("#rel_listing_title,#rel_listing_num,#rel_listing_column,#rel_listings_logic");
     lf_opt52.hide();
     $('input[name="enable_rel_listing"]').on("change", function () {
         if($(this).is(":checked") === true){

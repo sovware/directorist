@@ -1,6 +1,4 @@
 
-
-<div id="map" style="width: 100%; height: <?php echo !empty($listings_map_height)?$listings_map_height:'';?>px;"></div>
 <script>
     var addressPoints = [
         <?php while( $all_listings->have_posts() ) : $all_listings->the_post();
@@ -69,6 +67,16 @@
         [<?php echo !empty($manual_lat) ? $manual_lat : '';?>, <?php echo !empty($manual_lng) ? $manual_lng : '';?>, "<?php echo !empty($html) ? $html : '';?>"],
         <?php } endwhile; ?>
     ];
+    console.log('<?php if($html !== ""){ echo "fine"; } ?>')
+    const setIntForIcon = setInterval(() => {
+        if(jQuery('.leaflet-marker-icon').length){
+
+           jQuery('.leaflet-pane.leaflet-popup-pane').hide()
+            clearInterval(setIntForIcon)
+        }
+
+    },1000)
+
 
     bundle1.fillPlaceholders();
     var localVersion = bundle1.getLibVersion('leaflet.featuregroup.subgroup', 'local');
@@ -100,6 +108,14 @@
             delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).
         });
     }
+    setTimeout(() => {
+        console.log(jQuery('.leaflet-popup-content'))
+    }, 100)
+
+
+
 
 
 </script>
+
+<div id="map" style="width: 100%; height: <?php echo !empty($listings_map_height)?$listings_map_height:'';?>px;"></div>

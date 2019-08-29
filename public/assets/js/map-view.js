@@ -90,9 +90,9 @@ function atbdp_add_marker( $marker, map ) {
 
         // show info window when marker is clicked
         google.maps.event.addListener(marker, 'click', function() {
-
-            infowindow.open( map, marker );
-
+            if (atbdp_map.disable_info_window === 'no'){
+                infowindow.open( map, marker );
+            }
         });
     };
 

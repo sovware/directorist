@@ -1,9 +1,23 @@
 
 <?php
 wp_enqueue_script('atbdp-map-view',ATBDP_PUBLIC_ASSETS . 'js/map-view.js');
+$display_map_info               = get_directorist_option('display_map_info', 1);
+$display_image_map              = get_directorist_option('display_image_map', 1);
+$display_title_map              = get_directorist_option('display_title_map', 1);
+$display_address_map            = get_directorist_option('display_address_map', 1);
+$display_direction_map          = get_directorist_option('display_direction_map', 1);
+
+if(empty($display_map_info)) {
+    $disable_info_window = 'yes';
+}elseif (empty($display_image_map || $display_title_map || $display_address_map || $display_direction_map)){
+    $disable_info_window = 'yes';
+}else{
+    $disable_info_window = 'no';
+}
 $data = array(
     'plugin_url' => ATBDP_URL,
-    'zoom'       => !empty($zoom) ? $zoom : 4
+    'disable_info_window' => $disable_info_window,
+    'zoom'       => !empty($zoom) ? $zoom : 4,
 );
 wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
 ?>
@@ -16,11 +30,6 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
         $listing_prv_img                = get_post_meta(get_the_ID(), '_listing_prv_img', true);
         $crop_width                     = get_directorist_option('crop_width', 360);
         $crop_height                    = get_directorist_option('crop_height', 300);
-        $display_map_info               = get_directorist_option('display_map_info', 1);
-        $display_image_map              = get_directorist_option('display_image_map', 1);
-        $display_title_map              = get_directorist_option('display_title_map', 1);
-        $display_address_map            = get_directorist_option('display_address_map', 1);
-        $display_direction_map          = get_directorist_option('display_direction_map', 1);
         $address                        = get_post_meta(get_the_ID(), '_address', true);
         if(!empty($listing_prv_img)) {
 
@@ -37,7 +46,7 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
 
         <?php if( ! empty( $manual_lat ) && ! empty( $manual_lng ) ) : ?>
             <div class="marker" data-latitude="<?php echo $manual_lat; ?>" data-longitude="<?php echo $manual_lng; ?>">
-                <?php if(!empty($display_map_info) && (!empty($display_image_map) || !empty($display_title_map) || !empty($display_direction_map))) { ?>
+                <?php if(!empty($display_map_info) && (!empty($display_image_map) || !empty($display_title_map)|| !empty($display_address_map) || !empty($display_direction_map))) { ?>
                 <div>
                     <?php if(!empty($display_image_map)) { ?>
                     <div class="media-left">

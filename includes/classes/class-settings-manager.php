@@ -4578,8 +4578,8 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                     'default' => array(
-                        'value' => 'openstreet',
-                        'label' => __('OpenStreetMap', 'directorist'),
+                        'value' => 'google',
+                        'label' => __('Google Map', 'directorist'),
                     ),
                 ),
                 array(
@@ -4587,7 +4587,7 @@ The Administrator of ==SITE_NAME==
                     'name' => 'map_api_key',
                     'label' => __('Google Map API key', 'directorist'),
                     'description' => sprintf(__('Please replace it by your own API. It\'s required to use Google Map. You can find detailed information %s.', 'directorist'), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
-                    'default' => 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo',
+
                 ),
                 array(
                     'type' => 'textbox',

@@ -693,14 +693,12 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_admin_listing_edited($listing_id)
         {
-
             if (get_directorist_option('disable_email_notification')) return false;
             if (!in_array('listing_edited', get_directorist_option('notify_admin', array()))) return false;
             $s = __('[==SITE_NAME==] The Listing #==LISTING_ID== has been edited on your website', 'directorist');
             $sub = $this->replace_in_content($s, null, $listing_id);
             $body = $this->get_listing_edited_admin_tmpl();
             return $this->send_mail($this->get_admin_email_list(), $sub, $this->replace_in_content($body, null, $listing_id), $this->get_email_headers());
-
         }
 
         /**

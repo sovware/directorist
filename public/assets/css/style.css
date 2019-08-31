@@ -3628,6 +3628,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   background: none;
 }
 
+#directorist.atbd_wrapper.atbd_add_listing_wrapper textarea#atbdp_excerpt {
+  padding-top: 10px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav {
   display: flex;
   justify-content: space-between;
@@ -4417,7 +4421,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid.atbd_location_grid-default figure figcaption h3, .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid.atbd_location_grid-default figure figcaption p {
-  color: #444752;
+  color: #444752 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .col-md-1 a.atbd_location_grid {

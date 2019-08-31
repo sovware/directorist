@@ -3628,6 +3628,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   background: none;
 }
 
+#directorist.atbd_wrapper.atbd_add_listing_wrapper textarea#atbdp_excerpt {
+  padding-top: 10px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav {
   display: flex;
   justify-content: space-between;

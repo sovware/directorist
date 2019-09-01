@@ -22,7 +22,7 @@ $column_width           = 100/$search_listing_columns .'%';
     <div id="directorist" class="atbd_wrapper directorist directory_wrapper search_area">
         <div class="<?php echo is_directoria_active() ? 'container': 'container-fluid'; ?>">
             <?php if ( !empty($display_header) ) {?>
-            <div class="header_bar">
+            <div class="atbd_header_bar">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="atbd_generic_header">

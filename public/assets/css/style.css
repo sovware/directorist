@@ -2038,6 +2038,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding-right: 10px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .select2-selection--multiple .select2-selection__clear {
+  padding-right: 0;
+  margin: 5px 0 0;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_action_btn {
   display: flex;
 }
@@ -3217,6 +3222,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 4px 8px;
 }
 
+#directorist.atbd_wrapper .btn-outline-primary:hover,
+#directorist.atbd_wrapper .btn-outline-danger:hover {
+  color: #fff !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .select2-container--default.select2-container--focus .select2-selection--multiple {
   border-color: #e3e6ef;
 }
@@ -3769,6 +3779,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
   background: #e23636;
   color: #fff;
   padding: 3px 10px;
+  transition: all 0.2s ease-in-out;
+  border-radius: 2px;
+  cursor: pointer;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn {
@@ -3783,6 +3796,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 0;
   color: #ffffff;
   padding: 8px 20px;
+  transition: all 0.2s ease-in-out;
+  border-radius: 2px;
+  cursor: pointer;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area #profile_pic_container img {

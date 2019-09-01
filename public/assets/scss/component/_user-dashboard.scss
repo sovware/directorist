@@ -134,6 +134,9 @@
           background: $danger;
           color: #fff;
           padding: 3px 10px;
+          transition: $transition-base;
+          border-radius: 2px;
+          cursor: pointer;
         }
 
         .choose_btn {
@@ -148,6 +151,9 @@
             @extend .atbd_bg-primary;
             color: $light;
             padding: 8px 20px;
+            transition: $transition-base;
+            border-radius: 2px;
+            cursor: pointer;
           }
         }
       }

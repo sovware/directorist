@@ -115,9 +115,9 @@ class ATBDP_Enqueuer {
             wp_enqueue_style('atbdp-line-awesome');
             wp_enqueue_style('sweetalertcss');
             wp_enqueue_style('select2style');
+            wp_enqueue_style('custom-colors');
             /* WP COLOR PICKER */
             wp_enqueue_style('wp-color-picker');
-            wp_enqueue_style('atbdp-admin');
 
 
             /* Enqueue all scripts */

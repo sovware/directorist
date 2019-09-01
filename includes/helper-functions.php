@@ -4226,8 +4226,8 @@ function add_listing_category_location_filter( $settings,$taxonomy_id,$term_id, 
 
                 if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
             }
-
-            $html .= sprintf( '<option value="%s" %s>', $term->term_id, selected( $term->term_id, $term_id ) );
+            $selected = in_array($term->term_id, $term_id) ? "selected" : '';
+            $html .= sprintf( '<option value="%s" %s>', $term->term_id, $selected );
             $html .= $prefix . $term->name;
             if( ! empty( $settings['show_count'] ) ) {
                 $html .= ' (' . $count . ')';

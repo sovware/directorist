@@ -149,6 +149,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                             $total_featured_listing = $num_featured - ('1' === $featured?$user_featured_listing+1:$user_featured_listing);
                             $subscribed_date = $plan_purchased->post_date;
                             $package_length = get_post_meta($subscribed_package_id, 'fm_length', true);
+                            $regular_unl = get_post_meta($subscribed_package_id, 'num_regular_unl', true);
+                            $featured_unl = get_post_meta($subscribed_package_id, 'num_featured_unl', true);
                             $package_length = $package_length ? $package_length : '1';
                             // Current time
                             $start_date = !empty($subscribed_date) ? $subscribed_date : '';
@@ -158,10 +160,10 @@ if (!class_exists('ATBDP_Add_Listing')):
                             $expired_date = $date->format('Y-m-d H:i:s');
                             $current_d = current_time('mysql');
                             $remaining_days = ($expired_date > $current_d) ? (floor(strtotime($expired_date) / (60 * 60 * 24)) - floor(strtotime($current_d) / (60 * 60 * 24))) : 0; //calculate the number of days remaining in a plan
-                            if (((0 >= $total_regular_listing) && (0 >= $total_featured_listing)) || ($remaining_days <= 0)){
+                            if ((((0 >= $total_regular_listing) && empty($regular_unl)) && ((0 >= $total_featured_listing)) && empty($featured_unl)) || ($remaining_days <= 0)){
                                 //if user exit the plan allowance the change the status of that order to cancelled
                                 $order_id = $plan_purchased->ID;
-                                if (class_exists('woocommerce')){
+                                if (class_exists('woocommerce') && class_exists('DWPP_Pricing_Plans')){
                                     if (('pay_per_listng' != $plan_type)) {
                                         $order = new WC_Order($order_id);
                                         $order->update_status('cancelled', 'order_note');

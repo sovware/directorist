@@ -589,10 +589,12 @@ $query_args = array(
                                                 if (empty($multiple_loc_for_user)) {
                                                     echo '<option>' . $loc_placeholder . '</option>';
                                                 }
-                                                foreach ($locations as $key => $cat_title) {
+                                                /*foreach ($locations as $key => $cat_title) {
                                                     $checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
                                                     printf('<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name);
-                                                }
+                                                }*/
+                                                $location_fields = add_listing_category_location_filter($query_args, ATBDP_LOCATION, $ids);
+                                                echo $location_fields;
                                                 ?>
                                             </select>
 
@@ -672,16 +674,20 @@ $query_args = array(
                                         ?>
                                         <p class="c_cat_list"><strong></strong></p>
                                         <select name="admin_category_select[]" class="form-control"
-                                                id="at_biz_dir-categories" <?php echo !empty($multiple_cat_for_user) ? 'multiple="multiple"' : '' ?>>
+                                                id="at_biz_dir-categories" <?php echo !empty($multiple_cat_for_user) ? 'multiple="multiple"' : ''; ?>>
                                             <?php
                                             if (empty($multiple_cat_for_user)) {
                                                 echo '<option>' . $cat_placeholder . '</option>';
                                             }
 
-                                            foreach ($categories as $key => $cat_title) {
+                                            /*foreach ($categories as $key => $cat_title) {
+
                                                 $checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
                                                 printf('<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name);
-                                            }
+
+                                            }*/
+                                            $categories_field = add_listing_category_location_filter($query_args, ATBDP_CATEGORY, $ids);
+                                            echo $categories_field;
                                             ?>
                                         </select>
                                     </div>

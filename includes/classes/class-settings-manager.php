@@ -3003,6 +3003,10 @@ The Administrator of ==SITE_NAME==
                                 'value' => 'sliding',
                                 'label' => __('Sliding', 'directorist'),
                             ),
+                            array(
+                                'value' => 'always_open',
+                                'label' => __('Always Open', 'directorist'),
+                            )
                         ),
                         'default' => array(
                             'value' => 'sliding',

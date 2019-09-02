@@ -21,7 +21,7 @@ function compileSass(src, dest){
 gulp.task('bs', compileSass('public/assets/bootstrap/bootstrap.scss', 'public/assets/css/'));
 gulp.task('style', compileSass('public/assets/scss/style.scss','public/assets/css/'));
 gulp.task('admin', compileSass('public/assets/scss/admin/style.scss','admin/assets/css/'));
-gulp.task('bsHour', compileSass('public/assets/scss/business-hour/bh-main.scss', '../directorist-business-hour/assets/css/'));
+gulp.task('bsHour', compileSass('public/assets/scss/business-hour/bh-main.scss', '../directorist-business-hours/assets/css/'));
 
 // default gulp task\
 gulp.task('default',['bs', 'style', 'admin'], function(){

@@ -3090,7 +3090,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
 
 function listing_view_by_list($all_listings, $display_image, $show_pagination, $paged)
 {
-    $class_name = 'container';
+    $class_name = 'container-fluid';
     $container = apply_filters('list_view_container',$class_name);
     ?>
     <div class="<?php echo !empty($container) ? $container : 'container'; ?>">

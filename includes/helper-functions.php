@@ -4191,7 +4191,7 @@ function search_category_location_filter( $settings,$taxonomy_id, $prefix = '' )
 
 }
 
-function add_listing_category_location_filter( $settings,$taxonomy_id,$term_id, $prefix = '' ) {
+function add_listing_category_location_filter( $settings,$taxonomy_id,$term_id, $prefix = '', $plan_cat = array() ) {
 
     if( $settings['immediate_category'] ) {
 
@@ -4208,6 +4208,7 @@ function add_listing_category_location_filter( $settings,$taxonomy_id,$term_id, 
         'order'        => $settings['order'],
         'hide_empty'   => $settings['hide_empty'],
         'parent'       => $settings['term_id'],
+        'exclude'       => $plan_cat,
         'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false
     );
 

@@ -143,13 +143,13 @@ $display_social_info_for = get_directorist_option('display_social_info_for', 'ad
 $display_map_field = get_directorist_option('display_map_field', 1);
 $display_video_for = get_directorist_option('display_video_for', 'admin_users');
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
-$main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-md-8' : 'col-md-12';
+$main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 ?>
 <section id="directorist" class="directorist atbd_wrapper">
     <div class="row">
         <?php
         $html_edit_back = '';
-        $html_edit_back .= '<div class="' . esc_attr($main_col_size) . ' col-sm-12 atbd_col_left">';
+        $html_edit_back .= '<div class="' . esc_attr($main_col_size) . ' col-md-12 atbd_col_left">';
         //is current user is logged in and the original author of the listing
         if (is_user_logged_in() && $listing_author_id == get_current_user_id()) {
             //ok show the edit option
@@ -184,7 +184,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-md-8' : 'col-
          */
         do_action('atbdp_before_single_listing_section');
         ?>
-        <div class="<?php echo esc_attr($main_col_size); ?> col-sm-12 atbd_col_left">
+        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
             <?php
             /**
              * @since 5.2.1

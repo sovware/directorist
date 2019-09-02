@@ -344,7 +344,10 @@
     }
   }
   .atbdp-custom-fields-search{
+    display: flex;
+    flex-wrap: wrap;
     .form-group{
+      width: 50%;
       .form-control{
         width: 250px !important;
       }

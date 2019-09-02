@@ -3,29 +3,40 @@
     margin-bottom: 17px;
   }
   .atbd_auhor_profile_area {
-    margin-bottom: 35px;
     background: $light;
     border: 1px solid $border-color;
-    padding: 35px;
+    padding: 35px 20px 35px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     align-items: center;
-    margin-top: 30px;
+    margin: 30px 0 35px 0;
     .atbd_author_avatar {
+      flex: 2;
       display: flex;
       align-items: center;
+      padding: 0 15px;
       img{
-        max-wisdth: 150px;
+        max-width: 120px;
         max-height: 100%;
+        border-radius: 50%;
+        &.avatar-32{
+          width: 120px;
+          height: auto;
+        }
       }
       .atbd_auth_nd{
         margin-left: 20px;
+        h2{
+          font-size: 26px;
+        }
       }
     }
     .atbd_author_meta {
+      flex: 1;
       display: flex;
       align-items: center;
+      padding: 0 15px;
       .atbd_listing_meta{
         margin-right: 7px;
       }

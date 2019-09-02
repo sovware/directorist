@@ -400,6 +400,7 @@ class ATBDP_Enqueuer {
                 $plan_image = is_plan_slider_limit($planID);
             }
         }
+        $cat_placeholder = get_directorist_option('cat_placeholder', __('Select Category', 'directorist'));
         $data = array(
             'nonce'            => wp_create_nonce('atbdp_nonce_action_js'),
             'ajaxurl'          => admin_url('admin-ajax.php'),
@@ -409,6 +410,7 @@ class ATBDP_Enqueuer {
             'active_mi_ext'    => $active_mi_extension, // 1 or 0
             'plan_image'       => $plan_image,
             'create_new_tag' => $new_tag,
+            'cat_placeholder' => $cat_placeholder,
         );
 
         wp_localize_script( 'atbdp_add_listing_js', 'atbdp_add_listing', $data );

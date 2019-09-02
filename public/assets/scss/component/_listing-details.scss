@@ -215,7 +215,7 @@
       }
       .atbd_info_title {
         color: $dark;
-        width: 30%;
+        width: 35%;
         display: inline-block;
         vertical-align: top;
         &:after {
@@ -524,8 +524,7 @@
   }
 }
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_info .atbd_listting_category,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content,
-.atbd_content_active .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content{
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content, .atbd_content_active .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content{
   .atbd_cat{
     position: relative;
     padding-left: 25px;
@@ -614,7 +613,7 @@
   margin-top: 20px;
 }
 
-.olMap .mapHover{
+#directorist.atbd_wrapper .olMap .mapHover{
   min-width: 250px;
   padding: 10px;
   & > span{

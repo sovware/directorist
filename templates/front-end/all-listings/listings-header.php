@@ -21,7 +21,7 @@ $query_args = array(
 $categories_fields = search_category_location_filter( $query_args, ATBDP_CATEGORY );
 $locations_fields  = search_category_location_filter( $query_args, ATBDP_LOCATION );
 if ($display_header == 'yes') { ?>
-    <div class="header_bar">
+    <div class="atbd_header_bar">
         <div class="<?php echo !empty($header_container_fluid) ? $header_container_fluid : ''; ?>">
             <div class="row">
                 <div class="col-md-12">

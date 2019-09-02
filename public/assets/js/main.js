@@ -107,7 +107,7 @@
 
             } else if (response.success) {
                 d = new Date(); // parse mysql date string to js date object
-                d = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear(); // build the date string, month is 0 based so add 1 to that to get real month.
+                d = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear(); // build the date string, month is 0 based so add 1 to that to get real month.
 
                 output +=
                     '<div class="atbd_single_review" id="single_review_' + response.data.id + '">' +

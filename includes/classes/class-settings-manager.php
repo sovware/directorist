@@ -164,8 +164,8 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'icon' => 'font-awesome:fa-align-right',
                     'menus' => $this->get_reg_log_settings_submenus(),
                 ),
-                /*lets make the settings for registration & login*/
-                /*'style_settings_menu' => array(
+                /*lets make the settings for style settngs*/
+              /*  'style_settings_menu' => array(
                     'title' => __('Style Settings', 'directorist'),
                     'name' => 'style_settings',
                     'icon' => 'font-awesome:fa-adjust',
@@ -944,7 +944,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'label' => __('Border Primary Color', 'directorist'),
                     'default' => '#444752',
                 ),
-                array(
+               /* array(
                     'type' => 'color',
                     'name' => 'secondary_color',
                     'label' => __('Secondary Color', 'directorist'),
@@ -1057,7 +1057,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'name' => 'rating_color',
                     'label' => __('Rating Color', 'directorist'),
                     'default' => '#fa8b0c',
-                ),
+                ),*/
             ));
         }
         /**

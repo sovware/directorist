@@ -138,7 +138,7 @@
         });
     }
     $('#at_biz_dir-categories').select2({
-        placeholder: "Select a category",
+        placeholder: atbdp_add_listing.cat_placeholder,
         tags: true,
         tokenSeparators: [',', ' ']
     });

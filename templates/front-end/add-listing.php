@@ -131,11 +131,17 @@ $display_glr_img_for = get_directorist_option('display_glr_img_for', 0);
 $display_video_for = get_directorist_option('display_video_for', 0);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
 $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
+$fm_plan = !empty(get_post_meta($p_id, '_fm_plans', true)) ? get_post_meta($p_id, '_fm_plans', true) : '';
+$plan_cat = array();
+if (is_fee_manager_active()) {
+    $plan_cat = is_plan_allowed_category($fm_plan);
+}
 $query_args = array(
     'parent'             => 0,
     'term_id'            => 0,
+    'exclude'            => $plan_cat,
     'hide_empty'         => 0,
-    'orderby'            => 'id',
+    'orderby'            => 'name',
     'order'              => 'asc',
     'show_count'         => 0,
     'single_only'        => 0,
@@ -151,7 +157,6 @@ $query_args = array(
             <fieldset>
                 <?php
                 do_action('atbdb_before_add_listing_from_frontend');//for dev purpose
-                $fm_plan = !empty(get_post_meta($p_id, '_fm_plans', true)) ? get_post_meta($p_id, '_fm_plans', true) : '';
                 ?>
                 <div class="atbdp-form-fields">
                     <div class="atbd_add_listing_title">
@@ -659,10 +664,6 @@ $query_args = array(
                                         <?php
                                         $category = wp_get_object_terms($p_id, ATBDP_CATEGORY, array('fields' => 'ids'));
                                         $selected_category = count($category) ? $category[0] : -1;
-                                        $plan_cat = array();
-                                        if (is_fee_manager_active()) {
-                                            $plan_cat = is_plan_allowed_category($fm_plan);
-                                        }
                                         $current_val = get_the_terms($p_id, ATBDP_CATEGORY);;
                                         $ids = array();
                                         if (!empty($current_val)) {
@@ -686,7 +687,7 @@ $query_args = array(
                                                 printf('<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name);
 
                                             }*/
-                                            $categories_field = add_listing_category_location_filter($query_args, ATBDP_CATEGORY, $ids);
+                                            $categories_field = add_listing_category_location_filter($query_args, ATBDP_CATEGORY, $ids,'', $plan_cat);
                                             echo $categories_field;
                                             ?>
                                         </select>

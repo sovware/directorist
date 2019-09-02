@@ -115,7 +115,7 @@
                     echo '</div>';
                     break;
                 case 'date' :
-                    printf( '<input type="date" name="custom_field[%d]" class="form-control" value="%s"/>', $post->ID,  $value  );
+                    printf( '<label>%s</label><input type="date" name="custom_field[%d]" class="form-control" value="%s"/>', get_the_title(),$post->ID,  $value  );
                     echo '</div>';
                     break;
                 case 'color' :
@@ -127,11 +127,11 @@
                         });
                     </script>
                 <?php
-                    printf( '<input type="color" name="custom_field[%d]" class="search-color-field" value="%s"/>', $post->ID,  $value  );
+                    printf( '<label>%s</label><input type="color" name="custom_field[%d]" class="search-color-field" value="%s"/>', get_the_title(), $post->ID,  $value  );
         echo '</div>';
                     break;
                 case 'time' :
-                    printf( '<input type="time" name="custom_field[%d]" class="form-control" value="%s"/>', $post->ID,  $value  );
+                    printf( '<label>%s</label><input type="time" name="custom_field[%d]" class="form-control" value="%s"/>', get_the_title(), $post->ID,  $value  );
                     echo '</div>';
                     break;
             }

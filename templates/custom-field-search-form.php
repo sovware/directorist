@@ -29,6 +29,10 @@
                     printf( '<textarea name="custom_field[%d]" placeholder="%s" class="form-control" rows="%d">%s</textarea>', $post->ID,get_the_title(), (int) $field_meta['rows'][0], esc_textarea( $value ) );
                     echo '</div>';
                     break;
+                case 'url' :
+                    printf( '<input type="text" name="custom_field[%d]" placeholder="%s" class="form-control" value="%s"/>', $post->ID,get_the_title(), esc_url( $value ) );
+                    echo '</div>';
+                    break;
                 case 'select' :
                     $choices = $field_meta['choices'][0];
                     $choices = explode( "\n", trim( $choices ) );
@@ -108,10 +112,6 @@
                         printf( '<div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary"><input type="radio" class="custom-control-input" name="custom_field[%d]" id="%d" value="%s"%s><span class="radio--select"></span><label class="custom-control-label" for="%d">%s</label></div>', $post->ID,$_for, $_value, $_checked,$_for, $_label );
                     }
                     echo "</div>";
-                    echo '</div>';
-                    break;
-                case 'url' :
-                    printf( '<input type="text" name="custom_field[%d]" placeholder="%s" class="form-control" value="%s"/>', $post->ID,get_the_title(), esc_url( $value ) );
                     echo '</div>';
                     break;
                 case 'date' :

@@ -35,9 +35,6 @@
       margin-left: 0;
     }
   }
-  .atbd_listing_list{
-
-  }
   .atbd_listing_meta {
     display: flex;
     flex-wrap: wrap;
@@ -275,6 +272,10 @@
   .select2-selection__clear{
     padding-right: 10px;
   }
+  .select2-selection--multiple .select2-selection__clear{
+    padding-right: 0;
+    margin: 5px 0 0;
+  }
   .atbd_listing_action_btn{
     display: flex;
     .dropdown{
@@ -323,7 +324,7 @@
 }
 
 /*style the box*/
-.gm-style .gm-style-iw {
+.atbdp-map .gm-style .gm-style-iw {
   background-color: #fff !important;
   top: 0 !important;
   left: 0 !important;

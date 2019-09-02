@@ -147,12 +147,12 @@ if (!class_exists('ATBDP_Listing')):
                     $listing_author_id = get_post_field('post_author', $post->ID);
                     $content = get_post_field('post_content', $id);
                     $content = do_shortcode($content);
-                    $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
+                    $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-md-8' : 'col-md-12';
                     // run block content if its available
                     ?>
                     <section id="directorist" class="directorist atbd_wrapper">
                         <div class="row">
-                            <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
+                            <div class="<?php echo esc_attr($main_col_size); ?> col-sm-12 atbd_col_left">
 
                                 <?php
                                 $html_edit_back = '';

@@ -123,7 +123,7 @@ $zip_label                   = get_directorist_option('zip_label',__('Zip','dire
             ?>
 
             <div class="form-group filter-checklist">
-                <label>Filter by <?php echo !empty($tag_label) ? $tag_label : __('Tags','directorist');?></label>
+                <label><?php  _e('Filter by Tags','directorist');?></label>
                 <div class="checklist-items">
                     <?php
                     if(!empty($terms)) {
@@ -140,7 +140,7 @@ $zip_label                   = get_directorist_option('zip_label',__('Zip','dire
         <?php } ?>
         <?php if(!empty($search_by_review)) { ?>
             <div class="form-group filter-checklist">
-                <label>Filter by Ratings</label>
+                <label><?php _e('Filter by Ratings','directorist'); ?></label>
                 <div class="sort-rating">
                     <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
                         <input type="radio" value="5" name="search_by_rating" class="custom-control-input" id="customCheck7" <?php if(!empty($_GET['search_by_rating']) && '5' == $_GET['search_by_rating']) { echo 'checked';}?>>

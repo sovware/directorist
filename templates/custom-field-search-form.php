@@ -8,7 +8,7 @@
 <?php if( $acadp_query->have_posts() ) : ?>
     <?php while( $acadp_query->have_posts() ) : $acadp_query->the_post(); $field_meta = get_post_meta( $post->ID ); ?>
 
-            <div class="form-group">
+            <div class="form-group atbdp_cf_<?php echo $field_meta['type'][0];?>">
 
             <?php
             $value = '';

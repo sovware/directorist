@@ -825,20 +825,7 @@ jQuery(function ($) {
 
         })*/
 
-    // Price Range Slider
-    var slider_range = $(".atbd_slider-range");
-    slider_range.each(function () {
-        $(this).slider({
-            range: true,
-            min: 0,
-            max: 200,
-            values: [10, 150],
-            slide: function (event, ui) {
-                $(".atbd_pr_amount").text("$" + ui.values[0] + " - $" + ui.values[1]);
-            }
-        });
-    });
-    $(".atbd_pr_amount").text("$" + slider_range.slider("values", 0) + " - $" + slider_range.slider("values", 1));
+
 
 })(jQuery);
 

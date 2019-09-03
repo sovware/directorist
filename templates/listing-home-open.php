@@ -96,6 +96,13 @@
                             </div>
                         </div><!-- ends: .form-group -->
                     <?php } ?>
+                    <div class="atbd_price-range rs-primary">
+                        <p class="d-flex justify-content-between">
+                            <span>Price Range: </span>
+                            <span class="atbd_pr_amount"></span>
+                        </p>
+                        <div class="atbd_slider-range"></div>
+                    </div
                     <?php if('yes' == $tag_field) {
                         $terms = get_terms(ATBDP_TAGS);
                         if(!empty($terms)) {

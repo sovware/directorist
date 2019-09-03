@@ -152,13 +152,14 @@
             range: true,
             min: 0,
             max: 200,
-            values: [10, 150],
+            values: [15, 120],
             slide: function (event, ui) {
-                $(".atbd_pr_amount").text("$" + ui.values[0] + " - $" + ui.values[1]);
+                $(".atbdpr_amount").text(ui.values[0] + " Miles" + " - " + ui.values[1] + " Miles");
             }
         });
     });
     $(".atbd_pr_amount").text("$" + slider_range.slider("values", 0) + " - $" + slider_range.slider("values", 1));
+    $(".atbdpr_amount").text(slider_range.slider("values", 0) + " Miles" + " - " + slider_range.slider("values", 1) + " Miles");
 
     if(atbdp_search_listing.i18n_text.select_listing_map === 'google') {
         function initialize() {
@@ -172,4 +173,5 @@
         }
         google.maps.event.addDomListener(window, 'load', initialize);
     }
+    
 })(jQuery);

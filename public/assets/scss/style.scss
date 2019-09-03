@@ -266,6 +266,22 @@
     margin-top: 5px !important;
     margin-bottom: 5px !important;
   }
+  .atbdpr-range .atbd_slider-range-wrapper{
+    margin: 0;
+  }
+  .atbdpr-range .atbd_slider-range-wrapper .atbd_slider-range,
+  .atbdpr-range .atbd_slider-range-wrapper .d-flex{
+    flex: none;
+    width: 100%;
+  }
+  .atbdpr-range .atbd_slider-range-wrapper .atbd_slider-range{
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .atbdpr-range .atbd_slider-range-wrapper .d-flex{
+    padding: 0 !important;
+    margin: 5px 0 0 !important;
+  }
 }
 
 @media (max-width: 400px) {

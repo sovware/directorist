@@ -741,12 +741,14 @@ class ATBDP_Enqueuer {
         /*Internationalization*/
         $category_placeholder          = get_directorist_option('search_category_placeholder', __('Select a category', 'directorist'));
         $location_placeholder          = get_directorist_option('search_location_placeholder', __('Select a location', 'directorist'));
+        $select_listing_map            = get_directorist_option('select_listing_map', 'google');
         $data = array(
             'i18n_text'        => array(
                 'location_selection' => $location_placeholder,
                 'category_selection' => $category_placeholder,
                 'show_more' => __('Show More', 'directorist'),
                 'show_less' => __('Show Less', 'directorist'),
+                'select_listing_map' => $select_listing_map
             )
         );
         wp_localize_script( 'atbdp_search_listing', 'atbdp_search_listing', $data );

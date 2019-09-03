@@ -230,14 +230,14 @@ if (!class_exists('ATBDP_Shortcode')):
                 'post_type' => ATBDP_POST_TYPE,
                 'post_status' => 'publish',
             );
-            $args['geo_query'] = array(
+           /* $args['geo_query'] = array(
                 'lat_field' => '_manual_lat',  // this is the name of the meta field storing latitude
                 'lng_field' => '_manual_lng', // this is the name of the meta field storing longitude
                 'latitude'  => 24.886436,    // this is the latitude of the point we are getting distance from
                 'longitude' => 91.880722,   // this is the longitude of the point we are getting distance from
                 'distance'  => 1000,           // this is the maximum distance to search
                 'units'     => 'miles'       // this supports options: miles, mi, kilometers, km
-            );
+            );*/
             if (!empty($s_string)){
                 $args['s'] = $s_string;
             }

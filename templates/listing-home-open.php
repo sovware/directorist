@@ -151,8 +151,10 @@
                                 </div>
                                 <div>
                                     <?php } if('yes' == $address_field) {?>
-                                    <input type="text" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist'); ?>"
+                                    <input type="text" id="address" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist'); ?>"
                                            class="form-control location-name">
+                                    <input type="hidden" id="cityLat" name="cityLat" />
+                                    <input type="hidden" id="cityLng" name="cityLng" />
                                 </div>
                                 <div>
                                     <?php } if('yes' == $zip_code_field) {?>

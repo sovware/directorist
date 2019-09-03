@@ -60,7 +60,7 @@
 /* range slider */
 .atbd_price-range, .atbd_range-slider{
   &.rs-primary{
-    .atbd_pr_amount, .amount-four{
+    .atbd_pr_amount{
       color: $primary;
     }
     .ui-slider-horizontal{

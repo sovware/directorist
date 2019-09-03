@@ -3626,7 +3626,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 #directorist.atbd_wrapper .wp-picker-container .button .wp-color-result-text {
   position: absolute;
   right: 0;
-  top: 0;
+  top: 1px;
   height: 100%;
   width: 100px;
   display: flex;
@@ -4284,18 +4284,54 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .ads-advanced .atbdp-custom-fields-search {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
 .ads-advanced .atbdp-custom-fields-search .form-group {
-  width: 50%;
+  width: 46%;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_checkbox, .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_textarea, .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_radio {
+  width: 100%;
+}
+
+.ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_textarea textarea.form-control {
+  padding-top: 10px !important;
+  height: 80px;
+}
+
+.ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_select, .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_date, .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_time, .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_color {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_select label, .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_date label, .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_time label, .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_color label {
+  flex: 1;
+}
+
+.ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_select .form-control, .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_date .form-control, .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_time .form-control, .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_color .form-control {
+  flex: 2;
+}
+
+.ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_select .select-basic {
+  width: auto !important;
 }
 
 .ads-advanced .atbdp-custom-fields-search .form-group .form-control {
-  width: 250px !important;
+  width: 100% !important;
 }
 
 .ads-advanced .atbdp-custom-fields-search .form-group .custom-control {
   width: 140px;
+}
+
+.ads-advanced .atbdp-custom-fields-search .form-group > label {
+  margin-bottom: 5px !important;
 }
 
 .atbd_header_bar .header_bar_title {
@@ -4768,6 +4804,86 @@ body.atbd_content_active #directorist.atbd_wrapper {
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
+}
+
+/* range slider */
+.atbd_price-range p {
+  color: #fff;
+}
+
+.atbd_price-range .atbd_pr_amount {
+  color: #122069;
+}
+
+.atbd_price-range .ui-slider-horizontal {
+  background: #e3e6ef;
+  height: 4px;
+  border-radius: remy(25px);
+}
+
+.atbd_price-range .ui-slider-horizontal .ui-slider-range {
+  background: #122069;
+}
+
+.atbd_price-range .ui-slider-horizontal .ui-slider-handle {
+  background: #fff;
+  border: remy(4px) solid #122069;
+  border-radius: remy(300px);
+  cursor: pointer;
+  outline: 0;
+  top: -7px;
+  margin-left: 0;
+}
+
+/* slider range */
+.atbd_range-slider {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.atbd_range-slider p {
+  flex: 0;
+  margin: 0;
+  min-width: remy(70px);
+}
+
+.atbd_range-slider .slider-range-min {
+  flex: 1;
+}
+
+.atbd_range-slider .ui-slider-horizontal {
+  background: #e3e6ef;
+  height: 4px;
+  border-radius: remy(25px);
+}
+
+.atbd_range-slider .ui-slider-horizontal .ui-slider-range {
+  background: #122069;
+}
+
+.atbd_range-slider .ui-slider-horizontal .ui-slider-handle {
+  background: #fff;
+  border: remy(5px) solid #122069;
+  border-radius: remy(300px);
+  cursor: pointer;
+  outline: 0;
+  top: remy(-7px);
+  margin-left: remy(-18px);
+  margin-right: remy(-18px);
+}
+
+/* range slider */
+.atbd_price-range.rs-primary .atbd_pr_amount, .atbd_price-range.rs-primary .amount-four, .atbd_range-slider.rs-primary .atbd_pr_amount, .atbd_range-slider.rs-primary .amount-four {
+  color: #444752;
+}
+
+.atbd_price-range.rs-primary .ui-slider-horizontal .ui-slider-range, .atbd_range-slider.rs-primary .ui-slider-horizontal .ui-slider-range {
+  background: #444752;
+}
+
+.atbd_price-range.rs-primary .ui-slider-horizontal .ui-slider-handle, .atbd_range-slider.rs-primary .ui-slider-horizontal .ui-slider-handle {
+  border-color: #444752;
 }
 
 /*responsive css */

@@ -253,6 +253,7 @@ if ($display_header == 'yes') { ?>
                                                 </div>
                                             <?php } ?>
                                         </div>
+
                                     </div><!-- ends: .form-group -->
                                 <?php } ?>
                                 <?php if (in_array('search_rating', $search_more_filters_fields)) { ?>

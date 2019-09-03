@@ -346,13 +346,49 @@
   .atbdp-custom-fields-search{
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    margin-left: -15px;
+    margin-right: -15px;
     .form-group{
-      width: 50%;
+      width: 46%;
+      margin-left: 15px;
+      margin-right: 15px;
+      &.atbdp_cf_checkbox, &.atbdp_cf_textarea, &.atbdp_cf_radio{
+        width: 100%;
+      }
+      &.atbdp_cf_textarea{
+        textarea.form-control{
+          padding-top: 10px !important;
+          height: 80px;
+        }
+      }
+      &.atbdp_cf_select,
+      &.atbdp_cf_date,
+      &.atbdp_cf_time,
+      &.atbdp_cf_color{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        label{
+          flex: 1;
+        }
+        .form-control{
+          flex: 2;
+        }
+      }
+      &.atbdp_cf_select{
+        .select-basic{
+          width: auto !important;
+        }
+      }
       .form-control{
-        width: 250px !important;
+        width: 100% !important;
       }
       .custom-control{
         width: 140px;
+      }
+      > label{
+        margin-bottom: 5px !important;
       }
     }
   }

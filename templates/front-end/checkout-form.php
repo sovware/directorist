@@ -41,7 +41,7 @@ $symbol = atbdp_currency_symbol($currency);
                             <?php
                             /*display proper type of checkbox/radio etc*/
                             $checked = isset($op['selected']) ? checked(1, $op['selected'], false) : '';
-                            $input_field = sprintf('<input type="checkbox" name="%s" class="atbdp_checkout_item_field" value="%s" data-price="%s" %s/>', esc_attr($op['name']), esc_attr($op['value']), atbdp_format_payment_amount($op['price']), $checked);
+                            $input_field = sprintf('<input type="checkbox" name="%s" class="atbdp_checkout_item_field" value="%s" data-price="%s" %s/>', esc_attr($op['name']), esc_attr($op['value']), $op['price'], $checked);
                             echo str_replace('checkbox', $op['type'], $input_field);
                             ?>
                         </td>

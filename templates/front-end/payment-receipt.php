@@ -38,8 +38,11 @@ $container_fluid = 'container-fluid';
                                 <?php
                                 if( !empty( $o_metas['_amount'] ) ) {
                                     $amount =  $o_metas['_amount'][0] ;
-                                    $amount = atbdp_payment_currency_filter( $amount );
-                                    echo $amount;
+                                    $amount = atbdp_format_payment_amount( $amount );
+                                    $before = '';
+                                    $after = '';
+                                    ('after' == $c_position) ? $after = $symbol : $before = $symbol;
+                                    echo $before . $amount . $after;
                                 }
                                 ?>
                             </td>
@@ -128,7 +131,7 @@ $container_fluid = 'container-fluid';
                                     //display price with proper currency symbol place
                                     $before = ''; $after = '';
                                     ('after' == $c_position) ? $after = $symbol : $before = $symbol;
-                                    echo $before.esc_html($order_item['price']).$after;
+                                    echo $before.atbdp_format_payment_amount($order_item['price']).$after;
                                     // increase the total amount
                                     $total = $order_item['price'];
                                 }
@@ -139,7 +142,7 @@ $container_fluid = 'container-fluid';
                     <tr>
                         <td class="text-right atbdp-vertical-middle"><strong><?php printf( __( 'Total amount [%s]', 'directorist' ), $currency ); ?></strong></td>
                         <td class="atbd_tottal">
-                            <strong><?php echo $total ; ?></strong>
+                            <strong><?php echo atbdp_format_payment_amount($total) ; ?></strong>
                         </td>
                     </tr>
                 </table></div>

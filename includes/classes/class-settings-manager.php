@@ -1724,9 +1724,9 @@ You can login now using the below credentials:
             $sub = __('[==SITE_NAME==] Contact via "[==LISTING_TITLE==]"', 'directorist');
 
             $tmpl = __("
-Dear [==NAME==],
+Dear ==NAME==,
 
-You have received a reply from your listing at ==LISTING_URL==.
+You have received a message from your listing at ==LISTING_URL==.
 
 Name: ==SENDER_NAME==
 Email: ==SENDER_EMAIL==

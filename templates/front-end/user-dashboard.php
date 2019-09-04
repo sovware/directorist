@@ -164,7 +164,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                             <div class="atbd_dashboard_tittle_metas">
                                                                 <h4 class="atbd_listing_title">
                                                                     <a href="<?= get_post_permalink($post->ID); ?>">
-                                                                        <?= !empty($post->post_title) ? esc_html(stripslashes($post->post_title)) : ''; ?>
+                                                                        <?= !empty($post->post_title) ? esc_html(stripslashes($post->post_title)) : __('Untitled!', 'directorist'); ?>
                                                                     </a>
                                                                 </h4>
 

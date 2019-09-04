@@ -8,7 +8,7 @@
 <?php if( $acadp_query->have_posts() ) : ?>
     <?php while( $acadp_query->have_posts() ) : $acadp_query->the_post(); $field_meta = get_post_meta( $post->ID ); ?>
 
-            <div class="form-group atbdp_cf_<?php echo $field_meta['type'][0];?>">
+            <div class="form-group atbdp_cf_<?php echo $field_meta['type'][0];?>"><div>
 
             <?php
             $value = '';
@@ -19,19 +19,19 @@
             switch( $field_meta['type'][0] ) {
                 case 'text' :
                     printf( '<input type="text" name="custom_field[%d]" placeholder="%s" class="form-control" value="%s"/>', $post->ID, get_the_title(), esc_attr( $value ) );
-                    echo '</div>';
+                    echo '</div></div>';
                     break;
                 case 'number' :
                     printf( '<input type="number" name="custom_field[%d]" placeholder="%s" class="form-control" value="%s"/>', $post->ID, get_the_title(), esc_attr( $value ) );
-                    echo '</div>';
+                    echo '</div></div>';
                     break;
                 case 'textarea' :
                     printf( '<textarea name="custom_field[%d]" placeholder="%s" class="form-control" rows="%d">%s</textarea>', $post->ID,get_the_title(), (int) $field_meta['rows'][0], esc_textarea( $value ) );
-                    echo '</div>';
+                    echo '</div></div>';
                     break;
                 case 'url' :
                     printf( '<input type="text" name="custom_field[%d]" placeholder="%s" class="form-control" value="%s"/>', $post->ID,get_the_title(), esc_url( $value ) );
-                    echo '</div>';
+                    echo '</div></div>';
                     break;
                 case 'select' :
                     $choices = $field_meta['choices'][0];
@@ -59,7 +59,7 @@
                         printf( '<option value="%s"%s>%s</option>', $_value, $_selected, $_label );
                     }
                     echo '</select></div>';
-                    echo '</div>';
+                    echo '</div></div>';
                     break;
                 case 'checkbox' :
                     $choices = $field_meta['choices'][0];
@@ -88,7 +88,7 @@
                     }
                     echo '</div>';
                     echo '<a href="#" class="more-or-less sml">'.__('Show More', 'directorist').'</a>';
-                    echo '</div>';
+                    echo '</div></div>';
                     break;
                 case 'radio' :
                     $choices = $field_meta['choices'][0];
@@ -112,11 +112,11 @@
                         printf( '<div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary"><input type="radio" class="custom-control-input" name="custom_field[%d]" id="%d" value="%s"%s><span class="radio--select"></span><label class="custom-control-label" for="%d">%s</label></div>', $post->ID,$_for, $_value, $_checked,$_for, $_label );
                     }
                     echo "</div>";
-                    echo '</div>';
+                    echo '</div></div>';
                     break;
                 case 'date' :
                     printf( '<label>%s</label><input type="date" name="custom_field[%d]" class="form-control" value="%s"/>', get_the_title(),$post->ID,  $value  );
-                    echo '</div>';
+                    echo '</div></div>';
                     break;
                 case 'color' :
                     ?>
@@ -128,11 +128,11 @@
                     </script>
                 <?php
                     printf( '<label>%s</label><input type="color" name="custom_field[%d]" class="search-color-field" value="%s"/>', get_the_title(), $post->ID,  $value  );
-        echo '</div>';
+        echo '</div></div>';
                     break;
                 case 'time' :
                     printf( '<label>%s</label><input type="time" name="custom_field[%d]" class="form-control" value="%s"/>', get_the_title(), $post->ID,  $value  );
-                    echo '</div>';
+                    echo '</div></div>';
                     break;
             }
             ?>

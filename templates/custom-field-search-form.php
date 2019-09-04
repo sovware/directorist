@@ -8,7 +8,7 @@
 <?php if( $acadp_query->have_posts() ) : ?>
     <?php while( $acadp_query->have_posts() ) : $acadp_query->the_post(); $field_meta = get_post_meta( $post->ID ); ?>
 
-            <div class="form-group"><label><?php the_title(); ?></label>
+            <div class="form-group atbdp_cf_<?php echo $field_meta['type'][0];?>">
 
             <?php
             $value = '';
@@ -18,18 +18,26 @@
 
             switch( $field_meta['type'][0] ) {
                 case 'text' :
-                    printf( '<input type="text" name="custom_field[%d]" class="form-control" value="%s"/>', $post->ID, esc_attr( $value ) );
+                    printf( '<input type="text" name="custom_field[%d]" placeholder="%s" class="form-control" value="%s"/>', $post->ID, get_the_title(), esc_attr( $value ) );
+                    echo '</div>';
+                    break;
+                case 'number' :
+                    printf( '<input type="number" name="custom_field[%d]" placeholder="%s" class="form-control" value="%s"/>', $post->ID, get_the_title(), esc_attr( $value ) );
                     echo '</div>';
                     break;
                 case 'textarea' :
-                    printf( '<textarea name="custom_field[%d]" class="form-control" rows="%d">%s</textarea>', $post->ID, (int) $field_meta['rows'][0], esc_textarea( $value ) );
+                    printf( '<textarea name="custom_field[%d]" placeholder="%s" class="form-control" rows="%d">%s</textarea>', $post->ID,get_the_title(), (int) $field_meta['rows'][0], esc_textarea( $value ) );
+                    echo '</div>';
+                    break;
+                case 'url' :
+                    printf( '<input type="text" name="custom_field[%d]" placeholder="%s" class="form-control" value="%s"/>', $post->ID,get_the_title(), esc_url( $value ) );
                     echo '</div>';
                     break;
                 case 'select' :
                     $choices = $field_meta['choices'][0];
                     $choices = explode( "\n", trim( $choices ) );
 
-                    printf( '<div class="select-basic"><select name="custom_field[%d]" class="form-control">', $post->ID );
+                    printf( '<label>%s</label><div class="select-basic"><select name="custom_field[%d]" class="form-control">',get_the_title(), $post->ID );
 
                         printf( '<option value="">%s</option>', '- '.__( 'Select an Option', ATBDP_TEMPLATES_DIR ).' -' );
 
@@ -59,7 +67,7 @@
 
                     $values = array_map( 'trim', (array) $value );
 
-                    echo '<div class="bads-custom-checks">';
+                    echo '<label>'.get_the_title().'</label><div class="bads-custom-checks">';
                     foreach( $choices as $choice ) {
                         if( strpos( $choice, ':' ) !== false ) {
                             $_choice = explode( ':', $choice );
@@ -85,7 +93,7 @@
                 case 'radio' :
                     $choices = $field_meta['choices'][0];
                     $choices = explode( "\n", trim( $choices ) );
-                    echo "<div class='atbdp_custom_radios'>";
+                    echo "<label>".get_the_title()."</label><div class='atbdp_custom_radios'>";
                     foreach( $choices as $choice ) {
                         if( strpos( $choice, ':' ) !== false ) {
                             $_choice = explode( ':', $choice );
@@ -106,12 +114,8 @@
                     echo "</div>";
                     echo '</div>';
                     break;
-                case 'url' :
-                    printf( '<input type="text" name="custom_field[%d]" class="form-control" value="%s"/>', $post->ID, esc_url( $value ) );
-                    echo '</div>';
-                    break;
                 case 'date' :
-                    printf( '<input type="date" name="custom_field[%d]" class="form-control" value="%s"/>', $post->ID,  $value  );
+                    printf( '<label>%s</label><input type="date" name="custom_field[%d]" class="form-control" value="%s"/>', get_the_title(),$post->ID,  $value  );
                     echo '</div>';
                     break;
                 case 'color' :
@@ -123,11 +127,11 @@
                         });
                     </script>
                 <?php
-                    printf( '<input type="color" name="custom_field[%d]" class="search-color-field" value="%s"/>', $post->ID,  $value  );
+                    printf( '<label>%s</label><input type="color" name="custom_field[%d]" class="search-color-field" value="%s"/>', get_the_title(), $post->ID,  $value  );
         echo '</div>';
                     break;
                 case 'time' :
-                    printf( '<input type="time" name="custom_field[%d]" class="form-control" value="%s"/>', $post->ID,  $value  );
+                    printf( '<label>%s</label><input type="time" name="custom_field[%d]" class="form-control" value="%s"/>', get_the_title(), $post->ID,  $value  );
                     echo '</div>';
                     break;
             }

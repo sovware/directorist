@@ -227,17 +227,20 @@
     }
   }
   .atbd_listing_type {
+    padding-bottom: 20px;
     h4 {
       margin-bottom: 15px;
     }
-    padding-bottom: 20px;
-    > label {
-      display: inline-block;
-      input[type="radio"]{
-        height: auto;
-      }
-      & + label {
-        margin-left: 25px;
+    .atbd_listing_type_list{
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -10px;
+      label {
+        display: block;
+        padding: 0 10px;
+        input[type="radio"]{
+          height: auto;
+        }
       }
     }
   }
@@ -353,7 +356,7 @@
       .wp-color-result-text{
         position: absolute;
         right: 0;
-        top: 0;
+        top: 1px;
         height: 100%;
         width: 100px;
         display: flex;

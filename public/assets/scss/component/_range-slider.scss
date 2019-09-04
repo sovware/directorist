@@ -1,0 +1,108 @@
+/* range slider */
+.atbdpr-range{
+  width: 100%;
+  p{
+    color: #fff;
+  }
+  .atbdpr_amount{
+    color: $secondary;
+  }
+  .ui-slider-horizontal{
+    background: #d4d5d9;
+    height: 4px;
+    border-radius: 2px;
+    .ui-slider-range{
+      background: $secondary;
+    }
+    .ui-slider-handle{
+      background: #fff;
+      border: 4px solid $secondary;
+      border-radius: 300px;
+      cursor: pointer;
+      outline: 0;
+      top: -7px;
+      margin-left: 0;
+      &:before, &:after{
+        content: none;
+      }
+    }
+  }
+  .atbd_slider-range{
+    margin-top: 13px;
+    margin-bottom: 8px;
+  }
+  .atbd_slider-range-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0 -15px;
+    .atbd_slider-range{
+      flex: 1;
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+    .d-flex{
+      flex: 1;
+      padding: 0 15px !important;
+    }
+  }
+}
+
+.atbdpr-range .ui-slider {
+  position: relative;
+  text-align: left;
+}
+.atbdpr-range .ui-slider .ui-slider-handle {
+  position: absolute;
+  z-index: 2;
+  width: 1.2em;
+  height: 1.2em;
+  cursor: default;
+  -ms-touch-action: none;
+  touch-action: none;
+}
+.atbdpr-range .ui-slider .ui-slider-range {
+  position: absolute;
+  z-index: 1;
+  font-size: .7em;
+  display: block;
+  border: 0;
+  background-position: 0 0;
+}
+
+/* support: IE8 - See #6727 */
+.atbdpr-range .ui-slider.ui-state-disabled .ui-slider-handle,
+.atbdpr-range .ui-slider.ui-state-disabled .ui-slider-range {
+  filter: inherit;
+}
+
+.atbdpr-range .ui-slider-horizontal .ui-slider-range {
+  top: 0;
+  height: 100%;
+}
+.atbdpr-range .ui-slider-horizontal .ui-slider-range-min {
+  left: 0;
+}
+.atbdpr-range .ui-slider-horizontal .ui-slider-range-max {
+  right: 0;
+}
+
+.atbdpr-range .ui-slider-vertical {
+  width: .8em;
+  height: 100px;
+}
+.atbdpr-range .ui-slider-vertical .ui-slider-handle {
+  left: -.3em;
+  margin-left: 0;
+  margin-bottom: -.6em;
+}
+.atbdpr-range .ui-slider-vertical .ui-slider-range {
+  left: 0;
+  width: 100%;
+}
+.atbdpr-range .ui-slider-vertical .ui-slider-range-min {
+  bottom: 0;
+}
+.atbdpr-range .ui-slider-vertical .ui-slider-range-max {
+  top: 0;
+}

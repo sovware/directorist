@@ -3090,7 +3090,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
 
 function listing_view_by_list($all_listings, $display_image, $show_pagination, $paged)
 {
-    $class_name = 'container';
+    $class_name = 'container-fluid';
     $container = apply_filters('list_view_container',$class_name);
     ?>
     <div class="<?php echo !empty($container) ? $container : 'container'; ?>">
@@ -3212,7 +3212,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                 }
                                 $popular_listing_id = atbdp_popular_listings(get_the_ID());
                                 $badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
-                                if ($popular_listing_id === get_the_ID()) {
+                                if ($popular_listing_id === get_the_ID() && !empty($display_popular_badge_cart) ) {
                                     $l_badge_html .= $badge;
                                 }
                                 //print the new badge

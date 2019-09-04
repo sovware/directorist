@@ -145,5 +145,33 @@
         $('.button.wp-color-result').attr('style', ' ');
     });
 
+    // Price Range Slider
+    var slider_range = $(".atbd_slider-range");
+    slider_range.each(function () {
+        $(this).slider({
+            range: true,
+            min: 0,
+            max: 200,
+            values: [15, 120],
+            slide: function (event, ui) {
+                $(".atbdpr_amount").text(ui.values[0] + " Miles" + " - " + ui.values[1] + " Miles");
+            }
+        });
+    });
+    $(".atbd_pr_amount").text("$" + slider_range.slider("values", 0) + " - $" + slider_range.slider("values", 1));
+    $(".atbdpr_amount").text(slider_range.slider("values", 0) + " Miles" + " - " + slider_range.slider("values", 1) + " Miles");
 
+    if(atbdp_search_listing.i18n_text.select_listing_map === 'google') {
+        function initialize() {
+            var input = document.getElementById('address');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var place = autocomplete.getPlace();
+                document.getElementById('cityLat').value = place.geometry.location.lat();
+                document.getElementById('cityLng').value = place.geometry.location.lng();
+            });
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    }
+    
 })(jQuery);

@@ -20,6 +20,14 @@
       display: none;
     }
   }
+  &.widget_wcpcsu_widget .atw_widget-style1{
+    border: 0 none;
+    padding-top: 0;
+    padding-bottom: 0;
+    figure{
+      margin: 0 10px 0 0;
+    }
+  }
   .atbdp-search {
     input.form-control{
       padding: 19px 15px;
@@ -258,6 +266,7 @@
   }
   .embed-responsive-item {
     border: 0;
+    margin: 0;
   }
   iframe {
     width: 100%;

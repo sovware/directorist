@@ -259,8 +259,8 @@ $query_args = array(
                                             <input type="hidden" id="atbd_listing_pricing"
                                                    value="<?php echo $atbd_listing_pricing ?>">
                                             <label for="#"><?php
-                                                $price_label = get_directorist_option('price_label', __('Pricing', 'directorist'));
-                                                esc_html_e($price_label . ':', 'directorist');
+                                                $pricing_label = get_directorist_option('pricing_label', __('Pricing', 'directorist'));
+                                                esc_html_e($pricing_label . ':', 'directorist');
                                                 ?></label>
                                             <div class="atbd_pricing_options">
                                                 <?php
@@ -271,9 +271,10 @@ $query_args = array(
                                                                name="atbd_listing_pricing"
                                                             <?php echo ('price' === $atbd_listing_pricing) ? 'checked' : (empty($p_id) ? 'checked' : ''); ?>>
                                                         <?php
+                                                        $price_label = get_directorist_option('price_label', __('Price', 'directorist'));
                                                         $currency = get_directorist_option('g_currency', 'USD');
                                                         /*Translator: % is the name of the currency such eg. USD etc.*/
-                                                        printf(esc_html__('Price [%s]%s', 'directorist'), $currency, get_directorist_option('require_price') ? '<span class="atbdp_make_str_red">*</span>' : ''); ?>
+                                                        printf(esc_html__('%s [%s]%s', 'directorist'), $price_label,$currency, get_directorist_option('require_price') ? '<span class="atbdp_make_str_red">*</span>' : ''); ?>
                                                     </label>
                                                     <?php
                                                 }

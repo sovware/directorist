@@ -196,6 +196,11 @@
         }
       }
     }
+    .form-group{
+      textarea.form-control{
+        padding-top: 10px !important;
+      }
+    }
   }
   .atbd_embeded_video {
     width: 100%;
@@ -608,6 +613,9 @@
 }
 .contact_listing_owner{
   padding: 30px;
+  textarea.form-control{
+    padding-top: 10px !important;
+  }
 }
 .hide-contant-owner{
   margin-top: 20px;

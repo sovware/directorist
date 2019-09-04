@@ -14,7 +14,7 @@ $display_sortby_dropdown    = get_directorist_option('display_sort_by',1);
 $display_viewas_dropdown    = get_directorist_option('display_view_as',1);
 $select_listing_map         = get_directorist_option('select_listing_map','google');
 $zoom                       = get_directorist_option('map_zoom_level', 4);
-$container                  = 'container';
+$container                  = 'container-fluid';
 $map_container              = apply_filters('atbdp_map_container',$container);
 
 ?>

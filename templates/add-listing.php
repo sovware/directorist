@@ -19,7 +19,7 @@ $price_placeholder     = get_directorist_option('price_placeholder',__('Price of
 $excerpt_placeholder   = get_directorist_option('excerpt_placeholder',__('Short Description or Excerpt', 'directorist'));
 $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
 $display_views_count   = get_directorist_option('display_views_count', 1);
-
+$price_range_label = get_directorist_option('price_range_label', __('Price Range', 'directorist'));
 ?>
 <div id="directorist" class="directorist atbd_wrapper directory_wrapper">
     <?php
@@ -54,22 +54,23 @@ $display_views_count   = get_directorist_option('display_views_count', 1);
                 <input type="hidden" id="atbd_listing_pricing" value="<?php echo $atbd_listing_pricing?>">
                 <label for="#">
                     <?php
-                    $price_label = get_directorist_option('price_label', __('Pricing', 'directorist'));
-                    esc_html_e($price_label.':', 'directorist');
+                    $pricing_label = get_directorist_option('pricing_label', __('Pricing', 'directorist'));
+                    esc_html_e($pricing_label.':', 'directorist');
                     ?>
                 </label>
                 <div class="atbd_pricing_options">
                     <label for="price_selected" data-option="price">
                         <input type="checkbox" value="price" id="price_selected" name="atbd_listing_pricing" <?php echo ('price' === $atbd_listing_pricing)?'checked':(('range' !== $atbd_listing_pricing)?'checked':'');?>>
                         <?php
+                        $price_label = get_directorist_option('price_label', __('Price', 'directorist'));
                         $currency = get_directorist_option('g_currency', 'USD');
                         /*Translator: % is the name of the currency such eg. USD etc.*/
-                        printf(esc_html__('Price [%s]', 'directorist'), $currency); ?>
+                        printf(esc_html__('%s [%s]', 'directorist'),$price_label, $currency); ?>
                     </label>
                     <span class="bor"><?php _e('Or', 'directorist')?></span>
                     <label for="price_range_selected" data-option="price_range">
                         <input type="checkbox" id="price_range_selected" value="range" name="atbd_listing_pricing" <?php echo ('range' === $atbd_listing_pricing)?'checked':'';?>>
-                        <?php echo __('Price Range', 'directorist'); ?>
+                        <?php echo $price_range_label; ?>
                         <!--<p id='price_range_option'><?php /*echo __('Price Range', 'directorist'); */ ?></p></label>-->
                     </label>
 

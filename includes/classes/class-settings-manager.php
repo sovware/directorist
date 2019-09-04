@@ -772,21 +772,6 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'title' => __('Long Description', 'directorist'),
                             'fields' => $this->get_listings_desc_field_settings(),
                         ),
-                        'cat_field' => array(
-                            'type' => 'section',
-                            'title' => __('Category', 'directorist'),
-                            'fields' => $this->get_listings_cat_field_settings(),
-                        ),
-                        'loc_field' => array(
-                            'type' => 'section',
-                            'title' => __('Location', 'directorist'),
-                            'fields' => $this->get_listings_loc_field_settings(),
-                        ),
-                        'tag_field' => array(
-                            'type' => 'section',
-                            'title' => __('Tag', 'directorist'),
-                            'fields' => $this->get_listings_tag_field_settings(),
-                        ),
                         'tagline_field' => array(
                             'type' => 'section',
                             'title' => __('Tagline', 'directorist'),
@@ -807,10 +792,35 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'title' => __('Short Description / Excerpt', 'directorist'),
                             'fields' => $this->get_listings_short_desc_field_settings(),
                         ),
+                        'loc_field' => array(
+                            'type' => 'section',
+                            'title' => __('Location', 'directorist'),
+                            'fields' => $this->get_listings_loc_field_settings(),
+                        ),
+                        'tag_field' => array(
+                            'type' => 'section',
+                            'title' => __('Tag', 'directorist'),
+                            'fields' => $this->get_listings_tag_field_settings(),
+                        ),
+                        'cat_field' => array(
+                            'type' => 'section',
+                            'title' => __('Category', 'directorist'),
+                            'fields' => $this->get_listings_cat_field_settings(),
+                        ),
                         'address_field' => array(
                             'type' => 'section',
                             'title' => __('Address', 'directorist'),
                             'fields' => $this->get_listings_address_field_settings(),
+                        ),
+                        'map_field' => array(
+                            'type' => 'section',
+                            'title' => __('Map', 'directorist'),
+                            'fields' => $this->get_listings_map_field_settings(),
+                        ),
+                        'zip_field' => array(
+                            'type' => 'section',
+                            'title' => __('Zip/Post Code', 'directorist'),
+                            'fields' => $this->get_listings_zip_field_settings(),
                         ),
                         'phone_field' => array(
                             'type' => 'section',
@@ -837,20 +847,10 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'title' => __('Website', 'directorist'),
                             'fields' => $this->get_listings_website_field_settings(),
                         ),
-                        'zip_field' => array(
-                            'type' => 'section',
-                            'title' => __('Zip/Post Code', 'directorist'),
-                            'fields' => $this->get_listings_zip_field_settings(),
-                        ),
                         'social_field' => array(
                             'type' => 'section',
                             'title' => __('Social Info', 'directorist'),
                             'fields' => $this->get_listings_social_field_settings(),
-                        ),
-                        'map_field' => array(
-                            'type' => 'section',
-                            'title' => __('Map', 'directorist'),
-                            'fields' => $this->get_listings_map_field_settings(),
                         ),
                         'img_field' => array(
                             'type' => 'section',
@@ -3003,6 +3003,10 @@ The Administrator of ==SITE_NAME==
                                 'value' => 'sliding',
                                 'label' => __('Sliding', 'directorist'),
                             ),
+                            array(
+                                'value' => 'always_open',
+                                'label' => __('Always Open', 'directorist'),
+                            )
                         ),
                         'default' => array(
                             'value' => 'sliding',
@@ -3872,6 +3876,12 @@ The Administrator of ==SITE_NAME==
                     'name' => 'display_pricing_field',
                     'label' => __('Enable Price', 'directorist'),
                     'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'pricing_label',
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Pricing', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',

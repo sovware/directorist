@@ -3626,7 +3626,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 #directorist.atbd_wrapper .wp-picker-container .button .wp-color-result-text {
   position: absolute;
   right: 0;
-  top: 1px;
+  top: 50%;
+  transform: translateY(-50%);
   height: 100%;
   width: 100px;
   display: flex;
@@ -3977,8 +3978,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter:hover {
-  color: inherit;
-  color: inherit;
+  color: inherit !important;
   background: #fff;
 }
 

@@ -1488,7 +1488,7 @@ jQuery(function ($) {
             $temp.remove();
             $(el).after("<p style='color: #32cc6f; margin-top: 5px;'>Copied to clipboard!</p>");
             setTimeout(function () {
-                $(el).siblings("p").fadeOut();
+                $(el).siblings("p").fadeOut(300, function() { $(this).remove(); });
             }, 3000);
         });
     });

@@ -280,6 +280,9 @@
     box-shadow: none;
     border-color: #ddd;
 }
+.default-ad-search textarea.form-control{
+    height: auto;
+}
 .default-ad-search .form-group{
     margin-bottom: 15px;
 }

@@ -3626,7 +3626,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 #directorist.atbd_wrapper .wp-picker-container .button .wp-color-result-text {
   position: absolute;
   right: 0;
-  top: 1px;
+  top: 50%;
+  transform: translateY(-50%);
   height: 100%;
   width: 100px;
   display: flex;
@@ -3977,8 +3978,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter:hover {
-  color: inherit;
-  color: inherit;
+  color: inherit !important;
   background: #fff;
 }
 
@@ -4290,9 +4290,24 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .ads-advanced .atbdp-custom-fields-search .form-group {
-  width: 46%;
-  margin-left: 15px;
-  margin-right: 15px;
+  width: 50%;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: 0 none !important;
+  padding-bottom: 0 !important;
+}
+
+.ads-advanced .atbdp-custom-fields-search .form-group > div {
+  border-bottom: 1px solid #e3e6ef;
+  padding-bottom: 15px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.ads-advanced .atbdp-custom-fields-search .form-group > div > label {
+  width: 150px;
 }
 
 .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_checkbox, .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_textarea, .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_radio {
@@ -4984,7 +4999,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
     margin-right: 0;
   }
   .ads-advanced .atbdp-custom-fields-search .form-group {
-    width: 45%;
+    width: 50%;
   }
 }
 

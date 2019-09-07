@@ -291,7 +291,7 @@ wp_reset_postdata();
         $metas = array();
         $expire_in_days = get_directorist_option('listing_expire_in_days');
         $p = $_POST; // save some character
-        $exp_dt = $p['exp_date']; // get expiry date from the $_POST and then later sanitize it.
+        $exp_dt = !empty($p['exp_date'])?atbdp_sanitize_array($p['exp_date']):array(); // get expiry date from the $_POST and then later sanitize it.
         $admin_category_select = !empty($p['admin_category_select'])? (int) $p['admin_category_select'] : '';
         $custom_field = (!empty($p['custom_field'])) ? $p['custom_field'] : array();
         // if the posted data has info about never_expire, then use it, otherwise, use the data from the settings.

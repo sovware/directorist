@@ -5,6 +5,7 @@ $email_label                 = get_directorist_option('email_label',__('Email','
 $website_label               = get_directorist_option('website_label',__('Website','directorist'));
 $tag_label                   = get_directorist_option('tag_label',__('Tag','directorist'));
 $zip_label                   = get_directorist_option('zip_label',__('Zip','directorist'));
+$listing_filters_icon        = get_directorist_option('listing_filters_icon',1);
 $query_args = array(
     'parent'             => 0,
     'term_id'            => 0,
@@ -31,8 +32,11 @@ if ($display_header == 'yes') { ?>
                         if ((!empty($listing_filters_button) && !empty($search_more_filters_fields)) || !empty($header_title)) { ?>
                             <div class="atbd_generic_header_title">
                                 <?php if (!empty($listing_filters_button)) { ?>
-                                    <button class="more-filter btn btn-outline btn-outline-primary"><span
-                                                class="<?php atbdp_icon_type(true); ?>-filter"></span> <?php echo $filters; ?>
+                                    <button class="more-filter btn btn-outline btn-outline-primary">
+                                        <?php if(!empty($listing_filters_icon)) { ?>
+                                        <span class="<?php atbdp_icon_type(true); ?>-filter"></span>
+                                        <?php } ?>
+                                        <?php echo $filters; ?>
                                     </button>
                                 <?php }
                                 /**

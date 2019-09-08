@@ -2314,6 +2314,12 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Display Filters Button', 'directorist'),
                         'default' => 1,
                     ),
+                    'listing_filters_icon' => array(
+                        'type' => 'toggle',
+                        'name' => 'listing_filters_icon',
+                        'label' => __('Display Filters Icon', 'directorist'),
+                        'default' => 1,
+                    ),
 
                     'listings_filter_button_text' => array(
                         'type' => 'textbox',
@@ -2984,10 +2990,22 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Display More Filters', 'directorist'),
                         'default' => 1,
                     ),
+                    'display_more_filter_icon' => array(
+                        'type' => 'toggle',
+                        'name' => 'search_more_filter_icon',
+                        'label' => __('Display More Filters Icon', 'directorist'),
+                        'default' => 1,
+                    ),
                     'display_search_button' => array(
                         'type' => 'toggle',
                         'name' => 'search_button',
                         'label' => __('Display Search Button', 'directorist'),
+                        'default' => 1,
+                    ),
+                    'display_search_button_icon' => array(
+                        'type' => 'toggle',
+                        'name' => 'search_button_icon',
+                        'label' => __('Display Search Button Icon', 'directorist'),
                         'default' => 1,
                     ),
                     'listings_display_filter' => array(

@@ -7,6 +7,8 @@ $search_location_placeholder          = get_directorist_option('search_location_
 $show_popular_category       = get_directorist_option('show_popular_category', 1);
 $show_connector              = get_directorist_option('show_connector', 1);
 $search_border               = get_directorist_option('search_border', 1);
+$display_more_filter_icon    = get_directorist_option('search_more_filter_icon', 1);
+$search_button_icon          = get_directorist_option('search_button_icon', 1);
 
 $connectors_title            = get_directorist_option('connectors_title', __('Or', 'directorist'));
 $popular_cat_title           = get_directorist_option('popular_cat_title', __('Browse by popular categories', 'directorist'));
@@ -133,17 +135,19 @@ $locations_fields  = search_category_location_filter( $query_args, ATBDP_LOCATIO
                         </div>
                         <!--More Filters  & Search Button-->
                         <?php
+                        $more_filters_icon = !empty($display_more_filter_icon) ? '<span class="'.atbdp_icon_type().'-filter"></span>' : '';
+                        $search_button_icon = !empty($search_button_icon) ? '<span class="fa fa-search"></span>' : '';
                         $html = '';
                         if('yes' == $more_filters_button || 'yes' == $search_button) {
                             $html .= '<div class="atbd_submit_btn_wrapper">';
 
                             if (('yes' == $more_filters_button) && ('yes' == $price_min_max_field || 'yes' == $price_range_field || 'yes' == $rating_field || 'yes' == $tag_field || 'yes' == $open_now_field || 'yes' == $custom_fields || 'yes' == $website_field || 'yes' == $email_field || 'yes' == $phone_field || 'yes' == $address_field || 'yes' == $zip_code_field)) {
-                                $html .= '<button class="more-filter btn btn-outline btn-lg btn-outline-primary"><span class="'.atbdp_icon_type().'-filter"></span>' . __($more_filters_text, 'directorist') . '</button>';
+                                $html .= '<button class="more-filter btn btn-outline btn-lg btn-outline-primary">' .$more_filters_icon .''. __($more_filters_text, 'directorist') . '</button>';
                             }
                             if ('yes' == $search_button) {
                                 $html .= '<div class="atbd_submit_btn">';
                                 $html .= '<button type="submit" class="btn btn-primary btn-lg btn_search">';
-                                $html .= '<span class="fa fa-search"></span>' . __($search_button_text, 'directorist') . '';
+                                $html .= $search_button_icon . __($search_button_text, 'directorist') . '';
                                 $html .= '</button>';
                                 $html .= '</div>';
                             }

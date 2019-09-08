@@ -311,6 +311,7 @@ if(!class_exists('ATBDP_Ajax_Handler')):
             $review_duplicate = !empty($_POST['review_duplicate']) ? sanitize_text_field($_POST['review_duplicate']) : '';
             if(empty($approve_immediately)) {
                 if(empty($review_duplicate)) {
+                    $this->atbdp_send_email_review_to_admin();
                     send_review_for_approval($data);
                 }
             }elseif ($id = ATBDP()->review->db->add($data)){

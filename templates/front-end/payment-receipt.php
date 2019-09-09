@@ -23,7 +23,7 @@ $container_fluid = 'container-fluid';
 
             <div class="row atbd_payment_summary_wrapper">
                 <div class="col-md-12">
-                    <p class="atbd_payment_summary"><?php _e( 'Here is your order summery:', 'directorist' ); ?></p>
+                    <p class="atbd_payment_summary"><?php _e( 'Here is your order summary:', 'directorist' ); ?></p>
                 </div>
                 <div class="col-lg-6">
                     <div class="table-responsive"><table class="table table-bordered">

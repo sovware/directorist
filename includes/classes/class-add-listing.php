@@ -383,7 +383,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                             $args['post_status'] = $new_l_status;
                             //if listing under a purchased package
                             if(is_fee_manager_active()){
-                                if (('package' === package_or_PPL($plan=null)) && $plan_purchased){
+                                if (('package' === package_or_PPL($plan=null)) && $plan_purchased && ('publish' === $new_l_status)){
                                     $args['post_status'] = 'publish';
                                 }else{
                                     $args['post_status'] = 'pending';

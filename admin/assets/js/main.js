@@ -579,7 +579,7 @@ jQuery(function ($) {
     };
 
     //Display more filters - option
-    var lf_opt3 = $("#search_more_filters_fields, #search_filters, #search_more_filters, #search_reset_filters, #search_apply_filters,#home_display_filter,#search_reset_text,#search_apply_filter");
+    var lf_opt3 = $("#search_more_filters_fields, #search_filters, #search_more_filters, #search_reset_filters, #search_apply_filters,#home_display_filter,#search_reset_text,#search_apply_filter,#search_more_filter_icon");
     lf_opt3.hide();
     $('input[name="search_more_filter"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -621,7 +621,7 @@ jQuery(function ($) {
     };
 
     //Display filter button
-    var lf_opt6 = $("#listings_filter_button_text, #listings_display_filter, #listing_filters_fields, #listings_filters_button, #listings_reset_text, #listings_apply_text, #listings_search_text_placeholder, #listings_category_placeholder, #listings_location_placeholder");
+    var lf_opt6 = $("#listings_filter_button_text, #listings_display_filter, #listing_filters_fields, #listings_filters_button, #listings_reset_text, #listings_apply_text, #listings_search_text_placeholder, #listings_category_placeholder, #listings_location_placeholder, #listing_filters_icon");
     lf_opt6.hide();
     $('input[name="listing_filters_button"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -1350,7 +1350,7 @@ jQuery(function ($) {
     }
 
     //Display search button
-    var lf_opt53 = $("#search_listing_text");
+    var lf_opt53 = $("#search_listing_text,#search_button_icon");
     lf_opt53.hide();
     $('input[name="search_button"]').on("change", function () {
         if($(this).is(":checked") === true){

@@ -96,7 +96,7 @@
                             </div>
                         </div><!-- ends: .form-group -->
                     <?php } ?>
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <div class="atbdpr-range rs-primary">
                             <span>Radius Search: </span>
                             <div class="atbd_slider-range-wrapper">
@@ -106,7 +106,7 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <?php if('yes' == $tag_field) {
                         $terms = get_terms(ATBDP_TAGS);
                         if(!empty($terms)) {
@@ -157,9 +157,13 @@
                                     <?php } if('yes' == $address_field) {?>
                                     <input type="text" id="address" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist'); ?>"
                                            class="form-control location-name">
+                                    <div id="result">
+                                        <ul></ul>
+                                    </div>
                                     <input type="hidden" id="cityLat" name="cityLat" />
                                     <input type="hidden" id="cityLng" name="cityLng" />
                                 </div>
+
                                 <div>
                                     <?php } if('yes' == $zip_code_field) {?>
                                     <input type="text" name="zip_code" placeholder="<?php echo !empty($zip_label) ? $zip_label : __('Zip/Post Code','directorist'); ?>" value="<?php echo !empty($_GET['zip_code']) ? $_GET['zip_code'] : ''; ?>" class="form-control">

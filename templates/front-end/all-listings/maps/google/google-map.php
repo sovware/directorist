@@ -17,7 +17,7 @@ if(empty($display_map_info)) {
 $data = array(
     'plugin_url' => ATBDP_URL,
     'disable_info_window' => $disable_info_window,
-    'zoom'       => !empty($zoom) ? $zoom : 4,
+    'zoom'       => !empty($zoom) ? $zoom : 1,
 );
 wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
 ?>

@@ -6,9 +6,9 @@ var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     latlng = L.latLng(51.5073509, -0.12775829999998223),
     fullCount = addressPoints.length,
     quarterCount = Math.round(fullCount / 4);
+console.log(atbdp_map.zoom);
 
-
-var map = L.map('map', {center: latlng, zoom: 2, scrollWheelZoom: false, layers: [tiles]});
+var map = L.map('map', {center: latlng, zoom: atbdp_map.zoom, scrollWheelZoom: false, layers: [tiles]});
 //map.once('focus', function() { map.scrollWheelZoom.enable(); });
 
 var mcg = L.markerClusterGroup(),

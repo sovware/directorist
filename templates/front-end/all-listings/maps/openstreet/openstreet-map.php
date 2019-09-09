@@ -1,4 +1,10 @@
-
+<?php
+wp_enqueue_script('leaflet-subgroup-realworld',ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/subGroup-merkercluster-controlLayers-realworld.388.js');
+$data = array(
+    'zoom'       => !empty($zoom) ? $zoom : 1,
+);
+wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_map', $data );
+?>
 <script>
     var addressPoints = [
         <?php while( $all_listings->have_posts() ) : $all_listings->the_post();

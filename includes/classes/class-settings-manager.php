@@ -4634,12 +4634,23 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'map_zoom_level',
-                    'label' => __('Adjust Map Zoom Level', 'directorist'),
+                    'label' => __('Zoom Level for Single Listing', 'directorist'),
                     'description' => __('Here 0 means 100% zoom-out. 22 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22.', 'directorist'),
                     'min' => '1',
                     'max' => '22',
                     'step' => '1',
-                    'default' => '4',
+                    'default' => '16',
+
+                ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'map_view_zoom_level',
+                    'label' => __('Zoom Level for Map View', 'directorist'),
+                    'description' => __('Here 0 means 100% zoom-out. 18 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22.', 'directorist'),
+                    'min' => '1',
+                    'max' => '18',
+                    'step' => '1',
+                    'default' => '1',
 
                 ),
                 array(

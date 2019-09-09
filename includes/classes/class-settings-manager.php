@@ -473,6 +473,12 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'label' => __('Button Text', 'directorist'),
                     'default' => __('Get New Password', 'directorist'),
                 ),
+                array(
+                    'type'    => 'toggle',
+                    'name'    => 'use_other_login_form',
+                    'label'   => __('Use another Login Form?', 'directorist'),
+                    'default' => 0,
+                ),
             ));
         }
 

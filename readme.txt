@@ -137,6 +137,10 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
+= 5.9.2 - Sep 09, 2019 =
+
+* Fix - Locations page issue
+
 = 5.9.1 - Aug 31, 2019 =
 
 * Fix - Locations page issue

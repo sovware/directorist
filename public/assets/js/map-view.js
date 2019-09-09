@@ -119,7 +119,7 @@ function atbdp_center_map( map ) {
     });
 
     // only 1 marker?
-    if( map.markers.length == 1 ) {
+    if( map.markers.length !== 1 ) {
 
         // set center of map
         map.setCenter( bounds.getCenter() );

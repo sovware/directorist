@@ -195,7 +195,8 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                             }
                         }
-                        $totat_image = count($metas['_listing_img']);
+                        $listing_images = !empty($metas['_listing_img'])?$metas['_listing_img']:array();
+                        $totat_image = count($listing_images);
                         if ($slider){
                             if ($plan_meta['num_image'][0]<$totat_image && empty($plan_meta['num_image_unl'][0])){
                                 $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_image'][0].' image(s)', 'directorist') . '</strong></div>';
@@ -203,7 +204,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                             }
                         }
                         if (class_exists('BD_Gallery')){
-                            $_gallery_img = count($metas['_gallery_img']);
+                            $gallery_images = !empty($metas['_gallery_img'])?$metas['_gallery_img']:array();
+                            $_gallery_img = count($gallery_images);
                             if ($plan_meta['num_gallery_image'][0]<$_gallery_img && empty($plan_meta['num_gallery_image_unl'][0])){
                                 $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_gallery_image'][0].' gallery image(s)', 'directorist') . '</strong></div>';
                                 return $msg;
@@ -293,27 +295,29 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 delete_post_thumbnail($post_id);
                             }
 
-                            $append = false;
-                            if (count($location)>1){
-                                $append = true;
-                            }
                             if (!empty($location)){
+                                $append = false;
+                                if (count($location)>1){
+                                    $append = true;
+                                }
                                 foreach ($location as $single_loc){
                                     $locations =  get_term_by('term_id', $single_loc, ATBDP_LOCATION);
                                     wp_set_object_terms($post_id, $locations->name, ATBDP_LOCATION, $append);
                                 }
                             }
-                            $append = false;
-                            if (count($tag)>1){
-                                $append = true;
-                            }
+
                             if (!empty($tag)){
+                                $append = false;
+                                if (count($tag)>1){
+                                    $append = true;
+                                }
                                 foreach ($tag as $single_tag){
                                     $tag =  get_term_by('slug', $single_tag, ATBDP_TAGS);
                                     wp_set_object_terms($post_id, $tag->name, ATBDP_TAGS, $append);
                                 }
                             }
 
+                            if (!empty($admin_category_select)):
                             update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
                             if (count($admin_category_select)>1){
                                 foreach ($admin_category_select as $category){
@@ -324,6 +328,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 $term_by_id =  get_term_by('term_id', $admin_category_select[0], ATBDP_CATEGORY);
                                 wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY);//update the term relationship when a listing updated by author
                             }
+                            endif;
 
 
                             /*
@@ -497,8 +502,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                                         update_post_meta( $post_id, $key, $value );
                                     }
                                 }
-                                update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
                                 if(!empty($admin_category_select)){
+                                    update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
                                     if (count($admin_category_select)>1){
                                         foreach ($admin_category_select as $category){
                                             $term_by_id =  get_term_by('term_id', $category, ATBDP_CATEGORY);

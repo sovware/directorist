@@ -74,10 +74,10 @@
 
     $('.more-or-less').each(function(index, el) {
         var count = 1;
-        $("body").on('click', ".more-or-less", function(event) {
+        $(el).on('click', function(event) {
             event.preventDefault();
             count++;
-            var item = $(this).closest('.ads-filter-tags');
+            var item = $(this).closest('.atbdp_cf_checkbox, .ads-filter-tags');
 
             var abc2 = $(item).find('.custom-control');
             $(abc2).slice(4, abc2.length).hide();

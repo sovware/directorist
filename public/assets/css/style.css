@@ -510,6 +510,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper .form-control, .default-ad-search .form-control {
   padding: 10px 15px;
+  height: auto;
 }
 
 #directorist.atbd_wrapper .form-control[type="time"], #directorist.atbd_wrapper .form-control[type="date"], .default-ad-search .form-control[type="time"], .default-ad-search .form-control[type="date"] {

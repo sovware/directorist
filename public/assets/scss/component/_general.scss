@@ -379,7 +379,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 #directorist.atbd_wrapper, .default-ad-search {
   .form-control {
     padding: 10px 15px;
-
+    height: auto;
     &[type="time"], &[type="date"] {
       padding: 9px 15px;
     }

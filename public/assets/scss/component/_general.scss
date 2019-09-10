@@ -379,7 +379,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 #directorist.atbd_wrapper, .default-ad-search {
   .form-control {
     padding: 10px 15px;
-
+    height: auto;
     &[type="time"], &[type="date"] {
       padding: 9px 15px;
     }
@@ -484,7 +484,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
     font-weight: 400;
   }
 
-  #loginform {
+  #login {
     p {
       margin-bottom: 10px;
 
@@ -508,6 +508,26 @@ body.atbd_content_active #directorist.atbd_wrapper {
           width: auto;
           line-height: normal;
         }
+      }
+    }
+  }
+  .status{
+    span{
+      padding: 7px 15px;
+      display: block;
+      margin-top: 10px;
+      border-radius: 3px;
+      &.status-info{
+        background: rgba($info, 0.1);
+      }
+      &.status-success{
+        background: rgba($success, 0.1);
+      }
+      &.status-warning{
+        background: rgba($warning, 0.1);
+      }
+      &.status-failed{
+        background: rgba($danger, 0.1);
       }
     }
   }

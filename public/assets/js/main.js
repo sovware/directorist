@@ -828,7 +828,7 @@ jQuery(function ($) {
     // Perform AJAX login on form submit
     $('form#login').on('submit', function(e){
         e.preventDefault();
-        $('p.status').show().text(ajax_login_object.loading_message);
+        $('p.status').show().html(ajax_login_object.loading_message);
         $.ajax({
             type: 'POST',
             dataType: 'json',

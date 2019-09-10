@@ -510,6 +510,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper .form-control, .default-ad-search .form-control {
   padding: 10px 15px;
+  height: auto;
 }
 
 #directorist.atbd_wrapper .form-control[type="time"], #directorist.atbd_wrapper .form-control[type="date"], .default-ad-search .form-control[type="time"], .default-ad-search .form-control[type="date"] {
@@ -606,15 +607,15 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-weight: 400;
 }
 
-.atbdp_login_form_shortcode #loginform p {
+.atbdp_login_form_shortcode #login p {
   margin-bottom: 10px;
 }
 
-.atbdp_login_form_shortcode #loginform p label {
+.atbdp_login_form_shortcode #login p label {
   display: block;
 }
 
-.atbdp_login_form_shortcode #loginform p input {
+.atbdp_login_form_shortcode #login p input {
   background: none !important;
   padding: 10px 15px;
   box-shadow: none;
@@ -622,7 +623,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   width: 100%;
 }
 
-.atbdp_login_form_shortcode #loginform p input[type="submit"] {
+.atbdp_login_form_shortcode #login p input[type="submit"] {
   color: #fff !important;
   background: #444752 !important;
   border-color: #444752 !important;
@@ -630,6 +631,29 @@ body.atbd_content_active #directorist.atbd_wrapper {
   border-radius: 4px !important;
   width: auto;
   line-height: normal;
+}
+
+.atbdp_login_form_shortcode .status span {
+  padding: 7px 15px;
+  display: block;
+  margin-top: 10px;
+  border-radius: 3px;
+}
+
+.atbdp_login_form_shortcode .status span.status-info {
+  background: rgba(53, 144, 236, 0.1);
+}
+
+.atbdp_login_form_shortcode .status span.status-success {
+  background: rgba(50, 204, 111, 0.1);
+}
+
+.atbdp_login_form_shortcode .status span.status-warning {
+  background: rgba(255, 175, 0, 0.1);
+}
+
+.atbdp_login_form_shortcode .status span.status-failed {
+  background: rgba(226, 54, 54, 0.1);
 }
 
 .atbdp_login_form_shortcode .login-password {

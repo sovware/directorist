@@ -3326,7 +3326,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $data = array(
                     'ajax_url' => admin_url('admin-ajax.php'),
                     'redirect_url' =>ATBDP_Permalink::get_dashboard_page_link(),
-                    'loading_message' => esc_html__('Sending user info, please wait...', 'directorist'),
+                    'loading_message' => esc_html__('<span class="status-info">Sending user info, please wait...</span>', 'directorist'),
                 );
                 wp_localize_script( 'adminmainassets', 'ajax_login_object', $data );
 

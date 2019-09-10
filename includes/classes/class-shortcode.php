@@ -3373,7 +3373,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 
                // wp_login_form($args);
         ?>
-                <form action="login" id="login" method="post">
+                <form action="login" id="login" method="POST">
                     <label for="username"><?php echo $log_username; ?></label>
                     <input type="text" class="form-control" id="username" name="username"
                            placeholder="<?php echo esc_attr_x('Username or Email', 'placeholder', 'direo'); ?>"

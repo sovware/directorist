@@ -101,6 +101,7 @@
                                 <p class="d-flex justify-content-between">
                                     <span class="atbdpr_amount"></span>
                                 </p>
+                                <input type="hidden" id="atbd_rs_value" value="">
                             </div>
                         </div>
                     </div>

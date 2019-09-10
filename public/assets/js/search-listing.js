@@ -147,19 +147,21 @@
 
     // Price Range Slider
     var slider_range = $(".atbd_slider-range");
+    var miles = " Miles";
     slider_range.each(function () {
         $(this).slider({
-            range: true,
-            min: 0,
+            range: "min",
+            min: 1,
             max: 200,
-            values: [15, 120],
+            value: 1,
             slide: function (event, ui) {
-                $(".atbdpr_amount").text(ui.values[0] + " Miles" + " - " + ui.values[1] + " Miles");
+                $(".atbdpr_amount").text(ui.value + miles);
+                $("#atbd_rs_value").val(ui.value);
             }
         });
     });
-    $(".atbd_pr_amount").text("$" + slider_range.slider("values", 0) + " - $" + slider_range.slider("values", 1));
-    $(".atbdpr_amount").text(slider_range.slider("values", 0) + " Miles" + " - " + slider_range.slider("values", 1) + " Miles");
+    $(".atbdpr_amount").text(slider_range.slider("value") + miles);
+    $("#atbd_rs_value").val(slider_range.slider("value"));
 
     if(atbdp_search_listing.i18n_text.select_listing_map === 'google') {
         function initialize() {

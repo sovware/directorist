@@ -261,9 +261,9 @@ $locations_fields  = search_category_location_filter( $query_args, ATBDP_LOCATIO
                                                 <div>
                                                     <input type="text" name="fax" placeholder="<?php echo !empty($fax_label) ? $fax_label : __('Fax','directorist'); ?>" value="<?php echo !empty($_GET['fax']) ? $_GET['fax'] : ''; ?>" class="form-control">
                                                 </div>
-                                                <?php } if('yes' == $address_field) {?>
+                                                <?php } if('yes' == $address_field) { ?>
                                                 <div class="atbdp_map_address_field">
-                                                    <input type="text" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist'); ?>"
+                                                    <input type="text" name="address" id="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist'); ?>"
                                                            class="form-control location-name">
                                                     <div id="address_result">
                                                         <ul></ul>

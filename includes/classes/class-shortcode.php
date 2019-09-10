@@ -38,33 +38,6 @@ if (!class_exists('ATBDP_Shortcode')):
 
             add_action('wp_ajax_atbdp_custom_fields_listings_front', array($this, 'ajax_callback_custom_fields'), 10, 2);
             add_action('wp_ajax_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2);
-
-            $active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
-
-            $haystack = apply_filters('atbdp_login_authenticate', array('easy-registration-forms/erforms.php', 'woocommerce/woocommerce.php'));
-            $use_other_login_form = get_directorist_option('use_other_login_form',0);
-            if (empty($use_other_login_form)):
-                if (count(array_intersect($haystack, $active_plugins)) == 0) {
-                // void action if someone use erforams or other plugin
-                add_action('wp_login_failed', array($this, 'my_login_fail'));
-            }
-            endif;
-        }
-
-        /**
-         *
-         * @since 4.7.4
-         */
-        public function my_login_fail($username)
-        {
-            $referrer = $_SERVER['HTTP_REFERER'];  // where did the post submission come from?
-            // if there's a valid referrer, and it's not the default log-in screen
-            $login_page = get_directorist_option('user_login');
-
-                if (!empty($referrer) && !strstr($referrer, 'wp-login') && !strstr($referrer, 'wp-admin')) {
-                     wp_redirect($referrer . '?login=failed');  // let's append some information (login=failed) to the URL for the theme to use
-                    exit;
-                }
         }
 
         /**

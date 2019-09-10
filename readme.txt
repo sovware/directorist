@@ -142,6 +142,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Add - Control listings map view's zoom level
 * Add - Option to add advanced filter as main search form
 * Add - Option to remove filter icon
+* Add - Radius search
 * Fix - Price formatting issue
 * Fix - Email notification of review
 * Tweak - Add listing form

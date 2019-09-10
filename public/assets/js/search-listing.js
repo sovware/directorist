@@ -161,7 +161,7 @@
     $(".atbd_pr_amount").text("$" + slider_range.slider("values", 0) + " - $" + slider_range.slider("values", 1));
     $(".atbdpr_amount").text(slider_range.slider("values", 0) + " Miles" + " - " + slider_range.slider("values", 1) + " Miles");
 
-    /*if(atbdp_search_listing.i18n_text.select_listing_map === 'google') {
+    if(atbdp_search_listing.i18n_text.select_listing_map === 'google') {
         function initialize() {
             var input = document.getElementById('address');
             var autocomplete = new google.maps.places.Autocomplete(input);
@@ -176,7 +176,7 @@
         $('#address').on('keyup', function(event) {
             event.preventDefault();
             var search = $('#address').val();
-            $('#result').css({'display':'block'});
+            $('#address_result').css({'display':'block'});
             if(search === ""){
                 $('#result').css({'display':'none'});
             }
@@ -190,20 +190,20 @@
                     for (var i = 0; i < data.length; i++) {
                         res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
                     }
-                    $('#result ul').html(res);
+                    $('#address_result ul').html(res);
                 }
             });
         });
 
-        $('body').on('click', '#result ul li a', function(event) {
+        $('body').on('click', '#address_result ul li a', function(event) {
             event.preventDefault();
             let text = $(this).text(),
                 lat = $(this).data('cityLat'),
                 lon = $(this).data('cityLng');
 
             $('#address').val(text);
-            $('#result').css({'display':'none'});
+            $('#address_result').css({'display':'none'});
         });
-    }*/
+    }
     
 })(jQuery);

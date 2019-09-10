@@ -157,7 +157,7 @@
                                     <?php } if('yes' == $address_field) {?>
                                     <input type="text" id="address" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist'); ?>"
                                            class="form-control location-name">
-                                    <div id="result">
+                                    <div id="address_result">
                                         <ul></ul>
                                     </div>
                                     <input type="hidden" id="cityLat" name="cityLat" />

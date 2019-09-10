@@ -3358,31 +3358,15 @@ if (!class_exists('ATBDP_Shortcode')):
                 $reg_url = get_directorist_option('reg_url', ATBDP_Permalink::get_registration_page_link());
                 $reg_linktxt = get_directorist_option('reg_linktxt', __('Sign Up', 'directorist'));
                 $display_signup = get_directorist_option('display_signup', 1);
-                $args = array(
-                    'label_username' => sprintf(__('%s', 'directorist'), $log_username),
-                    'label_password' => sprintf(__('%s', 'directorist'), $log_password),
-                    'label_remember' => sprintf(__('%s', 'directorist'), $log_rememberMe),
-                    'label_log_in' => sprintf(__('%s', 'directorist'), $log_button),
-                    'remember' => !empty($display_rememberMe) ? true : false,
-                    'form_id'        => 'login',
-                    'id_username'    => 'username',
-                    'id_password'    => 'password',
-                    'id_remember'    => 'keep_signed_in',
-                    'id_submit'      => 'submit',
-                );
-
-               // wp_login_form($args);
         ?>
                 <form action="login" id="login" method="POST">
                     <p>
                     <label for="username"><?php echo $log_username; ?></label>
                     <input type="text" class="form-control" id="username" name="username"
-                           placeholder="<?php echo esc_attr_x('Username or Email', 'placeholder', 'direo'); ?>"
                            ></p>
                     <p>
                     <label for="password"><?php echo $log_password; ?></label>
                     <input type="password" id="password" autocomplete="false" name="password" class="form-control"
-                           placeholder="<?php echo esc_attr_x('Password', 'placeholder', 'direo'); ?>"
                            ></p>
 
                     <div class="keep_signed">
@@ -3391,15 +3375,15 @@ if (!class_exists('ATBDP_Shortcode')):
                             <?php echo $log_rememberMe; ?>
                             <span class="cf-select"></span>
                         </label>
+                        <?php if (!empty($display_signup)) { ?>
+                        <p><?php echo $reg_text; ?><a href="<?php echo $reg_url; ?>"> <?php echo $reg_linktxt; ?></a></p>
+                    <?php }?>
                     </div>
                     <div class="atbd_login_btn_wrapper"><p>
                     <input class="btn btn-block btn-lg btn-gradient btn-gradient-two" type="submit" value="<?php echo $log_button; ?>"
                            name="submit"/>
                     <?php wp_nonce_field('ajax-login-nonce', 'security');
                     echo "</p><div class='d-flex justify-content-between'>";
-                    if (!empty($display_signup)) { ?>
-                        <p><?php echo $reg_text; ?><a href="<?php echo $reg_url; ?>"> <?php echo $reg_linktxt; ?></a></p>
-                    <?php }
                     if ($display_recpass) {
                         printf(__('<p>%s</p>', 'directorist'), "<a href='' class='atbdp_recovery_pass'> " . __($recpass_text, 'directorist') . "</a>");
                     }

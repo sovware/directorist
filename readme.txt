@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 5.9.1
+Stable tag: 5.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -137,14 +137,14 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 5.9.2 - Sep 09, 2019 =
+= 5.9.2 - Sep 10, 2019 =
 
 * Add - Control listings map view's zoom level
 * Add - Option to add advanced filter as main search form
 * Add - Option to remove filter icon
-* Add - Radius search
 * Fix - Price formatting issue
 * Fix - Email notification of review
+* Apply - Ajax in login form
 * Tweak - Add listing form
 * Improve - Listing default status functionality
 

@@ -983,7 +983,7 @@ $query_args = array(
                                                                                                       name="manual_coordinate"
                                                                                                       value="1"
                                                                                                       id="manual_coordinate" <?= (!empty($manual_coordinate)) ? 'checked' : ''; ?> > <?php
-                                                                    printf(__('Or Enter Coordinates (latitude and longitude) Manually.', 'directorist'), $map_guide)
+                                                                    printf(__('Or Enter Coordinates (latitude and longitude) Manually', 'directorist'), $map_guide)
                                                                     ?>
                                                                 </label>
                                                             </div>
@@ -1026,7 +1026,7 @@ $query_args = array(
                                                                 <div class="form-group hide-map-option">
                                                                     <input type="checkbox" name="hide_map" value="1"
                                                                            id="hide_map" <?= (!empty($hide_map)) ? 'checked' : ''; ?> >
-                                                                    <label for="hide_map"> <?php _e('Hide map for this listing.', 'directorist'); ?> </label>
+                                                                    <label for="hide_map"> <?php _e('Hide Map', 'directorist'); ?> </label>
                                                                 </div>
                                                             </div>
                                                         </div> <!--ends .row-->

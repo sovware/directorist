@@ -134,7 +134,7 @@ $info_content .= "<p> {$ad}</p></div>";
             <div class="atbd_map_hide form-group">
                 <input type="checkbox" name="hide_map" value="1"
                     id="hide_map" <?= (!empty($hide_map)) ? 'checked' : ''; ?> >
-                <label for="hide_map"> <?php _e('Hide map for this listing.', 'directorist'); ?> </label>
+                <label for="hide_map"> <?php _e('Hide Map', 'directorist'); ?> </label>
             </div>
                  <?php } ?>
         </div>

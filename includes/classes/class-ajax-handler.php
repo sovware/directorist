@@ -57,7 +57,37 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         //add_action( 'wp_ajax_nopriv_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all') );
         add_action( 'wp_ajax_atbdp_post_attachment_upload', array($this,'atbdp_post_attachment_upload') );
         add_action( 'wp_ajax_nopriv_atbdp_post_attachment_upload', array($this,'atbdp_post_attachment_upload') );
+
+        //login
+        add_action( 'wp_ajax_nopriv_ajaxlogin', array($this,'atbdp_ajax_login') );
     }
+
+       public function atbdp_ajax_login()
+        {
+
+            // First check the nonce, if it fails the function will break
+            check_ajax_referer('ajax-login-nonce', 'security');
+
+            // Nonce is checked, get the POST data and sign user on
+            $info = array();
+            $info['user_login'] = $_POST['username'];
+            $info['user_password'] = $_POST['password'];
+            $keep_signed_in = !empty($_POST['keep_signed_in']) ? true : false;
+            $info['remember'] = $keep_signed_in;
+
+            $user_signon = wp_signon($info);
+            if (is_wp_error($user_signon)) {
+                if (empty($info['user_login']&&$info['user_password'])) {
+                    echo json_encode(array('loggedin' => false, 'message' => __('Fields are required.', 'directorist')));
+                }else{
+                    echo json_encode(array('loggedin' => false, 'message' => __('Wrong username or password.', 'directorist')));
+                }
+            }else {
+                echo json_encode(array('loggedin' => true, 'message' => __('Login successful, redirecting...', 'directorist')));
+            }
+
+            exit();
+        }
 
         public function atbdp_post_attachment_upload () {
             // security

@@ -310,6 +310,7 @@ class ATBDP_Enqueuer {
             'upload_pro_pic_text'           => __( 'Use this Image', 'directorist' ),
             'plugin_url'                    => ATBDP_URL,
 
+
         );
         wp_localize_script( 'atbdp_checkout_script', 'atbdp_checkout', $data );
 

@@ -139,7 +139,13 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 = 5.9.2 - Sep 09, 2019 =
 
-* Fix - Locations page issue
+* Add - Control listings map view's zoom level
+* Add - Option to add advanced filter as main search form
+* Add - Option to remove filter icon
+* Fix - Price formatting issue
+* Fix - Email notification of review
+* Tweak - Add listing form
+* Improve - Listing default status functionality
 
 = 5.9.1 - Aug 31, 2019 =
 

@@ -4379,6 +4379,28 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 5px !important;
 }
 
+.ads-advanced .atbdp_map_address_field {
+  position: relative;
+}
+
+.ads-advanced .atbdp_map_address_field #address_result {
+  position: absolute;
+  width: 96%;
+  left: 2%;
+  top: 45px;
+  background: #fff;
+  box-shadow: 0 5px 10px rgba(145, 146, 163, 0.2);
+  border-radius: 3px;
+  z-index: 1;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+.ads-advanced .atbdp_map_address_field #address_result ul li {
+  border-bottom: 1px solid #e3e6ef;
+  padding: 10px 15px 10px;
+}
+
 .atbd_header_bar .header_bar_title {
   font-size: 15px !important;
   margin-bottom: 21px !important;

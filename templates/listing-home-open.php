@@ -46,9 +46,6 @@
                     </div>
                 <?php } ?>
 
-
-
-
                 <div class="ads-advanced">
                     <?php if('yes' == $price_min_max_field || 'yes' == $price_range_field)  { ?>
                         <div class="form-group ">

@@ -608,7 +608,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbdp_login_form_shortcode #login p {
-  margin-bottom: 10px;
+  margin-bottom: 10px !important;
 }
 
 .atbdp_login_form_shortcode #login p label {

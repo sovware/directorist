@@ -3370,18 +3370,21 @@ if (!class_exists('ATBDP_Shortcode')):
                     'id_remember'    => 'keep_signed_in',
                     'id_submit'      => 'submit',
                 );
-                
+
                // wp_login_form($args);
         ?>
                 <form action="login" id="login" method="POST">
+                    <p>
                     <label for="username"><?php echo $log_username; ?></label>
                     <input type="text" class="form-control" id="username" name="username"
                            placeholder="<?php echo esc_attr_x('Username or Email', 'placeholder', 'direo'); ?>"
-                           >
+                           ></p>
+                    <p>
                     <label for="password"><?php echo $log_password; ?></label>
                     <input type="password" id="password" autocomplete="false" name="password" class="form-control"
                            placeholder="<?php echo esc_attr_x('Password', 'placeholder', 'direo'); ?>"
-                           >
+                           ></p>
+
                     <div class="keep_signed">
                         <label for="keep_signed_in" class="not_empty">
                             <input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in" checked="">
@@ -3389,11 +3392,11 @@ if (!class_exists('ATBDP_Shortcode')):
                             <span class="cf-select"></span>
                         </label>
                     </div>
-                    <p class="status"></p>
-                    <input class="btn btn-block btn-lg btn-gradient btn-gradient-two" type="submit" value="Login"
+                    <div class="atbd_login_btn_wrapper"><p>
+                    <input class="btn btn-block btn-lg btn-gradient btn-gradient-two" type="submit" value="<?php echo $log_button; ?>"
                            name="submit"/>
                     <?php wp_nonce_field('ajax-login-nonce', 'security');
-                    echo "<div class='d-flex justify-content-between'>";
+                    echo "</p><div class='d-flex justify-content-between'>";
                     if (!empty($display_signup)) { ?>
                         <p><?php echo $reg_text; ?><a href="<?php echo $reg_url; ?>"> <?php echo $reg_linktxt; ?></a></p>
                     <?php }
@@ -3401,7 +3404,8 @@ if (!class_exists('ATBDP_Shortcode')):
                         printf(__('<p>%s</p>', 'directorist'), "<a href='' class='atbdp_recovery_pass'> " . __($recpass_text, 'directorist') . "</a>");
                     }
                     echo "</div>";
-                    ?>
+                    ?></div>
+                    <p class="status"></p>
                 </form>
         <?php
                 global $wpdb;

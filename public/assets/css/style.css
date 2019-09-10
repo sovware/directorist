@@ -633,6 +633,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   line-height: normal;
 }
 
+.atbdp_login_form_shortcode #login .atbd_login_btn_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .atbdp_login_form_shortcode .status span {
   padding: 7px 15px;
   display: block;
@@ -678,7 +684,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbdp_login_form_shortcode .atbdp_recovery_pass {
-  margin-top: 15px !important;
+  margin-top: 0 !important;
   display: block;
 }
 

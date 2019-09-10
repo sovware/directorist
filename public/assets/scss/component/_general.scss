@@ -510,6 +510,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
         }
       }
     }
+    .atbd_login_btn_wrapper{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
   .status{
     span{
@@ -554,7 +559,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
 
   .atbdp_recovery_pass {
-    margin-top: 15px !important;
+    margin-top: 0 !important;
     display: block;
 
     &:focus {

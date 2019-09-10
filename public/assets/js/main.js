@@ -835,8 +835,8 @@ jQuery(function ($) {
             url: ajax_login_object.ajax_url,
             data: {
                 'action': 'ajaxlogin', //calls wp_ajax_nopriv_ajaxlogin
-                'username': $('form#login #username').val(),
-                'password': $('form#login #password').val(),
+                'username': $('form#login p #username').val(),
+                'password': $('form#login p #password').val(),
                 'security': $('#security').val() },
             success: function(data){
                 $('p.status').html(data.message);

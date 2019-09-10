@@ -3343,11 +3343,11 @@ if (!class_exists('ATBDP_Shortcode')):
                     </script>
                     <?php
                 }
-                $log_username = get_directorist_option('log_username', 'Username or Email Address');
-                $log_password = get_directorist_option('log_password', 'Password');
+                $log_username = get_directorist_option('log_username', __('Username or Email Address', 'directorist'));
+                $log_password = get_directorist_option('log_password', __('Password', 'directorist'));
                 $display_rememberMe = get_directorist_option('display_rememberme', 1);
-                $log_rememberMe = get_directorist_option('log_rememberme', 'Remember Me');
-                $log_button = get_directorist_option('log_button', 'Log In');
+                $log_rememberMe = get_directorist_option('log_rememberme', __('Remember Me', 'directorist'));
+                $log_button = get_directorist_option('log_button', __('Log In', 'directorist'));
                 $display_recpass = get_directorist_option('display_recpass', 1);
                 $recpass_text = get_directorist_option('recpass_text', __('Recover Password', 'directorist'));
                 $recpass_desc = get_directorist_option('recpass_desc', __('Please enter your email address. You will receive a new password via email.', 'directorist'));
@@ -3371,18 +3371,39 @@ if (!class_exists('ATBDP_Shortcode')):
                     'id_submit'      => 'submit',
                 );
                 
-                wp_login_form($args);
+               // wp_login_form($args);
         ?>
-        <p class="status"></p>
-        <?php wp_nonce_field('ajax-login-nonce', 'security');
-                echo "<div class='d-flex justify-content-between'>";
-                if (!empty($display_signup)) { ?>
-                    <p><?php echo $reg_text; ?><a href="<?php echo $reg_url; ?>"> <?php echo $reg_linktxt; ?></a></p>
-                <?php }
-                if ($display_recpass) {
-                    printf(__('<p>%s</p>', 'directorist'), "<a href='' class='atbdp_recovery_pass'> " . __($recpass_text, 'directorist') . "</a>");
-                }
-                echo "</div>";
+                <form action="login" id="login" method="post">
+                    <label for="username"><?php echo $log_username; ?></label>
+                    <input type="text" class="form-control" id="username" name="username"
+                           placeholder="<?php echo esc_attr_x('Username or Email', 'placeholder', 'direo'); ?>"
+                           >
+                    <label for="password"><?php echo $log_password; ?></label>
+                    <input type="password" id="password" autocomplete="false" name="password" class="form-control"
+                           placeholder="<?php echo esc_attr_x('Password', 'placeholder', 'direo'); ?>"
+                           >
+                    <div class="keep_signed">
+                        <label for="keep_signed_in" class="not_empty">
+                            <input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in" checked="">
+                            <?php echo $log_rememberMe; ?>
+                            <span class="cf-select"></span>
+                        </label>
+                    </div>
+                    <p class="status"></p>
+                    <input class="btn btn-block btn-lg btn-gradient btn-gradient-two" type="submit" value="Login"
+                           name="submit"/>
+                    <?php wp_nonce_field('ajax-login-nonce', 'security');
+                    echo "<div class='d-flex justify-content-between'>";
+                    if (!empty($display_signup)) { ?>
+                        <p><?php echo $reg_text; ?><a href="<?php echo $reg_url; ?>"> <?php echo $reg_linktxt; ?></a></p>
+                    <?php }
+                    if ($display_recpass) {
+                        printf(__('<p>%s</p>', 'directorist'), "<a href='' class='atbdp_recovery_pass'> " . __($recpass_text, 'directorist') . "</a>");
+                    }
+                    echo "</div>";
+                    ?>
+                </form>
+        <?php
                 global $wpdb;
 
                 $error = '';

@@ -3350,6 +3350,13 @@ if (!class_exists('ATBDP_Shortcode')):
             ob_start();
             if (!is_user_logged_in()) {
                 wp_enqueue_script('adminmainassets');
+                $data = array(
+                    'ajax_url' => admin_url('admin-ajax.php'),
+                    'redirect_url' =>ATBDP_Permalink::get_dashboard_page_link(),
+                    'loading_message' => esc_html__('Sending user info, please wait...', 'directorist'),
+                );
+                wp_localize_script( 'adminmainassets', 'ajax_login_object', $data );
+
                 echo '<div id="directorist" class="atbd_wrapper directorist">
     <div class="container-fluid"><div class="row"> <div class="col-md-8 offset-md-2"><div class="atbdp_login_form_shortcode">';
                 if (isset($_GET['login']) && $_GET['login'] == 'failed') {
@@ -3384,9 +3391,17 @@ if (!class_exists('ATBDP_Shortcode')):
                     'label_remember' => sprintf(__('%s', 'directorist'), $log_rememberMe),
                     'label_log_in' => sprintf(__('%s', 'directorist'), $log_button),
                     'remember' => !empty($display_rememberMe) ? true : false,
+                    'form_id'        => 'login',
+                    'id_username'    => 'username',
+                    'id_password'    => 'password',
+                    'id_remember'    => 'keep_signed_in',
+                    'id_submit'      => 'submit',
                 );
                 
                 wp_login_form($args);
+        ?>
+        <p class="status"></p>
+        <?php wp_nonce_field('ajax-login-nonce', 'security');
                 echo "<div class='d-flex justify-content-between'>";
                 if (!empty($display_signup)) { ?>
                     <p><?php echo $reg_text; ?><a href="<?php echo $reg_url; ?>"> <?php echo $reg_linktxt; ?></a></p>

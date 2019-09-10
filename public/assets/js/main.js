@@ -825,6 +825,29 @@ jQuery(function ($) {
 
         })*/
 
+    // Perform AJAX login on form submit
+    $('form#login').on('submit', function(e){
+        e.preventDefault();
+        $('p.status').show().text(ajax_login_object.loading_message);
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: ajax_login_object.ajax_url,
+            data: {
+                'action': 'ajaxlogin', //calls wp_ajax_nopriv_ajaxlogin
+                'username': $('form#login p #username').val(),
+                'password': $('form#login p #password').val(),
+                'security': $('#security').val() },
+            success: function(data){
+                $('p.status').html(data.message);
+                if (data.loggedin == true){
+                    document.location.href = ajax_login_object.redirect_url;
+                }
+            },
+        });
+
+        e.preventDefault();
+    });
 
 
 })(jQuery);
@@ -837,3 +860,4 @@ if (tab_url.startsWith("#active_")) {
         document.querySelector(`a[target=${urlId}]`).click();
     }
 }
+

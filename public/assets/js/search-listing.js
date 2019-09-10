@@ -163,7 +163,7 @@
     $(".atbdpr_amount").text(slider_range.slider("value") + miles);
     $("#atbd_rs_value").val(slider_range.slider("value"));
 
-    if(atbdp_search_listing.i18n_text.select_listing_map === 'google') {
+    /*if(atbdp_search_listing.i18n_text.select_listing_map === 'google') {
         function initialize() {
             var input = document.getElementById('address');
             var autocomplete = new google.maps.places.Autocomplete(input);
@@ -206,6 +206,6 @@
             $('#address').val(text);
             $('#address_result').hide();
         });
-    }
+    }*/
     
 })(jQuery);

@@ -93,7 +93,7 @@
                             </div>
                         </div><!-- ends: .form-group -->
                     <?php } ?>
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <div class="atbdpr-range rs-primary">
                             <span>Radius Search: </span>
                             <div class="atbd_slider-range-wrapper">
@@ -104,7 +104,7 @@
                                 <input type="hidden" id="atbd_rs_value" value="">
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <?php if('yes' == $tag_field) {
                         $terms = get_terms(ATBDP_TAGS);
                         if(!empty($terms)) {

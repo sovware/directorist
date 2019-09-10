@@ -202,7 +202,7 @@
                 lon = $(this).data('cityLng');
 
             $('#address').val(text);
-            $('#address_result').css({'display':'none'});
+            $('#address_result').hide();
         });
     }
     

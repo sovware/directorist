@@ -137,24 +137,24 @@
                     <?php if('yes' == $website_field  || 'yes' == $email_field || 'yes' == $phone_field || 'yes' == $address_field || 'yes' == $zip_code_field ) {?>
                         <div class="form-group">
                             <div class="bottom-inputs">
+                                <?php if('yes' == $website_field) {?>
                                 <div>
-                                    <?php if('yes' == $website_field) {?>
                                     <input type="text" name="website" placeholder="<?php echo !empty($website_label) ? $website_label : __('Website','directorist'); ?>" value="<?php echo !empty($_GET['website']) ? $_GET['website'] : ''; ?>" class="form-control">
                                 </div>
+                                <?php } if('yes' == $email_field) {?>
                                 <div>
-                                    <?php } if('yes' == $email_field) {?>
                                     <input type="text" name="email" placeholder="<?php echo !empty($email_label) ? $email_label : __('Email','directorist'); ?>" value="<?php echo !empty($_GET['email']) ? $_GET['email'] : ''; ?>" class="form-control">
                                 </div>
+                                <?php } if('yes' == $phone_field) {?>
                                 <div>
-                                    <?php } if('yes' == $phone_field) {?>
                                     <input type="text" name="phone" placeholder="<?php _e('Phone Number', 'directorist');?>" value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>" class="form-control">
                                 </div>
+                                <?php } if('yes' == $fax) {?>
                                 <div>
-                                    <?php } if('yes' == $fax) {?>
                                     <input type="text" name="fax" placeholder="<?php echo !empty($fax_label) ? $fax_label : __('Fax','directorist'); ?>" value="<?php echo !empty($_GET['fax']) ? $_GET['fax'] : ''; ?>" class="form-control">
                                 </div>
-                                <div>
-                                    <?php } if('yes' == $address_field) {?>
+                                <?php } if('yes' == $address_field) {?>
+                                <div class="atbdp_map_address_field">
                                     <input type="text" id="address" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist'); ?>"
                                            class="form-control location-name">
                                     <div id="address_result">
@@ -163,13 +163,12 @@
                                     <input type="hidden" id="cityLat" name="cityLat" />
                                     <input type="hidden" id="cityLng" name="cityLng" />
                                 </div>
-
+                                <?php } if('yes' == $zip_code_field) {?>
                                 <div>
-                                    <?php } if('yes' == $zip_code_field) {?>
                                     <input type="text" name="zip_code" placeholder="<?php echo !empty($zip_label) ? $zip_label : __('Zip/Post Code','directorist'); ?>" value="<?php echo !empty($_GET['zip_code']) ? $_GET['zip_code'] : ''; ?>" class="form-control">
                                 </div>
+                                <?php } ?>
                             </div>
-                            <?php } ?>
                         </div>
                     <?php } ?>
                     <?php

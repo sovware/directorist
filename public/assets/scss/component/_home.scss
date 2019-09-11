@@ -215,6 +215,7 @@
       margin-bottom: 10px;
       input{
         height: 44px;
+        margin-bottom: 0 !important;
       }
     }
   }
@@ -247,7 +248,7 @@
         &:checked{
           &+span{
             background: #444752;
-            color: #fff;
+            color: #fff !important;
             border-color: #444752;
           }
         }
@@ -398,6 +399,11 @@
       &.atbdp_cf_select{
         .select-basic{
           width: auto !important;
+        }
+      }
+      &.atbdp_cf_text, &.atbdp_cf_number, .atbdp_cf_url{
+        input{
+          margin-bottom: 0 !important;
         }
       }
       .form-control{

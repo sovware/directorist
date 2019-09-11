@@ -836,3 +836,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 #directorist.atbd_wrapper .containess-fluid .atbdp-related-listing-header h4{
   margin-bottom: 20px;
 }
+.select2-container--default .select2-selection--multiple .select2-selection__rendered li{
+  background: none !important;
+  border-bottom: none !important;
+  input{
+    margin-bottom: 0 !important;
+  }
+}

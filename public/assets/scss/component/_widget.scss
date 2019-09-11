@@ -12,12 +12,15 @@
   >ul, >form{
     padding: 20px;
   }
-  ul li {
-    border: none;
-    padding: 0;
-    text-align: left;
-    &:before {
-      display: none;
+  ul{
+    float: none;
+    li {
+      border: none;
+      padding: 0;
+      text-align: left;
+      &:before {
+        display: none;
+      }
     }
   }
   &.widget_wcpcsu_widget .atw_widget-style1{
@@ -126,6 +129,7 @@
     padding: 0px 30px;
     .listings {
       padding:0;
+      float: none;
       > li {
         padding: 15px 0;
         list-style-type: none !important;
@@ -394,7 +398,7 @@
   .atbdp-widget-listing-contact{
     form{
       .form-control{
-        padding: 19px 15px;
+        padding: 8px 15px;
         box-shadow: none;
         width: 100%;
       }

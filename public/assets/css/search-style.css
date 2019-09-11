@@ -38,7 +38,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: #fff !important;
     background: #e96656;
     border-radius: 300px;
     opacity: 0.2;

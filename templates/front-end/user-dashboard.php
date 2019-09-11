@@ -609,4 +609,10 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
         </div>
     </div>
 </div>
+<?php
+/**
+ * @package Directorist
+ * @since 5.9.3
+ */
+do_action('atbdp_after_user_dashboard');?>
 

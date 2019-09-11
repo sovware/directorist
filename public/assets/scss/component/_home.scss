@@ -285,6 +285,7 @@
     flex: 1;
     text-align: right;
     color: #272b41;
+    font-size: 13px !important;
     &:after{
       content: '\f106';
       font-family: "FontAwesome";
@@ -401,6 +402,11 @@
       }
       > label{
         margin-bottom: 5px !important;
+      }
+      &.atbdp_cf_checkbox{
+        > div{
+          align-items: flex-start;
+        }
       }
     }
   }

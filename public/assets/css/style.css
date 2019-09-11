@@ -4244,6 +4244,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   flex: 1;
   text-align: right;
   color: #272b41;
+  font-size: 13px !important;
 }
 
 .ads-advanced .more-less:after, .ads-advanced .more-or-less:after {
@@ -4377,6 +4378,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .ads-advanced .atbdp-custom-fields-search .form-group > label {
   margin-bottom: 5px !important;
+}
+
+.ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_checkbox > div {
+  align-items: flex-start;
 }
 
 .ads-advanced .atbdp_map_address_field {

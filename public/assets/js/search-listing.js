@@ -71,32 +71,23 @@
     });
 
 
+    $('body').on('click', '.more-or-less', function(event) {
+        event.preventDefault();
+        var item = $(this).closest('.atbdp_cf_checkbox, .ads-filter-tags');
+        var abc2 = $(item).find('.custom-control');
+        $(abc2).slice(4, abc2.length).slideUp();
 
-    $('.more-or-less').each(function(index, el) {
-        var count = 1;
-        $(el).on('click', function(event) {
-            event.preventDefault();
-            count++;
-            var item = $(this).closest('.atbdp_cf_checkbox, .ads-filter-tags');
+        $(this).toggleClass('active');
 
-            var abc2 = $(item).find('.custom-control');
-            $(abc2).slice(4, abc2.length).hide();
-            if (count%2 == 1) {
-                $(this).removeClass('active');
-                $(this).text(atbdp_search_listing.i18n_text.show_more);
-                $(abc2).slice(4, abc2.length).hide();
-            } else {
-                $(this).addClass('active');
-                $(this).text(atbdp_search_listing.i18n_text.show_less);
-                $(abc2).slice(4, abc2.length).show();
-            }
+       if($(this).hasClass('active')){
+           $(this).text(atbdp_search_listing.i18n_text.show_less);
+           $(abc2).slice(4, abc2.length).slideDown();
+       } else {
+           $(this).text(atbdp_search_listing.i18n_text.show_more);
+           $(abc2).slice(4, abc2.length).slideUp();
+       }
 
-        });
     });
-    // var checkbox2 = $(".bads-custom-checks .custom-control");
-    // if (checkbox2.length <= 4) {
-    //     $(".more-or-less").remove();
-    // }
 
 
     $(".bads-custom-checks").parent(".form-group").addClass("ads-filter-tags");

@@ -28,13 +28,26 @@
                             $search_html .= '</div></div>';
                         }
                         if('yes' == $location_field) {
-                            $search_html .= '<div class="col-md-12 col-sm-12 col-lg-4">
+                            if('location' == $search_location_address) {
+                                $search_html .= '<div class="col-md-12 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_location">';
-                            $search_html .= '<select '.$require_loc.' name="in_loc" class="search_fields form-control" id="at_biz_dir-location">';
-                            $search_html .= '<option>' . $search_location_placeholder . '</option>';
-                            $search_html .= $locations_fields;
-                            $search_html .= '</select>';
-                            $search_html .= ' </div></div>';
+                                $search_html .= '<select ' . $require_loc . ' name="in_loc" class="search_fields form-control" id="at_biz_dir-location">';
+                                $search_html .= '<option>' . $search_location_placeholder . '</option>';
+                                $search_html .= $locations_fields;
+                                $search_html .= '</select>';
+                                $search_html .= ' </div></div>';
+                            } else {
+                                $address       = !empty($_GET['address']) ? $_GET['address'] : '';
+                                $address_label = !empty($address_label) ? $address_label : __('Address','directorist');
+                                $search_html .= '<div class="atbdp_map_address_field">';
+                                $search_html .= '<input type="text" id="address" name="address" value="'.$address.'" placeholder="'.$address_label.'" class="form-control location-name">';
+                                $search_html .= '<div id="address_result">';
+                                $search_html .= '<ul></ul>';
+                                $search_html .= '</div>';
+                                $search_html .= '<input type="hidden" id="cityLat" name="cityLat" value="" />';
+                                $search_html .= '<input type="hidden" id="cityLng" name="cityLng" value="" />';
+                                $search_html .= '</div>';
+                                 }
                         }
                         /**
                          * @since 5.0
@@ -93,18 +106,18 @@
                             </div>
                         </div><!-- ends: .form-group -->
                     <?php } ?>
-                    <!--<div class="form-group">
+                    <div class="form-group">
                         <div class="atbdpr-range rs-primary">
-                            <span>Radius Search: </span>
+                            <span><?php _e('Radius Search','directorist'); ?></span>
                             <div class="atbd_slider-range-wrapper">
                                 <div class="atbd_slider-range"></div>
                                 <p class="d-flex justify-content-between">
                                     <span class="atbdpr_amount"></span>
                                 </p>
-                                <input type="hidden" id="atbd_rs_value" value="">
+                                <input type="hidden" id="atbd_rs_value" name="miles" value="">
                             </div>
                         </div>
-                    </div>-->
+                    </div>
                     <?php if('yes' == $tag_field) {
                         $terms = get_terms(ATBDP_TAGS);
                         if(!empty($terms)) {
@@ -150,16 +163,6 @@
                                 <?php } if('yes' == $fax) {?>
                                 <div>
                                     <input type="text" name="fax" placeholder="<?php echo !empty($fax_label) ? $fax_label : __('Fax','directorist'); ?>" value="<?php echo !empty($_GET['fax']) ? $_GET['fax'] : ''; ?>" class="form-control">
-                                </div>
-                                <?php } if('yes' == $address_field) {?>
-                                <div class="atbdp_map_address_field">
-                                    <input type="text" id="address" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist'); ?>"
-                                           class="form-control location-name">
-                                    <div id="address_result">
-                                        <ul></ul>
-                                    </div>
-                                    <input type="hidden" id="cityLat" name="cityLat" />
-                                    <input type="hidden" id="cityLng" name="cityLng" />
                                 </div>
                                 <?php } if('yes' == $zip_code_field) {?>
                                 <div>

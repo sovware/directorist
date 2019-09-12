@@ -2948,6 +2948,26 @@ The Administrator of ==SITE_NAME==
                             'search_text', 'search_category', 'search_location'
                         ),
                     ),
+                    'location_address_fields' => array(
+                        'type' => 'select',
+                        'name' => 'search_location_address',
+                        'description'=> __('Choose which type of location you want to show on Search Listing','directorist'),
+                        'label' => __('Location', 'directorist'),
+                        'items' => array(
+                            array(
+                                'value' => 'location',
+                                'label' => __('Display From Location', 'directorist'),
+                            ),
+                            array(
+                                'value' => 'address',
+                                'label' => __('Display From Contact Information ( Address )', 'directorist'),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'address',
+                            'label' => __('Display From Contact Information (Address)', 'directorist'),
+                        ),
+                    ),
                     array(
                         'type' => 'toggle',
                         'name' => 'require_search_text',
@@ -3075,10 +3095,6 @@ The Administrator of ==SITE_NAME==
                             array(
                                 'value' => 'search_fax',
                                 'label' => __('Fax', 'directorist'),
-                            ),
-                            array(
-                                'value' => 'search_address',
-                                'label' => __('Address', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_zip_code',

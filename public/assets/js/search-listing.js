@@ -138,13 +138,13 @@
 
     // Price Range Slider
     var slider_range = $(".atbd_slider-range");
-    var miles = " Miles";
+    var miles = atbdp_search_listing.i18n_text.Miles;
     slider_range.each(function () {
         $(this).slider({
             range: "min",
-            min: 1,
-            max: 200,
-            value: 1,
+            min: 0,
+            max: 1000,
+            value: 0,
             slide: function (event, ui) {
                 $(".atbdpr_amount").text(ui.value + miles);
                 $("#atbd_rs_value").val(ui.value);
@@ -154,7 +154,7 @@
     $(".atbdpr_amount").text(slider_range.slider("value") + miles);
     $("#atbd_rs_value").val(slider_range.slider("value"));
 
-    /*if(atbdp_search_listing.i18n_text.select_listing_map === 'google') {
+    if(atbdp_search_listing.i18n_text.select_listing_map === 'google') {
         function initialize() {
             var input = document.getElementById('address');
             var autocomplete = new google.maps.places.Autocomplete(input);
@@ -191,12 +191,15 @@
         $('body').on('click', '#address_result ul li a', function(event) {
             event.preventDefault();
             let text = $(this).text(),
-                lat = $(this).data('cityLat'),
-                lon = $(this).data('cityLng');
+                lat = $(this).data('lat'),
+                lon = $(this).data('lon');
+
+            $('#cityLat').val(lat);
+            $('#cityLng').val(lon);
 
             $('#address').val(text);
             $('#address_result').hide();
         });
-    }*/
+    }
     
 })(jQuery);

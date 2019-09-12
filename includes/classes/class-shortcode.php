@@ -207,14 +207,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 'post_type' => ATBDP_POST_TYPE,
                 'post_status' => 'publish',
             );
-           /* $args['geo_query'] = array(
-                'lat_field' => '_manual_lat',  // this is the name of the meta field storing latitude
-                'lng_field' => '_manual_lng', // this is the name of the meta field storing longitude
-                'latitude'  => 24.886436,    // this is the latitude of the point we are getting distance from
-                'longitude' => 91.880722,   // this is the longitude of the point we are getting distance from
-                'distance'  => 1000,           // this is the maximum distance to search
-                'units'     => 'miles'       // this supports options: miles, mi, kilometers, km
-            );*/
+
+
             if (!empty($s_string)){
                 $args['s'] = $s_string;
             }
@@ -237,7 +231,6 @@ if (!class_exists('ATBDP_Shortcode')):
 
             // Define tax queries( only if applicable )
             $tax_queries = array();
-
             if (isset($_GET['in_cat']) && (int)$_GET['in_cat'] > 0) {
                 $tax_queries[] = array(
                     'taxonomy' => ATBDP_CATEGORY,
@@ -893,8 +886,16 @@ if (!class_exists('ATBDP_Shortcode')):
                     'compare' => 'LIKE'
                 );
             }
-
-            if (isset($_GET['address'])) {
+            if (isset($_GET['miles']) && $_GET['miles'] > 0 && isset($_GET['cityLat']) && isset($_GET['cityLng'])) {
+                $args['atbdp_geo_query'] = array(
+                    'lat_field' => '_manual_lat',  // this is the name of the meta field storing latitude
+                    'lng_field' => '_manual_lng', // this is the name of the meta field storing longitude
+                    'latitude' => $_GET['cityLat'],    // this is the latitude of the point we are getting distance from
+                    'longitude' => $_GET['cityLng'],   // this is the longitude of the point we are getting distance from
+                    'distance' => $_GET['miles'],           // this is the maximum distance to search
+                    'units' => 'miles'       // this supports options: miles, mi, kilometers, km
+                );
+            } elseif (isset($_GET['address'])) {
                 $address = $_GET['address'];
                 $meta_queries[] = array(
                     'key' => '_address',
@@ -3111,6 +3112,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $search_listing_text = get_directorist_option('search_listing_text', __('Search Listing', 'directorist'));
             $search_reset_text = get_directorist_option('search_reset_text', __('Reset Filters', 'directorist'));
             $search_apply_text = get_directorist_option('search_apply_filter', __('Apply Filters', 'directorist'));
+            $search_location_address = get_directorist_option('search_location_address', 'address');
             $atts = shortcode_atts(array(
                 'show_title_subtitle' => 'yes',
                 'search_bar_title' => !empty($search_title) ? $search_title : '',

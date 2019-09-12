@@ -749,7 +749,8 @@ class ATBDP_Enqueuer {
                 'category_selection' => $category_placeholder,
                 'show_more' => __('Show More', 'directorist'),
                 'show_less' => __('Show Less', 'directorist'),
-                'select_listing_map' => $select_listing_map
+                'select_listing_map' => $select_listing_map,
+                'Miles' => __(' Miles', 'directorist'),
             )
         );
         wp_localize_script( 'atbdp_search_listing', 'atbdp_search_listing', $data );

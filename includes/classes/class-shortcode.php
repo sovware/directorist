@@ -3100,19 +3100,20 @@ if (!class_exists('ATBDP_Shortcode')):
         public function search_listing($atts, $content = null)
         {
             //include ATBDP_DIR .'public/assets/css/style.php';
-            $search_title = get_directorist_option('search_title', __("Search here", 'directorist'));
-            $search_subtitle = get_directorist_option('search_subtitle', __("Find the best match of your interest
+            $search_title               = get_directorist_option('search_title', __("Search here", 'directorist'));
+            $search_subtitle            = get_directorist_option('search_subtitle', __("Find the best match of your interest
 ", 'directorist'));
-            $search_fields = get_directorist_option('search_tsc_fields', array('search_text', 'search_category', 'search_location'));
-            $search_more_filter = get_directorist_option('search_more_filter', 1);
-            $search_button = get_directorist_option('search_button', 1);
+            $search_fields              = get_directorist_option('search_tsc_fields', array('search_text', 'search_category', 'search_location'));
+            $search_more_filter         = get_directorist_option('search_more_filter', 1);
+            $search_button              = get_directorist_option('search_button', 1);
             $search_more_filters_fields = get_directorist_option('search_more_filters_fields', array('search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields'));
-            $search_filters = get_directorist_option('search_filters', array('search_reset_filters', 'search_apply_filters'));
-            $search_more_filters = get_directorist_option('search_more_filters', __('More Filters', 'directorist'));
-            $search_listing_text = get_directorist_option('search_listing_text', __('Search Listing', 'directorist'));
-            $search_reset_text = get_directorist_option('search_reset_text', __('Reset Filters', 'directorist'));
-            $search_apply_text = get_directorist_option('search_apply_filter', __('Apply Filters', 'directorist'));
-            $search_location_address = get_directorist_option('search_location_address', 'address');
+            $search_filters             = get_directorist_option('search_filters', array('search_reset_filters', 'search_apply_filters'));
+            $search_more_filters        = get_directorist_option('search_more_filters', __('More Filters', 'directorist'));
+            $search_listing_text        = get_directorist_option('search_listing_text', __('Search Listing', 'directorist'));
+            $search_reset_text          = get_directorist_option('search_reset_text', __('Reset Filters', 'directorist'));
+            $search_apply_text          = get_directorist_option('search_apply_filter', __('Apply Filters', 'directorist'));
+            $search_location_address    = get_directorist_option('search_location_address', 'address');
+            $filters_display            = get_directorist_option('home_display_filter', 'overlapping');
             $atts = shortcode_atts(array(
                 'show_title_subtitle' => 'yes',
                 'search_bar_title' => !empty($search_title) ? $search_title : '',
@@ -3141,7 +3142,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 'reset_filters_text' => !empty($search_reset_text) ? $search_reset_text : 'Reset Filters',
                 'apply_filters_text' => !empty($search_apply_text) ? $search_apply_text : 'Apply Filters',
                 'logged_in_user_only' => '',
-                'redirect_page_url' => ''
+                'redirect_page_url' => '',
+                'more_filters_display' => !empty($filters_display) ? $filters_display : 'overlapping'
             ), $atts);
 
             $search_bar_title = (!empty($atts['search_bar_title'])) ? $atts['search_bar_title'] : '';
@@ -3171,9 +3173,9 @@ if (!class_exists('ATBDP_Shortcode')):
             $reset_filters_text = (!empty($atts['reset_filters_text'])) ? $atts['reset_filters_text'] : '';
             $apply_filters_text = (!empty($atts['apply_filters_text'])) ? $atts['apply_filters_text'] : '';
             $show_title_subtitle = ('yes' === $atts['show_title_subtitle']) ? $atts['show_title_subtitle'] : '';
-            $filters_display = get_directorist_option('home_display_filter', 'overlapping');
             $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
             $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
+            $filters_display = !empty($atts['more_filters_display']) ? $atts['more_filters_display'] : 'overlapping';
             ob_start();
             if (!empty($redirect_page_url)) {
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';

@@ -390,6 +390,23 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
 }
 
+.at-modal{
+  .at-modal-content {
+    #atbdp-report-abuse-form {
+      width: 100%;
+      padding: 20px;
+
+      textarea {
+        margin-top: 10px;
+        padding-top: 10px;
+      }
+    }
+    .atm-contents-inner{
+      box-shadow: 0 5px 20px rgba($primary, 0.2);
+    }
+  }
+}
+
 .atbd_content_active #directorist.atbd_wrapper {
   #atbdp-report-abuse-modal {
     .at-modal-close {
@@ -411,21 +428,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
       align-items: center;
       justify-content: center;
       text-decoration: none;
-    }
-  }
-
-  .at-modal-content {
-    #atbdp-report-abuse-form {
-      width: 100%;
-      padding: 20px;
-
-      textarea {
-        margin-top: 10px;
-        padding-top: 10px;
-      }
-    }
-    .atm-contents-inner{
-      box-shadow: 0 5px 20px rgba($primary, 0.2);
     }
   }
 
@@ -835,4 +837,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 #directorist.atbd_wrapper .containess-fluid .atbdp-related-listing-header h4{
   margin-bottom: 20px;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__rendered li{
+  background: none !important;
+  border-bottom: none !important;
+  input{
+    margin-bottom: 0 !important;
+  }
 }

@@ -521,6 +521,20 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding-top: 0;
 }
 
+.at-modal .at-modal-content #atbdp-report-abuse-form {
+  width: 100%;
+  padding: 20px;
+}
+
+.at-modal .at-modal-content #atbdp-report-abuse-form textarea {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.at-modal .at-modal-content .atm-contents-inner {
+  box-shadow: 0 5px 20px rgba(68, 71, 82, 0.2);
+}
+
 .atbd_content_active #directorist.atbd_wrapper #atbdp-report-abuse-modal .at-modal-close {
   width: 32px;
   height: 32px;
@@ -540,20 +554,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
   align-items: center;
   justify-content: center;
   text-decoration: none;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .at-modal-content #atbdp-report-abuse-form {
-  width: 100%;
-  padding: 20px;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .at-modal-content #atbdp-report-abuse-form textarea {
-  margin-top: 10px;
-  padding-top: 10px;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .at-modal-content .atm-contents-inner {
-  box-shadow: 0 5px 20px rgba(68, 71, 82, 0.2);
 }
 
 .atbd_content_active #directorist.atbd_wrapper .modal-dialog .modal-body {
@@ -945,6 +945,15 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper .containess-fluid .atbdp-related-listing-header h4 {
   margin-bottom: 20px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+  background: none !important;
+  border-bottom: none !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered li input {
+  margin-bottom: 0 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
@@ -2284,6 +2293,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 20px;
 }
 
+.atbd_content_active .widget.atbd_widget[id^='bd'] ul,
+.atbd_content_active .widget.atbd_widget[id^='dcl'] ul,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget ul {
+  float: none;
+}
+
 .atbd_content_active .widget.atbd_widget[id^='bd'] ul li,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] ul li,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget ul li {
@@ -2478,6 +2493,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_categorized_listings .listings,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings .listings {
   padding: 0;
+  float: none;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_categorized_listings .listings > li,
@@ -2894,7 +2910,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-listing-contact form .form-control,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-listing-contact form .form-control,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-listing-contact form .form-control {
-  padding: 19px 15px;
+  padding: 8px 15px;
   box-shadow: none;
   width: 100%;
 }
@@ -4163,6 +4179,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .ads-advanced .price_ranges .range_single input {
   height: 44px;
+  margin-bottom: 0 !important;
 }
 
 .ads-advanced .price-frequency {
@@ -4202,7 +4219,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .ads-advanced .price-frequency .pf-btn input:checked + span {
   background: #444752;
-  color: #fff;
+  color: #fff !important;
   border-color: #444752;
 }
 
@@ -4244,10 +4261,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   flex: 1;
   text-align: right;
   color: #272b41;
+  font-size: 13px !important;
 }
 
 .ads-advanced .more-less:after, .ads-advanced .more-or-less:after {
-  content: '\f106';
+  content: '\f107';
   font-family: "FontAwesome";
   padding-left: 5px;
 }
@@ -4257,7 +4275,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .ads-advanced .more-less.ad:after, .ads-advanced .more-or-less.ad:after {
-  content: '\f107';
+  content: '\f106';
+}
+
+.ads-advanced .more-less.active:after, .ads-advanced .more-or-less.active:after {
+  content: '\f106';
 }
 
 .ads-advanced .wp-picker-container {
@@ -4283,7 +4305,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-left: -5px;
   margin-right: -5px;
   margin-bottom: -10px;
-  width: 100%;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -4303,7 +4324,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin-top: 15px;
+  margin: 15px -5px 0 -5px;
 }
 
 .ads-advanced .bdas-filter-actions .btn {
@@ -4317,6 +4338,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   align-items: center;
   margin-left: -15px;
   margin-right: -15px;
+  border-bottom: 0;
+  padding-bottom: 0;
 }
 
 .ads-advanced .atbdp-custom-fields-search .form-group {
@@ -4367,6 +4390,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   width: auto !important;
 }
 
+.ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_text input, .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_number input, .ads-advanced .atbdp-custom-fields-search .form-group .atbdp_cf_url input {
+  margin-bottom: 0 !important;
+}
+
 .ads-advanced .atbdp-custom-fields-search .form-group .form-control {
   width: 100% !important;
 }
@@ -4377,6 +4404,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .ads-advanced .atbdp-custom-fields-search .form-group > label {
   margin-bottom: 5px !important;
+}
+
+.ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_checkbox > div {
+  align-items: flex-start;
 }
 
 .ads-advanced .atbdp_map_address_field {

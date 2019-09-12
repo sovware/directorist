@@ -28,14 +28,14 @@
                             $search_html .= '</div></div>';
                         }
                         if('yes' == $location_field) {
+                            $search_html .= '<div class="col-md-12 col-sm-12 col-lg-4">';
                             if('location' == $search_location_address) {
-                                $search_html .= '<div class="col-md-12 col-sm-12 col-lg-4">
-                                <div class="single_search_field search_location">';
+                                $search_html .= '<div class="single_search_field search_location">';
                                 $search_html .= '<select ' . $require_loc . ' name="in_loc" class="search_fields form-control" id="at_biz_dir-location">';
                                 $search_html .= '<option>' . $search_location_placeholder . '</option>';
                                 $search_html .= $locations_fields;
                                 $search_html .= '</select>';
-                                $search_html .= ' </div></div>';
+                                $search_html .= ' </div>';
                             } else {
                                 $address       = !empty($_GET['address']) ? $_GET['address'] : '';
                                 $address_label = !empty($address_label) ? $address_label : __('Address','directorist');
@@ -48,6 +48,7 @@
                                 $search_html .= '<input type="hidden" id="cityLng" name="cityLng" value="" />';
                                 $search_html .= '</div>';
                                  }
+                            $search_html .= '</div>';
                         }
                         /**
                          * @since 5.0

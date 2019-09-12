@@ -116,13 +116,27 @@ $locations_fields  = search_category_location_filter( $query_args, ATBDP_LOCATIO
                                         $search_html .= '</div></div>';
                                     }
                                     if('yes' == $location_field) {
-                                        $search_html .= '<div class="col-md-12 col-sm-12 col-lg-4">
-                                <div class="single_search_field search_location">';
-                                        $search_html .= '<select '.$require_loc.' name="in_loc" class="search_fields form-control" id="at_biz_dir-location">';
-                                        $search_html .= '<option>' . $search_location_placeholder . '</option>';
-                                        $search_html .= $locations_fields;
-                                        $search_html .= '</select>';
-                                        $search_html .= ' </div></div>';
+                                        $search_html .= '<div class="col-md-12 col-sm-12 col-lg-4">';
+                                        if('location' == $search_location_address) {
+                                            $search_html .= '<div class="single_search_field search_location">';
+                                            $search_html .= '<select ' . $require_loc . ' name="in_loc" class="search_fields form-control" id="at_biz_dir-location">';
+                                            $search_html .= '<option>' . $search_location_placeholder . '</option>';
+                                            $search_html .= $locations_fields;
+                                            $search_html .= '</select>';
+                                            $search_html .= ' </div>';
+                                        } else {
+                                            $address       = !empty($_GET['address']) ? $_GET['address'] : '';
+                                            $address_label = !empty($address_label) ? $address_label : __('Address','directorist');
+                                            $search_html .= '<div class="atbdp_map_address_field">';
+                                            $search_html .= '<input type="text" id="address" name="address" value="'.$address.'" placeholder="'.$address_label.'" class="form-control location-name">';
+                                            $search_html .= '<div id="address_result">';
+                                            $search_html .= '<ul></ul>';
+                                            $search_html .= '</div>';
+                                            $search_html .= '<input type="hidden" id="cityLat" name="cityLat" value="" />';
+                                            $search_html .= '<input type="hidden" id="cityLng" name="cityLng" value="" />';
+                                            $search_html .= '</div>';
+                                        }
+                                        $search_html .= '</div>';
                                     }
                                     /**
                                      * @since 5.0
@@ -159,7 +173,7 @@ $locations_fields  = search_category_location_filter( $query_args, ATBDP_LOCATIO
                          * It show the search button
                          */
                         echo apply_filters('atbdp_search_listing_button', $html);
-                        if(!empty($display_more_filter_search)) {?>
+                        if(!empty($display_more_filter_search)) { ?>
                             <!--ads advance search-->
                             <?php
                             $filters_display = !empty($filters_display)?$filters_display:'';
@@ -215,6 +229,18 @@ $locations_fields  = search_category_location_filter( $query_args, ATBDP_LOCATIO
                                             </div>
                                         </div><!-- ends: .form-group -->
                                     <?php } ?>
+                                    <div class="form-group">
+                                        <div class="atbdpr-range rs-primary">
+                                            <span><?php _e('Radius Search','directorist'); ?></span>
+                                            <div class="atbd_slider-range-wrapper">
+                                                <div class="atbd_slider-range"></div>
+                                                <p class="d-flex justify-content-between">
+                                                    <span class="atbdpr_amount"></span>
+                                                </p>
+                                                <input type="hidden" id="atbd_rs_value" name="miles" value="">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <?php if('yes' == $tag_field) {
                                         $terms = get_terms(ATBDP_TAGS);
                                         if(!empty($terms)) {

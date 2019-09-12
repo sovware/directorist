@@ -742,7 +742,7 @@ $query_args = array(
                                                     checked($hide_contact_info);
                                                 } ?> >
                                                 <label class="form-check-label"
-                                                       for="hide_contact_info"><?php esc_html_e('Check it to hide Contact Information', 'directorist'); ?></label>
+                                                       for="hide_contact_info"><?php _e('Check it to hide Contact Information', 'directorist'); ?></label>
                                             </div>
 
                                             <?php if (!$disable_contact_owner) { ?>

@@ -380,6 +380,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   .form-control {
     padding: 10px 15px;
     height: auto;
+    line-height: 1.5 !important;
     &[type="time"], &[type="date"] {
       padding: 9px 15px;
     }
@@ -844,4 +845,19 @@ body.atbd_content_active #directorist.atbd_wrapper {
   input{
     margin-bottom: 0 !important;
   }
+}
+.sweet-alert {
+  .sa-button-container {
+    margin-bottom: 15px;
+  }
+  fieldset > input{
+    display: none;
+  }
+}
+#directorist.atbd_wrapper .select2.select2-container{
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  background: none;
+  color: inherit;
 }

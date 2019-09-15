@@ -5,6 +5,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
   direction: ltr;
   text-align: left;
 }
+#directorist.atbd_wrapper{
+  clear: both;
+}
 
 #directorist.atbd_wrapper input[type="radio"] {
   padding: 0 0 0 10px;
@@ -820,7 +823,17 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
 
   .select2-selection__arrow {
-    height: 42px !important;
+    height: 100% !important;
+    &:before{
+      position: absolute;
+      top: 50%;
+      right: 5px;
+      -webkit-transform: translateY(-50%);
+      -moz-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      -o-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }
   }
 }
 
@@ -861,3 +874,4 @@ body.atbd_content_active #directorist.atbd_wrapper {
   background: none;
   color: inherit;
 }
+

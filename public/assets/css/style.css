@@ -172,6 +172,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   text-align: left;
 }
 
+#directorist.atbd_wrapper {
+  clear: both;
+}
+
 #directorist.atbd_wrapper input[type="radio"] {
   padding: 0 0 0 10px;
 }
@@ -928,7 +932,18 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper.directory_search_area .single_search_field .select2-selection .select2-selection__arrow {
-  height: 42px !important;
+  height: 100% !important;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.directory_search_area .single_search_field .select2-selection .select2-selection__arrow:before {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn {
@@ -3548,6 +3563,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin: 0;
 }
 
+.atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .atbd_term_and_condition_area #listing_t {
+  display: inline-block;
+  float: none;
+}
+
 .atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .btn_wrap.list_submit {
   text-align: center;
 }
@@ -3994,6 +4014,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .select2-container--default .select2-selection--single .select2-selection__arrow {
   height: 35px;
   right: 10px;
+  top: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-container--default .select2-selection--single .select2-selection__placeholder {
@@ -4411,6 +4432,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_select .select-basic {
   width: auto !important;
+  flex: 1;
 }
 
 .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_text input, .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_number input, .ads-advanced .atbdp-custom-fields-search .form-group .atbdp_cf_url input {

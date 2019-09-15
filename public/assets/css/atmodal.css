@@ -14,7 +14,7 @@
     background: rgba(0, 0, 0, 0.5);
     left: 0;
     top: 0;
-    z-index: 999;
+    z-index: 9999;
     display: none;
     overflow: hidden;
     outline: 0;

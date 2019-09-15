@@ -27,6 +27,7 @@
   .select2-container--default .select2-selection--single .select2-selection__arrow{
     height: 35px;
     right: 10px;
+    top:0;
   }
   .select2-container--default .select2-selection--single .select2-selection__placeholder{
     color: $text-color;
@@ -399,6 +400,7 @@
       &.atbdp_cf_select{
         .select-basic{
           width: auto !important;
+          flex: 1;
         }
       }
       &.atbdp_cf_text, &.atbdp_cf_number, .atbdp_cf_url{

@@ -215,6 +215,9 @@
     font-size: 16px;
     margin-right: 5px;
     margin-top: -1px;
+    width: auto;
+    height: auto;
+    top: 0;
 }
 .btn-checkbox label input {
     position: absolute;

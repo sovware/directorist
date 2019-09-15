@@ -263,6 +263,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   list-style: none;
   margin: 0;
   padding: 0;
+  border: 0 none;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_header_bar {
@@ -988,6 +989,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: inherit;
 }
 
+#directorist.atbd_wrapper i[class*="fa-"],
+#directorist.atbd_wrapper span[class*="fa-"] {
+  width: auto;
+  height: auto;
+  top: 0;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;
@@ -1071,6 +1079,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area span {
   margin-right: 10px;
+  width: auto;
+  height: auto;
+  top: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action {

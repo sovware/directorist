@@ -69,6 +69,9 @@
       display: flex;
       span {
         margin-right: 10px;
+        width: auto;
+        height: auto;
+        top: 0;
       }
       .atbd_action {
         border: 1px solid $border-color;

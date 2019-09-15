@@ -104,6 +104,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
     list-style: none;
     margin: 0;
     padding: 0;
+    border: 0 none;
   }
 
   .atbd_header_bar {
@@ -875,3 +876,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: inherit;
 }
 
+//icons style reset
+#directorist.atbd_wrapper i[class*="fa-"],
+#directorist.atbd_wrapper span[class*="fa-"]{
+  width: auto;
+  height: auto;
+  top: 0;
+}

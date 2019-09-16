@@ -1179,6 +1179,10 @@ $query_args = array(
 if ('openstreet' == $select_listing_map) {
     wp_register_script('openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
     wp_enqueue_script('openstreet_layer');
+    wp_localize_script('openstreet_layer', 'atbdp_map', array(
+        'Overlays' => __('Overlays','directorist'),
+        'base_layer' => __('Base Layer','directorist')
+    ));
 }
 ?>
 <script>
@@ -1420,7 +1424,7 @@ if ('openstreet' == $select_listing_map) {
 
 
             map.addLayer(new OpenLayers.Layer.OSM());
-            var pois = new OpenLayers.Layer.Text("My Points",
+            var pois = new OpenLayers.Layer.Text("<?php _e('My Points','directorist');?>",
                 {
                     location: "./textfile.txt",
                     projection: map.displayProjection

@@ -26,7 +26,7 @@ $theme_home_bg_image         = get_theme_mod('directoria_home_bg');
 $search_home_bg              = get_directorist_option('search_home_bg');
 $display_more_filter_search  = get_directorist_option('search_more_filter',1);
 $search_filters              = get_directorist_option('search_filters',array('reset_button','apply_button'));
-$search_more_filters_fields  = get_directorist_option('search_more_filters_fields',array('search_price','search_price_range','search_rating','search_tag','search_custom_fields'));
+$search_more_filters_fields  = get_directorist_option('search_more_filters_fields',array('search_price','search_price_range','search_rating','search_tag','search_custom_fields','radius_search'));
 $tag_label                   = get_directorist_option('tag_label',__('Tag','directorist'));
 $address_label               = get_directorist_option('address_label',__('Address','directorist'));
 $fax_label                   = get_directorist_option('fax_label',__('Fax','directorist'));
@@ -117,7 +117,7 @@ $locations_fields  = search_category_location_filter( $query_args, ATBDP_LOCATIO
                                     }
                                     if('yes' == $location_field) {
                                         $search_html .= '<div class="col-md-12 col-sm-12 col-lg-4">';
-                                        if('location' == $search_location_address) {
+                                        if('listing_location' == $search_location_address) {
                                             $search_html .= '<div class="single_search_field search_location">';
                                             $search_html .= '<select ' . $require_loc . ' name="in_loc" class="search_fields form-control" id="at_biz_dir-location">';
                                             $search_html .= '<option>' . $search_location_placeholder . '</option>';
@@ -229,6 +229,7 @@ $locations_fields  = search_category_location_filter( $query_args, ATBDP_LOCATIO
                                             </div>
                                         </div><!-- ends: .form-group -->
                                     <?php } ?>
+                                    <?php  if('map_api' == $search_location_address && 'yes' == $radius_search) { ?>
                                     <div class="form-group">
                                         <div class="atbdpr-range rs-primary">
                                             <span><?php _e('Radius Search','directorist'); ?></span>
@@ -241,6 +242,7 @@ $locations_fields  = search_category_location_filter( $query_args, ATBDP_LOCATIO
                                             </div>
                                         </div>
                                     </div>
+                                    <?php } ?>
                                     <?php if('yes' == $tag_field) {
                                         $terms = get_terms(ATBDP_TAGS);
                                         if(!empty($terms)) {

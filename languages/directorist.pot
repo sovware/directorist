@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2019-09-12 12:47+0600\n"
+"POT-Creation-Date: 2019-09-16 11:44+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -365,7 +365,7 @@ msgstr ""
 
 #: includes/classes/class-all-map-widget.php:59
 #: includes/classes/class-map-widget.php:51
-#: includes/classes/class-map-widget.php:185
+#: includes/classes/class-map-widget.php:189
 #: includes/classes/class-settings-manager.php:817
 #: includes/classes/class-settings-manager.php:2566
 #: includes/classes/class-settings-manager.php:2590
@@ -382,7 +382,7 @@ msgstr ""
 #: includes/classes/class-contact-form-widget.php:102
 #: includes/classes/class-featured-widget.php:65
 #: includes/classes/class-locations-widget.php:91
-#: includes/classes/class-map-widget.php:189
+#: includes/classes/class-map-widget.php:193
 #: includes/classes/class-similar-listings-widget.php:158
 #: includes/classes/class-submit-widget.php:60
 #: includes/classes/class-tags-widget.php:127
@@ -392,7 +392,7 @@ msgid "Title:"
 msgstr ""
 
 #: includes/classes/class-all-map-widget.php:71
-#: includes/classes/class-map-widget.php:196
+#: includes/classes/class-map-widget.php:200
 msgid "Map zoom level:"
 msgstr ""
 
@@ -617,8 +617,8 @@ msgstr ""
 #: templates/front-end/all-listings/listings-header.php:349
 #: templates/front-end/single-listing/listing-contact-info.php:38
 #: templates/front-end/single-listing/listing-contact-owner.php:32
-#: templates/listing-home-open.php:157 templates/listing-home.php:33
-#: templates/listing-home.php:279 templates/search-widget-front.php:5
+#: templates/listing-home-open.php:158 templates/listing-home.php:33
+#: templates/listing-home.php:280 templates/search-widget-front.php:5
 #: templates/search-widget-front.php:97
 #: templates/single-at_biz_dir.php:648 templates/single-at_biz_dir.php:793
 msgid "Email"
@@ -1436,7 +1436,7 @@ msgstr ""
 #: includes/classes/class-enqueuer.php:750
 #: templates/custom-field-search-form.php:90
 #: templates/front-end/all-listings/listings-header.php:326
-#: templates/listing-home-open.php:140 templates/listing-home.php:262
+#: templates/listing-home-open.php:141 templates/listing-home.php:263
 msgid "Show More"
 msgstr ""
 
@@ -1666,6 +1666,27 @@ msgstr ""
 msgid "View On Google Maps"
 msgstr ""
 
+#: includes/classes/class-map-widget.php:70 templates/contact-info.php:261
+#: templates/front-end/add-listing.php:1183
+#: templates/front-end/single-listing/listing-map.php:60
+#: templates/single-at_biz_dir.php:880
+msgid "Overlays"
+msgstr ""
+
+#: includes/classes/class-map-widget.php:71 templates/contact-info.php:262
+#: templates/front-end/add-listing.php:1184
+#: templates/front-end/single-listing/listing-map.php:61
+#: templates/single-at_biz_dir.php:881
+msgid "Base Layer"
+msgstr ""
+
+#: includes/classes/class-map-widget.php:123
+#: templates/contact-info.php:508 templates/front-end/add-listing.php:1427
+#: templates/front-end/single-listing/listing-map.php:116
+#: templates/single-at_biz_dir.php:943
+msgid "My Points"
+msgstr ""
+
 #: includes/classes/class-metabox.php:125
 msgid "General Information"
 msgstr ""
@@ -1892,8 +1913,8 @@ msgstr ""
 #: templates/front-end/all-listings/listings-header.php:341
 #: templates/front-end/single-listing/listing-contact-info.php:40
 #: templates/front-end/user-dashboard.php:401
-#: templates/listing-home-open.php:153 templates/listing-home.php:34
-#: templates/listing-home.php:275 templates/search-widget-front.php:6
+#: templates/listing-home-open.php:154 templates/listing-home.php:34
+#: templates/listing-home.php:276 templates/search-widget-front.php:6
 #: templates/search-widget-front.php:92
 #: templates/single-at_biz_dir.php:649
 msgid "Website"
@@ -2233,7 +2254,7 @@ msgstr ""
 #: templates/front-end/single-listing/listing-contact-info.php:30
 #: templates/front-end/user-dashboard.php:409
 #: templates/listing-home-open.php:41 templates/listing-home.php:31
-#: templates/listing-home.php:129 templates/listing-home.php:291
+#: templates/listing-home.php:129 templates/listing-home.php:292
 #: templates/search-widget-front.php:3
 #: templates/search-widget-front.php:108
 #: templates/single-at_biz_dir.php:646
@@ -2248,7 +2269,7 @@ msgstr ""
 #: templates/contact-info.php:156 templates/front-end/add-listing.php:772
 #: templates/front-end/all-listings/listings-header.php:381
 #: templates/front-end/single-listing/listing-contact-info.php:42
-#: templates/listing-home-open.php:169 templates/listing-home.php:301
+#: templates/listing-home-open.php:170 templates/listing-home.php:302
 #: templates/single-at_biz_dir.php:650
 msgid "Zip/Post Code"
 msgstr ""
@@ -2259,7 +2280,7 @@ msgstr ""
 #: templates/front-end/add-listing.php:792
 #: templates/front-end/add-listing.php:793
 #: templates/front-end/all-listings/listings-header.php:357
-#: templates/listing-home-open.php:161 templates/listing-home.php:283
+#: templates/listing-home-open.php:162 templates/listing-home.php:284
 #: templates/search-widget-front.php:102
 msgid "Phone Number"
 msgstr ""
@@ -2284,8 +2305,8 @@ msgstr ""
 #: templates/front-end/all-listings/listings-header.php:3
 #: templates/front-end/all-listings/listings-header.php:365
 #: templates/front-end/single-listing/listing-contact-info.php:36
-#: templates/listing-home-open.php:165 templates/listing-home.php:32
-#: templates/listing-home.php:287 templates/search-widget-front.php:4
+#: templates/listing-home-open.php:166 templates/listing-home.php:32
+#: templates/listing-home.php:288 templates/search-widget-front.php:4
 #: templates/single-at_biz_dir.php:137
 msgid "Fax"
 msgstr ""
@@ -3285,7 +3306,7 @@ msgstr ""
 #: templates/add-listing.php:22 templates/front-end/add-listing.php:98
 #: templates/front-end/add-listing.php:293
 #: templates/front-end/all-listings/listings-header.php:225
-#: templates/listing-home.php:184 templates/search-widget-front.php:56
+#: templates/listing-home.php:185 templates/search-widget-front.php:56
 msgid "Price Range"
 msgstr ""
 
@@ -4886,7 +4907,7 @@ msgstr ""
 #: includes/classes/class-tags-widget.php:124
 #: templates/front-end/add-listing.php:618
 #: templates/front-end/all-listings/listings-header.php:307
-#: templates/listing-home-open.php:126 templates/listing-home.php:248
+#: templates/listing-home-open.php:127 templates/listing-home.php:249
 msgid "Tags"
 msgstr ""
 
@@ -4979,6 +5000,14 @@ msgstr ""
 
 #: includes/classes/class-user.php:201
 msgid "Website is not a valid URL"
+msgstr ""
+
+#: includes/classes/class-user.php:405
+msgid "Password should be matched and more than five character"
+msgstr ""
+
+#: includes/classes/class-user.php:411
+msgid "Congratulations! Your profile updated successfully"
 msgstr ""
 
 #: includes/classes/class-video-widget.php:18
@@ -5535,8 +5564,8 @@ msgstr ""
 #: templates/front-end/all-listings/all-grid-listings.php:185
 #: templates/front-end/all-listings/listings-header.php:288
 #: templates/front-end/all-listings/listings-header.php:296
-#: templates/listing-home-open.php:103 templates/listing-home.php:220
-#: templates/listing-home.php:225 templates/search-at_biz_dir.php:224
+#: templates/listing-home-open.php:104 templates/listing-home.php:221
+#: templates/listing-home.php:226 templates/search-at_biz_dir.php:224
 msgid "Open Now"
 msgstr ""
 
@@ -6123,13 +6152,13 @@ msgstr ""
 msgid "Enter Information about Businss/Opening Hours"
 msgstr ""
 
-#: templates/contact-info.php:354 templates/contact-info.php:435
-#: templates/front-end/add-listing.php:1279
-#: templates/front-end/add-listing.php:1358
+#: templates/contact-info.php:358 templates/contact-info.php:439
+#: templates/front-end/add-listing.php:1283
+#: templates/front-end/add-listing.php:1362
 msgid "You can drag the marker to your desired place to place a marker"
 msgstr ""
 
-#: templates/contact-info.php:414 templates/front-end/add-listing.php:1337
+#: templates/contact-info.php:418 templates/front-end/add-listing.php:1341
 msgid "Geocode was not successful for the following reason: "
 msgstr ""
 
@@ -6426,37 +6455,37 @@ msgid "Max Price"
 msgstr ""
 
 #: templates/front-end/all-listings/listings-header.php:265
-#: templates/listing-home.php:207 templates/search-widget-front.php:143
+#: templates/listing-home.php:208 templates/search-widget-front.php:143
 msgid "Filter by Ratings"
 msgstr ""
 
 #: templates/front-end/all-listings/listings-header.php:267
-#: templates/listing-home-open.php:88 templates/listing-home.php:209
+#: templates/listing-home-open.php:89 templates/listing-home.php:210
 msgid "Select Ratings"
 msgstr ""
 
 #: templates/front-end/all-listings/listings-header.php:270
-#: templates/listing-home-open.php:89 templates/listing-home.php:210
+#: templates/listing-home-open.php:90 templates/listing-home.php:211
 msgid "5 Star"
 msgstr ""
 
 #: templates/front-end/all-listings/listings-header.php:273
-#: templates/listing-home-open.php:90 templates/listing-home.php:211
+#: templates/listing-home-open.php:91 templates/listing-home.php:212
 msgid "4 Star & Up"
 msgstr ""
 
 #: templates/front-end/all-listings/listings-header.php:276
-#: templates/listing-home-open.php:91 templates/listing-home.php:212
+#: templates/listing-home-open.php:92 templates/listing-home.php:213
 msgid "3 Star & Up"
 msgstr ""
 
 #: templates/front-end/all-listings/listings-header.php:279
-#: templates/listing-home-open.php:92 templates/listing-home.php:213
+#: templates/listing-home-open.php:93 templates/listing-home.php:214
 msgid "2 Star & Up"
 msgstr ""
 
 #: templates/front-end/all-listings/listings-header.php:282
-#: templates/listing-home-open.php:93 templates/listing-home.php:214
+#: templates/listing-home-open.php:94 templates/listing-home.php:215
 msgid "1 Star & Up"
 msgstr ""
 
@@ -6613,6 +6642,11 @@ msgstr ""
 #: templates/front-end/single-listing/listing-header.php:175
 #: templates/single-at_biz_dir.php:262
 msgid "Your Complaint"
+msgstr ""
+
+#: templates/front-end/single-listing/listing-map.php:132
+#: templates/single-at_biz_dir.php:959
+msgid "Markers"
 msgstr ""
 
 #: templates/front-end/user-dashboard.php:40
@@ -6882,7 +6916,7 @@ msgstr ""
 msgid "Directorist - Listings Slider & Carousel"
 msgstr ""
 
-#: templates/listing-home-open.php:111 templates/listing-home.php:233
+#: templates/listing-home-open.php:112 templates/listing-home.php:234
 msgid "Radius Search"
 msgstr ""
 

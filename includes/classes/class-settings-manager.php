@@ -2411,6 +2411,10 @@ The Administrator of ==SITE_NAME==
                                 'value' => 'search_zip_code',
                                 'label' => __('Zip/Post Code', 'directorist'),
                             ),
+                            array(
+                                'value' => 'radius_search',
+                                'label' => __('Radius Search', 'directorist'),
+                            ),
                         ),
                         'default' => array(
                             'search_text',
@@ -2420,7 +2424,27 @@ The Administrator of ==SITE_NAME==
                             'search_price_range',
                             'search_rating',
                             'search_tag',
-                            'search_custom_fields'
+                            'search_custom_fields',
+                            'radius_search'
+                        ),
+                    ),
+                    'listing_location_fields' => array(
+                        'type' => 'select',
+                        'name' => 'listing_location_address',
+                        'label' => __('Location Source for Search', 'directorist'),
+                        'items' => array(
+                            array(
+                                'value' => 'listing_location',
+                                'label' => __('Display from Listing Location', 'directorist'),
+                            ),
+                            array(
+                                'value' => 'map_api',
+                                'label' => __('Display From Map API', 'directorist'),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'map_api',
+                            'label' => __('Display From Map API', 'directorist'),
                         ),
                     ),
                     'listings_filters_button' =>  array(
@@ -2948,24 +2972,23 @@ The Administrator of ==SITE_NAME==
                             'search_text', 'search_category', 'search_location'
                         ),
                     ),
-                    'location_address_fields' => array(
+                    'search_location_address' => array(
                         'type' => 'select',
                         'name' => 'search_location_address',
-                        'description'=> __('Choose which type of location you want to show on Search Listing','directorist'),
-                        'label' => __('Location', 'directorist'),
+                        'label' => __('Location Source for Search Field', 'directorist'),
                         'items' => array(
                             array(
-                                'value' => 'location',
-                                'label' => __('Display From Location', 'directorist'),
+                                'value' => 'listing_location',
+                                'label' => __('Display from Listing Location', 'directorist'),
                             ),
                             array(
-                                'value' => 'address',
-                                'label' => __('Display From Contact Information ( Address )', 'directorist'),
+                                'value' => 'map_api',
+                                'label' => __('Display from Map API', 'directorist'),
                             ),
                         ),
                         'default' => array(
-                            'value' => 'address',
-                            'label' => __('Display From Contact Information (Address)', 'directorist'),
+                            'value' => 'map_api',
+                            'label' => __('Display from Map API', 'directorist'),
                         ),
                     ),
                     array(
@@ -3100,9 +3123,13 @@ The Administrator of ==SITE_NAME==
                                 'value' => 'search_zip_code',
                                 'label' => __('Zip/Post Code', 'directorist'),
                             ),
+                            array(
+                                'value' => 'radius_search',
+                                'label' => __('Radius Search', 'directorist'),
+                            ),
                         ),
                         'default' => array(
-                            'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields'
+                            'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields','radius_search'
                         ),
                     ),
                     array(
@@ -3313,6 +3340,10 @@ The Administrator of ==SITE_NAME==
                                 'value' => 'search_zip_code',
                                 'label' => __('Zip/Post Code', 'directorist'),
                             ),
+                            array(
+                                'value' => 'radius_search',
+                                'label' => __('Radius Search', 'directorist'),
+                            ),
                         ),
                         'default' => array(
                             'search_text',
@@ -3322,7 +3353,27 @@ The Administrator of ==SITE_NAME==
                             'search_price_range',
                             'search_rating',
                             'search_tag',
-                            'search_custom_fields'
+                            'search_custom_fields',
+                            'radius_search'
+                        ),
+                    ),
+                    'sresult_location_address' => array(
+                        'type' => 'select',
+                        'name' => 'sresult_location_address',
+                        'label' => __('Location Source for Search', 'directorist'),
+                        'items' => array(
+                            array(
+                                'value' => 'listing_location',
+                                'label' => __('Display from Listing Location', 'directorist'),
+                            ),
+                            array(
+                                'value' => 'map_api',
+                                'label' => __('Display From Map API', 'directorist'),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'map_api',
+                            'label' => __('Display From Map API', 'directorist'),
                         ),
                     ),
                     array(

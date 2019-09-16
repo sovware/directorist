@@ -402,12 +402,14 @@ class ATBDP_User {
             if ( ( $new_pass == $confirm_pass ) && ( strlen( $confirm_pass) > 5 ) ){
                 wp_set_password($new_pass, $ID); // set the password to the database
             }else{
-                wp_send_json_error('Password should be matched and more than five character', 'directorist');
+                $pass_match = __('Password should be matched and more than five character', 'directorist');
+                wp_send_json_error($pass_match, 'directorist');
 
             }
         }
         if (!is_wp_error($uid)){
-            wp_send_json_success('Congratulations! Your profile updated successfully', 'directorist');
+            $congz_txt = __('Congratulations! Your profile updated successfully', 'directorist');
+            wp_send_json_success( $congz_txt, 'directorist');
             return true;
         }else{
             wp_send_json_error('Oops! Something wrong.', 'directorist');

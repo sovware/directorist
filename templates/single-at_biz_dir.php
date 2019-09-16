@@ -876,6 +876,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 if ('openstreet' == $select_listing_map) {
     wp_register_script('openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
     wp_enqueue_script('openstreet_layer');
+    wp_localize_script('openstreet_layer', 'atbdp_map', array(
+        'Overlays' => __('Overlays','directorist'),
+        'base_layer' => __('Base Layer','directorist')
+    ));
 }
 ?>
 <script>
@@ -936,7 +940,7 @@ if ('openstreet' == $select_listing_map) {
         map = new OpenLayers.Map("gmap");
         let mymap = (lon, lat) => {
             map.addLayer(new OpenLayers.Layer.OSM());
-            let pois = new OpenLayers.Layer.Text("My Points",
+            let pois = new OpenLayers.Layer.Text("<?php _e('My Points','directorist');?>",
                 {
                     location: "",
                     projection: map.displayProjection
@@ -952,11 +956,11 @@ if ('openstreet' == $select_listing_map) {
                     map.getProjectionObject() // to Spherical Mercator Projection
                 );
             let zoom = <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 16; ?>;
-            let markers = new OpenLayers.Layer.Markers("Markers");
+            let markers = new OpenLayers.Layer.Markers("<?php _e('Markers','directorist');?>");
             map.addLayer(markers);
             markers.addMarker(new OpenLayers.Marker(lonLat));
             map.setCenter(lonLat, zoom);
-        }
+        };
 
         let lat = <?php echo !empty($manual_lat) ? floatval($manual_lat) : false;?>,
             lon = <?php echo !empty($manual_lng) ? floatval($manual_lng) : false; ?>;

@@ -175,6 +175,7 @@ if ($display_header == 'yes') { ?>
                                             </div>
                                         <?php }
                                         if (in_array('search_location', $search_more_filters_fields)) {
+                                            if('listing_location' == $listing_location_address) {
                                             $slug = !empty($term_slug) ? $term_slug : '';
                                             $location_by_slug = get_term_by('slug', $slug, ATBDP_LOCATION);
                                             if (!empty($location_by_slug)) {
@@ -209,7 +210,20 @@ if ($display_header == 'yes') { ?>
                                                     </select>
                                                 </div>
                                             </div>
-                                        <?php } ?>
+                                        <?php }else{ ?>
+                                                <div>
+                                                    <input type="text" name="address"
+                                                           value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>"
+                                                           placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist'); ?>"
+                                                           class="form-control location-name">
+                                                    <div id="address_result">
+                                                        <ul></ul>
+                                                        </div>
+                                                    <input type="hidden" id="cityLat" name="cityLat" value="" />
+                                                    <input type="hidden" id="cityLng" name="cityLng" value="" />
+                                                </div>
+                                            <?php }
+                                        } ?>
                                         <?php
                                         /**
                                          * @since 5.0
@@ -365,14 +379,6 @@ if ($display_header == 'yes') { ?>
                                                            placeholder="<?php echo !empty($fax_label) ? $fax_label : __('Fax','directorist'); ?>"
                                                            value="<?php echo !empty($_GET['fax']) ? $_GET['fax'] : ''; ?>"
                                                            class="form-control">
-                                                </div>
-                                            <?php }
-                                            if (in_array('search_address', $search_more_filters_fields)) { ?>
-                                                <div>
-                                                    <input type="text" name="address"
-                                                           value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>"
-                                                           placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist'); ?>"
-                                                           class="form-control location-name">
                                                 </div>
                                             <?php }
                                             if (in_array('search_zip_code', $search_more_filters_fields)) { ?>

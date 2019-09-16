@@ -29,7 +29,7 @@
                         }
                         if('yes' == $location_field) {
                             $search_html .= '<div class="col-md-12 col-sm-12 col-lg-4">';
-                            if('location' == $search_location_address) {
+                            if('listing_location' == $search_location_address) {
                                 $search_html .= '<div class="single_search_field search_location">';
                                 $search_html .= '<select ' . $require_loc . ' name="in_loc" class="search_fields form-control" id="at_biz_dir-location">';
                                 $search_html .= '<option>' . $search_location_placeholder . '</option>';
@@ -107,6 +107,7 @@
                             </div>
                         </div><!-- ends: .form-group -->
                     <?php } ?>
+                    <?php  if('map_api' == $search_location_address && 'yes' == $radius_search) { ?>
                     <div class="form-group">
                         <div class="atbdpr-range rs-primary">
                             <span><?php _e('Radius Search','directorist'); ?></span>
@@ -119,6 +120,7 @@
                             </div>
                         </div>
                     </div>
+                    <?php } ?>
                     <?php if('yes' == $tag_field) {
                         $terms = get_terms(ATBDP_TAGS);
                         if(!empty($terms)) {

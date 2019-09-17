@@ -473,6 +473,9 @@
   }
   .atbdp_get_address_field{
     position: relative;
+    #address{
+      padding-right: 35px !important;
+    }
     span.atbd_get_loc{
       position: absolute;
       right: 15px;

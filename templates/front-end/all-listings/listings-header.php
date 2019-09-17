@@ -212,13 +212,13 @@ if ($display_header == 'yes') { ?>
                                             </div>
                                         <?php }else{ ?>
                                                 <div>
-                                                    <input type="text" name="address"
+                                                    <input type="text" name="address" id="address"
                                                            value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>"
                                                            placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist'); ?>"
                                                            class="form-control location-name">
                                                     <div id="address_result">
                                                         <ul></ul>
-                                                        </div>
+                                                    </div>
                                                     <input type="hidden" id="cityLat" name="cityLat" value="" />
                                                     <input type="hidden" id="cityLng" name="cityLng" value="" />
                                                 </div>
@@ -296,6 +296,20 @@ if ($display_header == 'yes') { ?>
                                             } ?>><?php _e('1 Star & Up', 'directorist'); ?></option>
                                         </select>
                                     </div><!-- ends: .form-group -->
+                                <?php if ('map_api' == $listing_location_address && in_array('radius_search', $search_more_filters_fields)) { ?>
+                                        <div class="form-group">
+                                            <div class="atbdpr-range rs-primary">
+                                                <span><?php _e('Radius Search','directorist'); ?></span>
+                                                <div class="atbd_slider-range-wrapper">
+                                                    <div class="atbd_slider-range"></div>
+                                                    <p class="d-flex justify-content-between">
+                                                        <span class="atbdpr_amount"></span>
+                                                    </p>
+                                                    <input type="hidden" id="atbd_rs_value" name="miles" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
                                 <?php }
                                 if (in_array('search_open_now', $search_more_filters_fields) && in_array('directorist-business-hours/bd-business-hour.php', apply_filters('active_plugins', get_option('active_plugins')))) { ?>
                                     <div class="form-group">

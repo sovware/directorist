@@ -2404,10 +2404,6 @@ The Administrator of ==SITE_NAME==
                                 'label' => __('Fax', 'directorist'),
                             ),
                             array(
-                                'value' => 'search_address',
-                                'label' => __('Address', 'directorist'),
-                            ),
-                            array(
                                 'value' => 'search_zip_code',
                                 'label' => __('Zip/Post Code', 'directorist'),
                             ),
@@ -3279,7 +3275,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'checkbox',
                         'name' => 'search_result_filters_fields',
                         'label' => __('Filter Fields', 'directorist'),
-                        'validation' => 'minselected[0]|maxselected[15]',
+                        'validation' => 'minselected[0]|maxselected[25]',
                         'items' => array(
                             array(
                                 'value' => 'search_text',
@@ -3331,10 +3327,6 @@ The Administrator of ==SITE_NAME==
                             array(
                                 'value' => 'search_fax',
                                 'label' => __('Fax', 'directorist'),
-                            ),
-                            array(
-                                'value' => 'search_address',
-                                'label' => __('Address', 'directorist'),
                             ),
                             array(
                                 'value' => 'search_zip_code',

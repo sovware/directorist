@@ -4488,6 +4488,22 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 10px 15px 10px;
 }
 
+.ads-advanced .atbdp_map_address_field .atbdp_get_address_field {
+  position: relative;
+}
+
+.ads-advanced .atbdp_map_address_field .atbdp_get_address_field #address {
+  padding-right: 35px !important;
+}
+
+.ads-advanced .atbdp_map_address_field .atbdp_get_address_field span.atbd_get_loc {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
 .atbd_seach_fields_wrapper .atbdp_map_address_field {
   position: relative;
 }
@@ -5024,12 +5040,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbdpr-range .ui-slider-horizontal .ui-slider-range {
-  background: #122069;
+  background: #444752;
 }
 
 .atbdpr-range .ui-slider-horizontal .ui-slider-handle {
   background: #fff;
-  border: 4px solid #122069;
+  border: 4px solid #444752;
   border-radius: 300px;
   cursor: pointer;
   outline: 0;

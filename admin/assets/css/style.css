@@ -740,4 +740,22 @@ css for Custom Field
   z-index: 999;
 }
 
+.business_time.column-business_time,
+.web-link.column-web-link {
+  text-align: center;
+}
+
+#atbdp-field-details .recurring_time_period {
+  display: flex;
+  align-items: center;
+}
+
+#atbdp-field-details .recurring_time_period > label {
+  margin-right: 10px;
+}
+
+#atbdp-field-details .recurring_time_period #recurring_period {
+  margin-right: 8px;
+}
+
 /*# sourceMappingURL=map/style.css.map */

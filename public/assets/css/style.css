@@ -4516,6 +4516,18 @@ body.atbd_content_active #directorist.atbd_wrapper {
   display: block;
 }
 
+.atbd_seach_fields_wrapper .atbdp_map_address_field .atbdp_get_address_field {
+  position: relative;
+}
+
+.atbd_seach_fields_wrapper .atbdp_map_address_field .atbdp_get_address_field span.atbd_get_loc {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
 .atbd_header_bar .header_bar_title {
   font-size: 15px !important;
   margin-bottom: 21px !important;

@@ -144,6 +144,8 @@
 */
 (function () {
     var x = document.querySelector(".location-name");
+    var get_lat = document.querySelector("#cityLat");
+    var get_lng = document.querySelector("#cityLng");
 
     function getLocation(){
         if (navigator.geolocation){
@@ -158,21 +160,23 @@
         lat=position.coords.latitude;
         lon=position.coords.longitude;
         displayLocation(lat,lon);
+        get_lat.value = lat;
+        get_lng.value = lon;
     }
 
     function showError(error){
         switch(error.code){
             case error.PERMISSION_DENIED:
-                x.value="User denied the request for Geolocation."
+                x.value="User denied the request for Geolocation.";
                 break;
             case error.POSITION_UNAVAILABLE:
-                x.value="Location information is unavailable."
+                x.value="Location information is unavailable.";
                 break;
             case error.TIMEOUT:
-                x.value="The request to get user location timed out."
+                x.value="The request to get user location timed out.";
                 break;
             case error.UNKNOWN_ERROR:
-                x.value="An unknown error occurred."
+                x.value="An unknown error occurred.";
                 break;
         }
     }
@@ -181,7 +185,6 @@
         var geocoder;
         geocoder = new google.maps.Geocoder();
         var latlng = new google.maps.LatLng(latitude, longitude);
-
         geocoder.geocode(
             {'latLng': latlng},
             function(results, status) {

@@ -2272,8 +2272,8 @@ The Administrator of ==SITE_NAME==
                             ),
                         ),
                         'default' => array(
-                            'value' => 'publish',
-                            'label' => __('Published', 'directorist'),
+                            'value' => 'pending',
+                            'label' => __('Pending', 'directorist'),
                         ),
                     ),
                     'edit_listing_status' => array(
@@ -2291,8 +2291,8 @@ The Administrator of ==SITE_NAME==
                             ),
                         ),
                         'default' => array(
-                            'value' => 'publish',
-                            'label' => __('Published', 'directorist'),
+                            'value' => 'pending',
+                            'label' => __('Pending', 'directorist'),
                         ),
                     ),
 

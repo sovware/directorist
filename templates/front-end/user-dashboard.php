@@ -206,7 +206,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                     if (!$can_renew) return false;// vail if renewal option is turned off on the site.
                                                                     if (is_fee_manager_active()){
                                                                         ?>
-                                                                        <a href="javascript:void(0)"
+                                                                        <a href=""
                                                                            data-target="atpp-plan-change-modal"
                                                                            data-listing_id="<?= $post->ID; ?>"
                                                                            class="directory_btn btn btn-outline-success atbdp_renew_with_plan">

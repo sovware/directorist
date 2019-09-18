@@ -27,6 +27,7 @@
   .select2-container--default .select2-selection--single .select2-selection__arrow{
     height: 35px;
     right: 10px;
+    top:0;
   }
   .select2-container--default .select2-selection--single .select2-selection__placeholder{
     color: $text-color;
@@ -399,6 +400,7 @@
       &.atbdp_cf_select{
         .select-basic{
           width: auto !important;
+          flex: 1;
         }
       }
       &.atbdp_cf_text, &.atbdp_cf_number, .atbdp_cf_url{
@@ -441,6 +443,86 @@
           padding: 10px 15px 10px;
         }
       }
+    }
+  }
+  .atbd_seach_fields_wrapper{
+    .atbdp_map_address_field{
+      position: relative;
+      #address_result{
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 45px;
+        background: #fff;
+        box-shadow:0 5px 10px rgba($light-gray, 0.2);
+        border-radius: 3px;
+        z-index: 2;
+        max-height: 300px;
+        overflow-y: scroll;
+        ul{
+          li{
+            border-bottom: 1px solid $border-color;
+            padding: 10px 15px 10px;
+            a{
+              font-size: 13px;
+              line-height: 22px;
+              display: block;
+            }
+          }
+        }
+      }
+    }
+    .atbdp_get_address_field{
+      position: relative;
+      #address{
+        padding-right: 35px !important;
+      }
+      span.atbd_get_loc{
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+      }
+    }
+  }
+}
+.atbd_seach_fields_wrapper .atbdp_map_address_field{
+  position: relative;
+  #address_result{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 45px;
+    background: #fff;
+    box-shadow:0 5px 10px rgba($light-gray, 0.2);
+    border-radius: 3px;
+    z-index: 1;
+    max-height: 300px;
+    overflow-y: scroll;
+    ul{
+      li{
+        border-bottom: 1px solid $border-color;
+        padding: 10px 15px 10px;
+        a{
+          font-size: 13px;
+          line-height: 22px;
+          display: block;
+        }
+      }
+    }
+  }
+  .atbdp_get_address_field{
+    position: relative;
+    #address{
+      padding-right: 35px !important;
+    }
+    span.atbd_get_loc{
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
     }
   }
 }

@@ -66,13 +66,16 @@
         -o-transform: translateY(-50%);
         transform: translateY(-50%);
         font-size: 13px;
-
+        color: #7a82a6;
         &.slick-prev {
           left: -15px;
         }
 
         &.slick-next {
           right: -15px;
+        }
+        &:before, &:after{
+          content: none;
         }
       }
       .slick-list, .slick-track{

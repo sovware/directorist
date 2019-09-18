@@ -678,3 +678,20 @@ css for Custom Field
     }
   }
 }
+
+
+.business_time.column-business_time,
+.web-link.column-web-link{
+  text-align: center;
+}
+
+#atbdp-field-details .recurring_time_period{
+  display: flex;
+  align-items: center;
+  > label{
+    margin-right: 10px;
+  }
+  #recurring_period{
+    margin-right: 8px;
+  }
+}

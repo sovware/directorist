@@ -207,14 +207,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 'post_type' => ATBDP_POST_TYPE,
                 'post_status' => 'publish',
             );
-           /* $args['geo_query'] = array(
-                'lat_field' => '_manual_lat',  // this is the name of the meta field storing latitude
-                'lng_field' => '_manual_lng', // this is the name of the meta field storing longitude
-                'latitude'  => 24.886436,    // this is the latitude of the point we are getting distance from
-                'longitude' => 91.880722,   // this is the longitude of the point we are getting distance from
-                'distance'  => 1000,           // this is the maximum distance to search
-                'units'     => 'miles'       // this supports options: miles, mi, kilometers, km
-            );*/
+
+
             if (!empty($s_string)){
                 $args['s'] = $s_string;
             }
@@ -237,7 +231,6 @@ if (!class_exists('ATBDP_Shortcode')):
 
             // Define tax queries( only if applicable )
             $tax_queries = array();
-
             if (isset($_GET['in_cat']) && (int)$_GET['in_cat'] > 0) {
                 $tax_queries[] = array(
                     'taxonomy' => ATBDP_CATEGORY,
@@ -893,8 +886,16 @@ if (!class_exists('ATBDP_Shortcode')):
                     'compare' => 'LIKE'
                 );
             }
-
-            if (isset($_GET['address'])) {
+            if (isset($_GET['miles']) && $_GET['miles'] > 0 && isset($_GET['cityLat']) && isset($_GET['cityLng'])) {
+                $args['atbdp_geo_query'] = array(
+                    'lat_field' => '_manual_lat',  // this is the name of the meta field storing latitude
+                    'lng_field' => '_manual_lng', // this is the name of the meta field storing longitude
+                    'latitude' => $_GET['cityLat'],    // this is the latitude of the point we are getting distance from
+                    'longitude' => $_GET['cityLng'],   // this is the longitude of the point we are getting distance from
+                    'distance' => $_GET['miles'],           // this is the maximum distance to search
+                    'units' => 'miles'       // this supports options: miles, mi, kilometers, km
+                );
+            } elseif (isset($_GET['address'])) {
                 $address = $_GET['address'];
                 $meta_queries[] = array(
                     'key' => '_address',
@@ -1181,7 +1182,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $view_as_text = get_directorist_option('search_viewas_text', __('View As', 'directorist'));
             $all_listing_title = !empty($all_listing_title) ? $all_listing_title : '';
             $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
-            $search_more_filters_fields = get_directorist_option('search_result_filters_fields', array('search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields'));
+            $search_more_filters_fields = get_directorist_option('search_result_filters_fields', array('search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields','radius_search'));
             $filters_button = get_directorist_option('search_result_filters_button', array('reset_button', 'apply_button'));
             $reset_filters_text = get_directorist_option('sresult_reset_text', __('Reset Filters', 'directorist'));
             $apply_filters_text = get_directorist_option('sresult_apply_text', __('Apply Filters', 'directorist'));
@@ -1192,6 +1193,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $header_container_fluid = apply_filters('atbdp_search_result_header_container_fluid', $listing_header_container_fluid);
             $listing_grid_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
             $grid_container_fluid = apply_filters('atbdp_search_result_grid_container_fluid', $listing_grid_container_fluid);
+            $listing_location_address    = get_directorist_option('sresult_location_address','map_api');
             ob_start();
             if (!empty($redirect_page_url)) {
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
@@ -1695,7 +1697,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $location_placeholder = get_directorist_option('listings_location_placeholder', __('Select a location', 'directorist'));
             $all_listing_title = !empty($all_listing_title) ? $all_listing_title : '';
             $data_for_template = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
-            $search_more_filters_fields = get_directorist_option('listing_filters_fields', array('search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields'));
+            $search_more_filters_fields = get_directorist_option('listing_filters_fields', array('search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields','radius_search'));
             $filters_button = get_directorist_option('listings_filters_button', array('reset_button', 'apply_button'));
             $reset_filters_text = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
             $apply_filters_text = get_directorist_option('listings_apply_text', __('Apply Filters', 'directorist'));
@@ -1707,6 +1709,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $header_container_fluid = apply_filters('atbdp_listings_header_container_fluid', $listing_header_container_fluid);
             $listing_grid_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
             $grid_container_fluid = apply_filters('atbdp_listings_grid_container_fluid', $listing_grid_container_fluid);
+            $listing_location_address    = get_directorist_option('listing_location_address','map_api');
             ob_start();
             if (!empty($redirect_page_url)) {
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
@@ -2193,7 +2196,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $category_placeholder = get_directorist_option('listings_category_placeholder', __('Select a category', 'directorist'));
                 $location_placeholder = get_directorist_option('listings_location_placeholder', __('Select a location', 'directorist'));
                 //$data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
-                $search_more_filters_fields = get_directorist_option('listing_filters_fields', array('search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields'));
+                $search_more_filters_fields = get_directorist_option('listing_filters_fields', array('search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields','radius_search'));
                 $filters_button = get_directorist_option('listings_filters_button', array('reset_button', 'apply_button'));
                 $reset_filters_text = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
                 $apply_filters_text = get_directorist_option('listings_apply_text', __('Apply Filters', 'directorist'));
@@ -2206,6 +2209,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $header_container_fluid = apply_filters('atbdp_single_cat_header_container_fluid', $listing_header_container_fluid);
                 $listing_grid_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                 $grid_container_fluid = apply_filters('atbdp_single_cat_grid_container_fluid', $listing_grid_container_fluid);
+                $listing_location_address    = get_directorist_option('listing_location_address','map_api');
                 ob_start();
                 if (!empty($redirect_page_url)) {
                     $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
@@ -2666,7 +2670,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $sort_by_text = get_directorist_option('sort_by_text', __('Sort By', 'directorist'));
                 $view_as_text = get_directorist_option('view_as_text', __('View As', 'directorist'));
                 //  $data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
-                $search_more_filters_fields = get_directorist_option('listing_filters_fields', array('search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields'));
+                $search_more_filters_fields = get_directorist_option('listing_filters_fields', array('search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields','radius_search'));
                 $filters_button = get_directorist_option('listings_filters_button', array('reset_button', 'apply_button'));
                 $reset_filters_text = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
                 $apply_filters_text = get_directorist_option('listings_apply_text', __('Apply Filters', 'directorist'));
@@ -2677,6 +2681,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $header_container_fluid = apply_filters('atbdp_single_loc_header_container_fluid', $listing_header_container_fluid);
                 $listing_grid_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                 $grid_container_fluid = apply_filters('atbdp_single_loc_grid_container_fluid', $listing_grid_container_fluid);
+                $listing_location_address    = get_directorist_option('listing_location_address','map_api');
                 ob_start();
                 if (!empty($redirect_page_url)) {
                     $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
@@ -3055,7 +3060,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $category_placeholder = get_directorist_option('listings_category_placeholder', __('Select a category', 'directorist'));
                 $location_placeholder = get_directorist_option('listings_location_placeholder', __('Select a location', 'directorist'));
                 //$data_for_template            = compact('all_listings', 'all_listing_title', 'paged', 'paginate');
-                $search_more_filters_fields = get_directorist_option('listing_filters_fields', array('search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields'));
+                $search_more_filters_fields = get_directorist_option('listing_filters_fields', array('search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields','radius_search'));
                 $filters_button = get_directorist_option('listings_filters_button', array('reset_button', 'apply_button'));
                 $reset_filters_text = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
                 $apply_filters_text = get_directorist_option('listings_apply_text', __('Apply Filters', 'directorist'));
@@ -3068,6 +3073,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $header_container_fluid = apply_filters('atbdp_single_tag_header_container_fluid', $listing_header_container_fluid);
                 $listing_grid_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                 $grid_container_fluid = apply_filters('atbdp_single_tag_grid_container_fluid', $listing_grid_container_fluid);
+                $listing_location_address    = get_directorist_option('listing_location_address','map_api');
                 ob_start();
                 if (!empty($redirect_page_url)) {
                     $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
@@ -3099,18 +3105,20 @@ if (!class_exists('ATBDP_Shortcode')):
         public function search_listing($atts, $content = null)
         {
             //include ATBDP_DIR .'public/assets/css/style.php';
-            $search_title = get_directorist_option('search_title', __("Search here", 'directorist'));
-            $search_subtitle = get_directorist_option('search_subtitle', __("Find the best match of your interest
+            $search_title               = get_directorist_option('search_title', __("Search here", 'directorist'));
+            $search_subtitle            = get_directorist_option('search_subtitle', __("Find the best match of your interest
 ", 'directorist'));
-            $search_fields = get_directorist_option('search_tsc_fields', array('search_text', 'search_category', 'search_location'));
-            $search_more_filter = get_directorist_option('search_more_filter', 1);
-            $search_button = get_directorist_option('search_button', 1);
-            $search_more_filters_fields = get_directorist_option('search_more_filters_fields', array('search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields'));
-            $search_filters = get_directorist_option('search_filters', array('search_reset_filters', 'search_apply_filters'));
-            $search_more_filters = get_directorist_option('search_more_filters', __('More Filters', 'directorist'));
-            $search_listing_text = get_directorist_option('search_listing_text', __('Search Listing', 'directorist'));
-            $search_reset_text = get_directorist_option('search_reset_text', __('Reset Filters', 'directorist'));
-            $search_apply_text = get_directorist_option('search_apply_filter', __('Apply Filters', 'directorist'));
+            $search_fields              = get_directorist_option('search_tsc_fields', array('search_text', 'search_category', 'search_location'));
+            $search_more_filter         = get_directorist_option('search_more_filter', 1);
+            $search_button              = get_directorist_option('search_button', 1);
+            $search_more_filters_fields = get_directorist_option('search_more_filters_fields', array('search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields','radius_search'));
+            $search_filters             = get_directorist_option('search_filters', array('search_reset_filters', 'search_apply_filters'));
+            $search_more_filters        = get_directorist_option('search_more_filters', __('More Filters', 'directorist'));
+            $search_listing_text        = get_directorist_option('search_listing_text', __('Search Listing', 'directorist'));
+            $search_reset_text          = get_directorist_option('search_reset_text', __('Reset Filters', 'directorist'));
+            $search_apply_text          = get_directorist_option('search_apply_filter', __('Apply Filters', 'directorist'));
+            $search_location_address    = get_directorist_option('search_location_address', 'address');
+            $filters_display            = get_directorist_option('home_display_filter', 'overlapping');
             $atts = shortcode_atts(array(
                 'show_title_subtitle' => 'yes',
                 'search_bar_title' => !empty($search_title) ? $search_title : '',
@@ -3134,12 +3142,14 @@ if (!class_exists('ATBDP_Shortcode')):
                 'fax' => in_array('search_fax', $search_more_filters_fields) ? 'yes' : '',
                 'address_field' => in_array('search_address', $search_more_filters_fields) ? 'yes' : '',
                 'zip_code_field' => in_array('search_zip_code', $search_more_filters_fields) ? 'yes' : '',
+                'radius_search' => in_array('radius_search', $search_more_filters_fields) ? 'yes' : '',
                 'reset_filters_button' => in_array('search_reset_filters', $search_filters) ? 'yes' : '',
                 'apply_filters_button' => in_array('search_apply_filters', $search_filters) ? 'yes' : '',
                 'reset_filters_text' => !empty($search_reset_text) ? $search_reset_text : 'Reset Filters',
                 'apply_filters_text' => !empty($search_apply_text) ? $search_apply_text : 'Apply Filters',
                 'logged_in_user_only' => '',
-                'redirect_page_url' => ''
+                'redirect_page_url' => '',
+                'more_filters_display' => !empty($filters_display) ? $filters_display : 'overlapping'
             ), $atts);
 
             $search_bar_title = (!empty($atts['search_bar_title'])) ? $atts['search_bar_title'] : '';
@@ -3164,14 +3174,15 @@ if (!class_exists('ATBDP_Shortcode')):
             $fax = (!empty($atts['fax']) && 'yes' == $atts['fax']) ? $atts['fax'] : '';
             $address_field = (!empty($atts['address_field']) && 'yes' == $atts['address_field']) ? $atts['address_field'] : '';
             $zip_code_field = (!empty($atts['zip_code_field']) && 'yes' == $atts['zip_code_field']) ? $atts['zip_code_field'] : '';
+            $radius_search = (!empty($atts['radius_search']) && 'yes' == $atts['radius_search']) ? $atts['radius_search'] : '';
             $reset_filters_button = (!empty($atts['reset_filters_button']) && 'yes' == $atts['reset_filters_button']) ? $atts['reset_filters_button'] : '';
             $apply_filters_button = (!empty($atts['apply_filters_button']) && 'yes' == $atts['apply_filters_button']) ? $atts['apply_filters_button'] : '';
             $reset_filters_text = (!empty($atts['reset_filters_text'])) ? $atts['reset_filters_text'] : '';
             $apply_filters_text = (!empty($atts['apply_filters_text'])) ? $atts['apply_filters_text'] : '';
             $show_title_subtitle = ('yes' === $atts['show_title_subtitle']) ? $atts['show_title_subtitle'] : '';
-            $filters_display = get_directorist_option('home_display_filter', 'overlapping');
             $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
             $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
+            $filters_display = !empty($atts['more_filters_display']) ? $atts['more_filters_display'] : 'overlapping';
             ob_start();
             if (!empty($redirect_page_url)) {
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';

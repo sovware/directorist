@@ -69,6 +69,9 @@
       display: flex;
       span {
         margin-right: 10px;
+        width: auto;
+        height: auto;
+        top: 0;
       }
       .atbd_action {
         border: 1px solid $border-color;
@@ -205,6 +208,7 @@
   .atbd_embeded_video {
     width: 100%;
     height: 400px;
+    border: 0 none;
   }
   .atbd_google_map {
     height: 310px;

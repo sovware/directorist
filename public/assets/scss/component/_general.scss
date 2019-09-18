@@ -5,6 +5,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
   direction: ltr;
   text-align: left;
 }
+#directorist.atbd_wrapper{
+  clear: both;
+}
 
 #directorist.atbd_wrapper input[type="radio"] {
   padding: 0 0 0 10px;
@@ -101,6 +104,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
     list-style: none;
     margin: 0;
     padding: 0;
+    border: 0 none;
   }
 
   .atbd_header_bar {
@@ -380,6 +384,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   .form-control {
     padding: 10px 15px;
     height: auto;
+    line-height: 1.5 !important;
     &[type="time"], &[type="date"] {
       padding: 9px 15px;
     }
@@ -387,6 +392,23 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
   textarea.form-control {
     padding-top: 0;
+  }
+}
+
+.at-modal{
+  .at-modal-content {
+    #atbdp-report-abuse-form {
+      width: 100%;
+      padding: 20px;
+
+      textarea {
+        margin-top: 10px;
+        padding-top: 10px;
+      }
+    }
+    .atm-contents-inner{
+      box-shadow: 0 5px 20px rgba($primary, 0.2);
+    }
   }
 }
 
@@ -411,21 +433,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
       align-items: center;
       justify-content: center;
       text-decoration: none;
-    }
-  }
-
-  .at-modal-content {
-    #atbdp-report-abuse-form {
-      width: 100%;
-      padding: 20px;
-
-      textarea {
-        margin-top: 10px;
-        padding-top: 10px;
-      }
-    }
-    .atm-contents-inner{
-      box-shadow: 0 5px 20px rgba($primary, 0.2);
     }
   }
 
@@ -817,7 +824,17 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
 
   .select2-selection__arrow {
-    height: 42px !important;
+    height: 100% !important;
+    &:before{
+      position: absolute;
+      top: 50%;
+      right: 5px;
+      -webkit-transform: translateY(-50%);
+      -moz-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      -o-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }
   }
 }
 
@@ -842,4 +859,27 @@ body.atbd_content_active #directorist.atbd_wrapper {
   input{
     margin-bottom: 0 !important;
   }
+}
+.sweet-alert {
+  .sa-button-container {
+    margin-bottom: 15px;
+  }
+  fieldset > input{
+    display: none;
+  }
+}
+#directorist.atbd_wrapper .select2.select2-container{
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+}
+
+//icons style reset
+#directorist.atbd_wrapper i[class*="fa-"],
+#directorist.atbd_wrapper span[class*="fa-"]{
+  width: auto;
+  height: auto;
+  top: 0;
 }

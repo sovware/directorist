@@ -66,6 +66,10 @@ if ( !class_exists('BD_Map_Widget')) {
                     if('openstreet' == $select_listing_map) {
                         wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array( 'jquery' ), ATBDP_VERSION, true );
                         wp_enqueue_script( 'openstreet_layer' );
+                        wp_localize_script('openstreet_layer', 'atbdp_map', array(
+                            'Overlays' => __('Overlays','directorist'),
+                            'base_layer' => __('Base Layer','directorist')
+                        ));
                     }
                     ?>
                     <script>
@@ -116,7 +120,7 @@ if ( !class_exists('BD_Map_Widget')) {
 
                             let mymap = (lon, lat) => {
                                 map.addLayer(new OpenLayers.Layer.OSM());
-                                let pois = new OpenLayers.Layer.Text( "My Points",
+                                let pois = new OpenLayers.Layer.Text( "<?php _e('My Points','directorist');?>",
                                     { location:"",
                                         projection: map.displayProjection
                                     });

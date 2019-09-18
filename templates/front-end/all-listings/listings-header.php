@@ -175,6 +175,7 @@ if ($display_header == 'yes') { ?>
                                             </div>
                                         <?php }
                                         if (in_array('search_location', $search_more_filters_fields)) {
+                                            if('listing_location' == $listing_location_address) {
                                             $slug = !empty($term_slug) ? $term_slug : '';
                                             $location_by_slug = get_term_by('slug', $slug, ATBDP_LOCATION);
                                             if (!empty($location_by_slug)) {
@@ -209,7 +210,23 @@ if ($display_header == 'yes') { ?>
                                                     </select>
                                                 </div>
                                             </div>
-                                        <?php } ?>
+                                        <?php }else{ ?>
+                                                <div class="col-md-6 col-sm-12 col-lg-4">
+                                                    <div class="atbdp_map_address_field"><div class="atbdp_get_address_field">
+                                                        <input type="text" name="address" id="address"
+                                                               value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>"
+                                                               placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist'); ?>"
+                                                               class="form-control location-name"><span class="atbd_get_loc la la-crosshairs"></span>
+                                                        </div>
+                                                        <div id="address_result">
+                                                            <ul></ul>
+                                                        </div>
+                                                        <input type="hidden" id="cityLat" name="cityLat" value="" />
+                                                        <input type="hidden" id="cityLng" name="cityLng" value="" />
+                                                    </div>
+                                                </div>
+                                            <?php }
+                                        } ?>
                                         <?php
                                         /**
                                          * @since 5.0
@@ -282,6 +299,20 @@ if ($display_header == 'yes') { ?>
                                             } ?>><?php _e('1 Star & Up', 'directorist'); ?></option>
                                         </select>
                                     </div><!-- ends: .form-group -->
+                                <?php if ('map_api' == $listing_location_address && in_array('radius_search', $search_more_filters_fields)) { ?>
+                                        <div class="form-group">
+                                            <div class="atbdpr-range rs-primary">
+                                                <span><?php _e('Radius Search','directorist'); ?></span>
+                                                <div class="atbd_slider-range-wrapper">
+                                                    <div class="atbd_slider-range"></div>
+                                                    <p class="d-flex justify-content-between">
+                                                        <span class="atbdpr_amount"></span>
+                                                    </p>
+                                                    <input type="hidden" id="atbd_rs_value" name="miles" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
                                 <?php }
                                 if (in_array('search_open_now', $search_more_filters_fields) && in_array('directorist-business-hours/bd-business-hour.php', apply_filters('active_plugins', get_option('active_plugins')))) { ?>
                                     <div class="form-group">
@@ -365,14 +396,6 @@ if ($display_header == 'yes') { ?>
                                                            placeholder="<?php echo !empty($fax_label) ? $fax_label : __('Fax','directorist'); ?>"
                                                            value="<?php echo !empty($_GET['fax']) ? $_GET['fax'] : ''; ?>"
                                                            class="form-control">
-                                                </div>
-                                            <?php }
-                                            if (in_array('search_address', $search_more_filters_fields)) { ?>
-                                                <div>
-                                                    <input type="text" name="address"
-                                                           value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>"
-                                                           placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist'); ?>"
-                                                           class="form-control location-name">
                                                 </div>
                                             <?php }
                                             if (in_array('search_zip_code', $search_more_filters_fields)) { ?>

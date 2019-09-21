@@ -75,8 +75,18 @@ function atbdp_add_marker( $marker, map ) {
     // create marker
     var marker = new google.maps.Marker({
         position  : latlng,
-        map		  : map
+        map		  : map,
+        icon: ' ',
+        label: {
+            fontFamily : "FontAwesome",
+            text: "\uf13d",
+            fontSize: "30px"
+        }
     });
+
+
+
+
 
     // add to array
     map.markers.push( marker );
@@ -137,6 +147,41 @@ function atbdp_center_map( map ) {
 $( '.atbdp-map' ).each(function() {
     atbdp_rander_map( $( this ) );
 });
+    // setTimeout(function() {
+    //
+    //
+    // }, 1500)
+    //
+    // window.addEventListener("load", () => {
+    //     var abc = document.querySelectorAll('div');
+    //     abc.forEach(function (el, index) {
+    //         if(el.innerText === "at_ok"){
+    //             el.innerHTML = '<i class="fa fa-car"></i>';
+    //
+    //         }
+    //     })
+    //
+    //     document.querySelectorAll('div').forEach((el1, index) => {
+    //         if(el1.style.backgroundImage.split("/").pop() === 'm1.png")'){
+    //
+    //             el1.addEventListener('click', () => {
+    //                 setInterval(() => {
+    //                     var abc = document.querySelectorAll('div');
+    //                     abc.forEach(function (el, index) {
+    //
+    //                         if(el.innerText === "at_ok"){
+    //                             el.innerText = " ";
+    //                             el.innerHTML = '<i class="fa fa-car"></i>';
+    //                         }
+    //                     })
+    //                 }, 100)
+    //
+    //             })
+    //         }
+    //     })
+    // })
+
+
 
 
 })(jQuery);

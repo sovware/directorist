@@ -186,6 +186,9 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             $image_id = get_term_meta($term->term_id, 'image', true);
             $image_src = ($image_id) ? wp_get_attachment_url((int)$image_id) : '';
             ?>
+
+
+
             <tr class="form-field term-group-wrap">
                 <th scope="row">
                     <label for="atbdp-categories-image-id"><?php _e('Image', 'directorist'); ?></label>
@@ -543,3 +546,5 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
 
 endif;
+?>
+

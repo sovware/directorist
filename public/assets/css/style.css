@@ -4488,6 +4488,50 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 10px 15px 10px;
 }
 
+.ads-advanced .atbd_seach_fields_wrapper .atbdp_map_address_field {
+  position: relative;
+}
+
+.ads-advanced .atbd_seach_fields_wrapper .atbdp_map_address_field #address_result {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 45px;
+  background: #fff;
+  box-shadow: 0 5px 10px rgba(145, 146, 163, 0.2);
+  border-radius: 3px;
+  z-index: 2;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+.ads-advanced .atbd_seach_fields_wrapper .atbdp_map_address_field #address_result ul li {
+  border-bottom: 1px solid #e3e6ef;
+  padding: 10px 15px 10px;
+}
+
+.ads-advanced .atbd_seach_fields_wrapper .atbdp_map_address_field #address_result ul li a {
+  font-size: 13px;
+  line-height: 22px;
+  display: block;
+}
+
+.ads-advanced .atbd_seach_fields_wrapper .atbdp_get_address_field {
+  position: relative;
+}
+
+.ads-advanced .atbd_seach_fields_wrapper .atbdp_get_address_field #address {
+  padding-right: 35px !important;
+}
+
+.ads-advanced .atbd_seach_fields_wrapper .atbdp_get_address_field span.atbd_get_loc {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
 .atbd_seach_fields_wrapper .atbdp_map_address_field {
   position: relative;
 }
@@ -5024,12 +5068,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbdpr-range .ui-slider-horizontal .ui-slider-range {
-  background: #122069;
+  background: #444752;
 }
 
 .atbdpr-range .ui-slider-horizontal .ui-slider-handle {
   background: #fff;
-  border: 4px solid #122069;
+  border: 4px solid #444752;
   border-radius: 300px;
   cursor: pointer;
   outline: 0;

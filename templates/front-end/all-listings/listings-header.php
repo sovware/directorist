@@ -211,18 +211,19 @@ if ($display_header == 'yes') { ?>
                                                 </div>
                                             </div>
                                         <?php }else{ ?>
-                                                <div>
-                                                    <div class="atbdp_get_address_field">
-                                                    <input type="text" name="address" id="address"
-                                                           value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>"
-                                                           placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist'); ?>"
-                                                           class="form-control location-name"><span class="atbd_get_loc la la-crosshairs"></span>
+                                                <div class="col-md-6 col-sm-12 col-lg-4">
+                                                    <div class="atbdp_map_address_field"><div class="atbdp_get_address_field">
+                                                        <input type="text" name="address" id="address"
+                                                               value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>"
+                                                               placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist'); ?>"
+                                                               class="form-control location-name"><span class="atbd_get_loc la la-crosshairs"></span>
+                                                        </div>
+                                                        <div id="address_result">
+                                                            <ul></ul>
+                                                        </div>
+                                                        <input type="hidden" id="cityLat" name="cityLat" value="" />
+                                                        <input type="hidden" id="cityLng" name="cityLng" value="" />
                                                     </div>
-                                                    <div id="address_result">
-                                                        <ul></ul>
-                                                    </div>
-                                                    <input type="hidden" id="cityLat" name="cityLat" value="" />
-                                                    <input type="hidden" id="cityLng" name="cityLng" value="" />
                                                 </div>
                                             <?php }
                                         } ?>

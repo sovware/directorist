@@ -32,9 +32,11 @@ class ATBDP_User {
 
     public function user_functions_ready_hook()
     {
-        //Allow Contributors/Subscriber to Add Media
+        //Allow Contributors/Subscriber/Customer to Add Media
         $user = wp_get_current_user();
-        if ( (in_array( 'contributor', (array) $user->roles ) || in_array( 'subscriber', (array) $user->roles )) && !current_user_can('upload_files') ) {
+
+        if ( (in_array( 'contributor', (array) $user->roles ) || in_array( 'subscriber', (array) $user->roles ) || in_array( 'customer', (array) $user->roles )) && !current_user_can('upload_files') ) {
+
             add_action('init', array($this, 'allow_contributor_uploads'));
         }
 
@@ -48,9 +50,11 @@ class ATBDP_User {
         /*@todo; this is the temporary solution to let user upload image and listing. After the releasing the plugin, we need to work with custom rules and permission.*/
         $contributor = get_role('contributor');
         $subscriber = get_role('subscriber');
+        $customer = get_role('customer');
 
         $contributor->add_cap('upload_files');
         $subscriber->add_cap('upload_files');
+        $customer->add_cap('upload_files');
     }
 
     /**

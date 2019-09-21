@@ -5259,7 +5259,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'display_publish_date',
-                        'label' => __('Hide Publish Date', 'directorist'),
+                        'label' => __('Display Publish Date', 'directorist'),
                         'default' => '1',
                     ),
                     array(

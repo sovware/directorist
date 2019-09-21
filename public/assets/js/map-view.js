@@ -55,7 +55,6 @@ function atbdp_add_marker( $marker, map ) {
 
     // var
     var latlng = new google.maps.LatLng( $marker.data( 'latitude' ), $marker.data( 'longitude' ) );
-
     // check to see if any of the existing markers match the latlng of the new marker
     if( map.markers.length ) {
         for( var i = 0; i < map.markers.length; i++ ) {
@@ -75,7 +74,7 @@ function atbdp_add_marker( $marker, map ) {
     // create marker
     var marker = new google.maps.Marker({
         position  : latlng,
-        map		  : map
+        map		  : map,
     });
 
     // add to array

@@ -31,6 +31,15 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
         $crop_width                     = get_directorist_option('crop_width', 360);
         $crop_height                    = get_directorist_option('crop_height', 300);
         $address                        = get_post_meta(get_the_ID(), '_address', true);
+        $cats                           = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+        $all_icon                       = get_fa_icons_full();
+        if(!empty($cats)){
+            $cat_icon                       = get_cat_icon($cats[0]->term_id);
+        }
+        if(!empty($cat_icon)) {
+            $font_icon = substr($cat_icon, 3);
+            $icon      = $all_icon[$font_icon];
+        }
         if(!empty($listing_prv_img)) {
 
             $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
@@ -45,7 +54,7 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
         ?>
 
         <?php if( ! empty( $manual_lat ) && ! empty( $manual_lng ) ) : ?>
-            <div class="marker" data-latitude="<?php echo $manual_lat; ?>" data-longitude="<?php echo $manual_lng; ?>">
+            <div class="marker" data-latitude="<?php echo $manual_lat; ?>" data-longitude="<?php echo $manual_lng; ?>" data-icon="<?php echo !empty($icon) ? $icon : '';?>">
                 <?php if(!empty($display_map_info) && (!empty($display_image_map) || !empty($display_title_map)|| !empty($display_address_map) || !empty($display_direction_map))) { ?>
                 <div>
                     <?php if(!empty($display_image_map)) { ?>
@@ -83,6 +92,7 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                         <?php } ?>
                             <?php if(!empty($display_direction_map)) {?>
                             <div class="map_get_dir"><span class="<?php atbdp_icon_type(true); ?>-arrow-right"></span> <a href='http://www.google.com/maps?daddr=<?php echo $manual_lat; ?>,<?php echo $manual_lng; ?></div>' target='_blank'><?php _e('Get Direction', 'directorist') ?></a>
+                            </div>
                         <?php } } ?>
 
                         <?php do_action( 'atbdp_after_listing_content', $post->ID, 'map' ); ?>
@@ -93,5 +103,8 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
             </div>
         <?php endif; ?>
 
-    <?php endwhile; ?>
+    <?php endwhile;
+    wp_reset_postdata();
+    ?>
+
 </div>

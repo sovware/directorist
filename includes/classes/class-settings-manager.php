@@ -687,23 +687,33 @@ if (!class_exists('ATBDP_Settings_Manager')):
         public function get_listings_settings_submenus()
         {
             return apply_filters('atbdp_general_listings_submenus', array(
-                /*Submenu : General Listings*/
+                /*Submenu : General Settings*/
                 array(
-                    'title' => __('General Listings', 'directorist'),
+                    'title' => __('General Settings', 'directorist'),
                     'name' => 'general_listings',
                     'icon' => 'font-awesome:fa-sliders',
                     'controls' => apply_filters('atbdp_general_listings_controls', array(
-                        'all_listing_section' => array(
-                            'type' => 'section',
-                            'title' => __('Listings Page Setting', 'directorist'),
-                            'fields' => $this->get_listings_page_settings_fields(),
-                        ),
                         'emails' => array(
                             'type' => 'section',
-                            'title' => __('General Listings', 'directorist'),
-                            'description' => __('You can Customize all Listings related settings here', 'directorist'),
+                            'title' => __('General Settings', 'directorist'),
+                            'description' => __('You can Customize general settings here', 'directorist'),
                             'fields' => $this->get_general_listings_settings_fields(),
                         )
+                    )),
+                ),
+
+                /*Submenu : Listing form */
+                array(
+                    'title' => __('Listings Page', 'directorist'),
+                    'name' => 'listings_page',
+                    'icon' => 'font-awesome:fa-archive',
+                    'controls' => apply_filters('atbdp_listings_page_controls', array(
+                        'emails' => array(
+                            'type' => 'section',
+                            'title' => __('Listings Page', 'directorist'),
+                            'description' => __('You can Customize Listings page related settings here', 'directorist'),
+                            'fields' => $this->get_archive_page_settings_fields(),
+                        ),
                     )),
                 ),
 
@@ -2247,54 +2257,16 @@ The Administrator of ==SITE_NAME==
             );
         }
 
+
         /**
          * Get all the settings fields for the listings page section
          * @return array
          * @since 4.0.0
          */
-        function get_listings_page_settings_fields()
+        function get_archive_page_settings_fields()
         {
             $business_hours = '(Requires <a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a> extension)';
-            return apply_filters('atbdp_listings_settings_fields', array(
-
-                    'new_listing_status' => array(
-                        'type' => 'select',
-                        'name' => 'new_listing_status',
-                        'label' => __('New Listing\'s Default Status', 'directorist'),
-                        'items' => array(
-                            array(
-                                'value' => 'publish',
-                                'label' => __('Published', 'directorist'),
-                            ),
-                            array(
-                                'value' => 'pending',
-                                'label' => __('Pending', 'directorist'),
-                            ),
-                        ),
-                        'default' => array(
-                            'value' => 'publish',
-                            'label' => __('Published', 'directorist'),
-                        ),
-                    ),
-                    'edit_listing_status' => array(
-                        'type' => 'select',
-                        'name' => 'edit_listing_status',
-                        'label' => __('Edited Listing\'s Default Status', 'directorist'),
-                        'items' => array(
-                            array(
-                                'value' => 'publish',
-                                'label' => __('Published', 'directorist'),
-                            ),
-                            array(
-                                'value' => 'pending',
-                                'label' => __('Pending', 'directorist'),
-                            ),
-                        ),
-                        'default' => array(
-                            'value' => 'publish',
-                            'label' => __('Published', 'directorist'),
-                        ),
-                    ),
+            return apply_filters('atbdp_archive_settings_fields', array(
 
                     'display_listings_header' => array(
                         'type' => 'toggle',
@@ -2685,6 +2657,182 @@ The Administrator of ==SITE_NAME==
                             'value' => 'desc',
                             'label' => __('Descending', 'directorist'),
                         ),
+                    ),
+
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_preview_image',
+                        'label' => __('Show Preview Image', 'directorist'),
+                        'description' => __('Hide/show preview image from all listing page.', 'directorist'),
+                        'default' => 1,
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'thumbnail_cropping',
+                        'label' => __('Preview Image Cropping', 'directorist'),
+                        'description' => __('If the preview images are not in the same size, it helps automatically resizing.', 'directorist'),
+                        'default' => 1,
+                    ),
+                    array(
+                        'type' => 'upload',
+                        'name' => 'default_preview_image',
+                        'label' => __('Default Preview Image', 'directorist'),
+                        'default' => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
+                    ),
+
+                    array(
+                        'type' => 'slider',
+                        'name' => 'crop_width',
+                        'label' => __('Image Cropping Width', 'directorist'),
+                        'min' => '1',
+                        'max' => '1200',
+                        'step' => '1',
+                        'default' => '350',
+
+                    ),
+
+                    array(
+                        'type' => 'slider',
+                        'name' => 'crop_height',
+                        'label' => __('Image Cropping Height', 'directorist'),
+                        'min' => '1',
+                        'max' => '1200',
+                        'step' => '1',
+                        'default' => '260',
+
+                    ),
+
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'info_display_in_single_line',
+                        'label' => __('Display Each Grid Info on Single Line', 'directorist'),
+                        'description' => __('Here Yes means display all the informations (i.e. title, tagline, excerpt etc.) of grid view on single line', 'directorist'),
+                        'default' => '0',
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_title',
+                        'label' => __('Display Title', 'directorist'),
+                        'default' => '1',
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'enable_tagline',
+                        'label' => __('Display Tagline', 'directorist'),
+                        'default' => 0,
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'enable_excerpt',
+                        'label' => __('Display Excerpt', 'directorist'),
+                        'default' => 0,
+                    ),
+                    array(
+                        'type' => 'slider',
+                        'name' => 'excerpt_limit',
+                        'label' => __('Excerpt Words Limit', 'directorist'),
+                        'min' => '5',
+                        'max' => '200',
+                        'step' => '1',
+                        'default' => '20',
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_readmore',
+                        'label' => __('Display Excerpt Readmore', 'directorist'),
+                        'default' => '0',
+                    ),
+                    array(
+                        'type' => 'textbox',
+                        'name' => 'readmore_text',
+                        'label' => __('Read More Text', 'directorist'),
+                        'default' => __('Read More', 'directorist'),
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_price',
+                        'label' => __('Display Price', 'directorist'),
+                        'default' => '1',
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_email',
+                        'label' => __('Display Email', 'directorist'),
+                        'default' => '0',
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_web_link',
+                        'label' => __('Display Web Link', 'directorist'),
+                        'default' => '0',
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_contact_info',
+                        'label' => __('Display Contact Information', 'directorist'),
+                        'default' => '1',
+                    ),
+                    array(
+                        'type' => 'select',
+                        'name' => 'address_location',
+                        'label' => __('Address', 'directorist'),
+                        'items' => array(
+                            array(
+                                'value' => 'location',
+                                'label' => __('Display From Location', 'directorist'),
+                            ),
+                            array(
+                                'value' => 'contact',
+                                'label' => __('Display From Contact Information', 'directorist'),
+                            ),
+                        ),
+                        'description' => __('Choose which address you want to show on listings page', 'directorist'),
+                        /*@todo; later add option to make listing status hidden or invalid for expired listing, so that admin may retain expired listings without having them deleted after the deletion threshold */
+                        'default' => array(
+                            'value' => 'contact',
+                            'label' => __('Contact Information', 'directorist'),
+                        ),
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_publish_date',
+                        'label' => __('Hide Publish Date', 'directorist'),
+                        'default' => '1',
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_category',
+                        'label' => __('Display Category', 'directorist'),
+                        'default' => '1',
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_view_count',
+                        'label' => __('Display View Count', 'directorist'),
+                        'default' => '1',
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'display_author_image',
+                        'label' => __('Display Author Image', 'directorist'),
+                        'default' => '1',
+                    ),
+
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'paginate_all_listings',
+                        'label' => __('Paginate Listings', 'directorist'),
+                        'default' => '1',
+                    ),
+                    array(
+                        'type' => 'slider',
+                        'name' => 'all_listing_page_items',
+                        'label' => __('Listings Per Page', 'directorist'),
+                        'min' => '1',
+                        'max' => '100',
+                        'step' => '1',
+                        'default' => '6',
+                        'validation' => 'numeric|minlength[1]',
                     ),
 
                 )
@@ -5108,6 +5256,44 @@ The Administrator of ==SITE_NAME==
             $e_r_list = atbdp_get_option('enable_rel_listing', 'atbdp_general', 'yes');
 
             return apply_filters('atbdp_all_listings_settings_fields', array(
+                    'new_listing_status' => array(
+                        'type' => 'select',
+                        'name' => 'new_listing_status',
+                        'label' => __('New Listing\'s Default Status', 'directorist'),
+                        'items' => array(
+                            array(
+                                'value' => 'publish',
+                                'label' => __('Published', 'directorist'),
+                            ),
+                            array(
+                                'value' => 'pending',
+                                'label' => __('Pending', 'directorist'),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'pending',
+                            'label' => __('Pending', 'directorist'),
+                        ),
+                    ),
+                    'edit_listing_status' => array(
+                        'type' => 'select',
+                        'name' => 'edit_listing_status',
+                        'label' => __('Edited Listing\'s Default Status', 'directorist'),
+                        'items' => array(
+                            array(
+                                'value' => 'publish',
+                                'label' => __('Published', 'directorist'),
+                            ),
+                            array(
+                                'value' => 'pending',
+                                'label' => __('Pending', 'directorist'),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'pending',
+                            'label' => __('Pending', 'directorist'),
+                        ),
+                    ),
                     array(
                         'type' => 'toggle',
                         'name' => 'fix_js_conflict',
@@ -5134,152 +5320,7 @@ The Administrator of ==SITE_NAME==
                             'label' => __('Line Awesome', 'directorist'),
                         ),
                     ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'display_preview_image',
-                        'label' => __('Show Preview Image', 'directorist'),
-                        'description' => __('Hide/show preview image from all listing page.', 'directorist'),
-                        'default' => 1,
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'thumbnail_cropping',
-                        'label' => __('Preview Image Cropping', 'directorist'),
-                        'description' => __('If the preview images are not in the same size, it helps automatically resizing.', 'directorist'),
-                        'default' => 1,
-                    ),
-                    array(
-                        'type' => 'upload',
-                        'name' => 'default_preview_image',
-                        'label' => __('Default Preview Image', 'directorist'),
-                        'default' => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
-                    ),
 
-                    array(
-                        'type' => 'slider',
-                        'name' => 'crop_width',
-                        'label' => __('Image Cropping Width', 'directorist'),
-                        'min' => '1',
-                        'max' => '1200',
-                        'step' => '1',
-                        'default' => '350',
-
-                    ),
-
-                    array(
-                        'type' => 'slider',
-                        'name' => 'crop_height',
-                        'label' => __('Image Cropping Height', 'directorist'),
-                        'min' => '1',
-                        'max' => '1200',
-                        'step' => '1',
-                        'default' => '260',
-
-                    ),
-
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'info_display_in_single_line',
-                        'label' => __('Display Each Grid Info on Single Line', 'directorist'),
-                        'description' => __('Here Yes means display all the informations (i.e. title, tagline, excerpt etc.) of grid view on single line', 'directorist'),
-                        'default' => '0',
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'display_title',
-                        'label' => __('Display Title', 'directorist'),
-                        'default' => '1',
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'enable_tagline',
-                        'label' => __('Display Tagline', 'directorist'),
-                        'default' => 0,
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'enable_excerpt',
-                        'label' => __('Display Excerpt', 'directorist'),
-                        'default' => 0,
-                    ),
-                    array(
-                        'type' => 'slider',
-                        'name' => 'excerpt_limit',
-                        'label' => __('Excerpt Words Limit', 'directorist'),
-                        'min' => '5',
-                        'max' => '200',
-                        'step' => '1',
-                        'default' => '20',
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'display_readmore',
-                        'label' => __('Display Excerpt Readmore', 'directorist'),
-                        'default' => '0',
-                    ),
-                    array(
-                        'type' => 'textbox',
-                        'name' => 'readmore_text',
-                        'label' => __('Read More Text', 'directorist'),
-                        'default' => __('Read More', 'directorist'),
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'display_price',
-                        'label' => __('Display Price', 'directorist'),
-                        'default' => '1',
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'display_contact_info',
-                        'label' => __('Display Contact Information', 'directorist'),
-                        'default' => '1',
-                    ),
-                    array(
-                        'type' => 'select',
-                        'name' => 'address_location',
-                        'label' => __('Address', 'directorist'),
-                        'items' => array(
-                            array(
-                                'value' => 'location',
-                                'label' => __('Display From Location', 'directorist'),
-                            ),
-                            array(
-                                'value' => 'contact',
-                                'label' => __('Display From Contact Information', 'directorist'),
-                            ),
-                        ),
-                        'description' => __('Choose which address you want to show on listings page', 'directorist'),
-                        /*@todo; later add option to make listing status hidden or invalid for expired listing, so that admin may retain expired listings without having them deleted after the deletion threshold */
-                        'default' => array(
-                            'value' => 'contact',
-                            'label' => __('Contact Information', 'directorist'),
-                        ),
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'display_publish_date',
-                        'label' => __('Hide Publish Date', 'directorist'),
-                        'default' => '1',
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'display_category',
-                        'label' => __('Display Category', 'directorist'),
-                        'default' => '1',
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'display_view_count',
-                        'label' => __('Display View Count', 'directorist'),
-                        'default' => '1',
-                    ),
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'display_author_image',
-                        'label' => __('Display Author Image', 'directorist'),
-                        'default' => '1',
-                    ),
                     array(
                         'type' => 'slider',
                         'name' => 'listing_expire_in_days',
@@ -5335,30 +5376,13 @@ The Administrator of ==SITE_NAME==
                             'label' => __('Move to Trash', 'directorist'),
                         ),
                     ),
-
-                    array(
-                        'type' => 'toggle',
-                        'name' => 'paginate_all_listings',
-                        'label' => __('Paginate Listings', 'directorist'),
-                        'default' => '1',
-                    ),
-
                     array(
                         'type' => 'toggle',
                         'name' => 'paginate_author_listings',
                         'label' => __('Paginate Author Listings', 'directorist'),
                         'default' => '1',
                     ),
-                    array(
-                        'type' => 'slider',
-                        'name' => 'all_listing_page_items',
-                        'label' => __('Listings Per Page', 'directorist'),
-                        'min' => '1',
-                        'max' => '100',
-                        'step' => '1',
-                        'default' => '6',
-                        'validation' => 'numeric|minlength[1]',
-                    ),
+
                     array(
                         'type' => 'select',
                         'name' => 'display_author_email',

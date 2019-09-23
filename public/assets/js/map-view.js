@@ -55,7 +55,7 @@ function atbdp_add_marker( $marker, map ) {
 
     // var
     var latlng = new google.maps.LatLng( $marker.data( 'latitude' ), $marker.data( 'longitude' ) );
-
+    //console.log( $marker.data( 'icon' ));
     // check to see if any of the existing markers match the latlng of the new marker
     if( map.markers.length ) {
         for( var i = 0; i < map.markers.length; i++ ) {
@@ -72,19 +72,22 @@ function atbdp_add_marker( $marker, map ) {
         }
     }
 
-    // create marker
+
+
+    //var icons = '\uf105';
     var marker = new google.maps.Marker({
         position  : latlng,
         map		  : map,
         icon: ' ',
         label: {
-            fontFamily : "FontAwesome",
-            text: "\uf13d",
-            fontSize: "30px"
+            text : 'atgm_marker',
+            textIndent: '9999px',
+            visibility: 'hidden'
         }
     });
 
 
+    // create marker
 
 
 
@@ -147,39 +150,42 @@ function atbdp_center_map( map ) {
 $( '.atbdp-map' ).each(function() {
     atbdp_rander_map( $( this ) );
 });
-    // setTimeout(function() {
-    //
-    //
-    // }, 1500)
-    //
-    // window.addEventListener("load", () => {
-    //     var abc = document.querySelectorAll('div');
-    //     abc.forEach(function (el, index) {
-    //         if(el.innerText === "at_ok"){
-    //             el.innerHTML = '<i class="fa fa-car"></i>';
-    //
-    //         }
-    //     })
-    //
-    //     document.querySelectorAll('div').forEach((el1, index) => {
-    //         if(el1.style.backgroundImage.split("/").pop() === 'm1.png")'){
-    //
-    //             el1.addEventListener('click', () => {
-    //                 setInterval(() => {
-    //                     var abc = document.querySelectorAll('div');
-    //                     abc.forEach(function (el, index) {
-    //
-    //                         if(el.innerText === "at_ok"){
-    //                             el.innerText = " ";
-    //                             el.innerHTML = '<i class="fa fa-car"></i>';
-    //                         }
-    //                     })
-    //                 }, 100)
-    //
-    //             })
-    //         }
-    //     })
-    // })
+    setTimeout(function() {
+
+
+    }, 1500)
+
+    window.addEventListener("load", () => {
+        var abc = document.querySelectorAll('div');
+        abc.forEach(function (el, index) {
+            if(el.innerText === "atgm_marker"){
+                el.innerText = " ";
+                el.innerHTML = '<i class="fa fa-car atbd_map_marker_icon"></i>';
+            }
+        });
+
+        document.querySelectorAll('div').forEach((el1, index) => {
+            if(el1.style.backgroundImage.split("/").pop() === 'm1.png")'){
+
+                el1.addEventListener('click', () => {
+                    setInterval(() => {
+                        var abc = document.querySelectorAll('div');
+                        abc.forEach(function (el, index) {
+                            if(el.innerText === "atgm_marker"){
+                                el.innerText = " ";
+                                el.innerHTML = '<i class="fa fa-car atbd_map_marker_icon"></i>';
+                            }
+                        })
+                    }, 100)
+
+                });
+            }
+        });
+
+
+
+
+    })
 
 
 

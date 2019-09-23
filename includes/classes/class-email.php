@@ -52,7 +52,7 @@ if (!class_exists('ATBDP_Email')):
         public function atbdp_wp_mail_from()
         {
             $admin_email = get_option('admin_email');
-            return $admin_email;
+            return apply_filters('atbdp_mail_from', $admin_email);
         }
 
         /**

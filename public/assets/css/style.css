@@ -996,6 +996,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   top: 0;
 }
 
+.atbd_map_marker_icon div {
+  display: none !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;
@@ -5474,11 +5478,5 @@ body.atbd_content_active #directorist.atbd_wrapper {
     margin-left: 0;
   }
 }
-.map-icon-label i {
-  font-size: 24px;
-  color: #FFFFFF;
-  line-height: 55px;
-  text-align: center;
-  white-space: nowrap;
-}
+
 /*# sourceMappingURL=map/style.css.map */

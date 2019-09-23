@@ -228,7 +228,7 @@ $query_args = array(
                                                 )); ?>
                                         </div>
                                     <?php } ?>
-                                    <?php if (!empty($display_tagline_field) && empty($display_tagline_for) && !is_pyn_type()) { ?>
+                                    <?php if (!empty($display_tagline_field) && empty($display_tagline_for)) { ?>
                                         <div class="form-group" id="atbdp_excerpt">
                                             <label for="atbdp_excerpt"><?php
                                                 $tagline_label = get_directorist_option('tagline_label', __('Tagline', 'directorist'));

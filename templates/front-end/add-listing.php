@@ -358,7 +358,7 @@ $query_args = array(
                                     do_action('atbdp_add_listing_after_price', $p_id);
                                     ?>
                                     <?php if (!empty($display_excerpt_field) && empty($display_short_desc_for)) { ?>
-                                        <div class="form-group">
+                                        <div class="form-group" id="atbdp_excerpt_area">
                                             <label for="atbdp_excerpt"><?php
                                                 $excerpt_label = get_directorist_option('excerpt_label', __('Short Description/Excerpt', 'directorist'));
                                                 esc_html_e($excerpt_label . ':', 'directorist');
@@ -370,7 +370,14 @@ $query_args = array(
                                                       class="form-control directory_field" cols="30" rows="5"
                                                       placeholder="<?php echo esc_attr($excerpt_placeholder); ?>"><?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?></textarea>
                                         </div>
-                                    <?php } ?>
+                                    <?php }
+
+                                    /**
+                                     * @since 5.10.0
+                                     * It fires after the excerpt field
+                                     */
+                                    do_action('atbdp_add_listing_after_excerpt', $p_id);
+                                    ?>
                                     <!--***********************************************************************
                                          Run the custom field loop to show all published custom fields asign to form
                                          **************************************************************************-->

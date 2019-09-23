@@ -5,6 +5,7 @@
  *
  *  @since    5.0.0
  */
+var at_icon = [];
 function atbdp_rander_map( $el ) {
 
     $el.addClass( 'atbdp-map-loaded' );
@@ -55,7 +56,8 @@ function atbdp_add_marker( $marker, map ) {
 
     // var
     var latlng = new google.maps.LatLng( $marker.data( 'latitude' ), $marker.data( 'longitude' ) );
-    //console.log( $marker.data( 'icon' ));
+
+
     // check to see if any of the existing markers match the latlng of the new marker
     if( map.markers.length ) {
         for( var i = 0; i < map.markers.length; i++ ) {
@@ -72,7 +74,7 @@ function atbdp_add_marker( $marker, map ) {
         }
     }
 
-
+    at_icon.push($marker.data( 'icon' ))
 
     //var icons = '\uf105';
     var marker = new google.maps.Marker({
@@ -108,6 +110,9 @@ function atbdp_add_marker( $marker, map ) {
             }
         });
     };
+
+
+
 
 
 };
@@ -150,43 +155,39 @@ function atbdp_center_map( map ) {
 $( '.atbdp-map' ).each(function() {
     atbdp_rander_map( $( this ) );
 });
-    setTimeout(function() {
-
-
-    }, 1500)
-
     window.addEventListener("load", () => {
-        var abc = document.querySelectorAll('div');
-        abc.forEach(function (el, index) {
-            if(el.innerText === "atgm_marker"){
-                el.innerText = " ";
-                el.innerHTML = '<i class="fa fa-car atbd_map_marker_icon"></i>';
-            }
-        });
 
-        document.querySelectorAll('div').forEach((el1, index) => {
-            if(el1.style.backgroundImage.split("/").pop() === 'm1.png")'){
+            var abc = document.querySelectorAll('div');
+            abc.forEach(function (el, index) {
 
-                el1.addEventListener('click', () => {
-                    setInterval(() => {
-                        var abc = document.querySelectorAll('div');
-                        abc.forEach(function (el, index) {
-                            if(el.innerText === "atgm_marker"){
-                                el.innerText = " ";
-                                el.innerHTML = '<i class="fa fa-car atbd_map_marker_icon"></i>';
-                            }
-                        })
-                    }, 100)
+                if(el.innerText === "atgm_marker"){
+                    console.log(at_icon)
+                    el.innerText = " ";
+                    el.innerHTML = `<i class="la ${at_icon} atbd_map_marker_icon"></i>`;
+                }
+                //${$marker.data('icon')}
+            });
 
-                });
-            }
-        });
+            document.querySelectorAll('div').forEach((el1, index) => {
+                if(el1.style.backgroundImage.split("/").pop() === 'm1.png")'){
 
+                    el1.addEventListener('click', () => {
+                        setInterval(() => {
+                            var abc = document.querySelectorAll('div');
+                            abc.forEach(function (el, index) {
+                                if(el.innerText === "atgm_marker"){
+                                    el.innerText = " ";
+                                    el.innerHTML = `<i class="la ${at_icon} atbd_map_marker_icon"></i>`;
+                                }
+                            })
+                        }, 100)
 
+                    });
+                }
+            });
 
 
     })
-
 
 
 

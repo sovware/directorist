@@ -4,6 +4,14 @@ jQuery(document).ready(function ($) {
             scrollTop: $(top).offset().top
         }, 1000);
     }
+    need_post = false;
+    if ($("input[name='need_post']").length > 0) {
+        $("input[name='need_post']").on('change', function () {
+            if ('yes' === this.value) {
+                need_post = true;
+            }
+        });
+    }
     $('.listing_submit_btn').on('click', function () {
         var w_icon = '<span class="fa fa-exclamation-triangle"></span> ';
 
@@ -27,7 +35,7 @@ jQuery(document).ready(function ($) {
 
             if (match_field) {
                 var value = $(this).val();
-                if ('' === value) {
+                if ('' === value && !need_post) {
                     $(this).parents(".form-group").append('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
                     to_top('#atbdp_custom_field_area');
                     returnValue = false;
@@ -37,7 +45,7 @@ jQuery(document).ready(function ($) {
         //custom field checkbox
         var cus_check = $('.atbdp-checkbox-list input[type="checkbox"]').is(":checked");
         var required_checkbox = custom_field_validator.cus_check;
-        if (false === cus_check && '' !== required_checkbox) {
+        if (false === cus_check && '' !== required_checkbox && !need_post) {
             $('.atbdp-checkbox-list').after('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
             to_top('#atbdp_custom_field_area');
             return false;
@@ -46,7 +54,7 @@ jQuery(document).ready(function ($) {
         //custom field radio
         var cus_radio = $('.atbdp-radio-list input[type="radio"]').is(":checked");
         var required_radio = custom_field_validator.cus_radio;
-        if (false === cus_radio && '' !== required_radio) {
+        if (false === cus_radio && '' !== required_radio && !need_post) {
             $('.atbdp-radio-list').parents(".form-group").append('<span class="atbdp_required">'+ w_icon +'This field is required!</span>');
             to_top('#atbdp_custom_field_area');
             return false;

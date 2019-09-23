@@ -32,14 +32,17 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
         $crop_height                    = get_directorist_option('crop_height', 300);
         $address                        = get_post_meta(get_the_ID(), '_address', true);
         $cats                           = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-        $all_icon                       = get_fa_icons_full();
+        if(!empty($cats)){
+            $cat_icon                       = get_cat_icon($cats[0]->term_id);
+        }
+       /* $all_icon                       = get_fa_icons_full();
         if(!empty($cats)){
             $cat_icon                       = get_cat_icon($cats[0]->term_id);
         }
         if(!empty($cat_icon)) {
             $font_icon = substr($cat_icon, 3);
             $icon      = $all_icon[$font_icon];
-        }
+        }*/
         if(!empty($listing_prv_img)) {
 
             $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
@@ -54,9 +57,10 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
         ?>
 
         <?php if( ! empty( $manual_lat ) && ! empty( $manual_lng ) ) : ?>
-            <div class="marker" data-latitude="<?php echo $manual_lat; ?>" data-longitude="<?php echo $manual_lng; ?>" data-icon="\u<?php echo !empty($icon) ? $icon : '';?>">
+            <div class="marker" data-latitude="<?php echo $manual_lat; ?>" data-longitude="<?php echo $manual_lng; ?>" data-icon="<?php echo !empty($cat_icon) ? $cat_icon : '';?>">
                 <?php if(!empty($display_map_info) && (!empty($display_image_map) || !empty($display_title_map)|| !empty($display_address_map) || !empty($display_direction_map))) { ?>
                 <div>
+                    <input type="hidden" id="icon" value="fa fa-flag">
                     <?php if(!empty($display_image_map)) { ?>
                     <div class="media-left">
                         <a href="<?php the_permalink(); ?>">

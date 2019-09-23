@@ -22,6 +22,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
     <?php if( empty($display_prv_img_for) && !empty($display_prv_field)) { ?>
     <div class="form-group">
         <!-- image container, which can be manipulated with js -->
+        <div id="preview_image_area">
         <div class="listing-prv-img-container">
             <div class="single_prv_attachment">
                 <input class="listing_prv_img" name="listing_prv_img" type="hidden"
@@ -43,6 +44,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
                  ?></a> <br />
             <?php echo get_directorist_option('require_preview_img')?'<span class="atbdp_make_str_red">'.__('(Field is required)', 'directorist').'</span>':''; ?>
         </p>
+    </div>
     </div>
     <?php }
     ?>

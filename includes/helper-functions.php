@@ -4242,3 +4242,20 @@ function add_listing_category_location_filter( $settings,$taxonomy_id,$term_id, 
     return $html;
 
 }
+
+/**
+ * @since 5.10.0
+ * @return boolean
+ */
+function is_pyn_type(){
+    if (class_exists('Post_Your_Need')){
+       $service =  pyn_get_listings_type();
+       if ('service' === $service){
+           return true;
+       }else{
+           return false;
+       }
+    }else{
+        return false;
+    }
+}

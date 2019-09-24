@@ -169,29 +169,17 @@ function atbdp_add_marker( $marker, map ) {
         }
     }
 
-    //console.log($marker.data( 'icon' ));
-
-    /*var ico = $marker.data( 'icon' );
-    var marker = new google.maps.Marker({
-        position  : latlng,
-        map		  : map,
-        icon: ' ',
-        label: {
-            fontFamily: "FontAwesome",
-            text: eval("'\\u"+'f024'+"'")
-        }
-    });*/
     var marker = new Marker({
         position  : latlng,
         map		  : map,
         icon: {
             path: MAP_PIN,
-            fillColor: '#9C27B0',
+            fillColor: 'green',
             fillOpacity: 1,
             strokeColor: '',
             strokeWeight: 0
         },
-        map_icon_label: '<i class="fas fa-home"></i>'
+        map_icon_label: '<i class="la la-home"></i>'
     });
 
 

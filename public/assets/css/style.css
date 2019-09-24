@@ -5484,5 +5484,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   line-height: 55px;
   text-align: center;
   white-space: nowrap;
+  position: relative;
+  top: -20px;
 }
+
 /*# sourceMappingURL=map/style.css.map */

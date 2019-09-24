@@ -168,18 +168,21 @@ function atbdp_add_marker( $marker, map ) {
         }
     }
 
+    var icon = $marker.data( 'icon' );
     var marker = new Marker({
         position  : latlng,
         map		  : map,
         icon: {
             path: MAP_PIN,
-            fillColor: 'green',
+            fillColor: 'red',
             fillOpacity: 1,
             strokeColor: '',
             strokeWeight: 0
         },
         map_icon_label: '<i class="fa '+icon+'"></i>'
     });
+
+
 
 
     // create marker

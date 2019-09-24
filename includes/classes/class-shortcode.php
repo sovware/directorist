@@ -130,14 +130,6 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
             } else {
                 echo '<div class="custom_field_empty_area"></div>';
-                ?>
-                <script>
-                    if (('#custom_field_empty_area').length)         // use this if you are using id to check
-                    {
-                        $('#atbdp-custom-fields-list').empty();
-                    }
-                </script>
-                <?php
                 if ($ajax) {
                     wp_die();
                 }
@@ -1260,6 +1252,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 'logged_in_user_only' => '',
                 'redirect_page_url' => '',
                 'map_height' => !empty($listings_map_height) ? $listings_map_height : 350,
+                'listing_type'=>''
             ), $atts);
 
             $categories = !empty($atts['category']) ? explode(',', $atts['category']) : '';
@@ -1277,6 +1270,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
             $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
             $map_height = !empty($atts['map_height']) ? $atts['map_height'] : '';
+            $listing_type = !empty($atts['listing_type']) ? $atts['listing_type'] : '';
             //for pagination
             $paged = atbdp_get_paged_num();
 
@@ -1729,7 +1723,13 @@ if (!class_exists('ATBDP_Shortcode')):
                     <?php
                 }
             } else {
-                include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                if('service' == $listing_type){
+                    include PYN_TEMPLATES_DIR . "/need-card.php";
+                }else{
+                    //include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                    include BDM_TEMPLATES_DIR . '/map-view.php';
+                }
+
             }
 
             return ob_get_clean();

@@ -180,6 +180,8 @@ function atbdp_add_marker( $marker, map ) {
             text: eval("'\\u"+'f024'+"'")
         }
     });*/
+    var icon = $marker.data( 'icon' );
+    console.log(icon);
     var marker = new Marker({
         position  : latlng,
         map		  : map,
@@ -190,7 +192,7 @@ function atbdp_add_marker( $marker, map ) {
             strokeColor: '',
             strokeWeight: 0
         },
-        map_icon_label: '<i class="fas fa-home"></i>'
+        map_icon_label: '<i class="fa '+icon+'"></i>'
     });
 
 

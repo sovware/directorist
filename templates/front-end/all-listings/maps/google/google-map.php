@@ -60,6 +60,7 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
             <div class="marker" data-latitude="<?php echo $manual_lat; ?>" data-longitude="<?php echo $manual_lng; ?>" data-icon="<?php echo !empty($icon) ? $icon : '';?>">
                 <?php if(!empty($display_map_info) && (!empty($display_image_map) || !empty($display_title_map)|| !empty($display_address_map) || !empty($display_direction_map))) { ?>
                 <div>
+                    <input type="hidden" id="icon" value="fa fa-flag">
                     <?php if(!empty($display_image_map)) { ?>
                     <div class="media-left">
                         <a href="<?php the_permalink(); ?>">

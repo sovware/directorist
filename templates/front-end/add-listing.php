@@ -40,6 +40,7 @@ if (!empty($p_id)) {
     $listing_info['hide_contact_owner'] = get_post_meta($p_id, '_hide_contact_owner', true);
     $listing_info['expiry_date'] = get_post_meta($p_id, '_expiry_date', true);
     $listing_info['t_c_check'] = get_post_meta($p_id, '_t_c_check', true);
+    $listing_info['id_itself'] = $p_id;
 
     extract($listing_info);
     //for editing page

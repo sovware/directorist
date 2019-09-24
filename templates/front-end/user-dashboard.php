@@ -54,6 +54,12 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                     </a>
                                 </li>
                             <?php } ?>
+                                <?php
+                                /**
+                                 * @since 5.10.0
+                                 */
+                                do_action('atbdp_tab_after_my_listings');
+                                ?>
                             <?php if (!empty($my_profile_tab)) { ?>
                                 <li><a href="" class="atbd_tn_link" target="profile"><?php _e($my_profile_tab_text, 'directorist'); ?></a>
                                 </li>
@@ -81,7 +87,6 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                     <!-- Tab panes -->
                     <div class="atbd_tab-content">
                         <?php if (!empty($my_listing_tab)) { ?>
-
                             <div class="atbd_tab_inner tabContentActive" id="my_listings"><div class="row data-uk-masonry">
                                 <?php if ($listings->have_posts()) {
                                     foreach ($listings->posts as $post) {
@@ -294,15 +299,15 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                     </div>
                                 <?php } ?>
                                 </div>
-                                <?php
-                                /**
-                                 * @package Directorist
-                                 * @since 5.5.2
-                                 */
-                                do_action('atbdp_after_loop_dashboard_listings');
-                                ?>
                             </div> <!--ends #my_listings-->
                         <?php } ?>
+                        <?php
+                        /**
+                         * @package Directorist
+                         * @since 5.5.2
+                         */
+                        do_action('atbdp_after_loop_dashboard_listings', $listings);
+                        ?>
                         <?php if (!empty($my_profile_tab)) { ?>
                             <div class="atbd_tab_inner" id="profile">
                                 <form action="#" id="user_profile_form" method="post">

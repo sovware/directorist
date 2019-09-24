@@ -62,7 +62,7 @@ class ATBDP_Listing_DB {
         }else{
             $args['no_found_rows']  = true;
         }
-        return new WP_Query($args);
+        return new WP_Query(apply_filters('atbdp_user_dashboard_query_arguments',$args));
     }
 
     /**

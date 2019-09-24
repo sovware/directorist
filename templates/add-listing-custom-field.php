@@ -8,7 +8,7 @@
                 $cf_required = get_post_meta(get_the_ID(), 'required', true);
                 $instructions = get_post_meta(get_the_ID(), 'instructions', true);
                 ?>
-                <div class="form-group" id="custom_field_for_cat">
+                <div class="form-group custom_field_for_cat" id="custom_field_for_cat">
                     <label for=""><?php the_title(); ?><?php if($cf_required){echo '<span style="color: red"> *</span>'; }
                         if (!empty($instructions)){
                             printf(' <span class="atbd_tooltip atbd_tooltip--fw" aria-label="%s"> <i class="fa fa-question-circle"></i></span>', $instructions);

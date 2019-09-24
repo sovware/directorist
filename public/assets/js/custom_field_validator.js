@@ -11,6 +11,10 @@ jQuery(document).ready(function ($) {
                 need_post = true;
             }
         });
+       var is_need = $("input[name='need_post']").val();
+       if (is_need){
+           need_post = true;
+       }
     }
     $('.listing_submit_btn').on('click', function () {
         var w_icon = '<span class="fa fa-exclamation-triangle"></span> ';

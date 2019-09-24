@@ -130,14 +130,6 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
             } else {
                 echo '<div class="custom_field_empty_area"></div>';
-                ?>
-                <script>
-                    if (('#custom_field_empty_area').length)         // use this if you are using id to check
-                    {
-                        $('#atbdp-custom-fields-list').empty();
-                    }
-                </script>
-                <?php
                 if ($ajax) {
                     wp_die();
                 }

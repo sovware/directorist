@@ -1730,7 +1730,6 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
             } else {
                 include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
-                //include BDM_TEMPLATES_DIR . '/map-view.php';
             }
 
             return ob_get_clean();

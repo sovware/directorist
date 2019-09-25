@@ -1605,7 +1605,7 @@ function atbdp_listings_count_by_category($term_id)
                 'include_children' => true
             )
         ),
-        'meta_query'  => array(
+        'meta_query'  => apply_filters('atbdp_listings_with_category_meta_query',array(
             'relation' => 'OR',
             array(
                 'key' => '_expiry_date',
@@ -1616,8 +1616,8 @@ function atbdp_listings_count_by_category($term_id)
             array(
                 'key' => '_never_expire',
                 'value' => 1,
-            )
-        ),
+            ),
+        ))
     );
     return count(get_posts($args));
 }
@@ -1707,7 +1707,7 @@ function atbdp_listings_count_by_location($term_id)
                 'include_children' => true
             )
         ),
-        'meta_query'  => array(
+        'meta_query'  => apply_filters('atbdp_listings_with_location_meta_query',array(
             'relation' => 'OR',
             array(
                 'key' => '_expiry_date',
@@ -1718,8 +1718,8 @@ function atbdp_listings_count_by_location($term_id)
             array(
                 'key' => '_never_expire',
                 'value' => 1,
-            )
-        ),
+            ),
+        ))
     );
 
     return count(get_posts($args));
@@ -1812,7 +1812,7 @@ function atbdp_listings_count_by_tag($term_id)
                 'include_children' => true
             )
         ),
-        'meta_query'  => array(
+        'meta_query'  => apply_filters('atbdp_listings_with_tag_meta_query',array(
             'relation' => 'OR',
             array(
                 'key' => '_expiry_date',
@@ -1823,8 +1823,8 @@ function atbdp_listings_count_by_tag($term_id)
             array(
                 'key' => '_never_expire',
                 'value' => 1,
-            )
-        ),
+            ),
+        ))
     );
 
     return count(get_posts($args));

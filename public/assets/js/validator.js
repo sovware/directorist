@@ -77,7 +77,7 @@ jQuery(document).ready(function ($) {
         if ($("#at_biz_dir-location").length > 0) {
             var location = $("#at_biz_dir-location").val();
             var required_location = add_listing_validator.location;
-            if (null === location && '' !== required_location) {
+            if (null === location && '' !== required_location && !need_post) {
                 $("#atbdp_locations").append('<span class="atbdp_required">' + w_icon + required_location + '</span>');
                 to_top('#atbdp_locations');
                 return false;
@@ -202,7 +202,7 @@ jQuery(document).ready(function ($) {
         if ($("#no_image_set").length > 0) {
             var gallery_image = $("#no_image_set").length;
             var required_gallery_image = add_listing_validator.gallery_image;
-            if (1 === gallery_image && '' !== required_gallery_image) {
+            if (1 === gallery_image && '' !== required_gallery_image && !need_post) {
                 $(".listing-img-container").append('<span class="atbdp_required">' + w_icon + required_gallery_image + '</span>');
                 return false;
             }
@@ -212,7 +212,7 @@ jQuery(document).ready(function ($) {
         if ($("input[name='videourl']").length > 0) {
             var video = $("input[name='videourl']").val();
             var required_video = add_listing_validator.video;
-            if ('' === video && '' !== required_video) {
+            if ('' === video && '' !== required_video && !need_post) {
                 $("input[name='videourl']").after('<span class="atbdp_required">' + w_icon + required_video + '</span>');
                 return false;
             }

@@ -2182,7 +2182,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         };
                         break;
                 }
-
+                $meta_queries = apply_filters('atbdp_single_category_meta_queries', $meta_queries);
                 $count_meta_queries = count($meta_queries);
                 if ($count_meta_queries) {
                     $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
@@ -2654,7 +2654,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         };
                         break;
                 }
-
+                $meta_queries = apply_filters('atbdp_single_location_meta_queries', $meta_queries);
                 $count_meta_queries = count($meta_queries);
                 if ($count_meta_queries) {
                     $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
@@ -3046,7 +3046,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         };
                         break;
                 }
-
+                $meta_queries = apply_filters('atbdp_single_tag_meta_queries', $meta_queries);
                 $count_meta_queries = count($meta_queries);
                 if ($count_meta_queries) {
                     $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;

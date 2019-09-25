@@ -943,7 +943,7 @@ $query_args = array(
                                 }
 
                                  if (empty($display_address_for ) || !empty($display_address_field)) { ?>
-                                    <div class="atbd_content_module atbd_contact_information">
+                                    <div class="atbd_content_module">
                                         <div class="atbd_content_module__tittle_area">
                                             <div class="atbd_area_title">
                                                 <h4><?php esc_html_e('Map', 'directorist') ?></h4>

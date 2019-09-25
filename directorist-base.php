@@ -626,7 +626,7 @@ final class Directorist_Base
                                         <?php
                                         if (empty($disable_single_listing)) {
                                             ?>
-                                            <a href="<?= esc_url(get_post_permalink($pop_post->ID)); ?>"><?= esc_html($pop_post->post_title); ?></a>
+                                            <a href="<?php echo esc_url(get_post_permalink($pop_post->ID)); ?>"><?php echo esc_html($pop_post->post_title); ?></a>
                                             <?php
                                         } else {
                                             echo esc_html($pop_post->post_title);
@@ -641,8 +641,8 @@ final class Directorist_Base
                                     <p class="directory_tag">
                                         <span class="<?php atbdp_icon_type(true); ?>-tags"></span>
                                         <span>
-                                                <a href="<?= ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
-                                                                     <?= esc_html($cats[0]->name); ?>
+                                                <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
+                                                                     <?php echo esc_html($cats[0]->name); ?>
                                                 </a>
                                             <?php
                                             if ($totalTerm > 1) {
@@ -848,7 +848,7 @@ final class Directorist_Base
         $average = ATBDP()->review->get_average($post->ID);
         ?>
         <div class="atbd_rated_stars">
-            <?= ATBDP()->review->print_static_rating($average); ?>
+            <?php echo ATBDP()->review->print_static_rating($average); ?>
         </div>
         <?php
 
@@ -1194,7 +1194,7 @@ final class Directorist_Base
          * @since 5.10.0
          * It fires before review section
          */
-        do_action('atbdp_single_listing_before_review_block', $post->ID);
+
         $enable_review = get_directorist_option('enable_review', 1);
         $approve_immediately = get_directorist_option('approve_immediately', 1);
         $review_duplicate = tract_duplicate_review(wp_get_current_user()->display_name, $post->ID);
@@ -1205,10 +1205,12 @@ final class Directorist_Base
         $reviews = ATBDP()->_get_reviews($post, $review_num);
         $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
         $plan_review = true;
+        $review = true;
+        $allow_review = apply_filters('atbdp_single_listing_before_review_block', $review);
         if (is_fee_manager_active()) {
             $plan_review = is_plan_allowed_listing_review(get_post_meta($post->ID, '_fm_plans', true));
         }
-        if ($plan_review) {
+        if ($plan_review && $allow_review) {
             $count_review = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', 'directorist') : __(' Review', 'directorist');
             ?>
             <div class="atbd_content_module atbd_review_module" id="atbd_reviews_block">
@@ -1231,7 +1233,7 @@ final class Directorist_Base
                             ?>
                             <?php foreach ($reviews as $review) {
                                 ?>
-                                <div class="atbd_single_review atbdp_static" id="single_review_<?= $review->id; ?>">
+                                <div class="atbd_single_review atbdp_static" id="single_review_<?php echo $review->id; ?>">
                                     <div class="atbd_review_top">
                                         <div class="atbd_avatar_wrapper">
                                             <?php $avata_img = get_avatar($review->by_user_id, 32);
@@ -1243,17 +1245,17 @@ final class Directorist_Base
                                                         alt="Avatar Image"><?php } ?></div>
                                             <?php } ?>
                                             <div class="atbd_name_time">
-                                                <p><?= esc_html($review->name); ?></p>
+                                                <p><?php echo esc_html($review->name); ?></p>
                                                 <span class="review_time"><?php
                                                     printf(__('%s ago', 'directorist'), human_time_diff(strtotime($review->date_created), current_time('timestamp'))); ?></span>
                                             </div>
                                         </div>
                                         <div class="atbd_rated_stars">
-                                            <?= ATBDP()->review->print_static_rating($review->rating); ?>
+                                            <?php echo ATBDP()->review->print_static_rating($review->rating); ?>
                                         </div>
                                     </div>
                                     <div class="review_content">
-                                        <p><?= stripslashes(esc_html($review->content)); ?></p>
+                                        <p><?php echo stripslashes(esc_html($review->content)); ?></p>
                                         <!--<a href="#"><span class="fa fa-mail-reply-all"></span>Reply</a>-->
                                     </div>
                                 </div>
@@ -1284,7 +1286,7 @@ final class Directorist_Base
                         <div class="atbd_content_module__tittle_area">
                             <div class="atbd_area_title">
                                 <h4><span class="<?php atbdp_icon_type(true); ?>-star"
-                                          aria-hidden="true"></span><?= !empty($cur_user_review) ? __('Update Review', 'directorist') : __('Leave a Review', 'directorist'); ?>
+                                          aria-hidden="true"></span><?php echo !empty($cur_user_review) ? __('Update Review', 'directorist') : __('Leave a Review', 'directorist'); ?>
                                 </h4>
                             </div>
                         </div>
@@ -1296,7 +1298,7 @@ final class Directorist_Base
 
                                 <!--<input type="email" name="email" class="directory_field" placeholder="Your email" required>-->
                                 <input type="hidden" name="name" class="btn btn-default"
-                                       value="<?= wp_get_current_user()->display_name; ?>"
+                                       value="<?php echo wp_get_current_user()->display_name; ?>"
                                        placeholder="<?php esc_attr_e('Your name', 'directorist'); ?>"
                                        id="reviewer_name">
                                 <?php $avata_img = get_avatar(wp_get_current_user()->ID, 32);
@@ -1312,13 +1314,13 @@ final class Directorist_Base
                                         <div class="atbd_review_current_rating">
                                             <p class="atbd_rating_label"><?php _e('Current Rating:', 'directorist'); ?></p>
                                             <div class="atbd_rated_stars">
-                                                <?= ATBDP()->review->print_static_rating($cur_user_review->rating); ?>
+                                                <?php echo ATBDP()->review->print_static_rating($cur_user_review->rating); ?>
                                             </div>
                                         </div>
                                     <?php } ?>
 
                                     <div class="atbd_review_update_rating">
-                                        <p class="atbd_rating_label"><?= !empty($cur_user_review) ? __('Update Rating:', 'directorist') : __('Your Rating:', 'directorist'); ?></p>
+                                        <p class="atbd_rating_label"><?php echo !empty($cur_user_review) ? __('Update Rating:', 'directorist') : __('Your Rating:', 'directorist'); ?></p>
                                         <div class="atbd_rating_stars">
                                             <select class="stars" name="rating" id="review_rating">
                                                 <option value="1">1</option>
@@ -1332,7 +1334,7 @@ final class Directorist_Base
                                 </div>
                                 <div class="form-group">
                                 <textarea name="content" id="review_content" class="form-control" cols="20" rows="5"
-                                          placeholder="<?= !empty($cur_user_review) ? __('Update your review.....', 'directorist') : __('Write your review.....', 'directorist'); ?>"><?= !empty($cur_user_review) ? stripslashes($cur_user_review->content) : ''; ?></textarea>
+                                          placeholder="<?php echo !empty($cur_user_review) ? __('Update your review.....', 'directorist') : __('Write your review.....', 'directorist'); ?>"><?php echo !empty($cur_user_review) ? stripslashes($cur_user_review->content) : ''; ?></textarea>
                                 </div>
 
                                 <!-- <div class="form-group">
@@ -1348,10 +1350,10 @@ final class Directorist_Base
                                 <!--If current user has a review then show him update and delete button-->
 
                                 <?php if (!empty($cur_user_review)) { ?>
-                                    <button class="<?= atbdp_directorist_button_classes(); ?>" type="submit"
+                                    <button class="<?php echo atbdp_directorist_button_classes(); ?>" type="submit"
                                             id="atbdp_review_form_submit"><?php _e('Update', 'directorist'); ?></button> <!-- ends update  button -->
                                     <button class="btn btn-danger" type="button" id="atbdp_review_remove"
-                                            data-review_id="<?= $cur_user_review->id; ?>"><?php _e('Remove', 'directorist'); ?></button> <!-- ends delete button -->
+                                            data-review_id="<?php echo $cur_user_review->id; ?>"><?php _e('Remove', 'directorist'); ?></button> <!-- ends delete button -->
                                 <?php } else { ?>
                                     <button class="btn btn-primary" type="submit"
                                             id="atbdp_review_form_submit"><?php _e('Submit Review', 'directorist'); ?></button> <!-- submit button -->

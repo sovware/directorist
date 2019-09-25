@@ -3254,7 +3254,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $args['tax_query'] = $category;
             }
 
-            $args['meta_query'] = array(
+            $args['meta_query'] = apply_filters('atbdp_author_listings_meta_queries',array(
                 'relation' => 'OR',
                 array(
                     'key' => '_expiry_date',
@@ -3266,7 +3266,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     'key' => '_never_expire',
                     'value' => 1,
                 )
-            );
+            ));
 
 
             $all_listings = new WP_Query($args);

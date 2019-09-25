@@ -2343,7 +2343,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                                 $author = get_userdata($author_id);
                                                 ?>
                                                 <div class="atbd_author">
-                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" class="atbd_tooltip"
+                                                    <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" class="atbd_tooltip"
                                                        aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>"><?php if (empty($u_pro_pic)) {
                                                             echo $avata_img;
                                                         }
@@ -2422,7 +2422,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                                 <?php
                                                 if (empty($disable_single_listing)) {
                                                     ?>
-                                                    <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
+                                                    <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                                     <?php
                                                 } else {
                                                     echo esc_html(stripslashes(get_the_title()));
@@ -2783,7 +2783,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                     $author = get_userdata($author_id);
                                                     ?>
                                                     <div class="atbd_author">
-                                                        <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" class="atbd_tooltip"
+                                                        <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" class="atbd_tooltip"
                                                            aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>"><?php if (empty($u_pro_pic)) {
                                                                 echo $avata_img;
                                                             }
@@ -2864,7 +2864,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price)
                                                         <?php
                                                         if (empty($disable_single_listing)) {
                                                             ?>
-                                                            <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
+                                                            <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                                             <?php
                                                         } else {
                                                             echo esc_html(stripslashes(get_the_title()));
@@ -3233,7 +3233,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                         <?php
                                         if (empty($disable_single_listing)) {
                                             ?>
-                                            <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
+                                            <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                             <?php
                                         } else {
                                             echo esc_html(stripslashes(get_the_title()));

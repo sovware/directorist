@@ -248,7 +248,7 @@ wp_reset_postdata();
                 <label for="videourl"><?php
                     $video_label = get_directorist_option('video_label', __('Video Url', ATBDP_TEXTDOMAIN));
                     esc_html_e($video_label.':', ATBDP_TEXTDOMAIN); ?></label>
-                <input type="text" id="videourl"  name="videourl" value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($video_placeholder); ?>"/>
+                <input type="text" id="videourl"  name="videourl" value="<?php echo !empty($videourl) ? esc_url($videourl) : ''; ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($video_placeholder); ?>"/>
             </div>
             <?php do_action('atbdp_video_field',$id); ?>
         </div>

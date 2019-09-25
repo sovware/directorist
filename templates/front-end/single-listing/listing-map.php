@@ -68,9 +68,9 @@ if ('openstreet' == $select_listing_map) {
         // initialize all vars here to avoid hoisting related misunderstanding.
         var map, info_window, saved_lat_lng, info_content;
         saved_lat_lng = {
-            lat:<?= (!empty($manual_lat)) ? floatval($manual_lat) : false ?>,
-            lng: <?= (!empty($manual_lng)) ? floatval($manual_lng) : false ?> }; // default is London city
-        info_content = "<?= $info_content; ?>";
+            lat:<?php echo (!empty($manual_lat)) ? floatval($manual_lat) : false ?>,
+            lng: <?php echo (!empty($manual_lng)) ? floatval($manual_lng) : false ?> }; // default is London city
+        info_content = "<?php echo $info_content; ?>";
         // create an info window for map
         info_window = new google.maps.InfoWindow({
             content: info_content,

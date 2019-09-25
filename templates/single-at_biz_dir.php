@@ -671,7 +671,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                         <div class="atbd_info_title"><span
                                                     class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php _e($address_label, 'directorist'); ?>
                                         </div>
-                                        <div class="atbd_info"><a target="google_map" href="https://www.google.de/maps/search/�<?= esc_html($address); ?>"><?= esc_html($address); ?></a></div>
+                                        <div class="atbd_info"><a target="google_map" href="https://www.google.de/maps/search/�<?php echo esc_html($address); ?>"><?php echo esc_html($address); ?></a></div>
                                     </li>
                                 <?php } ?>
 
@@ -724,7 +724,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                                     class="<?php atbdp_icon_type(true);?>-envelope"></span><?php _e($email_label, 'directorist'); ?>
                                         </div>
                                         <span class="atbd_info"><a target="_top"
-                                                                   href="mailto:<?= esc_html($email); ?>"><?= esc_html($email); ?></a></span>
+                                                                   href="mailto:<?php echo esc_html($email); ?>"><?php echo esc_html($email); ?></a></span>
                                     </li>
                                 <?php } ?>
                                 <?php
@@ -737,8 +737,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                         <div class="atbd_info_title"><span
                                                     class="<?php atbdp_icon_type(true);?>-globe"></span><?php _e($website_label, 'directorist'); ?>
                                         </div>
-                                        <a target="_blank" href="<?= esc_url($website); ?>"
-                                           class="atbd_info" <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?= esc_html($website); ?></a>
+                                        <a target="_blank" href="<?php echo esc_url($website); ?>"
+                                           class="atbd_info" <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html($website); ?></a>
                                     </li>
                                 <?php } ?>
                                 <?php
@@ -748,7 +748,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                         <div class="atbd_info_title"><span
                                                     class="<?php atbdp_icon_type(true);?>-at"></span><?php _e($zip_label, 'directorist'); ?>
                                         </div>
-                                        <div class="atbd_info"><?= esc_html($zip); ?></div>
+                                        <div class="atbd_info"><?php echo esc_html($zip); ?></div>
                                     </li>
                                 <?php } ?>
 
@@ -897,9 +897,9 @@ if ('openstreet' == $select_listing_map) {
         // initialize all vars here to avoid hoisting related misunderstanding.
         var map, info_window, saved_lat_lng, info_content;
         saved_lat_lng = {
-            lat:<?= (!empty($manual_lat)) ? floatval($manual_lat) : false ?>,
-            lng: <?= (!empty($manual_lng)) ? floatval($manual_lng) : false ?> }; // default is London city
-        info_content = "<?= $info_content; ?>";
+            lat:<?php echo (!empty($manual_lat)) ? floatval($manual_lat) : false ?>,
+            lng: <?php echo (!empty($manual_lng)) ? floatval($manual_lng) : false ?> }; // default is London city
+        info_content = "<?php echo $info_content; ?>";
 
         // create an info window for map
         info_window = new google.maps.InfoWindow({

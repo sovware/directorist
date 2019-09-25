@@ -62,7 +62,7 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                             <div class="atbd_info_title"><span
                                         class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php _e($address_label, 'directorist'); ?>
                             </div>
-                            <div class="atbd_info"><a target="google_map" href="https://www.google.de/maps/search/�<?= esc_html($address); ?>"><?= esc_html($address); ?></a></div>
+                            <div class="atbd_info"><a target="google_map" href="https://www.google.de/maps/search/�<?php echo esc_html($address); ?>"><?php echo esc_html($address); ?></a></div>
                         </li>
                     <?php } ?>
                     <?php
@@ -76,7 +76,7 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                             <div class="atbd_info_title"><span
                                         class="<?php atbdp_icon_type(true);?>-phone"></span><?php _e($phone_label, 'directorist'); ?>
                             </div>
-                            <div class="atbd_info"><?= esc_html($phone); ?></div>
+                            <div class="atbd_info"><?php echo esc_html($phone); ?></div>
                         </li>
                     <?php } ?>
                     <?php
@@ -112,7 +112,7 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                                         class="<?php atbdp_icon_type(true);?>-envelope"></span><?php _e($email_label, 'directorist'); ?>
                             </div>
                             <span class="atbd_info"><a target="_top"
-                                                       href="mailto:<?= esc_html($email); ?>"><?= esc_html($email); ?></a></span>
+                                                       href="mailto:<?php echo esc_html($email); ?>"><?php echo esc_html($email); ?></a></span>
                         </li>
                     <?php } ?>
                     <?php
@@ -125,8 +125,8 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                             <div class="atbd_info_title"><span
                                         class="<?php atbdp_icon_type(true);?>-globe"></span><?php _e($website_label, 'directorist'); ?>
                             </div>
-                            <a target="_blank" href="<?= esc_url($website); ?>"
-                               class="atbd_info" <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?= esc_html($website); ?></a>
+                            <a target="_blank" href="<?php echo esc_url($website); ?>"
+                               class="atbd_info" <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html($website); ?></a>
                         </li>
                     <?php } ?>
                     <?php
@@ -136,7 +136,7 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                             <div class="atbd_info_title"><span
                                         class="<?php atbdp_icon_type(true);?>-at"></span><?php _e($zip_label, 'directorist'); ?>
                             </div>
-                            <div class="atbd_info"><?= esc_html($zip); ?></div>
+                            <div class="atbd_info"><?php echo esc_html($zip); ?></div>
                         </li>
                     <?php } ?>
                 </ul>

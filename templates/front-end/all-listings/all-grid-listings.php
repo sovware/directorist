@@ -152,7 +152,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                 $author = get_userdata($author_id);
                                                 ?>
                                                 <div class="atbd_author">
-                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
+                                                    <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
                                                        aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>"
                                                        class="atbd_tooltip"><?php if (empty($u_pro_pic)) {
                                                             echo $avata_img;
@@ -234,7 +234,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                     <?php
                                                     if (empty($disable_single_listing)) {
                                                         ?>
-                                                        <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
+                                                        <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                                         <?php
                                                     } else {
                                                         echo esc_html(stripslashes(get_the_title()));
@@ -361,8 +361,8 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                             ?>
                                                             <li><p>
                                                                     <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
-                                                                    <a target="_blank" href="<?= esc_url($web); ?>"
-                                                                        <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?= esc_html($web); ?></a>
+                                                                    <a target="_blank" href="<?php echo esc_url($web); ?>"
+                                                                        <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html($web); ?></a>
                                                                 </p></li>
                                                         <?php
                                                         endif;

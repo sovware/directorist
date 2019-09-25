@@ -215,10 +215,10 @@ class ATBDP_Helper {
                         <li>
                             <p class="info_title"><?php _e('Category:', 'directorist');?></p>
                             <p class="directory_tag">
-                                <span class="fa <?= esc_attr(get_cat_icon(@$cat->term_id)); ?>" aria-hidden="true"></span>
+                                <span class="fa <?php echo esc_attr(get_cat_icon(@$cat->term_id)); ?>" aria-hidden="true"></span>
                                 <span> <?php if (is_object($cat)) { ?>
-                                        <a href="<?= ATBDP_Permalink::atbdp_get_category_page($cat); ?>">
-                                                                <?= esc_html($cat->name); ?>
+                                        <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cat); ?>">
+                                                                <?php echo esc_html($cat->name); ?>
                                          </a>
                                     <?php } ?>
                                 </span>
@@ -227,8 +227,8 @@ class ATBDP_Helper {
                     <?php } if (!empty($loc)){ ?>
                         <li><p class="info_title"><?php _e('Location:', 'directorist');?>
                                 <span><?php if (is_object($loc)) { ?>
-                                        <a href="<?= ATBDP_Permalink::atbdp_get_location_page($loc); ?>">
-                                                                <?= esc_html($loc->name); ?>
+                                        <a href="<?php echo ATBDP_Permalink::atbdp_get_location_page($loc); ?>">
+                                                                <?php echo esc_html($loc->name); ?>
                                         </a>
                                     <?php } ?>
                                 </span>
@@ -253,7 +253,7 @@ class ATBDP_Helper {
         /*@todo; later make changeable via filter*/
         ?>
         <div class="read_more_area">
-            <a class="btn btn-default " href="<?= esc_url(get_post_permalink($id)); ?>">
+            <a class="btn btn-default " href="<?php echo esc_url(get_post_permalink($id)); ?>">
                 <?php esc_html_e('Read More', 'directorist'); ?>
             </a>
         </div>
@@ -281,10 +281,10 @@ class ATBDP_Helper {
                                 <?php foreach ($cats as $cat) { ?>
                                 <li>
                                     <p class="directory_tag">
-                                        <span class="fa <?= esc_attr(get_cat_icon(@$cat->term_id)); ?>" aria-hidden="true"></span>
+                                        <span class="fa <?php echo esc_attr(get_cat_icon(@$cat->term_id)); ?>" aria-hidden="true"></span>
                                         <span> <?php if (is_object($cat)) { ?>
-                                                <a href="<?= esc_url(ATBDP_Permalink::atbdp_get_category_page($cat)); ?>">
-                                                  <?= esc_html($cat->name); ?>
+                                                <a href="<?php echo esc_url(ATBDP_Permalink::atbdp_get_category_page($cat)); ?>">
+                                                  <?php echo esc_html($cat->name); ?>
                                                  </a>
                                             <?php } ?>
                                         </span>
@@ -304,8 +304,8 @@ class ATBDP_Helper {
                                 <?php foreach ($locs as $loc) { $location_count--;// reduce count to display comma for the right item?>
                                     <li>
                                     <span><?php if (is_object($loc)) { ?>
-                                            <a href="<?= esc_url(ATBDP_Permalink::atbdp_get_location_page($loc)); ?>">
-                                                <?= esc_html($loc->name); ?>
+                                            <a href="<?php echo esc_url(ATBDP_Permalink::atbdp_get_location_page($loc)); ?>">
+                                                <?php echo esc_html($loc->name); ?>
                                             </a>
                                         <?php } ?>
                                     </span><?php

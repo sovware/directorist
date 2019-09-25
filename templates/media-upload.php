@@ -44,16 +44,16 @@ $active_mi_ext = is_multiple_images_active(); // default is no
                 foreach ($image_links as $id => $image_link) { ?>
                     <div class="single_attachment">
                         <input class="listing_image_attachment" name="listing_img[]" type="hidden"
-                               value="<?= intval($id); ?>">
+                               value="<?php echo intval($id); ?>">
                         <img style="width: 100%; height: 100%;"
-                             src="<?= esc_url($image_link) ?>"
+                             src="<?php echo esc_url($image_link) ?>"
                              alt="<?php esc_attr_e('Listing Image', 'directorist'); ?>">
                         <span class="remove_image  dashicons dashicons-dismiss"
-                              title="<?= __('Remove it', 'directorist'); ?>"></span>
+                              title="<?php echo __('Remove it', 'directorist'); ?>"></span>
                     </div>
                 <?php }  // ends foreach for looping image
             } else { ?>
-                <img src="<?= esc_url(ATBDP_ADMIN_ASSETS . 'images/no-image.png'); ?>"
+                <img src="<?php echo esc_url(ATBDP_ADMIN_ASSETS . 'images/no-image.png'); ?>"
                      alt="<?php esc_attr_e('No Image Found', 'directorist'); ?>">
                 <p><?php esc_attr_e('No Images', 'directorist'); ?></p>
             <?php } //  ends if statement  ?>
@@ -69,7 +69,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
                 <?php $gellery_label = get_directorist_option('gellery_label', __('Upload Slider Images', 'directorist'));
                 esc_html_e($gellery_label, 'directorist'); ?>
             </a>
-            <a id="delete-custom-img" class="btn btn-danger <?= (!empty($image_links)) ? '' : 'hidden' ?>"
+            <a id="delete-custom-img" class="btn btn-danger <?php echo (!empty($image_links)) ? '' : 'hidden' ?>"
                href="#"> <?php echo (1 == $active_mi_ext) ? esc_html__('Remove Images','directorist') : esc_html__('Remove Image','directorist'); ?></a>
         </p>
     </div>

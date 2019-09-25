@@ -52,5 +52,4 @@ if ($plan_review) {
  * @param object|WP_post $post The current post object which is our listing post
  * @param array $listing_info The meta information of the current listing
  */
-do_action('atbdp_after_map', $post, $listing_info); ?>
-
+do_action('atbdp_after_map', $post, $listing_info);

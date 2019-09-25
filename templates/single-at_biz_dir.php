@@ -1,6 +1,11 @@
 <?php
 global $post;
 $listing_id = $post->ID;
+/**
+ * @since 5.10.0
+ * It fires before single listing load
+ */
+do_action('atbdp_before_single_listing_load', $listing_id);
 $fm_plan = get_post_meta($listing_id, '_fm_plans', true);
 /*store all data in an array so that we can pass it to filters for extension to get this value*/
 $listing_info['never_expire'] = get_post_meta($post->ID, '_never_expire', true);

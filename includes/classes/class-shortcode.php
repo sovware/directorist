@@ -1150,6 +1150,8 @@ if (!class_exists('ATBDP_Shortcode')):
                     break;
             }
 
+            $meta_queries = apply_filters('atbdp_search_listings_meta_queries', $meta_queries);
+
             $count_meta_queries = count($meta_queries);
             if ($count_meta_queries) {
                 $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
@@ -1669,13 +1671,14 @@ if (!class_exists('ATBDP_Shortcode')):
                     };
                     break;
             }
-
+            $meta_queries = apply_filters('atbdp_all_listings_meta_queries', $meta_queries);
             $count_meta_queries = count($meta_queries);
             if ($count_meta_queries) {
                 $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
             }
 
-            $all_listings = new WP_Query($args);
+            $arguments = apply_filters('atbdp_all_listings_query_arguments', $args);
+            $all_listings = new WP_Query($arguments);
             $paginate = get_directorist_option('paginate_all_listings');
             if ('yes' == $show_pagination) {
                 $listing_count = '<span>' . $all_listings->found_posts . '</span>';
@@ -1724,10 +1727,14 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
             } else {
                 if('service' == $listing_type){
-                    include PYN_TEMPLATES_DIR . "/need-card.php";
+                    if (class_exists('Post_Your_Need')){
+                        include PYN_TEMPLATES_DIR . "/need-card.php";
+                    }else{
+                        include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                    }
                 }else{
                     include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
-                   // include BDM_TEMPLATES_DIR . '/map-view.php';
+
                 }
 
             }

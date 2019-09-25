@@ -1085,7 +1085,7 @@ $query_args = array(
                                     }
                                     ?>
                                     <?php if ((!empty($display_prv_field) && empty($display_prv_img_for)) || (!empty($display_gellery_field) && empty($display_glr_img_for)) || (empty($display_video_for) && !empty($display_video_field) && $plan_video)) { ?>
-                                        <div class="atbd_content_module">
+                                        <div class="atbd_content_module" id="atbdp_front_media_wrap">
                                             <div class="atbd_content_module__tittle_area">
                                                 <div class="atbd_area_title">
                                                     <h4>

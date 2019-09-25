@@ -142,8 +142,13 @@ if (!class_exists('ATBDP_Listing')):
             if (is_singular(ATBDP_POST_TYPE) && in_the_loop() && is_main_query()) {
                 //include ATBDP_DIR .'public/assets/css/style.php';
                 if (!empty($id)) {
-                    ob_start();
                     global $post;
+                    /**
+                     * @since 5.10.0
+                     * It fires before single listing load
+                     */
+                    do_action('atbdp_before_single_listing_load', $post->ID);
+                    ob_start();
                     $listing_author_id = get_post_field('post_author', $post->ID);
                     $content = get_post_field('post_content', $id);
                     $content = do_shortcode($content);

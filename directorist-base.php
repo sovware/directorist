@@ -1190,6 +1190,11 @@ final class Directorist_Base
      */
     public function show_review($post)
     {
+        /**
+         * @since 5.10.0
+         * It fires before review section
+         */
+        do_action('atbdp_single_listing_before_review_block', $post->ID);
         $enable_review = get_directorist_option('enable_review', 1);
         $approve_immediately = get_directorist_option('approve_immediately', 1);
         $review_duplicate = tract_duplicate_review(wp_get_current_user()->display_name, $post->ID);

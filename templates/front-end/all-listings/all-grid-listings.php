@@ -64,7 +64,6 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     $display_web_link = get_directorist_option('display_web_link', 0);
                     $display_category = get_directorist_option('display_category', 1);
                     $display_view_count = get_directorist_option('display_view_count', 1);
-                    $display_author_image = get_directorist_option('display_author_image', 1);
                     $display_publish_date = get_directorist_option('display_publish_date', 1);
                     $display_contact_info = get_directorist_option('display_contact_info', 1);
                     $display_feature_badge_cart = get_directorist_option('display_feature_badge_cart', 1);
@@ -80,6 +79,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     $disable_bz_hour_listing = get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true);
                     $business_hours = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
                     $author_id = get_the_author_meta('ID');
+                    $display_author_image = get_directorist_option('display_author_image', 1);
                     $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                     $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
                     $avata_img = get_avatar($author_id, 32);

@@ -194,7 +194,7 @@ $column_width           = 100/$search_listing_columns .'%';
                                                 $author = get_userdata($author_id);
                                                 ?>
                                                 <div class="atbd_author">
-                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" class="atbd_tooltip" aria-label="<?php echo $author->first_name.' '.$author->last_name;?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
+                                                    <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" class="atbd_tooltip" aria-label="<?php echo $author->first_name.' '.$author->last_name;?>"><?php if (empty($u_pro_pic)) {echo $avata_img;} if (!empty($u_pro_pic)) { ?>
                                                             <img
                                                             src="<?php echo esc_url($u_pro_pic[0]); ?>"
                                                             alt="Author Image"><?php } ?>
@@ -269,14 +269,14 @@ $column_width           = 100/$search_listing_columns .'%';
                                                 <?php
                                                 if (empty($disable_single_listing)){
                                                     ?>
-                                                    <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
+                                                    <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                                     <?php
                                                 }else{
                                                     echo esc_html(stripslashes(get_the_title()));
                                                 }?>
                                             </h4>
                                             <?php } if(!empty($tagline) && !empty($enable_tagline) && !empty($display_tagline_field)) { ?>
-                                            <p class="atbd_listing_tagline"><?= esc_html(stripslashes($tagline)); ?></p>
+                                            <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                             <?php } /**
                                              * Fires after the title and sub title of the listing is rendered
                                              *

@@ -82,10 +82,10 @@ $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here'
             </div>
                     <div class="col-md-8 offset-md-2">
                         <div class="directory_register_form_wrap">
-                            <form action="<?= esc_url(get_the_permalink()); ?>" method="post">
+                            <form action="<?php echo esc_url(get_the_permalink()); ?>" method="post">
                                 <div class="form-group">
                                     <label for="username"><?php printf(__('%s', 'directorist'),$username); ?> <strong>*</strong></label>
-                                    <input id="username" class="form-control" type="text" name="username" value="<?= ( isset( $_POST['username'] ) ? esc_attr($_POST['username']) : null ); ?>">
+                                    <input id="username" class="form-control" type="text" name="username" value="<?php echo ( isset( $_POST['username'] ) ? esc_attr($_POST['username']) : null ); ?>">
                                 </div>
                                 <?php if(!empty($display_password_reg)) {?>
                                 <div class="form-group">
@@ -93,40 +93,40 @@ $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here'
                                         <?php printf(__('%s ', 'directorist'),'Password');
                                         echo !empty($require_password) ? '<strong>*</strong>': '';
                                     ?></label>
-                                    <input id="password" class="form-control" type="password" name="password" value="<?= ( isset( $_POST['password'] ) ? esc_attr($_POST['password']) : null ); ?>">
+                                    <input id="password" class="form-control" type="password" name="password" value="<?php echo ( isset( $_POST['password'] ) ? esc_attr($_POST['password']) : null ); ?>">
                                 </div>
                                 <?php } ?>
                                 <div class="form-group">
                                     <label for="email"><?php printf(__('%s', 'directorist'),$email); ?> <strong>*</strong></label>
-                                    <input id="email" class="form-control" type="text" name="email" value="<?= ( isset( $_POST['email']) ? $_POST['email'] : null ); ?>">
+                                    <input id="email" class="form-control" type="text" name="email" value="<?php echo ( isset( $_POST['email']) ? $_POST['email'] : null ); ?>">
                                 </div>
                                 <?php if(!empty($display_website)) { ?>
                                 <div class="form-group">
                                     <label for="website"><?php printf(__('%s ', 'directorist'),$website);
                                     echo !empty($require_website) ? '<strong>*</strong>': '';
                                     ?></label>
-                                    <input id="website" class="form-control" type="text" name="website" value="<?= ( isset( $_POST['website']) ? esc_url($_POST['website']) : null ); ?>">
+                                    <input id="website" class="form-control" type="text" name="website" value="<?php echo ( isset( $_POST['website']) ? esc_url($_POST['website']) : null ); ?>">
                                 </div>
                                 <?php } if(!empty($display_fname)) {?>
                                 <div class="form-group">
                                     <label for="fname"><?php printf(__('%s ', 'directorist'),$first_name);
                                         echo !empty($require_fname) ? '<strong>*</strong>': '';
                                     ?></label>
-                                    <input id="fname" class="form-control" type="text" name="fname" value="<?= ( isset( $_POST['fname']) ? esc_attr($_POST['fname']) : null ); ?>">
+                                    <input id="fname" class="form-control" type="text" name="fname" value="<?php echo ( isset( $_POST['fname']) ? esc_attr($_POST['fname']) : null ); ?>">
                                 </div>
                                 <?php } if(!empty($display_lname)) {?>
                                 <div class="form-group">
                                     <label for="lname"><?php printf(__('%s ', 'directorist'),$last_name);
                                         echo !empty($require_lname) ? '<strong>*</strong>': '';
                                     ?></label>
-                                    <input class="form-control" id="lname" type="text" name="lname" value="<?= ( isset( $_POST['lname']) ? esc_attr($_POST['lname']) : null ); ?>">
+                                    <input class="form-control" id="lname" type="text" name="lname" value="<?php echo ( isset( $_POST['lname']) ? esc_attr($_POST['lname']) : null ); ?>">
                                 </div>
                                 <?php } if(!empty($display_bio)) { ?>
                                 <div class="form-group">
                                     <label for="bio"><?php printf(__('%s ', 'directorist'),$bio);
                                         echo !empty($require_bio) ? '<strong>*</strong>': '';
                                     ?></label>
-                                    <textarea id="bio" class="form-control" name="bio" rows="10"><?= ( isset( $_POST['bio']) ? esc_textarea($_POST['bio']) : null ); ?></textarea>
+                                    <textarea id="bio" class="form-control" name="bio" rows="10"><?php echo ( isset( $_POST['bio']) ? esc_textarea($_POST['bio']) : null ); ?></textarea>
                                 </div>
                                 <?php } ?>
                                 <?php

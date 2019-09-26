@@ -83,7 +83,7 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
                                             <?php
                                             if (empty($disable_single_listing)) {
                                                 ?>
-                                                <a href="<?= esc_url(get_post_permalink($related_listing->ID)); ?>"><?= esc_html($related_listing->post_title); ?></a>
+                                                <a href="<?php echo esc_url(get_post_permalink($related_listing->ID)); ?>"><?php echo esc_html($related_listing->post_title); ?></a>
                                                 <?php
                                             } else {
                                                 echo esc_html($related_listing->post_title);
@@ -106,8 +106,8 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
                                         <p class="directory_tag">
                                             <span class="<?php atbdp_icon_type(true);?>-tags"></span>
                                             <span>
-                                                <a href="<?= ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
-                                                                     <?= esc_html($cats[0]->name); ?>
+                                                <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
+                                                                     <?php echo esc_html($cats[0]->name); ?>
                                                 </a>
                                             <?php
                                             if ($totalTerm > 1) {

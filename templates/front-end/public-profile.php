@@ -37,7 +37,7 @@ $container_fluid = 'container-fluid';
                             src="<?php echo esc_url($u_pro_pic[0]); ?>"
                             alt="Author Image" ><?php } ?>
                         <div class="atbd_auth_nd">
-                            <h2><?= esc_html($author_name); ?></h2>
+                            <h2><?php echo esc_html($author_name); ?></h2>
                             <p><?php
                                 printf(__('Member since %s ago', 'directorist'), human_time_diff(strtotime($user_registered), current_time('timestamp'))); ?></p>
                         </div>
@@ -123,7 +123,7 @@ $container_fluid = 'container-fluid';
                                     ?>
                                     <li>
                                         <span class="<?php atbdp_icon_type(true); ?>-map-marker"></span>
-                                        <span class="atbd_info"><?= !empty($address) ? esc_html($address) : ''; ?></span>
+                                        <span class="atbd_info"><?php echo !empty($address) ? esc_html($address) : ''; ?></span>
                                     </li>
                                     <?php
                                 }
@@ -143,7 +143,7 @@ $container_fluid = 'container-fluid';
                                         ?>
                                         <li>
                                             <span class="<?php atbdp_icon_type(true); ?>-envelope"></span>
-                                            <span class="atbd_info"><?= !empty($email) ? esc_html($email) : ''; ?></span>
+                                            <span class="atbd_info"><?php echo !empty($email) ? esc_html($email) : ''; ?></span>
                                         </li>
                                         <?php
                                     }
@@ -153,7 +153,7 @@ $container_fluid = 'container-fluid';
                                             ?>
                                             <li>
                                                 <span class="<?php atbdp_icon_type(true); ?>-envelope"></span>
-                                                <span class="atbd_info"><?= !empty($email) ? esc_html($email) : ''; ?></span>
+                                                <span class="atbd_info"><?php echo !empty($email) ? esc_html($email) : ''; ?></span>
                                             </li>
                                             <?php
                                         }
@@ -164,7 +164,7 @@ $container_fluid = 'container-fluid';
                                     ?>
                                     <li>
                                         <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
-                                        <span class="atbd_info"><?= !empty($website) ? esc_html($website) : ''; ?></span>
+                                        <span class="atbd_info"><?php echo !empty($website) ? esc_html($website) : ''; ?></span>
                                     </li>
                                     <?php
                                 }

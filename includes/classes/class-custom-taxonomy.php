@@ -32,7 +32,6 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             //add_action( 'admin_menu', array($this,'remove_custom_taxonomy') );
 
 
-
             /*show the select box form field to select an icon*/
             add_action(ATBDP_LOCATION . '_add_form_fields', array($this, 'add_extra_location_field'), 10, 2);
             /*create the meta data*/
@@ -175,7 +174,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             <tr class="form-field term-group-wrap">
             <th scope="row"><label for="category_icon"><?php _e('Category Icon', 'directorist'); ?></label></th>
             <td><select class="postform" id="category_icon" name="category_icon">
-                    <?php foreach ($fa_icons as $_fa_name ) : ?>
+                    <?php foreach ($fa_icons as $_fa_name) : ?>
                         <option value="<?php echo $_fa_name; ?>" <?php selected($_fa_name, $icon_name, true); ?>>
                             <?php echo $_fa_name; ?>
                         </option>
@@ -186,9 +185,6 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             $image_id = get_term_meta($term->term_id, 'image', true);
             $image_src = ($image_id) ? wp_get_attachment_url((int)$image_id) : '';
             ?>
-
-
-
             <tr class="form-field term-group-wrap">
                 <th scope="row">
                     <label for="atbdp-categories-image-id"><?php _e('Image', 'directorist'); ?></label>
@@ -264,7 +260,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             <div class="form-field term-group">
                 <label for="category_icon"><?php _e('Category Icon', 'directorist'); ?></label>
                 <select class="postform" id="category_icon" name="category_icon">
-                    <?php foreach ($fa_icons as $_fa_name ) : ?>
+                    <?php foreach ($fa_icons as $_fa_name) : ?>
                         <option value="<?php echo $_fa_name; ?>">
                             <?php echo $_fa_name; ?>
                         </option>
@@ -397,7 +393,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 'query_var' => true,
                 'public' => true,
                 'show_in_nav_menus' => true,
-                'capabilities'   => $capabilities,
+                'capabilities' => $capabilities,
             );
 
             // get the rewrite slug from the user settings, if exist use it.
@@ -458,7 +454,6 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
             return $empty_string;
         }
-
 
 
         public function display_terms_of_post($post_id, $term_name = 'category')
@@ -540,11 +535,5 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             return false;
 
         }
-
-
     }
-
-
 endif;
-?>
-

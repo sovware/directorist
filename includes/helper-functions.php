@@ -1999,7 +1999,7 @@ function atbdp_get_listings_current_view_name($view)
         $view = sanitize_text_field($_GET['view']);
     }
 
-    $allowed_views = array('list', 'grid', 'map');
+    $allowed_views = array('list', 'grid', 'map','listing_map');
     if (!in_array($view, $allowed_views)) {
         $listing_view = get_directorist_option('default_listing_view');
         $listings_settings = !empty($listing_view) ? $listing_view : 'grid';

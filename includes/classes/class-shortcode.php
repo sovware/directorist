@@ -268,7 +268,6 @@ if (!class_exists('ATBDP_Shortcode')):
             $meta_queries = array();
 
             if (isset($_GET['custom_field'])) {
-
                 $cf = array_filter($_GET['custom_field']);
 
                 foreach ($cf as $key => $values) {
@@ -315,7 +314,6 @@ if (!class_exists('ATBDP_Shortcode')):
             } // end get['cf']
 
             if (isset($_GET['price'])) {
-
                 $price = array_filter($_GET['price']);
 
                 if ($n = count($price)) {
@@ -1734,8 +1732,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 if('service' == $listing_type){
                     include PYN_TEMPLATES_DIR . "/need-card.php";
                 }else{
-                    //include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
-                    include BDM_TEMPLATES_DIR . '/map-view.php';
+                    include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                    //include BDM_TEMPLATES_DIR . '/map-view.php';
                 }
 
             }

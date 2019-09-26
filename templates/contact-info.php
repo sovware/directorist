@@ -74,7 +74,7 @@ $info_content .= "<p> {$ad}</p></div>";
                     <label for="address"><?php
                         $address_label = get_directorist_option('address_label', __('Google Address', 'directorist'));
                         esc_html_e($address_label.':', 'directorist'); ?></label>
-                    <input type="text" name="address" id="address" value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
+                    <input type="text" name="address" id="address" value="<?php echo !empty($address) ? esc_attr($address) : ''; ?>"
                         class="form-control directory_field"
                         placeholder="<?php echo esc_attr($address_placeholder); ?>"/>
                     <div id="result">
@@ -97,7 +97,7 @@ $info_content .= "<p> {$ad}</p></div>";
                 <div class="map-coordinate form-group">
                     <div class="cor-wrap map_cor">
                         <input type="checkbox" name="manual_coordinate" value="1"
-                            id="manual_coordinate" <?= (!empty($manual_coordinate)) ? 'checked' : ''; ?> >
+                            id="manual_coordinate" <?php echo (!empty($manual_coordinate)) ? 'checked' : ''; ?> >
                         <label for="manual_coordinate"> <?php _e('Or Enter Coordinates (latitude and longitude) Manually.', 'directorist'); ?> </label>
                     </div>
                 </div>
@@ -109,7 +109,7 @@ $info_content .= "<p> {$ad}</p></div>";
                             <div class="form-group">
                                 <label for="manual_lat"> <?php _e('Latitude', 'directorist'); ?>  </label>
                                 <input type="text" name="manual_lat" id="manual_lat"
-                                    value="<?= (!empty($manual_lat)) ? $manual_lat : $default_latitude ?>"
+                                    value="<?php echo (!empty($manual_lat)) ? $manual_lat : $default_latitude ?>"
                                     class="form-control directory_field"
                                     placeholder="<?php esc_attr_e('Enter Latitude eg. 24.89904', 'directorist'); ?>"/>
                             </div>
@@ -118,7 +118,7 @@ $info_content .= "<p> {$ad}</p></div>";
                             <div class="form-group">
                                 <label for="manual_lng"> <?php _e('Longitude', 'directorist'); ?> </label>
                                 <input type="text" name="manual_lng" id="manual_lng"
-                                    value="<?= (!empty($manual_lng)) ? $manual_lng : $default_longitude ?>"
+                                    value="<?php echo (!empty($manual_lng)) ? $manual_lng : $default_longitude ?>"
                                     class="form-control directory_field"
                                     placeholder="<?php esc_attr_e('Enter Longitude eg. 91.87198', 'directorist'); ?>"/>
                             </div>
@@ -133,7 +133,7 @@ $info_content .= "<p> {$ad}</p></div>";
             </div> <!--ends #hide_if_no_manual_cor -->
             <div class="atbd_map_hide form-group">
                 <input type="checkbox" name="hide_map" value="1"
-                    id="hide_map" <?= (!empty($hide_map)) ? 'checked' : ''; ?> >
+                    id="hide_map" <?php echo (!empty($hide_map)) ? 'checked' : ''; ?> >
                 <label for="hide_map"> <?php _e('Hide Map', 'directorist'); ?> </label>
             </div>
                  <?php } ?>
@@ -157,7 +157,7 @@ $info_content .= "<p> {$ad}</p></div>";
                     esc_html_e($zip_label.':', 'directorist'); ?></label>
 
                 <input type="text" id="atbdp_zip" name="zip"
-                       value="<?= !empty($zip) ? esc_attr($zip) : ''; ?>" class="form-control directory_field"
+                       value="<?php echo !empty($zip) ? esc_attr($zip) : ''; ?>" class="form-control directory_field"
                        placeholder="<?php echo esc_attr($zip_placeholder); ?>"/>
             </div>
         <?php } ?>
@@ -167,7 +167,7 @@ $info_content .= "<p> {$ad}</p></div>";
             <label for="atbdp_phone_number"><?php $phone_label = get_directorist_option('phone_label', __('Phone Number', 'directorist'));
                 esc_html_e($phone_label.':', 'directorist'); ?></label>
             <input type="tel" name="phone" id="atbdp_phone_number"
-                   value="<?= !empty($phone) ? esc_attr($phone) : ''; ?>" class="form-control directory_field"
+                   value="<?php echo !empty($phone) ? esc_attr($phone) : ''; ?>" class="form-control directory_field"
                    placeholder="<?php echo esc_attr($phone_placeholder); ?>"/>
         </div>
         <?php } ?>
@@ -177,7 +177,7 @@ $info_content .= "<p> {$ad}</p></div>";
             <label for="atbdp_phone_number2"><?php $phone_label2 = get_directorist_option('phone_label2', __('Phone Number Two', 'directorist'));
                 esc_html_e($phone_label2.':', 'directorist'); ?></label>
             <input type="tel" name="phone2" id="atbdp_phone_number2"
-                   value="<?= !empty($phone2) ? esc_attr($phone2) : ''; ?>" class="form-control directory_field"
+                   value="<?php echo !empty($phone2) ? esc_attr($phone2) : ''; ?>" class="form-control directory_field"
                    placeholder="<?php echo esc_attr($phone_placeholder2); ?>"/>
         </div>
         <?php } ?>
@@ -187,7 +187,7 @@ $info_content .= "<p> {$ad}</p></div>";
             <label for="atbdp_fax"><?php $fax_label = get_directorist_option('fax_label', __('Fax', 'directorist'));
                 esc_html_e($fax_label.':', 'directorist'); ?></label>
             <input type="tel" name="fax" id="atbdp_fax"
-                   value="<?= !empty($fax) ? esc_attr($fax) : ''; ?>" class="form-control directory_field"
+                   value="<?php echo !empty($fax) ? esc_attr($fax) : ''; ?>" class="form-control directory_field"
                    placeholder="<?php echo esc_attr($fax_placeholder); ?>"/>
         </div>
         <?php } ?>
@@ -195,7 +195,7 @@ $info_content .= "<p> {$ad}</p></div>";
         <div class="form-group">
             <label for="atbdp_email"><?php $email_label = get_directorist_option('email_label', __('Email', 'directorist'));
                 esc_html_e($email_label.':', 'directorist'); ?></label>
-            <input type="email" name="email" id="atbdp_email" value="<?= !empty($email) ? esc_attr($email) : ''; ?>"
+            <input type="email" name="email" id="atbdp_email" value="<?php echo !empty($email) ? esc_attr($email) : ''; ?>"
                    class="form-control directory_field"
                    placeholder="<?php echo esc_attr($email_placeholder); ?>"/>
         </div>
@@ -206,7 +206,7 @@ $info_content .= "<p> {$ad}</p></div>";
                 esc_html_e($website_label.':', 'directorist'); ?></label>
 
             <input type="text" id="atbdp_website" name="website"
-                   value="<?= !empty($website) ? esc_url($website) : ''; ?>" class="form-control directory_field"
+                   value="<?php echo !empty($website) ? esc_url($website) : ''; ?>" class="form-control directory_field"
                    placeholder="<?php echo esc_attr($website_placeholder); ?>"/>
         </div>
         <?php } ?>
@@ -280,9 +280,9 @@ $info_content .= "<p> {$ad}</p></div>";
         $manual_lat = $('#manual_lat');
         $manual_lng = $('#manual_lng');
         saved_lat_lng = {
-            lat:<?= (!empty($manual_lat)) ? floatval($manual_lat) : $default_latitude ?>,
-            lng: <?= (!empty($manual_lng)) ? floatval($manual_lng) : $default_longitude ?> }; // default is London city
-        info_content = "<?= $info_content; ?>";
+            lat:<?php echo (!empty($manual_lat)) ? floatval($manual_lat) : $default_latitude ?>,
+            lng: <?php echo (!empty($manual_lng)) ? floatval($manual_lng) : $default_longitude ?> }; // default is London city
+        info_content = "<?php echo $info_content; ?>";
         markers = [];// initialize the array to keep track all the marker
         /*@todo; make the max width size customizable*/
         info_window = new google.maps.InfoWindow({

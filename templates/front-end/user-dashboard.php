@@ -76,11 +76,11 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
                         <div class="nav_button">
                             <?php if (!empty($submit_listing_button)) { ?>
-                                <a href="<?= (is_fee_manager_active()) ? esc_url(ATBDP_Permalink::get_fee_plan_page_link()) : esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
-                                   class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('Submit Listing', 'directorist'); ?></a>
+                                <a href="<?php echo (is_fee_manager_active()) ? esc_url(ATBDP_Permalink::get_fee_plan_page_link()) : esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
+                                   class="<?php echo atbdp_directorist_button_classes(); ?>"><?php _e('Submit Listing', 'directorist'); ?></a>
                             <?php } ?>
-                            <a href="<?= esc_url(wp_logout_url(home_url())); ?>"
-                               class="<?= atbdp_directorist_button_classes('secondary'); ?>"><?php _e('Log Out', 'directorist'); ?></a>
+                            <a href="<?php echo esc_url(wp_logout_url(home_url())); ?>"
+                               class="<?php echo atbdp_directorist_button_classes('secondary'); ?>"><?php _e('Log Out', 'directorist'); ?></a>
                         </div>
                     </div> <!--ends dashboard_nav-->
 
@@ -124,7 +124,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
                                         ?>
 
-                                        <div class="col-lg-4 col-sm-6" id="listing_id_<?= $post->ID; ?>">
+                                        <div class="col-lg-4 col-sm-6" id="listing_id_<?php echo $post->ID; ?>">
                                             <div class="atbd_single_listing atbd_listing_card">
                                                 <article
                                                         class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
@@ -168,8 +168,8 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                         <div class="atbd_content_upper">
                                                             <div class="atbd_dashboard_tittle_metas">
                                                                 <h4 class="atbd_listing_title">
-                                                                    <a href="<?= get_post_permalink($post->ID); ?>">
-                                                                        <?= !empty($post->post_title) ? esc_html(stripslashes($post->post_title)) : __('Untitled!', 'directorist'); ?>
+                                                                    <a href="<?php echo get_post_permalink($post->ID); ?>">
+                                                                        <?php echo !empty($post->post_title) ? esc_html(stripslashes($post->post_title)) : __('Untitled!', 'directorist'); ?>
                                                                     </a>
                                                                 </h4>
 
@@ -213,7 +213,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                         ?>
                                                                         <a href=""
                                                                            data-target="atpp-plan-change-modal"
-                                                                           data-listing_id="<?= $post->ID; ?>"
+                                                                           data-listing_id="<?php echo $post->ID; ?>"
                                                                            class="directory_btn btn btn-outline-success atbdp_renew_with_plan">
                                                                             <?php _e('Renew', 'directorist'); ?>
                                                                         </a>
@@ -222,7 +222,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                     ?>
                                                                     <a href="<?php echo esc_url(ATBDP_Permalink::get_renewal_page_link($post->ID)) ?>"
                                                                        id="directorist-renew"
-                                                                       data-listing_id="<?= $post->ID; ?>"
+                                                                       data-listing_id="<?php echo $post->ID; ?>"
                                                                        class="directory_btn btn btn-outline-success">
                                                                         <?php _e('Renew', 'directorist'); ?>
                                                                     </a>
@@ -233,9 +233,9 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                     if ($featured_active && empty($featured) && !is_fee_manager_active()) {
                                                                         ?>
                                                                         <div class="atbd_promote_btn_wrapper">
-                                                                            <a href="<?= esc_url(ATBDP_Permalink::get_checkout_page_link($post->ID)) ?>"
+                                                                            <a href="<?php echo esc_url(ATBDP_Permalink::get_checkout_page_link($post->ID)) ?>"
                                                                                id="directorist-promote"
-                                                                               data-listing_id="<?= $post->ID; ?>"
+                                                                               data-listing_id="<?php echo $post->ID; ?>"
                                                                                class="directory_btn btn btn-primary">
                                                                                 <?php _e('Promote Your listing', 'directorist'); ?>
                                                                             </a>
@@ -243,11 +243,11 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                     <?php }
                                                                 } ?>
 
-                                                                <a href="<?= esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
+                                                                <a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
                                                                    id="edit_listing"
                                                                    class="directory_edit_btn btn btn-outline-primary"><?php _e('Edit', 'directorist'); ?></a>
                                                                 <a href="#" id="remove_listing"
-                                                                   data-listing_id="<?= $post->ID; ?>"
+                                                                   data-listing_id="<?php echo $post->ID; ?>"
                                                                    class="directory_remove_btn btn btn-outline-danger"><?php _e('Delete', 'directorist'); ?></a>
                                                             </div> <!--ends .db_btn_area-->
                                                             <?php /* @todo: deleted the read more link */ ?>
@@ -320,11 +320,11 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                     </div>
                                                     <div class="choose_btn">
                                                         <input type="hidden" name="user[pro_pic]" id="pro_pic"
-                                                               value="<?= !empty($u_pro_pic_id) ? esc_attr($u_pro_pic_id) : ''; ?>">
+                                                               value="<?php echo !empty($u_pro_pic_id) ? esc_attr($u_pro_pic_id) : ''; ?>">
                                                         <label for="pro_pic"
                                                                id="upload_pro_pic"><?php _e('Change', 'directorist'); ?></label>
                                                     </div> <!--ends .choose_btn-->
-                                                    <img src="<?= !empty($u_pro_pic) ? esc_url($u_pro_pic[0]) : esc_url(ATBDP_PUBLIC_ASSETS . 'images/no-image.jpg'); ?>"
+                                                    <img src="<?php echo !empty($u_pro_pic) ? esc_url($u_pro_pic[0]) : esc_url(ATBDP_PUBLIC_ASSETS . 'images/no-image.jpg'); ?>"
                                                          id="pro_img" alt="">
 
                                                 </div> <!--ends .user_img-->
@@ -339,7 +339,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
                                                 <div class="user_info_wrap">
                                                     <!--hidden inputs-->
-                                                    <input type="hidden" name="ID" value="<?= get_current_user_id(); ?>">
+                                                    <input type="hidden" name="ID" value="<?php echo get_current_user_id(); ?>">
                                                     <!--Full name-->
                                                     <div class="row row_fu_name">
                                                         <div class="col-md-6">
@@ -347,7 +347,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 <label for="full_name"><?php _e('Full Name', 'directorist'); ?></label>
                                                                 <input class="form-control" type="text"
                                                                        name="user[full_name]"
-                                                                       value="<?= !empty($c_user->display_name) ? esc_attr($c_user->display_name) : ''; ?>"
+                                                                       value="<?php echo !empty($c_user->display_name) ? esc_attr($c_user->display_name) : ''; ?>"
                                                                        placeholder="<?php _e('Enter your full name', 'directorist'); ?>">
                                                             </div>
                                                         </div>
@@ -356,7 +356,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 <label for="user_name"><?php _e('User Name', 'directorist'); ?></label>
                                                                 <input class="form-control" id="user_name" type="text"
                                                                        disabled="disabled" name="user[user_name]"
-                                                                       value="<?= !empty($c_user->user_login) ? esc_attr($c_user->user_login) : ''; ?>"> <?php _e('(username can not be changed)', 'directorist'); ?>
+                                                                       value="<?php echo !empty($c_user->user_login) ? esc_attr($c_user->user_login) : ''; ?>"> <?php _e('(username can not be changed)', 'directorist'); ?>
                                                             </div>
                                                         </div>
                                                     </div> <!--ends .row-->
@@ -367,7 +367,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 <label for="first_name"><?php _e('First Name', 'directorist'); ?></label>
                                                                 <input class="form-control" id="first_name" type="text"
                                                                        name="user[first_name]"
-                                                                       value="<?= !empty($c_user->first_name) ? esc_attr($c_user->first_name) : ''; ?>">
+                                                                       value="<?php echo !empty($c_user->first_name) ? esc_attr($c_user->first_name) : ''; ?>">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -375,7 +375,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 <label for="last_name"><?php _e('Last Name', 'directorist'); ?></label>
                                                                 <input class="form-control" id="last_name" type="text"
                                                                        name="user[last_name]"
-                                                                       value="<?= !empty($c_user->last_name) ? esc_attr($c_user->last_name) : ''; ?>">
+                                                                       value="<?php echo !empty($c_user->last_name) ? esc_attr($c_user->last_name) : ''; ?>">
                                                             </div>
                                                         </div>
                                                     </div> <!--ends .row-->
@@ -386,7 +386,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 <label for="req_email"><?php _e('Email (required)', 'directorist'); ?></label>
                                                                 <input class="form-control" id="req_email" type="text"
                                                                        name="user[user_email]"
-                                                                       value="<?= !empty($c_user->user_email) ? esc_attr($c_user->user_email) : ''; ?>"
+                                                                       value="<?php echo !empty($c_user->user_email) ? esc_attr($c_user->user_email) : ''; ?>"
                                                                        required>
                                                             </div>
                                                         </div>
@@ -394,7 +394,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                             <div class="form-group">
                                                                 <label for="phone"><?php _e('Cell Number', 'directorist'); ?></label>
                                                                 <input class="form-control" type="tel" name="user[phone]"
-                                                                       value="<?= !empty($u_phone) ? esc_attr($u_phone) : ''; ?>"
+                                                                       value="<?php echo !empty($u_phone) ? esc_attr($u_phone) : ''; ?>"
                                                                        placeholder="<?php _e('Enter your phone number', 'directorist'); ?>">
                                                             </div>
                                                         </div>
@@ -406,7 +406,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 <label for="website"><?php _e('Website', 'directorist'); ?></label>
                                                                 <input class="form-control" id="website" type="text"
                                                                        name="user[website]"
-                                                                       value="<?= !empty($u_website) ? esc_url($u_website) : ''; ?>">
+                                                                       value="<?php echo !empty($u_website) ? esc_url($u_website) : ''; ?>">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -414,7 +414,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 <label for="address"><?php _e('Address', 'directorist'); ?></label>
                                                                 <input class="form-control" id="address" type="text"
                                                                        name="user[address]"
-                                                                       value="<?= !empty($u_address) ? esc_attr($u_address) : ''; ?>">
+                                                                       value="<?php echo !empty($u_address) ? esc_attr($u_address) : ''; ?>">
                                                             </div>
                                                         </div>
                                                     </div> <!--ends .row-->
@@ -426,7 +426,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 <label for="new_pass"><?php _e('New Password', 'directorist'); ?></label>
                                                                 <input id="new_pass" class="form-control" type="password"
                                                                        name="user[new_pass]"
-                                                                       value="<?= !empty($new_pass) ? esc_attr($new_pass) : ''; ?>"
+                                                                       value="<?php echo !empty($new_pass) ? esc_attr($new_pass) : ''; ?>"
                                                                        placeholder="<?php _e('Enter a new password', 'directorist'); ?>">
                                                             </div>
                                                         </div>
@@ -436,7 +436,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 <input id="confirm_pass" class="form-control"
                                                                        type="password"
                                                                        name="user[confirm_pass]"
-                                                                       value="<?= !empty($confirm_pass) ? esc_attr($confirm_pass) : ''; ?>"
+                                                                       value="<?php echo !empty($confirm_pass) ? esc_attr($confirm_pass) : ''; ?>"
                                                                        placeholder="<?php _e('Confirm your new password', 'directorist'); ?>">
                                                             </div>
                                                         </div>
@@ -449,7 +449,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 <p><?php _e('Leave it empty to hide', 'directorist') ?></p>
                                                                 <input id="facebook" class="form-control" type="url"
                                                                        name="user[facebook]"
-                                                                       value="<?= !empty($facebook) ? esc_attr($facebook) : ''; ?>"
+                                                                       value="<?php echo !empty($facebook) ? esc_attr($facebook) : ''; ?>"
                                                                        placeholder="<?php _e('Enter your facebook url', 'directorist'); ?>">
                                                             </div>
                                                         </div>
@@ -459,7 +459,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 <p><?php _e('Leave it empty to hide', 'directorist') ?></p>
                                                                 <input id="twitter" class="form-control" type="url"
                                                                        name="user[twitter]"
-                                                                       value="<?= !empty($twitter) ? esc_attr($twitter) : ''; ?>"
+                                                                       value="<?php echo !empty($twitter) ? esc_attr($twitter) : ''; ?>"
                                                                        placeholder="<?php _e('Enter your twitter url', 'directorist'); ?>">
                                                             </div>
                                                         </div>
@@ -470,7 +470,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 <p><?php _e('Leave it empty to hide', 'directorist') ?></p>
                                                                 <input id="linkedIn" class="form-control" type="url"
                                                                        name="user[linkedIn]"
-                                                                       value="<?= !empty($linkedIn) ? esc_attr($linkedIn) : ''; ?>"
+                                                                       value="<?php echo !empty($linkedIn) ? esc_attr($linkedIn) : ''; ?>"
                                                                        placeholder="<?php _e('Enter linkedIn url', 'directorist'); ?>">
                                                             </div>
                                                         </div>
@@ -480,7 +480,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 <p><?php _e('Leave it empty to hide', 'directorist') ?></p>
                                                                 <input id="youtube" class="form-control" type="url"
                                                                        name="user[youtube]"
-                                                                       value="<?= !empty($youtube) ? esc_attr($youtube) : ''; ?>"
+                                                                       value="<?php echo !empty($youtube) ? esc_attr($youtube) : ''; ?>"
                                                                        placeholder="<?php _e('Enter youtube url', 'directorist'); ?>">
                                                             </div>
                                                         </div>
@@ -490,7 +490,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 <textarea class="wp-editor-area form-control"
                                                                           style="height: 200px" autocomplete="off" cols="40"
                                                                           name="user[bio]"
-                                                                          id="bio"><?= !empty($bio) ? esc_attr($bio) : ''; ?></textarea>
+                                                                          id="bio"><?php echo !empty($bio) ? esc_attr($bio) : ''; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div><!--ends social info .row-->

@@ -130,14 +130,6 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
             } else {
                 echo '<div class="custom_field_empty_area"></div>';
-                ?>
-                <script>
-                    if (('#custom_field_empty_area').length)         // use this if you are using id to check
-                    {
-                        $('#atbdp-custom-fields-list').empty();
-                    }
-                </script>
-                <?php
                 if ($ajax) {
                     wp_die();
                 }
@@ -1156,6 +1148,8 @@ if (!class_exists('ATBDP_Shortcode')):
                     break;
             }
 
+            $meta_queries = apply_filters('atbdp_search_listings_meta_queries', $meta_queries);
+
             $count_meta_queries = count($meta_queries);
             if ($count_meta_queries) {
                 $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
@@ -1675,13 +1669,14 @@ if (!class_exists('ATBDP_Shortcode')):
                     };
                     break;
             }
-
+            $meta_queries = apply_filters('atbdp_all_listings_meta_queries', $meta_queries);
             $count_meta_queries = count($meta_queries);
             if ($count_meta_queries) {
                 $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
             }
 
-            $all_listings = new WP_Query($args);
+            $arguments = apply_filters('atbdp_all_listings_query_arguments', $args);
+            $all_listings = new WP_Query($arguments);
             $paginate = get_directorist_option('paginate_all_listings');
             if ('yes' == $show_pagination) {
                 $listing_count = '<span>' . $all_listings->found_posts . '</span>';
@@ -1730,7 +1725,11 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
             } else {
                 if('service' == $listing_type){
-                    include PYN_TEMPLATES_DIR . "/need-card.php";
+                    if (class_exists('Post_Your_Need')){
+                        include PYN_TEMPLATES_DIR . "/need-card.php";
+                    }else{
+                        include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                    }
                 }else{
                     include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
                     //include BDM_TEMPLATES_DIR . '/map-view.php';
@@ -2182,7 +2181,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         };
                         break;
                 }
-
+                $meta_queries = apply_filters('atbdp_single_category_meta_queries', $meta_queries);
                 $count_meta_queries = count($meta_queries);
                 if ($count_meta_queries) {
                     $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
@@ -2654,7 +2653,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         };
                         break;
                 }
-
+                $meta_queries = apply_filters('atbdp_single_location_meta_queries', $meta_queries);
                 $count_meta_queries = count($meta_queries);
                 if ($count_meta_queries) {
                     $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
@@ -3046,7 +3045,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         };
                         break;
                 }
-
+                $meta_queries = apply_filters('atbdp_single_tag_meta_queries', $meta_queries);
                 $count_meta_queries = count($meta_queries);
                 if ($count_meta_queries) {
                     $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
@@ -3254,7 +3253,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $args['tax_query'] = $category;
             }
 
-            $args['meta_query'] = array(
+            $args['meta_query'] = apply_filters('atbdp_author_listings_meta_queries',array(
                 'relation' => 'OR',
                 array(
                     'key' => '_expiry_date',
@@ -3266,7 +3265,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     'key' => '_never_expire',
                     'value' => 1,
                 )
-            );
+            ));
 
 
             $all_listings = new WP_Query($args);

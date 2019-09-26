@@ -41,7 +41,7 @@ $price_range_label = get_directorist_option('price_range_label', __('Price Range
                     ?></label>
                 <input type="text" name="tagline"
                        id="has_tagline"
-                       value="<?= !empty($tagline) ? esc_attr($tagline) : ''; ?>"
+                       value="<?php echo !empty($tagline) ? esc_attr($tagline) : ''; ?>"
                        class="form-control directory_field"
                        placeholder="<?php echo esc_attr($tagline_placeholder); ?>"/>
             </div>
@@ -78,7 +78,7 @@ $price_range_label = get_directorist_option('price_range_label', __('Price Range
                 </div>
 
                 <input type="hidden" id="pricerange_val" value="<?php echo $price_range;?>">
-                <input type="text" id="price" name="price" value="<?= !empty($price) ? esc_attr($price) : ''; ?>"
+                <input type="text" id="price" name="price" value="<?php echo !empty($price) ? esc_attr($price) : ''; ?>"
                        class="form-control directory_field"
                        placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
 
@@ -106,7 +106,7 @@ $price_range_label = get_directorist_option('price_range_label', __('Price Range
                     esc_html_e($views_count_label.':', 'directorist'); ?></label>
 
                 <input type="number" id="views_Count" name="atbdp_post_views_count"
-                       value="<?= !empty($atbdp_post_views_count) ? esc_attr($atbdp_post_views_count) : ''; ?>" class="form-control directory_field"
+                       value="<?php echo !empty($atbdp_post_views_count) ? esc_attr($atbdp_post_views_count) : ''; ?>" class="form-control directory_field"
                 />
             </div>
         <?php } ?>
@@ -116,10 +116,10 @@ $price_range_label = get_directorist_option('price_range_label', __('Price Range
                     $excerpt_label = get_directorist_option('excerpt_label', __('Short Description/Excerpt', 'directorist'));
                     esc_html_e($excerpt_label.':', 'directorist'); ?></label>
                 <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
-                <input type="hidden" id="has_excerpt" value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
+                <input type="hidden" id="has_excerpt" value="<?php echo !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
                 <textarea name="excerpt" id="atbdp_excerpt"
                           class="form-control directory_field" cols="30" rows="5"
-                          placeholder="<?php echo esc_attr($excerpt_placeholder); ?>"> <?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?> </textarea>
+                          placeholder="<?php echo esc_attr($excerpt_placeholder); ?>"> <?php echo !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?> </textarea>
             </div>
         <?php }?>
         <!--***********************************************************************

@@ -51,7 +51,7 @@ $featured_listings = new WP_Query($featured_args);
                         <div class="atbd_right_content">
                             <div class="cate_title">
                                 <h4>
-                                    <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?= esc_html(stripslashes(get_the_title())); ?></a>
+                                    <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                 </h4>
                                 <?php if (!empty($price) && ('price' === $listing_pricing)) { ?>
                                     <span><?php atbdp_display_price($price); ?></span>
@@ -70,8 +70,8 @@ $featured_listings = new WP_Query($featured_args);
                                     <span class="
 <?php atbdp_icon_type(true);?>-tags"></span>
                                     <span>
-                                                <a href="<?= ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
-                                                                     <?= esc_html($cats[0]->name); ?>
+                                                <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cats[0]); ?>">
+                                                                     <?php echo esc_html($cats[0]->name); ?>
                                                 </a>
                                             <?php
                                             if ($totalTerm > 1) {

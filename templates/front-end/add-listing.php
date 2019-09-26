@@ -154,14 +154,14 @@ $query_args = array(
 ?>
 <div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
     <div class="<?php echo apply_filters('atbdp_add_listing_container_fluid', $container_fluid) ?>">
-        <form action="<?= esc_url($_SERVER['REQUEST_URI']); ?>" method="post">
+        <form action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" method="post">
             <fieldset>
                 <?php
                 do_action('atbdb_before_add_listing_from_frontend');//for dev purpose
                 ?>
                 <div class="atbdp-form-fields">
                     <div class="atbd_add_listing_title">
-                        <h3><?= !empty($p_id) ? __('Update', 'directorist') : __('Add New', 'directorist'); ?></h3>
+                        <h3><?php echo !empty($p_id) ? __('Update', 'directorist') : __('Add New', 'directorist'); ?></h3>
                     </div>
                     <?php
                     /*
@@ -173,7 +173,7 @@ $query_args = array(
                     <!--add nonce field security -->
                     <?php ATBDP()->listing->add_listing->show_nonce_field(); ?>
                     <input type="hidden" name="add_listing_form" value="1">
-                    <input type="hidden" name="listing_id" value="<?= !empty($p_id) ? esc_attr($p_id) : ''; ?>">
+                    <input type="hidden" name="listing_id" value="<?php echo !empty($p_id) ? esc_attr($p_id) : ''; ?>">
 
                     <?php
                     //to show validation notification @todo;letter need to validate with ajax action and identify the required field with color
@@ -206,9 +206,9 @@ $query_args = array(
                                                     echo '<span class="atbdp_make_str_red"> *</span>';
                                                 } ?></label>
                                             <input type="text" name="listing_title"
-                                                   value="<?= !empty($listing->post_title) ? esc_attr($listing->post_title) : ''; ?>"
+                                                   value="<?php echo !empty($listing->post_title) ? esc_attr($listing->post_title) : ''; ?>"
                                                    class="form-control directory_field"
-                                                   placeholder="<?= __('Enter a title', 'directorist'); ?>"/>
+                                                   placeholder="<?php echo __('Enter a title', 'directorist'); ?>"/>
                                         </div>
                                     <?php } ?>
                                     <?php if (empty($display_desc_for)) { ?>
@@ -237,7 +237,7 @@ $query_args = array(
                                                 ?></label>
                                             <input type="text" name="tagline"
                                                    id="has_tagline"
-                                                   value="<?= !empty($tagline) ? esc_attr($tagline) : ''; ?>"
+                                                   value="<?php echo !empty($tagline) ? esc_attr($tagline) : ''; ?>"
                                                    class="form-control directory_field"
                                                    placeholder="<?php echo esc_attr($tagline_placeholder); ?>"/>
                                         </div>
@@ -307,7 +307,7 @@ $query_args = array(
                                             if ($plan_price && empty($display_price_for) && !empty($display_pricing_field)) {
                                                 ?>
                                                 <input type="text" id="price" name="price"
-                                                       value="<?= !empty($price) ? esc_attr($price) : ''; ?>"
+                                                       value="<?php echo !empty($price) ? esc_attr($price) : ''; ?>"
                                                        class="form-control directory_field"
                                                        placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
 
@@ -316,18 +316,18 @@ $query_args = array(
                                                 ?>
                                                 <select class="form-control directory_field" id="price_range"
                                                         name="price_range">
-                                                    <option value=""><?= esc_attr($price_range_placeholder); ?></option>
+                                                    <option value=""><?php echo esc_attr($price_range_placeholder); ?></option>
                                                     <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
-                                                        <?= __('Ultra High ($$$$)', 'directorist'); ?>
+                                                        <?php echo __('Ultra High ($$$$)', 'directorist'); ?>
                                                     </option>
                                                     <option value="moderate" <?php selected($price_range, 'moderate'); ?>>
-                                                        <?= __('Expensive ($$$)', 'directorist'); ?>
+                                                        <?php echo __('Expensive ($$$)', 'directorist'); ?>
                                                     </option>
                                                     <option value="economy" <?php selected($price_range, 'economy'); ?>>
-                                                        <?= __('Moderate ($$)', 'directorist'); ?>
+                                                        <?php echo __('Moderate ($$)', 'directorist'); ?>
                                                     </option>
                                                     <option value="bellow_economy" <?php selected($price_range, 'economy'); ?>>
-                                                        <?= __('Cheap ($)', 'directorist'); ?>
+                                                        <?php echo __('Cheap ($)', 'directorist'); ?>
                                                     </option>
                                                 </select>
                                             <?php }
@@ -348,7 +348,7 @@ $query_args = array(
                                                 esc_html_e($views_count_label.':', 'directorist'); ?></label>
 
                                             <input type="number" id="views_Count" name="atbdp_post_views_count"
-                                                   value="<?= !empty($atbdp_post_views_count) ? esc_attr($atbdp_post_views_count) : ''; ?>" class="form-control directory_field"
+                                                   value="<?php echo !empty($atbdp_post_views_count) ? esc_attr($atbdp_post_views_count) : ''; ?>" class="form-control directory_field"
                                             />
                                         </div>
                                     <?php }
@@ -366,10 +366,10 @@ $query_args = array(
                                                 echo get_directorist_option('require_excerpt') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                                             <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
                                             <input type="hidden" id="has_excerpt"
-                                                   value="<?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
+                                                   value="<?php echo !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
                                             <textarea name="excerpt" id="atbdp_excerpt"
                                                       class="form-control directory_field" cols="30" rows="5"
-                                                      placeholder="<?php echo esc_attr($excerpt_placeholder); ?>"><?= !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?></textarea>
+                                                      placeholder="<?php echo esc_attr($excerpt_placeholder); ?>"><?php echo !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?></textarea>
                                         </div>
                                     <?php }
 
@@ -640,7 +640,7 @@ $query_args = array(
                                                     $checked = in_array($l_tag->term_id, $output) ? 'selected' : '';
                                                     ?>
                                                     <option id='atbdp_tag' <?php echo $checked; ?>
-                                                            value='<?= $l_tag->name ?>'><?= esc_html($l_tag->name) ?></option>
+                                                            value='<?php echo $l_tag->name ?>'><?php echo esc_html($l_tag->name) ?></option>
                                                 <?php } ?>
                                             </select>
                                             <?php
@@ -782,7 +782,7 @@ $query_args = array(
                                                         echo get_directorist_option('require_zip') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
 
                                                     <input type="text" id="atbdp_zip" name="zip"
-                                                           value="<?= !empty($zip) ? esc_attr($zip) : ''; ?>"
+                                                           value="<?php echo !empty($zip) ? esc_attr($zip) : ''; ?>"
                                                            class="form-control directory_field"
                                                            placeholder="<?php echo esc_attr($zip_placeholder); ?>"/>
                                                 </div>
@@ -802,7 +802,7 @@ $query_args = array(
                                                         esc_html_e($phone_label . ':', 'directorist');
                                                         echo get_directorist_option('require_phone_number') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                                                     <input type="tel" name="phone" id="atbdp_phone_number"
-                                                           value="<?= !empty($phone) ? esc_attr($phone) : ''; ?>"
+                                                           value="<?php echo !empty($phone) ? esc_attr($phone) : ''; ?>"
                                                            class="form-control directory_field"
                                                            placeholder="<?php echo esc_attr($phone_placeholder); ?>"/>
                                                 </div>
@@ -816,7 +816,7 @@ $query_args = array(
                                                         esc_html_e($phone_label2 . ':', 'directorist');
                                                         echo get_directorist_option('require_phone_number2') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                                                     <input type="tel" name="phone2" id="atbdp_phone_number2"
-                                                           value="<?= !empty($phone2) ? esc_attr($phone2) : ''; ?>"
+                                                           value="<?php echo !empty($phone2) ? esc_attr($phone2) : ''; ?>"
                                                            class="form-control directory_field"
                                                            placeholder="<?php echo esc_attr($phone_placeholder2); ?>"/>
                                                 </div>
@@ -831,7 +831,7 @@ $query_args = array(
                                                         esc_html_e($fax_label . ':', 'directorist');
                                                         echo get_directorist_option('require_fax') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                                                     <input type="tel" name="fax" id="atbdp_fax"
-                                                           value="<?= !empty($fax) ? esc_attr($fax) : ''; ?>"
+                                                           value="<?php echo !empty($fax) ? esc_attr($fax) : ''; ?>"
                                                            class="form-control directory_field"
                                                            placeholder="<?php echo esc_attr($fax_placeholder); ?>"/>
                                                 </div>
@@ -849,7 +849,7 @@ $query_args = array(
                                                         esc_html_e($email_label . ':', 'directorist');
                                                         echo get_directorist_option('require_email') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                                                     <input type="email" name="email" id="atbdp_email"
-                                                           value="<?= !empty($email) ? esc_attr($email) : ''; ?>"
+                                                           value="<?php echo !empty($email) ? esc_attr($email) : ''; ?>"
                                                            class="form-control directory_field"
                                                            placeholder="<?php echo esc_attr($email_placeholder); ?>"/>
                                                 </div>
@@ -867,7 +867,7 @@ $query_args = array(
                                                         echo get_directorist_option('require_website') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
 
                                                     <input type="text" id="atbdp_website" name="website"
-                                                           value="<?= !empty($website) ? esc_url($website) : ''; ?>"
+                                                           value="<?php echo !empty($website) ? esc_url($website) : ''; ?>"
                                                            class="form-control directory_field"
                                                            placeholder="<?php echo esc_attr($website_placeholder); ?>"/>
                                                 </div>
@@ -943,7 +943,7 @@ $query_args = array(
                                 }
 
                                  if (empty($display_address_for ) || !empty($display_address_field)) { ?>
-                                    <div class="atbd_content_module atbd_contact_information">
+                                    <div class="atbd_content_module">
                                         <div class="atbd_content_module__tittle_area">
                                             <div class="atbd_area_title">
                                                 <h4><?php esc_html_e('Map', 'directorist') ?></h4>
@@ -959,7 +959,7 @@ $query_args = array(
                                                         esc_html_e($address_label . ':', 'directorist');
                                                         echo get_directorist_option('require_address') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                                                     <input type="text" name="address" id="address"
-                                                           value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
+                                                           value="<?php echo !empty($address) ? esc_attr($address) : ''; ?>"
                                                            class="form-control directory_field"
                                                            placeholder="<?php echo esc_attr($address_placeholder); ?>"/>
                                                     <div id="result">
@@ -990,7 +990,7 @@ $query_args = array(
                                                                 <label for="manual_coordinate"><input type="checkbox"
                                                                                                       name="manual_coordinate"
                                                                                                       value="1"
-                                                                                                      id="manual_coordinate" <?= (!empty($manual_coordinate)) ? 'checked' : ''; ?> > <?php
+                                                                                                      id="manual_coordinate" <?php echo (!empty($manual_coordinate)) ? 'checked' : ''; ?> > <?php
                                                                     printf(__('Or Enter Coordinates (latitude and longitude) Manually', 'directorist'), $map_guide)
                                                                     ?>
                                                                 </label>
@@ -1005,7 +1005,7 @@ $query_args = array(
                                                                         <label for="manual_lat"> <?php _e('Latitude', 'directorist'); ?>  </label>
                                                                         <input type="text" name="manual_lat"
                                                                                id="manual_lat"
-                                                                               value="<?= !empty($manual_lat) ? esc_attr($manual_lat) : $default_latitude; ?>"
+                                                                               value="<?php echo !empty($manual_lat) ? esc_attr($manual_lat) : $default_latitude; ?>"
                                                                                class="form-control directory_field"
                                                                                placeholder="<?php esc_attr_e('Enter Latitude eg. 24.89904', 'directorist'); ?>"/>
                                                                     </div>
@@ -1016,7 +1016,7 @@ $query_args = array(
                                                                         <label for="manual_lng"> <?php _e('Longitude', 'directorist'); ?> </label>
                                                                         <input type="text" name="manual_lng"
                                                                                id="manual_lng"
-                                                                               value="<?= !empty($manual_lng) ? esc_attr($manual_lng) : $default_longitude; ?>"
+                                                                               value="<?php echo !empty($manual_lng) ? esc_attr($manual_lng) : $default_longitude; ?>"
                                                                                class="form-control directory_field"
                                                                                placeholder="<?php esc_attr_e('Enter Longitude eg. 91.87198', 'directorist'); ?>"/>
                                                                     </div>
@@ -1033,7 +1033,7 @@ $query_args = array(
                                                             <div class="col-sm-12">
                                                                 <div class="form-group hide-map-option">
                                                                     <input type="checkbox" name="hide_map" value="1"
-                                                                           id="hide_map" <?= (!empty($hide_map)) ? 'checked' : ''; ?> >
+                                                                           id="hide_map" <?php echo (!empty($hide_map)) ? 'checked' : ''; ?> >
                                                                     <label for="hide_map"> <?php _e('Hide Map', 'directorist'); ?> </label>
                                                                 </div>
                                                             </div>
@@ -1085,7 +1085,7 @@ $query_args = array(
                                     }
                                     ?>
                                     <?php if ((!empty($display_prv_field) && empty($display_prv_img_for)) || (!empty($display_gellery_field) && empty($display_glr_img_for)) || (empty($display_video_for) && !empty($display_video_field) && $plan_video)) { ?>
-                                        <div class="atbd_content_module">
+                                        <div class="atbd_content_module" id="atbdp_front_media_wrap">
                                             <div class="atbd_content_module__tittle_area">
                                                 <div class="atbd_area_title">
                                                     <h4>
@@ -1121,7 +1121,7 @@ $query_args = array(
                                                             esc_html_e($video_label . ':', 'directorist');
                                                             echo get_directorist_option('require_video') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                                                         <input type="text" id="videourl" name="videourl"
-                                                               value="<?= !empty($videourl) ? esc_url($videourl) : ''; ?>"
+                                                               value="<?php echo !empty($videourl) ? esc_url($videourl) : ''; ?>"
                                                                class="form-control directory_field"
                                                                placeholder="<?php echo esc_attr($video_placeholder); ?>"/>
                                                     </div>
@@ -1213,9 +1213,9 @@ if ('openstreet' == $select_listing_map) {
         $manual_lat = $('#manual_lat');
         $manual_lng = $('#manual_lng');
         saved_lat_lng = {
-            lat:<?= (!empty($manual_lat)) ? floatval($manual_lat) : $default_latitude ?>,
-            lng: <?= (!empty($manual_lng)) ? floatval($manual_lng) : $default_longitude ?> }; // default is London city
-        info_content = "<?= $info_content ?>";
+            lat:<?php echo (!empty($manual_lat)) ? floatval($manual_lat) : $default_latitude ?>,
+            lng: <?php echo (!empty($manual_lng)) ? floatval($manual_lng) : $default_longitude ?> }; // default is London city
+        info_content = "<?php echo $info_content ?>";
         markers = [];// initialize the array to keep track all the marker
         info_window = new google.maps.InfoWindow({
             content: info_content,

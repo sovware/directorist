@@ -64,7 +64,6 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     $display_web_link = get_directorist_option('display_web_link', 0);
                     $display_category = get_directorist_option('display_category', 1);
                     $display_view_count = get_directorist_option('display_view_count', 1);
-                    $display_author_image = get_directorist_option('display_author_image', 1);
                     $display_publish_date = get_directorist_option('display_publish_date', 1);
                     $display_contact_info = get_directorist_option('display_contact_info', 1);
                     $display_feature_badge_cart = get_directorist_option('display_feature_badge_cart', 1);
@@ -80,6 +79,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     $disable_bz_hour_listing = get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true);
                     $business_hours = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
                     $author_id = get_the_author_meta('ID');
+                    $display_author_image = get_directorist_option('display_author_image', 1);
                     $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                     $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
                     $avata_img = get_avatar($author_id, 32);
@@ -152,7 +152,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                 $author = get_userdata($author_id);
                                                 ?>
                                                 <div class="atbd_author">
-                                                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
+                                                    <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
                                                        aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>"
                                                        class="atbd_tooltip"><?php if (empty($u_pro_pic)) {
                                                             echo $avata_img;
@@ -234,7 +234,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                     <?php
                                                     if (empty($disable_single_listing)) {
                                                         ?>
-                                                        <a href="<?= esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
+                                                        <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
                                                         <?php
                                                     } else {
                                                         echo esc_html(stripslashes(get_the_title()));
@@ -361,8 +361,8 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                             ?>
                                                             <li><p>
                                                                     <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
-                                                                    <a target="_blank" href="<?= esc_url($web); ?>"
-                                                                        <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?= esc_html($web); ?></a>
+                                                                    <a target="_blank" href="<?php echo esc_url($web); ?>"
+                                                                        <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html($web); ?></a>
                                                                 </p></li>
                                                         <?php
                                                         endif;

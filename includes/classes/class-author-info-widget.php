@@ -57,7 +57,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
                                 src="<?php echo esc_url($u_pro_pic[0]); ?>"
                                 alt="Avatar Image"><?php } ?></div>
                         <div class="atbd_name_time">
-                            <h4><?= esc_html($author_name); ?></h4>
+                            <h4><?php echo esc_html($author_name); ?></h4>
                             <span class="review_time"><?php
                                 printf(__('Member since %s ago', 'directorist'), human_time_diff(strtotime($user_registered), current_time('timestamp'))); ?></span>
                         </div>
@@ -77,7 +77,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
                             if (!empty($address)) { ?>
                                 <li>
                                     <span class="<?php atbdp_icon_type(true);?>-map-marker"></span>
-                                    <span class="atbd_info"><?= !empty($address) ? esc_html($address) : ''; ?></span>
+                                    <span class="atbd_info"><?php echo !empty($address) ? esc_html($address) : ''; ?></span>
                                 </li>
                             <?php } ?>
 
@@ -98,7 +98,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
                                     ?>
                                     <li>
                                         <span class="<?php atbdp_icon_type(true);?>-envelope"></span>
-                                        <span class="atbd_info"><?= esc_html($email); ?></span>
+                                        <span class="atbd_info"><?php echo esc_html($email); ?></span>
                                     </li>
                                     <?php
                                 }
@@ -108,7 +108,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
                                         ?>
                                         <li>
                                             <span class="<?php atbdp_icon_type(true);?>-envelope"></span>
-                                            <span class="atbd_info"><?= esc_html($email); ?></span>
+                                            <span class="atbd_info"><?php echo esc_html($email); ?></span>
                                         </li>
                                         <?php
                                     }
@@ -117,8 +117,8 @@ if (!class_exists('BD_Author_Info_Widget')) {
                             if (!empty($website)) { ?>
                                 <li>
                                     <span class="<?php atbdp_icon_type(true);?>-globe"></span>
-                                    <a href="<?= esc_url($website); ?>"
-                                       class="atbd_info" <?php echo is_directoria_active() ? 'style="text-transform: none;"' : ''; ?>><?= esc_url($website); ?></a>
+                                    <a href="<?php echo esc_url($website); ?>"
+                                       class="atbd_info" <?php echo is_directoria_active() ? 'style="text-transform: none;"' : ''; ?>><?php echo esc_url($website); ?></a>
                                 </li>
                             <?php } ?>
 
@@ -142,8 +142,8 @@ if (!class_exists('BD_Author_Info_Widget')) {
                             ?>
                         </div>
                     <?php } ?>
-                    <a href="<?= ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
-                       class="<?= atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', 'directorist'); ?>
+                    <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
+                       class="<?php echo atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', 'directorist'); ?>
                     </a>
                 </div>
                 <?php

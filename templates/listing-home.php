@@ -422,7 +422,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                         <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cat); ?>">
                                             <span class="<?php echo ('la' === $icon_type) ? $icon_type . ' ' . $icon : 'fa ' . $icon; ?>"
                                                   aria-hidden="true"></span>
-                                            <p><?= $cat->name; ?></p>
+                                            <p><?php echo $cat->name; ?></p>
                                         </a>
                                     </li>
 

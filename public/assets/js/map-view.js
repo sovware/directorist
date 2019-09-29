@@ -168,32 +168,21 @@ function atbdp_add_marker( $marker, map ) {
         }
     }
 
-    //console.log($marker.data( 'icon' ));
-
-    /*var ico = $marker.data( 'icon' );
-    var marker = new google.maps.Marker({
-        position  : latlng,
-        map		  : map,
-        icon: ' ',
-        label: {
-            fontFamily: "FontAwesome",
-            text: eval("'\\u"+'f024'+"'")
-        }
-    });*/
     var icon = $marker.data( 'icon' );
-    console.log(icon);
     var marker = new Marker({
         position  : latlng,
         map		  : map,
         icon: {
             path: MAP_PIN,
-            fillColor: '#9C27B0',
+            fillColor: 'red',
             fillOpacity: 1,
             strokeColor: '',
             strokeWeight: 0
         },
         map_icon_label: '<i class="fa '+icon+'"></i>'
     });
+
+
 
 
     // create marker

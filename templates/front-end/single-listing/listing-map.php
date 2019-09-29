@@ -49,6 +49,13 @@ if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) &&
                         </div>
                     </div>
                     <div class="atbdb_content_module_contents">
+                        <?php
+                        /**
+                         * @since 5.10.0
+                         *
+                         */
+                        do_action('atbdp_single_listing_before_map');
+                        ?>
                         <div id="gmap" class="atbd_google_map"></div>
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->

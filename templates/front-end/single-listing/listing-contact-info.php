@@ -42,7 +42,8 @@ $display_zip_field = get_directorist_option('display_zip_field', 1);
 $zip_label = get_directorist_option('zip_label', __('Zip/Post Code', 'directorist'));
 $display_social_info_field = get_directorist_option('display_social_info_field', 1);
 $display_social_info_for = get_directorist_option('display_social_info_for', 'admin_users');
-$disable_contact_info = get_directorist_option('disable_contact_info', 0);
+$is_info = get_directorist_option('disable_contact_info', 0);
+$disable_contact_info = apply_filters('atbdp_single_listing_contact_info', $is_info);
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>

@@ -90,7 +90,12 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                 <div class="col-md-12">
                     <!-- start search area -->
                     <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
-                        <!-- @todo; if the input fields break in different themes, use bootstrap form inputs then -->
+                        <?php
+                        /**
+                         * @since 5.10.0
+                         */
+                        do_action('atbdp_before_search_form');
+                        ?>
                         <div class="atbd_seach_fields_wrapper"<?php echo empty($search_border) ? 'style="border: none;"' : ''; ?>>
                             <?php if ('yes' == $text_field || 'yes' == $category_field || 'yes' == $location_field) { ?>
                                 <div class="row atbdp-search-form">

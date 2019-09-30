@@ -1733,6 +1733,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     include BDM_TEMPLATES_DIR . '/map-view.php';
                 }else{
                     include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+
                 }
 
             }

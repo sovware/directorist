@@ -106,7 +106,8 @@ $info_content .= "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manu
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map', 0);
 $disable_sharing = get_directorist_option('disable_sharing', 0);
-$disable_contact_info = get_directorist_option('disable_contact_info', 0);
+$is_info = get_directorist_option('disable_contact_info', 0);
+$disable_contact_info = apply_filters('atbdp_single_listing_contact_info', $is_info);
 $disable_contact_owner = get_directorist_option('disable_contact_owner', 1);
 $is_disable_price = get_directorist_option('disable_list_price');
 $enable_social_share = get_directorist_option('enable_social_share', 1);
@@ -643,6 +644,13 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     </div>
 
                     <div class="atbdb_content_module_contents">
+                        <?php
+                        /**
+                         * @since 5.10.0
+                         *
+                         */
+                        do_action('atbdp_single_listing_before_map');
+                        ?>
                         <div id="gmap" class="atbd_google_map"></div>
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->

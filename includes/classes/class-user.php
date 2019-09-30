@@ -39,9 +39,6 @@ class ATBDP_User {
 
             add_action('init', array($this, 'allow_contributor_uploads'));
         }
-
-
-
     }
 
 
@@ -50,11 +47,12 @@ class ATBDP_User {
         /*@todo; this is the temporary solution to let user upload image and listing. After the releasing the plugin, we need to work with custom rules and permission.*/
         $contributor = get_role('contributor');
         $subscriber = get_role('subscriber');
-        $customer = get_role('customer');
-
+        if (in_array( 'customer', (array) wp_get_current_user()->roles )){
+            $customer = get_role('customer');
+            $customer->add_cap('upload_files');
+        }
         $contributor->add_cap('upload_files');
         $subscriber->add_cap('upload_files');
-        $customer->add_cap('upload_files');
     }
 
     /**

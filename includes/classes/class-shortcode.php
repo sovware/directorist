@@ -263,7 +263,6 @@ if (!class_exists('ATBDP_Shortcode')):
                 $cf = array_filter($_GET['custom_field']);
 
                 foreach ($cf as $key => $values) {
-
                     if (is_array($values)) {
 
                         if (count($values) > 1) {

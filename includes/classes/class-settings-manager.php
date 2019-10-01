@@ -165,18 +165,18 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'menus' => $this->get_reg_log_settings_submenus(),
                 ),
                 /*lets make the settings for style settngs*/
-              /*  'style_settings_menu' => array(
-                    'title' => __('Style Settings', 'directorist'),
-                    'name' => 'style_settings',
-                    'icon' => 'font-awesome:fa-adjust',
-                    'controls' => apply_filters('atbdp_style_settings_controls', array(
-                        'style_settings' => array(
-                            'type' => 'section',
-                            'title' => __('Style Settings', 'directorist'),
-                            'fields' => $this->get_listings_style_settings_fields(),
-                        ),
-                    )),
-                ),*/
+                /*  'style_settings_menu' => array(
+                      'title' => __('Style Settings', 'directorist'),
+                      'name' => 'style_settings',
+                      'icon' => 'font-awesome:fa-adjust',
+                      'controls' => apply_filters('atbdp_style_settings_controls', array(
+                          'style_settings' => array(
+                              'type' => 'section',
+                              'title' => __('Style Settings', 'directorist'),
+                              'fields' => $this->get_listings_style_settings_fields(),
+                          ),
+                      )),
+                  ),*/
             ));
         }
 
@@ -438,9 +438,9 @@ if (!class_exists('ATBDP_Settings_Manager')):
         {
             return apply_filters('atbdp_log_rec_pass_setting', array(
                 array(
-                    'type'    => 'toggle',
-                    'name'    => 'display_recpass',
-                    'label'   => __('Enable', 'directorist'),
+                    'type' => 'toggle',
+                    'name' => 'display_recpass',
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
                 ),
                 array(
@@ -474,9 +474,11 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'default' => __('Get New Password', 'directorist'),
                 ),
             ));
-        }     /**
+        }
 
         /**
+         *
+         * /**
          * Get username setting field for registration
          * @return array
          * @since 5.1.0
@@ -882,20 +884,6 @@ if (!class_exists('ATBDP_Settings_Manager')):
 
                 /*Submenu : Deshboard */
                 array(
-                    'title' => __('User Dashboard Setting', 'directorist'),
-                    'name' => 'dashboard_setting',
-                    'icon' => 'font-awesome:fa-bar-chart',
-                    'controls' => apply_filters('atbdp_dashboard_controls', array(
-                        'emails' => array(
-                            'type' => 'section',
-                            'title' => __('User Dashboard Setting', 'directorist'),
-                            'fields' => $this->get_listings_dashboard_settings_fields(),
-                        ),
-                    )),
-                ),
-
-                /*Submenu : Deshboard */
-                array(
                     'title' => __('Map Setting', 'directorist'),
                     'name' => 'map_setting',
                     'icon' => 'font-awesome:fa-map-signs',
@@ -912,6 +900,21 @@ if (!class_exists('ATBDP_Settings_Manager')):
                         ),
                     )),
                 ),
+
+                /*Submenu : Deshboard */
+                array(
+                    'title' => __('User Dashboard', 'directorist'),
+                    'name' => 'dashboard_setting',
+                    'icon' => 'font-awesome:fa-bar-chart',
+                    'controls' => apply_filters('atbdp_dashboard_controls', array(
+                        'emails' => array(
+                            'type' => 'section',
+                            'title' => __('User Dashboard', 'directorist'),
+                            'fields' => $this->get_listings_dashboard_settings_fields(),
+                        ),
+                    )),
+                ),
+
                 /*Submenu : Style */
                 /*'style_setting'=> array(
                     'title' => __('Style Setting', 'directorist'),
@@ -934,7 +937,8 @@ if (!class_exists('ATBDP_Settings_Manager')):
          * @return array It returns an array of submenus
          * @since 5.5.1
          */
-        public function get_listings_style_settings_fields(){
+        public function get_listings_style_settings_fields()
+        {
             return apply_filters('atbdp_style_settings_submenus', array(
                 array(
                     'type' => 'color',
@@ -954,122 +958,123 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'label' => __('Border Primary Color', 'directorist'),
                     'default' => '#444752',
                 ),
-               /* array(
-                    'type' => 'color',
-                    'name' => 'secondary_color',
-                    'label' => __('Secondary Color', 'directorist'),
-                    'default' => '#122069',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'back_secondary_color',
-                    'label' => __('Background Secondary Color', 'directorist'),
-                    'default' => '#122069',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'success_color',
-                    'label' => __('Success Color', 'directorist'),
-                    'default' => '#32cc6f',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'back_success_color',
-                    'label' => __('Background Success Color', 'directorist'),
-                    'default' => '#32cc6f',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'info_color',
-                    'label' => __('Info Color', 'directorist'),
-                    'default' => '#3590ec',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'back_info_color',
-                    'label' => __('Background Info Color', 'directorist'),
-                    'default' => '#3590ec',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'warning_color',
-                    'label' => __('Warning Color', 'directorist'),
-                    'default' => '#ffaf00',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'back_warning_color',
-                    'label' => __('Background Warning Color', 'directorist'),
-                    'default' => '#ffaf00',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'danger_color',
-                    'label' => __('Danger Color', 'directorist'),
-                    'default' => '#e23636',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'back_danger_color',
-                    'label' => __('Background Danger Color', 'directorist'),
-                    'default' => '#e23636',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'dark_color',
-                    'label' => __('Dark Color', 'directorist'),
-                    'default' => '#202428',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'back_dark_color',
-                    'label' => __('Background Dark Color', 'directorist'),
-                    'default' => '#202428',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'featured_badge_color',
-                    'label' => __('Featured Badge Color', 'directorist'),
-                    'default' => '#fa8b0c',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'featured_back_color',
-                    'label' => __('Featured Badge Background Color', 'directorist'),
-                    'default' => '#fa8b0c',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'popular_badge_color',
-                    'label' => __('Popular Badge Color', 'directorist'),
-                    'default' => '#f51957',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'popular_back_color',
-                    'label' => __('Popular Badge Background Color', 'directorist'),
-                    'default' => '#f51957',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'heading_color',
-                    'label' => __('Heading Color', 'directorist'),
-                    'default' => '#272b41',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'text_color',
-                    'label' => __('Text Color', 'directorist'),
-                    'default' => '#7a82a6',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'rating_color',
-                    'label' => __('Rating Color', 'directorist'),
-                    'default' => '#fa8b0c',
-                ),*/
+                /* array(
+                     'type' => 'color',
+                     'name' => 'secondary_color',
+                     'label' => __('Secondary Color', 'directorist'),
+                     'default' => '#122069',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'back_secondary_color',
+                     'label' => __('Background Secondary Color', 'directorist'),
+                     'default' => '#122069',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'success_color',
+                     'label' => __('Success Color', 'directorist'),
+                     'default' => '#32cc6f',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'back_success_color',
+                     'label' => __('Background Success Color', 'directorist'),
+                     'default' => '#32cc6f',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'info_color',
+                     'label' => __('Info Color', 'directorist'),
+                     'default' => '#3590ec',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'back_info_color',
+                     'label' => __('Background Info Color', 'directorist'),
+                     'default' => '#3590ec',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'warning_color',
+                     'label' => __('Warning Color', 'directorist'),
+                     'default' => '#ffaf00',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'back_warning_color',
+                     'label' => __('Background Warning Color', 'directorist'),
+                     'default' => '#ffaf00',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'danger_color',
+                     'label' => __('Danger Color', 'directorist'),
+                     'default' => '#e23636',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'back_danger_color',
+                     'label' => __('Background Danger Color', 'directorist'),
+                     'default' => '#e23636',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'dark_color',
+                     'label' => __('Dark Color', 'directorist'),
+                     'default' => '#202428',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'back_dark_color',
+                     'label' => __('Background Dark Color', 'directorist'),
+                     'default' => '#202428',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'featured_badge_color',
+                     'label' => __('Featured Badge Color', 'directorist'),
+                     'default' => '#fa8b0c',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'featured_back_color',
+                     'label' => __('Featured Badge Background Color', 'directorist'),
+                     'default' => '#fa8b0c',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'popular_badge_color',
+                     'label' => __('Popular Badge Color', 'directorist'),
+                     'default' => '#f51957',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'popular_back_color',
+                     'label' => __('Popular Badge Background Color', 'directorist'),
+                     'default' => '#f51957',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'heading_color',
+                     'label' => __('Heading Color', 'directorist'),
+                     'default' => '#272b41',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'text_color',
+                     'label' => __('Text Color', 'directorist'),
+                     'default' => '#7a82a6',
+                 ),
+                 array(
+                     'type' => 'color',
+                     'name' => 'rating_color',
+                     'label' => __('Rating Color', 'directorist'),
+                     'default' => '#fa8b0c',
+                 ),*/
             ));
         }
+
         /**
          * Get all the submenus for the email menu
          * @return array It returns an array of submenus
@@ -1723,7 +1728,7 @@ You can login now using the below credentials:
         }
 
 
-     /**
+        /**
          * Get all the settings fields for the offline new order email template section
          * @return array
          * @since 3.1.0
@@ -2354,7 +2359,7 @@ The Administrator of ==SITE_NAME==
                             ),
                             array(
                                 'value' => 'search_open_now',
-                                'label' => sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour')?$business_hours:'')),
+                                'label' => sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour') ? $business_hours : '')),
                             array(
                                 'value' => 'search_custom_fields',
                                 'label' => __('Custom Fields', 'directorist'),
@@ -2415,7 +2420,7 @@ The Administrator of ==SITE_NAME==
                             'label' => __('Display From Map API', 'directorist'),
                         ),
                     ),
-                    'listings_filters_button' =>  array(
+                    'listings_filters_button' => array(
                         'type' => 'checkbox',
                         'name' => 'listings_filters_button',
                         'label' => __('Filter Buttons', 'directorist'),
@@ -2441,43 +2446,43 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Reset Filters Button text', 'directorist'),
                         'default' => __('Reset Filters', 'directorist'),
                     ),
-                    'listings_apply_text' =>  array(
+                    'listings_apply_text' => array(
                         'type' => 'textbox',
                         'name' => 'listings_apply_text',
                         'label' => __('Apply Filters Button text', 'directorist'),
                         'default' => __('Apply Filters', 'directorist'),
                     ),
-                    'listings_search_text_placeholder' =>  array(
+                    'listings_search_text_placeholder' => array(
                         'type' => 'textbox',
                         'name' => 'listings_search_text_placeholder',
                         'label' => __('Search Bar Placeholder', 'directorist'),
                         'default' => __('What are you looking for?', 'directorist'),
                     ),
-                    'listings_category_placeholder' =>  array(
+                    'listings_category_placeholder' => array(
                         'type' => 'textbox',
                         'name' => 'listings_category_placeholder',
                         'label' => __('Category Placeholder', 'directorist'),
                         'default' => __('Select a category', 'directorist'),
                     ),
-                    'listings_location_placeholder' =>  array(
+                    'listings_location_placeholder' => array(
                         'type' => 'textbox',
                         'name' => 'listings_location_placeholder',
                         'label' => __('Location Placeholder', 'directorist'),
                         'default' => __('Select a location', 'directorist'),
                     ),
-                    'display_sort_by' =>  array(
+                    'display_sort_by' => array(
                         'type' => 'toggle',
                         'name' => 'display_sort_by',
                         'label' => __('Display "Sort By" Dropdown', 'directorist'),
                         'default' => 1,
                     ),
-                    'sort_by_text' =>  array(
+                    'sort_by_text' => array(
                         'type' => 'textbox',
                         'name' => 'sort_by_text',
                         'label' => __('"Sort By" Text', 'directorist'),
                         'default' => __('Sort By', 'directorist'),
                     ),
-                    'listings_sort_by_items' =>  array(
+                    'listings_sort_by_items' => array(
                         'type' => 'checkbox',
                         'name' => 'listings_sort_by_items',
                         'label' => __('"Sort By" Dropdown', 'directorist'),
@@ -2533,7 +2538,7 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Display "View As" Dropdown', 'directorist'),
                         'default' => 1,
                     ),
-                    'view_as_text' =>  array(
+                    'view_as_text' => array(
                         'type' => 'textbox',
                         'name' => 'view_as_text',
                         'label' => __('"View As" Text', 'directorist'),
@@ -2616,7 +2621,7 @@ The Administrator of ==SITE_NAME==
                         'default' => '3',
                         'validation' => 'numeric|minlength[1]',
                     ),
-                    'order_listing_by' =>  array(
+                    'order_listing_by' => array(
                         'type' => 'select',
                         'name' => 'order_listing_by',
                         'label' => __('Listings Order By', 'directorist'),
@@ -2639,7 +2644,7 @@ The Administrator of ==SITE_NAME==
                             'label' => __('Date', 'directorist'),
                         ),
                     ),
-                    'sort_listing_by' =>  array(
+                    'sort_listing_by' => array(
                         'type' => 'select',
                         'name' => 'sort_listing_by',
                         'label' => __('Listings Sort By', 'directorist'),
@@ -3087,7 +3092,7 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Search Bar Sub-title', 'directorist'),
                         'default' => atbdp_get_option('search_subtitle', 'atbdp_general'),
                     ),
-                   'search_border_show' => array(
+                    'search_border_show' => array(
                         'type' => 'toggle',
                         'name' => 'search_border',
                         'label' => __('Search Bar Border', 'directorist'),
@@ -3171,7 +3176,7 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Location Placeholder', 'directorist'),
                         'default' => __('Select a location', 'directorist'),
                     ),
-                   'display_more_filter' => array(
+                    'display_more_filter' => array(
                         'type' => 'toggle',
                         'name' => 'search_more_filter',
                         'label' => __('Display More Filters', 'directorist'),
@@ -3242,7 +3247,7 @@ The Administrator of ==SITE_NAME==
                             ),
                             array(
                                 'value' => 'search_open_now',
-                                'label' => sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour')?$business_hours:'')),
+                                'label' => sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour') ? $business_hours : '')),
                             array(
                                 'value' => 'search_custom_fields',
                                 'label' => __('Custom Fields', 'directorist'),
@@ -3273,7 +3278,7 @@ The Administrator of ==SITE_NAME==
                             ),
                         ),
                         'default' => array(
-                            'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields','radius_search'
+                            'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'
                         ),
                     ),
                     array(
@@ -3357,7 +3362,7 @@ The Administrator of ==SITE_NAME==
                         'default' => '10',
                         'validation' => 'numeric|minlength[1]',
                     ),
-                   'search_home_background' => array(
+                    'search_home_background' => array(
                         'type' => 'upload',
                         'name' => 'search_home_bg',
                         'label' => __('Search Page Background', 'directorist'),
@@ -3455,7 +3460,7 @@ The Administrator of ==SITE_NAME==
                             ),
                             array(
                                 'value' => 'search_open_now',
-                                'label' => sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour')?$business_hours:'')),
+                                'label' => sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour') ? $business_hours : '')),
                             array(
                                 'value' => 'search_custom_fields',
                                 'label' => __('Custom Fields', 'directorist'),
@@ -4165,7 +4170,8 @@ The Administrator of ==SITE_NAME==
             ));
         }
 
-        public function get_listings_views_count_settings(){
+        public function get_listings_views_count_settings()
+        {
             return apply_filters('atbdp_views_count_field_setting', array(
                 array(
                     'type' => 'toggle',
@@ -4187,6 +4193,7 @@ The Administrator of ==SITE_NAME==
                 ),
             ));
         }
+
         /**
          * Get excerpt settings field
          * @return array
@@ -4196,15 +4203,15 @@ The Administrator of ==SITE_NAME==
         {
             return apply_filters('atbdp_short_desc_field_setting', array(
                 array(
-                    'type'    => 'toggle',
-                    'name'    => 'display_excerpt_field',
-                    'label'   => __('Enable', 'directorist'),
+                    'type' => 'toggle',
+                    'name' => 'display_excerpt_field',
+                    'label' => __('Enable', 'directorist'),
                     'default' => 0,
                 ),
                 array(
-                    'type'    => 'textbox',
-                    'name'    => 'excerpt_label',
-                    'label'   => __('Label', 'directorist'),
+                    'type' => 'textbox',
+                    'name' => 'excerpt_label',
+                    'label' => __('Label', 'directorist'),
                     'default' => __('Short Description/Excerpt', 'directorist'),
                 ),
                 array(
@@ -4214,15 +4221,15 @@ The Administrator of ==SITE_NAME==
                     'default' => __('Short Description or Excerpt', 'directorist'),
                 ),
                 array(
-                    'type'    => 'toggle',
-                    'name'    => 'require_excerpt',
-                    'label'   => __('Required', 'directorist'),
+                    'type' => 'toggle',
+                    'name' => 'require_excerpt',
+                    'label' => __('Required', 'directorist'),
                     'default' => 0,
                 ),
                 array(
-                    'type'    => 'toggle',
-                    'name'    => 'display_short_desc_for',
-                    'label'   => __('Only For Admin Use', 'directorist'),
+                    'type' => 'toggle',
+                    'name' => 'display_short_desc_for',
+                    'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
             ));
@@ -4311,6 +4318,7 @@ The Administrator of ==SITE_NAME==
 
             ));
         }
+
         /**
          * Get phone number settings field
          * @return array
@@ -4743,7 +4751,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'my_listing_tab_text',
-                    'label' => __('"My Listing" Tab Text', 'directorist'),
+                    'label' => __('"My Listing" Tab Label', 'directorist'),
                     'default' => __('My Listing', 'directorist'),
                 ),
                 array(
@@ -4771,7 +4779,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'my_profile_tab_text',
-                    'label' => __('"My Profile" Tab Text', 'directorist'),
+                    'label' => __('"My Profile" Tab Label', 'directorist'),
                     'default' => __('My Profile', 'directorist'),
                 ),
                 array(
@@ -4783,7 +4791,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'fav_listings_tab_text',
-                    'label' => __('"Favourite Listings" Tab Text', 'directorist'),
+                    'label' => __('"Favourite Listings" Tab Label', 'directorist'),
                     'default' => __('Favorite Listings', 'directorist'),
                 ),
                 array(
@@ -4943,7 +4951,7 @@ The Administrator of ==SITE_NAME==
                     'type' => 'textarea',
                     'name' => 'review_approval_text',
                     'label' => __('Approval Notification Text', 'directorist'),
-                    'default' => __('We have received your review. It requires approval.','directorist'),
+                    'default' => __('We have received your review. It requires approval.', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
@@ -5410,7 +5418,7 @@ The Administrator of ==SITE_NAME==
                 )
             );
         }
-        
+
 
         /**
          * @since 5.0
@@ -5457,7 +5465,7 @@ The Administrator of ==SITE_NAME==
                         'default' => atbdp_get_option('all_listing_page', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),
-                   'single_listing_page' => array(
+                    'single_listing_page' => array(
                         'type' => 'select',
                         'name' => 'single_listing_page',
                         'label' => __('Single Listing Page', 'directorist'),
@@ -5624,7 +5632,7 @@ The Administrator of ==SITE_NAME==
         function get_extension_settings_fields()
         {
             return apply_filters('atbdp_extension_settings_fields', array(
-                   'extension_promotion_set' => array(
+                    'extension_promotion_set' => array(
                         'type' => 'notebox',
                         'name' => 'extension_promotion',
                         'label' => __('Need more Features?', 'directorist'),

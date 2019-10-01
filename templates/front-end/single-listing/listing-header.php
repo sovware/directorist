@@ -337,7 +337,8 @@ do_action('atbdp_before_listing_section');
              */
             echo apply_filters('atbdp_before_listing_title', $data_info);
 
-            echo '<div class="atbd_listing_title">';
+            $class = apply_filters('atbdp_single_listing_title_class', 'atbd_listing_title');
+            echo '<div class="'.$class.'">';
             $title_html = '<h2>';
             $title_html .= esc_html($p_title);
             $title_html .= '</h2>';

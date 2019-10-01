@@ -598,7 +598,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             </tbody>
                                             <?php
                                         } else {
-                                            printf('<p class="atbdp_nlf">%s</p>', __("No listing found !", 'directorist'));
+                                            printf('<p class="atbdp_nlf">%s</p>', __("Nothing found!", 'directorist'));
                                         }
                                         ?>
                                     </table>

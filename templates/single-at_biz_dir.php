@@ -438,8 +438,8 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                          * It returns data before listing title
                          */
                         echo apply_filters('atbdp_before_listing_title', $data_info);
-
-                        echo '<div class="atbd_listing_title">';
+                        $class = apply_filters('atbdp_single_listing_title_class', 'atbd_listing_title');
+                        echo '<div class="'.$class.'">';
                         $title_html = '<h2>';
                         $title_html .= esc_html($p_title);
                         $title_html .= '</h2>';

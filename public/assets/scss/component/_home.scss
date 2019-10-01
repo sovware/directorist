@@ -80,6 +80,14 @@
     border: 1px solid $border-color;
     .atbdp-search-form{
       justify-content: center;
+      &.row{
+        margin-left: -5px !important;
+        margin-right: -5px !important;
+      }
+      div[class^="col-"]{
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+      }
     }
   }
   .directory_home_category_area{

@@ -860,18 +860,20 @@ final class Directorist_Base
      */
     public function show_related_listing($post)
     {
+        /**
+         * @package Directorist
+         * @since 5.10.0
+         */
+        do_action('atbdp_before_related_listing_start', $post);
         $enable_rel_listing = get_directorist_option('enable_rel_listing', 1);
         if (1 != $enable_rel_listing) return; // vail if related listing is not enabled
         $related_listings = $this->get_related_listings($post);
         $is_disable_price = get_directorist_option('disable_list_price');
         $rel_listing_column = get_directorist_option('rel_listing_column', 3);
         if ($related_listings->have_posts()) {
-            ?>
-            <!--Related Listings starts-->
-            <?php
-            related_listing_slider($related_listings, $pagenation = null, $is_disable_price);
-            ?>
-        <?php } ?>
+            $templete = apply_filters('atbdp_related_listing_template', 'default');
+            related_listing_slider($related_listings, $pagenation = null, $is_disable_price, $templete);
+        } ?>
         <script>
             jQuery(document).ready(function ($) {
                 $('.related__carousel').slick({
@@ -954,6 +956,7 @@ final class Directorist_Base
                     'terms' => $atbd_tags_ids,
                 ),
             ),
+            'meta_query'   => apply_filters('atbdp_related_listings_meta_queries', array()),
             'posts_per_page' => (int)$rel_listing_num,
             'post__not_in' => array($post->ID),
         );

@@ -2668,8 +2668,9 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
     return true;
 }
 
-function related_listing_slider($all_listings, $pagenation, $is_disable_price)
+function related_listing_slider($all_listings, $pagenation, $is_disable_price, $templete = 'default')
 {
+    if ('default' != $templete)return;
     $rel_listing_title = get_directorist_option('rel_listing_title', __('Related Listings', 'directorist'))
     ?>
     <div class="<?php echo is_directoria_active() ? 'containere' : 'containess-fluid'; ?>">

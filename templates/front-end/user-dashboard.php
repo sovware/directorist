@@ -76,7 +76,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
                         <div class="nav_button">
                             <?php if (!empty($submit_listing_button)) { ?>
-                                <a href="<?php echo (is_fee_manager_active()) ? esc_url(ATBDP_Permalink::get_fee_plan_page_link()) : esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
+                                <a href="<?php echo esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
                                    class="<?php echo atbdp_directorist_button_classes(); ?>"><?php _e('Submit Listing', 'directorist'); ?></a>
                             <?php } ?>
                             <a href="<?php echo esc_url(wp_logout_url(home_url())); ?>"

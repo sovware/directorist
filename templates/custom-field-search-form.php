@@ -15,6 +15,9 @@
             if( isset( $_GET['custom_field'][ $post->ID ] ) ) {
                 $value = $_GET['custom_field'][ $post->ID ];
             }
+            if( isset( $_POST['custom_field'][ $post->ID ] ) ) {
+                $value = $_POST['custom_field'][ $post->ID ];
+            }
 
             switch( $field_meta['type'][0] ) {
                 case 'text' :

@@ -1188,9 +1188,14 @@ if (!class_exists('ATBDP_Shortcode')):
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                 return $redirect;
             }
+            $listing_type = isset($_GET['listing_type'])?sanitize_text_field($_GET['listing_type']):'';
             if ('yes' == $logged_in_user_only) {
                 if (is_user_logged_in()) {
-                    include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                    if ('need' === $listing_type){
+                        include PYN_TEMPLATES_DIR . "/need-card.php";
+                    }else{
+                        include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                    }
                 } else {
                     // user not logged in;
                     $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
@@ -1202,7 +1207,11 @@ if (!class_exists('ATBDP_Shortcode')):
                     <?php
                 }
             } else {
-                include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                if ('need' === $listing_type){
+                    include PYN_TEMPLATES_DIR . "/need-card.php";
+                }else{
+                    include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                }
             }
             return ob_get_clean();
         }

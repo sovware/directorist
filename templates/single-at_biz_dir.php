@@ -130,7 +130,9 @@ $enable_new_listing = get_directorist_option('display_new_badge_cart', 1);
 $use_nofollow = get_directorist_option('use_nofollow');
 $custom_section_lable = get_directorist_option('custom_section_lable', __('Details', 'directorist'));
 $listing_details_text = get_directorist_option('listing_details_text', __('Listing Details', 'directorist'));
+$listing_details_text = apply_filters('atbdp_single_listing_details_section_text', $listing_details_text);
 $listing_location_text = get_directorist_option('listing_location_text', __('Location', 'directorist'));
+$listing_location_text = apply_filters('atbdp_single_listing_map_section_text', $listing_location_text);
 $contact_info_text = get_directorist_option('contact_info_text', __('Contact Information', 'directorist'));
 $contact_listing_owner = get_directorist_option('contact_listing_owner', __('Contact Listing Owner', 'directorist'));
 $display_tagline_field = get_directorist_option('display_tagline_field', 0);
@@ -147,6 +149,7 @@ $display_zip_field = get_directorist_option('display_zip_field', 1);
 $display_social_info_field = get_directorist_option('display_social_info_field', 1);
 $display_social_info_for = get_directorist_option('display_social_info_for', 'admin_users');
 $display_map_field = get_directorist_option('display_map_field', 1);
+$display_map_field = apply_filters('atbdp_show_single_listing_map', $display_map_field);
 $display_video_for = get_directorist_option('display_video_for', 'admin_users');
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
@@ -526,6 +529,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             }
             wp_reset_postdata();
             $has_field = join($has_field_value);
+            $has_field = apply_filters('atbdp_single_listing_custom_field', $has_field);
             $plan_custom_field = true;
             if (is_fee_manager_active()) {
                 $plan_custom_field = is_plan_allowed_custom_fields($fm_plan);

@@ -9,6 +9,7 @@ $listing_info['listing_prv_img'] = get_post_meta($post->ID, '_listing_prv_img', 
 $listing_info['hide_map'] = get_post_meta($post->ID, '_hide_map', true);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
 $display_map_field = get_directorist_option('display_map_field', 1);
+$display_map_field = apply_filters('atbdp_show_single_listing_map', $display_map_field);
 extract($listing_info);
 /*INFO WINDOW CONTENT*/
 $t = get_the_title();
@@ -38,6 +39,7 @@ $info_content .= "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manu
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map', 0);
 $listing_location_text = get_directorist_option('listing_location_text', __('Location', 'directorist'));
+$listing_location_text = apply_filters('atbdp_single_listing_map_section_text', $listing_location_text);
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) && !empty($display_map_field)) { ?>
                 <div class="atbd_content_module">

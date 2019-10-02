@@ -108,7 +108,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
  */
 do_action('atbdp_before_listing_section');
 ?>
-<div class="atbd_content_module atbd_listing_details atbdp_listing_ShortCode">
+<div class="atbd_content_module atbd_listing_details atbdp_listing_ShortCode <?php do_action('atbdp_single_listing_details_class')?>">
     <div class="atbd_content_module__tittle_area">
         <?php if (!empty($listing_details_text)) { ?>
             <div class="atbd_area_title">

@@ -852,7 +852,7 @@ jQuery(function ($) {
 
 
     // Price Range Slider
-    var slider_range = $(".atbd_slider-range");
+    /*var slider_range = $(".atbd_slider-range");
     var miles = atbdp_search_listing.i18n_text.Miles;
     slider_range.each(function () {
         $(this).slider({
@@ -915,7 +915,7 @@ jQuery(function ($) {
             $('#address').val(text);
             $('#address_result').hide();
         });
-    }
+    }*/
 
 })(jQuery);
 

@@ -130,12 +130,12 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                             $search_html .= '</select>';
                                             $search_html .= ' </div>';
                                         } else {
+                                            wp_enqueue_script('atbdp-geolocation');
                                             $address = !empty($_GET['address']) ? $_GET['address'] : '';
-                                            $address_label = !empty($address_label) ? $address_label : __('Address', 'directorist');
+                                            $address_label = __('location', 'directorist');
                                             $search_html .= '<div class="atbdp_map_address_field">';
                                             $search_html .= '<div class="atbdp_get_address_field"><input type="text" id="address" name="address" value="' . $address . '" placeholder="' . $address_label . '" class="form-control location-name"><span class="atbd_get_loc la la-crosshairs"></span></div>';
                                             $search_html .= '<div id="address_result">';
-                                            $search_html .= '<ul></ul>';
                                             $search_html .= '</div>';
                                             $search_html .= '<input type="hidden" id="cityLat" name="cityLat" value="" />';
                                             $search_html .= '<input type="hidden" id="cityLng" name="cityLng" value="" />';

@@ -104,6 +104,7 @@
             if(search === ""){
                 $('#result').css({'display':'none'});
             }
+
             var res = "";
             $.ajax({
                 url: `http://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
@@ -114,7 +115,7 @@
                     for (var i = 0; i < data.length; i++) {
                         res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
                     }
-                    $('#address_result ul').html(res);
+                    $('#address_result').html(`<ul>${res}</ul>`);
                 }
             });
         });
@@ -136,7 +137,7 @@
     /*
     get current location
 */
-    (function () {
+    /*(function () {
         var x = document.querySelector(".location-name");
         var get_lat = document.querySelector("#cityLat");
         var get_lng = document.querySelector("#cityLng");
@@ -209,6 +210,6 @@
                 getLocation();
             });
         }
-    })();
+    })(); */
 
 })(jQuery);

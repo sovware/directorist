@@ -136,7 +136,7 @@
     /*
     get current location
 */
-    (function () {
+    /*(function () {
         var x = document.querySelector(".location-name");
         var get_lat = document.querySelector("#cityLat");
         var get_lng = document.querySelector("#cityLng");
@@ -207,6 +207,6 @@
         get_loc_btn.addEventListener("click", function () {
             getLocation();
         });
-    })();
+    })();*/
 
 })(jQuery);

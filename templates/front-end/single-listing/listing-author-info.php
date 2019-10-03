@@ -1,4 +1,8 @@
 <?php
+/**
+ * @since 5.10.0
+ */
+do_action('atbdp_before_listing_author_shorcode');
 $atbd_author_info_title = get_directorist_option('atbd_author_info_title', __('Author Info', 'directorist'));
 ?>
 <div class="atbd_content_module author_info_module">

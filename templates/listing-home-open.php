@@ -4,6 +4,11 @@
         <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
             <!-- @todo; if the input fields break in different themes, use bootstrap form inputs then -->
             <div class="atbd_seach_fields_wrapper"<?php echo empty($search_border)?'style="border: none;"':'';?>>
+               <?php /**
+                * @since 5.10.0
+                */
+                do_action('atbdp_before_search_form');
+                ?>
                 <?php if('yes' == $text_field || 'yes' == $category_field || 'yes' == $location_field) { ?>
                     <div class="row atbdp-search-form">
                         <?php
@@ -43,7 +48,6 @@
                                 $search_html .= '<div class="atbdp_map_address_field">';
                                 $search_html .= '<div class="atbdp_get_address_field"><input type="text" id="address" name="address" value="'.$address.'" placeholder="'.$address_label.'" class="form-control location-name"><span class="atbd_get_loc la la-crosshairs"></span></div>';
                                 $search_html .= '<div id="address_result">';
-                                $search_html .= '<ul></ul>';
                                 $search_html .= '</div>';
                                 $search_html .= '<input type="hidden" id="cityLat" name="cityLat" value="" />';
                                 $search_html .= '<input type="hidden" id="cityLng" name="cityLng" value="" />';

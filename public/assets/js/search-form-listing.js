@@ -204,9 +204,11 @@
             );
         }
         var get_loc_btn = document.querySelector(".atbd_get_loc");
-        get_loc_btn.addEventListener("click", function () {
-            getLocation();
-        });
-    })();*/
+        if(get_loc_btn){
+            get_loc_btn.addEventListener("click", function () {
+                getLocation();
+            });
+        }
+    })(); */
 
 })(jQuery);

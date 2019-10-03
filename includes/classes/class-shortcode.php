@@ -1189,6 +1189,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                 return $redirect;
             }
+            $listing_type = isset($_GET['listing_type'])?sanitize_text_field($_GET['listing_type']):'';
             if ('yes' == $logged_in_user_only) {
                 if (is_user_logged_in()) {
                     if('listings_with_map' == $view) {

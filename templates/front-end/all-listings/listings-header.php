@@ -221,7 +221,6 @@ if ($display_header == 'yes') { ?>
                                                                class="form-control location-name"><span class="atbd_get_loc la la-crosshairs"></span>
                                                         </div>
                                                         <div id="address_result">
-                                                            <ul></ul>
                                                         </div>
                                                         <input type="hidden" id="cityLat" name="cityLat" value="" />
                                                         <input type="hidden" id="cityLng" name="cityLng" value="" />

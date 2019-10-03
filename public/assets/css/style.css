@@ -4106,6 +4106,16 @@ body.atbd_content_active #directorist.atbd_wrapper {
   justify-content: center;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.row {
+  margin-left: -5px !important;
+  margin-right: -5px !important;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form div[class^="col-"] {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .directory_home_category_area {
   text-align: center;
   margin-top: 60px;

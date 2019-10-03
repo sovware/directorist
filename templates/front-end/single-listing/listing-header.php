@@ -98,6 +98,7 @@ $use_nofollow = get_directorist_option('use_nofollow');
 $enable_review = get_directorist_option('enable_review', 'yes');
 $custom_section_lable = get_directorist_option('custom_section_lable', __('Details', 'directorist'));
 $listing_details_text = get_directorist_option('listing_details_text', __('Listing Details', 'directorist'));
+$listing_details_text = apply_filters('atbdp_single_listing_details_section_text', $listing_details_text);
 $display_tagline_field = get_directorist_option('display_tagline_field', 0);
 $display_pricing_field = get_directorist_option('display_pricing_field', 1);
 $display_thumbnail_img = get_directorist_option('dsiplay_thumbnail_img', 1);
@@ -108,7 +109,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
  */
 do_action('atbdp_before_listing_section');
 ?>
-<div class="atbd_content_module atbd_listing_details atbdp_listing_ShortCode">
+<div class="atbd_content_module atbd_listing_details atbdp_listing_ShortCode <?php do_action('atbdp_single_listing_details_class')?>">
     <div class="atbd_content_module__tittle_area">
         <?php if (!empty($listing_details_text)) { ?>
             <div class="atbd_area_title">
@@ -337,7 +338,8 @@ do_action('atbdp_before_listing_section');
              */
             echo apply_filters('atbdp_before_listing_title', $data_info);
 
-            echo '<div class="atbd_listing_title">';
+            $class = apply_filters('atbdp_single_listing_title_class', 'atbd_listing_title');
+            echo '<div class="'.$class.'">';
             $title_html = '<h2>';
             $title_html .= esc_html($p_title);
             $title_html .= '</h2>';

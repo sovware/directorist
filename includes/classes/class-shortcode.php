@@ -156,7 +156,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $filters_display = get_directorist_option('search_result_display_filter', 'sliding');
             $paginate = get_directorist_option('paginate_search_results');
             $listings_map_height = get_directorist_option('listings_map_height', 350);
-            $atts = shortcode_atts(array(
+            $params = apply_filters('atbdp_search_results_param',array(
                 'view' => !empty($listing_view) ? $listing_view : 'grid',
                 '_featured' => 1,
                 'filterby' => '',
@@ -172,7 +172,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 'logged_in_user_only' => '',
                 'redirect_page_url' => '',
                 'map_height' => !empty($listings_map_height) ? $listings_map_height : 350,
-            ), $atts);
+            ));
+            $atts = shortcode_atts($params, $atts);
             $columns = !empty($atts['columns']) ? $atts['columns'] : 3;
             $display_header = !empty($atts['header']) ? $atts['header'] : '';
             $show_pagination = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
@@ -1191,10 +1192,11 @@ if (!class_exists('ATBDP_Shortcode')):
             $listing_type = isset($_GET['listing_type'])?sanitize_text_field($_GET['listing_type']):'';
             if ('yes' == $logged_in_user_only) {
                 if (is_user_logged_in()) {
-                    if ('need' === $listing_type){
-                        include PYN_TEMPLATES_DIR . "/need-card.php";
+                    if('listings_with_map' == $view) {
+                        include BDM_TEMPLATES_DIR . '/map-view.php';
                     }else{
                         include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+
                     }
                 } else {
                     // user not logged in;
@@ -1207,10 +1209,11 @@ if (!class_exists('ATBDP_Shortcode')):
                     <?php
                 }
             } else {
-                if ('need' === $listing_type){
-                    include PYN_TEMPLATES_DIR . "/need-card.php";
+                if('listings_with_map' == $view) {
+                    include BDM_TEMPLATES_DIR . '/map-view.php';
                 }else{
                     include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+
                 }
             }
             return ob_get_clean();
@@ -1258,7 +1261,6 @@ if (!class_exists('ATBDP_Shortcode')):
                 'logged_in_user_only' => '',
                 'redirect_page_url' => '',
                 'map_height' => !empty($listings_map_height) ? $listings_map_height : 350,
-                'listing_type' => ''
             );
             $params = apply_filters('atbdp_all_listings_params',$parameters);
             $atts = shortcode_atts($params, $atts);
@@ -1721,7 +1723,12 @@ if (!class_exists('ATBDP_Shortcode')):
             }
             if ('yes' == $logged_in_user_only) {
                 if (is_user_logged_in()) {
-                    include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                    if('listings_with_map' == $view) {
+                        include BDM_TEMPLATES_DIR . '/map-view.php';
+                    }else{
+                        include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+
+                    }
                 } else {
                     // user not logged in;
                     $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
@@ -1733,13 +1740,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     <?php
                 }
             } else {
-                if ('service' == $listing_type) {
-                    if (class_exists('Post_Your_Need')) {
-                        include PYN_TEMPLATES_DIR . "/need-card.php";
-                    } else {
-                        include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
-                    }
-                } elseif('listing_map' == $view) {
+                if('listings_with_map' == $view) {
                     include BDM_TEMPLATES_DIR . '/map-view.php';
                 }else{
                     include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
@@ -1860,12 +1861,6 @@ if (!class_exists('ATBDP_Shortcode')):
         public function atbdp_category($atts)
         {
             //include ATBDP_DIR .'public/assets/css/style.php';
-            $atts = shortcode_atts(array(
-                'logged_in_user_only' => '',
-                'redirect_page_url' => ''
-            ), $atts);
-            $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
-            $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
             wp_enqueue_script('adminmainassets');
             wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
             wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
@@ -1893,7 +1888,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $filters_display = get_directorist_option('listings_display_filter', 'sliding');
                 $pagination = get_directorist_option('paginate_all_listings');
                 $listings_map_height = get_directorist_option('listings_map_height', 350);
-                $atts = shortcode_atts(array(
+                $params = apply_filters('atbdp_single_cat_param',array(
                     'view' => !empty($listing_view) ? $listing_view : 'grid',
                     '_featured' => 1,
                     'filterby' => '',
@@ -1906,8 +1901,13 @@ if (!class_exists('ATBDP_Shortcode')):
                     'header_title' => !empty($listings_header_title) ? $listings_header_title : '',
                     'columns' => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                     'map_height' => !empty($listings_map_height) ? $listings_map_height : 350,
-                ), $atts);
+                    'logged_in_user_only' => '',
+                    'redirect_page_url' => '',
+                ));
+                $atts = shortcode_atts($params, $atts);
 
+                $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
+                $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
                 $columns = !empty($atts['columns']) ? $atts['columns'] : 3;
                 $display_header = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title = !empty($atts['header_title']) ? $atts['header_title'] : '';
@@ -2233,7 +2233,12 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
                 if ('yes' == $logged_in_user_only) {
                     if (is_user_logged_in()) {
-                        include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                        if('listings_with_map' == $view) {
+                            include BDM_TEMPLATES_DIR . '/map-view.php';
+                        }else{
+                            include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+
+                        }
                     } else {
                         // user not logged in;
                         $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
@@ -2245,7 +2250,12 @@ if (!class_exists('ATBDP_Shortcode')):
                         <?php
                     }
                 } else {
-                    include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                    if('listings_with_map' == $view) {
+                        include BDM_TEMPLATES_DIR . '/map-view.php';
+                    }else{
+                        include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+
+                    }
                 }
                 return ob_get_clean();
 
@@ -2336,12 +2346,6 @@ if (!class_exists('ATBDP_Shortcode')):
         public function atbdp_location($atts)
         {
             //include ATBDP_DIR .'public/assets/css/style.php';
-            $atts = shortcode_atts(array(
-                'logged_in_user_only' => '',
-                'redirect_page_url' => ''
-            ), $atts);
-            $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
-            $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
             wp_enqueue_script('adminmainassets');
             $term_slug = get_query_var('atbdp_location');
             wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
@@ -2369,7 +2373,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $filters_display = get_directorist_option('listings_display_filter', 'sliding');
                 $pagination = get_directorist_option('paginate_all_listings');
                 $listings_map_height = get_directorist_option('listings_map_height', 350);
-                $atts = shortcode_atts(array(
+                $params = apply_filters('atbdp_single_location_param',array(
                     'view' => !empty($listing_view) ? $listing_view : 'grid',
                     '_featured' => 1,
                     'filterby' => '',
@@ -2381,8 +2385,13 @@ if (!class_exists('ATBDP_Shortcode')):
                     'header_title' => !empty($listings_header_title) ? $listings_header_title : '',
                     'columns' => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                     'map_height' => !empty($listings_map_height) ? $listings_map_height : 350,
-                ), $atts);
+                    'logged_in_user_only' => '',
+                    'redirect_page_url' => ''
+                ));
+                $atts = shortcode_atts($params, $atts);
 
+                $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
+                $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
                 $columns = !empty($atts['columns']) ? $atts['columns'] : 3;
                 $display_header = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title = !empty($atts['header_title']) ? $atts['header_title'] : '';
@@ -2705,7 +2714,12 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
                 if ('yes' == $logged_in_user_only) {
                     if (is_user_logged_in()) {
-                        include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                        if('listings_with_map' == $view) {
+                            include BDM_TEMPLATES_DIR . '/map-view.php';
+                        }else{
+                            include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+
+                        }
                     } else {
                         // user not logged in;
                         $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
@@ -2717,7 +2731,11 @@ if (!class_exists('ATBDP_Shortcode')):
                         <?php
                     }
                 } else {
-                    include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                    if('listings_with_map' == $view) {
+                        include BDM_TEMPLATES_DIR . '/map-view.php';
+                    }else{
+                        include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                    }
                 }
                 return ob_get_clean();
 
@@ -2729,12 +2747,6 @@ if (!class_exists('ATBDP_Shortcode')):
         public function atbdp_tag($atts)
         {
             //include ATBDP_DIR .'public/assets/css/style.php';
-            $atts = shortcode_atts(array(
-                'logged_in_user_only' => '',
-                'redirect_page_url' => ''
-            ), $atts);
-            $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
-            $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
             wp_enqueue_script('adminmainassets');
             wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
             wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
@@ -2763,7 +2775,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $filters_display = get_directorist_option('listings_display_filter', 'sliding');
                 $pagination = get_directorist_option('paginate_all_listings');
                 $listings_map_height = get_directorist_option('listings_map_height', 350);
-                $atts = shortcode_atts(array(
+                $params = apply_filters('atbdp_single_tag_param',array(
                     'view' => !empty($listing_view) ? $listing_view : 'grid',
                     '_featured' => 1,
                     'filterby' => '',
@@ -2777,8 +2789,12 @@ if (!class_exists('ATBDP_Shortcode')):
                     'header_sub_title' => !empty($listings_header_sub_title) ? $listings_header_sub_title : '',
                     'columns' => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                     'map_height' => !empty($listings_map_height) ? $listings_map_height : 350,
-                ), $atts);
-
+                    'logged_in_user_only' => '',
+                    'redirect_page_url' => ''
+                ));
+                $atts = shortcode_atts($params, $atts);
+                $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
+                $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
                 $columns = !empty($atts['columns']) ? $atts['columns'] : 3;
                 $display_header = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title = !empty($atts['header_title']) ? $atts['header_title'] : '';
@@ -3097,7 +3113,11 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
                 if ('yes' == $logged_in_user_only) {
                     if (is_user_logged_in()) {
-                        include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                        if('listings_with_map' == $view) {
+                            include BDM_TEMPLATES_DIR . '/map-view.php';
+                        }else{
+                            include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                        }
                     } else {
                         // user not logged in;
                         $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
@@ -3109,7 +3129,11 @@ if (!class_exists('ATBDP_Shortcode')):
                         <?php
                     }
                 } else {
-                    include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                    if('listings_with_map' == $view) {
+                        include BDM_TEMPLATES_DIR . '/map-view.php';
+                    }else{
+                        include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                    }
                 }
                 return ob_get_clean();
 

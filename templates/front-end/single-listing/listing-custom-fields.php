@@ -47,6 +47,7 @@ foreach ($custom_fields_posts as $custom_fields_post) {
 }
 wp_reset_postdata();
 $has_field = join($has_field_value);
+$has_field = apply_filters('atbdp_single_listing_custom_field', $has_field);
 $plan_custom_field = true;
 if (is_fee_manager_active()) {
     $plan_custom_field = is_plan_allowed_custom_fields($fm_plan);

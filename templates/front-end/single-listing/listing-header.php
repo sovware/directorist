@@ -98,6 +98,7 @@ $use_nofollow = get_directorist_option('use_nofollow');
 $enable_review = get_directorist_option('enable_review', 'yes');
 $custom_section_lable = get_directorist_option('custom_section_lable', __('Details', 'directorist'));
 $listing_details_text = get_directorist_option('listing_details_text', __('Listing Details', 'directorist'));
+$listing_details_text = apply_filters('atbdp_single_listing_details_section_text', $listing_details_text);
 $display_tagline_field = get_directorist_option('display_tagline_field', 0);
 $display_pricing_field = get_directorist_option('display_pricing_field', 1);
 $display_thumbnail_img = get_directorist_option('dsiplay_thumbnail_img', 1);

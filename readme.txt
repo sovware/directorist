@@ -145,6 +145,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Add - Address auto suggestions in search field
 * Add - Option to customize style
 * Fix - OpeNStreetMap/Google map zooming issue
+* Fix - Published date issue in listings page
 * Improve - Settings Panel
 
 = 5.9.2 - Sep 10, 2019 =

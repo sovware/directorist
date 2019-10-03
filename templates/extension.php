@@ -29,25 +29,26 @@
                     </div>
                     <?php
                 }
-                if (!class_exists('BD_Google_Recaptcha')) {
+                if (!class_exists('DWPP_Pricing_Plans')){
                     ?>
-
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                        <!--Google reCAPTCHA-->
+                        <!--WooCommerce Fee Manager-->
                         <div class="single_extension">
-                            <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Directorist_Google_Re-Captcha.jpg"
-                                 alt="Google reCAPTCHA">
+                            <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/WooCommerce_Free_Manager.jpg"
+                                 alt="WooCommerce Pricing Plans">
 
                             <div class="extension_detail ext_d">
-                                <a href="https://aazztech.com/product/google-recaptcha" target="_blank"
-                                   class="ext_title">
-                                    <h4><?php esc_html_e(' Google reCAPTCHA ', 'directorist'); ?></h4></a>
-                                <p><?php esc_html_e('Protect your directory from spam entries with Google reCAPTCHA.', 'directorist'); ?></p>
+                                <a href="https://aazztech.com/product/directorist-woocommerce-pricing-plans" target="_blank"
+                                   class="ext_title"><h4>
+                                        <?php esc_html_e(' WooCommerce Pricing Plans ', 'directorist'); ?> </h4></a>
+                                <p><?php esc_html_e('Create & sell unlimited pricing plans to monetize your directory using WooCommerce.', 'directorist'); ?></p>
 
                                 <div class="btn_wrapper">
-                                    <a href="https://aazztech.com/product/google-recaptcha/#screenshots" target="_blank"
+                                    <a href="https://aazztech.com/product/directorist-woocommerce-pricing-plans/#screenshots"
+                                       target="_blank"
                                        class="btn demo btn-primary"><?php esc_html_e('View demo', 'directorist'); ?></a>
-                                    <a href="https://aazztech.com/product/google-recaptcha" target="_blank"
+                                    <a href="https://aazztech.com/product/directorist-woocommerce-pricing-plans"
+                                       target="_blank"
                                        class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
                                 </div>
                             </div>
@@ -129,33 +130,6 @@
                 </div>
                     <?php
                 }
-                if (!class_exists('DWPP_Pricing_Plans')){
-                ?>
-                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                    <!--WooCommerce Fee Manager-->
-                    <div class="single_extension">
-                        <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/WooCommerce_Free_Manager.jpg"
-                             alt="WooCommerce Pricing Plans">
-
-                        <div class="extension_detail ext_d">
-                            <a href="https://aazztech.com/product/directorist-woocommerce-pricing-plans" target="_blank"
-                               class="ext_title"><h4>
-                                    <?php esc_html_e(' WooCommerce Pricing Plans ', 'directorist'); ?> </h4></a>
-                            <p><?php esc_html_e('Create & sell unlimited pricing plans to monetize your directory using WooCommerce.', 'directorist'); ?></p>
-
-                            <div class="btn_wrapper">
-                                <a href="https://aazztech.com/product/directorist-woocommerce-pricing-plans/#screenshots"
-                                   target="_blank"
-                                   class="btn demo btn-primary"><?php esc_html_e('View demo', 'directorist'); ?></a>
-                                <a href="https://aazztech.com/product/directorist-woocommerce-pricing-plans"
-                                   target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                    <?php
-                }
                 if (!class_exists('BD_Slider_Carousel')){
                 ?>
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
@@ -181,6 +155,32 @@
                         </div>
                     </div>
                 </div>
+                    <?php
+                }
+                if (!class_exists('BD_Google_Recaptcha')) {
+                    ?>
+
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <!--Google reCAPTCHA-->
+                        <div class="single_extension">
+                            <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Directorist_Google_Re-Captcha.jpg"
+                                 alt="Google reCAPTCHA">
+
+                            <div class="extension_detail ext_d">
+                                <a href="https://aazztech.com/product/google-recaptcha" target="_blank"
+                                   class="ext_title">
+                                    <h4><?php esc_html_e(' Google reCAPTCHA ', 'directorist'); ?></h4></a>
+                                <p><?php esc_html_e('Protect your directory from spam entries with Google reCAPTCHA.', 'directorist'); ?></p>
+
+                                <div class="btn_wrapper">
+                                    <a href="https://aazztech.com/product/google-recaptcha/#screenshots" target="_blank"
+                                       class="btn demo btn-primary"><?php esc_html_e('View demo', 'directorist'); ?></a>
+                                    <a href="https://aazztech.com/product/google-recaptcha" target="_blank"
+                                       class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <?php
                 }
                 if (!class_exists('BD_Gallery')){

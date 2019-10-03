@@ -1,7 +1,7 @@
 
 var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18,
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
+        maxZoom: 18,
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
     }),
     latlng = L.latLng(51.5073509, -0.12775829999998223),
     fullCount = addressPoints.length,
@@ -18,16 +18,13 @@ var mcg = L.markerClusterGroup(),
     group4 = L.featureGroup.subGroup(mcg),
     control = L.control.layers(null, null, { collapsed: false }),
     i, a, title, marker;
+
 mcg.addTo(map);
-const fontAwesomeIcon = L.divIcon({
-    html: '<i class="fa fa-home fa-4x"></i>',
-    iconSize: [20, 20],
-    className: 'myDivIcon'
-});
+
 for (i = 0; i < fullCount; i++) {
     a = addressPoints[i];
     title = a[2];
-    marker = L.marker([a[0], a[1]], {icon: fontAwesomeIcon});
+    marker = L.marker([a[0], a[1]], { title: "" });
     marker.bindPopup(title);
 
     marker.addTo(i < quarterCount ? group1 : i < quarterCount * 2 ? group2 : i < quarterCount * 3 ? group3 : group4);

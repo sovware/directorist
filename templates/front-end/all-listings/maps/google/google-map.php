@@ -54,10 +54,11 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
             $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
 
         }
+
         ?>
 
         <?php if( ! empty( $manual_lat ) && ! empty( $manual_lng ) ) : ?>
-            <div class="marker" data-latitude="<?php echo $manual_lat; ?>" data-longitude="<?php echo $manual_lng; ?>" data-icon="<?php echo !empty($cat_icon) ? $cat_icon : 'fa-home';?>">
+            <div class="marker" data-latitude="<?php echo $manual_lat; ?>" data-longitude="<?php echo $manual_lng; ?>" data-icon="<?php echo !empty($cat_icon) ? $cat_icon : 'fa-map-marker';?>">
                 <?php if(!empty($display_map_info) && (!empty($display_image_map) || !empty($display_title_map)|| !empty($display_address_map) || !empty($display_direction_map))) { ?>
                 <div>
                     <input type="hidden" id="icon" value="fa fa-flag">

@@ -136,4 +136,24 @@
         $('.button.wp-color-result').attr('style', ' ');
     });
 
+    $('.atbdp_mark_as_fav').on('click', function (event) {
+        event.preventDefault();
+        var data = {
+            'action': 'atbdp-favourites-all-listing',
+            'post_id': $(this).data('listing_id')
+        };
+        $.post(atbdp_search_listing.ajax_url, data, function (response) {
+            var staElement = $('#atbdp-fav_'+data['post_id']).selector;
+            console.log(response);
+            if(!response){
+                $(staElement).remove();
+            }else {
+                if ($('#atbdp-fav_'+response).selector === staElement){
+                    $(staElement).addClass('atbdp_make_str_red');
+                }
+            }
+        });
+
+    })
+
 })(jQuery);

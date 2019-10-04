@@ -153,6 +153,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Add - Control listings map view's zoom level
 * Add - Extended search form
 * Add - Option to remove filter icon
+* Fix - Google Map issue
 * Fix - Price formatting issue
 * Fix - Email notification of review
 * Improve - Login form's functionality

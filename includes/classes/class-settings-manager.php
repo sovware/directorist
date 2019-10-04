@@ -2812,6 +2812,12 @@ The Administrator of ==SITE_NAME==
                     ),
                     array(
                         'type' => 'toggle',
+                        'name' => 'display_mark_as_fav',
+                        'label' => __('Display Mar as Favourite', 'directorist'),
+                        'default' => '1',
+                    ),
+                    array(
+                        'type' => 'toggle',
                         'name' => 'display_view_count',
                         'label' => __('Display View Count', 'directorist'),
                         'default' => '1',

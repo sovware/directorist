@@ -39,6 +39,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
             if ($all_listings->have_posts()) {
                 while ($all_listings->have_posts()) {
                     $all_listings->the_post();
+                    $listing_id = get_the_ID();
                     $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
                     $locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);
                     $featured = get_post_meta(get_the_ID(), '_featured', true);
@@ -64,6 +65,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     $display_web_link = get_directorist_option('display_web_link', 0);
                     $display_category = get_directorist_option('display_category', 1);
                     $display_view_count = get_directorist_option('display_view_count', 1);
+                    $display_mark_as_fav = get_directorist_option('display_mark_as_fav', 1);
                     $display_publish_date = get_directorist_option('display_publish_date', 1);
                     $display_contact_info = get_directorist_option('display_contact_info', 1);
                     $display_feature_badge_cart = get_directorist_option('display_feature_badge_cart', 1);
@@ -393,7 +395,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                         </div><!-- end ./atbd_content_upper -->
                                     <?php }
                                     $catViewCount = '';
-                                    if (!empty($display_category) || !empty($display_view_count)) {
+                                    if (!empty($display_category) || !empty($display_view_count) || !empty($display_mark_as_fav)) {
                                         $catViewCount .= '<div class="atbd_listing_bottom_content">';
                                         if (!empty($display_category)) {
                                             if (!empty($cats)) {
@@ -435,18 +437,27 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
 
                                             }
                                         }
-                                        if (!empty($display_view_count)) {
+                                        if (!empty($display_view_count) || !empty($display_mark_as_fav)) {
                                             /**
                                              * @since 5.5.0
                                              */
                                             $fotter_right = '<ul class="atbd_content_right">';
-                                            $fotter_right .= '<li class="atbd_count">';
-                                            $fotter_right .= '<span class="' . atbdp_icon_type() . '-eye"></span>';
-                                            $fotter_right .= !empty($post_view) ? $post_view : 0;
-                                            $fotter_right .= '</li>';
+                                            if (!empty($display_mark_as_fav)){
+                                                $fotter_right .= '<li class="atbd_mark_as_favourite">';
+                                                $fotter_right .= atbdp_listings_mark_as_favourite($listing_id);
+                                                $fotter_right .= '</li>';
+                                            }
+                                            if (!empty($display_view_count)){
+                                                $fotter_right .= '<li class="atbd_count">';
+                                                $fotter_right .= '<span class="' . atbdp_icon_type() . '-eye"></span>';
+                                                $fotter_right .= !empty($post_view) ? $post_view : 0;
+                                                $fotter_right .= '</li>';
+                                            }
+
                                             $fotter_right .= '</ul>';
                                             $catViewCount .= apply_filters('atbdp_grid_footer_right_html', $fotter_right);
                                         }
+
                                         $catViewCount .= '</div>'; //end ./atbd_listing_bottom_content
 
                                     }

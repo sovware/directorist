@@ -53,8 +53,8 @@ if(!class_exists('ATBDP_Ajax_Handler')):
         //custom field search
         add_action( 'wp_ajax_atbdp_custom_fields_search', array($this,'custom_field_search'),10, 1 );
         add_action( 'wp_ajax_nopriv_atbdp_custom_fields_search', array($this,'custom_field_search'),10, 1 );
-        //add_action( 'wp_ajax_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all') );
-        //add_action( 'wp_ajax_nopriv_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all') );
+        add_action( 'wp_ajax_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all') );
+        add_action( 'wp_ajax_nopriv_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all') );
         add_action( 'wp_ajax_atbdp_post_attachment_upload', array($this,'atbdp_post_attachment_upload') );
         add_action( 'wp_ajax_nopriv_atbdp_post_attachment_upload', array($this,'atbdp_post_attachment_upload') );
 
@@ -158,8 +158,22 @@ if(!class_exists('ATBDP_Ajax_Handler')):
 
             $post_id = (int) $_POST['post_id'];
 
-            $favourites = (array) get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
+            $user_id = get_current_user_id();
 
+            if (!$user_id){
+                wp_send_json_error(array('login_require'=> true));
+                wp_die();
+            }
+
+            $favourites = get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
+            if ($post_id != $favourites){
+                add_user_meta( get_current_user_id(), 'atbdp_favourites', $post_id );
+            }else{
+                delete_user_meta( get_current_user_id(), 'atbdp_favourites' );
+            }
+            $result = get_user_meta( get_current_user_id(), 'atbdp_favourites', true );
+            wp_send_json_success(array('result'=> $post_id, 'fkdsf' => $favourites, 'id' => $result, 'user' => $user_id));
+            wp_die();
             if( in_array( $post_id, $favourites ) ) {
                 if( ( $key = array_search( $post_id, $favourites ) ) !== false ) {
                     unset( $favourites[ $key ] );
@@ -168,13 +182,12 @@ if(!class_exists('ATBDP_Ajax_Handler')):
                 $favourites[] = $post_id;
             }
 
+
             $favourites = array_filter( $favourites );
             $favourites = array_values( $favourites );
 
             delete_user_meta( get_current_user_id(), 'atbdp_favourites' );
             update_user_meta( get_current_user_id(), 'atbdp_favourites', $favourites );
-
-            echo the_atbdp_favourites_all_listing( $post_id );
 
 
         }

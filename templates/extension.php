@@ -105,6 +105,56 @@
                 </div>
                     <?php
                 }
+                if (!class_exists('Post_Your_Need')){
+                    ?>
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <!--Business hour-->
+                        <div class="single_extension">
+                            <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/10/Post_Your_Need.jpg"
+                                 alt="Post Your Need">
+
+                            <div class="extension_detail ext_d">
+                                <a href="https://aazztech.com/product/directorist-post-your-need/" target="_blank"
+                                   class="ext_title"><h4><?php esc_html_e(' Post Your Need ', 'directorist'); ?></h4></a>
+                                <p><?php esc_html_e('Let\'s turn to your visitors as your directory members where they can express their needs and get the it from service provider.', 'directorist'); ?></p>
+
+                                <div class="btn_wrapper">
+                                    <a href="https://aazztech.com/product/directorist-post-your-need/#screenshots"
+                                       target="_blank"
+                                       class="btn demo btn-primary"><?php esc_html_e('View Demo', 'directorist'); ?></a>
+                                    <a href="https://aazztech.com/product/directorist-post-your-need/" target="_blank"
+                                       class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+                if (!class_exists('BD_Map_View')){
+                    ?>
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <!--Business hour-->
+                        <div class="single_extension">
+                            <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/10/Map_View-1.jpg"
+                                 alt="Listings With Map">
+
+                            <div class="extension_detail ext_d">
+                                <a href="https://aazztech.com/product/directorist-listings-with-map/" target="_blank"
+                                   class="ext_title"><h4><?php esc_html_e(' Listings With Map ', 'directorist'); ?></h4></a>
+                                <p><?php esc_html_e('Let\'s turn to your visitors as your directory members where they can express their needs and get the it from service provider.', 'directorist'); ?></p>
+
+                                <div class="btn_wrapper">
+                                    <a href="https://aazztech.com/product/directorist-listings-with-map/#screenshots"
+                                       target="_blank"
+                                       class="btn demo btn-primary"><?php esc_html_e('View Demo', 'directorist'); ?></a>
+                                    <a href="https://aazztech.com/product/directorist-listings-with-map/" target="_blank"
+                                       class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
                 if (!class_exists('BD_Business_Hour')){
                 ?>
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">

@@ -136,4 +136,18 @@
         $('.button.wp-color-result').attr('style', ' ');
     });
 
+    $('.atbdp_mark_as_fav').on('click', function (event) {
+        event.preventDefault();
+        var data = {
+            'action': 'atbdp-favourites-all-listing',
+            'post_id': $(this).data('listing_id')
+        };
+        $.post(atbdp_search_listing.ajax_url, data, function (response) {
+            console.log(response);
+           // $('#atbdp-favourites').html(response);
+
+        });
+
+    })
+
 })(jQuery);

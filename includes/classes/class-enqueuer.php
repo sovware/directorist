@@ -752,7 +752,8 @@ class ATBDP_Enqueuer {
                 'show_less' => __('Show Less', 'directorist'),
                 'select_listing_map' => $select_listing_map,
                 'Miles' => __(' Miles', 'directorist'),
-            )
+            ),
+            'ajax_url' => admin_url('admin-ajax.php'),
         );
         wp_localize_script( 'atbdp_search_listing', 'atbdp_search_listing', $data );
     }

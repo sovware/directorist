@@ -39,6 +39,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
             if ($all_listings->have_posts()) {
                 while ($all_listings->have_posts()) {
                     $all_listings->the_post();
+                    $listing_id = get_the_ID();
                     $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
                     $locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);
                     $featured = get_post_meta(get_the_ID(), '_featured', true);
@@ -435,11 +436,15 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
 
                                             }
                                         }
+                                        $change_plan_link = '<span><a class="atbdp_mark_as_fav" data-listing_id="'.$listing_id.'" href=""><span class="' . atbdp_icon_type() . '-heart"></span></a></span>';
                                         if (!empty($display_view_count)) {
                                             /**
                                              * @since 5.5.0
                                              */
                                             $fotter_right = '<ul class="atbd_content_right">';
+                                            $fotter_right .= '<li class="atbd_mark_as_fav">';
+                                            $fotter_right .= $change_plan_link;
+                                            $fotter_right .= '</li>';
                                             $fotter_right .= '<li class="atbd_count">';
                                             $fotter_right .= '<span class="' . atbdp_icon_type() . '-eye"></span>';
                                             $fotter_right .= !empty($post_view) ? $post_view : 0;
@@ -447,6 +452,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                             $fotter_right .= '</ul>';
                                             $catViewCount .= apply_filters('atbdp_grid_footer_right_html', $fotter_right);
                                         }
+
                                         $catViewCount .= '</div>'; //end ./atbd_listing_bottom_content
 
                                     }

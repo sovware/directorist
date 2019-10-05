@@ -181,17 +181,8 @@ function atbdp_add_marker( $marker, map ) {
         },
         map_icon_label: '<i class="fa '+icon+'"></i>'
     });
-
-
-
-
-    // create marker
-
-
-
     // add to array
     map.markers.push( marker );
-
     // if marker contains HTML, add it to an infoWindow
     if( $marker.html() ) {
         // create info window
@@ -206,13 +197,7 @@ function atbdp_add_marker( $marker, map ) {
             }
         });
     };
-
-
-
-
-
 };
-
 /**
  *  Center the map, showing all markers attached to this map.
  *
@@ -281,10 +266,6 @@ $( '.atbdp-map' ).each(function() {
                     });
                 }
             });
-
-
     })
-
-
 
 })(jQuery);

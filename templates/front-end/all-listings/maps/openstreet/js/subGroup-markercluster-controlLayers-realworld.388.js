@@ -1,3 +1,5 @@
+(function ($) {
+    jQuery(document).ready(function ($) {
 var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
@@ -17,12 +19,15 @@ var mcg = L.markerClusterGroup(),
     control = L.control.layers(null, null, { collapsed: false }),
     i, a, title, marker;
 mcg.addTo(map);
-const fontAwesomeIcon = L.divIcon({
-    html: '<i class="fa fa-home fa-4x"></i>',
-    iconSize: [20, 20],
-    className: 'myDivIcon'
-});
+
 for (i = 0; i < fullCount; i++) {
+
+    const fontAwesomeIcon = L.divIcon({
+        html: '<i class="fa fa-home fa-4x"></i>',
+        iconSize: [20, 20],
+        className: 'myDivIcon'
+    });
+
     a = addressPoints[i];
     title = a[2];
     marker = L.marker([a[0], a[1]], {icon: fontAwesomeIcon});
@@ -43,4 +48,9 @@ group2.addTo(map);
 group3.addTo(map);
 group4.addTo(map);
 
+
+
+
+    });
+})(jQuery);
 

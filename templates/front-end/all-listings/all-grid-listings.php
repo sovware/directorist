@@ -226,6 +226,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                      * @since 5.0
                                      */
                                     echo apply_filters('atbdp_grid_lower_badges', $l_badge_html);
+                                    echo atbdp_listings_mark_as_favourite($listing_id);
                                     ?>
                                 </figure>
                                 <div class="atbd_listing_info">

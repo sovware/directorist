@@ -278,6 +278,7 @@
   }
   .atbd_listing_action_btn{
     display: flex;
+    flex-wrap: wrap;
     .dropdown{
       display: inline-block;
       .dropdown-toggle .caret{

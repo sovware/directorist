@@ -2137,7 +2137,7 @@ function atbdp_listings_mark_as_favourite($listing_id){
     if (in_array($listing_id, $favourites)) {
         $fav_class = 'atbdp_make_str_red';
     }
-    $mark_as_fav_link = '<span><a class="atbdp_mark_as_fav '.$fav_class.'" id="atbdp-fav_'.$listing_id.'" data-listing_id="'.$listing_id.'" href=""><span class="' . atbdp_icon_type() . '-heart"></span></a></span>';
+    $mark_as_fav_link = '<div class="atbdp_add_to_fav_listings"><a class="atbdp_mark_as_fav '.$fav_class.'" id="atbdp-fav_'.$listing_id.'" data-listing_id="'.$listing_id.'" href=""><span class="' . atbdp_icon_type() . '-heart"></span></a></div>';
     return $mark_as_fav_link;
 }
 
@@ -3251,6 +3251,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                  * @since 5.0
                                  */
                                 echo apply_filters('atbdp_list_lower_badges', $l_badge_html);
+                                echo atbdp_listings_mark_as_favourite(get_the_ID());
                                 ?>
                         </figure>
                         <div class="atbd_listing_info">

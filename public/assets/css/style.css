@@ -2141,6 +2141,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_action_btn {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_action_btn .dropdown {

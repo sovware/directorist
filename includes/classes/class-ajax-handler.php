@@ -159,16 +159,15 @@ if (!class_exists('ATBDP_Ajax_Handler')):
         public function atbdp_public_add_remove_favorites_all()
         {
 
+            $user_id = get_current_user_id();
             $post_id = (int)$_POST['post_id'];
 
-            $user_id = get_current_user_id();
-
             if (!$user_id) {
-                wp_send_json_error(array('login_require' => true));
+                $data = 'login_require';
+                echo wp_json_encode($data);
                 wp_die();
             }
 
-            $post_id = (int)$_POST['post_id'];
 
             $favourites = (array)get_user_meta($user_id, 'atbdp_favourites', true);
 

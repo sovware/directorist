@@ -146,7 +146,7 @@
             var staElement = $('#atbdp-fav_'+data['post_id']).selector;
             if('false' === response){
                 $(staElement).removeClass('atbdp_make_str_red');
-            }else {
+            }else{
                 if ($('#atbdp-fav_'+response).selector === staElement){
                     $(staElement).addClass('atbdp_make_str_red');
                 }

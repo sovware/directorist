@@ -144,7 +144,9 @@
         };
         $.post(atbdp_search_listing.ajax_url, data, function (response) {
             var staElement = $('#atbdp-fav_'+data['post_id']).selector;
-            if('false' === response){
+            /*if("login_require" === response){
+                alert("sdf");
+            }else */if('false' === response){
                 $(staElement).removeClass('atbdp_fav_isActive');
             }else{
                 if ($('#atbdp-fav_'+response).selector === staElement){

@@ -2135,9 +2135,9 @@ function atbdp_listings_mark_as_favourite($listing_id){
     $favourites = (array)get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
     $fav_class = '';
     if (in_array($listing_id, $favourites)) {
-        $fav_class = 'atbdp_make_str_red';
+        $fav_class = 'atbdp_fav_isActive';
     }
-    $mark_as_fav_link = '<div class="atbdp_add_to_fav_listings"><a class="atbdp_mark_as_fav '.$fav_class.'" id="atbdp-fav_'.$listing_id.'" data-listing_id="'.$listing_id.'" href=""><span class="' . atbdp_icon_type() . '-heart"></span></a></div>';
+    $mark_as_fav_link = '<div class="atbdp_add_to_fav_listings"><a class="atbdp_mark_as_fav '.$fav_class.'" id="atbdp-fav_'.$listing_id.'" data-listing_id="'.$listing_id.'" href=""><span class="atbd_fav_icon"></span></a></div>';
     return $mark_as_fav_link;
 }
 
@@ -3251,7 +3251,6 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                  * @since 5.0
                                  */
                                 echo apply_filters('atbdp_list_lower_badges', $l_badge_html);
-                                echo atbdp_listings_mark_as_favourite(get_the_ID());
                                 ?>
                         </figure>
                         <div class="atbd_listing_info">
@@ -3407,8 +3406,9 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                         ?><a
                                         href="<?php the_permalink(); ?>"><?php printf(__(' %s', 'directorist'), $readmore_text); ?></a></p>
                                     <?php }
-                                } ?>
-
+                                }
+                                echo atbdp_listings_mark_as_favourite(get_the_ID());
+                                ?>
                             </div><!-- end ./atbd_content_upper -->
                             <?php
                             $catViewCountAuthor = '';

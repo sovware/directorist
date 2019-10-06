@@ -1943,7 +1943,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 30px;
   background: #ffffff;
   border-radius: 4px;
-  border: 1px solid #e3e6ef;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbd_single_listing_wrapper {
@@ -1958,6 +1957,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 3px 0 0 3px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbd_single_listing_wrapper .atbd_listing_info {
@@ -1985,8 +1985,19 @@ body.atbd_content_active #directorist.atbd_wrapper {
   left: 15px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area .atbdp_add_to_fav_listings {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info {
+  border: 1px solid #e3e6ef;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper {
   padding: 20px 20px 15px;
+  position: relative;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_excerpt_content {
@@ -2026,7 +2037,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p {
-  margin-bottom: 7px;
+  margin-bottom: 2px;
   font-size: 14px;
 }
 
@@ -2041,6 +2052,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p a {
   font-size: 14px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbdp_add_to_fav_listings {
+  position: absolute;
+  right: 20px;
+  top: 20px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content {
@@ -2098,6 +2115,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd_listing_image img {
   width: 100%;
   margin: 0;
+  border-radius: 3px 3px 0 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd_listing_image img.avatar {
@@ -2167,6 +2185,31 @@ body.atbd_content_active #directorist.atbd_wrapper {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+#directorist.atbd_wrapper .atbdp_mark_as_fav {
+  background: rgba(0, 0, 0, 0.2);
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+#directorist.atbd_wrapper .atbdp_mark_as_fav.atbdp_fav_isActive {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+#directorist.atbd_wrapper .atbdp_mark_as_fav .atbd_fav_icon::after {
+  font-family: "LineAwesome";
+  content: '\f234';
+  color: #fff;
+  font-size: 15px;
+}
+
+#directorist.atbd_wrapper .atbdp_mark_as_fav.atbdp_fav_isActive .atbd_fav_icon::after {
+  content: '\f233';
 }
 
 .atbd_google_map {
@@ -5457,6 +5500,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
     padding: 0 !important;
     margin: 5px 0 0 !important;
   }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbd_single_listing_wrapper {
+    display: block;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbd_single_listing_wrapper .atbd_listing_thumbnail_area img {
+    border-radius: 3px 3px 0 0;
+  }
 }
 
 @media (max-width: 400px) {
@@ -5472,23 +5521,25 @@ body.atbd_content_active #directorist.atbd_wrapper {
     margin-top: 3px;
     margin-bottom: 3px;
   }
-  .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbd_single_listing_wrapper {
-    display: block;
-  }
-  .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper, .atbd_content_active .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper {
+  .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper,
+  .atbd_content_active .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper {
     left: -90px;
   }
-  .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper:before, .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper:before, .atbd_content_active .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper:before {
+  .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper:before,
+  .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper:before,
+  .atbd_content_active .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper:before {
     left: auto;
     right: 15px;
   }
-  .atbd_content_active #directorist.atbd_wrapper #atpp-plan-change-modal .atm-contents-inner .dcl_pricing_plan .atbd_plan_core_features span, .atbd_content_active #directorist.atbd_wrapper #dwpp-plan-renew-modal .atm-contents-inner .dcl_pricing_plan .atbd_plan_core_features span {
+  .atbd_content_active #directorist.atbd_wrapper #atpp-plan-change-modal .atm-contents-inner .dcl_pricing_plan .atbd_plan_core_features span,
+  .atbd_content_active #directorist.atbd_wrapper #dwpp-plan-renew-modal .atm-contents-inner .dcl_pricing_plan .atbd_plan_core_features span {
     display: block;
     margin-right: 0;
     padding-right: 0;
     padding-left: 15px;
   }
-  .atbd_content_active #directorist.atbd_wrapper #atpp-plan-change-modal .atm-contents-inner .dcl_pricing_plan .atbd_plan_core_features span:after, .atbd_content_active #directorist.atbd_wrapper #dwpp-plan-renew-modal .atm-contents-inner .dcl_pricing_plan .atbd_plan_core_features span:after {
+  .atbd_content_active #directorist.atbd_wrapper #atpp-plan-change-modal .atm-contents-inner .dcl_pricing_plan .atbd_plan_core_features span:after,
+  .atbd_content_active #directorist.atbd_wrapper #dwpp-plan-renew-modal .atm-contents-inner .dcl_pricing_plan .atbd_plan_core_features span:after {
     content: '-' !important;
     right: auto;
     left: 0;

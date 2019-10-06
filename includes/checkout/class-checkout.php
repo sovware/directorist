@@ -217,7 +217,7 @@ class ATBDP_Checkout
                 do_action('atbdp_offline_payment_created', $order_id, $listing_id);
                 // admin will mark the order completed manually once he get the payment on his bank.
                 // let's redirect the user to the payment receipt page.
-                $redirect_url = ATBDP_Permalink::get_payment_receipt_page_link( $order_id );
+                $redirect_url = apply_filters('atbdp_payment_receipt_page_link', ATBDP_Permalink::get_payment_receipt_page_link( $order_id ), $order_id);
                 wp_redirect( $redirect_url );
                 exit();
             } else {
@@ -243,7 +243,7 @@ class ATBDP_Checkout
                     'listing_id' => $listing_id
                 )
             );
-            $redirect_url = ATBDP_Permalink::get_payment_receipt_page_link( $order_id );
+            $redirect_url = apply_filters('atbdp_payment_receipt_page_link', ATBDP_Permalink::get_payment_receipt_page_link( $order_id ), $order_id);
             wp_redirect( $redirect_url );
             exit;
         }

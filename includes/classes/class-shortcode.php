@@ -3344,6 +3344,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         ATBDP()->load_template('front-end/add-listing');
                     } else {
                         if (class_exists('ATBDP_Pricing_Plans')) {
+                            do_action('atbdp_before_pricing_plan_page_load');
                             ATBDP_Pricing_Plans()->load_template('fee-plans');
                         } else {
                             DWPP_Pricing_Plans()->load_template('fee-plans');

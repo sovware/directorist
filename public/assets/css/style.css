@@ -1353,13 +1353,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-size: 15px;
   width: 35px;
   height: 35px;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 50%;
   top: 50%;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
-  border: 1px solid #e3e6ef;
-  color: #202428;
+  color: #fff;
   transform: translateY(-50%);
   display: flex;
   align-items: center;
@@ -2210,6 +2209,29 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper .atbdp_mark_as_fav.atbdp_fav_isActive .atbd_fav_icon::after {
   content: '\f233';
+}
+
+#directorist.atbd_wrapper .atbdp_mark_as_fav .atbd_fav_tooltip span {
+  position: absolute;
+  min-width: 120px;
+  right: 0;
+  top: 35px;
+  background: #000;
+  color: #fff;
+  font-size: 13px;
+  border-radius: 3px;
+  text-align: center;
+  padding: 2px 5px;
+}
+
+#directorist.atbd_wrapper .atbdp_mark_as_fav .atbd_fav_tooltip span::before {
+  content: '';
+  position: absolute;
+  border-bottom: 8px solid #000;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+  right: 8px;
+  top: -7px;
 }
 
 .atbd_google_map {

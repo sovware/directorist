@@ -163,8 +163,8 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             $post_id = (int)$_POST['post_id'];
 
             if (!$user_id) {
-                $data = 'login_require';
-                echo wp_json_encode($data);
+                $data = "login_required";
+                echo esc_attr($data);
                 wp_die();
             }
 

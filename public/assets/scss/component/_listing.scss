@@ -346,6 +346,29 @@
       content: '\f233';
     }
   }
+  .atbd_fav_tooltip {
+    span{
+      position: absolute;
+      min-width: 120px;
+      right: 0;
+      top: 35px;
+      background: #000;
+      color: #fff;
+      font-size: 13px;
+      border-radius: 3px;
+      text-align: center;
+      padding: 2px 5px;
+      &::before{
+        content: '';
+        position: absolute;
+        border-bottom: 8px solid #000;
+        border-right: 6px solid transparent;
+        border-left: 6px solid transparent;
+        right: 8px;
+        top: -7px;
+      }
+    }
+  }
 }
 
 .atbd_google_map{

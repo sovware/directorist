@@ -3346,6 +3346,17 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #fff !important;
 }
 
+#directorist.atbd_wrapper .btn-bordered {
+  background: none !important;
+  border: 1px solid #e3e6ef !important;
+  color: #7a82a6 !important;
+}
+
+#directorist.atbd_wrapper .btn-bordered:hover {
+  background: none !important;
+  border-color: #444752 !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .select2-container--default.select2-container--focus .select2-selection--multiple {
   border-color: #e3e6ef;
 }

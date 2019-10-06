@@ -144,7 +144,6 @@
         };
         $.post(atbdp_search_listing.ajax_url, data, function (response) {
             var staElement = $('#atbdp-fav_'+data['post_id']).selector;
-            console.log(response);
             if('false' === response){
                 $(staElement).removeClass('atbdp_make_str_red');
             }else{

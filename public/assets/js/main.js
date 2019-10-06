@@ -848,8 +848,6 @@ jQuery(function ($) {
 
         e.preventDefault();
     });
-
-
 })(jQuery);
 
 // on load of the page: switch to the currently selected tab

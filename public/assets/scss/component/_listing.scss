@@ -100,7 +100,6 @@
     margin-bottom: 30px;
     background: $light;
     border-radius: 4px;
-    border: 1px solid $border-color;
     &.atbd_listing_list{
       .atbd_single_listing_wrapper{
         display: flex;
@@ -110,6 +109,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 3px 0 0 3px;
           }
         }
         .atbd_listing_info{
@@ -118,6 +118,7 @@
           flex-direction: column;
           align-content: space-between;
           justify-content: space-between;
+
         }
       }
     }
@@ -134,10 +135,17 @@
         bottom: 15px;
         left: 15px;
       }
+      .atbdp_add_to_fav_listings{
+        position: absolute;
+        right: 15px;
+        top: 15px;
+      }
     }
     .atbd_listing_info {
+      border: 1px solid $border-color;
       .atbd_content_upper {
         padding: 20px 20px 15px;
+        position: relative;
         .atbd_excerpt_content{
           margin-top: 15px;
           a{
@@ -168,7 +176,7 @@
               }
             }
             p {
-              margin-bottom: 7px;
+              margin-bottom: 2px;
               font-size: 14px;
               span {
                 @extend .atbd_color-primary;
@@ -183,6 +191,11 @@
               }
             }
           }
+        }
+        .atbdp_add_to_fav_listings{
+          position: absolute;
+          right: 20px;
+          top: 20px;
         }
       }
 
@@ -239,6 +252,7 @@
         img{
           width: 100%;
           margin: 0;
+          border-radius: 3px 3px 0 0;
           &.avatar{
             border-radius: 50%;
           }
@@ -278,6 +292,7 @@
   }
   .atbd_listing_action_btn{
     display: flex;
+    flex-wrap: wrap;
     .dropdown{
       display: inline-block;
       .dropdown-toggle .caret{
@@ -305,6 +320,30 @@
         white-space: nowrap;
         text-overflow: ellipsis;
       }
+    }
+  }
+}
+
+#directorist.atbd_wrapper .atbdp_mark_as_fav{
+  background: rgba(0,0,0,0.2);
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  &.atbdp_fav_isActive{
+    background: rgba(0,0,0,0.5);
+  }
+  .atbd_fav_icon::after{
+    font-family: "LineAwesome";
+    content: '\f234';
+    color: #fff;
+    font-size: 15px;
+  }
+  &.atbdp_fav_isActive{
+    .atbd_fav_icon::after{
+      content: '\f233';
     }
   }
 }

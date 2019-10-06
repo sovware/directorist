@@ -145,10 +145,10 @@
         $.post(atbdp_search_listing.ajax_url, data, function (response) {
             var staElement = $('#atbdp-fav_'+data['post_id']).selector;
             if('false' === response){
-                $(staElement).removeClass('atbdp_make_str_red');
+                $(staElement).removeClass('atbdp_fav_isActive');
             }else{
                 if ($('#atbdp-fav_'+response).selector === staElement){
-                    $(staElement).addClass('atbdp_make_str_red');
+                    $(staElement).addClass('atbdp_fav_isActive');
                 }
             }
         });

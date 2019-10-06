@@ -27,4 +27,13 @@
   .btn-outline-danger:hover{
     color: #fff !important;
   }
+  .btn-bordered{
+    background: none !important;
+    border: 1px solid #e3e6ef !important;
+    color: #7a82a6 !important;
+  }
+  .btn-bordered:hover{
+    background: none !important;
+    border-color: #444752 !important;
+  }
 }

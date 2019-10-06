@@ -282,6 +282,13 @@
     padding: 0 !important;
     margin: 5px 0 0 !important;
   }
+
+  .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbd_single_listing_wrapper{
+    display: block;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbd_single_listing_wrapper .atbd_listing_thumbnail_area img{
+    border-radius: 3px 3px 0 0;
+  }
 }
 
 @media (max-width: 400px) {
@@ -297,17 +304,18 @@
     margin-top: 3px;
     margin-bottom: 3px;
   }
-  .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbd_single_listing_wrapper{
-    display: block;
-  }
-  .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper, .atbd_content_active .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper{
+  .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper,
+  .atbd_content_active .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper{
     left: -90px;
   }
-  .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper:before, .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper:before, .atbd_content_active .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper:before{
+  .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_listing_info .atbd_listting_category .atbd_cat_popup .atbd_cat_popup_wrapper:before,
+  .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper:before,
+  .atbd_content_active .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat_popup .atbd_cat_popup_wrapper:before{
     left: auto;
     right: 15px;
   }
-  .atbd_content_active #directorist.atbd_wrapper #atpp-plan-change-modal .atm-contents-inner .dcl_pricing_plan .atbd_plan_core_features span, .atbd_content_active #directorist.atbd_wrapper #dwpp-plan-renew-modal .atm-contents-inner .dcl_pricing_plan .atbd_plan_core_features span{
+  .atbd_content_active #directorist.atbd_wrapper #atpp-plan-change-modal .atm-contents-inner .dcl_pricing_plan .atbd_plan_core_features span,
+  .atbd_content_active #directorist.atbd_wrapper #dwpp-plan-renew-modal .atm-contents-inner .dcl_pricing_plan .atbd_plan_core_features span{
     display: block;
     margin-right: 0;
     padding-right: 0;

@@ -102,7 +102,7 @@
             var search = $('#address').val();
             $('#address_result').css({'display':'block'});
             if(search === ""){
-                $('#result').css({'display':'none'});
+                $('#address_result').css({'display':'none'});
             }
 
             var res = "";
@@ -132,6 +132,9 @@
             $('#address').val(text);
             $('#address_result').hide();
         });
+    }
+    if($('#address').val() === ""){
+        $('#address_result').css({'display':'none'});
     }
 
     /*

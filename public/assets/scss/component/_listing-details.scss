@@ -313,13 +313,12 @@
       font-size: 15px;
       width: 35px;
       height: 35px;
-      background: rgba(#fff, 0.7);
+      background: rgba(#000, 0.4);
       border-radius: 50%;
       top: 50%;
       transition: $transition-base;
       cursor: pointer;
-      border: 1px solid #e3e6ef;
-      color: $dark;
+      color: #fff;
       transform: translateY(-50%);
       display: flex;
       align-items: center;

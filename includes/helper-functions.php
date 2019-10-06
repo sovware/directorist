@@ -2137,7 +2137,7 @@ function atbdp_listings_mark_as_favourite($listing_id){
     if (in_array($listing_id, $favourites)) {
         $fav_class = 'atbdp_fav_isActive';
     }
-    $mark_as_fav_link = '<div class="atbdp_add_to_fav_listings"><a class="atbdp_mark_as_fav '.$fav_class.'" id="atbdp-fav_'.$listing_id.'" data-listing_id="'.$listing_id.'" href=""><span class="atbd_fav_icon"></span></a></div>';
+    $mark_as_fav_link = '<div class="atbdp_add_to_fav_listings"><a class="atbdp_mark_as_fav '.$fav_class.'" id="atbdp-fav_'.$listing_id.'" data-listing_id="'.$listing_id.'" href=""><span class="atbd_fav_icon"></span><span class="atbd_fav_tooltip"></span></a></div>';
     return $mark_as_fav_link;
 }
 

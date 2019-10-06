@@ -142,13 +142,28 @@
             'action': 'atbdp-favourites-all-listing',
             'post_id': $(this).data('listing_id')
         };
+        var fav_tooltip_success = '<span>Added to favorite</span>';
+        var fav_tooltip_warning = '<span>Please login first</span>';
+        var favtWrap = $(".atbd_fav_tooltip").hide();
         $.post(atbdp_search_listing.ajax_url, data, function (response) {
             var staElement = $('#atbdp-fav_'+data['post_id']).selector;
-            if('false' === response){
+            if(response === "login_required"){
+                $(staElement).children(".atbd_fav_tooltip").append(fav_tooltip_warning);
+                favtWrap.fadeIn();
+                setTimeout(function () {
+                    $(".atbd_fav_tooltip span").remove();
+                },3000)
+            }else if('false' === response){
                 $(staElement).removeClass('atbdp_fav_isActive');
+                $(".atbd_fav_tooltip span").remove();
             }else{
                 if ($('#atbdp-fav_'+response).selector === staElement){
                     $(staElement).addClass('atbdp_fav_isActive');
+                    $(staElement).children(".atbd_fav_tooltip").append(fav_tooltip_success);
+                    favtWrap.fadeIn();
+                    setTimeout(function () {
+                        $(".atbd_fav_tooltip span").remove();
+                    },3000)
                 }
             }
         });

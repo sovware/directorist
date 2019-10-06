@@ -136,38 +136,40 @@
         $('.button.wp-color-result').attr('style', ' ');
     });
 
-    $('.atbdp_mark_as_fav').on('click', function (event) {
-        event.preventDefault();
-        var data = {
-            'action': 'atbdp-favourites-all-listing',
-            'post_id': $(this).data('listing_id')
-        };
-        var fav_tooltip_success = '<span>Added to favorite</span>';
-        var fav_tooltip_warning = '<span>Please login first</span>';
-        var favtWrap = $(".atbd_fav_tooltip").hide();
-        $.post(atbdp_search_listing.ajax_url, data, function (response) {
-            var staElement = $('#atbdp-fav_'+data['post_id']).selector;
-            if(response === "login_required"){
-                $(staElement).children(".atbd_fav_tooltip").append(fav_tooltip_warning);
-                favtWrap.fadeIn();
-                setTimeout(function () {
-                    $(".atbd_fav_tooltip span").remove();
-                },3000)
-            }else if('false' === response){
-                $(staElement).removeClass('atbdp_fav_isActive');
-                $(".atbd_fav_tooltip span").remove();
-            }else{
-                if ($('#atbdp-fav_'+response).selector === staElement){
-                    $(staElement).addClass('atbdp_fav_isActive');
-                    $(staElement).children(".atbd_fav_tooltip").append(fav_tooltip_success);
-                    favtWrap.fadeIn();
+    $('.atbdp_mark_as_fav').each(function () {
+        $(this).on('click', function (event) {
+            event.preventDefault();
+            var data = {
+                'action': 'atbdp-favourites-all-listing',
+                'post_id': $(this).data('listing_id')
+            };
+            var fav_tooltip_success = '<span>Added to favorite</span>';
+            var fav_tooltip_warning = '<span>Please login first</span>';
+            $(".atbd_fav_tooltip").hide();
+            $.post(atbdp_search_listing.ajax_url, data, function (response) {
+                var staElement = $('#atbdp-fav_'+data['post_id']).selector;
+                if(response === "login_required"){
+                    $(staElement).children(".atbd_fav_tooltip").append(fav_tooltip_warning);
+                    $(staElement).children(".atbd_fav_tooltip").fadeIn();
                     setTimeout(function () {
-                        $(".atbd_fav_tooltip span").remove();
-                    },3000)
+                        $(staElement).children(".atbd_fav_tooltip").children("span").remove();
+                    },3000);
+                }else if('false' === response){
+                    $(staElement).removeClass('atbdp_fav_isActive');
+                    $(".atbd_fav_tooltip span").remove();
+                }else{
+                    if ($('#atbdp-fav_'+response).selector === staElement){
+                        $(staElement).addClass('atbdp_fav_isActive');
+                        $(staElement).children(".atbd_fav_tooltip").append(fav_tooltip_success);
+                        $(staElement).children(".atbd_fav_tooltip").fadeIn();
+                        setTimeout(function () {
+                            $(staElement).children(".atbd_fav_tooltip").children("span").remove();
+                        },3000)
+                    }
                 }
-            }
-        });
+            });
 
+        })
     })
 
 })(jQuery);

@@ -820,7 +820,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                          * @since 4.4.0
                          */
 
-                        do_action('atbdp_before_submit_contact_form_inWidget');
+                        do_action('atbdp_before_contact_form_submit_button');
                         ?>
                         <p id="atbdp-contact-message-display" style="margin-bottom: 10px"></p>
 

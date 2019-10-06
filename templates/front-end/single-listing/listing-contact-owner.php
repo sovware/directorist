@@ -42,7 +42,7 @@ if ($plan_permission && !$hide_contact_owner && empty($disable_contact_owner)) {
                          * @since 4.4.0
                          */
 
-                        do_action('atbdp_before_submit_contact_form_inWidget');
+                        do_action('atbdp_before_contact_form_submit_button');
                         ?>
                         <p id="atbdp-contact-message-display" style="margin-bottom: 10px"></p>
 

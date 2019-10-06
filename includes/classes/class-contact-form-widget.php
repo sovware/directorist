@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                 parent::__construct(
                     'bdco_widget', // Base ID
-                    esc_html__('Directorist - Contact Listing Owner', 'directorist'), // Name
+                    esc_html__('Directorist - Custom Contact Form', 'directorist'), // Name
                     $widget_options, // Args
                     'fdgfdg'
                 );
@@ -50,9 +50,10 @@ if ( ! defined( 'ABSPATH' ) ) {
                         echo '<div class="atbd_widget_title">';
                         echo $args['before_title'] . esc_html(apply_filters('widget_contact_form_title', $title)) . $args['after_title'];
                         echo '</div>';
+                        $form_id = apply_filters('atbdp_contact_listing_owner_widget_form_id', 'atbdp-contact-form-widget');
                         ?>
                         <div class="atbdp directorist atbdp-widget-listing-contact">
-                            <form id="atbdp-contact-form-widget" class="form-vertical" role="form">
+                            <form id="<?php echo $form_id; ?>" class="form-vertical" role="form">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="atbdp-contact-name" placeholder="<?php _e( 'Name', 'directorist' ); ?>" required />
                                 </div>
@@ -61,16 +62,22 @@ if ( ! defined( 'ABSPATH' ) ) {
                                     <input type="email" class="form-control" id="atbdp-contact-email" placeholder="<?php _e( 'Email', 'directorist' ); ?>" required />
                                 </div>
 
-                                <div class="form-group">
-                                    <textarea class="form-control" id="atbdp-contact-message" rows="3" placeholder="<?php _e( 'Message', 'directorist' ); ?>..." required ></textarea>
-                                </div>
+                                <?php
+                                $msg_html = '<div class="form-group">';
+                                $msg_html .= '<textarea class="form-control" id="atbdp-contact-message" rows="3" placeholder="'.__('Message', 'directorist').'..." required ></textarea>';
+                                $msg_html .= '</div>';
+                                /**
+                                 * @since 5.10.0
+                                 */
+                                echo apply_filters('atbdp_widget_contact_form_message_field', $msg_html);
+                                ?>
                                 <?php
                                 /**
                                  * It fires before contact form in the widget area
                                  * @since 4.4.0
                                  */
 
-                                do_action('atbdp_before_submit_contact_form_inWidget');
+                                do_action('atbdp_before_contact_form_submit_button');
                                 ?>
                                 <p id="atbdp-contact-message-display"></p>
 

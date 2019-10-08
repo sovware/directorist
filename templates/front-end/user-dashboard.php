@@ -518,6 +518,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             <tr>
                                                 <th><?php _e('Listing Name', 'directorist') ?></th>
                                                 <th><?php _e('Category', 'directorist') ?></th>
+                                                <th><?php _e('Remove', 'directorist') ?></th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -590,9 +591,16 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             <td class="saved_item_category">
                                                 <a href="%s"><span class="%s"></span>%s</a>
                                             </td>
+                                             <td class="romove_saved_item">
+                                               %s
+                                            </td>
+                                            
 
-
-                                        </tr>', $post_link, $img_src, $title, $post_link, $title, $category_link, ('la' === $icon_type)?$icon_type.' '. $category_icon:'fa '. $category_icon , $category_name, atbdp_get_remove_favourites_page_link($post->ID), __('Remove', 'directorist'));
+                                        </tr>',
+                                                    $post_link, $img_src, $title,$post_link, $title, //first td
+                                                     $category_link, ('la' === $icon_type)?$icon_type.' '. $category_icon:'fa '. $category_icon , $category_name, // second td
+                                                    atbdp_listings_mark_as_favourite($post->ID) // third td
+                                                );
                                             }
                                             ?>
                                             </tbody>

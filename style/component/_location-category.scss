@@ -1,0 +1,336 @@
+.atbd_content_active #directorist.atbd_wrapper {
+  .atbd_category_wrapper {
+    span.fa {
+      cursor: pointer;
+      margin-left: 7px;
+      font-size: 12px;
+    }
+    .atbdp_child_category {
+      padding-left: 15px;
+    }
+  }
+  .atbd_location_grid_wrap{
+    .atbd_location_grid {
+      position: relative;
+      border-radius: 3px;
+      overflow: hidden;
+      width: 100%;
+      display: block;
+      margin-bottom: 30px;
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      figure{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        figcaption{
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(#000, 0.5);
+          padding: 15px;
+          flex-wrap: wrap;
+          h3, p{
+            color: #fff;
+            margin: 0 2px;
+            text-align: center;
+            font-size: 18px;
+          }
+          p{
+            margin: 0 2px;
+          }
+        }
+      }
+      &.atbd_location_grid-default{
+        img{
+          display: none;
+        }
+        figure{
+          border: 1px solid #e3e6ef;
+          position: relative;
+          figcaption{
+            background: #fff;
+            position: relative;
+            h3, p{
+              color: #444752;
+            }
+          }
+        }
+      }
+    }
+    .col-md-1{
+      a.atbd_location_grid {
+        padding: 5px;
+        margin: 0;
+        word-wrap: break-word;
+      }
+    }
+    .col-md-2{
+      .atbd_location_grid{
+        min-height: 100px;
+        margin-bottom: 15px;
+        figcaption{
+          min-height: 100px;
+        }
+        img{
+          width: 100%;
+        }
+        h3, p{
+          font-size: 14px;
+        }
+      }
+    }
+    .col-md-3{
+      .atbd_location_grid{
+        min-height: 160px;
+        margin-bottom: 15px;
+        figcaption{
+          min-height: 160px;
+        }
+        img{
+          width: 100%;
+        }
+      }
+    }
+    .col-md-4{
+      .atbd_location_grid{
+        min-height: 200px;
+        figcaption{
+          min-height: 200px;
+        }
+        img{
+          width: 100%;
+        }
+      }
+    }
+    .col-md-6{
+      .atbd_location_grid{
+        min-height: 350px;
+        img{
+          width: 100%;
+        }
+      }
+    }
+    .col-md-12{
+      .atbd_location_grid{
+        min-height: 600px;
+        figcaption{
+          min-height: 600px;
+        }
+        img{
+          width: 100%;
+        }
+      }
+    }
+    .atbdp_col-5{
+      .atbd_location_grid {
+        min-height: 140px;
+        figcaption{
+          min-height: 140px;
+        }
+        img{
+          width: 100%;
+        }
+      }
+    }
+  }
+  span.expander {
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 5px;
+    line-height: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .atbd_all_categories {
+    text-align: center;
+    margin-bottom: -30px;
+    li{
+      display: inline-block;
+    }
+    a {
+      display: block;
+      border: 1px solid #e3e6ef;
+      margin: 0 0 30px;
+      color: #fff;
+      &:hover {
+        color: #fff;
+        p {
+          color: #fff;
+        }
+      }
+      span {
+        font-size: 30px;
+        display: block;
+        margin-bottom: 7px;
+      }
+      p {
+        font-size: 14px;
+        text-align: center;
+        margin-top: 5px;
+        color: #fff;
+        word-break: break-all;
+      }
+    }
+    .col-md-2{
+      .atbd_category_single{
+        min-height: 100px;
+        margin-bottom: 15px;
+        figcaption{
+          min-height: 100px;
+        }
+        img{
+          width: 100%;
+        }
+        span{
+          font-size: 18px;
+          margin-bottom: 0;
+        }
+      }
+    }
+    .col-md-3{
+      .atbd_category_single{
+        min-height: 150px;
+        margin-bottom: 15px;
+        figcaption{
+          min-height: 150px;
+        }
+        img{
+          width: 100%;
+        }
+      }
+    }
+    .col-md-4{
+      .atbd_category_single{
+        min-height: 200px;
+        figcaption{
+          min-height: 200px;
+        }
+        img{
+          width: 100%;
+        }
+      }
+    }
+    .col-md-6{
+      .atbd_category_single{
+        min-height: 350px;
+        figcaption{
+          min-height: 350px;
+        }
+        img{
+          width: 100%;
+        }
+      }
+    }
+    .col-md-12{
+      .atbd_category_single{
+        min-height: 600px;
+        figcaption{
+          min-height: 600px;
+        }
+        img{
+          width: 100%;
+        }
+      }
+    }
+    .atbdp_col-5{
+      .atbd_category_single{
+        min-height: 140px;
+        figcaption{
+          min-height: 140px;
+        }
+        img{
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+#directorist.atbd_wrapper{
+  .atbdp_child_category li {
+    margin-bottom: 7px;
+  }
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_category_single{
+  position: relative;
+  padding: 0;
+  border-radius: 3px;
+  overflow: hidden;
+  width: 100%;
+  img{
+    height: 100%;
+    object-fit: cover;
+  }
+  figure{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    figcaption{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(#000, 0.5);
+      left: 0;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .icon{
+      padding-bottom: 15px;
+    }
+    .cat-info{
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      &>span{
+        margin: 0 3px;
+        font-size: 18px;
+      }
+    }
+    .cat-name{
+      color: #fff;
+      margin: 0 3px;
+      line-height: normal;
+    }
+  }
+  &.atbd_category-default{
+    figure{
+      position: relative;
+      img{
+        display: none;
+      }
+      figcaption{
+        background: #fff;
+        position: relative;
+        .icon, .cat-name, .cat-info span{
+          color: #444752;
+        }
+      }
+    }
+  }
+}
+
+#directorist.atbd_wrapper .atbdp_col-5 {
+  position: relative;
+  width: 20%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}

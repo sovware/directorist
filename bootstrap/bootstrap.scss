@@ -1,0 +1,16 @@
+@import "config.bs";
+#directorist.atbd_wrapper{
+  @import "scss/grid";
+  @import "scss/buttons";
+  @import "scss/forms";
+  @import "scss/alert";
+  @import "scss/dropdown";
+  @import "scss/nav";
+  @import "scss/tables";
+  @import "scss/reboot";
+  @import "scss/modal";
+  @import "scss/type";
+}
+@import "scss/tooltip";
+
+

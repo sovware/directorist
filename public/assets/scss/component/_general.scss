@@ -5,7 +5,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   direction: ltr;
   text-align: left;
 }
-#directorist.atbd_wrapper{
+
+#directorist.atbd_wrapper {
   clear: both;
 }
 
@@ -385,6 +386,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
     padding: 10px 15px;
     height: auto;
     line-height: 1.5 !important;
+
     &[type="time"], &[type="date"] {
       padding: 9px 15px;
     }
@@ -395,7 +397,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
 }
 
-.at-modal{
+.at-modal {
   .at-modal-content {
     #atbdp-report-abuse-form {
       width: 100%;
@@ -406,7 +408,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
         padding-top: 10px;
       }
     }
-    .atm-contents-inner{
+
+    .atm-contents-inner {
       box-shadow: 0 5px 20px rgba($primary, 0.2);
     }
   }
@@ -517,28 +520,34 @@ body.atbd_content_active #directorist.atbd_wrapper {
         }
       }
     }
-    .atbd_login_btn_wrapper{
+
+    .atbd_login_btn_wrapper {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
   }
-  .status{
-    span{
+
+  .status {
+    span {
       padding: 7px 15px;
       display: block;
       margin-top: 10px;
       border-radius: 3px;
-      &.status-info{
+
+      &.status-info {
         background: rgba($info, 0.1);
       }
-      &.status-success{
+
+      &.status-success {
         background: rgba($success, 0.1);
       }
-      &.status-warning{
+
+      &.status-warning {
         background: rgba($warning, 0.1);
       }
-      &.status-failed{
+
+      &.status-failed {
         background: rgba($danger, 0.1);
       }
     }
@@ -825,7 +834,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
   .select2-selection__arrow {
     height: 100% !important;
-    &:before{
+
+    &:before {
       position: absolute;
       top: 50%;
       right: 5px;
@@ -846,29 +856,35 @@ body.atbd_content_active #directorist.atbd_wrapper {
   pointer-events: none;
 }
 
-.plupload-thumbs .thumb{
+.plupload-thumbs .thumb {
   height: auto !important;
   float: none !important;
 }
-#directorist.atbd_wrapper .containess-fluid .atbdp-related-listing-header h4{
+
+#directorist.atbd_wrapper .containess-fluid .atbdp-related-listing-header h4 {
   margin-bottom: 20px;
 }
-.select2-container--default .select2-selection--multiple .select2-selection__rendered li{
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered li {
   background: none !important;
   border-bottom: none !important;
-  input{
+
+  input {
     margin-bottom: 0 !important;
   }
 }
+
 .sweet-alert {
   .sa-button-container {
     margin-bottom: 15px;
   }
-  fieldset > input{
+
+  fieldset > input {
     display: none;
   }
 }
-#directorist.atbd_wrapper .select2.select2-container{
+
+#directorist.atbd_wrapper .select2.select2-container {
   padding: 0;
   margin: 0;
   border-radius: 0;
@@ -878,24 +894,54 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 //icons style reset
 #directorist.atbd_wrapper i[class*="fa-"],
-#directorist.atbd_wrapper span[class*="fa-"]{
+#directorist.atbd_wrapper span[class*="fa-"] {
   width: auto;
   height: auto;
   top: 0;
 }
 
-.atbd_map_marker_icon{
-  div{
+.atbd_map_marker_icon {
+  div {
     display: none !important;
   }
 }
 
 .map-icon-label i {
-  font-size: 24px;
-  color: #FFFFFF;
+  font-size: 17px !important;
+  color: #444752;
   line-height: 55px;
   text-align: center;
   white-space: nowrap;
   position: relative;
-  top: -20px;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.atbd_map_shape {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #444752;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 50px;
+
+  &:before {
+    position: absolute;
+    content: '';
+    border-top: 15px solid #444752;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    left: 50%;
+    bottom: -11px;
+    transform: translateX(-50%);
+  }
 }

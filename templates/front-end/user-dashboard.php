@@ -518,7 +518,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             <tr>
                                                 <th><?php _e('Listing Name', 'directorist') ?></th>
                                                 <th><?php _e('Category', 'directorist') ?></th>
-                                                <th><?php _e('Remove', 'directorist') ?></th>
+                                                <th><?php _e('Unfavourite', 'directorist') ?></th>
                                             </tr>
                                             </thead>
                                             <tbody>

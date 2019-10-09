@@ -44,7 +44,7 @@ if ($display_header == 'yes') { ?>
                                  */
                                 do_action('atbdp_after_filter_button_in_listings_header');
                                 if (!empty($header_title)) {
-                                    echo apply_filters('atbdp_total_listings_found_text',"<h3>{$header_title}</h3>");
+                                    echo apply_filters('atbdp_total_listings_found_text',"<h3>{$header_title}</h3>", $header_title);
                                 }
                                 ?>
                             </div>

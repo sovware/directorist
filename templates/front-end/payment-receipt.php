@@ -149,6 +149,10 @@ $container_fluid = 'container-fluid';
             <?php } ?>
 
         </div>
-        <div class="atbd-text-center"><a href="<?php echo ATBDP_Permalink::get_dashboard_page_link(); ?>" class="btn btn-lg btn-primary"><?php _e( 'View your listings', 'directorist' ); ?></a></div>
+        <?php
+        $url = apply_filters('atbdp_payment_receipt_button_link', ATBDP_Permalink::get_dashboard_page_link());
+        $text = apply_filters('atbdp_payment_receipt_button_text', __( 'View your listings', 'directorist' ));
+        ?>
+        <div class="atbd-text-center"><a href="<?php echo esc_url($url); ?>" class="btn btn-lg btn-primary"><?php  echo esc_attr($text); ?></a></div>
     </div>
 </div>

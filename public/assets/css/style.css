@@ -1001,13 +1001,43 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .map-icon-label i {
-  font-size: 24px;
-  color: #FFFFFF;
+  font-size: 17px !important;
+  color: #444752;
   line-height: 55px;
   text-align: center;
   white-space: nowrap;
   position: relative;
-  top: -20px;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.atbd_map_shape {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #444752;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 50px;
+}
+
+.atbd_map_shape:before {
+  position: absolute;
+  content: '';
+  border-top: 15px solid #444752;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  left: 50%;
+  bottom: -11px;
+  transform: translateX(-50%);
 }
 
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {

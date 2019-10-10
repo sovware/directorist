@@ -1000,16 +1000,16 @@ body.atbd_content_active #directorist.atbd_wrapper {
   display: none !important;
 }
 
-.map-icon-label i {
+.map-icon-label i,
+.atbd_map_shape > span {
   font-size: 17px !important;
   color: #444752;
-  line-height: 55px;
   text-align: center;
   white-space: nowrap;
   position: relative;
   z-index: 1;
-  width: 40px;
-  height: 40px;
+  width: 40px !important;
+  height: 40px !important;
   background: #fff;
   border-radius: 50%;
   display: flex;

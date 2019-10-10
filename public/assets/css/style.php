@@ -105,7 +105,7 @@
 
     /* Background */
     #directorist.atbd_wrapper .btn-success{
-        background: #32cc6f  !important;;
+        background: #32cc6f  !important;
     }
 
     /* Hover Background */
@@ -115,12 +115,12 @@
 
     /* Border Color */
     #directorist.atbd_wrapper .btn-success{
-        border-color: #32cc6f  !important;;
+        border-color: #32cc6f  !important;
     }
 
     /* Hover Border Color */
     #directorist.atbd_wrapper .btn-success:hover{
-        border-color: #2ba251 !important;;
+        border-color: #2ba251 !important;
     }
 
 
@@ -134,40 +134,59 @@
     */
     /* Badge Open */
     .atbd_bg-success, .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_open, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_open, .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_open, .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_open{
-        background: #32cc6f;
+        background: #32cc6f !important;
     }
 
     /* Badge Closed */
     .atbd_bg-danger, .atbd_content_active #directorist.atbd_wrapper .atbd_give_review_area #atbd_up_preview .atbd_up_prev .rmrf:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_close, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_close, .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_close, .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_close {
-        background: #e23636;
+        background: #e23636 !important;
     }
 
     /* Badge Featured */
     .atbd_bg-badge-feature, .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_featured, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_featured, .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_featured, .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured {
-        background: #fa8b0c;
+        background: #fa8b0c !important;
     }
 
     /* Badge Popular */
     .atbd_bg-badge-popular, .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_popular, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_popular, .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_popular, .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_popular {
-        background: #f51957;
+        background: #f51957 !important;
     }
 
     /* Badge New */
     .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new {
-        background: #122069;
+        background: #122069 !important;
     }
 
     /*
         Change default primary dark background
     */
     .ads-advanced .price-frequency .pf-btn input:checked + span, .btn-checkbox label input:checked + span, .atbdpr-range .ui-slider-horizontal .ui-slider-range, .custom-control .custom-control-input:checked ~ .check--select, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_rating, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_price, #directorist.atbd_wrapper .pagination .nav-links .current, .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a, .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li:hover > a span, .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp.atbdp-widget-tags ul li a:hover{
-        background: #444752;
+        background: #444752 !important;
     }
 
     /*
         Change default primary dark border
     */
     .ads-advanced .price-frequency .pf-btn input:checked + span, .btn-checkbox label input:checked + span, .atbdpr-range .ui-slider-horizontal .ui-slider-handle, .custom-control .custom-control-input:checked ~ .check--select, .custom-control .custom-control-input:checked ~ .radio--select, #atpp-plan-change-modal .atm-contents-inner .dcl_pricing_plan input:checked + label:before, #dwpp-plan-renew-modal .atm-contents-inner .dcl_pricing_plan input:checked + label:before{
-        border-color: #444752;
+        border-color: #444752 !important;
     }
+
+
+    /*
+        Map Marker Icon Colors
+    */
+    /* Marker Shape color */
+    .atbd_map_shape{
+        background: #444752 !important;
+    }
+    .atbd_map_shape:before{
+        border-top-color: #444752 !important;
+    }
+
+    /* Marker icon color */
+    .map-icon-label i, .atbd_map_shape > span {
+        color: #444752 !important;
+    }
+
+
 </style>

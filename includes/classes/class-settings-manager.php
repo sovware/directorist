@@ -165,15 +165,45 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'menus' => $this->get_reg_log_settings_submenus(),
                 ),
                 /*lets make the settings for style settngs*/
-                /*  'style_settings_menu' => array(
+                  /*'style_settings_menu' => array(
                       'title' => __('Style Settings', 'directorist'),
                       'name' => 'style_settings',
                       'icon' => 'font-awesome:fa-adjust',
                       'controls' => apply_filters('atbdp_style_settings_controls', array(
-                          'style_settings' => array(
+                          'primary_button' => array(
                               'type' => 'section',
-                              'title' => __('Style Settings', 'directorist'),
-                              'fields' => $this->get_listings_style_settings_fields(),
+                              'title' => __('Primary Button', 'directorist'),
+                              'fields' => $this->get_listings_primary_button_fields(),
+                          ),
+                          'secondary_button' => array(
+                              'type' => 'section',
+                              'title' => __('Secondary Button', 'directorist'),
+                              'fields' => $this->get_listings_secondary_button_fields(),
+                          ),
+                          'danger_button' => array(
+                              'type' => 'section',
+                              'title' => __('Danger Button', 'directorist'),
+                              'fields' => $this->get_listings_danger_button_fields(),
+                          ),
+                          'success_button' => array(
+                              'type' => 'section',
+                              'title' => __('Success Button', 'directorist'),
+                              'fields' => $this->get_listings_success_button_fields(),
+                          ),
+                          'badge_color' => array(
+                              'type' => 'section',
+                              'title' => __('Badge Color', 'directorist'),
+                              'fields' => $this->get_listings_badge_color_fields(),
+                          ),
+                          'primary_dark' => array(
+                              'type' => 'section',
+                              'title' => __('Primary Dark', 'directorist'),
+                              'fields' => $this->get_listings_primary_dark_fields(),
+                          ),
+                          'map_marker' => array(
+                              'type' => 'section',
+                              'title' => __('All Listings Map Marker', 'directorist'),
+                              'fields' => $this->get_listings_map_marker_color_fields(),
                           ),
                       )),
                   ),*/
@@ -933,148 +963,242 @@ if (!class_exists('ATBDP_Settings_Manager')):
 
 
         /**
-         * Get all the submenus for the style menu
+         * Get all the settings for primary button
          * @return array It returns an array of submenus
-         * @since 5.5.1
+         * @since 5.10.0
          */
-        public function get_listings_style_settings_fields()
+        public function get_listings_primary_button_fields()
         {
-            return apply_filters('atbdp_style_settings_submenus', array(
+            return apply_filters('atbdp_parimary_color', array(
                 array(
                     'type' => 'color',
                     'name' => 'primary_color',
-                    'label' => __('Primary Color', 'directorist'),
+                    'label' => __('Color', 'directorist'),
                     'default' => '#444752',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'back_primary_color',
-                    'label' => __('Background Primary Color', 'directorist'),
+                    'label' => __('Background Color', 'directorist'),
                     'default' => '#444752',
                 ),
                 array(
                     'type' => 'color',
+                    'name' => 'back_primary_hover_color',
+                    'label' => __('Background Hover Color', 'directorist'),
+                    'default' => '#222222',
+                ),
+                array(
+                    'type' => 'color',
                     'name' => 'border_primary_color',
-                    'label' => __('Border Primary Color', 'directorist'),
+                    'label' => __('Border Color', 'directorist'),
                     'default' => '#444752',
                 ),
-                /* array(
-                     'type' => 'color',
-                     'name' => 'secondary_color',
-                     'label' => __('Secondary Color', 'directorist'),
-                     'default' => '#122069',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'back_secondary_color',
-                     'label' => __('Background Secondary Color', 'directorist'),
-                     'default' => '#122069',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'success_color',
-                     'label' => __('Success Color', 'directorist'),
-                     'default' => '#32cc6f',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'back_success_color',
-                     'label' => __('Background Success Color', 'directorist'),
-                     'default' => '#32cc6f',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'info_color',
-                     'label' => __('Info Color', 'directorist'),
-                     'default' => '#3590ec',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'back_info_color',
-                     'label' => __('Background Info Color', 'directorist'),
-                     'default' => '#3590ec',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'warning_color',
-                     'label' => __('Warning Color', 'directorist'),
-                     'default' => '#ffaf00',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'back_warning_color',
-                     'label' => __('Background Warning Color', 'directorist'),
-                     'default' => '#ffaf00',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'danger_color',
-                     'label' => __('Danger Color', 'directorist'),
-                     'default' => '#e23636',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'back_danger_color',
-                     'label' => __('Background Danger Color', 'directorist'),
-                     'default' => '#e23636',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'dark_color',
-                     'label' => __('Dark Color', 'directorist'),
-                     'default' => '#202428',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'back_dark_color',
-                     'label' => __('Background Dark Color', 'directorist'),
-                     'default' => '#202428',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'featured_badge_color',
-                     'label' => __('Featured Badge Color', 'directorist'),
-                     'default' => '#fa8b0c',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'featured_back_color',
-                     'label' => __('Featured Badge Background Color', 'directorist'),
-                     'default' => '#fa8b0c',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'popular_badge_color',
-                     'label' => __('Popular Badge Color', 'directorist'),
-                     'default' => '#f51957',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'popular_back_color',
-                     'label' => __('Popular Badge Background Color', 'directorist'),
-                     'default' => '#f51957',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'heading_color',
-                     'label' => __('Heading Color', 'directorist'),
-                     'default' => '#272b41',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'text_color',
-                     'label' => __('Text Color', 'directorist'),
-                     'default' => '#7a82a6',
-                 ),
-                 array(
-                     'type' => 'color',
-                     'name' => 'rating_color',
-                     'label' => __('Rating Color', 'directorist'),
-                     'default' => '#fa8b0c',
-                 ),*/
+                array(
+                    'type' => 'color',
+                    'name' => 'border_primary_hover_color',
+                    'label' => __('Border Hover Color', 'directorist'),
+                    'default' => '#222222',
+                ),
+
             ));
         }
 
+        /**
+         * Get all the settings for secondary button
+         * @return array It returns an array of submenus
+         * @since 5.10.0
+         */
+        public function get_listings_secondary_button_fields()
+        {
+            return apply_filters('atbdp_secondary_color', array(
+                array(
+                    'type' => 'color',
+                    'name' => 'back_secondary_color',
+                    'label' => __('Background Color', 'directorist'),
+                    'default' => '#122069',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_secondary_hover_color',
+                    'label' => __('Background Hover Color', 'directorist'),
+                    'default' => '#131469',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'secondary_border_color',
+                    'label' => __('Border Color', 'directorist'),
+                    'default' => '#122069',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'secondary_border_hover_color',
+                    'label' => __('Border Hover Color', 'directorist'),
+                    'default' => '#131469',
+                ),
+            ));
+        }
+        /**
+         * Get all the settings for danger button
+         * @return array It returns an array of submenus
+         * @since 5.10.0
+         */
+        public function get_listings_danger_button_fields()
+        {
+            return apply_filters('atbdp_danger_color', array(
+                array(
+                    'type' => 'color',
+                    'name' => 'danger_color',
+                    'label' => __('Color', 'directorist'),
+                    'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_danger_color',
+                    'label' => __('Background Color', 'directorist'),
+                    'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_danger_hover_color',
+                    'label' => __('Background Hover Color', 'directorist'),
+                    'default' => '#c5001e',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_danger_color',
+                    'label' => __('Border Color', 'directorist'),
+                    'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_danger_hover_color',
+                    'label' => __('Border Hover Color', 'directorist'),
+                    'default' => '#c5001e',
+                ),
+
+            ));
+        }
+        /**
+         * Get all the settings for success button
+         * @return array It returns an array of submenus
+         * @since 5.10.0
+         */
+        public function get_listings_success_button_fields()
+        {
+            return apply_filters('atbdp_success_color', array(
+                array(
+                    'type' => 'color',
+                    'name' => 'back_success_color',
+                    'label' => __('Background Color', 'directorist'),
+                    'default' => '#32cc6f',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_success_hover_color',
+                    'label' => __('Background Hover Color', 'directorist'),
+                    'default' => '#2ba251',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_success_color',
+                    'label' => __('Border Color', 'directorist'),
+                    'default' => '#32cc6f',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_success_hover_color',
+                    'label' => __('Border Hover Color', 'directorist'),
+                    'default' => '#2ba251',
+                ),
+
+            ));
+        }
+        /**
+         * Get all the settings for badge color
+         * @return array It returns an array of submenus
+         * @since 5.10.0
+         */
+        public function get_listings_badge_color_fields()
+        {
+            return apply_filters('atbdp_badge_color', array(
+                array(
+                    'type' => 'color',
+                    'name' => 'open_back_color',
+                    'label' => __('Open Background Color', 'directorist'),
+                    'default' => '#32cc6f',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'closed_back_color',
+                    'label' => __('Closed Background Color', 'directorist'),
+                    'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'featured_back_color',
+                    'label' => __('Featured Background Color', 'directorist'),
+                    'default' => '#fa8b0c',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'popular_back_color',
+                    'label' => __('Popular Background Color', 'directorist'),
+                    'default' => '#f51957',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'new_back_color',
+                    'label' => __('New Background Color', 'directorist'),
+                    'default' => '#122069',
+                ),
+
+            ));
+        }
+        /**
+         * Get all the settings for primary_dark
+         * @return array It returns an array of submenus
+         * @since 5.10.0
+         */
+        public function get_listings_primary_dark_fields()
+        {
+            return apply_filters('atbdp_primary_dark_color', array(
+                array(
+                    'type' => 'color',
+                    'name' => 'primary_dark_back_color',
+                    'label' => __('Background Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'primary_dark_border_color',
+                    'label' => __('Border Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+            ));
+        }
+        /**
+         * Get all the settings for marker color
+         * @return array It returns an array of submenus
+         * @since 5.10.0
+         */
+        public function get_listings_map_marker_color_fields()
+        {
+            return apply_filters('atbdp_map_marker_color', array(
+                array(
+                    'type' => 'color',
+                    'name' => 'marker_shape_color',
+                    'label' => __('Marker Shape Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'marker_icon_color',
+                    'label' => __('Marker Icon Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+            ));
+        }
         /**
          * Get all the submenus for the email menu
          * @return array It returns an array of submenus

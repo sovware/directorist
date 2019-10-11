@@ -359,6 +359,11 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                                     printf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
                                                                     ?></p></li>
                                                         <?php }
+                                                        /**
+                                                         * @since 4.7.6
+                                                         */
+                                                        do_action('atbdp_listings_after_post_date');
+
                                                         if (!empty($email && $display_email)):
                                                             echo '<li><p><span class="' . atbdp_icon_type() . '-envelope"></span><a target="_top" href="mailto:' . $email . '">' . $email . '</a></p></li>';
                                                         endif;
@@ -371,10 +376,6 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                                 </p></li>
                                                         <?php
                                                         endif;
-                                                        /**
-                                                         * @since 4.7.6
-                                                         */
-                                                        do_action('atbdp_listings_after_post_date');
                                                         ?>
                                                     </ul>
                                                 </div><!-- End atbd listing meta -->

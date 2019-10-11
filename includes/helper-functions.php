@@ -2262,6 +2262,8 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                     $tagline = get_post_meta(get_the_ID(), '_tagline', true);
                     $address = get_post_meta(get_the_ID(), '_address', true);
                     $phone_number = get_post_meta(get_the_Id(), '_phone', true);
+                    $email = get_post_meta(get_the_Id(), '_email', true);
+                    $web = get_post_meta(get_the_Id(), '_website', true);
                     $category = get_post_meta(get_the_Id(), '_admin_category_select', true);
                     $post_view = get_post_meta(get_the_Id(), '_atbdp_post_views_count', true);
                     $hide_contact_info = get_post_meta(get_the_ID(), '_hide_contact_info', true);
@@ -2299,6 +2301,8 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                     $display_address_field = get_directorist_option('display_address_field', 1);
                     $display_phone_field = get_directorist_option('display_phone_field', 1);
                     $display_preview = get_directorist_option('display_preview_image', 1);
+                    $display_email = get_directorist_option('display_email', 0);
+                    $display_web_link = get_directorist_option('display_web_link', 0);
                     if (!empty($listing_prv_img)) {
 
                         if ($thumbnail_cropping) {
@@ -2491,7 +2495,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                          */
                                         echo apply_filters('atbdp_listings_review_price', $meta_html);
                                         ?>
-                                        <?php if (!empty($display_contact_info) || !empty($display_publish_date)) { ?>
+                                        <?php if (!empty($display_contact_info) || !empty($display_publish_date) || !empty($display_emai) || !empty($display_web_link)) { ?>
                                             <div class="atbd_listing_data_list">
                                                 <ul>
                                                     <?php
@@ -2559,6 +2563,18 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                                      * @since 4.7.6
                                                      */
                                                     do_action('atbdp_listings_after_post_date');
+                                                    if (!empty($email && $display_email)):
+                                                        echo '<li><p><span class="' . atbdp_icon_type() . '-envelope"></span><a target="_top" href="mailto:' . $email . '">' . $email . '</a></p></li>';
+                                                    endif;
+                                                    if (!empty($web && $display_web_link)):
+                                                        ?>
+                                                        <li><p>
+                                                                <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
+                                                                <a target="_blank" href="<?php echo esc_url($web); ?>"
+                                                                    <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html($web); ?></a>
+                                                            </p></li>
+                                                    <?php
+                                                    endif;
                                                     ?>
                                                 </ul>
                                             </div><!-- End atbd listing meta -->
@@ -2708,6 +2724,8 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                         $excerpt = get_post_meta(get_the_ID(), '_excerpt', true);
                         $tagline = get_post_meta(get_the_ID(), '_tagline', true);
                         $address = get_post_meta(get_the_ID(), '_address', true);
+                        $email = get_post_meta(get_the_ID(), '_email', true);
+                        $web = get_post_meta(get_the_ID(), '_website', true);
                         $phone_number = get_post_meta(get_the_Id(), '_phone', true);
                         $category = get_post_meta(get_the_Id(), '_admin_category_select', true);
                         $post_view = get_post_meta(get_the_Id(), '_atbdp_post_views_count', true);
@@ -2716,6 +2734,8 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                         $display_title = get_directorist_option('display_title', 1);
                         $display_review = get_directorist_option('enable_review', 1);
                         $display_price = get_directorist_option('display_price', 1);
+                        $display_email = get_directorist_option('display_email', 0);
+                        $display_web_link = get_directorist_option('display_web_link', 0);
                         $display_category = get_directorist_option('display_category', 1);
                         $display_view_count = get_directorist_option('display_view_count', 1);
                         $display_mark_as_fav = get_directorist_option('display_mark_as_fav', 1);
@@ -2937,7 +2957,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                                  */
                                                 echo apply_filters('atbdp_listings_review_price', $meta_html);
                                                 ?>
-                                                <?php if (!empty($display_contact_info) || !empty($display_publish_date)) { ?>
+                                                <?php if (!empty($display_contact_info) || !empty($display_publish_date) || !empty($display_email) || !empty($display_web_link)) { ?>
                                                     <div class="atbd_listing_data_list">
                                                         <ul>
                                                             <?php
@@ -3002,7 +3022,20 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                                              * @since 4.7.6
                                                              */
                                                             do_action('atbdp_listings_after_post_date');
+                                                            if (!empty($email && $display_email)):
+                                                                echo '<li><p><span class="' . atbdp_icon_type() . '-envelope"></span><a target="_top" href="mailto:' . $email . '">' . $email . '</a></p></li>';
+                                                            endif;
+                                                            if (!empty($web && $display_web_link)):
+                                                                ?>
+                                                                <li><p>
+                                                                        <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
+                                                                        <a target="_blank" href="<?php echo esc_url($web); ?>"
+                                                                            <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html($web); ?></a>
+                                                                    </p></li>
+                                                            <?php
+                                                            endif;
                                                             ?>
+
                                                         </ul>
                                                     </div><!-- End atbd listing meta -->
                                                     <?php
@@ -3131,6 +3164,8 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                 $tagline = get_post_meta(get_the_ID(), '_tagline', true);
                 $address = get_post_meta(get_the_ID(), '_address', true);
                 $phone_number = get_post_meta(get_the_Id(), '_phone', true);
+                $email = get_post_meta(get_the_Id(), '_email', true);
+                $web = get_post_meta(get_the_Id(), '_website', true);
                 $category = get_post_meta(get_the_Id(), '_admin_category_select', true);
                 $post_view = get_post_meta(get_the_Id(), '_atbdp_post_views_count', true);
                 $hide_contact_info = get_post_meta(get_the_ID(), '_hide_contact_info', true);
@@ -3144,6 +3179,8 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                 $display_mark_as_fav = get_directorist_option('display_mark_as_fav', 1);
                 $display_author_image = get_directorist_option('display_author_image', 1);
                 $display_publish_date = get_directorist_option('display_publish_date', 1);
+                $display_email = get_directorist_option('display_email', 0);
+                $display_web_link = get_directorist_option('display_web_link', 0);
                 $display_contact_info = get_directorist_option('display_contact_info', 1);
                 $display_feature_badge_cart = get_directorist_option('display_feature_badge_cart', 1);
                 $display_popular_badge_cart = get_directorist_option('display_popular_badge_cart', 1);
@@ -3312,7 +3349,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                         $meta_html .= '</div>'; // End atbd listing meta
                                 }
                                 echo apply_filters('atbdp_listings_list_review_price', $meta_html);
-                                if (!empty($display_contact_info) || !empty($display_publish_date)) { ?>
+                                if (!empty($display_contact_info) || !empty($display_publish_date) || !empty($display_email) || !empty($display_web_link)) { ?>
                                     <div class="atbd_listing_data_list">
                                         <ul>
                                             <?php
@@ -3376,6 +3413,18 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                              * @since 4.7.6
                                              */
                                             do_action('atbdp_listings_after_post_date');
+                                            if (!empty($email && $display_email)) {
+                                                echo '<li><p><span class="' . atbdp_icon_type() . '-envelope"></span><a target="_top" href="mailto:' . $email . '">' . $email . '</a></p></li>';
+                                            }
+                                            if (!empty($web && $display_web_link)):
+                                                ?>
+                                                <li><p>
+                                                        <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
+                                                        <a target="_blank" href="<?php echo esc_url($web); ?>"
+                                                            <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html($web); ?></a>
+                                                    </p></li>
+                                            <?php
+                                            endif;
                                             ?>
                                         </ul>
                                     </div><!-- End atbd listing meta -->

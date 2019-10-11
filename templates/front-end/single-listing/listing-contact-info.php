@@ -43,6 +43,7 @@ $zip_label = get_directorist_option('zip_label', __('Zip/Post Code', 'directoris
 $display_social_info_field = get_directorist_option('display_social_info_field', 1);
 $display_social_info_for = get_directorist_option('display_social_info_for', 'admin_users');
 $is_info = get_directorist_option('disable_contact_info', 0);
+$address_map_link = get_directorist_option('address_map_link', 0);
 $disable_contact_info = apply_filters('atbdp_single_listing_contact_info', $is_info);
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
@@ -58,12 +59,14 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
         <div class="atbdb_content_module_contents">
             <div class="atbd_contact_info">
                 <ul>
-                    <?php if (!empty($address) && !empty($display_address_field)) { ?>
+                    <?php
+                    $address_text = !empty($address_map_link)?'<a target="google_map" href="https://www.google.de/maps/search/�'.esc_html($address).'">'.esc_html($address).'</a>': esc_html($address);
+                    if (!empty($address) && !empty($display_address_field)) { ?>
                         <li>
                             <div class="atbd_info_title"><span
                                         class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php _e($address_label, 'directorist'); ?>
                             </div>
-                            <div class="atbd_info"><a target="google_map" href="https://www.google.de/maps/search/�<?php echo esc_html($address); ?>"><?php echo esc_html($address); ?></a></div>
+                            <div class="atbd_info"><?php echo $address_text; ?></div>
                         </li>
                     <?php } ?>
                     <?php

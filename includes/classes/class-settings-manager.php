@@ -2792,7 +2792,6 @@ The Administrator of ==SITE_NAME==
                             ),
                         ),
                         'description' => __('Choose which address you want to show on listings page', 'directorist'),
-                        /*@todo; later add option to make listing status hidden or invalid for expired listing, so that admin may retain expired listings without having them deleted after the deletion threshold */
                         'default' => array(
                             'value' => 'contact',
                             'label' => __('Contact Information', 'directorist'),
@@ -2801,9 +2800,29 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'display_publish_date',
-                        'label' => __('Hide Publish Date', 'directorist'),
+                        'label' => __('Display Publish Date', 'directorist'),
                         'default' => '1',
                     ),
+                   /* array(
+                        'type' => 'select',
+                        'name' => 'publish_date_format',
+                        'label' => __('Publish Date Format', 'directorist'),
+                        'items' => array(
+                            array(
+                                'value' => 'days_ago',
+                                'label' => __('Display From Location', 'directorist'),
+                            ),
+                            array(
+                                'value' => 'static_date',
+                                'label' => __('Display From Contact Information', 'directorist'),
+                            ),
+                        ),
+                        'description' => __('Choose which address you want to show on listings page', 'directorist'),
+                        'default' => array(
+                            'value' => 'contact',
+                            'label' => __('Contact Information', 'directorist'),
+                        ),
+                    ),*/
                     array(
                         'type' => 'toggle',
                         'name' => 'display_category',
@@ -5147,6 +5166,12 @@ The Administrator of ==SITE_NAME==
                     'type' => 'toggle',
                     'name' => 'disable_contact_info',
                     'label' => __('Disable Contact Information', 'directorist'),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'address_map_link',
+                    'label' => __('Address Map Link', 'directorist'),
                     'default' => 0,
                 ),
                 array(

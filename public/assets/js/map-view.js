@@ -9,7 +9,7 @@
 
     var inherits = function(childCtor, parentCtor) {
         /** @constructor */
-        function tempCtor() {};
+        function tempCtor() {}
         tempCtor.prototype = parentCtor.prototype;
         childCtor.superClass_ = parentCtor.prototype;
         childCtor.prototype = new tempCtor();
@@ -136,9 +136,20 @@ function atbdp_rander_map( $el ) {
     atbdp_center_map( map );
 
     // update map when contact details fields are updated in the custom post type 'acadp_listings'
-    if( map.type == 'markerclusterer' ) {
-        var markerCluster = new MarkerClusterer( map, map.markers, { imagePath: atbdp_map.plugin_url+'public/assets/images/m' } );
+    var mcOptions = {
+        //imagePath: atbdp_map.plugin_url+'public/assets/images/m',
+        styles:[{
+            url: atbdp_map.plugin_url+'public/assets/images/m1.png',
+            width: 53,
+            height:53,
+            textSize:14,
+            textColor:"#fff",
+            //color: #00FF00,
+        }]
 
+    };
+    if( map.type === 'markerclusterer' ) {
+        var markerCluster = new MarkerClusterer( map, map.markers, mcOptions );
     }
 
 };
@@ -174,12 +185,12 @@ function atbdp_add_marker( $marker, map ) {
         map		  : map,
         icon: {
             path: MAP_PIN,
-            fillColor: 'red',
+            fillColor: 'transparent',
             fillOpacity: 1,
             strokeColor: '',
             strokeWeight: 0
         },
-        map_icon_label: '<i class="fa '+icon+'"></i>'
+        map_icon_label: '<div class="atbd_map_shape"><i class="fa '+icon+'"></i></div>'
     });
     // add to array
     map.markers.push( marker );

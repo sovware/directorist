@@ -5111,6 +5111,10 @@ msgstr ""
 msgid "Congratulations! Your profile updated successfully"
 msgstr ""
 
+#: includes/classes/class-user.php:417
+msgid "Oops! Something wrong."
+msgstr ""
+
 #: includes/classes/class-video-widget.php:18
 msgid "You can show listing video by this widget"
 msgstr ""

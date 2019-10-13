@@ -94,14 +94,31 @@ $tg = !empty($tagline) ? esc_html($tagline) : '';
 $ad = !empty($address) ? esc_html($address) : '';
 $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'small')[0];
+$listing_prv_imgurl = atbdp_image_cropping($listing_prv_img, 150, 150, true, 100)['url'];
 $img_url = !empty($listing_prv_imgurl)?$listing_prv_imgurl:$default_image;
 $image = "<img src=". $img_url.">";
-
-$info_content = "<div class='map_info_window'>$image <div class='miw-contents'><h3>{$t}</h3>";
-$info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
+$display_map_info               = get_directorist_option('display_map_info', 1);
+$display_image_map              = get_directorist_option('display_image_map', 1);
+$display_title_map              = get_directorist_option('display_title_map', 1);
+$display_address_map            = get_directorist_option('display_address_map', 1);
+$display_direction_map          = get_directorist_option('display_direction_map', 1);
+if(empty($display_image_map)) {
+    $image = '';
+}
+if(empty($display_title_map)) {
+    $t = '';
+}
+$info_content = "";
+if(!empty($display_image_map) || !empty($display_title_map)) {
+    $info_content .= "<div class='map_info_window'>$image <div class='miw-contents'><h3>$t</h3>";
+}
+if(!empty($display_address_map)) {
+    $info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
+}
 $info_content .= "<div class='miw-contents-footer'>{$review_info}";
-$info_content .= "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div></div></div>";
-
+if(!empty($display_direction_map)) {
+    $info_content .= "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div></div></div>";
+}
 /*END INFO WINDOW CONTENT*/
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
 $disable_map = get_directorist_option('disable_map', 0);
@@ -917,11 +934,12 @@ if ('openstreet' == $select_listing_map) {
         info_content = "<?php echo $info_content; ?>";
 
         // create an info window for map
+        <?php if(!empty($display_map_info)) {?>
         info_window = new google.maps.InfoWindow({
             content: info_content,
             maxWidth: 400/*Add configuration for max width*/
         });
-
+        <?php } ?>
         function initMap() {
             /* Create new map instance*/
             map = new google.maps.Map(document.getElementById('gmap'), {
@@ -932,9 +950,11 @@ if ('openstreet' == $select_listing_map) {
                 map: map,
                 position: saved_lat_lng
             });
+            <?php if(!empty($display_map_info)) {?>
             marker.addListener('click', function () {
                 info_window.open(map, marker);
             });
+            <?php } ?>
         }
 
         initMap();
@@ -986,12 +1006,13 @@ if ('openstreet' == $select_listing_map) {
             lon = <?php echo !empty($manual_lng) ? floatval($manual_lng) : false; ?>;
 
         mymap(lon, lat);
-        var abc = `<?php echo !empty($info_content)?$info_content:'' ?>` + '<span><i class="fa fa-times"></i></span>';
+        <?php if(!empty($display_map_info)) { ?>
+        var abc = `<?php echo !empty($info_content) ? $info_content : '' ?>` + '<span><i class="fa fa-times"></i></span>';
 
         $('#OL_Icon_33').append('<div class="mapHover"></div>');
         $('.mapHover').html(abc);
 
-        <?php } }?>
+        <?php } } }?>
         /* initialize slick  */
 
         /* image gallery slider */

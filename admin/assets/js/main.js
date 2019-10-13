@@ -1477,6 +1477,20 @@ jQuery(function ($) {
         lf_opt60.hide();
     }
 
+    //Display review rating
+    var lf_opt61 = $("#display_image_map, #display_title_map, #display_address_map, #display_direction_map");
+    lf_opt61.hide();
+    $('input[name="display_map_info"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt61.show();
+        }else{
+            lf_opt61.hide();
+        }
+    });
+    if($('input[name="display_map_info"]').is(":checked") === true){
+        lf_opt61.show();
+    }
+
     /* Copy shortcodes on click */
     var textToCopy = document.querySelectorAll(".description.atbdp_settings_description strong");
     textToCopy.forEach((el, index) =>{

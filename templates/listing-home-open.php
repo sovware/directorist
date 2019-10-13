@@ -75,10 +75,10 @@ $c_symbol = atbdp_currency_symbol($currency);
                             <div class="price_ranges">
                                 <?php if('yes' == $price_min_max_field) { ?>
                                     <div class="range_single">
-                                        <input type="text" name="price[0]" class="form-control" placeholder="Min Price" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][0] ); ?>">
+                                        <input type="text" name="price[0]" class="form-control" placeholder="<?php _e('Min Price','directorist');?>" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][0] ); ?>">
                                     </div>
                                     <div class="range_single">
-                                        <input type="text" name="price[1]" class="form-control" placeholder="Max Price" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][1] ); ?>">
+                                        <input type="text" name="price[1]" class="form-control" placeholder="<?php _e('Max Price','directorist');?>" value="<?php if( isset( $_GET['price'] ) ) echo esc_attr( $_GET['price'][1] ); ?>">
                                     </div>
                                 <?php } ?>
                                 <?php if('yes' == $price_range_field) { ?>

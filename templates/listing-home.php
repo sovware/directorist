@@ -194,12 +194,12 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                                 <?php if ('yes' == $price_min_max_field) { ?>
                                                     <div class="range_single">
                                                         <input type="text" name="price[0]" class="form-control"
-                                                               placeholder="Min Price"
+                                                               placeholder="<?php _e('Min Price','directorist');?>"
                                                                value="<?php if (isset($_GET['price'])) echo esc_attr($_GET['price'][0]); ?>">
                                                     </div>
                                                     <div class="range_single">
                                                         <input type="text" name="price[1]" class="form-control"
-                                                               placeholder="Max Price"
+                                                               placeholder="<?php _e('Max Price','directorist');?>"
                                                                value="<?php if (isset($_GET['price'])) echo esc_attr($_GET['price'][1]); ?>">
                                                     </div>
                                                 <?php } ?>

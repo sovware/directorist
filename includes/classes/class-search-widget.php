@@ -48,8 +48,9 @@ if ( !class_exists('BD_Search_Widget')) {
             $search_by_website             = ! empty( $instance['search_by_website'] ) ? 1 : 0;
             $search_by_email               = ! empty( $instance['search_by_email'] ) ? 1 : 0;
             $search_by_phone               = ! empty( $instance['search_by_phone'] ) ? 1 : 0;
-            $search_by_address             = ! empty( $instance['search_by_address'] ) ? 1 : 0;
             $search_by_zip_code            = ! empty( $instance['search_by_zip_code'] ) ? 1 : 0;
+            $search_by_radius              = ! empty( $instance['search_by_radius'] ) ? 1 : 0;
+            $location_source               = ! empty( $instance['location_source'] ) ? $instance['location_source'] : 'map_api';
             wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
             if (is_rtl()){
                 wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
@@ -95,8 +96,9 @@ if ( !class_exists('BD_Search_Widget')) {
                 'search_by_website'       => 0,
                 'search_by_email'         => 0,
                 'search_by_phone'         => 0,
-                'search_by_address'       => 0,
                 'search_by_zip_code'      => 0,
+                'search_by_radius'        => 0,
+                'location_source'         => 'map_api',
             );
             // Parse incoming $instance into an array and merge it with $defaults
             $instance = wp_parse_args(
@@ -133,8 +135,10 @@ if ( !class_exists('BD_Search_Widget')) {
             $instance['search_by_website']       = (isset($new_instance['search_by_website'])) ? 1 : 0;
             $instance['search_by_email']         = (isset($new_instance['search_by_email'])) ? 1 : 0;
             $instance['search_by_phone']         = (isset($new_instance['search_by_phone'])) ? 1 : 0;
-            $instance['search_by_address']       = (isset($new_instance['search_by_address'])) ? 1 : 0;
             $instance['search_by_zip_code']      = (isset($new_instance['search_by_zip_code'])) ? 1 : 0;
+            $instance['search_by_zip_code']      = (isset($new_instance['search_by_zip_code'])) ? 1 : 0;
+            $instance['search_by_radius']      = (isset($new_instance['search_by_radius'])) ? 1 : 0;
+            $instance['location_source']      = (isset($new_instance['location_source'])) ? $new_instance['location_source'] : 'map_api';
 
             return $instance;
         }

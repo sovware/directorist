@@ -73,9 +73,8 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             $info = array();
             $info['user_login'] = $_POST['username'];
             $info['user_password'] = $_POST['password'];
-            $keep_signed_in = !empty($_POST['keep_signed_in']) ? true : false;
+            $keep_signed_in = !empty($_POST['rememberme']) ? true : false;
             $info['remember'] = $keep_signed_in;
-
             $user_signon = wp_signon($info);
             if (is_wp_error($user_signon)) {
                 if (empty($info['user_login'] && $info['user_password'])) {

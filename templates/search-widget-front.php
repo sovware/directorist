@@ -5,6 +5,9 @@ $fax_label                   = get_directorist_option('fax_label',__('Fax','dire
 $email_label                 = get_directorist_option('email_label',__('Email','directorist'));
 $website_label               = get_directorist_option('website_label',__('Website','directorist'));
 $zip_label                   = get_directorist_option('zip_label',__('Zip','directorist'));
+$price_range_placeholder = get_directorist_option('price_range_placeholder', __('Price Range', 'directorist'));
+$currency = get_directorist_option('g_currency', 'USD');
+$c_symbol = atbdp_currency_symbol($currency);
 ?>
 <div class="atbdp search-area default-ad-search">
     <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>">
@@ -97,11 +100,11 @@ $zip_label                   = get_directorist_option('zip_label',__('Zip','dire
             <div class="form-group">
                 <div class="select-basic">
                     <select name="price_range" class="form-control">
-                        <option value="none">Price Range</option>
-                        <option value="skimming" <?php if(!empty($_GET['price_range']) && 'skimming' == $_GET['price_range']) { echo 'selected';}?>>Ultra High ($$$$)</option>
-                        <option value="moderate" <?php if(!empty($_GET['price_range']) && 'moderate' == $_GET['price_range']) { echo 'selected';}?>>Expensive ($$$)</option>
-                        <option value="economy" <?php if(!empty($_GET['price_range']) && 'economy' == $_GET['price_range']) { echo 'selected';}?>>Moderate ($$)</option>
-                        <option value="bellow_economy" <?php if(!empty($_GET['price_range']) && 'bellow_economy' == $_GET['price_range']) { echo 'selected';}?> >Cheap ($)</option>
+                        <option value="none"><?php echo esc_attr($price_range_placeholder); ?></option>
+                        <option value="skimming" <?php if(!empty($_GET['price_range']) && 'skimming' == $_GET['price_range']) { echo 'selected';}?>><?php echo __('Ultra High ', 'directorist').'('.$c_symbol,$c_symbol,$c_symbol,$c_symbol.')'; ?></option>
+                        <option value="moderate" <?php if(!empty($_GET['price_range']) && 'moderate' == $_GET['price_range']) { echo 'selected';}?>><?php echo __('Expensive ', 'directorist').'('.$c_symbol,$c_symbol,$c_symbol.')'; ?></option>
+                        <option value="economy" <?php if(!empty($_GET['price_range']) && 'economy' == $_GET['price_range']) { echo 'selected';}?>><?php echo __('Moderate ', 'directorist').'('.$c_symbol,$c_symbol.')'; ?></option>
+                        <option value="bellow_economy" <?php if(!empty($_GET['price_range']) && 'bellow_economy' == $_GET['price_range']) { echo 'selected';}?> ><?php echo __('Cheap ', 'directorist').'('.$c_symbol.')'; ?></option>
                     </select>
                 </div>
             </div><!-- ends: .form-group -->

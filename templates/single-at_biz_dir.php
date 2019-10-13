@@ -155,6 +155,7 @@ $contact_listing_owner = get_directorist_option('contact_listing_owner', __('Con
 $display_tagline_field = get_directorist_option('display_tagline_field', 0);
 $display_pricing_field = get_directorist_option('display_pricing_field', 1);
 $display_address_field = get_directorist_option('display_address_field', 1);
+$address_map_link = get_directorist_option('address_map_link', 0);
 $display_phone_field = get_directorist_option('display_phone_field', 1);
 $display_phone2_field = get_directorist_option('display_phone_field2', 1);
 $phone_label2 = get_directorist_option('phone_label2', __('Phone Number 2', 'directorist'));
@@ -695,12 +696,14 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <div class="atbdb_content_module_contents">
                         <div class="atbd_contact_info">
                             <ul>
-                                <?php if (!empty($address) && !empty($display_address_field)) { ?>
+                                <?php
+                                $address_text = !empty($address_map_link)?'<a target="google_map" href="https://www.google.de/maps/search/�'.esc_html($address).'">'.esc_html($address).'</a>': esc_html($address);
+                                if (!empty($address) && !empty($display_address_field)) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
                                                     class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php _e($address_label, 'directorist'); ?>
                                         </div>
-                                        <div class="atbd_info"><a target="google_map" href="https://www.google.de/maps/search/�<?php echo esc_html($address); ?>"><?php echo esc_html($address); ?></a></div>
+                                        <div class="atbd_info"><?php echo $address_text; ?></div>
                                     </li>
                                 <?php } ?>
 

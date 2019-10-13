@@ -356,9 +356,19 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                         if (!empty($display_publish_date)) { ?>
                                                             <li><p>
                                                                     <span class="<?php atbdp_icon_type(true); ?>-clock-o"></span><?php
-                                                                    printf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
+                                                                    $publish_date_format = get_directorist_option('publish_date_format', 'time_ago');
+                                                                    if ('time_ago' === $publish_date_format){
+                                                                        printf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
+                                                                    }else{
+                                                                        echo get_the_date();
+                                                                    }
                                                                     ?></p></li>
                                                         <?php }
+                                                        /**
+                                                         * @since 4.7.6
+                                                         */
+                                                        do_action('atbdp_listings_after_post_date');
+
                                                         if (!empty($email && $display_email)):
                                                             echo '<li><p><span class="' . atbdp_icon_type() . '-envelope"></span><a target="_top" href="mailto:' . $email . '">' . $email . '</a></p></li>';
                                                         endif;
@@ -371,10 +381,6 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                                 </p></li>
                                                         <?php
                                                         endif;
-                                                        /**
-                                                         * @since 4.7.6
-                                                         */
-                                                        do_action('atbdp_listings_after_post_date');
                                                         ?>
                                                     </ul>
                                                 </div><!-- End atbd listing meta -->

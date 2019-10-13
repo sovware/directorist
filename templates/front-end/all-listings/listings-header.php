@@ -21,6 +21,8 @@ $query_args = array(
 );
 $categories_fields = search_category_location_filter( $query_args, ATBDP_CATEGORY );
 $locations_fields  = search_category_location_filter( $query_args, ATBDP_LOCATION );
+$currency = get_directorist_option('g_currency', 'USD');
+$c_symbol = atbdp_currency_symbol($currency);
 if ($display_header == 'yes') { ?>
     <div class="atbd_header_bar">
         <div class="<?php echo !empty($header_container_fluid) ? $header_container_fluid : ''; ?>">
@@ -259,19 +261,19 @@ if ($display_header == 'yes') { ?>
                                                     <label class="pf-btn"><input type="radio" name="price_range"
                                                                                  value="bellow_economy"<?php if (!empty($_GET['price_range']) && 'bellow_economy' == $_GET['price_range']) {
                                                             echo "checked='checked'";
-                                                        } ?>><span>$</span></label>
+                                                        } ?>><span><?php echo $c_symbol; ?></span></label>
                                                     <label class="pf-btn"><input type="radio" name="price_range"
                                                                                  value="economy" <?php if (!empty($_GET['price_range']) && 'economy' == $_GET['price_range']) {
                                                             echo "checked='checked'";
-                                                        } ?>><span>$$</span></label>
+                                                        } ?>><span><?php echo $c_symbol,$c_symbol; ?></span></label>
                                                     <label class="pf-btn"><input type="radio" name="price_range"
                                                                                  value="moderate" <?php if (!empty($_GET['price_range']) && 'moderate' == $_GET['price_range']) {
                                                             echo "checked='checked'";
-                                                        } ?>><span>$$$</span></label>
+                                                        } ?>><span><?php echo $c_symbol,$c_symbol,$c_symbol; ?></span></label>
                                                     <label class="pf-btn"><input type="radio" name="price_range"
                                                                                  value="skimming" <?php if (!empty($_GET['price_range']) && 'skimming' == $_GET['price_range']) {
                                                             echo "checked='checked'";
-                                                        } ?>><span>$$$$</span></label>
+                                                        } ?>><span><?php echo $c_symbol,$c_symbol,$c_symbol,$c_symbol; ?></span></label>
                                                 </div>
                                             <?php } ?>
                                         </div>

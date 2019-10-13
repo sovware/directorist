@@ -140,13 +140,24 @@ Directorist is not developed by a single person. A team of dedicated developers 
 = 5.10.0 - Sep 30, 2019 =
 
 * Add - Radius search
+* Add - Listings Mark as Favourite in listings pages
 * Add - Address finder in search field
 * Add - Category icon in map marker
 * Add - Address auto suggestions in search field
 * Add - Option to customize style
+* Add - Option to remove single listing's address link
+* Add - Option to show published date in listings pages
+* Add - Option to add listing's email and website url in listings pages
 * Fix - OpeNStreetMap/Google map zooming issue
 * Fix - Published date issue in listings page
+* Fix - Remember me in login form
+* Fix - Map info window in single listing page
+* Fix - Header title issue in search result page
+* Fix - Extra space issue in excerpt field
+* Fix - Currency Symbol issue
+* Fix - Style issues
 * Improve - Settings Panel
+* Improve - User Role
 
 = 5.9.2 - Sep 10, 2019 =
 

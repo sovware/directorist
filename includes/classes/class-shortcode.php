@@ -118,8 +118,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 global $post;
                 // Process output
                 ob_start();
-
-                //include ATBDP_TEMPLATES_DIR . 'add-listing-custom-field.php';
+                include ATBDP_TEMPLATES_DIR . 'add-listing-custom-field.php';
                 wp_reset_postdata(); // Restore global post data stomped by the_post()
                 $output = ob_get_clean();
 

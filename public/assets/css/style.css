@@ -2206,6 +2206,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-size: 17px;
 }
 
+#directorist.atbd_wrapper span.atbd_get_loc_wid {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
 #directorist.atbd_wrapper .atbd_single_line_card_info .atbd_listing_info .atbd_content_upper .atbd_listing_title,
 #directorist.atbd_wrapper .atbd_single_line_card_info .atbd_listing_info .atbd_content_upper .atbd_listing_tagline,
 #directorist.atbd_wrapper .atbd_single_line_card_info .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p,

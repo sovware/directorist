@@ -309,6 +309,13 @@
   font-size: 17px;
 }
 
+#directorist.atbd_wrapper span.atbd_get_loc_wid {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
 #directorist.atbd_wrapper .atbd_single_line_card_info{
   .atbd_listing_info{
     .atbd_content_upper{

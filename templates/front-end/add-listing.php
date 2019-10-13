@@ -735,7 +735,7 @@ $query_args = array(
 
                             </div><!-- end .atbd_custom_fields_contents -->
                             <div class="atbdb_content_module">
-                                <?php if (empty($display_fax_for || $display_phone2_for || $display_phone_for || $display_address_for || $display_email_for || $display_website_for || $display_zip_for || $display_social_info_for) || !empty($display_address_field || $display_phone_field || $display_phone2_field || $display_fax_field || $display_email_field || $display_website_field || $display_zip_field || $display_social_info_field)) { ?>
+                                <?php if (empty($display_fax_for || $display_phone2_for || $display_phone_for || $display_address_for || $display_email_for || $display_website_for || $display_zip_for || $display_social_info_for) && !empty($display_address_field || $display_phone_field || $display_phone2_field || $display_fax_field || $display_email_field || $display_website_field || $display_zip_field || $display_social_info_field)) { ?>
                                     <div class="atbd_content_module atbd_contact_information">
                                         <div class="atbd_content_module__tittle_area">
                                             <div class="atbd_area_title">

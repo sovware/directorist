@@ -1038,14 +1038,14 @@ $query_args = array(
                                                                            placeholder="<?php esc_attr_e('Enter Longitude eg. 91.87198', 'directorist'); ?>"/>
                                                                 </div>
                                                             </div>
-
+                                                            <?php if('google' == $select_listing_map) {?>
                                                             <div class="col-md-3 col-sm-12">
                                                                 <div class="form-group lat_btn_wrap">
                                                                     <button class="btn btn-primary"
                                                                             id="generate_admin_map"><?php _e('Generate on Map', 'directorist'); ?></button>
                                                                 </div>
                                                             </div> <!-- ends #hide_if_no_manual_cor-->
-
+                                                            <?php } ?>
                                                         </div> <!--ends .row -->
                                                         <div class="col-sm-12">
                                                             <div class="form-group hide-map-option">
@@ -1106,8 +1106,11 @@ $query_args = array(
                                                 <div class="atbd_area_title">
                                                     <h4>
                                                         <?php
-                                                        $video_text = $plan_video ? '& Video' : '';
-                                                        _e("Images {$video_text}", 'directorist');
+                                                        if($plan_video){
+                                                            _e("Images & Video",'directorist');
+                                                        }else{
+                                                            _e("Images",'directorist');
+                                                        }
                                                         ?></h4>
                                                 </div>
                                             </div>

@@ -19,7 +19,7 @@ $zip_label                   = get_directorist_option('zip_label',__('Zip','dire
                     ?>
                     <div class="form-group">
                         <div class="position-relative">
-                            <input type="text" name="address" id="address_widget" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist');?>"
+                            <input type="text" name="address" id="address_widget" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php _e('Location','directorist');?>"
                                    class="form-control widget-location-name"><span class="atbd_get_loc_wid la la-crosshairs"></span>
                         </div>
                         <div id="address_widget_result">

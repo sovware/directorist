@@ -61,11 +61,6 @@
 </p>
 
 <p>
-    <input <?php checked( $instance['search_by_address'] ); ?> id="<?php echo $this->get_field_id( 'search_by_address' ); ?>" name="<?php echo $this->get_field_name( 'search_by_address' ); ?>" type="checkbox" />
-    <label for="<?php echo $this->get_field_id( 'search_by_address' ); ?>"><?php _e( 'Search by Address', 'directorist' ); ?></label>
-</p>
-
-<p>
     <input <?php checked( $instance['search_by_zip_code'] ); ?> id="<?php echo $this->get_field_id( 'search_by_zip_code' ); ?>" name="<?php echo $this->get_field_name( 'search_by_zip_code' ); ?>" type="checkbox" />
     <label for="<?php echo $this->get_field_id( 'search_by_zip_code' ); ?>"><?php _e( 'Search by Zip/Post Code', 'directorist' ); ?></label>
 </p>

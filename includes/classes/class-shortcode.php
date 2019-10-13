@@ -3422,7 +3422,7 @@ if (!class_exists('ATBDP_Shortcode')):
 
                     <div class="keep_signed">
                         <label for="keep_signed_in" class="not_empty">
-                            <input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in" checked="">
+                            <input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in" checked>
                             <?php echo $log_rememberMe; ?>
                             <span class="cf-select"></span>
                         </label>

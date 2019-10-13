@@ -20,6 +20,7 @@ $excerpt_placeholder   = get_directorist_option('excerpt_placeholder',__('Short 
 $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
 $display_views_count   = get_directorist_option('display_views_count', 1);
 $price_range_label = get_directorist_option('price_range_label', __('Price Range', 'directorist'));
+$c_symbol = atbdp_currency_symbol($currency);
 ?>
 <div id="directorist" class="directorist atbd_wrapper directory_wrapper">
     <?php
@@ -83,18 +84,18 @@ $price_range_label = get_directorist_option('price_range_label', __('Price Range
                        placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
 
                 <select class="form-control directory_field" id="price_range" style="display: none" name="price_range">
-                    <option value=""><?php _e('Select Price Range', 'directorist')?></option>
+                    <option value=""><?php echo esc_attr($price_range_placeholder); ?></option>
                     <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
-                        Ultra High ($$$$)
+                        <?php echo __('Ultra High ', 'directorist').'('.$c_symbol,$c_symbol,$c_symbol,$c_symbol.')'; ?>
                     </option>
                     <option value="moderate" <?php selected($price_range, 'moderate'); ?>>
-                        Expensive ($$$)
+                        <?php echo __('Expensive ', 'directorist').'('.$c_symbol,$c_symbol,$c_symbol.')'; ?>
                     </option>
                     <option value="economy" <?php selected($price_range, 'economy'); ?>>
-                        Moderate ($$)
+                        <?php echo __('Moderate ', 'directorist').'('.$c_symbol,$c_symbol.')'; ?>
                     </option>
-                    <option value="bellow_economy" <?php selected($price_range, 'bellow_economy'); ?>>
-                        Cheap ($)
+                    <option value="bellow_economy" <?php selected($price_range, 'economy'); ?>>
+                        <?php echo __('Cheap ', 'directorist').'('.$c_symbol.')'; ?>
                     </option>
                 </select>
             </div>
@@ -115,11 +116,10 @@ $price_range_label = get_directorist_option('price_range_label', __('Price Range
                 <label for="atbdp_excerpt"><?php
                     $excerpt_label = get_directorist_option('excerpt_label', __('Short Description/Excerpt', 'directorist'));
                     esc_html_e($excerpt_label.':', 'directorist'); ?></label>
-                <!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
                 <input type="hidden" id="has_excerpt" value="<?php echo !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
                 <textarea name="excerpt" id="atbdp_excerpt"
                           class="form-control directory_field" cols="30" rows="5"
-                          placeholder="<?php echo esc_attr($excerpt_placeholder); ?>"> <?php echo !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?> </textarea>
+                          placeholder="<?php echo esc_attr($excerpt_placeholder); ?>"><?php echo !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?></textarea>
             </div>
         <?php }?>
         <!--***********************************************************************

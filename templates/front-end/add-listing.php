@@ -313,21 +313,22 @@ $query_args = array(
 
                                             <?php }
                                             if ($plan_average_price && empty($display_price_range_for) && !empty($display_price_range_field )) {
+                                                $c_symbol = atbdp_currency_symbol($currency);
                                                 ?>
                                                 <select class="form-control directory_field" id="price_range"
                                                         name="price_range">
                                                     <option value=""><?php echo esc_attr($price_range_placeholder); ?></option>
                                                     <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
-                                                        <?php echo __('Ultra High ($$$$)', 'directorist'); ?>
+                                                        <?php echo __('Ultra High ', 'directorist').'('.$c_symbol,$c_symbol,$c_symbol,$c_symbol.')'; ?>
                                                     </option>
                                                     <option value="moderate" <?php selected($price_range, 'moderate'); ?>>
-                                                        <?php echo __('Expensive ($$$)', 'directorist'); ?>
+                                                        <?php echo __('Expensive ', 'directorist').'('.$c_symbol,$c_symbol,$c_symbol.')'; ?>
                                                     </option>
                                                     <option value="economy" <?php selected($price_range, 'economy'); ?>>
-                                                        <?php echo __('Moderate ($$)', 'directorist'); ?>
+                                                        <?php echo __('Moderate ', 'directorist').'('.$c_symbol,$c_symbol.')'; ?>
                                                     </option>
                                                     <option value="bellow_economy" <?php selected($price_range, 'economy'); ?>>
-                                                        <?php echo __('Cheap ($)', 'directorist'); ?>
+                                                        <?php echo __('Cheap ', 'directorist').'('.$c_symbol.')'; ?>
                                                     </option>
                                                 </select>
                                             <?php }

@@ -105,6 +105,57 @@
                 </div>
                     <?php
                 }
+                if (!class_exists('DCL_Base')){
+                    ?>
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <!--WooCommerce Fee Manager-->
+                        <div class="single_extension">
+                            <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Claim_Listing.jpg"
+                                 alt="WooCommerce Fee Manager">
+
+                            <div class="extension_detail ext_d">
+                                <a href="https://aazztech.com/product/directorist-claim-listing" target="_blank"
+                                   class="ext_title"><h4>
+                                        <?php esc_html_e(' Claim Listing ', 'directorist'); ?>  </h4></a>
+                                <p><?php esc_html_e('Monetize your directory allowing business owners to claim their listing using this extension.', 'directorist'); ?></p>
+
+                                <div class="btn_wrapper">
+                                    <a href="https://aazztech.com/product/directorist-claim-listing/#screenshots"
+                                       target="_blank"
+                                       class="btn demo btn-primary"><?php esc_html_e('View demo', 'directorist'); ?></a>
+                                    <a href="https://aazztech.com/product/directorist-claim-listing" target="_blank"
+                                       class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+                if (!class_exists('BD_Business_Hour')){
+                    ?>
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <!--Business hour-->
+                        <div class="single_extension">
+                            <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Directorist_Business_Hours.jpg"
+                                 alt="Business Hours">
+
+                            <div class="extension_detail ext_d">
+                                <a href="https://aazztech.com/product/directorist-business-hour/" target="_blank"
+                                   class="ext_title"><h4><?php esc_html_e(' Business Hours ', 'directorist'); ?></h4></a>
+                                <p><?php esc_html_e('You can show Business hours / opening hours of a listing by this extension.', 'directorist'); ?></p>
+
+                                <div class="btn_wrapper">
+                                    <a href="https://aazztech.com/product/directorist-business-hour/#screenshots"
+                                       target="_blank"
+                                       class="btn demo btn-primary"><?php esc_html_e('View Demo', 'directorist'); ?></a>
+                                    <a href="https://aazztech.com/product/directorist-business-hour/" target="_blank"
+                                       class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
                 if (!class_exists('Post_Your_Need')){
                     ?>
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
@@ -155,56 +206,29 @@
                     </div>
                     <?php
                 }
-                if (!class_exists('BD_Business_Hour')){
-                ?>
-                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                    <!--Business hour-->
-                    <div class="single_extension">
-                        <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Directorist_Business_Hours.jpg"
-                             alt="Business Hours">
+                if (!class_exists('Directorist_Social_Login')){
+                    ?>
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <!--Business hour-->
+                        <div class="single_extension">
+                            <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/10/Social_Login.jpg"
+                                 alt="Directorist Social Login">
 
-                        <div class="extension_detail ext_d">
-                            <a href="https://aazztech.com/product/directorist-business-hour/" target="_blank"
-                               class="ext_title"><h4><?php esc_html_e(' Business Hours ', 'directorist'); ?></h4></a>
-                            <p><?php esc_html_e('You can show Business hours / opening hours of a listing by this extension.', 'directorist'); ?></p>
+                            <div class="extension_detail ext_d">
+                                <a href="https://aazztech.com/product/directorist-social-login/" target="_blank"
+                                   class="ext_title"><h4><?php esc_html_e(' Directorist Social Login ', 'directorist'); ?></h4></a>
+                                <p><?php esc_html_e('Let\'s turn to your visitors as your directory members where they can express their needs and get the it from service provider.', 'directorist'); ?></p>
 
-                            <div class="btn_wrapper">
-                                <a href="https://aazztech.com/product/directorist-business-hour/#screenshots"
-                                   target="_blank"
-                                   class="btn demo btn-primary"><?php esc_html_e('View Demo', 'directorist'); ?></a>
-                                <a href="https://aazztech.com/product/directorist-business-hour/" target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
+                                <div class="btn_wrapper">
+                                    <a href="https://aazztech.com/product/directorist-social-login/#screenshots"
+                                       target="_blank"
+                                       class="btn demo btn-primary"><?php esc_html_e('View Demo', 'directorist'); ?></a>
+                                    <a href="https://aazztech.com/product/directorist-social-login/" target="_blank"
+                                       class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                    <?php
-                }
-                if (!class_exists('BD_Slider_Carousel')){
-                ?>
-                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                    <!--WooCommerce Fee Manager-->
-                    <div class="single_extension">
-                        <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Listing_Slider__Carousal.jpg"
-                             alt="Listings Slider">
-
-                        <div class="extension_detail ext_d">
-                            <a href="https://aazztech.com/product/directorist-listings-slider-and-carousel"
-                               target="_blank" class="ext_title"><h4>
-                                    <?php esc_html_e(' Listings Slider and Carousel ', 'directorist'); ?></h4></a>
-                            <p><?php esc_html_e('Display listings slider anywhere on your website using this extension.', 'directorist'); ?></p>
-
-                            <div class="btn_wrapper">
-                                <a href="https://aazztech.com/product/directorist-listings-slider-and-carousel/#screenshots"
-                                   target="_blank"
-                                   class="btn demo btn-primary"><?php esc_html_e('View demo', 'directorist'); ?></a>
-                                <a href="https://aazztech.com/product/directorist-listings-slider-and-carousel"
-                                   target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                     <?php
                 }
                 if (!class_exists('BD_Google_Recaptcha')) {
@@ -226,6 +250,33 @@
                                     <a href="https://aazztech.com/product/google-recaptcha/#screenshots" target="_blank"
                                        class="btn demo btn-primary"><?php esc_html_e('View demo', 'directorist'); ?></a>
                                     <a href="https://aazztech.com/product/google-recaptcha" target="_blank"
+                                       class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+                if (!class_exists('BD_Slider_Carousel')){
+                    ?>
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <!--WooCommerce Fee Manager-->
+                        <div class="single_extension">
+                            <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Listing_Slider__Carousal.jpg"
+                                 alt="Listings Slider">
+
+                            <div class="extension_detail ext_d">
+                                <a href="https://aazztech.com/product/directorist-listings-slider-and-carousel"
+                                   target="_blank" class="ext_title"><h4>
+                                        <?php esc_html_e(' Listings Slider and Carousel ', 'directorist'); ?></h4></a>
+                                <p><?php esc_html_e('Display listings slider anywhere on your website using this extension.', 'directorist'); ?></p>
+
+                                <div class="btn_wrapper">
+                                    <a href="https://aazztech.com/product/directorist-listings-slider-and-carousel/#screenshots"
+                                       target="_blank"
+                                       class="btn demo btn-primary"><?php esc_html_e('View demo', 'directorist'); ?></a>
+                                    <a href="https://aazztech.com/product/directorist-listings-slider-and-carousel"
+                                       target="_blank"
                                        class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
                                 </div>
                             </div>
@@ -307,7 +358,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--WooCommerce Fee Manager-->
                     <div class="single_extension">
@@ -330,35 +380,6 @@
                         </div>
                     </div>
                 </div>
-                <?php
-
-                if (!class_exists('DCL_Base')){
-                ?>
-                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                    <!--WooCommerce Fee Manager-->
-                    <div class="single_extension">
-                        <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Claim_Listing.jpg"
-                             alt="WooCommerce Fee Manager">
-
-                        <div class="extension_detail ext_d">
-                            <a href="https://aazztech.com/product/directorist-claim-listing" target="_blank"
-                               class="ext_title"><h4>
-                                    <?php esc_html_e(' Claim Listing ', 'directorist'); ?>  </h4></a>
-                            <p><?php esc_html_e('Monetize your directory allowing business owners to claim their listing using this extension.', 'directorist'); ?></p>
-
-                            <div class="btn_wrapper">
-                                <a href="https://aazztech.com/product/directorist-claim-listing/#screenshots"
-                                   target="_blank"
-                                   class="btn demo btn-primary"><?php esc_html_e('View demo', 'directorist'); ?></a>
-                                <a href="https://aazztech.com/product/directorist-claim-listing" target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                    <?php
-                }
-                ?>
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--WooCommerce Fee Manager-->
                     <div class="single_extension">

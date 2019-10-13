@@ -837,6 +837,7 @@ jQuery(function ($) {
                 'action': 'ajaxlogin', //calls wp_ajax_nopriv_ajaxlogin
                 'username': $('form#login p #username').val(),
                 'password': $('form#login p #password').val(),
+                'rememberme': $('form#login #keep_signed_in').val(),
                 'security': $('#security').val() },
             success: function(data){
                 $('p.status').html(data.message);
@@ -845,7 +846,6 @@ jQuery(function ($) {
                 }
             },
         });
-
         e.preventDefault();
     });
 })(jQuery);

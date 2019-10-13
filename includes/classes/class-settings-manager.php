@@ -2927,26 +2927,25 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Display Publish Date', 'directorist'),
                         'default' => '1',
                     ),
-                   /* array(
+                    array(
                         'type' => 'select',
                         'name' => 'publish_date_format',
                         'label' => __('Publish Date Format', 'directorist'),
                         'items' => array(
                             array(
-                                'value' => 'days_ago',
-                                'label' => __('Display From Location', 'directorist'),
+                                'value' => 'time_ago',
+                                'label' => __('Number of Days Ago', 'directorist'),
                             ),
                             array(
-                                'value' => 'static_date',
-                                'label' => __('Display From Contact Information', 'directorist'),
+                                'value' => 'publish_date',
+                                'label' => __('Standard Date Format', 'directorist'),
                             ),
                         ),
-                        'description' => __('Choose which address you want to show on listings page', 'directorist'),
                         'default' => array(
-                            'value' => 'contact',
-                            'label' => __('Contact Information', 'directorist'),
+                            'value' => 'time_ago',
+                            'label' => __('Number of Days Ago', 'directorist'),
                         ),
-                    ),*/
+                    ),
                     array(
                         'type' => 'toggle',
                         'name' => 'display_category',

@@ -399,6 +399,7 @@ jQuery(function ($) {
         };
         $.post(ajaxurl, data, function (response) {
 
+            console.log(response);
             if(response == " 0"){
                 $('#atbdp-custom-fields-list').hide();
             }else {

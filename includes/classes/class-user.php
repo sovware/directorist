@@ -414,7 +414,7 @@ class ATBDP_User {
             wp_send_json_success( $congz_txt, 'directorist');
             return true;
         }else{
-            $ops_text = __('Congratulations! Your profile updated successfully', 'directorist');
+            $ops_text = __('Oops! Something wrong.', 'directorist');
             wp_send_json_error($ops_text, 'directorist');
         }
 

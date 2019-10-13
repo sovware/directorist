@@ -79,3 +79,16 @@
     <input <?php checked( $instance['search_by_review'] ); ?> id="<?php echo $this->get_field_id( 'search_by_review' ); ?>" name="<?php echo $this->get_field_name( 'search_by_review' ); ?>" type="checkbox" />
     <label for="<?php echo $this->get_field_id( 'search_by_review' ); ?>"><?php _e( 'Search by Review', 'directorist' ); ?></label>
 </p>
+
+<p>
+    <input <?php checked( $instance['search_by_radius'] ); ?> id="<?php echo $this->get_field_id( 'search_by_radius' ); ?>" name="<?php echo $this->get_field_name( 'search_by_radius' ); ?>" type="checkbox" />
+    <label for="<?php echo $this->get_field_id( 'search_by_radius' ); ?>"><?php _e( 'Search by Radius', 'directorist' ); ?></label>
+</p>
+
+<p>
+    <label for="<?php echo $this->get_field_id( 'location_source' ); ?>"><?php _e( 'Location Source for Search', 'directorist' ); ?></label>
+    <select class="widefat" id="<?php echo $this->get_field_id( 'location_source' ); ?>" name="<?php echo $this->get_field_name( 'location_source' ); ?>">
+        <option value="map_api" <?php selected( $instance['location_source'], 'map_api' ); ?>><?php _e( 'Display from Map Api', 'directorist' ); ?></option>
+        <option value="listing_location" <?php selected( $instance['location_source'], 'listing_location' ); ?>><?php _e( 'Display from Listing Location', 'directorist' ); ?></option>
+    </select>
+</p>

@@ -13,7 +13,21 @@ $zip_label                   = get_directorist_option('zip_label',__('Zip','dire
                 <input type="text" name="q" placeholder="<?php _e('What are you looking for?','directorist');?>" value="<?php echo !empty($_GET['q']) ? $_GET['q'] : ''; ?>" class="form-control">
             </div><!-- ends: .form-group -->
         <?php } ?>
-        <?php if(!empty($search_by_location)) { ?>
+        <?php if(!empty($search_by_location)) {
+                if('map_api' == $location_source) {
+                    wp_enqueue_script('atbdp-geolocation-widget');
+                    ?>
+                    <div class="form-group">
+                        <div class="position-relative">
+                            <input type="text" name="address" id="address_widget" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist');?>"
+                                   class="form-control widget-location-name"><span class="atbd_get_loc_wid la la-crosshairs"></span>
+                        </div>
+                        <div id="address_widget_result">
+                        </div>
+                        <input type="hidden" id="cityLat" name="cityLat" value="" />
+                        <input type="hidden" id="cityLng" name="cityLng" value="" />
+                    </div><!-- ends: .form-group -->
+                <?php } else { ?>
             <div class="form-group">
                 <?php
                 bdas_dropdown_terms( array(
@@ -28,7 +42,8 @@ $zip_label                   = get_directorist_option('zip_label',__('Zip','dire
                 ) );
                 ?>
             </div>
-        <?php } ?>
+        <?php }
+        } ?>
         <?php if(!empty($search_by_category)) {?>
             <div class="form-group">
                 <?php
@@ -44,6 +59,20 @@ $zip_label                   = get_directorist_option('zip_label',__('Zip','dire
                 ) );
                 ?>
             </div>
+        <?php } ?>
+        <?php if('map_api' == $location_source && !empty($search_by_radius)) { ?>
+        <div class="form-group">
+            <div class="atbdpr-range rs-primary">
+                <div class="atbdp-labels">
+                    <label><?php _e('Distance:','directorist'); ?></label>
+                    <span class="atbdpr_amount"></span>
+                </div>
+                <div class="atbd_slider-range-wrapper">
+                    <div class="atbd_slider-range"></div>
+                    <input type="hidden" id="atbd_rs_value" name="miles" value="<?php echo !empty($_GET['miles']) ? $_GET['miles'] : ''; ?>">
+                </div>
+            </div>
+        </div>
         <?php } ?>
         <?php if(!empty($search_by_custom_fields)) { ?>
             <div id="atbdp-custom-fields-search" class="atbdp-custom-fields-search">
@@ -100,14 +129,6 @@ $zip_label                   = get_directorist_option('zip_label',__('Zip','dire
         <?php if(!empty($search_by_phone)) { ?>
             <div class="form-group">
                 <input type="text" name="phone" placeholder="<?php _e('Phone Number','directorist');?>" value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>" class="form-control">
-            </div><!-- ends: .form-group -->
-        <?php } ?>
-        <?php if(!empty($search_by_address)) { ?>
-            <div class="form-group">
-                <div class="position-relative">
-                    <input type="text" name="address" value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>" placeholder="<?php echo !empty($address_label) ? $address_label : __('Address','directorist');?>"
-                           class="form-control location-name">
-                </div>
             </div><!-- ends: .form-group -->
         <?php } ?>
         <?php if(!empty($search_by_zip_code)) { ?>

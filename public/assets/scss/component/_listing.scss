@@ -178,6 +178,7 @@
             p {
               margin-bottom: 2px;
               font-size: 14px;
+              display: flex;
               span {
                 @extend .atbd_color-primary;
                 font-size: 15px;

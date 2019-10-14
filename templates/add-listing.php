@@ -20,6 +20,7 @@ $excerpt_placeholder   = get_directorist_option('excerpt_placeholder',__('Short 
 $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
 $display_views_count   = get_directorist_option('display_views_count', 1);
 $price_range_label = get_directorist_option('price_range_label', __('Price Range', 'directorist'));
+$price_range_placeholder = get_directorist_option('price_range_placeholder', __('Price Range', 'directorist'));
 $c_symbol = atbdp_currency_symbol($currency);
 ?>
 <div id="directorist" class="directorist atbd_wrapper directory_wrapper">

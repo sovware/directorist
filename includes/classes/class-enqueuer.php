@@ -310,6 +310,8 @@ class ATBDP_Enqueuer {
             'listing_error_text'            => __( 'Something went wrong!!!, Try again', 'directorist' ),
             'upload_pro_pic_title'          => __( 'Select or Upload a profile picture', 'directorist' ),
             'upload_pro_pic_text'           => __( 'Use this Image', 'directorist' ),
+            'payNow'                        => __( 'Pay Now', 'directorist' ),
+            'completeSubmission'           => __( 'Complete Submission', 'directorist' ),
             'plugin_url'                    => ATBDP_URL,
 
 
@@ -699,6 +701,7 @@ class ATBDP_Enqueuer {
             'required_cus_fields' => $required_custom_fields,
             'cus_radio' => $radio_field,
             'cus_check' => $cus_check,
+            'msg' => __('This field is required!', 'directorist'),
         );
         wp_localize_script( 'atbdp_custom_field_validator', 'custom_field_validator', $custom_field_validator );
         wp_enqueue_media();

@@ -148,6 +148,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Add - Option to remove single listing's address link
 * Add - Option to show published date in listings pages
 * Add - Option to add listing's email and website url in listings pages
+* Add - Option to customize map info window in single listing page
 * Fix - OpeNStreetMap/Google map zooming issue
 * Fix - Published date issue in listings page
 * Fix - Remember me in login form
@@ -155,8 +156,11 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Fix - Header title issue in search result page
 * Fix - Extra space issue in excerpt field
 * Fix - Currency Symbol issue
+* Fix - Translation issues
 * Fix - Style issues
 * Improve - Settings Panel
+* Improve - Social Media icons in single listing page
+* Improve - Listings header title
 * Improve - User Role
 
 = 5.9.2 - Sep 10, 2019 =

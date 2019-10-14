@@ -30,10 +30,10 @@
 
          if( amount > 0 ) {
          $( '#directorist_payment_gateways' ).show();
-         $( '#atbdp_checkout_submit_btn' ).val( "Pay Now" ).show();
+         $( '#atbdp_checkout_submit_btn' ).val( atbdp_checkout.payNow ).show();
          } else {
          $( '#directorist_payment_gateways' ).hide();
-         $( '#atbdp_checkout_submit_btn' ).val( 'Complete Submission' ).show();
+         $( '#atbdp_checkout_submit_btn' ).val( atbdp_checkout.completeSubmission ).show();
          }
 
          });

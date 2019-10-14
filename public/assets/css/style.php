@@ -45,12 +45,12 @@ $marker_icon_color                = get_directorist_option('marker_icon_color','
      Button: Primary
     ======================================== */
     /* Color */
-    #directorist.atbd_wrapper .btn-outline-primary{
+    /*#directorist.atbd_wrapper .btn-outline-primary{
         color: <?php echo !empty($primary_color) ? $primary_color : '#444752';?> !important;
-    }
+    }*/
 
     /* Background */
-    .pricing .price_action .price_action--btn, #directorist.atbd_wrapper .btn-primary, .default-ad-search .submit_btn .btn-default, #directorist.atbd_wrapper .btn-outline-primary:hover, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic, #directorist.atbd_wrapper .at-modal .at-modal-close, .atbdp_login_form_shortcode #loginform p input[type="submit"], .atbd_manage_fees_wrapper .table tr .action p .btn-block:hover, #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn{
+    .pricing .price_action .price_action--btn, #directorist.atbd_wrapper .btn-primary, .default-ad-search .submit_btn .btn-default, /*#directorist.atbd_wrapper .btn-outline-primary:hover,*/ .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic, #directorist.atbd_wrapper .at-modal .at-modal-close, .atbdp_login_form_shortcode #loginform p input[type="submit"], .atbd_manage_fees_wrapper .table tr .action p .btn-block:hover, #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn{
         background: <?php echo !empty($back_primary_color) ? $back_primary_color : '#444752';?> !important;
     }
 
@@ -60,7 +60,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color','
     }
 
     /* Border Color */
-    #directorist.atbd_wrapper .btn-primary, .default-ad-search .submit_btn .btn-default, #directorist.atbd_wrapper .btn-outline-primary, #directorist.atbd_wrapper .btn-outline-primary:hover, .atbdp_login_form_shortcode #loginform p input[type="submit"]{
+    #directorist.atbd_wrapper .btn-primary, .default-ad-search .submit_btn .btn-default, /*#directorist.atbd_wrapper .btn-outline-primary, #directorist.atbd_wrapper .btn-outline-primary:hover,*/ .atbdp_login_form_shortcode #loginform p input[type="submit"]{
         border-color: <?php echo !empty($border_primary_color) ? $border_primary_color : '#444752';?> !important;
     }
 

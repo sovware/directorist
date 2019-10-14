@@ -139,6 +139,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 = 6.0.0 - Oct 14, 2019 =
 
+* Add - Style Settings
 * Add - Radius search
 * Add - Listing Bookmark/Mark as Favourite on listings page
 * Add - Address finder in location search field

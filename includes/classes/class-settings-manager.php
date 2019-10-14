@@ -2405,9 +2405,9 @@ The Administrator of ==SITE_NAME==
                     ),
                     'all_listing_title' => array(
                         'type' => 'textbox',
-                        'name' => 'all_listing_title',
+                        'name' => 'all_listing_header_title',
                         'label' => __('Header Title', 'directorist'),
-                        'default' => __('Total Listings Found:', 'directorist'),
+                        'default' => __('Items Found', 'directorist'),
                     ),
                     'listing_filters_button' => array(
                         'type' => 'toggle',
@@ -3534,12 +3534,6 @@ The Administrator of ==SITE_NAME==
                         'name' => 'search_header',
                         'label' => __('Display Header', 'directorist'),
                         'default' => 1,
-                    ),
-                    array(
-                        'type' => 'textbox',
-                        'name' => 'search_header_title',
-                        'label' => __('Header Title', 'directorist'),
-                        'default' => __('Search Result ', 'directorist'),
                     ),
                     array(
                         'type' => 'toggle',

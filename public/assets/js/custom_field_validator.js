@@ -12,7 +12,7 @@ jQuery(document).ready(function ($) {
             }
         });
        var is_need = $("input[name='need_post']").val();
-       if (is_need){
+       if ('yes' === is_need){
            need_post = true;
        }
     }

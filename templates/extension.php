@@ -167,7 +167,7 @@
                             <div class="extension_detail ext_d">
                                 <a href="https://aazztech.com/product/directorist-post-your-need/" target="_blank"
                                    class="ext_title"><h4><?php esc_html_e(' Post Your Need ', 'directorist'); ?></h4></a>
-                                <p><?php esc_html_e('Let\'s turn to your visitors as your directory members where they can express their needs and get the it from service provider.', 'directorist'); ?></p>
+                                <p><?php esc_html_e('Add new feature for your users where they can post for any kind of need or service that they want.', 'directorist'); ?></p>
 
                                 <div class="btn_wrapper">
                                     <a href="https://aazztech.com/product/directorist-post-your-need/#screenshots"
@@ -192,7 +192,7 @@
                             <div class="extension_detail ext_d">
                                 <a href="https://aazztech.com/product/directorist-listings-with-map/" target="_blank"
                                    class="ext_title"><h4><?php esc_html_e(' Listings With Map ', 'directorist'); ?></h4></a>
-                                <p><?php esc_html_e('Let\'s turn to your visitors as your directory members where they can express their needs and get the it from service provider.', 'directorist'); ?></p>
+                                <p><?php esc_html_e('It adds new layout view that is listings and map side by side with advanced search/filters.', 'directorist'); ?></p>
 
                                 <div class="btn_wrapper">
                                     <a href="https://aazztech.com/product/directorist-listings-with-map/#screenshots"

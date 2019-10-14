@@ -5288,7 +5288,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'address_map_link',
-                    'label' => __('Enable Map Link in Address', 'directorist'),
+                    'label' => __('Address Linked with Map', 'directorist'),
                     'default' => 0,
                 ),
                 array(

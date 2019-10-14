@@ -1336,75 +1336,75 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.facebook:hover {
-  background-color: #4267B2;
+  background-color: #4267B2 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.twitter:hover {
-  background-color: #1da1f2;
+  background-color: #1da1f2 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.youtube:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.youtube-play:hover {
-  background-color: #ff0000;
+  background-color: #ff0000 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.instagram:hover {
-  background-color: #c32aa3;
+  background-color: #c32aa3 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.linkedin:hover {
-  background-color: #007bb5;
+  background-color: #007bb5 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.google-plus:hover {
-  background-color: #db4437;
+  background-color: #db4437 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.snapchat:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.snapchat-ghost:hover {
-  background-color: #eae800;
+  background-color: #eae800 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.reddit:hover {
-  background-color: #ff4500;
+  background-color: #ff4500 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.pinterest:hover {
-  background-color: #bd081c;
+  background-color: #bd081c !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.tumblr:hover {
-  background-color: #35465d;
+  background-color: #35465d !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.flickr:hover {
-  background-color: #f40083;
+  background-color: #f40083 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.vimeo:hover {
-  background-color: #1ab7ea;
+  background-color: #1ab7ea !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.vine:hover {
-  background-color: #00b489;
+  background-color: #00b489 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.github:hover {
-  background-color: #444752;
+  background-color: #444752 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.dribbble:hover {
-  background-color: #ea4c89;
+  background-color: #ea4c89 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.behance:hover {
-  background-color: #196EE3;
+  background-color: #196EE3 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.soundcloud:hover {
-  background-color: #ff5500;
+  background-color: #ff5500 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.stack-overflow:hover {
-  background-color: #ff5500;
+  background-color: #ff5500 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a span.fa {

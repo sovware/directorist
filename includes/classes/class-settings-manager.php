@@ -165,7 +165,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'menus' => $this->get_reg_log_settings_submenus(),
                 ),
                 /*lets make the settings for style settngs*/
-                  /*'style_settings_menu' => array(
+                  'style_settings_menu' => array(
                       'title' => __('Style Settings', 'directorist'),
                       'name' => 'style_settings',
                       'icon' => 'font-awesome:fa-adjust',
@@ -195,18 +195,18 @@ if (!class_exists('ATBDP_Settings_Manager')):
                               'title' => __('Badge Color', 'directorist'),
                               'fields' => $this->get_listings_badge_color_fields(),
                           ),
-                          'primary_dark' => array(
-                              'type' => 'section',
-                              'title' => __('Primary Dark', 'directorist'),
-                              'fields' => $this->get_listings_primary_dark_fields(),
-                          ),
                           'map_marker' => array(
                               'type' => 'section',
                               'title' => __('All Listings Map Marker', 'directorist'),
                               'fields' => $this->get_listings_map_marker_color_fields(),
                           ),
+                          'primary_dark' => array(
+                              'type' => 'section',
+                              'title' => __('Primary Color', 'directorist'),
+                              'fields' => $this->get_listings_primary_dark_fields(),
+                          ),
                       )),
-                  ),*/
+                  ),
             ));
         }
 

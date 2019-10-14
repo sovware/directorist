@@ -2001,7 +2001,10 @@ function atbdp_get_listings_current_view_name($view)
         $view = sanitize_text_field($_GET['view']);
     }
 
-    $allowed_views = array('list', 'grid', 'map', 'listings_with_map');
+    $allowed_views = array('list', 'grid', 'map');
+    if(class_exists('BD_Map_View')) {
+        array_push($allowed_views,'listings_with_map');
+    }
     if (!in_array($view, $allowed_views)) {
         $listing_view = get_directorist_option('default_listing_view');
         $listings_settings = !empty($listing_view) ? $listing_view : 'grid';

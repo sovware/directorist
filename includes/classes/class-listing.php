@@ -140,7 +140,10 @@ if (!class_exists('ATBDP_Listing')):
         {
             $id = get_directorist_option('single_listing_page');
             if (is_singular(ATBDP_POST_TYPE) && in_the_loop() && is_main_query()) {
-                do_action('include_style_settings');
+                $include = apply_filters('include_style_settings', true);
+                if($include){
+                    include ATBDP_DIR . 'public/assets/css/style.php';
+                }
                 if (!empty($id)) {
                     global $post;
                     /**

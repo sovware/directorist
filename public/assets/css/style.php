@@ -1,4 +1,5 @@
 <?php
+do_action('include_style_settings');
 $primary_color                    = get_directorist_option('primary_color','#444752');
 $back_primary_color               = get_directorist_option('back_primary_color','#444752');
 $back_primary_hover_color         = get_directorist_option('back_primary_hover_color','#222222');

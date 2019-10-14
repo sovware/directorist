@@ -68,7 +68,6 @@ class ATBDP_Helper {
         $s = array(
             'facebook' => __('Facebook', 'directorist'),
             'twitter'   => __('Twitter', 'directorist'),
-            'google-plus' =>  __('Google+', 'directorist'),
             'linkedin' =>  __('LinkedIn', 'directorist'),
             'pinterest' =>  __('Pinterest', 'directorist'),
             'instagram' =>  __('Instagram', 'directorist'),

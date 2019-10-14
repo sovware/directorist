@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 5.10.0
+Stable tag: 6.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -137,31 +137,32 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 5.10.0 - Sep 30, 2019 =
+= 6.0.0 - Oct 14, 2019 =
 
 * Add - Radius search
-* Add - Listings Mark as Favourite in listings pages
-* Add - Address finder in search field
-* Add - Category icon in map marker
-* Add - Address auto suggestions in search field
-* Add - Option to customize style
+* Add - Listing Bookmark/Mark as Favourite on listings page
+* Add - Address finder in location search field
+* Add - Custom Map Marker
+* Add - Category icon in Map Marker
+* Add - Auto suggestions in location search field (if choose to display from Map API)
 * Add - Option to remove single listing's address link
-* Add - Option to show published date in listings pages
-* Add - Option to add listing's email and website url in listings pages
-* Add - Option to customize map info window in single listing page
+* Add - Option to show published date on listings page
+* Add - Option to add listing's email and website url on listings page
+* Add - Option to customize Map info window of single listing page
 * Fix - OpeNStreetMap/Google map zooming issue
-* Fix - Published date issue in listings page
-* Fix - Remember me in login form
-* Fix - Map info window in single listing page
-* Fix - Header title issue in search result page
-* Fix - Extra space issue in excerpt field
+* Fix - Published date issue on listings page
+* Fix - 'Remember Me' of login form
+* Fix - Map info window of single listing page
+* Fix - Header title issue of search result page
+* Fix - Extra space issue of excerpt field
 * Fix - Currency Symbol issue
 * Fix - Translation issues
 * Fix - Style issues
 * Improve - Settings Panel
-* Improve - Social Media icons in single listing page
-* Improve - Listings header title
+* Improve - Social Media icons of single listing page
+* Improve - Listings page header title
 * Improve - User Role
+* Remove - 'Google+' from social media links
 
 = 5.9.2 - Sep 10, 2019 =
 

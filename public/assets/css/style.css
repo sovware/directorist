@@ -1314,23 +1314,102 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap {
   margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a {
   display: inline-block;
-  line-height: 34px;
-  width: 34px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  line-height: 35px;
+  width: 35px;
   text-align: center;
   border-radius: 4px;
   color: #ffffff;
+  overflow: hidden;
+  transition: all ease-in-out 300ms !important;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a:hover {
+  border-radius: 50%;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.facebook:hover {
+  background-color: #4267B2;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.twitter:hover {
+  background-color: #1da1f2;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.youtube:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.youtube-play:hover {
+  background-color: #ff0000;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.instagram:hover {
+  background-color: #c32aa3;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.linkedin:hover {
+  background-color: #007bb5;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.google-plus:hover {
+  background-color: #db4437;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.snapchat:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.snapchat-ghost:hover {
+  background-color: #eae800;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.reddit:hover {
+  background-color: #ff4500;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.pinterest:hover {
+  background-color: #bd081c;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.tumblr:hover {
+  background-color: #35465d;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.flickr:hover {
+  background-color: #f40083;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.vimeo:hover {
+  background-color: #1ab7ea;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.vine:hover {
+  background-color: #00b489;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.github:hover {
+  background-color: #444752;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.dribbble:hover {
+  background-color: #ea4c89;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.behance:hover {
+  background-color: #196EE3;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.soundcloud:hover {
+  background-color: #ff5500;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.stack-overflow:hover {
+  background-color: #ff5500;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a span.fa {
   line-height: inherit;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a + a {
-  margin-left: 5px;
+  font-size: 16px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_directry_gallery_wrapper {
@@ -2067,6 +2146,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p {
   margin-bottom: 2px;
   font-size: 14px;
+  display: flex;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p span {

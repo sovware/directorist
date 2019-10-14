@@ -118,7 +118,10 @@ if (!class_exists('ATBDP_Shortcode')):
                 global $post;
                 // Process output
                 ob_start();
-                do_action('include_style_settings');
+                $include = apply_filters('include_style_settings', true);
+                if($include){
+                    include ATBDP_DIR . 'public/assets/css/style.php';
+                }
                 wp_reset_postdata(); // Restore global post data stomped by the_post()
                 $output = ob_get_clean();
 
@@ -1181,7 +1184,10 @@ if (!class_exists('ATBDP_Shortcode')):
             $grid_container_fluid = apply_filters('atbdp_search_result_grid_container_fluid', $listing_grid_container_fluid);
             $listing_location_address = get_directorist_option('sresult_location_address', 'map_api');
             ob_start();
-            do_action('include_style_settings');
+            $include = apply_filters('include_style_settings', true);
+            if($include){
+                include ATBDP_DIR . 'public/assets/css/style.php';
+            }
             if (!empty($redirect_page_url)) {
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                 return $redirect;
@@ -1712,8 +1718,11 @@ if (!class_exists('ATBDP_Shortcode')):
             $listing_grid_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
             $grid_container_fluid = apply_filters('atbdp_listings_grid_container_fluid', $listing_grid_container_fluid);
             $listing_location_address = get_directorist_option('listing_location_address', 'map_api');
+            $include = apply_filters('include_style_settings', true);
             ob_start();
-            do_action('include_style_settings');
+            if($include){
+                include ATBDP_DIR . 'public/assets/css/style.php';
+            }
             if (!empty($redirect_page_url)) {
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                 return $redirect;
@@ -1753,7 +1762,10 @@ if (!class_exists('ATBDP_Shortcode')):
         public function user_dashboard($atts)
         {
             ob_start();
-            do_action('include_style_settings');
+            $include = apply_filters('include_style_settings', true);
+            if($include){
+                include ATBDP_DIR . 'public/assets/css/style.php';
+            }
             // show user dashboard if the user is logged in, else kick him out of this page or show a message
             if (is_user_logged_in()) {
                 $atts = shortcode_atts(array(
@@ -1779,7 +1791,10 @@ if (!class_exists('ATBDP_Shortcode')):
         {
             wp_enqueue_script('loc_cat_assets');
             ob_start();
-            do_action('include_style_settings');
+            $include = apply_filters('include_style_settings', true);
+            if($include){
+                include ATBDP_DIR . 'public/assets/css/style.php';
+            }
             $display_categories_as = get_directorist_option('display_categories_as', 'grid');
             $categories_settings = array();
             $categories_settings['depth'] = get_directorist_option('categories_depth_number', 1);
@@ -2223,7 +2238,10 @@ if (!class_exists('ATBDP_Shortcode')):
                 $grid_container_fluid = apply_filters('atbdp_single_cat_grid_container_fluid', $listing_grid_container_fluid);
                 $listing_location_address = get_directorist_option('listing_location_address', 'map_api');
                 ob_start();
-                do_action('include_style_settings');
+                $include = apply_filters('include_style_settings', true);
+                if($include){
+                    include ATBDP_DIR . 'public/assets/css/style.php';
+                }
                 if (!empty($redirect_page_url)) {
                     $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                     return $redirect;
@@ -2265,7 +2283,10 @@ if (!class_exists('ATBDP_Shortcode')):
         {
             wp_enqueue_script('loc_cat_assets');
             ob_start();
-            do_action('include_style_settings');
+            $include = apply_filters('include_style_settings', true);
+            if($include){
+                include ATBDP_DIR . 'public/assets/css/style.php';
+            }
             $display_locations_as = get_directorist_option('display_locations_as', 'grid');
             $locations_settings = array();
             $locations_settings['depth'] = get_directorist_option('locations_depth_number', 1);
@@ -2704,7 +2725,10 @@ if (!class_exists('ATBDP_Shortcode')):
                 $grid_container_fluid = apply_filters('atbdp_single_loc_grid_container_fluid', $listing_grid_container_fluid);
                 $listing_location_address = get_directorist_option('listing_location_address', 'map_api');
                 ob_start();
-                do_action('include_style_settings');
+                $include = apply_filters('include_style_settings', true);
+                if($include){
+                    include ATBDP_DIR . 'public/assets/css/style.php';
+                }
                 if (!empty($redirect_page_url)) {
                     $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                     return $redirect;
@@ -3103,7 +3127,10 @@ if (!class_exists('ATBDP_Shortcode')):
                 $grid_container_fluid = apply_filters('atbdp_single_tag_grid_container_fluid', $listing_grid_container_fluid);
                 $listing_location_address = get_directorist_option('listing_location_address', 'map_api');
                 ob_start();
-                do_action('include_style_settings');
+                $include = apply_filters('include_style_settings', true);
+                if($include){
+                    include ATBDP_DIR . 'public/assets/css/style.php';
+                }
                 if (!empty($redirect_page_url)) {
                     $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                     return $redirect;
@@ -3220,7 +3247,10 @@ if (!class_exists('ATBDP_Shortcode')):
             $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
             $filters_display = !empty($atts['more_filters_display']) ? $atts['more_filters_display'] : 'overlapping';
             ob_start();
-            do_action('include_style_settings');
+            $include = apply_filters('include_style_settings', true);
+            if($include){
+                include ATBDP_DIR . 'public/assets/css/style.php';
+            }
             if (!empty($redirect_page_url)) {
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                 return $redirect;
@@ -3301,7 +3331,10 @@ if (!class_exists('ATBDP_Shortcode')):
             $all_listings = new WP_Query($args);
             $data_for_template = compact('all_listings', 'paged', 'paginate', 'author_id');
             ob_start();
-            do_action('include_style_settings');
+            $include = apply_filters('include_style_settings', true);
+            if($include){
+                include ATBDP_DIR . 'public/assets/css/style.php';
+            }
             if (!empty($redirect_page_url)) {
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                 return $redirect;
@@ -3327,7 +3360,10 @@ if (!class_exists('ATBDP_Shortcode')):
         public function add_listing($atts, $content = null, $sc_name)
         {
             ob_start();
-            do_action('include_style_settings');
+            $include = apply_filters('include_style_settings', true);
+            if($include){
+                include ATBDP_DIR . 'public/assets/css/style.php';
+            }
             wp_enqueue_script('adminmainassets');
             if (is_user_logged_in()) {
                 global $wp;
@@ -3368,7 +3404,10 @@ if (!class_exists('ATBDP_Shortcode')):
         public function custom_user_login()
         {
             ob_start();
-            do_action('include_style_settings');
+            $include = apply_filters('include_style_settings', true);
+            if($include){
+                include ATBDP_DIR . 'public/assets/css/style.php';
+            }
             if (!is_user_logged_in()) {
                 wp_enqueue_script('adminmainassets');
                 $data = array(
@@ -3525,7 +3564,10 @@ if (!class_exists('ATBDP_Shortcode')):
         public function user_registration()
         {
             ob_start();
-            do_action('include_style_settings');
+            $include = apply_filters('include_style_settings', true);
+            if($include){
+                include ATBDP_DIR . 'public/assets/css/style.php';
+            }
             // show registration form if the user is not
             if (!is_user_logged_in()) {
                 ATBDP()->user->registration_form();

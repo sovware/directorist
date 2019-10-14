@@ -273,7 +273,6 @@ final class Directorist_Base
             // plugin deactivated popup
             add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(self::$instance, 'atbdp_plugin_link'));
             add_action('admin_footer', array(self::$instance, 'atbdp_deactivate_popup'));
-            add_action('include_style_settings', array(self::$instance, 'include_style_settings'));
 
             // Attempt to create listing related custom pages with plugin's custom shortcode to give user best experience.
             // we can check the database if our custom pages have been installed correctly or not here first.
@@ -343,9 +342,6 @@ final class Directorist_Base
         require_once ATBDP_INC_DIR . 'custom-actions.php';
         require_once ATBDP_INC_DIR . 'custom-filters.php';
 
-    }
-    public function include_style_settings() {
-        include ATBDP_DIR . 'public/assets/css/style.php';
     }
     public static function prepare_plugin()
     {

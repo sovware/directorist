@@ -3213,8 +3213,8 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                     $business_hours = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
                     /*Code for Business Hour Extensions*/
                     $author_id = get_the_author_meta('ID');
-                    $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-                    $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
+                    $u_pro_pic_meta = get_user_meta($author_id, 'pro_pic', true);
+                    $u_pro_pic = wp_get_attachment_image_src($u_pro_pic_meta, 'thumbnail');
                     $avata_img = get_avatar($author_id, 32);
                     $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
                     $crop_width = get_directorist_option('crop_width', 360);
@@ -3532,7 +3532,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                             $author_first_last_name = $author->first_name . ' ' . $author->last_name;
                                             $catViewCountAuthor .= '<li class="atbd_author">';
                                             $catViewCountAuthor .= '<a href="' . ATBDP_Permalink::get_user_profile_page_link($author_id) . '" class="atbd_tooltip" aria-label="' . $author_first_last_name . '">';
-                                            if (empty($u_pro_pic)) {
+                                            if (empty($u_pro_pic_meta)) {
                                                 $catViewCountAuthor .= $avata_img;
                                             }
                                             if (!empty($u_pro_pic)) {

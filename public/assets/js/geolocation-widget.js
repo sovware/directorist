@@ -1,4 +1,3 @@
-
 (function ($) {
     // Price Range Slider
     var slider_range = $(".atbd_slider-range");
@@ -19,7 +18,6 @@
     $("#atbd_rs_value").val(slider_range.slider("value"));
 
 
-
     /*
     get current location
 */
@@ -28,59 +26,59 @@
         var get_lat = document.querySelector("#cityLat");
         var get_lng = document.querySelector("#cityLng");
 
-        function getLocation(){
-            if (navigator.geolocation){
-                navigator.geolocation.getCurrentPosition(showPosition,showError);
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
             }
-            else{
-                x.value="Geolocation is not supported by this browser.";
+            else {
+                x.value = "Geolocation is not supported by this browser.";
             }
         }
 
-        function showPosition(position){
-            lat=position.coords.latitude;
-            lon=position.coords.longitude;
-            displayLocation(lat,lon);
+        function showPosition(position) {
+            lat = position.coords.latitude;
+            lon = position.coords.longitude;
+            displayLocation(lat, lon);
             get_lat.value = lat;
             get_lng.value = lon;
         }
 
-        function showError(error){
-            switch(error.code){
+        function showError(error) {
+            switch (error.code) {
                 case error.PERMISSION_DENIED:
-                    x.value="User denied the request for Geolocation.";
+                    x.value = "User denied the request for Geolocation.";
                     break;
                 case error.POSITION_UNAVAILABLE:
-                    x.value="Location information is unavailable.";
+                    x.value = "Location information is unavailable.";
                     break;
                 case error.TIMEOUT:
-                    x.value="The request to get user location timed out.";
+                    x.value = "The request to get user location timed out.";
                     break;
                 case error.UNKNOWN_ERROR:
-                    x.value="An unknown error occurred.";
+                    x.value = "An unknown error occurred.";
                     break;
             }
         }
 
-        function displayLocation(latitude,longitude){
+        function displayLocation(latitude, longitude) {
             var geocoder;
             geocoder = new google.maps.Geocoder();
             var latlng = new google.maps.LatLng(latitude, longitude);
             geocoder.geocode(
                 {'latLng': latlng},
-                function(results, status) {
+                function (results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
                         if (results[0]) {
-                            var add= results[0].formatted_address ;
-                            var  value=add.split(",");
+                            var add = results[0].formatted_address;
+                            var value = add.split(",");
 
-                            count=value.length;
-                            country=value[count-1];
-                            state=value[count-2];
-                            city=value[count-3];
+                            count = value.length;
+                            country = value[count - 1];
+                            state = value[count - 2];
+                            city = value[count - 3];
                             x.value = city;
                         }
-                        else  {
+                        else {
                             x.value = "address not found";
                         }
                     }
@@ -90,11 +88,12 @@
                 }
             );
         }
+
         var get_loc_btn = document.querySelector(".atbd_get_loc_wid");
         get_loc_btn.addEventListener("click", function () {
             getLocation();
         });
-        if(atbdp_search_listing.i18n_text.select_listing_map === 'google') {
+        if (atbdp_search_listing.i18n_text.select_listing_map === 'google') {
             function initialize() {
                 var input = document.getElementById('address_widget');
                 var autocomplete = new google.maps.places.Autocomplete(input);
@@ -104,14 +103,15 @@
                     document.getElementById('cityLng').value = place.geometry.location.lng();
                 });
             }
+
             google.maps.event.addDomListener(window, 'load', initialize);
-        }else if(atbdp_search_listing.i18n_text.select_listing_map === 'openstreet') {
-            $('#address_widget').on('keyup', function(event) {
+        } else if (atbdp_search_listing.i18n_text.select_listing_map === 'openstreet') {
+            $('#address_widget').on('keyup', function (event) {
                 event.preventDefault();
                 var search = $('#address_widget').val();
-                $('#address_widget_result').css({'display':'block'});
-                if(search === ""){
-                    $('#address_widget_result').css({'display':'none'});
+                $('#address_widget_result').css({'display': 'block'});
+                if (search === "") {
+                    $('#address_widget_result').css({'display': 'none'});
                 }
 
                 var res = "";
@@ -122,14 +122,14 @@
                     success: function (data) {
                         //console.log(data);
                         for (var i = 0; i < data.length; i++) {
-                            res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
+                            res += '<li><a href="#" data-lat=' + data[i].lat + ' data-lon=' + data[i].lon + '>' + data[i].display_name + '</a></li>'
                         }
-                        $('#address_widget_result').html(`<ul>${res}</ul>`);
+                        $('#address_widget_result').html('<ul>' + res + '</ul>');
                     }
                 });
             });
 
-            $('body').on('click', '#address_widget_result ul li a', function(event) {
+            $('body').on('click', '#address_widget_result ul li a', function (event) {
                 event.preventDefault();
                 let text = $(this).text(),
                     lat = $(this).data('lat'),
@@ -142,8 +142,8 @@
                 $('#address_widget_result').hide();
             });
         }
-        if($('#address_widget').val() === ""){
-            $('#address_widget_result').css({'display':'none'});
+        if ($('#address_widget').val() === "") {
+            $('#address_widget_result').css({'display': 'none'});
         }
     })();
 

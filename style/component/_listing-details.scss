@@ -222,8 +222,12 @@
   }
   .atbd_contact_information_module .atbd_director_social_wrap {
     margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
     a {
       display: inline-block;
+      margin-right: 5px;
+      margin-bottom: 5px;
       line-height: 34px;
       width: 34px;
       text-align: center;
@@ -233,9 +237,9 @@
       span.fa{
         line-height: inherit;
       }
-      &+a{
-        margin-left: 5px;
-      }
+      // &+a{
+      //   margin-left: 5px;
+      // }
     }
   }
   .atbd_directry_gallery_wrapper {

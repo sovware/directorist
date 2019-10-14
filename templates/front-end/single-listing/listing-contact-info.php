@@ -156,8 +156,9 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                         $n = esc_attr($link['id']);
                         $l = esc_url($link['url']);
                         ?>
-                        <a target='_blank' href="<?php echo $l; ?>"><span
-                                    class="<?php atbdp_icon_type(true);?>-<?php echo $n; ?>"></span></a>
+                        <a target='_blank' href="<?php echo $l; ?>">
+                            <span class="<?php atbdp_icon_type(true);?>-<?php echo $n; ?>"></span>
+                        </a>
                     <?php } ?>
                 </div>
             <?php } ?>

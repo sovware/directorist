@@ -346,7 +346,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                             $gallery_image .= '<span class="next fa fa-angle-right"></span>';
                         }
                         $gallery_image .= '</div>';
-                        if(!empty($display_thumbnail_img)) {
+                        $image_links_thumbnails = !empty($image_links_thumbnails) ? $image_links_thumbnails : array();
+                        $listing_prv_img = !empty($listing_prv_img) ? $listing_prv_img : '';
+                        if(!empty($display_thumbnail_img) && (1 != count($image_links_thumbnails) || (!empty($listing_prv_img) && !empty($display_prv_image) ) )) {
                             $gallery_image .= '<div class="atbd_directory_image_thumbnail">';
                             $listing_prv_imgurl_thumb = wp_get_attachment_image_src($listing_prv_img, 'thumbnail')['0'];
                             if (!empty($listing_prv_imgurl_thumb && !empty($display_prv_image))) {
@@ -1036,7 +1038,7 @@ if ('openstreet' == $select_listing_map) {
             slidesToShow: 1,
             slidesToScroll: 1,
             arrows: false,
-            asNavFor: '<?php echo !empty($display_thumbnail_img) ? ".atbd_directory_image_thumbnail" : ""; ?>',
+            asNavFor: '<?php echo (!empty($display_thumbnail_img)) ? ".atbd_directory_image_thumbnail" : ""; ?>',
             rtl: <?php echo is_rtl() ? 'true' : 'false'; ?>
         });
 

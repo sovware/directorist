@@ -233,7 +233,9 @@ do_action('atbdp_before_listing_section');
                 $gallery_image .= '<span class="next fa fa-angle-right"></span>';
             }
             $gallery_image .= '</div>';
-            if (!empty($display_thumbnail_img)) {
+            $image_links_thumbnails = !empty($image_links_thumbnails) ? $image_links_thumbnails : array();
+            $listing_prv_img = !empty($listing_prv_img) ? $listing_prv_img : '';
+            if (!empty($display_thumbnail_img) && (1 != count($image_links_thumbnails) || (!empty($listing_prv_img) && !empty($display_prv_image) ) )) {
                 $gallery_image .= '<div class="atbd_directory_image_thumbnail">';
                 $listing_prv_imgurl_thumb = wp_get_attachment_image_src($listing_prv_img, 'thumbnail')['0'];
                 if (!empty($listing_prv_imgurl_thumb && !empty($display_prv_image))) {

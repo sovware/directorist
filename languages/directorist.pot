@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2019-10-14 19:56+0600\n"
+"POT-Creation-Date: 2019-10-14 20:38+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -25,320 +25,204 @@ msgstr ""
 "X-Generator: Poedit 2.2.3\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: class-helper.php:41 includes/classes/class-helper.php:41
-#, php-format
-msgid ""
-"%s requires minimum PHP 5.4 to function properly. Please upgrade PHP "
-"version. The Plugin has been auto-deactivated.. You have PHP version %d"
-msgstr ""
-
-#: class-helper.php:82 includes/classes/class-helper.php:82
-#: templates/front-end/single-listing/listing-header.php:137
-#: templates/front-end/user-dashboard.php:448
-#: templates/single-at_biz_dir.php:249
-msgid "Facebook"
-msgstr ""
-
-#: class-helper.php:83 includes/classes/class-helper.php:83
-#: templates/front-end/single-listing/listing-header.php:140
-#: templates/front-end/user-dashboard.php:458
-#: templates/single-at_biz_dir.php:253
-msgid "Twitter"
-msgstr ""
-
-#: class-helper.php:84
-msgid "Google+"
-msgstr ""
-
-#: class-helper.php:85 includes/classes/class-helper.php:84
-#: templates/front-end/single-listing/listing-header.php:144
-#: templates/front-end/user-dashboard.php:469
-#: templates/single-at_biz_dir.php:258
-msgid "LinkedIn"
-msgstr ""
-
-#: class-helper.php:86 includes/classes/class-helper.php:85
-msgid "Pinterest"
-msgstr ""
-
-#: class-helper.php:87 includes/classes/class-helper.php:86
-msgid "Instagram"
-msgstr ""
-
-#: class-helper.php:88 includes/classes/class-helper.php:87
-msgid "Tumblr"
-msgstr ""
-
-#: class-helper.php:89 includes/classes/class-helper.php:88
-msgid "Flickr"
-msgstr ""
-
-#: class-helper.php:90 includes/classes/class-helper.php:89
-msgid "Snapchat"
-msgstr ""
-
-#: class-helper.php:91 includes/classes/class-helper.php:90
-msgid "Reddit"
-msgstr ""
-
-#: class-helper.php:92 includes/classes/class-helper.php:91
-#: templates/front-end/user-dashboard.php:479
-msgid "Youtube"
-msgstr ""
-
-#: class-helper.php:93 includes/classes/class-helper.php:92
-msgid "Vimeo"
-msgstr ""
-
-#: class-helper.php:94 includes/classes/class-helper.php:93
-msgid "Vine"
-msgstr ""
-
-#: class-helper.php:95 includes/classes/class-helper.php:94
-msgid "Github"
-msgstr ""
-
-#: class-helper.php:96 includes/classes/class-helper.php:95
-msgid "Dribbble"
-msgstr ""
-
-#: class-helper.php:97 includes/classes/class-helper.php:96
-msgid "Behance"
-msgstr ""
-
-#: class-helper.php:98 includes/classes/class-helper.php:97
-msgid "SoundCloud"
-msgstr ""
-
-#: class-helper.php:99 includes/classes/class-helper.php:98
-msgid "StackOverFLow"
-msgstr ""
-
-#: class-helper.php:196 includes/classes/class-helper.php:195
-msgid "&laquo; Prev"
-msgstr ""
-
-#: class-helper.php:197 includes/classes/class-helper.php:196
-msgid "Next &raquo;"
-msgstr ""
-
-#: class-helper.php:244 class-helper.php:310
-#: includes/classes/class-helper.php:243
-#: includes/classes/class-helper.php:309
-msgid "Category:"
-msgstr ""
-
-#: class-helper.php:258 class-helper.php:333
-#: includes/classes/class-helper.php:257
-#: includes/classes/class-helper.php:332
-msgid "Location:"
-msgstr ""
-
-#: class-helper.php:287 includes/classes/class-helper.php:286
-#: includes/classes/class-settings-manager.php:2878
-#: includes/helper-functions.php:2598 includes/helper-functions.php:3465
-#: templates/front-end/all-listings/all-grid-listings.php:392
-msgid "Read More"
-msgstr ""
-
 #: config.php:41
 msgid "You do not have the right to access this file directly"
 msgstr ""
 
-#: directorist-base.php:370 directorist-base.php:383
+#: directorist-base.php:366 directorist-base.php:379
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: directorist-base.php:397
+#: directorist-base.php:393
 msgid "Directorist - Listing Right Sidebar"
 msgstr ""
 
-#: directorist-base.php:399
+#: directorist-base.php:395
 msgid "Add widgets for the right sidebar on single listing page"
 msgstr ""
 
-#: directorist-base.php:456
+#: directorist-base.php:452
 msgid "Search Home"
 msgstr ""
 
-#: directorist-base.php:460
+#: directorist-base.php:456
 msgid "Search Result"
 msgstr ""
 
-#: directorist-base.php:464
+#: directorist-base.php:460
 msgid "Add Listing"
 msgstr ""
 
-#: directorist-base.php:468
+#: directorist-base.php:464
 msgid "All Listings"
 msgstr ""
 
-#: directorist-base.php:472
+#: directorist-base.php:468
 msgid "All Categories"
 msgstr ""
 
-#: directorist-base.php:476
+#: directorist-base.php:472
 msgid "Single Category"
 msgstr ""
 
-#: directorist-base.php:480 includes/classes/class-custom-taxonomy.php:305
+#: directorist-base.php:476 includes/classes/class-custom-taxonomy.php:305
 msgid "All Locations"
 msgstr ""
 
-#: directorist-base.php:484
+#: directorist-base.php:480
 msgid "Single Location"
 msgstr ""
 
-#: directorist-base.php:488
+#: directorist-base.php:484
 msgid "Single Tag"
 msgstr ""
 
-#: directorist-base.php:492
+#: directorist-base.php:488
 msgid "Author Profile"
 msgstr ""
 
-#: directorist-base.php:496
+#: directorist-base.php:492
 msgid "Dashboard"
 msgstr ""
 
-#: directorist-base.php:500
+#: directorist-base.php:496
 msgid "Registration"
 msgstr ""
 
-#: directorist-base.php:503 directorist-base.php:1377
+#: directorist-base.php:499 directorist-base.php:1373
 msgid "Login"
 msgstr ""
 
-#: directorist-base.php:507
+#: directorist-base.php:503
 msgid "Checkout"
 msgstr ""
 
-#: directorist-base.php:511
+#: directorist-base.php:507
 msgid "Payment Receipt"
 msgstr ""
 
-#: directorist-base.php:515
+#: directorist-base.php:511
 msgid "Transaction Failure"
 msgstr ""
 
-#: directorist-base.php:1048
+#: directorist-base.php:1044
 msgid ""
 "If you have time, please let us know why you are deactivating so that "
 "we can improve."
 msgstr ""
 
-#: directorist-base.php:1065
+#: directorist-base.php:1061
 msgid "Skip & Deactivate"
 msgstr ""
 
-#: directorist-base.php:1066
+#: directorist-base.php:1062
 msgid "Submit & Deactivate"
 msgstr ""
 
-#: directorist-base.php:1067 includes/classes/class-enqueuer.php:303
+#: directorist-base.php:1063 includes/classes/class-enqueuer.php:303
 #: includes/libs/vafpress/classes/shortcodegenerator.php:261
 msgid "Cancel"
 msgstr ""
 
-#: directorist-base.php:1220
+#: directorist-base.php:1216
 #: templates/front-end/single-listing/listing-header.php:296
 #: templates/front-end/single-listing/listing-map.php:19
 #: templates/single-at_biz_dir.php:80 templates/single-at_biz_dir.php:411
 msgid " Reviews"
 msgstr ""
 
-#: directorist-base.php:1220
+#: directorist-base.php:1216
 #: templates/front-end/single-listing/listing-header.php:296
 #: templates/front-end/single-listing/listing-map.php:19
 #: templates/single-at_biz_dir.php:80 templates/single-at_biz_dir.php:411
 msgid " Review"
 msgstr ""
 
-#: directorist-base.php:1232
+#: directorist-base.php:1228
 msgid "Add a review"
 msgstr ""
 
-#: directorist-base.php:1256
+#: directorist-base.php:1252
 #, php-format
 msgid "%s ago"
 msgstr ""
 
-#: directorist-base.php:1272
+#: directorist-base.php:1268
 msgid "No reviews found. Be the first to post a review !"
 msgstr ""
 
-#: directorist-base.php:1295
+#: directorist-base.php:1291
 #: includes/review-rating/class-review-custom-post.php:46
 msgid "Update Review"
 msgstr ""
 
-#: directorist-base.php:1295
+#: directorist-base.php:1291
 msgid "Leave a Review"
 msgstr ""
 
-#: directorist-base.php:1308
+#: directorist-base.php:1304
 msgid "Your name"
 msgstr ""
 
-#: directorist-base.php:1321
+#: directorist-base.php:1317
 msgid "Current Rating:"
 msgstr ""
 
-#: directorist-base.php:1329
+#: directorist-base.php:1325
 msgid "Update Rating:"
 msgstr ""
 
-#: directorist-base.php:1329
+#: directorist-base.php:1325
 msgid "Your Rating:"
 msgstr ""
 
-#: directorist-base.php:1343
+#: directorist-base.php:1339
 msgid "Update your review....."
 msgstr ""
 
-#: directorist-base.php:1343
+#: directorist-base.php:1339
 msgid "Write your review....."
 msgstr ""
 
-#: directorist-base.php:1360 templates/front-end/add-listing.php:164
+#: directorist-base.php:1356 templates/front-end/add-listing.php:164
 msgid "Update"
 msgstr ""
 
-#: directorist-base.php:1362
+#: directorist-base.php:1358
 #: includes/libs/vafpress/classes/metabox.php:566
 #: includes/libs/vafpress/classes/metabox/alchemy.php:493
 #: templates/file-uploader.php:45
 msgid "Remove"
 msgstr ""
 
-#: directorist-base.php:1365
+#: directorist-base.php:1361
 msgid "Submit Review"
 msgstr ""
 
-#: directorist-base.php:1378
+#: directorist-base.php:1374
 #: includes/classes/class-settings-manager.php:457
 #: includes/classes/class-settings-manager.php:708
-#: includes/classes/class-shortcode.php:1200
-#: includes/classes/class-shortcode.php:1731
-#: includes/classes/class-shortcode.php:1768
-#: includes/classes/class-shortcode.php:1834
-#: includes/classes/class-shortcode.php:2241
-#: includes/classes/class-shortcode.php:2319
-#: includes/classes/class-shortcode.php:2722
-#: includes/classes/class-shortcode.php:3120
-#: includes/classes/class-shortcode.php:3233
-#: includes/classes/class-shortcode.php:3314
-#: includes/classes/class-shortcode.php:3356
-#: includes/classes/class-shortcode.php:3407
+#: includes/classes/class-shortcode.php:1206
+#: includes/classes/class-shortcode.php:1740
+#: includes/classes/class-shortcode.php:1780
+#: includes/classes/class-shortcode.php:1849
+#: includes/classes/class-shortcode.php:2259
+#: includes/classes/class-shortcode.php:2340
+#: includes/classes/class-shortcode.php:2746
+#: includes/classes/class-shortcode.php:3147
+#: includes/classes/class-shortcode.php:3263
+#: includes/classes/class-shortcode.php:3347
+#: includes/classes/class-shortcode.php:3392
+#: includes/classes/class-shortcode.php:3446
 msgid "Sign Up"
 msgstr ""
 
-#: directorist-base.php:1380
+#: directorist-base.php:1376
 #, php-format
 msgid "You need to %s or %s to submit a review"
 msgstr ""
 
-#: directorist-base.php:1388
+#: directorist-base.php:1384
 msgid "View More Review"
 msgstr ""
 
@@ -657,11 +541,11 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:2607
 #: includes/classes/class-settings-manager.php:3763
 #: includes/classes/class-settings-manager.php:3845
-#: includes/classes/class-shortcode.php:1167
-#: includes/classes/class-shortcode.php:1706
-#: includes/classes/class-shortcode.php:2215
-#: includes/classes/class-shortcode.php:2691
-#: includes/classes/class-shortcode.php:3095
+#: includes/classes/class-shortcode.php:1170
+#: includes/classes/class-shortcode.php:1712
+#: includes/classes/class-shortcode.php:2230
+#: includes/classes/class-shortcode.php:2712
+#: includes/classes/class-shortcode.php:3119
 #: includes/classes/class-tags-widget.php:152
 msgid "Sort By"
 msgstr ""
@@ -1535,11 +1419,11 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:2589
 #: includes/classes/class-settings-manager.php:3319
 #: includes/classes/class-settings-manager.php:3708
-#: includes/classes/class-shortcode.php:1165
-#: includes/classes/class-shortcode.php:1698
-#: includes/classes/class-shortcode.php:2208
-#: includes/classes/class-shortcode.php:2689
-#: includes/classes/class-shortcode.php:3088
+#: includes/classes/class-shortcode.php:1168
+#: includes/classes/class-shortcode.php:1704
+#: includes/classes/class-shortcode.php:2223
+#: includes/classes/class-shortcode.php:2710
+#: includes/classes/class-shortcode.php:3112
 #: includes/custom-fields/class-custom-field.php:530
 #: includes/helper-functions.php:3821 templates/listing-home.php:5
 #: templates/search-widget-front.php:54
@@ -1550,11 +1434,11 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:2595
 #: includes/classes/class-settings-manager.php:3325
 #: includes/classes/class-settings-manager.php:3714
-#: includes/classes/class-shortcode.php:1166
-#: includes/classes/class-shortcode.php:1699
-#: includes/classes/class-shortcode.php:2209
-#: includes/classes/class-shortcode.php:2690
-#: includes/classes/class-shortcode.php:3089 templates/listing-home.php:6
+#: includes/classes/class-shortcode.php:1169
+#: includes/classes/class-shortcode.php:1705
+#: includes/classes/class-shortcode.php:2224
+#: includes/classes/class-shortcode.php:2711
+#: includes/classes/class-shortcode.php:3113 templates/listing-home.php:6
 msgid "Select a location"
 msgstr ""
 
@@ -1604,13 +1488,123 @@ msgstr ""
 msgid "Documentation"
 msgstr ""
 
-#: includes/classes/class-listing.php:171
-#: includes/classes/class-listing.php:180
+#: includes/classes/class-helper.php:41
+#, php-format
+msgid ""
+"%s requires minimum PHP 5.4 to function properly. Please upgrade PHP "
+"version. The Plugin has been auto-deactivated.. You have PHP version %d"
+msgstr ""
+
+#: includes/classes/class-helper.php:82
+#: templates/front-end/single-listing/listing-header.php:137
+#: templates/front-end/user-dashboard.php:448
+#: templates/single-at_biz_dir.php:249
+msgid "Facebook"
+msgstr ""
+
+#: includes/classes/class-helper.php:83
+#: templates/front-end/single-listing/listing-header.php:140
+#: templates/front-end/user-dashboard.php:458
+#: templates/single-at_biz_dir.php:253
+msgid "Twitter"
+msgstr ""
+
+#: includes/classes/class-helper.php:84
+#: templates/front-end/single-listing/listing-header.php:144
+#: templates/front-end/user-dashboard.php:469
+#: templates/single-at_biz_dir.php:258
+msgid "LinkedIn"
+msgstr ""
+
+#: includes/classes/class-helper.php:85
+msgid "Pinterest"
+msgstr ""
+
+#: includes/classes/class-helper.php:86
+msgid "Instagram"
+msgstr ""
+
+#: includes/classes/class-helper.php:87
+msgid "Tumblr"
+msgstr ""
+
+#: includes/classes/class-helper.php:88
+msgid "Flickr"
+msgstr ""
+
+#: includes/classes/class-helper.php:89
+msgid "Snapchat"
+msgstr ""
+
+#: includes/classes/class-helper.php:90
+msgid "Reddit"
+msgstr ""
+
+#: includes/classes/class-helper.php:91
+#: templates/front-end/user-dashboard.php:479
+msgid "Youtube"
+msgstr ""
+
+#: includes/classes/class-helper.php:92
+msgid "Vimeo"
+msgstr ""
+
+#: includes/classes/class-helper.php:93
+msgid "Vine"
+msgstr ""
+
+#: includes/classes/class-helper.php:94
+msgid "Github"
+msgstr ""
+
+#: includes/classes/class-helper.php:95
+msgid "Dribbble"
+msgstr ""
+
+#: includes/classes/class-helper.php:96
+msgid "Behance"
+msgstr ""
+
+#: includes/classes/class-helper.php:97
+msgid "SoundCloud"
+msgstr ""
+
+#: includes/classes/class-helper.php:98
+msgid "StackOverFLow"
+msgstr ""
+
+#: includes/classes/class-helper.php:195
+msgid "&laquo; Prev"
+msgstr ""
+
+#: includes/classes/class-helper.php:196
+msgid "Next &raquo;"
+msgstr ""
+
+#: includes/classes/class-helper.php:243
+#: includes/classes/class-helper.php:309
+msgid "Category:"
+msgstr ""
+
+#: includes/classes/class-helper.php:257
+#: includes/classes/class-helper.php:332
+msgid "Location:"
+msgstr ""
+
+#: includes/classes/class-helper.php:286
+#: includes/classes/class-settings-manager.php:2878
+#: includes/helper-functions.php:2598 includes/helper-functions.php:3465
+#: templates/front-end/all-listings/all-grid-listings.php:392
+msgid "Read More"
+msgstr ""
+
+#: includes/classes/class-listing.php:174
+#: includes/classes/class-listing.php:183
 #: templates/single-at_biz_dir.php:187 templates/single-at_biz_dir.php:196
 msgid " Go Back"
 msgstr ""
 
-#: includes/classes/class-listing.php:174
+#: includes/classes/class-listing.php:177
 #: templates/single-at_biz_dir.php:190
 msgid " Edit Listing"
 msgstr ""
@@ -1778,9 +1772,9 @@ msgid "Search"
 msgstr ""
 
 #: includes/classes/class-seo.php:574
-#: includes/classes/class-shortcode.php:3503
-#: includes/classes/class-shortcode.php:3504
-#: includes/classes/class-shortcode.php:3511
+#: includes/classes/class-shortcode.php:3542
+#: includes/classes/class-shortcode.php:3543
+#: includes/classes/class-shortcode.php:3550
 #: templates/front-end/user-registration-form.php:87
 #: templates/front-end/user-registration-form.php:100
 #, php-format
@@ -1941,7 +1935,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:287
 #: includes/classes/class-settings-manager.php:381
 #: includes/classes/class-settings-manager.php:547
-#: includes/classes/class-shortcode.php:3395
+#: includes/classes/class-shortcode.php:3434
 msgid "Password"
 msgstr ""
 
@@ -1991,7 +1985,7 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:282
 #: includes/classes/class-settings-manager.php:362
-#: includes/classes/class-shortcode.php:3394
+#: includes/classes/class-shortcode.php:3433
 msgid "Username or Email Address"
 msgstr ""
 
@@ -2009,7 +2003,7 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:307
 #: includes/classes/class-settings-manager.php:480
-#: includes/classes/class-shortcode.php:3400
+#: includes/classes/class-shortcode.php:3439
 msgid "Recover Password"
 msgstr ""
 
@@ -2065,17 +2059,17 @@ msgid "Linking Text"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:345
-#: includes/classes/class-shortcode.php:1200
-#: includes/classes/class-shortcode.php:1731
-#: includes/classes/class-shortcode.php:1768
-#: includes/classes/class-shortcode.php:1834
-#: includes/classes/class-shortcode.php:2241
-#: includes/classes/class-shortcode.php:2319
-#: includes/classes/class-shortcode.php:2722
-#: includes/classes/class-shortcode.php:3120
-#: includes/classes/class-shortcode.php:3233
-#: includes/classes/class-shortcode.php:3314
-#: includes/classes/class-shortcode.php:3356
+#: includes/classes/class-shortcode.php:1206
+#: includes/classes/class-shortcode.php:1740
+#: includes/classes/class-shortcode.php:1780
+#: includes/classes/class-shortcode.php:1849
+#: includes/classes/class-shortcode.php:2259
+#: includes/classes/class-shortcode.php:2340
+#: includes/classes/class-shortcode.php:2746
+#: includes/classes/class-shortcode.php:3147
+#: includes/classes/class-shortcode.php:3263
+#: includes/classes/class-shortcode.php:3347
+#: includes/classes/class-shortcode.php:3392
 #: includes/helper-functions.php:1350
 #: templates/front-end/user-registration-form.php:24
 #: templates/front-end/user-registration-form.php:38
@@ -2115,17 +2109,17 @@ msgid "Label"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:405
-#: includes/classes/class-shortcode.php:3397
+#: includes/classes/class-shortcode.php:3436
 msgid "Remember Me"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:422
-#: includes/classes/class-shortcode.php:3398
+#: includes/classes/class-shortcode.php:3437
 msgid "Log In"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:445
-#: includes/classes/class-shortcode.php:3405
+#: includes/classes/class-shortcode.php:3444
 msgid "Don't have an account?"
 msgstr ""
 
@@ -2135,7 +2129,7 @@ msgid "Description"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:486
-#: includes/classes/class-shortcode.php:3401
+#: includes/classes/class-shortcode.php:3440
 msgid ""
 "Please enter your email address. You will receive a new password via "
 "email."
@@ -2154,7 +2148,7 @@ msgid "Username or Email Placeholder"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:498
-#: includes/classes/class-shortcode.php:3403
+#: includes/classes/class-shortcode.php:3442
 msgid "eg. mail@example.com"
 msgstr ""
 
@@ -2163,7 +2157,7 @@ msgid "Button Text"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:504
-#: includes/classes/class-shortcode.php:3404
+#: includes/classes/class-shortcode.php:3443
 msgid "Get New Password"
 msgstr ""
 
@@ -3312,10 +3306,10 @@ msgid "Header Title"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2410
-#: includes/classes/class-shortcode.php:1234
-#: includes/classes/class-shortcode.php:1883
-#: includes/classes/class-shortcode.php:2368
-#: includes/classes/class-shortcode.php:2769
+#: includes/classes/class-shortcode.php:1240
+#: includes/classes/class-shortcode.php:1898
+#: includes/classes/class-shortcode.php:2389
+#: includes/classes/class-shortcode.php:2793
 msgid "Items Found"
 msgstr ""
 
@@ -3335,11 +3329,11 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:2429
 #: includes/classes/class-settings-manager.php:3548
-#: includes/classes/class-shortcode.php:1163
-#: includes/classes/class-shortcode.php:1696
-#: includes/classes/class-shortcode.php:2206
-#: includes/classes/class-shortcode.php:2687
-#: includes/classes/class-shortcode.php:3086
+#: includes/classes/class-shortcode.php:1166
+#: includes/classes/class-shortcode.php:1702
+#: includes/classes/class-shortcode.php:2221
+#: includes/classes/class-shortcode.php:2708
+#: includes/classes/class-shortcode.php:3110
 msgid "Filters"
 msgstr ""
 
@@ -3473,12 +3467,12 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:2571
 #: includes/classes/class-settings-manager.php:3467
 #: includes/classes/class-settings-manager.php:3690
-#: includes/classes/class-shortcode.php:1173
-#: includes/classes/class-shortcode.php:1704
-#: includes/classes/class-shortcode.php:2213
-#: includes/classes/class-shortcode.php:2696
-#: includes/classes/class-shortcode.php:3093
-#: includes/classes/class-shortcode.php:3154
+#: includes/classes/class-shortcode.php:1176
+#: includes/classes/class-shortcode.php:1710
+#: includes/classes/class-shortcode.php:2228
+#: includes/classes/class-shortcode.php:2717
+#: includes/classes/class-shortcode.php:3117
+#: includes/classes/class-shortcode.php:3181
 msgid "Reset Filters"
 msgstr ""
 
@@ -3490,12 +3484,12 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:2577
 #: includes/classes/class-settings-manager.php:3473
 #: includes/classes/class-settings-manager.php:3696
-#: includes/classes/class-shortcode.php:1174
-#: includes/classes/class-shortcode.php:1705
-#: includes/classes/class-shortcode.php:2214
-#: includes/classes/class-shortcode.php:2697
-#: includes/classes/class-shortcode.php:3094
-#: includes/classes/class-shortcode.php:3155
+#: includes/classes/class-shortcode.php:1177
+#: includes/classes/class-shortcode.php:1711
+#: includes/classes/class-shortcode.php:2229
+#: includes/classes/class-shortcode.php:2718
+#: includes/classes/class-shortcode.php:3118
+#: includes/classes/class-shortcode.php:3182
 msgid "Apply Filters"
 msgstr ""
 
@@ -3508,11 +3502,11 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:2583
 #: includes/classes/class-settings-manager.php:3313
 #: includes/classes/class-settings-manager.php:3702
-#: includes/classes/class-shortcode.php:1164
-#: includes/classes/class-shortcode.php:1697
-#: includes/classes/class-shortcode.php:2207
-#: includes/classes/class-shortcode.php:2688
-#: includes/classes/class-shortcode.php:3087 templates/listing-home.php:4
+#: includes/classes/class-shortcode.php:1167
+#: includes/classes/class-shortcode.php:1703
+#: includes/classes/class-shortcode.php:2222
+#: includes/classes/class-shortcode.php:2709
+#: includes/classes/class-shortcode.php:3111 templates/listing-home.php:4
 #: templates/search-widget-front.php:16
 msgid "What are you looking for?"
 msgstr ""
@@ -3600,11 +3594,11 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:2669
 #: includes/classes/class-settings-manager.php:3726
-#: includes/classes/class-shortcode.php:1168
-#: includes/classes/class-shortcode.php:1707
-#: includes/classes/class-shortcode.php:2216
-#: includes/classes/class-shortcode.php:2692
-#: includes/classes/class-shortcode.php:3096
+#: includes/classes/class-shortcode.php:1171
+#: includes/classes/class-shortcode.php:1713
+#: includes/classes/class-shortcode.php:2231
+#: includes/classes/class-shortcode.php:2713
+#: includes/classes/class-shortcode.php:3120
 msgid "View As"
 msgstr ""
 
@@ -3943,7 +3937,7 @@ msgid "Search Button Text"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:3455
-#: includes/classes/class-shortcode.php:3153
+#: includes/classes/class-shortcode.php:3180
 msgid "Search Listing"
 msgstr ""
 
@@ -3952,7 +3946,7 @@ msgid "More Filters Button Text"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:3461
-#: includes/classes/class-shortcode.php:3152
+#: includes/classes/class-shortcode.php:3179
 msgid "More Filters"
 msgstr ""
 
@@ -4874,32 +4868,32 @@ msgid ""
 "even more by using extensions. %s"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1157
+#: includes/classes/class-shortcode.php:1160
 #, php-format
 msgid "for %s"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1158
+#: includes/classes/class-shortcode.php:1161
 #, php-format
 msgid "in %s"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1161
+#: includes/classes/class-shortcode.php:1164
 #, php-format
 msgid "%d result%s %s %s"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1200
-#: includes/classes/class-shortcode.php:1731
-#: includes/classes/class-shortcode.php:1768
-#: includes/classes/class-shortcode.php:1834
-#: includes/classes/class-shortcode.php:2241
-#: includes/classes/class-shortcode.php:2319
-#: includes/classes/class-shortcode.php:2722
-#: includes/classes/class-shortcode.php:3120
-#: includes/classes/class-shortcode.php:3233
-#: includes/classes/class-shortcode.php:3314
-#: includes/classes/class-shortcode.php:3356
+#: includes/classes/class-shortcode.php:1206
+#: includes/classes/class-shortcode.php:1740
+#: includes/classes/class-shortcode.php:1780
+#: includes/classes/class-shortcode.php:1849
+#: includes/classes/class-shortcode.php:2259
+#: includes/classes/class-shortcode.php:2340
+#: includes/classes/class-shortcode.php:2746
+#: includes/classes/class-shortcode.php:3147
+#: includes/classes/class-shortcode.php:3263
+#: includes/classes/class-shortcode.php:3347
+#: includes/classes/class-shortcode.php:3392
 #: includes/helper-functions.php:1350
 #, php-format
 msgid ""
@@ -4907,94 +4901,94 @@ msgid ""
 "login %s. Don't have an account? %s"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:1830
-#: includes/classes/class-shortcode.php:1850
-#: includes/classes/class-shortcode.php:2315
-#: includes/classes/class-shortcode.php:2334
+#: includes/classes/class-shortcode.php:1845
+#: includes/classes/class-shortcode.php:1865
+#: includes/classes/class-shortcode.php:2336
+#: includes/classes/class-shortcode.php:2355
 msgid "<p>No Results found!</p>"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2260
-#: includes/classes/class-shortcode.php:2740
-#: includes/classes/class-shortcode.php:3138
+#: includes/classes/class-shortcode.php:2278
+#: includes/classes/class-shortcode.php:2764
+#: includes/classes/class-shortcode.php:3165
 msgid "No Results Found."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:2770
+#: includes/classes/class-shortcode.php:2794
 #: templates/search-at_biz_dir.php:10
 msgid "Total Listing Found: "
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3144
+#: includes/classes/class-shortcode.php:3171
 msgid "Search here"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3145
+#: includes/classes/class-shortcode.php:3172
 msgid "Find the best match of your interest\n"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3377
+#: includes/classes/class-shortcode.php:3416
 msgid ""
 "<span class=\"status-info\">Sending user info, please wait...</span>"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3384
+#: includes/classes/class-shortcode.php:3423
 #: templates/widget-templates/login-form.php:13
 msgid " Invalid username or password!"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3402
+#: includes/classes/class-shortcode.php:3441
 msgid "E-mail:"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3438
+#: includes/classes/class-shortcode.php:3477
 #, php-format
 msgid "<p>%s</p>"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3456
+#: includes/classes/class-shortcode.php:3495
 msgid "Enter an e-mail address.."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3458
+#: includes/classes/class-shortcode.php:3497
 msgid "Invalid e-mail address."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3460
+#: includes/classes/class-shortcode.php:3499
 msgid "There is no user registered with that email address."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3474
+#: includes/classes/class-shortcode.php:3513
 msgid "Your new password"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3475
+#: includes/classes/class-shortcode.php:3514
 msgid "Your new password is: "
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3481
+#: includes/classes/class-shortcode.php:3520
 msgid "Please check your email for your new password."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3483
+#: includes/classes/class-shortcode.php:3522
 msgid "Password updated! But something went wrong sending email."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3487
+#: includes/classes/class-shortcode.php:3526
 msgid "Oops something went wrong updating your account."
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3493
+#: includes/classes/class-shortcode.php:3532
 msgid "ERROR:"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3519
+#: includes/classes/class-shortcode.php:3558
 #, php-format
 msgid ""
 "Login page is not for logged-in user. <a href=\"%s\">Go Back To Home</a>"
 msgstr ""
 
-#: includes/classes/class-shortcode.php:3533
+#: includes/classes/class-shortcode.php:3575
 #, php-format
 msgid ""
 "Registration page is only for unregistered user. <a href=\"%s\">Go Back "

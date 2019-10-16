@@ -98,7 +98,7 @@ if ( !class_exists('BD_Search_Widget')) {
                 'search_by_phone'         => 0,
                 'search_by_zip_code'      => 0,
                 'search_by_radius'        => 0,
-                'location_source'         => 'map_api',
+                'location_source'         => 'listing_location',
             );
             // Parse incoming $instance into an array and merge it with $defaults
             $instance = wp_parse_args(
@@ -138,7 +138,7 @@ if ( !class_exists('BD_Search_Widget')) {
             $instance['search_by_zip_code']      = (isset($new_instance['search_by_zip_code'])) ? 1 : 0;
             $instance['search_by_zip_code']      = (isset($new_instance['search_by_zip_code'])) ? 1 : 0;
             $instance['search_by_radius']      = (isset($new_instance['search_by_radius'])) ? 1 : 0;
-            $instance['location_source']      = (isset($new_instance['location_source'])) ? $new_instance['location_source'] : 'map_api';
+            $instance['location_source']      = (isset($new_instance['location_source'])) ? $new_instance['location_source'] : 'listing_location';
 
             return $instance;
         }

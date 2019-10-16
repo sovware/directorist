@@ -2237,6 +2237,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   transform: translateY(50%);
   width: 46px;
   height: 46px;
+  z-index: 9999;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd_listing_image .atbd_author a {

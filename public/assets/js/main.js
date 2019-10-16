@@ -775,7 +775,7 @@ jQuery(function ($) {
     if (atbd_tooltip.attr('aria-label') !== " ") {
         atbd_tooltip.on('hover', function () {
             $(this).toggleClass('atbd_tooltip_active');
-        })
+        });
     }
 
     /* User Dashboard tab */

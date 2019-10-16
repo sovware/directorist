@@ -143,8 +143,8 @@
                 'action': 'atbdp-favourites-all-listing',
                 'post_id': $(this).data('listing_id')
             };
-            var fav_tooltip_success = '<span>Added to favorite</span>';
-            var fav_tooltip_warning = '<span>Please login first</span>';
+            var fav_tooltip_success = '<span>'+atbdp_search.added_favourite+'</span>';
+            var fav_tooltip_warning = '<span>'+atbdp_search.please_login+'</span>';
             $(".atbd_fav_tooltip").hide();
             $.post(atbdp_search_listing.ajax_url, data, function (response) {
                 var staElement = $('#atbdp-fav_'+data['post_id']).selector;

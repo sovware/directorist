@@ -10,17 +10,18 @@ $ad = !empty($address) ? esc_html($address) : '';
 $image = (!empty($attachment_id[0])) ? "<img src='" . esc_url(wp_get_attachment_image_url($attachment_id[0], 'thumbnail')) . "'>" : '';
 $post_ID = $post->ID;
 // grab social information
-$disable_price         = get_directorist_option('disable_list_price');
-$currency              = get_directorist_option('g_currency', 'USD');
-$display_tagline_field = get_directorist_option('display_tagline_field', 0);
-$tagline_placeholder   = get_directorist_option('tagline_placeholder',__('Your Listing\'s motto or tag-line', 'directorist'));
-$display_pricing_field = get_directorist_option('display_pricing_field', 1);
-$price_placeholder     = get_directorist_option('price_placeholder',__('Price of this listing. Eg. 100', 'directorist'));
-$excerpt_placeholder   = get_directorist_option('excerpt_placeholder',__('Short Description or Excerpt', 'directorist'));
-$display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
-$display_views_count   = get_directorist_option('display_views_count', 1);
-$price_range_label = get_directorist_option('price_range_label', __('Price Range', 'directorist'));
-$c_symbol = atbdp_currency_symbol($currency);
+$disable_price               = get_directorist_option('disable_list_price');
+$currency                    = get_directorist_option('g_currency', 'USD');
+$display_tagline_field       = get_directorist_option('display_tagline_field', 0);
+$tagline_placeholder         = get_directorist_option('tagline_placeholder',__('Your Listing\'s motto or tag-line', 'directorist'));
+$display_pricing_field       = get_directorist_option('display_pricing_field', 1);
+$price_placeholder           = get_directorist_option('price_placeholder',__('Price of this listing. Eg. 100', 'directorist'));
+$price_range_placeholder     = get_directorist_option('price_range_placeholder',__('Select Price Range', 'directorist'));
+$excerpt_placeholder         = get_directorist_option('excerpt_placeholder',__('Short Description or Excerpt', 'directorist'));
+$display_excerpt_field       = get_directorist_option('display_excerpt_field', 0);
+$display_views_count         = get_directorist_option('display_views_count', 1);
+$price_range_label           = get_directorist_option('price_range_label', __('Price Range', 'directorist'));
+$c_symbol                    = atbdp_currency_symbol($currency);
 ?>
 <div id="directorist" class="directorist atbd_wrapper directory_wrapper">
     <?php
@@ -84,7 +85,7 @@ $c_symbol = atbdp_currency_symbol($currency);
                        placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
 
                 <select class="form-control directory_field" id="price_range" style="display: none" name="price_range">
-                    <option value=""><?php echo esc_attr($price_range_placeholder); ?></option>
+                    <option value=""><?php echo !empty($price_range_placeholder) ? esc_attr($price_range_placeholder) : ''; ?></option>
                     <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
                         <?php echo __('Ultra High ', 'directorist').'('.$c_symbol,$c_symbol,$c_symbol,$c_symbol.')'; ?>
                     </option>

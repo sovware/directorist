@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2019-10-14 20:38+0600\n"
+"POT-Creation-Date: 2019-10-16 15:43+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -125,16 +125,24 @@ msgid "Cancel"
 msgstr ""
 
 #: directorist-base.php:1216
+<<<<<<< HEAD
 #: templates/front-end/single-listing/listing-header.php:296
+=======
+#: templates/front-end/single-listing/listing-header.php:298
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 #: templates/front-end/single-listing/listing-map.php:19
-#: templates/single-at_biz_dir.php:80 templates/single-at_biz_dir.php:411
+#: templates/single-at_biz_dir.php:80 templates/single-at_biz_dir.php:413
 msgid " Reviews"
 msgstr ""
 
 #: directorist-base.php:1216
+<<<<<<< HEAD
 #: templates/front-end/single-listing/listing-header.php:296
+=======
+#: templates/front-end/single-listing/listing-header.php:298
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 #: templates/front-end/single-listing/listing-map.php:19
-#: templates/single-at_biz_dir.php:80 templates/single-at_biz_dir.php:411
+#: templates/single-at_biz_dir.php:80 templates/single-at_biz_dir.php:413
 msgid " Review"
 msgstr ""
 
@@ -203,6 +211,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:457
 #: includes/classes/class-settings-manager.php:708
 #: includes/classes/class-shortcode.php:1206
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:1740
 #: includes/classes/class-shortcode.php:1780
 #: includes/classes/class-shortcode.php:1849
@@ -214,6 +223,19 @@ msgstr ""
 #: includes/classes/class-shortcode.php:3347
 #: includes/classes/class-shortcode.php:3392
 #: includes/classes/class-shortcode.php:3446
+=======
+#: includes/classes/class-shortcode.php:1742
+#: includes/classes/class-shortcode.php:1782
+#: includes/classes/class-shortcode.php:1851
+#: includes/classes/class-shortcode.php:2261
+#: includes/classes/class-shortcode.php:2342
+#: includes/classes/class-shortcode.php:2748
+#: includes/classes/class-shortcode.php:3149
+#: includes/classes/class-shortcode.php:3265
+#: includes/classes/class-shortcode.php:3349
+#: includes/classes/class-shortcode.php:3394
+#: includes/classes/class-shortcode.php:3448
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Sign Up"
 msgstr ""
 
@@ -525,7 +547,11 @@ msgstr ""
 #: includes/classes/class-tags-widget.php:146
 #: templates/front-end/payment-receipt.php:113
 #: templates/front-end/single-listing/listing-contact-owner.php:27
+<<<<<<< HEAD
 #: templates/single-at_biz_dir.php:829
+=======
+#: templates/single-at_biz_dir.php:831
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Name"
 msgstr ""
 
@@ -542,10 +568,17 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:3763
 #: includes/classes/class-settings-manager.php:3845
 #: includes/classes/class-shortcode.php:1170
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:1712
 #: includes/classes/class-shortcode.php:2230
 #: includes/classes/class-shortcode.php:2712
 #: includes/classes/class-shortcode.php:3119
+=======
+#: includes/classes/class-shortcode.php:1714
+#: includes/classes/class-shortcode.php:2232
+#: includes/classes/class-shortcode.php:2714
+#: includes/classes/class-shortcode.php:3121
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 #: includes/classes/class-tags-widget.php:152
 msgid "Sort By"
 msgstr ""
@@ -613,27 +646,42 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:4569
 #: templates/contact-info.php:197 templates/front-end/add-listing.php:860
 #: templates/front-end/all-listings/listings-header.php:4
-#: templates/front-end/all-listings/listings-header.php:383
+#: templates/front-end/all-listings/listings-header.php:386
 #: templates/front-end/single-listing/listing-contact-info.php:38
 #: templates/front-end/single-listing/listing-contact-owner.php:32
+<<<<<<< HEAD
 #: templates/listing-home-open.php:169 templates/listing-home.php:33
 #: templates/listing-home.php:329 templates/search-widget-front.php:5
 #: templates/search-widget-front.php:129
 #: templates/single-at_biz_dir.php:683 templates/single-at_biz_dir.php:834
+=======
+#: templates/listing-home-open.php:172 templates/listing-home.php:33
+#: templates/listing-home.php:332 templates/search-widget-front.php:5
+#: templates/search-widget-front.php:132
+#: templates/single-at_biz_dir.php:685 templates/single-at_biz_dir.php:836
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Email"
 msgstr ""
 
 #: includes/classes/class-contact-form-widget.php:67
 #: templates/front-end/single-listing/listing-contact-owner.php:37
 #: templates/front-end/single-listing/listing-header.php:180
+<<<<<<< HEAD
 #: templates/single-at_biz_dir.php:293 templates/single-at_biz_dir.php:839
+=======
+#: templates/single-at_biz_dir.php:293 templates/single-at_biz_dir.php:841
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Message"
 msgstr ""
 
 #: includes/classes/class-contact-form-widget.php:84
 #: templates/front-end/single-listing/listing-contact-owner.php:49
 #: templates/front-end/single-listing/listing-header.php:188
+<<<<<<< HEAD
 #: templates/single-at_biz_dir.php:301 templates/single-at_biz_dir.php:851
+=======
+#: templates/single-at_biz_dir.php:301 templates/single-at_biz_dir.php:853
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Submit"
 msgstr ""
 
@@ -723,7 +771,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:5177
 #: templates/front-end/add-listing.php:586
 #: templates/front-end/single-listing/listing-map.php:60
-#: templates/search-widget-front.php:25
+#: templates/search-widget-front.php:28
 #: templates/single-at_biz_dir.php:151
 msgid "Location"
 msgstr ""
@@ -1420,6 +1468,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:3319
 #: includes/classes/class-settings-manager.php:3708
 #: includes/classes/class-shortcode.php:1168
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:1704
 #: includes/classes/class-shortcode.php:2223
 #: includes/classes/class-shortcode.php:2710
@@ -1427,6 +1476,15 @@ msgstr ""
 #: includes/custom-fields/class-custom-field.php:530
 #: includes/helper-functions.php:3821 templates/listing-home.php:5
 #: templates/search-widget-front.php:54
+=======
+#: includes/classes/class-shortcode.php:1706
+#: includes/classes/class-shortcode.php:2225
+#: includes/classes/class-shortcode.php:2712
+#: includes/classes/class-shortcode.php:3114
+#: includes/custom-fields/class-custom-field.php:530
+#: includes/helper-functions.php:3821 templates/listing-home.php:5
+#: templates/search-widget-front.php:57
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Select a category"
 msgstr ""
 
@@ -1435,17 +1493,24 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:3325
 #: includes/classes/class-settings-manager.php:3714
 #: includes/classes/class-shortcode.php:1169
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:1705
 #: includes/classes/class-shortcode.php:2224
 #: includes/classes/class-shortcode.php:2711
 #: includes/classes/class-shortcode.php:3113 templates/listing-home.php:6
+=======
+#: includes/classes/class-shortcode.php:1707
+#: includes/classes/class-shortcode.php:2226
+#: includes/classes/class-shortcode.php:2713
+#: includes/classes/class-shortcode.php:3115 templates/listing-home.php:6
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Select a location"
 msgstr ""
 
 #: includes/classes/class-enqueuer.php:755
 #: templates/custom-field-search-form.php:93
-#: templates/front-end/all-listings/listings-header.php:360
-#: templates/listing-home-open.php:152 templates/listing-home.php:305
+#: templates/front-end/all-listings/listings-header.php:363
+#: templates/listing-home-open.php:155 templates/listing-home.php:308
 msgid "Show More"
 msgstr ""
 
@@ -1510,12 +1575,20 @@ msgid "Twitter"
 msgstr ""
 
 #: includes/classes/class-helper.php:84
+<<<<<<< HEAD
+=======
+msgid "Google+"
+msgstr ""
+
+#: includes/classes/class-helper.php:85
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 #: templates/front-end/single-listing/listing-header.php:144
 #: templates/front-end/user-dashboard.php:469
 #: templates/single-at_biz_dir.php:258
 msgid "LinkedIn"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/classes/class-helper.php:85
 msgid "Pinterest"
 msgstr ""
@@ -1541,10 +1614,38 @@ msgid "Reddit"
 msgstr ""
 
 #: includes/classes/class-helper.php:91
+=======
+#: includes/classes/class-helper.php:86
+msgid "Pinterest"
+msgstr ""
+
+#: includes/classes/class-helper.php:87
+msgid "Instagram"
+msgstr ""
+
+#: includes/classes/class-helper.php:88
+msgid "Tumblr"
+msgstr ""
+
+#: includes/classes/class-helper.php:89
+msgid "Flickr"
+msgstr ""
+
+#: includes/classes/class-helper.php:90
+msgid "Snapchat"
+msgstr ""
+
+#: includes/classes/class-helper.php:91
+msgid "Reddit"
+msgstr ""
+
+#: includes/classes/class-helper.php:92
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 #: templates/front-end/user-dashboard.php:479
 msgid "Youtube"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/classes/class-helper.php:92
 msgid "Vimeo"
 msgstr ""
@@ -1592,6 +1693,55 @@ msgid "Location:"
 msgstr ""
 
 #: includes/classes/class-helper.php:286
+=======
+#: includes/classes/class-helper.php:93
+msgid "Vimeo"
+msgstr ""
+
+#: includes/classes/class-helper.php:94
+msgid "Vine"
+msgstr ""
+
+#: includes/classes/class-helper.php:95
+msgid "Github"
+msgstr ""
+
+#: includes/classes/class-helper.php:96
+msgid "Dribbble"
+msgstr ""
+
+#: includes/classes/class-helper.php:97
+msgid "Behance"
+msgstr ""
+
+#: includes/classes/class-helper.php:98
+msgid "SoundCloud"
+msgstr ""
+
+#: includes/classes/class-helper.php:99
+msgid "StackOverFLow"
+msgstr ""
+
+#: includes/classes/class-helper.php:196
+msgid "&laquo; Prev"
+msgstr ""
+
+#: includes/classes/class-helper.php:197
+msgid "Next &raquo;"
+msgstr ""
+
+#: includes/classes/class-helper.php:244
+#: includes/classes/class-helper.php:310
+msgid "Category:"
+msgstr ""
+
+#: includes/classes/class-helper.php:258
+#: includes/classes/class-helper.php:333
+msgid "Location:"
+msgstr ""
+
+#: includes/classes/class-helper.php:287
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 #: includes/classes/class-settings-manager.php:2878
 #: includes/helper-functions.php:2598 includes/helper-functions.php:3465
 #: templates/front-end/all-listings/all-grid-listings.php:392
@@ -1674,21 +1824,33 @@ msgstr ""
 #: includes/classes/class-map-widget.php:70 templates/contact-info.php:262
 #: templates/front-end/add-listing.php:1211
 #: templates/front-end/single-listing/listing-map.php:88
+<<<<<<< HEAD
 #: templates/single-at_biz_dir.php:921
+=======
+#: templates/single-at_biz_dir.php:923
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Overlays"
 msgstr ""
 
 #: includes/classes/class-map-widget.php:71 templates/contact-info.php:263
 #: templates/front-end/add-listing.php:1212
 #: templates/front-end/single-listing/listing-map.php:89
+<<<<<<< HEAD
 #: templates/single-at_biz_dir.php:922
+=======
+#: templates/single-at_biz_dir.php:924
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Base Layer"
 msgstr ""
 
 #: includes/classes/class-map-widget.php:123
 #: templates/contact-info.php:509 templates/front-end/add-listing.php:1455
 #: templates/front-end/single-listing/listing-map.php:148
+<<<<<<< HEAD
 #: templates/single-at_biz_dir.php:987
+=======
+#: templates/single-at_biz_dir.php:989
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "My Points"
 msgstr ""
 
@@ -1772,9 +1934,15 @@ msgid "Search"
 msgstr ""
 
 #: includes/classes/class-seo.php:574
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:3542
 #: includes/classes/class-shortcode.php:3543
 #: includes/classes/class-shortcode.php:3550
+=======
+#: includes/classes/class-shortcode.php:3544
+#: includes/classes/class-shortcode.php:3545
+#: includes/classes/class-shortcode.php:3552
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 #: templates/front-end/user-registration-form.php:87
 #: templates/front-end/user-registration-form.php:100
 #, php-format
@@ -1935,7 +2103,11 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:287
 #: includes/classes/class-settings-manager.php:381
 #: includes/classes/class-settings-manager.php:547
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:3434
+=======
+#: includes/classes/class-shortcode.php:3436
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Password"
 msgstr ""
 
@@ -1948,13 +2120,13 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:4612
 #: templates/contact-info.php:206 templates/front-end/add-listing.php:878
 #: templates/front-end/all-listings/listings-header.php:5
-#: templates/front-end/all-listings/listings-header.php:375
+#: templates/front-end/all-listings/listings-header.php:378
 #: templates/front-end/single-listing/listing-contact-info.php:40
 #: templates/front-end/user-dashboard.php:406
-#: templates/listing-home-open.php:165 templates/listing-home.php:34
-#: templates/listing-home.php:321 templates/search-widget-front.php:6
-#: templates/search-widget-front.php:124
-#: templates/single-at_biz_dir.php:684
+#: templates/listing-home-open.php:168 templates/listing-home.php:34
+#: templates/listing-home.php:324 templates/search-widget-front.php:6
+#: templates/search-widget-front.php:127
+#: templates/single-at_biz_dir.php:686
 msgid "Website"
 msgstr ""
 
@@ -1985,7 +2157,11 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:282
 #: includes/classes/class-settings-manager.php:362
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:3433
+=======
+#: includes/classes/class-shortcode.php:3435
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Username or Email Address"
 msgstr ""
 
@@ -2003,7 +2179,11 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:307
 #: includes/classes/class-settings-manager.php:480
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:3439
+=======
+#: includes/classes/class-shortcode.php:3441
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Recover Password"
 msgstr ""
 
@@ -2060,6 +2240,7 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:345
 #: includes/classes/class-shortcode.php:1206
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:1740
 #: includes/classes/class-shortcode.php:1780
 #: includes/classes/class-shortcode.php:1849
@@ -2070,6 +2251,18 @@ msgstr ""
 #: includes/classes/class-shortcode.php:3263
 #: includes/classes/class-shortcode.php:3347
 #: includes/classes/class-shortcode.php:3392
+=======
+#: includes/classes/class-shortcode.php:1742
+#: includes/classes/class-shortcode.php:1782
+#: includes/classes/class-shortcode.php:1851
+#: includes/classes/class-shortcode.php:2261
+#: includes/classes/class-shortcode.php:2342
+#: includes/classes/class-shortcode.php:2748
+#: includes/classes/class-shortcode.php:3149
+#: includes/classes/class-shortcode.php:3265
+#: includes/classes/class-shortcode.php:3349
+#: includes/classes/class-shortcode.php:3394
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 #: includes/helper-functions.php:1350
 #: templates/front-end/user-registration-form.php:24
 #: templates/front-end/user-registration-form.php:38
@@ -2109,17 +2302,29 @@ msgid "Label"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:405
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:3436
+=======
+#: includes/classes/class-shortcode.php:3438
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Remember Me"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:422
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:3437
+=======
+#: includes/classes/class-shortcode.php:3439
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Log In"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:445
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:3444
+=======
+#: includes/classes/class-shortcode.php:3446
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Don't have an account?"
 msgstr ""
 
@@ -2129,7 +2334,11 @@ msgid "Description"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:486
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:3440
+=======
+#: includes/classes/class-shortcode.php:3442
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid ""
 "Please enter your email address. You will receive a new password via "
 "email."
@@ -2148,7 +2357,11 @@ msgid "Username or Email Placeholder"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:498
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:3442
+=======
+#: includes/classes/class-shortcode.php:3444
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "eg. mail@example.com"
 msgstr ""
 
@@ -2157,7 +2370,11 @@ msgid "Button Text"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:504
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:3443
+=======
+#: includes/classes/class-shortcode.php:3445
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Get New Password"
 msgstr ""
 
@@ -2293,8 +2510,8 @@ msgstr ""
 #: templates/front-end/all-listings/listings-header.php:2
 #: templates/front-end/single-listing/listing-contact-info.php:30
 #: templates/front-end/user-dashboard.php:414
-#: templates/listing-home.php:31 templates/listing-home.php:354
-#: templates/search-widget-front.php:3 templates/single-at_biz_dir.php:681
+#: templates/listing-home.php:31 templates/listing-home.php:357
+#: templates/search-widget-front.php:3 templates/single-at_biz_dir.php:683
 msgid "Address"
 msgstr ""
 
@@ -2304,10 +2521,10 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:3628
 #: includes/classes/class-settings-manager.php:4654
 #: templates/contact-info.php:157 templates/front-end/add-listing.php:795
-#: templates/front-end/all-listings/listings-header.php:407
+#: templates/front-end/all-listings/listings-header.php:410
 #: templates/front-end/single-listing/listing-contact-info.php:42
-#: templates/listing-home-open.php:181 templates/listing-home.php:366
-#: templates/single-at_biz_dir.php:685
+#: templates/listing-home-open.php:184 templates/listing-home.php:369
+#: templates/single-at_biz_dir.php:687
 msgid "Zip/Post Code"
 msgstr ""
 
@@ -2316,9 +2533,9 @@ msgstr ""
 #: templates/contact-info.php:19 templates/contact-info.php:168
 #: templates/front-end/add-listing.php:813
 #: templates/front-end/add-listing.php:814
-#: templates/front-end/all-listings/listings-header.php:391
-#: templates/listing-home-open.php:173 templates/listing-home.php:337
-#: templates/search-widget-front.php:134
+#: templates/front-end/all-listings/listings-header.php:394
+#: templates/listing-home-open.php:176 templates/listing-home.php:340
+#: templates/search-widget-front.php:137
 msgid "Phone Number"
 msgstr ""
 
@@ -2340,10 +2557,10 @@ msgstr ""
 #: templates/front-end/add-listing.php:842
 #: templates/front-end/add-listing.php:843
 #: templates/front-end/all-listings/listings-header.php:3
-#: templates/front-end/all-listings/listings-header.php:399
+#: templates/front-end/all-listings/listings-header.php:402
 #: templates/front-end/single-listing/listing-contact-info.php:36
-#: templates/listing-home-open.php:177 templates/listing-home.php:32
-#: templates/listing-home.php:345 templates/search-widget-front.php:4
+#: templates/listing-home-open.php:180 templates/listing-home.php:32
+#: templates/listing-home.php:348 templates/search-widget-front.php:4
 #: templates/single-at_biz_dir.php:163
 msgid "Fax"
 msgstr ""
@@ -3306,10 +3523,17 @@ msgid "Header Title"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2410
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:1240
 #: includes/classes/class-shortcode.php:1898
 #: includes/classes/class-shortcode.php:2389
 #: includes/classes/class-shortcode.php:2793
+=======
+#: includes/classes/class-shortcode.php:1242
+#: includes/classes/class-shortcode.php:1900
+#: includes/classes/class-shortcode.php:2391
+#: includes/classes/class-shortcode.php:2795
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Items Found"
 msgstr ""
 
@@ -3330,10 +3554,17 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:2429
 #: includes/classes/class-settings-manager.php:3548
 #: includes/classes/class-shortcode.php:1166
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:1702
 #: includes/classes/class-shortcode.php:2221
 #: includes/classes/class-shortcode.php:2708
 #: includes/classes/class-shortcode.php:3110
+=======
+#: includes/classes/class-shortcode.php:1704
+#: includes/classes/class-shortcode.php:2223
+#: includes/classes/class-shortcode.php:2710
+#: includes/classes/class-shortcode.php:3112
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Filters"
 msgstr ""
 
@@ -3374,11 +3605,15 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:3386
 #: includes/classes/class-settings-manager.php:3593
 #: includes/classes/class-settings-manager.php:4292
+<<<<<<< HEAD
 #: templates/add-listing.php:22 templates/front-end/add-listing.php:99
+=======
+#: templates/add-listing.php:23 templates/front-end/add-listing.php:99
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 #: templates/front-end/add-listing.php:294
-#: templates/front-end/all-listings/listings-header.php:245
-#: templates/listing-home.php:192 templates/search-widget-front.php:8
-#: templates/search-widget-front.php:88
+#: templates/front-end/all-listings/listings-header.php:248
+#: templates/listing-home.php:195 templates/search-widget-front.php:8
+#: templates/search-widget-front.php:91
 msgid "Price Range"
 msgstr ""
 
@@ -3411,15 +3646,15 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:3620
 #: includes/classes/class-settings-manager.php:4440
 #: templates/front-end/single-listing/listing-contact-info.php:32
-#: templates/single-at_biz_dir.php:682
+#: templates/single-at_biz_dir.php:684
 msgid "Phone"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2513
 #: includes/classes/class-settings-manager.php:3425
 #: includes/classes/class-settings-manager.php:3632
-#: templates/front-end/all-listings/listings-header.php:308
-#: templates/listing-home-open.php:122 templates/listing-home.php:271
+#: templates/front-end/all-listings/listings-header.php:311
+#: templates/listing-home-open.php:125 templates/listing-home.php:274
 msgid "Radius Search"
 msgstr ""
 
@@ -3430,16 +3665,17 @@ msgid "Location Source for Search"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2535
+#: includes/classes/class-settings-manager.php:2544
 #: includes/classes/class-settings-manager.php:3279
+#: includes/classes/class-settings-manager.php:3288
 #: includes/classes/class-settings-manager.php:3654
+#: includes/classes/class-settings-manager.php:3663
 #: templates/search-widget-form.php:87
 msgid "Display from Listing Location"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:2539
-#: includes/classes/class-settings-manager.php:2544
 #: includes/classes/class-settings-manager.php:3658
-#: includes/classes/class-settings-manager.php:3663
 msgid "Display From Map API"
 msgstr ""
 
@@ -3468,11 +3704,19 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:3467
 #: includes/classes/class-settings-manager.php:3690
 #: includes/classes/class-shortcode.php:1176
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:1710
 #: includes/classes/class-shortcode.php:2228
 #: includes/classes/class-shortcode.php:2717
 #: includes/classes/class-shortcode.php:3117
 #: includes/classes/class-shortcode.php:3181
+=======
+#: includes/classes/class-shortcode.php:1712
+#: includes/classes/class-shortcode.php:2230
+#: includes/classes/class-shortcode.php:2719
+#: includes/classes/class-shortcode.php:3119
+#: includes/classes/class-shortcode.php:3183
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Reset Filters"
 msgstr ""
 
@@ -3485,11 +3729,19 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:3473
 #: includes/classes/class-settings-manager.php:3696
 #: includes/classes/class-shortcode.php:1177
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:1711
 #: includes/classes/class-shortcode.php:2229
 #: includes/classes/class-shortcode.php:2718
 #: includes/classes/class-shortcode.php:3118
 #: includes/classes/class-shortcode.php:3182
+=======
+#: includes/classes/class-shortcode.php:1713
+#: includes/classes/class-shortcode.php:2231
+#: includes/classes/class-shortcode.php:2720
+#: includes/classes/class-shortcode.php:3120
+#: includes/classes/class-shortcode.php:3184
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Apply Filters"
 msgstr ""
 
@@ -3503,10 +3755,17 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:3313
 #: includes/classes/class-settings-manager.php:3702
 #: includes/classes/class-shortcode.php:1167
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:1703
 #: includes/classes/class-shortcode.php:2222
 #: includes/classes/class-shortcode.php:2709
 #: includes/classes/class-shortcode.php:3111 templates/listing-home.php:4
+=======
+#: includes/classes/class-shortcode.php:1705
+#: includes/classes/class-shortcode.php:2224
+#: includes/classes/class-shortcode.php:2711
+#: includes/classes/class-shortcode.php:3113 templates/listing-home.php:4
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 #: templates/search-widget-front.php:16
 msgid "What are you looking for?"
 msgstr ""
@@ -3595,10 +3854,17 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:2669
 #: includes/classes/class-settings-manager.php:3726
 #: includes/classes/class-shortcode.php:1171
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:1713
 #: includes/classes/class-shortcode.php:2231
 #: includes/classes/class-shortcode.php:2713
 #: includes/classes/class-shortcode.php:3120
+=======
+#: includes/classes/class-shortcode.php:1715
+#: includes/classes/class-shortcode.php:2233
+#: includes/classes/class-shortcode.php:2715
+#: includes/classes/class-shortcode.php:3122
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "View As"
 msgstr ""
 
@@ -3891,7 +4157,6 @@ msgid "Location Source for Search Field"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:3283
-#: includes/classes/class-settings-manager.php:3288
 msgid "Display from Map API"
 msgstr ""
 
@@ -3937,7 +4202,11 @@ msgid "Search Button Text"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:3455
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:3180
+=======
+#: includes/classes/class-shortcode.php:3182
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Search Listing"
 msgstr ""
 
@@ -3946,7 +4215,11 @@ msgid "More Filters Button Text"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:3461
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:3179
+=======
+#: includes/classes/class-shortcode.php:3181
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "More Filters"
 msgstr ""
 
@@ -4166,6 +4439,7 @@ msgid "Price Range Label"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:4298
+#: templates/add-listing.php:19
 msgid "Select Price Range"
 msgstr ""
 
@@ -4179,7 +4453,7 @@ msgid "Short Description/Excerpt"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:4363
-#: templates/add-listing.php:19 templates/front-end/add-listing.php:104
+#: templates/add-listing.php:20 templates/front-end/add-listing.php:104
 msgid "Short Description or Excerpt"
 msgstr ""
 
@@ -4884,6 +5158,7 @@ msgid "%d result%s %s %s"
 msgstr ""
 
 #: includes/classes/class-shortcode.php:1206
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:1740
 #: includes/classes/class-shortcode.php:1780
 #: includes/classes/class-shortcode.php:1849
@@ -4894,6 +5169,18 @@ msgstr ""
 #: includes/classes/class-shortcode.php:3263
 #: includes/classes/class-shortcode.php:3347
 #: includes/classes/class-shortcode.php:3392
+=======
+#: includes/classes/class-shortcode.php:1742
+#: includes/classes/class-shortcode.php:1782
+#: includes/classes/class-shortcode.php:1851
+#: includes/classes/class-shortcode.php:2261
+#: includes/classes/class-shortcode.php:2342
+#: includes/classes/class-shortcode.php:2748
+#: includes/classes/class-shortcode.php:3149
+#: includes/classes/class-shortcode.php:3265
+#: includes/classes/class-shortcode.php:3349
+#: includes/classes/class-shortcode.php:3394
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 #: includes/helper-functions.php:1350
 #, php-format
 msgid ""
@@ -4901,6 +5188,7 @@ msgid ""
 "login %s. Don't have an account? %s"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:1845
 #: includes/classes/class-shortcode.php:1865
 #: includes/classes/class-shortcode.php:2336
@@ -4915,10 +5203,35 @@ msgid "No Results Found."
 msgstr ""
 
 #: includes/classes/class-shortcode.php:2794
+=======
+#: includes/classes/class-shortcode.php:1232
+msgid "Added to favorite"
+msgstr ""
+
+#: includes/classes/class-shortcode.php:1233
+msgid "Please login first"
+msgstr ""
+
+#: includes/classes/class-shortcode.php:1847
+#: includes/classes/class-shortcode.php:1867
+#: includes/classes/class-shortcode.php:2338
+#: includes/classes/class-shortcode.php:2357
+msgid "<p>No Results found!</p>"
+msgstr ""
+
+#: includes/classes/class-shortcode.php:2280
+#: includes/classes/class-shortcode.php:2766
+#: includes/classes/class-shortcode.php:3167
+msgid "No Results Found."
+msgstr ""
+
+#: includes/classes/class-shortcode.php:2796
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 #: templates/search-at_biz_dir.php:10
 msgid "Total Listing Found: "
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:3171
 msgid "Search here"
 msgstr ""
@@ -4928,24 +5241,48 @@ msgid "Find the best match of your interest\n"
 msgstr ""
 
 #: includes/classes/class-shortcode.php:3416
+=======
+#: includes/classes/class-shortcode.php:3173
+msgid "Search here"
+msgstr ""
+
+#: includes/classes/class-shortcode.php:3174
+msgid "Find the best match of your interest\n"
+msgstr ""
+
+#: includes/classes/class-shortcode.php:3418
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid ""
 "<span class=\"status-info\">Sending user info, please wait...</span>"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:3423
+=======
+#: includes/classes/class-shortcode.php:3425
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 #: templates/widget-templates/login-form.php:13
 msgid " Invalid username or password!"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:3441
 msgid "E-mail:"
 msgstr ""
 
 #: includes/classes/class-shortcode.php:3477
+=======
+#: includes/classes/class-shortcode.php:3443
+msgid "E-mail:"
+msgstr ""
+
+#: includes/classes/class-shortcode.php:3479
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 #, php-format
 msgid "<p>%s</p>"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:3495
 msgid "Enter an e-mail address.."
 msgstr ""
@@ -4983,12 +5320,55 @@ msgid "ERROR:"
 msgstr ""
 
 #: includes/classes/class-shortcode.php:3558
+=======
+#: includes/classes/class-shortcode.php:3497
+msgid "Enter an e-mail address.."
+msgstr ""
+
+#: includes/classes/class-shortcode.php:3499
+msgid "Invalid e-mail address."
+msgstr ""
+
+#: includes/classes/class-shortcode.php:3501
+msgid "There is no user registered with that email address."
+msgstr ""
+
+#: includes/classes/class-shortcode.php:3515
+msgid "Your new password"
+msgstr ""
+
+#: includes/classes/class-shortcode.php:3516
+msgid "Your new password is: "
+msgstr ""
+
+#: includes/classes/class-shortcode.php:3522
+msgid "Please check your email for your new password."
+msgstr ""
+
+#: includes/classes/class-shortcode.php:3524
+msgid "Password updated! But something went wrong sending email."
+msgstr ""
+
+#: includes/classes/class-shortcode.php:3528
+msgid "Oops something went wrong updating your account."
+msgstr ""
+
+#: includes/classes/class-shortcode.php:3534
+msgid "ERROR:"
+msgstr ""
+
+#: includes/classes/class-shortcode.php:3560
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 #, php-format
 msgid ""
 "Login page is not for logged-in user. <a href=\"%s\">Go Back To Home</a>"
 msgstr ""
 
+<<<<<<< HEAD
 #: includes/classes/class-shortcode.php:3575
+=======
+#: includes/classes/class-shortcode.php:3577
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 #, php-format
 msgid ""
 "Registration page is only for unregistered user. <a href=\"%s\">Go Back "
@@ -5032,8 +5412,8 @@ msgstr ""
 #: includes/classes/class-tags-widget.php:112
 #: includes/classes/class-tags-widget.php:124
 #: templates/front-end/add-listing.php:627
-#: templates/front-end/all-listings/listings-header.php:341
-#: templates/listing-home-open.php:138 templates/listing-home.php:287
+#: templates/front-end/all-listings/listings-header.php:344
+#: templates/listing-home-open.php:141 templates/listing-home.php:290
 msgid "Tags"
 msgstr ""
 
@@ -5688,10 +6068,10 @@ msgstr ""
 
 #: includes/helper-functions.php:2401 includes/helper-functions.php:2868
 #: templates/front-end/all-listings/all-grid-listings.php:191
-#: templates/front-end/all-listings/listings-header.php:322
-#: templates/front-end/all-listings/listings-header.php:330
-#: templates/listing-home-open.php:113 templates/listing-home.php:254
-#: templates/listing-home.php:262 templates/search-at_biz_dir.php:224
+#: templates/front-end/all-listings/listings-header.php:325
+#: templates/front-end/all-listings/listings-header.php:333
+#: templates/listing-home-open.php:116 templates/listing-home.php:257
+#: templates/listing-home.php:265 templates/search-at_biz_dir.php:224
 msgid "Open Now"
 msgstr ""
 
@@ -6199,7 +6579,11 @@ msgstr ""
 msgid "Review for "
 msgstr ""
 
+<<<<<<< HEAD
 #: templates/add-listing-custom-field.php:80 templates/add-listing.php:217
+=======
+#: templates/add-listing-custom-field.php:80 templates/add-listing.php:218
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 #: templates/custom-field-search-form.php:45
 #: templates/front-end/add-listing.php:493
 msgid "Select an Option"
@@ -6214,6 +6598,7 @@ msgstr ""
 msgid "(Optional - Uncheck both to hide pricing for this listing)"
 msgstr ""
 
+<<<<<<< HEAD
 #: templates/add-listing.php:89 templates/front-end/add-listing.php:322
 #: templates/search-widget-front.php:104
 msgid "Ultra High "
@@ -6231,6 +6616,25 @@ msgstr ""
 
 #: templates/add-listing.php:98 templates/front-end/add-listing.php:331
 #: templates/search-widget-front.php:107
+=======
+#: templates/add-listing.php:90 templates/front-end/add-listing.php:322
+#: templates/search-widget-front.php:107
+msgid "Ultra High "
+msgstr ""
+
+#: templates/add-listing.php:93 templates/front-end/add-listing.php:325
+#: templates/search-widget-front.php:108
+msgid "Expensive "
+msgstr ""
+
+#: templates/add-listing.php:96 templates/front-end/add-listing.php:328
+#: templates/search-widget-front.php:109
+msgid "Moderate "
+msgstr ""
+
+#: templates/add-listing.php:99 templates/front-end/add-listing.php:331
+#: templates/search-widget-front.php:110
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Cheap "
 msgstr ""
 
@@ -6422,8 +6826,8 @@ msgstr ""
 
 #: templates/extension.php:220
 msgid ""
-"Let's turn to your visitors as your directory members where they can "
-"express their needs and get the it from service provider."
+"It lets your visitors register and login to your site using their "
+"social profiles (Facebook and Google)."
 msgstr ""
 
 #: templates/extension.php:246
@@ -6618,53 +7022,53 @@ msgstr ""
 msgid "Zip"
 msgstr ""
 
-#: templates/front-end/all-listings/listings-header.php:222
-#: templates/listing-home-open.php:51 templates/listing-home.php:137
+#: templates/front-end/all-listings/listings-header.php:225
+#: templates/listing-home-open.php:54 templates/listing-home.php:140
 msgid "location"
 msgstr ""
 
-#: templates/front-end/all-listings/listings-header.php:250
-#: templates/listing-home-open.php:78 templates/listing-home.php:197
+#: templates/front-end/all-listings/listings-header.php:253
+#: templates/listing-home-open.php:81 templates/listing-home.php:200
 msgid "Min Price"
 msgstr ""
 
-#: templates/front-end/all-listings/listings-header.php:255
-#: templates/listing-home-open.php:81 templates/listing-home.php:202
+#: templates/front-end/all-listings/listings-header.php:258
+#: templates/listing-home-open.php:84 templates/listing-home.php:205
 msgid "Max Price"
 msgstr ""
 
-#: templates/front-end/all-listings/listings-header.php:285
-#: templates/listing-home.php:231 templates/search-widget-front.php:167
+#: templates/front-end/all-listings/listings-header.php:288
+#: templates/listing-home.php:234 templates/search-widget-front.php:170
 msgid "Filter by Ratings"
 msgstr ""
 
-#: templates/front-end/all-listings/listings-header.php:287
-#: templates/listing-home-open.php:98 templates/listing-home.php:233
+#: templates/front-end/all-listings/listings-header.php:290
+#: templates/listing-home-open.php:101 templates/listing-home.php:236
 msgid "Select Ratings"
 msgstr ""
 
-#: templates/front-end/all-listings/listings-header.php:290
-#: templates/listing-home-open.php:99 templates/listing-home.php:236
+#: templates/front-end/all-listings/listings-header.php:293
+#: templates/listing-home-open.php:102 templates/listing-home.php:239
 msgid "5 Star"
 msgstr ""
 
-#: templates/front-end/all-listings/listings-header.php:293
-#: templates/listing-home-open.php:100 templates/listing-home.php:239
+#: templates/front-end/all-listings/listings-header.php:296
+#: templates/listing-home-open.php:103 templates/listing-home.php:242
 msgid "4 Star & Up"
 msgstr ""
 
-#: templates/front-end/all-listings/listings-header.php:296
-#: templates/listing-home-open.php:101 templates/listing-home.php:242
+#: templates/front-end/all-listings/listings-header.php:299
+#: templates/listing-home-open.php:104 templates/listing-home.php:245
 msgid "3 Star & Up"
 msgstr ""
 
-#: templates/front-end/all-listings/listings-header.php:299
-#: templates/listing-home-open.php:102 templates/listing-home.php:245
+#: templates/front-end/all-listings/listings-header.php:302
+#: templates/listing-home-open.php:105 templates/listing-home.php:248
 msgid "2 Star & Up"
 msgstr ""
 
-#: templates/front-end/all-listings/listings-header.php:302
-#: templates/listing-home-open.php:103 templates/listing-home.php:248
+#: templates/front-end/all-listings/listings-header.php:305
+#: templates/listing-home-open.php:106 templates/listing-home.php:251
 msgid "1 Star & Up"
 msgstr ""
 
@@ -6820,7 +7224,11 @@ msgid "Your Complaint"
 msgstr ""
 
 #: templates/front-end/single-listing/listing-map.php:164
+<<<<<<< HEAD
 #: templates/single-at_biz_dir.php:1003
+=======
+#: templates/single-at_biz_dir.php:1005
+>>>>>>> 9d026c58480ac3cad675055aae968acfcaf6600d
 msgid "Markers"
 msgstr ""
 
@@ -7204,35 +7612,35 @@ msgstr ""
 msgid "Display from Map Api"
 msgstr ""
 
-#: templates/search-widget-front.php:37
+#: templates/search-widget-front.php:40
 msgid "Select a Location"
 msgstr ""
 
-#: templates/search-widget-front.php:70
+#: templates/search-widget-front.php:73
 msgid "Distance:"
 msgstr ""
 
-#: templates/search-widget-front.php:91
+#: templates/search-widget-front.php:94
 msgid "min"
 msgstr ""
 
-#: templates/search-widget-front.php:94
+#: templates/search-widget-front.php:97
 msgid "max"
 msgstr ""
 
-#: templates/search-widget-front.php:140
+#: templates/search-widget-front.php:143
 msgid "zip"
 msgstr ""
 
-#: templates/search-widget-front.php:150
+#: templates/search-widget-front.php:153
 msgid "Filter by Tags"
 msgstr ""
 
-#: templates/search-widget-front.php:239
+#: templates/search-widget-front.php:242
 msgid "Reset "
 msgstr ""
 
-#: templates/search-widget-front.php:240
+#: templates/search-widget-front.php:243
 msgid "Search Listings"
 msgstr ""
 

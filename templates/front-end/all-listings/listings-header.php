@@ -213,14 +213,17 @@ if ($display_header == 'yes') { ?>
                                                 </div>
                                             </div>
                                         <?php }else{
+                                                $select_listing_map = get_directorist_option('select_listing_map','google');
                                                 wp_enqueue_script('atbdp-geolocation');
+                                                wp_localize_script('atbdp-geolocation', 'adbdp_geolocation', array('select_listing_map'=> $select_listing_map));
+                                                $geo_loc = ('google' == $select_listing_map) ? '<span class="atbd_get_loc la la-crosshairs"></span>' : '';
                                                 ?>
                                                 <div class="col-md-6 col-sm-12 col-lg-4">
                                                     <div class="atbdp_map_address_field"><div class="atbdp_get_address_field">
                                                         <input type="text" name="address" id="address"
                                                                value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>"
                                                                placeholder="<?php _e('location','directorist'); ?>"
-                                                               class="form-control location-name"><span class="atbd_get_loc la la-crosshairs"></span>
+                                                               class="form-control location-name"><?php echo $geo_loc;?>
                                                         </div>
                                                         <div id="address_result">
                                                         </div>

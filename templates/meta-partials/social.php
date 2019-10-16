@@ -46,7 +46,7 @@ $social_info = (array_key_exists('social_info', $args)) ? $args['social_info'] :
         }?>
     </div> <!--    ends .social_info_sortable_container    -->
 
-    <button type="button" class="btn btn-secondary btn-sm" id="addNewSocial"> <span class="plus-sign">+</span>
+    <button type="button" class="btn btn-primary btn-sm" id="addNewSocial"> <span class="plus-sign">+</span>
         <?php esc_html_e('Add New', 'directorist'); ?>
     </button>
 

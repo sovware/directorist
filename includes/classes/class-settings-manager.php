@@ -172,14 +172,14 @@ if (!class_exists('ATBDP_Settings_Manager')):
                       'controls' => apply_filters('atbdp_style_settings_controls', array(
                           'primary_button' => array(
                               'type' => 'section',
-                              'title' => __('Primary Button', 'directorist'),
+                              'title' => __('Button', 'directorist'),
                               'fields' => $this->get_listings_primary_button_fields(),
                           ),
-                          'secondary_button' => array(
+                          /*'secondary_button' => array(
                               'type' => 'section',
                               'title' => __('Secondary Button', 'directorist'),
                               'fields' => $this->get_listings_secondary_button_fields(),
-                          ),
+                          ),*/
                           'danger_button' => array(
                               'type' => 'section',
                               'title' => __('Danger Button', 'directorist'),
@@ -973,8 +973,14 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'color',
                     'name' => 'primary_color',
-                    'label' => __('Color', 'directorist'),
-                    'default' => '#444752',
+                    'label' => __('Text Color', 'directorist'),
+                    'default' => '#ffffff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'primary_hover_color',
+                    'label' => __('Hover Color', 'directorist'),
+                    'default' => '#ffffff',
                 ),
                 array(
                     'type' => 'color',
@@ -1049,7 +1055,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'type' => 'color',
                     'name' => 'danger_color',
-                    'label' => __('Color', 'directorist'),
+                    'label' => __('Text Color', 'directorist'),
                     'default' => '#e23636',
                 ),
                 array(
@@ -2540,8 +2546,8 @@ The Administrator of ==SITE_NAME==
                             ),
                         ),
                         'default' => array(
-                            'value' => 'map_api',
-                            'label' => __('Display From Map API', 'directorist'),
+                            'value' => 'listing_location',
+                            'label' => __('Display from Listing Location', 'directorist'),
                         ),
                     ),
                     'listings_filters_button' => array(
@@ -3284,8 +3290,8 @@ The Administrator of ==SITE_NAME==
                             ),
                         ),
                         'default' => array(
-                            'value' => 'map_api',
-                            'label' => __('Display from Map API', 'directorist'),
+                            'value' => 'listing_location',
+                            'label' => __('Display from Listing Location', 'directorist'),
                         ),
                     ),
                     array(
@@ -3659,8 +3665,8 @@ The Administrator of ==SITE_NAME==
                             ),
                         ),
                         'default' => array(
-                            'value' => 'map_api',
-                            'label' => __('Display From Map API', 'directorist'),
+                            'value' => 'listing_location',
+                            'label' => __('Display from Listing Location', 'directorist'),
                         ),
                     ),
                     array(

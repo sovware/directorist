@@ -90,7 +90,7 @@ $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here'
                                 <?php if(!empty($display_password_reg)) {?>
                                 <div class="form-group">
                                     <label for="password">
-                                        <?php printf(__('%s ', 'directorist'),'Password');
+                                        <?php printf(__('%s ', 'directorist'),$password);
                                         echo !empty($require_password) ? '<strong>*</strong>': '';
                                     ?></label>
                                     <input id="password" class="form-control" type="password" name="password" value="<?php echo ( isset( $_POST['password'] ) ? esc_attr($_POST['password']) : null ); ?>">

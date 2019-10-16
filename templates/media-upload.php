@@ -31,7 +31,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
         </div>
         <!--  add & remove image links -->
         <p class="hide-if-no-js">
-            <a href="#" class="upload-header btn btn-secondary"><?php $preview_label = get_directorist_option('preview_label', __('Upload Preview Image', 'directorist'));
+            <a href="#" class="upload-header btn btn-primary"><?php $preview_label = get_directorist_option('preview_label', __('Upload Preview Image', 'directorist'));
                 esc_html_e($preview_label, 'directorist'); ?></a>
         </p>
     </div>

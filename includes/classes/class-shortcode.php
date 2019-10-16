@@ -146,6 +146,8 @@ if (!class_exists('ATBDP_Shortcode')):
             wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
                 'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
                 'ajax_url' => admin_url('admin-ajax.php'),
+                'added_favourite'=> __('Added to favorite','directorist'),
+                'please_login'=> __('Please login first','directorist')
             ));
             $listing_orderby = get_directorist_option('search_order_listing_by');
             $search_sort_listing_by = get_directorist_option('search_sort_listing_by');
@@ -1229,6 +1231,8 @@ if (!class_exists('ATBDP_Shortcode')):
             wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
                 'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
                 'ajax_url' => admin_url('admin-ajax.php'),
+                'added_favourite'=> __('Added to favorite','directorist'),
+                'please_login'=> __('Please login first','directorist')
             ));
             $listing_orderby = get_directorist_option('order_listing_by');
             $listing_view = get_directorist_option('default_listing_view');
@@ -1877,6 +1881,8 @@ if (!class_exists('ATBDP_Shortcode')):
             wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
                 'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
                 'ajax_url' => admin_url('admin-ajax.php'),
+                'added_favourite'=> __('Added to favorite','directorist'),
+                'please_login'=> __('Please login first','directorist')
             ));
             $term_slug = get_query_var('atbdp_category');
 
@@ -2369,6 +2375,8 @@ if (!class_exists('ATBDP_Shortcode')):
             wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
                 'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
                 'ajax_url' => admin_url('admin-ajax.php'),
+                'added_favourite'=> __('Added to favorite','directorist'),
+                'please_login'=> __('Please login first','directorist')
             ));
 
             $term = '';
@@ -2772,6 +2780,8 @@ if (!class_exists('ATBDP_Shortcode')):
             wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
                 'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
                 'ajax_url' => admin_url('admin-ajax.php'),
+                'added_favourite'=> __('Added to favorite','directorist'),
+                'please_login'=> __('Please login first','directorist')
             ));
             $term_slug = get_query_var('atbdp_tag');
 

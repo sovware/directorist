@@ -190,7 +190,7 @@ function atbdp_add_marker( $marker, map ) {
             strokeColor: '',
             strokeWeight: 0
         },
-        map_icon_label: '<div class="atbd_map_shape"><i class="fa '+icon+'"></i></div>'
+        map_icon_label: '<div class="atbd_map_shape"><i class="'+icon+'"></i></div>'
     });
     // add to array
     map.markers.push( marker );

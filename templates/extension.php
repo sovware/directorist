@@ -217,7 +217,7 @@
                             <div class="extension_detail ext_d">
                                 <a href="https://aazztech.com/product/directorist-social-login/" target="_blank"
                                    class="ext_title"><h4><?php esc_html_e(' Directorist Social Login ', 'directorist'); ?></h4></a>
-                                <p><?php esc_html_e('Let\'s turn to your visitors as your directory members where they can express their needs and get the it from service provider.', 'directorist'); ?></p>
+                                <p><?php esc_html_e('It lets your visitors register and login to your site using their social profiles (Facebook and Google).', 'directorist'); ?></p>
 
                                 <div class="btn_wrapper">
                                     <a href="https://aazztech.com/product/directorist-social-login/#screenshots"

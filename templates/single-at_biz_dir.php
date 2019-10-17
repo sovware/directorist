@@ -802,7 +802,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     $n = esc_attr($link_id);
                                     $l = esc_url($link_url);
                                     ?>
-                                    <a target='_blank' href="<?php echo $l; ?>" class="<?php echo $link_id; ?>">
+                                    <a target='_blank' href="<?php echo $l; ?>" class="<?php echo $n; ?>">
                                         <span class="fa fa-<?php echo $n; ?>"></span>
                                     </a>
                                 <?php } ?>

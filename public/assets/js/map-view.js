@@ -258,43 +258,31 @@ MarkerLabel.prototype.draw = function () {
     $('.atbdp-map').each(function () {
         atbdp_rander_map($(this));
     });
-    window.addEventListener("load", () = > {
-
+    window.addEventListener("load", () => {
         var abc = document.querySelectorAll('div');
-    abc.forEach(function (el, index) {
-
-        if (el.innerText === "atgm_marker") {
-            el.innerText = " ";
-            el.innerHTML = '<i class="la ' + at_icon + ' atbd_map_marker_icon"></i>';
-        }
-        //${$marker.data('icon')}
-    });
-
-    document.querySelectorAll('div').forEach((el1, index) = > {
-        if(el1.style.backgroundImage.split("/").pop() === 'm1.png")'
-)
-    {
-        el1.addEventListener('click', () = > {
-            setInterval(() =
-    >
-        {
-            var abc = document.querySelectorAll('div');
-            abc.forEach(function (el, index) {
-                if (el.innerText === "atgm_marker") {
-                    el.innerText = " ";
-                    el.innerHTML = '<i class="la ' + at_icon + ' atbd_map_marker_icon"></i>';
-                }
-            })
-        }
-    ,
-        100
-    )
-
+        abc.forEach(function (el, index) {
+            if(el.innerText === "atgm_marker"){
+                //console.log(at_icon)
+                el.innerText = " ";
+                el.innerHTML = '<i class="la ' + at_icon + ' atbd_map_marker_icon"></i>';
+            }
+            //${$marker.data('icon')}
+        });
+        document.querySelectorAll('div').forEach((el1, index) => {
+            if(el1.style.backgroundImage.split("/").pop() === 'm1.png")'){
+                el1.addEventListener('click', () => {
+                    setInterval(() => {
+                        var abc = document.querySelectorAll('div');
+                        abc.forEach(function (el, index) {
+                            if(el.innerText === "atgm_marker"){
+                                el.innerText = " ";
+                                el.innerHTML = '<i class="la '+ at_icon +' atbd_map_marker_icon"></i>';
+                            }
+                        })
+                    }, 100)
+                });
+            }
+        });
     })
-        ;
-    }
-})
-    ;
-})
 
 })(jQuery);

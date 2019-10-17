@@ -58,7 +58,7 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
         $fa_or_la = ('line' == $font_type) ? "la " : "fa ";
         ?>
         <?php if( ! empty( $manual_lat ) && ! empty( $manual_lng ) ) : ?>
-            <div class="marker" data-latitude="<?php echo $manual_lat; ?>" data-longitude="<?php echo $manual_lng; ?>" data-icon="<?php echo !empty($cat_icon) ? $fa_or_la . $cat_icon : 'fa-map-marker';?>">
+            <div class="marker" data-latitude="<?php echo $manual_lat; ?>" data-longitude="<?php echo $manual_lng; ?>" data-icon="<?php echo !empty($cat_icon) ? $fa_or_la . $cat_icon : 'fa fa-map-marker';?>">
                 <?php if(!empty($display_map_info) && (!empty($display_image_map) || !empty($display_title_map)|| !empty($display_address_map) || !empty($display_direction_map))) { ?>
                 <div>
                     <input type="hidden" id="icon" value="fa fa-flag">

@@ -57,7 +57,7 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_map', $data );
             }
             $html .= "<div class='media-body'>";
             if (!empty($display_title_map)) {
-                $html .= "<div class='atbdp-listings-title-block'> <input type='hidden' id='done' value='test'>";
+                $html .= "<div class='atbdp-listings-title-block'>";
                 $html .= "<h3 class='atbdp-no-margin'><a href='" . get_the_permalink() . "'>" . get_the_title() . "</a></h3>";
                 $html .= "</div>";
             }

@@ -4,7 +4,7 @@ var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
     }),
-    latlng = L.latLng(51.5073509, -0.12775829999998223),
+    latlng = L.latLng(atbdp_lat_lon.lat, atbdp_lat_lon.lon),
     fullCount = addressPoints.length,
     quarterCount = Math.round(fullCount / 4);
 

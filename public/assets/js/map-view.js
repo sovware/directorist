@@ -152,6 +152,7 @@ MarkerLabel.prototype.draw = function () {
                 height: 53,
                 textSize: 14,
                 textColor: "#fff",
+                addClass: "sdf"
                 //color: #00FF00,
             }]
 
@@ -208,6 +209,15 @@ MarkerLabel.prototype.draw = function () {
             var infowindow = new google.maps.InfoWindow({
                 content: $marker.html()
             });
+
+            //map info window close button
+            google.maps.event.addListener(infowindow, 'domready', function() {
+                var closeBtn = $('#iw-close-btn').get();
+                google.maps.event.addDomListener(closeBtn[0], 'click', function() {
+                    infowindow.close();
+                });
+            });
+
 
             // show info window when marker is clicked
             google.maps.event.addListener(marker, 'click', function () {
@@ -283,6 +293,5 @@ MarkerLabel.prototype.draw = function () {
                 });
             }
         });
-    })
-
+    });
 })(jQuery);

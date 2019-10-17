@@ -21,6 +21,10 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_map', $data );
         $display_title_map              = get_directorist_option('display_title_map', 1);
         $display_address_map            = get_directorist_option('display_address_map', 1);
         $display_direction_map          = get_directorist_option('display_direction_map', 1);
+        wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
+                'lat'=>$manual_lat,
+                'lon'=>$manual_lng,
+        ) );
         if(!empty($listing_prv_img)) {
 
             $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large')[0];

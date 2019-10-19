@@ -110,14 +110,14 @@ if(empty($display_title_map)) {
 }
 $info_content = "";
 if(!empty($display_image_map) || !empty($display_title_map)) {
-    $info_content .= "<div class='map_info_window'>$image <div class='miw-contents'><h3>$t</h3>";
+    $info_content .= "<div class='map-info-wrapper'><div class='map-info-img'>$image</div><div class='map-info-details'><div class='atbdp-listings-title-block'><h3>$t</h3></div>";
 }
 if(!empty($display_address_map)) {
     $info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
 }
 $info_content .= "<div class='miw-contents-footer'>{$review_info}";
 if(!empty($display_direction_map)) {
-    $info_content .= "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div></div></div>";
+    $info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div><span id='iw-close-btn'><i class='la la-times'></i></span></div></div></div>";
 }
 /*END INFO WINDOW CONTENT*/
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
@@ -952,13 +952,32 @@ if ('openstreet' == $select_listing_map) {
                 zoom: <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 16; ?>,
                 center: saved_lat_lng
             });
-            var marker = new google.maps.Marker({
+            /*var marker = new google.maps.Marker({
                 map: map,
                 position: saved_lat_lng
+            });*/
+            var marker = new Marker({
+                position: saved_lat_lng,
+                map: map,
+                icon: {
+                    path: MAP_PIN,
+                    fillColor: 'transparent',
+                    fillOpacity: 1,
+                    strokeColor: '',
+                    strokeWeight: 0
+                },
+                map_icon_label: '<div class="atbd_map_shape"><i class="la la-heart"></i></div>'
             });
+
             <?php if(!empty($display_map_info)) {?>
             marker.addListener('click', function () {
                 info_window.open(map, marker);
+            });
+            google.maps.event.addListener(info_window, 'domready', function() {
+                var closeBtn = $('#iw-close-btn').get();
+                google.maps.event.addDomListener(closeBtn[0], 'click', function() {
+                    info_window.close();
+                });
             });
             <?php } ?>
         }

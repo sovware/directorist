@@ -2303,7 +2303,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 #directorist.atbd_wrapper .atbdp_mark_as_fav {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.5);
   width: 26px;
   height: 26px;
   display: flex;

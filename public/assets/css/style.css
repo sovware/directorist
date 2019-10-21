@@ -2107,6 +2107,32 @@ body.atbd_content_active #directorist.atbd_wrapper {
   justify-content: space-between;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbdp_mark_as_fav {
+  background: rgba(0, 0, 0, 0.07);
+  transition: all 0.2s ease-in-out;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbdp_mark_as_fav .atbd_fav_icon::after {
+  color: #9192a3;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbdp_mark_as_fav.atbdp_fav_isActive {
+  background: #444752;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbdp_mark_as_fav.atbdp_fav_isActive .atbd_fav_icon::after {
+  color: #fff;
+  font-size: 14px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbdp_mark_as_fav.atbdp_fav_isActive:hover .atbd_fav_icon::after {
+  color: #fff;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbdp_mark_as_fav:hover .atbd_fav_icon::after {
+  color: #5a6671;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area {
   margin: 0;
   position: relative;
@@ -2335,7 +2361,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 #directorist.atbd_wrapper .atbdp_mark_as_fav {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.2);
   width: 26px;
   height: 26px;
   display: flex;

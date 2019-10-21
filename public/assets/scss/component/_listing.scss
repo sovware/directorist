@@ -121,6 +121,30 @@
 
         }
       }
+      .atbdp_mark_as_fav{
+        background: rgba(#000, 0.07);
+        transition: $transition-base;
+        .atbd_fav_icon::after{
+          color: $light-gray;
+        }
+        &.atbdp_fav_isActive{
+          background: $primary;
+          .atbd_fav_icon::after{
+            color: #fff;
+            font-size: 14px;
+          }
+          &:hover{
+            .atbd_fav_icon::after{
+              color: #fff;
+            }
+          }
+        }
+        &:hover{
+          .atbd_fav_icon::after{
+            color: $body-color;
+          }
+        }
+      }
     }
     .atbd_listing_thumbnail_area {
       margin: 0;
@@ -333,7 +357,7 @@
 }
 
 #directorist.atbd_wrapper .atbdp_mark_as_fav{
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.2);
   width: 26px;
   height: 26px;
   display: flex;

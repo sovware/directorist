@@ -135,7 +135,6 @@
         $("body").removeClass("atbdp_preload");
         $('.button.wp-color-result').attr('style', ' ');
     });
-
     $('.atbdp_mark_as_fav').each(function () {
         $(this).on('click', function (event) {
             event.preventDefault();
@@ -145,6 +144,7 @@
             };
             var fav_tooltip_success = '<span>'+atbdp_search.added_favourite+'</span>';
             var fav_tooltip_warning = '<span>'+atbdp_search.please_login+'</span>';
+
             $(".atbd_fav_tooltip").hide();
             $.post(atbdp_search_listing.ajax_url, data, function (response) {
                 var staElement = $('#atbdp-fav_'+data['post_id']).selector;
@@ -154,6 +154,7 @@
                     setTimeout(function () {
                         $(staElement).children(".atbd_fav_tooltip").children("span").remove();
                     },3000);
+
                 }else if('false' === response){
                     $(staElement).removeClass('atbdp_fav_isActive');
                     $(".atbd_fav_tooltip span").remove();

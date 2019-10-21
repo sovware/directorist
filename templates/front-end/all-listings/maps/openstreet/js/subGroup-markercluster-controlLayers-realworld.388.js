@@ -19,11 +19,12 @@ var mcg = L.markerClusterGroup(),
     control = L.control.layers(null, null, { collapsed: false }),
     i, a, title, marker;
 mcg.addTo(map);
+var test = $(".openstreet_icon");
 
 for (i = 0; i < fullCount; i++) {
 
     const fontAwesomeIcon = L.divIcon({
-        html: '<div class="atbd_map_shape"><span class="fa fa-map-marker fa-4x"></span></div>',
+        html: '<div class="atbd_map_shape"><span class="'+test[i].value+' fa-4x"></span></div>',
         iconSize: [20, 20],
         className: 'myDivIcon'
     });
@@ -47,10 +48,6 @@ group1.addTo(map); // Adding to map now adds all child layers into the parent gr
 group2.addTo(map);
 group3.addTo(map);
 group4.addTo(map);
-
-
-
-
     });
 })(jQuery);
 

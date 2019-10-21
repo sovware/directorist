@@ -996,7 +996,9 @@ $query_args = array(
                                                                         id="delete_marker"><?php _e('Delete Marker', 'directorist'); ?></button>
                                                             </div>
                                                         <?php } ?>
-                                                        <div id="gmap"></div>
+                                                        <div id="osm">
+                                                            <div id="gmap"></div>
+                                                        </div>
                                                         <?php if ('google' == $select_listing_map) { ?>
                                                             <small class="map_drag_info"><i
                                                                         class="fa fa-info-circle"
@@ -1205,12 +1207,9 @@ $query_args = array(
 
 <?php
 if ('openstreet' == $select_listing_map) {
-    wp_register_script('openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
-    wp_enqueue_script('openstreet_layer');
-    wp_localize_script('openstreet_layer', 'atbdp_map', array(
-        'Overlays' => __('Overlays','directorist'),
-        'base_layer' => __('Base Layer','directorist')
-    ));
+    wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array( 'jquery' ), ATBDP_VERSION, true );
+    wp_enqueue_script( 'openstreet_layer' );
+    wp_enqueue_style('leaflet-css',ATBDP_PUBLIC_ASSETS . 'css/leaflet.css');
 }
 ?>
 <script>
@@ -1410,30 +1409,31 @@ if ('openstreet' == $select_listing_map) {
             }
             markers = [];
         }
-        <?php } elseif('openstreet' == $select_listing_map) {?>
-        setInterval(() => {
-            $('img.olTileImage').each((index, el) => {
+        <?php } elseif('openstreet' == $select_listing_map) { ?>
+        function mapLeaflet (lat, lon)	 {
+            const fontAwesomeIcon = L.icon({
+                iconUrl: "<?php echo ATBDP_PUBLIC_ASSETS . 'images/map-icon.png'; ?>",
+                iconSize: [20, 25],
+            });
+            var mymap = L.map('gmap').setView([lat, lon], <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 4; ?>);
 
-                if($(el).attr('src').startsWith('http:')){
-                    var attr = $(el).attr('src').split('/')[0] = "https:";
+            L.marker([lat, lon], {icon: fontAwesomeIcon}).addTo(mymap)
 
-                    var url = attr+"/"+$(el).attr('src').split('/').slice(1, 15).join('/');
-                    $(el).attr('src', url)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(mymap);
+        }
 
-                }
-
-            })
-        }, 1000);
-        $('#address').on('keyup', function (event) {
+        $('#address').on('keyup', function(event) {
             event.preventDefault();
-            var address = $('#address').val();
-            $('#result').css({'display': 'block'});
-            if (address === "") {
-                $('#result').css({'display': 'none'});
+            var search = $('#address').val();
+            $('#result').css({'display':'block'});
+            if(search === ""){
+                $('#result').css({'display':'none'});
             }
             var res = "";
             $.ajax({
-                url: `https://nominatim.openstreetmap.org/?q=%27+${address}+%27&format=json`,
+                url: `https://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
                 type: 'POST',
                 data: {},
                 success: function (data) {
@@ -1445,95 +1445,14 @@ if ('openstreet' == $select_listing_map) {
                 }
             });
         });
-        map = new OpenLayers.Map("gmap");
 
+        let lat = <?php echo (!empty($manual_lat)) ? floatval($manual_lat) : $default_latitude ?>,
+            lon = <?php echo (!empty($manual_lng)) ? floatval($manual_lng) : $default_longitude ?>;
 
-        let mymap = (lon, lat) => {
+        mapLeaflet (lat, lon);
 
-
-            map.addLayer(new OpenLayers.Layer.OSM());
-            var pois = new OpenLayers.Layer.Text("<?php _e('My Points','directorist');?>",
-                {
-                    location: "./textfile.txt",
-                    projection: map.displayProjection
-                });
-            map.addLayer(pois);
-            // create layer switcher widget in top right corner of map.
-            var layer_switcher = new OpenLayers.Control.LayerSwitcher({});
-            map.addControl(layer_switcher);
-
-            var EPSG4326 = new OpenLayers.Projection("EPSG:4326");
-            var EPSG900913 = new OpenLayers.Projection("EPSG:900913");
-
-            //Set start centrepoint and zoom
-            var XY = new OpenLayers.LonLat(lon, lat)
-                .transform(
-                    new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                    map.getProjectionObject() // to Spherical Mercator Projection
-                );
-
-            let zoom = <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 4; ?>;
-
-
-            map.setCenter(XY, zoom);
-            var deftColor = "#00FF00";
-            var deftIcon = "<?php echo ATBDP_PUBLIC_ASSETS . 'images/map-icon.png'; ?>";
-            var featureHeight = 40;
-            var featureWidth = 30;
-            var featureStyle = {
-                fillColor: deftColor,
-                strokeColor: deftColor,
-                pointRadius: 1,
-                externalGraphic: deftIcon,
-                graphicWidth: featureWidth,
-                graphicHeight: featureHeight,
-                graphicXOffset: -featureWidth / 2,
-                graphicYOffset: -featureHeight,
-                label: "",
-                fontColor: "#000000",
-                fontSize: "10px",
-                fontWeight: "bold",
-                labelAlign: "rm"
-            };
-
-            var vectorL = new OpenLayers.Layer.Vector("Vector Layer", {
-                styleMap: new OpenLayers.StyleMap(featureStyle)
-            });
-            map.addLayer(vectorL);
-
-            var dragVectorC = new OpenLayers.Control.DragFeature(vectorL, {
-                onDrag: function (feature, pixel) {
-
-                    //Don´t user the position of the pixel or the feature, use the point position instead!
-                    var point = feature.geometry.components[0];
-
-                    var llpoint = point.clone()
-                    llpoint.transform(new OpenLayers.Projection(EPSG900913),
-                        new OpenLayers.Projection(EPSG4326));
-
-
-                    $('#manual_lat').val(llpoint.y);
-                    $('#manual_lng').val(llpoint.x);
-
-
-                }
-            });
-
-            map.addControl(dragVectorC);
-            dragVectorC.activate();
-
-            var point = new OpenLayers.Geometry.Point(XY.lon, XY.lat);
-            var featureOb = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Collection([point]));
-            vectorL.addFeatures([featureOb]);
-
-        }
-
-        let lat = $('#manual_lat').val(),
-            lon = $('#manual_lng').val();
-
-        mymap(lon, lat);
-
-        $('body').on('click', '#result ul li a', function (event) {
+        $('body').on('click', '#result ul li a', function(event) {
+            document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
             event.preventDefault();
             let text = $(this).text(),
                 lat = $(this).data('lat'),
@@ -1543,13 +1462,12 @@ if ('openstreet' == $select_listing_map) {
             $('#manual_lng').val(lon);
 
             $('#address').val(text);
-            $('#result').css({'display': 'none'});
-            mymap(lon, lat);
+            $('#result').css({'display':'none'});
+
+            mapLeaflet (lat, lon);
         });
-        <?php if(!empty($address)) {?>
-        $('#OL_Icon_33').append('<div class="mapHover"><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
         <?php
-        } // address
+         // address
         } // select map
         }  //disable map
         ?>

@@ -809,29 +809,61 @@ body.atbd_content_active #directorist.atbd_wrapper {
   float: none;
 }
 
-.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container {
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container,
+.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container {
   margin-bottom: 30px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup {
-  position: relative;
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup,
+.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container .leaflet-popup {
+  left: -95px !important;
 }
 
-.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper {
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper,
+.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container .leaflet-popup-content-wrapper {
   border-radius: 3px;
   padding: 0;
 }
 
-.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content {
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content,
+.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content {
   margin: 0;
   width: 220px !important;
 }
 
-.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .media-body {
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .media-body,
+.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .media-body {
   padding: 10px 15px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-close-button {
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .atbdp-map,
+.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .atbdp-map {
+  margin: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .map-info-wrapper img,
+.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .map-info-wrapper img {
+  width: 100%;
+}
+
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .map-info-wrapper .map-info-details,
+.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .map-info-wrapper .map-info-details {
+  padding: 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .map-info-wrapper .map-info-details h3,
+.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .map-info-wrapper .map-info-details h3 {
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .map-info-wrapper .map-info-details .miw-contents-footer #iw-close-btn,
+.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .map-info-wrapper .map-info-details .miw-contents-footer #iw-close-btn {
+  display: none;
+}
+
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-close-button,
+.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container .leaflet-popup-close-button {
   position: absolute;
   width: 25px;
   height: 25px;
@@ -850,7 +882,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 0;
 }
 
-.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-close-button:hover {
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-close-button:hover,
+.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container .leaflet-popup-close-button:hover {
   background: #444752;
 }
 

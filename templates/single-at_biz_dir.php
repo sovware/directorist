@@ -995,7 +995,7 @@ if ('openstreet' == $select_listing_map) {
         <?php } elseif('openstreet' == $select_listing_map) { ?>
         function mapLeaflet (lat, lon)	 {
             const fontAwesomeIcon = L.divIcon({
-                html: '<i class="<?php echo $cat_icon; ?> fa-4x"></i>',
+                html: '<div class="atbd_map_shape"><span class="<?php echo $cat_icon; ?>"></span></div>',
                 iconSize: [20, 20],
                 className: 'myDivIcon'
             });

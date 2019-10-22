@@ -705,10 +705,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
   float: none;
 }
 
-.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container {
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container,
+.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container{
   margin-bottom: 30px;
   .leaflet-popup{
-    position: relative;
+    left: -95px !important;
   }
   .leaflet-popup-content-wrapper {
     border-radius: 3px;
@@ -719,6 +720,26 @@ body.atbd_content_active #directorist.atbd_wrapper {
       width: 220px !important;
       .media-body{
         padding: 10px 15px;
+      }
+      .atbdp-map{
+        margin: 0;
+      }
+      .map-info-wrapper{
+        img{
+          width: 100%;
+        }
+        .map-info-details{
+          padding: 15px;
+          h3{
+            font-size: 16px;
+            margin-bottom: 0;
+          }
+          .miw-contents-footer{
+            #iw-close-btn{
+              display: none;
+            }
+          }
+        }
       }
     }
   }

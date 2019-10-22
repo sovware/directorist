@@ -121,6 +121,30 @@
 
         }
       }
+      .atbdp_mark_as_fav{
+        background: rgba(#000, 0.07);
+        transition: $transition-base;
+        .atbd_fav_icon::after{
+          color: $light-gray;
+        }
+        &.atbdp_fav_isActive{
+          background: $primary;
+          .atbd_fav_icon::after{
+            color: #fff;
+            font-size: 14px;
+          }
+          &:hover{
+            .atbd_fav_icon::after{
+              color: #fff;
+            }
+          }
+        }
+        &:hover{
+          .atbd_fav_icon::after{
+            color: $body-color;
+          }
+        }
+      }
     }
     .atbd_listing_thumbnail_area {
       margin: 0;
@@ -394,7 +418,8 @@
 }
 
 /*style the box*/
-.atbdp-map .gm-style .gm-style-iw {
+.atbdp-map .gm-style .gm-style-iw,
+.atbd_google_map .gm-style .gm-style-iw  {
   background-color: #fff !important;
   top: 0 !important;
   left: 0 !important;
@@ -402,26 +427,31 @@
   //height: 100% !important;
   min-height: auto !important;
   max-height: none !important;
-  padding: 18px 0 0 18px !important;
+  padding: 0 !important;
   display: block !important;
-  border-radius: 3px !important;
+  border-radius: 5px !important;
   .gm-style-iw-d{
     height: 100% !important;
     max-height: 100% !important;
     overflow-y: scroll;
-    .media-left, .media-right{
+    margin-right: -18px;
+    .map-info-img{
       display: block !important;
       padding-right: 0;
     }
-    .media-left{
+    .map-info-img{
       text-align: center;
       margin-bottom: 10px;
+      img{
+        border-radius: 3px 3px 0 0;
+      }
     }
-    .media-body{
+    .map-info-details{
+      padding: 0 20px;
       .atbdp-listings-title-block{
         margin-top: 0;
         h3{
-          font-size: 16px;
+          font-size: 16px !important;
           line-height: 18px;
           font-weight: 500;
         }
@@ -431,7 +461,25 @@
         font-weight: 300;
       }
       .map_addr{
+        display: flex;
+        margin-bottom: 10px;
+        > span{
+          margin-right: 4px;
+        }
+      }
+      .map_get_dir{
+        display: flex;
+        align-items: center;
         margin-bottom: 5px;
+        a{
+          font-size: 13px !important;
+          font-weight: 500;
+          color: #444752 !important;
+        }
+        span{
+          font-size: 13px !important;
+          margin-left: 5px;
+        }
       }
     }
     img{
@@ -471,6 +519,30 @@
           font-size: 14px !important;
           font-weight: 500;
         }
+      }
+    }
+  }
+  button.gm-ui-hover-effect{
+    display: none !important;
+  }
+  .map-info-wrapper{
+    #iw-close-btn{
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: rgba(#444752, 0.5);
+      border-radius: 50%;
+      color: #fff;
+      right: 10px;
+      top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      &:hover{
+        background: #444752;
       }
     }
   }

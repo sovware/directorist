@@ -4,7 +4,7 @@ var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
     }),
-    latlng = L.latLng(51.5073509, -0.12775829999998223),
+    latlng = L.latLng(atbdp_lat_lon.lat, atbdp_lat_lon.lon),
     fullCount = addressPoints.length,
     quarterCount = Math.round(fullCount / 4);
 
@@ -19,11 +19,12 @@ var mcg = L.markerClusterGroup(),
     control = L.control.layers(null, null, { collapsed: false }),
     i, a, title, marker;
 mcg.addTo(map);
+var test = $(".openstreet_icon");
 
 for (i = 0; i < fullCount; i++) {
 
     const fontAwesomeIcon = L.divIcon({
-        html: '<div class="atbd_map_shape"><span class="fa fa-map-marker fa-4x"></span></div>',
+        html: '<div class="atbd_map_shape"><span class="'+test[i].value+' fa-4x"></span></div>',
         iconSize: [20, 20],
         className: 'myDivIcon'
     });
@@ -47,10 +48,6 @@ group1.addTo(map); // Adding to map now adds all child layers into the parent gr
 group2.addTo(map);
 group3.addTo(map);
 group4.addTo(map);
-
-
-
-
     });
 })(jQuery);
 

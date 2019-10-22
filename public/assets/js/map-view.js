@@ -152,6 +152,7 @@ MarkerLabel.prototype.draw = function () {
                 height: 53,
                 textSize: 14,
                 textColor: "#fff",
+                addClass: "sdf"
                 //color: #00FF00,
             }]
 
@@ -209,6 +210,15 @@ MarkerLabel.prototype.draw = function () {
                 content: $marker.html()
             });
 
+            //map info window close button
+            google.maps.event.addListener(infowindow, 'domready', function() {
+                var closeBtn = $('#iw-close-btn').get();
+                google.maps.event.addDomListener(closeBtn[0], 'click', function() {
+                    infowindow.close();
+                });
+            });
+
+
             // show info window when marker is clicked
             google.maps.event.addListener(marker, 'click', function () {
                 if (atbdp_map.disable_info_window === 'no') {
@@ -216,8 +226,7 @@ MarkerLabel.prototype.draw = function () {
                 }
             });
         }
-        ;
-    };
+    }
 
     /**
      *  Center the map, showing all markers attached to this map.
@@ -258,43 +267,30 @@ MarkerLabel.prototype.draw = function () {
     $('.atbdp-map').each(function () {
         atbdp_rander_map($(this));
     });
-    window.addEventListener("load", () = > {
-
+    window.addEventListener("load", () => {
         var abc = document.querySelectorAll('div');
-    abc.forEach(function (el, index) {
-
-        if (el.innerText === "atgm_marker") {
-            el.innerText = " ";
-            el.innerHTML = '<i class="la ' + at_icon + ' atbd_map_marker_icon"></i>';
-        }
-        //${$marker.data('icon')}
+        abc.forEach(function (el, index) {
+            if(el.innerText === "atgm_marker"){
+                //console.log(at_icon)
+                el.innerText = " ";
+                el.innerHTML = '<i class="la ' + at_icon + ' atbd_map_marker_icon"></i>';
+            }
+            //${$marker.data('icon')}
+        });
+        document.querySelectorAll('div').forEach((el1, index) => {
+            if(el1.style.backgroundImage.split("/").pop() === 'm1.png")'){
+                el1.addEventListener('click', () => {
+                    setInterval(() => {
+                        var abc = document.querySelectorAll('div');
+                        abc.forEach(function (el, index) {
+                            if(el.innerText === "atgm_marker"){
+                                el.innerText = " ";
+                                el.innerHTML = '<i class="la '+ at_icon +' atbd_map_marker_icon"></i>';
+                            }
+                        })
+                    }, 100)
+                });
+            }
+        });
     });
-
-    document.querySelectorAll('div').forEach((el1, index) = > {
-        if(el1.style.backgroundImage.split("/").pop() === 'm1.png")'
-)
-    {
-        el1.addEventListener('click', () = > {
-            setInterval(() =
-    >
-        {
-            var abc = document.querySelectorAll('div');
-            abc.forEach(function (el, index) {
-                if (el.innerText === "atgm_marker") {
-                    el.innerText = " ";
-                    el.innerHTML = '<i class="la ' + at_icon + ' atbd_map_marker_icon"></i>';
-                }
-            })
-        }
-    ,
-        100
-    )
-
-    })
-        ;
-    }
-})
-    ;
-})
-
 })(jQuery);

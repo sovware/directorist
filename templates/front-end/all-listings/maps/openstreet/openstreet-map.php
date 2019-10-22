@@ -21,6 +21,11 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_map', $data );
         $display_title_map              = get_directorist_option('display_title_map', 1);
         $display_address_map            = get_directorist_option('display_address_map', 1);
         $display_direction_map          = get_directorist_option('display_direction_map', 1);
+
+        wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
+                'lat'=>$manual_lat,
+                'lon'=>$manual_lng,
+        ) );
         if(!empty($listing_prv_img)) {
 
             $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
@@ -53,7 +58,7 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_map', $data );
             }
             $html .= "<div class='media-body'>";
             if (!empty($display_title_map)) {
-                $html .= "<div class='atbdp-listings-title-block'> <input type='hidden' id='done' value='test'>";
+                $html .= "<div class='atbdp-listings-title-block'>";
                 $html .= "<h3 class='atbdp-no-margin'><a href='" . get_the_permalink() . "'>" . get_the_title() . "</a></h3>";
                 $html .= "</div>";
             }
@@ -125,5 +130,15 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_map', $data );
 
 
 </script>
-
+<?php while( $all_listings->have_posts() ) : $all_listings->the_post();
+    $cats                           = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+    $font_type = get_directorist_option('font_type','line');
+    $fa_or_la = ('line' == $font_type) ? "la " : "fa ";
+    if(!empty($cats)){
+        $cat_icon                       = get_cat_icon($cats[0]->term_id);
+    }
+    $cat_icon = !empty($cat_icon) ? $fa_or_la . $cat_icon : 'fa fa-map-marker';
+?>
+<input type="hidden" value="<?php echo $cat_icon;?>" class="openstreet_icon">
+<?php endwhile;?>
 <div id="map" style="width: 100%; height: <?php echo !empty($listings_map_height)?$listings_map_height:'';?>px;"></div>

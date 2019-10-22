@@ -153,11 +153,14 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
             if (!empty($social) && is_array($social) && !empty($display_social_info_field) && $plan_social_networks) { ?>
                 <div class="atbd_director_social_wrap">
                     <?php foreach ($social as $link) {
-                        $n = esc_attr($link['id']);
-                        $l = esc_url($link['url']);
+                        $link_id = $link['id'];
+                        $link_url = $link['url'];
+
+                        $n = esc_attr($link_id);
+                        $l = esc_url($link_url);
                         ?>
-                        <a target='_blank' href="<?php echo $l; ?>">
-                            <span class="<?php atbdp_icon_type(true);?>-<?php echo $n; ?>"></span>
+                        <a target='_blank' href="<?php echo $l; ?>" class="<?php echo $n; ?>">
+                            <span class="fa fa-<?php echo $n; ?>"></span>
                         </a>
                     <?php } ?>
                 </div>

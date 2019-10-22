@@ -10,6 +10,14 @@ $listing_info['hide_map'] = get_post_meta($post->ID, '_hide_map', true);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
 $display_map_field = get_directorist_option('display_map_field', 1);
 $display_map_field = apply_filters('atbdp_show_single_listing_map', $display_map_field);
+$cats                           = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+$font_type = get_directorist_option('font_type','line');
+$fa_or_la = ('line' == $font_type) ? "la " : "fa ";
+if(!empty($cats)){
+    $cat_icon                       = get_cat_icon($cats[0]->term_id);
+}
+$cat_icon = !empty($cat_icon) ? $fa_or_la . $cat_icon : 'fa fa-map-marker';
+
 extract($listing_info);
 /*INFO WINDOW CONTENT*/
 $t = get_the_title();
@@ -45,14 +53,14 @@ if(empty($display_title_map)) {
 }
 $info_content = "";
 if(!empty($display_image_map) || !empty($display_title_map)) {
-    $info_content .= "<div class='map_info_window'>$image <div class='miw-contents'><h3>$t</h3>";
+    $info_content .= "<div class='map-info-wrapper'><div class='map-info-img'>$image</div><div class='map-info-details'><div class='atbdp-listings-title-block'><h3>$t</h3></div>";
 }
 if(!empty($display_address_map)) {
     $info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
 }
 $info_content .= "<div class='miw-contents-footer'>{$review_info}";
 if(!empty($display_direction_map)) {
-    $info_content .= "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div></div></div>";
+    $info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div><span id='iw-close-btn'><i class='la la-times'></i></span></div></div></div>";
 }
 /*END INFO WINDOW CONTENT*/
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
@@ -84,11 +92,9 @@ if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) &&
 if ('openstreet' == $select_listing_map) {
     wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array( 'jquery' ), ATBDP_VERSION, true );
     wp_enqueue_script( 'openstreet_layer' );
-    wp_localize_script('openstreet_layer', 'atbdp_map', array(
-        'Overlays' => __('Overlays','directorist'),
-        'base_layer' => __('Base Layer','directorist')
-    ));
+    wp_enqueue_style('leaflet-css',ATBDP_PUBLIC_ASSETS . 'css/leaflet.css');
 } ?>
+
 <script>
     jQuery(document).ready(function ($) {
         // Do not show map if lat long is empty or map is globally disabled.
@@ -129,80 +135,30 @@ if ('openstreet' == $select_listing_map) {
             $(this).html(link);
         });
         <?php } elseif('openstreet' == $select_listing_map) { ?>
-        setInterval(() => {
-            $('img.olTileImage').each((index, el) => {
+        function mapLeaflet (lat, lon)	 {
 
-                if($(el).attr('src').startsWith('http:')){
-                    var attr = $(el).attr('src').split('/')[0] = "https:";
+            const fontAwesomeIcon = L.divIcon({
+                html: '<i class="<?php echo $cat_icon; ?> fa-4x"></i>',
+                iconSize: [20, 20],
+                className: 'myDivIcon'
+            });
 
-                    var url = attr+"/"+$(el).attr('src').split('/').slice(1, 15).join('/');
-                    $(el).attr('src', url)
+            var mymap = L.map('gmap').setView([lat, lon], <?php echo !empty($map_zoom_level) ? $map_zoom_level : 16;?>);
 
-                }
+            L.marker([lat, lon], {icon: fontAwesomeIcon}).addTo(mymap).bindPopup("<?php echo $info_content; ?>");
 
-            })
-        }, 1000);
-        map = new OpenLayers.Map("gmap");
-        let mymap = (lon, lat) => {
-            map.addLayer(new OpenLayers.Layer.OSM());
-            let pois = new OpenLayers.Layer.Text("<?php _e('My Points','directorist');?>",
-                {
-                    location: "",
-                    projection: map.displayProjection
-                });
-            map.addLayer(pois);
-            // create layer switcher widget in top right corner of map.
-            let layer_switcher = new OpenLayers.Control.LayerSwitcher({});
-            map.addControl(layer_switcher);
-            //Set start centrepoint and zoom
-            let lonLat = new OpenLayers.LonLat(lon, lat)
-                .transform(
-                    new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                    map.getProjectionObject() // to Spherical Mercator Projection
-                );
-            let zoom = <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 16; ?>;
-            let markers = new OpenLayers.Layer.Markers("<?php _e('Markers','directorist');?>");
-            map.addLayer(markers);
-            markers.addMarker(new OpenLayers.Marker(lonLat));
-            map.setCenter(lonLat, zoom);
-        };
-        let lat = <?php echo !empty($manual_lat) ? floatval($manual_lat) : false;?>,
-            lon = <?php echo !empty($manual_lng) ? floatval($manual_lng) : false; ?>;
-        mymap(lon, lat);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(mymap);
+        }
 
-        <?php if(!empty($display_map_info)) { ?>
-        var abc = `<?php echo !empty($info_content) ? $info_content : '' ?>` + '<span><i class="fa fa-times"></i></span>';
+        let lat = <?php echo (!empty($manual_lat)) ? floatval($manual_lat) : false ?>,
+            lon = <?php echo (!empty($manual_lng)) ? floatval($manual_lng) : false ?>;
 
-        $('#OL_Icon_33').append('<div class="mapHover"></div>');
-        $('.mapHover').html(abc);
+        mapLeaflet (lat, lon);
 
-        <?php } } }?>
-        /* initialize slick  */
-
-        $(".olAlphaImg").on("click", function(){
-            $('.mapHover').addClass('active');
-        });
-
-        $('.mapHover span i.fa-times').on('click', (e) => {
-            $('.mapHover').removeClass('active');
-        });
+        <?php  } } ?>
 
     }); // ends jquery ready function.
 </script>
-<style>
-    #OL_Icon_33{
-        position: relative;
-    }
-    .mapHover {
-        position: absolute;
-        background: #fff;
-        padding: 5px;
-        width: 150px;
-        border-radius: 3px;
-        border: 1px solid #ddd;
-        display: none;
-    }
-    .mapHover.active{
-        display: block;
-    }
-</style>
+

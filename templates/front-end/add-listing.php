@@ -304,12 +304,11 @@ $query_args = array(
                                             </div>
 
                                             <?php
-                                            if ($plan_price && empty($display_price_for) && !empty($display_pricing_field)) {
-                                                ?>
-                                                <input type="text" id="price" name="price"
-                                                       value="<?php echo !empty($price) ? esc_attr($price) : ''; ?>"
-                                                       class="form-control directory_field"
-                                                       placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
+                                            if ($plan_price && empty($display_price_for) && !empty($display_pricing_field)) { ?>
+                                                <input type="number" id="price" name="price"
+                                                    value="<?php echo !empty($price) ? esc_attr($price) : ''; ?>"
+                                                    class="form-control directory_field"
+                                                    placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
 
                                             <?php }
                                             if ($plan_average_price && empty($display_price_range_for) && !empty($display_price_range_field )) {

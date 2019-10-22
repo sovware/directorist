@@ -94,5 +94,26 @@
                 getLocation();
             });
         })();
+    } else if( 'openstreet' === adbdp_geolocation.select_listing_map ) {
+        function displayLocation(position) {
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+
+            $.ajax({
+                url: `https://nominatim.openstreetmap.org/reverse?format=json&lon=${lng}&lat=${lat}`,
+                type: 'POST',
+                data: {},
+                success: function (data) {
+                    $('#address').val(data.display_name);
+                    $('#cityLat').val(lat);
+                    $('#cityLng').val(lng);
+                }
+            });
+        }
+
+        $(".atbd_get_loc").on('click', () => {
+            navigator.geolocation.getCurrentPosition(displayLocation);
+
+        })
     }
 })(jQuery);

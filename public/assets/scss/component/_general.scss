@@ -705,15 +705,63 @@ body.atbd_content_active #directorist.atbd_wrapper {
   float: none;
 }
 
-.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container {
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container,
+.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container{
   margin-bottom: 30px;
-
+  .leaflet-popup{
+    left: -95px !important;
+  }
   .leaflet-popup-content-wrapper {
     border-radius: 3px;
+    padding: 0;
 
     .leaflet-popup-content {
-      margin: 15px;
+      margin: 0;
       width: 220px !important;
+      .media-body{
+        padding: 10px 15px;
+      }
+      .atbdp-map{
+        margin: 0;
+      }
+      .map-info-wrapper{
+        img{
+          width: 100%;
+        }
+        .map-info-details{
+          padding: 15px;
+          h3{
+            font-size: 16px;
+            margin-bottom: 0;
+          }
+          .miw-contents-footer{
+            #iw-close-btn{
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+  .leaflet-popup-close-button{
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: rgba(#444752, 0.5);
+    border-radius: 50%;
+    color: #fff;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    line-height: inherit;
+    padding: 0;
+    &:hover{
+      background: #444752;
     }
   }
 }

@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 6.0.1
+Stable tag: 6.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -137,6 +137,13 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
+= 6.0.2 - Oct 17, 2019 =
+
+* Fix - Google map issue
+* Fix - OpenStreetMap direction issue
+* Improve - Social Media icon of single listing page
+* Improve - Google map info window
+
 = 6.0.1 - Oct 16, 2019 =
 
 * Fix - Price range placeholder issue
@@ -145,6 +152,8 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Fix - Translation issue
 * Fix - Text color issue of Style Settings
 * Improve - Single listing slider (If there is one slider image, it won't show slider thumbnail)
+
+
 
 = 6.0.0 - Oct 14, 2019 =
 

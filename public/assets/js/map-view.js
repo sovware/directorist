@@ -226,8 +226,7 @@ MarkerLabel.prototype.draw = function () {
                 }
             });
         }
-        ;
-    };
+    }
 
     /**
      *  Center the map, showing all markers attached to this map.

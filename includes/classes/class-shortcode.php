@@ -122,6 +122,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 if($include){
                     include ATBDP_DIR . 'public/assets/css/style.php';
                 }
+                include ATBDP_TEMPLATES_DIR . 'add-listing-custom-field.php';
                 wp_reset_postdata(); // Restore global post data stomped by the_post()
                 $output = ob_get_clean();
 

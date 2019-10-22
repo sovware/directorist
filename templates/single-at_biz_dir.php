@@ -41,6 +41,13 @@ $custom_gl_width = get_directorist_option('gallery_crop_width', 670);
 $custom_gl_height = get_directorist_option('gallery_crop_height', 750);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
 $enable_review = get_directorist_option('enable_review', 'yes');
+$cats                           = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+$font_type = get_directorist_option('font_type','line');
+$fa_or_la = ('line' == $font_type) ? "la " : "fa ";
+if(!empty($cats)){
+    $cat_icon                       = get_cat_icon($cats[0]->term_id);
+}
+$cat_icon = !empty($cat_icon) ? $fa_or_la . $cat_icon : 'fa fa-map-marker';
 $display_thumbnail_img          = get_directorist_option('dsiplay_thumbnail_img', 1);
 extract($listing_info);
 /*Prepare Listing Image links*/
@@ -110,14 +117,14 @@ if(empty($display_title_map)) {
 }
 $info_content = "";
 if(!empty($display_image_map) || !empty($display_title_map)) {
-    $info_content .= "<div class='map_info_window'>$image <div class='miw-contents'><h3>$t</h3>";
+    $info_content .= "<div class='map-info-wrapper'><div class='map-info-img'>$image</div><div class='map-info-details'><div class='atbdp-listings-title-block'><h3>$t</h3></div>";
 }
 if(!empty($display_address_map)) {
     $info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
 }
 $info_content .= "<div class='miw-contents-footer'>{$review_info}";
 if(!empty($display_direction_map)) {
-    $info_content .= "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div></div></div>";
+    $info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div><span id='iw-close-btn'><i class='la la-times'></i></span></div></div></div>";
 }
 /*END INFO WINDOW CONTENT*/
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
@@ -917,12 +924,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 </section>
 <?php
 if ('openstreet' == $select_listing_map) {
-    wp_register_script('openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
-    wp_enqueue_script('openstreet_layer');
-    wp_localize_script('openstreet_layer', 'atbdp_map', array(
-        'Overlays' => __('Overlays','directorist'),
-        'base_layer' => __('Base Layer','directorist')
-    ));
+    wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array( 'jquery' ), ATBDP_VERSION, true );
+    wp_enqueue_script( 'openstreet_layer' );
+    wp_enqueue_style('leaflet-css',ATBDP_PUBLIC_ASSETS . 'css/leaflet.css');
 }
 ?>
 <script>
@@ -952,13 +956,32 @@ if ('openstreet' == $select_listing_map) {
                 zoom: <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 16; ?>,
                 center: saved_lat_lng
             });
-            var marker = new google.maps.Marker({
+            /*var marker = new google.maps.Marker({
                 map: map,
                 position: saved_lat_lng
+            });*/
+            var marker = new Marker({
+                position: saved_lat_lng,
+                map: map,
+                icon: {
+                    path: MAP_PIN,
+                    fillColor: 'transparent',
+                    fillOpacity: 1,
+                    strokeColor: '',
+                    strokeWeight: 0
+                },
+                map_icon_label: '<div class="atbd_map_shape"><i class="la la-heart"></i></div>'
             });
+
             <?php if(!empty($display_map_info)) {?>
             marker.addListener('click', function () {
                 info_window.open(map, marker);
+            });
+            google.maps.event.addListener(info_window, 'domready', function() {
+                var closeBtn = $('#iw-close-btn').get();
+                google.maps.event.addDomListener(closeBtn[0], 'click', function() {
+                    info_window.close();
+                });
             });
             <?php } ?>
         }
@@ -970,55 +993,27 @@ if ('openstreet' == $select_listing_map) {
             $(this).html(link);
         });
         <?php } elseif('openstreet' == $select_listing_map) { ?>
-        setInterval(() => {
-            $('img.olTileImage').each((index, el) => {
+        function mapLeaflet (lat, lon)	 {
+            const fontAwesomeIcon = L.divIcon({
+                html: '<div class="atbd_map_shape"><span class="<?php echo $cat_icon; ?>"></span></div>',
+                iconSize: [20, 20],
+                className: 'myDivIcon'
+            });
+            var mymap = L.map('gmap').setView([lat, lon], <?php echo !empty($map_zoom_level) ? $map_zoom_level : 16;?>);
 
-                if($(el).attr('src').startsWith('http:')){
-                    var attr = $(el).attr('src').split('/')[0] = "https:";
+            L.marker([lat, lon], {icon: fontAwesomeIcon}).addTo(mymap).bindPopup("<?php echo $info_content; ?>");
 
-                    var url = attr+"/"+$(el).attr('src').split('/').slice(1, 15).join('/');
-                    $(el).attr('src', url)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(mymap);
+        }
 
-                }
+        let lat = <?php echo (!empty($manual_lat)) ? floatval($manual_lat) : false ?>,
+            lon = <?php echo (!empty($manual_lng)) ? floatval($manual_lng) : false ?>;
 
-            })
-        }, 1000);
-        map = new OpenLayers.Map("gmap");
-        let mymap = (lon, lat) => {
-            map.addLayer(new OpenLayers.Layer.OSM());
-            let pois = new OpenLayers.Layer.Text("<?php _e('My Points','directorist');?>",
-                {
-                    location: "",
-                    projection: map.displayProjection
-                });
-            map.addLayer(pois);
-            // create layer switcher widget in top right corner of map.
-            let layer_switcher = new OpenLayers.Control.LayerSwitcher({});
-            map.addControl(layer_switcher);
-            //Set start centrepoint and zoom
-            let lonLat = new OpenLayers.LonLat(lon, lat)
-                .transform(
-                    new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                    map.getProjectionObject() // to Spherical Mercator Projection
-                );
-            let zoom = <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 16; ?>;
-            let markers = new OpenLayers.Layer.Markers("<?php _e('Markers','directorist');?>");
-            map.addLayer(markers);
-            markers.addMarker(new OpenLayers.Marker(lonLat));
-            map.setCenter(lonLat, zoom);
-        };
+        mapLeaflet (lat, lon);
 
-        let lat = <?php echo !empty($manual_lat) ? floatval($manual_lat) : false;?>,
-            lon = <?php echo !empty($manual_lng) ? floatval($manual_lng) : false; ?>;
-
-        mymap(lon, lat);
-        <?php if(!empty($display_map_info)) { ?>
-        var abc = `<?php echo !empty($info_content) ? $info_content : '' ?>` + '<span><i class="fa fa-times"></i></span>';
-
-        $('#OL_Icon_33').append('<div class="mapHover"></div>');
-        $('.mapHover').html(abc);
-
-        <?php } } }?>
+        <?php  } } ?>
         /* initialize slick  */
 
         /* image gallery slider */

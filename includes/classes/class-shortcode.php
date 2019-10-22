@@ -1766,6 +1766,13 @@ if (!class_exists('ATBDP_Shortcode')):
 
         public function user_dashboard($atts)
         {
+            wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
+            wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
+                'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'added_favourite'=> __('Added to favorite','directorist'),
+                'please_login'=> __('Please login first','directorist')
+            ));
             ob_start();
             $include = apply_filters('include_style_settings', true);
             if($include){

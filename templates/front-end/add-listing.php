@@ -347,7 +347,7 @@ $query_args = array(
                                                 $views_count_label = get_directorist_option('views_count_label', __('Views Count', 'directorist'));
                                                 esc_html_e($views_count_label.':', 'directorist'); ?></label>
 
-                                            <input type="number" id="views_Count" name="atbdp_post_views_count"
+                                            <input type="text" id="views_Count" name="atbdp_post_views_count"
                                                    value="<?php echo !empty($atbdp_post_views_count) ? esc_attr($atbdp_post_views_count) : ''; ?>" class="form-control directory_field"
                                             />
                                         </div>

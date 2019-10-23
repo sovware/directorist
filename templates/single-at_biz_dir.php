@@ -1069,7 +1069,7 @@ if ('openstreet' == $select_listing_map) {
                     strokeColor: '',
                     strokeWeight: 0
                 },
-                map_icon_label: '<div class="atbd_map_shape"><i class="la la-heart"></i></div>'
+                map_icon_label: '<div class="atbd_map_shape"><i class="<?php echo $cat_icon; ?>"></i></div>'
             });
 
             <?php if(!empty($display_map_info)) {?>

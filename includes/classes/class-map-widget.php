@@ -50,6 +50,13 @@ if ( !class_exists('BD_Map_Widget')) {
                 $select_listing_map = get_directorist_option('select_listing_map', 'google');
                 $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Map', 'directorist');
                 $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 16;
+                $cats                           = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+                $font_type = get_directorist_option('font_type','line');
+                $fa_or_la = ('line' == $font_type) ? "la " : "fa ";
+                if(!empty($cats)){
+                    $cat_icon                       = get_cat_icon($cats[0]->term_id);
+                }
+                $cat_icon = !empty($cat_icon) ? $fa_or_la . $cat_icon : 'fa fa-map-marker';
                 echo $args['before_widget'];
                 echo '<div class="atbd_widget_title">';
                 echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
@@ -63,15 +70,12 @@ if ( !class_exists('BD_Map_Widget')) {
 
                     <?php } ?>
                     <?php
-                    if('openstreet' == $select_listing_map) {
-                        wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array( 'jquery' ), ATBDP_VERSION, true );
-                        wp_enqueue_script( 'openstreet_layer' );
-                        wp_localize_script('openstreet_layer', 'atbdp_map', array(
-                            'Overlays' => __('Overlays','directorist'),
-                            'base_layer' => __('Base Layer','directorist')
-                        ));
-                    }
-                    ?>
+                if ('openstreet' == $select_listing_map) {
+                    wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array( 'jquery' ), ATBDP_VERSION, true );
+                    wp_enqueue_script( 'openstreet_layer' );
+                    wp_enqueue_style('leaflet-css',ATBDP_PUBLIC_ASSETS . 'css/leaflet.css');
+                }
+                ?>
                     <script>
                         var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
 
@@ -204,11 +208,10 @@ if ( !class_exists('BD_Map_Widget')) {
                                         strokeColor: '',
                                         strokeWeight: 0
                                     },
-                                    map_icon_label: '<div class="atbd_map_shape"><i class="la la-heart"></i></div>'
+                                    map_icon_label: '<div class="atbd_map_shape"><i class="<?php echo $cat_icon; ?>"></i></div>'
                                 });
 
                             }
-
 
                             initMap();
                             //Convert address tags to google map links -
@@ -218,36 +221,27 @@ if ( !class_exists('BD_Map_Widget')) {
                             });
                             <?php }
                             } elseif('openstreet' == $select_listing_map) { ?>
-                            map = new OpenLayers.Map("widgetMap");
+                            function mapLeaflet (lat, lon)	 {
 
-                            let mymap = (lon, lat) => {
-                                map.addLayer(new OpenLayers.Layer.OSM());
-                                let pois = new OpenLayers.Layer.Text( "<?php _e('My Points','directorist');?>",
-                                    { location:"",
-                                        projection: map.displayProjection
-                                    });
-                                map.addLayer(pois);
-                                // create layer switcher widget in top right corner of map.
-                                let layer_switcher= new OpenLayers.Control.LayerSwitcher({});
-                                map.addControl(layer_switcher);
-                                //Set start centrepoint and zoom
-                                let lonLat = new OpenLayers.LonLat( lon, lat )
-                                    .transform(
-                                        new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                                        map.getProjectionObject() // to Spherical Mercator Projection
-                                    );
-                                let zoom= <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 16; ?>;
-                                let markers = new OpenLayers.Layer.Markers( "Markers" );
-                                map.addLayer(markers);
-                                markers.addMarker(new OpenLayers.Marker(lonLat));
-                                map.setCenter (lonLat, zoom);
+                                const fontAwesomeIcon = L.divIcon({
+                                    html: '<div class="atbd_map_shape"><span class="<?php echo $cat_icon; ?>"></span></div>',
+                                    iconSize: [20, 20],
+                                    className: 'myDivIcon'
+                                });
+
+                                var mymap = L.map('widgetMap').setView([lat, lon], <?php echo !empty($map_zoom_level) ? $map_zoom_level : 16;?>);
+
+                                L.marker([lat, lon], {icon: fontAwesomeIcon}).addTo(mymap).bindPopup("<?php echo $info_content; ?>");
+
+                                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                }).addTo(mymap);
                             }
 
-                            let lat = <?php echo !empty($manual_lat) ? floatval($manual_lat) : false;?>,
-                                lon = <?php echo !empty($manual_lng) ? floatval($manual_lng) : false; ?>;
+                            let lat = <?php echo (!empty($manual_lat)) ? floatval($manual_lat) : false ?>,
+                                lon = <?php echo (!empty($manual_lng)) ? floatval($manual_lng) : false ?>;
 
-                            mymap(lon, lat);
-                            $('#OL_Icon_33').append('<div class="mapHover"><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
+                            mapLeaflet (lat, lon);
                        <?php }
                             ?>
                         }); // ends jquery ready function.

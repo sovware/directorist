@@ -1104,6 +1104,32 @@ body.atbd_content_active #directorist.atbd_wrapper {
   transform: translateX(-50%);
 }
 
+.marker-cluster-shape {
+  width: 35px;
+  height: 35px;
+  background: #444752;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  position: relative;
+  cursor: pointer;
+}
+
+.marker-cluster-shape:before {
+  position: absolute;
+  content: '';
+  width: 51px;
+  height: 51px;
+  left: -8px;
+  top: -8px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

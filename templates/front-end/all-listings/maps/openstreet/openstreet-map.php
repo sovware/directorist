@@ -64,10 +64,10 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_map', $data );
             }
             if (!empty($address)) {
                 if (!empty($display_address_map)) {
-                    $html .= "<span class='" . atbdp_icon_type() . "-briefcase'></span> <a href='' class='map-info-link'>" . $address . "</a>";
+                    $html .= "<div class='osm-iw-location'><span class='" . atbdp_icon_type() . "-map-marker'></span> <a href='' class='map-info-link'>" . $address . "</a></div>";
                 }
                 if (!empty($display_direction_map)) {
-                    $html .= " <br><span class='" . atbdp_icon_type() . "-arrow-right'></span> <a href='http://www.google.com/maps?daddr=" . $manual_lat . "," . $manual_lng . "' target='_blank'>" . __('Get Direction', 'directorist') . "</a>";
+                    $html .= "<div class='osm-iw-get-location'><a href='http://www.google.com/maps?daddr=" . $manual_lat . "," . $manual_lng . "' target='_blank'>" . __('Get Direction', 'directorist') . "</a> <span class='" . atbdp_icon_type() . "-arrow-right'></span></div>";
                 }
             }
             $html .= "</div>";

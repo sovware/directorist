@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 6.0.2
+Stable tag: 6.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -136,6 +136,20 @@ Directorist is not developed by a single person. A team of dedicated developers 
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 6.1.0 - Oct 17, 2019 =
+
+* Add - Category icon in OpenStreetMap
+* Improve - Google Map
+* Improve - OpenStreetMap map
+* Fix - Translation issue
+* Fix - Custom field with category issue
+* Fix - Required issues of search fields
+* Fix - Add to Favourite functionality of author page
+* Fix - Decimals issue of listing's price
+* Fix - Radius search conflicts with rating filter
+* Fix - Current location issue of OpenStreetMap
+* Fix - Autosuggestion issue
 
 = 6.0.2 - Oct 17, 2019 =
 

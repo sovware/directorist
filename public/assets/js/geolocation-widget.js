@@ -103,46 +103,67 @@
                 }
 
                 google.maps.event.addDomListener(window, 'load', initialize);
-            } else if (atbdp_search_listing.i18n_text.select_listing_map === 'openstreet') {
-                $('#address_widget').on('keyup', function (event) {
-                    event.preventDefault();
-                    var search = $('#address_widget').val();
-                    $('#address_widget_result').css({'display': 'block'});
-                    if (search === "") {
-                        $('#address_widget_result').css({'display': 'none'});
-                    }
-
-                    var res = "";
-                    $.ajax({
-                        url: `http://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
-                        type: 'POST',
-                        data: {},
-                        success: function (data) {
-                            //console.log(data);
-                            for (var i = 0; i < data.length; i++) {
-                                res += '<li><a href="#" data-lat=' + data[i].lat + ' data-lon=' + data[i].lon + '>' + data[i].display_name + '</a></li>'
-                            }
-                            $('#address_widget_result').html('<ul>' + res + '</ul>');
-                        }
-                    });
-                });
-
-                $('body').on('click', '#address_widget_result ul li a', function (event) {
-                    event.preventDefault();
-                    let text = $(this).text(),
-                        lat = $(this).data('lat'),
-                        lon = $(this).data('lon');
-
-                    $('#cityLat').val(lat);
-                    $('#cityLng').val(lon);
-
-                    $('#address_widget').val(text);
-                    $('#address_widget_result').hide();
-                });
-            }
-            if ($('#address_widget').val() === "") {
-                $('#address_widget_result').css({'display': 'none'});
             }
         })();
+    } else if (atbdp_search_listing.i18n_text.select_listing_map === 'openstreet') {
+        $('#address_widget').on('keyup', function (event) {
+            event.preventDefault();
+            var search = $('#address_widget').val();
+            $('#address_widget_result').css({'display': 'block'});
+            if (search === "") {
+                $('#address_widget_result').css({'display': 'none'});
+            }
+
+            var res = "";
+            $.ajax({
+                url: `http://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
+                type: 'POST',
+                data: {},
+                success: function (data) {
+                    //console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        res += '<li><a href="#" data-lat=' + data[i].lat + ' data-lon=' + data[i].lon + '>' + data[i].display_name + '</a></li>'
+                    }
+                    $('#address_widget_result').html('<ul>' + res + '</ul>');
+                }
+            });
+        });
+
+        $('body').on('click', '#address_widget_result ul li a', function (event) {
+            event.preventDefault();
+            let text = $(this).text(),
+                lat = $(this).data('lat'),
+                lon = $(this).data('lon');
+
+            $('#cityLat').val(lat);
+            $('#cityLng').val(lon);
+
+            $('#address_widget').val(text);
+            $('#address_widget_result').hide();
+        });
+
+        function displayLocation(position) {
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+
+            $.ajax({
+                url: `https://nominatim.openstreetmap.org/reverse?format=json&lon=${lng}&lat=${lat}`,
+                type: 'POST',
+                data: {},
+                success: function (data) {
+                    $('#address_widget').val(data.display_name);
+                    $('#cityLat').val(lat);
+                    $('#cityLng').val(lng);
+                }
+            });
+        }
+
+        $(".atbd_get_loc_wid").on('click', () => {
+            navigator.geolocation.getCurrentPosition(displayLocation);
+
+        })
+    }
+    if ($('#address_widget').val() === "") {
+        $('#address_widget_result').css({'display': 'none'});
     }
 })(jQuery);

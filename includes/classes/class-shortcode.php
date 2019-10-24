@@ -1892,18 +1892,18 @@ if (!class_exists('ATBDP_Shortcode')):
                 'added_favourite'=> __('Added to favorite','directorist'),
                 'please_login'=> __('Please login first','directorist')
             ));
-            $term_slug = get_query_var('atbdp_category');
+            $category_slug = get_query_var('atbdp_category');
 
             $term = '';
 
-            if ('' == $term_slug && !empty($atts['id'])) {
+            if ('' == $category_slug && !empty($atts['id'])) {
                 $term = get_term_by('id', (int)$atts['id'], ATBDP_CATEGORY);
-                $term_slug = $term->slug;
-            } elseif ('' != $term_slug) {
-                $term = get_term_by('slug', $term_slug, ATBDP_CATEGORY);
+                $category_slug = $term->slug;
+            } elseif ('' != $category_slug) {
+                $term = get_term_by('slug', $category_slug, ATBDP_CATEGORY);
             }
 
-            if ('' != $term_slug) {
+            if ('' != $category_slug) {
                 $listing_orderby = get_directorist_option('order_listing_by');
                 $listing_view = get_directorist_option('default_listing_view');
                 $listing_order = get_directorist_option('sort_listing_by');
@@ -1964,7 +1964,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $tax_queries[] = array(
                     'taxonomy' => ATBDP_CATEGORY,
                     'field' => 'slug',
-                    'terms' => $term_slug,
+                    'terms' => $category_slug,
                     'include_children' => true,
                 );
 

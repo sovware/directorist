@@ -95,7 +95,7 @@ if ( !class_exists('BD_All_Map_Widget')) {
         {
             $instance                = array();
             $instance['title']       = (!empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
-            $instance['zoom']        = (!empty($new_instance['zoom'])) ? strip_tags($new_instance['zoom']) : '16';
+            $instance['zoom']        = (!empty($new_instance['zoom'])) ? strip_tags($new_instance['zoom']) : '3';
             $instance['single_only'] = (!empty($new_instance['single_only'])) ? 1 : 0;
 
             return $instance;

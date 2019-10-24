@@ -5,15 +5,18 @@
 
 /**
  * @name MarkerClusterer for Google Maps v3
- * @version version 1.0.3
+ * @version version 1.0
  * @author Luke Mahe
  * @fileoverview
  * The library creates and manages per-zoom-level clusters for large amounts of
  * markers.
+ * <br/>
+ * This is a v3 implementation of the
+ * <a href="http://gmaps-utility-library-dev.googlecode.com/svn/tags/markerclusterer/"
+ * >v2 MarkerClusterer</a>.
  */
 
 /**
- * @license
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -40,14 +43,7 @@
  *                cluster.
  *     'zoomOnClick': (boolean) Whether the default behaviour of clicking on a
  *                    cluster is to zoom into it.
- *     'imagePath': (string) The base URL where the images representing
- *                  clusters will be found. The full URL will be:
- *                  {imagePath}[1-5].{imageExtension}
- *                  Default: '../images/m'.
- *     'imageExtension': (string) The suffix for images URL representing
- *                       clusters will be found. See _imagePath_ for details.
- *                       Default: 'png'.
- *     'averageCenter': (boolean) Whether the center of each cluster should be
+ *     'averageCenter': (boolean) Wether the center of each cluster should be
  *                      the average of all markers in the cluster.
  *     'minimumClusterSize': (number) The minimum number of markers to be in a
  *                           cluster before the markers are hidden and a count
@@ -59,7 +55,8 @@
  *       'anchor': (Array) The anchor position of the label text.
  *       'textColor': (string) The text color.
  *       'textSize': (number) The text size.
- *       'backgroundPosition': (string) The position of the backgound x, y.
+ *       'backgroundPosition': (string) The position of the background x, y.
+ *     'cssClass': (string) One or more CSS class for styling this marker.
  * @constructor
  * @extends google.maps.OverlayView
  */
@@ -91,6 +88,11 @@ function MarkerClusterer(map, opt_markers, opt_options) {
   this.styles_ = [];
 
   /**
+   * @private
+   */
+  this.cssClass_ = '';
+
+  /**
    * @type {boolean}
    * @private
    */
@@ -117,6 +119,8 @@ function MarkerClusterer(map, opt_markers, opt_options) {
   this.maxZoom_ = options['maxZoom'] || null;
 
   this.styles_ = options['styles'] || [];
+
+  this.cssClass_ = options['cssClass'] || null;
 
   /**
    * @type {string}
@@ -165,12 +169,7 @@ function MarkerClusterer(map, opt_markers, opt_options) {
   // Add the map event listeners
   var that = this;
   google.maps.event.addListener(this.map_, 'zoom_changed', function() {
-    // Determines map type and prevent illegal zoom levels
     var zoom = that.map_.getZoom();
-    var minZoom = that.map_.minZoom || 0;
-    var maxZoom = Math.min(that.map_.maxZoom || 100,
-        that.map_.mapTypes[that.map_.getMapTypeId()].maxZoom);
-    zoom = Math.min(Math.max(zoom,minZoom),maxZoom);
 
     if (that.prevZoom_ != zoom) {
       that.prevZoom_ = zoom;
@@ -183,7 +182,7 @@ function MarkerClusterer(map, opt_markers, opt_options) {
   });
 
   // Finally, add the markers
-  if (opt_markers && (opt_markers.length || Object.keys(opt_markers).length)) {
+  if (opt_markers && opt_markers.length) {
     this.addMarkers(opt_markers, false);
   }
 }
@@ -195,7 +194,9 @@ function MarkerClusterer(map, opt_markers, opt_options) {
  * @type {string}
  * @private
  */
-MarkerClusterer.prototype.MARKER_CLUSTER_IMAGE_PATH_ = '../images/m';
+MarkerClusterer.prototype.MARKER_CLUSTER_IMAGE_PATH_ =
+    'http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/' +
+    'images/m';
 
 
 /**
@@ -406,14 +407,8 @@ MarkerClusterer.prototype.getCalculator = function() {
  * @param {boolean=} opt_nodraw Whether to redraw the clusters.
  */
 MarkerClusterer.prototype.addMarkers = function(markers, opt_nodraw) {
-  if (markers.length) {
-    for (var i = 0, marker; marker = markers[i]; i++) {
-      this.pushMarkerTo_(marker);
-    }
-  } else if (Object.keys(markers).length) {
-    for (var marker in markers) {
-      this.pushMarkerTo_(markers[marker]);
-    }
+  for (var i = 0, marker; marker = markers[i]; i++) {
+    this.pushMarkerTo_(marker);
   }
   if (!opt_nodraw) {
     this.redraw();
@@ -516,12 +511,9 @@ MarkerClusterer.prototype.removeMarker = function(marker, opt_nodraw) {
  * @param {boolean=} opt_nodraw Optional boolean to force no redraw.
  */
 MarkerClusterer.prototype.removeMarkers = function(markers, opt_nodraw) {
-  // create a local copy of markers if required
-  // (removeMarker_ modifies the getMarkers() array in place)
-  var markersCopy = markers === this.getMarkers() ? markers.slice() : markers;
   var removed = false;
 
-  for (var i = 0, marker; marker = markersCopy[i]; i++) {
+  for (var i = 0, marker; marker = markers[i]; i++) {
     var r = this.removeMarker_(marker);
     removed = removed || r;
   }
@@ -932,9 +924,9 @@ Cluster.prototype.remove = function() {
 
 
 /**
- * Returns the number of markers in the cluster.
+ * Returns the center of the cluster.
  *
- * @return {number} The number of markers in the cluster.
+ * @return {number} The cluster center.
  */
 Cluster.prototype.getSize = function() {
   return this.markers_.length;
@@ -942,9 +934,9 @@ Cluster.prototype.getSize = function() {
 
 
 /**
- * Returns a list of the markers in the cluster.
+ * Returns the center of the cluster.
  *
- * @return {Array.<google.maps.Marker>} The markers in the cluster.
+ * @return {Array.<google.maps.Marker>} The cluster center.
  */
 Cluster.prototype.getMarkers = function() {
   return this.markers_;
@@ -1059,16 +1051,14 @@ function ClusterIcon(cluster, styles, opt_padding) {
  * Triggers the clusterclick event and zoom's if the option is set.
  */
 ClusterIcon.prototype.triggerClusterClick = function() {
-  var clusterBounds   = this.cluster_.getBounds();
   var markerClusterer = this.cluster_.getMarkerClusterer();
 
   // Trigger the clusterclick event.
-  google.maps.event.trigger(markerClusterer.map_, 'clusterclick', this.cluster_);
+  google.maps.event.trigger(markerClusterer, 'clusterclick', this.cluster_);
 
   if (markerClusterer.isZoomOnClick()) {
     // Zoom into the cluster.
-    this.map_.fitBounds(clusterBounds);
-    this.map_.setCenter(clusterBounds.getCenter());
+    this.map_.fitBounds(this.cluster_.getBounds());
   }
 };
 
@@ -1083,6 +1073,10 @@ ClusterIcon.prototype.onAdd = function() {
     var pos = this.getPosFromLatLng_(this.center_);
     this.div_.style.cssText = this.createCss(pos);
     this.div_.innerHTML = this.sums_.text;
+    var markerClusterer = this.cluster_.getMarkerClusterer();
+    if (markerClusterer.cssClass_) {
+      this.div_.className = markerClusterer.cssClass_;
+    }
   }
 
   var panes = this.getPanes();
@@ -1119,7 +1113,6 @@ ClusterIcon.prototype.draw = function() {
     var pos = this.getPosFromLatLng_(this.center_);
     this.div_.style.top = pos.y + 'px';
     this.div_.style.left = pos.x + 'px';
-    this.div_.style.zIndex = google.maps.Marker.MAX_ZINDEX + 1;
   }
 };
 
@@ -1223,37 +1216,42 @@ ClusterIcon.prototype.setCenter = function(center) {
  */
 ClusterIcon.prototype.createCss = function(pos) {
   var style = [];
-  style.push('background-image:url(' + this.url_ + ');');
-  var backgroundPosition = this.backgroundPosition_ ? this.backgroundPosition_ : '0 0';
-  style.push('background-position:' + backgroundPosition + ';');
+  var markerClusterer = this.cluster_.getMarkerClusterer();
+  if (!markerClusterer.cssClass_) {
+    style.push('background-image:url(' + this.url_ + ');');
+    var backgroundPosition = this.backgroundPosition_ ? this.backgroundPosition_ : '0 0';
+    style.push('background-position:' + backgroundPosition + ';');
 
-  if (typeof this.anchor_ === 'object') {
-    if (typeof this.anchor_[0] === 'number' && this.anchor_[0] > 0 &&
-        this.anchor_[0] < this.height_) {
-      style.push('height:' + (this.height_ - this.anchor_[0]) +
-          'px; padding-top:' + this.anchor_[0] + 'px;');
+    if (typeof this.anchor_ === 'object') {
+      if (typeof this.anchor_[0] === 'number' && this.anchor_[0] > 0 &&
+          this.anchor_[0] < this.height_) {
+        style.push('height:' + (this.height_ - this.anchor_[0]) +
+            'px; padding-top:' + this.anchor_[0] + 'px;');
+      } else {
+        style.push('height:' + this.height_ + 'px; line-height:' + this.height_ + 'px;');
+      }
+      if (typeof this.anchor_[1] === 'number' && this.anchor_[1] > 0 &&
+          this.anchor_[1] < this.width_) {
+        style.push('width:' + (this.width_ - this.anchor_[1]) +
+            'px; padding-left:' + this.anchor_[1] + 'px;');
+      } else {
+        style.push('width:' + this.width_ + 'px; text-align:center;');
+      }
     } else {
-      style.push('height:' + this.height_ + 'px; line-height:' + this.height_ +
-          'px;');
+      style.push('height:' + this.height_ + 'px; line-height:' +
+          this.height_ + 'px; width:' + this.width_ + 'px; text-align:center;');
     }
-    if (typeof this.anchor_[1] === 'number' && this.anchor_[1] > 0 &&
-        this.anchor_[1] < this.width_) {
-      style.push('width:' + (this.width_ - this.anchor_[1]) +
-          'px; padding-left:' + this.anchor_[1] + 'px;');
-    } else {
-      style.push('width:' + this.width_ + 'px; text-align:center;');
-    }
-  } else {
-    style.push('height:' + this.height_ + 'px; line-height:' +
-        this.height_ + 'px; width:' + this.width_ + 'px; text-align:center;');
+
+    var txtColor = this.textColor_ ? this.textColor_ : 'black';
+    var txtSize = this.textSize_ ? this.textSize_ : 11;
+
+    style.push('cursor:pointer; color:' + txtColor + '; position:absolute; font-size:' +
+        txtSize + 'px; font-family:Arial,sans-serif; font-weight:bold');
   }
-
-  var txtColor = this.textColor_ ? this.textColor_ : 'black';
-  var txtSize = this.textSize_ ? this.textSize_ : 11;
-
-  style.push('cursor:pointer; top:' + pos.y + 'px; left:' +
-      pos.x + 'px; color:' + txtColor + '; position:absolute; font-size:' +
-      txtSize + 'px; font-family:Arial,sans-serif; font-weight:bold');
+  else {
+    style.push('top:' + pos.y + 'px; left:' +
+        pos.x + 'px;');
+  }
   return style.join('');
 };
 
@@ -1261,7 +1259,6 @@ ClusterIcon.prototype.createCss = function(pos) {
 // Export Symbols for Closure
 // If you are not going to compile with closure then you can remove the
 // code below.
-var window = window || {};
 window['MarkerClusterer'] = MarkerClusterer;
 MarkerClusterer.prototype['addMarker'] = MarkerClusterer.prototype.addMarker;
 MarkerClusterer.prototype['addMarkers'] = MarkerClusterer.prototype.addMarkers;
@@ -1308,16 +1305,3 @@ Cluster.prototype['getMarkers'] = Cluster.prototype.getMarkers;
 ClusterIcon.prototype['onAdd'] = ClusterIcon.prototype.onAdd;
 ClusterIcon.prototype['draw'] = ClusterIcon.prototype.draw;
 ClusterIcon.prototype['onRemove'] = ClusterIcon.prototype.onRemove;
-
-Object.keys = Object.keys || function(o) {
-  var result = [];
-  for(var name in o) {
-    if (o.hasOwnProperty(name))
-      result.push(name);
-  }
-  return result;
-};
-
-if (typeof module == 'object') {
-  module.exports = MarkerClusterer;
-}

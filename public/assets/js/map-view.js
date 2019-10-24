@@ -141,15 +141,7 @@ MarkerLabel.prototype.draw = function () {
         // update map when contact details fields are updated in the custom post type 'acadp_listings'
         var mcOptions = {
             //imagePath: atbdp_map.plugin_url+'public/assets/images/m',
-            styles: [{
-                url: atbdp_map.plugin_url + 'public/assets/images/m1.png',
-                width: 53,
-                height: 53,
-                textSize: 14,
-                textColor: "#fff",
-                addClass: "sdf"
-                //color: #00FF00,
-            }]
+            cssClass: "marker-cluster-shape",
 
         };
         if (map.type === 'markerclusterer') {

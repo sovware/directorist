@@ -139,7 +139,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                             $geo_loc = ('google' == $select_listing_map) ? '<span class="atbd_get_loc la la-crosshairs"></span>' : '<span class="atbd_get_loc la la-crosshairs"></span>';
                                             $address_label = __('location', 'directorist');
                                             $search_html .= '<div class="atbdp_map_address_field">';
-                                            $search_html .= '<div class="atbdp_get_address_field"><input type="text" id="address" name="address" value="' . $address . '" placeholder="' . $address_label . '" class="form-control location-name">'. $geo_loc .'</span></div>';
+                                            $search_html .= '<div class="atbdp_get_address_field"><input type="text" id="address" name="address" autocomplete="off" value="' . $address . '" placeholder="' . $address_label . '" class="form-control location-name">'. $geo_loc .'</span></div>';
                                             $search_html .= '<div id="address_result">';
                                             $search_html .= '</div>';
                                             $search_html .= '<input type="hidden" id="cityLat" name="cityLat" value="" />';

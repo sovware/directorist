@@ -468,7 +468,7 @@ if ('openstreet' == $select_listing_map) {
             });
             var mymap = L.map('gmap').setView([lat, lon], <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 4; ?>);
 
-            L.marker([lat, lon], {icon: fontAwesomeIcon}).addTo(mymap)
+            L.marker([lat, lon], {icon: fontAwesomeIcon}).addTo(mymap);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

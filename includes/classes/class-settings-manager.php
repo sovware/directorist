@@ -4969,8 +4969,8 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                     'default' => array(
-                        'value' => 'google',
-                        'label' => __('Google Map', 'directorist'),
+                        'value' => 'openstreet',
+                        'label' => __('OpenStreetMap', 'directorist'),
                     ),
                 ),
                 array(

@@ -117,7 +117,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                         $search_html .= '<div class="col-md-6 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_category">';
                                         $search_html .= '<select ' . $require_cat . ' name="in_cat" class="search_fields form-control" id="at_biz_dir-category">';
-                                        $search_html .= '<option>' . $search_category_placeholder . '</option>';
+                                        $search_html .= '<option value="">' . $search_category_placeholder . '</option>';
                                         $search_html .= $categories_fields;
                                         $search_html .= '</select>';
                                         $search_html .= '</div></div>';
@@ -127,7 +127,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                         if ('listing_location' == $search_location_address) {
                                             $search_html .= '<div class="single_search_field search_location">';
                                             $search_html .= '<select ' . $require_loc . ' name="in_loc" class="search_fields form-control" id="at_biz_dir-location">';
-                                            $search_html .= '<option>' . $search_location_placeholder . '</option>';
+                                            $search_html .= '<option value="">' . $search_location_placeholder . '</option>';
                                             $search_html .= $locations_fields;
                                             $search_html .= '</select>';
                                             $search_html .= ' </div>';

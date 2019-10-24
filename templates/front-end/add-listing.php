@@ -780,7 +780,7 @@ $query_args = array(
                                                         $address_label = get_directorist_option('address_label', __('Google Address', 'directorist'));
                                                         esc_html_e($address_label . ':', 'directorist');
                                                         echo get_directorist_option('require_address') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
-                                                    <input type="text" name="address" id="address"
+                                                    <input type="text" name="address" autocomplete="off" id="address"
                                                            value="<?php echo !empty($address) ? esc_attr($address) : ''; ?>"
                                                            class="form-control directory_field"
                                                            placeholder="<?php echo esc_attr($address_placeholder); ?>"/>

@@ -1122,11 +1122,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 .marker-cluster-shape:before {
   position: absolute;
   content: '';
-  width: 51px;
-  height: 51px;
-  left: -8px;
-  top: -8px;
-  background: rgba(0, 0, 0, 0.1);
+  width: 47px;
+  height: 47px;
+  left: -6px;
+  top: -6px;
+  background: rgba(0, 0, 0, 0.15);
   border-radius: 50%;
 }
 

@@ -1525,6 +1525,7 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
 {
     if (empty($price) || $disable_price) return null; // vail if the price is empty or price display is disabled.
 
+    $allow_decimal = get_directorist_option('allow_decimal', 1);
     $before = '';
     $after = '';
     if (empty($c_position)) {
@@ -1538,7 +1539,7 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
     }
 
     ('after' == $c_position) ? $after = $symbol : $before = $symbol;
-    $price = $before . atbdp_format_amount($price) . $after;
+    $price = $before . atbdp_format_amount($price, $allow_decimal) . $after;
     $p = sprintf("<span class='atbd_meta atbd_listing_price'>%s</span>", $price);
     if ($echo) {
         echo $p;

@@ -17,11 +17,11 @@ if(!empty($display_map) && 'google' == $select_listing_map) {
     <!-- the loop -->
     <?php
     if('google' == $select_listing_map) {
-        $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 16;
+        $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 3;
         wp_enqueue_script('atbdp-map-view', ATBDP_PUBLIC_ASSETS . 'js/map-view.js');
         $data = array(
             'plugin_url' => ATBDP_URL,
-            'zoom' => !empty($map_zoom_level) ? $map_zoom_level : 16
+            'zoom' => !empty($map_zoom_level) ? $map_zoom_level : 3
         );
         wp_localize_script('atbdp-map-view', 'atbdp_map', $data);
     ?>
@@ -36,6 +36,12 @@ if(!empty($display_map) && 'google' == $select_listing_map) {
             $crop_width = get_directorist_option('crop_width', 360);
             $crop_height = get_directorist_option('crop_height', 300);
             $address = get_post_meta(get_the_ID(), '_address', true);
+            $font_type = get_directorist_option('font_type','line');
+            $fa_or_la = ('line' == $font_type) ? "la " : "fa ";
+            $cats                           = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+            if(!empty($cats)){
+                $cat_icon                       = get_cat_icon($cats[0]->term_id);
+            }
             if (!empty($listing_prv_img)) {
 
 
@@ -53,7 +59,7 @@ if(!empty($display_map) && 'google' == $select_listing_map) {
 
             <?php if (!empty($manual_lat) && !empty($manual_lng)) : ?>
                 <div class="marker" data-latitude="<?php echo $manual_lat; ?>"
-                     data-longitude="<?php echo $manual_lng; ?>">
+                     data-longitude="<?php echo $manual_lng; ?>" data-icon="<?php echo !empty($cat_icon) ? $fa_or_la . $cat_icon : 'fa fa-map-marker';?>">
                     <div>
 
                         <div class="media-left">

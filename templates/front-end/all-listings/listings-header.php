@@ -216,13 +216,14 @@ if ($display_header == 'yes') { ?>
                                                 $select_listing_map = get_directorist_option('select_listing_map','google');
                                                 wp_enqueue_script('atbdp-geolocation');
                                                 wp_localize_script('atbdp-geolocation', 'adbdp_geolocation', array('select_listing_map'=> $select_listing_map));
-                                                $geo_loc = ('google' == $select_listing_map) ? '<span class="atbd_get_loc la la-crosshairs"></span>' : '';
+                                                $geo_loc = ('google' == $select_listing_map) ? '<span class="atbd_get_loc la la-crosshairs"></span>' : '<span class="atbd_get_loc la la-crosshairs"></span>';
                                                 ?>
                                                 <div class="col-md-6 col-sm-12 col-lg-4">
                                                     <div class="atbdp_map_address_field"><div class="atbdp_get_address_field">
                                                         <input type="text" name="address" id="address"
                                                                value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>"
                                                                placeholder="<?php _e('location','directorist'); ?>"
+                                                               autocomplete="off"
                                                                class="form-control location-name"><?php echo $geo_loc;?>
                                                         </div>
                                                         <div id="address_result">
@@ -305,6 +306,7 @@ if ($display_header == 'yes') { ?>
                                             } ?>><?php _e('1 Star & Up', 'directorist'); ?></option>
                                         </select>
                                     </div><!-- ends: .form-group -->
+                                <?php } ?>
                                 <?php if ('map_api' == $listing_location_address && in_array('radius_search', $search_more_filters_fields)) { ?>
                                         <div class="form-group">
                                             <div class="atbdpr-range rs-primary">
@@ -319,7 +321,7 @@ if ($display_header == 'yes') { ?>
                                             </div>
                                         </div>
                                     <?php } ?>
-                                <?php }
+                                <?php
                                 if (in_array('search_open_now', $search_more_filters_fields) && in_array('directorist-business-hours/bd-business-hour.php', apply_filters('active_plugins', get_option('active_plugins')))) { ?>
                                     <div class="form-group">
                                         <label><?php _e('Open Now', 'directorist'); ?></label>

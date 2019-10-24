@@ -117,7 +117,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                         $search_html .= '<div class="col-md-6 col-sm-12 col-lg-4">
                                 <div class="single_search_field search_category">';
                                         $search_html .= '<select ' . $require_cat . ' name="in_cat" class="search_fields form-control" id="at_biz_dir-category">';
-                                        $search_html .= '<option>' . $search_category_placeholder . '</option>';
+                                        $search_html .= '<option value="">' . $search_category_placeholder . '</option>';
                                         $search_html .= $categories_fields;
                                         $search_html .= '</select>';
                                         $search_html .= '</div></div>';
@@ -127,7 +127,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                         if ('listing_location' == $search_location_address) {
                                             $search_html .= '<div class="single_search_field search_location">';
                                             $search_html .= '<select ' . $require_loc . ' name="in_loc" class="search_fields form-control" id="at_biz_dir-location">';
-                                            $search_html .= '<option>' . $search_location_placeholder . '</option>';
+                                            $search_html .= '<option value="">' . $search_location_placeholder . '</option>';
                                             $search_html .= $locations_fields;
                                             $search_html .= '</select>';
                                             $search_html .= ' </div>';
@@ -139,7 +139,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                             $geo_loc = ('google' == $select_listing_map) ? '<span class="atbd_get_loc la la-crosshairs"></span>' : '<span class="atbd_get_loc la la-crosshairs"></span>';
                                             $address_label = __('location', 'directorist');
                                             $search_html .= '<div class="atbdp_map_address_field">';
-                                            $search_html .= '<div class="atbdp_get_address_field"><input type="text" id="address" name="address" value="' . $address . '" placeholder="' . $address_label . '" class="form-control location-name">'. $geo_loc .'</span></div>';
+                                            $search_html .= '<div class="atbdp_get_address_field"><input type="text" id="address" name="address" autocomplete="off" value="' . $address . '" placeholder="' . $address_label . '" class="form-control location-name">'. $geo_loc .'</span></div>';
                                             $search_html .= '<div id="address_result">';
                                             $search_html .= '</div>';
                                             $search_html .= '<input type="hidden" id="cityLat" name="cityLat" value="" />';

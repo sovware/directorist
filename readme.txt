@@ -5,8 +5,8 @@ Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
 Stable tag: 6.1.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Create a classified website, business directory website like Yelp, foursquare etc with this plugin very easily. Try it, you will love it.
 
@@ -137,7 +137,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 6.1.0 - Oct 17, 2019 =
+= 6.1.0 - Oct 24, 2019 =
 
 * Add - Category icon in OpenStreetMap
 * Improve - Google Map

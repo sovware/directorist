@@ -6,7 +6,6 @@
  * Version: 6.1.0
  * Author: AazzTech
  * Author URI: https://aazztech.com
- * License: GPLv2 or later
  * Text Domain: directorist
  * Domain Path: /languages
  */

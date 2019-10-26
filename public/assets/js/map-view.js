@@ -130,9 +130,10 @@ MarkerLabel.prototype.draw = function () {
         // set map type
         map.type = $el.data('type');
 
+        var infowindow = new google.maps.InfoWindow({content: ''});
         // add markers
         $markers.each(function () {
-            atbdp_add_marker($(this), map);
+            atbdp_add_marker($(this), map, infowindow);
         });
 
         // center map
@@ -155,7 +156,7 @@ MarkerLabel.prototype.draw = function () {
      *
      *  @since    1.0.0
      */
-    function atbdp_add_marker($marker, map) {
+    function atbdp_add_marker($marker, map, infowindow) {
 
         // var
         var latlng = new google.maps.LatLng($marker.data('latitude'), $marker.data('longitude'));
@@ -193,9 +194,9 @@ MarkerLabel.prototype.draw = function () {
         // if marker contains HTML, add it to an infoWindow
         if ($marker.html()) {
             // create info window
-            var infowindow = new google.maps.InfoWindow({
-                content: $marker.html()
-            });
+            // var infowindow = new google.maps.InfoWindow({
+            //     content: $marker.html()
+            // });
 
             //map info window close button
             google.maps.event.addListener(infowindow, 'domready', function() {
@@ -209,6 +210,7 @@ MarkerLabel.prototype.draw = function () {
             // show info window when marker is clicked
             google.maps.event.addListener(marker, 'click', function () {
                 if (atbdp_map.disable_info_window === 'no') {
+                    infowindow.setContent( $marker.html() );
                     infowindow.open(map, marker);
                 }
             });

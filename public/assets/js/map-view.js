@@ -193,11 +193,6 @@ MarkerLabel.prototype.draw = function () {
         map.markers.push(marker);
         // if marker contains HTML, add it to an infoWindow
         if ($marker.html()) {
-            // create info window
-            // var infowindow = new google.maps.InfoWindow({
-            //     content: $marker.html()
-            // });
-
             //map info window close button
             google.maps.event.addListener(infowindow, 'domready', function() {
                 var closeBtn = $('#iw-close-btn').get();

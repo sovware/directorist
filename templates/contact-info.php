@@ -333,9 +333,9 @@ if ('openstreet' == $select_listing_map) {
                 position: place.geometry.location
             });
 
-            marker.addListener('click', function () {
-                info_window.open(map, marker);
-            });
+            // marker.addListener('click', function () {
+            //     info_window.open(map, marker);
+            // });
 
             // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
             markers.push(marker);
@@ -356,9 +356,9 @@ if ('openstreet' == $select_listing_map) {
                 draggable: true,
                 title: '<?php _e('You can drag the marker to your desired place to place a marker', 'directorist'); ?>'
             });
-            marker.addListener('click', function () {
-                info_window.open(map, marker);
-            });
+            // marker.addListener('click', function () {
+            //     info_window.open(map, marker);
+            // });
             // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
             markers.push(marker);
 
@@ -407,9 +407,9 @@ if ('openstreet' == $select_listing_map) {
                         position: results[0].geometry.location
                     });
 
-                    marker.addListener('click', function () {
-                        info_window.open(map, marker);
-                    });
+                    // marker.addListener('click', function () {
+                    //     info_window.open(map, marker);
+                    // });
 
                     // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
                     markers.push(marker);
@@ -438,9 +438,11 @@ if ('openstreet' == $select_listing_map) {
                 title: '<?php _e('You can drag the marker to your desired place to place a marker', 'directorist'); ?>',
                 map: map
             });
-            marker.addListener('click', function () {
-                info_window.open(map, marker);
-            });
+
+            // marker.addListener('click', function () {
+            //     info_window.open(map, marker);
+            // });
+            
             // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
             markers.push(marker);
         }

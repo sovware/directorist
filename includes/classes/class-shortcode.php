@@ -3443,7 +3443,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 wp_localize_script('adminmainassets', 'ajax_login_object', $data);
 
                 echo '<div id="directorist" class="atbd_wrapper directorist">
-    <div class="container-fluid"><div class="row"> <div class="col-md-8 offset-md-2"><div class="atbdp_login_form_shortcode">';
+    <div class="container-fluid"><div class="row"> <div class="col-md-6 offset-md-3"><div class="atbdp_login_form_shortcode">';
                 if (isset($_GET['login']) && $_GET['login'] == 'failed') {
                     printf('<p class="alert-danger"><span class="fa fa-exclamation"></span>%s</p>', __(' Invalid username or password!', 'directorist'));
                     $location = ATBDP_Permalink::get_login_page_link();
@@ -3481,33 +3481,34 @@ if (!class_exists('ATBDP_Shortcode')):
                         <input type="password" id="password" autocomplete="false" name="password" class="form-control"
                         ></p>
 
-                    <div class="keep_signed">
-                        <label for="keep_signed_in" class="not_empty">
-                            <input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in" checked>
-                            <?php echo $log_rememberMe; ?>
-                            <span class="cf-select"></span>
-                        </label>
-                        <?php if (!empty($display_signup)) { ?>
-                            <p><?php echo $reg_text; ?><a
-                                        href="<?php echo $reg_url; ?>"> <?php echo $reg_linktxt; ?></a></p>
-                        <?php } ?>
-                    </div>
                     <div class="atbd_login_btn_wrapper"><p>
                             <input class="btn btn-block btn-lg btn-gradient btn-gradient-two" type="submit"
                                    value="<?php echo $log_button; ?>"
                                    name="submit"/>
                         <?php wp_nonce_field('ajax-login-nonce', 'security');
-                        echo "</p><div class='d-flex justify-content-between'>";
-                        if ($display_recpass) {
-                            printf(__('<p>%s</p>', 'directorist'), "<a href='' class='atbdp_recovery_pass'> " . __($recpass_text, 'directorist') . "</a>");
-                        }
-                        echo "</div>";
+                        echo "</p>";
                         ?></div>
                     <p class="status"></p>
+
+                    <div class="keep_signed">
+                        <label for="keep_signed_in" class="not_empty">
+                            <input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in" checked><?php echo $log_rememberMe; ?><span class="cf-select"></span>
+                        </label>
+                        <?php
+                            if ($display_recpass) {
+                                printf(__('<p>%s</p>', 'directorist'), "<a href='' class='atbdp_recovery_pass'> " . __($recpass_text, 'directorist') . "</a>");
+                            }
+                        ?>
+                    </div>
+
                 </form>
                 <div class="atbd_social_login">
                     <?php do_action('atbdp_before_login_form_end'); ?>
                 </div>
+                <?php if (!empty($display_signup)) { ?>
+                    <p><?php echo $reg_text; ?><a
+                                href="<?php echo $reg_url; ?>"> <?php echo $reg_linktxt; ?></a></p>
+                <?php } ?>
                 <?php
                 global $wpdb;
 

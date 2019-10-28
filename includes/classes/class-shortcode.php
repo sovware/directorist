@@ -3505,7 +3505,9 @@ if (!class_exists('ATBDP_Shortcode')):
                         ?></div>
                     <p class="status"></p>
                 </form>
-                <?php do_action('atbdp_before_login_form_end'); ?>
+                <div class="atbd_social_login">
+                    <?php do_action('atbdp_before_login_form_end'); ?>
+                </div>
                 <?php
                 global $wpdb;
 

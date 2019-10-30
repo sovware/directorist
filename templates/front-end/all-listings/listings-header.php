@@ -316,7 +316,7 @@ if ($display_header == 'yes') { ?>
                                                     <p class="d-flex justify-content-between">
                                                         <span class="atbdpr_amount"></span>
                                                     </p>
-                                                    <input type="hidden" id="atbd_rs_value" name="miles" value="">
+                                                    <input type="hidden" id="atbd_rs_value" name="miles" value="100">
                                                 </div>
                                             </div>
                                         </div>

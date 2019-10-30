@@ -277,7 +277,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                                     <p class="d-flex justify-content-between">
                                                         <span class="atbdpr_amount"></span>
                                                     </p>
-                                                    <input type="hidden" id="atbd_rs_value" name="miles" value="">
+                                                    <input type="hidden" id="atbd_rs_value" name="miles" value="0">
                                                 </div>
                                             </div>
                                         </div>

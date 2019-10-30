@@ -16,9 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) die('What the hell are you doing here accessing th
 if (!class_exists('ATBDP_User')):
 class ATBDP_User {
 
-
-
-
     public function __construct()
     {
         add_action('wp_loaded', array($this, 'handle_user_registration'));

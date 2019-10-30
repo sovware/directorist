@@ -80,7 +80,7 @@ $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here'
                   ?>
                 </div>
             </div>
-                    <div class="col-md-8 offset-md-2">
+                    <div class="col-md-6 offset-md-3">
                         <div class="directory_register_form_wrap">
                             <form action="<?php echo esc_url(get_the_permalink()); ?>" method="post">
                                 <div class="form-group">

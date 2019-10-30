@@ -228,8 +228,8 @@ if ($display_header == 'yes') { ?>
                                                         </div>
                                                         <div id="address_result">
                                                         </div>
-                                                        <input type="hidden" id="cityLat" name="cityLat" value="" />
-                                                        <input type="hidden" id="cityLng" name="cityLng" value="" />
+                                                        <input type="hidden" id="cityLat" name="cityLat" value="<?php if (isset($_GET['cityLat'])) echo esc_attr($_GET['cityLat']); ?>" />
+                                                        <input type="hidden" id="cityLng" name="cityLng" value="<?php if (isset($_GET['cityLng'])) echo esc_attr($_GET['cityLng']); ?>" />
                                                     </div>
                                                 </div>
                                             <?php }
@@ -316,7 +316,7 @@ if ($display_header == 'yes') { ?>
                                                     <p class="d-flex justify-content-between">
                                                         <span class="atbdpr_amount"></span>
                                                     </p>
-                                                    <input type="hidden" id="atbd_rs_value" name="miles" value="">
+                                                    <input type="hidden" id="atbd_rs_value" name="miles" value="100">
                                                 </div>
                                             </div>
                                         </div>

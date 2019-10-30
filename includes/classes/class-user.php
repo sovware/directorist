@@ -26,8 +26,6 @@ class ATBDP_User {
         add_filter('pre_get_posts', array($this,'restrict_listing_to_the_author'));
         // allow contributor upload images for now. @todo; later it will be better to add custom rules and capability
         add_action('plugins_loaded', array($this, 'user_functions_ready_hook'));// before we add custom image uploading, lets use WordPress default image uploading by letting subscriber and contributor upload imaging capability
-        add_filter( 'login_redirect', array($this, 'redirect_non_admin_to_dashboard'), 10, 3 );
-
     }
 
     public function user_functions_ready_hook()
@@ -53,32 +51,6 @@ class ATBDP_User {
         }
         $contributor->add_cap('upload_files');
         $subscriber->add_cap('upload_files');
-    }
-
-    /**
-     * If a user trying to login is a subscriber, send him to his dashboard on the front end.
-     * @param $redirect_to
-     * @param $requested_redirect_to
-     * @param $user
-     * @return string
-     */
-    function redirect_non_admin_to_dashboard($redirect_to, $requested_redirect_to, $user ) {
-        global $user;
-        if( ! isset( $user->ID ) ) {
-            return $redirect_to;
-        }
-
-        /**
-         * @since 5.4.1
-         */
-        do_action('atbdp_before_login_redirect', $redirect_to);
-
-        if ( ! array_intersect( apply_filters('atbdp_login_redirect_to_wp_dashboard', array('administrator')), (array) $user->roles ) ) {
-            $redirect_to  = ATBDP_Permalink::get_dashboard_page_link();
-        }else{
-            $redirect_to = admin_url();
-        }
-        return wp_validate_redirect( $redirect_to, home_url() ); // return a safe redirect url between the site.
     }
 
 

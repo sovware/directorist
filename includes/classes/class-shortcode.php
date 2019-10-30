@@ -3404,6 +3404,7 @@ if (!class_exists('ATBDP_Shortcode')):
                             do_action('atbdp_before_pricing_plan_page_load');
                             ATBDP_Pricing_Plans()->load_template('fee-plans');
                         } else {
+                            do_action('atbdp_before_pricing_plan_page_load');
                             DWPP_Pricing_Plans()->load_template('fee-plans');
                         }
 
@@ -3439,6 +3440,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     'ajax_url' => admin_url('admin-ajax.php'),
                     'redirect_url' => ATBDP_Permalink::get_dashboard_page_link(),
                     'loading_message' => esc_html__('<span class="status-info">Sending user info, please wait...</span>', 'directorist'),
+                    'login_error_message' => esc_html__('<span class="status-info">Wrong username or password.</span>', 'directorist'),
                 );
                 wp_localize_script('adminmainassets', 'ajax_login_object', $data);
 

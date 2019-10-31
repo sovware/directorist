@@ -119,7 +119,9 @@ $c_symbol = atbdp_currency_symbol($currency);
                             </div>
                         </div><!-- ends: .form-group -->
                     <?php } ?>
-                    <?php  if('map_api' == $search_location_address && 'yes' == $radius_search) { ?>
+                    <?php  if('map_api' == $search_location_address && 'yes' == $radius_search) {
+                        $default_radius_distance = get_directorist_option('search_default_radius_distance',0);
+                        ?>
                     <div class="form-group">
                         <div class="atbdpr-range rs-primary">
                             <span><?php _e('Radius Search','directorist'); ?></span>
@@ -128,7 +130,7 @@ $c_symbol = atbdp_currency_symbol($currency);
                                 <p class="d-flex justify-content-between">
                                     <span class="atbdpr_amount"></span>
                                 </p>
-                                <input type="hidden" id="atbd_rs_value" name="miles" value="">
+                                <input type="hidden" id="atbd_rs_value" name="miles" value="<?php echo !empty($default_radius_distance) ? $default_radius_distance : 0; ?>">
                             </div>
                         </div>
                     </div>

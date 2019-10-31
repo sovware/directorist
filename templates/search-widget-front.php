@@ -75,7 +75,7 @@ $c_symbol = atbdp_currency_symbol($currency);
                 </div>
                 <div class="atbd_slider-range-wrapper">
                     <div class="atbd_slider-range"></div>
-                    <input type="hidden" id="atbd_rs_value" name="miles" value="<?php echo !empty($_GET['miles']) ? $_GET['miles'] : ''; ?>">
+                    <input type="hidden" id="atbd_rs_value" name="miles" value="<?php echo !empty($_GET['miles']) ? $_GET['miles'] : 0 ; ?>">
                 </div>
             </div>
         </div>

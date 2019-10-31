@@ -71,13 +71,12 @@
     // Price Range Slider
     var slider_range = $(".atbd_slider-range");
     var miles = atbdp_search_listing.i18n_text.Miles;
-    var dvalue = $("#atbd_rs_value").val();
     slider_range.each(function () {
         $(this).slider({
             range: "min",
             min: 0,
             max: 1000,
-            value: dvalue,
+            value: 0,
             slide: function (event, ui) {
                 $(".atbdpr_amount").text(ui.value + miles);
                 $("#atbd_rs_value").val(ui.value);

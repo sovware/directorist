@@ -2550,6 +2550,16 @@ The Administrator of ==SITE_NAME==
                             'label' => __('Display from Listing Location', 'directorist'),
                         ),
                     ),
+                    array(
+                        'type' => 'slider',
+                        'name' => 'listing_default_radius_distance',
+                        'label' => __('Default Radius Distance', 'directorist'),
+                        'min' => '0',
+                        'max' => '1000',
+                        'step' => '1',
+                        'default' => '0',
+                        'validation' => 'numeric|minlength[1]',
+                    ),
                     'listings_filters_button' => array(
                         'type' => 'checkbox',
                         'name' => 'listings_filters_button',
@@ -3455,6 +3465,16 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                     array(
+                        'type' => 'slider',
+                        'name' => 'search_default_radius_distance',
+                        'label' => __('Default Radius Distance', 'directorist'),
+                        'min' => '0',
+                        'max' => '1000',
+                        'step' => '1',
+                        'default' => '0',
+                        'validation' => 'numeric|minlength[1]',
+                    ),
+                    array(
                         'type' => 'textbox',
                         'name' => 'search_listing_text',
                         'label' => __('Search Button Text', 'directorist'),
@@ -3668,6 +3688,16 @@ The Administrator of ==SITE_NAME==
                             'value' => 'listing_location',
                             'label' => __('Display from Listing Location', 'directorist'),
                         ),
+                    ),
+                    array(
+                        'type' => 'slider',
+                        'name' => 'sresult_default_radius_distance',
+                        'label' => __('Default Radius Distance', 'directorist'),
+                        'min' => '0',
+                        'max' => '1000',
+                        'step' => '1',
+                        'default' => '0',
+                        'validation' => 'numeric|minlength[1]',
                     ),
                     array(
                         'type' => 'checkbox',
@@ -3889,6 +3919,25 @@ The Administrator of ==SITE_NAME==
                         'step' => '1',
                         'default' => atbdp_get_option('search_posts_num', 'atbdp_general', 6),
                         'validation' => 'numeric|minlength[1]',
+                    ),
+                    array(
+                        'type' => 'select',
+                        'name' => 'radius_search_unit',
+                        'label' => __('Radius Search Unit', 'directorist'),
+                        'items' => array(
+                            array(
+                                'value' => 'miles',
+                                'label' => __('Miles', 'directorist'),
+                            ),
+                            array(
+                                'value' => 'kilometers',
+                                'label' => __('Kilometers', 'directorist'),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'miles',
+                            'label' => __('Miles', 'directorist'),
+                        ),
                     ),
                 )
             );

@@ -203,7 +203,6 @@ if (!class_exists('ATBDP_Shortcode')):
                 'post_status' => 'publish',
             );
 
-
             if (!empty($s_string)) {
                 $args['s'] = $s_string;
             }
@@ -233,18 +232,15 @@ if (!class_exists('ATBDP_Shortcode')):
                     'terms' => (int)$_GET['in_cat'],
                     'include_children' => true,
                 );
-
             }
 
             if (isset($_GET['in_loc']) && (int)$_GET['in_loc'] > 0) {
-
                 $tax_queries[] = array(
                     'taxonomy' => ATBDP_LOCATION,
                     'field' => 'term_id',
                     'terms' => (int)$_GET['in_loc'],
                     'include_children' => true,
                 );
-
             }
 
             if (isset($_GET['in_tag']) && (int)$_GET['in_tag'] > 0) {
@@ -842,14 +838,6 @@ if (!class_exists('ATBDP_Shortcode')):
                 );
             }
 
-            /*if(isset($_GET['phone'])) {
-                $phone = $_GET['phone'];
-                $meta_queries[] = array(
-                    'key'   => '_phone',
-                    'value' => $phone,
-                    'compare' => 'LIKE'
-                );
-            }*/
 
             if (isset($_GET['phone'])) {
                 $phone = $_GET['phone'];
@@ -877,13 +865,14 @@ if (!class_exists('ATBDP_Shortcode')):
                 );
             }
             if (isset($_GET['miles']) && $_GET['miles'] > 0 && isset($_GET['cityLat']) && isset($_GET['cityLng'])) {
+                $radius_search_unit = get_directorist_option('radius_search_unit','miles');
                 $args['atbdp_geo_query'] = array(
                     'lat_field' => '_manual_lat',  // this is the name of the meta field storing latitude
                     'lng_field' => '_manual_lng', // this is the name of the meta field storing longitude
                     'latitude' => $_GET['cityLat'],    // this is the latitude of the point we are getting distance from
                     'longitude' => $_GET['cityLng'],   // this is the longitude of the point we are getting distance from
                     'distance' => $_GET['miles'],           // this is the maximum distance to search
-                    'units' => 'miles'       // this supports options: miles, mi, kilometers, km
+                    'units' => $radius_search_unit       // this supports options: miles, mi, kilometers, km
                 );
             } elseif (isset($_GET['address'])) {
                 $address = $_GET['address'];
@@ -1186,6 +1175,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $listing_grid_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
             $grid_container_fluid = apply_filters('atbdp_search_result_grid_container_fluid', $listing_grid_container_fluid);
             $listing_location_address = get_directorist_option('sresult_location_address', 'map_api');
+            $default_radius_distance = get_directorist_option('sresult_default_radius_distance', 0);
             ob_start();
             $include = apply_filters('include_style_settings', true);
             if($include){
@@ -1723,6 +1713,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $listing_grid_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
             $grid_container_fluid = apply_filters('atbdp_listings_grid_container_fluid', $listing_grid_container_fluid);
             $listing_location_address = get_directorist_option('listing_location_address', 'map_api');
+            $default_radius_distance = get_directorist_option('listing_default_radius_distance', 0);
             $include = apply_filters('include_style_settings', true);
             ob_start();
             if($include){
@@ -2251,6 +2242,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $listing_grid_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                 $grid_container_fluid = apply_filters('atbdp_single_cat_grid_container_fluid', $listing_grid_container_fluid);
                 $listing_location_address = get_directorist_option('listing_location_address', 'map_api');
+                $default_radius_distance = get_directorist_option('listing_default_radius_distance', 0);
                 ob_start();
                 $include = apply_filters('include_style_settings', true);
                 if($include){
@@ -2740,6 +2732,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $listing_grid_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                 $grid_container_fluid = apply_filters('atbdp_single_loc_grid_container_fluid', $listing_grid_container_fluid);
                 $listing_location_address = get_directorist_option('listing_location_address', 'map_api');
+                $default_radius_distance = get_directorist_option('listing_default_radius_distance', 0);
                 ob_start();
                 $include = apply_filters('include_style_settings', true);
                 if($include){
@@ -3144,6 +3137,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $listing_grid_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                 $grid_container_fluid = apply_filters('atbdp_single_tag_grid_container_fluid', $listing_grid_container_fluid);
                 $listing_location_address = get_directorist_option('listing_location_address', 'map_api');
+                $default_radius_distance = get_directorist_option('listing_default_radius_distance', 0);
                 ob_start();
                 $include = apply_filters('include_style_settings', true);
                 if($include){
@@ -3275,6 +3269,7 @@ if (!class_exists('ATBDP_Shortcode')):
             }
             if ('yes' == $logged_in_user_only) {
                 if (is_user_logged_in()) {
+                    include ATBDP_TEMPLATES_DIR . 'listing-home.php';
                     include ATBDP_TEMPLATES_DIR . 'listing-home.php';
                 } else {
                     // user not logged in;

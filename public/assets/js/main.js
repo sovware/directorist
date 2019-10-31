@@ -845,6 +845,9 @@ jQuery(function ($) {
                     document.location.href = ajax_login_object.redirect_url;
                 }
             },
+            error: function (data) {
+                $('p.status').show().html('<span class="color-danger">' + ajax_login_object.login_error_message + '</span>');
+            }
         });
         e.preventDefault();
     });

@@ -3396,10 +3396,10 @@ if (!class_exists('ATBDP_Shortcode')):
                     } else {
                         if (class_exists('ATBDP_Pricing_Plans')) {
                             do_action('atbdp_before_pricing_plan_page_load');
-                            ATBDP_Pricing_Plans()->load_template('fee-plans');
+                            ATBDP_Pricing_Plans()->load_template('fee-plans',array('atts' => $atts));
                         } else {
                             do_action('atbdp_before_pricing_plan_page_load');
-                            DWPP_Pricing_Plans()->load_template('fee-plans');
+                            DWPP_Pricing_Plans()->load_template('fee-plans',array('atts' => $atts));
                         }
 
                     }

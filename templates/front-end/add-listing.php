@@ -1039,14 +1039,14 @@ $query_args = array(
                                                                            placeholder="<?php esc_attr_e('Enter Longitude eg. 91.87198', 'directorist'); ?>"/>
                                                                 </div>
                                                             </div>
-                                                            <?php if('google' == $select_listing_map) {?>
+
                                                             <div class="col-md-3 col-sm-12">
                                                                 <div class="form-group lat_btn_wrap">
                                                                     <button class="btn btn-primary"
                                                                             id="generate_admin_map"><?php _e('Generate on Map', 'directorist'); ?></button>
                                                                 </div>
                                                             </div> <!-- ends #hide_if_no_manual_cor-->
-                                                            <?php } ?>
+
                                                         </div> <!--ends .row -->
                                                         <div class="col-sm-12">
                                                             <div class="form-group hide-map-option">
@@ -1464,6 +1464,14 @@ if ('openstreet' == $select_listing_map) {
 
             mapLeaflet (lat, lon);
         });
+
+        $('body').on('click', '#generate_admin_map', function (event) {
+            event.preventDefault();
+            document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
+            mapLeaflet ($('#manual_lat').val(), $('#manual_lng').val());
+
+        });
+
         <?php
          // address
         } // select map

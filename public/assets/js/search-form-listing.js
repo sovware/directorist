@@ -109,7 +109,7 @@
 
             var res = "";
             $.ajax({
-                url: `http://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
+                url: `https://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
                 type: 'POST',
                 data: {},
                 success: function (data) {

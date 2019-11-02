@@ -116,5 +116,7 @@
             navigator.geolocation.getCurrentPosition(displayLocation);
 
         })
+
+
     }
 })(jQuery);

@@ -126,12 +126,12 @@ $info_content .= "<p> {$ad}</p></div>";
                             </div>
                         </div>
                     </div>
-                    <?php if('google' == $select_listing_map) {?>
+
                     <div class="lat_btn_wrap">
                         <button class="btn btn-primary btn-sm"
                                 id="generate_admin_map"><?php _e('Generate on Map', 'directorist'); ?></button>
                     </div>
-                     <?php } ?>
+
                 </div>
             </div> <!--ends #hide_if_no_manual_cor -->
             <div class="atbd_map_hide form-group">
@@ -519,6 +519,14 @@ if ('openstreet' == $select_listing_map) {
 
             mapLeaflet (lat, lon);
         });
+
+        $('body').on('click', '#generate_admin_map', function (event) {
+            event.preventDefault();
+            document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
+            mapLeaflet ($('#manual_lat').val(), $('#manual_lng').val());
+
+        });
+
     <?php
          } // select map
         } // disable map

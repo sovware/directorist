@@ -765,7 +765,17 @@ body.atbd_content_active #directorist.atbd_wrapper {
     }
   }
 }
-
+.leaflet-popup-content-wrapper {
+  .leaflet-popup-content {
+    .map-info-wrapper{
+      .map-info-details{
+        #iw-close-btn{
+          display: none;
+        }
+      }
+    }
+  }
+}
 #directorist.atbd_wrapper .directory_regi_btn {
   margin-top: 10px;
 

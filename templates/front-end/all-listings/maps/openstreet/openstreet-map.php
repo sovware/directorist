@@ -75,7 +75,7 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_map', $data );
         }
         if(!empty($manual_lat) && !empty($manual_lat)) {
         ?>
-        [<?php echo !empty($manual_lat) ? $manual_lat : '';?>, <?php echo !empty($manual_lng) ? $manual_lng : '';?>, "<?php echo !empty($html) ? $html : '';?>"],
+        [<?php echo !empty($manual_lat) ? $manual_lat : '';?>, <?php echo !empty($manual_lng) ? $manual_lng : '';?>, `<?php echo !empty($html) ? $html : '';?>`],
         <?php } endwhile; ?>
     ];
    <?php

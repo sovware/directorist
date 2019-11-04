@@ -391,7 +391,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                             $new_l_status = get_directorist_option('new_listing_status', 'pending');
                             $args['post_status'] = $new_l_status;
                             //if listing under a purchased package
-                            if(is_fee_manager_active() || !empty($featured_enabled)){
+                            if(is_fee_manager_active()){
 
                                 if (('package' === package_or_PPL($plan=null)) && $plan_purchased && ('publish' === $new_l_status)){
                                     // status for paid users
@@ -400,7 +400,10 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     // status for non paid users
                                     $args['post_status'] = 'pending';
                                 }
-                            }else{
+                            }elseif (!empty($featured_enabled)){
+                                $args['post_status'] = 'pending';
+                            }
+                            else{
                                 $args['post_status'] = $new_l_status;
                             }
 
@@ -573,7 +576,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                         wp_redirect(add_query_arg( 'atbdp_listing', $post_id,  wc_get_checkout_url() ) );
                                         exit;
                                     }else{
-                                        update_user_meta(get_current_user_id(), '_used_free_plan', $subscribed_package_id);
+                                        update_user_meta(get_current_user_id(), '_used_free_plan', array($subscribed_package_id,$post_id));
                                         if ('view_listing' == $redirect_page){
                                             wp_redirect(get_permalink($post_id));
                                         }else{
@@ -591,7 +594,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                         wp_redirect(add_query_arg( 'atbdp_listing', $post_id,  wc_get_checkout_url() ) );
                                         exit;
                                     }else{
-                                        update_user_meta(get_current_user_id(), '_used_free_plan', $subscribed_package_id);
+                                        update_user_meta(get_current_user_id(), '_used_free_plan', array($subscribed_package_id,$post_id));
 
                                         if ('view_listing' == $redirect_page){
                                             wp_redirect(get_permalink($post_id));

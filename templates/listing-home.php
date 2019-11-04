@@ -20,7 +20,6 @@ $require_text = !empty($require_text) ? "required" : "";
 $require_cat = !empty($require_cat) ? "required" : "";
 $require_loc = !empty($require_loc) ? "required" : "";
 
-
 $default = get_template_directory_uri() . '/images/home_page_bg.jpg';
 $theme_home_bg_image = get_theme_mod('directoria_home_bg');
 $search_home_bg = get_directorist_option('search_home_bg');

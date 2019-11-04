@@ -113,6 +113,7 @@ $display_fax_field = get_directorist_option('display_fax', 1);
 $display_fax_for = get_directorist_option('display_fax_for', 0);
 $display_email_field = get_directorist_option('display_email_field', 1);
 $display_email_for = get_directorist_option('display_email_for', 0);
+$allow_decimal = get_directorist_option('allow_decimal', 1);
 $display_website_field = get_directorist_option('display_website_field', 1);
 $display_website_for = get_directorist_option('display_website_for', 0);
 $display_zip_field = get_directorist_option('display_zip_field', 1);
@@ -304,7 +305,7 @@ $query_args = array(
 
                                             <?php
                                             if ($plan_price && empty($display_price_for) && !empty($display_pricing_field)) { ?>
-                                                <input type="number" id="price" name="price"
+                                                <input type="number" <?php echo !empty($allow_decimal)?'step="any"':''; ?> id="price" name="price"
                                                     value="<?php echo !empty($price) ? esc_attr($price) : ''; ?>"
                                                     class="form-control directory_field"
                                                     placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
@@ -448,7 +449,7 @@ $query_args = array(
                                                     break;
                                                 case 'number' :
                                                     echo '<div>';
-                                                    printf('<input type="number" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post_id, $cf_placeholder, $value);
+                                                    printf('<input type="number" %s  name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', !empty($allow_decimal)?'step="any"':'', $post_id, $cf_placeholder, $value);
                                                     echo '</div>';
                                                     break;
                                                 case 'textarea' :

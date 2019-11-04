@@ -78,6 +78,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                     // we not need to sanitize post vars to be saved to the database,
                     // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');;
                     $featured_enabled = get_directorist_option('enable_featured_listing');
+                    $display_views_count = get_directorist_option('display_views_count', 1);
+                    $display_views_count_for = get_directorist_option('display_views_count_for', 1);
                     $admin_category_select= !empty($_POST['admin_category_select']) ? atbdp_sanitize_array($_POST['admin_category_select']) : array();
                     $custom_field= !empty($_POST['custom_field']) ? ($_POST['custom_field']) : array();
                     // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');
@@ -95,7 +97,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $metas['_videourl']          = !empty($p['videourl'])? sanitize_text_field($p['videourl']) : '';
                     $metas['_tagline']           = !empty($p['tagline'])? sanitize_text_field($p['tagline']) : '';
                     $metas['_excerpt']           = !empty($p['excerpt'])? sanitize_text_field($p['excerpt']) : '';
-                    $metas['_atbdp_post_views_count']           = !empty($p['atbdp_post_views_count']) ? (int)$p['atbdp_post_views_count'] : '';
+                    if(!empty($display_views_count) && empty($display_views_count_for)) {
+                        $metas['_atbdp_post_views_count'] = !empty($p['atbdp_post_views_count']) ? (int)$p['atbdp_post_views_count'] : '';
+                    }
                     $metas['_address']           = !empty($p['address'])? sanitize_text_field($p['address']) : '';
                     $metas['_phone']             = !empty($p['phone'])? sanitize_text_field($p['phone']) : '';
                     $metas['_phone2']            = !empty($p['phone2'])? sanitize_text_field($p['phone2']) : '';
@@ -387,12 +391,17 @@ if (!class_exists('ATBDP_Add_Listing')):
                             $new_l_status = get_directorist_option('new_listing_status', 'pending');
                             $args['post_status'] = $new_l_status;
                             //if listing under a purchased package
-                            if(is_fee_manager_active()){
+                            if(is_fee_manager_active() || !empty($featured_enabled)){
+
                                 if (('package' === package_or_PPL($plan=null)) && $plan_purchased && ('publish' === $new_l_status)){
+                                    // status for paid users
                                     $args['post_status'] = $new_l_status;
                                 }else{
-                                    $args['post_status'] = $new_l_status;
+                                    // status for non paid users
+                                    $args['post_status'] = 'pending';
                                 }
+                            }else{
+                                $args['post_status'] = $new_l_status;
                             }
 
                             if ( isset( $args['tax_input'] ) ) {

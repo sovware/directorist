@@ -255,7 +255,7 @@ $query_args = array(
                                     $price_range = !empty($price_range) ? $price_range : '';
                                     $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
 
-                                    if (empty($display_price_for || $display_price_range_for) && !empty($display_pricing_field || $display_price_range_field) && ($plan_average_price || $plan_price)) { ?>
+                                    if (empty($display_price_for && $display_price_range_for) && !empty($display_pricing_field || $display_price_range_field) && ($plan_average_price || $plan_price)) { ?>
                                         <div class="form-group" id="atbd_pricing">
                                             <input type="hidden" id="atbd_listing_pricing"
                                                    value="<?php echo $atbd_listing_pricing ?>">
@@ -279,8 +279,6 @@ $query_args = array(
                                                     </label>
                                                     <?php
                                                 }
-                                                ?>
-                                                <?php
                                                 if ($plan_average_price && empty($display_price_range_for) && !empty($display_price_range_field )) {
                                                     if ($plan_price && empty($display_price_for) && !empty($display_pricing_field)) {
                                                         printf('<span>%s</span>', __('Or', 'directorist'));

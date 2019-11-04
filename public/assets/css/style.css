@@ -470,6 +470,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   line-height: normal;
   height: 35px;
   width: 35px;
+  min-width: 35px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -5153,6 +5154,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin: 0 2px;
   text-align: center;
   font-size: 18px;
+  padding: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure figcaption p {
@@ -5441,6 +5443,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #fff;
   margin: 0 3px;
   line-height: normal;
+  padding-bottom: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_single.atbd_category-default figure {

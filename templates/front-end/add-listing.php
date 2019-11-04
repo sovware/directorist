@@ -133,6 +133,7 @@ $display_video_for = get_directorist_option('display_video_for', 0);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
 $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 $fm_plan = !empty(get_post_meta($p_id, '_fm_plans', true)) ? get_post_meta($p_id, '_fm_plans', true) : '';
+$currency = get_directorist_option('g_currency', 'USD');
 $plan_cat = array();
 if (is_fee_manager_active()) {
     $plan_cat = is_plan_allowed_category($fm_plan);

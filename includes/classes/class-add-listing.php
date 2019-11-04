@@ -86,6 +86,30 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if (is_fee_manager_active()) {
                         $plan_price = is_plan_allowed_price($fm_plan);
                     }
+                    $plan_phone = true;
+                    if (is_fee_manager_active()) {
+                        $plan_phone = is_plan_allowed_listing_phone($fm_plan);
+                    }
+                    $plan_email = true;
+                    if (is_fee_manager_active()) {
+                        $plan_email = is_plan_allowed_listing_email($fm_plan);
+                    }
+                    $plan_webLink = true;
+                    if (is_fee_manager_active()) {
+                        $plan_webLink = is_plan_allowed_listing_webLink($fm_plan);
+                    }
+                    $plan_social_networks = true;
+                    if (is_fee_manager_active()) {
+                        $plan_social_networks = is_plan_allowed_listing_social_networks($fm_plan);
+                    }
+                    $plan_video = true;
+                    if (is_fee_manager_active()) {
+                        $plan_video = is_plan_allowed_listing_video($fm_plan);
+                    }
+                    $plan_slider = true;
+                    if (is_fee_manager_active()) {
+                        $plan_slider = is_plan_allowed_slider($fm_plan);
+                    }
                     $featured_enabled = get_directorist_option('enable_featured_listing');
                     $display_tagline_field = get_directorist_option('display_tagline_field', 0);
                     $display_tagline_for = get_directorist_option('display_tagline_for', 0);
@@ -95,9 +119,31 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $display_price_range_for = get_directorist_option('display_price_range_for', 'admin_users');
                     $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                     $display_short_desc_for = get_directorist_option('display_short_desc_for', 0);
+                    $display_address_field = get_directorist_option('display_address_field', 1);
+                    $display_address_for = get_directorist_option('display_address_for', 0);
                     $display_views_count = get_directorist_option('display_views_count', 1);
                     $display_views_count_for = get_directorist_option('display_views_count_for', 1);
                     $admin_category_select= !empty($_POST['admin_category_select']) ? atbdp_sanitize_array($_POST['admin_category_select']) : array();
+                    $display_phone_field = get_directorist_option('display_phone_field', 1);
+                    $display_phone_for = get_directorist_option('display_phone_for', 0);
+                    $display_phone2_field = get_directorist_option('display_phone_field2', 1);
+                    $display_phone2_for = get_directorist_option('display_phone2_for', 0);
+                    $display_fax_field = get_directorist_option('display_fax', 1);
+                    $display_fax_for = get_directorist_option('display_fax_for', 0);
+                    $display_email_field = get_directorist_option('display_email_field', 1);
+                    $display_email_for = get_directorist_option('display_email_for', 0);
+                    $display_website_field = get_directorist_option('display_website_field', 1);
+                    $display_website_for = get_directorist_option('display_website_for', 0);
+                    $display_zip_field = get_directorist_option('display_zip_field', 1);
+                    $display_zip_for = get_directorist_option('display_zip_for', 0);
+                    $display_social_info_field = get_directorist_option('display_social_info_field', 1);
+                    $display_social_info_for = get_directorist_option('display_social_info_for', 0);
+                    $display_prv_field = get_directorist_option('display_prv_field', 1);
+                    $display_prv_img_for = get_directorist_option('display_prv_img_for', 0);
+                    $display_gellery_field = get_directorist_option('display_gellery_field', 1);
+                    $display_glr_img_for = get_directorist_option('display_glr_img_for', 0);
+                    $display_video_field = get_directorist_option('display_video_field', 1);
+                    $display_video_for = get_directorist_option('display_video_for', 0);
                     $custom_field= !empty($_POST['custom_field']) ? ($_POST['custom_field']) : array();
                     // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');
                     $metas = array();
@@ -115,9 +161,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $metas['_price_range'] = !empty($p['price_range']) ? $p['price_range'] : '';
                     }
                     $metas['_atbd_listing_pricing'] = !empty($p['atbd_listing_pricing'])?  $p['atbd_listing_pricing'] : '';
-
-                    $metas['_videourl']          = !empty($p['videourl']) ? sanitize_text_field($p['videourl']) : '';
-
+                    if (empty($display_video_for) && !empty($display_video_field) && $plan_video) {
+                        $metas['_videourl'] = !empty($p['videourl']) ? sanitize_text_field($p['videourl']) : '';
+                    }
                     if (!empty($display_tagline_field) && empty($display_tagline_for)) {
                         $metas['_tagline'] = !empty($p['tagline']) ? sanitize_text_field($p['tagline']) : '';
                     }
@@ -129,15 +175,30 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if(!empty($display_views_count) && empty($display_views_count_for)) {
                         $metas['_atbdp_post_views_count'] = !empty($p['atbdp_post_views_count']) ? (int)$p['atbdp_post_views_count'] : '';
                     }
-
-                    $metas['_address']           = !empty($p['address'])? sanitize_text_field($p['address']) : '';
-                    $metas['_phone']             = !empty($p['phone'])? sanitize_text_field($p['phone']) : '';
-                    $metas['_phone2']            = !empty($p['phone2'])? sanitize_text_field($p['phone2']) : '';
-                    $metas['_fax']               = !empty($p['fax'])? sanitize_text_field($p['fax']) : '';
-                    $metas['_email']             = !empty($p['email'])? sanitize_text_field($p['email']) : '';
-                    $metas['_website']           = !empty($p['website'])? sanitize_text_field($p['website']) : '';
-                    $metas['_zip']               = !empty($p['zip'])? sanitize_text_field($p['zip']) : '';
-                    $metas['_social']            = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
+                    if ( empty($display_address_for) && !empty($display_address_field) ) {
+                        $metas['_address'] = !empty($p['address']) ? sanitize_text_field($p['address']) : '';
+                    }
+                    if ($plan_phone && empty($display_phone_for) && !empty($display_phone_field)) {
+                        $metas['_phone'] = !empty($p['phone']) ? sanitize_text_field($p['phone']) : '';
+                    }
+                    if ($plan_phone && empty($display_phone2_for) && !empty($display_phone2_field)) {
+                        $metas['_phone2'] = !empty($p['phone2']) ? sanitize_text_field($p['phone2']) : '';
+                    }
+                    if (empty($display_fax_for) && !empty($display_fax_field)) {
+                        $metas['_fax'] = !empty($p['fax']) ? sanitize_text_field($p['fax']) : '';
+                    }
+                    if ($plan_email && empty($display_email_for) && !empty($display_email_field)) {
+                        $metas['_email'] = !empty($p['email']) ? sanitize_text_field($p['email']) : '';
+                    }
+                    if ($plan_webLink && empty($display_website_for) && !empty($display_website_field)) {
+                        $metas['_website'] = !empty($p['website']) ? sanitize_text_field($p['website']) : '';
+                    }
+                    if (empty($display_zip_for) && !empty($display_zip_field)) {
+                        $metas['_zip'] = !empty($p['zip']) ? sanitize_text_field($p['zip']) : '';
+                    }
+                    if ($plan_social_networks && empty($display_social_info_for) && !empty($display_social_info_field)) {
+                        $metas['_social'] = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
+                    }
                     $metas['_faqs']              = !empty($p['faqs']) ? ($p['faqs']) : array(); // we are expecting array value
                     $metas['_bdbh']              = !empty($p['bdbh'])? atbdp_sanitize_array($p['bdbh']) : array();
                     $metas['_enable247hour']      = !empty($p['enable247hour'])? sanitize_text_field($p['enable247hour']) : '';
@@ -145,8 +206,12 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
                     $metas['_manual_lng']        = !empty($p['manual_lng'])? sanitize_text_field($p['manual_lng']) : '';
                     $metas['_hide_map']             = !empty($p['hide_map'])? sanitize_text_field($p['hide_map']) : '';
-                    $metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();
-                    $metas['_listing_prv_img']   = !empty($p['listing_prv_img'])? sanitize_text_field($p['listing_prv_img']) :'';
+                    if( empty($display_glr_img_for) && !empty($display_gellery_field) && $plan_slider ) {
+                        $metas['_listing_img'] = !empty($p['listing_img']) ? atbdp_sanitize_array($p['listing_img']) : array();
+                    }
+                    if (empty($display_prv_img_for) && !empty($display_prv_field)) {
+                        $metas['_listing_prv_img'] = !empty($p['listing_prv_img']) ? sanitize_text_field($p['listing_prv_img']) : '';
+                    }
                     $metas['_hide_contact_info'] = !empty($p['hide_contact_info'])? sanitize_text_field($p['hide_contact_info']) : 0;
                     $metas['_hide_contact_owner'] = !empty($p['hide_contact_owner'])? sanitize_text_field($p['hide_contact_owner']) : 0;
                     $metas['_t_c_check']         = !empty($p['t_c_check'])? sanitize_text_field($p['t_c_check']) : 0;

@@ -85,7 +85,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
                         <!--<p id='price_range_option'><?php /*echo __('Price Range', 'directorist'); */ ?></p></label>-->
                     </label>
                         <?php } ?>
-                    <small> <?php _e('(Optional - Uncheck both to hide pricing for this listing)', 'directorist')?></small>
+                    <small> <?php _e('(Optional - Uncheck to hide pricing for this listing)', 'directorist')?></small>
                 </div>
                 <?php
                 if (!empty($display_pricing_field)){

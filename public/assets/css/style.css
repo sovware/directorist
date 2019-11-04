@@ -294,6 +294,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #7a82a6;
   margin: 0;
   font-size: 15px;
+  padding: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_generic_header_title h3 p {
@@ -1205,6 +1206,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 0;
   display: flex;
   align-items: center;
+  padding: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area h4 span {
@@ -2240,7 +2242,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_title {
-  padding-top: 0;
+  padding: 0;
   text-transform: none;
   line-height: 24px;
   margin-bottom: 0;

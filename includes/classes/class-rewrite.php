@@ -18,6 +18,7 @@ class ATBDP_Rewrite {
     public function add_write_rules()
     {
         $home = home_url();
+        // All listing page URL Rewrite
         $id = get_directorist_option('all_listing_page');
         if ( $id > 0 ) {
             $link = str_replace( $home, '', get_permalink( $id ) );

@@ -15,6 +15,7 @@ $currency                    = get_directorist_option('g_currency', 'USD');
 $display_tagline_field       = get_directorist_option('display_tagline_field', 0);
 $tagline_placeholder         = get_directorist_option('tagline_placeholder',__('Your Listing\'s motto or tag-line', 'directorist'));
 $display_pricing_field       = get_directorist_option('display_pricing_field', 1);
+$display_price_range_field   = get_directorist_option('display_price_range_field', 1);
 $price_placeholder           = get_directorist_option('price_placeholder',__('Price of this listing. Eg. 100', 'directorist'));
 $price_range_placeholder     = get_directorist_option('price_range_placeholder',__('Select Price Range', 'directorist'));
 $excerpt_placeholder         = get_directorist_option('excerpt_placeholder',__('Short Description or Excerpt', 'directorist'));
@@ -51,7 +52,7 @@ $c_symbol                    = atbdp_currency_symbol($currency);
         <?php
         $price_range = !empty($price_range) ? $price_range : '';
         $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
-        if (!empty($display_pricing_field) ) { ?>
+        if (!empty($display_pricing_field || $display_price_range_field) ) { ?>
             <div class="form-group">
                 <input type="hidden" id="atbd_listing_pricing" value="<?php echo $atbd_listing_pricing?>">
                 <label for="#">
@@ -61,6 +62,7 @@ $c_symbol                    = atbdp_currency_symbol($currency);
                     ?>
                 </label>
                 <div class="atbd_pricing_options">
+                    <?php if (!empty($display_pricing_field)){ ?>
                     <label for="price_selected" data-option="price">
                         <input type="checkbox" value="price" id="price_selected" name="atbd_listing_pricing" <?php echo ('price' === $atbd_listing_pricing)?'checked':(('range' !== $atbd_listing_pricing)?'checked':'');?>>
                         <?php
@@ -69,21 +71,31 @@ $c_symbol                    = atbdp_currency_symbol($currency);
                         /*Translator: % is the name of the currency such eg. USD etc.*/
                         printf(esc_html__('%s [%s]', 'directorist'),$price_label, $currency); ?>
                     </label>
+                    <?php }
+                    if (!empty($display_price_range_field )){
+                    if (!empty($display_pricing_field)){
+                    ?>
                     <span class="bor"><?php _e('Or', 'directorist')?></span>
+                    <?php }
+                    ?>
                     <label for="price_range_selected" data-option="price_range">
                         <input type="checkbox" id="price_range_selected" value="range" name="atbd_listing_pricing" <?php echo ('range' === $atbd_listing_pricing)?'checked':'';?>>
                         <?php echo $price_range_label; ?>
                         <!--<p id='price_range_option'><?php /*echo __('Price Range', 'directorist'); */ ?></p></label>-->
                     </label>
-
+                        <?php } ?>
                     <small> <?php _e('(Optional - Uncheck both to hide pricing for this listing)', 'directorist')?></small>
                 </div>
-
+                <?php
+                if (!empty($display_pricing_field)){
+                ?>
                 <input type="hidden" id="pricerange_val" value="<?php echo $price_range;?>">
                 <input type="text" id="price" name="price" value="<?php echo !empty($price) ? esc_attr($price) : ''; ?>"
                        class="form-control directory_field"
                        placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
-
+                <?php }
+                if (!empty($display_price_range_field )){
+                ?>
                 <select class="form-control directory_field" id="price_range" style="display: none" name="price_range">
                     <option value=""><?php echo !empty($price_range_placeholder) ? esc_attr($price_range_placeholder) : ''; ?></option>
                     <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
@@ -99,6 +111,7 @@ $c_symbol                    = atbdp_currency_symbol($currency);
                         <?php echo __('Cheap ', 'directorist').'('.$c_symbol.')'; ?>
                     </option>
                 </select>
+                <?php } ?>
             </div>
         <?php } ?>
         <?php if(!empty($display_views_count)) { ?>

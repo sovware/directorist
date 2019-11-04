@@ -455,9 +455,8 @@ class ATBDP_Order
      */
     public function update_payment_status($action, $post_id)
     {
-
         $old_status = get_post_meta($post_id, '_payment_status', true);
-
+        $new_l_status = get_directorist_option('new_listing_status', 'pending');
         $new_status = str_replace('set_to_', '', $action);
         $new_status = sanitize_key($new_status);
 
@@ -479,7 +478,7 @@ class ATBDP_Order
                 update_post_meta($listing_id, '_featured', 1);
                 $my_post = array();
                 $my_post['ID'] = $listing_id;
-                $my_post['post_status'] = 'publish';
+                $my_post['post_status'] = $new_l_status;
                 if (!is_fee_manager_active()){
                     wp_update_post( $my_post );
                 }

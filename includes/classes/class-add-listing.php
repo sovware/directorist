@@ -576,7 +576,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                         wp_redirect(add_query_arg( 'atbdp_listing', $post_id,  wc_get_checkout_url() ) );
                                         exit;
                                     }else{
-                                        update_user_meta(get_current_user_id(), '_used_free_plan', $subscribed_package_id);
+                                        update_user_meta(get_current_user_id(), '_used_free_plan', array($subscribed_package_id,$post_id));
                                         if ('view_listing' == $redirect_page){
                                             wp_redirect(get_permalink($post_id));
                                         }else{
@@ -594,7 +594,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                         wp_redirect(add_query_arg( 'atbdp_listing', $post_id,  wc_get_checkout_url() ) );
                                         exit;
                                     }else{
-                                        update_user_meta(get_current_user_id(), '_used_free_plan', $subscribed_package_id);
+                                        update_user_meta(get_current_user_id(), '_used_free_plan', array($subscribed_package_id,$post_id));
 
                                         if ('view_listing' == $redirect_page){
                                             wp_redirect(get_permalink($post_id));

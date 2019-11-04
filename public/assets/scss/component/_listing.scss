@@ -179,11 +179,13 @@
           }
         }
         .atbd_listing_title {
-          padding-top: 0;
-          a{font-size: 18px;}
+          padding: 0;
           text-transform: none;
           line-height: 24px;
           margin-bottom: 0;
+          a{
+            font-size: 18px;
+          }
         }
         .atbd_listing_tagline {
           color: #7a82a6;

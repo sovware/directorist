@@ -18,6 +18,15 @@ class ATBDP_Rewrite {
     public function add_write_rules()
     {
         $home = home_url();
+        $id = get_directorist_option('all_listing_page');
+        if ( $id > 0 ) {
+            $link = str_replace( $home, '', get_permalink( $id ) );
+            $link = trim( $link, '/' );
+
+            add_rewrite_rule( "$link/page/?([0-9]{1,})/?$", 'index.php?page_id='.$id.'&paged=$matches[1]', 'top' );
+        }
+
+
         // Checkout page URL Rewrite
         $cp_id = get_directorist_option('checkout_page'); // get the checkout page id
         if( $cp_id ) {

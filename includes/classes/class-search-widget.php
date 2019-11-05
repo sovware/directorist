@@ -51,6 +51,7 @@ if ( !class_exists('BD_Search_Widget')) {
             $search_by_zip_code            = ! empty( $instance['search_by_zip_code'] ) ? 1 : 0;
             $search_by_radius              = ! empty( $instance['search_by_radius'] ) ? 1 : 0;
             $location_source               = ! empty( $instance['location_source'] ) ? $instance['location_source'] : 'map_api';
+
             wp_enqueue_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
             if (is_rtl()){
                 wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');

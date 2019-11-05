@@ -1150,7 +1150,11 @@ if (!class_exists('ATBDP_Shortcode')):
             $cat_name = get_term_by('id', $cat_id, ATBDP_CATEGORY);
             $loc_name = get_term_by('id', $loc_id, ATBDP_LOCATION);
             $for_cat = !empty($cat_name) ? sprintf(__('for %s', 'directorist'), $cat_name->name) : '';
-            $in_loc = !empty($loc_name) ? sprintf(__('in %s', 'directorist'), $loc_name->name) : '';
+            if(isset($_GET['in_loc']) && (int)$_GET['in_loc'] > 0) {
+                $in_loc = !empty($loc_name) ? sprintf(__('in %s', 'directorist'), $loc_name->name) : '';
+            }else{
+                $in_loc = !empty($_GET['address']) ? sprintf(__('in %s', 'directorist'), $_GET['address']) : '';
+            }
             $_s = (1 < count($all_listings->posts)) ? 's' : '';
 
             $header_title = sprintf(__('%d result%s %s %s', 'directorist'), $all_listings->found_posts, $_s, $for_cat, $in_loc);

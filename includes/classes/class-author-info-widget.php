@@ -72,7 +72,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
                             $website = get_the_author_meta('user_url', $author_id);;
                             $facebook = get_user_meta($author_id, 'facebook', true);
                             $twitter = get_user_meta($author_id, 'twitter', true);
-                            $linkedIn = get_user_meta($author_id, 'linkedin', true);
+                            $linkedIn = get_user_meta($author_id, '_linkedin', true);
                             $youtube = get_user_meta($author_id, 'youtube', true);
                             if (!empty($address)) { ?>
                                 <li>

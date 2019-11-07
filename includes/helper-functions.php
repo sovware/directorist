@@ -2905,7 +2905,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                          */
                                         echo apply_filters('atbdp_grid_lower_badges', $l_badge_html);
                                         if (!empty($display_mark_as_fav)) {
-                                            echo atbdp_listings_mark_as_favourite(get_the_ID());
+                                           // echo atbdp_listings_mark_as_favourite(get_the_ID());
                                         }
                                         ?>
                                     </figure>

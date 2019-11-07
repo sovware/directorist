@@ -248,10 +248,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             }
             wp_die();
         }
-
-        /**
-         *
-         */
+        
         public function remove_listing()
         {
             // delete the listing from here. first check the nonce and then delete and then send success.

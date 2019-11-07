@@ -1150,7 +1150,11 @@ if (!class_exists('ATBDP_Shortcode')):
             $cat_name = get_term_by('id', $cat_id, ATBDP_CATEGORY);
             $loc_name = get_term_by('id', $loc_id, ATBDP_LOCATION);
             $for_cat = !empty($cat_name) ? sprintf(__('for %s', 'directorist'), $cat_name->name) : '';
-            $in_loc = !empty($loc_name) ? sprintf(__('in %s', 'directorist'), $loc_name->name) : '';
+            if(isset($_GET['in_loc']) && (int)$_GET['in_loc'] > 0) {
+                $in_loc = !empty($loc_name) ? sprintf(__('in %s', 'directorist'), $loc_name->name) : '';
+            }else{
+                $in_loc = !empty($_GET['address']) ? sprintf(__('in %s', 'directorist'), $_GET['address']) : '';
+            }
             $_s = (1 < count($all_listings->posts)) ? 's' : '';
 
             $header_title = sprintf(__('%d result%s %s %s', 'directorist'), $all_listings->found_posts, $_s, $for_cat, $in_loc);
@@ -1186,14 +1190,19 @@ if (!class_exists('ATBDP_Shortcode')):
                 return $redirect;
             }
             $listing_type = isset($_GET['listing_type'])?sanitize_text_field($_GET['listing_type']):'';
+
             if ('yes' == $logged_in_user_only) {
                 if (is_user_logged_in()) {
-                    if('listings_with_map' == $view) {
-                        include BDM_TEMPLATES_DIR . '/map-view.php';
+                    if (class_exists('Post_Your_Need') && ($listing_type === 'need')){
+                        include PYN_TEMPLATES_DIR . "/need-card.php";
                     }else{
-                        include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
-
+                        if('listings_with_map' == $view) {
+                            include BDM_TEMPLATES_DIR . '/map-view.php';
+                        }else{
+                            include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                        }
                     }
+
                 } else {
                     // user not logged in;
                     $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
@@ -1205,12 +1214,16 @@ if (!class_exists('ATBDP_Shortcode')):
                     <?php
                 }
             } else {
-                if('listings_with_map' == $view) {
-                    include BDM_TEMPLATES_DIR . '/map-view.php';
+                if (class_exists('Post_Your_Need') && ($listing_type === 'need')){
+                    include PYN_TEMPLATES_DIR . "/need-card.php";
                 }else{
-                    include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
-
+                    if('listings_with_map' == $view) {
+                        include BDM_TEMPLATES_DIR . '/map-view.php';
+                    }else{
+                        include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                    }
                 }
+
             }
             return ob_get_clean();
         }

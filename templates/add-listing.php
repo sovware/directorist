@@ -23,6 +23,7 @@ $display_excerpt_field       = get_directorist_option('display_excerpt_field', 0
 $display_views_count         = get_directorist_option('display_views_count', 1);
 $price_range_label           = get_directorist_option('price_range_label', __('Price Range', 'directorist'));
 $c_symbol                    = atbdp_currency_symbol($currency);
+$allow_decimal = get_directorist_option('allow_decimal', 1);
 ?>
 <div id="directorist" class="directorist atbd_wrapper directory_wrapper">
     <?php
@@ -84,13 +85,13 @@ $c_symbol                    = atbdp_currency_symbol($currency);
                         <!--<p id='price_range_option'><?php /*echo __('Price Range', 'directorist'); */ ?></p></label>-->
                     </label>
                         <?php } ?>
-                    <small> <?php _e('(Optional - Uncheck both to hide pricing for this listing)', 'directorist')?></small>
+                    <small> <?php _e('(Optional - Uncheck to hide pricing for this listing)', 'directorist')?></small>
                 </div>
                 <?php
                 if (!empty($display_pricing_field)){
                 ?>
                 <input type="hidden" id="pricerange_val" value="<?php echo $price_range;?>">
-                <input type="text" id="price" name="price" value="<?php echo !empty($price) ? esc_attr($price) : ''; ?>"
+                <input type="number" <?php echo !empty($allow_decimal)?'step="any"':''; ?> id="price" name="price" value="<?php echo !empty($price) ? esc_attr($price) : ''; ?>"
                        class="form-control directory_field"
                        placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
                 <?php }
@@ -193,7 +194,7 @@ $c_symbol                    = atbdp_currency_symbol($currency);
                         break;
                     case 'number' :
                         echo '<div>';
-                        printf('<input type="number" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post_id, $cf_placeholder, esc_attr($value));
+                        printf('<input type="number" %s name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', !empty($allow_decimal)?'step="any"':'', $post_id, $cf_placeholder, esc_attr($value));
                         echo '</div>';
                         break;
                     case 'textarea' :

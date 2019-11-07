@@ -76,38 +76,98 @@ if (!class_exists('ATBDP_Add_Listing')):
                 if (ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action )) {
                     // we have data and passed the security
                     // we not need to sanitize post vars to be saved to the database,
-                    // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');;
+                    // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');
+                    $display_title_for = get_directorist_option('display_title_for', 0);
+                    $display_desc_for = get_directorist_option('display_desc_for', 0);
                     $featured_enabled = get_directorist_option('enable_featured_listing');
+                    $display_tagline_field = get_directorist_option('display_tagline_field', 0);
+                    $display_tagline_for = get_directorist_option('display_tagline_for', 0);
+                    $display_pricing_field = get_directorist_option('display_pricing_field', 1);
+                    $display_price_for = get_directorist_option('display_price_for', 'admin_users');
+                    $display_price_range_field = get_directorist_option('display_price_range_field', 1);
+                    $display_price_range_for = get_directorist_option('display_price_range_for', 'admin_users');
+                    $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
+                    $display_short_desc_for = get_directorist_option('display_short_desc_for', 0);
+                    $display_address_field = get_directorist_option('display_address_field', 1);
+                    $display_address_for = get_directorist_option('display_address_for', 0);
                     $display_views_count = get_directorist_option('display_views_count', 1);
                     $display_views_count_for = get_directorist_option('display_views_count_for', 1);
                     $admin_category_select= !empty($_POST['admin_category_select']) ? atbdp_sanitize_array($_POST['admin_category_select']) : array();
+                    $display_phone_field = get_directorist_option('display_phone_field', 1);
+                    $display_phone_for = get_directorist_option('display_phone_for', 0);
+                    $display_phone2_field = get_directorist_option('display_phone_field2', 1);
+                    $display_phone2_for = get_directorist_option('display_phone2_for', 0);
+                    $display_fax_field = get_directorist_option('display_fax', 1);
+                    $display_fax_for = get_directorist_option('display_fax_for', 0);
+                    $display_email_field = get_directorist_option('display_email_field', 1);
+                    $display_email_for = get_directorist_option('display_email_for', 0);
+                    $display_website_field = get_directorist_option('display_website_field', 1);
+                    $display_website_for = get_directorist_option('display_website_for', 0);
+                    $display_zip_field = get_directorist_option('display_zip_field', 1);
+                    $display_zip_for = get_directorist_option('display_zip_for', 0);
+                    $display_social_info_field = get_directorist_option('display_social_info_field', 1);
+                    $display_social_info_for = get_directorist_option('display_social_info_for', 0);
+                    $display_prv_field = get_directorist_option('display_prv_field', 1);
+                    $display_prv_img_for = get_directorist_option('display_prv_img_for', 0);
+                    $display_gellery_field = get_directorist_option('display_gellery_field', 1);
+                    $display_glr_img_for = get_directorist_option('display_glr_img_for', 0);
+                    $display_video_field = get_directorist_option('display_video_field', 1);
+                    $display_video_for = get_directorist_option('display_video_for', 0);
                     $custom_field= !empty($_POST['custom_field']) ? ($_POST['custom_field']) : array();
                     // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');
                     $metas = array();
                     $p = $_POST; // save some character
                     $content = !empty($p['listing_content']) ? wp_kses($p['listing_content'], wp_kses_allowed_html('post')) : '';
-                    $title= !empty($p['listing_title']) ? sanitize_text_field($p['listing_title']) : '';/*@todo; in future, do not let the user add a post without a title. Return here with an error shown to the user*/
+                    $title= !empty($p['listing_title']) ? sanitize_text_field($p['listing_title']) : '';
                     $tag = !empty($_POST['tax_input']['at_biz_dir-tags'])?($_POST['tax_input']['at_biz_dir-tags']):array();
                     $location = !empty($_POST['tax_input']['at_biz_dir-location'])?($_POST['tax_input']['at_biz_dir-location']):array();
 
                     $metas['_listing_type']      = !empty($p['listing_type']) ? sanitize_text_field($p['listing_type']) : 0;
-                    $metas['_price']             = !empty($p['price'])? (float) $p['price'] : 0;
-                    $metas['_price_range']       = !empty($p['price_range'])?  $p['price_range'] : '';
+                    if(empty($display_price_for) && !empty($display_pricing_field)) {
+                        $metas['_price'] = !empty($p['price']) ? (float)$p['price'] : 0;
+                    }
+                    if ( empty($display_price_range_for) && !empty($display_price_range_field )) {
+                        $metas['_price_range'] = !empty($p['price_range']) ? $p['price_range'] : '';
+                    }
                     $metas['_atbd_listing_pricing'] = !empty($p['atbd_listing_pricing'])?  $p['atbd_listing_pricing'] : '';
-                    $metas['_videourl']          = !empty($p['videourl'])? sanitize_text_field($p['videourl']) : '';
-                    $metas['_tagline']           = !empty($p['tagline'])? sanitize_text_field($p['tagline']) : '';
-                    $metas['_excerpt']           = !empty($p['excerpt'])? sanitize_text_field($p['excerpt']) : '';
+                    if (empty($display_video_for) && !empty($display_video_field)) {
+                        $metas['_videourl'] = !empty($p['videourl']) ? sanitize_text_field($p['videourl']) : '';
+                    }
+                    if (!empty($display_tagline_field) && empty($display_tagline_for)) {
+                        $metas['_tagline'] = !empty($p['tagline']) ? sanitize_text_field($p['tagline']) : '';
+                    }
+
+                    if (!empty($display_excerpt_field) && empty($display_short_desc_for)) {
+                        $metas['_excerpt'] = !empty($p['excerpt']) ? sanitize_text_field($p['excerpt']) : '';
+                    }
+
                     if(!empty($display_views_count) && empty($display_views_count_for)) {
                         $metas['_atbdp_post_views_count'] = !empty($p['atbdp_post_views_count']) ? (int)$p['atbdp_post_views_count'] : '';
                     }
-                    $metas['_address']           = !empty($p['address'])? sanitize_text_field($p['address']) : '';
-                    $metas['_phone']             = !empty($p['phone'])? sanitize_text_field($p['phone']) : '';
-                    $metas['_phone2']            = !empty($p['phone2'])? sanitize_text_field($p['phone2']) : '';
-                    $metas['_fax']               = !empty($p['fax'])? sanitize_text_field($p['fax']) : '';
-                    $metas['_email']             = !empty($p['email'])? sanitize_text_field($p['email']) : '';
-                    $metas['_website']           = !empty($p['website'])? sanitize_text_field($p['website']) : '';
-                    $metas['_zip']               = !empty($p['zip'])? sanitize_text_field($p['zip']) : '';
-                    $metas['_social']            = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
+                    if ( empty($display_address_for) && !empty($display_address_field) ) {
+                        $metas['_address'] = !empty($p['address']) ? sanitize_text_field($p['address']) : '';
+                    }
+                    if (empty($display_phone_for) && !empty($display_phone_field)) {
+                        $metas['_phone'] = !empty($p['phone']) ? sanitize_text_field($p['phone']) : '';
+                    }
+                    if (empty($display_phone2_for) && !empty($display_phone2_field)) {
+                        $metas['_phone2'] = !empty($p['phone2']) ? sanitize_text_field($p['phone2']) : '';
+                    }
+                    if (empty($display_fax_for) && !empty($display_fax_field)) {
+                        $metas['_fax'] = !empty($p['fax']) ? sanitize_text_field($p['fax']) : '';
+                    }
+                    if (empty($display_email_for) && !empty($display_email_field)) {
+                        $metas['_email'] = !empty($p['email']) ? sanitize_text_field($p['email']) : '';
+                    }
+                    if (empty($display_website_for) && !empty($display_website_field)) {
+                        $metas['_website'] = !empty($p['website']) ? sanitize_text_field($p['website']) : '';
+                    }
+                    if (empty($display_zip_for) && !empty($display_zip_field)) {
+                        $metas['_zip'] = !empty($p['zip']) ? sanitize_text_field($p['zip']) : '';
+                    }
+                    if (empty($display_social_info_for) && !empty($display_social_info_field)) {
+                        $metas['_social'] = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
+                    }
                     $metas['_faqs']              = !empty($p['faqs']) ? ($p['faqs']) : array(); // we are expecting array value
                     $metas['_bdbh']              = !empty($p['bdbh'])? atbdp_sanitize_array($p['bdbh']) : array();
                     $metas['_enable247hour']      = !empty($p['enable247hour'])? sanitize_text_field($p['enable247hour']) : '';
@@ -115,9 +175,12 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
                     $metas['_manual_lng']        = !empty($p['manual_lng'])? sanitize_text_field($p['manual_lng']) : '';
                     $metas['_hide_map']             = !empty($p['hide_map'])? sanitize_text_field($p['hide_map']) : '';
-                    $metas['_hide_map']             = !empty($p['hide_map'])? sanitize_text_field($p['hide_map']) : '';
-                    $metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();
-                    $metas['_listing_prv_img']   = !empty($p['listing_prv_img'])? sanitize_text_field($p['listing_prv_img']) :'';
+                    if( empty($display_glr_img_for) && !empty($display_gellery_field)) {
+                        $metas['_listing_img'] = !empty($p['listing_img']) ? atbdp_sanitize_array($p['listing_img']) : array();
+                    }
+                    if (empty($display_prv_img_for) && !empty($display_prv_field)) {
+                        $metas['_listing_prv_img'] = !empty($p['listing_prv_img']) ? sanitize_text_field($p['listing_prv_img']) : '';
+                    }
                     $metas['_hide_contact_info'] = !empty($p['hide_contact_info'])? sanitize_text_field($p['hide_contact_info']) : 0;
                     $metas['_hide_contact_owner'] = !empty($p['hide_contact_owner'])? sanitize_text_field($p['hide_contact_owner']) : 0;
                     $metas['_t_c_check']         = !empty($p['t_c_check'])? sanitize_text_field($p['t_c_check']) : 0;
@@ -291,6 +354,14 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                                     $args['tax_input'][ $taxonomy ] = $clean_terms;
                                 }
+                            }
+                            if (!empty($display_title_for)){
+                                $args['post_title' ] = get_the_title(absint($_POST['listing_id']));
+                            }
+                            if (!empty($display_desc_for)){
+                                $post_object = get_post(absint($_POST['listing_id']));
+                                $content = apply_filters('get_the_content', $post_object->post_content);
+                                $args['post_content' ] = $content;
                             }
                             $post_id = wp_update_post($args);
                             if (!empty($p['listing_prv_img'])){

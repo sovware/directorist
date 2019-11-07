@@ -24,7 +24,7 @@ $container_fluid = 'container-fluid';
                 $website = get_the_author_meta('user_url', $author_id);;
                 $facebook = get_user_meta($author_id, 'facebook', true);
                 $twitter = get_user_meta($author_id, 'twitter', true);
-                $linkedIn = get_user_meta($author_id, 'linkedIn', true);
+                $linkedIn = get_user_meta($author_id, '_linkedin', true);
                 $youtube = get_user_meta($author_id, 'youtube', true);
                 $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
                 ?>

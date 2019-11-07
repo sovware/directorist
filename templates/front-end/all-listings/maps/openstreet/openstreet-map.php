@@ -4,6 +4,10 @@ $data = array(
     'zoom'       => !empty($zoom) ? $zoom : 1,
 );
 wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_map', $data );
+wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
+    'lat'=>40.7128,
+    'lon'=>74.0060,
+) );
 ?>
 <script>
     var addressPoints = [

@@ -4,7 +4,7 @@ Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.2
-Stable tag: 6.1.0
+Stable tag: 6.2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -136,6 +136,22 @@ Directorist is not developed by a single person. A team of dedicated developers 
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 6.2.0 - Nov 05, 2019 =
+
+* Add - Option to select Kilometers or Miles for Radius Search
+* Add - Option of default Radius Distance
+* Fix - Login error message issue
+* Fix - Listing publish before checking out
+* Fix - Decimal issue of listing form
+* Fix - Radius search of search result
+* Fix - OpenStreetMap map issue
+* Fix - View Count issue of user's listing adding form
+* Fix - OpenStreetMap map conflict with Rank Math SEO Plugin
+* Fix - Pagination issue
+* Fix - Design issues
+* Fix - Form fields settings issue
+* Improve - Header title of Search Result page
 
 = 6.1.0 - Oct 24, 2019 =
 

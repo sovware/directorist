@@ -31,30 +31,17 @@ class ATBDP_Upgrade{
             }
         }
 
-        if (class_exists('BD_Business_Hour')){
-            $businessH_version = BDBH_VERSION;
-            if (empty(get_user_meta($user_id, '_atbdp_bh_notice', true)) && ($businessH_version<'2.0.1')){
-                $BHlink = 'https://aazztech.com/product/directorist-business-hours/';
-                $BHextension = sprintf('<a target="_blank" href="%s">%s</a>', $BHlink, __('Business Hours', 'directorist'));
-                echo '<div id="message" class="notice notice-info" style="display: flex; background: #ffc733;  justify-content: space-between;"><p>';
-                printf(__('Please update %s extension as we have made a major update (otherwise it may create some issues).', 'directorist'), $BHextension);
-                echo '</p><p><a href="?bh-update-notice">Hide</a></p></div>';
-            }
-        }
-        $link = '<a href="'.$update_link.'">please replace</a>';
+     /*   $link = '<a href="'.$update_link.'">please replace</a>';
         $is_generated_pages = get_user_meta( $user_id, '_atbdp_shortcode_regenerate_notice',true );
         if (empty($is_generated_pages) && (!function_exists('direo_setup') && !function_exists('dlist_setup') && !function_exists('dservice_setup') && !function_exists('drestaurant_setup'))){
             echo '<div id="message" class="notice notice-info" style="display: flex; background: #ffc733;  justify-content: space-between;"><p>';
             printf(__('If you are an old user of the %s plugin, %s your shortcodes as we have restructured our shortcodes.', 'directorist'), ATBDP_NAME, $link);
             echo '</p><p><a href="?my-plugin-dismissed">Hide</a></p></div>';
-        }
+        }*/
     }
 
     public function check_need_to_upgrade_database( ){
         $user_id = get_current_user_id();
-        if ( isset( $_GET['bh-update-notice'] ) ){
-            update_user_meta( $user_id, '_atbdp_bh_notice', 1);
-        }
         if ( isset( $_GET['my-plugin-dismissed'] ) ){
             update_user_meta( $user_id, '_atbdp_shortcode_regenerate_notice', 'new_true' );
         }if(isset( $_POST['shortcode-updated'] )){
@@ -64,15 +51,11 @@ class ATBDP_Upgrade{
             update_user_meta( $user_id, '_atbdp_location_category_page', 'true' );
         }
     }
-
-
     /**
      * It upgrades old pages and make them compatible with new shortcodes
      */
     public function upgrade_old_pages()
     {
-        //if (!valid_js_nonce()) wp_send_json_error(__('Nonce is invalid', 'directorist'));
-
         update_option('atbdp_pages_version', 0);
         wp_send_json_success(__('Congratulations! All old pages have been updated successfully', 'directorist'));
     }

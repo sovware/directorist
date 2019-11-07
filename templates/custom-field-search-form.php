@@ -3,9 +3,9 @@
 /**
  * This template displays custom fields in the search form.
  */
-?>
 
-<?php if( $acadp_query->have_posts() ) : ?>
+$allow_decimal = get_directorist_option('allow_decimal', 1);
+ if( $acadp_query->have_posts() ) : ?>
     <?php while( $acadp_query->have_posts() ) : $acadp_query->the_post(); $field_meta = get_post_meta( $post->ID ); ?>
 
             <div class="form-group atbdp_cf_<?php echo $field_meta['type'][0];?>"><div>
@@ -25,7 +25,7 @@
                     echo '</div></div>';
                     break;
                 case 'number' :
-                    printf( '<input type="number" name="custom_field[%d]" placeholder="%s" class="form-control" value="%s"/>', $post->ID, get_the_title(), esc_attr( $value ) );
+                    printf( '<input type="number" %s name="custom_field[%d]" placeholder="%s" class="form-control" value="%s"/>', !empty($allow_decimal)?'step="any"':'', $post->ID, get_the_title(), esc_attr( $value ) );
                     echo '</div></div>';
                     break;
                 case 'textarea' :

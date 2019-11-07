@@ -318,10 +318,6 @@ class ATBDP_Enqueuer {
         );
         wp_localize_script( 'atbdp_checkout_script', 'atbdp_checkout', $data );
 
-
-
-
-
         // enqueue the style and the scripts on the page when the post type is our registered post type.
         if ( (is_object($post) && ATBDP_POST_TYPE == $post->post_type) || $force) {
             wp_enqueue_style('sweetalertcss' );

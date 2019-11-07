@@ -1,6 +1,6 @@
  <?php
      $fields = $atbdp_query->posts;
-
+ $allow_decimal = get_directorist_option('allow_decimal', 1);
             if (isset($_POST['term_id'])){
             foreach ($fields as $post){
                 setup_postdata($post);
@@ -35,7 +35,7 @@
                             break;
                         case 'number' :
                             echo '<div>';
-                            printf( '<input type="number" name="custom_field[%d]" class="form-control directory_field" placeholder="" value="%s"/>', $post->ID, esc_attr( $value ) );
+                            printf( '<input type="number" %s name="custom_field[%d]" class="form-control directory_field" placeholder="" value="%s"/>', !empty($allow_decimal)?'step="any"':'', $post->ID, esc_attr( $value ) );
                             echo '</div>';
                             break;
                         case 'textarea' :

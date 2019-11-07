@@ -113,6 +113,7 @@ $display_fax_field = get_directorist_option('display_fax', 1);
 $display_fax_for = get_directorist_option('display_fax_for', 0);
 $display_email_field = get_directorist_option('display_email_field', 1);
 $display_email_for = get_directorist_option('display_email_for', 0);
+$allow_decimal = get_directorist_option('allow_decimal', 1);
 $display_website_field = get_directorist_option('display_website_field', 1);
 $display_website_for = get_directorist_option('display_website_for', 0);
 $display_zip_field = get_directorist_option('display_zip_field', 1);
@@ -256,7 +257,8 @@ $query_args = array(
                                     $price_range = !empty($price_range) ? $price_range : '';
                                     $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
 
-                                    if (empty($display_price_for && $display_price_range_for) && !empty($display_pricing_field || $display_price_range_field) && ($plan_average_price || $plan_price)) { ?>
+                                    if (empty($display_price_for && $display_price_range_for) && !empty($display_pricing_field || $display_price_range_field) && ($plan_average_price || $plan_price)) {
+                                        ?>
                                         <div class="form-group" id="atbd_pricing">
                                             <input type="hidden" id="atbd_listing_pricing"
                                                    value="<?php echo $atbd_listing_pricing ?>">
@@ -304,7 +306,7 @@ $query_args = array(
 
                                             <?php
                                             if ($plan_price && empty($display_price_for) && !empty($display_pricing_field)) { ?>
-                                                <input type="number" id="price" name="price"
+                                                <input type="number" <?php echo !empty($allow_decimal)?'step="any"':''; ?> id="price" name="price"
                                                     value="<?php echo !empty($price) ? esc_attr($price) : ''; ?>"
                                                     class="form-control directory_field"
                                                     placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
@@ -448,7 +450,7 @@ $query_args = array(
                                                     break;
                                                 case 'number' :
                                                     echo '<div>';
-                                                    printf('<input type="number" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post_id, $cf_placeholder, $value);
+                                                    printf('<input type="number" %s  name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', !empty($allow_decimal)?'step="any"':'', $post_id, $cf_placeholder, $value);
                                                     echo '</div>';
                                                     break;
                                                 case 'textarea' :
@@ -732,7 +734,7 @@ $query_args = array(
 
                             </div><!-- end .atbd_custom_fields_contents -->
                             <div class="atbdb_content_module">
-                                <?php if (empty($display_fax_for || $display_phone2_for || $display_phone_for || $display_address_for || $display_email_for || $display_website_for || $display_zip_for || $display_social_info_for) && !empty($display_address_field || $display_phone_field || $display_phone2_field || $display_fax_field || $display_email_field || $display_website_field || $display_zip_field || $display_social_info_field)) { ?>
+                                <?php if ((empty($display_fax_for) || empty($display_phone2_for) || empty($display_phone_for) || empty($display_address_for) || empty($display_email_for) || empty($display_website_for) || empty($display_zip_for) || empty($display_social_info_for)) && (!empty($display_address_field) || !empty($display_phone_field) || !empty($display_phone2_field) || !empty($display_fax_field) || !empty($display_email_field) || !empty($display_website_field) || !empty($display_zip_field) || !empty($display_social_info_field))) { ?>
                                     <div class="atbd_content_module atbd_contact_information">
                                         <div class="atbd_content_module__tittle_area">
                                             <div class="atbd_area_title">

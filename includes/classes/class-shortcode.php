@@ -3580,7 +3580,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 echo '</div></div></div></div></div>';
             } else {
                 $error_message = sprintf(__('Login page is not for logged-in user. <a href="%s">Go to Dashboard</a>', 'directorist'), esc_url(ATBDP_Permalink::get_dashboard_page_link()));
-                ATBDP()->helper->show_login_message($error_message);
+                ATBDP()->helper->show_login_message(apply_filters('atbdp_login_page_loggedIn_msg', $error_message));
             }
             return ob_get_clean();
         }
@@ -3598,7 +3598,7 @@ if (!class_exists('ATBDP_Shortcode')):
             } else {
                 $error_message = sprintf(__('Registration page is only for unregistered user. <a href="%s">Go to Dashboard</a>', 'directorist'), esc_url(ATBDP_Permalink::get_dashboard_page_link()));
                 ?>
-                <?php ATBDP()->helper->show_login_message($error_message); ?>
+                <?php ATBDP()->helper->show_login_message(apply_filters('atbdp_registration_page_registered_msg', $error_message)); ?>
 
                 <?php
             }

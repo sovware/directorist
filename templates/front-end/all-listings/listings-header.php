@@ -150,25 +150,6 @@ if ($display_header == 'yes') { ?>
                                             ?>
                                             <div class="col-md-6 col-sm-12 col-lg-4">
                                                 <div class="single_search_field search_category">
-                                                    <?php
-                                                   /* $args = array(
-                                                        'show_option_none' => __($category_placeholder, 'directorist'),
-                                                        'taxonomy' => ATBDP_CATEGORY,
-                                                        'id' => 'cat-type',
-                                                        'option_none_value' => '',
-                                                        'class' => 'form-control directory_field bdas-category-search',
-                                                        'name' => 'in_cat',
-                                                        'orderby' => 'name',
-                                                        'selected' => !empty($taxonomy_id) ? $taxonomy_id : $selected,
-                                                        'hierarchical' => true,
-                                                        'value_field' => 'id',
-                                                        'depth' => 10,
-                                                        'show_count' => false,
-                                                        'hide_empty' => false,
-                                                    );
-
-                                                    wp_dropdown_categories($args);*/
-                                                    ?>
                                                     <select name="in_cat" id="cat-type" class="form-control directory_field bdas-category-search">
                                                         <option><?php echo $category_placeholder; ?></option>
                                                         <?php echo $categories_fields;?>
@@ -187,25 +168,6 @@ if ($display_header == 'yes') { ?>
                                             ?>
                                             <div class="col-md-12 col-sm-12 col-lg-4">
                                                 <div class="single_search_field search_location">
-                                                    <?php
-                                                    /*$args = array(
-                                                        'show_option_none' => __($location_placeholder, 'directorist'),
-                                                        'taxonomy' => ATBDP_LOCATION,
-                                                        'id' => 'loc-type',
-                                                        'option_none_value' => '',
-                                                        'class' => 'form-control directory_field',
-                                                        'name' => 'in_loc',
-                                                        'orderby' => 'name',
-                                                        'selected' => !empty($location_id) ? $location_id : $loc_selected,
-                                                        'hierarchical' => true,
-                                                        'value_field' => 'id',
-                                                        'depth' => 10,
-                                                        'show_count' => false,
-                                                        'hide_empty' => false,
-                                                    );
-
-                                                    wp_dropdown_categories($args);*/
-                                                    ?>
                                                     <select name="in_loc" id="loc-type" class="form-control directory_field bdas-category-location">
                                                         <option><?php echo $location_placeholder; ?></option>
                                                         <?php echo $locations_fields;?>

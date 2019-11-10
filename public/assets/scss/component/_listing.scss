@@ -292,6 +292,7 @@
           transform: translateY(50%);
           width: 46px;
           height: 46px;
+          z-index: 1;
           a{
             border: 3px solid #fff;
             display: block;
@@ -573,12 +574,13 @@
     content: attr(aria-label);
     left: 50%;
     transform: translate(-50%, -12px);
-    white-space: nowrap;
     background: rgba(0, 0, 0, 1);
     padding: 4px 12px;
     border-radius: 0.2em;
     color: #fff;
     z-index: 9999;
+    text-align: center;
+    min-width: 150px;
   }
   &[aria-label]:hover:before, &[aria-label]:hover:after{
     display: block;

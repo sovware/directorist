@@ -2362,6 +2362,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   transform: translateY(50%);
   width: 46px;
   height: 46px;
+  z-index: 1;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd_listing_image .atbd_author a {
@@ -2692,12 +2693,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
   content: attr(aria-label);
   left: 50%;
   transform: translate(-50%, -12px);
-  white-space: nowrap;
   background: black;
   padding: 4px 12px;
   border-radius: 0.2em;
   color: #fff;
   z-index: 9999;
+  text-align: center;
+  min-width: 150px;
 }
 
 .atbd_tooltip.atbd_tooltip_active[aria-label]:hover:before, .atbd_tooltip.atbd_tooltip_active[aria-label]:hover:after {

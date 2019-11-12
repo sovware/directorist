@@ -231,10 +231,11 @@ if (!class_exists('ATBDP_Shortcode')):
             }
 
             if (isset($_GET['in_tag']) && (int)$_GET['in_tag'] > 0) {
+                $tag_value = $_GET['in_tag'];
                 $tax_queries[] = array(
                     'taxonomy' => ATBDP_TAGS,
                     'field' => 'term_id',
-                    'terms' => (int)$_GET['in_tag'],
+                    'terms' => $tag_value,
                 );
 
             }

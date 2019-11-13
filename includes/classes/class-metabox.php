@@ -401,6 +401,28 @@ wp_reset_postdata();
             delete_post_thumbnail($post_id);
         }
 
+      /*  $listing_status = get_post_meta($post_id, '_listing_status', true);
+        $current_d = current_time('mysql');
+        if (('expired' === $listing_status) || ('private' === get_post_status($post_id))){
+            if (($exp_dt > $current_d) || !empty($p['never_expire'])) {
+                wp_update_post( array(
+                    'ID'           => $post_id,
+                    'post_status' => 'publish', // update the status to private so that we do not run this func a second time
+                    'meta_input' => array(
+                            'listing_status' => 'post_status',
+                    ), // insert all meta data once to reduce update meta query
+                ) );
+            }else{
+                wp_update_post( array(
+                    'ID'           => $post_id,
+                    'post_status' => 'private', // update the status to private so that we do not run this func a second time
+                    'meta_input' => array(
+                        'listing_status' => 'expired',
+                    ), // insert all meta data once to reduce update meta query
+                ) );
+            }
+        }*/
+
     }
 
 

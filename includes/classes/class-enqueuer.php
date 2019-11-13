@@ -227,7 +227,8 @@ class ATBDP_Enqueuer {
         wp_register_script( 'atbdp_slick_slider', ATBDP_PUBLIC_ASSETS . 'js/slick.min.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'adminmainassets', ATBDP_PUBLIC_ASSETS . 'js/main.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'loc_cat_assets', ATBDP_PUBLIC_ASSETS . 'js/loc_cat.js', array( 'jquery' ), ATBDP_VERSION, true );
-        wp_register_script( 'at_modal', ATBDP_PUBLIC_ASSETS . 'js/atmodal.js', array( 'jquery' ), ATBDP_VERSION, true );
+        $modal_dependency = apply_filters('atbdp_modal_dependency', array('jquery'));
+        wp_register_script( 'at_modal', ATBDP_PUBLIC_ASSETS . 'js/atmodal.js', $modal_dependency, ATBDP_VERSION, true );
         wp_register_script( 'atbdp_open_street', ATBDP_PUBLIC_ASSETS . 'openstreet/openlayers/OpenLayers.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp_open_street_src', ATBDP_PUBLIC_ASSETS . 'openstreet/openlayers4jgsi/Crosshairs.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script('atbdp-plupload-min', ATBDP_ADMIN_ASSETS.'js/directorist-plupload.min.js', array('jquery'), ATBDP_VERSION);

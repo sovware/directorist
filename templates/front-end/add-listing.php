@@ -305,7 +305,12 @@ $query_args = array(
                                             </div>
 
                                             <?php
-                                            if ($plan_price && empty($display_price_for) && !empty($display_pricing_field)) { ?>
+                                            if ($plan_price && empty($display_price_for) && !empty($display_pricing_field)) {
+                                                /**
+                                                 * @since 6.2.1
+                                                 */
+                                                do_action('atbdp_add_listing_before_price_field', $p_id);
+                                                ?>
                                                 <input type="number" <?php echo !empty($allow_decimal)?'step="any"':''; ?> id="price" name="price"
                                                     value="<?php echo !empty($price) ? esc_attr($price) : ''; ?>"
                                                     class="form-control directory_field"
@@ -702,7 +707,7 @@ $query_args = array(
                                         </select>
                                     </div>
                                     <?php
-                                    do_action('atbdp_after_general_information');
+                                    do_action('atbdp_after_general_information', $p_id);
                                     $plan_custom_field = true;
                                     if (is_fee_manager_active()) {
                                         $plan_custom_field = is_plan_allowed_custom_fields($fm_plan);

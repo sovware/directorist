@@ -297,7 +297,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                                         ?>
                                                         <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
                                                             <input type="checkbox" class="custom-control-input"
-                                                                   name="in_tag" value="<?php echo $term->term_id; ?>"
+                                                                   name="in_tag[]" value="<?php echo $term->term_id; ?>"
                                                                    id="<?php echo $rand . $term->term_id; ?>">
                                                             <span class="check--select"></span>
                                                             <label for="<?php echo $rand . $term->term_id; ?>"

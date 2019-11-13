@@ -42,7 +42,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
 
                     printf( '<label>%s</label><div class="select-basic"><select name="custom_field[%d]" class="form-control">',get_the_title(), $post->ID );
 
-                        printf( '<option value="">%s</option>', '- '.__( 'Select an Option', ATBDP_TEMPLATES_DIR ).' -' );
+                        printf( '<option value="">%s</option>', '- '.__( 'Select an Option', 'directorist' ).' -' );
 
                     foreach( $choices as $choice ) {
                         if( strpos( $choice, ':' ) !== false ) {

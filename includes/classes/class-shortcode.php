@@ -7,41 +7,28 @@ if (!class_exists('ATBDP_Shortcode')):
         public function __construct()
         {
             add_shortcode('directorist_search_listing', array($this, 'search_listing'));
-
             add_shortcode('directorist_search_result', array($this, 'search_result'));
-
             add_shortcode('directorist_author_profile', array($this, 'author_profile'));
-
             add_shortcode('directorist_add_listing', array($this, 'add_listing'));
-
             add_shortcode('directorist_custom_registration', array($this, 'user_registration'));
-
             add_shortcode('directorist_user_login', array($this, 'custom_user_login'));
-
             add_shortcode('directorist_user_dashboard', array($this, 'user_dashboard'));
-
             add_shortcode('directorist_all_listing', array($this, 'all_listing'));
-
             add_shortcode('directorist_all_categories', array($this, 'all_categories'));
-
             add_shortcode('directorist_category', array($this, 'atbdp_category'));
-
             add_shortcode('directorist_all_locations', array($this, 'all_locations'));
-
             add_shortcode('directorist_location', array($this, 'atbdp_location'));
-
             add_shortcode('directorist_tag', array($this, 'atbdp_tag'));
             $checkout = new ATBDP_Checkout;
             add_shortcode('directorist_checkout', array($checkout, 'display_checkout_content'));
             add_shortcode('directorist_payment_receipt', array($checkout, 'payment_receipt'));
             add_shortcode('directorist_transaction_failure', array($checkout, 'transaction_failure'));
-
             add_action('wp_ajax_atbdp_custom_fields_listings_front', array($this, 'ajax_callback_custom_fields'), 10, 2);
             add_action('wp_ajax_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2);
         }
 
         /**
-         * Display custom fields.
+         * Display custom fields.Columns
          *
          * @param int $post_id Post ID.
          * @param array $term_id Category ID.
@@ -244,10 +231,11 @@ if (!class_exists('ATBDP_Shortcode')):
             }
 
             if (isset($_GET['in_tag']) && (int)$_GET['in_tag'] > 0) {
+                $tag_value = $_GET['in_tag'];
                 $tax_queries[] = array(
                     'taxonomy' => ATBDP_TAGS,
                     'field' => 'term_id',
-                    'terms' => (int)$_GET['in_tag'],
+                    'terms' => $tag_value,
                 );
 
             }

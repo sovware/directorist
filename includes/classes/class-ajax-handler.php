@@ -166,8 +166,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 echo esc_attr($data);
                 wp_die();
             }
-
-
+            
             $favourites = (array)get_user_meta($user_id, 'atbdp_favourites', true);
 
             if (in_array($post_id, $favourites)) {
@@ -193,7 +192,6 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             echo wp_json_encode($data);
             wp_die();
         }
-
 
         /**
          * Add or Remove favourites.
@@ -233,9 +231,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
          */
         public function update_user_profile()
         {
-
             // process the data and the return a success
-
             if (valid_js_nonce()) {
                 // passed the security
                 // update the user data and also its meta
@@ -248,7 +244,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             }
             wp_die();
         }
-        
+
         public function remove_listing()
         {
             // delete the listing from here. first check the nonce and then delete and then send success.
@@ -259,7 +255,6 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 $listing = get_post($pid);
                 // delete the post if the current user is the owner of the listing
                 if (get_current_user_id() == $listing->post_author || current_user_can('delete_at_biz_dirs')) {
-
                     $success = ATBDP()->listing->db->delete_listing_by_id($pid);
                     if ($success) {
                         echo 'success';
@@ -268,11 +263,9 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                     }
                 }
             } else {
-
                 echo 'error';
                 // show error message
             }
-
             wp_die();
         }
 
@@ -289,12 +282,9 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                     }
                 }
             } else {
-
                 echo 'error';
                 // show error message
             }
-
-
             wp_die();
         }
 
@@ -310,17 +300,12 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                         echo 'error';
                     }
                     wp_die();
-
                 }
-
                 die();
             } else {
-
                 echo 'error';
                 // show error message
             }
-
-
             wp_die();
         }
 

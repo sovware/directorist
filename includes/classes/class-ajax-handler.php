@@ -78,12 +78,12 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             $user_signon = wp_signon($info);
             if (is_wp_error($user_signon)) {
                 if (empty($info['user_login'] && $info['user_password'])) {
-                    echo json_encode(array('loggedin' => false, 'message' => __('<span class="status-warning">Fields are required.</span>', 'directorist')));
+                    echo json_encode(array('loggedin' => false, 'message' => __('Fields are required.', 'directorist')));
                 } else {
-                    echo json_encode(array('loggedin' => false, 'message' => __('<span class="status-failed">Wrong username or password.</span>', 'directorist')));
+                    echo json_encode(array('loggedin' => false, 'message' => __('Wrong username or password.', 'directorist')));
                 }
             } else {
-                echo json_encode(array('loggedin' => true, 'message' => __('<span class="status-success">Login successful, redirecting...</span>', 'directorist')));
+                echo json_encode(array('loggedin' => true, 'message' => __('Login successful, redirecting...', 'directorist')));
             }
 
             exit();

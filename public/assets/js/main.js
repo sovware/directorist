@@ -840,13 +840,15 @@ jQuery(function ($) {
                 'rememberme': $('form#login #keep_signed_in').val(),
                 'security': $('#security').val() },
             success: function(data){
-                $('p.status').html(data.message);
                 if (data.loggedin == true){
+                    $('p.status').html('<span class="status-success">' + data.message + '</span>');
                     document.location.href = ajax_login_object.redirect_url;
+                }else {
+                    $('p.status').html('<span class="status-failed">' + data.message + '</span>');
                 }
             },
             error: function (data) {
-                $('p.status').show().html('<span class="color-danger">' + ajax_login_object.login_error_message + '</span>');
+                $('p.status').show().html('<span class="status-failed">' + ajax_login_object.login_error_message + '</span>');
             }
         });
         e.preventDefault();

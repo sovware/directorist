@@ -470,7 +470,20 @@ if ('openstreet' == $select_listing_map) {
             });
             var mymap = L.map('gmap').setView([lat, lon], <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 4; ?>);
 
-            L.marker([lat, lon], {icon: fontAwesomeIcon}).addTo(mymap);
+            L.marker([lat, lon], {icon: fontAwesomeIcon, draggable: true}).addTo(mymap).on("drag", function(e) {
+                var marker = e.target;
+                var position = marker.getLatLng();
+                $('#manual_lat').val(position.lat);
+                $('#manual_lng').val(position.lng);
+                $.ajax({
+                    url: `https://nominatim.openstreetmap.org/reverse?format=json&lon=${position.lng}&lat=${position.lat}`,
+                    type: 'POST',
+                    data: {},
+                    success: function (data) {
+                        $('#address').val(data.display_name);
+                    }
+                });
+            });
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -490,7 +503,6 @@ if ('openstreet' == $select_listing_map) {
                 type: 'POST',
                 data: {},
                 success: function (data) {
-                    //console.log(data);
                     for (var i = 0; i < data.length; i++) {
                         res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
                     }

@@ -127,21 +127,18 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
     }
     setTimeout(() => {
         console.log(jQuery('.leaflet-popup-content'))
-    }, 100)
-
-
-
-
-
+    }, 100);
 </script>
 <?php while( $all_listings->have_posts() ) : $all_listings->the_post();
     $cats                           = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
     $font_type = get_directorist_option('font_type','line');
-    $fa_or_la = ('line' == $font_type) ? "la " : "fa ";
     if(!empty($cats)){
         $cat_icon                       = get_cat_icon($cats[0]->term_id);
     }
-    $cat_icon = !empty($cat_icon) ? $fa_or_la . $cat_icon : 'fa fa-map-marker';
+    $cat_icon = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
+    $icon_type = substr($cat_icon, 0,2);
+    $fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
+    $cat_icon = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
 ?>
 <input type="hidden" value="<?php echo $cat_icon;?>" class="openstreet_icon">
 <?php endwhile;?>

@@ -282,6 +282,11 @@ class ATBDP_User {
             // only when no WP_error is found
             $user_id = $this->complete_registration($username, $password, $email, $website, $first_name, $last_name, $bio);
             if ($user_id && !is_wp_error( $user_id )) {
+                /*
+                 * @since 6.3.0
+                 * If fires after completed user registration
+                 */
+                do_action('atbdp_user_registration_completed', $user_id);
                 update_user_meta($user_id, '_atbdp_generated_password', $password);
                 // user has been created successfully, now work on activation process
                 wp_new_user_notification($user_id, null, 'both'); // send activation to the user and the admin

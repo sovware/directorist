@@ -388,7 +388,6 @@ wp_reset_postdata();
         /*update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
         wp_set_object_terms($post_id, $admin_category_select, ATBDP_CATEGORY);*/
 
-
         $metas['_expiry_date']              = $exp_dt;
         $metas = apply_filters('atbdp_listing_meta_admin_submission', $metas);
         // save the meta data to the database
@@ -401,28 +400,46 @@ wp_reset_postdata();
             delete_post_thumbnail($post_id);
         }
 
-      /*  $listing_status = get_post_meta($post_id, '_listing_status', true);
+        $listing_status = get_post_meta($post_id, '_listing_status', true);
+        $post_status = get_post_status($post_id);
         $current_d = current_time('mysql');
-        if (('expired' === $listing_status) || ('private' === get_post_status($post_id))){
-            if (($exp_dt > $current_d) || !empty($p['never_expire'])) {
-                wp_update_post( array(
-                    'ID'           => $post_id,
-                    'post_status' => 'publish', // update the status to private so that we do not run this func a second time
-                    'meta_input' => array(
-                            'listing_status' => 'post_status',
-                    ), // insert all meta data once to reduce update meta query
-                ) );
-            }else{
-                wp_update_post( array(
-                    'ID'           => $post_id,
-                    'post_status' => 'private', // update the status to private so that we do not run this func a second time
-                    'meta_input' => array(
-                        'listing_status' => 'expired',
-                    ), // insert all meta data once to reduce update meta query
-                ) );
-            }
-        }*/
 
+        // let's check is listing need to update
+        if (('expired' === $listing_status) && ('private' === $post_status)){
+            // check is plans module active
+            if (is_pricing_plans_active()){
+                $package_id = 'null' != $_POST['admin_plan'] ? esc_attr($_POST['admin_plan']):'';
+                if (!empty($package_id)){
+                    $package_length = get_post_meta($package_id, 'fm_length', true);
+                    // Current time
+                    // Calculate new date
+                    $date = new DateTime($current_d);
+                    $date->add(new DateInterval("P{$package_length}D")); // set the interval in days
+                    $expired_date = $date->format('Y-m-d H:i:s');
+                    $is_never_expaired = get_post_meta($package_id, 'fm_length_unl', true);
+                    if (($expired_date > $current_d) || !empty($is_never_expaired)) {
+                        wp_update_post( array(
+                            'ID'           => $post_id,
+                            'post_status' => 'publish', // update the status to private so that we do not run this func a second time
+                            'meta_input' => array(
+                                'listing_status' => 'post_status',
+                            ), // insert all meta data once to reduce update meta query
+                        ) );
+                    }
+                }
+            }else{
+                // no plans extension active so update the listing status if admin manually change the listing expire date
+                if (($exp_dt > $current_d) || !empty($p['never_expire'])) {
+                    wp_update_post( array(
+                        'ID'           => $post_id,
+                        'post_status' => 'publish', // update the status to private so that we do not run this func a second time
+                        'meta_input' => array(
+                            'listing_status' => 'post_status',
+                        ), // insert all meta data once to reduce update meta query
+                    ) );
+                }
+            }
+        }
     }
 
 

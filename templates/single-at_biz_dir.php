@@ -47,7 +47,10 @@ $fa_or_la = ('line' == $font_type) ? "la " : "fa ";
 if(!empty($cats)){
     $cat_icon                       = get_cat_icon($cats[0]->term_id);
 }
-$cat_icon = !empty($cat_icon) ? $fa_or_la . $cat_icon : 'fa fa-map-marker';
+$cat_icon = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
+$icon_type = substr($cat_icon, 0,2);
+$fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
+$cat_icon = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
 $display_thumbnail_img          = get_directorist_option('dsiplay_thumbnail_img', 1);
 extract($listing_info);
 /*Prepare Listing Image links*/

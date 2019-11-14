@@ -303,7 +303,31 @@ if ($display_header == 'yes') { ?>
                                     </div><!-- ends: .form-group -->
                                 <?php }
                                 if (in_array('search_tag', $search_more_filters_fields)) {
-                                    $terms = get_terms(ATBDP_TAGS);
+                                    $listing_tags_field = get_directorist_option('listing_tags_field','all_tags');
+                                    $category_slug = get_query_var('atbdp_category');
+                                    $category = get_term_by('slug', $category_slug,ATBDP_CATEGORY);
+                                    $category_id = !empty($category_slug) ? $category->term_id : '';
+                                    $tag_args = array(
+                                        'post_type'=> ATBDP_POST_TYPE,
+                                        'tax_query' => array(
+                                                array(
+                                                    'taxonomy' => ATBDP_CATEGORY,
+                                                    'terms'    => !empty($_GET['in_cat']) ? $_GET['in_cat'] : $category_id,
+                                                )
+                                        )
+                                    );
+                                    $tag_posts = get_posts($tag_args);
+                                    if(!empty($tag_posts)) {
+                                        foreach ($tag_posts as $tag_post) {
+                                            $tag_id[] = $tag_post->ID;
+                                        }
+                                    }
+                                    $tag_id = !empty($tag_id) ? $tag_id : '';
+                                    if('all_tags' == $listing_tags_field) {
+                                        $terms = get_terms(ATBDP_TAGS);
+                                    } else {
+                                        $terms = wp_get_object_terms( $tag_id, ATBDP_TAGS );
+                                    }
                                     if (!empty($terms)) {
                                         ?>
                                         <div class="form-group ads-filter-tags">

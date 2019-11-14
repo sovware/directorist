@@ -8,15 +8,16 @@ $listing_info['manual_lng'] = get_post_meta($post->ID, '_manual_lng', true);
 $listing_info['listing_prv_img'] = get_post_meta($post->ID, '_listing_prv_img', true);
 $listing_info['hide_map'] = get_post_meta($post->ID, '_hide_map', true);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
-$display_map_field = get_directorist_option('display_map_field', 1);
-$display_map_field = apply_filters('atbdp_show_single_listing_map', $display_map_field);
-$cats                           = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-$font_type = get_directorist_option('font_type','line');
-$fa_or_la = ('line' == $font_type) ? "la " : "fa ";
+$display_map_field  = get_directorist_option('display_map_field', 1);
+$display_map_field  = apply_filters('atbdp_show_single_listing_map', $display_map_field);
+$cats               = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
 if(!empty($cats)){
     $cat_icon                       = get_cat_icon($cats[0]->term_id);
 }
-$cat_icon = !empty($cat_icon) ? $fa_or_la . $cat_icon : 'fa fa-map-marker';
+$cat_icon = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
+$icon_type = substr($cat_icon, 0,2);
+$fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
+$cat_icon = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
 
 extract($listing_info);
 /*INFO WINDOW CONTENT*/

@@ -2550,6 +2550,25 @@ The Administrator of ==SITE_NAME==
                             'label' => __('Display From Map API', 'directorist'),
                         ),
                     ),
+                    'listing_tags_field' => array(
+                        'type' => 'select',
+                        'name' => 'listing_tags_field',
+                        'label' => __('Tags Filter Source', 'directorist'),
+                        'items' => array(
+                            array(
+                                'value' => 'category_based_tags',
+                                'label' => __('Category Based Tags', 'directorist'),
+                            ),
+                            array(
+                                'value' => 'all_tags',
+                                'label' => __('All Tags', 'directorist'),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'all_tags',
+                            'label' => __('All Tags', 'directorist'),
+                        ),
+                    ),
                     array(
                         'type' => 'slider',
                         'name' => 'listing_default_radius_distance',

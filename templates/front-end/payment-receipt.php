@@ -7,6 +7,7 @@ $c_position      = get_directorist_option('payment_currency_position');
 $currency        = atbdp_get_payment_currency();
 $symbol          = atbdp_currency_symbol($currency);
 $container_fluid = 'container-fluid';
+$order_id = (!empty($order_id)) ? $order_id : '';
 ?>
 <div id="directorist" class="atbd_wrapper directorist directory_wrapper single_area">
     <div class="<?php echo apply_filters('atbdp_payment_receipt_container_fluid',$container_fluid) ?>">
@@ -138,7 +139,8 @@ $container_fluid = 'container-fluid';
                                 ?>
                             </td>
                         </tr>
-                    <?php } ?>
+                    <?php }
+                    ?>
                     <tr>
                         <td class="text-right atbdp-vertical-middle"><strong><?php printf( __( 'Total amount [%s]', 'directorist' ), $currency ); ?></strong></td>
                         <td class="atbd_tottal">
@@ -150,9 +152,9 @@ $container_fluid = 'container-fluid';
 
         </div>
         <?php
-        $url = apply_filters('atbdp_payment_receipt_button_link', ATBDP_Permalink::get_dashboard_page_link());
+        $url = apply_filters('atbdp_payment_receipt_button_link', ATBDP_Permalink::get_dashboard_page_link(), $order_id);
         $text = apply_filters('atbdp_payment_receipt_button_text', __( 'View your listings', 'directorist' ));
         ?>
-        <div class="atbd-text-center"><a href="<?php echo esc_url($url); ?>" class="btn btn-lg btn-primary"><?php  echo esc_attr($text); ?></a></div>
+        <div class="atbd-text-center"><a href="<?php echo esc_url($url); ?>" class="btn btn-primary"><?php  echo esc_attr($text); ?></a></div>
     </div>
 </div>

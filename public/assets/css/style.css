@@ -1136,6 +1136,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   border-radius: 50%;
 }
 
+#directorist.atbd_wrapper .form-control {
+  max-width: 100%;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;
@@ -2594,7 +2598,7 @@ span.atbd_get_loc_wid {
 .atbdp-map .gm-style .gm-style-iw .gm-style-iw-d img,
 .atbd_google_map .gm-style .gm-style-iw .gm-style-iw-d img {
   width: 100%;
-  max-height: 150px;
+  max-height: none;
 }
 
 .atbdp-map .gm-style .gm-style-iw .gm-style-iw-d .miw-contents,

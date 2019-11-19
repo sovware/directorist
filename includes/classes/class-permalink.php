@@ -115,7 +115,7 @@ class ATBDP_Permalink{
      * @return string
      * @since 5.0
      */
-    public static function get_directorist_lisitngs_page_link($query_vars=array())
+    public static function get_directorist_listings_page_link($query_vars=array())
     {
         $link = home_url();
         $id = get_directorist_option('all_listing_page'); // get the page id of the custom registration page.

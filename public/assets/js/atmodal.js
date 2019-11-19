@@ -19,7 +19,7 @@ const aazztechModal = (selector) => {
 				document.body.classList.add("atm-open");
 				setTimeout(function () {
 					el.classList.add("atm-show");
-				}, 100)
+				}, 100);
 				document.querySelector("html").style.overflow = "hidden";
 			});
 		});
@@ -47,4 +47,7 @@ const aazztechModal = (selector) => {
 	});
 };
 
+
+
 aazztechModal('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal');
+

@@ -3476,7 +3476,8 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                         <?php }
                                     }
                                     if (!empty($display_mark_as_fav)) {
-                                        echo atbdp_listings_mark_as_favourite(get_the_ID());
+                                        $mark_as_fav_for_list_view = apply_filters('atbdp_mark_as_fav_for_list_view',atbdp_listings_mark_as_favourite(get_the_ID()));
+                                        echo $mark_as_fav_for_list_view;
                                     }
                                     ?>
                                 </div><!-- end ./atbd_content_upper -->

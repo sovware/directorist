@@ -1492,6 +1492,20 @@ jQuery(function ($) {
         lf_opt61.show();
     }
 
+    //Display guest field
+    var lf_opt62 = $("#guest_email, #guest_email_placeholder");
+    lf_opt62.hide();
+    $('input[name="guest_listings"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_opt62.show();
+        }else{
+            lf_opt62.hide();
+        }
+    });
+    if($('input[name="guest_listings"]').is(":checked") === true){
+        lf_opt62.show();
+    }
+
     /* Copy shortcodes on click */
     var textToCopy = document.querySelectorAll(".description.atbdp_settings_description strong");
     textToCopy.forEach((el, index) =>{

@@ -74,6 +74,45 @@ if (!class_exists('ATBDP_Add_Listing')):
                 do_action('atbdp_before_processing_submitted_listing_frontend', $_POST);
                 // add listing form has been submitted
                 if (ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action )) {
+
+                    // guest user
+                    $guest = get_directorist_option('guest_listings', 0);
+                    $guest_email = isset($_POST['guest_user_email']) ? esc_attr($_POST['guest_user_email']) : '';
+                    if (!empty($guest)){
+                        $string = $guest_email;
+                        $explode = explode("@",$string);
+                        array_pop($explode);
+                        $userName = join('@', $explode);
+                        //check if username already exist
+                        if (username_exists($userName)){
+                            $random = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'),1,5);
+                            $userName = $userName.$random;
+                        }
+                        // Check if user exist by email
+                        if ( email_exists( $guest_email ) ) {
+                            $msg = '<div class="alert alert-danger"><strong>' . __('Email already exists!', 'directorist') . '</strong></div>';
+                            return $msg;
+                        }else{
+                            // lets register the user
+                            $reg_errors = new WP_Error;
+                            if ( empty($reg_errors->get_error_messages()) ) {
+                                $password   =   wp_generate_password( 12, false );
+                                $userdata = array(
+                                    'user_login'    =>   $userName,
+                                    'user_email'    =>   $guest_email,
+                                    'user_pass'     =>   $password,
+                                );
+                                $user_id =  wp_insert_user( $userdata ); // return inserted user id or a WP_Error
+                                wp_set_current_user($user_id, $guest_email);
+                                wp_set_auth_cookie($user_id);
+                                do_action('atbdp_user_registration_completed', $user_id);
+                                update_user_meta($user_id, '_atbdp_generated_password', $password);
+                                // user has been created successfully, now work on activation process
+                                wp_new_user_notification($user_id, null, 'both');
+                            }
+                        }
+                    }
+
                     // we have data and passed the security
                     // we not need to sanitize post vars to be saved to the database,
                     // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');

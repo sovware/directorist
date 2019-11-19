@@ -90,6 +90,7 @@ $display_tag_for = get_directorist_option('display_tag_for', 0);
 $display_tagline_field = get_directorist_option('display_tagline_field', 0);
 $tagline_placeholder = get_directorist_option('tagline_placeholder', __('Your Listing\'s motto or tag-line', 'directorist'));
 $display_tagline_for = get_directorist_option('display_tagline_for', 0);
+$guest_listings = get_directorist_option('guest_listings', 0);
 // get the custom terms and conditions
 $listing_terms_condition_text = get_directorist_option('listing_terms_condition_text');
 $display_pricing_field = get_directorist_option('display_pricing_field', 1);
@@ -1152,7 +1153,23 @@ $query_args = array(
                                                                placeholder="<?php echo esc_attr($video_placeholder); ?>"/>
                                                     </div>
                                                     <?php do_action('atbdp_video_field',get_the_ID()); ?>
-                                                <?php } ?>
+                                                <?php }
+                                                if ($guest_listings){
+                                                ?>
+                                                <div class="form-group">
+                                                    <label for="guest_user"><?php
+                                                        $guest_email_label = get_directorist_option('guest_email', __('Your Email', 'directorist'));
+                                                        $guest_email_placeholder = get_directorist_option('guest_email_placeholder', __('example@gmail.com', 'directorist'));
+                                                        esc_html_e($guest_email_label . ':', 'directorist');
+                                                        echo '<span class="atbdp_make_str_red">*</span>'; ?></label>
+                                                    <input type="text" id="guest_user_email" name="guest_user_email"
+                                                           value="<?php echo !empty($guest_user_email) ? esc_url($guest_user_email) : ''; ?>"
+                                                           class="form-control directory_field"
+                                                           placeholder="<?php echo esc_attr($guest_email_placeholder); ?>"/>
+                                                </div>
+                                                <?php
+                                                }
+                                                ?>
                                             </div>
                                         </div>
                                         <?php

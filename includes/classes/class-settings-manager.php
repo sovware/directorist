@@ -909,6 +909,11 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'title' => __('Terms and Condition', 'directorist'),
                             'fields' => $this->get_listings_terms_field_settings(),
                         ),
+                        'guest_field' => array(
+                            'type' => 'section',
+                            'title' => __('Guest Submission', 'directorist'),
+                            'fields' => $this->get_guest_listings_settings(),
+                        ),
                     )),
                 ),
 
@@ -4949,6 +4954,36 @@ The Administrator of ==SITE_NAME==
                     'name' => 'submit_label',
                     'label' => __('Submit listing label', 'directorist'),
                     'default' => __('Submit listing', 'directorist'),
+                ),
+
+
+            ));
+        }
+     /**
+         * Get  term & condition settings field
+         * @return array
+         * @since 4.7.2
+         */
+        public function get_guest_listings_settings()
+        {
+            return apply_filters('atbdp_guest_listings_settings', array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'guest_listings',
+                    'label' => __('Enable Guest', 'directorist'),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'guest_email',
+                    'label' => __('Guest Email label', 'directorist'),
+                    'default' => __('Your Email', 'directorist'),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'guest_email_placeholder',
+                    'label' => __('Guest Email Placeholder', 'directorist'),
+                    'default' => __('example@gmail.com', 'directorist'),
                 ),
 
 

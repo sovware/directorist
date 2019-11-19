@@ -226,6 +226,16 @@ jQuery(document).ready(function ($) {
                 return false;
             }
         }
+
+        //guest user
+        if ($("#guest_user_email").length > 0) {
+            var guest_user_email = $("input[name='guest_user_email']").val();
+            var allow_guest = add_listing_validator.guest_user;
+            if ('' === guest_user_email && '' !== allow_guest) {
+                $("input[name='guest_user_email']").after('<span class="atbdp_required">' + w_icon + allow_guest + '</span>');
+                return false;
+            }
+        }
     });
 
 });

@@ -630,6 +630,12 @@ class ATBDP_Enqueuer {
             $terms = __('Agree to Terms & Conditions is required!', 'directorist');
         }
 
+        $guest_user = '';
+        $guest_listings = get_directorist_option('guest_listings', 0);
+        if(!empty($guest_listings)){
+            $guest_user = __('Your email is required!', 'directorist');
+        }
+
         $validator = array(
             'title' => $title,
             'description' => $description,
@@ -651,6 +657,7 @@ class ATBDP_Enqueuer {
             'gallery_image'    => $gallery_image,
             'video'    => $video,
             'terms'    => $terms,
+            'guest_user'    => $guest_user,
         );
 
         wp_localize_script( 'atbdp_add_listing_validator', 'add_listing_validator', $validator );

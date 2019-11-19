@@ -3385,7 +3385,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 include ATBDP_DIR . 'public/assets/css/style.php';
             }
             wp_enqueue_script('adminmainassets');
-            if (is_user_logged_in()) {
+            $guest = get_directorist_option('guest_listings', 0);
+            if (is_user_logged_in() || $guest) {
                 global $wp;
                 global $pagenow;
                 $current_url = home_url(add_query_arg(array(), $wp->request));

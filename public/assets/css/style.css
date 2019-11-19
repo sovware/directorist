@@ -1136,6 +1136,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   border-radius: 50%;
 }
 
+#directorist.atbd_wrapper .form-control {
+  max-width: 100%;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

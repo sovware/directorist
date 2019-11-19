@@ -380,15 +380,14 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     wp_set_object_terms($post_id, $locations->name, ATBDP_LOCATION, $append);
                                 }
                             }
-
                             if (!empty($tag)){
-                                $append = false;
                                 if (count($tag)>1){
-                                    $append = true;
-                                }
-                                foreach ($tag as $single_tag){
-                                    $tag =  get_term_by('slug', $single_tag, ATBDP_TAGS);
-                                    wp_set_object_terms($post_id, $tag->name, ATBDP_TAGS, $append);
+                                    foreach ($tag as $single_tag){
+                                        $tag =  get_term_by('slug', $single_tag, ATBDP_TAGS);
+                                        wp_set_object_terms($post_id, $tag->name, ATBDP_TAGS, true);
+                                    }
+                                }else{
+                                    wp_set_object_terms($post_id, $tag[0], ATBDP_TAGS);//update the term relationship when a listing updated by author
                                 }
                             }
 
@@ -610,6 +609,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     }
                                 }
 
+
                                 if(!empty($tag)){
                                     //update TAG for user
                                     if (count($tag)>1){
@@ -618,8 +618,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                             wp_set_object_terms($post_id, $term_by_id->name, ATBDP_TAGS, true);//update the term relationship when a listing updated by author
                                         }
                                     }else{
-                                        $term_by_id =  get_term_by('term_id', $tag[0], ATBDP_TAGS);
-                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_TAGS);//update the term relationship when a listing updated by author
+                                        wp_set_object_terms($post_id, $tag[0], ATBDP_TAGS);//update the term relationship when a listing updated by author
                                     }
                                 }
 

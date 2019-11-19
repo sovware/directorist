@@ -122,6 +122,12 @@
                 }
             });
         });
+        //hide address result when click outside the input field
+        $(document).on("click", function (e) {
+            if(!($(e.target).closest("input#address").length)){
+                $('#address_result').hide();
+            }
+        });
 
         $('body').on('click', '#address_result ul li a', function (event) {
             event.preventDefault();

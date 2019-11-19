@@ -1939,7 +1939,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
 
                 $current_order = atbdp_get_listings_current_order($atts['orderby'] . '-' . $atts['order']);
-                $view = atbdp_get_listings_current_view_name($atts['view']);
+                $view          = atbdp_get_listings_current_view_name($atts['view']);
 
                 $args = array(
                     'post_type' => ATBDP_POST_TYPE,

@@ -4378,3 +4378,41 @@ function is_pyn_type()
         return false;
     }
 }
+
+/*
+ * @since 6.3.0
+ */
+function atbdp_guest_submission($guest_email){
+    $string = $guest_email;
+    $explode = explode("@",$string);
+    array_pop($explode);
+    $userName = join('@', $explode);
+    //check if username already exist
+    if (username_exists($userName)){
+        $random = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'),1,5);
+        $userName = $userName.$random;
+    }
+    // Check if user exist by email
+    if ( email_exists( $guest_email ) ) {
+        $msg = '<div class="alert alert-danger"><strong>' . __('Email already exists!', 'directorist') . '</strong></div>';
+        return $msg;
+    }else{
+        // lets register the user
+        $reg_errors = new WP_Error;
+        if ( empty($reg_errors->get_error_messages()) ) {
+            $password   =   wp_generate_password( 12, false );
+            $userdata = array(
+                'user_login'    =>   $userName,
+                'user_email'    =>   $guest_email,
+                'user_pass'     =>   $password,
+            );
+            $user_id =  wp_insert_user( $userdata ); // return inserted user id or a WP_Error
+            wp_set_current_user($user_id, $guest_email);
+            wp_set_auth_cookie($user_id);
+            do_action('atbdp_user_registration_completed', $user_id);
+            update_user_meta($user_id, '_atbdp_generated_password', $password);
+            // user has been created successfully, now work on activation process
+            wp_new_user_notification($user_id, null, 'both');
+        }
+    }
+}

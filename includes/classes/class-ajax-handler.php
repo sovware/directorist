@@ -312,17 +312,20 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
         public function save_listing_review()
         {
+            $guest_review = get_directorist_option('guest_review', 0);
+            if ($guest_review){
+                $guest_email = isset($_POST['guest_user_email']) ? esc_attr($_POST['guest_user_email']) : '';
+                $fkdsf = atbdp_guest_submission($guest_email);
+                if ($fkdsf){
+                    echo 'yes';
+                }else{
+                    echo 'No';
+                }
+                die();
+            }
+
             // save the data if nonce is good and data is valid
             if (valid_js_nonce() && $this->validate_listing_review()) {
-                /*
-                 * $args = array(
-                        'post_id'          => $post_id,
-                        'name'           => $user ? $user->display_name : '',
-                        'email'          => $email,
-                        'by_user_id'        => $user ? $user->ID : 0,
-                    );
-                */
-
                 $u_name = !empty($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
                 $u_email = !empty($_POST['email']) ? sanitize_email($_POST['email']) : '';
                 $user = wp_get_current_user();

@@ -1197,6 +1197,7 @@ final class Directorist_Base
          */
 
         $enable_review = get_directorist_option('enable_review', 1);
+        $guest_review = get_directorist_option('guest_review', 0);
         $approve_immediately = get_directorist_option('approve_immediately', 1);
         $review_duplicate = tract_duplicate_review(wp_get_current_user()->display_name, $post->ID);
         if (!$enable_review) return; // vail if review is not enabled
@@ -1222,7 +1223,7 @@ final class Directorist_Base
                             echo $count_review;
                             ?></h4>
                     </div>
-                    <?php if (is_user_logged_in()) { ?>
+                    <?php if (is_user_logged_in() || $guest_review) { ?>
                         <label for="review_content"
                                class="btn btn-primary btn-sm"><?php _e('Add a review', 'directorist'); ?></label>
                     <?php } ?>
@@ -1274,7 +1275,7 @@ final class Directorist_Base
             </div><!-- end .atbd_review_module -->
             <?php
             // check if the user is logged in and the current user is not the owner of this listing.
-            if (is_user_logged_in()) {
+            if (is_user_logged_in() || $guest_review) {
                 global $wpdb;
                 // if the current user is NOT the owner of the listing print review form
                 // get the settings of the admin whether to display review form even if the user is the owner of the listing.
@@ -1338,19 +1339,21 @@ final class Directorist_Base
                                           placeholder="<?php echo !empty($cur_user_review) ? __('Update your review.....', 'directorist') : __('Write your review.....', 'directorist'); ?>"><?php echo !empty($cur_user_review) ? stripslashes($cur_user_review->content) : ''; ?></textarea>
                                 </div>
 
-                                <!-- <div class="form-group">
-                                     <div id="atbd_up_preview"></div>
-                                     <div class="atbd_upload_btn_wrap">
-                                         <label for="atbd_review_attachment">
-                                             <input type="file" id="atbd_review_attachment" hidden multiple>
-                                             <span class="btn atbd_upload_btn"><span class="fa fa-upload"></span>Upload Photo</span>
-                                         </label>
-                                     </div>
-                                 </div>-->
-
-                                <!--If current user has a review then show him update and delete button-->
-
-                                <?php if (!empty($cur_user_review)) { ?>
+                                <?php
+                                if ($guest_review){
+                                ?>
+                                <div class="form-group">
+                                    <label for="guest_user"><?php
+                                        $guest_email_label = get_directorist_option('guest_email', __('Your Email', 'directorist'));
+                                        $guest_email_placeholder = get_directorist_option('guest_email_placeholder', __('example@gmail.com', 'directorist'));
+                                        esc_html_e($guest_email_label . ':', 'directorist');
+                                        echo '<span class="atbdp_make_str_red">*</span>'; ?></label>
+                                    <input type="text" id="guest_user_email" name="guest_user_email" required
+                                           value="<?php echo !empty($guest_user_email) ? esc_url($guest_user_email) : ''; ?>"
+                                           class="form-control directory_field"
+                                           placeholder="<?php echo esc_attr($guest_email_placeholder); ?>"/>
+                                </div>
+                                <?php } if (!empty($cur_user_review)) { ?>
                                     <button class="<?php echo atbdp_directorist_button_classes(); ?>" type="submit"
                                             id="atbdp_review_form_submit"><?php _e('Update', 'directorist'); ?></button> <!-- ends update  button -->
                                     <button class="btn btn-danger" type="button" id="atbdp_review_remove"

@@ -467,6 +467,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         // the post is a new post, so insert it as new post.
                         if (current_user_can('publish_at_biz_dirs')){
                             $new_l_status = get_directorist_option('new_listing_status', 'pending');
+                            $monitization = get_directorist_option('enable_monetization',0);
                             $args['post_status'] = $new_l_status;
                             //if listing under a purchased package
                             if(is_fee_manager_active()){
@@ -478,7 +479,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     // status for non paid users
                                     $args['post_status'] = 'pending';
                                 }
-                            }elseif (!empty($featured_enabled)){
+                            }elseif (!empty($featured_enabled && $monitization)){
                                 $args['post_status'] = 'pending';
                             }
                             else{

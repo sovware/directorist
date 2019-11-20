@@ -19,9 +19,9 @@ if (!class_exists('ATBDP_Ajax_Handler')):
         public function __construct()
         {
             add_action('wp_ajax_atbdp_social_info_handler', array($this, 'atbdp_social_info_handler'));
-            add_action('wp_ajax_save_listing_review', array($this, 'save_listing_review'));
             add_action('wp_ajax_remove_listing_review', array($this, 'remove_listing_review'));
-            /*        add_action( 'wp_ajax_nopriv_save_listing_review', array($this, 'save_listing_review')); // don not allow unregistered user to submit review*/
+            add_action('wp_ajax_save_listing_review', array($this, 'save_listing_review'));
+            add_action( 'wp_ajax_nopriv_save_listing_review', array($this, 'save_listing_review')); // don not allow unregistered user to submit review
             add_action('wp_ajax_load_more_review', array($this, 'load_more_review')); // load more reviews to the front end single page
             add_action('wp_ajax_nopriv_load_more_review', array($this, 'load_more_review'));// load more reviews for non logged in user too
             add_action('wp_ajax_remove_listing', array($this, 'remove_listing')); //delete a listing
@@ -38,6 +38,9 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             /*CONTACT FORM*/
             add_action('wp_ajax_atbdp_public_send_contact_email', array($this, 'ajax_callback_send_contact_email'));
             add_action('wp_ajax_nopriv_atbdp_public_send_contact_email', array($this, 'ajax_callback_send_contact_email'));
+            /*GUEST USER*/
+            add_action('wp_ajax_insert_guest_user', array($this, 'insert_guest_user'));
+            add_action('wp_ajax_nopriv_insert_guest_user', array($this, 'insert_guest_user'));
 
             /*
              * stuff for handling add to favourites
@@ -309,20 +312,61 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             wp_die();
         }
 
+        /**
+         * @since 6.3.0
+         */
+
+        public function insert_guest_user(){
+
+        }
 
         public function save_listing_review()
         {
-            // save the data if nonce is good and data is valid
-            if (valid_js_nonce() && $this->validate_listing_review()) {
-                /*
-                 * $args = array(
-                        'post_id'          => $post_id,
-                        'name'           => $user ? $user->display_name : '',
-                        'email'          => $email,
-                        'by_user_id'        => $user ? $user->ID : 0,
-                    );
-                */
+            $guest_review = get_directorist_option('guest_review', 0);
+            $guest_email = isset($_POST['guest_user_email']) ? esc_attr($_POST['guest_user_email']) : '';
 
+            if ($guest_review && $guest_email){
+
+                $string = $guest_email;
+                $explode = explode("@",$string);
+                array_pop($explode);
+                $userName = join('@', $explode);
+                //check if username already exist
+                if (username_exists($userName)){
+                    $random = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'),1,5);
+                    $userName = $userName.$random;
+                }
+
+                // Check if user exist by email
+                if ( email_exists( $guest_email ) ) {
+                    $data = array(
+                        'error' => __('Email already exists!', 'directorist')
+                    );
+                    echo wp_json_encode($data);
+                    die();
+                }else{
+                    // lets register the user
+                    $reg_errors = new WP_Error;
+                    if ( empty($reg_errors->get_error_messages()) ) {
+                        $password   =   wp_generate_password( 12, false );
+                        $userdata = array(
+                            'user_login'    =>   $userName,
+                            'user_email'    =>   $guest_email,
+                            'user_pass'     =>   $password,
+                        );
+                        $user_id =  wp_insert_user( $userdata ); // return inserted user id or a WP_Error
+                        wp_set_current_user($user_id, $guest_email);
+                        wp_set_auth_cookie($user_id);
+                        do_action('atbdp_user_registration_completed', $user_id);
+                        update_user_meta($user_id, '_atbdp_generated_password', $password);
+                        // user has been created successfully, now work on activation process
+                        wp_new_user_notification($user_id, null, 'both');
+                    }
+                }
+            }
+            // save the data if nonce is good and data is valid
+
+            if ( $this->validate_listing_review()) {
                 $u_name = !empty($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
                 $u_email = !empty($_POST['email']) ? sanitize_email($_POST['email']) : '';
                 $user = wp_get_current_user();

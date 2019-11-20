@@ -4970,7 +4970,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'guest_listings',
-                    'label' => __('Enable Guest', 'directorist'),
+                    'label' => __('Guest Listing Submission', 'directorist'),
                     'default' => 0,
                 ),
                 array(
@@ -5222,6 +5222,12 @@ The Administrator of ==SITE_NAME==
                     'step' => '1',
                     'default' => '5',
                     'validation' => 'numeric|minlength[1]',
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'guest_review',
+                    'label' => __('Guest Review Submission', 'directorist'),
+                    'default' => 0,
                 ),
             ));
         }

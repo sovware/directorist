@@ -167,7 +167,7 @@
                 if ($r_notice) {
                     $r_notice.remove();
                 }
-            } else {
+            }else {
                 // show error message
                 swal({
                     title: "ERROR!!",

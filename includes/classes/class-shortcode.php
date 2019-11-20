@@ -852,7 +852,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     'compare' => 'LIKE'
                 );
             }
-            if (isset($_GET['miles']) && $_GET['miles'] > 0 && isset($_GET['cityLat']) && isset($_GET['cityLng'])) {
+            if (!empty($_GET['miles']) && $_GET['miles'] > 0 && !empty($_GET['cityLat']) && !empty($_GET['cityLng'])) {
                 $radius_search_unit = get_directorist_option('radius_search_unit','miles');
                 $args['atbdp_geo_query'] = array(
                     'lat_field' => '_manual_lat',  // this is the name of the meta field storing latitude

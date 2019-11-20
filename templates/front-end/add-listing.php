@@ -1154,7 +1154,7 @@ $query_args = array(
                                                     </div>
                                                     <?php do_action('atbdp_video_field',get_the_ID()); ?>
                                                 <?php }
-                                                if ($guest_listings){
+                                                if ($guest_listings && !is_user_logged_in()){
                                                 ?>
                                                 <div class="form-group">
                                                     <label for="guest_user"><?php

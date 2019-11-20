@@ -38,6 +38,9 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             /*CONTACT FORM*/
             add_action('wp_ajax_atbdp_public_send_contact_email', array($this, 'ajax_callback_send_contact_email'));
             add_action('wp_ajax_nopriv_atbdp_public_send_contact_email', array($this, 'ajax_callback_send_contact_email'));
+            /*GUEST USER*/
+            add_action('wp_ajax_insert_guest_user', array($this, 'insert_guest_user'));
+            add_action('wp_ajax_nopriv_insert_guest_user', array($this, 'insert_guest_user'));
 
             /*
              * stuff for handling add to favourites
@@ -309,12 +312,14 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             wp_die();
         }
 
+        /**
+         * @since 6.3.0
+         */
 
-        public function save_listing_review()
-        {
+        public function insert_guest_user(){
             $guest_review = get_directorist_option('guest_review', 0);
-            if ($guest_review){
-                $guest_email = isset($_POST['guest_user_email']) ? esc_attr($_POST['guest_user_email']) : '';
+            $guest_email = isset($_POST['guest_user_email']) ? esc_attr($_POST['guest_user_email']) : '';
+            if ($guest_review && $guest_email){
                 $fkdsf = atbdp_guest_submission($guest_email);
                 if ($fkdsf){
                     echo 'yes';
@@ -323,7 +328,10 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 }
                 die();
             }
+        }
 
+        public function save_listing_review()
+        {
             // save the data if nonce is good and data is valid
             if (valid_js_nonce() && $this->validate_listing_review()) {
                 $u_name = !empty($_POST['name']) ? sanitize_text_field($_POST['name']) : '';

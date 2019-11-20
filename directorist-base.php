@@ -1340,7 +1340,7 @@ final class Directorist_Base
                                 </div>
 
                                 <?php
-                                if ($guest_review){
+                                if ($guest_review && !is_user_logged_in()){
                                 ?>
                                 <div class="form-group">
                                     <label for="guest_user"><?php

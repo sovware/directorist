@@ -60,6 +60,10 @@
     $("#atbdp_review_form").on("submit", function (e) {
         if($(this).find("#guest_user_email").length > 0){
             e.preventDefault();
+            var email = $(this).find("#guest_user_email").val();
+            atbdp_do_ajax($(this), 'insert_guest_user', email, function (response) {
+
+            });
 
         }
         if (submit_count > 1) {

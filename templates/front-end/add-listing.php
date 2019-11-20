@@ -708,7 +708,6 @@ $query_args = array(
                                         </select>
                                     </div>
                                     <?php
-                                    do_action('atbdp_after_general_information', $p_id);
                                     $plan_custom_field = true;
                                     if (is_fee_manager_active()) {
                                         $plan_custom_field = is_plan_allowed_custom_fields($fm_plan);
@@ -734,6 +733,7 @@ $query_args = array(
                                         </div>
                                         <?php
                                     }
+                                    do_action('atbdp_after_general_information', $p_id);
                                     ?>
 
                                 </div>

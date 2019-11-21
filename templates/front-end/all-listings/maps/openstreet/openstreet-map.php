@@ -140,6 +140,6 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
     $fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
     $cat_icon = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
 ?>
-<input type="hidden" value="<?php echo $cat_icon;?>" class="openstreet_icon">
+<input type="hidden" value="<?php echo !empty($cats) ? $cat_icon : 'fa fa-map-marker';?>" class="openstreet_icon">
 <?php endwhile;?>
 <div id="map" style="width: 100%; height: <?php echo !empty($listings_map_height)?$listings_map_height:'';?>px;"></div>

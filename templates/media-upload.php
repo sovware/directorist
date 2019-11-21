@@ -1,8 +1,11 @@
 <?php
 $listing_imgs           = (!empty($args['listing_img'])) ? $args['listing_img'] : array();
-$listing_prv_img_id     = (!empty($args['listing_prv_img'])) ? $args['listing_prv_img'] : '';
-$listing_prv_img        = wp_get_attachment_image_src($listing_prv_img_id);
-
+$listing_prv_img_id     = (!empty($args['listing_prv_img'])) ? $args['listing_prv_img'] :'';
+if (!empty($listing_prv_img_id)){
+    $listing_prv_img        = wp_get_attachment_image_src($listing_prv_img_id);
+}else{
+    $listing_prv_img = array();
+}
 $display_prv_field      = get_directorist_option('display_prv_field', 1);
 $display_gellery_field  = get_directorist_option('display_gellery_field', 1);
 $image_links = []; // define a link placeholder variable

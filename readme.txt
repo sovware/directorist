@@ -3,8 +3,8 @@ Contributors: AazzTech
 Donate link: https://aazztech.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
-Tested up to:  5.2
-Stable tag: 6.2.0
+Tested up to:  5.3
+Stable tag: 6.2.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -136,6 +136,22 @@ Directorist is not developed by a single person. A team of dedicated developers 
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 6.2.1 - Nov 21, 2019 =
+
+* Add - Guest review submission
+* Fix - OpenStreetMap issue of 'no listing found'
+* Fix - Tag issue on search
+* Improve - Tags field
+* Fix - Map icon issue
+* Fix -Radius search issue
+* Fix -Category widget dropdown issue
+* Fix -Location widget dropdown issue
+* Improve - OpenStreetMap makes draggable
+* Fix - Listing renewal issue from admin add listing form
+* Fix - Tag issue in listing form
+* Fix - Function naming
+* Fix - Listing status with monitization disabled
 
 = 6.2.0 - Nov 05, 2019 =
 

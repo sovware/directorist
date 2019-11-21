@@ -909,11 +909,11 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'title' => __('Terms and Condition', 'directorist'),
                             'fields' => $this->get_listings_terms_field_settings(),
                         ),
-                        'guest_field' => array(
+                      /*  'guest_field' => array(
                             'type' => 'section',
                             'title' => __('Guest Submission', 'directorist'),
                             'fields' => $this->get_guest_listings_settings(),
-                        ),
+                        ),*/
                     )),
                 ),
 
@@ -5223,12 +5223,12 @@ The Administrator of ==SITE_NAME==
                     'default' => '5',
                     'validation' => 'numeric|minlength[1]',
                 ),
-               /* array(
+                array(
                     'type' => 'toggle',
                     'name' => 'guest_review',
                     'label' => __('Guest Review Submission', 'directorist'),
                     'default' => 0,
-                ),*/
+                ),
             ));
         }
 

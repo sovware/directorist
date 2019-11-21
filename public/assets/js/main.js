@@ -57,15 +57,7 @@
 
     /* Add review to the database using ajax*/
     var submit_count = 1;
-    $("#atbdp_review_form").on("submit", function (e) {
-        if($(this).find("#guest_user_email").length > 0){
-            e.preventDefault();
-            var email = $(this).find("#guest_user_email").val();
-            atbdp_do_ajax($(this), 'insert_guest_user', email, function (response) {
-
-            });
-
-        }
+    $("#atbdp_review_form").on("submit", function () {
         if (submit_count > 1) {
             // show error message
             swal({
@@ -175,7 +167,7 @@
                 if ($r_notice) {
                     $r_notice.remove();
                 }
-            } else {
+            }else {
                 // show error message
                 swal({
                     title: "ERROR!!",

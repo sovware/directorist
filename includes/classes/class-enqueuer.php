@@ -413,6 +413,7 @@ class ATBDP_Enqueuer {
             'plan_image'       => $plan_image,
             'create_new_tag' => $new_tag,
             'cat_placeholder' => $cat_placeholder,
+            'image_notice' => __('Sorry! You have crossed the maximum image limit', 'directorist'),
         );
 
         wp_localize_script( 'atbdp_add_listing_js', 'atbdp_add_listing', $data );

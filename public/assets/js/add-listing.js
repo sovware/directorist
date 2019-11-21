@@ -208,8 +208,12 @@ jQuery(function($){
             if ( multiple_image ){
                var image_limit = atbdp_add_listing.plan_image;
                var selected_image = selection.length;
+               var plan_image_notice = $('.plan_image_notice');
                 if (selected_image > image_limit){
-                    validation = '<span class="plan_image_notice alert alert-danger">Sorry! You have crossed the maximum image limit</span>';
+                    if(plan_image_notice.length>0){
+                        plan_image_notice.remove();
+                    }
+                    validation = '<span class="plan_image_notice alert alert-danger">'+atbdp_add_listing.image_notice+'</span>';
                 }
                 $(selection).each( function ( ) {
                     // here el === this
@@ -295,6 +299,13 @@ jQuery(function($){
                 '<small>(allowed formats jpeg. png. gif)</small>' );
             delImgLink.addClass( 'hidden' );
 
+        }
+        var image_limit = atbdp_add_listing.plan_image;
+        var lengtH = $('.single_attachment').length;
+        image_limit = parseInt(image_limit);
+        lengtH = parseInt(lengtH);
+        if ( lengtH <= image_limit){
+            $('.plan_image_notice').remove();
         }
     });
 

@@ -229,7 +229,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                         </div><!-- ends: .form-group -->
                                     <?php } ?>
                                     <?php if ('yes' == $rating_field) { ?>
-                                        <div class="form-group">
+                                        <div class="form-group atbdp_rating_search">
                                             <label><?php _e('Filter by Ratings', 'directorist'); ?></label>
                                             <select name='search_by_rating' class="select-basic form-control">
                                                 <option value=""><?php _e('Select Ratings', 'directorist'); ?></option>
@@ -317,7 +317,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                         </div>
                                     <?php } ?>
                                     <?php if ('yes' == $website_field || 'yes' == $email_field || 'yes' == $phone_field || 'yes' == $address_field || 'yes' == $zip_code_field) { ?>
-                                        <div class="form-group">
+                                        <div class="form-group atbdp_search_info">
                                             <div class="bottom-inputs">
                                                 <?php if ('yes' == $website_field) { ?>
                                                     <div>

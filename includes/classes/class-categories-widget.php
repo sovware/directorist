@@ -289,7 +289,7 @@ if (!class_exists('BD_Categories_Widget')) {
                         if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
                     }
 
-                    $html .= sprintf( '<option id="atbdp_category" value="%s" %s>', $term->slug, selected( $term->slug, $term_slug, false ) );
+                    $html .= sprintf( '<option id="atbdp_category" value="%s" %s>', $term->term_id, selected( $term->term_id, $term_slug, false ) );
                     $html .= $prefix . $term->name;
                     if( ! empty( $settings['show_count'] ) ) {
                         $html .= ' (' . $count . ')';

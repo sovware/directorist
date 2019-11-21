@@ -96,7 +96,7 @@ $c_symbol = atbdp_currency_symbol($currency);
                         </div><!-- ends: .form-group -->
                     <?php } ?>
                     <?php if('yes' == $rating_field) { ?>
-                        <div class="form-group">
+                        <div class="form-group atbdp_rating_search">
                             <select name='search_by_rating' class="select-basic form-control">
                                 <option value=""><?php _e('Select Ratings', 'directorist');?></option>
                                 <option  value="5" <?php if(!empty($_GET['search_by_rating']) && '5' == $_GET['search_by_rating']) { echo "selected";}?>><?php _e('5 Star', 'directorist');?></option>
@@ -163,7 +163,7 @@ $c_symbol = atbdp_currency_symbol($currency);
                         </div>
                     <?php } ?>
                     <?php if('yes' == $website_field  || 'yes' == $email_field || 'yes' == $phone_field || 'yes' == $address_field || 'yes' == $zip_code_field ) {?>
-                        <div class="form-group">
+                        <div class="form-group atbdp_search_info">
                             <div class="bottom-inputs">
                                 <?php if('yes' == $website_field) {?>
                                 <div>

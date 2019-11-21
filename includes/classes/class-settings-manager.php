@@ -5223,12 +5223,12 @@ The Administrator of ==SITE_NAME==
                     'default' => '5',
                     'validation' => 'numeric|minlength[1]',
                 ),
-                array(
+               /* array(
                     'type' => 'toggle',
                     'name' => 'guest_review',
                     'label' => __('Guest Review Submission', 'directorist'),
                     'default' => 0,
-                ),
+                ),*/
             ));
         }
 

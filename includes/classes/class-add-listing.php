@@ -76,11 +76,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                 if (ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action )) {
 
                     // guest user
-                    $guest = get_directorist_option('guest_listings', 0);
+                    /*$guest = get_directorist_option('guest_listings', 0);
                     $guest_email = isset($_POST['guest_user_email']) ? esc_attr($_POST['guest_user_email']) : '';
                     if (!empty($guest && $guest_email)){
                         atbdp_guest_submission($guest_email);
-                    }
+                    }*/
 
                     // we have data and passed the security
                     // we not need to sanitize post vars to be saved to the database,

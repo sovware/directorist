@@ -316,6 +316,7 @@ if ($display_header == 'yes') { ?>
                                                 )
                                         )
                                     );
+                                    $category_select = !empty($_GET['in_cat']) ? $_GET['in_cat'] : $category_id;
                                     $tag_posts = get_posts($tag_args);
                                     if(!empty($tag_posts)) {
                                         foreach ($tag_posts as $tag_post) {
@@ -323,7 +324,7 @@ if ($display_header == 'yes') { ?>
                                         }
                                     }
                                     $tag_id = !empty($tag_id) ? $tag_id : '';
-                                    if('all_tags' == $listing_tags_field) {
+                                    if('all_tags' == $listing_tags_field || empty($category_select)) {
                                         $terms = get_terms(ATBDP_TAGS);
                                     } else {
                                         $terms = wp_get_object_terms( $tag_id, ATBDP_TAGS );

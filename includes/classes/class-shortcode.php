@@ -871,7 +871,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 );
             }
 
-            if (isset($_GET['zip_code'])) {
+            if (!empty($_GET['zip_code'])) {
                 $zip_code = $_GET['zip_code'];
                 $meta_queries[] = array(
                     'key' => '_zip',

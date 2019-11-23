@@ -68,27 +68,25 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
         public function atbdp_ajax_login()
         {
-
             // First check the nonce, if it fails the function will break
             check_ajax_referer('ajax-login-nonce', 'security');
-
             // Nonce is checked, get the POST data and sign user on
-            $info = array();
-            $info['user_login'] = $_POST['username'];
-            $info['user_password'] = $_POST['password'];
+            $username = $_POST['username'];
+            $user_password = $_POST['password'];
             $keep_signed_in = !empty($_POST['rememberme']) ? true : false;
-            $info['remember'] = $keep_signed_in;
-            $user_signon = wp_signon($info);
-            if (is_wp_error($user_signon)) {
-                if (empty($info['user_login'] && $info['user_password'])) {
+            $user = wp_authenticate($username, $user_password);
+            if (is_wp_error($user)) {
+                if (empty($username && $user_password)) {
                     echo json_encode(array('loggedin' => false, 'message' => __('Fields are required.', 'directorist')));
                 } else {
                     echo json_encode(array('loggedin' => false, 'message' => __('Wrong username or password.', 'directorist')));
                 }
             } else {
+                wp_clear_auth_cookie();
+                wp_set_current_user( $user->ID );
+                wp_set_auth_cookie( $user->ID, $keep_signed_in );
                 echo json_encode(array('loggedin' => true, 'message' => __('Login successful, redirecting...', 'directorist')));
             }
-
             exit();
         }
 

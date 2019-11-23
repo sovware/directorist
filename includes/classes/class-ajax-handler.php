@@ -82,7 +82,6 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                     echo json_encode(array('loggedin' => false, 'message' => __('Wrong username or password.', 'directorist')));
                 }
             } else {
-                wp_clear_auth_cookie();
                 wp_set_current_user( $user->ID );
                 wp_set_auth_cookie( $user->ID, $keep_signed_in );
                 echo json_encode(array('loggedin' => true, 'message' => __('Login successful, redirecting...', 'directorist')));

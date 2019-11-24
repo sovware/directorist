@@ -19,7 +19,7 @@
     $(".atbdpr_amount").text(slider_range.slider("value") + miles);
     $("#atbd_rs_value").val(slider_range.slider("value"));
 
-    $("#atbdp_reset").on("click", function (){
+    $("button[type='reset']").on("click", function (){
         $("#atbd_rs_value").val(0);
         $(".atbdpr_amount").text(0 + miles);
         slider_range.each(function () {
@@ -34,7 +34,7 @@
                 }
             });
         });
-
+        $("#at_biz_dir-location, #at_biz_dir-category").val('').trigger('change');
     });
 
     /* get current location */

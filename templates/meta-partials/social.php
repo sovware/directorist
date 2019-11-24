@@ -3,6 +3,7 @@
  * Template for showing Social Meta Info on Add listing page
  */
 $social_info = (array_key_exists('social_info', $args)) ? $args['social_info'] : array(); ?>
+    <div id="atbdp__social">
     <label for="atbdp_social"><?php
         $social_label = get_directorist_option('social_label', __('Social Information', 'directorist'));
         esc_html_e($social_label.':', 'directorist');
@@ -49,5 +50,5 @@ $social_info = (array_key_exists('social_info', $args)) ? $args['social_info'] :
     <button type="button" class="btn btn-primary btn-sm" id="addNewSocial"> <span class="plus-sign">+</span>
         <?php esc_html_e('Add New', 'directorist'); ?>
     </button>
-
+    </div>
 

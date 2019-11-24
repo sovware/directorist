@@ -38,7 +38,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
 
     <div class="atbd_">
         <?php if (!empty($display_tagline_field)){ ?>
-            <div class="form-group">
+            <div class="form-group" id="atbdp_excerpt">
                 <label for="atbdp_excerpt"><?php
                     $tagline_label = get_directorist_option('tagline_label', __('Tagline', 'directorist'));
                     esc_html_e($tagline_label.':', 'directorist');
@@ -54,7 +54,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
         $price_range = !empty($price_range) ? $price_range : '';
         $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
         if (!empty($display_pricing_field || $display_price_range_field) ) { ?>
-            <div class="form-group">
+            <div class="form-group" id="atbd_pricing">
                 <input type="hidden" id="atbd_listing_pricing" value="<?php echo $atbd_listing_pricing?>">
                 <label for="#">
                     <?php
@@ -117,7 +117,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
             </div>
         <?php } ?>
         <?php if(!empty($display_views_count)) { ?>
-            <div class="form-group">
+            <div class="form-group" id="atbdp_views_count">
                 <label for="atbdp_views_count"><?php
                     $views_count_label = get_directorist_option('views_count_label', __('Views Count', 'directorist'));
                     esc_html_e($views_count_label.':', 'directorist'); ?></label>
@@ -128,7 +128,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
             </div>
         <?php } ?>
         <?php if (!empty($display_excerpt_field)){ ?>
-            <div class="form-group">
+            <div class="form-group" id="atbdp_excerpt_area">
                 <label for="atbdp_excerpt"><?php
                     $excerpt_label = get_directorist_option('excerpt_label', __('Short Description/Excerpt', 'directorist'));
                     esc_html_e($excerpt_label.':', 'directorist'); ?></label>
@@ -137,7 +137,12 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
                           class="form-control directory_field" cols="30" rows="5"
                           placeholder="<?php echo esc_attr($excerpt_placeholder); ?>"><?php echo !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?></textarea>
             </div>
-        <?php }?>
+        <?php }
+        /**
+         * @since 6.3
+         */
+        do_action('atbdp_add_listing_after_excerpt', $post_ID);
+        ?>
         <!--***********************************************************************
         Run the custom field loop to show all published custom fields asign to form
         **************************************************************************-->
@@ -164,7 +169,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
 
             ?>
 
-            <div class="form-group">
+            <div class="form-group" id="atbdp_custom_field_area">
                 <label for=""><?php the_title();
                 if (!empty($instructions)){
                     ?>
@@ -330,7 +335,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
         <div id="category_container">
             <!--@ Options for select the category.-->
 
-            <div class="form-group">
+            <div class="form-group" id="atbdp_custom_field_area">
                 <?php
                 $current_val = get_the_terms($post_ID, ATBDP_CATEGORY);;
                 $ids = array();

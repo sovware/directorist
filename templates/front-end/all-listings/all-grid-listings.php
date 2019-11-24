@@ -412,9 +412,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                 $catViewCount .= '<div class="atbd_content_left">';
                                                 $catViewCount .= '<div class="atbd_listting_category">';
                                                 $catViewCount .= '<a href="' . ATBDP_Permalink::atbdp_get_category_page($cats[0]) . '">';
-                                                if ('none' != get_cat_icon($cats[0]->term_id)) {
-                                                    $catViewCount .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
-                                                }
+                                                $catViewCount .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
                                                 $catViewCount .= $cats[0]->name;
                                                 $catViewCount .= '</a>';
                                                 if ($totalTerm > 1) {

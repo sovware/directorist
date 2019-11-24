@@ -380,7 +380,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                         <div class="bdas-filter-actions">
                                             <?php if ('yes' == $reset_filters_button) { ?>
                                                 <button type="reset"
-                                                        class="btn btn-outline-primary btn-sm"><?php _e($reset_filters_text, 'directorist'); ?></button>
+                                                        class="btn btn-outline-primary btn-sm" id="atbdp_reset"><?php _e($reset_filters_text, 'directorist'); ?></button>
                                             <?php }
                                             if ('yes' == $apply_filters_button) { ?>
                                                 <button type="submit"

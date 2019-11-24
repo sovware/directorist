@@ -85,12 +85,12 @@ if (!function_exists('attc_letter_to_number')):
     /**
      * Calculate the column index (number) of a column header string (example: A is 1, AA is 27, ...).
      *
-     * For the opposite, @see number_to_letter().
+     * For the opposite, @param string $column Column string.
+     * @return int $number Column number, 1-based.
+     * @see number_to_letter().
      *
      * @since 1.0.0
      *
-     * @param string $column Column string.
-     * @return int $number Column number, 1-based.
      */
     function attc_letter_to_number($column)
     {
@@ -110,12 +110,12 @@ if (!function_exists('attc_number_to_letter')):
     /**
      * "Calculate" the column header string of a column index (example: 2 is B, AB is 28, ...).
      *
-     * For the opposite, @see letter_to_number().
+     * For the opposite, @param int $number Column number, 1-based.
+     * @return string $column Column string.
+     * @see letter_to_number().
      *
      * @since 1.0.0
      *
-     * @param int $number Column number, 1-based.
-     * @return string $column Column string.
      */
     function attc_number_to_letter($number)
     {
@@ -1280,9 +1280,9 @@ if (!function_exists('atbdp_get_paged_num')) {
     /**
      * Get current page number for the pagination.
      *
+     * @return    int    $paged    The current page number for the pagination.
      * @since    1.0.0
      *
-     * @return    int    $paged    The current page number for the pagination.
      */
     function atbdp_get_paged_num()
     {
@@ -1370,8 +1370,8 @@ if (!function_exists('atbdp_only_logged_in_user')) {
 if (!function_exists('atbdp_get_months')) {
     /**
      * Get an array of translatable month names
-     * @since    3.1.0
      * @return array
+     * @since    3.1.0
      */
     function atbdp_get_months()
     {
@@ -1396,10 +1396,10 @@ if (!function_exists('calc_listing_expiry_date')) {
     /**
      * Calculate listing expiry date from the given date
      *
+     * @param string $start_date Date from which the expiry date should be calculated.
+     * @return   string   $date          It returns expiry date in the mysql date format
      * @since    3.1.0
      *
-     * @param    string $start_date Date from which the expiry date should be calculated.
-     * @return   string   $date          It returns expiry date in the mysql date format
      */
     function calc_listing_expiry_date($start_date = NULL)
     {
@@ -1419,9 +1419,7 @@ if (!function_exists('get_date_in_mysql_format')) {
     /**
      * It converts a date array to MySQL date format (Y-m-d H:i:s).
      *
-     * @since    3.1.0
-     *
-     * @param    array $date Array of date values.
+     * @param array $date Array of date values.
      * eg. array(
      * 'year'  => 0,
      * 'month' => 0,
@@ -1431,6 +1429,8 @@ if (!function_exists('get_date_in_mysql_format')) {
      * 'sec'   => 0
      * );
      * @return   string   $date    Formatted MySQL date string.
+     * @since    3.1.0
+     *
      */
     function get_date_in_mysql_format($date)
     {
@@ -1472,10 +1472,10 @@ if (!function_exists('atbdp_parse_mysql_date')) {
     /**
      * Parse MySQL date format.
      *
+     * @param string $date MySQL date string.
+     * @return   array     $date    Array of date values.
      * @since    3.1.0
      *
-     * @param    string $date MySQL date string.
-     * @return   array     $date    Array of date values.
      */
     function atbdp_parse_mysql_date($date)
     {
@@ -1497,7 +1497,7 @@ if (!function_exists('atbdp_parse_mysql_date')) {
 if (!function_exists('currency_has_decimal')) {
     /**
      * Check if currency has decimals.
-     * @param  string $currency
+     * @param string $currency
      * @return bool
      */
     function currency_has_decimals($currency)
@@ -1563,20 +1563,20 @@ function atbdp_display_price_range($price_range)
     $output = '';
     if ('skimming' == $price_range) {
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Skimming"><span class="atbd_active">'.$c_symbol.'</span><span class="atbd_active">'.$c_symbol.'</span><span class="atbd_active">'.$c_symbol.'</span><span class="atbd_active">'.$c_symbol.'</span>
+            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Skimming"><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span>
         </span>';
     } elseif ('moderate' == $price_range) {
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Moderate"><span class="atbd_active">'.$c_symbol.'</span><span class="atbd_active">'.$c_symbol.'</span><span class="atbd_active">'.$c_symbol.'</span><span>'.$c_symbol.'</span>
+            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Moderate"><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span><span>' . $c_symbol . '</span>
             </span>';
     } elseif ('economy' == $price_range) {
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Economy"><span class="atbd_active">'.$c_symbol.'</span><span class="atbd_active">'.$c_symbol.'</span><span>'.$c_symbol.'</span><span>'.$c_symbol.'</span>
+            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Economy"><span class="atbd_active">' . $c_symbol . '</span><span class="atbd_active">' . $c_symbol . '</span><span>' . $c_symbol . '</span><span>' . $c_symbol . '</span>
         </span>';
     } elseif ('bellow_economy' == $price_range) {
 
         $output =
-            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Cheap"><span class="atbd_active">'.$c_symbol.'</span><span>'.$c_symbol.'</span><span>'.$c_symbol.'</span><span>'.$c_symbol.'</span>
+            '<span class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="Cheap"><span class="atbd_active">' . $c_symbol . '</span><span>' . $c_symbol . '</span><span>' . $c_symbol . '</span><span>' . $c_symbol . '</span>
         </span>';
 
     }
@@ -1588,10 +1588,10 @@ function atbdp_display_price_range($price_range)
 /**
  * Get total listings count.
  *
+ * @param int $term_id Custom Taxonomy term ID.
+ * @return   int                    Listings count.
  * @since    4.0.0
  *
- * @param    int $term_id Custom Taxonomy term ID.
- * @return   int                    Listings count.
  */
 function atbdp_listings_count_by_category($term_id)
 {
@@ -1628,10 +1628,10 @@ function atbdp_listings_count_by_category($term_id)
 /**
  * List ACADP categories.
  *
+ * @param array $settings Settings args.
+ * @return   string                 HTML code that contain categories list.
  * @since    1.0.0
  *
- * @param    array $settings Settings args.
- * @return   string                 HTML code that contain categories list.
  */
 function atbdp_list_categories($settings)
 {
@@ -1689,10 +1689,10 @@ function atbdp_list_categories($settings)
 /**
  * Get total listings count.
  *
+ * @param int $term_id Custom Taxonomy term ID.
+ * @return   int                    Listings count.
  * @since    4.0.0
  *
- * @param    int $term_id Custom Taxonomy term ID.
- * @return   int                    Listings count.
  */
 function atbdp_listings_count_by_location($term_id)
 {
@@ -1732,10 +1732,10 @@ function atbdp_listings_count_by_location($term_id)
 /**
  * List ACADP categories.
  *
+ * @param array $settings Settings args.
+ * @return   string                 HTML code that contain categories list.
  * @since    1.0.0
  *
- * @param    array $settings Settings args.
- * @return   string                 HTML code that contain categories list.
  */
 function atbdp_list_locations($settings)
 {
@@ -1794,10 +1794,10 @@ function atbdp_list_locations($settings)
 /**
  * Get total listings count.
  *
+ * @param int $term_id Custom Taxonomy term ID.
+ * @return   int                    Listings count.
  * @since    4.0.0
  *
- * @param    int $term_id Custom Taxonomy term ID.
- * @return   int                    Listings count.
  */
 function atbdp_listings_count_by_tag($term_id)
 {
@@ -1837,10 +1837,10 @@ function atbdp_listings_count_by_tag($term_id)
 /**
  * List ACADP categories.
  *
+ * @param array $settings Settings args.
+ * @return   string                 HTML code that contain categories list.
  * @since    1.0.0
  *
- * @param    array $settings Settings args.
- * @return   string                 HTML code that contain categories list.
  */
 function atbdp_list_tags($settings)
 {
@@ -1898,10 +1898,10 @@ function atbdp_list_tags($settings)
 /**
  * Get the current listings order.
  *
+ * @param string $default_order Default Order.
+ * @return   string    $order            Listings Order.
  * @since    4.0
  *
- * @param    string $default_order Default Order.
- * @return   string    $order            Listings Order.
  */
 function atbdp_get_listings_current_order($default_order = '')
 {
@@ -1921,9 +1921,9 @@ function atbdp_get_listings_current_order($default_order = '')
 /**
  * Get orderby list.
  *
+ * @return   array    $options    A list of the orderby options.
  * @since    1.0.0
  *
- * @return   array    $options    A list of the orderby options.
  */
 function atbdp_get_listings_orderby_options($sort_by_items)
 {
@@ -1989,10 +1989,10 @@ function atbdp_get_listings_orderby_options($sort_by_items)
 /**
  * Get the listing view.
  *
+ * @param string $view Default View.
+ * @return   string    $view    Grid or List.
  * @since    4.0.0
  *
- * @param    string $view Default View.
- * @return   string    $view    Grid or List.
  */
 function atbdp_get_listings_current_view_name($view)
 {
@@ -2003,8 +2003,8 @@ function atbdp_get_listings_current_view_name($view)
     }
 
     $allowed_views = array('list', 'grid', 'map');
-    if(class_exists('BD_Map_View')) {
-        array_push($allowed_views,'listings_with_map');
+    if (class_exists('BD_Map_View')) {
+        array_push($allowed_views, 'listings_with_map');
     }
     if (!in_array($view, $allowed_views)) {
         $listing_view = get_directorist_option('default_listing_view');
@@ -2020,9 +2020,9 @@ function atbdp_get_listings_current_view_name($view)
 /**
  * Get the list of listings view options.
  *
+ * @return   array    $view_options    List of view Options.
  * @since    4.0.0
  *
- * @return   array    $view_options    List of view Options.
  */
 function atbdp_get_listings_view_options($view_as_items)
 {
@@ -2105,10 +2105,10 @@ function directorist_clean($var)
 /**
  * Display the favourites link.
  *
+ * @param int $post_id Post ID.
+ * @return   mixed        Included the favourites and unfavourites button
  * @since    4.0
  *
- * @param    int $post_id Post ID.
- * @return   mixed        Included the favourites and unfavourites button
  */
 function the_atbdp_favourites_link($post_id = 0)
 {
@@ -2123,14 +2123,14 @@ function the_atbdp_favourites_link($post_id = 0)
         $favourites = (array)get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
 
         if (in_array($post_id, $favourites)) {
-            return '<span class="'.atbdp_icon_type().'-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '">' . __('Favorite', 'directorist') . '</a>';
+            return '<span class="' . atbdp_icon_type() . '-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '">' . __('Favorite', 'directorist') . '</a>';
         } else {
-            return '<span class="'.atbdp_icon_type().'-heart-o"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '">' . __('Favorite', 'directorist') . '</a>';
+            return '<span class="' . atbdp_icon_type() . '-heart-o"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '">' . __('Favorite', 'directorist') . '</a>';
         }
 
     } else {
 
-        return '<span class="'.atbdp_icon_type().'-heart-o"></span><a href="javascript:void(0)" class="atbdp-require-login">' . __('Favorite', 'directorist') . '</a>';
+        return '<span class="' . atbdp_icon_type() . '-heart-o"></span><a href="javascript:void(0)" class="atbdp-require-login">' . __('Favorite', 'directorist') . '</a>';
 
     }
 
@@ -2151,10 +2151,10 @@ function atbdp_listings_mark_as_favourite($listing_id)
 /**
  * Generate a permalink to remove from favourites.
  *
+ * @param int $listing_id Listing ID.
+ * @return   string                   URL to remove from favourites.
  * @since    1.0.0
  *
- * @param    int $listing_id Listing ID.
- * @return   string                   URL to remove from favourites.
  */
 function atbdp_get_remove_favourites_page_link($listing_id)
 {
@@ -2169,9 +2169,9 @@ function atbdp_get_remove_favourites_page_link($listing_id)
 /**
  * Display the favourites link.
  *
+ * @param int $post_id Post ID.
  * @since    4.0
  *
- * @param    int $post_id Post ID.
  */
 /*function the_atbdp_favourites_all_listing($post_id = 0)
 {
@@ -2230,14 +2230,14 @@ if (!function_exists('new_badge')) {
 /**
  * Generate image crop.
  *
+ * @param string $attachmentId Image Url.
+ * @param int $width Image Width.
+ * @param int $height Image Height.
+ * @param bool $crop cropping condition.
+ * @param int $quality Quality.
+ * @return   array  $resizer return resize.
  * @since    4.0.0
  *
- * @param    string $attachmentId Image Url.
- * @param    int $width Image Width.
- * @param    int $height Image Height.
- * @param    bool $crop cropping condition.
- * @param    int $quality Quality.
- * @return   array  $resizer return resize.
  */
 function atbdp_image_cropping($attachmentId, $width, $height, $crop = true, $quality = 100)
 {
@@ -2620,9 +2620,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                                     $catViewCount .= '<div class="atbd_content_left">';
                                                     $catViewCount .= '<div class="atbd_listting_category">';
                                                     $catViewCount .= '<a href="' . ATBDP_Permalink::atbdp_get_category_page($cats[0]) . '">';
-                                                    if ('none' != get_cat_icon($cats[0]->term_id)) {
-                                                        $catViewCount .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
-                                                    }
+                                                    $catViewCount .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
                                                     $catViewCount .= $cats[0]->name;
                                                     $catViewCount .= '</a>';
                                                     if ($totalTerm > 1) {
@@ -2905,7 +2903,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                          */
                                         echo apply_filters('atbdp_grid_lower_badges', $l_badge_html);
                                         if (!empty($display_mark_as_fav)) {
-                                           // echo atbdp_listings_mark_as_favourite(get_the_ID());
+                                            // echo atbdp_listings_mark_as_favourite(get_the_ID());
                                         }
                                         ?>
                                     </figure>
@@ -3083,8 +3081,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                                         ?>
                                                         <div class="atbd_content_left">
                                                             <div class="atbd_listting_category">
-                                                                <a href="<?php echo esc_url(ATBDP_Permalink::atbdp_get_category_page($cats[0])); ?>"><?php if ('none' != get_cat_icon($cats[0]->term_id)) { ?>
-                                                                        <span class="<?php atbdp_icon_type(true); ?>-tags"></span> <?php } ?><?php echo $cats[0]->name; ?>
+                                                                <a href="<?php echo esc_url(ATBDP_Permalink::atbdp_get_category_page($cats[0])); ?>"><span class="<?php atbdp_icon_type(true); ?>-tags"></span><?php echo $cats[0]->name; ?>
                                                                 </a>
                                                                 <?php
                                                                 if ($totalTerm > 1) {
@@ -3229,28 +3226,20 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                     $display_address_field = get_directorist_option('display_address_field', 1);
                     $display_phone_field = get_directorist_option('display_phone_field', 1);
                     if (!empty($listing_prv_img)) {
-
                         if ($thumbnail_cropping) {
-
                             $prv_image = atbdp_image_cropping($listing_prv_img, $crop_width, $crop_height, true, 100)['url'];
-
                         } else {
                             $prv_image = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
                         }
-
                     }
                     if (!empty($listing_img[0])) {
                         if ($thumbnail_cropping) {
                             $gallery_img = atbdp_image_cropping($listing_img[0], $crop_width, $crop_height, true, 100)['url'];
-
                         } else {
                             $gallery_img = wp_get_attachment_image_src($listing_img[0], 'large')[0];
                         }
-
                     }
                     ?>
-
-
                     <div class="atbd_single_listing atbd_listing_list">
                         <article
                                 class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
@@ -3284,7 +3273,6 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                     }
                                     //Start lower badge
                                     $l_badge_html = '<span class="atbd_lower_badge">';
-
                                     if ($featured && !empty($display_feature_badge_cart)) {
                                         $l_badge_html .= '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>';
                                     }
@@ -3300,8 +3288,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                     /**
                                      * @since 5.0
                                      */
-                                    echo apply_filters('atbdp_list_lower_badges', $l_badge_html);
-                                    ?>
+                                    echo apply_filters('atbdp_list_lower_badges', $l_badge_html); ?>
                             </figure>
                             <div class="atbd_listing_info">
                                 <div class="atbd_content_upper">
@@ -3317,10 +3304,12 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                                 echo esc_html(stripslashes(get_the_title()));
                                             } ?>
                                         </h4>
-                                    <?php } ?>
-                                    <?php if (!empty($tagline) && !empty($enable_tagline) && !empty($display_tagline_field)) { ?>
+                                        <?php
+                                    }
+                                    if (!empty($tagline) && !empty($enable_tagline) && !empty($display_tagline_field)) { ?>
                                         <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
-                                    <?php }
+                                        <?php
+                                    }
                                     /**
                                      * Fires after the title and sub title of the listing is rendered
                                      *
@@ -3476,7 +3465,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                         <?php }
                                     }
                                     if (!empty($display_mark_as_fav)) {
-                                        $mark_as_fav_for_list_view = apply_filters('atbdp_mark_as_fav_for_list_view',atbdp_listings_mark_as_favourite(get_the_ID()));
+                                        $mark_as_fav_for_list_view = apply_filters('atbdp_mark_as_fav_for_list_view', atbdp_listings_mark_as_favourite(get_the_ID()));
                                         echo $mark_as_fav_for_list_view;
                                     }
                                     ?>
@@ -3491,9 +3480,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                             $catViewCountAuthor .= '<div class="atbd_content_left">';
                                             $catViewCountAuthor .= '<div class="atbd_listting_category">';
                                             $catViewCountAuthor .= '<a href="' . ATBDP_Permalink::atbdp_get_category_page($cats[0]) . '">';
-                                            if ('none' != get_cat_icon($cats[0]->term_id)) {
-                                                $catViewCountAuthor .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
-                                            }
+                                            $catViewCountAuthor .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
                                             $catViewCountAuthor .= $cats[0]->name;
                                             $catViewCountAuthor .= '</a>';
                                             if ($totalTerm > 1) {
@@ -3660,16 +3647,16 @@ if (!function_exists('atbdp_deactivate_reasons')) {
 /**
  * Check that page is.
  *
- * @since   1.0.0
- * @since   1.5.6 Added to check GD invoices and GD checkout pages.
+ * @param string $atbdppages The page type.
+ *
+ * @return bool If valid returns true. Otherwise false.
  * @since   1.5.7 Updated to validate buddypress dashboard listings page as a author page.
  * @package atbdpectory
  * @global object $wp_query WordPress Query object.
  * @global object $post The current post object.
  *
- * @param string $atbdppages The page type.
- *
- * @return bool If valid returns true. Otherwise false.
+ * @since   1.0.0
+ * @since   1.5.6 Added to check GD invoices and GD checkout pages.
  */
 function atbdp_is_page($atbdppages = '')
 {
@@ -3778,9 +3765,9 @@ function atbdp_is_page($atbdppages = '')
 }
 
 /**
- * @since 4.7.8
  * @param $listing_id
  * @return integer $pop_listing_id
+ * @since 4.7.8
  */
 if (!function_exists('atbdp_popular_listings')) {
     function atbdp_popular_listings($listing_id)
@@ -3809,11 +3796,11 @@ if (!function_exists('atbdp_popular_listings')) {
 /**
  * Outputs the directorist categories/locations dropdown.
  *
+ * @param array $args Array of options to control the field output.
+ * @param bool $echo Whether to echo or just return the string.
+ * @return   string             HTML attribute or empty string.
  * @since    1.5.5
  *
- * @param    array $args Array of options to control the field output.
- * @param    bool $echo Whether to echo or just return the string.
- * @return   string             HTML attribute or empty string.
  */
 function bdas_dropdown_terms($args = array(), $echo = true)
 {
@@ -4034,8 +4021,8 @@ function get_advance_search_result_page_link()
 }
 
 /**
- * @since 1.0.0
  * @return Wp_Query
+ * @since 1.0.0
  */
 if (!function_exists('get_atbdp_listings_ids')) {
     function get_atbdp_listings_ids()
@@ -4051,8 +4038,8 @@ if (!function_exists('get_atbdp_listings_ids')) {
 }
 
 /**
- * @since 4.7.7
  * @return Wp_Query
+ * @since 4.7.7
  */
 if (!function_exists('atbdp_get_expired_listings')) {
     function atbdp_get_expired_listings($texonomy, $categories)
@@ -4091,9 +4078,9 @@ if (!function_exists('atbdp_get_expired_listings')) {
 /**
  * Get current address bar URL.
  *
+ * @return   string    Current Page URL.
  * @since    5.4.0
  *
- * @return   string    Current Page URL.
  */
 function atbdp_get_current_url()
 {
@@ -4112,9 +4099,9 @@ function atbdp_get_current_url()
 /**
  * Check if Yoast SEO plugin is active and Directorist can use that.
  *
+ * @return    bool     $can_use_yoast    "true" if can use Yoast, "false" if not.
  * @since     5.4.4
  *
- * @return    bool     $can_use_yoast    "true" if can use Yoast, "false" if not.
  */
 function atbdp_can_use_yoast()
 {
@@ -4130,9 +4117,9 @@ function atbdp_can_use_yoast()
 
 /**
  *
+ * @return    bool     $can_use_yoast    "true" if can use Yoast, "false" if not.
  * @since     5.5.2
  *
- * @return    bool     $can_use_yoast    "true" if can use Yoast, "false" if not.
  */
 function atbdp_disable_overwrite_yoast()
 {
@@ -4159,10 +4146,10 @@ if (!function_exists('atbdp_page')) {
     }
 }
 /**
- * @since 5.5.4
- * @return integer  Return the level of the term
  * @param $id
  * @param $tax
+ * @return integer  Return the level of the term
+ * @since 5.5.4
  */
 function atbdp_get_tax_level($id, $tax)
 {
@@ -4171,8 +4158,8 @@ function atbdp_get_tax_level($id, $tax)
 }
 
 /**
- * @since 5.6.5
  * @param $data
+ * @since 5.6.5
  */
 function send_review_for_approval($data)
 {
@@ -4259,12 +4246,12 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
     }
     if (ATBDP_CATEGORY == $taxonomy_id) {
         $category_slug = get_query_var('atbdp_category');
-        $category = get_term_by('slug', $category_slug,ATBDP_CATEGORY);
+        $category = get_term_by('slug', $category_slug, ATBDP_CATEGORY);
         $category_id = !empty($category_slug) ? $category->term_id : '';
         $term_id = isset($_GET['in_cat']) ? $_GET['in_cat'] : $category_id;
     } else {
         $location_slug = get_query_var('atbdp_location');
-        $location = get_term_by('slug', $location_slug,ATBDP_LOCATION);
+        $location = get_term_by('slug', $location_slug, ATBDP_LOCATION);
         $location_id = !empty($location_slug) ? $location->term_id : '';
         $term_id = isset($_GET['in_loc']) ? $_GET['in_loc'] : $location_id;
     }
@@ -4362,8 +4349,8 @@ function add_listing_category_location_filter($settings, $taxonomy_id, $term_id,
 }
 
 /**
- * @since 5.10.0
  * @return boolean
+ * @since 5.10.0
  */
 function is_pyn_type()
 {
@@ -4382,31 +4369,32 @@ function is_pyn_type()
 /*
  * @since 6.3.0
  */
-function atbdp_guest_submission($guest_email){
+function atbdp_guest_submission($guest_email)
+{
     $string = $guest_email;
-    $explode = explode("@",$string);
+    $explode = explode("@", $string);
     array_pop($explode);
     $userName = join('@', $explode);
     //check if username already exist
-    if (username_exists($userName)){
-        $random = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'),1,5);
-        $userName = $userName.$random;
+    if (username_exists($userName)) {
+        $random = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'), 1, 5);
+        $userName = $userName . $random;
     }
     // Check if user exist by email
-    if ( email_exists( $guest_email ) ) {
+    if (email_exists($guest_email)) {
         $msg = '<div class="alert alert-danger"><strong>' . __('Email already exists!', 'directorist') . '</strong></div>';
         return $msg;
-    }else{
+    } else {
         // lets register the user
         $reg_errors = new WP_Error;
-        if ( empty($reg_errors->get_error_messages()) ) {
-            $password   =   wp_generate_password( 12, false );
+        if (empty($reg_errors->get_error_messages())) {
+            $password = wp_generate_password(12, false);
             $userdata = array(
-                'user_login'    =>   $userName,
-                'user_email'    =>   $guest_email,
-                'user_pass'     =>   $password,
+                'user_login' => $userName,
+                'user_email' => $guest_email,
+                'user_pass' => $password,
             );
-            $user_id =  wp_insert_user( $userdata ); // return inserted user id or a WP_Error
+            $user_id = wp_insert_user($userdata); // return inserted user id or a WP_Error
             wp_set_current_user($user_id, $guest_email);
             wp_set_auth_cookie($user_id);
             do_action('atbdp_user_registration_completed', $user_id);

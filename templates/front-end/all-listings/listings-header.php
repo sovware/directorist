@@ -409,7 +409,7 @@ if ($display_header == 'yes') { ?>
                                 <div class="bdas-filter-actions">
                                     <?php if (in_array('reset_button', $filters_button)) { ?>
                                         <button type="reset"
-                                                class="btn btn-outline btn-outline-primary btn-sm"><?php _e($reset_filters_text, 'directorist'); ?></button>
+                                                class="btn btn-outline btn-outline-primary btn-sm" id="atbdp_reset"><?php _e($reset_filters_text, 'directorist'); ?></button>
                                     <?php }
                                     if (in_array('apply_button', $filters_button)) { ?>
                                         <button type="submit"

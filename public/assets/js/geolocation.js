@@ -34,10 +34,10 @@
                 }
             });
         });
+
     });
-    /*
-    get current location
-*/
+
+    /* get current location */
     if('google' === adbdp_geolocation.select_listing_map) {
         (function () {
             var x = document.querySelector(".location-name");

@@ -178,13 +178,14 @@ class ATBDP_Enqueuer {
         $front_scripts_dependency = array('jquery');
         $disable_map = false;
         if (!$disable_map){
-            // get the map api from the user settings
+            if('google' == $select_listing_map) {
+                // get the map api from the user settings
                 $map_api_key = get_directorist_option('map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo'); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
                 //Google map needs to be enqueued from google server with a valid API key. So, it is not possible to store map js file locally as this file will be unique for all users based on their MAP API key.
                 wp_register_script('atbdp-google-map-front', '//maps.googleapis.com/maps/api/js?key=' . $map_api_key . '&libraries=places', false, ATBDP_VERSION, true);
                 wp_register_script('atbdp-markerclusterer', ATBDP_PUBLIC_ASSETS . 'js/markerclusterer.js', array('atbdp-google-map-front'));
                 $front_scripts_dependency[] = 'atbdp-google-map-front';
-            if('openstreet' == $select_listing_map) {
+            } elseif('openstreet' == $select_listing_map) {
                 wp_enqueue_style('leaf-style',ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/css/openstreet.css');
                 wp_enqueue_script('unpkg',ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/unpkg-min.js');
                 wp_enqueue_script('unpkg-index',ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/unpkg-index.js',array('unpkg'));
@@ -266,7 +267,7 @@ class ATBDP_Enqueuer {
         /* Enqueue all scripts */
         wp_enqueue_script('atbdp-bootstrap-script');
         wp_enqueue_script('atbdp-rating');
-        if (!$disable_map) {
+        if (!empty($disable_map) && 'google' == $select_listing_map ) {
             wp_enqueue_script('atbdp-google-map-front');
             wp_enqueue_script('atbdp-markerclusterer');
         }
@@ -331,13 +332,14 @@ class ATBDP_Enqueuer {
             wp_enqueue_media();
         }
 
-        wp_enqueue_script('atbdp-markerclusterer');
+        //wp_enqueue_script('atbdp-markerclusterer');
     }
 
 
 
     public function add_listing_scripts_styles()
     {
+        $select_listing_map            = get_directorist_option('select_listing_map', 'google');
         wp_register_style( 'sweetalertcss', ATBDP_ADMIN_ASSETS.'css/sweetalert.min.css', false, ATBDP_VERSION );
         wp_register_script( 'sweetalert', ATBDP_ADMIN_ASSETS . 'js/sweetalert.min.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_enqueue_style('sweetalertcss');
@@ -350,7 +352,7 @@ class ATBDP_Enqueuer {
             'select2script'
         );
         $disable_map = false;
-        if (!$disable_map){ $dependency[]= 'atbdp-google-map-front'; }
+        if (!$disable_map && 'google' == $select_listing_map){ $dependency[]= 'atbdp-google-map-front'; }
         wp_register_script('atbdp_add_listing_js', ATBDP_PUBLIC_ASSETS . 'js/add-listing.js', $dependency, ATBDP_VERSION, true );
         wp_enqueue_script('atbdp_add_listing_js');
         wp_register_script('atbdp_add_listing_validator', ATBDP_PUBLIC_ASSETS . 'js/validator.js', $dependency, ATBDP_VERSION, true );

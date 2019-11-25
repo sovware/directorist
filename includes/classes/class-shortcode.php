@@ -3480,7 +3480,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         ></p>
 
                     <div class="atbd_login_btn_wrapper"><p>
-                            <input class="btn btn-block btn-lg btn-gradient btn-gradient-two" type="submit"
+                            <input class="btn btn-block btn-gradient btn-gradient-two" type="submit"
                                    value="<?php echo $log_button; ?>"
                                    name="submit"/>
                         <?php wp_nonce_field('ajax-login-nonce', 'security');

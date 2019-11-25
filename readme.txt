@@ -1,6 +1,6 @@
 ﻿=== Directorist - Business Directory Plugin ===
 Contributors: AazzTech
-Donate link: https://aazztech.com/product/category/extensions/
+Donate link: https://directorist.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.3
@@ -12,7 +12,7 @@ Create a classified website, business directory website like Yelp, foursquare et
 
 == Description ==
 
-[Live Demos](https://aazztech.com/demos/plugins/directorist) | [Documentation](http://directorist.com/docs) | [Free Theme](https://aazztech.com/product/directoria-wordpress-theme/) | [Extensions](https://aazztech.com/product/category/extensions/)
+[Live Demos](https://directorist.com/demos/) | [Documentation](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/product/category/themes/) | [Extensions](https://directorist.com/product/category/extensions/)
 
 The Directorist plugin has just got even better with a new update. Meet New Directorist. It is now updated with a lot of new features like featured listings, basic monetization, listing expiration, improved design, email notifications, ability to add price field to a listing, ability to toggle any options and much more. Best directory plugin just got even better than before.
 
@@ -61,7 +61,7 @@ You may know it is very difficult to make a plugin's design compatible with all 
 = DEDICATED PREMIUM THEME FOR FREE FOR THE PLUGIN! =
 Maybe your theme is not 100% compatible with our plugin. However, you want to get beyond that and want 100% compatibility. No problem. We have crafted a premium theme for this plugin and we are giving it for free to our valuable users of this plugin. Now making a modern and professional directory website is just a matter of some clicks.
 
-You can build an amazing directory site like this plugin demo site. Download it from here: [https://aazztech.com/product/directoria-wordpress-theme/](https://aazztech.com/product/directoria-wordpress-theme/)
+You can build an amazing directory site like this plugin demo site. Download it from here: [https://directorist.com/product/directoria](https://directorist.com/product/directoria)
 
 = EXTENDABLE & DEVELOPER-FRIENDLY =
 You can extend the functionality of this plugin using free & premium extensions. It is also developer-friendly. Any developer can extend this plugin using different actions and filters provided by this plugin.
@@ -102,7 +102,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 2. Activate the plugin from the Plugins page.
 
 = Usage =
-[Click here](https://aazztech.com/demos/plugins/directorist) for the [Documentation](https://aazztech.com/demos/plugins/directorist).
+[Click here](https://directorist.com/documentation/directorist/) for the Documentation.
 
 
 
@@ -137,21 +137,22 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 6.2.1 - Nov 21, 2019 =
+= 6.2.1 - Nov 23, 2019 =
 
-* Add - Guest review submission
-* Fix - OpenStreetMap issue of 'no listing found'
-* Fix - Tag issue on search
-* Improve - Tags field
+* Fix - OpenStreetMap map issue of 'no listing found'
+* Fix - Tag issue of search
 * Fix - Map icon issue
-* Fix -Radius search issue
-* Fix -Category widget dropdown issue
-* Fix -Location widget dropdown issue
-* Improve - OpenStreetMap makes draggable
-* Fix - Listing renewal issue from admin add listing form
-* Fix - Tag issue in listing form
-* Fix - Function naming
-* Fix - Listing status with monitization disabled
+* Fix - Radius search issue
+* Fix - Category widget dropdown issue
+* Fix - Location widget dropdown issue
+* Fix - Listing renewal issue
+* Fix - Tag issue of listing form
+* Fix - Listing's status conflict with monetization
+* Improve - Function naming
+* Improve - Tags field
+* Improve - Option to submit review without login
+* Improve - Made OpenStreetMap map's marker draggable
+* Improve - User login authentication process
 
 = 6.2.0 - Nov 05, 2019 =
 

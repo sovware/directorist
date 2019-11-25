@@ -141,7 +141,7 @@ $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here'
                                 </div>
                                 <?php } ?>
                                 <div class="directory_regi_btn">
-                                    <button type="submit" class="btn btn-primary btn-lg" name="atbdp_user_submit"><?php printf(__('%s ', 'directorist'),$reg_signup); ?></button>
+                                    <button type="submit" class="btn btn-primary" name="atbdp_user_submit"><?php printf(__('%s ', 'directorist'),$reg_signup); ?></button>
                                 </div>
                                 <?php if(!empty($display_login)) { ?>
                                 <div class="directory_regi_btn">

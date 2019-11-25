@@ -758,4 +758,36 @@ css for Custom Field
   margin-right: 8px;
 }
 
+div#need_post_area {
+  padding: 10px 0 15px 0;
+}
+
+div#need_post_area .atbd_listing_type_list {
+  margin: 0 -7px;
+}
+
+div#need_post_area label {
+  margin: 0 7px;
+  font-size: 16px;
+}
+
+div#need_post_area label input:checked + span {
+  font-weight: 600;
+}
+
+#pyn_service_budget label {
+  display: flex !important;
+  align-items: center;
+}
+
+#pyn_service_budget label #is_hourly {
+  margin-right: 5px;
+}
+
+#titlediv #title {
+  padding: 3px 8px 7px;
+  font-size: 26px;
+  height: 40px;
+}
+
 /*# sourceMappingURL=map/style.css.map */

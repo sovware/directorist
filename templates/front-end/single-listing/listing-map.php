@@ -96,6 +96,7 @@ if ('openstreet' == $select_listing_map) {
 } ?>
 
 <script>
+    <?php if('google' == $select_listing_map) { ?>
     var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
 
     var inherits = function (childCtor, parentCtor) {
@@ -191,7 +192,7 @@ if ('openstreet' == $select_listing_map) {
         div.style.left = (position.x - (div.offsetWidth / 2)) + 'px';
         div.style.top = (position.y - div.offsetHeight) + 'px';
     };
-
+    <?php } ?>
 
     jQuery(document).ready(function ($) {
         // Do not show map if lat long is empty or map is globally disabled.

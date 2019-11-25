@@ -695,3 +695,32 @@ css for Custom Field
     margin-right: 8px;
   }
 }
+
+div#need_post_area{
+  padding: 10px 0 15px 0;
+  .atbd_listing_type_list{
+    margin: 0 -7px;
+  }
+  label{
+    margin: 0 7px;
+    font-size: 16px;
+    input:checked + span{
+      font-weight: 600;
+    }
+  }
+}
+#pyn_service_budget{
+  label{
+    display: flex !important;
+    align-items: center;
+    #is_hourly{
+      margin-right: 5px;
+    }
+  }
+}
+
+#titlediv #title {
+  padding: 3px 8px 7px;
+  font-size: 26px;
+  height: 40px;
+}

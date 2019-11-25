@@ -252,7 +252,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                         </div><!-- ends: .form-group -->
                                     <?php } ?>
                                     <?php if ('yes' == $open_now_field && in_array('directorist-business-hours/bd-business-hour.php', apply_filters('active_plugins', get_option('active_plugins')))) { ?>
-                                        <div class="form-group">
+                                        <div class="form-group open_now">
                                             <label><?php _e('Open Now', 'directorist'); ?></label>
                                             <div class="check-btn">
                                                 <div class="btn-checkbox">

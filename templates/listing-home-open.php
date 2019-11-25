@@ -108,7 +108,7 @@ $c_symbol = atbdp_currency_symbol($currency);
                         </div><!-- ends: .form-group -->
                     <?php } ?>
                     <?php if('yes' == $open_now_field && in_array( 'directorist-business-hours/bd-business-hour.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) )) { ?>
-                        <div class="form-group">
+                        <div class="form-group open_now">
                             <div class="check-btn">
                                 <div class="btn-checkbox">
                                     <label>

@@ -155,7 +155,7 @@ $info_content .= "<p> {$ad}</p></div>";
         ?>
     <!--    zip code-->
         <?php if(!empty($display_zip_field) ) {?>
-            <div class="form-group">
+            <div class="form-group" id="atbdp__zip">
                 <label for="atbdp_zip"><?php $zip_label = get_directorist_option('zip_label', __('Zip/Post Code', 'directorist'));
                     esc_html_e($zip_label.':', 'directorist'); ?></label>
 
@@ -166,7 +166,7 @@ $info_content .= "<p> {$ad}</p></div>";
         <?php } ?>
         <!--phone-->
         <?php if(!empty($display_phone_field) ) { ?>
-        <div class="form-group">
+        <div class="form-group" id="atbdp_phone__number">
             <label for="atbdp_phone_number"><?php $phone_label = get_directorist_option('phone_label', __('Phone Number', 'directorist'));
                 esc_html_e($phone_label.':', 'directorist'); ?></label>
             <input type="tel" name="phone" id="atbdp_phone_number"
@@ -176,7 +176,7 @@ $info_content .= "<p> {$ad}</p></div>";
         <?php } ?>
         <!--phone2-->
         <?php if(!empty($display_phone2_field) ) { ?>
-        <div class="form-group">
+        <div class="form-group" id="atbdp_phone__number2">
             <label for="atbdp_phone_number2"><?php $phone_label2 = get_directorist_option('phone_label2', __('Phone Number Two', 'directorist'));
                 esc_html_e($phone_label2.':', 'directorist'); ?></label>
             <input type="tel" name="phone2" id="atbdp_phone_number2"
@@ -186,7 +186,7 @@ $info_content .= "<p> {$ad}</p></div>";
         <?php } ?>
         <!--fax-->
         <?php if(!empty($display_fax) ) { ?>
-        <div class="form-group">
+        <div class="form-group" id="atbdp__fax">
             <label for="atbdp_fax"><?php $fax_label = get_directorist_option('fax_label', __('Fax', 'directorist'));
                 esc_html_e($fax_label.':', 'directorist'); ?></label>
             <input type="tel" name="fax" id="atbdp_fax"
@@ -195,7 +195,7 @@ $info_content .= "<p> {$ad}</p></div>";
         </div>
         <?php } ?>
         <?php if(!empty($display_email_field)) { ?>
-        <div class="form-group">
+        <div class="form-group" id="atbdp__email">
             <label for="atbdp_email"><?php $email_label = get_directorist_option('email_label', __('Email', 'directorist'));
                 esc_html_e($email_label.':', 'directorist'); ?></label>
             <input type="email" name="email" id="atbdp_email" value="<?php echo !empty($email) ? esc_attr($email) : ''; ?>"
@@ -204,7 +204,7 @@ $info_content .= "<p> {$ad}</p></div>";
         </div>
         <?php } ?>
         <?php if(!empty($display_website_field) ) {?>
-        <div class="form-group">
+        <div class="form-group" id="atbdp__website">
             <label for="atbdp_website"><?php  $website_label = get_directorist_option('website_label', __('Website', 'directorist'));
                 esc_html_e($website_label.':', 'directorist'); ?></label>
 

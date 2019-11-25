@@ -166,7 +166,7 @@ class ATBDP_Gateway{
      */
     public function get_monetize_by_subscription_fields()
     {
-        $pricing_plan = '<a style="color: red" href="https://aazztech.com/product/directorist-pricing-plans" target="_blank">Pricing Plans</a>';
+        $pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-pricing-plans" target="_blank">Pricing Plans</a>';
         return apply_filters('atbdp_monetization_by_subscription_settings_fields', array(
                 array(
                     'type' => 'notebox',

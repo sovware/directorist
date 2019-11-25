@@ -2405,7 +2405,7 @@ The Administrator of ==SITE_NAME==
          */
         function get_archive_page_settings_fields()
         {
-            $business_hours = '(Requires <a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a> extension)';
+            $business_hours = '(Requires <a style="color: red" href="https://directorist.com/product/directorist-business-hours/" target="_blank">Business Hours</a> extension)';
             return apply_filters('atbdp_archive_settings_fields', array(
 
                     'display_listings_header' => array(
@@ -3577,7 +3577,7 @@ The Administrator of ==SITE_NAME==
          */
         function get_search_form_settings_fields()
         {
-            $business_hours = '(Requires <a style="color: red" href="https://aazztech.com/product/directorist-business-hours/" target="_blank">Business Hours</a> extension)';
+            $business_hours = '(Requires <a style="color: red" href="https://directorist.com/product/directorist-business-hours/" target="_blank">Business Hours</a> extension)';
             return apply_filters('atbdp_search_result_settings_fields', array(
                     array(
                         'type' => 'toggle',

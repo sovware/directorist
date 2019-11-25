@@ -35,6 +35,8 @@ if (!class_exists('BD_Tags_Widget')) {
          */
         public function widget($args, $instance)
         {
+            $allowWidget = apply_filters('atbdp_allow_tags_widget', true);
+            if (!$allowWidget) return;
             $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Tags', 'directorist');
 
             $query_args = array(

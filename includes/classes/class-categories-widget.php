@@ -35,6 +35,8 @@ if (!class_exists('BD_Categories_Widget')) {
          */
         public function widget($args, $instance)
         {
+            $allowWidget = apply_filters('atbdp_allow_categories_widget', true);
+            if (!$allowWidget) return;
             wp_enqueue_script('loc_cat_assets');
             $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Directorist Categories', 'directorist');
 

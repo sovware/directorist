@@ -35,6 +35,8 @@ if ( !class_exists('BD_Search_Widget')) {
          */
         public function widget ($args, $instance)
         {
+            $allowWidget = apply_filters('atbdp_allow_search_widget', true);
+            if (!$allowWidget) return;
             $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Advance Search', 'directorist');
             $search_by_text_field          = ! empty( $instance['search_by_text_field'] ) ? 1 : 0;
             $search_by_category            = ! empty( $instance['search_by_category'] ) ? 1 : 0;

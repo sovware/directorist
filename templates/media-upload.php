@@ -1,11 +1,7 @@
 <?php
 $listing_imgs           = (!empty($args['listing_img'])) ? $args['listing_img'] : array();
 $listing_prv_img_id     = (!empty($args['listing_prv_img'])) ? $args['listing_prv_img'] :'';
-if (!empty($listing_prv_img_id)){
-    $listing_prv_img        = wp_get_attachment_image_src($listing_prv_img_id);
-}else{
-    $listing_prv_img = array();
-}
+$listing_prv_img        = wp_get_attachment_image_src($listing_prv_img_id);
 $display_prv_field      = get_directorist_option('display_prv_field', 1);
 $display_gellery_field  = get_directorist_option('display_gellery_field', 1);
 $image_links = []; // define a link placeholder variable
@@ -25,7 +21,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
                            value="<?php echo $listing_prv_img_id; ?>">
                     <div>
                         <img style="max-height: 150px;max-width: 150px" class="change_listing_prv_img"
-                             src="<?php echo esc_url($listing_prv_img[0]) ?>">
+                             src="<?php echo !empty($listing_prv_img_id)?esc_url($listing_prv_img[0]):''; ?>">
                         <a href="" class="remove_prev_img"><span class="fa fa-times" title="Remove it"></span></a>
                     </div>
                 </div>

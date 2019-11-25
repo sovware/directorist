@@ -32,6 +32,8 @@ if (!class_exists('BD_Featured_Listings_Widget')) {
          */
         public function widget($args, $instance)
         {
+            $allowWidget = apply_filters('atbdp_allow_featured_widget', true);
+            if (!$allowWidget) return;
             $single_only    = ! empty( $instance['single_only'] ) ? 1 : 0;
 
             if(!empty($single_only)) {

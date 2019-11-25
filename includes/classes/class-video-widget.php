@@ -34,6 +34,8 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
          */
         public function widget($args, $instance)
         {
+            $allowWidget = apply_filters('atbdp_allow_video_widget', true);
+            if (!$allowWidget) return;
             global $post;
             $listing_info = ATBDP()->metabox->get_listing_info( $post->ID);
             $listing      =  !empty($listing_info) ? $listing_info : array();

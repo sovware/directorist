@@ -32,6 +32,8 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
          */
         public function widget($args, $instance)
         {
+            $allowWidget = apply_filters('atbdp_allow_similar_widget', true);
+            if (!$allowWidget) return;
             if (is_singular(ATBDP_POST_TYPE)) {
                 $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Similar Listings', 'directorist');
                 $sim_listing_num = !empty($instance['sim_listing_num']) ? $instance['sim_listing_num'] : 5;

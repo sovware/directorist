@@ -134,6 +134,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if(empty($display_price_for) && !empty($display_pricing_field)) {
                         $metas['_price'] = !empty($p['price']) ? (float)$p['price'] : 0;
                     }
+
                     if ( empty($display_price_range_for) && !empty($display_price_range_field )) {
                         $metas['_price_range'] = !empty($p['price_range']) ? $p['price_range'] : '';
                     }

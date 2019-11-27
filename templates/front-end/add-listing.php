@@ -1209,8 +1209,8 @@ $query_args = array(
                                     <div class="btn_wrap list_submit">
                                         <button type="submit"
                                                 class="btn btn-primary btn-lg listing_submit_btn"><?php
-                                            $submit_label = get_directorist_option('submit_label', __('Submit listing', 'directorist'));
-                                            echo !empty($p_id) ? __('Update Listing', 'directorist') :
+                                            $submit_label = get_directorist_option('submit_label', __('Submit', 'directorist'));
+                                            echo !empty($p_id) ? __('Update', 'directorist') :
 
                                                 __($submit_label, 'directorist'); ?></button>
                                     </div>

@@ -222,9 +222,14 @@ $container_fluid = 'container-fluid';
             </div>
         </div>
         <div class="row atbd_authors_listing">
-
             <?php
-            listing_view_by_grid($all_listings, $paginate, $is_disable_price);
+            $listings = apply_filters('atbdp_author_listings', true);
+            if ($listings){
+                listing_view_by_grid($all_listings, $paginate, $is_disable_price);
+            }else{
+                // for dev
+                do_action('atbdp_author_listings_html', $all_listings);
+            }
             ?>
 
         </div>

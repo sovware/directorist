@@ -6,9 +6,8 @@
                 if (!function_exists('directoria_setup')){
                     ?>
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                    <!--Google reCAPTCHA-->
                     <div class="single_extension single_thm">
-                        <img src="https://directorist.com/wp-content/uploads/2017/08/directoria_theme_prev-1-360x230.jpg"
+                        <img src="https://directorist.com/wp-content/uploads/2017/08/directoria_theme_prev-1.jpg"
                              alt="Directoria">
 
                         <div class="extension_detail">
@@ -16,7 +15,7 @@
                                 <?php esc_html_e(' Directoria ', 'directorist'); ?></a></h4>
 
                             <div class="btn_wrapper">
-                                <a href="http://directorist.com/theme/demo/directoria" target="_blank"
+                                <a href="https://aazztech.com/demos/plugins/directorist/demo-one/" target="_blank"
                                    class="btn demo btn-primary"><?php esc_html_e('View demo', 'directorist'); ?></a>
                                 <a href="https://directorist.com/product/directoria" target="_blank"
                                    class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
@@ -29,9 +28,8 @@
                 if (!function_exists('dlist_setup')){
                     ?>
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                        <!--Google reCAPTCHA-->
                         <div class="single_extension single_thm">
-                            <img src="https://directorist.com/wp-content/uploads/2019/08/dlist_prev_img-1-360x230.jpg"
+                            <img src="https://directorist.com/wp-content/uploads/2019/08/dlist_prev_img-1.jpg"
                                  alt="Direo">
 
                             <div class="extension_detail">
@@ -52,9 +50,8 @@
                 ?>
 
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                    <!--Google reCAPTCHA-->
                     <div class="single_extension single_thm">
-                        <img src="http://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/04/Dplace.jpg"
+                        <img src="https://directorist.com/wp-content/uploads/2019/11/Dplace.jpg"
                              alt="dPlace">
 
                         <div class="extension_detail">
@@ -71,9 +68,8 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                    <!--Google reCAPTCHA-->
                     <div class="single_extension single_thm">
-                        <img src="http://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/04/DRestaurant.jpg"
+                        <img src="https://directorist.com/wp-content/uploads/2019/11/DRestaurant.jpg"
                              alt="dRestaurant">
 
                         <div class="extension_detail">
@@ -90,9 +86,8 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                    <!--Google reCAPTCHA-->
                     <div class="single_extension single_thm">
-                        <img src="http://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/04/DService.jpg"
+                        <img src="https://directorist.com/wp-content/uploads/2019/11/DService.jpg"
                              alt="dService">
 
                         <div class="extension_detail">
@@ -109,9 +104,9 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                    <!--Google reCAPTCHA-->
+
                     <div class="single_extension single_thm">
-                        <img src="http://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/04/DEvent.jpg"
+                        <img src="https://directorist.com/wp-content/uploads/2019/11/DEvent.jpg"
                              alt="dEvent">
 
                         <div class="extension_detail">
@@ -129,7 +124,6 @@
                 </div>
 
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                    <!--Google reCAPTCHA-->
                     <a href="http://directorist.com/product/category/themes/" target="_blank">
                     <div class="single_extension single_thm">
                         <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/04/More-themes.jpg"
@@ -137,7 +131,6 @@
                     </div>
                     </a>
                 </div>
-
             </div>
         </div>
     </div>

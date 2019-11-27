@@ -8,7 +8,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                         <!--Google reCAPTCHA-->
                         <div class="single_extension">
-                            <img src="https://directorist.com/wp-content/uploads/2019/02/fee_manager_prev-1-360x230.jpg"
+                            <img src="https://directorist.com/wp-content/uploads/2019/02/fee_manager_prev-1.jpg"
                                  alt="Fee Manager">
 
                             <div class="extension_detail ext_d">
@@ -34,7 +34,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                         <!--WooCommerce Fee Manager-->
                         <div class="single_extension">
-                            <img src="https://directorist.com/wp-content/uploads/2019/02/woocommerce_fee_manager_prev-1-360x230.jpg"
+                            <img src="https://directorist.com/wp-content/uploads/2019/02/woocommerce_fee_manager_prev-1.jpg"
                                  alt="WooCommerce Pricing Plans">
 
                             <div class="extension_detail ext_d">
@@ -85,7 +85,7 @@
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--Paypal Gateway-->
                     <div class="single_extension">
-                        <img src="https://directorist.com/wp-content/uploads/2018/04/directorist_paypal_ext_prev_img-1-360x230.jpg"
+                        <img src="https://directorist.com/wp-content/uploads/2018/04/directorist_paypal_ext_prev_img-1.jpg"
                              alt="PayPal">
 
                         <div class="extension_detail ext_d">
@@ -110,7 +110,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                         <!--WooCommerce Fee Manager-->
                         <div class="single_extension">
-                            <img src="https://directorist.com/wp-content/uploads/2019/03/claim_listing_prev-1-360x230.jpg"
+                            <img src="https://directorist.com/wp-content/uploads/2019/03/claim_listing_prev-1.jpg"
                                  alt="WooCommerce Fee Manager">
 
                             <div class="extension_detail ext_d">
@@ -237,7 +237,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                         <!--Google reCAPTCHA-->
                         <div class="single_extension">
-                            <img src="https://directoris.com/wp-content/uploads/2018/10/directorist_google_recaptcha_ext_prev_img-1-360x230.jpg"
+                            <img src="https://directorist.com/wp-content/uploads/2018/10/directorist_google_recaptcha_ext_prev_img-1.jpg"
                                  alt="Google reCAPTCHA">
 
                             <div class="extension_detail ext_d">
@@ -262,7 +262,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                         <!--WooCommerce Fee Manager-->
                         <div class="single_extension">
-                            <img src="https://directorist.com/wp-content/uploads/2019/02/listing_slider_carousal_prev-1-360x230.jpg"
+                            <img src="https://directorist.com/wp-content/uploads/2019/02/listing_slider_carousal_prev-1.jpg"
                                  alt="Listings Slider">
 
                             <div class="extension_detail ext_d">
@@ -287,9 +287,9 @@
                 if (!class_exists('BD_Gallery')){
                 ?>
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                    <!--WooCommerce Fee Manager-->
+                    <!--Gallery-->
                     <div class="single_extension">
-                        <img src="https://directorist.com/wp-content/uploads/2019/02/image_gallery_prev-1-360x230.jpg"
+                        <img src="https://directorist.com/wp-content/uploads/2019/02/image_gallery_prev-1.jpg"
                              alt="Image Gallery">
 
                         <div class="extension_detail ext_d">
@@ -313,9 +313,9 @@
                 if (!class_exists('Listings_fAQs')){
                 ?>
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                    <!--WooCommerce Fee Manager-->
+                    <!--FAQs-->
                     <div class="single_extension">
-                        <img src="https://directorist.com/wp-content/uploads/2019/02/faqs_prev-1-360x230.jpg"
+                        <img src="https://directorist.com/wp-content/uploads/2019/02/faqs_prev-1.jpg"
                              alt="Listing FAQs">
 
                         <div class="extension_detail ext_d">
@@ -338,7 +338,7 @@
                 }
                 ?>
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                    <!--WooCommerce Fee Manager-->
+                    <!--Coupon-->
                     <div class="single_extension">
                         <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Coupon.jpg"
                              alt="Coupon">
@@ -359,7 +359,7 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                    <!--WooCommerce Fee Manager-->
+                    <!--Reservation-->
                     <div class="single_extension">
                         <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Reservation.jpg"
                              alt="WooCommerce Fee Manager">
@@ -381,7 +381,7 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                    <!--WooCommerce Fee Manager-->
+                    <!--Appointment-->
                     <div class="single_extension">
                         <img src="https://aazztech.com/demos/plugins/directorist/demo-one/wp-content/uploads/2019/01/Appointment.jpg"
                              alt="WooCommerce Fee Manager">

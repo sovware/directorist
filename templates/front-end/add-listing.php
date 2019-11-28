@@ -1152,7 +1152,7 @@ $query_args = array(
                                                                class="form-control directory_field"
                                                                placeholder="<?php echo esc_attr($video_placeholder); ?>"/>
                                                     </div>
-                                                    <?php do_action('atbdp_video_field',get_the_ID()); ?>
+                                                    <?php do_action('atbdp_video_field',$p_id); ?>
                                                 <?php }
                                                 if (0){ //$guest_listings && !is_user_logged_in()
                                                 ?>

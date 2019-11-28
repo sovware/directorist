@@ -145,11 +145,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if (!empty($display_tagline_field) && empty($display_tagline_for)) {
                         $metas['_tagline'] = !empty($p['tagline']) ? sanitize_text_field($p['tagline']) : '';
                     }
-
                     if (!empty($display_excerpt_field) && empty($display_short_desc_for)) {
                         $metas['_excerpt'] = !empty($p['excerpt']) ? sanitize_text_field($p['excerpt']) : '';
                     }
-
                     if(!empty($display_views_count) && empty($display_views_count_for)) {
                         $metas['_atbdp_post_views_count'] = !empty($p['atbdp_post_views_count']) ? (int)$p['atbdp_post_views_count'] : '';
                     }

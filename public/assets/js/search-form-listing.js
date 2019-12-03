@@ -100,12 +100,12 @@
 
         google.maps.event.addDomListener(window, 'load', initialize);
     } else if (atbdp_search_listing.i18n_text.select_listing_map === 'openstreet') {
-        $('#address').on('keyup', function (event) {
+        $('#address, #q_addressss').on('keyup', function (event) {
             event.preventDefault();
-            var search = $('#address').val();
-            $('#address_result').css({'display': 'block'});
+            var search = $(this).val();
+            $(this).parent().next('.address_result').css({'display': 'block'});
             if (search === "") {
-                $('#address_result').css({'display': 'none'});
+                $(this).parent().next('.address_result').css({'display': 'block'});
             }
 
             var res = "";
@@ -118,18 +118,19 @@
                     for (var i = 0; i < data.length; i++) {
                         res += '<li><a href="#" data-lat=' + data[i].lat + ' data-lon=' + data[i].lon + '>' + data[i].display_name + '</a></li>'
                     }
-                    $('#address_result').html('<ul>' + res + '</ul>');
+                    $(event.target).parent().next().html('<ul>' + res + '</ul>');
+
                 }
             });
         });
         //hide address result when click outside the input field
         $(document).on("click", function (e) {
-            if(!($(e.target).closest("input#address").length)){
-                $('#address_result').hide();
+            if(!($(e.target).closest("input#address, input#q_addressss").length)){
+                $(this).parent().next('.address_result').hide();
             }
         });
 
-        $('body').on('click', '#address_result ul li a', function (event) {
+        $('body').on('click', '.address_result ul li a', function (event) {
             event.preventDefault();
             let text = $(this).text(),
                 lat = $(this).data('lat'),
@@ -138,11 +139,11 @@
             $('#cityLat').val(lat);
             $('#cityLng').val(lon);
 
-            $('#address').val(text);
-            $('#address_result').hide();
+            $('#address, #q_addressss').val(text);
+            $('.address_result').hide();
         });
     }
-    if ($('#address').val() === "") {
-        $('#address_result').css({'display': 'none'});
+    if ($('#address, #q_addressss').val() === "") {
+        $(this).parent().next('.address_result').css({'display': 'none'});
     }
 })(jQuery);

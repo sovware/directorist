@@ -139,7 +139,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                             $address_label = __('location', 'directorist');
                                             $search_html .= '<div class="atbdp_map_address_field">';
                                             $search_html .= '<div class="atbdp_get_address_field"><input ' . $require_loc . ' type="text" id="address" name="address" autocomplete="off" value="' . $address . '" placeholder="' . $address_label . '" class="form-control location-name">'. $geo_loc .'</span></div>';
-                                            $search_html .= '<div id="address_result">';
+                                            $search_html .= '<div class="address_result">';
                                             $search_html .= '</div>';
                                             $search_html .= '<input type="hidden" id="cityLat" name="cityLat" value="" />';
                                             $search_html .= '<input type="hidden" id="cityLng" name="cityLng" value="" />';
@@ -357,7 +357,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                                                value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>"
                                                                placeholder="<?php echo !empty($address_label) ? $address_label : __('Address', 'directorist'); ?>"
                                                                class="form-control location-name">
-                                                        <div id="address_result">
+                                                        <div class="address_result">
                                                             <ul></ul>
                                                         </div>
                                                         <input type="hidden" id="cityLat" name="cityLat"/>

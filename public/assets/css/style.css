@@ -4909,7 +4909,7 @@ span.atbd_get_loc_wid {
   position: relative;
 }
 
-.ads-advanced .atbdp_map_address_field #address_result {
+.ads-advanced .atbdp_map_address_field .address_result {
   position: absolute;
   width: 96%;
   left: 2%;
@@ -4922,7 +4922,7 @@ span.atbd_get_loc_wid {
   overflow-y: scroll;
 }
 
-.ads-advanced .atbdp_map_address_field #address_result ul li {
+.ads-advanced .atbdp_map_address_field .address_result ul li {
   border-bottom: 1px solid #e3e6ef;
   padding: 10px 15px 10px;
 }
@@ -4931,7 +4931,7 @@ span.atbd_get_loc_wid {
   position: relative;
 }
 
-.ads-advanced .atbd_seach_fields_wrapper .atbdp_map_address_field #address_result {
+.ads-advanced .atbd_seach_fields_wrapper .atbdp_map_address_field .address_result {
   position: absolute;
   width: 100%;
   left: 0;
@@ -4944,12 +4944,12 @@ span.atbd_get_loc_wid {
   overflow-y: scroll;
 }
 
-.ads-advanced .atbd_seach_fields_wrapper .atbdp_map_address_field #address_result ul li {
+.ads-advanced .atbd_seach_fields_wrapper .atbdp_map_address_field .address_result ul li {
   border-bottom: 1px solid #e3e6ef;
   padding: 10px 15px 10px;
 }
 
-.ads-advanced .atbd_seach_fields_wrapper .atbdp_map_address_field #address_result ul li a {
+.ads-advanced .atbd_seach_fields_wrapper .atbdp_map_address_field .address_result ul li a {
   font-size: 13px;
   line-height: 22px;
   display: block;
@@ -4975,7 +4975,7 @@ span.atbd_get_loc_wid {
   position: relative;
 }
 
-.atbd_seach_fields_wrapper .atbdp_map_address_field #address_result {
+.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result {
   position: absolute;
   width: 100%;
   left: 0;
@@ -4988,12 +4988,12 @@ span.atbd_get_loc_wid {
   overflow-y: scroll;
 }
 
-.atbd_seach_fields_wrapper .atbdp_map_address_field #address_result ul li {
+.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result ul li {
   border-bottom: 1px solid #e3e6ef;
   padding: 10px 15px 10px;
 }
 
-.atbd_seach_fields_wrapper .atbdp_map_address_field #address_result ul li a {
+.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result ul li a {
   font-size: 13px;
   line-height: 22px;
   display: block;

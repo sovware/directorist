@@ -434,7 +434,7 @@
   }
   .atbdp_map_address_field{
     position: relative;
-    #address_result{
+    .address_result{
       position: absolute;
       width: 96%;
       left: 2%;
@@ -456,7 +456,7 @@
   .atbd_seach_fields_wrapper{
     .atbdp_map_address_field{
       position: relative;
-      #address_result{
+      .address_result{
         position: absolute;
         width: 100%;
         left: 0;
@@ -497,7 +497,7 @@
 }
 .atbd_seach_fields_wrapper .atbdp_map_address_field{
   position: relative;
-  #address_result{
+  .address_result{
     position: absolute;
     width: 100%;
     left: 0;

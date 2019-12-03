@@ -188,7 +188,7 @@ if ($display_header == 'yes') { ?>
                                                                autocomplete="off"
                                                                class="form-control location-name"><?php echo $geo_loc;?>
                                                         </div>
-                                                        <div id="address_result">
+                                                        <div class="address_result">
                                                         </div>
                                                         <input type="hidden" id="cityLat" name="cityLat" value="<?php if (isset($_GET['cityLat'])) echo esc_attr($_GET['cityLat']); ?>" />
                                                         <input type="hidden" id="cityLng" name="cityLng" value="<?php if (isset($_GET['cityLng'])) echo esc_attr($_GET['cityLng']); ?>" />

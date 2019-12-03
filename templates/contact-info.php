@@ -492,23 +492,25 @@ if ('openstreet' == $select_listing_map) {
 
         $('#address').on('keyup', function(event) {
             event.preventDefault();
-            var search = $('#address').val();
-            $('#result').css({'display':'block'});
-            if(search === ""){
-                $('#result').css({'display':'none'});
-            }
-            var res = "";
-            $.ajax({
-                url: `https://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
-                type: 'POST',
-                data: {},
-                success: function (data) {
-                    for (var i = 0; i < data.length; i++) {
-                        res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
-                    }
-                    $('#result ul').html(res);
+            if(event.keyCode !== 40 && event.keyCode !== 38){
+                var search = $('#address').val();
+                $('#result').css({'display':'block'});
+                if(search === ""){
+                    $('#result').css({'display':'none'});
                 }
-            });
+                var res = "";
+                $.ajax({
+                    url: `https://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
+                    type: 'POST',
+                    data: {},
+                    success: function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
+                        }
+                        $('#result ul').html(res);
+                    }
+                });
+            }
         });
 
         let lat = <?php echo (!empty($manual_lat)) ? floatval($manual_lat) : $default_latitude ?>,
@@ -539,6 +541,46 @@ if ('openstreet' == $select_listing_map) {
 
         });
 
+        // Popup controller by keyboard
+        var index = 0;
+        $('#address').on('keyup', function(event) {
+            event.preventDefault();
+            var length = $('#directorist.atbd_wrapper #result ul li a').length;            
+            if(event.keyCode === 40) {
+                index++;                
+               if( index > length) {
+                   index = 0;
+                }               
+            } else if(event.keyCode === 38) {
+                index--;
+                if(index < 0) {
+                    index = length
+                };
+            }
+            
+            if($('#directorist.atbd_wrapper #result ul li a').length > 0){
+
+                $('#directorist.atbd_wrapper #result ul li a').removeClass('active')
+                $($('#directorist.atbd_wrapper #result ul li a')[index]).addClass('active');
+
+                if(event.keyCode === 13){                      
+                    $($('#directorist.atbd_wrapper #result ul li a')[index]).click();
+                    index = 0;
+                    event.preventDefault();                    
+                    return false;
+                }
+            };
+            
+        });
+
+        $('#post').on('submit', function(event) {
+            event.preventDefault();
+            return false;
+        });
+        // Popup controller by keyboard
+
+
+
     <?php
          } // select map
         } // disable map
@@ -564,5 +606,26 @@ if ('openstreet' == $select_listing_map) {
      #OL_Icon_34:hover .mapHover{
          display: block;
      }
+
+     #directorist.atbd_wrapper a {                
+        display: block;
+        background: #fff;
+        padding: 8px 10px;
+    }
+
+    #directorist.atbd_wrapper a:hover {
+        background: #eeeeee50;        
+    }
+
+    #directorist.atbd_wrapper a.active {
+        background: #eeeeee70;        
+    }
+
+    .g_address_wrap ul li {
+        margin-bottom: 0px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 0px;
+    }
+
  </style>
 

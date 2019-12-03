@@ -105,7 +105,7 @@
             var search = $(this).val();
             $(this).parent().next('.address_result').css({'display': 'block'});
             if (search === "") {
-                $(this).parent().next('.address_result').css({'display': 'block'});
+                $(this).parent().next('.address_result').css({'display': 'none'});
             }
 
             var res = "";
@@ -125,8 +125,8 @@
         });
         //hide address result when click outside the input field
         $(document).on("click", function (e) {
-            if(!($(e.target).closest("input#address, input#q_addressss").length)){
-                $(this).parent().next('.address_result').hide();
+            if(!($(e.target).closest("#address, #q_addressss").length)){
+                $('.address_result').hide();
             }
         });
 

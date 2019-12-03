@@ -115,7 +115,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
 ?>
 <div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
     <div class="<?php echo apply_filters('atbdp_add_listing_container_fluid',$container_fluid) ?>">
-        <form action="<?= esc_url($_SERVER['REQUEST_URI']); ?>" method="post">
+        <form action="<?= esc_url($_SERVER['REQUEST_URI']); ?>" method="post" id="post">
             <fieldset>
             <?php
             do_action('atbdb_before_add_listing_from_frontend');//for dev purpose
@@ -677,7 +677,7 @@ $container_fluid             = is_directoria_active() ? 'container' : 'container
                                                 $address_label = get_directorist_option('address_label', __('Google Address', ATBDP_TEXTDOMAIN));
                                                 esc_html_e($address_label.':', ATBDP_TEXTDOMAIN);
                                                 echo get_directorist_option('require_address')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>
-                                            <input type="text" name="address" id="address"
+                                            <input autocomplete="off" type="text" name="address" id="address"
                                                    value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
                                                    class="form-control directory_field"
                                                    placeholder="<?php esc_html_e('Listing address eg. New York, USA', ATBDP_TEXTDOMAIN); ?>"/>
@@ -1233,8 +1233,10 @@ if('openstreet' == $select_listing_map) {
             markers = [];
         }
         <?php } elseif('openstreet' == $select_listing_map) {?>
+
         $('#address').on('keyup', function(event) {
             event.preventDefault();
+            if(event.keyCode !== 40 && event.keyCode !== 38){
             var address = $('#address').val();
             $('#result').css({'display':'block'});
             if(address === ""){
@@ -1253,15 +1255,16 @@ if('openstreet' == $select_listing_map) {
                     $('#result ul').html(res);
                 }
             });
+            }
         });
-        map = new OpenLayers.Map("gmap");
+
+
 
 
 
         let mymap = (lon, lat) => {
-
            
-
+            map = new OpenLayers.Map("gmap");
 			map.addLayer(new OpenLayers.Layer.OSM());
 	            var pois = new OpenLayers.Layer.Text( "My Points",
 	                            { location:"./textfile.txt",
@@ -1345,6 +1348,7 @@ if('openstreet' == $select_listing_map) {
 
         $('body').on('click', '#result ul li a', function(event) {
             event.preventDefault();
+            $('#mapinit').html('<div id="gmap"></div>');
             let text = $(this).text(),
                 lat = $(this).data('lat'),
                 lon = $(this).data('lon');
@@ -1354,8 +1358,47 @@ if('openstreet' == $select_listing_map) {
 
             $('#address').val(text);
             $('#result').css({'display':'none'});
-            mymap(lon, lat);
+            //mymap(lon, lat);
         });
+
+        // Popup controller by keyboard
+        var index = 0;
+        $('body').on('keyup', '#address', function(event) {
+            event.preventDefault();
+            var length = $('#directorist.atbd_wrapper #result ul li a').length;
+            if(event.keyCode === 40) {
+                index++;
+               if( index > length) {
+                   index = 0;
+                }               
+            } else if(event.keyCode === 38) {
+                index--;
+                if(index < 0) {
+                    index = length
+                };
+            }
+            
+            if($('#directorist.atbd_wrapper #result ul li a').length > 0){
+
+                $('#directorist.atbd_wrapper #result ul li a').removeClass('active')
+                $($('#directorist.atbd_wrapper #result ul li a')[index]).addClass('active');
+                if(event.keyCode === 13){                      
+                    $($('#directorist.atbd_wrapper #result ul li a')[index]).click();
+                    event.preventDefault();
+                    return false;
+                }
+            };
+            
+        });
+
+        $('#post').on('submit', function(event) {
+            event.preventDefault();
+            return false;
+        });
+        // Popup controller by keyboard
+
+
+
         <?php if(!empty($address)) {?>
         $('#OL_Icon_33').append('<div class="mapHover"><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
         <?php
@@ -1382,4 +1425,25 @@ if('openstreet' == $select_listing_map) {
     #OL_Icon_33:hover .mapHover{
         display: block;
     }
+
+    #directorist.atbd_wrapper a {                
+        display: block;
+        background: #fff;
+        padding: 8px 10px;
+    }
+
+    #directorist.atbd_wrapper a:hover {
+        background: #eeeeee50;        
+    }
+
+    #directorist.atbd_wrapper a.active {
+        background: #eeeeee70;        
+    }
+
+    .g_address_wrap ul li {
+        margin-bottom: 0px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 0px;
+    }
+
 </style>

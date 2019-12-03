@@ -65,7 +65,7 @@ $info_content .= "<p> {$ad}</p></div>";
                     <label for="address"><?php
                         $address_label = get_directorist_option('address_label', __('Google Address', ATBDP_TEXTDOMAIN));
                         esc_html_e($address_label.':', ATBDP_TEXTDOMAIN); ?></label>
-                    <input type="text" name="address" id="address" value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
+                    <input autocomplete="off" type="text" name="address" id="address" value="<?= !empty($address) ? esc_attr($address) : ''; ?>"
                         class="form-control directory_field"
                         placeholder="<?php esc_html_e('Listing address eg. New York, USA', ATBDP_TEXTDOMAIN); ?>"/>
                     <div id="result">
@@ -81,7 +81,9 @@ $info_content .= "<p> {$ad}</p></div>";
                             id="delete_marker"> <?php _e('Delete Marker', ATBDP_TEXTDOMAIN); ?></button>
                 </div>
                 <?php } ?>
-                <div id="gmap"></div>
+                <div id="mapinit">
+                    <div id="gmap"></div>
+                </div>
                 <?php if('google' == $select_listing_map) {?>
                 <small class="map_drag_info"><i class="fa fa-info-circle" aria-hidden="true"></i> <?php _e('You can drag pinpoint to place the correct address manually.', ATBDP_TEXTDOMAIN); ?></small>
                  <?php } ?>
@@ -432,33 +434,31 @@ $info_content .= "<p> {$ad}</p></div>";
 
         $('#address').on('keyup', function(event) {
             event.preventDefault();
-            var address = $('#address').val();
-            $('#result').css({'display':'block'});
-            if(address === ""){
-                $('#result').css({'display':'none'});
-            }
-            var res = "";
-            $.ajax({
-                url: `https://nominatim.openstreetmap.org/?q=%27+${address}+%27&format=json`,
-                type: 'POST',
-                data: {},
-                success: function (data) {
-                    //console.log(data);
-                    for (var i = 0; i < data.length; i++) {
-                        res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
-                    }
-                    $('#result ul').html(res);
+            if(event.keyCode !== 40 && event.keyCode !== 38){
+                var address = $('#address').val();
+                $('#result').css({'display':'block'});
+                if(address === ""){
+                    $('#result').css({'display':'none'});
                 }
-            });
+                var res = "";
+                $.ajax({
+                    url: `https://nominatim.openstreetmap.org/?q=%27+${address}+%27&format=json`,
+                    type: 'POST',
+                    data: {},
+                    success: function (data) {
+                        //console.log(data);
+                        for (var i = 0; i < data.length; i++) {
+                            res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
+                        }
+                        $('#result ul').html(res);
+                    }
+                });
+            }
         });
-        map = new OpenLayers.Map("gmap");
 
+        var mymap = (lon, lat) => {          
 
-
-        var mymap = (lon, lat) => {
-
-           
-
+            map = new OpenLayers.Map("gmap");
 			map.addLayer(new OpenLayers.Layer.OSM());
 	            var pois = new OpenLayers.Layer.Text( "My Points",
 	                            { location:"./textfile.txt",
@@ -544,11 +544,11 @@ $info_content .= "<p> {$ad}</p></div>";
 
 
         $('body').on('click', '#result ul li a', function(event) {
-            event.preventDefault();
-
+            event.preventDefault(); 
+            $('#mapinit').html('<div id="gmap"></div>')
             setTimeout(() => {
                 var el = $('.olMap img.olAlphaImg');
-                $(el).attr('src', 'http://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-PNG-File.png');
+                $(el).attr('src', 'https://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-PNG-File.png');
                 $('img#OpenLayers_Control_MaximizeDiv_innerImage').css({display: 'none'});
             }, 1000);
 
@@ -563,6 +563,45 @@ $info_content .= "<p> {$ad}</p></div>";
             $('#result').css({'display':'none'});
             mymap(lon, lat);
         });
+
+        // Popup controller by keyboard
+        var index = 0;
+        $('#address').on('keyup', function(event) {
+            event.preventDefault();
+            var length = $('#directorist.atbd_wrapper #result ul li a').length;
+            if(event.keyCode === 40) {
+                index++;
+               if( index > length) {
+                   index = 0;
+                }               
+            } else if(event.keyCode === 38) {
+                index--;
+                if(index < 0) {
+                    index = length
+                };
+            }
+            
+            if($('#directorist.atbd_wrapper #result ul li a').length > 0){
+
+                $('#directorist.atbd_wrapper #result ul li a').removeClass('active')
+                $($('#directorist.atbd_wrapper #result ul li a')[index]).addClass('active');
+
+                if(event.keyCode === 13){                      
+                    $($('#directorist.atbd_wrapper #result ul li a')[index]).click();
+                    event.preventDefault();                    
+                    return false;
+                }
+            };
+            
+        });
+
+        $('#post').on('submit', function(event) {
+            event.preventDefault();
+            return false;
+        });
+        // Popup controller by keyboard
+        
+
 
         $('#OL_Icon_34').append('<div class="mapHover"><?php echo !empty($address) ? esc_attr($address) : ''; ?></div>');
         //$('.olAlphaImg').each(function(inde,el){
@@ -597,5 +636,27 @@ $info_content .= "<p> {$ad}</p></div>";
      #OL_Icon_34:hover .mapHover{
          display: block;
      }
+
+     
+    #directorist.atbd_wrapper a {                
+        display: block;
+        background: #fff;
+        padding: 8px 10px;
+    }
+
+    #directorist.atbd_wrapper a:hover {
+        background: #eeeeee50;        
+    }
+
+    #directorist.atbd_wrapper a.active {
+        background: #eeeeee70;        
+    }
+
+    .g_address_wrap ul li {
+        margin-bottom: 0px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 0px;
+    }
+        
  </style>
 

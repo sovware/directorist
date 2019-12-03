@@ -787,9 +787,10 @@ $query_args = array(
                                                         esc_html_e($address_label . ':', 'directorist');
                                                         echo get_directorist_option('require_address') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                                                     <input type="text" name="address" autocomplete="off" id="address"
-                                                           value="<?php echo !empty($address) ? esc_attr($address) : ''; ?>"
-                                                           class="form-control directory_field"
-                                                           placeholder="<?php echo esc_attr($address_placeholder); ?>"/>
+                                                        
+                                                        value="<?php echo !empty($address) ? esc_attr($address) : ''; ?>"
+                                                        class="form-control directory_field"
+                                                        placeholder="<?php echo esc_attr($address_placeholder); ?>"/>
                                                 </div>
                                             <?php }
 
@@ -977,6 +978,7 @@ $query_args = array(
                                                         esc_html_e($address_label . ':', 'directorist');
                                                         echo get_directorist_option('require_address') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                                                     <input type="text" name="address" id="address"
+                                                            autocomplete="off"
                                                            value="<?php echo !empty($address) ? esc_attr($address) : ''; ?>"
                                                            class="form-control directory_field"
                                                            placeholder="<?php echo esc_attr($address_placeholder); ?>"/>
@@ -1193,7 +1195,7 @@ $query_args = array(
                                             <label for="listing_t"><?php echo __('I Agree with all ', 'directorist'); ?>
                                                 <a
                                                         style="color: red" href="" id="listing_t_c"
-                                                "><?php echo __('terms & conditions', 'directorist'); ?></a></label>
+                                                ><?php echo __('terms & conditions', 'directorist'); ?></a></label>
                                             <div id="tc_container" class="">
                                                 <p><?php _e($listing_terms_condition_text, 'directorist'); ?></p>
                                             </div>
@@ -1460,24 +1462,26 @@ if ('openstreet' == $select_listing_map) {
 
         $('#address').on('keyup', function(event) {
             event.preventDefault();
-            var search = $('#address').val();
-            $('#result').css({'display':'block'});
-            if(search === ""){
-                $('#result').css({'display':'none'});
-            }
-            var res = "";
-            $.ajax({
-                url: `https://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
-                type: 'POST',
-                data: {},
-                success: function (data) {
-                    //console.log(data);
-                    for (var i = 0; i < data.length; i++) {
-                        res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
-                    }
-                    $('#result ul').html(res);
+            if(event.keyCode !== 40 && event.keyCode !== 38){
+                var search = $('#address').val();
+                $('#result').css({'display':'block'});
+                if(search === ""){
+                    $('#result').css({'display':'none'});
                 }
-            });
+                var res = "";
+                $.ajax({
+                    url: `https://nominatim.openstreetmap.org/?q=%27+${search}+%27&format=json`,
+                    type: 'POST',
+                    data: {},
+                    success: function (data) {
+                        //console.log(data);
+                        for (var i = 0; i < data.length; i++) {
+                            res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].display_name}</a></li>`
+                        }
+                        $('#result ul').html(res);
+                    }
+                });
+            }
         });
 
         let lat = <?php echo (!empty($manual_lat)) ? floatval($manual_lat) : $default_latitude ?>,
@@ -1508,6 +1512,44 @@ if ('openstreet' == $select_listing_map) {
 
         });
 
+        // Popup controller by keyboard
+        var index = 0;
+        $('#address').on('keyup', function(event) {
+            event.preventDefault();
+            var length = $('#directorist.atbd_wrapper #result ul li a').length;
+            if(event.keyCode === 40) {
+                index++;
+               if( index > length) {
+                   index = 0;
+                }               
+            } else if(event.keyCode === 38) {
+                index--;
+                if(index < 0) {
+                    index = length
+                };
+            }
+            
+            if($('#directorist.atbd_wrapper #result ul li a').length > 0){
+
+                $('#directorist.atbd_wrapper #result ul li a').removeClass('active')
+                $($('#directorist.atbd_wrapper #result ul li a')[index]).addClass('active');
+
+                if(event.keyCode === 13){                      
+                    $($('#directorist.atbd_wrapper #result ul li a')[index]).click();
+                    event.preventDefault();
+                    index = 0;                   
+                    return false;
+                }
+            };
+            
+        });
+
+        $('#post').on('submit', function(event) {
+            event.preventDefault();
+            return false;
+        });
+        // Popup controller by keyboard
+
         <?php
          // address
         } // select map
@@ -1533,5 +1575,24 @@ if ('openstreet' == $select_listing_map) {
 
     #OL_Icon_33:hover .mapHover {
         display: block;
+    }
+    #directorist.atbd_wrapper a {                
+        display: block;
+        background: #fff;
+        padding: 8px 10px;
+    }
+
+    #directorist.atbd_wrapper a:hover {
+        background: #eeeeee50;        
+    }
+
+    #directorist.atbd_wrapper a.active {
+        background: #eeeeee70;        
+    }
+
+    .g_address_wrap ul li {
+        margin-bottom: 0px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 0px;
     }
 </style>

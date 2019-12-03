@@ -41,7 +41,7 @@ $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'small')[0];
 $listing_prv_imgurl = atbdp_image_cropping($listing_prv_img, 150, 150, true, 100)['url'];
 $img_url = !empty($listing_prv_imgurl)?$listing_prv_imgurl:$default_image;
 $image = "<img src=". $img_url.">";
-$display_map_info               = get_directorist_option('display_map_info', 1);
+$display_map_info               = apply_filters('atbdp_listing_map_info_window', get_directorist_option('display_map_info', 1));
 $display_image_map              = get_directorist_option('display_image_map', 1);
 $display_title_map              = get_directorist_option('display_title_map', 1);
 $display_address_map            = get_directorist_option('display_address_map', 1);

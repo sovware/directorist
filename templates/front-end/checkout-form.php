@@ -23,7 +23,7 @@ $symbol = atbdp_currency_symbol($currency);
             <thead class="thead-light">
             <tr>
                 <th colspan="2">
-                    Details<?php //if( !empty( $op['title'] ) ) echo esc_html($op['title']);?>
+                    <?php _e("Details","directorist");?>
                 </th>
                 <th><strong><?php printf(__('Price [%s]', 'directorist'), $currency); ?></strong></th>
             </tr>

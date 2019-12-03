@@ -2298,7 +2298,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                     $author_id = get_the_author_meta('ID');
                     $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                     $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
-                    $avata_img = get_avatar($author_id, 32);
+                    $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                     $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
                     $crop_width = get_directorist_option('crop_width', 360);
                     $crop_height = get_directorist_option('crop_height', 300);
@@ -2769,7 +2769,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                         $author_id = get_the_author_meta('ID');
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                         $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
-                        $avata_img = get_avatar($author_id, 32);
+                        $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                         $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
                         $crop_width = get_directorist_option('crop_width', 360);
                         $crop_height = get_directorist_option('crop_height', 300);
@@ -3217,7 +3217,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                     $author_id = get_the_author_meta('ID');
                     $u_pro_pic_meta = get_user_meta($author_id, 'pro_pic', true);
                     $u_pro_pic = wp_get_attachment_image_src($u_pro_pic_meta, 'thumbnail');
-                    $avata_img = get_avatar($author_id, 32);
+                    $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                     $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
                     $crop_width = get_directorist_option('crop_width', 360);
                     $crop_height = get_directorist_option('crop_height', 300);

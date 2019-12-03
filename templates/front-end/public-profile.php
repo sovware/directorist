@@ -203,6 +203,12 @@ $container_fluid = 'container-fluid';
                 <div class="atbd_author_listings_area">
                     <h1><?php _e("Author Listings", 'directorist'); ?></h1>
                     <div class="atbd_author_filter_area">
+                        <?php
+                        /*
+                         * @since 6.2.3
+                         */
+                        do_action('atbpd_before_author_listings_category_dropdown', $all_listings);
+                        ?>
                         <div class="dropdown">
                             <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button"
                                id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

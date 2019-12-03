@@ -1102,9 +1102,11 @@ if ('openstreet' == $select_listing_map) {
                 className: 'myDivIcon'
             });
             var mymap = L.map('gmap').setView([lat, lon], <?php echo !empty($map_zoom_level) ? $map_zoom_level : 16;?>);
-
+            <?php if(!empty($display_map_info)) { ?>
             L.marker([lat, lon], {icon: fontAwesomeIcon}).addTo(mymap).bindPopup(`<?php echo $info_content; ?>`);
-
+            <?php } else { ?>
+            L.marker([lat, lon], {icon: fontAwesomeIcon}).addTo(mymap);
+            <?php } ?>
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(mymap);

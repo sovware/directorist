@@ -84,7 +84,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     $display_author_image = get_directorist_option('display_author_image', 1);
                     $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                     $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
-                    $avata_img = get_avatar($author_id, 32);
+                    $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                     $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
                     $crop_width = get_directorist_option('crop_width', 360);
                     $crop_height = get_directorist_option('crop_height', 300);

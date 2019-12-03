@@ -1238,7 +1238,7 @@ final class Directorist_Base
                                 <div class="atbd_single_review atbdp_static" id="single_review_<?php echo $review->id; ?>">
                                     <div class="atbd_review_top">
                                         <div class="atbd_avatar_wrapper">
-                                            <?php $avata_img = get_avatar($review->by_user_id, 32);
+                                            <?php $avata_img = get_avatar($review->by_user_id, apply_filters('atbdp_avatar_size', 32));
                                             if (!empty($enable_reviewer_img)) { ?>
                                                 <div class="atbd_review_avatar"><?php if ($avata_img) {
                                                         echo $avata_img;
@@ -1303,7 +1303,7 @@ final class Directorist_Base
                                        value="<?php echo wp_get_current_user()->display_name; ?>"
                                        placeholder="<?php esc_attr_e('Your name', 'directorist'); ?>"
                                        id="reviewer_name">
-                                <?php $avata_img = get_avatar(wp_get_current_user()->ID, 32);
+                                <?php $avata_img = get_avatar(wp_get_current_user()->ID, apply_filters('atbdp_avatar_size', 32));
                                 $user_img = !empty($avata_img) ? $avata_img : ATBDP_PUBLIC_ASSETS . 'images/revav.png';
                                 ?>
                                 <input type="hidden" name="name" id="reviewer_img" class="btn btn-default"

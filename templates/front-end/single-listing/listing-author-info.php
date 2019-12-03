@@ -20,7 +20,7 @@ $atbd_author_info_title = get_directorist_option('atbd_author_info_title', __('A
             $user_registered = get_the_author_meta('user_registered', $author_id);
             $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
             $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
-            $avata_img = get_avatar($author_id, 32);
+            $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
             ?>
             <div class="atbd_review_avatar"><?php if (empty($u_pro_pic)) {
                     echo $avata_img;

@@ -28,7 +28,7 @@ $container_fluid = 'container-fluid';
                         ?>
                         <div class="<?php echo $span; ?>">
                             <a class="atbd_category_single <?php echo !empty($cat_image) ? '' : 'atbd_category-default'; ?>"
-                               href="<?php echo ATBDP_Permalink::atbdp_get_category_page($term) ?>">
+                               href="<?php echo ATBDP_Permalink::atbdp_get_category_page($term); ?>">
                                 <figure>
                                     <?php if (!empty($cat_image)) {
                                         ?>

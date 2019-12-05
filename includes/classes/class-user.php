@@ -363,14 +363,14 @@ class ATBDP_User {
         // now lets save the data to the db without password
         $uid = wp_update_user($userdata);
         update_user_meta( $ID, 'address', $address );
-        update_user_meta( $ID, 'facebook', $facebook );
-        update_user_meta( $ID, 'twitter', $twitter );
-        update_user_meta( $ID, '_linkedin', $linkedIn );
-        update_user_meta( $ID, 'youtube', $youtube );
+        update_user_meta( $ID, 'atbdp_facebook', $facebook );
+        update_user_meta( $ID, 'atbdp_twitter', $twitter );
+        update_user_meta( $ID, 'atbdp_linkedin', $linkedIn );
+        update_user_meta( $ID, 'atbdp_youtube', $youtube );
         update_user_meta( $ID, 'description', $bio );
         update_user_meta( $ID, 'first_name', $first_name );
         update_user_meta( $ID, 'last_name', $last_name );
-        update_user_meta( $ID, 'phone', $phone );
+        update_user_meta( $ID, 'atbdp_phone', $phone );
         update_user_meta( $ID, 'pro_pic', $pro_pic );
 
         if (!empty($new_pass || $confirm_pass)){

@@ -1576,11 +1576,11 @@ if ('openstreet' == $select_listing_map) {
     #OL_Icon_33:hover .mapHover {
         display: block;
     }
-    #directorist.atbd_wrapper a {                
+    /*#directorist.atbd_wrapper a {
         display: block;
         background: #fff;
         padding: 8px 10px;
-    }
+    }*/
 
     #directorist.atbd_wrapper a:hover {
         background: #eeeeee50;        

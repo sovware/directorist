@@ -118,7 +118,7 @@
                     for (var i = 0; i < data.length; i++) {
                         res += '<li><a href="#" data-lat=' + data[i].lat + ' data-lon=' + data[i].lon + '>' + data[i].display_name + '</a></li>'
                     }
-                    $(event.target).parent().next().html('<ul>' + res + '</ul>');
+                    $(event.target).parent().next('.address_result').html('<ul>' + res + '</ul>');
 
                 }
             });

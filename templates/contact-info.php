@@ -541,15 +541,21 @@ if ('openstreet' == $select_listing_map) {
 
         });
 
+                
+        $('form').submit(function () {
+            if ($(document.activeElement).attr('type') == 'submit')
+                return true;
+            else return false;
+        });
+
         // Popup controller by keyboard
         var index = 0;
         $('#address').on('keyup', function(event) {
-            event.preventDefault();
             var length = $('#directorist.atbd_wrapper #result ul li a').length;            
             if(event.keyCode === 40) {
                 index++;                
-               if( index > length) {
-                   index = 0;
+                if( index > length) {
+                    index = 0;
                 }               
             } else if(event.keyCode === 38) {
                 index--;
@@ -559,24 +565,20 @@ if ('openstreet' == $select_listing_map) {
             }
             
             if($('#directorist.atbd_wrapper #result ul li a').length > 0){
-
+                                
                 $('#directorist.atbd_wrapper #result ul li a').removeClass('active')
                 $($('#directorist.atbd_wrapper #result ul li a')[index]).addClass('active');
-
+                
                 if(event.keyCode === 13){                      
                     $($('#directorist.atbd_wrapper #result ul li a')[index]).click();
                     index = 0;
-                    event.preventDefault();                    
+                    event.preventDefault();
                     return false;
-                }
-            };
-            
+                }                
+            };            
         });
 
-        $('#post').on('submit', function(event) {
-            event.preventDefault();
-            return false;
-        });
+        
         // Popup controller by keyboard
 
 

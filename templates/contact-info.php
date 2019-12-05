@@ -565,7 +565,7 @@ if ('openstreet' == $select_listing_map) {
             }
             
             if($('#directorist.atbd_wrapper #result ul li a').length > 0){
-                                
+
                 $('#directorist.atbd_wrapper #result ul li a').removeClass('active')
                 $($('#directorist.atbd_wrapper #result ul li a')[index]).addClass('active');
                 
@@ -577,7 +577,6 @@ if ('openstreet' == $select_listing_map) {
                 }                
             };            
         });
-
         
         // Popup controller by keyboard
 

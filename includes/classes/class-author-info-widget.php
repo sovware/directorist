@@ -67,13 +67,13 @@ if (!class_exists('BD_Author_Info_Widget')) {
                         <ul>
                             <?php
                             $address = esc_attr(get_user_meta($author_id, 'address', true));
-                            $phone = esc_attr(get_user_meta($author_id, 'phone', true));
+                            $phone = esc_attr(get_user_meta($author_id, 'atbdp_phone', true));
                             $email = get_the_author_meta('user_email', $author_id);
                             $website = get_the_author_meta('user_url', $author_id);;
-                            $facebook = get_user_meta($author_id, 'facebook', true);
-                            $twitter = get_user_meta($author_id, 'twitter', true);
-                            $linkedIn = get_user_meta($author_id, '_linkedin', true);
-                            $youtube = get_user_meta($author_id, 'youtube', true);
+                            $facebook = get_user_meta($author_id, 'atbdp_facebook', true);
+                            $twitter = get_user_meta($author_id, 'atbdp_twitter', true);
+                            $linkedIn = get_user_meta($author_id, 'atbdp_linkedin', true);
+                            $youtube = get_user_meta($author_id, 'atbdp_youtube', true);
                             if (!empty($address)) { ?>
                                 <li>
                                     <span class="<?php atbdp_icon_type(true);?>-map-marker"></span>

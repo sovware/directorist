@@ -4405,3 +4405,16 @@ function atbdp_guest_submission($guest_email)
         }
     }
 }
+
+function get_uninstall_settings_submenus() {
+    return apply_filters('atbdp_uninstall_settings_fields', array(
+        array(
+            'type' => 'toggle',
+            'name' => 'enable_uninstall',
+            'label' => __('Remove Data on Uninstall?', 'directorist'),
+            'description'=> __('Checked it if you would like Directorist to completely remove all of its data when the plugin is deleted.','directorist'),
+            'default' => 0,
+        ),
+    )
+    );
+}

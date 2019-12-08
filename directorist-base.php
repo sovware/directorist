@@ -294,11 +294,14 @@ final class Directorist_Base
             new ATBDP_Help_Support;
             //validator
             new ATBDP_Validator();
+            // add uninstall menu
+            add_filter('atbdp_settings_menus', array(self::$instance, 'add_uninstall_menu'));
 
         }
 
         return self::$instance;
     }
+
 
     /**
      * Setup plugin constants.
@@ -572,6 +575,22 @@ final class Directorist_Base
             };
             update_option('atbdp_pages_version', 1);
         }
+    }
+
+    public function add_uninstall_menu($menus) {
+        $menus['uninstall_menu'] = array(
+            'title' => __('Uninstall', 'directorist'),
+            'name' => 'uninstall_menu',
+            'icon' => 'font-awesome:fa-window-close',
+            'controls' => apply_filters('atbdp_uninstall_settings_controls', array(
+                'currency_section' => array(
+                    'type' => 'section',
+                    'title' => __('Uninstall Settings', 'directorist'),
+                    'fields' => get_uninstall_settings_submenus(),
+                ),
+            )),
+        );
+        return $menus;
     }
 
     /**

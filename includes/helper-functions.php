@@ -4257,7 +4257,7 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
         $term_id = isset($_GET['in_loc']) ? $_GET['in_loc'] : $location_id;
     }
 
-    $args = array(
+    $args =  array(
         'orderby' => $settings['orderby'],
         'order' => $settings['order'],
         'hide_empty' => $settings['hide_empty'],
@@ -4265,7 +4265,7 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
         'hierarchical' => !empty($settings['hide_empty']) ? true : false
     );
 
-    $terms = get_terms($taxonomy_id, $args);
+    $terms = get_terms($taxonomy_id, apply_filters('atbdp_search_listing_category_argument', $args, $settings));
 
     $html = '';
 

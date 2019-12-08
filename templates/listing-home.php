@@ -410,7 +410,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                         'taxonomy' => ATBDP_CATEGORY,
                         'no_found_rows' => true, // Skip SQL_CALC_FOUND_ROWS for performance (no pagination).
                     );
-                    $top_categories = get_categories($args); // do not show any markup if we do not have any category at all.
+                    $top_categories = get_categories(apply_filters('atbdp_top_category_argument', $args)); // do not show any markup if we do not have any category at all.
                     if (!empty($top_categories)) {
                         ?>
                         <div class="directory_home_category_area">

@@ -423,7 +423,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                             ?>
                             <p><?php echo esc_html($popular_cat_title); ?></p>
 
-                            <ul class="categories">
+                            <ul class="categories atbdp_listing_top_category">
                                 <?php
                                 foreach ($top_categories as $cat) {
                                     $icon = get_cat_icon($cat->term_id);
@@ -440,6 +440,9 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                 <?php }
                                 ?>
                             </ul>
+                            <?php
+                            do_action('atbdp_search_after_popular_categories');
+                            ?>
                         </div><!-- End category area -->
                     <?php }
                 } ?>

@@ -6,11 +6,14 @@
 if ( ! defined ('WP_UNINSTALL_PLUGIN')) {
     die;
 }
+// Access the database via SQL
+global $wpdb;
+include_once("directorist-base.php");
 $enable_uninstall = get_directorist_option('enable_uninstall',0);
+// Clear schedules
+wp_clear_scheduled_hook('atbdp_custom_cron');
+wp_clear_scheduled_hook('directorist_hourly_scheduled_events');
 if(!empty($enable_uninstall)) {
-    // Access the database via SQL
-    global $wpdb;
-    include_once("directorist-base.php");
     // Delete selected pages.
     wp_delete_post(get_directorist_option('add_listing_page'), true);
     wp_delete_post(get_directorist_option('all_listing_page'), true);
@@ -80,7 +83,4 @@ if(!empty($enable_uninstall)) {
     foreach ($atbdp_settings as $settings) {
         delete_option($settings);
     }
-    // Clear schedules
-    wp_clear_scheduled_hook('atbdp_custom_cron');
-    wp_clear_scheduled_hook('directorist_hourly_scheduled_events');
 }

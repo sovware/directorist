@@ -225,6 +225,20 @@ function atbdp_listen_for_failed_payments() {
 }
 add_action( 'template_redirect', 'atbdp_listen_for_failed_payments' );
 
+function atbdp_listing_status_controller(){
+    $status = isset($_GET['listing_status'])?esc_attr($_GET['listing_status']):'';
+    $id = isset($_GET['listing_id'])?(int)($_GET['listing_id']):'';
+    $new_l_status = get_directorist_option('new_listing_status', 'pending');
+    if (!empty($status && $id)){
+        $args = array(
+            'ID' => $id,
+            'post_status' => $new_l_status,
+        );
+        wp_update_post($args);
+    }
+}
+add_action( 'template_redirect', 'atbdp_listing_status_controller' );
+
 /**
  * Check if a field is required
  *

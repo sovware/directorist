@@ -4,6 +4,7 @@ jQuery(document).ready(function ($) {
             scrollTop: $(top).offset().top
         }, 1000);
     }
+
     need_post = false;
     if ($("input[name='need_post']").length > 0) {
         $("input[name='need_post']").on('change', function () {
@@ -14,7 +15,7 @@ jQuery(document).ready(function ($) {
     }
 
     $('.listing_submit_btn').on('click', function (e) {
-        $('.atbdp_required').css({ display: "none" });
+        $('.atbdp_required').css({display: "none"});
         var w_icon = '<span class="fa fa-exclamation-triangle"></span> ';
         //title
         if ($("input[name='listing_title']").length > 0) {
@@ -94,11 +95,11 @@ jQuery(document).ready(function ($) {
         }
 
         //category
-        if ($("input[name='admin_category_select']").length > 0) {
-            var category = $("select[name='admin_category_select']").val();
+        if ($("#at_biz_dir-categories").length > 0) {
+            var category = $("#at_biz_dir-categories").val();
             var required_category = add_listing_validator.category;
-            if ('-1' === category && '' !== required_category) {
-                $("select[name='admin_category_select']").after('<span class="atbdp_required">' + w_icon + required_category + '</span>');
+            if (null === category && '' !== required_category) {
+                $("#atbdp_categories").append('<span class="atbdp_required">' + w_icon + required_category + '</span>');
                 to_top('#atbdp_categories');
                 return false;
             }
@@ -178,7 +179,7 @@ jQuery(document).ready(function ($) {
         }
 
         //Sinfo
-        if ($(".atbdp_social_field_wrapper").length > 0) {
+        if ($("#atbdp_socialInFo").length > 0) {
             var Sinfo = $(".atbdp_social_field_wrapper").length;
             var required_Sinfo = add_listing_validator.Sinfo;
             if (0 === Sinfo && '' !== required_Sinfo && !need_post) {

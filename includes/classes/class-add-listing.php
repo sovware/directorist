@@ -46,8 +46,6 @@ if (!class_exists('ATBDP_Add_Listing')):
 
         /**
          * It sets the author parameter of the attachment query for showing the attachment of the user only
-         * @TODO; add functionality to show all image to the administrator
-         * @See; https://wordpress.stackexchange.com/questions/1482/restricting-users-to-view-only-media-library-items-they-have-uploaded
          * @param array $query
          * @return array
          */
@@ -470,7 +468,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                             $args['post_status'] = $new_l_status;
                             //if listing under a purchased package
                             if(is_fee_manager_active()){
-
                                 if (('package' === package_or_PPL($plan=null)) && $plan_purchased && ('publish' === $new_l_status)){
                                     // status for paid users
                                     $args['post_status'] = $new_l_status;

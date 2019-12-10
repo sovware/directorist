@@ -90,11 +90,21 @@ $symbol = atbdp_currency_symbol($currency);
 
         <p id="atbdp_checkout_errors" class="text-danger"></p>
 
-        <?php wp_nonce_field('checkout_action', 'checkout_nonce'); ?>
+        <?php wp_nonce_field('checkout_action', 'checkout_nonce');
+        $new_l_status = get_directorist_option('new_listing_status', 'pending');
+        $monitization = get_directorist_option('enable_monetization',0);
+        $featured_enabled = get_directorist_option('enable_featured_listing',0);
+        if (is_fee_manager_active()){
+            $url = ATBDP_Permalink::get_dashboard_page_link();
+        }
+        if (!empty($monitization && $featured_enabled)){
+            $url = add_query_arg('listing_status', $new_l_status,  ATBDP_Permalink::get_dashboard_page_link().'?listing_id='.$listing_id );
+        }
+        ?>
         <input type="hidden" name="listing_id" value="<?php echo $listing_id; ?>"/>
         <div class="pull-right" id="atbdp_pay_notpay_btn">
-            <a href="<?php echo ATBDP_Permalink::get_dashboard_page_link(); ?>"
-               class="btn btn-danger atbdp_not_now_button"><?php _e('Not Now', ATBDP_TEXTDOMAIN); ?></a>
+            <a href="<?php echo esc_url($url); ?>"
+               class="btn btn-danger atbdp_not_now_button"><?php _e('Not Now', 'directorist'); ?></a>
             <input type="submit" id="atbdp_checkout_submit_btn" class="btn btn-primary"
                    value="<?php _e('Pay Now', 'directorist'); ?>"/>
         </div> <!--ends pull-right-->

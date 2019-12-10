@@ -202,6 +202,10 @@ $container_fluid = 'container-fluid';
             <div class="col-md-12">
                 <div class="atbd_author_listings_area">
                     <h1><?php _e("Author Listings", 'directorist'); ?></h1>
+                    <?php
+                    $author_cat_filter = get_directorist_option('author_cat_filter',1);
+                    ?>
+                    <?php if(!empty($author_cat_filter)) {?>
                     <div class="atbd_author_filter_area">
                         <?php
                         /*
@@ -224,6 +228,7 @@ $container_fluid = 'container-fluid';
                             </div>
                         </div>
                     </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>

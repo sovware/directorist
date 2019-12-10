@@ -5507,7 +5507,7 @@ The Administrator of ==SITE_NAME==
                     'type' => 'toggle',
                     'name' => 'fix_listing_double_thumb',
                     'label' => __('Fix Repeated Thumbnail of Single Listing', 'directorist'),
-                    'default' => 0,
+                    'default' => 1,
                 ),
 
 
@@ -5677,6 +5677,12 @@ The Administrator of ==SITE_NAME==
                             'value' => 'public',
                             'label' => __('Display', 'directorist'),
                         ),
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'author_cat_filter',
+                        'label' => __('Show Category Filter on Author Page', 'directorist'),
+                        'default' => '1',
                     ),
                 )
             );

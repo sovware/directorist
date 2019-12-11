@@ -79,8 +79,8 @@ $active_mi_ext = is_multiple_images_active(); // default is no
             <a href="#" id="listing_image_btn" class="btn btn-primary">
                 <span class="dashicons dashicons-format-image"></span>
                 <?php
-                $gellery_label = get_directorist_option('gellery_label', __('Upload Slider Images', 'directorist'));
-                esc_html_e($gellery_label, 'directorist');
+                $gellery_label = get_directorist_option('gellery_label', apply_filters('atbdp_add_listing_slider_image_button_default_text',__('Upload Slider Images', 'directorist')));
+                echo esc_html($gellery_label);
                 ?>
             </a>
             <a id="delete-custom-img" class="btn btn-danger <?php echo (!empty($image_links)) ? '' : 'hidden' ?>"

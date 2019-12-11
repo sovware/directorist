@@ -741,17 +741,13 @@ jQuery(function ($) {
         });
 
         // Add or Remove from favourites
-        $('#atbdp-favourites').on('click', 'a.atbdp-favourites', function (e) {
+        $('#atbdp-favourites').on('click', function (e) {
 
-            e.preventDefault();
-
-            var $this = $(this);
-
+            //e.preventDefault();
             var data = {
                 'action': 'atbdp_public_add_remove_favorites',
-                'post_id': $this.data('post_id')
+                'post_id': $("a.atbdp-favourites").data('post_id')
             };
-
             $.post(atbdp_public_data.ajaxurl, data, function (response) {
                 $('#atbdp-favourites').html(response);
             });

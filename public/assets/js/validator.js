@@ -99,7 +99,7 @@ jQuery(document).ready(function ($) {
             var category = $("#at_biz_dir-categories").val();
             var required_category = add_listing_validator.category;
             if (null === category && '' !== required_category) {
-                $("#atbdp_categories").after('<span class="atbdp_required">' + w_icon + required_category + '</span>');
+                $("#atbdp_categories").append('<span class="atbdp_required">' + w_icon + required_category + '</span>');
                 to_top('#atbdp_categories');
                 return false;
             }

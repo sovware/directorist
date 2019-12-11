@@ -1365,18 +1365,17 @@ jQuery(function ($) {
     }
 
     //Email use field
-    var lf_opt54 = $("#user_email");
-    lf_opt54.hide();
+    var lf_opt54_1 = $("#user_email");
+    lf_opt54_1.hide();
     $('input[name="disable_contact_owner"]').on("change", function () {
-        if($(this).is(":checked") == false){
-            console.log()
-            lf_opt54.show();
+        if($(this).is(":checked") === true){
+            lf_opt54_1.hide();
         }else{
-            lf_opt54.hide();
+            lf_opt54_1.show();
         }
     });
     if($('input[name="disable_contact_owner"]').is(":checked") == false){
-        lf_opt54.show();
+        lf_opt54_1.show();
     }
 
 

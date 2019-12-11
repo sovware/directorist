@@ -803,7 +803,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'title' => __('Form Fields', 'directorist'),
                     'name' => 'form_fields_setting',
                     'icon' => 'font-awesome:fa-adjust',
-                    'controls' => apply_filters('atbdp_review_controls', array(
+                    'controls' => apply_filters('atbdp_form_fields_controls', array(
                         'title_field' => array(
                             'type' => 'section',
                             'title' => __('Title', 'directorist'),

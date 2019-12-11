@@ -416,7 +416,7 @@ if ( !class_exists('ATBDP_SEO') ):
             $LOC_page_ID = get_directorist_option('single_location_page');
             $Tag_page_ID = get_directorist_option('single_tag_page');
 
-            // Category page
+            // Location page
             if( $post->ID == $LOC_page_ID ) {
 
                 if( $slug = get_query_var( 'atbdp_location' ) ) {
@@ -426,7 +426,7 @@ if ( !class_exists('ATBDP_SEO') ):
 
             }
 
-            // Location page
+            // Category page
             if( $post->ID == $CAT_page_ID ) {
 
                 if( $slug = get_query_var( 'atbdp_category' ) ) {
@@ -454,6 +454,8 @@ if ( !class_exists('ATBDP_SEO') ):
             global $wp, $post, $wp_query, $wpdb;
             $meta_desc = '';
             $atbdp_page = '';
+            $CAT_page_ID = get_directorist_option('single_category_page');
+            $LOC_page_ID = get_directorist_option('single_location_page');
 
             if(atbdp_is_page('home')){
                 $atbdp_page = 'home';
@@ -481,14 +483,30 @@ if ( !class_exists('ATBDP_SEO') ):
                 $atbdp_page = 'category';
                 $meta_desc = (get_directorist_option('category_meta_desc')) ? get_directorist_option('category_meta_desc') : $meta_desc;
             }elseif(atbdp_is_page('single_category')){
+                // show term description as meta description first
+                if( $post->ID == $CAT_page_ID ) {
+                    if( $slug = get_query_var( 'atbdp_category' ) ) {
+                        $term = get_term_by( 'slug', $slug, ATBDP_CATEGORY );
+                        $meta_desc = $term->description;
+                    }
+                }
                 $atbdp_page = 'single_category';
                 $meta_desc = (get_directorist_option('single_category_meta_desc')) ? get_directorist_option('single_category_meta_desc') : $meta_desc;
+
             }elseif(atbdp_is_page('all_locations')){
                 $atbdp_page = 'all_locations';
                 $meta_desc = (get_directorist_option('all_locations_meta_desc')) ? get_directorist_option('all_locations_meta_desc') : $meta_desc;
             }elseif(atbdp_is_page('single_location')){
+                // show term description as meta description first
+                if( $post->ID == $LOC_page_ID ) {
+                    if( $slug = get_query_var( 'atbdp_location' ) ) {
+                        $term = get_term_by( 'slug', $slug, ATBDP_LOCATION );
+                        $meta_desc = $term->description;
+                    }
+                }
                 $atbdp_page = 'single_location';
                 $meta_desc = (get_directorist_option('single_locations_meta_desc')) ? get_directorist_option('single_locations_meta_desc') : $meta_desc;
+
             }elseif(atbdp_is_page('registration')){
                 $atbdp_page = 'registration';
                 $meta_desc = (get_directorist_option('registration_meta_desc')) ? get_directorist_option('registration_meta_desc') : $meta_desc;

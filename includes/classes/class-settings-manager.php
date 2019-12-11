@@ -2306,6 +2306,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'textbox',
                         'name' => 'single_category_meta_desc',
                         'label' => __('Single Category Page Meta Description', 'directorist'),
+                        'description' => __('Leave it blank to set category\'s description as meta description of this page', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',
@@ -2328,6 +2329,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'textbox',
                         'name' => 'single_locations_meta_desc',
                         'label' => __('Single Locations Page Meta Description', 'directorist'),
+                        'description' => __('Leave it blank to set location\'s description as meta description of this page', 'directorist'),
                     ),
                     array(
                         'type' => 'textbox',

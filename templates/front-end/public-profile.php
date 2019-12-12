@@ -54,7 +54,7 @@ $container_fluid = 'container-fluid';
                             'posts_per_page' => -1 // no limit
                         );
                         $current_user_posts = get_posts($args);
-                        $total_listing = count($current_user_posts);
+                        $total_listing = apply_filters('atbdp_author_listing_count', count($current_user_posts));
                         $review_in_post = 0;
                         $all_reviews = 0;
                         foreach ($current_user_posts as $post) {

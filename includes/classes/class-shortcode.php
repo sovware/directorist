@@ -3333,8 +3333,8 @@ if (!class_exists('ATBDP_Shortcode')):
             if (!empty($category)) {
                 $args['tax_query'] = $category;
             }
-
-            $args['meta_query'] = apply_filters('atbdp_author_listings_meta_queries', array(
+            $meta_queries = array();
+            $meta_queries[] =  array(
                 'relation' => 'OR',
                 array(
                     'key' => '_expiry_date',
@@ -3346,7 +3346,13 @@ if (!class_exists('ATBDP_Shortcode')):
                     'key' => '_never_expire',
                     'value' => 1,
                 )
-            ));
+            );
+
+            $meta_queries = apply_filters('atbdp_author_listings_meta_queries', $meta_queries);
+            $count_meta_queries = count($meta_queries);
+            if ($count_meta_queries) {
+                $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
+            }
 
             $all_listings = new WP_Query($args);
             $data_for_template = compact('all_listings', 'paged', 'paginate', 'author_id');

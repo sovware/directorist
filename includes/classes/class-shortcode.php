@@ -1830,7 +1830,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 'slug' => !empty($categories) ? $categories : '',
             );
 
-            $terms = get_terms(ATBDP_CATEGORY, $args);
+            $terms = get_terms(ATBDP_CATEGORY, apply_filters('atbdp_all_categories_argument', $args));
             $terms = array_slice($terms, 0, $atts['cat_per_page']);
 
             if (!empty($redirect_page_url)) {
@@ -2324,7 +2324,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 'slug' => !empty($locations) ? $locations : ''
             );
 
-            $terms = get_terms(ATBDP_LOCATION, $args);
+            $terms = get_terms(ATBDP_LOCATION, apply_filters('atbdp_all_locations_argument', $args));
             $terms = array_slice($terms, 0, $atts['loc_per_page']);
             if (!empty($redirect_page_url)) {
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';

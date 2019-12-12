@@ -3711,8 +3711,8 @@ The Administrator of ==SITE_NAME==
                             ),
                         ),
                         'default' => array(
-                            'value' => 'listing_location',
-                            'label' => __('Display from Listing Location', 'directorist'),
+                            'value' => 'map_api',
+                            'label' => __('Display From Map API', 'directorist'),
                         ),
                     ),
                     array(

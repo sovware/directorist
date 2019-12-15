@@ -546,12 +546,12 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
             $to = !empty($send_email) ? $send_email : get_bloginfo('admin_email');
 
-            $subject = __('[{site_name}] Report Abuse via "{listing_title}"', 'directorist');
+            $subject = __('{site_name} Report Abuse via "{listing_title}"', 'directorist');
             $subject = strtr($subject, $placeholders);
 
             $message = __("Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}", 'directorist');
             $message = strtr($message, $placeholders);
-
+            $message = atbdp_email_html($subject, $message);
             $headers = "From: {$user->display_name} <{$user->user_email}>\r\n";
             $headers .= "Reply-To: {$user->user_email}\r\n";
 
@@ -651,7 +651,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
             $headers = "From: {$name} <{$site_email}>\r\n";
             $headers .= "Reply-To: {$email}\r\n";
-
+            $message = atbdp_email_html($subject, $message);
             // return true or false, based on the result
             return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
 
@@ -700,7 +700,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             $send_emails = ATBDP()->email->get_admin_email_list();
             $to = !empty($send_emails) ? $send_emails : get_bloginfo('admin_email');
 
-            $subject = __('[{site_name}] Contact via "{listing_title}"', 'directorist');
+            $subject = __('{site_name} Contact via {listing_title}', 'directorist');
             $subject = strtr($subject, $placeholders);
 
             $message = __("Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary.", 'directorist');
@@ -708,6 +708,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
             $headers = "From: {$name} <{$email}>\r\n";
             $headers .= "Reply-To: {$email}\r\n";
+            $message = atbdp_email_html($subject, $message);
 
             return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
 

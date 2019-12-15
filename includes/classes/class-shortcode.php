@@ -3445,7 +3445,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     if (isset($_POST['directorist_reset_password']) && 'true' == $_POST['directorist_reset_password']) {
                         $password_1 = isset($_POST['password_1'])?$_POST['password_1']:'';
                         $password_2 = isset($_POST['password_2'])?$_POST['password_2']:'';
-                        if ($password_1 === $password_2){
+                        if (($password_1 === $password_2) && !empty($password_1 && $password_2)){
                             $update_user = wp_update_user(array(
                                     'ID' => $user->ID,
                                     'user_pass' => $password_2
@@ -3458,8 +3458,10 @@ if (!class_exists('ATBDP_Shortcode')):
                                     ?></a>
                                 </p><?php
                             }
+                        }elseif (empty($password_1 || $password_2)){
+                            ?><p><?php echo  esc_html__('Fields are required!', 'directorist'); ?></p><?php
                         }else{
-                            ?><p><?php echo  esc_html__('Password not matched!.', 'directorist'); ?></p><?php
+                            ?><p><?php echo  esc_html__('Password not matched!', 'directorist'); ?></p><?php
                         }
                     }
                     $db_key = get_user_meta($user->ID, '_atbdp_recovery_key', true);
@@ -3560,11 +3562,14 @@ if (!class_exists('ATBDP_Shortcode')):
                         <p class="status"></p>
 
                         <div class="keep_signed">
-                            <label for="keep_signed_in" class="not_empty">
-                                <input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in"
-                                       checked><?php echo $log_rememberMe; ?><span class="cf-select"></span>
-                            </label>
                             <?php
+                            if($display_rememberMe){
+                                ?>
+                                <label for="keep_signed_in" class="not_empty">
+                                    <input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in" checked><?php echo $log_rememberMe; ?><span class="cf-select"></span>
+                                </label>
+                            <?php
+                            }
                             if ($display_recpass) {
                                 printf(__('<p>%s</p>', 'directorist'), "<a href='' class='atbdp_recovery_pass'> " . __($recpass_text, 'directorist') . "</a>");
                             }
@@ -3607,7 +3612,11 @@ if (!class_exists('ATBDP_Shortcode')):
                             $message .= sprintf(__('User: %s', 'directorist'), $user->user_login) . "<br>";
                             $message .= __('If this was a mistake, just ignore this email and nothing will happen.', 'directorist') . "<br>";
                             $message .= __('To reset your password, visit the following address:', 'directorist') . "<br>";
-                            $message .= '<a href="' . esc_url(ATBDP_Permalink::get_login_page_url() . '?user=' . $email . '?key=' . $random_password) . '">' . esc_url(ATBDP_Permalink::get_login_page_url() . '?user=' . $email . '&key=' . $random_password) . '</a>';
+                            $link = array(
+                                    'key' => $random_password,
+                                    'user' => $email,
+                            );
+                            $message .= '<a href="' . esc_url(add_query_arg($link, ATBDP_Permalink::get_login_page_url())) . '">' . esc_url(add_query_arg($link, ATBDP_Permalink::get_login_page_url())).'</a>';
 
                             $message = atbdp_email_html($subject, $message);
 

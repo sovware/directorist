@@ -1871,7 +1871,7 @@ You can login now using the below credentials:
         public function listing_contact_email()
         {
             // let's define default data
-            $sub = __('[==SITE_NAME==] Contact via "[==LISTING_TITLE==]"', 'directorist');
+            $sub = __('==SITE_NAME== Contact via ==LISTING_TITLE==', 'directorist');
 
             $tmpl = __("
 Dear ==NAME==,

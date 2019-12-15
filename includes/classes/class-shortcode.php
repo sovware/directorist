@@ -1830,7 +1830,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 'slug' => !empty($categories) ? $categories : '',
             );
 
-            $terms = get_terms(ATBDP_CATEGORY, $args);
+            $terms = get_terms(ATBDP_CATEGORY, apply_filters('atbdp_all_categories_argument', $args));
             $terms = array_slice($terms, 0, $atts['cat_per_page']);
 
             if (!empty($redirect_page_url)) {
@@ -2324,7 +2324,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 'slug' => !empty($locations) ? $locations : ''
             );
 
-            $terms = get_terms(ATBDP_LOCATION, $args);
+            $terms = get_terms(ATBDP_LOCATION, apply_filters('atbdp_all_locations_argument', $args));
             $terms = array_slice($terms, 0, $atts['loc_per_page']);
             if (!empty($redirect_page_url)) {
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
@@ -3333,8 +3333,8 @@ if (!class_exists('ATBDP_Shortcode')):
             if (!empty($category)) {
                 $args['tax_query'] = $category;
             }
-
-            $args['meta_query'] = apply_filters('atbdp_author_listings_meta_queries', array(
+            $meta_queries = array();
+            $meta_queries[] =  array(
                 'relation' => 'OR',
                 array(
                     'key' => '_expiry_date',
@@ -3346,7 +3346,13 @@ if (!class_exists('ATBDP_Shortcode')):
                     'key' => '_never_expire',
                     'value' => 1,
                 )
-            ));
+            );
+
+            $meta_queries = apply_filters('atbdp_author_listings_meta_queries', $meta_queries);
+            $count_meta_queries = count($meta_queries);
+            if ($count_meta_queries) {
+                $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
+            }
 
             $all_listings = new WP_Query($args);
             $data_for_template = compact('all_listings', 'paged', 'paginate', 'author_id');

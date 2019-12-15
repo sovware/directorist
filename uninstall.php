@@ -50,7 +50,7 @@ if(!empty($enable_uninstall)) {
     $wpdb->query("DELETE FROM wp_termmeta WHERE term_id Not IN  (SELECT term_id FROM wp_term_taxonomy)");
     $wpdb->query("DELETE FROM wp_terms WHERE term_id Not IN  (SELECT term_id FROM wp_term_taxonomy)");
     //Delete raview database
-    $wpdb->query("DROP TABLE IF EXISTS 'wp_atbdp_review'");
+    $wpdb->query("DROP TABLE IF EXISTS wp_atbdp_review");
     //Delete usermeta.
     $wpdb->query("DELETE FROM $wpdb->usermeta WHERE meta_key LIKE '%atbdp%';");
     $wpdb->query("DELETE FROM $wpdb->usermeta WHERE meta_key = 'pro_pic';");

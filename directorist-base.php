@@ -1228,6 +1228,9 @@ final class Directorist_Base
         $plan_review = true;
         $review = true;
         $allow_review = apply_filters('atbdp_single_listing_before_review_block', $review);
+        $author_id = get_post_field( 'post_author', $post->ID );
+        $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+        $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
         if (is_fee_manager_active()) {
             $plan_review = is_plan_allowed_listing_review(get_post_meta($post->ID, '_fm_plans', true));
         }
@@ -1259,10 +1262,11 @@ final class Directorist_Base
                                         <div class="atbd_avatar_wrapper">
                                             <?php $avata_img = get_avatar($review->by_user_id, apply_filters('atbdp_avatar_size', 32));
                                             if (!empty($enable_reviewer_img)) { ?>
-                                                <div class="atbd_review_avatar"><?php if ($avata_img) {
+                                                <div class="atbd_review_avatar"><?php if (empty($u_pro_pic)) {
                                                         echo $avata_img;
-                                                    } else { ?><img
-                                                        src="<?php echo ATBDP_PUBLIC_ASSETS . 'images/revav.png' ?>"
+                                                    }
+                                                    if(!empty($u_pro_pic)){ ?><img
+                                                        src="<?php echo esc_url($u_pro_pic[0]); ?>"
                                                         alt="Avatar Image"><?php } ?></div>
                                             <?php } ?>
                                             <div class="atbd_name_time">

@@ -49,7 +49,7 @@ if ( !class_exists('BD_Map_Widget')) {
                 $info_content .= "<a href='http://www.google.com/maps/place/{$manual_lat},{$manual_lng}' target='_blank'> " . __('View On Google Maps', 'directorist') . "</a></div>";
                 $select_listing_map = get_directorist_option('select_listing_map', 'google');
                 $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Map', 'directorist');
-                $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 16;
+                $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 10;
                 $cats                           = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
                 $font_type = get_directorist_option('font_type','line');
                 $fa_or_la = ('line' == $font_type) ? "la " : "fa ";

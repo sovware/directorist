@@ -57,7 +57,7 @@ if ( !class_exists('BD_All_Map_Widget')) {
         public function form ($instance)
         {
             $title          = !empty($instance['title']) ? esc_html($instance['title']) : __( 'Map','directorist' );
-            $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 16;
+            $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 10;
             $single_only    = !empty($instance['single_only']) ? 1 : 0;
             ?>
             <p>

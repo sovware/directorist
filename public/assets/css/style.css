@@ -1140,6 +1140,36 @@ body.atbd_content_active #directorist.atbd_wrapper {
   max-width: 100%;
 }
 
+.directorist-ResetPassword p label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.atbd_reset_success {
+  background: rgba(50, 204, 111, 0.15);
+  padding: 10px 15px;
+}
+
+.atbd_reset_success a {
+  text-decoration: none;
+}
+
+.atbd_reset_warning {
+  background: rgba(255, 175, 0, 0.15);
+  padding: 10px 15px;
+}
+
+.atbd_reset_error {
+  background: rgba(226, 54, 54, 0.15);
+  padding: 10px 15px;
+}
+
+.atbdp_login_form_shortcode .error_login {
+  margin-top: 10px;
+  background: rgba(50, 204, 111, 0.15);
+  padding: 10px 15px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

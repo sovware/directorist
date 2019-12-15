@@ -3452,16 +3452,16 @@ if (!class_exists('ATBDP_Shortcode')):
                                 )
                             );
                             if ($update_user){
-                                ?><p><?php echo  esc_html__('Password changed successfully!', 'directorist');
+                                ?><p class="atbd_reset_success"><?php echo  esc_html__('Password changed successfully!', 'directorist');
                                 ?>
                                 <a href="<?php echo esc_url(ATBDP_Permalink::get_login_page_url())?>"><?php echo  esc_html__(' Login', 'directorist');
                                     ?></a>
                                 </p><?php
                             }
                         }elseif (empty($password_1 || $password_2)){
-                            ?><p><?php echo  esc_html__('Fields are required!', 'directorist'); ?></p><?php
+                            ?><p class="atbd_reset_warning"><?php echo  esc_html__('Fields are required!', 'directorist'); ?></p><?php
                         }else{
-                            ?><p><?php echo  esc_html__('Password not matched!', 'directorist'); ?></p><?php
+                            ?><p class="atbd_reset_error"><?php echo  esc_html__('Password not matched!', 'directorist'); ?></p><?php
                         }
                     }
                     $db_key = get_user_meta($user->ID, '_atbdp_recovery_key', true);
@@ -3471,14 +3471,13 @@ if (!class_exists('ATBDP_Shortcode')):
                     <form method="post" class="directorist-ResetPassword lost_reset_password">
                 <p><?php echo apply_filters('directorist_reset_password_message', esc_html__('Enter a new password below.', 'directorist')); ?></p><?php // @codingStandardsIgnoreLine
                     ?>
-
-                    <p class="directorist-form-row directorist-form-row--first form-row form-row-first">
+                    <p>
                         <label for="password_1"><?php esc_html_e('New password', 'directorist'); ?>&nbsp;<span
                                     class="required">*</span></label>
                         <input type="password" class="directorist-Input directorist-Input--text input-text"
                                name="password_1" id="password_1" autocomplete="new-password"/>
                     </p>
-                    <p class="directorist-form-row directorist-form-row--last form-row form-row-last">
+                    <p>
                         <label for="password_2"><?php esc_html_e('Re-enter new password', 'directorist'); ?>&nbsp;<span
                                     class="required">*</span></label>
                         <input type="password" class="directorist-Input directorist-Input--text input-text"

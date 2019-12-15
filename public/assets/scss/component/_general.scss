@@ -1033,3 +1033,34 @@ body.atbd_content_active #directorist.atbd_wrapper {
 #directorist.atbd_wrapper .form-control{
   max-width: 100%;
 }
+
+.directorist-ResetPassword{
+  p{
+    label{
+      display: block;
+      margin-bottom: 8px;
+    }
+  }
+}
+.atbd_reset_success{
+  background: rgba($success, 0.15);
+  padding: 10px 15px;
+  a{
+    text-decoration: none;
+  }
+}
+.atbd_reset_warning{
+  background: rgba($warning, 0.15);
+  padding: 10px 15px;
+}
+.atbd_reset_error{
+  background: rgba($danger, 0.15);
+  padding: 10px 15px;
+}
+.atbdp_login_form_shortcode{
+  .error_login{
+    margin-top: 10px;
+    background: rgba($success, 0.15);
+    padding: 10px 15px;
+  }
+}

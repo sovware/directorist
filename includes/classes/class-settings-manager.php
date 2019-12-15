@@ -483,7 +483,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'type' => 'textarea',
                     'name' => 'recpass_desc',
                     'label' => __('Description', 'directorist'),
-                    'default' => __('Please enter your email address. You will receive a new password via email.', 'directorist'),
+                    'default' => __('Lost your password? Please enter your email address. You will receive a link to create a new password via email.', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',

@@ -3836,6 +3836,16 @@ span.atbd_get_loc_wid {
   height: auto;
 }
 
+.atbd_content_active #directorist.atbd_wrapper label[data-option] input[type="checkbox"] {
+  -webkit-appearance: checkbox;
+  -moz-appearance: checkbox;
+  appearance: checkbox;
+}
+
+.atbd_content_active #directorist.atbd_wrapper label[data-option] input[type="checkbox"]:before, .atbd_content_active #directorist.atbd_wrapper label[data-option] input[type="checkbox"]:after {
+  content: none;
+}
+
 .atbd_content_active #directorist.atbd_wrapper #tc_container {
   height: 350px;
   border: 1px solid #ededed;

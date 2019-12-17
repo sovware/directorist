@@ -37,6 +37,14 @@
     color: #505058;
     input{
       height: auto;
+      &[type="checkbox"]{
+        -webkit-appearance: checkbox;
+        -moz-appearance: checkbox;
+        appearance: checkbox;
+        &:before, &:after{
+          content: none;
+        }
+      }
     }
   }
   #tc_container {

@@ -1329,7 +1329,6 @@ if (!function_exists('atbdp_get_featured_settings_array')) {
             'label' => get_directorist_option('featured_listing_title'),
             'desc' => get_directorist_option('featured_listing_desc'),
             'price' => get_directorist_option('featured_listing_price'),
-            'show_ribbon' => get_directorist_option('show_featured_ribbon'),
         );
     }
 }

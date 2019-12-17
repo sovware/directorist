@@ -4483,7 +4483,6 @@ function atbdp_email_html($subject, $message){
 									<table border="0" cellpadding="10" cellspacing="0" width="100%">
 										<tr>
 											<td colspan="2" valign="middle" id="credit" style=\'border-radius: 6px; border: 0; color: #8a8a8a; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 12px; line-height: 150%; text-align: center; padding: 24px 0;\'>
-												<p style="margin: 0 0 16px;">'.$site_name.' — Built with <a href="https://directorist.com" style="color: #96588a; font-weight: normal; text-decoration: underline;">Directorist</a></p>
 											</td>
 										</tr>
 									</table>

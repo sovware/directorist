@@ -497,7 +497,7 @@
 }
 .atbd_seach_fields_wrapper .atbdp_map_address_field{
   position: relative;
-  .address_result{
+  .address_result, & + .address_result{
     position: absolute;
     width: 100%;
     left: 0;
@@ -511,7 +511,7 @@
     ul{
       li{
         border-bottom: 1px solid $border-color;
-        padding: 10px 15px 10px;
+        padding: 10px 15px 10px !important;
         a{
           font-size: 13px;
           line-height: 22px;

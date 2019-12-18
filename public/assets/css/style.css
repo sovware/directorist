@@ -3864,6 +3864,17 @@ span.atbd_get_loc_wid {
 
 .atbd_content_active #directorist.atbd_wrapper #atbdp_address {
   margin-bottom: 15px;
+  position: relative;
+}
+
+.atbd_content_active #directorist.atbd_wrapper #atbdp_address #result ul li {
+  border-bottom: 1px solid #e3e6ef;
+}
+
+.atbd_content_active #directorist.atbd_wrapper #atbdp_address #result ul li a {
+  font-size: 13px;
+  padding: 10px 15px 10px !important;
+  display: block;
 }
 
 .atbd_content_active #directorist.atbd_wrapper #gmap {
@@ -5011,7 +5022,7 @@ span.atbd_get_loc_wid {
   position: relative;
 }
 
-.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result {
+.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result, .atbd_seach_fields_wrapper .atbdp_map_address_field + .address_result {
   position: absolute;
   width: 100%;
   left: 0;
@@ -5024,12 +5035,12 @@ span.atbd_get_loc_wid {
   overflow-y: scroll;
 }
 
-.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result ul li {
+.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result ul li, .atbd_seach_fields_wrapper .atbdp_map_address_field + .address_result ul li {
   border-bottom: 1px solid #e3e6ef;
-  padding: 10px 15px 10px;
+  padding: 10px 15px 10px !important;
 }
 
-.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result ul li a {
+.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result ul li a, .atbd_seach_fields_wrapper .atbdp_map_address_field + .address_result ul li a {
   font-size: 13px;
   line-height: 22px;
   display: block;

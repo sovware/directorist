@@ -147,14 +147,6 @@ class ATBDP_Gateway{
                     'description' => __('Set the price you want to charge a user if he/she wants to upgrade his/her listing to featured listing. Note: you can change the currency settings under the gateway settings', 'directorist'),
                     'default' => 19.99,
                 ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'show_featured_ribbon',
-                    'label' => __('Show Featured Ribbon/Text', 'directorist'),
-                    'description' => __('Set this option to YES to show Featured Ribbon/Label besides featured listings. . Default is YES', 'directorist'),
-                    'default' => 1,
-                ),
-
             )
         );
     }

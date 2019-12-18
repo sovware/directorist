@@ -81,7 +81,10 @@ if (!empty($has_field) && $plan_custom_field) {
                             <div class="atbd_custom_field_content">
                                 <p><?php if ('color' == $field_type) {
                                         printf('<div class="atbd_field_type_color" style="background-color: %s;"></div>', $field_details);
-                                    } elseif ($field_type === 'time') {
+                                    } elseif ($field_type === 'date') {
+                                        $date_format = get_option( 'date_format' );
+                                        echo date($date_format, strtotime($field_details));
+                                    }elseif ($field_type === 'time') {
                                         echo date('h:i A', strtotime($field_details));
                                     } elseif ($field_type === 'url') {
                                         printf('<a href="%s" target="_blank">%s</a>', esc_url($field_details), esc_url($field_details));

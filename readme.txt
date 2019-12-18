@@ -4,7 +4,7 @@ Donate link: https://directorist.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.3
-Stable tag: 6.2.1
+Stable tag: 6.2.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -136,6 +136,22 @@ Directorist is not developed by a single person. A team of dedicated developers 
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 6.2.2 - Des 17, 2019 =
+
+* Add - Option to remove directorist's data on uninstall
+* Add - Using description of category and location as Meta Description
+* Add - HTML Email template
+* Add - Options to remove Author listing's filter
+* Improve - Password recovery/reset system
+* Tweak - Change map widget's default zoom level
+* Tweak - Review's author image issue
+* Fix - Translation issue
+* Fix - OpenStreetMap issue
+* Fix - Featured image issue on single listing's header
+* Fix - Listing Status when user skips payment for featuring a listing
+* Fix - Listing form field validation errors
+* Fix - Style issues
 
 = 6.2.1 - Nov 23, 2019 =
 

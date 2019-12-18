@@ -1072,7 +1072,7 @@ jQuery(function ($) {
     }
 
     //Display email notification
-    var lf_opt36 = $("#enable_featured_listing,#featured_listing_title,#featured_listing_desc,#featured_listing_price,#show_featured_ribbon");
+    var lf_opt36 = $("#enable_featured_listing,#featured_listing_title,#featured_listing_desc,#featured_listing_price");
     lf_opt36.hide();
     $('input[name="enable_monetization"]').on("change", function () {
         if($(this).is(":checked") === true){

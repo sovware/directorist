@@ -313,8 +313,9 @@ class ATBDP_Enqueuer {
             'upload_pro_pic_title'          => __( 'Select or Upload a profile picture', 'directorist' ),
             'upload_pro_pic_text'           => __( 'Use this Image', 'directorist' ),
             'payNow'                        => __( 'Pay Now', 'directorist' ),
-            'completeSubmission'           => __( 'Complete Submission', 'directorist' ),
+            'completeSubmission'            => __( 'Complete Submission', 'directorist' ),
             'plugin_url'                    => ATBDP_URL,
+            'currentDate'                   => get_the_date(),
 
 
         );

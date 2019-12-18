@@ -47,7 +47,7 @@ $info_content .= "<p> {$ad}</p></div>";
                 checked($hide_contact_owner);
             } ?> >
             <label class="form-check-label"
-                   for="hide_contact_owner"><?php esc_html_e('Check it to hide listing contact owner form', 'directorist'); ?></label>
+                   for="hide_contact_owner"><?php _e('Check it to hide listing contact owner form', 'directorist'); ?></label>
 
         </div>
     <?php } ?>
@@ -60,7 +60,7 @@ $info_content .= "<p> {$ad}</p></div>";
                 checked($hide_contact_info);
             } ?> >
             <label class="form-check-label"
-                   for="hide_contact_info"><?php esc_html_e('Check it to hide Contact Information for this listing', 'directorist'); ?></label>
+                   for="hide_contact_info"><?php _e('Check it to hide Contact Information for this listing', 'directorist'); ?></label>
 
         </div>
 

@@ -88,6 +88,7 @@
     $("#atbd_rs_value").val(slider_range.slider("value"));
 
     if (atbdp_search_listing.i18n_text.select_listing_map === 'google') {
+        $('.address_result').hide();
         function initialize() {
             var input = document.getElementById('address');
             var autocomplete = new google.maps.places.Autocomplete(input);
@@ -100,6 +101,7 @@
 
         google.maps.event.addDomListener(window, 'load', initialize);
     } else if (atbdp_search_listing.i18n_text.select_listing_map === 'openstreet') {
+        $('.address_result').hide();
         $('#address, #q_addressss').on('keyup', function (event) {
             event.preventDefault();
             var search = $(this).val();

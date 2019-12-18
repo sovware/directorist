@@ -1140,6 +1140,36 @@ body.atbd_content_active #directorist.atbd_wrapper {
   max-width: 100%;
 }
 
+.directorist-ResetPassword p label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.atbd_reset_success {
+  background: rgba(50, 204, 111, 0.15);
+  padding: 10px 15px;
+}
+
+.atbd_reset_success a {
+  text-decoration: none;
+}
+
+.atbd_reset_warning {
+  background: rgba(255, 175, 0, 0.15);
+  padding: 10px 15px;
+}
+
+.atbd_reset_error {
+  background: rgba(226, 54, 54, 0.15);
+  padding: 10px 15px;
+}
+
+.atbdp_login_form_shortcode .error_login {
+  margin-top: 10px;
+  background: rgba(50, 204, 111, 0.15);
+  padding: 10px 15px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;
@@ -3806,6 +3836,16 @@ span.atbd_get_loc_wid {
   height: auto;
 }
 
+.atbd_content_active #directorist.atbd_wrapper label[data-option] input[type="checkbox"] {
+  -webkit-appearance: checkbox;
+  -moz-appearance: checkbox;
+  appearance: checkbox;
+}
+
+.atbd_content_active #directorist.atbd_wrapper label[data-option] input[type="checkbox"]:before, .atbd_content_active #directorist.atbd_wrapper label[data-option] input[type="checkbox"]:after {
+  content: none;
+}
+
 .atbd_content_active #directorist.atbd_wrapper #tc_container {
   height: 350px;
   border: 1px solid #ededed;
@@ -3824,6 +3864,17 @@ span.atbd_get_loc_wid {
 
 .atbd_content_active #directorist.atbd_wrapper #atbdp_address {
   margin-bottom: 15px;
+  position: relative;
+}
+
+.atbd_content_active #directorist.atbd_wrapper #atbdp_address #result ul li {
+  border-bottom: 1px solid #e3e6ef;
+}
+
+.atbd_content_active #directorist.atbd_wrapper #atbdp_address #result ul li a {
+  font-size: 13px;
+  padding: 10px 15px 10px !important;
+  display: block;
 }
 
 .atbd_content_active #directorist.atbd_wrapper #gmap {
@@ -4971,7 +5022,7 @@ span.atbd_get_loc_wid {
   position: relative;
 }
 
-.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result {
+.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result, .atbd_seach_fields_wrapper .atbdp_map_address_field + .address_result {
   position: absolute;
   width: 100%;
   right: 0;
@@ -4984,12 +5035,12 @@ span.atbd_get_loc_wid {
   overflow-y: scroll;
 }
 
-.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result ul li {
+.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result ul li, .atbd_seach_fields_wrapper .atbdp_map_address_field + .address_result ul li {
   border-bottom: 1px solid #e3e6ef;
-  padding: 10px 15px 10px;
+  padding: 10px 15px 10px !important;
 }
 
-.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result ul li a {
+.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result ul li a, .atbd_seach_fields_wrapper .atbdp_map_address_field + .address_result ul li a {
   font-size: 13px;
   line-height: 22px;
   display: block;

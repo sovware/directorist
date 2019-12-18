@@ -54,7 +54,7 @@ $c_symbol = atbdp_currency_symbol($currency);
                                 $address_label =  __('location','directorist');
                                 $search_html .= '<div class="atbdp_map_address_field">';
                                 $search_html .= '<div class="atbdp_get_address_field"><input ' . $require_loc . ' type="text" id="address" autocomplete="off" name="address" value="'.$address.'" placeholder="'.$address_label.'" class="form-control location-name">'. $geo_loc .'</div>';
-                                $search_html .= '<div class="address_result">';
+                                $search_html .= '<div class="address_result" style="display: none">';
                                 $search_html .= '</div>';
                                 $search_html .= '<input type="hidden" id="cityLat" name="cityLat" value="" />';
                                 $search_html .= '<input type="hidden" id="cityLng" name="cityLng" value="" />';

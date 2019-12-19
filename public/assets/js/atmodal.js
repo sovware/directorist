@@ -49,5 +49,5 @@ const aazztechModal = (selector) => {
 
 
 
-aazztechModal('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal');
+aazztechModal('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal, #pyn-plan-change-modal');
 

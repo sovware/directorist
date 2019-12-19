@@ -193,26 +193,16 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 $never_exp = get_post_meta($post->ID, '_never_expire', true);
                                                                 $lstatus = get_post_meta($post->ID, '_listing_status', true);
 
-                                                                $post_date = $post->post_date;
-                                                                $datetime2 = new DateTime($exp_date);
-                                                                $datetime1 = new DateTime($post_date);
-                                                                $interval = $datetime1->diff($datetime2);
-                                                                $interval = $interval->format('%R%a');
-                                                                $result = substr($interval, 0, 1);
-                                                                if ('+' === $result) {
-                                                                    $interval = true;
-                                                                } else {
-                                                                    $interval = false;
-                                                                }
                                                                 // If the listing needs renewal then there is no need to show promote button
-                                                                if (($interval) && ('renewal' == $lstatus || 'expired' == $lstatus)) {
+                                                                if ('renewal' == $lstatus || 'expired' == $lstatus) {
 
                                                                     $can_renew = get_directorist_option('can_renew_listing');
                                                                     if (!$can_renew) return false;// vail if renewal option is turned off on the site.
                                                                     if (is_fee_manager_active()){
+                                                                        $modal_id = apply_filters('atbdp_pricing_plan_change_modal_id', 'atpp-plan-change-modal', $post->ID);
                                                                         ?>
                                                                         <a href=""
-                                                                           data-target="atpp-plan-change-modal"
+                                                                           data-target="<?php echo $modal_id; ?>"
                                                                            data-listing_id="<?php echo $post->ID; ?>"
                                                                            class="directory_btn btn btn-outline-success atbdp_renew_with_plan">
                                                                             <?php _e('Renew', 'directorist'); ?>
@@ -263,7 +253,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 $exp_text = !empty($never_exp)
                                                                     ? __('Never Expires', 'directorist')
                                                                     : date_i18n($date_format, strtotime($exp_date)); ?>
-                                                                <p><?php printf(__('<span>Expiration:</span> %s', 'directorist'), (($interval) && ('expired' == $lstatus)) ? '<span style="color: red">' . __('Expired', 'directorist') . '</span>' : $exp_text); ?></p>
+                                                                <p><?php printf(__('<span>Expiration:</span> %s', 'directorist'), ('expired' == $lstatus) ? '<span style="color: red">' . __('Expired', 'directorist') . '</span>' : $exp_text); ?></p>
                                                                 <p><?php printf(__('<span>Listing Status:</span> %s', 'directorist'), get_post_status_object($post->post_status)->label); ?></p>
                                                                 <?php
                                                                 /**

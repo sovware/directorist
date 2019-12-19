@@ -135,8 +135,11 @@
   }
   .form-check {
     margin-bottom: 25px;
+    display: flex;
+    align-items: center;
     input {
       vertical-align: top;
+      margin-top: 0;
     }
     .form-check-label {
       margin: 0;

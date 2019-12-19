@@ -41,17 +41,17 @@ $custom_gl_width = get_directorist_option('gallery_crop_width', 670);
 $custom_gl_height = get_directorist_option('gallery_crop_height', 750);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
 $enable_review = get_directorist_option('enable_review', 'yes');
-$cats                           = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-$font_type = get_directorist_option('font_type','line');
+$cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+$font_type = get_directorist_option('font_type', 'line');
 $fa_or_la = ('line' == $font_type) ? "la " : "fa ";
-if(!empty($cats)){
-    $cat_icon                       = get_cat_icon($cats[0]->term_id);
+if (!empty($cats)) {
+    $cat_icon = get_cat_icon($cats[0]->term_id);
 }
 $cat_icon = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
-$icon_type = substr($cat_icon, 0,2);
+$icon_type = substr($cat_icon, 0, 2);
 $fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
-$cat_icon = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
-$display_thumbnail_img          = get_directorist_option('dsiplay_thumbnail_img', 1);
+$cat_icon = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon;
+$display_thumbnail_img = get_directorist_option('dsiplay_thumbnail_img', 1);
 extract($listing_info);
 /*Prepare Listing Image links*/
 $listing_imgs = (!empty($listing_img) && !empty($display_slider_image)) ? $listing_img : array();
@@ -91,7 +91,7 @@ $reviews = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', 'di
 $review_info = '';
 $review_info = '';
 if (!empty($enable_review)) {
-    $review_info = "<div class='miwl-rating'><span class='atbd_meta atbd_listing_rating'>$average<i class='".atbdp_icon_type()."-star'></i></span>";
+    $review_info = "<div class='miwl-rating'><span class='atbd_meta atbd_listing_rating'>$average<i class='" . atbdp_icon_type() . "-star'></i></span>";
 
     $review_info .= "<div class='atbd_rating_count'>";
 
@@ -105,27 +105,27 @@ $ad = !empty($address) ? esc_html($address) : '';
 $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'small')[0];
 $listing_prv_imgurl = atbdp_image_cropping($listing_prv_img, 150, 150, true, 100)['url'];
-$img_url = !empty($listing_prv_imgurl)?$listing_prv_imgurl:$default_image;
-$image = "<img src=". $img_url.">";
-$display_map_info               = apply_filters('atbdp_listing_map_info_window', get_directorist_option('display_map_info', 1));
-$display_image_map              = get_directorist_option('display_image_map', 1);
-$display_title_map              = get_directorist_option('display_title_map', 1);
-$display_address_map            = get_directorist_option('display_address_map', 1);
-$display_direction_map          = get_directorist_option('display_direction_map', 1);
-if(empty($display_image_map)) {
+$img_url = !empty($listing_prv_imgurl) ? $listing_prv_imgurl : $default_image;
+$image = "<img src=" . $img_url . ">";
+$display_map_info = apply_filters('atbdp_listing_map_info_window', get_directorist_option('display_map_info', 1));
+$display_image_map = get_directorist_option('display_image_map', 1);
+$display_title_map = get_directorist_option('display_title_map', 1);
+$display_address_map = get_directorist_option('display_address_map', 1);
+$display_direction_map = get_directorist_option('display_direction_map', 1);
+if (empty($display_image_map)) {
     $image = '';
 }
-if(empty($display_title_map)) {
+if (empty($display_title_map)) {
     $t = '';
 }
 $info_content = "";
-if(!empty($display_image_map) || !empty($display_title_map)) {
+if (!empty($display_image_map) || !empty($display_title_map)) {
     $info_content .= "<div class='map-info-wrapper'><div class='map-info-img'>$image</div><div class='map-info-details'><div class='atbdp-listings-title-block'><h3>$t</h3></div>";
 }
-if(!empty($display_address_map)) {
+if (!empty($display_address_map)) {
     $info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
 }
-if(!empty($display_direction_map)) {
+if (!empty($display_direction_map)) {
     $info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div><span id='iw-close-btn'><i class='la la-times'></i></span></div></div>";
 }
 /*END INFO WINDOW CONTENT*/
@@ -227,14 +227,14 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
              */
             do_action('atbdp_before_single_listing_details_section');
             ?>
-            <div class="atbd_content_module atbd_listing_details <?php do_action('atbdp_single_listing_details_class')?>">
+            <div class="atbd_content_module atbd_listing_details <?php do_action('atbdp_single_listing_details_class') ?>">
                 <div class="atbd_content_module__tittle_area">
-                    <?php if(!empty($listing_details_text)) { ?>
-                    <div class="atbd_area_title">
-                        <h4>
-                            <span class="<?php atbdp_icon_type(true);?>-file-text atbd_area_icon"></span><?php _e($listing_details_text, 'directorist') ?>
-                        </h4>
-                    </div>
+                    <?php if (!empty($listing_details_text)) { ?>
+                        <div class="atbd_area_title">
+                            <h4>
+                                <span class="<?php atbdp_icon_type(true); ?>-file-text atbd_area_icon"></span><?php _e($listing_details_text, 'directorist') ?>
+                            </h4>
+                        </div>
                     <?php } ?>
                     <?php
                     $listing_header = '<div class="atbd_listing_action_area">';
@@ -244,27 +244,27 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     }
                     if ($enable_social_share) {
                         $listing_header .= '<div class="atbd_action atbd_share">';
-                        $listing_header .= '<span class="'.atbdp_icon_type().'-share"></span>' . __('Share', 'directorist') . '';
+                        $listing_header .= '<span class="' . atbdp_icon_type() . '-share"></span>' . __('Share', 'directorist') . '';
 
                         $listing_header .= '<div class="atbd_director_social_wrap">';
                         //prepare the data for the links because links needs to be escaped
-                        $twt_lnk = 'https://twitter.com/intent/tweet?text='.$p_title.'&amp;url='.$p_lnk;
+                        $twt_lnk = 'https://twitter.com/intent/tweet?text=' . $p_title . '&amp;url=' . $p_lnk;
                         $fb_lnk = "https://www.facebook.com/share.php?u={$p_lnk}&title={$p_title}";
                         $in_link = "http://www.linkedin.com/shareArticle?mini=true&url={$p_lnk}&title={$p_title}";
                         $listing_header .= '
                          <ul>
                         <li>
                             <a href="' . esc_url($fb_lnk) . '" target="_blank">
-                                <span class="'.atbdp_icon_type().'-facebook"></span>' . __('Facebook', 'directorist') . '</a>
+                                <span class="' . atbdp_icon_type() . '-facebook"></span>' . __('Facebook', 'directorist') . '</a>
                         </li>
                         <li>
                             <a href="' . esc_url($twt_lnk) . '" target="_blank">
-                                <span class="'.atbdp_icon_type().'-twitter"></span>' . __('Twitter', 'directorist') . '</a>
+                                <span class="' . atbdp_icon_type() . '-twitter"></span>' . __('Twitter', 'directorist') . '</a>
                               
                         </li>
                         <li>
                             <a href="' . esc_url($in_link) . '" target="_blank">
-                                <span class="'.atbdp_icon_type().'-linkedin"></span>' . __('LinkedIn', 'directorist') . '</a>
+                                <span class="' . atbdp_icon_type() . '-linkedin"></span>' . __('LinkedIn', 'directorist') . '</a>
                         </li>
                     </ul>';
                         $listing_header .= '</div>'; //Ends social share
@@ -273,11 +273,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     if ($enable_report_abuse) {
                         $listing_header .= '<div class="atbd_action atbd_report">';
                         if (is_user_logged_in()) {
-                            $listing_header .= '<span class="'.atbdp_icon_type().'-flag"></span><a href="javascript:void(0)" data-target="atbdp-report-abuse-modal">' . __('Report', 'directorist') . '</a>'; //Modal (report abuse form)
+                            $listing_header .= '<span class="' . atbdp_icon_type() . '-flag"></span><a href="javascript:void(0)" data-target="atbdp-report-abuse-modal">' . __('Report', 'directorist') . '</a>'; //Modal (report abuse form)
                         } else {
                             $listing_header .= '<a href="javascript:void(0)"
                                class="atbdp-require-login"><span
-                                        class="'.atbdp_icon_type().'-flag"></span>' . __('Report', 'directorist') . '</a>';
+                                        class="' . atbdp_icon_type() . '-flag"></span>' . __('Report', 'directorist') . '</a>';
                         }
                         $listing_header .= '<input type="hidden" id="atbdp-post-id" value="' . get_the_ID() . '"/>';
                         $listing_header .= '</div>';
@@ -346,7 +346,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         foreach ($image_links as $image_link) {
                             $image_link = !empty($image_link) ? $image_link : '';
                             $gallery_image .= '<div class="single_image">';
-                            $gallery_image .= '<img src="' . esc_url($image_link) . '" alt=" '.esc_html($p_title). '">';
+                            $gallery_image .= '<img src="' . esc_url($image_link) . '" alt=" ' . esc_html($p_title) . '">';
                             $gallery_image .= '</div>';
                         }
                         $gallery_image .= '</div>';
@@ -357,7 +357,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         $gallery_image .= '</div>';
                         $image_links_thumbnails = !empty($image_links_thumbnails) ? $image_links_thumbnails : array();
                         $listing_prv_img = !empty($listing_prv_img) ? $listing_prv_img : '';
-                        if(!empty($display_thumbnail_img) && (1 != count($image_links_thumbnails) || (!empty($listing_prv_img) && !empty($display_prv_image) ) )) {
+                        if (!empty($display_thumbnail_img) && (1 != count($image_links_thumbnails) || (!empty($listing_prv_img) && !empty($display_prv_image)))) {
                             $gallery_image .= '<div class="atbd_directory_image_thumbnail">';
                             $listing_prv_imgurl_thumb = wp_get_attachment_image_src($listing_prv_img, 'thumbnail')['0'];
                             if (!empty($listing_prv_imgurl_thumb && !empty($display_prv_image))) {
@@ -365,7 +365,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                             }
                             foreach ($image_links_thumbnails as $image_links_thumbnail) {
                                 $gallery_image .= '<div class="single_thumbnail">';
-                                $gallery_image .= '<img src="'.esc_url($image_links_thumbnail).'" alt="'.esc_html($p_title).'">';
+                                $gallery_image .= '<img src="' . esc_url($image_links_thumbnail) . '" alt="' . esc_html($p_title) . '">';
                                 $gallery_image .= '</div>';
                                 if (!is_multiple_images_active()) break;
                             }
@@ -376,11 +376,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                         $listing_prv_image = !empty($listing_prv_img) ? esc_url($listing_prv_imgurl) : $default_image;
                         $gallery_image .= '<div class="single_image">';
-                        $gallery_image .= '<img src="'.$listing_prv_image.'"
-                                 alt="'. esc_html($p_title).'">';
+                        $gallery_image .= '<img src="' . $listing_prv_image . '"
+                                 alt="' . esc_html($p_title) . '">';
                         $gallery_image .= '</div>';
                     }
-                    echo apply_filters('atbdp_single_listing_gallery_section',$gallery_image);
+                    echo apply_filters('atbdp_single_listing_gallery_section', $gallery_image);
                     ?>
                     <div class="atbd_listing_detail">
                         <?php
@@ -393,7 +393,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                             $plan_price = is_plan_allowed_price($fm_plan);
                         }
                         $data_info = '<div class="atbd_data_info">';
-                        if ( !empty($enable_review) || (empty($is_disable_price) && (!empty($price) || !empty($price_range)))) {
+                        if (!empty($enable_review) || (empty($is_disable_price) && (!empty($price) || !empty($price_range)))) {
                             $data_info .= '<div class="atbd_listing_meta">';
                             $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
                             if (empty($is_disable_price)) {
@@ -402,7 +402,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                         //is range selected then print it
                                         $output = atbdp_display_price_range($price_range);
                                         $data_info .= $output;
-                                    } elseif($plan_price) {
+                                    } elseif ($plan_price) {
                                         $data_info .= atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false);
                                     }
                                 }
@@ -412,7 +412,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                             $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
                             if (!empty($enable_review)) {
                                 $data_info .= '<span class="atbd_meta atbd_listing_rating">
-                            ' . $average . '<i class="'.atbdp_icon_type().'-star"></i>
+                            ' . $average . '<i class="' . atbdp_icon_type() . '-star"></i>
                         </span>';
                             }
 
@@ -445,7 +445,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         }
                         $data_info .= '<div class="atbd_listting_category"><ul class="directory_cats">';
                         if (!empty($cats)) {
-                            $data_info .= '<li><span class="'.atbdp_icon_type().'-tags"></span></li>';
+                            $data_info .= '<li><span class="' . atbdp_icon_type() . '-tags"></span></li>';
                             $numberOfCat = count($cats);
                             $output = array();
                             foreach ($cats as $cat) {
@@ -471,7 +471,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                          */
                         echo apply_filters('atbdp_before_listing_title', $data_info);
                         $class = apply_filters('atbdp_single_listing_title_class', 'atbd_listing_title');
-                        echo '<div class="'.$class.'">';
+                        echo '<div class="' . $class . '">';
                         $title_html = '<h2>';
                         $title_html .= esc_html($p_title);
                         $title_html .= '</h2>';
@@ -537,19 +537,19 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                 $id = $custom_fields_post->ID;
                 $fields = get_post_meta($id, 'associate', true);
                 //lets match if the field is associated with a category and the category is selected
-                if ('form' != $fields){
+                if ('form' != $fields) {
                     $fields_id_with_cat = get_post_meta($id, 'category_pass', true);
-                    if (in_array($fields_id_with_cat, $category_ids)){
+                    if (in_array($fields_id_with_cat, $category_ids)) {
                         $has_field_details = get_post_meta($listing_id, $custom_fields_post->ID, true);
-                        if (!empty($has_field_details)){
+                        if (!empty($has_field_details)) {
                             $has_field_ids[] = $id;
                         }
                         $has_field_value[] = $has_field_details;
                     }
 
-                }else{
+                } else {
                     $has_field_details = get_post_meta($listing_id, $custom_fields_post->ID, true);
-                    if (!empty($has_field_details)){
+                    if (!empty($has_field_details)) {
                         $has_field_ids[] = $id;
                     }
                     $has_field_value[] = $has_field_details;
@@ -570,7 +570,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="<?php atbdp_icon_type(true);?>-bars atbd_area_icon"></span><?php _e($custom_section_lable, 'directorist') ?>
+                                <span class="<?php atbdp_icon_type(true); ?>-bars atbd_area_icon"></span><?php _e($custom_section_lable, 'directorist') ?>
                             </h4>
                         </div>
                     </div>
@@ -593,12 +593,15 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                         <div class="atbd_custom_field_content">
                                             <p><?php if ('color' == $field_type) {
                                                     printf('<div class="atbd_field_type_color" style="background-color: %s;"></div>', $field_details);
+                                                } elseif ($field_type === 'date') {
+                                                    $date_format = get_option( 'date_format' );
+                                                    echo date($date_format, strtotime($field_details));
                                                 } elseif ($field_type === 'time') {
                                                     echo date('h:i A', strtotime($field_details));
                                                 } elseif ($field_type === 'url') {
                                                     printf('<a href="%s" target="_blank">%s</a>', esc_url($field_details), esc_url($field_details));
                                                 } elseif ($field_type === 'file') {
-                                                    $done = str_replace('|||','',$field_details);
+                                                    $done = str_replace('|||', '', $field_details);
                                                     $name_arr = explode('/', $done);
                                                     $filename = end($name_arr);
                                                     printf('<a href="%s" target="_blank" download>%s</a>', esc_url($done), $filename);
@@ -653,7 +656,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="<?php atbdp_icon_type(true);?>-video-camera atbd_area_icon"></span><?php _e($video_label, 'directorist') ?>
+                                <span class="<?php atbdp_icon_type(true); ?>-video-camera atbd_area_icon"></span><?php _e($video_label, 'directorist') ?>
                             </h4>
                         </div>
                     </div>
@@ -671,7 +674,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="<?php atbdp_icon_type(true);?>-map atbd_area_icon"></span><?php _e($listing_location_text, 'directorist'); ?>
+                                <span class="<?php atbdp_icon_type(true); ?>-map atbd_area_icon"></span><?php _e($listing_location_text, 'directorist'); ?>
                             </h4>
                         </div>
                     </div>
@@ -699,7 +702,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="<?php atbdp_icon_type(true);?>-envelope-o"></span><?php _e($contact_info_text, 'directorist'); ?>
+                                <span class="<?php atbdp_icon_type(true); ?>-envelope-o"></span><?php _e($contact_info_text, 'directorist'); ?>
                             </h4>
                         </div>
                     </div>
@@ -708,11 +711,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         <div class="atbd_contact_info">
                             <ul>
                                 <?php
-                                $address_text = !empty($address_map_link)?'<a target="google_map" href="https://www.google.de/maps/search/�'.esc_html($address).'">'.esc_html($address).'</a>': esc_html($address);
+                                $address_text = !empty($address_map_link) ? '<a target="google_map" href="https://www.google.de/maps/search/�' . esc_html($address) . '">' . esc_html($address) . '</a>' : esc_html($address);
                                 if (!empty($address) && !empty($display_address_field)) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php _e($address_label, 'directorist'); ?>
+                                                    class="<?php atbdp_icon_type(true); ?>-map-marker"></span><?php _e($address_label, 'directorist'); ?>
                                         </div>
                                         <div class="atbd_info"><?php echo $address_text; ?></div>
                                     </li>
@@ -727,9 +730,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-phone"></span><?php _e($phone_label, 'directorist'); ?>
+                                                    class="<?php atbdp_icon_type(true); ?>-phone"></span><?php _e($phone_label, 'directorist'); ?>
                                         </div>
-                                        <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($phone)); ?>"><?php echo esc_html(stripslashes($phone)); ?></a>
+                                        <div class="atbd_info"><a
+                                                    href="tel:<?php echo esc_html(stripslashes($phone)); ?>"><?php echo esc_html(stripslashes($phone)); ?></a>
                                         </div>
                                     </li>
                                 <?php } ?>
@@ -739,9 +743,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-phone"></span><?php echo $phone_label2; ?>
+                                                    class="<?php atbdp_icon_type(true); ?>-phone"></span><?php echo $phone_label2; ?>
                                         </div>
-                                        <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($phone2)); ?>"><?php echo esc_html(stripslashes($phone2)); ?></a>
+                                        <div class="atbd_info"><a
+                                                    href="tel:<?php echo esc_html(stripslashes($phone2)); ?>"><?php echo esc_html(stripslashes($phone2)); ?></a>
                                         </div>
                                     </li>
                                 <?php } ?>
@@ -750,9 +755,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-fax"></span><?php echo $fax_label; ?>
+                                                    class="<?php atbdp_icon_type(true); ?>-fax"></span><?php echo $fax_label; ?>
                                         </div>
-                                        <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($fax)); ?>"><?php echo esc_html(stripslashes($fax)); ?></a>
+                                        <div class="atbd_info"><a
+                                                    href="tel:<?php echo esc_html(stripslashes($fax)); ?>"><?php echo esc_html(stripslashes($fax)); ?></a>
                                         </div>
                                     </li>
                                 <?php } ?>
@@ -764,7 +770,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                 if (!empty($email) && !empty($display_email_field) && $plan_email) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-envelope"></span><?php _e($email_label, 'directorist'); ?>
+                                                    class="<?php atbdp_icon_type(true); ?>-envelope"></span><?php _e($email_label, 'directorist'); ?>
                                         </div>
                                         <span class="atbd_info"><a target="_top"
                                                                    href="mailto:<?php echo esc_html($email); ?>"><?php echo esc_html($email); ?></a></span>
@@ -778,7 +784,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                 if (!empty($website) && !empty($display_website_field) && $plan_webLink) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-globe"></span><?php _e($website_label, 'directorist'); ?>
+                                                    class="<?php atbdp_icon_type(true); ?>-globe"></span><?php _e($website_label, 'directorist'); ?>
                                         </div>
                                         <a target="_blank" href="<?php echo esc_url($website); ?>"
                                            class="atbd_info" <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html($website); ?></a>
@@ -789,7 +795,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
                                         <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true);?>-at"></span><?php _e($zip_label, 'directorist'); ?>
+                                                    class="<?php atbdp_icon_type(true); ?>-at"></span><?php _e($zip_label, 'directorist'); ?>
                                         </div>
                                         <div class="atbd_info"><?php echo esc_html($zip); ?></div>
                                     </li>
@@ -830,7 +836,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="<?php atbdp_icon_type(true);?>-paper-plane"></span><?php _e($contact_listing_owner, 'directorist'); ?>
+                                <span class="<?php atbdp_icon_type(true); ?>-paper-plane"></span><?php _e($contact_listing_owner, 'directorist'); ?>
                             </h4>
                         </div>
                     </div>
@@ -862,8 +868,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
                         <button type="submit" class="btn btn-primary"><?php _e('Submit', 'directorist'); ?></button>
                     </form>
                 </div>
-                <input type="hidden" id="atbdp-post-id" value="<?php echo $post->ID; ?>" />
-                <input type="hidden" id="atbdp-listing-email" value="<?php echo !empty($email) ? sanitize_email($email) : ''; ?>" />
+                <input type="hidden" id="atbdp-post-id" value="<?php echo $post->ID; ?>"/>
+                <input type="hidden" id="atbdp-listing-email"
+                       value="<?php echo !empty($email) ? sanitize_email($email) : ''; ?>"/>
             <?php }
             /**
              * @since 5.0.5
@@ -885,10 +892,10 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
              * Fires after the Map is rendered on single listing page
              *
              *
-             * @since 4.0.3
-             *
              * @param object|WP_post $post The current post object which is our listing post
              * @param array $listing_info The meta information of the current listing
+             * @since 4.0.3
+             *
              */
             $plan_review = true;
 
@@ -901,20 +908,20 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
              * Fires after the Map is rendered on single listing page
              *
              *
-             * @since 1.0.0
-             *
              * @param object|WP_post $post The current post object which is our listing post
              * @param array $listing_info The meta information of the current listing
+             * @since 1.0.0
+             *
              */
             do_action('atbdp_after_map', $post, $listing_info);
             /**
              * Fires after the single listing is rendered on single listing page
              *
              *
-             * @since 1.0.0
-             *
              * @param object|WP_post $post The current post object which is our listing post
              * @param array $listing_info The meta information of the current listing
+             * @since 1.0.0
+             *
              */
             do_action('atbdp_after_single_listing', $post, $listing_info);
             ?>
@@ -926,9 +933,9 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 </section>
 <?php
 if ('openstreet' == $select_listing_map) {
-    wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array( 'jquery' ), ATBDP_VERSION, true );
-    wp_enqueue_script( 'openstreet_layer' );
-    wp_enqueue_style('leaflet-css',ATBDP_PUBLIC_ASSETS . 'css/leaflet.css');
+    wp_register_script('openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
+    wp_enqueue_script('openstreet_layer');
+    wp_enqueue_style('leaflet-css', ATBDP_PUBLIC_ASSETS . 'css/leaflet.css');
 }
 ?>
 <script>
@@ -1029,7 +1036,7 @@ if ('openstreet' == $select_listing_map) {
         div.style.top = (position.y - div.offsetHeight) + 'px';
     };
 
- <?php } ?>
+    <?php } ?>
 
 
     jQuery(document).ready(function ($) {
@@ -1079,9 +1086,9 @@ if ('openstreet' == $select_listing_map) {
             marker.addListener('click', function () {
                 info_window.open(map, marker);
             });
-            google.maps.event.addListener(info_window, 'domready', function() {
+            google.maps.event.addListener(info_window, 'domready', function () {
                 var closeBtn = $('#iw-close-btn').get();
-                google.maps.event.addDomListener(closeBtn[0], 'click', function() {
+                google.maps.event.addDomListener(closeBtn[0], 'click', function () {
                     info_window.close();
                 });
             });
@@ -1095,7 +1102,7 @@ if ('openstreet' == $select_listing_map) {
             $(this).html(link);
         });
         <?php } elseif('openstreet' == $select_listing_map) { ?>
-        function mapLeaflet (lat, lon)	 {
+        function mapLeaflet(lat, lon) {
             const fontAwesomeIcon = L.divIcon({
                 html: '<div class="atbd_map_shape"><span class="<?php echo $cat_icon; ?>"></span></div>',
                 iconSize: [20, 20],
@@ -1115,7 +1122,7 @@ if ('openstreet' == $select_listing_map) {
         let lat = <?php echo (!empty($manual_lat)) ? floatval($manual_lat) : false ?>,
             lon = <?php echo (!empty($manual_lng)) ? floatval($manual_lng) : false ?>;
 
-        mapLeaflet (lat, lon);
+        mapLeaflet(lat, lon);
 
         <?php  } } ?>
         /* initialize slick  */
@@ -1142,8 +1149,7 @@ if ('openstreet' == $select_listing_map) {
         });
 
 
-
-        $(".olAlphaImg").on("click", function(){
+        $(".olAlphaImg").on("click", function () {
             $('.mapHover').addClass('active');
         });
 
@@ -1187,7 +1193,8 @@ if ('openstreet' == $select_listing_map) {
         -o-transform: translateX(-50%);
         transform: translateX(-50%);
     }
-    .mapHover.active{
+
+    .mapHover.active {
         display: block;
     }
 </style>

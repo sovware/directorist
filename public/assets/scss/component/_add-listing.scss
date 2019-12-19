@@ -63,6 +63,19 @@
   }
   #atbdp_address{
     margin-bottom: 15px;
+    position: relative;
+    #result{
+      ul{
+        li{
+          border-bottom: 1px solid $border-color;
+          a{
+            font-size: 13px;
+            padding: 10px 15px 10px !important;
+            display: block;
+          }
+        }
+      }
+    }
   }
   #gmap {
     height: 350px;

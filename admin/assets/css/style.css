@@ -169,10 +169,13 @@ css for Custom Field
 
 #directorist.atbd_wrapper .form-check {
   margin-bottom: 25px;
+  display: flex;
+  align-items: center;
 }
 
 #directorist.atbd_wrapper .form-check input {
   vertical-align: top;
+  margin-top: 0;
 }
 
 #directorist.atbd_wrapper .form-check .form-check-label {

@@ -106,9 +106,7 @@
                 }
 
             } else if (response.success) {
-                d = new Date(); // parse mysql date string to js date object
-                d = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear(); // build the date string, month is 0 based so add 1 to that to get real month.
-
+                d = atbdp_public_data.currentDate; // build the date string, month is 0 based so add 1 to that to get real month.
                 output +=
                     '<div class="atbd_single_review" id="single_review_' + response.data.id + '">' +
                     '<input type="hidden" value="1" id="has_ajax">' +

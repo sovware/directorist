@@ -4496,3 +4496,138 @@ function atbdp_email_html($subject, $message){
 	</body>
 </html>';
 }
+
+function atbdp_create_required_pages(){
+    $options = get_option('atbdp_option'); // we are retrieving all of our custom options because it contains all the page options too. and we can filter this array instead of calling get_directorist_option() over and over.
+    /*
+    Remember: We can not add new option to atbdp_option if there is no key matched. Because VafPress will override it.
+    Use normal update_option() instead if you need to add custom option that is not available in the settings fields of VP Framework.
+    */
+
+    $directorist_pages = apply_filters('atbdp_create_custom_pages', array(
+        'search_listing' => array(
+            'title' => __('Search Home', 'directorist'),
+            'content' => '[directorist_search_listing]'
+        ),
+        'search_result_page' => array(
+            'title' => __('Search Result', 'directorist'),
+            'content' => '[directorist_search_result]'
+        ),
+        'add_listing_page' => array(
+            'title' => __('Add Listing', 'directorist'),
+            'content' => '[directorist_add_listing]'
+        ),
+        'all_listing_page' => array(
+            'title' => __('All Listings', 'directorist'),
+            'content' => '[directorist_all_listing]'
+        ),
+        'all_categories_page' => array(
+            'title' => __('All Categories', 'directorist'),
+            'content' => '[directorist_all_categories]'
+        ),
+        'single_category_page' => array(
+            'title' => __('Single Category', 'directorist'),
+            'content' => '[directorist_category]'
+        ),
+        'all_locations_page' => array(
+            'title' => __('All Locations', 'directorist'),
+            'content' => '[directorist_all_locations]'
+        ),
+        'single_location_page' => array(
+            'title' => __('Single Location', 'directorist'),
+            'content' => '[directorist_location]'
+        ),
+        'single_tag_page' => array(
+            'title' => __('Single Tag', 'directorist'),
+            'content' => '[directorist_tag]'
+        ),
+        'author_profile_page' => array(
+            'title' => __('Author Profile', 'directorist'),
+            'content' => '[directorist_author_profile]'
+        ),
+        'user_dashboard' => array(
+            'title' => __('Dashboard', 'directorist'),
+            'content' => '[directorist_user_dashboard]'
+        ),
+        'custom_registration' => array(
+            'title' => __('Registration', 'directorist'),
+            'content' => '[directorist_custom_registration]'
+        ), 'user_login' => array(
+            'title' => __('Login', 'directorist'),
+            'content' => '[directorist_user_login]'
+        ),
+        'checkout_page' => array(
+            'title' => __('Checkout', 'directorist'),
+            'content' => '[directorist_checkout]'
+        ),
+        'payment_receipt_page' => array(
+            'title' => __('Payment Receipt', 'directorist'),
+            'content' => '[directorist_payment_receipt]'
+        ),
+        'transaction_failure_page' => array(
+            'title' => __('Transaction Failure', 'directorist'),
+            'content' => '[directorist_transaction_failure]'
+        ),
+    ));
+    $new_settings = 0; // lets keep track of new settings so that we do not update option unnecessarily.
+    // lets iterate over the array and insert a new page with with the appropriate shortcode if the page id is not available in the option array.
+    foreach ($directorist_pages as $op_name => $page_settings) {
+        // $op_name is the page option name in the database.
+        // if we do not have the page id assigned in the settings with the given page option name, then create an page
+        // and update the option.
+        if (empty($options[$op_name])) {
+
+            $id = wp_insert_post(
+                array(
+                    'post_title' => $page_settings['title'],
+                    'post_content' => $page_settings['content'],
+                    'post_status' => 'publish',
+                    'post_type' => 'page',
+                    'comment_status' => 'closed'
+                )
+            );
+            // if we have added the page successfully, lets add the page id to the options array to save the page settings in the database after the loop.
+            if ($id) {
+                $options[$op_name] = (int)$id;
+
+                /*TRYING TO SET THE DEFAULT PAGE TEMPLATE FOR THIS PAGE WHERE OUR SHORTCODE IS USED */
+                // get the template list of the theme and if it has any full width template then assign it.
+                $page_templates = wp_get_theme()->get_page_templates();
+                $custom_template = ''; // place holder for full width template
+                $temp_type = ('search_listing' == $op_name) ? 'home-page.php' : 'full'; // look for home template for search_listing page
+                // lets see if we can find any full width template, then use it for the page where our shortcode is used.
+                foreach ($page_templates as $slug => $name) {
+                    // checkout page and payment receipt page looks better on non full-width template, so skip them.
+                    if (in_array($op_name, array('checkout_page', 'payment_receipt_page'))) break;
+                    if (strpos($slug, $temp_type)) {
+                        $custom_template = $slug;
+                        break;
+                    }
+                }
+                if (!empty($custom_template)) update_post_meta($id, '_wp_page_template', sanitize_text_field($custom_template));
+
+
+            }
+            $new_settings++;
+        } else {
+            $replace_shortcode = wp_update_post(
+                array(
+                    'ID' => $options[$op_name],
+                    'post_title' => $page_settings['title'],
+                    'post_content' => $page_settings['content'],
+                    'post_status' => 'publish',
+                    'post_type' => 'page',
+                    'comment_status' => 'closed'
+                ), true
+            );
+            if (!is_wp_error($replace_shortcode)) {
+                update_user_meta(get_current_user_id(), '_atbdp_shortcode_regenerate_notice', 'true');
+            }
+        }
+        // if we have new options then lets update the options with new option values.
+        if ($new_settings) {
+            update_option('atbdp_option', $options);
+        };
+        update_option('atbdp_pages_version', 1);
+    }
+}

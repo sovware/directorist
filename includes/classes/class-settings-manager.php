@@ -2997,7 +2997,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'display_mark_as_fav',
-                        'label' => __('Display Mar as Favourite', 'directorist'),
+                        'label' => __('Display Mark as Favourite', 'directorist'),
                         'default' => '1',
                     ),
                     array(

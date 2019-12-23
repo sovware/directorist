@@ -113,7 +113,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                         $search_html .= '</div>';
                                     }
                                     if ('yes' == $category_field) {
-                                        $search_html .= '<div class="col-md-6 col-sm-12 col-lg-4">
+                                        $search_html .= '<div class="col-md-6 col-sm-12 col-lg-4 atbdp_search_category">
                                 <div class="single_search_field search_category">';
                                         $search_html .= '<select ' . $require_cat . ' name="in_cat" class="search_fields form-control" id="at_biz_dir-category">';
                                         $search_html .= '<option value="">' . $search_category_placeholder . '</option>';

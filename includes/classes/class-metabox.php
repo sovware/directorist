@@ -214,6 +214,7 @@ wp_reset_postdata();
         $listing_contact_info['listing_img']            = get_post_meta($post->ID, '_listing_img', true);
         $listing_contact_info['hide_contact_info']      = get_post_meta($post->ID, '_hide_contact_info', true);
         $listing_contact_info['hide_contact_owner']      = get_post_meta($post->ID, '_hide_contact_owner', true);
+        $listing_contact_info['id_itself']              = $post->ID;
 
         ATBDP()->load_template('contact-info', compact('listing_contact_info') );
     }

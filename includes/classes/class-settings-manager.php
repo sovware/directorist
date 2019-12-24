@@ -4933,8 +4933,20 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'listing_terms_condition',
-                    'label' => __('Enable Terms & Conditions', 'directorist'),
+                    'label' => __('Enable', 'directorist'),
                     'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'terms_label',
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('I agree with all', 'directorist'),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'terms_label_link',
+                    'label' => __('Linking Label', 'directorist'),
+                    'default' => __('terms & conditions', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',
@@ -4948,7 +4960,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'wpeditor',
                     'name' => 'listing_terms_condition_text',
-                    'label' => __('Terms & Conditions Text', 'directorist'),
+                    'label' => __('Terms & Conditions', 'directorist'),
                     'description' => __('If Terms & Conditions is enabled, enter the agreement terms and conditions here.', 'directorist'),
                 ),
                 array(

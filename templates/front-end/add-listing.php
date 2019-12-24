@@ -1180,6 +1180,8 @@ $query_args = array(
                                      * @since 4.1.0
                                      */
                                     do_action('atbdp_before_terms_and_conditions_font');
+                                    $terms_label = get_directorist_option('terms_label', __('I agree with all ', 'directorist'));
+                                    $terms_label_link = get_directorist_option('terms_label_link', __('terms & conditions', 'directorist'));
                                     if (!empty(get_directorist_option('listing_terms_condition'))) {
                                         ?>
                                         <div class="atbd_term_and_condition_area">
@@ -1192,10 +1194,10 @@ $query_args = array(
                                                    name="t_c_check" <?php if (!empty($t_c_check)) if ('on' == $t_c_check) {
                                                 echo 'checked';
                                             } ?>>
-                                            <label for="listing_t"><?php echo __('I Agree with all ', 'directorist'); ?>
+                                            <label for="listing_t"><?php echo esc_attr($terms_label); ?>
                                                 <a
                                                         style="color: red" href="" id="listing_t_c"
-                                                ><?php echo __('terms & conditions', 'directorist'); ?></a></label>
+                                                ><?php echo esc_attr($terms_label_link); ?></a></label>
                                             <div id="tc_container" class="">
                                                 <p><?php _e($listing_terms_condition_text, 'directorist'); ?></p>
                                             </div>

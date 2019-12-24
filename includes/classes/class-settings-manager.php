@@ -4874,8 +4874,6 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Gallery Image Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
-
-
             ));
         }
 
@@ -4969,8 +4967,6 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Submit listing label', 'directorist'),
                     'default' => __('Submit listing', 'directorist'),
                 ),
-
-
             ));
         }
      /**
@@ -4999,8 +4995,6 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Guest Email Placeholder', 'directorist'),
                     'default' => __('example@gmail.com', 'directorist'),
                 ),
-
-
             ));
         }
 

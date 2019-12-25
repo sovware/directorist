@@ -634,6 +634,14 @@ class ATBDP_Enqueuer {
             $terms = __('Agree to Terms & Conditions is required!', 'directorist');
         }
 
+        //privacy policy
+        $listing_privacy = get_directorist_option('listing_privacy');
+        $privacy = '';
+        $require_privacy = get_directorist_option('require_privacy');
+        if(!empty($require_privacy) &&  $listing_privacy){
+            $privacy = __('Agree to Privacy Policy is required!', 'directorist');
+        }
+
         $guest_user = '';
         $guest_listings = get_directorist_option('guest_listings', 0);
         if(!empty($guest_listings)){
@@ -662,6 +670,7 @@ class ATBDP_Enqueuer {
             'video'    => $video,
             'terms'    => $terms,
             'guest_user'    => $guest_user,
+            'require_privacy'    => $privacy,
         );
 
         wp_localize_script( 'atbdp_add_listing_validator', 'add_listing_validator', $validator );

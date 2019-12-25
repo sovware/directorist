@@ -196,6 +196,37 @@ class ATBDP_Permalink{
     }
 
     /**
+     * It returns the link to the dashbord manage fees
+     * @since 6.3
+     * @return string
+     */
+    public static function get_privacy_policy_page_url()
+    {
+        $link = home_url();
+        $id = get_directorist_option('privacy_policy'); // get the page id of the dashboard page.
+        if( $id )  {
+            $link = get_permalink( $id );
+        }
+        return apply_filters('atbdp_privacy_policy_page_url', $link );
+    }
+
+    /**
+     * It returns the link to the dashbord manage fees
+     * @since 6.3
+     * @return string
+     */
+    public static function get_terms_and_conditions_page_url()
+    {
+        $link = home_url();
+        $id = get_directorist_option('terms_conditions'); // get the page id of the dashboard page.
+        if( $id )  {
+            $link = get_permalink( $id );
+        }
+        return apply_filters('atbdp_terms_and_conditions_page_url', $link );
+    }
+
+
+    /**
      * It returns the link to the custom edit listing page
      * @param int $listing_id Listing ID
      * @since 3.1.0

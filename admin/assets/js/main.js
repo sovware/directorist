@@ -988,7 +988,7 @@ jQuery(function ($) {
     }
 
     //Display terms and condition
-    var lf_opt31 = $("#require_terms_conditions,#listing_terms_condition_text");
+    var lf_opt31 = $("#require_terms_conditions, #terms_label, #terms_label_link");
     lf_opt31.hide();
     $('input[name="listing_terms_condition"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -1000,6 +1000,21 @@ jQuery(function ($) {
     if($('input[name="listing_terms_condition"]').is(":checked") === true){
         lf_opt31.show();
     }
+
+    //Display Privacy Policy
+    var lf_privacy = $("#require_privacy, #privacy_label, #privacy_label_link");
+    lf_privacy.hide();
+    $('input[name="listing_privacy"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_privacy.show();
+        }else{
+            lf_privacy.hide();
+        }
+    });
+    if($('input[name="listing_privacy"]').is(":checked") === true){
+        lf_privacy.show();
+    }
+
 
     //Display search header
     var lf_opt32 = $("#search_header_title");
@@ -1180,6 +1195,34 @@ jQuery(function ($) {
     });
     if($('input[name="display_bio_reg"]').is(":checked") === true){
         lf_opt40.show();
+    }
+
+    //Display privacy fields in registration form
+    var lf_registration_privacy = $("#registration_privacy_label,#registration_privacy_label_link, #require_registration_privacy");
+    lf_registration_privacy.hide();
+    $('input[name="registration_privacy"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_registration_privacy.show();
+        }else{
+            lf_registration_privacy.hide();
+        }
+    });
+    if($('input[name="registration_privacy"]').is(":checked") === true){
+        lf_registration_privacy.show();
+    }
+
+    //Display terms and conditions fields in registration form
+    var lf_registration_terms = $("#regi_terms_label,#regi_terms_label_link, #require_regi_terms_conditions");
+    lf_registration_terms.hide();
+    $('input[name="regi_terms_condition"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            lf_registration_terms.show();
+        }else{
+            lf_registration_terms.hide();
+        }
+    });
+    if($('input[name="regi_terms_condition"]').is(":checked") === true){
+        lf_registration_terms.show();
     }
 
     //Display login message in registration form

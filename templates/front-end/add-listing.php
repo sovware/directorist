@@ -40,6 +40,7 @@ if (!empty($p_id)) {
     $listing_info['hide_contact_owner'] = get_post_meta($p_id, '_hide_contact_owner', true);
     $listing_info['expiry_date'] = get_post_meta($p_id, '_expiry_date', true);
     $listing_info['t_c_check'] = get_post_meta($p_id, '_t_c_check', true);
+    $listing_info['privacy_policy'] = get_post_meta($p_id, '_privacy_policy', true);
     $listing_info['id_itself'] = $p_id;
 
     extract($listing_info);
@@ -1180,8 +1181,33 @@ $query_args = array(
                                      * @since 4.1.0
                                      */
                                     do_action('atbdp_before_terms_and_conditions_font');
-                                    $terms_label = get_directorist_option('terms_label', __('I agree with all ', 'directorist'));
+                                    $terms_label = get_directorist_option('terms_label', __('I agree with all', 'directorist'));
                                     $terms_label_link = get_directorist_option('terms_label_link', __('terms & conditions', 'directorist'));
+                                    $t_C_page_link = ATBDP_Permalink::get_terms_and_conditions_page_url();
+                                    $privacy_page_link = ATBDP_Permalink::get_privacy_policy_page_url();
+                                    $privacy_label = get_directorist_option('privacy_label', __('I agree to the', 'directorist'));
+                                    $privacy_label_link = get_directorist_option('privacy_label_link', __('Privacy & Policy', 'directorist'));
+                                    if (!empty(get_directorist_option('listing_privacy'))) {
+                                        ?>
+                                        <div class="atbd_privacy_policy_area">
+                                            <?php
+                                            if (get_directorist_option('require_privacy') == 1) {
+                                                printf('<span class="atbdp_make_str_red"> *</span>');
+                                            }
+                                            ?>
+                                            <input id="privacy_policy" type="checkbox"
+                                                   name="privacy_policy" <?php if (!empty($privacy_policy)) if ('on' == $privacy_policy) {
+                                                echo 'checked';
+                                            } ?>>
+                                            <label for="privacy_policy"><?php echo esc_attr($privacy_label); ?>
+                                                <a
+                                                        style="color: red" target="_blank" href="<?php echo esc_url($privacy_page_link)?>" id=""
+                                                ><?php echo esc_attr($privacy_label_link); ?></a></label>
+                                        </div>
+
+                                        <?php
+                                    }
+
                                     if (!empty(get_directorist_option('listing_terms_condition'))) {
                                         ?>
                                         <div class="atbd_term_and_condition_area">
@@ -1196,11 +1222,8 @@ $query_args = array(
                                             } ?>>
                                             <label for="listing_t"><?php echo esc_attr($terms_label); ?>
                                                 <a
-                                                        style="color: red" href="" id="listing_t_c"
+                                                        style="color: red" target="_blank" href="<?php echo esc_url($t_C_page_link)?>" id=""
                                                 ><?php echo esc_attr($terms_label_link); ?></a></label>
-                                            <div id="tc_container" class="">
-                                                <p><?php _e($listing_terms_condition_text, 'directorist'); ?></p>
-                                            </div>
                                         </div>
 
                                         <?php

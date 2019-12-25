@@ -347,7 +347,6 @@ final class Directorist_Base
     }
     public static function prepare_plugin()
     {
-
         include ATBDP_INC_DIR . 'classes/class-installation.php';
         ATBDP_Installation::install();
     }

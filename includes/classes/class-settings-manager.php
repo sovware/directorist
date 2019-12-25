@@ -165,48 +165,48 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'menus' => $this->get_reg_log_settings_submenus(),
                 ),
                 /*lets make the settings for style settngs*/
-                  'style_settings_menu' => array(
-                      'title' => __('Style Settings', 'directorist'),
-                      'name' => 'style_settings',
-                      'icon' => 'font-awesome:fa-adjust',
-                      'controls' => apply_filters('atbdp_style_settings_controls', array(
-                          'primary_button' => array(
-                              'type' => 'section',
-                              'title' => __('Button', 'directorist'),
-                              'fields' => $this->get_listings_primary_button_fields(),
-                          ),
-                          /*'secondary_button' => array(
-                              'type' => 'section',
-                              'title' => __('Secondary Button', 'directorist'),
-                              'fields' => $this->get_listings_secondary_button_fields(),
-                          ),*/
-                          'danger_button' => array(
-                              'type' => 'section',
-                              'title' => __('Danger Button', 'directorist'),
-                              'fields' => $this->get_listings_danger_button_fields(),
-                          ),
-                          'success_button' => array(
-                              'type' => 'section',
-                              'title' => __('Success Button', 'directorist'),
-                              'fields' => $this->get_listings_success_button_fields(),
-                          ),
-                          'badge_color' => array(
-                              'type' => 'section',
-                              'title' => __('Badge Color', 'directorist'),
-                              'fields' => $this->get_listings_badge_color_fields(),
-                          ),
-                          'map_marker' => array(
-                              'type' => 'section',
-                              'title' => __('All Listings Map Marker', 'directorist'),
-                              'fields' => $this->get_listings_map_marker_color_fields(),
-                          ),
-                          'primary_dark' => array(
-                              'type' => 'section',
-                              'title' => __('Primary Color', 'directorist'),
-                              'fields' => $this->get_listings_primary_dark_fields(),
-                          ),
-                      )),
-                  ),
+                'style_settings_menu' => array(
+                    'title' => __('Style Settings', 'directorist'),
+                    'name' => 'style_settings',
+                    'icon' => 'font-awesome:fa-adjust',
+                    'controls' => apply_filters('atbdp_style_settings_controls', array(
+                        'primary_button' => array(
+                            'type' => 'section',
+                            'title' => __('Button', 'directorist'),
+                            'fields' => $this->get_listings_primary_button_fields(),
+                        ),
+                        /*'secondary_button' => array(
+                            'type' => 'section',
+                            'title' => __('Secondary Button', 'directorist'),
+                            'fields' => $this->get_listings_secondary_button_fields(),
+                        ),*/
+                        'danger_button' => array(
+                            'type' => 'section',
+                            'title' => __('Danger Button', 'directorist'),
+                            'fields' => $this->get_listings_danger_button_fields(),
+                        ),
+                        'success_button' => array(
+                            'type' => 'section',
+                            'title' => __('Success Button', 'directorist'),
+                            'fields' => $this->get_listings_success_button_fields(),
+                        ),
+                        'badge_color' => array(
+                            'type' => 'section',
+                            'title' => __('Badge Color', 'directorist'),
+                            'fields' => $this->get_listings_badge_color_fields(),
+                        ),
+                        'map_marker' => array(
+                            'type' => 'section',
+                            'title' => __('All Listings Map Marker', 'directorist'),
+                            'fields' => $this->get_listings_map_marker_color_fields(),
+                        ),
+                        'primary_dark' => array(
+                            'type' => 'section',
+                            'title' => __('Primary Color', 'directorist'),
+                            'fields' => $this->get_listings_primary_dark_fields(),
+                        ),
+                    )),
+                ),
             ));
         }
 
@@ -258,6 +258,16 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'type' => 'section',
                             'title' => __('About/bio', 'directorist'),
                             'fields' => $this->get_reg_bio_field(),
+                        ),
+                        'privacy_field' => array(
+                            'type' => 'section',
+                            'title' => __('Privacy Policy', 'directorist'),
+                            'fields' => $this->get_privacy_field(),
+                        ),
+                        'terms_conditions_field' => array(
+                            'type' => 'section',
+                            'title' => __('Terms and Conditions', 'directorist'),
+                            'fields' => $this->get_terms_conditions_field(),
                         ),
                         'signUp_button' => array(
                             'type' => 'section',
@@ -693,6 +703,83 @@ if (!class_exists('ATBDP_Settings_Manager')):
             ));
         }
 
+
+        /**
+         * Get bio setting field for registration
+         * @return array
+         * @since 6.3
+         */
+        public function get_privacy_field()
+        {
+            return apply_filters('atbdp_registration_privacy_field_setting', array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'registration_privacy',
+                    'label' => __('Enable', 'directorist'),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'registration_privacy_label',
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('I agree to the', 'directorist'),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'registration_privacy_label_link',
+                    'label' => __('Linking Text', 'directorist'),
+                    'default' => __('Privacy & Policy', 'directorist'),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_registration_privacy',
+                    'label' => __('Required', 'directorist'),
+                    'default' => 1,
+                    'description' => __('Here YES means users must agree to before submitting a listing from frontend.
+
+', 'directorist'),
+                ),
+            ));
+        }
+
+        /**
+         * Get bio setting field for registration
+         * @return array
+         * @since 6.3
+         */
+        public function get_terms_conditions_field()
+        {
+            return apply_filters('atbdp_registration_terms_conditions_field_setting', array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'regi_terms_condition',
+                    'label' => __('Enable', 'directorist'),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'regi_terms_label',
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('I agree with all', 'directorist'),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'regi_terms_label_link',
+                    'label' => __('Linking Text', 'directorist'),
+                    'default' => __('terms & conditions', 'directorist'),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_regi_terms_conditions',
+                    'label' => __('Required', 'directorist'),
+                    'default' => 1,
+                    'description' => __('Here YES means users must agree to before submitting a listing from frontend.
+
+', 'directorist'),
+                ),
+            ));
+        }
+
         /**
          * Get signup button setting field for registration
          * @return array
@@ -906,14 +993,19 @@ if (!class_exists('ATBDP_Settings_Manager')):
                         ),
                         'terms_field' => array(
                             'type' => 'section',
-                            'title' => __('Terms and Condition', 'directorist'),
+                            'title' => __('Terms and Conditions', 'directorist'),
                             'fields' => $this->get_listings_terms_field_settings(),
                         ),
-                      /*  'guest_field' => array(
+                        'privecy_field' => array(
                             'type' => 'section',
-                            'title' => __('Guest Submission', 'directorist'),
-                            'fields' => $this->get_guest_listings_settings(),
-                        ),*/
+                            'title' => __('Privacy and Policy', 'directorist'),
+                            'fields' => $this->get_listings_privacy_field_settings(),
+                        ),
+                        /*  'guest_field' => array(
+                              'type' => 'section',
+                              'title' => __('Guest Submission', 'directorist'),
+                              'fields' => $this->get_guest_listings_settings(),
+                          ),*/
                     )),
                 ),
 
@@ -1049,6 +1141,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 ),
             ));
         }
+
         /**
          * Get all the settings for danger button
          * @return array It returns an array of submenus
@@ -1090,6 +1183,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
 
             ));
         }
+
         /**
          * Get all the settings for success button
          * @return array It returns an array of submenus
@@ -1125,6 +1219,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
 
             ));
         }
+
         /**
          * Get all the settings for badge color
          * @return array It returns an array of submenus
@@ -1166,6 +1261,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
 
             ));
         }
+
         /**
          * Get all the settings for primary_dark
          * @return array It returns an array of submenus
@@ -1188,6 +1284,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 ),
             ));
         }
+
         /**
          * Get all the settings for marker color
          * @return array It returns an array of submenus
@@ -1210,6 +1307,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 ),
             ));
         }
+
         /**
          * Get all the submenus for the email menu
          * @return array It returns an array of submenus
@@ -4884,7 +4982,7 @@ The Administrator of ==SITE_NAME==
          */
         public function get_listings_video_field_settings()
         {
-            return apply_filters('atbdp_video_field_setting', array(
+            return apply_filters('atbdp_video_term_setting', array(
 
                 array(
                     'type' => 'toggle',
@@ -4925,6 +5023,49 @@ The Administrator of ==SITE_NAME==
          * @return array
          * @since 4.7.2
          */
+        public function get_listings_privacy_field_settings()
+        {
+            return apply_filters('atbdp_privacy_field_setting', array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'listing_privacy',
+                    'label' => __('Enable', 'directorist'),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'privacy_label',
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('I agree to the', 'directorist'),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'privacy_label_link',
+                    'label' => __('Linking Text', 'directorist'),
+                    'default' => __('Privacy & Policy', 'directorist'),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'require_privacy',
+                    'label' => __('Required', 'directorist'),
+                    'default' => 1,
+                    'description' => __('Here YES means users must agree to before submitting a listing from frontend.
+
+', 'directorist'),
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'submit_label',
+                    'label' => __('Submit listing label', 'directorist'),
+                    'default' => __('Submit listing', 'directorist'),
+                ),
+            ));
+        }
+        /**
+         * Get  term & condition settings field
+         * @return array
+         * @since 4.7.2
+         */
         public function get_listings_terms_field_settings()
         {
             return apply_filters('atbdp_video_field_setting', array(
@@ -4943,7 +5084,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'terms_label_link',
-                    'label' => __('Linking Label', 'directorist'),
+                    'label' => __('Linking Text', 'directorist'),
                     'default' => __('terms & conditions', 'directorist'),
                 ),
                 array(
@@ -4955,21 +5096,10 @@ The Administrator of ==SITE_NAME==
 
 ', 'directorist'),
                 ),
-                array(
-                    'type' => 'wpeditor',
-                    'name' => 'listing_terms_condition_text',
-                    'label' => __('Terms & Conditions', 'directorist'),
-                    'description' => __('If Terms & Conditions is enabled, enter the agreement terms and conditions here.', 'directorist'),
-                ),
-                array(
-                    'type' => 'textbox',
-                    'name' => 'submit_label',
-                    'label' => __('Submit listing label', 'directorist'),
-                    'default' => __('Submit listing', 'directorist'),
-                ),
             ));
         }
-     /**
+
+        /**
          * Get  term & condition settings field
          * @return array
          * @since 4.7.2
@@ -5895,7 +6025,22 @@ The Administrator of ==SITE_NAME==
                         'default' => '',
                         'validation' => 'numeric',
                     ),
-
+                    array(
+                        'type' => 'select',
+                        'name' => 'privacy_policy',
+                        'label' => __('Privacy Policy Page', 'directorist'),
+                        'items' => $this->get_pages_vl_arrays(),
+                        'default' => '',
+                        'validation' => 'numeric',
+                    ),
+                    array(
+                        'type' => 'select',
+                        'name' => 'terms_conditions',
+                        'label' => __('Terms & Conditions Page', 'directorist'),
+                        'items' => $this->get_pages_vl_arrays(),
+                        'default' => '',
+                        'validation' => 'numeric',
+                    ),
 
                 )
             );

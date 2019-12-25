@@ -218,7 +218,17 @@ jQuery(document).ready(function ($) {
             }
         }
 
-        //terms
+        //privacy
+        if ($("#privacy_policy").length > 0) {
+            var privacy = $("#privacy_policy").is(":checked");
+            var required_privacy = add_listing_validator.require_privacy;
+            if (false === privacy && '' !== required_privacy) {
+                $(".atbd_privacy_policy_area").append('<span class="atbdp_required" style="text-align: center;display: block; margin-bottom: 10px">' + w_icon + required_privacy + '</span>');
+                return false;
+            }
+        }
+
+        // terms and conditions
         if ($("#listing_t").length > 0) {
             var terms = $("#listing_t").is(":checked");
             var required_terms = add_listing_validator.terms;

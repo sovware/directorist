@@ -22,6 +22,12 @@ $display_login               = get_directorist_option('display_login',1);
 $login_text                  = get_directorist_option('login_text',__('Already have an account? Please login', 'directorist'));
 $login_url                   = get_directorist_option('login_url',ATBDP_Permalink::get_login_page_link());
 $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here', 'directorist'));
+$terms_label                 = get_directorist_option('regi_terms_label', __('I agree with all', 'directorist'));
+$terms_label_link            = get_directorist_option('regi_terms_label_link', __('terms & conditions', 'directorist'));
+$t_C_page_link               = ATBDP_Permalink::get_terms_and_conditions_page_url();
+$privacy_page_link           = ATBDP_Permalink::get_privacy_policy_page_url();
+$privacy_label               = get_directorist_option('registration_privacy_label', __('I agree to the', 'directorist'));
+$privacy_label_link          = get_directorist_option('registration_privacy_label_link', __('Privacy & Policy', 'directorist'));
 ?>
 <div id="directorist" class="atbd_wrapper directorist">
     <div class="<?php echo apply_filters('atbdp_registration_container_fluid',$container_fluid) ?>">
@@ -84,52 +90,91 @@ $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here'
                         <div class="directory_register_form_wrap">
                             <form action="<?php echo esc_url(get_the_permalink()); ?>" method="post">
                                 <div class="form-group">
-                                    <label for="username"><?php printf(__('%s', 'directorist'),$username); ?> <strong>*</strong></label>
+                                    <label for="username"><?php printf(__('%s', 'directorist'),$username); ?> <strong class="atbdp_make_str_red">*</strong></label>
                                     <input id="username" class="form-control" type="text" name="username" value="<?php echo ( isset( $_POST['username'] ) ? esc_attr($_POST['username']) : null ); ?>">
                                 </div>
                                 <?php if(!empty($display_password_reg)) {?>
                                 <div class="form-group">
                                     <label for="password">
                                         <?php printf(__('%s ', 'directorist'),$password);
-                                        echo !empty($require_password) ? '<strong>*</strong>': '';
+                                        echo !empty($require_password) ? '<strong class="atbdp_make_str_red">*</strong>': '';
                                     ?></label>
                                     <input id="password" class="form-control" type="password" name="password" value="<?php echo ( isset( $_POST['password'] ) ? esc_attr($_POST['password']) : null ); ?>">
                                 </div>
                                 <?php } ?>
                                 <div class="form-group">
-                                    <label for="email"><?php printf(__('%s', 'directorist'),$email); ?> <strong>*</strong></label>
+                                    <label for="email"><?php printf(__('%s', 'directorist'),$email); ?> <strong class="atbdp_make_str_red">*</strong></label>
                                     <input id="email" class="form-control" type="text" name="email" value="<?php echo ( isset( $_POST['email']) ? $_POST['email'] : null ); ?>">
                                 </div>
                                 <?php if(!empty($display_website)) { ?>
                                 <div class="form-group">
                                     <label for="website"><?php printf(__('%s ', 'directorist'),$website);
-                                    echo !empty($require_website) ? '<strong>*</strong>': '';
+                                    echo !empty($require_website) ? '<strong class="atbdp_make_str_red">*</strong>': '';
                                     ?></label>
                                     <input id="website" class="form-control" type="text" name="website" value="<?php echo ( isset( $_POST['website']) ? esc_url($_POST['website']) : null ); ?>">
                                 </div>
                                 <?php } if(!empty($display_fname)) {?>
                                 <div class="form-group">
                                     <label for="fname"><?php printf(__('%s ', 'directorist'),$first_name);
-                                        echo !empty($require_fname) ? '<strong>*</strong>': '';
+                                        echo !empty($require_fname) ? '<strong class="atbdp_make_str_red">*</strong>': '';
                                     ?></label>
                                     <input id="fname" class="form-control" type="text" name="fname" value="<?php echo ( isset( $_POST['fname']) ? esc_attr($_POST['fname']) : null ); ?>">
                                 </div>
                                 <?php } if(!empty($display_lname)) {?>
                                 <div class="form-group">
                                     <label for="lname"><?php printf(__('%s ', 'directorist'),$last_name);
-                                        echo !empty($require_lname) ? '<strong>*</strong>': '';
+                                        echo !empty($require_lname) ? '<strong class="atbdp_make_str_red">*</strong>': '';
                                     ?></label>
                                     <input class="form-control" id="lname" type="text" name="lname" value="<?php echo ( isset( $_POST['lname']) ? esc_attr($_POST['lname']) : null ); ?>">
                                 </div>
                                 <?php } if(!empty($display_bio)) { ?>
                                 <div class="form-group">
                                     <label for="bio"><?php printf(__('%s ', 'directorist'),$bio);
-                                        echo !empty($require_bio) ? '<strong>*</strong>': '';
+                                        echo !empty($require_bio) ? '<strong class="atbdp_make_str_red">*</strong>': '';
                                     ?></label>
                                     <textarea id="bio" class="form-control" name="bio" rows="10"><?php echo ( isset( $_POST['bio']) ? esc_textarea($_POST['bio']) : null ); ?></textarea>
                                 </div>
-                                <?php } ?>
-                                <?php
+                                <?php }
+                                if (!empty(get_directorist_option('registration_privacy'))) {
+                                    ?>
+                                    <div class="atbd_privacy_policy_area directory_regi_btn">
+                                        <?php
+                                        if (get_directorist_option('require_registration_privacy') == 1) {
+                                            printf('<span class="atbdp_make_str_red"> *</span>');
+                                        }
+                                        ?>
+                                        <input id="privacy_policy" type="checkbox"
+                                               name="privacy_policy" <?php if (!empty($privacy_policy)) if ('on' == $privacy_policy) {
+                                            echo 'checked';
+                                        } ?>>
+                                        <label for="privacy_policy"><?php echo esc_attr($privacy_label); ?>
+                                            <a
+                                                    style="color: red" target="_blank" href="<?php echo esc_url($privacy_page_link)?>" id=""
+                                            ><?php echo esc_attr($privacy_label_link); ?></a></label>
+                                    </div>
+
+                                    <?php
+                                }
+                                if (!empty(get_directorist_option('regi_terms_condition'))) {
+                                    ?>
+                                    <div class="atbd_term_and_condition_area directory_regi_btn">
+                                        <?php
+                                        if (get_directorist_option('require_regi_terms_conditions') == 1) {
+                                            printf('<span class="atbdp_make_str_red"> *</span>');
+                                        }
+                                        ?>
+                                        <input id="listing_t" type="checkbox"
+                                               name="t_c_check" <?php if (!empty($t_c_check)) if ('on' == $t_c_check) {
+                                            echo 'checked';
+                                        } ?>>
+                                        <label for="listing_t"><?php echo esc_attr($terms_label); ?>
+                                            <a
+                                                    style="color: red" target="_blank" href="<?php echo esc_url($t_C_page_link)?>" id=""
+                                            ><?php echo esc_attr($terms_label_link); ?></a></label>
+                                    </div>
+
+                                    <?php
+                                }
                                 /*
                                  * @since 4.4.0
                                  */

@@ -91,6 +91,8 @@ class ATBDP_User {
                 'first_name'    =>   $first_name,
                 'last_name'     =>   $last_name,
                 'description'   =>   $bio,
+                'atbdp_privacy' =>  $privacy,
+                'atbdp_terms'  =>   $terms,
             );
             return wp_insert_user( $userdata ); // return inserted user id or a WP_Error
         }
@@ -198,10 +200,15 @@ class ATBDP_User {
         $require_fname               = get_directorist_option('require_fname_reg',0);
         $display_lname               = get_directorist_option('display_lname_reg',1);
         $require_lname               = get_directorist_option('require_lname_reg',0);
-        $display_bio                 = get_directorist_option('display_bio_reg',1);
-        $require_bio                 = get_directorist_option('require_bio_reg',0);
         $display_password            = get_directorist_option('display_password_reg',0);
         $require_password            = get_directorist_option('require_password_reg',0);
+        $display_bio                 = get_directorist_option('display_bio_reg',1);
+        $require_bio                 = get_directorist_option('require_bio_reg',0);
+        $registration_privacy        = get_directorist_option('registration_privacy',1);
+        $require_privacy             = get_directorist_option('require_registration_privacy',0);
+        $terms_condition             = get_directorist_option('regi_terms_condition',1);
+        $require_terms_condition     = get_directorist_option('require_regi_terms_conditions',0);
+
         // if the form is submitted then save the form
         if ( isset($_POST['atbdp_user_submit'] ) ) {
             /**
@@ -218,6 +225,8 @@ class ATBDP_User {
             $first_name = !empty($_POST['fname']) ? $_POST[ 'fname' ] : '';
             $last_name = !empty($_POST['lname']) ? $_POST[ 'lname' ] : '';
             $bio = !empty($_POST['bio']) ? $_POST[ 'bio' ] : '';
+            $privacy_policy = !empty($_POST['privacy_policy']) ? sanitize_text_field($_POST[ 'privacy_policy' ]) : '';
+            $t_c_check = !empty($_POST['t_c_check']) ? sanitize_text_field($_POST[ 't_c_check' ]) : '';
             //password validation
             if(!empty($require_password) && !empty($display_password) && empty($password)){
                 $password_validation = 'yes';
@@ -236,6 +245,14 @@ class ATBDP_User {
             }
             //bio validation
             if(!empty($require_bio) && !empty($display_bio) && empty($bio)){
+                $bio_validation = 'yes';
+            }
+            //privacy validation
+            if(!empty($registration_privacy) && !empty($require_privacy) && empty($privacy_policy)){
+                $bio_validation = 'yes';
+            }
+            //terms & conditions validation
+            if(!empty($terms_condition) && !empty($require_terms_condition) && empty($t_c_check)){
                 $bio_validation = 'yes';
             }
             // validate all the inputs
@@ -288,6 +305,8 @@ class ATBDP_User {
                  */
                 do_action('atbdp_user_registration_completed', $user_id);
                 update_user_meta($user_id, '_atbdp_generated_password', $password);
+                update_user_meta($user_id, '_atbdp_privacy', $privacy_policy);
+                update_user_meta($user_id, '_atbdp_terms_and_conditions', $t_c_check);
                 // user has been created successfully, now work on activation process
                 wp_new_user_notification($user_id, null, 'both'); // send activation to the user and the admin
                 wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('registration_status' => true)));

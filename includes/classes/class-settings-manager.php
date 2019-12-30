@@ -5385,6 +5385,26 @@ The Administrator of ==SITE_NAME==
                     'default' => 0,
                 ),
                 array(
+                    'type' => 'select',
+                    'name' => 'single_listing_template',
+                    'label' => __('Template', 'directorist'),
+                    'items' => array(
+                        array(
+                            'value' => 'current_theme_template',
+                            'label' => __('Current Theme Template', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'directorist_template',
+                            'label' => __('Directorist Custom Template', 'directorist'),
+                        ),
+                    ),
+
+                    'default' => array(
+                        'value' => 'directorist_template',
+                        'label' => __('Directorist Custom Template', 'directorist'),
+                    ),
+                ),
+                array(
                     'type' => 'textbox',
                     'name' => 'atbdp_listing_slug',
                     'label' => __('Listing Slug', 'directorist'),

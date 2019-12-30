@@ -22,11 +22,9 @@ if (!class_exists('ATBDP_Template')):
         {
             // load custom page template for the single page for our custom post
             //add_filter('single_template', array( $this, 'load_custom_single_template') );
-            //add_filter('template_include', array($this, 'custom_search_template'));
-
+            add_filter('template_include', array($this, 'custom_search_template'));
 
         }
-
 
         /**
          * It loads custom template for member single page
@@ -62,21 +60,13 @@ if (!class_exists('ATBDP_Template')):
         {
             global $wp_query;
             global $post; //culprit
+            $single_listing_template = get_directorist_option('single_listing_template','directorist_template');
             $post_type = get_query_var('post_type');
             $post_type = (!empty( $post_type)) ?  $post_type : ((is_object($post) && !empty($post->post_type)) ? $post->post_type : 'any');
 
-            $custom_search_template = 'search-'.ATBDP_POST_TYPE.'.php';
-            if( $wp_query->is_search && $post_type == ATBDP_POST_TYPE )
+            if( $post_type == ATBDP_POST_TYPE && 'directorist_template' == $single_listing_template)
             {
-                $search_template = locate_template($custom_search_template); // if the theme has the template return it
-                if ($search_template){
-                    return $search_template;
-                }elseif (file_exists( ATBDP_TEMPLATES_DIR . $custom_search_template )){
-                    // if the theme does not have the template file then return plugin's template file if it exists
-                    return ATBDP_TEMPLATES_DIR . $custom_search_template;
-                }
-
-
+                return ATBDP_DIR . "/templates/custom-template/directorist-single-listing.php";
             }
             return $template;
         }

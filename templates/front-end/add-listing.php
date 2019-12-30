@@ -158,7 +158,7 @@ $query_args = array(
 ?>
 <div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
     <div class="<?php echo apply_filters('atbdp_add_listing_container_fluid', $container_fluid) ?>">
-        <form action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" method="post">
+        <form action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" method="post" id="add-listing-form">
             <fieldset>
                 <?php
                 do_action('atbdb_before_add_listing_from_frontend');//for dev purpose
@@ -334,7 +334,7 @@ $query_args = array(
                                                     <option value="economy" <?php selected($price_range, 'economy'); ?>>
                                                         <?php echo __('Moderate ', 'directorist').'('.$c_symbol,$c_symbol.')'; ?>
                                                     </option>
-                                                    <option value="bellow_economy" <?php selected($price_range, 'economy'); ?>>
+                                                    <option value="bellow_economy" <?php selected($price_range, 'bellow_economy'); ?>>
                                                         <?php echo __('Cheap ', 'directorist').'('.$c_symbol.')'; ?>
                                                     </option>
                                                 </select>
@@ -1130,8 +1130,8 @@ $query_args = array(
                                                 <!--Image Uploader-->
                                                 <?php if ((!empty($display_prv_field) && empty($display_prv_img_for)) || (!empty($display_gellery_field) && empty($display_glr_img_for))) { ?>
                                                     <div id="_listing_gallery">
-                                                        <?php ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider', 'p_id'));
-                                                        ?>
+                                                       <!-- --><?php /*ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider', 'p_id'));
+                                                        */?>
                                                     </div>
                                                 <?php } ?>
                                                 <?php
@@ -1157,7 +1157,7 @@ $query_args = array(
                                                     </div>
                                                     <?php do_action('atbdp_video_field',$p_id); ?>
                                                 <?php }
-                                                if (0){ //$guest_listings && !is_user_logged_in()
+                                                if ($guest_listings && !is_user_logged_in()){ //$guest_listings && !is_user_logged_in()
                                                 ?>
                                                 <div class="form-group">
                                                     <label for="guest_user"><?php
@@ -1187,7 +1187,7 @@ $query_args = array(
                                     $privacy_page_link = ATBDP_Permalink::get_privacy_policy_page_url();
                                     $privacy_label = get_directorist_option('privacy_label', __('I agree to the', 'directorist'));
                                     $privacy_label_link = get_directorist_option('privacy_label_link', __('Privacy & Policy', 'directorist'));
-                                    if (!empty(get_directorist_option('listing_privacy'))) {
+                                    if (!empty(get_directorist_option('listing_privacy',1))) {
                                         ?>
                                         <div class="atbd_privacy_policy_area">
                                             <?php
@@ -1198,9 +1198,7 @@ $query_args = array(
                                             <input id="privacy_policy" type="checkbox"
                                                    name="privacy_policy" <?php if (!empty($privacy_policy)) if ('on' == $privacy_policy) {
                                                 echo 'checked';
-                                            } ?>>
-                                            <label for="privacy_policy"><?php echo esc_attr($privacy_label); ?>
-                                                <a
+                                            } ?>><label for="privacy_policy"><?php echo esc_attr($privacy_label); ?><a
                                                         style="color: red" target="_blank" href="<?php echo esc_url($privacy_page_link)?>" id=""
                                                 ><?php echo esc_attr($privacy_label_link); ?></a></label>
                                         </div>
@@ -1208,7 +1206,7 @@ $query_args = array(
                                         <?php
                                     }
 
-                                    if (!empty(get_directorist_option('listing_terms_condition'))) {
+                                    if (!empty(get_directorist_option('listing_terms_condition',1))) {
                                         ?>
                                         <div class="atbd_term_and_condition_area">
                                             <?php
@@ -1233,6 +1231,7 @@ $query_args = array(
                                      */
                                     do_action('atbdp_before_submit_listing_frontend', $p_id);
                                     ?>
+                                    <div id="listing_notifier"></div>
                                     <div class="btn_wrap list_submit">
                                         <button type="submit"
                                                 class="btn btn-primary btn-lg listing_submit_btn"><?php

@@ -210,6 +210,7 @@ class ATBDP_Enqueuer {
         wp_register_style( 'atmodal', ATBDP_PUBLIC_ASSETS.'css/atmodal.css', false, ATBDP_VERSION );
         wp_register_style( 'atbd_googlefonts', '//fonts.googleapis.com/css?family=Roboto:400,500', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-style', ATBDP_PUBLIC_ASSETS . 'css/style.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
+        wp_register_style( 'atbdp-media-uploader-style', ATBDP_PUBLIC_ASSETS . 'css/ez-media-uploader.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
         wp_register_style( 'atbdp-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/style-rtl.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
         wp_register_style( 'atbdp-pluploadcss', ATBDP_ADMIN_ASSETS . 'css/directorist-plupload.min.css', array( 'atbdp-font-awesome', 'select2style'), ATBDP_VERSION);
 
@@ -255,6 +256,7 @@ class ATBDP_Enqueuer {
         }else{
             wp_enqueue_style('atbdp-bootstrap-style');
             wp_enqueue_style('atbdp-style');
+            wp_enqueue_style('atbdp-media-uploader-style');
         }
         wp_enqueue_style('atbdp-font-awesome');
         wp_enqueue_style('atbdp-line-awesome');
@@ -355,6 +357,8 @@ class ATBDP_Enqueuer {
         $disable_map = false;
         if (!$disable_map && 'google' == $select_listing_map){ $dependency[]= 'atbdp-google-map-front'; }
         wp_register_script('atbdp_add_listing_js', ATBDP_PUBLIC_ASSETS . 'js/add-listing.js', $dependency, ATBDP_VERSION, true );
+        wp_register_script('atbdp_media_uploader', ATBDP_PUBLIC_ASSETS . 'js/ez-media-uploader.js', $dependency, ATBDP_VERSION, true );
+        wp_enqueue_script('atbdp_media_uploader');
         wp_enqueue_script('atbdp_add_listing_js');
         wp_register_script('atbdp_add_listing_validator', ATBDP_PUBLIC_ASSETS . 'js/validator.js', $dependency, ATBDP_VERSION, true );
         wp_register_script('atbdp_custom_field_validator', ATBDP_PUBLIC_ASSETS . 'js/custom_field_validator.js', $dependency, ATBDP_VERSION, true );

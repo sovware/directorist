@@ -2,19 +2,19 @@
 $container_fluid             = is_directoria_active() ? 'container' : 'container-fluid';
 $username                    = get_directorist_option('reg_username','Username');
 $password                    = get_directorist_option('reg_password','Password');
-$display_password_reg        = get_directorist_option('display_password_reg',0);
-$require_password            = get_directorist_option('require_password_reg',0);
+$display_password_reg        = get_directorist_option('display_password_reg',1);
+$require_password            = get_directorist_option('require_password_reg',1);
 $email                       = get_directorist_option('reg_email','Email');
-$display_website             = get_directorist_option('display_website_reg',1);
+$display_website             = get_directorist_option('display_website_reg',0);
 $website                     = get_directorist_option('reg_website','Website');
 $require_website             = get_directorist_option('require_website_reg',0);
-$display_fname               = get_directorist_option('display_fname_reg',1);
+$display_fname               = get_directorist_option('display_fname_reg',0);
 $first_name                  = get_directorist_option('reg_fname','First Name');
 $require_fname               = get_directorist_option('require_fname_reg',0);
-$display_lname               = get_directorist_option('display_lname_reg',1);
+$display_lname               = get_directorist_option('display_lname_reg',0);
 $last_name                   = get_directorist_option('reg_lname','Last Name');
 $require_lname               = get_directorist_option('require_lname_reg',0);
-$display_bio                 = get_directorist_option('display_bio_reg',1);
+$display_bio                 = get_directorist_option('display_bio_reg',0);
 $bio                         = get_directorist_option('reg_bio','About/bio');
 $require_bio                 = get_directorist_option('require_bio_reg',0);
 $reg_signup                  = get_directorist_option('reg_signup','Sign Up');
@@ -93,27 +93,20 @@ $privacy_label_link          = get_directorist_option('registration_privacy_labe
                                     <label for="username"><?php printf(__('%s', 'directorist'),$username); ?> <strong class="atbdp_make_str_red">*</strong></label>
                                     <input id="username" class="form-control" type="text" name="username" value="<?php echo ( isset( $_POST['username'] ) ? esc_attr($_POST['username']) : null ); ?>">
                                 </div>
-                                <?php if(!empty($display_password_reg)) {?>
-                                <div class="form-group">
-                                    <label for="password">
-                                        <?php printf(__('%s ', 'directorist'),$password);
-                                        echo !empty($require_password) ? '<strong class="atbdp_make_str_red">*</strong>': '';
-                                    ?></label>
-                                    <input id="password" class="form-control" type="password" name="password" value="<?php echo ( isset( $_POST['password'] ) ? esc_attr($_POST['password']) : null ); ?>">
-                                </div>
-                                <?php } ?>
                                 <div class="form-group">
                                     <label for="email"><?php printf(__('%s', 'directorist'),$email); ?> <strong class="atbdp_make_str_red">*</strong></label>
                                     <input id="email" class="form-control" type="text" name="email" value="<?php echo ( isset( $_POST['email']) ? $_POST['email'] : null ); ?>">
                                 </div>
-                                <?php if(!empty($display_website)) { ?>
-                                <div class="form-group">
-                                    <label for="website"><?php printf(__('%s ', 'directorist'),$website);
-                                    echo !empty($require_website) ? '<strong class="atbdp_make_str_red">*</strong>': '';
-                                    ?></label>
-                                    <input id="website" class="form-control" type="text" name="website" value="<?php echo ( isset( $_POST['website']) ? esc_url($_POST['website']) : null ); ?>">
-                                </div>
-                                <?php } if(!empty($display_fname)) {?>
+                                <?php if(!empty($display_password_reg)) {?>
+                                    <div class="form-group">
+                                        <label for="password">
+                                            <?php printf(__('%s ', 'directorist'),$password);
+                                            echo !empty($require_password) ? '<strong class="atbdp_make_str_red">*</strong>': '';
+                                            ?></label>
+                                        <input id="password" class="form-control" type="password" name="password" value="<?php echo ( isset( $_POST['password'] ) ? esc_attr($_POST['password']) : null ); ?>">
+                                    </div>
+                                <?php } ?>
+                                <?php  if(!empty($display_fname)) {?>
                                 <div class="form-group">
                                     <label for="fname"><?php printf(__('%s ', 'directorist'),$first_name);
                                         echo !empty($require_fname) ? '<strong class="atbdp_make_str_red">*</strong>': '';
@@ -127,6 +120,13 @@ $privacy_label_link          = get_directorist_option('registration_privacy_labe
                                     ?></label>
                                     <input class="form-control" id="lname" type="text" name="lname" value="<?php echo ( isset( $_POST['lname']) ? esc_attr($_POST['lname']) : null ); ?>">
                                 </div>
+                                <?php } if(!empty($display_website)) { ?>
+                                    <div class="form-group">
+                                        <label for="website"><?php printf(__('%s ', 'directorist'),$website);
+                                            echo !empty($require_website) ? '<strong class="atbdp_make_str_red">*</strong>': '';
+                                            ?></label>
+                                        <input id="website" class="form-control" type="text" name="website" value="<?php echo ( isset( $_POST['website']) ? esc_url($_POST['website']) : null ); ?>">
+                                    </div>
                                 <?php } if(!empty($display_bio)) { ?>
                                 <div class="form-group">
                                     <label for="bio"><?php printf(__('%s ', 'directorist'),$bio);
@@ -135,7 +135,7 @@ $privacy_label_link          = get_directorist_option('registration_privacy_labe
                                     <textarea id="bio" class="form-control" name="bio" rows="10"><?php echo ( isset( $_POST['bio']) ? esc_textarea($_POST['bio']) : null ); ?></textarea>
                                 </div>
                                 <?php }
-                                if (!empty(get_directorist_option('registration_privacy'))) {
+                                if (!empty(get_directorist_option('registration_privacy',1))) {
                                     ?>
                                     <div class="atbd_privacy_policy_area directory_regi_btn">
                                         <?php
@@ -155,7 +155,7 @@ $privacy_label_link          = get_directorist_option('registration_privacy_labe
 
                                     <?php
                                 }
-                                if (!empty(get_directorist_option('regi_terms_condition'))) {
+                                if (!empty(get_directorist_option('regi_terms_condition',1))) {
                                     ?>
                                     <div class="atbd_term_and_condition_area directory_regi_btn">
                                         <?php

@@ -548,7 +548,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'type' => 'toggle',
                     'name' => 'display_password_reg',
                     'label' => __('Enable', 'directorist'),
-                    'default' => 0,
+                    'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
@@ -560,7 +560,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'type' => 'toggle',
                     'name' => 'require_password_reg',
                     'label' => __('Required', 'directorist'),
-                    'default' => 0,
+                    'default' => 1,
                 ),
             ));
         }
@@ -595,7 +595,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'type' => 'toggle',
                     'name' => 'display_website_reg',
                     'label' => __('Enable', 'directorist'),
-                    'default' => 1,
+                    'default' => 0,
                 ),
                 array(
                     'type' => 'textbox',
@@ -625,7 +625,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'type' => 'toggle',
                     'name' => 'display_fname_reg',
                     'label' => __('Enable', 'directorist'),
-                    'default' => 1,
+                    'default' => 0,
                 ),
                 array(
                     'type' => 'textbox',
@@ -655,7 +655,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'type' => 'toggle',
                     'name' => 'display_lname_reg',
                     'label' => __('Enable', 'directorist'),
-                    'default' => 1,
+                    'default' => 0,
                 ),
                 array(
                     'type' => 'textbox',
@@ -685,7 +685,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'type' => 'toggle',
                     'name' => 'display_bio_reg',
                     'label' => __('Enable', 'directorist'),
-                    'default' => 1,
+                    'default' => 0,
                 ),
                 array(
                     'type' => 'textbox',
@@ -1001,11 +1001,11 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'title' => __('Privacy and Policy', 'directorist'),
                             'fields' => $this->get_listings_privacy_field_settings(),
                         ),
-                        /*  'guest_field' => array(
+                          'guest_field' => array(
                               'type' => 'section',
                               'title' => __('Guest Submission', 'directorist'),
                               'fields' => $this->get_guest_listings_settings(),
-                          ),*/
+                          ),
                     )),
                 ),
 

@@ -109,7 +109,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
                     <option value="economy" <?php selected($price_range, 'economy'); ?>>
                         <?php echo __('Moderate ', 'directorist').'('.$c_symbol,$c_symbol.')'; ?>
                     </option>
-                    <option value="bellow_economy" <?php selected($price_range, 'economy'); ?>>
+                    <option value="bellow_economy" <?php selected($price_range, 'bellow_economy'); ?>>
                         <?php echo __('Cheap ', 'directorist').'('.$c_symbol.')'; ?>
                     </option>
                 </select>

@@ -28,7 +28,6 @@ jQuery(document).ready(function ($) {
             }
             return false;
         }
-        //@todo later check checkbox and radio if multiple and one require another not required....  validate only the required one
         //custom field
         var required_custom_fields = custom_field_validator.required_cus_fields;
         var msg = custom_field_validator.msg;

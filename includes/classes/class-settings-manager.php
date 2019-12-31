@@ -169,6 +169,23 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'title' => __('Style Settings', 'directorist'),
                     'name' => 'style_settings',
                     'icon' => 'font-awesome:fa-adjust',
+                    'menus'=> $this->get_style_settings_submenus(),
+                ),
+            ));
+        }
+        /**
+         * Get all the submenus for Style settings menu
+         * @return array It returns an array of submenus
+         * @since 6.2.3
+         */
+        public function get_style_settings_submenus()
+        {
+            return apply_filters('atbdp_style_settings_submenus', array(
+                /*Submenu : Color Settings */
+                array(
+                    'title' => __('Color', 'directorist'),
+                    'name' => 'color_settings',
+                    'icon' => 'font-awesome:fa-home',
                     'controls' => apply_filters('atbdp_style_settings_controls', array(
                         'primary_button' => array(
                             'type' => 'section',
@@ -207,9 +224,112 @@ if (!class_exists('ATBDP_Settings_Manager')):
                         ),
                     )),
                 ),
+                /*Submenu : single template settings*/
+                array(
+                    'title' => __('Single Template', 'directorist'),
+                    'name' => 'single_template',
+                    'icon' => 'font-awesome:fa-home',
+                    'controls' => apply_filters('atbdp_single_template_controls', array(
+                        'maximum_width' => array(
+                            'type' => 'section',
+                            'fields' => $this->get_single_template_max_width(),
+                        ),
+                        'single_temp_padding' => array(
+                            'type' => 'section',
+                            'title' => __('Padding (px)', 'directorist'),
+                            'fields' => $this->get_single_template_padding(),
+                        ),
+                        'single_temp_margin' => array(
+                            'type' => 'section',
+                            'title' => __('Margin (px)', 'directorist'),
+                            'fields' => $this->get_single_template_margin(),
+                        ),
+                    )),
+                ),
+            )
+            );
+        }
+        /*
+         * Maximum width of single template
+         * @return array
+         * @since 6.2.3
+         * */
+        public function get_single_template_max_width() {
+            return apply_filters('atbdp_single_template_max_width', array(
+                array(
+                    'type' => 'textbox',
+                    'name' => 'single_temp_max_width',
+                    'label' => __('Maximum Width (px)', 'directorist'),
+                    'default' => '1080',
+                ),
             ));
         }
-
+        /*
+         * Padding of single template
+         * @return array
+         * @since 6.2.3
+         * */
+        public function get_single_template_padding() {
+            return apply_filters('atbdp_single_template_padding', array(
+                array(
+                    'type' => 'textbox',
+                    'name' => 'single_temp_Padding_top',
+                    'label' => __('Top', 'directorist'),
+                    'default' => '30',
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'single_temp_Padding_bottom',
+                    'label' => __('Bottom', 'directorist'),
+                    'default' => '50',
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'single_temp_Padding_left',
+                    'label' => __('Left', 'directorist'),
+                    'default' => '4',
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'single_temp_Padding_right',
+                    'label' => __('Right', 'directorist'),
+                    'default' => '4',
+                ),
+            ));
+        }
+        /*
+         * Padding of single template
+         * @return array
+         * @since 6.2.3
+         * */
+        public function get_single_template_margin() {
+            return apply_filters('atbdp_single_template_margin', array(
+                array(
+                    'type' => 'textbox',
+                    'name' => 'single_temp_margin_top',
+                    'label' => __('Top', 'directorist'),
+                    'default' => '4',
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'single_temp_margin_bottom',
+                    'label' => __('Bottom', 'directorist'),
+                    'default' => '50',
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'single_temp_margin_left',
+                    'label' => __('Left', 'directorist'),
+                    'default' => '4',
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'single_temp_margin_right',
+                    'label' => __('Right', 'directorist'),
+                    'default' => '4',
+                ),
+            ));
+        }
         /**
          * Get all the submenus for registration & login menu
          * @return array It returns an array of submenus
@@ -5391,7 +5511,7 @@ The Administrator of ==SITE_NAME==
                     'items' => array(
                         array(
                             'value' => 'current_theme_template',
-                            'label' => __('Current Theme Template', 'directorist'),
+                            'label' => __('Current Theme Template (used for posts)', 'directorist'),
                         ),
                         array(
                             'value' => 'directorist_template',

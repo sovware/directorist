@@ -3,9 +3,15 @@
  * Template Name: Directorist Single Listing Template
  */
 get_header(); ?>
-
-    <div id="atbdp">
-        <div id="atbdp_main">
+    <style>
+        #atbdp-main{
+            max-width: 1080px;
+            width: 100%;
+            margin: 0 auto;
+        }
+    </style>
+    <div id="atbdp-wrapper">
+        <div id="atbdp-main">
 
             <?php
             while ( have_posts() ) :

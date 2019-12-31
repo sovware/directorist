@@ -1064,3 +1064,20 @@ body.atbd_content_active #directorist.atbd_wrapper {
     padding: 10px 15px;
   }
 }
+.atbd_privacy_policy_area{
+  text-align: center;
+}
+#directorist.atbd_wrapper .ezmu__btn{
+  box-shadow:none;
+  background: $primary;
+  color: #fff;
+  transition: 0.3s ease;
+  &:hover{
+    background: #222;
+  }
+}
+div#listing_notifier span{
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
+}

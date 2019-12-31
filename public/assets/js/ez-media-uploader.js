@@ -8,13 +8,14 @@
 
 /* eslint-disable */
 (function() {
-  this.EZMediaUploader = function(args) {
+  this.EzMediaUploader = function(args) {
     var defaults = {
       containerID: "ez-media-uploader",
       oldFiels: null,
       oldFielsUrl: null,
       maxFileSize: 2048,
       maxTotalFileSize: 4096,
+      maxFileItems: false,
       allowedFileFormats: ["images"],
       allowMultiple: true,
       featured: true
@@ -22,7 +23,10 @@
 
     // Data
     // -----------------------------------------
-    this.options = extendDefaults(defaults, args);
+    if ( typeof args === 'object' && args !== null ) {
+      this.options = extendDefaults(defaults, args);
+    }
+    
     this.oldFiles = [];
     this.files = [];
     this.filesMeta = [];
@@ -49,15 +53,74 @@
       }
       this.container = container;
 
-      this.attachElements();
+      this.getMarkupOptions();
       this.loadOldFiels();
+      this.attachElements();
+      this.updatePreview();
       this.attachEventListener();
     };
 
-    this.getFiles = function() {
+    this.getMarkupOptions = function() {
+      var container = this.container;
+
+      // maxFileSize
+      var max_file_size = container.getAttribute('data-max-file-size');
+      if ( max_file_size && max_file_size.length) {
+        this.options.maxFileSize = max_file_size;
+      }
+
+      // maxTotalFileSize
+      var max_total_file_size = container.getAttribute('data-max-total-file-size');
+      if ( max_total_file_size && max_total_file_size.length) {
+        this.options.maxTotalFileSize = max_total_file_size;
+      }
+      
+
+      // maxFileItems
+      var max_file_items = container.getAttribute('data-max-file-items');
+      if ( max_file_items && max_file_items.length) {
+        this.options.maxFileItems = max_file_items;
+      }
+
+      // allowedFileFormats
+      var allowed_file_formats = container.getAttribute('data-allowed-file-formats');
+      if ( allowed_file_formats && allowed_file_formats.length) {
+        var file_formats_string = allowed_file_formats.replace(/,+$/, '');
+        file_formats_string = file_formats_string.replace(/\s/g, '');
+        var file_formats = file_formats_string.split(',');
+
+        this.options.allowedFileFormats = file_formats;
+      }
+
+      // allowMultiple
+      var allow_multiple = container.getAttribute('data-allow-multiple');
+      if ( allow_multiple && (allow_multiple === 'false' || allow_multiple === '0') ) {
+        this.options.allowMultiple = false;
+      } else {
+        this.options.allowMultiple = true;
+      }
+    }
+
+    this.getTheFiles = function() {
       var final_files = [];
+
       if (!this.filesMeta.length) {
         return final_files;
+      }
+
+      forEach(this.filesMeta, function(file) {
+        if ("file" in file) {
+          final_files.push(file.file);
+        }
+      });
+
+      return final_files;
+    };
+
+    this.getFilesMeta = function() {
+      var final_files_meta = [];
+      if (!this.filesMeta.length) {
+        return final_files_meta;
       }
 
       forEach(this.filesMeta, function(file) {
@@ -67,8 +130,16 @@
           oldFile: file.oldFile
         };
 
+        if ("attachmentID" in file) {
+          meta_data.attachmentID = file.attachmentID;
+        }
+
+        if ("url" in file) {
+          meta_data.url = file.url;
+        }
+
         if ("file" in file) {
-          meta_data.file = file.file;
+          // meta_data.file = file.file;
           meta_data.name = file.name;
           meta_data.fileSize = file.fileSize;
           meta_data.fileSizeInText = file.fileSizeInText;
@@ -76,10 +147,10 @@
           meta_data.limitExceeded = file.limitExceeded;
         }
 
-        final_files.push(meta_data);
+        final_files_meta.push(meta_data);
       });
 
-      return final_files;
+      return final_files_meta;
     };
 
     this.validateFiles = function() {
@@ -91,10 +162,20 @@
         return true;
       }
 
+      // Validate Max File Items
+      var max_file_items = this.options.maxFileItems;
+      if ( files.length > max_file_items) {
+        error_log.push({
+          errorKey: "maxFileItems",
+          message: "Max limit for total file is " + max_file_items
+        });
+      }
+
+
       // Validate Max Total File Size
       var maxTotalFileSize = this.options.maxTotalFileSize;
       var max_total_file_size_in_byte = maxTotalFileSize * 1024;
-      var max_total_file_size_in_text = maxTotalFileSize > 1023 ? maxTotalFileSize / 1024 + ' MB' : maxTotalFileSize + ' KB';
+      var max_total_file_size_in_text = formatedFileSize( maxTotalFileSize * 1024 );
       var total_file_size_in_byte = 0;
 
       forEach(files, function(file) {
@@ -109,8 +190,6 @@
           message: "Max limit for total file size is " + max_total_file_size_in_text
         });
       }
-
-      
 
       updateValidationFeedback(error_log, this.statusSection);
 
@@ -130,27 +209,31 @@
     };
 
     this.loadOldFiels = function() {
-      if (!this.container) {
-        return;
+      var old_fiels = [];
+      
+      if ( this.options.oldFiels ) {
+        old_fiels = this.getValidatedPaths(this.options.oldFiels);
       }
 
-      var old_fiels = this.options.oldFiels;
+      if ( getMarkupsFilesMeta(this.container) ) {
+        old_fiels = getMarkupsFilesMeta(this.container);
+      }
+
       if (!old_fiels) {
         return;
       }
 
-      var validated_files = this.getValidatedPaths(old_fiels);
-      if (!validated_files) {
-        return;
-      }
-
-      for (var i = 0; i < validated_files.length; i++) {
-        var file = validated_files[i];
+      for (var i = 0; i < old_fiels.length; i++) {
+        var file = old_fiels[i];
         var filesMeta = {
           id: i,
           url: file.url,
           oldFile: true
         };
+
+        if ("attachmentID" in file) {
+          filesMeta.attachmentID = file.attachmentID;
+        }
 
         if ("type" in file) {
           filesMeta.type = file.type;
@@ -163,7 +246,7 @@
 
         this.filesMeta.push(filesMeta);
       }
-      this.updatePreview();
+      
     };
 
     this.getValidatedPaths = function(paths) {
@@ -605,14 +688,11 @@
       "ezmu__media-picker-icon", "span"
     );
 
-    var media_picker_icon_img = createElementWithClass(
-      'ezmu__media-picker-icon-img', 'img'
+    var media_picker_icon_img_bg = createElementWithClass(
+      'ezmu__media-picker-icon-img-bg', 'span'
     );
+    media_picker_icon.appendChild(media_picker_icon_img_bg);
 
-    var upload_icon_img = createElementWithClass('ezmu__media-picker-icon-bg', 'span');
-
-    // media_picker_icon_img.src = './wp-content/plugins/directorist/public/assets/images/cloud-upload-alt-solid.svg';
-    media_picker_icon.appendChild(upload_icon_img);
     media_picker_controls.appendChild(media_picker_icon);
 
     var media_picker_buttons = createElementWithClass(
@@ -717,8 +797,8 @@
     var loading_section = createElementWithClass(class_name);
     var loading_icon = createElementWithClass("ezmu__loading-icon", "span");
 
-    var loading_icon_img = createElementWithClass('ezmu__loading-icon-bg', 'span');
-    loading_icon.appendChild(loading_icon_img);
+    var loading_icon_img_bg = createElementWithClass('ezmu__loading-icon-img-bg', 'span');
+    loading_icon.appendChild(loading_icon_img_bg);
 
     loading_section.appendChild(loading_icon);
     return loading_section;
@@ -849,15 +929,11 @@
   }
 
   function getThumbnail(data) {
-    var thumbnail_list_item_img = document.createElement("img");
-
-    var img_src, img_class;
-    var default_thumbnail = "./images/file-solid.svg";
+    var thumbnail_list_item_img = createElementWithClass('ezmu__thumbnail-img', 'img');
+    var thumbnail_list_item_img_bg = createElementWithClass('ezmu__thumbnail-img-bg', 'span');
 
     if (typeof data !== "object") {
-      thumbnail_list_item_img.setAttribute("class", "ezmu__thumbnail-icon");
-      thumbnail_list_item_img.src = default_thumbnail;
-      return thumbnail_list_item_img;
+      return thumbnail_list_item_img_bg;
     }
 
     var data_type = "type" in data ? data.type : "file";
@@ -866,24 +942,58 @@
 
     var type_is_image = data_type.match(/image/g);
 
-    img_src = default_thumbnail;
-    img_class = type_is_image ? "ezmu__thumbnail-img" : "ezmu__thumbnail-icon";
-
     if (type_is_image) {
-      img_src = data_url ? data_url : img_src;
+      var img_src = data_url ? data_url : img_src;
       img_src = data_blob ? data_blob : img_src;
+      thumbnail_list_item_img.src = img_src;
+      return thumbnail_list_item_img;
     }
 
-    thumbnail_list_item_img.setAttribute("class", img_class);
-    thumbnail_list_item_img.src = img_src;
-
-    return thumbnail_list_item_img;
+    return thumbnail_list_item_img_bg;
   }
 
-  function fileSizeInText( file_size_in_byte ) {
-    var file_size_in_kb = file_size_in_byte * 1024;
-    var file_size_in_text = file_size_in_kb > 1023 ? file_size_in_kb / 1024 + ' MB' : file_size_in_kb + ' KB';
-    return file_size_in_text;
+  function getMarkupsFilesMeta( container ) {
+    if ( !container ) {
+      return false;
+    }
+
+    var markup_files_meta = container.querySelectorAll('.ezmu__old-files-meta');
+    var files_meta = [];
+
+    if ( !markup_files_meta.length ) {
+      return false;
+    }
+    
+    for( var i = 0; i < markup_files_meta.length; i++ ) {
+      var elm = markup_files_meta[i];
+      var url = elm.getAttribute('data-url');
+      var attachment_id = elm.getAttribute('data-attachment-id');
+      var size = elm.getAttribute('data-size');
+      var type = elm.getAttribute('data-type');
+
+      if ( !(url && url.length) ) {
+        continue;
+      }
+
+      var meta = {};
+      meta.url = url;
+
+      if ( attachment_id && attachment_id.length ) {
+        meta.attachmentID = attachment_id;
+      }
+
+      if ( size && size.length ) {
+        meta.size = size;
+      }
+
+      if ( type && type.length ) {
+        meta.type = type;
+      }
+
+      files_meta.push(meta);
+    }
+
+    return files_meta;
   }
 
   function updateValidationFeedback( error_log, container ) {
@@ -975,11 +1085,24 @@
   function formatedFileSize(file_size) {
     file_size = parseFloat(file_size);
     var file_size_in_kb = file_size / 1024;
-    var _file_size_in_kb = file_size_in_kb.toFixed(2) + " KB";
+    var _d0 = file_size_in_kb.toFixed();
+    var _d2 = file_size_in_kb.toFixed(2);
+    var _file_size = ( _d0 == _d2 ) ? _d0 : _d2;
+    var _file_size_in_kb = _file_size + " KB";
+
 
     var file_size_in_mb = file_size_in_kb < 1024 ? null : file_size_in_kb / 1024;
+    var _file_size_in_mb = '';
 
-    var formated_file_size = file_size_in_mb ? file_size_in_mb.toFixed(2) + " MB" : _file_size_in_kb;
+    if ( file_size_in_mb ) {
+      var _d0 = file_size_in_mb.toFixed();
+      var _d2 = file_size_in_mb.toFixed(2);
+      var _file_size = ( _d0 == _d2 ) ? _d0 : _d2;
+      _file_size_in_mb = _file_size + " MB";
+    }
+    
+
+    var formated_file_size = file_size_in_mb ? _file_size_in_mb : _file_size_in_kb;
     return formated_file_size;
   }
 

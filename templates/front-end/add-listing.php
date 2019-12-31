@@ -34,8 +34,6 @@ if (!empty($p_id)) {
     $listing_info['bdbh'] = get_post_meta($p_id, '_bdbh', true);
     $listing_info['enable247hour'] = get_post_meta($p_id, '_enable247hour', true);
     $listing_info['disable_bz_hour_listing'] = get_post_meta($p_id, '_disable_bz_hour_listing', true);
-    $listing_info['listing_img'] = get_post_meta($p_id, '_listing_img', true);
-    $listing_info['listing_prv_img'] = get_post_meta($p_id, '_listing_prv_img', true);
     $listing_info['hide_contact_info'] = get_post_meta($p_id, '_hide_contact_info', true);
     $listing_info['hide_contact_owner'] = get_post_meta($p_id, '_hide_contact_owner', true);
     $listing_info['expiry_date'] = get_post_meta($p_id, '_expiry_date', true);
@@ -44,6 +42,7 @@ if (!empty($p_id)) {
     $listing_info['id_itself'] = $p_id;
 
     extract($listing_info);
+    $listing_img = atbdp_get_listing_attachment_ids($p_id);
     //for editing page
     $p_tags = wp_get_post_terms($p_id, ATBDP_TAGS);
     $p_locations = wp_get_post_terms($p_id, ATBDP_LOCATION);
@@ -142,18 +141,18 @@ if (is_fee_manager_active()) {
     $plan_cat = is_plan_allowed_category($fm_plan);
 }
 $query_args = array(
-    'parent'             => 0,
-    'term_id'            => 0,
-    'exclude'            => $plan_cat,
-    'hide_empty'         => 0,
-    'orderby'            => 'name',
-    'order'              => 'asc',
-    'show_count'         => 0,
-    'single_only'        => 0,
-    'pad_counts'         => true,
+    'parent' => 0,
+    'term_id' => 0,
+    'exclude' => $plan_cat,
+    'hide_empty' => 0,
+    'orderby' => 'name',
+    'order' => 'asc',
+    'show_count' => 0,
+    'single_only' => 0,
+    'pad_counts' => true,
     'immediate_category' => 0,
-    'active_term_id'     => 0,
-    'ancestors'          => array()
+    'active_term_id' => 0,
+    'ancestors' => array()
 );
 ?>
 <div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
@@ -280,11 +279,11 @@ $query_args = array(
                                                         $price_label = get_directorist_option('price_label', __('Price', 'directorist'));
                                                         $currency = get_directorist_option('g_currency', 'USD');
                                                         /*Translator: % is the name of the currency such eg. USD etc.*/
-                                                        printf(esc_html__('%s [%s]%s', 'directorist'), $price_label,$currency, get_directorist_option('require_price') ? '<span class="atbdp_make_str_red">*</span>' : ''); ?>
+                                                        printf(esc_html__('%s [%s]%s', 'directorist'), $price_label, $currency, get_directorist_option('require_price') ? '<span class="atbdp_make_str_red">*</span>' : ''); ?>
                                                     </label>
                                                     <?php
                                                 }
-                                                if ($plan_average_price && empty($display_price_range_for) && !empty($display_price_range_field )) {
+                                                if ($plan_average_price && empty($display_price_range_for) && !empty($display_price_range_field)) {
                                                     if ($plan_price && empty($display_price_for) && !empty($display_pricing_field)) {
                                                         printf('<span>%s</span>', __('Or', 'directorist'));
                                                     }
@@ -313,29 +312,30 @@ $query_args = array(
                                                  */
                                                 do_action('atbdp_add_listing_before_price_field', $p_id);
                                                 ?>
-                                                <input type="number" <?php echo !empty($allow_decimal)?'step="any"':''; ?> id="price" name="price"
-                                                    value="<?php echo !empty($price) ? esc_attr($price) : ''; ?>"
-                                                    class="form-control directory_field"
-                                                    placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
+                                                <input type="number" <?php echo !empty($allow_decimal) ? 'step="any"' : ''; ?>
+                                                       id="price" name="price"
+                                                       value="<?php echo !empty($price) ? esc_attr($price) : ''; ?>"
+                                                       class="form-control directory_field"
+                                                       placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
 
                                             <?php }
-                                            if ($plan_average_price && empty($display_price_range_for) && !empty($display_price_range_field )) {
+                                            if ($plan_average_price && empty($display_price_range_for) && !empty($display_price_range_field)) {
                                                 $c_symbol = atbdp_currency_symbol($currency);
                                                 ?>
                                                 <select class="form-control directory_field" id="price_range"
                                                         name="price_range">
                                                     <option value=""><?php echo esc_attr($price_range_placeholder); ?></option>
                                                     <option value="skimming" <?php selected($price_range, 'skimming'); ?>>
-                                                        <?php echo __('Ultra High ', 'directorist').'('.$c_symbol,$c_symbol,$c_symbol,$c_symbol.')'; ?>
+                                                        <?php echo __('Ultra High ', 'directorist') . '(' . $c_symbol, $c_symbol, $c_symbol, $c_symbol . ')'; ?>
                                                     </option>
                                                     <option value="moderate" <?php selected($price_range, 'moderate'); ?>>
-                                                        <?php echo __('Expensive ', 'directorist').'('.$c_symbol,$c_symbol,$c_symbol.')'; ?>
+                                                        <?php echo __('Expensive ', 'directorist') . '(' . $c_symbol, $c_symbol, $c_symbol . ')'; ?>
                                                     </option>
                                                     <option value="economy" <?php selected($price_range, 'economy'); ?>>
-                                                        <?php echo __('Moderate ', 'directorist').'('.$c_symbol,$c_symbol.')'; ?>
+                                                        <?php echo __('Moderate ', 'directorist') . '(' . $c_symbol, $c_symbol . ')'; ?>
                                                     </option>
                                                     <option value="bellow_economy" <?php selected($price_range, 'bellow_economy'); ?>>
-                                                        <?php echo __('Cheap ', 'directorist').'('.$c_symbol.')'; ?>
+                                                        <?php echo __('Cheap ', 'directorist') . '(' . $c_symbol . ')'; ?>
                                                     </option>
                                                 </select>
                                             <?php }
@@ -349,14 +349,15 @@ $query_args = array(
                                         </div>
 
                                     <?php }
-                                     if(!empty($display_views_count) && empty($display_views_count_for)) {?>
+                                    if (!empty($display_views_count) && empty($display_views_count_for)) { ?>
                                         <div class="form-group">
                                             <label for="atbdp_views_count"><?php
                                                 $views_count_label = get_directorist_option('views_count_label', __('Views Count', 'directorist'));
-                                                esc_html_e($views_count_label.':', 'directorist'); ?></label>
+                                                esc_html_e($views_count_label . ':', 'directorist'); ?></label>
 
                                             <input type="text" id="views_Count" name="atbdp_post_views_count"
-                                                   value="<?php echo !empty($atbdp_post_views_count) ? esc_attr($atbdp_post_views_count) : ''; ?>" class="form-control directory_field"/>
+                                                   value="<?php echo !empty($atbdp_post_views_count) ? esc_attr($atbdp_post_views_count) : ''; ?>"
+                                                   class="form-control directory_field"/>
                                         </div>
                                     <?php }
                                     /**
@@ -457,7 +458,7 @@ $query_args = array(
                                                     break;
                                                 case 'number' :
                                                     echo '<div>';
-                                                    printf('<input type="number" %s  name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', !empty($allow_decimal)?'step="any"':'', $post_id, $cf_placeholder, $value);
+                                                    printf('<input type="number" %s  name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', !empty($allow_decimal) ? 'step="any"' : '', $post_id, $cf_placeholder, $value);
                                                     echo '</div>';
                                                     break;
                                                 case 'textarea' :
@@ -703,7 +704,7 @@ $query_args = array(
                                                 printf('<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name);
 
                                             }*/
-                                            $categories_field = add_listing_category_location_filter($query_args, ATBDP_CATEGORY, $ids,'', $plan_cat);
+                                            $categories_field = add_listing_category_location_filter($query_args, ATBDP_CATEGORY, $ids, '', $plan_cat);
                                             echo $categories_field;
                                             ?>
                                         </select>
@@ -730,7 +731,7 @@ $query_args = array(
                                         <div id="atbdp-custom-fields-list-selected" data-post_id="<?php echo $p_id; ?>">
                                             <?php
                                             $selected_category = !empty($selected_category) ? $selected_category : '';
-                                           do_action('wp_ajax_atbdp_custom_fields_listings_front_selected', $p_id, $selected_category); ?>
+                                            do_action('wp_ajax_atbdp_custom_fields_listings_front_selected', $p_id, $selected_category); ?>
                                         </div>
                                         <?php
                                     }
@@ -788,10 +789,10 @@ $query_args = array(
                                                         esc_html_e($address_label . ':', 'directorist');
                                                         echo get_directorist_option('require_address') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                                                     <input type="text" name="address" autocomplete="off" id="address"
-                                                        
-                                                        value="<?php echo !empty($address) ? esc_attr($address) : ''; ?>"
-                                                        class="form-control directory_field"
-                                                        placeholder="<?php echo esc_attr($address_placeholder); ?>"/>
+
+                                                           value="<?php echo !empty($address) ? esc_attr($address) : ''; ?>"
+                                                           class="form-control directory_field"
+                                                           placeholder="<?php echo esc_attr($address_placeholder); ?>"/>
                                                 </div>
                                             <?php }
 
@@ -962,7 +963,7 @@ $query_args = array(
 
                                 }
 
-                                 if ( empty($display_map_for) && !empty($display_map_field)) { ?>
+                                if (empty($display_map_for) && !empty($display_map_field)) { ?>
                                     <div class="atbd_content_module">
                                         <div class="atbd_content_module__tittle_area">
                                             <div class="atbd_area_title">
@@ -979,7 +980,7 @@ $query_args = array(
                                                         esc_html_e($address_label . ':', 'directorist');
                                                         echo get_directorist_option('require_address') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                                                     <input type="text" name="address" id="address"
-                                                            autocomplete="off"
+                                                           autocomplete="off"
                                                            value="<?php echo !empty($address) ? esc_attr($address) : ''; ?>"
                                                            class="form-control directory_field"
                                                            placeholder="<?php echo esc_attr($address_placeholder); ?>"/>
@@ -991,7 +992,7 @@ $query_args = array(
                                                 <!--Show map only if it is not disabled in the settings-->
                                                 <!--Google map will be generated here using js-->
                                                 <?php
-                                            }else{
+                                            } else {
                                                 echo '<input type="hidden" id="address">';
                                             }
 
@@ -1080,7 +1081,7 @@ $query_args = array(
                                             ?>
                                         </div>
                                     </div><!-- end .atbd_general_information_module -->
-                                 <?php }
+                                <?php }
                                 /**
                                  * It fires before map
                                  * @param string $type Page type.
@@ -1117,10 +1118,10 @@ $query_args = array(
                                                 <div class="atbd_area_title">
                                                     <h4>
                                                         <?php
-                                                        if($plan_video){
-                                                            _e("Images & Video",'directorist');
-                                                        }else{
-                                                            _e("Images",'directorist');
+                                                        if ($plan_video) {
+                                                            _e("Images & Video", 'directorist');
+                                                        } else {
+                                                            _e("Images", 'directorist');
                                                         }
                                                         ?></h4>
                                                 </div>
@@ -1129,9 +1130,35 @@ $query_args = array(
                                             <div class="atbdb_content_module_contents atbdp_video_field">
                                                 <!--Image Uploader-->
                                                 <?php if ((!empty($display_prv_field) && empty($display_prv_img_for)) || (!empty($display_gellery_field) && empty($display_glr_img_for))) { ?>
-                                                    <div id="_listing_gallery">
-                                                       <!-- --><?php /*ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider', 'p_id'));
-                                                        */?>
+                                                    <div id="_listing_gallery" class="ez-media-uploader" data-max-file-items="15"
+                                                         data-max-total-file-size="30720">
+                                                        <!-- --><?php /*ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider', 'p_id'));
+                                                        */ ?>
+                                                        <div class="ezmu__loading-section --show">
+                                                            <span class="ezmu__loading-icon">
+                                                              <span class="ezmu__loading-icon-img-bg"></span>
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="ezmu__old-files">
+                                                            <?php
+                                                            if (!empty($listing_img)){
+                                                                foreach ($listing_img as $image){
+                                                                    $url = wp_get_attachment_image_url($image, 'full');
+                                                                    $size = filesize( get_attached_file( $image ) );
+                                                                    ?>
+                                                                    <span
+                                                                            class="ezmu__old-files-meta"
+                                                                            data-attachment-id="<?php echo esc_attr($image);?>"
+                                                                            data-url="<?php echo esc_url($url);?>"
+                                                                            data-size="<?php echo esc_attr($size/1024);?>"
+                                                                            data-type="image"
+                                                                    ></span>
+                                                            <?php
+                                                                }
+                                                            }
+                                                            ?>
+                                                        </div>
                                                     </div>
                                                 <?php } ?>
                                                 <?php
@@ -1155,22 +1182,22 @@ $query_args = array(
                                                                class="form-control directory_field"
                                                                placeholder="<?php echo esc_attr($video_placeholder); ?>"/>
                                                     </div>
-                                                    <?php do_action('atbdp_video_field',$p_id); ?>
+                                                    <?php do_action('atbdp_video_field', $p_id); ?>
                                                 <?php }
-                                                if ($guest_listings && !is_user_logged_in()){ //$guest_listings && !is_user_logged_in()
-                                                ?>
-                                                <div class="form-group">
-                                                    <label for="guest_user"><?php
-                                                        $guest_email_label = get_directorist_option('guest_email', __('Your Email', 'directorist'));
-                                                        $guest_email_placeholder = get_directorist_option('guest_email_placeholder', __('example@gmail.com', 'directorist'));
-                                                        esc_html_e($guest_email_label . ':', 'directorist');
-                                                        echo '<span class="atbdp_make_str_red">*</span>'; ?></label>
-                                                    <input type="text" id="guest_user_email" name="guest_user_email"
-                                                           value="<?php echo !empty($guest_user_email) ? esc_url($guest_user_email) : ''; ?>"
-                                                           class="form-control directory_field"
-                                                           placeholder="<?php echo esc_attr($guest_email_placeholder); ?>"/>
-                                                </div>
-                                                <?php
+                                                if ($guest_listings && !is_user_logged_in()) { //$guest_listings && !is_user_logged_in()
+                                                    ?>
+                                                    <div class="form-group">
+                                                        <label for="guest_user"><?php
+                                                            $guest_email_label = get_directorist_option('guest_email', __('Your Email', 'directorist'));
+                                                            $guest_email_placeholder = get_directorist_option('guest_email_placeholder', __('example@gmail.com', 'directorist'));
+                                                            esc_html_e($guest_email_label . ':', 'directorist');
+                                                            echo '<span class="atbdp_make_str_red">*</span>'; ?></label>
+                                                        <input type="text" id="guest_user_email" name="guest_user_email"
+                                                               value="<?php echo !empty($guest_user_email) ? esc_url($guest_user_email) : ''; ?>"
+                                                               class="form-control directory_field"
+                                                               placeholder="<?php echo esc_attr($guest_email_placeholder); ?>"/>
+                                                    </div>
+                                                    <?php
                                                 }
                                                 ?>
                                             </div>
@@ -1187,7 +1214,7 @@ $query_args = array(
                                     $privacy_page_link = ATBDP_Permalink::get_privacy_policy_page_url();
                                     $privacy_label = get_directorist_option('privacy_label', __('I agree to the', 'directorist'));
                                     $privacy_label_link = get_directorist_option('privacy_label_link', __('Privacy & Policy', 'directorist'));
-                                    if (!empty(get_directorist_option('listing_privacy',1))) {
+                                    if (!empty(get_directorist_option('listing_privacy', 1))) {
                                         ?>
                                         <div class="atbd_privacy_policy_area">
                                             <?php
@@ -1199,14 +1226,15 @@ $query_args = array(
                                                    name="privacy_policy" <?php if (!empty($privacy_policy)) if ('on' == $privacy_policy) {
                                                 echo 'checked';
                                             } ?>><label for="privacy_policy"><?php echo esc_attr($privacy_label); ?><a
-                                                        style="color: red" target="_blank" href="<?php echo esc_url($privacy_page_link)?>" id=""
+                                                        style="color: red" target="_blank"
+                                                        href="<?php echo esc_url($privacy_page_link) ?>" id=""
                                                 ><?php echo esc_attr($privacy_label_link); ?></a></label>
                                         </div>
 
                                         <?php
                                     }
 
-                                    if (!empty(get_directorist_option('listing_terms_condition',1))) {
+                                    if (!empty(get_directorist_option('listing_terms_condition', 1))) {
                                         ?>
                                         <div class="atbd_term_and_condition_area">
                                             <?php
@@ -1220,7 +1248,8 @@ $query_args = array(
                                             } ?>>
                                             <label for="listing_t"><?php echo esc_attr($terms_label); ?>
                                                 <a
-                                                        style="color: red" target="_blank" href="<?php echo esc_url($t_C_page_link)?>" id=""
+                                                        style="color: red" target="_blank"
+                                                        href="<?php echo esc_url($t_C_page_link) ?>" id=""
                                                 ><?php echo esc_attr($terms_label_link); ?></a></label>
                                         </div>
 
@@ -1254,9 +1283,9 @@ $query_args = array(
 
 <?php
 if ('openstreet' == $select_listing_map) {
-    wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array( 'jquery' ), ATBDP_VERSION, true );
-    wp_enqueue_script( 'openstreet_layer' );
-    wp_enqueue_style('leaflet-css',ATBDP_PUBLIC_ASSETS . 'css/leaflet.css');
+    wp_register_script('openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
+    wp_enqueue_script('openstreet_layer');
+    wp_enqueue_style('leaflet-css', ATBDP_PUBLIC_ASSETS . 'css/leaflet.css');
 }
 ?>
 <script>
@@ -1457,14 +1486,17 @@ if ('openstreet' == $select_listing_map) {
             markers = [];
         }
         <?php } elseif('openstreet' == $select_listing_map) { ?>
-        function mapLeaflet (lat, lon)	 {
+        function mapLeaflet(lat, lon) {
             const fontAwesomeIcon = L.icon({
                 iconUrl: "<?php echo ATBDP_PUBLIC_ASSETS . 'images/map-icon.png'; ?>",
                 iconSize: [20, 25],
             });
             var mymap = L.map('gmap').setView([lat, lon], <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 4; ?>);
 
-            L.marker([lat, lon], {icon: fontAwesomeIcon, draggable: true}).addTo(mymap).addTo(mymap).on("drag", function(e) {
+            L.marker([lat, lon], {
+                icon: fontAwesomeIcon,
+                draggable: true
+            }).addTo(mymap).addTo(mymap).on("drag", function (e) {
                 var marker = e.target;
                 var position = marker.getLatLng();
                 $('#manual_lat').val(position.lat);
@@ -1484,13 +1516,13 @@ if ('openstreet' == $select_listing_map) {
             }).addTo(mymap);
         }
 
-        $('#address').on('keyup', function(event) {
+        $('#address').on('keyup', function (event) {
             event.preventDefault();
-            if(event.keyCode !== 40 && event.keyCode !== 38){
+            if (event.keyCode !== 40 && event.keyCode !== 38) {
                 var search = $('#address').val();
-                $('#result').css({'display':'block'});
-                if(search === ""){
-                    $('#result').css({'display':'none'});
+                $('#result').css({'display': 'block'});
+                if (search === "") {
+                    $('#result').css({'display': 'none'});
                 }
                 var res = "";
                 $.ajax({
@@ -1511,9 +1543,9 @@ if ('openstreet' == $select_listing_map) {
         let lat = <?php echo (!empty($manual_lat)) ? floatval($manual_lat) : $default_latitude ?>,
             lon = <?php echo (!empty($manual_lng)) ? floatval($manual_lng) : $default_longitude ?>;
 
-        mapLeaflet (lat, lon);
+        mapLeaflet(lat, lon);
 
-        $('body').on('click', '#result ul li a', function(event) {
+        $('body').on('click', '#result ul li a', function (event) {
             document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
             event.preventDefault();
             let text = $(this).text(),
@@ -1524,58 +1556,60 @@ if ('openstreet' == $select_listing_map) {
             $('#manual_lng').val(lon);
 
             $('#address').val(text);
-            $('#result').css({'display':'none'});
+            $('#result').css({'display': 'none'});
 
-            mapLeaflet (lat, lon);
+            mapLeaflet(lat, lon);
         });
 
         $('body').on('click', '#generate_admin_map', function (event) {
             event.preventDefault();
             document.getElementById('osm').innerHTML = "<div id='gmap'></div>";
-            mapLeaflet ($('#manual_lat').val(), $('#manual_lng').val());
+            mapLeaflet($('#manual_lat').val(), $('#manual_lng').val());
 
         });
 
         // Popup controller by keyboard
         var index = 0;
-        $('#address').on('keyup', function(event) {
+        $('#address').on('keyup', function (event) {
             event.preventDefault();
             var length = $('#directorist.atbd_wrapper #result ul li a').length;
-            if(event.keyCode === 40) {
+            if (event.keyCode === 40) {
                 index++;
-               if( index > length) {
-                   index = 0;
-                }               
-            } else if(event.keyCode === 38) {
+                if (index > length) {
+                    index = 0;
+                }
+            } else if (event.keyCode === 38) {
                 index--;
-                if(index < 0) {
+                if (index < 0) {
                     index = length
-                };
+                }
+                ;
             }
-            
-            if($('#directorist.atbd_wrapper #result ul li a').length > 0){
+
+            if ($('#directorist.atbd_wrapper #result ul li a').length > 0) {
 
                 $('#directorist.atbd_wrapper #result ul li a').removeClass('active')
                 $($('#directorist.atbd_wrapper #result ul li a')[index]).addClass('active');
 
-                if(event.keyCode === 13){                      
+                if (event.keyCode === 13) {
                     $($('#directorist.atbd_wrapper #result ul li a')[index]).click();
                     event.preventDefault();
-                    index = 0;                   
+                    index = 0;
                     return false;
                 }
-            };
-            
+            }
+            ;
+
         });
 
-        $('#post').on('submit', function(event) {
+        $('#post').on('submit', function (event) {
             event.preventDefault();
             return false;
         });
         // Popup controller by keyboard
 
         <?php
-         // address
+        // address
         } // select map
         }  //disable map
         ?>
@@ -1600,6 +1634,7 @@ if ('openstreet' == $select_listing_map) {
     #OL_Icon_33:hover .mapHover {
         display: block;
     }
+
     /*#directorist.atbd_wrapper a {
         display: block;
         background: #fff;
@@ -1607,11 +1642,11 @@ if ('openstreet' == $select_listing_map) {
     }*/
 
     #directorist.atbd_wrapper a:hover {
-        background: #eeeeee50;        
+        background: #eeeeee50;
     }
 
     #directorist.atbd_wrapper a.active {
-        background: #eeeeee70;        
+        background: #eeeeee70;
     }
 
     .g_address_wrap ul li {

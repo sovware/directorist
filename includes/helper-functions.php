@@ -4405,6 +4405,15 @@ function atbdp_guest_submission($guest_email)
     }
 }
 
+function atbdp_get_listing_attachment_ids($post_id){
+
+    $listing_img = get_post_meta($post_id, '_listing_img', true);
+    $listing_prv_img = get_post_meta($post_id, '_listing_prv_img', true);
+    array_unshift($listing_img, $listing_prv_img);
+    return $listing_img;
+}
+
+
 function get_uninstall_settings_submenus() {
     return apply_filters('atbdp_uninstall_settings_fields', array(
         array(

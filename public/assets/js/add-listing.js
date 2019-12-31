@@ -426,30 +426,6 @@ jQuery(function ($) {
         });
     }
 
-    var ezMediaUploader = new EZMediaUploader({
-        containerID: "_listing_gallery",
-        allowedFileFormats: ["images"],
-        maxTotalFileSize: 4096,
-        _oldFiels: [
-            {
-                url:
-                    "https://images.unsplash.com/photo-1501183007986-d0d080b147f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80",
-                type: "image",
-                size: 700
-            },
-            {
-                url:
-                    "https://images.unsplash.com/photo-1575761410364-8a3eb7e4edfc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80",
-                type: "image"
-            },
-            {
-                url:
-                    "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjF9&auto=format&fit=crop&w=750&q=80",
-                type: "image"
-            }
-        ]
-    });
-    ezMediaUploader.init();
 
     function atbdp_is_checked(name) {
         var is_checked = $('input[name="' + name + '"]').is(':checked');
@@ -459,12 +435,12 @@ jQuery(function ($) {
             return '';
         }
     }
-    var qs = (function(a) {
+
+    var qs = (function (a) {
         if (a == "") return {};
         var b = {};
-        for (var i = 0; i < a.length; ++i)
-        {
-            var p=a[i].split('=', 2);
+        for (var i = 0; i < a.length; ++i) {
+            var p = a[i].split('=', 2);
             if (p.length == 1)
                 b[p[0]] = "";
             else
@@ -473,15 +449,17 @@ jQuery(function ($) {
         return b;
     })(window.location.search.substr(1).split('&'));
 
+    var ezMediaUploader = new EzMediaUploader({
+        containerID: "_listing_gallery",
+    });
+    ezMediaUploader.init();
 
     var formID = $('#add-listing-form');
     $('body').on('submit', formID, function (e) {
-
         e.preventDefault();
         var form_data = new FormData();
-
         function atbdp_multi_select(field, name) {
-            var field = $('' + field + '[name^="'+name+'"]');
+            var field = $('' + field + '[name^="' + name + '"]');
             if (field.length > 1) {
                 field.each(function (index, value) {
                     var type = $(value).attr('type');
@@ -498,12 +476,24 @@ jQuery(function ($) {
             }
         }
 
+        // ajax action
         form_data.append('action', 'add_listing_action');
-        var files = ezMediaUploader.getFiles();
+        //files
+        var files = ezMediaUploader.getTheFiles();
         for (var i = 0; i < files.length; i++) {
-            if (files[i].oldFile === false) {
-                form_data.append('listing_img[]', files[i].file);
+            form_data.append('listing_img[]', files[i]);
+        }
+        var files_meta = ezMediaUploader.getFilesMeta();
+
+        for (var i = 0; i < files_meta.length; i++) {
+            var elm = files_meta[i];
+            for ( var key in elm ) {
+                form_data.append('files_meta['+ i +']['+ key +']', elm[key]);
             }
+        }
+        var hasValidFiles = ezMediaUploader.hasValidFiles();
+        if (!hasValidFiles){
+            return;
         }
         var iframe = $('#listing_content_ifr');
         var content = $('#tinymce[data-id="listing_content"]', iframe.contents()).text();
@@ -523,11 +513,10 @@ jQuery(function ($) {
         form_data.append('need_post', $('input[name="need_post"]:checked').val());
         form_data.append('pyn_deadline', $('input[name="pyn_deadline"]').val());
         form_data.append('is_hourly', atbdp_is_checked('is_hourly'));
-
-
         //plans
         form_data.append('listing_type', $('input[name="listing_type"]:checked').val());
         form_data.append('plan', qs['plan']);
+        // contact info
         form_data.append('zip', $('input[name="zip"]').val());
         form_data.append('hide_contact_info', atbdp_is_checked('hide_contact_info'));
         form_data.append('address', $('input[name="address"]').val());
@@ -544,12 +533,10 @@ jQuery(function ($) {
         form_data.append('guest_user_email', $('input[name="guest_user_email"]').val());
         form_data.append('privacy_policy', $('input[name="privacy_policy"]:checked').val());
         form_data.append('t_c_check', $('input[name="t_c_check"]:checked').val());
-
+        // custom fields
         atbdp_multi_select('input', 'custom_field');
         atbdp_multi_select('textarea', 'custom_field');
         atbdp_multi_select('select', 'custom_field');
-
-
         var field_checked = $('input[name^="custom_field"]:checked');
         if (field_checked.length > 1) {
             field_checked.each(function () {
@@ -562,8 +549,7 @@ jQuery(function ($) {
             var value = field_checked.val();
             form_data.append(name, value);
         }
-
-
+        // locations
         var locaitons = $("#at_biz_dir-location").val();
         if (locaitons) {
             for (var key in locaitons) {
@@ -571,6 +557,7 @@ jQuery(function ($) {
                 form_data.append("tax_input[at_biz_dir-location][]", value);
             }
         }
+        // tags
         var tags = $("#at_biz_dir-tags").val();
         if (tags) {
             for (var key in tags) {
@@ -578,6 +565,7 @@ jQuery(function ($) {
                 form_data.append("tax_input[at_biz_dir-tags][]", value);
             }
         }
+        // categories
         var categories = $("#at_biz_dir-categories").val();
         if (categories) {
             for (var key in categories) {
@@ -585,7 +573,7 @@ jQuery(function ($) {
                 form_data.append("admin_category_select[]", value);
             }
         }
-
+        // social
         $('select[name^="social"]').each(function () {
             var name = $(this).attr("name");
             var value = $(this).val();
@@ -606,8 +594,29 @@ jQuery(function ($) {
         atbdp_multi_select('textarea', 'faqs');
         // google recaptcha
         atbdp_multi_select('textarea', 'g-recaptcha-response');
-
-
+        // business hours
+        form_data.append('disable_bz_hour_listing', atbdp_is_checked('disable_bz_hour_listing'));
+        form_data.append('enable247hour', atbdp_is_checked('enable247hour'));
+        var bh_field = $('input[name^="bdbh"]');
+        if (bh_field.length > 1) {
+            bh_field.each(function (index, value) {
+                var type = $(value).attr('type');
+                if (type === "checkbox") {
+                    var name = $(this).attr("name");
+                    var value = atbdp_is_checked(name);
+                    form_data.append(name, value);
+                }else{
+                    var name = $(this).attr("name");
+                    var value = $(this).val();
+                    form_data.append(name, value);
+                }
+            });
+        } else {
+            var name = bh_field.attr("name");
+            var value = bh_field.val();
+            form_data.append(name, value);
+        }
+        form_data.append('timezone', $('select[name="timezone"]').val());
 
         $('#listing_notifier').show().html('Sending information, Please wait..');
         $.ajax({
@@ -617,6 +626,7 @@ jQuery(function ($) {
             url: ajaxurl,
             data: form_data,
             success: function (response) {
+                // var data = JSON.parse(response);
                 console.log(response);
                 if ((response.success === true) || (response.need_payment === true)) {
                     $('#listing_notifier').show().html(response.success_msg);

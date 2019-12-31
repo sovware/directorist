@@ -60,6 +60,17 @@ if (!class_exists('ATBDP_Add_Listing')):
             return $attach_id;
         }
 
+        private function atbdp_get_file_attachment_id($array, $name){
+            $id = null;
+            foreach ($array as $item){
+                if ( $item['name'] ===  $name) {
+                    $id = $item['id'];
+                    break;
+                }
+            }
+            return $id;
+        }
+
         /**
          * @since 5.6.3
          */
@@ -188,12 +199,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
                     $metas['_manual_lng']        = !empty($p['manual_lng'])? sanitize_text_field($p['manual_lng']) : '';
                     $metas['_hide_map']             = !empty($p['hide_map'])? sanitize_text_field($p['hide_map']) : '';
-                    if( empty($display_glr_img_for) && !empty($display_gellery_field)) {
-                        $metas['_listing_img'] = !empty($p['listing_img']) ? atbdp_sanitize_array($p['listing_img']) : array();
-                    }
-                    if (empty($display_prv_img_for) && !empty($display_prv_field)) {
-                        $metas['_listing_prv_img'] = !empty($p['listing_prv_img']) ? sanitize_text_field($p['listing_prv_img']) : '';
-                    }
                     $metas['_hide_contact_info'] = !empty($p['hide_contact_info'])? sanitize_text_field($p['hide_contact_info']) : 0;
                     $metas['_hide_contact_owner'] = !empty($p['hide_contact_owner'])? sanitize_text_field($p['hide_contact_owner']) : 0;
                     $metas['_t_c_check']         = !empty($p['t_c_check'])? sanitize_text_field($p['t_c_check']) : 0;
@@ -260,8 +265,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $listing_type = !empty($p['listing_type']) ? sanitize_text_field($p['listing_type']) : '';
                         //store the plan meta
                         $plan_meta = get_post_meta($subscribed_package_id);
-                        $slider_image = $plan_meta['fm_allow_slider'][0];
-                        $slider = !empty($slider_image)?$slider_image:'';
 
                         if (('regular' === $listing_type) && ('package' === $plan_type)) {
                             if (( ($plan_meta['num_regular'][0] < $total_regular_listing) || (0 >= $total_regular_listing)) && empty($plan_meta['num_regular_unl'][0])) {
@@ -276,14 +279,7 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                             }
                         }
-                        $listing_images = !empty($metas['_listing_img'])?$metas['_listing_img']:array();
-                        $totat_image = count($listing_images);
-                        if ($slider){
-                            if ($plan_meta['num_image'][0]<$totat_image && empty($plan_meta['num_image_unl'][0])){
-                                $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of '.$plan_meta['num_image'][0].' image(s)', 'directorist') . '</strong></div>';
-                                $data['message'] = $msg;
-                            }
-                        }
+
                         if (class_exists('BD_Gallery')){
                             $gallery_images = !empty($metas['_gallery_img'])?$metas['_gallery_img']:array();
                             $_gallery_img = count($gallery_images);
@@ -378,11 +374,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 $args['post_content' ] = $content;
                             }
                             $post_id = wp_update_post($args);
-                            if (!empty($p['listing_prv_img'])){
-                                set_post_thumbnail( $post_id, sanitize_text_field($p['listing_prv_img']) );
-                            }else{
-                                delete_post_thumbnail($post_id);
-                            }
 
                             if (!empty($location)){
                                 $append = false;
@@ -538,55 +529,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                             $post_id = wp_insert_post($args);
                             do_action('atbdp_listing_inserted', $post_id);//for sending email notification
 
-                            // uploading media files
-
-                           /* $files = $_FILES["listing_img"];
-                            $files_meta = $_POST['files_meta'];
-                            $attach_id = array(['id' => 1, 'name'=> 'sdkdjksdjs']);
-                            $new_files_meta = [];
-
-                            foreach ($files_meta as $key => $value) {
-                                if ( $key === 0 ) {
-                                    // Make it featured
-                                    if ($meta['oldFile'] === true) {
-                                        array_push($new_files_meta, $value['attachmentID']);
-                                    } else {
-                                        $new_id = get_file_attachment_id($attach_id, $meta['name']);
-                                        array_push($new_files_meta, $new_id);
-                                    }
-                                } else {
-                                    if ($meta['oldFile'] === true) {
-                                        array_push($new_files_meta, $value['attachmentID']);
-                                    } else {
-                                        $new_id = get_file_attachment_id($attach_id, $meta['name']);
-                                        array_push($new_files_meta, $new_id);
-                                    }
-                                }
-                            }*/
-
-
-                            if ( $_FILES ) {
-                                $files = $_FILES["listing_img"];
-                                $attach_id = array();
-                                foreach ($files['name'] as $key => $value) {
-                                    if ($files['name'][$key]) {
-                                        $file = array(
-                                            'name' => $files['name'][$key],
-                                            'type' => $files['type'][$key],
-                                            'tmp_name' => $files['tmp_name'][$key],
-                                            'error' => $files['error'][$key],
-                                            'size' => $files['size'][$key]
-                                        );
-                                        $_FILES = array ("my_file_upload" => $file);
-                                        foreach ($_FILES as $file => $array) {
-                                            $attach_id[] = $this->atbdp_handle_attachment($file,$post_id);
-                                        }
-                                        update_post_meta($post_id, '_listing_img', array_slice($attach_id, 1));
-                                        update_post_meta($post_id, '_listing_prv_img', $attach_id[0]);
-                                    }
-                                }
-                            }
-
                             //Every post with the published status should contain all the post meta keys so that we can include them in query.
                             if ('publish' == $new_l_status || 'pending' == $new_l_status) {
                                 $expire_in_days = get_directorist_option('listing_expire_in_days');
@@ -691,6 +633,80 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     }
                     if (!empty($post_id)){
+                        // handling media files
+                        $listing_images = atbdp_get_listing_attachment_ids($post_id);
+                        $files = $_FILES["listing_img"];
+                        $files_meta = $_POST['files_meta'];
+                        foreach ( $listing_images as $__old_id ) {
+                            $match_found = false;
+                            foreach ($files_meta as $__new_id) {
+                                $new_id = (int)$__new_id['attachmentID'];
+                                if ($new_id === (int)$__old_id) {
+                                    $match_found = true;
+                                    break;
+                                }
+                            }
+                            if (!$match_found) {
+                                wp_delete_attachment((int)$__old_id, true);
+                            }
+                        }
+                        $attach_data = array();
+                        if ( $files ) {
+                            foreach ($files['name'] as $key => $value) {
+                                if ($files['name'][$key]) {
+                                    $file = array(
+                                        'name' => $files['name'][$key],
+                                        'type' => $files['type'][$key],
+                                        'tmp_name' => $files['tmp_name'][$key],
+                                        'error' => $files['error'][$key],
+                                        'size' => $files['size'][$key]
+                                    );
+                                    $_FILES = array ("my_file_upload" => $file);
+                                    $meta_data = [];
+
+                                    foreach ($_FILES as $file => $array) {
+                                        $meta_data['name'] = $files['name'][$key];
+                                        $meta_data['id'] = $this->atbdp_handle_attachment($file,$post_id);
+                                    }
+                                    array_push($attach_data, $meta_data );
+                                }
+                            }
+                        }
+
+                        $new_files_meta = [];
+                        foreach ($files_meta as $key => $value) {
+                            if ( $key === 0 && $value['oldFile'] === 'true' ) {
+                                if (empty($display_prv_img_for) && !empty($display_prv_field)) {
+                                    update_post_meta($post_id, '_listing_prv_img', $value['attachmentID']);
+                                    set_post_thumbnail( $post_id, $value['attachmentID'] );
+                                }
+                            }
+                            if ( $key === 0 && $value['oldFile'] !== 'true' ) {
+                                foreach ($attach_data as $item){
+                                    if ( $item['name'] ===  $value['name']) {
+                                        $id = $item['id'];
+                                        if (empty($display_prv_img_for) && !empty($display_prv_field)) {
+                                            update_post_meta($post_id, '_listing_prv_img', $id);
+                                            set_post_thumbnail($post_id, $id);
+                                        }
+                                    }
+                                }
+                            }
+                            if ( $key !== 0 && $value['oldFile'] === 'true' ) {
+                                array_push($new_files_meta, $value['attachmentID']);
+                            }
+                            if ( $key !== 0 && $value['oldFile'] !== 'true' ) {
+                                foreach ($attach_data as $item){
+                                    if ( $item['name'] ===  $value['name']) {
+                                        $id = $item['id'];
+                                        array_push($new_files_meta, $id);
+                                    }
+                                }
+                            }
+                        }
+                        if( empty($display_glr_img_for) && !empty($display_gellery_field)) {
+                            update_post_meta($post_id, '_listing_img', $new_files_meta);
+                        }
 
                         // Redirect to avoid duplicate form submissions
                         // if monetization on, redirect to checkout page

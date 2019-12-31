@@ -6,7 +6,7 @@
  * Initial Release: 24 December, 2019
  * */
 
-.ez-media-uploader {
+ .ez-media-uploader {
   margin: 10px auto;
   position: relative;
   padding: 10px 10px;
@@ -19,7 +19,7 @@
   background-color: #f2f2f2;
 }
 
-.ezmu-old-files {
+.ezmu__old-files {
   display: none;
 }
 
@@ -80,19 +80,20 @@
   text-align: center;
 }
 
-.ezmu__media-picker-icon-bg {
-  display: inline-block;
-  width: 60px;
-  height: 60px;
-  background-image: url('./../images/cloud-upload-alt-solid.svg');
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-}
-
 .ezmu__media-picker-icon-img {
   width: 60px;
   height: auto;
+}
+
+.ezmu__media-picker-icon-img-bg {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  vertical-align: bottom;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-image: url('../images/cloud-upload-alt-solid.svg');
 }
 
 .ezmu__media-picker-buttons {
@@ -101,6 +102,7 @@
 }
 
 .ezmu__upload-button-wrap {
+  margin-top: 10px;
   display: inline-block;
 }
 .ezmu__file-input {
@@ -111,7 +113,6 @@
 }
 
 .ezmu__btn {
-  margin-top: 10px;
   display: inline-block;
   margin-bottom: 0.5rem;
   padding: 8px 15px;
@@ -154,20 +155,19 @@
 }
 
 .ezmu__loading-icon-img {
-  display: inline-block;
   width: 64px;
   height: auto;
   animation: ezmuSpin linear infinite 2s;
 }
 
-.ezmu__loading-icon-bg {
-  display: inline-block;
+.ezmu__loading-icon-img-bg {
   width: 64px;
   height: 64px;
-  background: url("./../images/spinner-solid.svg");
+  display: inline-block;
+  background-image: url('../images/spinner-solid.svg');
+  background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  background-repeat: no-repeat;
   animation: ezmuSpin linear infinite 2s;
 }
 
@@ -239,7 +239,7 @@
   cursor: pointer;
   transition: all ease-in-out 200ms;
   background-color: rgba(255, 255, 255, 0.8);
-  background-image: url('./../images/times-solid-dark.svg');
+  background-image: url('../images/times-solid-dark.svg');
   background-repeat: no-repeat;
   background-size: 12px;
   background-position: center;
@@ -248,7 +248,7 @@
 .ezmu__front-item__close-icon:hover {
   color: #fff;
   background-color: rgba(255, 0, 0, 0.7);
-  background-image: url('./../images/times-solid-light.svg');
+  background-image: url('../images/times-solid-light.svg');
 }
 
 .ezmu__front-item__close-icon-img {
@@ -318,12 +318,12 @@
 }
 
 .ezmu__front-item__sort-button.--sort-up {
-  background-image: url('./../images/chevron-right-solid.svg');
+  background-image: url('../images/chevron-right-solid.svg');
 }
 
 
 .ezmu__front-item__sort-button.--sort-down {
-  background-image: url('./../images/chevron-left-solid.svg');
+  background-image: url('../images/chevron-left-solid.svg');
 }
 
 .ezmu__front-item__sort-button:hover {
@@ -355,6 +355,16 @@
   object-fit: contain;
 }
 
+.ezmu__thumbnail-img-bg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100px 100px;
+  background-image: url('../images/file-solid.svg');
+}
+
 .ezmu__thumbnail-icon {
   display: block;
   margin: 0 auto;
@@ -381,8 +391,8 @@
 
 .ezmu__title-1 {
   display: block !important;
-  text-align: center !important;
   font-size: 2rem !important;
+  text-align: center !important;
 }
 .ezmu__title-2 {
   display: block !important;

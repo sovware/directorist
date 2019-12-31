@@ -1760,6 +1760,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 10px 15px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_custom_fields .atbd_custom_field_content p {
+  word-wrap: break-word;
+}
+
 .atbd_content_active #directorist.atbd_wrapper #client_review_list .atbd_single_review {
   padding-bottom: 26px;
   padding-top: 30px;

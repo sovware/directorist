@@ -5042,20 +5042,6 @@ The Administrator of ==SITE_NAME==
         public function get_listings_image_field_settings()
         {
             return apply_filters('atbdp_image_field_setting', array(
-
-                array(
-                    'type' => 'toggle',
-                    'name' => 'display_prv_field',
-                    'label' => __('Enable Preview Image', 'directorist'),
-                    'default' => 1,
-                ),
-                array(
-                    'type' => 'textbox',
-                    'name' => 'preview_label',
-                    'label' => __('Preview Image Label', 'directorist'),
-                    'default' => __('Upload Preview Image', 'directorist'),
-                ),
-
                 array(
                     'type' => 'toggle',
                     'name' => 'display_gellery_field',
@@ -5070,21 +5056,29 @@ The Administrator of ==SITE_NAME==
                 ),
                 array(
                     'type' => 'toggle',
-                    'name' => 'require_preview_img',
-                    'label' => __('Required Preview Image', 'directorist'),
-                    'default' => 0,
-                ),
-                array(
-                    'type' => 'toggle',
                     'name' => 'require_gallery_img',
                     'label' => __('Required Gallery', 'directorist'),
                     'default' => 0,
                 ),
                 array(
-                    'type' => 'toggle',
-                    'name' => 'display_prv_img_for',
-                    'label' => __('Preview Image Only For Admin Use', 'directorist'),
-                    'default' => 0,
+                    'type' => 'slider',
+                    'name' => 'max_gallery_image_limit',
+                    'label' => __('Max Upload Limit', 'directorist'),
+                    'min' => '1',
+                    'max' => '100',
+                    'step' => '1',
+                    'default' => '5',
+
+                ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'max_gallery_upload_size',
+                    'label' => __('Max Upload Size in MB', 'directorist'),
+                    'min' => '.5',
+                    'max' => '100',
+                    'step' => '.5',
+                    'default' => '4',
+
                 ),
                 array(
                     'type' => 'toggle',

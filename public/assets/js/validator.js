@@ -188,25 +188,6 @@ jQuery(document).ready(function ($) {
                 return false;
             }
         }
-        //listing_prv_img
-        if ($("input[name='listing_prv_img']").length > 0) {
-            var listing_prv_img = $("input[name='listing_prv_img']").val();
-            var required_listing_prv_img = add_listing_validator.listing_prv_img;
-            if ('' === listing_prv_img && '' !== required_listing_prv_img && !need_post) {
-                $("input[name='listing_prv_img']").parents('.form-group').append('<span style="text-align: center;display: block" class="atbdp_required">' + w_icon + required_listing_prv_img + '</span>');
-                return false;
-            }
-        }
-
-        //slider
-        if ($("#no_image_set").length > 0) {
-            var gallery_image = $("#no_image_set").length;
-            var required_gallery_image = add_listing_validator.gallery_image;
-            if (1 === gallery_image && '' !== required_gallery_image && !need_post) {
-                $(".listing-img-container").append('<span class="atbdp_required">' + w_icon + required_gallery_image + '</span>');
-                return false;
-            }
-        }
 
         //video
         if ($("input[name='videourl']").length > 0) {

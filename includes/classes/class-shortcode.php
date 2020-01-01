@@ -3513,17 +3513,7 @@ if (!class_exists('ATBDP_Shortcode')):
 
                 echo '<div id="directorist" class="atbd_wrapper directorist">
     <div class="container-fluid"><div class="row"> <div class="col-md-6 offset-md-3"><div class="atbdp_login_form_shortcode">';
-                if (isset($_GET['login']) && $_GET['login'] == 'failed') {
-                printf('<p class="alert-danger"><span class="fa fa-exclamation"></span>%s</p>', __(' Invalid username or password!', 'directorist'));
-                $location = ATBDP_Permalink::get_login_page_link();
-                ?>
-                    <script>
-                        if (typeof window.history.pushState == 'function') {
-                            window.history.pushState({}, "Hide", '<?php echo $location;?>');
-                        }
-                    </script>
-                <?php
-                }
+
                 $log_username = get_directorist_option('log_username', __('Username or Email Address', 'directorist'));
                 $log_password = get_directorist_option('log_password', __('Password', 'directorist'));
                 $display_rememberMe = get_directorist_option('display_rememberme', 1);

@@ -192,13 +192,7 @@ jQuery(function ($) {
         metaBox = $('#_listing_gallery'), // meta box id here
         addImgLink = metaBox.find('#listing_image_btn'),
         delImgLink = metaBox.find('#delete-custom-img'),
-        imgContainer = metaBox.find('.listing-img-container'),
-        active_mi_ext = atbdp_admin_data.active_mi_ext;
-
-    /*if the multiple image extension is active then set the multiple image parameter to true*/
-    if (1 === active_mi_ext) {
-        multiple_image = true
-    }
+        imgContainer = metaBox.find('.listing-img-container');
 
     // ADD IMAGE LINK
     addImgLink.on('click', function (event) {
@@ -943,20 +937,6 @@ jQuery(function ($) {
     });
     if($('input[name="display_map_field"]').is(":checked") === true){
         lf_opt27.show();
-    }
-
-    //Display form preview image
-    var lf_opt28 = $("#preview_label,#require_preview_img,#display_prv_img_for");
-    lf_opt28.hide();
-    $('input[name="display_prv_field"]').on("change", function () {
-        if($(this).is(":checked") === true){
-            lf_opt28.show();
-        }else{
-            lf_opt28.hide();
-        }
-    });
-    if($('input[name="display_prv_field"]').is(":checked") === true){
-        lf_opt28.show();
     }
 
     //Display gallery image

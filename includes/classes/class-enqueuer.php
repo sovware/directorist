@@ -22,12 +22,6 @@ class ATBDP_Enqueuer {
         add_action( 'wp_enqueue_scripts', array( $this, 'custom_color_picker_scripts' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'search_listing_scripts_styles' ) );
 
-        /*The plugins_loaded action hook fires early, and precedes the setup_theme, after_setup_theme, init and wp_loaded action hooks.
-        This is why calling is_multiple_images_active() which is a wrapper function of vp_option() returned false all the time here.
-        Because we bootstrapped the Vafpress at the after_theme_setup hook as directed by the author for various good reason.
-        This bug took very hard time to fix :'( I should be more aware of the sequence of hook.*/
-        add_action('init', array($this, 'everything_has_loaded_and_ready')); // otherwise, vp_option would return null
-
     }
 
     public function custom_color_picker_scripts() {
@@ -55,13 +49,6 @@ class ATBDP_Enqueuer {
         wp_localize_script( 'wp-color-picker', 'wpColorPickerL10n', $colorpicker_l10n );
 
     }
-
-
-    public function everything_has_loaded_and_ready()
-    {
-        $this->enable_multiple_image = is_multiple_images_active() ? 1 : 0; // is the MI Extension is installed???
-    }
-
 
 
     public function admin_enqueue_scripts( $page ) {
@@ -150,7 +137,6 @@ class ATBDP_Enqueuer {
                 'nonceName'         => 'atbdp_nonce_js',
                 'AdminAssetPath'    => ATBDP_ADMIN_ASSETS,
                 'i18n_text'         => $i18n_text,
-                'active_mi_ext'     => $this->enable_multiple_image, // 1 or 0
             );
             wp_localize_script( 'atbdp-admin-script', 'atbdp_admin_data', $data );
             wp_enqueue_media();
@@ -379,11 +365,6 @@ class ATBDP_Enqueuer {
             'location_selection' => esc_attr($loc_placeholder),
             'category_selection' => esc_attr($cat_placeholder),
             'tag_selection' => esc_attr($tag_placeholder),
-            'upload_image' => __('Select or Upload Slider Image', 'directorist'),
-            'choose_image' => __('Use this Image', 'directorist'),
-            'select_prv_img_front' => __('Select Preview Image', 'directorist'),
-            'insert_prv_img_front' => __('Insert Preview Image', 'directorist'),
-            'change_prv_img_front' => __('Change Preview Image', 'directorist'),
         );
 
         //get listing is if the screen in edit listing
@@ -397,18 +378,6 @@ class ATBDP_Enqueuer {
             $fm_plans = get_post_meta($listing_id, '_fm_plans', true);
         }
 
-        // is MI extension enabled and active?
-        $active_mi_extension = $this->enable_multiple_image; // 1 or 0
-        $plan_image = 999;
-        if (is_fee_manager_active()){
-            $selected_plan = selected_plan_id();
-            $planID = !empty($selected_plan)?$selected_plan:$fm_plans;
-            $allow_slider = is_plan_allowed_slider($planID);
-            $slider_unl = is_plan_slider_unlimited($planID);
-            if (!empty($allow_slider) && empty($slider_unl)){
-                $plan_image = is_plan_slider_limit($planID);
-            }
-        }
         $cat_placeholder = get_directorist_option('cat_placeholder', __('Select Category', 'directorist'));
         $data = array(
             'nonce'            => wp_create_nonce('atbdp_nonce_action_js'),
@@ -416,8 +385,6 @@ class ATBDP_Enqueuer {
             'nonceName'        => 'atbdp_nonce_js',
             'PublicAssetPath'  => ATBDP_PUBLIC_ASSETS,
             'i18n_text'        => $i18n_text,
-            'active_mi_ext'    => $active_mi_extension, // 1 or 0
-            'plan_image'       => $plan_image,
             'create_new_tag' => $new_tag,
             'cat_placeholder' => $cat_placeholder,
             'image_notice' => __('Sorry! You have crossed the maximum image limit', 'directorist'),

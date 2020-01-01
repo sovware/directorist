@@ -126,10 +126,8 @@ $display_map_field = get_directorist_option('display_map_field', 1);
 $display_map_for = get_directorist_option('display_map_for', 0);
 $address_placeholder = get_directorist_option('address_placeholder', __('Listing address eg. New York, USA', 'directorist'));
 $website_placeholder = get_directorist_option('website_placeholder', __('Listing Website eg. http://example.com', 'directorist'));
-$display_prv_field = get_directorist_option('display_prv_field', 1);
 $display_gellery_field = get_directorist_option('display_gellery_field', 1);
 $display_video_field = get_directorist_option('display_video_field', 1);
-$display_prv_img_for = get_directorist_option('display_prv_img_for', 0);
 $display_glr_img_for = get_directorist_option('display_glr_img_for', 0);
 $display_video_for = get_directorist_option('display_video_for', 0);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
@@ -1112,7 +1110,7 @@ $query_args = array(
                                         $plan_slider = is_plan_allowed_slider($fm_plan);
                                     }
                                     ?>
-                                    <?php if ((!empty($display_prv_field) && empty($display_prv_img_for)) || (!empty($display_gellery_field) && empty($display_glr_img_for)) || (empty($display_video_for) && !empty($display_video_field) && $plan_video)) { ?>
+                                    <?php if ((!empty($display_gellery_field) && empty($display_glr_img_for)) || (empty($display_video_for) && !empty($display_video_field) && $plan_video)) { ?>
                                         <div class="atbd_content_module" id="atbdp_front_media_wrap">
                                             <div class="atbd_content_module__tittle_area">
                                                 <div class="atbd_area_title">
@@ -1129,9 +1127,22 @@ $query_args = array(
 
                                             <div class="atbdb_content_module_contents atbdp_video_field">
                                                 <!--Image Uploader-->
-                                                <?php if ((!empty($display_prv_field) && empty($display_prv_img_for)) || (!empty($display_gellery_field) && empty($display_glr_img_for))) { ?>
-                                                    <div id="_listing_gallery" class="ez-media-uploader" data-max-file-items="15"
-                                                         data-max-total-file-size="30720">
+                                                <?php if (!empty($display_gellery_field) && empty($display_glr_img_for) && $plan_slider) {
+                                                    $plan_image = get_directorist_option('max_gallery_image_limit', 5);
+                                                    if (is_fee_manager_active()){
+                                                        $selected_plan = selected_plan_id();
+                                                        $planID = !empty($selected_plan)?$selected_plan:$fm_plan;
+                                                        $allow_slider = is_plan_allowed_slider($planID);
+                                                        $slider_unl = is_plan_slider_unlimited($planID);
+                                                        if (!empty($allow_slider) && empty($slider_unl)){
+                                                            $plan_image = is_plan_slider_limit($planID);
+                                                        }
+                                                    }
+                                                    $max_size = get_directorist_option('max_gallery_upload_size', 4);
+                                                    $max_size_kb = (int)$max_size*1024;
+                                                    ?>
+                                                    <div id="_listing_gallery" class="ez-media-uploader" data-max-file-items="<?php echo $plan_image; ?>"
+                                                         data-max-total-file-size="<?php echo $max_size_kb; ?>">
                                                         <!-- --><?php /*ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider', 'p_id'));
                                                         */ ?>
                                                         <div class="ezmu__loading-section --show">

@@ -432,7 +432,7 @@ jQuery(function ($) {
         }
         form_data.append('timezone', $('select[name="timezone"]').val());
 
-        $('#listing_notifier').show().html('Sending information, Please wait..');
+        $('#listing_notifier').show().html('<span>Sending information, Please wait..</span>');
         $.ajax({
             method: 'POST',
             processData: false,
@@ -443,11 +443,11 @@ jQuery(function ($) {
                 // var data = JSON.parse(response);
                 console.log(response);
                 if ((response.success === true) || (response.need_payment === true)) {
-                    $('#listing_notifier').show().html(response.success_msg);
+                    $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
                     window.location.href = response.redirect_url;
                 }
                 if (response.error === true) {
-                    $('#listing_notifier').show().html(response.error_msg);
+                    $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
                     //window.location.href = response.redirect_url;
                 }
             },

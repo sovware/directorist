@@ -1170,6 +1170,27 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 10px 15px;
 }
 
+.atbd_privacy_policy_area {
+  text-align: center;
+}
+
+#directorist.atbd_wrapper .ezmu__btn {
+  box-shadow: none;
+  background: #444752;
+  color: #fff;
+  transition: 0.3s ease;
+}
+
+#directorist.atbd_wrapper .ezmu__btn:hover {
+  background: #222;
+}
+
+div#listing_notifier span {
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

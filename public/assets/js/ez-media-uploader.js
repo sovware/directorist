@@ -997,6 +997,10 @@
   }
 
   function updateValidationFeedback( error_log, container ) {
+    if ( !container ) {
+      return;
+    }
+
     container.innerHTML = '';
     
     if ( !error_log.length ) {

@@ -1236,7 +1236,9 @@ $query_args = array(
                                             <input id="privacy_policy" type="checkbox"
                                                    name="privacy_policy" <?php if (!empty($privacy_policy)) if ('on' == $privacy_policy) {
                                                 echo 'checked';
-                                            } ?>><label for="privacy_policy"><?php echo esc_attr($privacy_label); ?><a
+                                            } ?>>
+                                            <label for="privacy_policy"><?php echo esc_attr($privacy_label); ?>
+                                                <a
                                                         style="color: red" target="_blank"
                                                         href="<?php echo esc_url($privacy_page_link) ?>" id=""
                                                 ><?php echo esc_attr($privacy_label_link); ?></a></label>

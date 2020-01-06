@@ -15,10 +15,22 @@
       oldFielsUrl: null,
       maxFileSize: 2048,
       maxTotalFileSize: 4096,
+      minFileItems: false,
       maxFileItems: false,
       allowedFileFormats: ["images"],
       allowMultiple: true,
-      featured: true
+      featured: true,
+      dictionary: {
+        featured: 'Featured',
+        dragNDrop: 'Drag & Drop',
+        or: 'or',
+        dropHere: 'Drop Here',
+        selectFiles: 'Select Files',
+        addMore: 'Add More',
+        maxTotalFileSize: 'Max limit for total file size is __DT__',
+        minFileItems: 'Min limit for total file is __DT__',
+        maxFileItems: 'Max limit for total file is __DT__',
+      }
     };
 
     // Data
@@ -26,7 +38,6 @@
     if ( typeof args === 'object' && args !== null ) {
       this.options = extendDefaults(defaults, args);
     }
-    
     this.oldFiles = [];
     this.files = [];
     this.filesMeta = [];
@@ -54,6 +65,7 @@
       this.container = container;
 
       this.getMarkupOptions();
+      this.getMarkupDictionary();
       this.loadOldFiels();
       this.attachElements();
       this.updatePreview();
@@ -61,25 +73,32 @@
     };
 
     this.getMarkupOptions = function() {
+      if (!this.container) { return null; }
+
       var container = this.container;
 
       // maxFileSize
       var max_file_size = container.getAttribute('data-max-file-size');
       if ( max_file_size && max_file_size.length) {
-        this.options.maxFileSize = max_file_size;
+        this.options.maxFileSize = parseInt(max_file_size);
       }
 
       // maxTotalFileSize
       var max_total_file_size = container.getAttribute('data-max-total-file-size');
       if ( max_total_file_size && max_total_file_size.length) {
-        this.options.maxTotalFileSize = max_total_file_size;
+        this.options.maxTotalFileSize = parseInt(max_total_file_size);
       }
-      
+
+      // minFileItems
+      var min_file_items = container.getAttribute('data-min-file-items');
+      if ( min_file_items && min_file_items.length) {
+        this.options.minFileItems = parseInt(min_file_items);
+      }
 
       // maxFileItems
       var max_file_items = container.getAttribute('data-max-file-items');
       if ( max_file_items && max_file_items.length) {
-        this.options.maxFileItems = max_file_items;
+        this.options.maxFileItems = parseInt(max_file_items);
       }
 
       // allowedFileFormats
@@ -99,9 +118,65 @@
       } else {
         this.options.allowMultiple = true;
       }
-    }
+    };
+
+    this.getMarkupDictionary = function() {
+      if (!this.container) { return null; }
+
+      var container = this.container;
+
+      var featured = container.querySelectorAll('.ezmu-dictionary-featured');
+      if ( featured && featured.length ) {
+        var featured_dic = featured[0].innerHTML;
+        this.options.dictionary.featured = featured_dic;
+      }
+
+      var drag_n_drop = container.querySelectorAll('.ezmu-dictionary-drag-n-drop');
+      if ( drag_n_drop && drag_n_drop.length ) {
+        var drag_n_drop_dic = drag_n_drop[0].innerHTML;
+        this.options.dictionary.dragNDrop = drag_n_drop_dic;
+      }
+
+      var or = container.querySelectorAll('.ezmu-dictionary-or');
+      if ( or && or.length ) {
+        var or_dic = or[0].innerHTML;
+        this.options.dictionary.or = or_dic;
+      }
+
+      var select_files = container.querySelectorAll('.ezmu-dictionary-select-files');
+      if ( select_files && select_files.length ) {
+        var select_files_dic = select_files[0].innerHTML;
+        this.options.dictionary.selectFiles = select_files_dic;
+      }
+
+      var add_more = container.querySelectorAll('.ezmu-dictionary-add-more');
+      if ( add_more && add_more.length ) {
+        var add_more_dic = add_more[0].innerHTML;
+        this.options.dictionary.addMore = add_more_dic;
+      }
+
+      var max_total_file_size = container.querySelectorAll('.ezmu-dictionary-max-total-file-size');
+      if ( max_total_file_size && max_total_file_size.length ) {
+        var max_total_file_size_dic = max_total_file_size[0].innerHTML;
+        this.options.dictionary.maxTotalFileSize = max_total_file_size_dic;
+      }
+
+      var min_file_items = container.querySelectorAll('.ezmu-dictionary-min-file-items');
+      if ( min_file_items && min_file_items.length ) {
+        var min_file_items_dic = min_file_items[0].innerHTML;
+        this.options.dictionary.minFileItems = min_file_items_dic;
+      }
+
+      var max_file_items = container.querySelectorAll('.ezmu-dictionary-max-file-items');
+      if ( max_file_items && max_file_items.length ) {
+        var max_file_items_dic = max_file_items[0].innerHTML;
+        this.options.dictionary.maxFileItems = max_file_items_dic;
+      }
+    };
 
     this.getTheFiles = function() {
+      if (!this.container) { return null; }
+
       var final_files = [];
 
       if (!this.filesMeta.length) {
@@ -118,6 +193,8 @@
     };
 
     this.getFilesMeta = function() {
+      if (!this.container) { return null; }
+
       var final_files_meta = [];
       if (!this.filesMeta.length) {
         return final_files_meta;
@@ -154,20 +231,26 @@
     };
 
     this.validateFiles = function() {
+      if (!this.container) { return null; }
+
       var files = this.filesMeta;
       var error_log = [];
 
-      if (!files.length) {
-        updateValidationFeedback(error_log, this.statusSection);
-        return true;
+      // Validate Min File Items
+      var min_file_items = this.options.minFileItems;
+      if ( min_file_items && (files.length < min_file_items)) {
+        error_log.push({
+          errorKey: "minFileItems",
+          message: this.options.dictionary.minFileItems.replace(/(__DT__)/g, min_file_items)
+        });
       }
 
       // Validate Max File Items
       var max_file_items = this.options.maxFileItems;
-      if ( files.length > max_file_items) {
+      if ( max_file_items && (files.length > max_file_items)) {
         error_log.push({
           errorKey: "maxFileItems",
-          message: "Max limit for total file is " + max_file_items
+          message: this.options.dictionary.maxFileItems.replace(/(__DT__)/g, max_file_items)
         });
       }
 
@@ -179,7 +262,7 @@
       var total_file_size_in_byte = 0;
 
       forEach(files, function(file) {
-        if ('fileSize' in file) {
+        if ( (typeof file === 'object' && file !== null) && 'fileSize' in file) {
           total_file_size_in_byte += file.fileSize;
         }
       });
@@ -187,7 +270,7 @@
       if (total_file_size_in_byte > max_total_file_size_in_byte) {
         error_log.push({
           errorKey: "maxTotalFileSize",
-          message: "Max limit for total file size is " + max_total_file_size_in_text
+          message: this.options.dictionary.maxTotalFileSize.replace(/(__DT__)/g, max_total_file_size_in_text)
         });
       }
 
@@ -209,8 +292,10 @@
     };
 
     this.loadOldFiels = function() {
+      if (!this.container) { return null; }
+
       var old_fiels = [];
-      
+
       if ( this.options.oldFiels ) {
         old_fiels = this.getValidatedPaths(this.options.oldFiels);
       }
@@ -240,16 +325,18 @@
         }
 
         if ("size" in file) {
-          filesMeta.fileSize = file.size * 1024; 
-          filesMeta.fileSizeInText = formatedFileSize(file.size * 1024); 
+          filesMeta.fileSize = file.size * 1024;
+          filesMeta.fileSizeInText = formatedFileSize(file.size * 1024);
         }
 
         this.filesMeta.push(filesMeta);
       }
-      
+
     };
 
     this.getValidatedPaths = function(paths) {
+      if (!this.container) { return null; }
+
       if (!Array.isArray(paths)) {
         return null;
       }
@@ -281,17 +368,18 @@
 
     // attachElements
     this.attachElements = function() {
-      if (!this.container) {
-        return;
-      }
+      if (!this.container) { return null; }
+
       var container = this.container;
       addClass(container, "ez-media-uploader");
       container.innerHTML = "";
 
-      var drop_zone_section_elm = createDropZoneSection();
+      this.fileInputID = createFileInputID();
+
+      var drop_zone_section_elm = createDropZoneSection(this);
       var loading_section_elm = createLoadingSection();
       var media_picker_elm = createMediaPickerSection(this);
-      var preview_section_elm = createPreviewSection();
+      var preview_section_elm = createPreviewSection(this);
       var status_section_elm = createStatusSection();
 
       container.appendChild(drop_zone_section_elm);
@@ -301,18 +389,18 @@
       container.appendChild(status_section_elm);
 
       var upload_button_container = container.querySelectorAll(
-        ".ezmu__upload-button-wrap"
+          ".ezmu__upload-button-wrap"
       );
       var media_picker_section = container.querySelectorAll(
-        ".ezmu__media-picker-section"
+          ".ezmu__media-picker-section"
       );
       var preview_section = container.querySelectorAll(
-        ".ezmu__preview-section"
+          ".ezmu__preview-section"
       );
       var thumbnail_area = container.querySelectorAll(".ezmu__thumbnail-area");
       var status_section = container.querySelectorAll(".ezmu__status-section");
       var loading_section = container.querySelectorAll(
-        ".ezmu__loading-section"
+          ".ezmu__loading-section"
       );
 
       this.uploadButtonContainer = upload_button_container ? upload_button_container[0] : null;
@@ -336,7 +424,7 @@
       // Attach Drag & Drop Listener
       this.attachDragNDropListener();
 
-      document.addEventListener("click", function(e) {
+      this.container.addEventListener("click", function(e) {
         if (!e.target) {
           return;
         }
@@ -346,15 +434,19 @@
         }
 
         // Sort Button Event
-        if (hasClass(e.target, "ezmu__front-item__sort-button-skin")) {
-          self.changeOrder(e);
+        if (hasClass(e.target, "ezmu__front-item__sort-button")) {
+          self.changeOrder(e.target);
+        } else if (hasClass(e.target, "ezmu__front-item__sort-button-skin")) {
+          self.changeOrder(e.target.parentElement);
         }
       });
     };
 
     // attachFileChangeListener
     this.attachFileChangeListener = function() {
-      var file_input = this.container.querySelectorAll("#ezmu__file-input");
+      if (!this.container) { return null; }
+
+      var file_input = this.container.querySelectorAll("#" + this.fileInputID);
       var fileInputElm = file_input ? file_input[0] : null;
 
       if (fileInputElm) {
@@ -370,6 +462,8 @@
 
     // attachDragNDropListener
     this.attachDragNDropListener = function() {
+      if (!this.container) { return null; }
+
       var self = this;
       var drop_area = this.container;
       var drag_events = ["dragenter", "dragleave", "dragover", "drop"];
@@ -407,22 +501,22 @@
 
       forEach(["dragenter", "dragover"], function(event_name) {
         document.addEventListener(
-          event_name,
-          function() {
-            addClass(self.container, "drag-enter");
-          },
-          false
+            event_name,
+            function() {
+              addClass(self.container, "drag-enter");
+            },
+            false
         );
         drop_area.addEventListener(event_name, dragEnter, false);
       });
 
       forEach(["dragleave", "drop"], function(event_name) {
         document.addEventListener(
-          event_name,
-          function() {
-            removeClass(self.container, "drag-enter");
-          },
-          false
+            event_name,
+            function() {
+              removeClass(self.container, "drag-enter");
+            },
+            false
         );
         drop_area.addEventListener(event_name, dragLeave, false);
       });
@@ -442,23 +536,24 @@
 
       switch (layout) {
         case "preview":
-          removeClass(loading_section, "--show");
-          removeClass(media_picker_section, "--show");
-          addClass(preview_section, "--show");
+          removeClass(loading_section, "ezmu--show");
+          removeClass(media_picker_section, "ezmu--show");
+          addClass(preview_section, "ezmu--show");
           break;
         case "loading":
-          removeClass(media_picker_section, "--show");
-          // removeClass(preview_section, "--show");
-          addClass(loading_section, "--show");
+          removeClass(media_picker_section, "ezmu--show");
+          // removeClass(preview_section, "ezmu--show");
+          addClass(loading_section, "ezmu--show");
           break;
         default:
-          removeClass(loading_section, "--show");
-          removeClass(preview_section, "--show");
-          addClass(media_picker_section, "--show");
+          removeClass(loading_section, "ezmu--show");
+          removeClass(preview_section, "ezmu--show");
+          addClass(media_picker_section, "ezmu--show");
       }
     };
 
     this.removeFile = function(e) {
+      if (!this.container) { return null; }
       this.updateLayout("loading");
 
       // 1st Parent: parent_front_item_close_icon
@@ -466,7 +561,7 @@
       // 3rd Parent: parent_front
       // 4th Parent: list_item
       var parent =
-        e.target.parentElement.parentElement.parentElement.parentElement;
+          e.target.parentElement.parentElement.parentElement.parentElement;
 
       var id = parent.getAttribute("data-id");
       var files_meta_index = findIndexByKey(this.filesMeta, "id", id);
@@ -494,21 +589,28 @@
       this.updatePreview();
     };
 
-    this.changeOrder = function(e) {
+    this.changeOrder = function(target) {
+      if (!this.container) { return null; }
+
       var total_fiels = this.filesMeta.length;
       if (total_fiels < 2) {
         return;
       }
 
-      var base_elm = e.target.parentElement;
-      var parent =
-        e.target.parentElement.parentElement.parentElement.parentElement;
+      var base_elm = target;
+      var parent_ie = target.parentElement.parentElement.parentElement;
+      var parent = parent_ie.parentElement;
 
       var id = parent.getAttribute("data-id");
+      if ( !id ) {
+        id = parent_ie.getAttribute("data-id");
+      }
+      if ( !id ) { return; }
+
       var base_index = findIndexByKey(this.filesMeta, "id", id);
 
       var target_index;
-      if (hasClass(base_elm, "--sort-up")) {
+      if (hasClass(base_elm, "ezmu--sort-up")) {
         target_index = base_index + 1;
 
         if (target_index > total_fiels - 1) {
@@ -516,7 +618,7 @@
         }
       }
 
-      if (hasClass(base_elm, "--sort-down")) {
+      if (hasClass(base_elm, "ezmu--sort-down")) {
         target_index = base_index - 1;
 
         if (target_index < 0) {
@@ -534,6 +636,7 @@
 
     // renderFiles
     this.renderFiles = function(files) {
+      if (!this.container) { return null; }
       var self = this;
 
       if (!files.length) {
@@ -546,8 +649,8 @@
       for (var i = 0; i < files.length; i++) {
         var file_item = files[i];
         var file_is_valid = validateFileExtension(
-          file_item,
-          self.options.allowedFileFormats
+            file_item,
+            self.options.allowedFileFormats
         );
 
         var has_no_duplicate = validateDuplicateFile( this.filesMeta, file_item );
@@ -557,7 +660,7 @@
         }
       }
 
-    
+
       if (!temp_files.length) {
         self.updatePreview();
         return;
@@ -667,48 +770,48 @@
 
   // Helper Functions
   //-------------------------------------------
-  function createDropZoneSection(dara) {
+  function createDropZoneSection(data) {
     var drop_zone_section = document.createElement("div");
     addClass(drop_zone_section, "ezmu__drop-zone-section");
-    drop_zone_section.innerHTML = "<h2>Drop Here</h2>";
+    drop_zone_section.innerHTML = "<h2>"+ data.options.dictionary.dropHere +"</h2>";
 
     return drop_zone_section;
   }
 
   function createMediaPickerSection(data) {
     var media_picker_section = createElementWithClass(
-      "ezmu__media-picker-section --show"
+        "ezmu__media-picker-section ezmu--show"
     );
 
     var media_picker_controls = createElementWithClass(
-      "ezmu__media-picker-controls"
+        "ezmu__media-picker-controls"
     );
 
     var media_picker_icon = createElementWithClass(
-      "ezmu__media-picker-icon", "span"
+        "ezmu__media-picker-icon", "span"
     );
 
     var media_picker_icon_img_bg = createElementWithClass(
-      'ezmu__media-picker-icon-img-bg', 'span'
+        'ezmu__media-picker-icon-img-bg', 'span'
     );
     media_picker_icon.appendChild(media_picker_icon_img_bg);
 
     media_picker_controls.appendChild(media_picker_icon);
 
     var media_picker_buttons = createElementWithClass(
-      "ezmu__media-picker-buttons"
+        "ezmu__media-picker-buttons"
     );
 
-    var titles = document.createElement("p");
-    var title_1 = createElementWithClass("ezmu__title-1", "p", "Drag & Drop");
-    var title_2 = createElementWithClass("ezmu__title-3", "p", "or");
-    titles.appendChild(title_1);
-    titles.appendChild(title_2);
+    var titles_area = createElementWithClass('ezmu__titles-area');
+    var title_1 = createElementWithClass("ezmu__title-1", "p", data.options.dictionary.dragNDrop);
+    var title_2 = createElementWithClass("ezmu__title-3", "p", data.options.dictionary.or);
+    titles_area.appendChild(title_1);
+    titles_area.appendChild(title_2);
 
     var upload_button_wrap = createElementWithClass("ezmu__upload-button-wrap");
     updateFileInputElement(upload_button_wrap, data);
 
-    media_picker_buttons.appendChild(titles);
+    media_picker_buttons.appendChild(titles_area);
     media_picker_buttons.appendChild(upload_button_wrap);
     media_picker_controls.appendChild(media_picker_buttons);
 
@@ -729,7 +832,7 @@
     container.innerHTML = "";
     var file_input = document.createElement("input");
     file_input.setAttribute("type", "file");
-    file_input.setAttribute("id", "ezmu__file-input");
+    file_input.setAttribute("id", data.fileInputID);
     file_input.setAttribute("class", "ezmu__file-input");
     file_input.setAttribute("accept", accept);
 
@@ -738,12 +841,23 @@
     }
 
     var file_input_label = document.createElement("label");
-    file_input_label.setAttribute("for", "ezmu__file-input");
+    file_input_label.setAttribute("for", data.fileInputID);
     file_input_label.setAttribute("class", "ezmu__btn ezmu__input-label");
-    file_input_label.innerHTML = "Select Files";
+    file_input_label.innerHTML = data.options.dictionary.selectFiles;
 
     container.appendChild(file_input);
     container.appendChild(file_input_label);
+  }
+
+  function createFileInputID () {
+    var the_id = 'ezmu__file-input';
+    var file_input = document.querySelectorAll('.ezmu__file-input');
+
+    if ( file_input.length ) {
+      the_id = 'ezmu__file-input-' + (file_input.length + 1);
+    }
+
+    return the_id;
   }
 
   function getFileFormats(allowedFileFormats) {
@@ -764,20 +878,20 @@
     return default_formats;
   }
 
-  function createPreviewSection() {
+  function createPreviewSection(data) {
     var preview_section = createElementWithClass("ezmu__preview-section");
     var thumbnail_area = createElementWithClass("ezmu__thumbnail-area");
     var media_picker_buttons = createElementWithClass(
-      "ezmu__media-picker-buttons"
+        "ezmu__media-picker-buttons"
     );
 
     var upload_button_wrap = createElementWithClass("ezmu__upload-button-wrap");
     var label = createElementWithClass(
-      "ezmu__btn ezmu__input-label",
-      "label",
-      "Add More"
+        "ezmu__btn ezmu__input-label",
+        "label",
+        data.options.dictionary.addMore
     );
-    label.setAttribute("for", "ezmu__file-input");
+    label.setAttribute("for", data.fileInputID);
     upload_button_wrap.appendChild(label);
     media_picker_buttons.appendChild(upload_button_wrap);
 
@@ -792,7 +906,7 @@
   }
   function createLoadingSection(show) {
     // loading_section_elm
-    var class_name = show ? "ezmu__loading-section --show" : "ezmu__loading-section";
+    var class_name = show ? "ezmu__loading-section ezmu--show" : "ezmu__loading-section";
 
     var loading_section = createElementWithClass(class_name);
     var loading_icon = createElementWithClass("ezmu__loading-icon", "span");
@@ -814,7 +928,7 @@
     var id = data && "id" in data ? data.id : "";
 
     var thumbnail_list_item = createElementWithClass(
-      "ezmu__thumbnail-list-item"
+        "ezmu__thumbnail-list-item"
     );
     thumbnail_list_item.setAttribute("data-id", id);
 
@@ -838,7 +952,7 @@
       var thumbnail_list_item_size = createThumbnailListItemSizeElm(data);
       thumbnail_list_item_front.appendChild(thumbnail_list_item_size);
     }
-    
+
     thumbnail_list_item_front.appendChild(thumbnail_list_item_close);
     thumbnail_list_item_front.appendChild(thumbnail_list_item_sort_buttons);
 
@@ -848,8 +962,8 @@
   function createThumbnailListItemCloseElm() {
     var thumbnail_list_item_close = document.createElement("div");
     addClass(
-      thumbnail_list_item_close,
-      "ezmu__thumbnail-front-item ezmu__front-item__close"
+        thumbnail_list_item_close,
+        "ezmu__thumbnail-front-item ezmu__front-item__close"
     );
 
     var thumbnail_list_item_close_icon = createElementWithClass('ezmu__front-item__close-icon', 'span');
@@ -863,11 +977,11 @@
 
   function createThumbnailListItemSizeElm(data) {
     var thumbnail_list_item_size = createElementWithClass(
-      "ezmu__thumbnail-front-item ezmu__front-item__thumbnail-size"
+        "ezmu__thumbnail-front-item ezmu__front-item__thumbnail-size"
     );
     var thumbnail_list_item_size_text = createElementWithClass(
-      "ezmu__front-item__thumbnail-size-text",
-      "span"
+        "ezmu__front-item__thumbnail-size-text",
+        "span"
     );
 
     if (data == null) {
@@ -876,7 +990,7 @@
     }
 
     thumbnail_list_item_size_text.innerHTML =
-      "fileSizeInText" in data ? data.fileSizeInText : "";
+        "fileSizeInText" in data ? data.fileSizeInText : "";
 
     thumbnail_list_item_size.appendChild(thumbnail_list_item_size_text);
     return thumbnail_list_item_size;
@@ -885,34 +999,34 @@
   function createThumbnailListItemSortButtonsElm() {
     var thumbnail_list_item_sort_buttons = document.createElement("div");
     addClass(
-      thumbnail_list_item_sort_buttons,
-      "ezmu__thumbnail-front-item ezmu__front-item__sort-buttons"
+        thumbnail_list_item_sort_buttons,
+        "ezmu__thumbnail-front-item ezmu__front-item__sort-buttons"
     );
 
     var thumbnail_list_item_sort_buttons_down = document.createElement(
-      "button"
+        "button"
     );
     addClass(
-      thumbnail_list_item_sort_buttons_down,
-      "ezmu__front-item__sort-button --sort-down"
+        thumbnail_list_item_sort_buttons_down,
+        "ezmu__front-item__sort-button ezmu--sort-down"
     );
     thumbnail_list_item_sort_buttons_down.setAttribute("type", "button");
 
-    thumbnail_list_item_sort_buttons_down.innerHTML = '<span class="ezmu__front-item__sort-button-skin --sort-down"></span>';
+    thumbnail_list_item_sort_buttons_down.innerHTML = '<span class="ezmu__front-item__sort-button-skin ezmu--sort-down"></span>';
 
     var thumbnail_list_item_sort_buttons_up = document.createElement("button");
     addClass(
-      thumbnail_list_item_sort_buttons_up,
-      "ezmu__front-item__sort-button --sort-up"
+        thumbnail_list_item_sort_buttons_up,
+        "ezmu__front-item__sort-button ezmu--sort-up"
     );
     thumbnail_list_item_sort_buttons_up.setAttribute("type", "button");
-    thumbnail_list_item_sort_buttons_up.innerHTML = '<span class="ezmu__front-item__sort-button-skin --sort-up"></span>';
+    thumbnail_list_item_sort_buttons_up.innerHTML = '<span class="ezmu__front-item__sort-button-skin ezmu--sort-up"></span>';
 
     thumbnail_list_item_sort_buttons.appendChild(
-      thumbnail_list_item_sort_buttons_down
+        thumbnail_list_item_sort_buttons_down
     );
     thumbnail_list_item_sort_buttons.appendChild(
-      thumbnail_list_item_sort_buttons_up
+        thumbnail_list_item_sort_buttons_up
     );
 
     return thumbnail_list_item_sort_buttons;
@@ -920,7 +1034,7 @@
 
   function createThumbnailListItemBackElm(data) {
     var thumbnail_list_item_back = createElementWithClass(
-      "ezmu__thumbnail-list-item_back"
+        "ezmu__thumbnail-list-item_back"
     );
 
     var thumbnail_list_item_img = getThumbnail(data);
@@ -963,7 +1077,7 @@
     if ( !markup_files_meta.length ) {
       return false;
     }
-    
+
     for( var i = 0; i < markup_files_meta.length; i++ ) {
       var elm = markup_files_meta[i];
       var url = elm.getAttribute('data-url');
@@ -983,7 +1097,7 @@
       }
 
       if ( size && size.length ) {
-        meta.size = size;
+        meta.size = parseInt(size);
       }
 
       if ( type && type.length ) {
@@ -997,16 +1111,12 @@
   }
 
   function updateValidationFeedback( error_log, container ) {
-    if ( !container ) {
-      return;
-    }
-
     container.innerHTML = '';
-    
+
     if ( !error_log.length ) {
-      removeClass(container, '--show');
+      removeClass(container, 'ezmu--show');
     }
-    addClass(container, '--show');
+    addClass(container, 'ezmu--show');
 
     for ( var i = 0; i < error_log.length; i++ ) {
       var alert_box = createElementWithClass('ezmu_alert ezmu_alert_error');
@@ -1104,7 +1214,7 @@
       var _file_size = ( _d0 == _d2 ) ? _d0 : _d2;
       _file_size_in_mb = _file_size + " MB";
     }
-    
+
 
     var formated_file_size = file_size_in_mb ? _file_size_in_mb : _file_size_in_kb;
     return formated_file_size;
@@ -1139,10 +1249,18 @@
     var property;
     for (property in args) {
       if (defaults.hasOwnProperty(property)) {
-        defaults[property] = args[property];
+        if ( property === 'dictionary' ) {
+          for ( var dictionaryItem in args[property] ) {
+            if (args[property].hasOwnProperty(dictionaryItem)) {
+              defaults[property][dictionaryItem] = args[property][dictionaryItem];
+            }
+          }
+        } else {
+          defaults[property] = args[property];
+        }
+
       }
     }
-
     return defaults;
   }
 

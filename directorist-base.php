@@ -844,10 +844,30 @@ final class Directorist_Base
                     'terms' => $atbd_tags_ids,
                 ),
             ),
-            'meta_query'   => apply_filters('atbdp_related_listings_meta_queries', array()),
             'posts_per_page' => (int)$rel_listing_num,
             'post__not_in' => array($post->ID),
         );
+
+        $meta_queries = array();
+        $meta_queries[] = array(
+            'relation' => 'OR',
+            array(
+                'key' => '_expiry_date',
+                'value' => current_time('mysql'),
+                'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
+                'type' => 'DATETIME'
+            ),
+            array(
+                'key' => '_never_expire',
+                'value' => 1,
+            )
+        );
+
+        $meta_queries = apply_filters('atbdp_related_listings_meta_queries', $meta_queries);
+        $count_meta_queries = count($meta_queries);
+        if ($count_meta_queries) {
+            $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
+        }
 
         return new WP_Query(apply_filters('atbdp_related_listing_args', $args));
 

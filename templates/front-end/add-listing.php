@@ -1277,8 +1277,8 @@ $query_args = array(
                                     <div class="btn_wrap list_submit">
                                         <button type="submit"
                                                 class="btn btn-primary btn-lg listing_submit_btn"><?php
-                                            $submit_label = get_directorist_option('submit_label', __('Submit', 'directorist'));
-                                            echo !empty($p_id) ? __('Update', 'directorist') :
+                                            $submit_label = get_directorist_option('submit_label', __('Preview', 'directorist'));
+                                            echo !empty($p_id) ? __('Preview Changes', 'directorist') :
 
                                                 __($submit_label, 'directorist'); ?></button>
                                     </div>

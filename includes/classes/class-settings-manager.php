@@ -5063,7 +5063,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'max_gallery_image_limit',
-                    'label' => __('Max Upload Limit', 'directorist'),
+                    'label' => __('Max Image Limit', 'directorist'),
                     'min' => '1',
                     'max' => '100',
                     'step' => '1',
@@ -5168,10 +5168,16 @@ The Administrator of ==SITE_NAME==
 ', 'directorist'),
                 ),
                 array(
+                    'type' => 'toggle',
+                    'name' => 'preview_enable',
+                    'label' => __('Enable Preview', 'directorist'),
+                    'default' => 1,
+                ),
+                array(
                     'type' => 'textbox',
                     'name' => 'submit_label',
                     'label' => __('Submit listing label', 'directorist'),
-                    'default' => __('Submit listing', 'directorist'),
+                    'default' => __('Preview', 'directorist'),
                 ),
             ));
         }

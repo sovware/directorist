@@ -45,20 +45,6 @@ if (!class_exists('ATBDP_Add_Listing')):
             add_action('wp_ajax_nopriv_add_listing_action', array($this, 'atbdp_submit_listing'));
         }
 
-        public function atbdp_handle_attachment($file_handler,$post_id,$set_thu=false) {
-            // check to make sure its a successful upload
-            if ($_FILES[$file_handler]['error'] !== UPLOAD_ERR_OK) __return_false();
-
-            require_once(ABSPATH . "wp-admin" . '/includes/image.php');
-            require_once(ABSPATH . "wp-admin" . '/includes/file.php');
-            require_once(ABSPATH . "wp-admin" . '/includes/media.php');
-
-            $attach_id = media_handle_upload( $file_handler, $post_id );
-            if ( is_numeric( $attach_id ) ) {
-                update_post_meta( $post_id, '_atbdp_listing_images', $attach_id );
-            }
-            return $attach_id;
-        }
 
         private function atbdp_get_file_attachment_id($array, $name){
             $id = null;
@@ -624,15 +610,14 @@ if (!class_exists('ATBDP_Add_Listing')):
                                         wp_set_object_terms($post_id, $tag[0], ATBDP_TAGS);//update the term relationship when a listing updated by author
                                     }
                                 }
-
                             }
                             if ('publish' == $new_l_status){
                                 do_action('atbdp_listing_published', $post_id);//for sending email notification
                             }
                         }
-
                     }
                     if (!empty($post_id)){
+                        do_action('atbdp_after_created_listing', $post_id);
                         // handling media files
                         $listing_images = atbdp_get_listing_attachment_ids($post_id);
                         $files = $_FILES["listing_img"];
@@ -661,13 +646,10 @@ if (!class_exists('ATBDP_Add_Listing')):
                                         'error' => $files['error'][$key],
                                         'size' => $files['size'][$key]
                                     );
-                                    $_FILES = array ("my_file_upload" => $file);
+                                    $_FILES["my_file_upload"] = $file;
                                     $meta_data = [];
-
-                                    foreach ($_FILES as $file => $array) {
-                                        $meta_data['name'] = $files['name'][$key];
-                                        $meta_data['id'] = $this->atbdp_handle_attachment($file,$post_id);
-                                    }
+                                    $meta_data['name'] = $files['name'][$key];
+                                    $meta_data['id'] = atbdp_handle_attachment("my_file_upload",$post_id);
                                     array_push($attach_data, $meta_data );
                                 }
                             }
@@ -788,20 +770,21 @@ if (!class_exists('ATBDP_Add_Listing')):
                             if (get_directorist_option('enable_monetization') && !$p['listing_id'] && $featured_enabled && (!is_fee_manager_active())){
                                 $data['redirect_url'] = ATBDP_Permalink::get_checkout_page_link($post_id);
                                 $data['need_payment'] = true;
-                            }
-                            //yep! listing is saved to db and redirect user to admin panel or listing itself
-                            $redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
-                            if ('view_listing' == $redirect_page){
-                                $data['redirect_url'] =  get_permalink($post_id);
-                                $data['success'] = true;
                             }else{
-                                $data['redirect_url'] = ATBDP_Permalink::get_dashboard_page_link();
-                                $data['success'] = true;
+                                //yep! listing is saved to db and redirect user to admin panel or listing itself
+                                $redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
+                                if ('view_listing' == $redirect_page){
+                                    $data['redirect_url'] =  get_permalink($post_id);
+                                    $data['success'] = true;
+                                }else{
+                                    $data['redirect_url'] = ATBDP_Permalink::get_dashboard_page_link();
+                                    $data['success'] = true;
+                                }
                             }
+
                         }
 
                     }else{
-                        /*@todo; redirect back to the listing creation page with data's saying something went wrong*/
                         $data['redirect_url'] = site_url().'?error=true';
                         $data['error'] = true;
                     }
@@ -810,7 +793,15 @@ if (!class_exists('ATBDP_Add_Listing')):
                     } if ($data['error'] === true){
                         $data['error_msg'] = __('Sorry! Something Wrong with Your Submission', 'directorist');
                     }
-                wp_send_json($data);
+                    if($data['need_payment'] === true){
+                        $data['success_msg'] = __('Payment Required! redirecting to checkout..', 'directorist');
+                    }
+                    $preview_enable = get_directorist_option('preview_enable', 1);
+                    if ($preview_enable){
+                        $data['preview_mode'] = true;
+                    }
+                    $data['preview_url'] = get_permalink($post_id);
+                    wp_send_json($data);
                     die();
             }
         }

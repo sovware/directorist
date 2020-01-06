@@ -154,3 +154,26 @@ function atbdp_create_picvacyAndTerms_pages(){
 if (!get_option('atbdp_picvacyAndTerms_pages')){
     add_action('wp_loaded', 'atbdp_create_picvacyAndTerms_pages');
 }
+
+function atbdp_handle_attachment($file_handler,$post_id,$set_thu=false) {
+    // check to make sure its a successful upload
+    if ($_FILES[$file_handler]['error'] !== UPLOAD_ERR_OK) __return_false();
+
+    require_once(ABSPATH . "wp-admin" . '/includes/image.php');
+    require_once(ABSPATH . "wp-admin" . '/includes/file.php');
+    require_once(ABSPATH . "wp-admin" . '/includes/media.php');
+
+    $attach_id = media_handle_upload( $file_handler, $post_id );
+    if ( is_numeric( $attach_id ) ) {
+        update_post_meta( $post_id, '_atbdp_listing_images', $attach_id );
+    }
+    return $attach_id;
+}
+
+function atbdp_get_preview_button(){
+    if (isset($_GET['redirect'])){
+        $payment = !empty($_GET['payment'])?$_GET['payment']:'';
+        return '<a href="' . esc_url($_GET['redirect']) . '" class="btn btn-success">
+                            <span class="' . atbdp_icon_type() . '-edit"></span>' . apply_filters('atbdp_listing_preview_btn_text', !empty($payment)?esc_html__(' Pay & Submit', 'directorist'):esc_html__(' Submit', 'directorist')) . '</a>';
+    }
+}

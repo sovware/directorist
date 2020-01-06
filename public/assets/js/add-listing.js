@@ -263,15 +263,21 @@ jQuery(function ($) {
         return b;
     })(window.location.search.substr(1).split('&'));
 
-    var ezMediaUploader = new EzMediaUploader({
+    var listingMediaUploader = new EzMediaUploader({
         containerID: "_listing_gallery",
     });
-    ezMediaUploader.init();
+    listingMediaUploader.init();
+    // gallery
+    var listignsGalleryUploader = new EzMediaUploader({
+        containerID: "listing_gallery_ext",
+    });
+    listignsGalleryUploader.init();
 
     var formID = $('#add-listing-form');
     $('body').on('submit', formID, function (e) {
         e.preventDefault();
         var form_data = new FormData();
+
         function atbdp_multi_select(field, name) {
             var field = $('' + field + '[name^="' + name + '"]');
             if (field.length > 1) {
@@ -293,22 +299,44 @@ jQuery(function ($) {
         // ajax action
         form_data.append('action', 'add_listing_action');
         //files
-        var files = ezMediaUploader.getTheFiles();
-        for (var i = 0; i < files.length; i++) {
-            form_data.append('listing_img[]', files[i]);
-        }
-        var files_meta = ezMediaUploader.getFilesMeta();
-
-        for (var i = 0; i < files_meta.length; i++) {
-            var elm = files_meta[i];
-            for ( var key in elm ) {
-                form_data.append('files_meta['+ i +']['+ key +']', elm[key]);
+        var files = listingMediaUploader.getTheFiles();
+        if (files) {
+            for (var i = 0; i < files.length; i++) {
+                form_data.append('listing_img[]', files[i]);
             }
         }
-        var hasValidFiles = ezMediaUploader.hasValidFiles();
-        if (!hasValidFiles){
+        var files_meta = listingMediaUploader.getFilesMeta();
+        if (files_meta) {
+            for (var i = 0; i < files_meta.length; i++) {
+                var elm = files_meta[i];
+                for (var key in elm) {
+                    form_data.append('files_meta[' + i + '][' + key + ']', elm[key]);
+                }
+            }
+        }
+
+        var hasValidFiles = listingMediaUploader.hasValidFiles();
+        if (!hasValidFiles) {
             return;
         }
+        // gallery
+        var files = listignsGalleryUploader.getTheFiles();
+        if (files) {
+            for (var i = 0; i < files.length; i++) {
+                form_data.append('gallery_img[]', files[i]);
+            }
+        }
+        var files_meta = listignsGalleryUploader.getFilesMeta();
+        if (files_meta) {
+            for (var i = 0; i < files_meta.length; i++) {
+                var elm = files_meta[i];
+                for (var key in elm) {
+                    form_data.append('files_gallery_meta[' + i + '][' + key + ']', elm[key]);
+                }
+            }
+        }
+
+
         var iframe = $('#listing_content_ifr');
         var content = $('#tinymce[data-id="listing_content"]', iframe.contents()).text();
 
@@ -419,7 +447,7 @@ jQuery(function ($) {
                     var name = $(this).attr("name");
                     var value = atbdp_is_checked(name);
                     form_data.append(name, value);
-                }else{
+                } else {
                     var name = $(this).attr("name");
                     var value = $(this).val();
                     form_data.append(name, value);
@@ -440,12 +468,17 @@ jQuery(function ($) {
             url: ajaxurl,
             data: form_data,
             success: function (response) {
-                // var data = JSON.parse(response);
-                console.log(response);
-                if ((response.success === true) || (response.need_payment === true)) {
+                // if success true and preview true
+                if (response.preview_mode === true) {
                     $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
-                    window.location.href = response.redirect_url;
+                    window.location.href = response.preview_url + '?preview=true&payment='+response.need_payment+'&redirect=' + response.redirect_url;
+                }else {
+                    if ((response.success === true) || (response.need_payment === true)) {
+                        $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
+                         window.location.href = response.redirect_url;
+                    }
                 }
+                // show the error notice
                 if (response.error === true) {
                     $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
                     //window.location.href = response.redirect_url;

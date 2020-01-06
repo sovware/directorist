@@ -13,9 +13,9 @@ if (is_rtl()) {
 }
 $column_width = 100 / $columns . '%';
 /**
- * @package Directorist
- * @since 5.5.1
  * @param WP_Query $all_listings It contains all the queried listings by a user
+ * @since 5.5.1
+ * @package Directorist
  */
 do_action('atbdp_before_all_listings_grid', $all_listings);
 ?>
@@ -152,11 +152,13 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                             }
                                             if (!empty($display_author_image)) {
                                                 $author = get_userdata($author_id);
+                                                $class = !empty($author->first_name && $author->last_name)?'atbd_tooltip':'';
                                                 ?>
                                                 <div class="atbd_author">
                                                     <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
                                                        aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>"
-                                                       class="atbd_tooltip"><?php if (empty($u_pro_pic)) {
+                                                       class="<?php echo $class; ?>">
+                                                        <?php if (empty($u_pro_pic)) {
                                                             echo $avata_img;
                                                         }
                                                         if (!empty($u_pro_pic)) { ?>
@@ -226,7 +228,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                      * @since 5.0
                                      */
                                     echo apply_filters('atbdp_grid_lower_badges', $l_badge_html);
-                                    if (!empty($display_mark_as_fav)){
+                                    if (!empty($display_mark_as_fav)) {
                                         echo atbdp_listings_mark_as_favourite($listing_id);
                                     }
                                     ?>
@@ -357,9 +359,9 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                             <li><p>
                                                                     <span class="<?php atbdp_icon_type(true); ?>-clock-o"></span><?php
                                                                     $publish_date_format = get_directorist_option('publish_date_format', 'time_ago');
-                                                                    if ('time_ago' === $publish_date_format){
+                                                                    if ('time_ago' === $publish_date_format) {
                                                                         printf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
-                                                                    }else{
+                                                                    } else {
                                                                         echo get_the_date();
                                                                     }
                                                                     ?></p></li>
@@ -376,7 +378,8 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                             ?>
                                                             <li><p>
                                                                     <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
-                                                                    <a target="_blank" href="<?php echo esc_url($web); ?>"
+                                                                    <a target="_blank"
+                                                                       href="<?php echo esc_url($web); ?>"
                                                                         <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html($web); ?></a>
                                                                 </p></li>
                                                         <?php
@@ -445,12 +448,12 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                             }
                                         }
                                         if (!empty($display_view_count)) {
-                                                $fotter_right = '<ul class="atbd_content_right">';
-                                                $fotter_right .= '<li class="atbd_count">';
-                                                $fotter_right .= '<span class="' . atbdp_icon_type() . '-eye"></span>';
-                                                $fotter_right .= !empty($post_view) ? $post_view : 0;
-                                                $fotter_right .= '</li>';
-                                                $fotter_right .= '</ul>';
+                                            $fotter_right = '<ul class="atbd_content_right">';
+                                            $fotter_right .= '<li class="atbd_count">';
+                                            $fotter_right .= '<span class="' . atbdp_icon_type() . '-eye"></span>';
+                                            $fotter_right .= !empty($post_view) ? $post_view : 0;
+                                            $fotter_right .= '</li>';
+                                            $fotter_right .= '</ul>';
                                             $catViewCount .= apply_filters('atbdp_grid_footer_right_html', $fotter_right);
                                         }
 
@@ -460,8 +463,8 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                     echo apply_filters('atbdp_listings_grid_cat_view_count', $catViewCount);
 
                                     /**
-                                     * @since
                                      * @param mixed $footer_html
+                                     * @since
                                      * @package Directorist
                                      */
                                     //apply_filters('atbdp_listings_footer_content')

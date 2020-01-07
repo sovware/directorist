@@ -195,9 +195,11 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
             if (!empty($display_back_link)) {
                 $html_edit_back .= '<a href="javascript:history.back()" class="atbd_go_back"><i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', 'directorist') . '</a> ';
             }
+            $html_edit_back .= '<div class="atbdp_float_active">';
             $html_edit_back .= '<a href="' . esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)) . '" class="btn btn-success">
                             <span class="' . atbdp_icon_type() . '-edit"></span>' . apply_filters('atbdp_listing_edit_btn_text', esc_html__(' Edit', 'directorist')) . '</a>';
             $html_edit_back .= atbdp_get_preview_button();
+            $html_edit_back .= '</div>';
             $html_edit_back .= '</div>';
         } else {
             if (!empty($display_back_link)) {

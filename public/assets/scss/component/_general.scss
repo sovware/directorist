@@ -1081,3 +1081,16 @@ div#listing_notifier span{
   text-align: center;
   margin-bottom: 10px;
 }
+
+.atbdp_float_active{
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  z-index: 99999;
+  .btn{
+    display: block !important;
+    &:first-child{
+      margin-bottom: 10px;
+    }
+  }
+}

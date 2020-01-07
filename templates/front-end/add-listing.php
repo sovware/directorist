@@ -175,12 +175,6 @@ $query_args = array(
                     <?php ATBDP()->listing->add_listing->show_nonce_field(); ?>
                     <input type="hidden" name="add_listing_form" value="1">
                     <input type="hidden" name="listing_id" value="<?php echo !empty($p_id) ? esc_attr($p_id) : ''; ?>">
-
-                    <?php
-                    //to show validation notification @todo;letter need to validate with ajax action and identify the required field with color
-                    $all_validation = ATBDP()->listing->add_listing->add_listing_to_db();
-                    echo $all_validation;
-                    ?>
                     <div class="row">
                         <div class="col-md-12">
                             <?php
@@ -1277,7 +1271,7 @@ $query_args = array(
                                     <div class="btn_wrap list_submit">
                                         <button type="submit"
                                                 class="btn btn-primary btn-lg listing_submit_btn"><?php
-                                            $submit_label = get_directorist_option('submit_label', __('Preview', 'directorist'));
+                                            $submit_label = get_directorist_option('submit_label', __('Save & Preview', 'directorist'));
                                             echo !empty($p_id) ? __('Preview Changes', 'directorist') :
 
                                                 __($submit_label, 'directorist'); ?></button>

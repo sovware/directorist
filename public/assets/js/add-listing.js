@@ -477,15 +477,21 @@ jQuery(function ($) {
             url: ajaxurl,
             data: form_data,
             success: function (response) {
-                // if success true and preview true
-                if (response.preview_mode === true) {
-                    $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
-                    window.location.href = response.preview_url + '?preview=true&payment='+response.need_payment+'&redirect=' + response.redirect_url;
-                }else {
-                    if ((response.success === true) || (response.need_payment === true)) {
+                // preview on and no need to redirect to payment
+                if ((response.preview_mode === true) && (response.need_payment !== true)) {
+                    if (response.edited_listing !== true){
                         $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
-                         window.location.href = response.redirect_url;
+                        window.location.href = response.preview_url + '?preview=1&redirect=' + response.redirect_url;
+                    }else {
+                        $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
+                        window.location.href = response.preview_url + '?preview=1&redirect=' + response.redirect_url;
                     }
+                    // preview mode active and need payment
+                }else if((response.preview_mode === true) && (response.need_payment === true)){
+                    window.location.href = response.preview_url + '?preview=1&payment=1&redirect=' + response.redirect_url;
+                }else {
+                        $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
+                        window.location.href = response.redirect_url;
                 }
                 // show the error notice
                 if (response.error === true) {

@@ -124,6 +124,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $display_video_field = get_directorist_option('display_video_field', 1);
                     $display_video_for = get_directorist_option('display_video_for', 0);
                     $custom_field= !empty($p['custom_field']) ? ($p['custom_field']) : array();
+                    $preview_enable = get_directorist_option('preview_enable', 1);
                     // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');
                     $metas = array();
                     $content = !empty($p['listing_content']) ? $p['listing_content']: '';
@@ -464,6 +465,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                             else{
                                 $args['post_status'] = $new_l_status;
                             }
+                            if (!empty($preview_enable)){
+                                $args['post_status'] = 'pending';
+                            }
 
                             if ( isset( $args['tax_input'] ) ) {
                                 foreach ( (array) $args['tax_input'] as $taxonomy => $terms ) {
@@ -794,7 +798,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if($data['need_payment'] === true){
                         $data['success_msg'] = __('Payment Required! redirecting to checkout..', 'directorist');
                     }
-                    $preview_enable = get_directorist_option('preview_enable', 1);
                     if ($preview_enable){
                         $data['preview_mode'] = true;
                     }

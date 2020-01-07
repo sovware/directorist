@@ -173,7 +173,6 @@ function atbdp_handle_attachment($file_handler,$post_id,$set_thu=false) {
 function atbdp_get_preview_button(){
     if (isset($_GET['redirect'])){
         $payment = !empty($_GET['payment'])?$_GET['payment']:'';
-        return '<a href="' . esc_url($_GET['redirect']) . '" class="btn btn-success">
-                            <span class="' . atbdp_icon_type() . '-edit"></span>' . apply_filters('atbdp_listing_preview_btn_text', !empty($payment)?esc_html__(' Pay & Submit', 'directorist'):esc_html__(' Submit', 'directorist')) . '</a>';
+        return '<a href="' . esc_url($_GET['redirect']) . '" class="btn btn-primary">' . apply_filters('atbdp_listing_preview_btn_text', !empty($payment)?esc_html__(' Pay & Submit', 'directorist'):esc_html__(' Submit', 'directorist')) . '</a>';
     }
 }

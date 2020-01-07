@@ -1191,6 +1191,21 @@ div#listing_notifier span {
   margin-bottom: 10px;
 }
 
+.atbdp_float_active {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  z-index: 99999;
+}
+
+.atbdp_float_active .btn {
+  display: block !important;
+}
+
+.atbdp_float_active .btn:first-child {
+  margin-bottom: 10px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

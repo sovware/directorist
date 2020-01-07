@@ -107,15 +107,15 @@ if (!class_exists('ATBDP_Listing')):
         /**
          * Filter the post content.
          *
+         * @param string $html The post thumbnail HTML.
+         * @return   string    $html    Filtered thumbnail HTML.
          * @since    5.4.0
          * @access   public
          *
-         * @param    string $html The post thumbnail HTML.
-         * @return   string    $html    Filtered thumbnail HTML.
          */
         public function post_thumbnail_html($html)
         {
-            $double_thumb = get_directorist_option('fix_listing_double_thumb',0);
+            $double_thumb = get_directorist_option('fix_listing_double_thumb', 0);
             if (!empty($double_thumb)) {
                 if (is_singular('at_biz_dir')) {
                     global $post;
@@ -136,7 +136,7 @@ if (!class_exists('ATBDP_Listing')):
             $id = get_directorist_option('single_listing_page');
             if (is_singular(ATBDP_POST_TYPE) && in_the_loop() && is_main_query()) {
                 $include = apply_filters('include_style_settings', true);
-                if($include){
+                if ($include) {
                     include ATBDP_DIR . 'public/assets/css/style.php';
                 }
                 if (!empty($id)) {
@@ -151,6 +151,7 @@ if (!class_exists('ATBDP_Listing')):
                     $content = get_post_field('post_content', $id);
                     $content = do_shortcode($content);
                     $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
+                    $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                     // run block content if its available
                     ?>
                     <section id="directorist" class="directorist atbd_wrapper">
@@ -168,7 +169,7 @@ if (!class_exists('ATBDP_Listing')):
                                     if (!empty($display_back_link)) {
                                         $html_edit_back .= '<a href="javascript:history.back()" class="atbd_go_back"><i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', 'directorist') . '</a> ';
                                     }
-                                    $html_edit_back .= '<div class="atbdp_float_active">';
+                                    $html_edit_back .= '<div class="' . $class . '">';
                                     $html_edit_back .= '<a href="' . esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)) . '" class="btn btn-success">
                             <span class="' . atbdp_icon_type() . '-edit"></span>' . apply_filters('atbdp_listing_edit_btn_text', esc_html__(' Edit', 'directorist')) . '</a>';
                                     $html_edit_back .= atbdp_get_preview_button();

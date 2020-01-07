@@ -277,6 +277,7 @@ jQuery(function ($) {
     $('body').on('submit', formID, function (e) {
         e.preventDefault();
         var form_data = new FormData();
+        $(".listing_submit_btn").addClass("atbd_loading");
 
         function atbdp_multi_select(field, name) {
             var field = $('' + field + '[name^="' + name + '"]');
@@ -469,7 +470,6 @@ jQuery(function ($) {
         }
         form_data.append('timezone', $('select[name="timezone"]').val());
 
-        $('#listing_notifier').show().html('<span>Sending information, Please wait..</span>');
         $.ajax({
             method: 'POST',
             processData: false,

@@ -314,11 +314,13 @@ jQuery(function ($) {
                 }
             }
         }
-
-        var hasValidFiles = listingMediaUploader.hasValidFiles();
-        if (!hasValidFiles) {
-            return;
+        if ($('#_listing_gallery').length){
+            var hasValidFiles = listingMediaUploader.hasValidFiles();
+            if (!hasValidFiles) {
+                return;
+            }
         }
+
         // gallery
         var files = listignsGalleryUploader.getTheFiles();
         if (files) {
@@ -333,6 +335,13 @@ jQuery(function ($) {
                 for (var key in elm) {
                     form_data.append('files_gallery_meta[' + i + '][' + key + ']', elm[key]);
                 }
+            }
+        }
+
+        if ($('#listing_gallery_ext').length){
+            var hasValidFiles = listingMediaUploader.hasValidFiles();
+            if (!hasValidFiles) {
+                return;
             }
         }
 

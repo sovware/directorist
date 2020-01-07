@@ -1206,6 +1206,10 @@ div#listing_notifier span {
   margin-bottom: 10px;
 }
 
+.atbdp_float_none {
+  margin-left: auto;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;
@@ -4110,6 +4114,43 @@ span.atbd_get_loc_wid {
   margin-bottom: 15px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .btn_wrap.list_submit .listing_submit_btn.atbd_loading {
+  position: relative;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .btn_wrap.list_submit .listing_submit_btn.atbd_loading:before {
+  position: absolute;
+  content: '';
+  right: 10px;
+  top: 31%;
+  border: 2px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 2px solid #656a7a;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: atbd_spin 2s linear infinite;
+  /* Safari */
+  animation: atbd_spin 2s linear infinite;
+}
+
+@-webkit-keyframes atbd_spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes atbd_spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_type {
   padding-bottom: 20px;
 }
@@ -4131,6 +4172,10 @@ span.atbd_get_loc_wid {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_type .atbd_listing_type_list label input[type="radio"] {
   height: auto;
+}
+
+.ezmu__titles-area p {
+  text-align: center !important;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__rendered {

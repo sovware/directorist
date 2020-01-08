@@ -248,9 +248,36 @@
         padding: 9px 40px;
         font-size: 18px;
         margin-bottom: 15px;
+        &.atbd_loading{
+          position: relative;
+          &:before{
+            position: absolute;
+            content: '';
+            right: 10px;
+            top: 31%;
+            border: 2px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 2px solid #656a7a;
+            width: 20px;
+            height: 20px;
+            -webkit-animation: atbd_spin 2s linear infinite; /* Safari */
+            animation: atbd_spin 2s linear infinite;
+          }
+        }
       }
     }
   }
+
+  @-webkit-keyframes atbd_spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+
+  @keyframes atbd_spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
   .atbd_listing_type {
     padding-bottom: 20px;
     h4 {
@@ -270,6 +297,14 @@
     }
   }
 }
+
+
+.ezmu__titles-area{
+  p{
+    text-align: center !important;
+  }
+}
+
 
 .select2-container--default .select2-selection--multiple .select2-selection__rendered{
   margin-top: 3px !important;

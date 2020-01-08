@@ -1191,6 +1191,40 @@ div#listing_notifier span {
   margin-bottom: 10px;
 }
 
+.atbdp_float_active {
+  position: fixed;
+  right: 25px;
+  bottom: 120px;
+  z-index: 99999;
+  background: #444752;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.atbdp_float_active .btn {
+  display: block !important;
+  padding: 15px 60px !important;
+  font-size: 18px !important;
+}
+
+.atbdp_float_active .btn:first-child {
+  margin-bottom: 10px;
+}
+
+.atbdp_float_none {
+  margin-left: auto;
+}
+
+.atbdp_float_none .edit_btn_wrap .btn.btn-outline-light {
+  border: 1px solid #444752 !important;
+  color: #444752 !important;
+}
+
+.atbdp_float_none .edit_btn_wrap .btn.btn-outline-light:hover {
+  color: #fff !important;
+  background: #444752 !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;
@@ -1209,6 +1243,10 @@ div#listing_notifier span {
 
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap .btn {
   margin-left: auto;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap .btn.btn-outline-light {
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module {
@@ -4095,6 +4133,43 @@ span.atbd_get_loc_wid {
   margin-bottom: 15px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .btn_wrap.list_submit .listing_submit_btn.atbd_loading {
+  position: relative;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.atbd_add_listing_wrapper .btn_wrap.list_submit .listing_submit_btn.atbd_loading:before {
+  position: absolute;
+  content: '';
+  right: 10px;
+  top: 31%;
+  border: 2px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 2px solid #656a7a;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: atbd_spin 2s linear infinite;
+  /* Safari */
+  animation: atbd_spin 2s linear infinite;
+}
+
+@-webkit-keyframes atbd_spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes atbd_spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_type {
   padding-bottom: 20px;
 }
@@ -4116,6 +4191,10 @@ span.atbd_get_loc_wid {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_type .atbd_listing_type_list label input[type="radio"] {
   height: auto;
+}
+
+.ezmu__titles-area p {
+  text-align: center !important;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__rendered {

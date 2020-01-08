@@ -263,15 +263,22 @@ jQuery(function ($) {
         return b;
     })(window.location.search.substr(1).split('&'));
 
-    var ezMediaUploader = new EzMediaUploader({
+    var listingMediaUploader = new EzMediaUploader({
         containerID: "_listing_gallery",
     });
-    ezMediaUploader.init();
+    listingMediaUploader.init();
+    // gallery
+    var listignsGalleryUploader = new EzMediaUploader({
+        containerID: "listing_gallery_ext",
+    });
+    listignsGalleryUploader.init();
 
     var formID = $('#add-listing-form');
     $('body').on('submit', formID, function (e) {
         e.preventDefault();
         var form_data = new FormData();
+        $(".listing_submit_btn").addClass("atbd_loading");
+
         function atbdp_multi_select(field, name) {
             var field = $('' + field + '[name^="' + name + '"]');
             if (field.length > 1) {
@@ -293,22 +300,53 @@ jQuery(function ($) {
         // ajax action
         form_data.append('action', 'add_listing_action');
         //files
-        var files = ezMediaUploader.getTheFiles();
-        for (var i = 0; i < files.length; i++) {
-            form_data.append('listing_img[]', files[i]);
-        }
-        var files_meta = ezMediaUploader.getFilesMeta();
-
-        for (var i = 0; i < files_meta.length; i++) {
-            var elm = files_meta[i];
-            for ( var key in elm ) {
-                form_data.append('files_meta['+ i +']['+ key +']', elm[key]);
+        var files = listingMediaUploader.getTheFiles();
+        if (files) {
+            for (var i = 0; i < files.length; i++) {
+                form_data.append('listing_img[]', files[i]);
             }
         }
-        var hasValidFiles = ezMediaUploader.hasValidFiles();
-        if (!hasValidFiles){
-            return;
+        var files_meta = listingMediaUploader.getFilesMeta();
+        if (files_meta) {
+            for (var i = 0; i < files_meta.length; i++) {
+                var elm = files_meta[i];
+                for (var key in elm) {
+                    form_data.append('files_meta[' + i + '][' + key + ']', elm[key]);
+                }
+            }
         }
+        if ($('#_listing_gallery').length){
+            var hasValidFiles = listingMediaUploader.hasValidFiles();
+            if (!hasValidFiles) {
+                return;
+            }
+        }
+
+        // gallery
+        var files = listignsGalleryUploader.getTheFiles();
+        if (files) {
+            for (var i = 0; i < files.length; i++) {
+                form_data.append('gallery_img[]', files[i]);
+            }
+        }
+        var files_meta = listignsGalleryUploader.getFilesMeta();
+        if (files_meta) {
+            for (var i = 0; i < files_meta.length; i++) {
+                var elm = files_meta[i];
+                for (var key in elm) {
+                    form_data.append('files_gallery_meta[' + i + '][' + key + ']', elm[key]);
+                }
+            }
+        }
+
+        if ($('#listing_gallery_ext').length){
+            var hasValidFiles = listingMediaUploader.hasValidFiles();
+            if (!hasValidFiles) {
+                return;
+            }
+        }
+
+
         var iframe = $('#listing_content_ifr');
         var serviceIframe = $('#service_offer_ifr');
         var content = $('#tinymce[data-id="listing_content"]', iframe.contents()).text();
@@ -422,7 +460,7 @@ jQuery(function ($) {
                     var name = $(this).attr("name");
                     var value = atbdp_is_checked(name);
                     form_data.append(name, value);
-                }else{
+                } else {
                     var name = $(this).attr("name");
                     var value = $(this).val();
                     form_data.append(name, value);
@@ -435,7 +473,6 @@ jQuery(function ($) {
         }
         form_data.append('timezone', $('select[name="timezone"]').val());
 
-        $('#listing_notifier').show().html('<span>Sending information, Please wait..</span>');
         $.ajax({
             method: 'POST',
             processData: false,
@@ -443,12 +480,24 @@ jQuery(function ($) {
             url: ajaxurl,
             data: form_data,
             success: function (response) {
-                // var data = JSON.parse(response);
-                console.log(response);
-                if ((response.success === true) || (response.need_payment === true)) {
-                    $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
-                    window.location.href = response.redirect_url;
+                // preview on and no need to redirect to payment
+                if ((response.preview_mode === true) && (response.need_payment !== true)) {
+                    if (response.edited_listing !== true){
+                        $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
+                        window.location.href = response.preview_url + '?preview=1&redirect=' + response.redirect_url;
+                    }else {
+                        $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
+                        window.location.href = response.preview_url + '?preview=1&redirect=' + response.redirect_url;
+                    }
+                    // preview mode active and need payment
+                }else if((response.preview_mode === true) && (response.need_payment === true)){
+                    window.location.href = response.preview_url + '?preview=1&payment=1&redirect=' + response.redirect_url;
+                }else {
+
+                        $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
+                        window.location.href = response.redirect_url;
                 }
+                // show the error notice
                 if (response.error === true) {
                     $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
                     //window.location.href = response.redirect_url;

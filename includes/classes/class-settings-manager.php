@@ -1126,6 +1126,11 @@ if (!class_exists('ATBDP_Settings_Manager')):
                               'title' => __('Guest Submission', 'directorist'),
                               'fields' => $this->get_guest_listings_settings(),
                           ),
+                        'submit_field' => array(
+                              'type' => 'section',
+                              'title' => __('Submit', 'directorist'),
+                              'fields' => $this->get_listings_submit_settings(),
+                          ),
                     )),
                 ),
 
@@ -5063,7 +5068,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'max_gallery_image_limit',
-                    'label' => __('Max Upload Limit', 'directorist'),
+                    'label' => __('Max Image Limit', 'directorist'),
                     'min' => '1',
                     'max' => '100',
                     'step' => '1',
@@ -5167,12 +5172,6 @@ The Administrator of ==SITE_NAME==
 
 ', 'directorist'),
                 ),
-                array(
-                    'type' => 'textbox',
-                    'name' => 'submit_label',
-                    'label' => __('Submit listing label', 'directorist'),
-                    'default' => __('Submit listing', 'directorist'),
-                ),
             ));
         }
         /**
@@ -5209,6 +5208,29 @@ The Administrator of ==SITE_NAME==
                     'description' => __('Here YES means users must agree to before submitting a listing from frontend.
 
 ', 'directorist'),
+                ),
+            ));
+        }
+
+        /**
+         * Get  term & condition settings field
+         * @return array
+         * @since 6.3.0
+         */
+        public function get_listings_submit_settings()
+        {
+            return apply_filters('atbdp_listings_submit_settings', array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'preview_enable',
+                    'label' => __('Enable Preview Mode', 'directorist'),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'submit_label',
+                    'label' => __('Submit listing label', 'directorist'),
+                    'default' => __('Save & Preview', 'directorist'),
                 ),
             ));
         }

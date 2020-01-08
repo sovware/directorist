@@ -2362,10 +2362,11 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                             }
                                             if (!empty($display_author_image)) {
                                                 $author = get_userdata($author_id);
+                                                $class = !empty($author->first_name && $author->last_name)?'atbd_tooltip':'';
                                                 ?>
                                                 <div class="atbd_author">
                                                     <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
-                                                       class="atbd_tooltip"
+                                                       class="<?php echo $class; ?>"
                                                        aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>"><?php if (empty($u_pro_pic)) {
                                                             echo $avata_img;
                                                         }
@@ -2828,10 +2829,11 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                                 }
                                                 if (!empty($display_author_image)) {
                                                     $author = get_userdata($author_id);
+                                                    $class = !empty($author->first_name && $author->last_name)?'atbd_tooltip':'';
                                                     ?>
                                                     <div class="atbd_author">
                                                         <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
-                                                           class="atbd_tooltip"
+                                                           class="<?php echo $class; ?>"
                                                            aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>"><?php if (empty($u_pro_pic)) {
                                                                 echo $avata_img;
                                                             }
@@ -3522,9 +3524,10 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                         if (!empty($display_author_image)) {
                                             $author = get_userdata($author_id);
                                             $author_first_last_name = $author->first_name . ' ' . $author->last_name;
+                                            $class = !empty($author->first_name && $author->last_name)?'atbd_tooltip':'';
                                             $catViewCountAuthor .= '<li class="atbd_author">';
-                                            $catViewCountAuthor .= '<a href="' . ATBDP_Permalink::get_user_profile_page_link($author_id) . '" class="atbd_tooltip" aria-label="' . $author_first_last_name . '">';
-                                            if (empty($u_pro_pic_meta)) {
+                                            $catViewCountAuthor .= '<a href="' . ATBDP_Permalink::get_user_profile_page_link($author_id) . '" class="'. $class .'" aria-label="' . $author_first_last_name . '">';
+                                            if (empty($u_pro_pic)) {
                                                 $catViewCountAuthor .= $avata_img;
                                             }
                                             if (!empty($u_pro_pic)) {

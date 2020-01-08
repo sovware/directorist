@@ -1081,3 +1081,36 @@ div#listing_notifier span{
   text-align: center;
   margin-bottom: 10px;
 }
+
+.atbdp_float_active{
+  position: fixed;
+  right: 25px;
+  bottom: 120px;
+  z-index: 99999;
+  background: #444752;
+  padding: 20px;
+  border-radius: 4px;
+  .btn{
+    display: block !important;
+    padding: 15px 60px !important;
+    font-size: 18px !important;
+    &:first-child{
+      margin-bottom: 10px;
+    }
+  }
+}
+.atbdp_float_none{
+  margin-left: auto;
+  .edit_btn_wrap{
+    .btn{
+      &.btn-outline-light{
+        border: 1px solid $primary !important;
+        color: $primary !important;
+        &:hover{
+          color: #fff !important;
+          background: $primary !important;
+        }
+      }
+    }
+  }
+}

@@ -310,7 +310,9 @@ jQuery(function ($) {
             return;
         }
         var iframe = $('#listing_content_ifr');
+        var serviceIframe = $('#service_offer_ifr');
         var content = $('#tinymce[data-id="listing_content"]', iframe.contents()).text();
+        var service_offer = $('#tinymce[data-id="service_offer"]', serviceIframe.contents()).text();
 
         var excerpt = $("textarea#atbdp_excerpt").val();
         form_data.append('add_listing_nonce', atbdp_add_listing.nonce);
@@ -318,6 +320,7 @@ jQuery(function ($) {
         form_data.append('listing_id', $('input[name="listing_id"]').val());
         form_data.append('listing_title', $('input[name="listing_title"]').val());
         form_data.append('listing_content', content);
+        form_data.append('service_offer', service_offer);
         form_data.append('price', $('input[name="price"]').val());
         form_data.append('atbdp_post_views_count', $('input[name="atbdp_post_views_count"]').val());
         form_data.append('excerpt', excerpt);

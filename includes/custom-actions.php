@@ -175,7 +175,7 @@ function atbdp_get_preview_button(){
         $preview_enable = get_directorist_option('preview_enable', 1);
         $url = $preview_enable ? add_query_arg(array('p' => $_GET['p'], 'reviewed' => 'yes'), $_GET['redirect']) : $_GET['redirect'];
         $payment = !empty($_GET['payment'])?$_GET['payment']:'';
-        return '<a href="' . esc_url($url) . '" class="btn btn-primary">' . apply_filters('atbdp_listing_preview_btn_text', !empty($payment)?esc_html__(' Pay & Submit', 'directorist'):esc_html__(' Submit', 'directorist')) . '</a>';
+        return '<a href="' . esc_url($url) . '" class="btn btn-success">' . apply_filters('atbdp_listing_preview_btn_text', !empty($payment)?esc_html__(' Pay & Submit', 'directorist'):esc_html__(' Submit', 'directorist')) . '</a>';
     }
 }
 

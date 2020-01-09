@@ -708,11 +708,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbd_content_active #directorist.atbd_wrapper #map.leaflet-container,
-.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container{
+.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container {
   margin-bottom: 30px;
-  .leaflet-popup{
+
+  .leaflet-popup {
     left: -95px !important;
   }
+
   .leaflet-popup-content-wrapper {
     border-radius: 3px;
     padding: 0;
@@ -720,24 +722,30 @@ body.atbd_content_active #directorist.atbd_wrapper {
     .leaflet-popup-content {
       margin: 0;
       width: 220px !important;
-      .media-body{
+
+      .media-body {
         padding: 10px 15px;
       }
-      .atbdp-map{
+
+      .atbdp-map {
         margin: 0;
       }
-      .map-info-wrapper{
-        img{
+
+      .map-info-wrapper {
+        img {
           width: 100%;
         }
-        .map-info-details{
+
+        .map-info-details {
           padding: 15px;
-          h3{
+
+          h3 {
             font-size: 16px;
             margin-bottom: 0;
           }
-          .miw-contents-footer{
-            #iw-close-btn{
+
+          .miw-contents-footer {
+            #iw-close-btn {
               display: none;
             }
           }
@@ -745,7 +753,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
       }
     }
   }
-  .leaflet-popup-close-button{
+
+  .leaflet-popup-close-button {
     position: absolute;
     width: 25px;
     height: 25px;
@@ -762,22 +771,25 @@ body.atbd_content_active #directorist.atbd_wrapper {
     transition: 0.3s ease;
     line-height: inherit;
     padding: 0;
-    &:hover{
+
+    &:hover {
       background: #444752;
     }
   }
 }
+
 .leaflet-popup-content-wrapper {
   .leaflet-popup-content {
-    .map-info-wrapper{
-      .map-info-details{
-        #iw-close-btn{
+    .map-info-wrapper {
+      .map-info-details {
+        #iw-close-btn {
           display: none;
         }
       }
     }
   }
 }
+
 #directorist.atbd_wrapper .directory_regi_btn {
   margin-top: 10px;
 
@@ -967,7 +979,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .map-icon-label i,
-.atbd_map_shape > span{
+.atbd_map_shape > span {
   font-size: 17px !important;
   color: #444752;
   text-align: center;
@@ -1005,7 +1017,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
 }
 
-.marker-cluster-shape{
+.marker-cluster-shape {
   width: 35px;
   height: 35px;
   background: #444752;
@@ -1018,7 +1030,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-weight: 700;
   position: relative;
   cursor: pointer;
-  &:before{
+
+  &:before {
     position: absolute;
     content: '';
     width: 47px;
@@ -1030,59 +1043,68 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
 }
 
-#directorist.atbd_wrapper .form-control{
+#directorist.atbd_wrapper .form-control {
   max-width: 100%;
 }
 
-.directorist-ResetPassword{
-  p{
-    label{
+.directorist-ResetPassword {
+  p {
+    label {
       display: block;
       margin-bottom: 8px;
     }
   }
 }
-.atbd_reset_success{
+
+.atbd_reset_success {
   background: rgba($success, 0.15);
   padding: 10px 15px;
-  a{
+
+  a {
     text-decoration: none;
   }
 }
-.atbd_reset_warning{
+
+.atbd_reset_warning {
   background: rgba($warning, 0.15);
   padding: 10px 15px;
 }
-.atbd_reset_error{
+
+.atbd_reset_error {
   background: rgba($danger, 0.15);
   padding: 10px 15px;
 }
-.atbdp_login_form_shortcode{
-  .error_login{
+
+.atbdp_login_form_shortcode {
+  .error_login {
     margin-top: 10px;
     background: rgba($success, 0.15);
     padding: 10px 15px;
   }
 }
-.atbd_privacy_policy_area{
+
+.atbd_privacy_policy_area {
   text-align: center;
 }
-#directorist.atbd_wrapper .ezmu__btn{
-  box-shadow:none;
+
+#directorist.atbd_wrapper .ezmu__btn {
+  box-shadow: none;
   background: $primary;
   color: #fff;
   transition: 0.3s ease;
-  &:hover{
+
+  &:hover {
     background: #222;
   }
 }
-div#listing_notifier span{
+
+div#listing_notifier span {
   display: block;
   text-align: center;
   margin-bottom: 10px;
 }
 
-.atbdp_float_active{
+.atbdp_float_active {
   position: fixed;
   right: 25px;
   bottom: 120px;
@@ -1090,26 +1112,29 @@ div#listing_notifier span{
   background: #444752;
   padding: 20px;
   border-radius: 4px;
-  .btn{
+
+  .btn {
     display: block !important;
     padding: 15px 60px !important;
     font-size: 18px !important;
-    &:first-child{
+
+    &:first-child {
       margin-bottom: 10px;
     }
   }
 }
-.atbdp_float_none{
+
+.atbdp_float_none {
   margin-left: auto;
-  .edit_btn_wrap{
-    .btn{
-      &.btn-outline-light{
-        border: 1px solid $primary !important;
-        color: $primary !important;
-        &:hover{
-          color: #fff !important;
-          background: $primary !important;
-        }
+
+  .btn {
+    &.btn-outline-light {
+      border: 1px solid $border-color !important;
+      color: $primary !important;
+
+      &:hover {
+        color: #fff !important;
+        background: $primary !important;
       }
     }
   }

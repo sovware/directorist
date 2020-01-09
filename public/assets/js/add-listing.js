@@ -497,7 +497,7 @@ jQuery(function ($) {
                     }
                     // preview mode active and need payment
                 }else if((response.preview_mode === true) && (response.need_payment === true)){
-                    window.location.href = response.preview_url + '?preview=1&payment=1&redirect=' + response.redirect_url;
+                    window.location.href = response.preview_url + '&preview=1&payment=1&redirect=' + response.redirect_url;
                 }else {
 
                         $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);

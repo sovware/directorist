@@ -1215,12 +1215,12 @@ div#listing_notifier span {
   margin-left: auto;
 }
 
-.atbdp_float_none .edit_btn_wrap .btn.btn-outline-light {
-  border: 1px solid #444752 !important;
+.atbdp_float_none .btn.btn-outline-light {
+  border: 1px solid #e3e6ef !important;
   color: #444752 !important;
 }
 
-.atbdp_float_none .edit_btn_wrap .btn.btn-outline-light:hover {
+.atbdp_float_none .btn.btn-outline-light:hover {
   color: #fff !important;
   background: #444752 !important;
 }

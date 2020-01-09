@@ -179,6 +179,10 @@ function atbdp_get_preview_button(){
     }
 }
 
+/**
+ * @param $listing_id
+ * @since 6.3.0
+ */
 
 function atbdp_status_after_previewed_listing($listing_id){
     $new_l_status = get_directorist_option('new_listing_status', 'pending');

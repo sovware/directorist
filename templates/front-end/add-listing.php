@@ -1164,6 +1164,7 @@ $query_args = array(
                                                             }
                                                             ?>
                                                         </div>
+
                                                     </div>
                                                 <?php } ?>
                                                 <?php

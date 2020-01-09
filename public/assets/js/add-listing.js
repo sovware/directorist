@@ -446,6 +446,12 @@ jQuery(function ($) {
             var value = $(this).val();
             form_data.append(name, value);
         });
+        // findbiz video
+        $('input[name^="findbiz_video"]').each(function () {
+            var name = $(this).attr("name");
+            var value = $(this).val();
+            form_data.append(name, value);
+        });
         atbdp_multi_select('textarea', 'faqs');
         // google recaptcha
         atbdp_multi_select('textarea', 'g-recaptcha-response');

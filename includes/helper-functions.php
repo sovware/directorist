@@ -4266,7 +4266,14 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
         'hierarchical' => !empty($settings['hide_empty']) ? true : false
     );
 
-    $terms = get_terms($taxonomy_id, apply_filters('atbdp_search_listing_category_argument', $args));
+    if(ATBDP_CATEGORY == $taxonomy_id){
+        $arg = apply_filters('atbdp_search_listing_category_argument', $args);
+    }else{
+        $arg = $args;
+    }
+
+
+    $terms = get_terms($taxonomy_id, $arg);
 
     $html = '';
 

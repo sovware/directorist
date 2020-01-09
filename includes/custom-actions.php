@@ -173,8 +173,8 @@ function atbdp_handle_attachment($file_handler,$post_id,$set_thu=false) {
 function atbdp_get_preview_button(){
     if (isset($_GET['redirect'])){
         $preview_enable = get_directorist_option('preview_enable', 1);
-        $url = $preview_enable ? add_query_arg(array('p' => $_GET['p'], 'reviewed' => 'yes'), $_GET['redirect']) : $_GET['redirect'];
         $payment = !empty($_GET['payment'])?$_GET['payment']:'';
+        $url = $preview_enable ? add_query_arg(array(!empty($payment)?'atbdp_listing_id':'p' => $_GET['p'], 'reviewed' => 'yes'), $_GET['redirect']) : $_GET['redirect'];
         return '<a href="' . esc_url($url) . '" class="btn btn-success">' . apply_filters('atbdp_listing_preview_btn_text', !empty($payment)?esc_html__(' Pay & Submit', 'directorist'):esc_html__(' Submit', 'directorist')) . '</a>';
     }
 }

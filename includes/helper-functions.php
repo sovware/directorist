@@ -2354,7 +2354,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                             if (!empty($listing_img[0]) && empty($listing_prv_img)) {
                                                 echo '<img src="' . esc_url($gallery_img) . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
                                             }
-                                            if (empty($listing_img[0]) && empty($listing_prv_img)) {
+                                            if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
                                                 echo '<img src="' . $default_image . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
                                             }
                                             if (empty($disable_single_listing)) {
@@ -2798,7 +2798,6 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                             }
 
                         }
-                        /*Code for Business Hour Extensions*/
                         ?>
                         <div class="related_single_carousel" style="margin: 0 10px;">
                             <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : ''; ?>">
@@ -2821,7 +2820,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                                 if (!empty($listing_img[0]) && empty($listing_prv_img)) {
                                                     echo '<img src="' . esc_url($gallery_img) . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
                                                 }
-                                                if (empty($listing_img[0]) && empty($listing_prv_img)) {
+                                                if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
                                                     echo '<img src="' . $default_image . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
                                                 }
                                                 if (empty($disable_single_listing)) {
@@ -3265,7 +3264,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                         echo '<img src="' . esc_url($gallery_img) . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
 
                                     }
-                                    if (empty($listing_img[0]) && empty($listing_prv_img)) {
+                                    if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
 
                                         echo '<img src="' . $default_image . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
 

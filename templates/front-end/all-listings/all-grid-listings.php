@@ -141,7 +141,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                 echo '<img src="' . esc_url($gallery_img) . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
 
                                             }
-                                            if (empty($listing_img[0]) && empty($listing_prv_img)) {
+                                            if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
 
                                                 echo '<img src="' . $default_image . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
 

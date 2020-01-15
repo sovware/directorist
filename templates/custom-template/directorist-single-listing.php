@@ -3,7 +3,7 @@
  * Template Name: Directorist Single Listing Template
  */
 get_header();
-
+do_action( 'atbdp_before_main_content' );
 $single_temp_max_width      = get_directorist_option('single_temp_max_width',1080);
 $single_temp_Padding_top    = get_directorist_option('single_temp_Padding_top',30);
 $single_temp_Padding_bottom = get_directorist_option('single_temp_Padding_bottom',50);
@@ -44,4 +44,5 @@ $single_temp_margin_right   = get_directorist_option('single_temp_margin_right',
     </div><!-- #primary -->
 
 <?php
+do_action( 'atbdp_before_footer' );
 get_footer();

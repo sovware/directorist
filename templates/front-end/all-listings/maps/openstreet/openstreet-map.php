@@ -17,8 +17,8 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
     }
     .myDivIcon div.atbd_map_shape {
         position: absolute;
-        top: -24px;
-        left: -17px;
+        top: -38px;
+        left: -15px;
     }
 </style>
 <script>

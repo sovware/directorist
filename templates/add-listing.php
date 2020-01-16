@@ -92,7 +92,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
                     do_action('atbdp_add_listing_before_price_field', $post_ID);
                 ?>
                 <input type="hidden" id="pricerange_val" value="<?php echo $price_range;?>">
-                <input type="number" <?php echo !empty($allow_decimal)?'step="any"':''; ?> id="price" name="price" value="<?php echo !empty($price) ? esc_attr($price) : ''; ?>"
+                <input type="text" <?php echo !empty($allow_decimal)?'step="any"':''; ?> id="price" name="price" value="<?php echo !empty($price) ? esc_attr($price) : ''; ?>"
                        class="form-control directory_field"
                        placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
                 <?php }

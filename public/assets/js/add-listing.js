@@ -324,6 +324,7 @@ jQuery(function ($) {
         if ($('#_listing_gallery').length){
             var hasValidFiles = listingMediaUploader.hasValidFiles();
             if (!hasValidFiles) {
+                $(".listing_submit_btn").removeClass("atbd_loading");
                 return;
             }
         }
@@ -348,6 +349,7 @@ jQuery(function ($) {
         if ($('#listing_gallery_ext').length){
             var hasValidFiles = listingMediaUploader.hasValidFiles();
             if (!hasValidFiles) {
+                $(".listing_submit_btn").removeClass("atbd_loading");
                 return;
             }
         }
@@ -512,10 +514,12 @@ jQuery(function ($) {
                 // show the error notice
                 if (response.error === true) {
                     $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
+                    $(".listing_submit_btn").removeClass("atbd_loading");
                     //window.location.href = response.redirect_url;
                 }
             },
             error: function (error) {
+                $(".listing_submit_btn").removeClass("atbd_loading");
                 console.log(error);
             }
         });

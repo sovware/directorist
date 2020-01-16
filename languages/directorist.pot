@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2020-01-14 16:39+0600\n"
+"POT-Creation-Date: 2020-01-16 11:27+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
 "X-Poedit-Basepath: ..\n"
 "Language: en_US\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: config.php:41
@@ -130,13 +130,13 @@ msgstr ""
 
 #: directorist-base.php:1261
 #: includes/classes/class-settings-manager.php:5256
-#: templates/front-end/add-listing.php:1215
+#: templates/front-end/add-listing.php:1216
 msgid "Your Email"
 msgstr ""
 
 #: directorist-base.php:1262
 #: includes/classes/class-settings-manager.php:5262
-#: templates/front-end/add-listing.php:1216
+#: templates/front-end/add-listing.php:1217
 msgid "example@gmail.com"
 msgstr ""
 
@@ -163,8 +163,8 @@ msgstr ""
 #: templates/front-end/add-listing.php:862
 #: templates/front-end/add-listing.php:879
 #: templates/front-end/add-listing.php:972
-#: templates/front-end/add-listing.php:1202
-#: templates/front-end/add-listing.php:1217
+#: templates/front-end/add-listing.php:1203
+#: templates/front-end/add-listing.php:1218
 #: templates/meta-partials/social.php:9
 msgid ":"
 msgstr ""
@@ -212,7 +212,7 @@ msgid "You need to %s or %s to submit a review"
 msgstr ""
 
 #: directorist-base.php:1300
-msgid "View More Review"
+msgid "View More Reviews"
 msgstr ""
 
 #: includes/checkout/class-checkout.php:55
@@ -232,7 +232,7 @@ msgstr ""
 #: includes/classes/class-custom-post.php:176
 #: includes/classes/class-settings-manager.php:4235
 #: includes/gateways/class-gateway.php:133
-#: templates/front-end/add-listing.php:1170
+#: templates/front-end/add-listing.php:1172
 #: templates/front-end/user-dashboard.php:155
 #: templates/meta-partials/expiration-featured-fields.php:56
 msgid "Featured"
@@ -280,73 +280,73 @@ msgstr ""
 msgid "Payment Required! redirecting to checkout.."
 msgstr ""
 
-#: includes/classes/class-ajax-handler.php:80
+#: includes/classes/class-ajax-handler.php:81
 msgid "Fields are required."
 msgstr ""
 
-#: includes/classes/class-ajax-handler.php:82
+#: includes/classes/class-ajax-handler.php:83
 #: includes/classes/class-shortcode.php:3510
 msgid "Wrong username or password."
 msgstr ""
 
-#: includes/classes/class-ajax-handler.php:87
+#: includes/classes/class-ajax-handler.php:88
 msgid "Login successful, redirecting..."
 msgstr ""
 
-#: includes/classes/class-ajax-handler.php:240
+#: includes/classes/class-ajax-handler.php:241
 msgid "Profile updated successfully"
 msgstr ""
 
-#: includes/classes/class-ajax-handler.php:242
+#: includes/classes/class-ajax-handler.php:243
 msgid "Ops! something went wrong. Try again."
 msgstr ""
 
-#: includes/classes/class-ajax-handler.php:340
+#: includes/classes/class-ajax-handler.php:341
 #: includes/helper-functions.php:4394
 msgid "Email already exists!"
 msgstr ""
 
-#: includes/classes/class-ajax-handler.php:433
-#: includes/classes/class-ajax-handler.php:482
+#: includes/classes/class-ajax-handler.php:434
+#: includes/classes/class-ajax-handler.php:483
 msgid "[{site_name}] New review at \"{listing_title}\""
 msgstr ""
 
-#: includes/classes/class-ajax-handler.php:436
+#: includes/classes/class-ajax-handler.php:437
 msgid "Dear User,<br /><br />A new review at {listing_url}.<br /><br />"
 msgstr ""
 
-#: includes/classes/class-ajax-handler.php:485
+#: includes/classes/class-ajax-handler.php:486
 msgid ""
 "Dear Administrator,<br /><br />A new review at {listing_url}.<br /><br /"
 ">Name: {sender_name}<br />Email: {sender_email}"
 msgstr ""
 
-#: includes/classes/class-ajax-handler.php:549
+#: includes/classes/class-ajax-handler.php:550
 msgid "{site_name} Report Abuse via \"{listing_title}\""
 msgstr ""
 
-#: includes/classes/class-ajax-handler.php:552
+#: includes/classes/class-ajax-handler.php:553
 msgid ""
 "Dear Administrator,<br /><br />This is an email abuse report for a "
 "listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: "
 "{sender_email}<br />Message: {message}"
 msgstr ""
 
-#: includes/classes/class-ajax-handler.php:572
-#: includes/classes/class-ajax-handler.php:735
+#: includes/classes/class-ajax-handler.php:573
+#: includes/classes/class-ajax-handler.php:736
 msgid "Your message sent successfully."
 msgstr ""
 
-#: includes/classes/class-ajax-handler.php:577
-#: includes/classes/class-ajax-handler.php:740
+#: includes/classes/class-ajax-handler.php:578
+#: includes/classes/class-ajax-handler.php:741
 msgid "Sorry! Please try again."
 msgstr ""
 
-#: includes/classes/class-ajax-handler.php:703
+#: includes/classes/class-ajax-handler.php:704
 msgid "{site_name} Contact via {listing_title}"
 msgstr ""
 
-#: includes/classes/class-ajax-handler.php:706
+#: includes/classes/class-ajax-handler.php:707
 msgid ""
 "Dear Administrator,<br /><br />A listing on your website {site_name} "
 "received a message.<br /><br />Listing URL: {listing_url}<br /><br /"
@@ -356,7 +356,7 @@ msgid ""
 "unless necessary."
 msgstr ""
 
-#: includes/classes/class-ajax-handler.php:789
+#: includes/classes/class-ajax-handler.php:790
 msgid "Thanks for information"
 msgstr ""
 
@@ -1311,7 +1311,7 @@ msgid "Select or Upload a profile picture"
 msgstr ""
 
 #: includes/classes/class-enqueuer.php:303
-#: templates/front-end/checkout-form.php:109
+#: templates/front-end/checkout-form.php:112
 msgid "Pay Now"
 msgstr ""
 
@@ -1620,13 +1620,13 @@ msgstr ""
 msgid "Read More"
 msgstr ""
 
-#: includes/classes/class-listing.php:170
-#: includes/classes/class-listing.php:183
+#: includes/classes/class-listing.php:173
+#: includes/classes/class-listing.php:186
 #: templates/single-at_biz_dir.php:200 templates/single-at_biz_dir.php:213
 msgid " Go Back"
 msgstr ""
 
-#: includes/classes/class-listing.php:176
+#: includes/classes/class-listing.php:179
 #: templates/single-at_biz_dir.php:205
 msgid " Edit"
 msgstr ""
@@ -1716,14 +1716,14 @@ msgstr ""
 
 #: includes/classes/class-metabox.php:244
 #: includes/classes/class-settings-manager.php:5122
-#: templates/front-end/add-listing.php:1201
+#: templates/front-end/add-listing.php:1202
 msgid "Only YouTube & Vimeo URLs."
 msgstr ""
 
 #: includes/classes/class-metabox.php:245
 #: includes/classes/class-metabox.php:250
 #: includes/classes/class-settings-manager.php:5116
-#: templates/front-end/add-listing.php:1200
+#: templates/front-end/add-listing.php:1201
 msgid "Video Url"
 msgstr ""
 
@@ -1984,13 +1984,13 @@ msgid "About/bio"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:384
-#: includes/custom-actions.php:22
+#: includes/custom-actions.php:23
 msgid "Privacy Policy"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:389
 #: includes/classes/class-settings-manager.php:1116
-#: includes/custom-actions.php:128
+#: includes/custom-actions.php:129
 msgid "Terms and Conditions"
 msgstr ""
 
@@ -2222,14 +2222,14 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:845
 #: includes/classes/class-settings-manager.php:5158
-#: templates/front-end/add-listing.php:1239
+#: templates/front-end/add-listing.php:1240
 #: templates/front-end/user-registration-form.php:29
 msgid "I agree to the"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:851
 #: includes/classes/class-settings-manager.php:5164
-#: templates/front-end/add-listing.php:1240
+#: templates/front-end/add-listing.php:1241
 #: templates/front-end/user-registration-form.php:30
 msgid "Privacy & Policy"
 msgstr ""
@@ -2246,14 +2246,14 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:883
 #: includes/classes/class-settings-manager.php:5195
-#: templates/front-end/add-listing.php:1235
+#: templates/front-end/add-listing.php:1236
 #: templates/front-end/user-registration-form.php:25
 msgid "I agree with all"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:889
 #: includes/classes/class-settings-manager.php:5201
-#: templates/front-end/add-listing.php:1236
+#: templates/front-end/add-listing.php:1237
 #: templates/front-end/user-registration-form.php:26
 msgid "terms & conditions"
 msgstr ""
@@ -4374,7 +4374,7 @@ msgid "Submit listing label"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:5233
-#: templates/front-end/add-listing.php:1293
+#: templates/front-end/add-listing.php:1294
 msgid "Save & Preview"
 msgstr ""
 
@@ -5349,11 +5349,11 @@ msgstr ""
 msgid "Popular Listings"
 msgstr ""
 
-#: includes/custom-actions.php:178
+#: includes/custom-actions.php:183
 msgid " Pay & Submit"
 msgstr ""
 
-#: includes/custom-actions.php:178
+#: includes/custom-actions.php:183
 msgid " Submit"
 msgstr ""
 
@@ -5987,7 +5987,7 @@ msgstr ""
 
 #: includes/libs/vafpress/classes/metabox.php:588
 #: includes/libs/vafpress/classes/metabox/alchemy.php:515
-#: templates/front-end/add-listing.php:1174
+#: templates/front-end/add-listing.php:1176
 msgid "Add More"
 msgstr ""
 
@@ -6192,14 +6192,14 @@ msgid "Item(s)"
 msgstr ""
 
 #: includes/payments/class-order.php:72
-#: templates/front-end/checkout-form.php:28
+#: templates/front-end/checkout-form.php:31
 #: templates/front-end/payment-receipt.php:115
 #, php-format
 msgid "Price [%s]"
 msgstr ""
 
 #: includes/payments/class-order.php:89
-#: templates/front-end/checkout-form.php:65
+#: templates/front-end/checkout-form.php:68
 #: templates/front-end/payment-receipt.php:145
 #, php-format
 msgid "Total amount [%s]"
@@ -6265,7 +6265,7 @@ msgstr ""
 #: includes/payments/class-order.php:274
 #: includes/review-rating/class-review-custom-post.php:161
 #: includes/review-rating/class-review-custom-post.php:293
-#: templates/front-end/checkout-form.php:26
+#: templates/front-end/checkout-form.php:29
 #: templates/front-end/single-listing/listing-custom-fields.php:6
 #: templates/front-end/single-listing/listing-header.php:99
 #: templates/single-at_biz_dir.php:157
@@ -6549,12 +6549,12 @@ msgid "Enter Information about Businss/Opening Hours"
 msgstr ""
 
 #: templates/contact-info.php:357 templates/contact-info.php:438
-#: templates/front-end/add-listing.php:1412
-#: templates/front-end/add-listing.php:1491
+#: templates/front-end/add-listing.php:1413
+#: templates/front-end/add-listing.php:1492
 msgid "You can drag the marker to your desired place to place a marker"
 msgstr ""
 
-#: templates/contact-info.php:417 templates/front-end/add-listing.php:1470
+#: templates/contact-info.php:417 templates/front-end/add-listing.php:1471
 msgid "Geocode was not successful for the following reason: "
 msgstr ""
 
@@ -6777,7 +6777,7 @@ msgstr ""
 msgid "Drop files here <small>or</small>"
 msgstr ""
 
-#: templates/file-uploader.php:95 templates/front-end/add-listing.php:1173
+#: templates/file-uploader.php:95 templates/front-end/add-listing.php:1175
 msgid "Select Files"
 msgstr ""
 
@@ -6846,27 +6846,27 @@ msgstr ""
 msgid "Images"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1171
+#: templates/front-end/add-listing.php:1173
 msgid "Drag & Drop"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1172
+#: templates/front-end/add-listing.php:1174
 msgid "or"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1176
+#: templates/front-end/add-listing.php:1178
 msgid "Max limit for total file size is __DT__"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1179
-msgid "Min limit for total file is __DT__"
+#: templates/front-end/add-listing.php:1181
+msgid "Min __DT__ file is required"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1182
+#: templates/front-end/add-listing.php:1184
 msgid "Max limit for total file is __DT__"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1294
+#: templates/front-end/add-listing.php:1295
 msgid "Preview Changes"
 msgstr ""
 
@@ -6926,23 +6926,23 @@ msgid "1 Star & Up"
 msgstr ""
 
 #: templates/front-end/all-listings/maps/google/google-map.php:95
-#: templates/front-end/all-listings/maps/openstreet/openstreet-map.php:74
+#: templates/front-end/all-listings/maps/openstreet/openstreet-map.php:86
 #: templates/front-end/single-listing/listing-map.php:63
 #: templates/single-at_biz_dir.php:129
 msgid "Get Direction"
 msgstr ""
 
-#: templates/front-end/checkout-form.php:17
+#: templates/front-end/checkout-form.php:20
 msgid ""
 "Your order details are given below. Please review it and click on "
 "Proceed to Payment to complete this order."
 msgstr ""
 
-#: templates/front-end/checkout-form.php:76
+#: templates/front-end/checkout-form.php:79
 msgid "Choose a payment method"
 msgstr ""
 
-#: templates/front-end/checkout-form.php:107
+#: templates/front-end/checkout-form.php:110
 msgid "Not Now"
 msgstr ""
 

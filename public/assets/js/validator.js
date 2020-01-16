@@ -52,7 +52,7 @@ jQuery(document).ready(function ($) {
         }
 
         //Price range
-        if ($("input[name='price_range']").length > 0) {
+        if ($("select[name='price_range']").length > 0) {
             var price_range = $("select[name='price_range']").val();
             var required_price_range = add_listing_validator.price_range;
             if ('' === price_range && '' !== required_price_range) {

@@ -466,7 +466,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 $args['post_status'] = $new_l_status;
                             }
                             if (!empty($preview_enable)){
-                                $args['post_status'] = 'pending';
+                                $args['post_status'] = 'draft';
                             }
 
                             if ( isset( $args['tax_input'] ) ) {

@@ -6,6 +6,9 @@ $listing_id = !empty($args['listing_id']) ? $args['listing_id'] : 0;
 $c_position = get_directorist_option('payment_currency_position');
 $currency = atbdp_get_payment_currency();
 $symbol = atbdp_currency_symbol($currency);
+if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
+    atbdp_status_after_previewed_listing($_GET['atbdp_listing_id']);
+}
 //displaying data for checkout
 ?>
 <div id="directorist" class="atbd_wrapper directorist directorist-checkout-form">

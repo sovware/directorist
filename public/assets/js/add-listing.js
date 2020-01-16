@@ -274,6 +274,12 @@ jQuery(function ($) {
     listignsGalleryUploader.init();
 
     var formID = $('#add-listing-form');
+
+    /*$('input[name="bdbh[monday][remain_close]"]').on('change', function(e){
+        var elm = $(this).val();
+        console.log(elm);
+    });*/
+
     $('body').on('submit', formID, function (e) {
         e.preventDefault();
         var form_data = new FormData();
@@ -462,13 +468,14 @@ jQuery(function ($) {
         if (bh_field.length > 1) {
             bh_field.each(function (index, value) {
                 var type = $(value).attr('type');
-                if (type === "checkbox") {
+                if (type === "radio") {
                     var name = $(this).attr("name");
-                    var value = atbdp_is_checked(name);
-                    form_data.append(name, value);
+                    if ($(this).is(':checked')){
+                        form_data.append(name, $(this).val());
+                    }
                 } else {
                     var name = $(this).attr("name");
-                    var value = $(this).val();
+                    var value = $(this).attr('data-time');
                     form_data.append(name, value);
                 }
             });
@@ -499,7 +506,6 @@ jQuery(function ($) {
                 }else if((response.preview_mode === true) && (response.need_payment === true)){
                     window.location.href = response.preview_url + '&preview=1&payment=1&redirect=' + response.redirect_url;
                 }else {
-
                         $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
                         window.location.href = response.redirect_url;
                 }

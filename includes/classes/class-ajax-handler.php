@@ -19,6 +19,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
         public function __construct()
         {
             add_action('wp_ajax_atbdp_social_info_handler', array($this, 'atbdp_social_info_handler'));
+            add_action('wp_ajax_nopriv_atbdp_social_info_handler', array($this, 'atbdp_social_info_handler'));
             add_action('wp_ajax_remove_listing_review', array($this, 'remove_listing_review'));
             add_action('wp_ajax_save_listing_review', array($this, 'save_listing_review'));
             add_action( 'wp_ajax_nopriv_save_listing_review', array($this, 'save_listing_review')); // don not allow unregistered user to submit review

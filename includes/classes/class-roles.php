@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class ATBDP_Roles {
 
-    var $version = 2;
+    var $version = 3;
 
     public function __construct()
     {
@@ -103,7 +103,7 @@ class ATBDP_Roles {
 
             $custom_posts = array( 'at_biz_dir', 'atbdp_order' ); // we can add more custom post type here as we will work on the plugin eg. payment.
             // as author, contributor, and subscriber has the same caps, so lets loop over them and add the cap.
-            $users_roles = array('author', 'contributor', 'subscriber');
+            $users_roles = array('author', 'contributor', 'subscriber', 'shop_manager', 'customer');
 
             // Add the "editor" capabilities of all of our custom posts
             foreach ($custom_posts as $cp) {

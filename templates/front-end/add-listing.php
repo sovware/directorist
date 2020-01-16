@@ -1123,19 +1123,20 @@ $query_args = array(
                                                 <!--Image Uploader-->
                                                 <?php if (!empty($display_gellery_field) && empty($display_glr_img_for) && $plan_slider) {
                                                     $plan_image = get_directorist_option('max_gallery_image_limit', 5);
-                                                    if (is_fee_manager_active()){
+                                                    if (is_fee_manager_active()) {
                                                         $selected_plan = selected_plan_id();
-                                                        $planID = !empty($selected_plan)?$selected_plan:$fm_plan;
+                                                        $planID = !empty($selected_plan) ? $selected_plan : $fm_plan;
                                                         $allow_slider = is_plan_allowed_slider($planID);
                                                         $slider_unl = is_plan_slider_unlimited($planID);
-                                                        if (!empty($allow_slider) && empty($slider_unl)){
+                                                        if (!empty($allow_slider) && empty($slider_unl)) {
                                                             $plan_image = is_plan_slider_limit($planID);
                                                         }
                                                     }
                                                     $max_size = get_directorist_option('max_gallery_upload_size', 4);
-                                                    $max_size_kb = (int)$max_size*1024;
+                                                    $max_size_kb = (int)$max_size * 1024;
                                                     ?>
-                                                    <div id="_listing_gallery" class="ez-media-uploader" data-max-file-items="<?php echo $plan_image; ?>"
+                                                    <div id="_listing_gallery" class="ez-media-uploader"
+                                                         data-max-file-items="<?php echo $plan_image; ?>"
                                                          data-max-total-file-size="<?php echo $max_size_kb; ?>">
                                                         <!-- --><?php /*ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider', 'p_id'));
                                                         */ ?>
@@ -1144,27 +1145,43 @@ $query_args = array(
                                                               <span class="ezmu__loading-icon-img-bg"></span>
                                                             </span>
                                                         </div>
-
+                                                        <!--old files-->
                                                         <div class="ezmu__old-files">
                                                             <?php
-                                                            if (!empty($listing_img)){
-                                                                foreach ($listing_img as $image){
+                                                            if (!empty($listing_img)) {
+                                                                foreach ($listing_img as $image) {
                                                                     $url = wp_get_attachment_image_url($image, 'full');
-                                                                    $size = filesize( get_attached_file( $image ) );
+                                                                    $size = filesize(get_attached_file($image));
                                                                     ?>
                                                                     <span
                                                                             class="ezmu__old-files-meta"
-                                                                            data-attachment-id="<?php echo esc_attr($image);?>"
-                                                                            data-url="<?php echo esc_url($url);?>"
-                                                                            data-size="<?php echo esc_attr($size/1024);?>"
+                                                                            data-attachment-id="<?php echo esc_attr($image); ?>"
+                                                                            data-url="<?php echo esc_url($url); ?>"
+                                                                            data-size="<?php echo esc_attr($size / 1024); ?>"
                                                                             data-type="image"
                                                                     ></span>
-                                                            <?php
+                                                                    <?php
                                                                 }
                                                             }
                                                             ?>
                                                         </div>
-
+                                                        <!-- translatable string-->
+                                                        <div class="ezmu-dictionary">
+                                                            <span class="ezmu-dictionary-featured"><?php echo __('Featured', 'directorist')?></span>
+                                                            <span class="ezmu-dictionary-drag-n-drop"><?php echo __('Drag & Drop', 'directorist')?></span>
+                                                            <span class="ezmu-dictionary-or"><?php echo __('or', 'directorist')?></span>
+                                                            <span class="ezmu-dictionary-select-files"><?php echo __('Select Files', 'directorist')?></span>
+                                                            <span class="ezmu-dictionary-add-more"><?php echo __('Add More', 'directorist')?></span>
+                                                            <span class="ezmu-dictionary-max-total-file-size">
+                                                                <?php echo __('Max limit for total file size is __DT__', 'directorist')?>
+                                                            </span>
+                                                            <!--<span class="ezmu-dictionary-max-file-items">
+                                                                <?php /*echo __('Min limit for total file is __DT__', 'directorist')*/?>
+                                                            </span>-->
+                                                            <span class="ezmu-dictionary-max-file-items">
+                                                                <?php echo __('Max limit for total file is __DT__', 'directorist')?>
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 <?php } ?>
                                                 <?php

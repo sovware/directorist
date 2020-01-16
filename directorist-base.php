@@ -1297,7 +1297,7 @@ final class Directorist_Base
 
             // if the count of review is more than the number of showing reviews then show the more review button, eg. here we will show the read more button  if the number of the review in the database is more than $review_num=5 default
             if (!empty($reviews_count) && $reviews_count > $review_num) {
-                echo "<button class='directory_btn' type='button' id='load_more_review' data-id='{$post->ID}''>" . __('View More Review', 'directorist') . "</button>";
+                echo "<button class='directory_btn' type='button' id='load_more_review' data-id='{$post->ID}''>" . __('View More Reviews', 'directorist') . "</button>";
             }
         }
     }

@@ -1137,7 +1137,7 @@ final class Directorist_Base
                 </div>
                 <div class="atbdb_content_module_contents">
                     <input type="hidden" id="review_post_id" data-post-id="<?php echo $post->ID; ?>">
-                    <div id="client_review_list" class="atbdp_pag_loading">
+                    <div id="client_review_list">
                     </div>
                     <div id="clint_review"></div>
                 </div>

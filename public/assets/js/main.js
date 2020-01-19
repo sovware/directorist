@@ -183,7 +183,7 @@
 
     function atbdp_load_all_posts(page){
         // Start the transition
-        $(".atbdp_pag_loading").fadeIn().css('background','#ccc');
+        //$(".atbdp_pag_loading").fadeIn().css('background','#ccc');
         var listing_id = $('#review_post_id').attr('data-post-id');
         // Data to receive from our server
         // the value in 'action' is the key that will be identified by the 'wp_ajax_' hook
@@ -196,10 +196,9 @@
         // Send the data
         $.post(atbdp_public_data.ajaxurl, data, function(response) {
             // If successful Append the data into our html container
-            //$(".atbdp_universal_container").empty().append(response);
             $('#client_review_list').empty().append(response);
             // End the transition
-            $(".atbdp_pag_loading").css({'background':'none', 'transition':'all 1s ease-out'});
+            //$(".atbdp_pag_loading").css({'background':'none', 'transition':'all 1s ease-out'});
         });
     }
 

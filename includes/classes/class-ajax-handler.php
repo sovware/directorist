@@ -320,7 +320,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                         $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
 
                         // Set the desired output into a variable
-                        $msg .= '<div class="atbd_single_review atbdp_static" id="single_review_'.$review->id.'">';
+                        $msg .= '<div class="atbd_single_review atbdp_static" id="single_review_' . $review->id . '">';
                         $msg .= '<div class="atbd_review_top">';
                         $msg .= '<div class="atbd_avatar_wrapper">';
                         if (!empty($enable_reviewer_img)) {
@@ -328,31 +328,31 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                             if (empty($u_pro_pic)) {
                                 $msg .= $avata_img;
                             }
-                            if(!empty($u_pro_pic)){
-                                $msg .= '<img src="'. esc_url($u_pro_pic[0]).'" alt="Avatar Image">';
+                            if (!empty($u_pro_pic)) {
+                                $msg .= '<img src="' . esc_url($u_pro_pic[0]) . '" alt="Avatar Image">';
                             }
                             $msg .= '</div>';
                         }
                         $msg .= '<div class="atbd_name_time">';
-                        $msg .= '<p>'. esc_html($review->name).'</p>';
-                        $msg .= '<span class="review_time">'.
-                            sprintf(__('%s ago', 'directorist'), human_time_diff(strtotime($review->date_created), current_time('timestamp'))).'</span>';
+                        $msg .= '<p>' . esc_html($review->name) . '</p>';
+                        $msg .= '<span class="review_time">' .
+                            sprintf(__('%s ago', 'directorist'), human_time_diff(strtotime($review->date_created), current_time('timestamp'))) . '</span>';
                         $msg .= '</div>';
                         $msg .= '</div>';
                         $msg .= '<div class="atbd_rated_stars">';
-                        $msg .=  ATBDP()->review->print_static_rating($review->rating);
+                        $msg .= ATBDP()->review->print_static_rating($review->rating);
                         $msg .= '</div>';
                         $msg .= '</div>';
 
                         $msg .= '<div class="review_content">';
-                        $msg .= '<p>'. stripslashes(esc_html($review->content)).'</p>';
+                        $msg .= '<p>' . stripslashes(esc_html($review->content)) . '</p>';
                         $msg .= '</div>';
                         $msg .= '</div>';
                     endforeach;
-                }else{
+                } else {
                     $msg .= ' <div class="notice alert alert-info" role="alert" id="review_notice">
-                                <span class="'. atbdp_icon_type(false).'-info-circle" aria-hidden="true"></span>'.
-                                __('No reviews found. Be the first to post a review !', 'directorist').'</div>';
+                                <span class="' . atbdp_icon_type(false) . '-info-circle" aria-hidden="true"></span>' .
+                        __('No reviews found. Be the first to post a review !', 'directorist') . '</div>';
                 }
                 // Optional, wrap the output into a container
                 $msg = "<div class='atbdp-universal-content'>" . $msg . "</div><br class = 'clear' />";
@@ -394,29 +394,32 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 } else if ($first_btn) {
                     $first_class = 'inactive';
                 }
-                $pag_container .= "<li data-page='1' class='".$first_class."'>1</li>";
+                $pag_container .= "<li data-page='1' class='" . $first_class . "'>1</li>";
                 for ($i = $start_loop; $i <= $end_loop; $i++) {
                     if ($i === 1 || $i === $no_of_paginations) continue;
-                    $dot_ = (int)$cur_page+2;
-                    $dot__ = (int)$cur_page-2;
-                    if ($cur_page>4){
-                        if(($dot__ == $i)){
-                            $pag_container .= "<span>...</span>";
+                    $dot_ = (int)$cur_page + 2;
+                    $dot__ = (int)$cur_page - 2;
+                    if ($cur_page > 4) {
+                        if (($dot__ == $i)) {
+                            $jump = $i - 5;
+                            $jump = $jump < 1 ? 1 : $jump;
+                            $pag_container .= "<li data-page='$jump' class='active'>...</li>";
                         }
                     }
-                    if ($cur_page == $i){
+                    if ($cur_page == $i) {
                         $pag_container .= "<li data-page='$i' class = 'selected' >{$i}</li>";
-                    }else{
+                    } else {
                         $pag_container .= "<li data-page='$i' class='active'>{$i}</li>";
                     }
-                    if ($cur_page>4){
-                        if(($dot_ == $i)){
-                            $pag_container .= "<span>...</span>";
+                    if (($cur_page > 4)) {
+                        if (($dot_ == $i)) {
+                            $jump = $i + 5;
+                            $jump = $jump > $no_of_paginations ? $no_of_paginations : $jump;
+                            $pag_container .= "<li data-page='$jump' class='active'>...</li>";
                         }
                     }
 
                 }
-
 
 
                 if ($last_btn && $cur_page < $no_of_paginations) {
@@ -424,7 +427,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 } else if ($last_btn) {
                     $last_class = 'inactive';
                 }
-                $pag_container .= "<li data-page='$no_of_paginations' class='".$last_class."'>{$no_of_paginations}</li>";
+                $pag_container .= "<li data-page='$no_of_paginations' class='" . $last_class . "'>{$no_of_paginations}</li>";
 
                 if ($next_btn && $cur_page < $no_of_paginations) {
                     $nex = $cur_page + 1;
@@ -437,9 +440,10 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             </ul>
         </div>";
                 // We echo the final output
-                echo
-                    '<div class = "atbdp-pagination-content">' . $msg . '</div>' .
-                    '<div class = "atbdp-pagination-nav">' . $pag_container . '</div>';
+                echo '<div class = "atbdp-pagination-content">' . $msg . '</div>';
+                if (!empty($count) && $count > $review_num) {
+                    echo '<div class = "atbdp-pagination-nav">' . $pag_container . '</div>';
+                }
 
             }
             // Always exit to avoid further execution

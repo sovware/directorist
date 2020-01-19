@@ -43,6 +43,7 @@ $zip_label = get_directorist_option('zip_label', __('Zip/Post Code', 'directoris
 $display_social_info_field = get_directorist_option('display_social_info_field', 1);
 $display_social_info_for = get_directorist_option('display_social_info_for', 'admin_users');
 $is_info = get_directorist_option('disable_contact_info', 0);
+$use_nofollow = get_directorist_option('use_nofollow');
 $address_map_link = get_directorist_option('address_map_link', 0);
 $disable_contact_info = apply_filters('atbdp_single_listing_contact_info', $is_info);
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
@@ -80,7 +81,9 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                             <div class="atbd_info_title"><span
                                         class="<?php atbdp_icon_type(true);?>-phone"></span><?php _e($phone_label, 'directorist'); ?>
                             </div>
-                            <div class="atbd_info"><?php echo esc_html($phone); ?></div>
+                            <div class="atbd_info"><a
+                                        href="tel:<?php echo esc_html(stripslashes($phone)); ?>"><?php echo esc_html(stripslashes($phone)); ?></a>
+                            </div>
                         </li>
                     <?php } ?>
                     <?php

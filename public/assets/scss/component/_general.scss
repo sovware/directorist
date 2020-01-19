@@ -1139,3 +1139,42 @@ div#listing_notifier span {
     }
   }
 }
+
+//review pagination
+.atbdp-universal-pagination{
+  ul{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    li{
+      margin: 0 7px;
+      padding: 0 10px !important;
+      border: 1px solid $border-color;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 28px;
+      border-radius: 3px;
+      transition: 0.3s ease;
+      i{
+        line-height: 28px;
+      }
+      &.active{
+        cursor: pointer;
+        &:hover{
+          border-color: $dark;
+          color: $dark;
+        }
+      }
+      &.selected{
+        border-color: $dark;
+        color: $dark;
+      }
+      &.inactive{
+        opacity: 0.5;
+      }
+    }
+  }
+}

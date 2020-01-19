@@ -385,9 +385,9 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
                 if ($previous_btn && $cur_page > 1) {
                     $pre = $cur_page - 1;
-                    $pag_container .= "<li data-page='$pre' class='active'>".__('Previous', 'directorist')."</li>";
+                    $pag_container .= "<li data-page='$pre' class='active'><i class='la la-angle-left'></i></li>";
                 } else if ($previous_btn) {
-                    $pag_container .= "<li class='inactive'>".__('Previous', 'directorist')."</li>";
+                    $pag_container .= "<li class='inactive'><i class='la la-angle-left'></i></li>";
                 }
                 if ($first_btn && $cur_page > 1) {
                     $first_class = 'active';
@@ -414,9 +414,9 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
                 if ($next_btn && $cur_page < $no_of_paginations) {
                     $nex = $cur_page + 1;
-                    $pag_container .= "<li data-page='$nex' class='active'>".__('Next', 'directorist')."</li>";
+                    $pag_container .= "<li data-page='$nex' class='active'><i class='la la-angle-right'></i></li>";
                 } else if ($next_btn) {
-                    $pag_container .= "<li class='inactive'>".__('Next', 'directorist')."</li>";
+                    $pag_container .= "<li class='inactive'><i class='la la-angle-right'></i></li>";
                 }
 
                 $pag_container = $pag_container . "

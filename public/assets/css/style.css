@@ -1225,6 +1225,48 @@ div#listing_notifier span {
   background: #444752 !important;
 }
 
+.atbdp-universal-pagination ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.atbdp-universal-pagination ul li {
+  margin: 0 7px;
+  padding: 0 10px !important;
+  border: 1px solid #e3e6ef;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 28px;
+  border-radius: 3px;
+  transition: 0.3s ease;
+}
+
+.atbdp-universal-pagination ul li i {
+  line-height: 28px;
+}
+
+.atbdp-universal-pagination ul li.active {
+  cursor: pointer;
+}
+
+.atbdp-universal-pagination ul li.active:hover {
+  border-color: #202428;
+  color: #202428;
+}
+
+.atbdp-universal-pagination ul li.selected {
+  border-color: #202428;
+  color: #202428;
+}
+
+.atbdp-universal-pagination ul li.inactive {
+  opacity: 0.5;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

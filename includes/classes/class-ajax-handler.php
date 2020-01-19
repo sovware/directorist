@@ -359,20 +359,20 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
                 // This is where the magic happens
                 $no_of_paginations = ceil($count / $per_page);
-                if ($cur_page >= 7) {
-                    $start_loop = $cur_page - 3;
-                    if ($no_of_paginations > $cur_page + 3)
-                        $end_loop = $cur_page + 3;
-                    else if ($cur_page <= $no_of_paginations && $cur_page > $no_of_paginations - 6) {
-                        $start_loop = $no_of_paginations - 6;
+                if ($cur_page >= 5) {
+                    $start_loop = $cur_page - 2;
+                    if ($no_of_paginations > $cur_page + 2)
+                        $end_loop = $cur_page + 2;
+                    else if ($cur_page <= $no_of_paginations && $cur_page > $no_of_paginations - 4) {
+                        $start_loop = $no_of_paginations - 4;
                         $end_loop = $no_of_paginations;
                     } else {
                         $end_loop = $no_of_paginations;
                     }
                 } else {
                     $start_loop = 1;
-                    if ($no_of_paginations > 7)
-                        $end_loop = 7;
+                    if ($no_of_paginations > 5)
+                        $end_loop = 5;
                     else
                         $end_loop = $no_of_paginations;
                 }
@@ -394,23 +394,37 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 } else if ($first_btn) {
                     $first_class = 'inactive';
                 }
-                $pag_container .= "<li data-page='1' class='".$first_class."'>".__('First', 'directorist')."</li>";
-
-
+                $pag_container .= "<li data-page='1' class='".$first_class."'>1</li>";
                 for ($i = $start_loop; $i <= $end_loop; $i++) {
-
-                    if ($cur_page == $i)
+                    if ($i === 1 || $i === $no_of_paginations) continue;
+                    $dot_ = (int)$cur_page+2;
+                    $dot__ = (int)$cur_page-2;
+                    if ($cur_page>4){
+                        if(($dot__ == $i)){
+                            $pag_container .= "<span>...</span>";
+                        }
+                    }
+                    if ($cur_page == $i){
                         $pag_container .= "<li data-page='$i' class = 'selected' >{$i}</li>";
-                    else
+                    }else{
                         $pag_container .= "<li data-page='$i' class='active'>{$i}</li>";
+                    }
+                    if ($cur_page>4){
+                        if(($dot_ == $i)){
+                            $pag_container .= "<span>...</span>";
+                        }
+                    }
+
                 }
+
+
 
                 if ($last_btn && $cur_page < $no_of_paginations) {
                     $last_class = 'active';
                 } else if ($last_btn) {
                     $last_class = 'inactive';
                 }
-                $pag_container .= "<li data-page='$no_of_paginations' class='".$last_class."'>".__('Last', 'directorist')."</li>";
+                $pag_container .= "<li data-page='$no_of_paginations' class='".$last_class."'>{$no_of_paginations}</li>";
 
                 if ($next_btn && $cur_page < $no_of_paginations) {
                     $nex = $cur_page + 1;

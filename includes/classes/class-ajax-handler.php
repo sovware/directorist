@@ -295,6 +295,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             if (isset($_POST['page'])) {
                 // Sanitize the received page
                 $page = sanitize_text_field($_POST['page']);
+                $listing_id = sanitize_text_field($_POST['listing_id']);
                 $cur_page = $page;
                 $page -= 1;
                 // Set the number of results to display
@@ -305,9 +306,9 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 $last_btn = true;
                 $start = $page * $per_page;
                 // Query the necessary reviews
-                $all_blog_posts = ATBDP()->review->db->get_reviews_by('post_id', 1236, $start, $per_page);
+                $all_blog_posts = ATBDP()->review->db->get_reviews_by('post_id', (int)$listing_id, $start, $per_page);
                 // At the same time, count the number of queried review
-                $count = ATBDP()->review->db->count(array('post_id' => '1236'));
+                $count = ATBDP()->review->db->count(array('post_id' => $listing_id));
                 // Loop into all the posts
                 foreach ($all_blog_posts as $key => $post):
                     // Set the desired output into a variable
@@ -353,36 +354,36 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             <ul>";
 
                 if ($first_btn && $cur_page > 1) {
-                    $pag_container .= "<li p='1' class='active'>First</li>";
+                    $pag_container .= "<li data-page='1' class='active'>First</li>";
                 } else if ($first_btn) {
-                    $pag_container .= "<li p='1' class='inactive'>First</li>";
+                    $pag_container .= "<li data-page='1' class='inactive'>First</li>";
                 }
 
                 if ($previous_btn && $cur_page > 1) {
                     $pre = $cur_page - 1;
-                    $pag_container .= "<li p='$pre' class='active'>Previous</li>";
+                    $pag_container .= "<li data-page='$pre' class='active'>Previous</li>";
                 } else if ($previous_btn) {
                     $pag_container .= "<li class='inactive'>Previous</li>";
                 }
                 for ($i = $start_loop; $i <= $end_loop; $i++) {
 
                     if ($cur_page == $i)
-                        $pag_container .= "<li p='$i' class = 'selected' >{$i}</li>";
+                        $pag_container .= "<li data-page='$i' class = 'selected' >{$i}</li>";
                     else
-                        $pag_container .= "<li p='$i' class='active'>{$i}</li>";
+                        $pag_container .= "<li data-page='$i' class='active'>{$i}</li>";
                 }
 
                 if ($next_btn && $cur_page < $no_of_paginations) {
                     $nex = $cur_page + 1;
-                    $pag_container .= "<li p='$nex' class='active'>Next</li>";
+                    $pag_container .= "<li data-page='$nex' class='active'>Next</li>";
                 } else if ($next_btn) {
                     $pag_container .= "<li class='inactive'>Next</li>";
                 }
 
                 if ($last_btn && $cur_page < $no_of_paginations) {
-                    $pag_container .= "<li p='$no_of_paginations' class='active'>Last</li>";
+                    $pag_container .= "<li data-page='$no_of_paginations' class='active'>Last</li>";
                 } else if ($last_btn) {
-                    $pag_container .= "<li p='$no_of_paginations' class='inactive'>Last</li>";
+                    $pag_container .= "<li data-page='$no_of_paginations' class='inactive'>Last</li>";
                 }
 
                 $pag_container = $pag_container . "

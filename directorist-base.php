@@ -1201,18 +1201,17 @@ final class Directorist_Base
             // review pagination
             if (!empty($reviews_count) && $reviews_count > $review_num) {
                 ?>
-
+                <input type="hidden" id="review_post_id" data-post-id="<?php echo $post->ID; ?>">
                 <div class="col-md-12 content">
                     <div class = "inner-box content no-right-margin darkviolet">
-                        <div class = "cvf_pag_loading">
-                            <div class = "cvf_universal_container">
+                        <div class = "atbdp_pag_loading">
+                            <div class = "atbdp_universal_container">
                                 <div class="atbdp-universal-content"></div>
                             </div>
                         </div>
 
                     </div>
                 </div>
-
                 <?php
             }
 

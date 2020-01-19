@@ -181,34 +181,35 @@
     });
 
 
-    function cvf_load_all_posts(page){
+    function atbdp_load_all_posts(page){
         // Start the transition
-        $(".cvf_pag_loading").fadeIn().css('background','#ccc');
-
+        $(".atbdp_pag_loading").fadeIn().css('background','#ccc');
+        var listing_id = $('#review_post_id').attr('data-post-id');
         // Data to receive from our server
         // the value in 'action' is the key that will be identified by the 'wp_ajax_' hook
         var data = {
             page: page,
+            listing_id: listing_id,
             action: "atbdp_review_pagination"
         };
 
         // Send the data
         $.post(atbdp_public_data.ajaxurl, data, function(response) {
             // If successful Append the data into our html container
-            //$(".cvf_universal_container").empty().append(response);
+            //$(".atbdp_universal_container").empty().append(response);
             $('#client_review_list').empty().append(response);
             // End the transition
-            $(".cvf_pag_loading").css({'background':'none', 'transition':'all 1s ease-out'});
+            $(".atbdp_pag_loading").css({'background':'none', 'transition':'all 1s ease-out'});
         });
     }
 
     // Load page 1 as the default
-    cvf_load_all_posts(1);
+    atbdp_load_all_posts(1);
 
     // Handle the clicks
     $('.atbdp-universal-pagination li.active').live('click',function(){
-        var page = $(this).attr('p');
-        cvf_load_all_posts(page);
+        var page = $(this).attr('data-page');
+        atbdp_load_all_posts(page);
 
     });
 

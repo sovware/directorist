@@ -1112,16 +1112,10 @@ final class Directorist_Base
         $review_duplicate = tract_duplicate_review(wp_get_current_user()->display_name, $post->ID);
         if (!$enable_review) return; // vail if review is not enabled
         $enable_owner_review = get_directorist_option('enable_owner_review');
-        $enable_reviewer_img = get_directorist_option('enable_reviewer_img', 1);
-        $review_num = get_directorist_option('review_num', 5); // how many reviews to show?
-        $reviews = ATBDP()->_get_reviews($post, $review_num);
         $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
         $plan_review = true;
         $review = true;
         $allow_review = apply_filters('atbdp_single_listing_before_review_block', $review);
-        $author_id = get_post_field( 'post_author', $post->ID );
-        $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-        $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
         if (is_fee_manager_active()) {
             $plan_review = is_plan_allowed_listing_review(get_post_meta($post->ID, '_fm_plans', true));
         }
@@ -1141,90 +1135,15 @@ final class Directorist_Base
                                class="btn btn-primary btn-sm"><?php _e('Add a review', 'directorist'); ?></label>
                     <?php } ?>
                 </div>
-
                 <div class="atbdb_content_module_contents">
-                    <div id="client_review_list">
-                        <?php if (!empty($reviews)) {
-                            ?>
-                            <?php foreach ($reviews as $review) {
-                                ?>
-                                <div class="atbd_single_review atbdp_static" id="single_review_<?php echo $review->id; ?>">
-                                    <div class="atbd_review_top">
-                                        <div class="atbd_avatar_wrapper">
-                                            <?php $avata_img = get_avatar($review->by_user_id, apply_filters('atbdp_avatar_size', 32));
-                                            if (!empty($enable_reviewer_img)) { ?>
-                                                <div class="atbd_review_avatar"><?php if (empty($u_pro_pic)) {
-                                                        echo $avata_img;
-                                                    }
-                                                    if(!empty($u_pro_pic)){ ?><img
-                                                        src="<?php echo esc_url($u_pro_pic[0]); ?>"
-                                                        alt="Avatar Image"><?php } ?></div>
-                                            <?php } ?>
-                                            <div class="atbd_name_time">
-                                                <p><?php echo esc_html($review->name); ?></p>
-                                                <span class="review_time"><?php
-                                                    printf(__('%s ago', 'directorist'), human_time_diff(strtotime($review->date_created), current_time('timestamp'))); ?></span>
-                                            </div>
-                                        </div>
-                                        <div class="atbd_rated_stars">
-                                            <?php echo ATBDP()->review->print_static_rating($review->rating); ?>
-                                        </div>
-                                    </div>
-                                    <div class="review_content">
-                                        <p><?php echo stripslashes(esc_html($review->content)); ?></p>
-                                        <!--<a href="#"><span class="fa fa-mail-reply-all"></span>Reply</a>-->
-                                    </div>
-                                </div>
-                            <?php }
-                        } else { ?>
-                            <div class="notice alert alert-info" role="alert" id="review_notice">
-                                <span class="<?php atbdp_icon_type(true); ?>-info-circle" aria-hidden="true"></span>
-                                <?php _e('No reviews found. Be the first to post a review !', 'directorist');
-                                ?>
-                            </div>
-                        <?php } ?>
+                    <input type="hidden" id="review_post_id" data-post-id="<?php echo $post->ID; ?>">
+                    <div id="client_review_list" class="atbdp_pag_loading">
                     </div>
                     <div id="clint_review"></div>
-
                 </div>
 
             </div><!-- end .atbd_review_module -->
             <?php
-
-
-
-
-
-
-
-
-            // review pagination
-            if (!empty($reviews_count) && $reviews_count > $review_num) {
-                ?>
-                <input type="hidden" id="review_post_id" data-post-id="<?php echo $post->ID; ?>">
-                <div class="col-md-12 content">
-                    <div class = "inner-box content no-right-margin darkviolet">
-                        <div class = "atbdp_pag_loading">
-                            <div class = "atbdp_universal_container">
-                                <div class="atbdp-universal-content"></div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <?php
-            }
-
-
-
-
-
-
-
-
-
-
-
             // check if the user is logged in and the current user is not the owner of this listing.
             if (is_user_logged_in() || $guest_review) {
                 global $wpdb;

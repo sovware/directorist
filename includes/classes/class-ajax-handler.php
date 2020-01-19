@@ -293,37 +293,67 @@ if (!class_exists('ATBDP_Ajax_Handler')):
         {
             $msg = '';
             if (isset($_POST['page'])) {
+                $enable_reviewer_img = get_directorist_option('enable_reviewer_img', 1);
+                $review_num = get_directorist_option('review_num', 5);
                 // Sanitize the received page
                 $page = sanitize_text_field($_POST['page']);
                 $listing_id = sanitize_text_field($_POST['listing_id']);
                 $cur_page = $page;
                 $page -= 1;
                 // Set the number of results to display
-                $per_page = 1;
+                $per_page = $review_num;
                 $previous_btn = true;
                 $next_btn = true;
                 $first_btn = true;
                 $last_btn = true;
                 $start = $page * $per_page;
                 // Query the necessary reviews
-                $all_blog_posts = ATBDP()->review->db->get_reviews_by('post_id', (int)$listing_id, $start, $per_page);
+                $reviews = ATBDP()->review->db->get_reviews_by('post_id', (int)$listing_id, $start, $per_page);
                 // At the same time, count the number of queried review
                 $count = ATBDP()->review->db->count(array('post_id' => $listing_id));
                 // Loop into all the posts
-                foreach ($all_blog_posts as $key => $post):
-                    // Set the desired output into a variable
-                    $msg .= '<div class="single_review">
-                                <div class="review_top">
-                                    <div class="reviewer">
-                                        <i class="fa fa-user" aria-hidden="true"></i>
-                                        <p>'.$post->name.'</p>
-                                    </div>
-                                    <p class="review_time">'.$post->date_created.'</p>
-                                    <div class="br-theme-css-stars-static">'.$post->rating.'</div>
-                                </div>
-                                <div class="review_content"><p>'.$post->content.'</p></div>
-                            </div>';
-                endforeach;
+                if (!empty($reviews)) {
+                    foreach ($reviews as $key => $review):
+                        $author_id = $review->by_user_id;
+                        $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+                        $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
+                        $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
+
+                        // Set the desired output into a variable
+                        $msg .= '<div class="atbd_single_review atbdp_static" id="single_review_'.$review->id.'">';
+                        $msg .= '<div class="atbd_review_top">';
+                        $msg .= '<div class="atbd_avatar_wrapper">';
+                        if (!empty($enable_reviewer_img)) {
+                            $msg .= '<div class="atbd_review_avatar">';
+                            if (empty($u_pro_pic)) {
+                                $msg .= $avata_img;
+                            }
+                            if(!empty($u_pro_pic)){
+                                $msg .= '<img src="'. esc_url($u_pro_pic[0]).'" alt="Avatar Image">';
+                            }
+                            $msg .= '</div>';
+                        }
+                        $msg .= '<div class="atbd_name_time">';
+                        $msg .= '<p>'. esc_html($review->name).'</p>';
+                        $msg .= '<span class="review_time">'.
+                            sprintf(__('%s ago', 'directorist'), human_time_diff(strtotime($review->date_created), current_time('timestamp'))).'</span>';
+                        $msg .= '</div>';
+                        $msg .= '</div>';
+                        $msg .= '<div class="atbd_rated_stars">';
+                        $msg .=  ATBDP()->review->print_static_rating($review->rating);
+                        $msg .= '</div>';
+                        $msg .= '</div>';
+
+                        $msg .= '<div class="review_content">';
+                        $msg .= '<p>'. stripslashes(esc_html($review->content)).'</p>';
+                        $msg .= '</div>';
+                        $msg .= '</div>';
+                    endforeach;
+                }else{
+                    $msg .= ' <div class="notice alert alert-info" role="alert" id="review_notice">
+                                <span class="'. atbdp_icon_type(false).'-info-circle" aria-hidden="true"></span>'.
+                                __('No reviews found. Be the first to post a review !', 'directorist').'</div>';
+                }
                 // Optional, wrap the output into a container
                 $msg = "<div class='atbdp-universal-content'>" . $msg . "</div><br class = 'clear' />";
 
@@ -353,18 +383,20 @@ if (!class_exists('ATBDP_Ajax_Handler')):
         <div class='atbdp-universal-pagination'>
             <ul>";
 
-                if ($first_btn && $cur_page > 1) {
-                    $pag_container .= "<li data-page='1' class='active'>First</li>";
-                } else if ($first_btn) {
-                    $pag_container .= "<li data-page='1' class='inactive'>First</li>";
-                }
-
                 if ($previous_btn && $cur_page > 1) {
                     $pre = $cur_page - 1;
-                    $pag_container .= "<li data-page='$pre' class='active'>Previous</li>";
+                    $pag_container .= "<li data-page='$pre' class='active'>".__('Previous', 'directorist')."</li>";
                 } else if ($previous_btn) {
-                    $pag_container .= "<li class='inactive'>Previous</li>";
+                    $pag_container .= "<li class='inactive'>".__('Previous', 'directorist')."</li>";
                 }
+                if ($first_btn && $cur_page > 1) {
+                    $first_class = 'active';
+                } else if ($first_btn) {
+                    $first_class = 'inactive';
+                }
+                $pag_container .= "<li data-page='1' class='".$first_class."'>".__('First', 'directorist')."</li>";
+
+
                 for ($i = $start_loop; $i <= $end_loop; $i++) {
 
                     if ($cur_page == $i)
@@ -373,17 +405,18 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                         $pag_container .= "<li data-page='$i' class='active'>{$i}</li>";
                 }
 
+                if ($last_btn && $cur_page < $no_of_paginations) {
+                    $last_class = 'active';
+                } else if ($last_btn) {
+                    $last_class = 'inactive';
+                }
+                $pag_container .= "<li data-page='$no_of_paginations' class='".$last_class."'>".__('Last', 'directorist')."</li>";
+
                 if ($next_btn && $cur_page < $no_of_paginations) {
                     $nex = $cur_page + 1;
-                    $pag_container .= "<li data-page='$nex' class='active'>Next</li>";
+                    $pag_container .= "<li data-page='$nex' class='active'>".__('Next', 'directorist')."</li>";
                 } else if ($next_btn) {
-                    $pag_container .= "<li class='inactive'>Next</li>";
-                }
-
-                if ($last_btn && $cur_page < $no_of_paginations) {
-                    $pag_container .= "<li data-page='$no_of_paginations' class='active'>Last</li>";
-                } else if ($last_btn) {
-                    $pag_container .= "<li data-page='$no_of_paginations' class='inactive'>Last</li>";
+                    $pag_container .= "<li class='inactive'>".__('Next', 'directorist')."</li>";
                 }
 
                 $pag_container = $pag_container . "

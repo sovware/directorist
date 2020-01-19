@@ -180,15 +180,50 @@
         return false;
     });
 
+
+    function cvf_load_all_posts(page){
+        // Start the transition
+        $(".cvf_pag_loading").fadeIn().css('background','#ccc');
+
+        // Data to receive from our server
+        // the value in 'action' is the key that will be identified by the 'wp_ajax_' hook
+        var data = {
+            page: page,
+            action: "atbdp_review_pagination"
+        };
+
+        // Send the data
+        $.post(atbdp_public_data.ajaxurl, data, function(response) {
+            // If successful Append the data into our html container
+            //$(".cvf_universal_container").empty().append(response);
+            $('#client_review_list').empty().append(response);
+            // End the transition
+            $(".cvf_pag_loading").css({'background':'none', 'transition':'all 1s ease-out'});
+        });
+    }
+
+    // Load page 1 as the default
+    cvf_load_all_posts(1);
+
+    // Handle the clicks
+    $('.atbdp-universal-pagination li.active').live('click',function(){
+        var page = $(this).attr('p');
+        cvf_load_all_posts(page);
+
+    });
+
+
     /* load more review when load more review button clicks*/
     var review_offset = 3;
-    $("#load_more_review").on('click', function (e) {
+    $("body").on('click', '.atbdp_review_next_nav', function (e) {
         e.preventDefault();
         var $this = $(this);
         var post_id = $this.data('id');
 
         var data = 'offset=' + review_offset + '&post_id=' + post_id;
+
         atbdp_do_ajax($this, 'load_more_review', data, function ($data) {
+
             // if we get data then start processing it
             if ($data != 'false' && $data != 'error') {
                 $data = jQuery.parseJSON($data); // parse the received json encoded data to JSON object

@@ -1185,9 +1185,47 @@ final class Directorist_Base
                         <?php } ?>
                     </div>
                     <div id="clint_review"></div>
+
                 </div>
+
             </div><!-- end .atbd_review_module -->
             <?php
+
+
+
+
+
+
+
+
+            // review pagination
+            if (!empty($reviews_count) && $reviews_count > $review_num) {
+                ?>
+
+                <div class="col-md-12 content">
+                    <div class = "inner-box content no-right-margin darkviolet">
+                        <div class = "cvf_pag_loading">
+                            <div class = "cvf_universal_container">
+                                <div class="atbdp-universal-content"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <?php
+            }
+
+
+
+
+
+
+
+
+
+
+
             // check if the user is logged in and the current user is not the owner of this listing.
             if (is_user_logged_in() || $guest_review) {
                 global $wpdb;
@@ -1292,13 +1330,7 @@ final class Directorist_Base
                     printf(__('You need to %s or %s to submit a review', 'directorist'), $login_url, $register_url);
                     ?>
                 </div>
-            <?php } ?>
-            <?php
-
-            // if the count of review is more than the number of showing reviews then show the more review button, eg. here we will show the read more button  if the number of the review in the database is more than $review_num=5 default
-            if (!empty($reviews_count) && $reviews_count > $review_num) {
-                echo "<button class='directory_btn' type='button' id='load_more_review' data-id='{$post->ID}''>" . __('View More Reviews', 'directorist') . "</button>";
-            }
+            <?php }
         }
     }
 

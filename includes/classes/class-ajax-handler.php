@@ -22,9 +22,11 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             add_action('wp_ajax_nopriv_atbdp_social_info_handler', array($this, 'atbdp_social_info_handler'));
             add_action('wp_ajax_remove_listing_review', array($this, 'remove_listing_review'));
             add_action('wp_ajax_save_listing_review', array($this, 'save_listing_review'));
-            add_action( 'wp_ajax_nopriv_save_listing_review', array($this, 'save_listing_review')); // don not allow unregistered user to submit review
-            add_action('wp_ajax_load_more_review', array($this, 'load_more_review')); // load more reviews to the front end single page
-            add_action('wp_ajax_nopriv_load_more_review', array($this, 'load_more_review'));// load more reviews for non logged in user too
+            add_action('wp_ajax_nopriv_save_listing_review', array($this, 'save_listing_review')); // don not allow unregistered user to submit review
+            // paginate review
+            add_action('wp_ajax_atbdp_review_pagination', array($this, 'atbdp_review_pagination_output'));
+            add_action('wp_ajax_nopriv_atbdp_review_pagination', array($this, 'atbdp_review_pagination_output'));
+
             add_action('wp_ajax_remove_listing', array($this, 'remove_listing')); //delete a listing
             add_action('wp_ajax_update_user_profile', array($this, 'update_user_profile'));
 
@@ -39,9 +41,6 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             /*CONTACT FORM*/
             add_action('wp_ajax_atbdp_public_send_contact_email', array($this, 'ajax_callback_send_contact_email'));
             add_action('wp_ajax_nopriv_atbdp_public_send_contact_email', array($this, 'ajax_callback_send_contact_email'));
-            /*GUEST USER*/
-            add_action('wp_ajax_insert_guest_user', array($this, 'insert_guest_user'));
-            add_action('wp_ajax_nopriv_insert_guest_user', array($this, 'insert_guest_user'));
 
             /*
              * stuff for handling add to favourites
@@ -83,8 +82,8 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                     echo json_encode(array('loggedin' => false, 'message' => __('Wrong username or password.', 'directorist')));
                 }
             } else {
-                wp_set_current_user( $user->ID );
-                wp_set_auth_cookie( $user->ID, $keep_signed_in );
+                wp_set_current_user($user->ID);
+                wp_set_auth_cookie($user->ID, $keep_signed_in);
                 echo json_encode(array('loggedin' => true, 'message' => __('Login successful, redirecting...', 'directorist')));
             }
             exit();
@@ -167,7 +166,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 echo esc_attr($data);
                 wp_die();
             }
-            
+
             $favourites = (array)get_user_meta($user_id, 'atbdp_favourites', true);
 
             if (in_array($post_id, $favourites)) {
@@ -289,32 +288,123 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             wp_die();
         }
 
-        public function load_more_review()
+
+        public function atbdp_review_pagination_output()
         {
-            // save the data if nonce is good and data is valid
-            if (valid_js_nonce()) {
-                if (!empty($_POST['offset']) && !empty($_POST['post_id'])) {
-                    $reviews = ATBDP()->review->db->get_reviews_by('post_id', absint($_POST['post_id']), absint($_POST['offset']), 3, 'date_created', 'DESC', ARRAY_A); // get only 3
-                    if (!is_wp_error($reviews)) {
-                        echo json_encode($reviews);
+            $msg = '';
+            if (isset($_POST['page'])) {
+                // Sanitize the received page
+                $page = sanitize_text_field($_POST['page']);
+                $cur_page = $page;
+                $page -= 1;
+                // Set the number of results to display
+                $per_page = 1;
+                $previous_btn = true;
+                $next_btn = true;
+                $first_btn = true;
+                $last_btn = true;
+                $start = $page * $per_page;
+                // Query the necessary reviews
+                $all_blog_posts = ATBDP()->review->db->get_reviews_by('post_id', 1236, $start, $per_page);
+                // At the same time, count the number of queried review
+                $count = ATBDP()->review->db->count(array('post_id' => '1236'));
+                // Loop into all the posts
+                foreach ($all_blog_posts as $key => $post):
+                    // Set the desired output into a variable
+                    $msg .= '<div class="single_review">
+                                <div class="review_top">
+                                    <div class="reviewer">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        <p>'.$post->name.'</p>
+                                    </div>
+                                    <p class="review_time">'.$post->date_created.'</p>
+                                    <div class="br-theme-css-stars-static">'.$post->rating.'</div>
+                                </div>
+                                <div class="review_content"><p>'.$post->content.'</p></div>
+                            </div>';
+                endforeach;
+                // Optional, wrap the output into a container
+                $msg = "<div class='atbdp-universal-content'>" . $msg . "</div><br class = 'clear' />";
+
+                // This is where the magic happens
+                $no_of_paginations = ceil($count / $per_page);
+                if ($cur_page >= 7) {
+                    $start_loop = $cur_page - 3;
+                    if ($no_of_paginations > $cur_page + 3)
+                        $end_loop = $cur_page + 3;
+                    else if ($cur_page <= $no_of_paginations && $cur_page > $no_of_paginations - 6) {
+                        $start_loop = $no_of_paginations - 6;
+                        $end_loop = $no_of_paginations;
                     } else {
-                        echo 'error';
+                        $end_loop = $no_of_paginations;
                     }
-                    wp_die();
+                } else {
+                    $start_loop = 1;
+                    if ($no_of_paginations > 7)
+                        $end_loop = 7;
+                    else
+                        $end_loop = $no_of_paginations;
                 }
-                die();
-            } else {
-                echo 'error';
-                // show error message
+
+                $pag_container = '';
+                // Pagination Buttons logic
+                $pag_container .= "
+        <div class='atbdp-universal-pagination'>
+            <ul>";
+
+                if ($first_btn && $cur_page > 1) {
+                    $pag_container .= "<li p='1' class='active'>First</li>";
+                } else if ($first_btn) {
+                    $pag_container .= "<li p='1' class='inactive'>First</li>";
+                }
+
+                if ($previous_btn && $cur_page > 1) {
+                    $pre = $cur_page - 1;
+                    $pag_container .= "<li p='$pre' class='active'>Previous</li>";
+                } else if ($previous_btn) {
+                    $pag_container .= "<li class='inactive'>Previous</li>";
+                }
+                for ($i = $start_loop; $i <= $end_loop; $i++) {
+
+                    if ($cur_page == $i)
+                        $pag_container .= "<li p='$i' class = 'selected' >{$i}</li>";
+                    else
+                        $pag_container .= "<li p='$i' class='active'>{$i}</li>";
+                }
+
+                if ($next_btn && $cur_page < $no_of_paginations) {
+                    $nex = $cur_page + 1;
+                    $pag_container .= "<li p='$nex' class='active'>Next</li>";
+                } else if ($next_btn) {
+                    $pag_container .= "<li class='inactive'>Next</li>";
+                }
+
+                if ($last_btn && $cur_page < $no_of_paginations) {
+                    $pag_container .= "<li p='$no_of_paginations' class='active'>Last</li>";
+                } else if ($last_btn) {
+                    $pag_container .= "<li p='$no_of_paginations' class='inactive'>Last</li>";
+                }
+
+                $pag_container = $pag_container . "
+            </ul>
+        </div>";
+                // We echo the final output
+                echo
+                    '<div class = "atbdp-pagination-content">' . $msg . '</div>' .
+                    '<div class = "atbdp-pagination-nav">' . $pag_container . '</div>';
+
             }
-            wp_die();
+            // Always exit to avoid further execution
+            exit();
         }
+
 
         /**
          * @since 6.3.0
          */
 
-        public function insert_guest_user(){
+        public function insert_guest_user()
+        {
 
         }
 
@@ -323,36 +413,36 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             $guest_review = get_directorist_option('guest_review', 0);
             $guest_email = isset($_POST['guest_user_email']) ? esc_attr($_POST['guest_user_email']) : '';
 
-            if ($guest_review && $guest_email){
+            if ($guest_review && $guest_email) {
 
                 $string = $guest_email;
-                $explode = explode("@",$string);
+                $explode = explode("@", $string);
                 array_pop($explode);
                 $userName = join('@', $explode);
                 //check if username already exist
-                if (username_exists($userName)){
-                    $random = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'),1,5);
-                    $userName = $userName.$random;
+                if (username_exists($userName)) {
+                    $random = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'), 1, 5);
+                    $userName = $userName . $random;
                 }
 
                 // Check if user exist by email
-                if ( email_exists( $guest_email ) ) {
+                if (email_exists($guest_email)) {
                     $data = array(
                         'error' => __('Email already exists!', 'directorist')
                     );
                     echo wp_json_encode($data);
                     die();
-                }else{
+                } else {
                     // lets register the user
                     $reg_errors = new WP_Error;
-                    if ( empty($reg_errors->get_error_messages()) ) {
-                        $password   =   wp_generate_password( 12, false );
+                    if (empty($reg_errors->get_error_messages())) {
+                        $password = wp_generate_password(12, false);
                         $userdata = array(
-                            'user_login'    =>   $userName,
-                            'user_email'    =>   $guest_email,
-                            'user_pass'     =>   $password,
+                            'user_login' => $userName,
+                            'user_email' => $guest_email,
+                            'user_pass' => $password,
                         );
-                        $user_id =  wp_insert_user( $userdata ); // return inserted user id or a WP_Error
+                        $user_id = wp_insert_user($userdata); // return inserted user id or a WP_Error
                         wp_set_current_user($user_id, $guest_email);
                         wp_set_auth_cookie($user_id);
                         do_action('atbdp_user_registration_completed', $user_id);
@@ -364,7 +454,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             }
             // save the data if nonce is good and data is valid
 
-            if ( $this->validate_listing_review()) {
+            if ($this->validate_listing_review()) {
                 $u_name = !empty($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
                 $u_email = !empty($_POST['email']) ? sanitize_email($_POST['email']) : '';
                 $user = wp_get_current_user();
@@ -588,9 +678,9 @@ if (!class_exists('ATBDP_Ajax_Handler')):
         /**
          * Send contact message to the listing owner.
          *
+         * @return   string    $result    Message based on the result.
          * @since    4.0.0
          *
-         * @return   string    $result    Message based on the result.
          */
         function atbdp_email_listing_owner_listing_contact()
         {

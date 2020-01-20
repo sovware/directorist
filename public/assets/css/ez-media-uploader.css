@@ -24,7 +24,7 @@
   flex-direction: column;
   min-height: 250px;
   border: 3px dashed #ccc;
-  background-color: #f2f2f2;
+  background-color: #eaeaea;
 }
 
 .ezmu__old-files,
@@ -443,6 +443,40 @@
   height: 100px;
   -o-object-fit: contain;
   object-fit: contain;
+}
+
+
+.ezmu__info-list {
+  padding: 0;
+  margin: 25px auto 10px;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+.ezmu__info-list-item {
+  list-style: none;
+  display: inline-block;
+  margin-bottom: 5px;
+  margin-right: 20px;
+  color:gray;
+  font-size: 14px;
+}
+
+.ezmu__info-list-item::before {
+  content: ' ';
+  display: inline-block;
+  margin-right: 5px;
+  margin-top: 4px;
+  width: 14px;
+  height: 14px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 8px 8px;
+  background-image: url('../images/info-solid.svg');
+  vertical-align: top;
+  background-color:#c4c4c4;
+  border-radius: 50%;
 }
 
 .ezmu_alert {

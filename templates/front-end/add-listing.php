@@ -1140,8 +1140,6 @@ $query_args = array(
                                                          data-max-file-items="<?php echo $plan_image; ?>"
                                                          data-min-file-items="<?php echo !empty($req_gallery_image) ? '1' : ''; ?>"
                                                          data-max-total-file-size="<?php echo $max_size_kb; ?>">
-                                                        <!-- --><?php /*ATBDP()->load_template('front-end/front-media-upload', compact('listing_img', 'listing_prv_img', 'plan_slider', 'p_id'));
-                                                        */ ?>
                                                         <div class="ezmu__loading-section --show">
                                                             <span class="ezmu__loading-icon">
                                                               <span class="ezmu__loading-icon-img-bg"></span>
@@ -1183,6 +1181,35 @@ $query_args = array(
                                                             <span class="ezmu-dictionary-max-file-items">
                                                                 <?php echo __('Max limit for total file is __DT__', 'directorist') ?>
                                                             </span>
+
+                                                            <!-- Validation Texts -->
+                                                            <span class="ezmu-dictionary-max-total-file-size">
+                  Max limit for total file size is __DT__
+                </span>
+                                                            <span class="ezmu-dictionary-min-file-items">
+                  Min limit for total file is __DT__
+                </span>
+                                                            <span class="ezmu-dictionary-max-file-items">
+                  Max limit for total file is __DT__
+                </span>
+
+                                                            <!-- Info Text -->
+                                                            <span class="ezmu-dictionary-info-max-total-file-size"
+                                                                  data-show='1'>
+                  Maximum allowed file size is __DT__
+                </span>
+                                                            <span class="ezmu-dictionary-info-min-file-items"
+                                                                  data-show='1'>
+                  Minimum __DT__ file is required
+                </span>
+                                                            <span class="ezmu-dictionary-info-max-file-items"
+                                                                  data-show='1'>
+                  Maximum __DT__ file is allowed
+                </span>
+                                                            <span class="ezmu-dictionary-info-type" data-show='1'>
+                  Allowed file types are __DT__
+                </span>
+
                                                         </div>
                                                     </div>
                                                 <?php } ?>

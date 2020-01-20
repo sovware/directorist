@@ -21,16 +21,33 @@
       allowMultiple: true,
       featured: true,
       dictionary: {
+        // Labels
         featured: 'Featured',
         dragNDrop: 'Drag & Drop',
         or: 'or',
         dropHere: 'Drop Here',
         selectFiles: 'Select Files',
         addMore: 'Add More',
-        maxTotalFileSize: 'Max limit for total file size is __DT__',
-        minFileItems: 'Min limit for total file is __DT__',
-        maxFileItems: 'Max limit for total file is __DT__',
+
+        // Validation Messages
+        maxTotalFileSize: 'Maximum limit for total file size is __DT__',
+        minFileItems: 'Minimum limit for total file is __DT__',
+        maxFileItems: 'Maximum limit for total file is __DT__',
+
+        // Info Messages
+        infoMaxTotalFileSize: 'Maximum allowed file size is __DT__',
+        infoMinFileItems: 'Minimum __DT__ file is required',
+        infoMaxFileItems: 'Maximum __DT__ file is allowed',
+        infoAllowedFileFormats: 'Allowed file types are __DT__',
+      },
+
+      infoMessageSettings: {
+        infoMaxTotalFileSize: true,
+        infoMinFileItems: true,
+        infoMaxFileItems: true,
+        infoAllowedFileFormats: true,
       }
+
     };
 
     // Data
@@ -38,6 +55,7 @@
     if ( typeof args === 'object' && args !== null ) {
       this.options = extendDefaults(defaults, args);
     }
+    this.isClean = true;
     this.oldFiles = [];
     this.files = [];
     this.filesMeta = [];
@@ -51,6 +69,7 @@
     this.previewSection = null;
     this.thumbnailArea = null;
     this.statusSection = null;
+    this.infoSection = null;
     this.loadingSection = null;
 
     // Methods
@@ -122,60 +141,101 @@
 
     this.getMarkupDictionary = function() {
       if (!this.container) { return null; }
-
       var container = this.container;
 
+      // Labels
       var featured = container.querySelectorAll('.ezmu-dictionary-featured');
       if ( featured && featured.length ) {
-        var featured_dic = featured[0].innerHTML;
+        var featured_dic = featured[0].innerHTML.trim();
         this.options.dictionary.featured = featured_dic;
       }
 
       var drag_n_drop = container.querySelectorAll('.ezmu-dictionary-drag-n-drop');
       if ( drag_n_drop && drag_n_drop.length ) {
-        var drag_n_drop_dic = drag_n_drop[0].innerHTML;
+        var drag_n_drop_dic = drag_n_drop[0].innerHTML.trim();
         this.options.dictionary.dragNDrop = drag_n_drop_dic;
       }
 
       var or = container.querySelectorAll('.ezmu-dictionary-or');
       if ( or && or.length ) {
-        var or_dic = or[0].innerHTML;
+        var or_dic = or[0].innerHTML.trim();
         this.options.dictionary.or = or_dic;
       }
 
       var select_files = container.querySelectorAll('.ezmu-dictionary-select-files');
       if ( select_files && select_files.length ) {
-        var select_files_dic = select_files[0].innerHTML;
+        var select_files_dic = select_files[0].innerHTML.trim();
         this.options.dictionary.selectFiles = select_files_dic;
       }
 
       var add_more = container.querySelectorAll('.ezmu-dictionary-add-more');
       if ( add_more && add_more.length ) {
-        var add_more_dic = add_more[0].innerHTML;
+        var add_more_dic = add_more[0].innerHTML.trim();
         this.options.dictionary.addMore = add_more_dic;
       }
 
+      // Validation Text
       var max_total_file_size = container.querySelectorAll('.ezmu-dictionary-max-total-file-size');
       if ( max_total_file_size && max_total_file_size.length ) {
-        var max_total_file_size_dic = max_total_file_size[0].innerHTML;
+        var max_total_file_size_dic = max_total_file_size[0].innerHTML.trim();
         this.options.dictionary.maxTotalFileSize = max_total_file_size_dic;
       }
 
       var min_file_items = container.querySelectorAll('.ezmu-dictionary-min-file-items');
       if ( min_file_items && min_file_items.length ) {
-        var min_file_items_dic = min_file_items[0].innerHTML;
+        var min_file_items_dic = min_file_items[0].innerHTML.trim();
         this.options.dictionary.minFileItems = min_file_items_dic;
       }
 
       var max_file_items = container.querySelectorAll('.ezmu-dictionary-max-file-items');
       if ( max_file_items && max_file_items.length ) {
-        var max_file_items_dic = max_file_items[0].innerHTML;
+        var max_file_items_dic = max_file_items[0].innerHTML.trim();
         this.options.dictionary.maxFileItems = max_file_items_dic;
+      }
+
+      // Info Text
+      var info_max_total_file_size = container.querySelectorAll('.ezmu-dictionary-info-max-total-file-size');
+      if ( info_max_total_file_size && info_max_total_file_size.length ) {
+        var info_max_total_file_size_dic = info_max_total_file_size[0].innerHTML.trim();
+
+        this.options.dictionary.infoMaxFileItems = info_max_total_file_size_dic;
+        var active = info_max_total_file_size[0].getAttribute('data-show');
+
+        active = (active) ? active : null;
+        this.options.infoMessageSettings.infoMaxTotalFileSize = ( active === '0' ) ? false : true;
+      }
+
+      var info_min_total_file_size = container.querySelectorAll('.ezmu-dictionary-info-min-file-items');
+      if ( info_min_total_file_size && info_min_total_file_size.length ) {
+        var info_min_total_file_size_dic = info_min_total_file_size[0].innerHTML.trim();
+        this.options.dictionary.infoMinFileItems = info_min_total_file_size_dic;
+        var active = info_min_total_file_size[0].getAttribute('data-show');
+        active = (active) ? active : null;
+        this.options.infoMessageSettings.infoMinFileItems = ( active === '0' ) ? false : true;
+      }
+
+      var info_max_file_items = container.querySelectorAll('.ezmu-dictionary-info-max-file-items');
+      if ( info_max_file_items && info_max_file_items.length ) {
+        var info_max_file_items_dic = info_max_file_items[0].innerHTML.trim();
+        this.options.dictionary.infoMaxFileItems = info_max_file_items_dic;
+        var active = info_max_file_items[0].getAttribute('data-show');
+        active = (active) ? active : null;
+        this.options.infoMessageSettings.infoMaxFileItems = ( active === '0' ) ? false : true;
+      }
+
+      var info_file_type = container.querySelectorAll('.ezmu-dictionary-info-type');
+      if ( info_file_type && info_file_type.length ) {
+        var info_file_type_dic = info_file_type[0].innerHTML.trim();
+        this.options.dictionary.infoAllowedFileFormats = info_file_type_dic;
+        var active = info_file_type[0].getAttribute('data-show');
+        active = (active) ? active : null;
+        this.options.infoMessageSettings.infoAllowedFileFormats = ( active === '0' ) ? false : true;
       }
     };
 
     this.getTheFiles = function() {
       if (!this.container) { return null; }
+      this.isClean = false;
 
       var final_files = [];
 
@@ -194,6 +254,7 @@
 
     this.getFilesMeta = function() {
       if (!this.container) { return null; }
+      this.isClean = false;
 
       var final_files_meta = [];
       if (!this.filesMeta.length) {
@@ -238,7 +299,10 @@
 
       // Validate Min File Items
       var min_file_items = this.options.minFileItems;
-      if ( min_file_items && (files.length < min_file_items)) {
+      var valid_min_file_items = isPositiveNumber(min_file_items);
+      min_file_items = (valid_min_file_items) ? valid_min_file_items : min_file_items;
+
+      if ( valid_min_file_items && (files.length < min_file_items)) {
         error_log.push({
           errorKey: "minFileItems",
           message: this.options.dictionary.minFileItems.replace(/(__DT__)/g, min_file_items)
@@ -247,34 +311,44 @@
 
       // Validate Max File Items
       var max_file_items = this.options.maxFileItems;
-      if ( max_file_items && (files.length > max_file_items)) {
+      var valid_max_file_items = isPositiveNumber(max_file_items);
+      max_file_items = (valid_max_file_items) ? valid_max_file_items : max_file_items;
+
+      if ( valid_max_file_items && (files.length > max_file_items)) {
         error_log.push({
           errorKey: "maxFileItems",
           message: this.options.dictionary.maxFileItems.replace(/(__DT__)/g, max_file_items)
         });
       }
 
-
       // Validate Max Total File Size
       var maxTotalFileSize = this.options.maxTotalFileSize;
-      var max_total_file_size_in_byte = maxTotalFileSize * 1024;
-      var max_total_file_size_in_text = formatedFileSize( maxTotalFileSize * 1024 );
-      var total_file_size_in_byte = 0;
+      var valid_maxTotalFileSize = isPositiveNumber(maxTotalFileSize);
+      maxTotalFileSize = (valid_maxTotalFileSize) ? valid_maxTotalFileSize : maxTotalFileSize;
 
-      forEach(files, function(file) {
-        if ( (typeof file === 'object' && file !== null) && 'fileSize' in file) {
-          total_file_size_in_byte += file.fileSize;
-        }
-      });
+      if (valid_maxTotalFileSize) {
+        var max_total_file_size_in_byte = maxTotalFileSize * 1024;
+        var max_total_file_size_in_text = formatedFileSize( maxTotalFileSize * 1024 );
+        var total_file_size_in_byte = 0;
 
-      if (total_file_size_in_byte > max_total_file_size_in_byte) {
-        error_log.push({
-          errorKey: "maxTotalFileSize",
-          message: this.options.dictionary.maxTotalFileSize.replace(/(__DT__)/g, max_total_file_size_in_text)
+        forEach(files, function(file) {
+          if ( (typeof file === 'object' && file !== null) && 'fileSize' in file) {
+            total_file_size_in_byte += file.fileSize;
+          }
         });
+
+        if (total_file_size_in_byte > max_total_file_size_in_byte) {
+          error_log.push({
+            errorKey: "maxTotalFileSize",
+            message: this.options.dictionary.maxTotalFileSize.replace(/(__DT__)/g, max_total_file_size_in_text)
+          });
+        }
       }
 
-      updateValidationFeedback(error_log, this.statusSection);
+      if (!this.isClean) {
+        updateValidationFeedback(error_log, this.statusSection);
+      }
+      // updateValidationFeedback(error_log, this.statusSection);
 
       if (error_log.length) {
         return error_log;
@@ -304,9 +378,11 @@
         old_fiels = getMarkupsFilesMeta(this.container);
       }
 
-      if (!old_fiels) {
+      if (!old_fiels.length) {
         return;
       }
+
+      this.isClean = false;
 
       for (var i = 0; i < old_fiels.length; i++) {
         var file = old_fiels[i];
@@ -381,12 +457,14 @@
       var media_picker_elm = createMediaPickerSection(this);
       var preview_section_elm = createPreviewSection(this);
       var status_section_elm = createStatusSection();
+      var info_section_elm = createInfoSection(this.options);
 
       container.appendChild(drop_zone_section_elm);
       container.appendChild(loading_section_elm);
       container.appendChild(media_picker_elm);
       container.appendChild(preview_section_elm);
       container.appendChild(status_section_elm);
+      container.appendChild(info_section_elm);
 
       var upload_button_container = container.querySelectorAll(
           ".ezmu__upload-button-wrap"
@@ -397,17 +475,18 @@
       var preview_section = container.querySelectorAll(
           ".ezmu__preview-section"
       );
+
       var thumbnail_area = container.querySelectorAll(".ezmu__thumbnail-area");
       var status_section = container.querySelectorAll(".ezmu__status-section");
-      var loading_section = container.querySelectorAll(
-          ".ezmu__loading-section"
-      );
+      var loading_section = container.querySelectorAll(".ezmu__loading-section");
+      var info_section = container.querySelectorAll(".ezmu__loading-section");
 
       this.uploadButtonContainer = upload_button_container ? upload_button_container[0] : null;
       this.mediaPickerSection = media_picker_section ? media_picker_section[0] : null;
       this.previewSection = preview_section ? preview_section[0] : null;
       this.thumbnailArea = thumbnail_area ? thumbnail_area[0] : null;
       this.statusSection = status_section ? status_section[0] : null;
+      this.infoSection = info_section ? info_section[0] : null;
       this.loadingSection = loading_section ? loading_section[0] : null;
     };
 
@@ -452,6 +531,7 @@
       if (fileInputElm) {
         var self = this;
         fileInputElm.addEventListener("change", function(event) {
+          self.isClean = false;
           var files = event.target.files;
           if (!files.length) return;
 
@@ -644,7 +724,9 @@
         return;
       }
 
+      this.isClean = false;
       this.updateLayout("loading");
+
       var temp_files = [];
       for (var i = 0; i < files.length; i++) {
         var file_item = files[i];
@@ -900,10 +982,61 @@
 
     return preview_section;
   }
+
   function createStatusSection() {
     var status_section = createElementWithClass("ezmu__status-section");
     return status_section;
   }
+
+  function createInfoSection( data ) {
+    var info_section = createElementWithClass("ezmu__info-section");
+    var info_dictionary = data.dictionary;
+    var info_settings = data.infoMessageSettings;
+
+    var info_list = createElementWithClass("ezmu__info-list", 'ul');
+    var item_count = 0;
+
+    for ( var settings in info_settings ) {
+      if (info_settings[settings]) {
+        var dictionary_data = getDictionaryData(settings, data);
+        var text = info_dictionary[settings].replace(/(__DT__)/g, dictionary_data);
+        var li = createElementWithClass(
+            "ezmu__info-list-item", 'li', text
+        );
+        info_list.appendChild(li);
+        item_count++;
+      }
+    }
+
+    if (item_count) {
+      info_section.appendChild(info_list);
+    }
+
+    return info_section;
+  }
+
+  function getDictionaryData( item, options ) {
+    var option_name = item.replace(/^(info)/, '');
+    option_name = option_name.charAt(0).toLowerCase() + option_name.slice(1);
+
+    var data = options[option_name];
+
+    if ( option_name === 'maxTotalFileSize' && data  ) {
+      return formatedFileSize(data);
+    }
+
+    if ( option_name === 'allowedFileFormats' && Array.isArray(data) && data.length) {
+      var formats = '';
+
+      forEach(data, function(item){
+        formats += item + ', ';
+      });
+
+      return formats.replace(/(, )$/, '');
+    }
+    return data;
+  }
+
   function createLoadingSection(show) {
     // loading_section_elm
     var class_name = show ? "ezmu__loading-section ezmu--show" : "ezmu__loading-section";
@@ -1229,6 +1362,25 @@
     }
 
     return null;
+  }
+
+  // isPositiveNumber
+  function isPositiveNumber( data ) {
+    var data_is_valid = false;
+
+    if ( typeof data === 'string' ) {
+      var has_non_digit = data.match(/[^\d]/);
+      var chk = (!has_non_digit) ? parseInt(data) : null;
+      data_is_valid = (chk && chk > 0) ? true : false;
+      data = (data_is_valid) ? chk : data;
+    }
+
+    if ( Number.isInteger(data) ) {
+      data = ( data < 1 ) ? false : data;
+      data_is_valid = ( data ) ? true : false;
+    }
+
+    return ( data_is_valid ) ? data : false;
   }
 
   function preventDefaults(e) {

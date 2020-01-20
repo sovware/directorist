@@ -20,7 +20,7 @@ $require_bio                 = get_directorist_option('require_bio_reg',0);
 $reg_signup                  = get_directorist_option('reg_signup','Sign Up');
 $display_login               = get_directorist_option('display_login',1);
 $login_text                  = get_directorist_option('login_text',__('Already have an account? Please login', 'directorist'));
-$login_url                   = get_directorist_option('login_url',ATBDP_Permalink::get_login_page_link());
+$login_url                   = ATBDP_Permalink::get_login_page_link();
 $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here', 'directorist'));
 $terms_label                 = get_directorist_option('regi_terms_label', __('I agree with all', 'directorist'));
 $terms_label_link            = get_directorist_option('regi_terms_label_link', __('terms & conditions', 'directorist'));
@@ -35,7 +35,7 @@ $privacy_label_link          = get_directorist_option('registration_privacy_labe
             <div class="col-md-8 offset-md-2">
                 <div class="add_listing_title atbd_success_mesage">
                     <?php
-                    $display_password = get_directorist_option('display_password_reg', 0);
+                    $display_password = get_directorist_option('display_password_reg', 1);
                     if(!empty($_GET['registration_status']) && true == $_GET['registration_status']){
                         if (empty($display_password)){
                             ?>

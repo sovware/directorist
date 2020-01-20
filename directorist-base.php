@@ -1171,7 +1171,6 @@ final class Directorist_Base
                                 <!--<input type="email" name="email" class="directory_field" placeholder="Your email" required>-->
                                 <input type="hidden" name="name" class="btn btn-default"
                                        value="<?php echo wp_get_current_user()->display_name; ?>"
-                                       placeholder="<?php esc_attr_e('Your name', 'directorist'); ?>"
                                        id="reviewer_name">
                                 <?php $avata_img = get_avatar(wp_get_current_user()->ID, apply_filters('atbdp_avatar_size', 32));
                                 $user_img = !empty($avata_img) ? $avata_img : ATBDP_PUBLIC_ASSETS . 'images/revav.png';

@@ -4408,8 +4408,8 @@ function atbdp_guest_submission($guest_email)
             wp_set_auth_cookie($user_id);
             do_action('atbdp_user_registration_completed', $user_id);
             update_user_meta($user_id, '_atbdp_generated_password', $password);
-            // user has been created successfully, now work on activation process
-            wp_new_user_notification($user_id, null, 'both');
+            wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
+            ATBDP()->email->custom_wp_new_user_notification_email($user_id);
         }
     }
 }

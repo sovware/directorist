@@ -464,12 +464,6 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 ),
                 array(
                     'type' => 'textbox',
-                    'name' => 'login_url',
-                    'label' => __('Url', 'directorist'),
-                    'default' => ATBDP_Permalink::get_login_page_url(),
-                ),
-                array(
-                    'type' => 'textbox',
                     'name' => 'log_linkingmsg',
                     'label' => __('Linking Text', 'directorist'),
                     'default' => __('Here', 'directorist'),
@@ -573,12 +567,6 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'name' => 'reg_text',
                     'label' => __('Text', 'directorist'),
                     'default' => __('Don\'t have an account?', 'directorist'),
-                ),
-                array(
-                    'type' => 'textbox',
-                    'name' => 'reg_url',
-                    'label' => __('Url', 'directorist'),
-                    'default' => ATBDP_Permalink::get_registration_page_url(),
                 ),
                 array(
                     'type' => 'textbox',
@@ -2077,7 +2065,7 @@ You can login now using the below credentials:
                     'type' => 'textarea',
                     'name' => 'email_tmpl_registration_confirmation',
                     'label' => __('Email Body', 'directorist'),
-                    'description' => __('Edit the email template for sending to new user after registration [Note: Credentials details included at the bottom of the template]', 'directorist'),
+                    'description' => __('Note: Use ==USER_PASSWORD== to show a temporary password when password field is disable from registration page', 'directorist'),
                     'default' => $tmpl,
                 ),
 

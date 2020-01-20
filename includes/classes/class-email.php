@@ -39,7 +39,6 @@ if (!class_exists('ATBDP_Email')):
             add_action('atbdp_deleted_expired_listings', array($this, 'notify_admin_listing_deleted'));
 
             //send new user confirmation notification to user
-            add_filter('wp_new_user_notification_email', array($this, 'custom_wp_new_user_notification_email'), 10, 3);
             add_filter('wp_mail_from_name', array($this, 'atbdp_wp_mail_from_name'));
             add_filter('wp_mail_from', array($this, 'atbdp_wp_mail_from'));
 
@@ -98,7 +97,7 @@ if (!class_exists('ATBDP_Email')):
                     $user = get_userdata((int)$user);
                 }
             }
-
+            $user_password = get_user_meta($user->ID, '_atbdp_generated_password', true);
             $site_name = get_option('blogname');
             $site_url = site_url();
             $l_title = get_the_title($listing_id);
@@ -110,6 +109,7 @@ if (!class_exists('ATBDP_Email')):
             $exp_date = get_post_meta($listing_id, '_expiry_date', true);
             $never_exp = get_post_meta($listing_id, '_never_expire', true);
             $renewal_link = ATBDP_Permalink::get_renewal_page_link($listing_id);
+            $dashboard_link = ATBDP_Permalink::get_dashboard_page_link();
             $order_receipt_link = ATBDP_Permalink::get_payment_receipt_page_link($order_id);
             $cats = wp_get_object_terms($listing_id, ATBDP_CATEGORY, array('fields' => 'names'));/*@todo, maybe we can use get_the_terms() for utilizing some default caching???*/
             $cat_name = !empty($cats) ? $cats[0] : '';/*@todo; if a listing is attached to multiple cats, we can print more than one cat later.*/
@@ -132,6 +132,8 @@ if (!class_exists('ATBDP_Email')):
                 //'==ORDER_DETAILS=='         => ATBDP_Order::get_order_details( $order_id ),
                 '==TODAY==' => date_i18n($date_format, $current_time),
                 '==NOW==' => date_i18n($date_format . ' ' . $time_format, $current_time),
+                '==DASHBOARD_LINK==' => sprintf('<a href="%s">%s</a>', $dashboard_link, $dashboard_link),
+                '==USER_PASSWORD==' => $user_password,
             );
             $c = nl2br(strtr($content, $find_replace));
             // we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.
@@ -717,31 +719,22 @@ This email is sent automatically for information purpose only. Please do not res
         /**
          * @since 5.8
          */
-        public function custom_wp_new_user_notification_email($wp_new_user_notification_email, $user, $blogname)
+        function custom_wp_new_user_notification_email($user_id)
         {
-            if (is_admin()) {
-                return $wp_new_user_notification_email;
-            }
-            if (get_directorist_option('disable_email_notification')) return $wp_new_user_notification_email;
-
-            $user_password = get_user_meta($user->ID, '_atbdp_generated_password', true);
+            $user = get_user_by('ID', $user_id);
+            if (get_directorist_option('disable_email_notification')) return;
             $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!', 'directorist'));
-            $body = get_directorist_option('email_tmpl_registration_confirmation', __("
-Dear User,
+            $body =  get_directorist_option('email_tmpl_registration_confirmation','Hi ==USERNAME==,
 
-Congratulations! Your registration is completed!
+Thanks for creating an account on ==SITE_NAME==. Your username is ==USERNAME==. You can access your account area to view listings, change your password, and more at: ==DASHBOARD_LINK==
 
-This email is sent automatically for information purpose only. Please do not respond to this.
-You can login now using the below credentials:
-
-", 'directorist'));
+We look forward to seeing you soon');
             $body = $this->replace_in_content($body, null, null, $user);
-            $wp_new_user_notification_email['subject'] = sprintf('%s', $sub);
-            $wp_new_user_notification_email['message'] = preg_replace("/<br \/>/", "", $body) . "
-                
-" . __('Username:', 'directorist') . " $user->user_login
-" . __('Password:', 'directorist') . " $user_password";
-            return $wp_new_user_notification_email;
+            $body = atbdp_email_html($sub, $body);
+            $mail = $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
+            if ($mail){
+                delete_user_meta($user_id, '_atbdp_generated_password');
+            }
         }
 
     } // ends class

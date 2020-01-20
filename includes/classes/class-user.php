@@ -107,7 +107,7 @@ class ATBDP_User {
         $require_lname               = get_directorist_option('require_lname_reg',0);
         $display_bio                 = get_directorist_option('display_bio_reg',1);
         $require_bio                 = get_directorist_option('require_bio_reg',0);
-        $display_password            = get_directorist_option('display_password_reg',0);
+        $display_password            = get_directorist_option('display_password_reg',1);
         $require_password            = get_directorist_option('require_password_reg',0);
         //password validation
         if(!empty($require_password) && !empty($display_password) && empty($password)){
@@ -198,7 +198,7 @@ class ATBDP_User {
         $require_fname               = get_directorist_option('require_fname_reg',0);
         $display_lname               = get_directorist_option('display_lname_reg',1);
         $require_lname               = get_directorist_option('require_lname_reg',0);
-        $display_password            = get_directorist_option('display_password_reg',0);
+        $display_password            = get_directorist_option('display_password_reg',1);
         $require_password            = get_directorist_option('require_password_reg',0);
         $display_bio                 = get_directorist_option('display_bio_reg',1);
         $require_bio                 = get_directorist_option('require_bio_reg',0);
@@ -306,7 +306,8 @@ class ATBDP_User {
                 update_user_meta($user_id, '_atbdp_privacy', $privacy_policy);
                 update_user_meta($user_id, '_atbdp_terms_and_conditions', $t_c_check);
                 // user has been created successfully, now work on activation process
-                wp_new_user_notification($user_id, null, 'both'); // send activation to the user and the admin
+                wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
+                ATBDP()->email->custom_wp_new_user_notification_email($user_id);
                 wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('registration_status' => true)));
                 exit();
             } else {

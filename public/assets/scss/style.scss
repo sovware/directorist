@@ -51,11 +51,6 @@
 }
 
 @media (max-width: 991px) {
-  #directorist {
-    .single_search_field {
-      margin-bottom: 15px;
-    }
-  }
   .ads-advanced .price-frequency{
     margin-left: -2px;
   }
@@ -76,6 +71,12 @@
 }
 
 @media (max-width: 767px) {
+  .atbd_content_active #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form .single_search_field{
+    &:last-child{
+      flex: 0 0 100%;
+      margin-top: 10px;
+    }
+  }
   #directorist {
     .atbd_listing_details .atbd_area_title {
       margin-bottom: 15px;
@@ -161,6 +162,15 @@
 }
 
 @media (max-width: 575px) {
+  .atbd_content_active #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form .single_search_field{
+    flex: 0 0 100%;
+    margin-top: 0;
+    margin-bottom: 10px;
+    &:last-child{
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
   .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area{
     .atbd_author_avatar{
       flex-wrap: wrap;

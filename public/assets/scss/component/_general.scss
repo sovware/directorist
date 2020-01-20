@@ -1146,10 +1146,10 @@ div#listing_notifier span {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    margin: 0 -5px;
+    margin: -5px;
     padding: 0;
     li{
-      margin: 0 5px;
+      margin: 5px;
       padding: 0 10px;
       border: 1px solid $border-color;
       display: inline-flex;
@@ -1162,20 +1162,62 @@ div#listing_notifier span {
       i{
         line-height: 28px;
       }
-      &.active{
+      &.atbd-active{
         cursor: pointer;
         &:hover{
           border-color: $dark;
           color: $dark;
         }
       }
-      &.selected{
+      &.atbd-selected{
         border-color: $dark;
         color: $dark;
       }
-      &.inactive{
+      &.atbd-inactive{
         opacity: 0.5;
       }
+      &[class^="atbd-page-jump-"]{
+        min-width: 30px;
+        min-height: 30px;
+        position: relative;
+        cursor: pointer;
+        .la{
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+        .la_h{
+          visibility: hidden;
+          opacity: 0;
+          left: 70%;
+          transition: 0.3s ease;
+        }
+        .la_d{
+          visibility: visible;
+          opacity: 1;
+          transition: 0.3s ease;
+        }
+        &:hover{
+          color: $dark;
+          .la_h{
+            visibility: visible;
+            opacity: 1;
+            left: 50%;
+          }
+          .la_d{
+            visibility: hidden;
+            opacity: 0;
+            left: 30%;
+          }
+        }
+      }
     }
+  }
+}
+
+.select2-container{
+  .select2-results__option{
+    margin-left: 0;
   }
 }

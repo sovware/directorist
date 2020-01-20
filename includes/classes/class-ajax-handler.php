@@ -405,7 +405,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                         if (($dot__ == $i)) {
                             $jump = $i - 5;
                             $jump = $jump < 1 ? 1 : $jump;
-                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-back'>...</li>";
+                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-back' title='Previous 5 Pages'><i class='la la-ellipsis-h la_d'></i> <i class='la la-angle-double-left la_h'></i></li>";
                         }
                     }
                     if ($cur_page == $i) {
@@ -418,7 +418,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                         if (($dot_ == $i)) {
                             $jump = $i + 5;
                             $jump = $jump > $no_of_paginations ? $no_of_paginations : $jump;
-                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-up'>...</li>";
+                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-up' title='Next 5 Pages'><i class='la la-ellipsis-h la_d'></i> <i class='la la-angle-double-right la_h'></i></li>";
                         }
                     }
                     // show dot after first 5
@@ -426,7 +426,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                         $jump = $i + 5;
                         $jump = $jump > $no_of_paginations ? $no_of_paginations : $jump;
                         if ($i == 5) {
-                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-up'>...</li>";
+                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-up' title='Next 5 Pages'><i class='la la-ellipsis-h la_d'></i> <i class='la la-angle-double-right la_h'></i></li>";
                         }
                     }
 

@@ -273,25 +273,25 @@ if (!class_exists('ATBDP_Settings_Manager')):
             return apply_filters('atbdp_single_template_padding', array(
                 array(
                     'type' => 'textbox',
-                    'name' => 'single_temp_Padding_top',
+                    'name' => 'single_temp_padding_top',
                     'label' => __('Top', 'directorist'),
                     'default' => '30',
                 ),
                 array(
                     'type' => 'textbox',
-                    'name' => 'single_temp_Padding_bottom',
+                    'name' => 'single_temp_padding_bottom',
                     'label' => __('Bottom', 'directorist'),
                     'default' => '50',
                 ),
                 array(
                     'type' => 'textbox',
-                    'name' => 'single_temp_Padding_left',
+                    'name' => 'single_temp_padding_left',
                     'label' => __('Left', 'directorist'),
                     'default' => '4',
                 ),
                 array(
                     'type' => 'textbox',
-                    'name' => 'single_temp_Padding_right',
+                    'name' => 'single_temp_padding_right',
                     'label' => __('Right', 'directorist'),
                     'default' => '4',
                 ),

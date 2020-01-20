@@ -944,9 +944,10 @@ if ('openstreet' == $select_listing_map) {
     wp_register_script('openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
     wp_enqueue_script('openstreet_layer');
     wp_enqueue_style('leaflet-css', ATBDP_PUBLIC_ASSETS . 'css/leaflet.css');
+    wp_enqueue_script('babel-js','https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js');
 }
 ?>
-<script>
+<script type="text/babel" charset="utf-8" async defer>
     <?php if('google' == $select_listing_map) { ?>
     var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
 

@@ -385,14 +385,14 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
                 if ($previous_btn && $cur_page > 1) {
                     $pre = $cur_page - 1;
-                    $pag_container .= "<li data-page='$pre' class='active'><i class='la la-angle-left'></i></li>";
+                    $pag_container .= "<li data-page='$pre' class='atbd-active'><i class='la la-angle-left'></i></li>";
                 } else if ($previous_btn) {
-                    $pag_container .= "<li class='inactive'><i class='la la-angle-left'></i></li>";
+                    $pag_container .= "<li class='atbd-inactive'><i class='la la-angle-left'></i></li>";
                 }
                 if ($first_btn && $cur_page > 1) {
-                    $first_class = 'active';
+                    $first_class = 'atbd-active';
                 } else if ($first_btn) {
-                    $first_class = 'inactive';
+                    $first_class = 'atbd-inactive';
                 }
                 $pag_container .= "<li data-page='1' class='" . $first_class . "'>1</li>";
                 for ($i = $start_loop; $i <= $end_loop; $i++) {
@@ -405,20 +405,20 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                         if (($dot__ == $i)) {
                             $jump = $i - 5;
                             $jump = $jump < 1 ? 1 : $jump;
-                            $pag_container .= "<li data-page='$jump' class='active'>...</li>";
+                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-back'>...</li>";
                         }
                     }
                     if ($cur_page == $i) {
-                        $pag_container .= "<li data-page='$i' class = 'selected' >{$i}</li>";
+                        $pag_container .= "<li data-page='$i' class = 'atbd-selected' >{$i}</li>";
                     } else {
-                        $pag_container .= "<li data-page='$i' class='active'>{$i}</li>";
+                        $pag_container .= "<li data-page='$i' class='atbd-active'>{$i}</li>";
                     }
                     // show dot if current page say 'i have some neighbours right form mine'
                     if (($cur_page > 4)) {
                         if (($dot_ == $i)) {
                             $jump = $i + 5;
                             $jump = $jump > $no_of_paginations ? $no_of_paginations : $jump;
-                            $pag_container .= "<li data-page='$jump' class='page-jump-up'>...</li>";
+                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-up'>...</li>";
                         }
                     }
                     // show dot after first 5
@@ -426,7 +426,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                         $jump = $i + 5;
                         $jump = $jump > $no_of_paginations ? $no_of_paginations : $jump;
                         if ($i == 5) {
-                            $pag_container .= "<li data-page='$jump' class='page-jump-back'>...</li>";
+                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-up'>...</li>";
                         }
                     }
 
@@ -434,17 +434,17 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
 
                 if ($last_btn && $cur_page < $no_of_paginations) {
-                    $last_class = 'active';
+                    $last_class = 'atbd-active';
                 } else if ($last_btn) {
-                    $last_class = 'inactive';
+                    $last_class = 'atbd-inactive';
                 }
                 $pag_container .= "<li data-page='$no_of_paginations' class='" . $last_class . "'>{$no_of_paginations}</li>";
 
                 if ($next_btn && $cur_page < $no_of_paginations) {
                     $nex = $cur_page + 1;
-                    $pag_container .= "<li data-page='$nex' class='active'><i class='la la-angle-right'></i></li>";
+                    $pag_container .= "<li data-page='$nex' class='atbd-active'><i class='la la-angle-right'></i></li>";
                 } else if ($next_btn) {
-                    $pag_container .= "<li class='inactive'><i class='la la-angle-right'></i></li>";
+                    $pag_container .= "<li class='atbd-inactive'><i class='la la-angle-right'></i></li>";
                 }
 
                 $pag_container = $pag_container . "

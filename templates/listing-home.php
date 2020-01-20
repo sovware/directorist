@@ -99,30 +99,25 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                             do_action('atbdp_before_search_form');
                             ?>
                             <?php if ('yes' == $text_field || 'yes' == $category_field || 'yes' == $location_field) { ?>
-                                <div class="row atbdp-search-form">
+                                <div class="atbdp-search-form">
                                     <?php
                                     $search_html = '';
                                     if ('yes' == $text_field) {
-                                        $search_html .= '<div class="col-md-6 col-sm-12 col-lg-4">';
-
                                         $search_html .= '<div class="single_search_field search_query">
                                     <input class="form-control search_fields" type="text" name="q"
                                     ' . $require_text . '
                                            placeholder="' . esc_html($search_placeholder) . '">
                                 </div>';
-                                        $search_html .= '</div>';
                                     }
                                     if ('yes' == $category_field) {
-                                        $search_html .= '<div class="col-md-6 col-sm-12 col-lg-4 atbdp_search_category">
-                                <div class="single_search_field search_category">';
+                                        $search_html .= '<div class="single_search_field search_category">';
                                         $search_html .= '<select ' . $require_cat . ' name="in_cat" class="search_fields form-control" id="at_biz_dir-category">';
                                         $search_html .= '<option value="">' . $search_category_placeholder . '</option>';
                                         $search_html .= $categories_fields;
                                         $search_html .= '</select>';
-                                        $search_html .= '</div></div>';
+                                        $search_html .= '</div>';
                                     }
                                     if ('yes' == $location_field) {
-                                        $search_html .= '<div class="col-md-12 col-sm-12 col-lg-4">';
                                         if ('listing_location' == $search_location_address) {
                                             $search_html .= '<div class="single_search_field search_location">';
                                             $search_html .= '<select ' . $require_loc . ' name="in_loc" class="search_fields form-control" id="at_biz_dir-location">';
@@ -137,7 +132,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                             wp_localize_script('atbdp-geolocation', 'adbdp_geolocation', array('select_listing_map'=> $select_listing_map));
                                             $geo_loc = ('google' == $select_listing_map) ? '<span class="atbd_get_loc la la-crosshairs"></span>' : '<span class="atbd_get_loc la la-crosshairs"></span>';
                                             $address_label = __('location', 'directorist');
-                                            $search_html .= '<div class="atbdp_map_address_field">';
+                                            $search_html .= '<div class="single_search_field atbdp_map_address_field">';
                                             $search_html .= '<div class="atbdp_get_address_field"><input ' . $require_loc . ' type="text" id="address" name="address" autocomplete="off" value="' . $address . '" placeholder="' . $address_label . '" class="form-control location-name">'. $geo_loc .'</span></div>';
                                             $search_html .= '<div class="address_result" style="display: none">';
                                             $search_html .= '</div>';
@@ -145,7 +140,6 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                             $search_html .= '<input type="hidden" id="cityLng" name="cityLng" value="" />';
                                             $search_html .= '</div>';
                                         }
-                                        $search_html .= '</div>';
                                     }
                                     /**
                                      * @since 5.0

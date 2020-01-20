@@ -442,7 +442,7 @@ if ('openstreet' == $select_listing_map) {
             // marker.addListener('click', function () {
             //     info_window.open(map, marker);
             // });
-            
+
             // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
             markers.push(marker);
         }
@@ -541,7 +541,7 @@ if ('openstreet' == $select_listing_map) {
 
         });
 
-                
+
         $('form').submit(function () {
             if ($(document.activeElement).attr('type') == 'submit')
                 return true;
@@ -551,33 +551,33 @@ if ('openstreet' == $select_listing_map) {
         // Popup controller by keyboard
         var index = 0;
         $('#address').on('keyup', function(event) {
-            var length = $('#directorist.atbd_wrapper #result ul li a').length;            
+            var length = $('#directorist.atbd_wrapper #result ul li a').length;
             if(event.keyCode === 40) {
-                index++;                
+                index++;
                 if( index > length) {
                     index = 0;
-                }               
+                }
             } else if(event.keyCode === 38) {
                 index--;
                 if(index < 0) {
                     index = length
                 };
             }
-            
+
             if($('#directorist.atbd_wrapper #result ul li a').length > 0){
 
                 $('#directorist.atbd_wrapper #result ul li a').removeClass('active')
                 $($('#directorist.atbd_wrapper #result ul li a')[index]).addClass('active');
-                
-                if(event.keyCode === 13){                      
+
+                if(event.keyCode === 13){
                     $($('#directorist.atbd_wrapper #result ul li a')[index]).click();
                     index = 0;
                     event.preventDefault();
                     return false;
-                }                
-            };            
+                }
+            };
         });
-        
+
         // Popup controller by keyboard
 
 
@@ -608,18 +608,18 @@ if ('openstreet' == $select_listing_map) {
          display: block;
      }
 
-     #directorist.atbd_wrapper a {                
+     #directorist.atbd_wrapper a {
         display: block;
         background: #fff;
         padding: 8px 10px;
     }
 
     #directorist.atbd_wrapper a:hover {
-        background: #eeeeee50;        
+        background: #eeeeee50;
     }
 
     #directorist.atbd_wrapper a.active {
-        background: #eeeeee70;        
+        background: #eeeeee70;
     }
 
     .g_address_wrap ul li {

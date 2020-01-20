@@ -1573,7 +1573,9 @@ You can use the following keywords/placeholder in any of your email bodies/templ
 **{$c}==ORDER_RECEIPT_URL=={$e}** : It outputs a link to the order receipt page. It should be used for order related email only<br/>
 **{$c}==ORDER_DETAILS=={$e}** : It outputs order detailsc. It should be used for order related email only<br/>
 **{$c}==TODAY=={$e}** : It outputs the current date<br/>
-**{$c}==NOW=={$e}** : It outputs the current time<br/><br/>
+**{$c}==NOW=={$e}** : It outputs the current time<br/>
+**{$c}==DASHBOARD_LINK=={$e}** : It outputs the user dashboard page link<br/>
+**{$c}==USER_PASSWORD=={$e}** : It outputs new user's temporary passoword<br/><br/>
 **Additionally, you can also use HTML tags in your template.**
 KAMAL;
 

@@ -418,15 +418,15 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                         if (($dot_ == $i)) {
                             $jump = $i + 5;
                             $jump = $jump > $no_of_paginations ? $no_of_paginations : $jump;
-                            $pag_container .= "<li data-page='$jump' class='active'>...</li>";
+                            $pag_container .= "<li data-page='$jump' class='page-jump-up'>...</li>";
                         }
                     }
                     // show dot after first 5
-                    if (($cur_page == 1 && ($no_of_paginations > 5))) {
+                    if ((($cur_page == 1) || ($cur_page == 2) || ($cur_page == 3) || ($cur_page == 4)) && ($no_of_paginations > 5)) {
                         $jump = $i + 5;
                         $jump = $jump > $no_of_paginations ? $no_of_paginations : $jump;
                         if ($i == 5) {
-                            $pag_container .= "<li data-page='$jump' class='active'>...</li>";
+                            $pag_container .= "<li data-page='$jump' class='page-jump-back'>...</li>";
                         }
                     }
 

@@ -203,7 +203,9 @@
     }
 
     // Load page 1 as the default
-    atbdp_load_all_posts(1);
+    if ($('#client_review_list').length){
+        atbdp_load_all_posts(1);
+    }
 
     // Handle the clicks
     $('.atbdp-universal-pagination li.active').live('click',function(){

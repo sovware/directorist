@@ -91,8 +91,6 @@ class ATBDP_User {
                 'first_name'    =>   $first_name,
                 'last_name'     =>   $last_name,
                 'description'   =>   $bio,
-                'atbdp_privacy' =>  $privacy,
-                'atbdp_terms'  =>   $terms,
             );
             return wp_insert_user( $userdata ); // return inserted user id or a WP_Error
         }

@@ -398,7 +398,9 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 for ($i = $start_loop; $i <= $end_loop; $i++) {
                     if ($i === 1 || $i === $no_of_paginations) continue;
                     $dot_ = (int)$cur_page + 2;
-                    $dot__ = (int)$cur_page - 2;
+                    $backward = ($cur_page == $no_of_paginations) ? 4 : (($cur_page == $no_of_paginations - 1) ? 3 : 2);
+                    $dot__ = (int)$cur_page - $backward;
+                    // show dot if current page say 'i have some neighbours left form mine'
                     if ($cur_page > 4) {
                         if (($dot__ == $i)) {
                             $jump = $i - 5;
@@ -411,10 +413,19 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                     } else {
                         $pag_container .= "<li data-page='$i' class='active'>{$i}</li>";
                     }
+                    // show dot if current page say 'i have some neighbours right form mine'
                     if (($cur_page > 4)) {
                         if (($dot_ == $i)) {
                             $jump = $i + 5;
                             $jump = $jump > $no_of_paginations ? $no_of_paginations : $jump;
+                            $pag_container .= "<li data-page='$jump' class='active'>...</li>";
+                        }
+                    }
+                    // show dot after first 5
+                    if (($cur_page == 1 && ($no_of_paginations > 5))) {
+                        $jump = $i + 5;
+                        $jump = $jump > $no_of_paginations ? $no_of_paginations : $jump;
+                        if ($i == 5) {
                             $pag_container .= "<li data-page='$jump' class='active'>...</li>";
                         }
                     }

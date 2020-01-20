@@ -1172,8 +1172,13 @@ final class Directorist_Base
                                 <input type="hidden" name="name" class="btn btn-default"
                                        value="<?php echo wp_get_current_user()->display_name; ?>"
                                        id="reviewer_name">
-                                <?php $avata_img = get_avatar(wp_get_current_user()->ID, apply_filters('atbdp_avatar_size', 32));
-                                $user_img = !empty($avata_img) ? $avata_img : ATBDP_PUBLIC_ASSETS . 'images/revav.png';
+                                <?php
+                                $author_id = wp_get_current_user()->ID;
+                                $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+                                $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail')[0];
+                                $custom_gravatar = "<img src='$u_pro_pic' alt='Author'>";
+                                $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
+                                $user_img = !empty($u_pro_pic) ? $custom_gravatar : $avata_img;
                                 ?>
                                 <input type="hidden" name="name" id="reviewer_img" class="btn btn-default"
                                        value='<?php echo esc_attr($user_img); ?>'>

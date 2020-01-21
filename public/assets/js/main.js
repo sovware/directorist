@@ -16,9 +16,12 @@
     /* Externel Library init
      ------------------------*/
     //Star rating
-    $(".stars").barrating({
-        theme: 'fontawesome-stars'
-    });
+    if($('.stars').length){
+        $(".stars").barrating({
+            theme: 'fontawesome-stars'
+        });
+    }
+
 
     function handleFiles(files) {
         var preview = document.getElementById('atbd_up_preview');

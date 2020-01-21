@@ -392,11 +392,12 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 if ($first_btn && $cur_page > 1) {
                     $first_class = 'atbd-active';
                 } else if ($first_btn) {
-                    $first_class = 'atbd-inactive';
+                    $first_class = 'atbd-selected';
                 }
                 $pag_container .= "<li data-page='1' class='" . $first_class . "'>1</li>";
                 for ($i = $start_loop; $i <= $end_loop; $i++) {
                     if ($i === 1 || $i === $no_of_paginations) continue;
+                    if (($no_of_paginations <= 5) && ($no_of_paginations == $i)) continue;
                     $dot_ = (int)$cur_page + 2;
                     $backward = ($cur_page == $no_of_paginations) ? 4 : (($cur_page == $no_of_paginations - 1) ? 3 : 2);
                     $dot__ = (int)$cur_page - $backward;
@@ -436,7 +437,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 if ($last_btn && $cur_page < $no_of_paginations) {
                     $last_class = 'atbd-active';
                 } else if ($last_btn) {
-                    $last_class = 'atbd-inactive';
+                    $last_class = 'atbd-selected';
                 }
                 $pag_container .= "<li data-page='$no_of_paginations' class='" . $last_class . "'>{$no_of_paginations}</li>";
 

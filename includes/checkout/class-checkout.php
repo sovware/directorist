@@ -47,10 +47,13 @@ class ATBDP_Checkout
      */
     public function display_checkout_content()
     {
-        include ATBDP_DIR . 'public/assets/css/style.php';
         // vail out showing a friendly-message, if user is not logged in. No need to run further code
         if (!atbdp_is_user_logged_in()) return null;
         ob_start();
+        $include = apply_filters('include_style_settings', true);
+        if ($include) {
+            include ATBDP_DIR . 'public/assets/css/style.php';
+        }
         // vail if monetization is not active.
         if (! get_directorist_option('enable_monetization')) { return __('Monetization is not active on this site. if you are an admin, you can enable it from the settings panel.', 'directorist');}
         wp_enqueue_script( 'atbdp_checkout_script' );

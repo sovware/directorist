@@ -220,7 +220,7 @@ class ATBDP_Review_Custom_Post
         }
 
         // Check the logged in user has permission to edit this post
-        if (!current_user_can('edit_post')) {
+        if (!current_user_can('edit_post', $post_id)) {
             return $post_id;
         }
         /*

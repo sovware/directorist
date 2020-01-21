@@ -21,9 +21,15 @@ class ATBDP_Enqueuer {
         add_action( 'wp_enqueue_scripts', array( $this, 'front_end_enqueue_scripts' ), -10 );
         add_action( 'wp_enqueue_scripts', array( $this, 'custom_color_picker_scripts' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'search_listing_scripts_styles' ) );
-
+        //add_filter( 'script_loader_tag', array($this,'add_type_on_scripts'),10,3);
     }
 
+    public function add_type_on_scripts($tag, $handle,$src) {
+        if('atbdp-geolocation' == $handle || 'adminmainassets' == $handle || 'atbdp-search-listing' == $handle || 'at_modal' == $handle || 'leaflet-subgroup-realworld' == $handle) {
+            $tag = str_replace( 'src=', 'type="text/babel" charset="utf-8" async defer src=', $tag );
+        }
+        return $tag;
+    }
     public function custom_color_picker_scripts() {
         wp_enqueue_style( 'wp-color-picker' );
         wp_enqueue_script(

@@ -130,7 +130,7 @@ if ($display_header == 'yes') { ?>
                     <div class="<?php echo ('overlapping' === $filters_display) ? 'ads_float' : 'ads_slide' ?>">
                         <div class="ads-advanced">
                             <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
-                                <div class="atbd_seach_fields_wrapper"<?php echo empty($search_border) ? 'style="border: none;"' : ''; ?>>
+                                <div class="atbd_seach_fields_wrapper"<?php echo empty($search_border) ? ' style="border: none;"' : ''; ?>>
                                     <div class="row atbdp-search-form">
                                         <?php if (in_array('search_text', $search_more_filters_fields)) { ?>
                                             <div class="col-md-6 col-sm-12 col-lg-4">

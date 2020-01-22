@@ -495,27 +495,28 @@ jQuery(function ($) {
             url: ajaxurl,
             data: form_data,
             success: function (response) {
-                // preview on and no need to redirect to payment
-                if ((response.preview_mode === true) && (response.need_payment !== true)) {
-                    if (response.edited_listing !== true){
-                        $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
-                        window.location.href = response.preview_url + '?preview=1&redirect=' + response.redirect_url;
-                    }else {
-                        $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
-                        window.location.href = response.preview_url + '?preview=1&redirect=' + response.redirect_url;
-                    }
-                    // preview mode active and need payment
-                }else if((response.preview_mode === true) && (response.need_payment === true)){
-                    window.location.href = response.preview_url + '&preview=1&payment=1&redirect=' + response.redirect_url;
-                }else {
-                        $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
-                        window.location.href = response.redirect_url;
-                }
                 // show the error notice
                 if (response.error === true) {
                     $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
                     $(".listing_submit_btn").removeClass("atbd_loading");
                     //window.location.href = response.redirect_url;
+                }else {
+                    // preview on and no need to redirect to payment
+                    if ((response.preview_mode === true) && (response.need_payment !== true)) {
+                        if (response.edited_listing !== true){
+                            $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
+                            window.location.href = response.preview_url + '?preview=1&redirect=' + response.redirect_url;
+                        }else {
+                            $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
+                            window.location.href = response.preview_url + '?preview=1&redirect=' + response.redirect_url;
+                        }
+                        // preview mode active and need payment
+                    }else if((response.preview_mode === true) && (response.need_payment === true)){
+                        window.location.href = response.preview_url + '&preview=1&payment=1&redirect=' + response.redirect_url;
+                    }else {
+                        $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
+                        window.location.href = response.redirect_url;
+                    }
                 }
             },
             error: function (error) {

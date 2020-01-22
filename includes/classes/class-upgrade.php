@@ -13,12 +13,50 @@ class ATBDP_Upgrade{
         $user_id = get_current_user_id();
         if (!current_user_can('administrator')) return false;
         $update_link = admin_url().'edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages';
+        /**
+         * @since 6.2.3
+         * Add notice for extension users
+         */
+        $extensions = array(
+          'ATBDP_Pricing_Plans' => array(
+              'version' => '1.5.3',
+              'link' => 'directorist-pricing-plans',
+              'base' => 'directorist-pricing-plans/directorist-pricing-plans.php',
+          ),
+            'DWPP_Pricing_Plans' => array(
+              'version' => '1.2.4',
+              'link' => 'directorist-woocommerce-pricing-plans',
+              'base' => 'directorist-woocommerce-pricing-plans/directorist-woocommerce-pricing-plans',
+          ),
+            'BD_Google_Recaptcha' => array(
+                'version' => '1.1.4',
+                'link' => 'directorist-google-recaptcha',
+                'base' => 'directorist-google-recaptcha/directorist-google-recaptcha.php',
+            ),
+            'BD_Gallery' => array(
+                'version' => '1.1.6',
+                'link' => 'directorist-image-gallery',
+                'base' => 'directorist-gallery/bd-directorist-gallery.php',
+            ),
+          'Post_Your_Need' => array(
+              'version' => '1.0.1',
+              'link' => 'directorist-post-your-need',
+              'base' => 'directorist-post-your-need/directorist-post-your-need.php',
+          ),
+        );
+        if ((!function_exists('direo_setup') && !function_exists('dlist_setup') && !function_exists('dservice_setup') && !function_exists('drestaurant_setup') && !function_exists('findbiz_setup'))){
+            foreach ($extensions as $class => $data){
+                if (class_exists($class)){
+                    $link = 'https://directorist.com/product/'.$data['link'];
+                    $extension_link = '<a href="'.$link.'" target="_blank">'.__('Update Now', 'directorist').'</a>';
+                    if ( $data['version'] > atbdp_get_plugin_data($data['base'])['Version'] ){
+                        echo '<div id="message" class="notice notice-info" style="display: flex; background: #f7bdc7;  justify-content: space-between;"><p>';
+                        printf(__('There is a new version of %s available. %s', 'directorist'),atbdp_get_plugin_data($data['base'])['Name'], $extension_link);
+                        echo '</p><p><a href="#"></a></p></div>';
+                    }
+                }
+            }
 
-        //check the version of Directorist
-        $directorist_header = get_plugins( '/' . explode( '/', plugin_basename( __FILE__ ) )[0] );
-        $current_version = '';
-        foreach ($directorist_header as $key => $val){
-            $current_version = $val['Version'];
         }
 
         if ('true' == get_user_meta( $user_id, '_atbdp_shortcode_regenerate_notice',true)){

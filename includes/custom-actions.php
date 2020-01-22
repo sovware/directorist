@@ -216,3 +216,18 @@ function atbdp_status_after_previewed_listing($listing_id)
     // Update the post into the database
     wp_update_post($my_post);
 }
+
+/**
+ * @since 6.2.3
+ * @param string $plugin
+ * @return array plugin data
+ */
+
+function atbdp_get_plugin_data($plugin){
+    $plugins = get_plugins();
+    foreach ($plugins as $key => $data){
+        if ($plugin === $key){
+            return $data;
+        }
+    }
+}

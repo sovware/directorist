@@ -1123,6 +1123,7 @@ $query_args = array(
                                                 <!--Image Uploader-->
                                                 <?php if (!empty($display_gellery_field) && empty($display_glr_img_for) && $plan_slider) {
                                                     $plan_image = get_directorist_option('max_gallery_image_limit', 5);
+                                                    $slider_unl = '';
                                                     if (is_fee_manager_active()) {
                                                         $selected_plan = selected_plan_id();
                                                         $planID = !empty($selected_plan) ? $selected_plan : $fm_plan;
@@ -1137,7 +1138,7 @@ $query_args = array(
                                                     $req_gallery_image = get_directorist_option('require_gallery_img');
                                                     ?>
                                                     <div id="_listing_gallery" class="ez-media-uploader"
-                                                         data-max-file-items="<?php echo $plan_image; ?>"
+                                                         data-max-file-items="<?php echo !empty($allow_slider)?'999':$plan_image; ?>"
                                                          data-min-file-items="<?php echo !empty($req_gallery_image) ? '1' : ''; ?>"
                                                          data-max-total-file-size="<?php echo $max_size_kb; ?>"
                                                          data-show-alerts="0">
@@ -1187,10 +1188,15 @@ $query_args = array(
 
                                                             <!-- Info Text -->
                                                             <span class="ezmu-dictionary-info-max-total-file-size"><?php echo __('Maximum allowed file size is __DT__', 'directorist') ?></span>
+
+                                                            <span class="ezmu-dictionary-info-type" data-show='0'></span>
+
                                                             <span class="ezmu-dictionary-info-min-file-items">
                   <?php echo __('Minimum __DT__ file is required', 'directorist') ?></span>
-                                                            <span class="ezmu-dictionary-info-max-file-items" data-featured="1">
-                                                                <?php echo __('Maximum __DT__ file is allowed', 'directorist') ?></span>
+
+                                                            <span class="ezmu-dictionary-info-max-file-items"
+                                                                  data-featured="<?php echo !empty($slider_unl) ? '1' : ''; ?>">
+                                                                <?php echo !empty($slider_unl) ? __('Unlimited images with this plan!', 'directorist') : __('Maximum __DT__ file is allowed', 'directorist'); ?></span>
                                                         </div>
                                                     </div>
                                                 <?php } ?>

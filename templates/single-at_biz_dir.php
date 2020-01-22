@@ -944,7 +944,7 @@ if ('openstreet' == $select_listing_map) {
     wp_register_script('openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
     wp_enqueue_script('openstreet_layer');
     wp_enqueue_style('leaflet-css', ATBDP_PUBLIC_ASSETS . 'css/leaflet.css');
-    wp_enqueue_script('babel-js','https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js');
+    wp_enqueue_script('babel-js','https://unpkg.com/@babel/standalone@7.8.3/babel.min.js');
 }
 ?>
 <script type="text/babel" charset="utf-8" async defer>

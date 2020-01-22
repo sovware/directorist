@@ -11,11 +11,17 @@ jQuery(document).ready(function ($) {
                 need_post = true;
             }
         });
-       var is_need = $("input[name='need_post']").val();
-       if ('yes' === is_need){
-           need_post = true;
+       var is_need = $("input[name='need_post']:checked").val();
+       if (is_need){
+           if ('yes' === is_need){
+               need_post = true;
+           }else{
+               need_post = false;
+           }
        }
+
     }
+
     $('.listing_submit_btn').on('click', function () {
         var w_icon = '<span class="fa fa-exclamation-triangle"></span> ';
 
@@ -36,7 +42,6 @@ jQuery(document).ready(function ($) {
             var fields = $(this).attr('name');
             var parts = fields.split('[').pop().split(']')[0];
             var match_field = inArray(parts, required_custom_fields);
-
             if (match_field) {
                 var value = $(this).val();
                 if ('' === value && !need_post) {

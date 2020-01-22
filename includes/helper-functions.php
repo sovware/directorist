@@ -3307,6 +3307,10 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                         </h4>
                                         <?php
                                     }
+                                    /**
+                                     * @since 6.2.3
+                                     */
+                                    do_action('atbdp_list_view_after_title');
                                     if (!empty($tagline) && !empty($enable_tagline) && !empty($display_tagline_field)) { ?>
                                         <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                         <?php

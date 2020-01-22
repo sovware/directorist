@@ -50,10 +50,6 @@ class ATBDP_Checkout
         // vail out showing a friendly-message, if user is not logged in. No need to run further code
         if (!atbdp_is_user_logged_in()) return null;
         ob_start();
-        $include = apply_filters('include_style_settings', true);
-        if ($include) {
-            include ATBDP_DIR . 'public/assets/css/style.php';
-        }
         // vail if monetization is not active.
         if (! get_directorist_option('enable_monetization')) { return __('Monetization is not active on this site. if you are an admin, you can enable it from the settings panel.', 'directorist');}
         wp_enqueue_script( 'atbdp_checkout_script' );
@@ -63,6 +59,10 @@ class ATBDP_Checkout
         // vail if the id is empty or post type is not our post type.
         if ( empty($listing_id) || (!empty($listing_id) && ATBDP_POST_TYPE != get_post_type($listing_id)) ) {
             return __('Sorry, Something went wrong. Listing ID is missing. Please try again.', 'directorist');
+        }
+        $include = apply_filters('include_style_settings', true);
+        if ($include) {
+            include ATBDP_DIR . 'public/assets/css/style.php';
         }
         // if the checkout form is submitted, then process placing order
         if ('POST' == $_SERVER['REQUEST_METHOD'] && ATBDP()->helper->verify_nonce( $this->nonce, $this->nonce_action )){

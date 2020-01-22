@@ -461,7 +461,10 @@
   margin-right: 20px;
   color:gray;
   font-size: 14px;
+  transition: all ease-in-out 300ms;
 }
+
+
 
 .ezmu__info-list-item::before {
   content: ' ';
@@ -474,9 +477,27 @@
   background-position: center;
   background-size: 8px 8px;
   background-image: url('../images/info-solid.svg');
-  vertical-align: top;
   background-color:#c4c4c4;
+  vertical-align: top;
   border-radius: 50%;
+  transition: all ease-in-out 300ms;
+}
+
+
+.ezmu__info-list-item.is-featured {
+  color: #1aa663;
+}
+.ezmu__info-list-item.is-featured::before {
+  background-image: url('../images/info-solid-light.svg');
+  background-color: #1aa663;
+}
+
+.ezmu__info-list-item.has-error {
+  color: #f25454;
+}
+.ezmu__info-list-item.has-error::before {
+  background-image: url('../images/info-solid-light.svg');
+  background-color: #f25454;
 }
 
 .ezmu_alert {

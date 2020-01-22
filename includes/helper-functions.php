@@ -2701,7 +2701,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
 
         <style>
             #directorist.atbd_wrapper .atbdp_column {
-                width: <?php echo $column_width;?>;
+                width: <?php echo !empty($column_width) ? $column_width : '';?>;
             }
         </style>
 

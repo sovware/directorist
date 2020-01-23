@@ -52,6 +52,10 @@ class ATBDP_Enqueuer {
 
 
     public function admin_enqueue_scripts( $page ) {
+        if ($page === 'plugins.php'){
+            wp_register_script( 'extension-update', ATBDP_ADMIN_ASSETS . 'js/extension-update.js', array( 'jquery' ), ATBDP_VERSION, true );
+            wp_enqueue_script('extension-update');
+        }
         global $typenow;
 
         if ( ATBDP_POST_TYPE == $typenow ) {

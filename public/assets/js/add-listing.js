@@ -475,9 +475,16 @@ jQuery(function ($) {
                     if ($(this).is(':checked')){
                         form_data.append(name, $(this).val());
                     }
-                } else {
+                }else if(type === "checkbox"){
                     var name = $(this).attr("name");
-                    var value = $(this).attr('data-time');
+                    var value = atbdp_is_checked(name);
+                    form_data.append(name, value);
+                }else {
+                    var name = $(this).attr("name");
+                    var value = $(this).val();
+                    if (!value){
+                         value = $(this).attr('data-time');
+                    }
                     form_data.append(name, value);
                 }
             });

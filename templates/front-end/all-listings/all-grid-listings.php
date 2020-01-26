@@ -120,15 +120,15 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                         <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : ''; ?>">
                             <article
                                     class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
-                                <figure class="atbd_listing_thumbnail_area"
-                                        style=" <?php echo (empty(get_directorist_option('display_preview_image', 1)) || 'no' == $display_image) ? 'display:none' : '' ?>">
+                                <figure class="atbd_listing_thumbnail_area">
                                     <div class="atbd_listing_image">
                                         <?php
-                                        $disable_single_listing = get_directorist_option('disable_single_listing');
-                                        if (empty($disable_single_listing)){
-                                        ?>
-                                        <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
-                                            <?php
+                                        if ('no' == $display_image){
+
+                                            $disable_single_listing = get_directorist_option('disable_single_listing');
+                                            if (empty($disable_single_listing)){ ?>
+                                                <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
+                                                <?php
                                             }
                                             $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                                             if (!empty($listing_prv_img)) {
@@ -150,9 +150,11 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                             if (empty($disable_single_listing)) {
                                                 echo '</a>';
                                             }
+                                        }
+
                                             if (!empty($display_author_image)) {
                                                 $author = get_userdata($author_id);
-                                                $class = !empty($author->first_name && $author->last_name)?'atbd_tooltip':'';
+                                                $class = !empty($author->first_name && $author->last_name) ? 'atbd_tooltip' : '';
                                                 ?>
                                                 <div class="atbd_author">
                                                     <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"

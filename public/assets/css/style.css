@@ -170,6 +170,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   max-width: 100%;
   direction: ltr;
   text-align: left;
+  width: 100%;
 }
 
 #directorist.atbd_wrapper {

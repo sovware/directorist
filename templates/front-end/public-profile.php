@@ -201,8 +201,12 @@ $container_fluid = 'container-fluid';
         <div class="row">
             <div class="col-md-12">
                 <div class="atbd_author_listings_area">
-                    <h1><?php _e("Author Listings", 'directorist'); ?></h1>
                     <?php
+                    $header_title = apply_filters('atbdp_author_listings_header_title', 1);
+                    if ($header_title){
+                    ?>
+                    <h1><?php _e("Author Listings", 'directorist'); ?></h1>
+                    <?php }
                     $author_cat_filter = get_directorist_option('author_cat_filter',1);
                     ?>
                     <?php if(!empty($author_cat_filter)) {?>

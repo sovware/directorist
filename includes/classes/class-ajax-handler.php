@@ -61,9 +61,19 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             add_action('wp_ajax_nopriv_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all'));
             add_action('wp_ajax_atbdp_post_attachment_upload', array($this, 'atbdp_post_attachment_upload'));
             add_action('wp_ajax_nopriv_atbdp_post_attachment_upload', array($this, 'atbdp_post_attachment_upload'));
-
             //login
             add_action('wp_ajax_nopriv_ajaxlogin', array($this, 'atbdp_ajax_login'));
+            // regenerate pages
+            add_action('wp_ajax_atbdp_upgrade_old_pages', array($this, 'upgrade_old_pages'));
+        }
+
+        /**
+         * It upgrades old pages and make them compatible with new shortcodes
+         */
+        public function upgrade_old_pages()
+        {
+            update_option('atbdp_pages_version', 0);
+            wp_send_json_success(__('Congratulations! All old pages have been updated successfully', 'directorist'));
         }
 
         public function atbdp_ajax_login()

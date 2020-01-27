@@ -2046,14 +2046,11 @@ The Administrator of ==SITE_NAME==
             $sub = __('Registration Confirmation!', 'directorist');
 
             $tmpl = __('
-Dear User,
+Hi ==USERNAME==,
 
-Congratulations! Your registration is completed!
+Thanks for creating an account on <b>==SITE_NAME==</b>. Your username is <b>==USERNAME==</b>. You can access your account area to view listings, change your password, and more at: ==DASHBOARD_LINK==
 
-This email is sent automatically for information purpose only. Please do not respond to this.
-You can login now using the below credentials:
-
-', 'directorist');
+We look forward to seeing you soon', 'directorist');
 
             return apply_filters('atbdp_registration_confirmation_tmpl_settings_fields', array(
                 array(

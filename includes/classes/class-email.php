@@ -726,7 +726,7 @@ This email is sent automatically for information purpose only. Please do not res
             $sub = get_directorist_option('email_sub_registration_confirmation', __('Registration Confirmation!', 'directorist'));
             $body =  get_directorist_option('email_tmpl_registration_confirmation','Hi ==USERNAME==,
 
-Thanks for creating an account on ==SITE_NAME==. Your username is ==USERNAME==. You can access your account area to view listings, change your password, and more at: ==DASHBOARD_LINK==
+Thanks for creating an account on <b>==SITE_NAME==</b>. Your username is <b>==USERNAME==</b>. You can access your account area to view listings, change your password, and more at: ==DASHBOARD_LINK==
 
 We look forward to seeing you soon');
             $body = $this->replace_in_content($body, null, null, $user);

@@ -4,7 +4,6 @@ class ATBDP_Upgrade{
 
     public function __construct()
     {
-        add_action('wp_ajax_atbdp_upgrade_old_pages', array($this, 'upgrade_old_pages'));
         add_action('admin_notices', array( $this, 'upgrade_notice' ), 100 );
     }
 
@@ -62,12 +61,4 @@ class ATBDP_Upgrade{
         }
     }
 
-    /**
-     * It upgrades old pages and make them compatible with new shortcodes
-     */
-    public function upgrade_old_pages()
-    {
-        update_option('atbdp_pages_version', 0);
-        wp_send_json_success(__('Congratulations! All old pages have been updated successfully', 'directorist'));
-    }
 }

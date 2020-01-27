@@ -1221,3 +1221,26 @@ div#listing_notifier span {
     margin-left: 0;
   }
 }
+
+//media uploader style
+#atbdp_front_media_wrap{
+  .ez-media-uploader{
+    padding: 21px 15px 23px;
+  }
+  .ezmu__media-picker-buttons{
+    margin-top: 0;
+  }
+  .ezmu__titles-area{
+    margin-bottom: 15px;
+  }
+}
+.atbd_content_active #directorist.atbd_wrapper{
+  .ezmu__title-1{
+    font-size: 30px;
+  }
+  .ezmu__title-3{
+    font-size: 20px;
+    margin-top: 10px;
+  }
+}
+

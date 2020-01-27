@@ -615,6 +615,28 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 80px;
 }
 
+#directorist.atbd_wrapper.atbd_author_profile .atbd_author_filter_area{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  .atbd-auth-listing-types{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+    >a{
+      margin: 0 15px;
+      padding-bottom: 15px;
+      display: block;
+      position: relative;
+      border-bottom: 1px solid transparent;
+      &.active{
+        border-bottom-color: $border-color;
+      }
+    }
+  }
+}
+
 #directorist.atbd_wrapper .atbd_author_filter_area .dropdown .dropdown-menu {
   width: 157px;
   word-break: break-all;

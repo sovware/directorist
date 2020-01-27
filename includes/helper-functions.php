@@ -2475,10 +2475,11 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                         if (!empty($display_review) || !empty($display_price)) { ?>
 
                                             <?php
-                                            $meta_html .= '<div class="atbd_listing_meta">';
-                                            $average = ATBDP()->review->get_average(get_the_ID());
-                                            $meta_html .= '<span class="atbd_meta atbd_listing_rating">' . $average . '<i class="' . atbdp_icon_type() . '-star"></i>
-        </span>';
+                                                $meta_html .= '<div class="atbd_listing_meta">';
+                                            if (!empty($display_review)) {
+                                                $average = ATBDP()->review->get_average(get_the_ID());
+                                                $meta_html .= '<span class="atbd_meta atbd_listing_rating">' . $average . '<i class="' . atbdp_icon_type() . '-star"></i></span>';
+                                            }
                                             $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
                                             if (!empty($display_price) && !empty($display_pricing_field)) {
                                                 if (!empty($price_range) && ('range' === $atbd_listing_pricing)) {

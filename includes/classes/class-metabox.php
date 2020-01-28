@@ -408,7 +408,7 @@ wp_reset_postdata();
         // let's check is listing need to update
         if (('expired' === $listing_status) && ('private' === $post_status)){
             // check is plans module active
-            if (is_pricing_plans_active()){
+            if (is_fee_manager_active()){
                 $package_id = 'null' != $_POST['admin_plan'] ? esc_attr($_POST['admin_plan']):'';
                 if (!empty($package_id)){
                     $package_length = get_post_meta($package_id, 'fm_length', true);

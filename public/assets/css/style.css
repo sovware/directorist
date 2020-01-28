@@ -1362,6 +1362,14 @@ div#listing_notifier span {
   margin-top: 10px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .ezmu__info-section {
+  margin-top: 10px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .ezmu__info-list-item {
+  padding: 3px 7px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

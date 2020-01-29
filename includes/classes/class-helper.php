@@ -24,28 +24,60 @@ if (!class_exists('ATBDP_Helper')) :
         {
             $alt = ( isset($args['alt']) ) ? esc_html(stripslashes($args['alt'])) : esc_html(get_the_title());
             $show_blur_bg = ( isset($args['blur-background']) ) ? $args['blur-background'] : true;
-            $ratio = ( isset($args['ratio']) ) ? $args['ratio'] : '16:9';
+            $ratio = ( isset($args['ratio']) ) ? $args['ratio'] : '350:260'; // 350 : 260
 
             $ratio_match = preg_match( '/^(\d+):(\d+)$/', $ratio, $matches );
             $ratio_width = ( $matches ) ? $matches[1] : '16';
             $ratio_height = ( $matches ) ? $matches[2] : '9';
             $padding_top = (int) $ratio_height / (int) $ratio_width * 100;
 
-            $blur_bg_html = <<<EOD
-            <div class='atbd-thumbnail-card-back-wrap'>
-                <img src='$img_src' alt="$alt" class='atbd-thumbnail-card-back-img'/>
-            </div>
-            EOD;
-            $blur_bg = ( $show_blur_bg ) ? $blur_bg_html : '';
+            // full cover contain
+            $image_size_type = ( isset($args['image-size']) ) ? $args['image-size'] : 'cover';
 
-            $the_html = <<<EOD
-            <div class='atbd-thumbnail-card' style="padding-top: $padding_top%">
-                $blur_bg
-                <div class='atbd-thumbnail-card-front-wrap'>
-                    <img src='$img_src' class='atbd-thumbnail-card-front-img'/>
-                </div>
+            $front_wrap_html = <<<EOD
+            <div class='atbd-thumbnail-card-front-wrap'>
+                <img src='$img_src' alt="$alt" class='atbd-thumbnail-card-front-img'/>
             </div>
             EOD;
+
+            $back_wrap_html = <<<EOD
+            <div class='atbd-thumbnail-card-back-wrap'>
+                <img src='$img_src'/ class="atbd-thumbnail-card-back-img">
+            </div>
+            EOD;
+            $blur_bg = ( $show_blur_bg ) ? $back_wrap_html : '';
+
+            $image_contain_html = <<<EOD
+            <div class='atbd-thumbnail-card card-contain' style="padding-top: $padding_top%">
+                $blur_bg
+                $front_wrap_html
+            </div>
+            EOD;
+
+            $image_cover_html = <<<EOD
+            <div class='atbd-thumbnail-card card-cover' style="padding-top: $padding_top%">
+                $front_wrap_html
+            </div>
+            EOD;
+
+            $image_full_html = <<<EOD
+            <div class='atbd-thumbnail-card card-full'>
+                $front_wrap_html
+            </div>
+            EOD;
+
+            $the_html = $image_cover_html;
+            switch ($image_size_type) {
+                case 'cover':
+                    $the_html = $image_cover_html;
+                    break;
+                case 'contain':
+                    $the_html = $image_contain_html;
+                    break;
+                case 'full':
+                    $the_html = $image_full_html;
+                    break;
+            }
 
             echo $the_html;
         }

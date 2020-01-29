@@ -6190,7 +6190,7 @@ span.atbd_get_loc_wid {
   position: relative;
   width: 100%;
   height: 100%;
-  padding-top: 56.25%;
+  /* padding-top: 56.25%; */
   overflow: hidden;
   z-index: 0;
   background-color: #ccc;
@@ -6203,6 +6203,8 @@ span.atbd_get_loc_wid {
   bottom: 0;
   left: 0;
   right: 0;
+  height: 100%;
+  width: 100%;
 }
 #directorist .atbd-thumbnail-card .atbd-thumbnail-card-front-wrap {
   display: -webkit-box;
@@ -6225,12 +6227,38 @@ span.atbd_get_loc_wid {
 #directorist .atbd-thumbnail-card .atbd-thumbnail-card-front-img {
   display: block;
 }
-#directorist .atbd-thumbnail-card  .atbd-thumbnail-card-front-img {
+
+
+#directorist .atbd-thumbnail-card.card-contain .atbd-thumbnail-card-front-img {
   max-width: 100% !important;
   max-height: 100% !important;
   width: auto !important;
   height: auto !important;
 }
+
+#directorist .atbd-thumbnail-card.card-cover .atbd-thumbnail-card-front-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+}
+
+#directorist .atbd-thumbnail-card.card-full .atbd-thumbnail-card-front-wrap {
+  position: relative;
+}
+
+#directorist .atbd-thumbnail-card.card-full .atbd-thumbnail-card-front-img {
+  width: 100%;
+  height: auto;
+}
+
+
 #directorist .atbd-thumbnail-card .atbd-thumbnail-card-back-img {
   width: 100% !important;
   height: 100% !important;

@@ -15,8 +15,8 @@
       oldFielsUrl: null,
       maxFileSize: 2048,
       maxTotalFileSize: 4096,
-      minFileItems: false,
-      maxFileItems: false,
+      minFileItems: null,
+      maxFileItems: null,
       allowedFileFormats: ["images"],
       allowMultiple: true,
       featured: true,
@@ -42,16 +42,16 @@
         info: {
           maxTotalFileSize: {
             text: 'Maximum allowed file size is __DT__',
-            show: true, featured: false },
+            show: true, featured: false, pin: false },
           minFileItems: {
             text: 'Minimum __DT__ files are required',
-            show: true, featured: false },
+            show: true, featured: false, pin: false },
           maxFileItems: {
             text: 'Maximum __DT__ files are allowed',
-            show: true, featured: false },
+            show: true, featured: false, pin: false },
           allowedFileFormats: {
             text: 'Allowed file types are __DT__',
-            show: true, featured: false },
+            show: true, featured: false, pin: false },
         }
       },
 
@@ -102,58 +102,55 @@
       if (!this.container) { return null; }
 
       var container = this.container;
+      var self = this;
 
-      // maxFileSize
-      var max_file_size = container.getAttribute('data-max-file-size');
-      if ( max_file_size && max_file_size.length) {
-        this.options.maxFileSize = parseInt(max_file_size);
-      }
+      var options = [
+        { key: 'maxFileSize', dataAttr: 'max-file-size', dataType: 'int' },
+        { key: 'maxTotalFileSize', dataAttr: 'max-total-file-size' , dataType: 'int' },
+        { key: 'minFileItems', dataAttr: 'min-file-items' , dataType: 'int' },
+        { key: 'maxFileItems', dataAttr: 'max-file-items' , dataType: 'int' },
+        { key: 'allowedFileFormats', dataAttr: 'type' , dataType: 'array' },
+        { key: 'allowMultiple', dataAttr: 'allow-multiple' , dataType: 'bool' },
+        { key: 'showAlerts', dataAttr: 'show-alerts' , dataType: 'bool' },
+        { key: 'showInfo', dataAttr: 'show-info' , dataType: 'bool' },
+      ];
 
-      // maxTotalFileSize
-      var max_total_file_size = container.getAttribute('data-max-total-file-size');
-      if ( max_total_file_size && max_total_file_size.length) {
-        this.options.maxTotalFileSize = parseInt(max_total_file_size);
-      }
+      forEach(options, function(option) {
+        var option_arrt = container.getAttribute( 'data-' + option.dataAttr );
+        var has_data = (option_arrt && option_arrt.length) ? true : false;
 
-      // minFileItems
-      var min_file_items = container.getAttribute('data-min-file-items');
-      if ( min_file_items && min_file_items.length) {
-        this.options.minFileItems = parseInt(min_file_items);
-      }
+        // Integer
+        if ( has_data && option.dataType === 'int') {
+          var option_value = parseInt(option_arrt);
+          self.options[option.key] =  (option_value < 1) ? false : option_value;
+        }
+        // Boolean
+        if ( has_data && option.dataType === 'bool') {
+          var option_value = self.options[option.key];
+          switch (option_arrt) {
+            case '0':
+              option_value = false;
+              break;
+            case 'false':
+              option_value = false;
+              break;
+            case '1':
+              option_value = true;
+              break;
+            case 'true':
+              option_value = true;
+              break;
+          }
 
-      // maxFileItems
-      var max_file_items = container.getAttribute('data-max-file-items');
-      if ( max_file_items && max_file_items.length) {
-        this.options.maxFileItems = parseInt(max_file_items);
-      }
-
-      // allowedFileFormats
-      var allowed_file_formats = container.getAttribute('data-allowed-file-formats');
-      if ( allowed_file_formats && allowed_file_formats.length) {
-        var file_formats_string = allowed_file_formats.replace(/,+$/, '');
-        file_formats_string = file_formats_string.replace(/\s/g, '');
-        var file_formats = file_formats_string.split(',');
-
-        this.options.allowedFileFormats = file_formats;
-      }
-
-      // allowMultiple
-      var allow_multiple = container.getAttribute('data-allow-multiple');
-      if ( allow_multiple && allow_multiple.length) {
-        this.options.allow_multiple = ( allow_multiple === 'false' || allow_multiple === '0' ) ? false : true;
-      }
-
-      // showAlerts
-      var showAlerts = container.getAttribute('data-show-alerts');
-      if ( showAlerts && showAlerts.length) {
-        this.options.showAlerts = ( showAlerts === 'false' || showAlerts === '0' ) ? false : true;
-      }
-
-      // showInfo
-      var showInfo = container.getAttribute('data-show-info');
-      if ( showInfo && showInfo.length) {
-        this.options.showInfo = ( showInfo === 'false' || showInfo === '0' ) ? false : true;
-      }
+          self.options[option.key] = option_value;
+        }
+        // Array
+        if ( has_data && option.dataType === 'array') {
+          var sanitize_value = option_arrt.replace(/,+$/, '').replace(/\s/g, '');
+          var option_value = sanitize_value.split(',');
+          self.options[option.key] = option_value;
+        }
+      });
     };
 
     this.getMarkupDictionary = function() {
@@ -208,8 +205,10 @@
 
           var show = elm[0].getAttribute('data-show');
           var featured = elm[0].getAttribute('data-featured');
+          var pin = elm[0].getAttribute('data-pin');
           self.options.dictionary.info[item.key].show = ( show === '0' || show === 'false' ) ? false : true;
           self.options.dictionary.info[item.key].featured = ( featured === '1' || featured === 'true' ) ? true : false;
+          self.options.dictionary.info[item.key].pin = ( pin === '1' || pin === 'true' ) ? true : false;
         }
       });
     };
@@ -1000,7 +999,7 @@
     var item_count = 0;
 
     for ( var info in info_dictionary ) {
-      if (info_dictionary[info].show) {
+      if ((data[info] || info_dictionary[info].pin) && info_dictionary[info].show) {
         var dictionary_data = getDictionaryData(info, data);
         var text = info_dictionary[info].text.replace(/(__DT__)/g, dictionary_data);
         var class_name = "ezmu__info-list-item " + info;

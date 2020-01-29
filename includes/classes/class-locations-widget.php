@@ -39,13 +39,12 @@ if (!class_exists('BD_Locations_Widget')) {
             if (!$allowWidget) return;
             wp_enqueue_script('loc_cat_assets');
             $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Directorist Locations', 'directorist');
-
             $query_args = array(
                 'template'           => !empty( $instance['display_as'] ) ? sanitize_text_field( $instance['display_as'] ) : 'list',
                 'parent'             => !empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
                 'term_id'            => !empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
                 'hide_empty'         => !empty( $instance['hide_empty'] ) ? 1 : 0,
-                'orderby'            => !empty( $instance['orderby'] ) ? sanitize_text_field( $instance['order_by'] ) : 'id',
+                'orderby'            => !empty( $instance['order_by'] ) ? sanitize_text_field( $instance['order_by'] ) : 'id',
                 'order'              => !empty( $instance['order'] ) ? sanitize_text_field( $instance['order'] ) : 'asc',
                 'show_count'         => !empty( $instance['show_count'] ) ? 1 : 0,
                 'single_only'        => !empty( $instance['single_only'] ) ? 1 : 0,

@@ -265,6 +265,9 @@ class ATBDP_User {
                 }elseif(!empty( $username ) && 4 > strlen( $username ) ){
                     wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('errors' => 3)));
                     exit();
+                }elseif(!empty( $username ) && preg_match('/\s/',$username) ){
+                    wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('errors' => 7)));
+                    exit();
                 }elseif( username_exists( $username )){
                     wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('errors' => 4)));
                     exit();

@@ -3255,20 +3255,34 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                     <?php
                                     }
                                     $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
-                                    if (!empty($listing_prv_img)) {
-
+                                    /* if (!empty($listing_prv_img)) {
                                         echo '<img src="' . esc_url($prv_image) . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
-
                                     }
                                     if (!empty($listing_img[0]) && empty($listing_prv_img)) {
-
                                         echo '<img src="' . esc_url($gallery_img) . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
-
                                     }
                                     if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
-
                                         echo '<img src="' . $default_image . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
+                                    } */
+                                    $has_thumbnail = false;
+                                    $thumbnail_img = '';
 
+                                    if (!empty($listing_prv_img)) {
+                                        $thumbnail_img = $prv_image;
+                                        $has_thumbnail = true;
+                                    }
+                                    if (!empty($listing_img[0]) && empty($listing_prv_img)) {
+                                        $thumbnail_img = $gallery_img;
+                                        $has_thumbnail = true;
+                                    }
+                                    if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
+                                        $thumbnail_img = $default_image;
+                                        $has_thumbnail = true;
+                                    }
+
+                                    if ($has_thumbnail) {
+                                        ATBDP()->helper::the_thumbnail_card($thumbnail_img);
+                                        // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
                                     }
                                     if (empty($disable_single_listing)) {
                                         echo '</a>';

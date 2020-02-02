@@ -793,4 +793,10 @@ div#need_post_area label input:checked + span {
   height: 40px;
 }
 
+.req_password_notice,
+.password_notice {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 /*# sourceMappingURL=map/style.css.map */

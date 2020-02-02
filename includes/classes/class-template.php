@@ -61,6 +61,7 @@ if (!class_exists('ATBDP_Template')):
             global $wp_query;
             global $post; //culprit
             $single_listing_template = get_directorist_option('single_listing_template','directorist_template');
+            $single_listing_template = apply_filters('atbdp_single_template',$single_listing_template);
             $post_type = get_query_var('post_type');
             $post_type = (!empty( $post_type)) ?  $post_type : ((is_object($post) && !empty($post->post_type)) ? $post->post_type : 'any');
 

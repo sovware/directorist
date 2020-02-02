@@ -5507,7 +5507,7 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Disable Single Listing View', 'directorist'),
                     'default' => 0,
                 ),
-                array(
+                'single_listing_template' => array(
                     'type' => 'select',
                     'name' => 'single_listing_template',
                     'label' => __('Template', 'directorist'),

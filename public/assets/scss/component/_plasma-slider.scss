@@ -143,15 +143,21 @@
 
 .plasmaSlider__footer {
   display: block;
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 
 .plasmaSlider__thumbnailList {
-  display: flex;
+  display: block;
+  padding: 3px;
+  white-space: nowrap;
   border: 1px solid #000;
   overflow-y: hidden;
   overflow-x: auto;
 }
 .plasmaSlider__thumbnailListItem {
+  display: inline-block;
+  margin: 0 1px;
   height: 100px;
   cursor: pointer;
   border: 2px solid #000;

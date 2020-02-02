@@ -25,16 +25,18 @@ if (!class_exists('ATBDP_Helper')) :
             $slider = '';
             $data = array();
 
+            // Default
             $data['images'] = [];
             $data['alt'] = '';
             $data['blur-background'] = true;
             $data['width'] = get_directorist_option('gallery_crop_width', 670);
             $data['height'] = get_directorist_option('gallery_crop_height', 750);
             $data['background-color'] = '';
-            $data['show-thumbnails'] = true;
+            $data['show-thumbnails'] = get_directorist_option('dsiplay_thumbnail_img', true);
             $data['gallery'] = true;
-            $data['rtl'] = false;
+            $data['rtl'] = is_rtl();
 
+            // Extend Default
             if ( isset($args['plan_slider']) ) {
                 $data['gallery'] = $args['plan_slider'];
             }

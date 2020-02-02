@@ -44,8 +44,6 @@
       // Get Markup Options
       this.getMarkupOptions();
 
-      this.checkRTL();
-
       // Prepare DOM
       this.prepareDOM();
 
@@ -201,6 +199,9 @@
       if ( current_index === null || current_index < 0) { return; }
 
       var next_index = ( direction === 'right' ) ? current_index + 1 : current_index - 1;
+      if ( this.options.rtl ) {
+        next_index = ( direction === 'right' ) ? current_index - 1 : current_index + 1;
+      }
       this.changeSlideTo(next_index);
     };
 
@@ -218,6 +219,9 @@
 
       var width_style = 'width: '+ ((total_items + 1) * 100) +'%;';
       var left = ( next_index === 0 ) ? 'left: ' : 'left: -';
+      if ( this.options.rtl ) {
+        left = ( next_index === 0 ) ? 'left: ' : 'left: ';
+      }
       var style = width_style + left + (next_index * 100) + '%;'
       
       var contents_wrap = this.container.querySelectorAll('.plasmaSlider__contentsWrap');
@@ -290,21 +294,11 @@
       var width = 'width: '+ width_value + '%;';
       var style = width;
 
-      if ( self.options.rtl ) {
-        var left_value = (self.options.images.length - 1) * 100;
-        var left = 'left: -' + left_value + '%;';
-        style += left;
-      }
-
       contents_wrap.setAttribute('style', style);
       var images = self.options.images;
-      var last_index = self.options.images.length - 1;
 
       forEach(images, function(image, index) {
         var active = ( index === 0 ) ? true : false;
-        var active_index = ( self.options.rtl ) ? last_index : 0;
-        active = ( index === active_index ) ? true : false;
-
         var slider_item = createDOMSliderItem({
           src: ( 'src' in image) ? image.src : '',
           alt: ( 'alt' in image) ? image.alt : '',
@@ -354,14 +348,11 @@
     }
 
     var thumbnailList = createElementWithClass('plasmaSlider__thumbnailList');
-    var last_index = self.options.images.length - 1;
-
     forEach(self.options.images, function(image, index) {
       var _class_name = 'plasmaSlider__thumbnailListItem';
-      var active_index = ( self.options.rtl ) ? last_index : 0;
-      var active_class = ( index === active_index ) ? _class_name + ' active' : _class_name;
-
+      var active_class = ( index === 0 ) ? _class_name + ' active' : _class_name;
       var class_name = active_class;
+
       var thumbnailListItem = createElementWithClass(class_name);
       var thumbnailListItemImg = createElementWithClass('plasmaSlider__thumbnailListItemImg', 'img');
       thumbnailListItemImg.src = ( 'src' in image ) ? image.src : '';
@@ -370,14 +361,6 @@
     });
 
     footer.appendChild(thumbnailList);
-
-    if ( self.options.rtl ) {
-      setTimeout(function() {
-        var scroll_left_max = thumbnailList.scrollWidth;
-        thumbnailList.scrollLeft = scroll_left_max;
-      }, 1000);
-      
-    }
     return footer;
   }
 

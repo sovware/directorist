@@ -10,7 +10,7 @@ if (is_rtl()) {
 } else {
     wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
 }
-$column_width = 100 / $columns . '%';
+$column_width = 100 / (int)$columns . '%';
 /**
  * @param WP_Query $all_listings It contains all the queried listings by a user
  * @since 5.5.1

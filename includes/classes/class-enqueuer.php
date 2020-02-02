@@ -202,6 +202,7 @@ class ATBDP_Enqueuer {
         wp_register_style( 'atbdp-style', ATBDP_PUBLIC_ASSETS . 'css/style.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
         wp_register_style( 'atbdp-style-ie', ATBDP_PUBLIC_ASSETS . 'css/style-ie.css', null, ATBDP_VERSION);
         wp_register_style( 'atbdp-media-uploader-style', ATBDP_PUBLIC_ASSETS . 'css/ez-media-uploader.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
+        wp_register_style( 'atbdp-plasma-slider-style', ATBDP_PUBLIC_ASSETS . 'css/plasma-slider.css', null, ATBDP_VERSION);
         wp_register_style( 'atbdp-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/style-rtl.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
         wp_register_style( 'atbdp-pluploadcss', ATBDP_ADMIN_ASSETS . 'css/directorist-plupload.min.css', array( 'atbdp-font-awesome', 'select2style'), ATBDP_VERSION);
 
@@ -209,6 +210,7 @@ class ATBDP_Enqueuer {
         if ( ! get_directorist_option( 'fix_js_conflict' )){
             wp_register_script('atbdp-bootstrap-script', ATBDP_PUBLIC_ASSETS . 'js/bootstrap.min.js', array('jquery', 'atbdp-popper-script'), ATBDP_VERSION, true);
         }
+        wp_register_script( 'atbdp-plasma-slider-script', ATBDP_PUBLIC_ASSETS . 'js/plasma-slider.js', null, ATBDP_VERSION, true );
         wp_register_script( 'atbdp-rating', ATBDP_PUBLIC_ASSETS . 'js/jquery.barrating.min.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-uikit', ATBDP_PUBLIC_ASSETS . 'js/uikit.min.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-uikit-grid', ATBDP_PUBLIC_ASSETS . 'js/grid.min.js', array( 'jquery', 'atbdp-uikit' ), ATBDP_VERSION, true );
@@ -250,6 +252,7 @@ class ATBDP_Enqueuer {
             wp_enqueue_style('atbdp-style-ie');
             // wp_style_add_data( 'atbdp-style-ie', 'conditional', 'gt IE 6' );
             wp_enqueue_style('atbdp-media-uploader-style');
+            wp_enqueue_style('atbdp-plasma-slider-style');
         }
         wp_enqueue_style('atbdp-font-awesome');
         wp_enqueue_style('atbdp-line-awesome');
@@ -262,6 +265,7 @@ class ATBDP_Enqueuer {
         /* Enqueue all scripts */
         wp_enqueue_script('atbdp-bootstrap-script');
         wp_enqueue_script('atbdp-rating');
+        wp_enqueue_script('atbdp-plasma-slider-script');
         if (!empty($disable_map) && 'google' == $select_listing_map ) {
             wp_enqueue_script('atbdp-google-map-front');
             wp_enqueue_script('atbdp-markerclusterer');

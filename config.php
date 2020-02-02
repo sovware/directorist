@@ -39,3 +39,7 @@ if ( !defined('ATBDP_TAGS') ) { define('ATBDP_TAGS', ATBDP_POST_TYPE.'-tags'); }
 
 // Plugin Alert Message
 if ( !defined('ATBDP_ALERT_MSG') ) { define('ATBDP_ALERT_MSG', __('You do not have the right to access this file directly', 'directorist')); }
+
+
+// Plugin Veiw Path
+if ( !defined('ATBDP_VIEW_DIR') ) { define('ATBDP_VIEW_DIR', ATBDP_DIR.'includes/view/'); }

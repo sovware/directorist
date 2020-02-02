@@ -345,6 +345,7 @@ final class Directorist_Base
         require_once ATBDP_INC_DIR . 'custom-filters.php';
 
     }
+
     public static function prepare_plugin()
     {
         include ATBDP_INC_DIR . 'classes/class-installation.php';

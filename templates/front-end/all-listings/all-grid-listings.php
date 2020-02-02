@@ -103,14 +103,16 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                         } else {
                             $prv_image = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
                         }
+                        $prv_image_full = wp_get_attachment_image_src($listing_prv_img, 'full')[0];
                     }
                     if (!empty($listing_img[0])) {
                         if ($thumbnail_cropping) {
                             $gallery_img = atbdp_image_cropping($listing_img[0], $crop_width, $crop_height, true, 100)['url'];
-                            $default_img = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $crop_width, $crop_height, true, 100)['url'];;
+                            $default_img = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $crop_width, $crop_height, true, 100)['url'];
                         } else {
                             $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
                         }
+                        $gallery_img_full = wp_get_attachment_image_src($listing_img[0], 'full')[0];
                     }
                     $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 
@@ -136,21 +138,23 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                             $has_thumbnail = false;
                                             $thumbnail_img = '';
 
-                                            if (!empty($listing_prv_img)) {
-                                                $thumbnail_img = $prv_image;
-                                                $has_thumbnail = true;
-                                            }
+                                            
                                             if (!empty($listing_img[0]) && empty($listing_prv_img)) {
-                                                $thumbnail_img = $gallery_img;
+                                                $thumbnail_img = $gallery_img_full;
                                                 $has_thumbnail = true;
                                             }
                                             if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
                                                 $thumbnail_img = $default_image;
                                                 $has_thumbnail = true;
                                             }
+                                            if (!empty($listing_prv_img)) {
+                                                $thumbnail_img = $prv_image_full;
+                                                $has_thumbnail = true;
+                                            }
 
                                             if ($has_thumbnail) {
-                                                ATBDP()->helper::the_thumbnail_card($thumbnail_img);
+                                                $args = apply_filters('atbdp_preview_image_args', array());
+                                                ATBDP()->helper::the_thumbnail_card($thumbnail_img, $args);
                                                 // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
                                             }
 

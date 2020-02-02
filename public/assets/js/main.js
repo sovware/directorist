@@ -821,6 +821,11 @@ jQuery(function ($) {
         });
         e.preventDefault();
     });
+
+    var single_listing_slider = new PlasmaSlider({
+        containerID: "single-listing-slider",
+    });
+    single_listing_slider.init();
 })(jQuery);
 
 // on load of the page: switch to the currently selected tab

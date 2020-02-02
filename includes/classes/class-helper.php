@@ -19,52 +19,193 @@ if (!class_exists('ATBDP_Helper')) :
             add_action('init', array($this, 'check_req_php_version'), 100);
         }
 
+        // get_plasma_slider
+        public static function get_plasma_slider( $args )
+        {
+            $slider = '';
+            $data = array();
+            
+            $data['images'] = [];
+            $data['alt'] = '';
+            $data['blur-background'] = true;
+            $data['width'] = get_directorist_option('gallery_crop_width', 670);
+            $data['height'] = get_directorist_option('gallery_crop_height', 750);
+            $data['background-color'] = '';
+            $data['show-thumbnails'] = true;
+            $data['gallery'] = true;
+            $data['rtl'] = false;
+
+            if ( isset($args['plan_slider']) ) {
+                $data['gallery'] = $args['plan_slider'];
+            }
+
+            if ( isset($args['listing_prv_imgurl']) && !empty($args['listing_prv_imgurl'])) {
+                array_push($data['images'], $args['listing_prv_imgurl']);
+            }
+            if ( $data['gallery'] && isset($args['image_links']) && is_array($args['image_links'])) {
+                foreach ( $args['image_links'] as $image ) {
+                    array_push($data['images'], $image);
+                }
+            }
+
+            if ( isset($args['p_title']) ) {
+                $data['alt'] = $args['p_title'];
+            }
+            if ( isset($args['custom_gl_width']) ) {
+                $data['width'] = $args['custom_gl_width'];
+            }
+            if ( isset($args['custom_gl_height']) ) {
+                $data['height'] = $args['custom_gl_height'];
+            }
+
+            $padding_top = $data['height'] / $data['width'] * 100;
+            $data['padding-top'] = $padding_top;
+
+            ob_start();
+            self::view('plasma-slider', $data);
+            $slider = ob_get_contents();
+            ob_end_clean();
+
+            return $slider;
+        }
+
+        public static function view( $file_path, $data = null )
+        {
+            $path = ATBDP_VIEW_DIR . $file_path . '.php';
+            if ( file_exists($path) ) {
+                require_once($path);
+            }
+        }
+
+        // get_default_slider
+        public static function get_default_slider( $args )
+        {
+            $gallery_image = '';
+            /* $args = array(
+                'image_links' => '',
+                'plan_slider' => '',
+                'listing_prv_img' => '',
+                'display_prv_image' => '',
+                'gallery_cropping' => '',
+                'custom_gl_width' => '',
+                'custom_gl_height' => '',
+                'p_title' => '',
+                'image_links_thumbnails' => '',
+                'display_thumbnail_img' => '',
+            ); */
+
+            if (!empty($args['image_links']) && $args['plan_slider']) {
+                if (!empty($args['listing_prv_img'] && $args['display_prv_image'])) {
+                    if (!empty($args['gallery_cropping'])) {
+                        $listing_prv_imgurl = atbdp_image_cropping(
+                            $args['listing_prv_img'], 
+                            $args['custom_gl_width'], $args['custom_gl_height'],
+                            true, 100)['url'];
+                    } else {
+                        $listing_prv_imgurl = wp_get_attachment_image_src($args['listing_prv_img'], 'large')[0];
+                    }
+                    array_unshift($args['image_links'], $listing_prv_imgurl);
+                }
+                $gallery_image .= '<div class="atbd_directry_gallery_wrapper">';
+                $gallery_image .= '<div class="atbd_big_gallery">';
+                $gallery_image .= '<div class="atbd_directory_gallery">';
+                foreach ($args['image_links'] as $image_link) {
+                    $image_link = !empty($image_link) ? $image_link : '';
+                    $gallery_image .= '<div class="single_image">';
+                    $gallery_image .= '<img src="' . esc_url($image_link) . '" alt=" ' . esc_html($args['p_title']) . '">';
+                    $gallery_image .= '</div>';
+                }
+                $gallery_image .= '</div>';
+                if (count($args['image_links']) > 1) {
+                    $gallery_image .= '<span class="prev fa fa-angle-left"></span>';
+                    $gallery_image .= '<span class="next fa fa-angle-right"></span>';
+                }
+                $gallery_image .= '</div>';
+                $image_links_thumbnails = !empty($args['image_links_thumbnails']) ? $args['image_links_thumbnails'] : array();
+                $listing_prv_img = !empty($args['listing_prv_img']) ? $args['listing_prv_img'] : '';
+                if (!empty($args['display_thumbnail_img']) && (1 != count($image_links_thumbnails) || (!empty($listing_prv_img) && !empty($display_prv_image) ) )) {
+                    $gallery_image .= '<div class="atbd_directory_image_thumbnail">';
+                    $listing_prv_imgurl_thumb = wp_get_attachment_image_src($listing_prv_img, 'thumbnail')['0'];
+                    if (!empty($listing_prv_imgurl_thumb && !empty($args['display_prv_image']))) {
+                        array_unshift($image_links_thumbnails, $listing_prv_imgurl_thumb);
+                    }
+                    foreach ($image_links_thumbnails as $image_links_thumbnail) {
+                        $gallery_image .= '<div class="single_thumbnail">';
+                        $gallery_image .= '<img src="' . esc_url($image_links_thumbnail) . '" alt="' . esc_html($p_title) . '">';
+                        $gallery_image .= '</div>';
+                        if (!is_multiple_images_active()) break;
+                    }
+                    $gallery_image .= '</div>';
+                }
+                $gallery_image .= '</div>';
+            } elseif (!empty($args['display_prv_image'])) {
+                $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+                $listing_prv_image = !empty($listing_prv_img) ? esc_url($listing_prv_imgurl) : $default_image;
+                $gallery_image .= '<div class="single_image">';
+                $gallery_image .= '<img src="'.$listing_prv_image.'"
+                                     alt="'. esc_html($args['p_title']).'">';
+                $gallery_image .= '</div>';
+            }
+
+            return $gallery_image;
+        }
+
         // the_thumbnail_card
         public static function the_thumbnail_card($img_src = '', $args = array())
         {
-            $alt = ( isset($args['alt']) ) ? esc_html(stripslashes($args['alt'])) : esc_html(get_the_title());
-            $show_blur_bg = ( isset($args['blur-background']) ) ? $args['blur-background'] : true;
-            $ratio = ( isset($args['ratio']) ) ? $args['ratio'] : '350:260'; // 350 : 260
+            $alt = esc_html(get_the_title());
+            $image_size_type = 'contain';
+            $ratio_width = 16;
+            $ratio_height = 9;
+            $blur_background = true;
+            $image = $img_src;
 
-            $ratio_match = preg_match( '/^(\d+):(\d+)$/', $ratio, $matches );
-            $ratio_width = ( $matches ) ? $matches[1] : '16';
-            $ratio_height = ( $matches ) ? $matches[2] : '9';
+            if ( isset($args['image']) ) {
+                $image = esc_html(stripslashes($args['image']));
+            }
+            if ( isset($args['image-size']) ) {
+                $image_size_type = esc_html(stripslashes($args['image-size']));
+            }
+            if ( isset($args['width']) ) {
+                $ratio_width = esc_html(stripslashes($args['width']));
+            }
+            if ( isset($args['height']) ) {
+                $ratio_height = esc_html(stripslashes($args['height']));
+            }
+            if ( isset($args['alt']) ) {
+                $alt = esc_html(stripslashes($args['alt']));
+            }
+            if ( isset($args['blur-background']) ) {
+                $blur_background = esc_html(stripslashes($args['blur-background']));
+            }
+
             $padding_top = (int) $ratio_height / (int) $ratio_width * 100;
 
-            // full cover contain
-            $image_size_type = ( isset($args['image-size']) ) ? $args['image-size'] : 'cover';
+            // Card Front Wrap
+            $card_front_wrap = "<div class='atbd-thumbnail-card-front-wrap'>";
+            $card_front__img = "<img src='$image' alt='$alt' class='atbd-thumbnail-card-front-img'/>";
+            $front_wrap_html = $card_front_wrap . $card_front__img . "</div>";
 
-            $front_wrap_html = <<<EOD
-            <div class='atbd-thumbnail-card-front-wrap'>
-                <img src='$img_src' alt="$alt" class='atbd-thumbnail-card-front-img'/>
-            </div>
-            EOD;
+            // Card Back Wrap
+            $card_back_wrap = "<div class='atbd-thumbnail-card-back-wrap'>";
+            $card_back__img = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
+            $back_wrap_html = $card_back_wrap . $card_back__img . "</div>";
 
-            $back_wrap_html = <<<EOD
-            <div class='atbd-thumbnail-card-back-wrap'>
-                <img src='$img_src'/ class="atbd-thumbnail-card-back-img">
-            </div>
-            EOD;
-            $blur_bg = ( $show_blur_bg ) ? $back_wrap_html : '';
+            $blur_bg = ( $blur_background ) ? $back_wrap_html : '';
 
-            $image_contain_html = <<<EOD
-            <div class='atbd-thumbnail-card card-contain' style="padding-top: $padding_top%">
-                $blur_bg
-                $front_wrap_html
-            </div>
-            EOD;
+            // Card Contain 
+            $card_contain_wrap = "<div class='atbd-thumbnail-card card-contain' style='padding-top: $padding_top%'>";
+            $card_back__img = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
+            $image_contain_html = $card_contain_wrap . $blur_bg . $front_wrap_html . "</div>";
 
-            $image_cover_html = <<<EOD
-            <div class='atbd-thumbnail-card card-cover' style="padding-top: $padding_top%">
-                $front_wrap_html
-            </div>
-            EOD;
+            // Card Cover
+            $card_cover_wrap = "<div class='atbd-thumbnail-card card-cover' style='padding-top: $padding_top%'>";
+            $card_back__img = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
+            $image_cover_html = $card_cover_wrap . $front_wrap_html . "</div>";
 
-            $image_full_html = <<<EOD
-            <div class='atbd-thumbnail-card card-full'>
-                $front_wrap_html
-            </div>
-            EOD;
+            // Card Full
+            $card_full_wrap = "<div class='atbd-thumbnail-card card-full'>";
+            $image_full_html = $card_full_wrap . $front_wrap_html . "</div>";
 
             $the_html = $image_cover_html;
             switch ($image_size_type) {

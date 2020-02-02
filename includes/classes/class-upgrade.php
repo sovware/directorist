@@ -22,7 +22,7 @@ class ATBDP_Upgrade{
             'DWPP_Pricing_Plans' => array(
               'version' => '1.2.4',
               'name' => 'dwpp',
-              'base' => 'directorist-woocommerce-pricing-plans/directorist-woocommerce-pricing-plans',
+              'base' => 'directorist-woocommerce-pricing-plans/directorist-woocommerce-pricing-plans.php',
           ),
             'BD_Google_Recaptcha' => array(
                 'version' => '1.1.4',

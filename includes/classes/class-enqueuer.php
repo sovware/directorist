@@ -200,9 +200,7 @@ class ATBDP_Enqueuer {
         wp_register_style( 'atmodal', ATBDP_PUBLIC_ASSETS.'css/atmodal.css', false, ATBDP_VERSION );
         wp_register_style( 'atbd_googlefonts', '//fonts.googleapis.com/css?family=Roboto:400,500', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-style', ATBDP_PUBLIC_ASSETS . 'css/style.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
-        wp_register_style( 'atbdp-style-ie', ATBDP_PUBLIC_ASSETS . 'css/style-ie.css', null, ATBDP_VERSION);
         wp_register_style( 'atbdp-media-uploader-style', ATBDP_PUBLIC_ASSETS . 'css/ez-media-uploader.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
-        wp_register_style( 'atbdp-plasma-slider-style', ATBDP_PUBLIC_ASSETS . 'css/plasma-slider.css', null, ATBDP_VERSION);
         wp_register_style( 'atbdp-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/style-rtl.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
         wp_register_style( 'atbdp-pluploadcss', ATBDP_ADMIN_ASSETS . 'css/directorist-plupload.min.css', array( 'atbdp-font-awesome', 'select2style'), ATBDP_VERSION);
 
@@ -249,10 +247,7 @@ class ATBDP_Enqueuer {
         }else{
             wp_enqueue_style('atbdp-bootstrap-style');
             wp_enqueue_style('atbdp-style');
-            wp_enqueue_style('atbdp-style-ie');
-            // wp_style_add_data( 'atbdp-style-ie', 'conditional', 'gt IE 6' );
             wp_enqueue_style('atbdp-media-uploader-style');
-            wp_enqueue_style('atbdp-plasma-slider-style');
         }
         wp_enqueue_style('atbdp-font-awesome');
         wp_enqueue_style('atbdp-line-awesome');

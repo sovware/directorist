@@ -1273,11 +1273,15 @@ div#listing_notifier span {
   }
 }
 
+#directorist .plasmaSlider .plasmaSlider__arrowBtn {
+  border-radius: 50%;
+}
+
 #directorist .atbd-thumbnail-card {
   position: relative;
   width: 100%;
   height: 100%;
-  /* padding-top: 56.25%; */
+  /* padding-top: 52.25%; */
   overflow: hidden;
   z-index: 0;
   background-color: #ccc;
@@ -1351,4 +1355,10 @@ div#listing_notifier span {
   height: 100% !important;
   -webkit-filter: blur(5px);
   filter: blur(5px);
+}
+
+@media all and (-ms-high-contrast:none) {
+  #directorist .atbd-thumbnail-card .atbd-thumbnail-card-back-wrap {
+      display: none !important;
+  }
 }

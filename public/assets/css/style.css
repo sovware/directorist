@@ -1370,6 +1370,85 @@ div#listing_notifier span {
   padding: 3px 7px;
 }
 
+#directorist .atbd-thumbnail-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* padding-top: 56.25%; */
+  overflow: hidden;
+  z-index: 0;
+  background-color: #ccc;
+}
+
+#directorist .atbd-thumbnail-card .atbd-thumbnail-card-front-wrap,
+#directorist .atbd-thumbnail-card .atbd-thumbnail-card-back-wrap {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#directorist .atbd-thumbnail-card .atbd-thumbnail-card-front-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  z-index: 1;
+}
+
+#directorist .atbd-thumbnail-card .atbd-thumbnail-card-back-wrap {
+  z-index: 0;
+}
+
+#directorist .atbd-thumbnail-card .atbd-thumbnail-card-front-img,
+#directorist .atbd-thumbnail-card .atbd-thumbnail-card-front-img {
+  display: block;
+}
+
+#directorist .atbd-thumbnail-card.card-contain .atbd-thumbnail-card-front-img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+#directorist .atbd-thumbnail-card.card-cover .atbd-thumbnail-card-front-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#directorist .atbd-thumbnail-card.card-full .atbd-thumbnail-card-front-wrap {
+  position: relative;
+}
+
+#directorist .atbd-thumbnail-card.card-full .atbd-thumbnail-card-front-img {
+  width: 100%;
+  height: auto;
+}
+
+#directorist .atbd-thumbnail-card .atbd-thumbnail-card-back-img {
+  width: 100% !important;
+  height: 100% !important;
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;
@@ -6184,88 +6263,6 @@ span.atbd_get_loc_wid {
   }
 }
 
-
-
-#directorist .atbd-thumbnail-card {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  /* padding-top: 56.25%; */
-  overflow: hidden;
-  z-index: 0;
-  background-color: #ccc;
-}
-
-#directorist .atbd-thumbnail-card .atbd-thumbnail-card-front-wrap,
-#directorist .atbd-thumbnail-card .atbd-thumbnail-card-back-wrap {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  width: 100%;
-}
-#directorist .atbd-thumbnail-card .atbd-thumbnail-card-front-wrap {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  z-index: 1;
-}
-
-#directorist .atbd-thumbnail-card .atbd-thumbnail-card-back-wrap {
-  z-index: 0;
-}
-
-#directorist .atbd-thumbnail-card .atbd-thumbnail-card-front-img,
-#directorist .atbd-thumbnail-card .atbd-thumbnail-card-front-img {
-  display: block;
-}
-
-
-#directorist .atbd-thumbnail-card.card-contain .atbd-thumbnail-card-front-img {
-  max-width: 100% !important;
-  max-height: 100% !important;
-  width: auto !important;
-  height: auto !important;
-}
-
-#directorist .atbd-thumbnail-card.card-cover .atbd-thumbnail-card-front-img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100% !important;
-  min-height: 100% !important;
-  width: auto !important;
-  height: auto !important;
-  webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-}
-
-#directorist .atbd-thumbnail-card.card-full .atbd-thumbnail-card-front-wrap {
-  position: relative;
-}
-
-#directorist .atbd-thumbnail-card.card-full .atbd-thumbnail-card-front-img {
-  width: 100%;
-  height: auto;
-}
-
-
-#directorist .atbd-thumbnail-card .atbd-thumbnail-card-back-img {
-  width: 100% !important;
-  height: 100% !important;
-  -webkit-filter: blur(5px);
-          filter: blur(5px);
-}
-
 @media (max-width: 400px) {
   .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title,
   .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {
@@ -6304,7 +6301,6 @@ span.atbd_get_loc_wid {
     max-width: none;
   }
 }
-
 
 @media (max-width: 340px) {
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_listing_action_btn {

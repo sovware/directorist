@@ -1265,14 +1265,36 @@ jQuery(function ($) {
     lf_opt45.hide();
     $('input[name="display_password_reg"]').on("change", function () {
         if($(this).is(":checked") === true){
+            $("#display_password_reg + .password_notice").remove();
             lf_opt45.show();
         }else{
+            $("#display_password_reg").after("<p class='password_notice'>We command you to customize registration confirmation email. Click <a href='#' id='goto_passwoard'>here</a> to customize</p>");
             lf_opt45.hide();
         }
     });
     if($('input[name="display_password_reg"]').is(":checked") === true){
         lf_opt45.show();
     }
+    function scrollToSettingsElement (eventId, menuId, targetId) {
+        $('body').on('click', eventId, function (e) {
+            e.preventDefault();
+            $('a[href="'+menuId+'"]').click();
+            $("html, body").animate({scrollTop: $(targetId)[0].closest('.vp-section').offsetTop}, 500, 'swing');
+        })
+    }
+
+    scrollToSettingsElement('#goto_passwoard', '#emails_templates', '#email_sub_registration_confirmation');
+
+
+    //required password notice
+    $('input[name="require_password_reg"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            $("#require_password_reg + .req_password_notice").remove();
+        }else{
+            $("#require_password_reg").after("<p class='req_password_notice'>We command you to customize registration confirmation email. Click <a href='#' id='goto_passwoard'>here</a> to customize</p>");
+        }
+    });
+
 
     //Display excerpt
     var lf_opt46 = $("#excerpt_limit,#display_readmore,#excerpt_limit,#readmore_text");

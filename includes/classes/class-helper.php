@@ -22,11 +22,12 @@ if (!class_exists('ATBDP_Helper')) :
         // the_thumbnail_card
         public static function the_thumbnail_card($img_src = '', $args = array())
         {
-            $args = array(
-                'image-size' => 'cover', // cover = fit, contain = set a backgroud, full = as it is
-                'blur' => true,
-                'height' => 350,
-                'width' => 260,
+            $crop_width = get_directorist_option('crop_width',350);
+            $crop_height = get_directorist_option('crop_height',260);
+            $alt = ( isset($args['alt']) ) ? esc_html(stripslashes($args['alt'])) : esc_html(get_the_title());
+            $show_blur_bg = ( isset($args['blur-background']) ) ? $args['blur-background'] : true;
+            $width_height = $crop_width .':'.$crop_height;
+            $ratio = ( isset($args['ratio']) ) ? $args['ratio'] : $width_height; // 350 : 260
 
             );
             $alt = (isset($args['alt'])) ? esc_html(stripslashes($args['alt'])) : esc_html(get_the_title());

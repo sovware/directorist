@@ -10,7 +10,7 @@ if (is_rtl()) {
 } else {
     wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
 }
-$column_width = 100 / $columns . '%';
+$column_width = 100 / (int)$columns . '%';
 /**
  * @param WP_Query $all_listings It contains all the queried listings by a user
  * @since 5.5.1
@@ -119,18 +119,19 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
 
                     <div class="atbdp_column">
                         <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : '';
-                                                                            echo esc_html($listing_preview_img_class); ?>">
-                            <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
+                        echo esc_html($listing_preview_img_class); ?>">
+                            <article
+                                    class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                 <figure class="atbd_listing_thumbnail_area">
                                     <div class="atbd_listing_image">
                                         <?php
 
                                         if ('yes' == $listing_preview_img) {
 
-                                            $disable_single_listing = get_directorist_option('disable_single_listing');
-                                            if (empty($disable_single_listing)) { ?>
-                                                <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
-                                                <?php
+                                        $disable_single_listing = get_directorist_option('disable_single_listing');
+                                        if (empty($disable_single_listing)) { ?>
+                                        <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
+                                            <?php
                                             }
 
                                             $has_thumbnail = false;
@@ -151,25 +152,28 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
 
                                             if ($has_thumbnail) {
                                                 ATBDP()->helper::the_thumbnail_card($thumbnail_img);
-                                                // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
+
                                             }
 
                                             if (empty($disable_single_listing)) {
                                                 echo '</a>';
                                             }
-                                        }
+                                            }
 
-                                        if (!empty($display_author_image)) {
-                                            $author = get_userdata($author_id);
-                                            $class = !empty($author->first_name && $author->last_name) ? 'atbd_tooltip' : '';
+                                            if (!empty($display_author_image)) {
+                                                $author = get_userdata($author_id);
+                                                $class = !empty($author->first_name && $author->last_name) ? 'atbd_tooltip' : '';
                                                 ?>
                                                 <div class="atbd_author">
-                                                    <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>" class="<?php echo $class; ?>">
+                                                    <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
+                                                       aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>"
+                                                       class="<?php echo $class; ?>">
                                                         <?php if (empty($u_pro_pic)) {
                                                             echo $avata_img;
                                                         }
                                                         if (!empty($u_pro_pic)) { ?>
-                                                            <img src="<?php echo esc_url($u_pro_pic[0]); ?>" alt="Author Image"><?php } ?>
+                                                            <img src="<?php echo esc_url($u_pro_pic[0]); ?>"
+                                                                 alt="Author Image"><?php } ?>
                                                     </a>
                                                 </div>
                                             <?php } ?>
@@ -185,7 +189,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                         //lets check is it 24/7
 
                                         if ('2.2.6' > BDBH_VERSION) {
-                                    ?>
+                                            ?>
                                             <style>
                                                 .atbd_badge_close,
                                                 .atbd_badge_open {
@@ -194,7 +198,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                     top: 15px;
                                                 }
                                             </style>
-                                    <?php
+                                            <?php
                                         }
                                         $open = get_directorist_option('open_badge_text', __('Open Now', 'directorist'));
                                         if (!empty($enable247hour)) {
@@ -245,9 +249,9 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                 <h4 class="atbd_listing_title">
                                                     <?php
                                                     if (empty($disable_single_listing)) {
-                                                    ?>
+                                                        ?>
                                                         <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
-                                                    <?php
+                                                        <?php
                                                     } else {
                                                         echo esc_html(stripslashes(get_the_title()));
                                                     } ?>
@@ -255,7 +259,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                 </h4>
                                             <?php }
                                             if (!empty($tagline) && !empty($enable_tagline) && !empty($display_tagline_field)) {
-                                            ?>
+                                                ?>
                                                 <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
                                             <?php }
 
@@ -271,7 +275,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                             <?php
                                             $meta_html = '';
                                             if (!empty($display_review) || (!empty($display_price) && (!empty($price) || !empty($price_range)))) { ?>
-                                            <?php
+                                                <?php
                                                 $meta_html .= '<div class="atbd_listing_meta">';
                                                 $average = ATBDP()->review->get_average(get_the_ID());
                                                 if (!empty($display_review)) {
@@ -333,7 +337,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                                     $space = str_repeat(' ', 1);
                                                                     $output[] = "{$space}<a href='{$link}'>{$term->name}</a>";
                                                                 }
-                                                            ?>
+                                                                ?>
                                                                 <li>
                                                                     <p>
                                                                         <span>
@@ -351,11 +355,12 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                             <?php if (!empty($phone_number) && !empty($display_phone_field)) { ?>
                                                                 <li>
                                                                     <p>
-                                                                        <span class="<?php atbdp_icon_type(true); ?>-phone"></span><a href="tel:<?php echo esc_html(stripslashes($phone_number)); ?>"><?php echo esc_html(stripslashes($phone_number)); ?></a>
+                                                                        <span class="<?php atbdp_icon_type(true); ?>-phone"></span><a
+                                                                                href="tel:<?php echo esc_html(stripslashes($phone_number)); ?>"><?php echo esc_html(stripslashes($phone_number)); ?></a>
 
                                                                     </p>
                                                                 </li>
-                                                            <?php
+                                                                <?php
                                                             }
                                                         }
                                                         /**
@@ -367,13 +372,13 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                             <li>
                                                                 <p>
                                                                     <span class="<?php atbdp_icon_type(true); ?>-clock-o"></span><?php
-                                                                                                                                    $publish_date_format = get_directorist_option('publish_date_format', 'time_ago');
-                                                                                                                                    if ('time_ago' === $publish_date_format) {
-                                                                                                                                        printf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
-                                                                                                                                    } else {
-                                                                                                                                        echo get_the_date();
-                                                                                                                                    }
-                                                                                                                                    ?></p>
+                                                                    $publish_date_format = get_directorist_option('publish_date_format', 'time_ago');
+                                                                    if ('time_ago' === $publish_date_format) {
+                                                                        printf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
+                                                                    } else {
+                                                                        echo get_the_date();
+                                                                    }
+                                                                    ?></p>
                                                             </li>
                                                         <?php }
                                                         /**
@@ -385,11 +390,12 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                             echo '<li><p><span class="' . atbdp_icon_type() . '-envelope"></span><a target="_top" href="mailto:' . $email . '">' . $email . '</a></p></li>';
                                                         endif;
                                                         if (!empty($web && $display_web_link)) :
-                                                        ?>
+                                                            ?>
                                                             <li>
                                                                 <p>
                                                                     <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
-                                                                    <a target="_blank" href="<?php echo esc_url($web); ?>" <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html($web); ?></a>
+                                                                    <a target="_blank"
+                                                                       href="<?php echo esc_url($web); ?>" <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html($web); ?></a>
                                                                 </p>
                                                             </li>
                                                         <?php
@@ -397,22 +403,23 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                         ?>
                                                     </ul>
                                                 </div><!-- End atbd listing meta -->
-                                            <?php
+                                                <?php
                                             }
                                             if (!empty($excerpt) && !empty($enable_excerpt) && !empty($display_excerpt_field)) {
                                                 $excerpt_limit = get_directorist_option('excerpt_limit', 20);
                                                 $display_readmore = get_directorist_option('display_readmore', 0);
                                                 $readmore_text = get_directorist_option('readmore_text', __('Read More', 'directorist'));
-                                            ?>
+                                                ?>
                                                 <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, $excerpt_limit)));
-                                                                                /**
-                                                                                 * @since 5.0.9
-                                                                                 */
-                                                                                do_action('atbdp_listings_after_exerpt');
-                                                                                if (!empty($display_readmore)) {
-                                                                                ?><a href="<?php the_permalink(); ?>"><?php printf(__(' %s', 'directorist'), $readmore_text); ?></a></p>
-                                        <?php }
-                                                                            } ?>
+                                                /**
+                                                 * @since 5.0.9
+                                                 */
+                                                do_action('atbdp_listings_after_exerpt');
+                                                if (!empty($display_readmore)) {
+                                                    ?><a
+                                                    href="<?php the_permalink(); ?>"><?php printf(__(' %s', 'directorist'), $readmore_text); ?></a></p>
+                                                <?php }
+                                            } ?>
                                         </div><!-- end ./atbd_content_upper -->
                                     <?php }
                                     $catViewCount = '';

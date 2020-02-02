@@ -22,17 +22,24 @@ if (!class_exists('ATBDP_Helper')) :
         // the_thumbnail_card
         public static function the_thumbnail_card($img_src = '', $args = array())
         {
-            $alt = ( isset($args['alt']) ) ? esc_html(stripslashes($args['alt'])) : esc_html(get_the_title());
-            $show_blur_bg = ( isset($args['blur-background']) ) ? $args['blur-background'] : true;
-            $ratio = ( isset($args['ratio']) ) ? $args['ratio'] : '350:260'; // 350 : 260
+            $args = array(
+                'image-size' => 'cover', // cover = fit, contain = set a backgroud, full = as it is
+                'blur' => true,
+                'height' => 350,
+                'width' => 260,
 
-            $ratio_match = preg_match( '/^(\d+):(\d+)$/', $ratio, $matches );
-            $ratio_width = ( $matches ) ? $matches[1] : '16';
-            $ratio_height = ( $matches ) ? $matches[2] : '9';
-            $padding_top = (int) $ratio_height / (int) $ratio_width * 100;
+            );
+            $alt = (isset($args['alt'])) ? esc_html(stripslashes($args['alt'])) : esc_html(get_the_title());
+            $show_blur_bg = (isset($args['blur-background'])) ? $args['blur-background'] : true;
+            $ratio = (isset($args['ratio'])) ? $args['ratio'] : $args['height'] + ':' + $args['width']; // 350 : 260
+
+            $ratio_match = preg_match('/^(\d+):(\d+)$/', $ratio, $matches);
+            $ratio_width = ($matches) ? $matches[1] : '16';
+            $ratio_height = ($matches) ? $matches[2] : '9';
+            $padding_top = (int)$ratio_height / (int)$ratio_width * 100;
 
             // full cover contain
-            $image_size_type = ( isset($args['image-size']) ) ? $args['image-size'] : 'cover';
+            $image_size_type = (isset($args['image-size'])) ? $args['image-size'] : 'cover';
 
             $front_wrap_html = <<<EOD
             <div class='atbd-thumbnail-card-front-wrap'>
@@ -45,7 +52,7 @@ if (!class_exists('ATBDP_Helper')) :
                 <img src='$img_src'/ class="atbd-thumbnail-card-back-img">
             </div>
             EOD;
-            $blur_bg = ( $show_blur_bg ) ? $back_wrap_html : '';
+            $blur_bg = ($show_blur_bg) ? $back_wrap_html : '';
 
             $image_contain_html = <<<EOD
             <div class='atbd-thumbnail-card card-contain' style="padding-top: $padding_top%">
@@ -94,6 +101,7 @@ if (!class_exists('ATBDP_Helper')) :
                 return;
             }
         }
+
         public function notice()
         { ?>
             <div class="error">
@@ -119,10 +127,10 @@ if (!class_exists('ATBDP_Helper')) :
             // if we do not pass any nonce and action then use default nonce and action name on this class,
             // else check provided nonce and action
             if (empty($nonce) || empty($action)) {
-                $nonce      = (!empty($$method[$this->nonce_name()])) ? $$method[$this->nonce_name()] : null;
-                $nonce_action  = $this->nonce_action();
+                $nonce = (!empty($$method[$this->nonce_name()])) ? $$method[$this->nonce_name()] : null;
+                $nonce_action = $this->nonce_action();
             } else {
-                $nonce      = (!empty($_REQUEST[$nonce])) ? $_REQUEST[$nonce] : null;
+                $nonce = (!empty($_REQUEST[$nonce])) ? $_REQUEST[$nonce] : null;
                 $nonce_action = $action;
             }
             return wp_verify_nonce($nonce, $nonce_action);
@@ -132,6 +140,7 @@ if (!class_exists('ATBDP_Helper')) :
         {
             return $this->nonce_action;
         }
+
         public function nonce_name()
         {
             return $this->nonce_name;
@@ -141,22 +150,22 @@ if (!class_exists('ATBDP_Helper')) :
         {
             $s = array(
                 'facebook' => __('Facebook', 'directorist'),
-                'twitter'   => __('Twitter', 'directorist'),
-                'linkedin' =>  __('LinkedIn', 'directorist'),
-                'pinterest' =>  __('Pinterest', 'directorist'),
-                'instagram' =>  __('Instagram', 'directorist'),
-                'tumblr' =>  __('Tumblr', 'directorist'),
-                'flickr' =>  __('Flickr', 'directorist'),
-                'snapchat-ghost' =>  __('Snapchat', 'directorist'),
-                'reddit' =>  __('Reddit', 'directorist'),
-                'youtube-play' =>  __('Youtube', 'directorist'),
-                'vimeo' =>  __('Vimeo', 'directorist'),
-                'vine' =>  __('Vine', 'directorist'),
-                'github' =>  __('Github', 'directorist'),
-                'dribbble' =>  __('Dribbble', 'directorist'),
-                'behance' =>  __('Behance', 'directorist'),
-                'soundcloud' =>  __('SoundCloud', 'directorist'),
-                'stack-overflow' =>  __('StackOverFLow', 'directorist'),
+                'twitter' => __('Twitter', 'directorist'),
+                'linkedin' => __('LinkedIn', 'directorist'),
+                'pinterest' => __('Pinterest', 'directorist'),
+                'instagram' => __('Instagram', 'directorist'),
+                'tumblr' => __('Tumblr', 'directorist'),
+                'flickr' => __('Flickr', 'directorist'),
+                'snapchat-ghost' => __('Snapchat', 'directorist'),
+                'reddit' => __('Reddit', 'directorist'),
+                'youtube-play' => __('Youtube', 'directorist'),
+                'vimeo' => __('Vimeo', 'directorist'),
+                'vine' => __('Vine', 'directorist'),
+                'github' => __('Github', 'directorist'),
+                'dribbble' => __('Dribbble', 'directorist'),
+                'behance' => __('Behance', 'directorist'),
+                'soundcloud' => __('SoundCloud', 'directorist'),
+                'stack-overflow' => __('StackOverFLow', 'directorist'),
             );
             asort($s);
             return $s;
@@ -199,16 +208,13 @@ if (!class_exists('ATBDP_Helper')) :
             $return = '#';
 
             foreach ($color_parts as $color) {
-                $color   = hexdec($color); // Convert to decimal
-                $color   = max(0, min(255, $color + $steps)); // Adjust color
+                $color = hexdec($color); // Convert to decimal
+                $color = max(0, min(255, $color + $steps)); // Adjust color
                 $return .= str_pad(dechex($color), 2, '0', STR_PAD_LEFT); // Make two char hex code
             }
 
             return $return;
         }
-
-
-
 
 
         /**
@@ -244,7 +250,7 @@ if (!class_exists('ATBDP_Helper')) :
          *
          * @return string
          */
-        public  function show_pagination($loop, $paged = 1)
+        public function show_pagination($loop, $paged = 1)
         {
             //@TODO: look into this deeply later : http://www.insertcart.com/numeric-pagination-wordpress-using-php/
             $largeNumber = 999999999; // we need a large number here
@@ -269,7 +275,8 @@ if (!class_exists('ATBDP_Helper')) :
             $t = apply_filters('atbdp_unauthorized_access_message', $t);
             ?>
             <div class="notice_wrapper">
-                <div class="alert alert-warning"><span class="fa fa-info-circle" aria-hidden="true"></span> <?php echo $t; ?></div>
+                <div class="alert alert-warning"><span class="fa fa-info-circle"
+                                                       aria-hidden="true"></span> <?php echo $t; ?></div>
             </div>
             <?php
         }
@@ -303,7 +310,8 @@ if (!class_exists('ATBDP_Helper')) :
                             <li>
                                 <p class="info_title"><?php _e('Category:', 'directorist'); ?></p>
                                 <p class="directory_tag">
-                                    <span class="fa <?php echo esc_attr(get_cat_icon(@$cat->term_id)); ?>" aria-hidden="true"></span>
+                                    <span class="fa <?php echo esc_attr(get_cat_icon(@$cat->term_id)); ?>"
+                                          aria-hidden="true"></span>
                                     <span> <?php if (is_object($cat)) { ?>
                                             <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cat); ?>">
                                                 <?php echo esc_html($cat->name); ?>
@@ -371,7 +379,8 @@ if (!class_exists('ATBDP_Helper')) :
                                     <?php foreach ($cats as $cat) { ?>
                                         <li>
                                             <p class="directory_tag">
-                                                <span class="fa <?php echo esc_attr(get_cat_icon(@$cat->term_id)); ?>" aria-hidden="true"></span>
+                                                <span class="fa <?php echo esc_attr(get_cat_icon(@$cat->term_id)); ?>"
+                                                      aria-hidden="true"></span>
                                                 <span> <?php if (is_object($cat)) { ?>
                                                         <a href="<?php echo esc_url(ATBDP_Permalink::atbdp_get_category_page($cat)); ?>">
                                                             <?php echo esc_html($cat->name); ?>
@@ -380,20 +389,20 @@ if (!class_exists('ATBDP_Helper')) :
                                                 </span>
                                             </p>
                                         </li>
-                                    <?php  } ?>
+                                    <?php } ?>
                                 </ul>
                             </li>
                         <?php }
 
                         if (!empty($locs) && is_array($locs)) {
                             $location_count = count($locs);
-                        ?>
+                            ?>
                             <li>
                                 <ul>
                                     <p class="info_title"><?php _e('Location:', 'directorist'); ?></p>
                                     <?php foreach ($locs as $loc) {
                                         $location_count--; // reduce count to display comma for the right item
-                                    ?>
+                                        ?>
                                         <li>
                                             <span><?php if (is_object($loc)) { ?>
                                                     <a href="<?php echo esc_url(ATBDP_Permalink::atbdp_get_location_page($loc)); ?>">
@@ -401,17 +410,17 @@ if (!class_exists('ATBDP_Helper')) :
                                                     </a>
                                                 <?php } ?>
                                             </span><?php
-                                                    // @todo; discuss with front-end dev if it is good to put comma here directly or he will do?
-                                                    if ($location_count >= 1) echo ",";
-                                                    ?>
+                                            // @todo; discuss with front-end dev if it is good to put comma here directly or he will do?
+                                            if ($location_count >= 1) echo ",";
+                                            ?>
                                         </li>
-                                    <?php  } ?>
+                                    <?php } ?>
                                 </ul>
                             </li>
                         <?php } ?>
                     </ul>
                 </div>
-<?php }
+            <?php }
         }
     }
 endif;

@@ -154,8 +154,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                             }
 
                                             if ($has_thumbnail) {
-                                                $args = apply_filters('atbdp_preview_image_args', array());
-                                                ATBDP()->helper::the_thumbnail_card($thumbnail_img, $args);
+                                                ATBDP()->helper::the_thumbnail_card($thumbnail_img);
                                                 // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
                                             }
 

@@ -24,7 +24,7 @@ if (!class_exists('ATBDP_Helper')) :
         {
             $slider = '';
             $data = array();
-            
+
             $data['images'] = [];
             $data['alt'] = '';
             $data['blur-background'] = true;
@@ -151,20 +151,25 @@ if (!class_exists('ATBDP_Helper')) :
         }
 
         // the_thumbnail_card
-        public static function the_thumbnail_card($img_src = '', $args = array())
+        public static function the_thumbnail_card($img_src = '', $_args = array())
         {
+            $args = apply_filters('atbdp_preview_image_args', $_args);
+
+            // Default
             $alt = esc_html(get_the_title());
-            $image_size_type = 'contain';
-            $ratio_width = 16;
-            $ratio_height = 9;
+            $image_size = 'contain';
+            $ratio_width = get_directorist_option('crop_width', 360);
+            $ratio_height = get_directorist_option('crop_height', 300);
             $blur_background = true;
+            $background_color = 'gainsboro';
             $image = $img_src;
 
+            // Extend Default
             if ( isset($args['image']) ) {
                 $image = esc_html(stripslashes($args['image']));
             }
             if ( isset($args['image-size']) ) {
-                $image_size_type = esc_html(stripslashes($args['image-size']));
+                $image_size = esc_html(stripslashes($args['image-size']));
             }
             if ( isset($args['width']) ) {
                 $ratio_width = esc_html(stripslashes($args['width']));
@@ -178,8 +183,18 @@ if (!class_exists('ATBDP_Helper')) :
             if ( isset($args['blur-background']) ) {
                 $blur_background = esc_html(stripslashes($args['blur-background']));
             }
+            if ( isset($args['background-color']) ) {
+                $background_color = esc_html(stripslashes($args['background-color']));
+            }
 
-            $padding_top = (int) $ratio_height / (int) $ratio_width * 100;
+            // Style
+            $style = '';
+            $padding_top_value = (int) $ratio_height / (int) $ratio_width * 100;
+            $padding_top_css = "padding-top: $padding_top_value%;";
+            $style .= $padding_top_css;
+
+            $background_color_css = "background-color: $background_color";
+            $style .= $background_color_css;
 
             // Card Front Wrap
             $card_front_wrap = "<div class='atbd-thumbnail-card-front-wrap'>";
@@ -194,21 +209,21 @@ if (!class_exists('ATBDP_Helper')) :
             $blur_bg = ( $blur_background ) ? $back_wrap_html : '';
 
             // Card Contain 
-            $card_contain_wrap = "<div class='atbd-thumbnail-card card-contain' style='padding-top: $padding_top%'>";
+            $card_contain_wrap = "<div class='atbd-thumbnail-card card-contain' style='$style'>";
             $card_back__img = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
             $image_contain_html = $card_contain_wrap . $blur_bg . $front_wrap_html . "</div>";
 
             // Card Cover
-            $card_cover_wrap = "<div class='atbd-thumbnail-card card-cover' style='padding-top: $padding_top%'>";
+            $card_cover_wrap = "<div class='atbd-thumbnail-card card-cover' style='$style'>";
             $card_back__img = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
             $image_cover_html = $card_cover_wrap . $front_wrap_html . "</div>";
 
             // Card Full
-            $card_full_wrap = "<div class='atbd-thumbnail-card card-full'>";
+            $card_full_wrap = "<div class='atbd-thumbnail-card card-full' style='$background_color_css'>";
             $image_full_html = $card_full_wrap . $front_wrap_html . "</div>";
 
             $the_html = $image_cover_html;
-            switch ($image_size_type) {
+            switch ($image_size) {
                 case 'cover':
                     $the_html = $image_cover_html;
                     break;

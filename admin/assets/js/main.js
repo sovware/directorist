@@ -631,7 +631,7 @@ jQuery(function ($) {
 
 
     //Display filter button
-    var lf_opt7 = $("#default_preview_image,#thumbnail_cropping,#crop_width,#crop_height");
+    var lf_opt7 = $("#default_preview_image,#crop_width,#crop_height");
     lf_opt7.hide();
     $('input[name="display_preview_image"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -667,20 +667,6 @@ jQuery(function ($) {
     if(($('select[name="way_to_show_preview"]').val() === "contain")){
         fill.show();
         backType.show();
-    }
-
-    //
-    var lf_opt8 = $("#crop_width, #crop_height");
-    lf_opt8.hide();
-    $('input[name="thumbnail_cropping"]').on("change", function () {
-        if($(this).is(":checked") === true){
-            lf_opt8.show();
-        }else{
-            lf_opt8.hide();
-        }
-    });
-    if($('input[name="thumbnail_cropping"]').is(":checked") === true){
-        lf_opt8.show();
     }
 
     //
@@ -1294,6 +1280,7 @@ jQuery(function ($) {
             lf_opt45.show();
         }else{
             $("#display_password_reg").after("<p class='password_notice'>We command you to customize registration confirmation email. Click <a href='#' id='goto_passwoard'>here</a> to customize</p>");
+            $(".req_password_notice").remove();
             lf_opt45.hide();
         }
     });

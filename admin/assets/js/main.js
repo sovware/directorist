@@ -644,6 +644,31 @@ jQuery(function ($) {
         lf_opt7.show();
     }
 
+
+    //Map setting options
+    var fill = $("#crop_width,#crop_height");
+    var backType = $("#prv_background_type");
+    fill.hide();
+    backType.hide();
+    $('select[name="way_to_show_preview"]').on("change", function () {
+        if(($(this).val() === "cover") || ($(this).val() === "contain")){
+            if($(this).val() === "contain"){
+                fill.show();
+                backType.show();
+            }else {
+                fill.show();
+            }
+        }else{
+            fill.hide();
+            backType.hide();
+        }
+    });
+    console.log($('select[name="way_to_show_preview"]').val())
+    if(($('select[name="way_to_show_preview"]').val() === "contain")){
+        fill.show();
+        backType.show();
+    }
+
     //
     var lf_opt8 = $("#crop_width, #crop_height");
     lf_opt8.hide();

@@ -3107,6 +3107,12 @@ The Administrator of ==SITE_NAME==
                         ),
                     ),
                     array(
+                        'type' => 'color',
+                        'name' => 'prv_background_color',
+                        'label' => __('Select Color', 'directorist'),
+                        'default' => 'gainsboro',
+                    ),
+                    array(
                         'type' => 'upload',
                         'name' => 'default_preview_image',
                         'label' => __('Default Preview Image', 'directorist'),

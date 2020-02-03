@@ -631,7 +631,7 @@ jQuery(function ($) {
 
 
     //Display filter button
-    var lf_opt7 = $("#default_preview_image,#crop_width,#crop_height");
+    var lf_opt7 = $("#default_preview_image,#crop_width,#crop_height,#way_to_show_preview,#prv_background_type");
     lf_opt7.hide();
     $('input[name="display_preview_image"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -645,7 +645,7 @@ jQuery(function ($) {
     }
 
 
-    //Map setting options
+    //Preview image
     var fill = $("#crop_width,#crop_height");
     var backType = $("#prv_background_type");
     fill.hide();
@@ -657,17 +657,34 @@ jQuery(function ($) {
                 backType.show();
             }else {
                 fill.show();
+                backType.hide();
             }
         }else{
             fill.hide();
             backType.hide();
         }
     });
-    console.log($('select[name="way_to_show_preview"]').val())
     if(($('select[name="way_to_show_preview"]').val() === "contain")){
         fill.show();
         backType.show();
     }
+    if(($('select[name="way_to_show_preview"]').val() === "cover")){
+        fill.show();
+    }
+    // background type
+    var background__type = $("#prv_background_color");
+    background__type.hide();
+    $('select[name="prv_background_type"]').on("change", function () {
+        if($(this).val() === 'color'){
+            background__type.show();
+        }else{
+            background__type.hide();
+        }
+    });
+    if($('select[name="prv_background_type"]').val() === 'color'){
+        background__type.show();
+    }
+
 
     //
     var lf_opt9 = $("#address_location");

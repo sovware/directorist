@@ -40,6 +40,8 @@
 }
 
 .plasmaSlider__arrowBtn {
+  margin: 0;
+  padding: 0;
   position: relative;
   cursor: pointer;
   border: none;
@@ -48,28 +50,17 @@
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  display: block;
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.plasmaSlider__arrowBtn:focus {
+.plasmaSlider__arrowBtn:hover,
+.plasmaSlider__arrowBtn:active,
+.plasmaSlider__arrowBtn:visited,
+.plasmaSlider__arrowBtn:focus  {
+  border: none;
   outline: 0;
-}
-
-.plasmaSlider__arrowBtn.arrowBtn--right {
-  padding-left: 10px;
-}
-
-.plasmaSlider__arrowBtn.arrowBtn--left {
-  padding-right: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .plasmaSlider__icon {
@@ -78,7 +69,15 @@
 }
 
 .plasmaSlider__arrowBtn .plasmaSliderIcon {
-  font-size: 13px;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: 12px;
 }
 
 .plasmaSlider__contents {
@@ -239,12 +238,6 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-}
-
-.plasmaSliderIcon::before {
-  content: "G";
-  display: inline-block;
-  visibility: hidden;
 }
 
 .plasmaSliderIcon.psi-angle-right {

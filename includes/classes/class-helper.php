@@ -159,7 +159,7 @@ if (!class_exists('ATBDP_Helper')) :
 
             // Default
             $alt = esc_html(get_the_title());
-            $image_size = 'contain';
+            $image_size = 'contain'; // contain / full / cover
             $ratio_width = get_directorist_option('crop_width', 360);
             $ratio_height = get_directorist_option('crop_height', 300);
             $blur_background = true;

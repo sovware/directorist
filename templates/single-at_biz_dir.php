@@ -351,7 +351,6 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
                         'custom_gl_width' => $custom_gl_width,
                         'custom_gl_height' => $custom_gl_height,
                         'p_title' => $p_title,
-                        'image_links_thumbnails' => $image_links_thumbnails,
                         'display_thumbnail_img' => $display_thumbnail_img,
                     );
                     // $slider = ATBDP()->helper::get_default_slider($args);

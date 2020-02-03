@@ -3039,7 +3039,6 @@ The Administrator of ==SITE_NAME==
                             'label' => __('Descending', 'directorist'),
                         ),
                     ),
-
                     array(
                         'type' => 'toggle',
                         'name' => 'display_preview_image',
@@ -3047,12 +3046,71 @@ The Administrator of ==SITE_NAME==
                         'description' => __('Hide/show preview image from all listing page.', 'directorist'),
                         'default' => 1,
                     ),
+                    'way_to_show_preview' => array(
+                        'type' => 'select',
+                        'name' => 'way_to_show_preview',
+                        'label' => __('Image Size', 'directorist'),
+                        'items' => array(
+                            array(
+                                'value' => 'full',
+                                'label' => __('Original', 'directorist'),
+                            ),
+                            array(
+                                'value' => 'cover',
+                                'label' => __('Fill', 'directorist'),
+                            ),
+                            array(
+                                'value' => 'contain',
+                                'label' => __('Fit', 'directorist'),
+                            ),
+                        ),
+                        'default' =>  array(
+                            'value' => 'contain',
+                            'label' => __('Fit', 'directorist'),
+                        ),
+                    ),
                     array(
-                        'type' => 'toggle',
-                        'name' => 'thumbnail_cropping',
-                        'label' => __('Preview Image Cropping', 'directorist'),
-                        'description' => __('If the preview images are not in the same size, it helps automatically resizing.', 'directorist'),
-                        'default' => 1,
+                        'type' => 'slider',
+                        'name' => 'crop_width',
+                        'label' => __('Image Width', 'directorist'),
+                        'min' => '1',
+                        'max' => '1200',
+                        'step' => '1',
+                        'default' => '350',
+                    ),
+                    array(
+                        'type' => 'slider',
+                        'name' => 'crop_height',
+                        'label' => __('Image Height', 'directorist'),
+                        'min' => '1',
+                        'max' => '1200',
+                        'step' => '1',
+                        'default' => '260',
+                    ),
+                    array(
+                        'type' => 'select',
+                        'name' => 'prv_background_type',
+                        'label' => __('Background', 'directorist'),
+                        'items' => array(
+                            array(
+                                'value' => 'blur',
+                                'label' => __('Blur', 'directorist'),
+                            ),
+                            array(
+                                'value' => 'color',
+                                'label' => __('Custom Color', 'directorist'),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'blur',
+                            'label' => __('Blur', 'directorist'),
+                        ),
+                    ),
+                    array(
+                        'type' => 'color',
+                        'name' => 'prv_background_color',
+                        'label' => __('Select Color', 'directorist'),
+                        'default' => 'gainsboro',
                     ),
                     array(
                         'type' => 'upload',
@@ -3060,29 +3118,6 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Default Preview Image', 'directorist'),
                         'default' => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
                     ),
-
-                    array(
-                        'type' => 'slider',
-                        'name' => 'crop_width',
-                        'label' => __('Image Cropping Width', 'directorist'),
-                        'min' => '1',
-                        'max' => '1200',
-                        'step' => '1',
-                        'default' => '350',
-
-                    ),
-
-                    array(
-                        'type' => 'slider',
-                        'name' => 'crop_height',
-                        'label' => __('Image Cropping Height', 'directorist'),
-                        'min' => '1',
-                        'max' => '1200',
-                        'step' => '1',
-                        'default' => '260',
-
-                    ),
-
                     array(
                         'type' => 'toggle',
                         'name' => 'info_display_in_single_line',
@@ -5624,16 +5659,9 @@ The Administrator of ==SITE_NAME==
                     'default' => 1,
                 ),
                 array(
-                    'type' => 'toggle',
-                    'name' => 'gallery_cropping',
-                    'label' => __('Slider Image Cropping', 'directorist'),
-                    'description' => __('If the slider images are not in the same size, it helps automatically resizing.', 'directorist'),
-                    'default' => 1,
-                ),
-                array(
                     'type' => 'slider',
                     'name' => 'gallery_crop_width',
-                    'label' => __('Image Cropping Width', 'directorist'),
+                    'label' => __('Image Width', 'directorist'),
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
@@ -5644,7 +5672,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'gallery_crop_height',
-                    'label' => __('Image Cropping Height', 'directorist'),
+                    'label' => __('Image Height', 'directorist'),
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',

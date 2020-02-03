@@ -29,7 +29,6 @@ $listing_info['hide_contact_owner'] = get_post_meta($post->ID, '_hide_contact_ow
 $listing_info['expiry_date'] = get_post_meta($post->ID, '_expiry_date', true);
 $display_prv_image = get_directorist_option('dsiplay_prv_single_page', 1);
 $display_slider_image = get_directorist_option('dsiplay_slider_single_page', 1);
-$gallery_cropping = get_directorist_option('gallery_cropping', 1);
 $custom_gl_width = get_directorist_option('gallery_crop_width', 670);
 $custom_gl_height = get_directorist_option('gallery_crop_height', 750);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
@@ -39,11 +38,6 @@ $listing_imgs = (!empty($listing_img) && !empty($display_slider_image)) ? $listi
 $image_links = array(); // define a link placeholder variable
 $full_image_links = array(); // define a link placeholder variable
 foreach ($listing_imgs as $id) {
-    if (!empty($gallery_cropping)) {
-        $image_links[$id] = atbdp_image_cropping($id, $custom_gl_width, $custom_gl_height, true, 100)['url'];
-    } else {
-        $image_links[$id] = wp_get_attachment_image_src($id, 'large')[0];
-    }
     $full_image_links[$id] = wp_get_attachment_image_src($id, 'large')[0];
     $image_links_thumbnails[$id] = wp_get_attachment_image_src($id, 'thumbnail')[0]; // store the attachment id and url
     //@todo; instead of getting a full size image, define a an image size and then fetch that size and let the user change that image size via a hook.

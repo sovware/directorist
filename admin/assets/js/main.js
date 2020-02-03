@@ -631,7 +631,7 @@ jQuery(function ($) {
 
 
     //Display filter button
-    var lf_opt7 = $("#default_preview_image,#thumbnail_cropping,#crop_width,#crop_height");
+    var lf_opt7 = $("#default_preview_image,#crop_width,#crop_height,#way_to_show_preview,#prv_background_type");
     lf_opt7.hide();
     $('input[name="display_preview_image"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -644,19 +644,47 @@ jQuery(function ($) {
         lf_opt7.show();
     }
 
-    //
-    var lf_opt8 = $("#crop_width, #crop_height");
-    lf_opt8.hide();
-    $('input[name="thumbnail_cropping"]').on("change", function () {
-        if($(this).is(":checked") === true){
-            lf_opt8.show();
+
+    //Preview image
+    var fill = $("#crop_width,#crop_height");
+    var backType = $("#prv_background_type");
+    fill.hide();
+    backType.hide();
+    $('select[name="way_to_show_preview"]').on("change", function () {
+        if(($(this).val() === "cover") || ($(this).val() === "contain")){
+            if($(this).val() === "contain"){
+                fill.show();
+                backType.show();
+            }else {
+                fill.show();
+                backType.hide();
+            }
         }else{
-            lf_opt8.hide();
+            fill.hide();
+            backType.hide();
         }
     });
-    if($('input[name="thumbnail_cropping"]').is(":checked") === true){
-        lf_opt8.show();
+    if(($('select[name="way_to_show_preview"]').val() === "contain")){
+        fill.show();
+        backType.show();
     }
+    if(($('select[name="way_to_show_preview"]').val() === "cover")){
+        fill.show();
+    }
+    // background type
+    var background__type = $("#prv_background_color");
+    background__type.hide();
+    $('select[name="prv_background_type"]').on("change", function () {
+        if($(this).val() === 'color'){
+            background__type.show();
+        }else{
+            background__type.hide();
+        }
+    });
+    if($('select[name="prv_background_type"]').val() === 'color'){
+        background__type.show();
+    }
+
 
     //
     var lf_opt9 = $("#address_location");
@@ -687,7 +715,7 @@ jQuery(function ($) {
     }
 
     //
-    var lf_opt11 = $("#atbdp_listing_slug, #new_listing_status, #edit_listing_status, #edit_listing_redirect, #listing_details_text, #custom_section_lable, #listing_location_text, #contact_info_text, #contact_listing_owner, #atbd_video_title, #dsiplay_prv_single_page, #dsiplay_slider_single_page, #gallery_cropping, #gallery_crop_width, #gallery_crop_height, #enable_social_share, #enable_favourite, #enable_report_abuse, #disable_list_price, #disable_contact_info, #disable_contact_owner, #use_nofollow, #disable_map, #atbd_video_url,#dsiplay_thumbnail_img, #enable_rel_listing,#rel_listing_title, #rel_listing_num, #rel_listing_column");
+    var lf_opt11 = $("#atbdp_listing_slug, #new_listing_status, #edit_listing_status, #edit_listing_redirect, #listing_details_text, #custom_section_lable, #listing_location_text, #contact_info_text, #contact_listing_owner, #atbd_video_title, #dsiplay_prv_single_page, #dsiplay_slider_single_page, #gallery_crop_width, #gallery_crop_height, #enable_social_share, #enable_favourite, #enable_report_abuse, #disable_list_price, #disable_contact_info, #disable_contact_owner, #use_nofollow, #disable_map, #atbd_video_url,#dsiplay_thumbnail_img, #enable_rel_listing,#rel_listing_title, #rel_listing_num, #rel_listing_column");
     lf_opt11.show();
     $('input[name="disable_single_listing"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -1269,6 +1297,7 @@ jQuery(function ($) {
             lf_opt45.show();
         }else{
             $("#display_password_reg").after("<p class='password_notice'>We command you to customize registration confirmation email. Click <a href='#' id='goto_passwoard'>here</a> to customize</p>");
+            $(".req_password_notice").remove();
             lf_opt45.hide();
         }
     });

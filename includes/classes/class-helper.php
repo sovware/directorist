@@ -27,6 +27,7 @@ if (!class_exists('ATBDP_Helper')) :
             $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 
             // Default
+            $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
             $data['images'] = [];
             $data['alt'] = '';
             $data['blur-background'] = true;
@@ -52,6 +53,10 @@ if (!class_exists('ATBDP_Helper')) :
                 }
             }
             
+            if ( count($data['images']) < 1 ) {
+                array_push($data['images'], $default_image);
+            }
+
             if ( count($data['images']) < 1 ) {
                 array_push($data['images'], $default_image);
             }
@@ -170,12 +175,14 @@ if (!class_exists('ATBDP_Helper')) :
             $args = apply_filters('atbdp_preview_image_args', $_args);
 
             // Default
+            $is_blur = get_directorist_option('prv_background_type', 'blur');
+            $is_blur = ('blur' === $is_blur ? true : false);
             $alt = esc_html(get_the_title());
-            $image_size = 'contain';
+            $image_size = get_directorist_option('way_to_show_preview', 'contain'); // contain / full / cover
             $ratio_width = get_directorist_option('crop_width', 360);
             $ratio_height = get_directorist_option('crop_height', 300);
-            $blur_background = true;
-            $background_color = 'gainsboro';
+            $blur_background = $is_blur;
+            $background_color = get_directorist_option('prv_background_color', 'gainsboro');
             $image = $img_src;
 
             // Extend Default

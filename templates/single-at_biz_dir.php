@@ -36,7 +36,6 @@ $listing_info['hide_contact_owner'] = get_post_meta($post->ID, '_hide_contact_ow
 $listing_info['expiry_date'] = get_post_meta($post->ID, '_expiry_date', true);
 $display_prv_image = get_directorist_option('dsiplay_prv_single_page', 1);
 $display_slider_image = get_directorist_option('dsiplay_slider_single_page', 1);
-$gallery_cropping = get_directorist_option('gallery_cropping', 1);
 $custom_gl_width = get_directorist_option('gallery_crop_width', 670);
 $custom_gl_height = get_directorist_option('gallery_crop_height', 750);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
@@ -56,14 +55,9 @@ extract($listing_info);
 /*Prepare Listing Image links*/
 $listing_imgs = (!empty($listing_img) && !empty($display_slider_image)) ? $listing_img : array();
 $image_links = array(); // define a link placeholder variable
+$full_image_links = array(); // define a link placeholder variable
 foreach ($listing_imgs as $id) {
-
-    if (!empty($gallery_cropping)) {
-        $image_links[$id] = atbdp_image_cropping($id, $custom_gl_width, $custom_gl_height, true, 100)['url'];
-    } else {
-        $image_links[$id] = wp_get_attachment_image_src($id, 'large')[0];
-    }
-
+    $full_image_links[$id] = wp_get_attachment_image_src($id, 'large')[0];
     $image_links_thumbnails[$id] = wp_get_attachment_image_src($id, 'thumbnail')[0]; // store the attachment id and url
 }
 /*Code for Business Hour Extensions*/
@@ -339,7 +333,23 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
                     if (is_fee_manager_active()) {
                         $plan_slider = is_plan_allowed_slider($fm_plan);
                     }
-                    if (!empty($image_links) && $plan_slider) {
+
+                    $args = array(
+                        // 'image_links' => $image_links,
+                        'image_links' => $full_image_links,
+                        'listing_prv_imgurl' => $listing_prv_imgurl,
+                        'plan_slider' => $plan_slider,
+                        'listing_prv_img' => $listing_prv_img,
+                        'display_prv_image' => $display_prv_image,
+                        'custom_gl_width' => $custom_gl_width,
+                        'custom_gl_height' => $custom_gl_height,
+                        'p_title' => $p_title,
+                        'display_thumbnail_img' => $display_thumbnail_img,
+                    );
+                    // $slider = ATBDP()->helper::get_default_slider($args);
+                    $slider = ATBDP()->helper::get_plasma_slider($args);
+                    echo apply_filters('atbdp_single_listing_gallery_section', $slider);
+                    /*if (!empty($image_links) && $plan_slider) {
                         if (!empty($listing_prv_img && $display_prv_image)) {
                             if (!empty($gallery_cropping)) {
                                 $listing_prv_imgurl = atbdp_image_cropping($listing_prv_img, $custom_gl_width, $custom_gl_height, true, 100)['url'];
@@ -387,8 +397,7 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
                         $gallery_image .= '<img src="' . $listing_prv_image . '"
                                  alt="' . esc_html($p_title) . '">';
                         $gallery_image .= '</div>';
-                    }
-                    echo apply_filters('atbdp_single_listing_gallery_section', $gallery_image);
+                    }*/
                     ?>
                     <div class="atbd_listing_detail">
                         <?php

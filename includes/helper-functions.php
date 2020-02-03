@@ -2298,9 +2298,6 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                     $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                     $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
                     $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
-                    $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
-                    $crop_width = get_directorist_option('crop_width', 360);
-                    $crop_height = get_directorist_option('crop_height', 300);
                     $display_tagline_field = get_directorist_option('display_tagline_field', 0);
                     $display_pricing_field = get_directorist_option('display_pricing_field', 1);
                     $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
@@ -2311,24 +2308,14 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                     $display_web_link = get_directorist_option('display_web_link', 0);
                     if (!empty($listing_prv_img)) {
 
-                        if ($thumbnail_cropping) {
-
-                            $prv_image = atbdp_image_cropping($listing_prv_img, $crop_width, $crop_height, true, 100)['url'];
-
-                        } else {
-                            $prv_image = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
-                        }
-
+                        $prv_image_full = wp_get_attachment_image_src($listing_prv_img, 'full')[0];
                     }
                     if (!empty($listing_img[0])) {
-                        if ($thumbnail_cropping) {
-                            $gallery_img = atbdp_image_cropping($listing_img[0], $crop_width, $crop_height, true, 100)['url'];
-
-                        } else {
-                            $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
-                        }
-
+                        $gallery_img_full = wp_get_attachment_image_src($listing_img[0], 'full')[0];
                     }
+                    $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+                    $listing_preview_img = !empty($listing_preview_img) ? $listing_preview_img : '';
+                    $listing_preview_img_class = 'no' == $listing_preview_img || (empty($prv_image_full) && empty($default_image) && empty($gallery_img_full)) ? ' listing_preview_img_none' : '';
                     $columns = get_directorist_option('all_listing_columns', 3);
                     $column_width = 100 / (int)$columns . '%';
                     /*Code for Business Hour Extensions*/
@@ -2347,15 +2334,26 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                         <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
                                             <?php
                                             }
-                                            $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
-                                            if (!empty($listing_prv_img)) {
-                                                echo '<img src="' . esc_url($prv_image) . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
-                                            }
+                                            $has_thumbnail = false;
+                                            $thumbnail_img = '';
+
+
                                             if (!empty($listing_img[0]) && empty($listing_prv_img)) {
-                                                echo '<img src="' . esc_url($gallery_img) . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
+                                                $thumbnail_img = $gallery_img_full;
+                                                $has_thumbnail = true;
                                             }
                                             if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
-                                                echo '<img src="' . $default_image . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
+                                                $thumbnail_img = $default_image;
+                                                $has_thumbnail = true;
+                                            }
+                                            if (!empty($listing_prv_img)) {
+                                                $thumbnail_img = $prv_image_full;
+                                                $has_thumbnail = true;
+                                            }
+
+                                            if ($has_thumbnail) {
+                                                ATBDP()->helper::the_thumbnail_card($thumbnail_img);
+                                                // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
                                             }
                                             if (empty($disable_single_listing)) {
                                                 echo '</a>';
@@ -2771,34 +2769,18 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                         $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
                         $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
-                        $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
-                        $crop_width = get_directorist_option('crop_width', 360);
-                        $crop_height = get_directorist_option('crop_height', 300);
                         $display_tagline_field = get_directorist_option('display_tagline_field', 0);
                         $display_pricing_field = get_directorist_option('display_pricing_field', 1);
                         $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                         $display_address_field = get_directorist_option('display_address_field', 1);
                         $display_phone_field = get_directorist_option('display_phone_field', 1);
                         if (!empty($listing_prv_img)) {
-
-                            if ($thumbnail_cropping) {
-
-                                $prv_image = atbdp_image_cropping($listing_prv_img, $crop_width, $crop_height, true, 100)['url'];
-
-                            } else {
-                                $prv_image = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
-                            }
-
+                            $prv_image_full = wp_get_attachment_image_src($listing_prv_img, 'full')[0];
                         }
                         if (!empty($listing_img[0])) {
-                            if ($thumbnail_cropping) {
-                                $gallery_img = atbdp_image_cropping($listing_img[0], $crop_width, $crop_height, true, 100)['url'];
-
-                            } else {
-                                $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
-                            }
-
+                            $gallery_img_full = wp_get_attachment_image_src($listing_img[0], 'full')[0];
                         }
+                        $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                         ?>
                         <div class="related_single_carousel" style="margin: 0 10px;">
                             <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : ''; ?>">
@@ -2814,15 +2796,26 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                             <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
                                                 <?php
                                                 }
-                                                $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
-                                                if (!empty($listing_prv_img)) {
-                                                    echo '<img src="' . esc_url($prv_image) . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
-                                                }
+                                                $has_thumbnail = false;
+                                                $thumbnail_img = '';
+
+
                                                 if (!empty($listing_img[0]) && empty($listing_prv_img)) {
-                                                    echo '<img src="' . esc_url($gallery_img) . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
+                                                    $thumbnail_img = $gallery_img_full;
+                                                    $has_thumbnail = true;
                                                 }
                                                 if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
-                                                    echo '<img src="' . $default_image . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
+                                                    $thumbnail_img = $default_image;
+                                                    $has_thumbnail = true;
+                                                }
+                                                if (!empty($listing_prv_img)) {
+                                                    $thumbnail_img = $prv_image_full;
+                                                    $has_thumbnail = true;
+                                                }
+
+                                                if ($has_thumbnail) {
+                                                    ATBDP()->helper::the_thumbnail_card($thumbnail_img);
+                                                    // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
                                                 }
                                                 if (empty($disable_single_listing)) {
                                                     echo '</a>';
@@ -3219,27 +3212,16 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                     $u_pro_pic_meta = get_user_meta($author_id, 'pro_pic', true);
                     $u_pro_pic = wp_get_attachment_image_src($u_pro_pic_meta, 'thumbnail');
                     $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
-                    $thumbnail_cropping = get_directorist_option('thumbnail_cropping', 1);
-                    $crop_width = get_directorist_option('crop_width', 360);
-                    $crop_height = get_directorist_option('crop_height', 300);
                     $display_tagline_field = get_directorist_option('display_tagline_field', 0);
                     $display_pricing_field = get_directorist_option('display_pricing_field', 1);
                     $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                     $display_address_field = get_directorist_option('display_address_field', 1);
                     $display_phone_field = get_directorist_option('display_phone_field', 1);
                     if (!empty($listing_prv_img)) {
-                        if ($thumbnail_cropping) {
-                            $prv_image = atbdp_image_cropping($listing_prv_img, $crop_width, $crop_height, true, 100)['url'];
-                        } else {
-                            $prv_image = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
-                        }
+                        $prv_image_full = wp_get_attachment_image_src($listing_prv_img, 'full')[0];
                     }
                     if (!empty($listing_img[0])) {
-                        if ($thumbnail_cropping) {
-                            $gallery_img = atbdp_image_cropping($listing_img[0], $crop_width, $crop_height, true, 100)['url'];
-                        } else {
-                            $gallery_img = wp_get_attachment_image_src($listing_img[0], 'large')[0];
-                        }
+                        $gallery_img_full = wp_get_attachment_image_src($listing_img[0], 'full')[0];
                     }
                     ?>
                     <div class="atbd_single_listing atbd_listing_list">
@@ -3255,24 +3237,15 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                     <?php
                                     }
                                     $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
-                                    /* if (!empty($listing_prv_img)) {
-                                        echo '<img src="' . esc_url($prv_image) . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
-                                    }
-                                    if (!empty($listing_img[0]) && empty($listing_prv_img)) {
-                                        echo '<img src="' . esc_url($gallery_img) . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
-                                    }
-                                    if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
-                                        echo '<img src="' . $default_image . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
-                                    } */
                                     $has_thumbnail = false;
                                     $thumbnail_img = '';
 
                                     if (!empty($listing_prv_img)) {
-                                        $thumbnail_img = $prv_image;
+                                        $thumbnail_img = $prv_image_full;
                                         $has_thumbnail = true;
                                     }
                                     if (!empty($listing_img[0]) && empty($listing_prv_img)) {
-                                        $thumbnail_img = $gallery_img;
+                                        $thumbnail_img = $gallery_img_full;
                                         $has_thumbnail = true;
                                     }
                                     if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {

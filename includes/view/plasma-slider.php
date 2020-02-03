@@ -6,10 +6,12 @@
     data-background-color="<?php echo $data['background-color']; ?>"
     data-blur-background="<?php echo ($data['blur-background']) ? '1' : '0'; ?>">
     <div class="plasmaSliderTempImage" style="padding-top: <?php echo $data['padding-top']; ?>%">
+        <?php if ( count( $data['images']) > 0 ): ?>
         <?php if ( $data['blur-background'] ): ?>
         <img class="plasmaSliderTempImgBlur" src="<?php echo $data['images'][0]; ?>">
         <?php endif; ?>
         <img class="plasmaSliderTempImg" src="<?php echo $data['images'][0]; ?>" alt="<?php echo $data['alt']; ?>">
+        <?php endif; ?>
     </div>
     <div class="plasmaSliderImages">
         <?php

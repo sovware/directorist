@@ -26,6 +26,7 @@ if (!class_exists('ATBDP_Helper')) :
             $data = array();
 
             // Default
+            $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
             $data['images'] = [];
             $data['alt'] = '';
             $data['blur-background'] = true;
@@ -48,6 +49,10 @@ if (!class_exists('ATBDP_Helper')) :
                 foreach ( $args['image_links'] as $image ) {
                     array_push($data['images'], $image);
                 }
+            }
+
+            if ( count($data['images']) < 1 ) {
+                array_push($data['images'], $default_image);
             }
 
             if ( isset($args['p_title']) ) {

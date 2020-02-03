@@ -2314,6 +2314,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                         $gallery_img_full = wp_get_attachment_image_src($listing_img[0], 'full')[0];
                     }
                     $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+                    $listing_preview_img = !empty($listing_preview_img) ? $listing_preview_img : '';
                     $listing_preview_img_class = 'no' == $listing_preview_img || (empty($prv_image_full) && empty($default_image) && empty($gallery_img_full)) ? ' listing_preview_img_none' : '';
                     $columns = get_directorist_option('all_listing_columns', 3);
                     $column_width = 100 / (int)$columns . '%';

@@ -186,7 +186,7 @@
   right: 0;
   left: 0;
   z-index: 1;
-  background-color: rgba(0,0,0, 0.5);
+  background-color: rgba(0,0,0, 0.6);
 }
 .plasmaSlider__thumbnailListItemImg {
   width: auto;
@@ -217,8 +217,8 @@
 .plasmaSliderTempImage .plasmaSliderTempImgBlur {
   width: 100%;
   height: 100%;
-  -webkit-filter: blur(20px);
-          filter: blur(20px);
+  -webkit-filter: blur(10px);
+          filter: blur(10px);
 }
 
 .plasmaSliderTempImage .plasmaSliderTempImg {

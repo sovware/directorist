@@ -3,13 +3,16 @@
     data-height="<?php echo $data['height']; ?>" 
     data-rtl="<?php echo ($data['rtl']) ? '1' : '0'; ?>"
     data-show-thumbnails="<?php echo ($data['show-thumbnails']) ? '1' : '0'; ?>"
+    data-blur-background="<?php echo ($data['blur-background']) ? '1' : '0'; ?>"
     data-background-color="<?php echo $data['background-color']; ?>"
-    data-blur-background="<?php echo ($data['blur-background']) ? '1' : '0'; ?>">
+    data-thumbnail-background-color="<?php echo $data['thumbnail-background-color']; ?>">
     <div class="plasmaSliderTempImage" style="padding-top: <?php echo $data['padding-top']; ?>%">
-        <?php if ( $data['blur-background'] ): ?>
-        <img class="plasmaSliderTempImgBlur" src="<?php echo $data['images'][0]; ?>">
-        <?php endif; ?>
-        <img class="plasmaSliderTempImg" src="<?php echo $data['images'][0]; ?>" alt="<?php echo $data['alt']; ?>">
+        <?php if (count($data['images']) > 0):
+            if ( $data['blur-background'] ) {
+                echo "<img class='plasmaSliderTempImgBlur' src='". $data['images'][0] ."'>";
+            }; 
+            echo "<img class='plasmaSliderTempImg' src='". $data['images'][0] ."' alt='". $data['alt'] ."'/>";
+        endif; ?>
     </div>
     <div class="plasmaSliderImages">
         <?php

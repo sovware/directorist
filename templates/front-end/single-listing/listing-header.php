@@ -220,12 +220,9 @@ do_action('atbdp_before_listing_section');
             'plan_slider' => $plan_slider,
             'listing_prv_img' => $listing_prv_img,
             'display_prv_image' => $display_prv_image,
-            'gallery_cropping' => $gallery_cropping,
             'custom_gl_width' => $custom_gl_width,
             'custom_gl_height' => $custom_gl_height,
             'p_title' => $p_title,
-            'image_links_thumbnails' => $image_links_thumbnails,
-            'display_thumbnail_img' => $display_thumbnail_img,
         );
         // $slider = ATBDP()->helper::get_default_slider($args);
         $slider = ATBDP()->helper::get_plasma_slider($args);

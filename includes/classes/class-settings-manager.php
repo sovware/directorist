@@ -5624,13 +5624,6 @@ The Administrator of ==SITE_NAME==
                     'default' => 1,
                 ),
                 array(
-                    'type' => 'toggle',
-                    'name' => 'gallery_cropping',
-                    'label' => __('Slider Image Cropping', 'directorist'),
-                    'description' => __('If the slider images are not in the same size, it helps automatically resizing.', 'directorist'),
-                    'default' => 1,
-                ),
-                array(
                     'type' => 'slider',
                     'name' => 'gallery_crop_width',
                     'label' => __('Image Cropping Width', 'directorist'),

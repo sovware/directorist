@@ -15,15 +15,8 @@ $listing_info['hide_contact_info'] = get_post_meta($post->ID, '_hide_contact_inf
 extract($listing_info);
 /*Prepare Listing Image links*/
 $listing_imgs = (!empty($listing_img) && !empty($display_slider_image)) ? $listing_img : array();
-$image_links = array(); // define a link placeholder variable
-foreach ($listing_imgs as $id) {
-    if (!empty($gallery_cropping)) {
-        $image_links[$id] = atbdp_image_cropping($id, $custom_gl_width, $custom_gl_height, true, 100)['url'];
-    } else {
-        $image_links[$id] = wp_get_attachment_image_src($id, 'large')[0];
-    }
-    $image_links_thumbnails[$id] = wp_get_attachment_image_src($id, 'thumbnail')[0]; // store the attachment id and url
-}
+
+
 /*END INFO WINDOW CONTENT*/
 $contact_info_text = get_directorist_option('contact_info_text', __('Contact Information', 'directorist'));
 $display_address_field = get_directorist_option('display_address_field', 1);

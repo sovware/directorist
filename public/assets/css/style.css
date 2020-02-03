@@ -296,8 +296,8 @@ input[type="checkbox"] {
   z-index: 55;
   -o-object-fit: cover;
   object-fit: cover;
-  -webkit-filter: blur(20px);
-  filter: blur(20px);
+  -webkit-filter: blur(10px);
+  filter: blur(10px);
 }
 
 .plasmaSlider__bgImg {
@@ -481,8 +481,13 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__arrowBtn {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__arrowBtn:hover,
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__arrowBtn:active,
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__arrowBtn:visited,
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__arrowBtn:focus {
+  border: none;
   outline: 0;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__arrowBtn.arrowBtn--right {
@@ -551,8 +556,8 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__bgImgBlur {
   z-index: 55;
   -o-object-fit: cover;
   object-fit: cover;
-  -webkit-filter: blur(20px);
-  filter: blur(20px);
+  -webkit-filter: blur(10px);
+  filter: blur(10px);
 }
 
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__bgImg {

@@ -127,8 +127,8 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__bgImgBlur {
   z-index: 55;
   -o-object-fit: cover;
      object-fit: cover;
-  -webkit-filter: blur(20px);
-          filter: blur(20px);
+  -webkit-filter: blur(10px);
+          filter: blur(10px);
 }
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__bgImg {
   z-index: 88;

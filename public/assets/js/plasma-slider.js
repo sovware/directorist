@@ -41,6 +41,12 @@
         return;
       }
       this.container = containerElm;
+      
+      if ( hasClass(this.container, 'is-initialized') ) {
+        return;
+      }
+
+      addClass(this.container, 'is-initialized');
 
       // Get Markup Options
       this.getMarkupOptions();
@@ -50,14 +56,6 @@
 
       // Attach Events
       this.attachEvents();
-    };
-
-    this.checkRTL = function() {
-      if ( !this.container ) { return; }
-
-      if ( this.options.rtl ) {
-        this.options.images = this.options.images.reverse();
-      }
     };
 
     // getMarkupOptions

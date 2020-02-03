@@ -208,7 +208,6 @@ do_action('atbdp_before_listing_section');
         }
 
         $args = array(
-            // 'image_links' => $image_links,
             'image_links' => $full_image_links,
             'listing_prv_imgurl' => $listing_prv_imgurl,
             'plan_slider' => $plan_slider,

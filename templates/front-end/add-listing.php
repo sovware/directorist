@@ -304,7 +304,7 @@ $query_args = array(
                                                  */
                                                 do_action('atbdp_add_listing_before_price_field', $p_id);
                                                 ?>
-                                                <input type="text" <?php echo !empty($allow_decimal) ? 'step="any"' : ''; ?>
+                                                <input type="number" <?php echo !empty($allow_decimal) ? 'step="any"' : ''; ?>
                                                        id="price" name="price"
                                                        value="<?php echo !empty($price) ? esc_attr($price) : ''; ?>"
                                                        class="form-control directory_field"

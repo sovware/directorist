@@ -5104,7 +5104,7 @@ The Administrator of ==SITE_NAME==
                     'min' => '.5',
                     'max' => '100',
                     'step' => '.5',
-                    'default' => '4',
+                    'default' => '2',
 
                 ),
                 array(

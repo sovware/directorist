@@ -1273,10 +1273,6 @@ div#listing_notifier span {
   }
 }
 
-#directorist .plasmaSlider .plasmaSlider__arrowBtn {
-  border-radius: 50%;
-}
-
 #directorist .atbd-thumbnail-card {
   position: relative;
   width: 100%;
@@ -1311,6 +1307,7 @@ div#listing_notifier span {
 }
 
 #directorist .atbd-thumbnail-card .atbd-thumbnail-card-back-wrap {
+  background-color: gainsboro;
   z-index: 0;
 }
 

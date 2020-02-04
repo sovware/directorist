@@ -208,7 +208,6 @@ do_action('atbdp_before_listing_section');
         }
 
         $args = array(
-            // 'image_links' => $image_links,
             'image_links' => $full_image_links,
             'listing_prv_imgurl' => $listing_prv_imgurl,
             'plan_slider' => $plan_slider,
@@ -217,7 +216,6 @@ do_action('atbdp_before_listing_section');
             'custom_gl_width' => $custom_gl_width,
             'custom_gl_height' => $custom_gl_height,
             'p_title' => $p_title,
-            'display_thumbnail_img' => $display_thumbnail_img,
         );
         // $slider = ATBDP()->helper::get_default_slider($args);
         $slider = ATBDP()->helper::get_plasma_slider($args);

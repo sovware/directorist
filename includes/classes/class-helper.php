@@ -24,6 +24,7 @@ if (!class_exists('ATBDP_Helper')) :
         {
             $slider = '';
             $data = array();
+            $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 
             // Default
             $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
@@ -32,7 +33,8 @@ if (!class_exists('ATBDP_Helper')) :
             $data['blur-background'] = true;
             $data['width'] = get_directorist_option('gallery_crop_width', 670);
             $data['height'] = get_directorist_option('gallery_crop_height', 750);
-            $data['background-color'] = '';
+            $data['background-color'] = 'gainsboro';
+            $data['thumbnail-background-color'] = '#fff';
             $data['show-thumbnails'] = get_directorist_option('dsiplay_thumbnail_img', true);
             $data['gallery'] = true;
             $data['rtl'] = is_rtl();
@@ -50,6 +52,10 @@ if (!class_exists('ATBDP_Helper')) :
                     array_push($data['images'], $image);
                 }
             }
+            
+            if ( count($data['images']) < 1 ) {
+                array_push($data['images'], $default_image);
+            }
 
             if ( count($data['images']) < 1 ) {
                 array_push($data['images'], $default_image);
@@ -63,6 +69,12 @@ if (!class_exists('ATBDP_Helper')) :
             }
             if ( isset($args['custom_gl_height']) ) {
                 $data['height'] = $args['custom_gl_height'];
+            }
+            if ( isset($args['thumbnail-background-color']) ) {
+                $data['thumbnail-background-color'] = $args['thumbnail-background-color'];
+            }
+            if ( isset($args['background-color']) ) {
+                $data['background-color'] = $args['background-color'];
             }
 
             $padding_top = $data['height'] / $data['width'] * 100;

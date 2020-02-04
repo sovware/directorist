@@ -125,10 +125,10 @@
 .ezmu__upload-button-wrap {
   display: inline-block;
 }
-.ezmu__file-input {
+input[type="file"].ezmu__file-input {
   display: none;
 }
-.ezmu__file-input + .ezmu__input-label {
+input[type="file"].ezmu__file-input + .ezmu__input-label {
   cursor: pointer;
 }
 

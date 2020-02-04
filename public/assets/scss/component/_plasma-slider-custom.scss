@@ -1,17 +1,9 @@
-/**
- * Plasma Slider
- * Company: Aazz Tech
- * Develoepr: Syed Galib Ahmed
- * Version: 1.0
- * Initial Release: 1 February, 2020
- * */
-
- .plasmaSlider {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider {
   position: relative;
   background-color: #000;
 }
 
-.plasmaSlider__body {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__body {
   padding-top: 52.25%;
   position: relative;
   top: 0;
@@ -22,8 +14,8 @@
   background-color: #000;
 }
 
-.plasmaSlider__controlRight,
-.plasmaSlider__controlLeft {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__controlRight,
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__controlLeft {
   position: absolute;
   top: 50%;
   z-index: 99;
@@ -32,14 +24,14 @@
           transform: translate(0, -50%);
 }
 
-.plasmaSlider__controlRight {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__controlRight {
   right: 15px;
 }
-.plasmaSlider__controlLeft {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__controlLeft {
   left: 15px;
 }
 
-.plasmaSlider__arrowBtn {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__arrowBtn {
   margin: 0;
   padding: 0;
   position: relative;
@@ -54,21 +46,21 @@
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.plasmaSlider__arrowBtn:hover,
-.plasmaSlider__arrowBtn:active,
-.plasmaSlider__arrowBtn:visited,
-.plasmaSlider__arrowBtn:focus  {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__arrowBtn:hover,
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__arrowBtn:active,
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__arrowBtn:visited,
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__arrowBtn:focus  {
   border: none;
   outline: 0;
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.plasmaSlider__icon {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__icon {
   color: #fff;
   font-size: 13px;
 }
 
-.plasmaSlider__arrowBtn .plasmaSliderIcon {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__arrowBtn .plasmaSliderIcon {
   width: 100%;
   height: 100%;
   display: inline-block;
@@ -80,7 +72,7 @@
   background-size: 12px;
 }
 
-.plasmaSlider__contents {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__contents {
   overflow: hidden;
   z-index: 88;
   position: absolute;
@@ -90,7 +82,7 @@
   bottom: 0;
 }
 
-.plasmaSlider__contentsWrap {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__contentsWrap {
   position: relative;
   -webkit-transition: all ease-in-out 300ms;
   -o-transition: all ease-in-out 300ms;
@@ -105,7 +97,7 @@
   left: 0;
 }
 
-.plasmaSlider__bg {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__bg {
   position: relative;
   width: 100%;
   height: 100%;
@@ -113,8 +105,8 @@
   background-color: gainsboro;
 }
 
-.plasmaSlider__bgImg,
-.plasmaSlider__bgImgBlur {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__bgImg,
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__bgImgBlur {
   display: block;
   width: 100%;
   height: 100%;
@@ -125,20 +117,20 @@
   right: 0;
 }
 
-.plasmaSlider__bgImgBlur {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__bgImgBlur {
   z-index: 55;
   -o-object-fit: cover;
      object-fit: cover;
   -webkit-filter: blur(10px);
           filter: blur(10px);
 }
-.plasmaSlider__bgImg {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__bgImg {
   z-index: 88;
   -o-object-fit: contain;
      object-fit: contain;
 }
 
-.plasmaSlider__sliderItem {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__sliderItem {
   height: 100%;
   width: 100%;
   -webkit-box-flex: 1;
@@ -146,7 +138,7 @@
           flex-grow: 1;
 }
 
-.plasmaSliderSkin {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderSkin {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -156,20 +148,20 @@
   height: 100%;
 }
 
-.plasmaSlider__footer {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__footer {
   display: block;
   overflow-y: hidden;
   overflow-x: auto;
 }
 
-.plasmaSlider__thumbnailList {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__thumbnailList {
   display: block;
   padding: 3px;
   white-space: nowrap;
   overflow-y: hidden;
   overflow-x: auto;
 }
-.plasmaSlider__thumbnailListItem {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__thumbnailListItem {
   position: relative;
   display: inline-block;
   margin: 2px;
@@ -177,7 +169,7 @@
   cursor: pointer;
   border: 2px solid transparent;
 }
-.plasmaSlider__thumbnailListItem.active::before {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__thumbnailListItem.active::before {
   content: ' ';
   position: absolute;
   top: 0;
@@ -187,12 +179,12 @@
   z-index: 1;
   background-color: rgba(0,0,0, 0.6);
 }
-.plasmaSlider__thumbnailListItemImg {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__thumbnailListItemImg {
   width: auto;
   height: 100%;
 }
 
-.plasmaSliderTempImage {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderTempImage {
   padding-top: 52.25%;
   position: relative;
   top: 0;
@@ -205,34 +197,34 @@
   overflow: hidden;
 }
 
-.plasmaSliderTempImage .plasmaSliderTempImgBlur,
-.plasmaSliderTempImage .plasmaSliderTempImg {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderTempImage .plasmaSliderTempImgBlur,
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderTempImage .plasmaSliderTempImg {
   position: absolute;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
 }
-.plasmaSliderTempImage .plasmaSliderTempImgBlur {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderTempImage .plasmaSliderTempImgBlur {
   width: 100%;
   height: 100%;
   -webkit-filter: blur(10px);
           filter: blur(10px);
 }
 
-.plasmaSliderTempImage .plasmaSliderTempImg {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderTempImage .plasmaSliderTempImg {
   width: 100%;
   height: 100%;
   -o-object-fit: contain;
      object-fit: contain;
 }
 
-.plasmaSliderImages,
-.plasmaSliderImageItem {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderImages,
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderImageItem {
   display: none;
 }
 
-.plasmaSliderIcon {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon {
   display: inline-block;
   font-size: 1rem;
   background-repeat: no-repeat;
@@ -240,10 +232,10 @@
   background-position: center;
 }
 
-.plasmaSliderIcon.psi-angle-right {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-right {
   background-image: url("../images/angle-right-solid.svg");
 }
 
-.plasmaSliderIcon.psi-angle-left {
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon.psi-angle-left {
   background-image: url("../images/angle-left-solid.svg");
 }

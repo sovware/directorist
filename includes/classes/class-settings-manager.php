@@ -5558,8 +5558,8 @@ The Administrator of ==SITE_NAME==
                     ),
 
                     'default' => array(
-                        'value' => 'directorist_template',
-                        'label' => __('Directorist Custom Template', 'directorist'),
+                        'value' => 'current_theme_template',
+                        'label' => __('Current Theme Template (used for posts)', 'directorist'),
                     ),
                 ),
                 array(

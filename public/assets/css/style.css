@@ -173,7 +173,7 @@ input[type="checkbox"] {
  * */
 .plasmaSlider {
   position: relative;
-  background-color: #000;
+  background-color: gainsboro;
 }
 
 .plasmaSlider__body {
@@ -184,7 +184,7 @@ input[type="checkbox"] {
   right: 0;
   left: 0;
   z-index: 1;
-  background-color: #000;
+  background-color: gainsboro;
 }
 
 .plasmaSlider__controlRight,
@@ -421,7 +421,7 @@ input[type="checkbox"] {
 
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider {
   position: relative;
-  background-color: #000;
+  background-color: gainsboro;
 }
 
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__body {
@@ -432,7 +432,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__body {
   right: 0;
   left: 0;
   z-index: 1;
-  background-color: #000;
+  background-color: gainsboro;
 }
 
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__controlRight,

@@ -141,6 +141,8 @@ class ATBDP_User {
         if ( username_exists( $username ) )
             $reg_errors->add('user_name', __('Sorry, that username already exists!', 'directorist'));
 
+        if ( preg_match('/\s/',$username))
+            $reg_errors->add('space_in_username', __('Sorry, space is not allowed in username!', 'directorist'));
 
         if ( ! validate_username( $username ) ) {
             $reg_errors->add( 'username_invalid', __('Sorry, the username you entered is not valid', 'directorist') );

@@ -3065,8 +3065,8 @@ The Administrator of ==SITE_NAME==
                             ),
                         ),
                         'default' =>  array(
-                            'value' => 'contain',
-                            'label' => __('Fit', 'directorist'),
+                            'value' => 'cover',
+                            'label' => __('Fill', 'directorist'),
                         ),
                     ),
                     array(

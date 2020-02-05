@@ -213,9 +213,11 @@ if (!class_exists('ATBDP_Helper')) :
             $padding_top_value = (int) $ratio_height / (int) $ratio_width * 100;
             $padding_top_css = "padding-top: $padding_top_value%;";
             $style .= $padding_top_css;
-
-            $background_color_css = "background-color: $background_color";
-            $style .= $background_color_css;
+            
+            if ( $image_size !== 'full' && !$blur_background ) {
+                $background_color_css = "background-color: $background_color";
+                $style .= $background_color_css;
+            }
 
             // Card Front Wrap
             $card_front_wrap = "<div class='atbd-thumbnail-card-front-wrap'>";

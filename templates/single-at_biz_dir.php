@@ -172,6 +172,7 @@ $display_social_info_for = get_directorist_option('display_social_info_for', 'ad
 $display_map_field = get_directorist_option('display_map_field', 1);
 $display_map_field = apply_filters('atbdp_show_single_listing_map', $display_map_field);
 $display_video_for = get_directorist_option('display_video_for', 'admin_users');
+$preview_enable = get_directorist_option('preview_enable', 1);
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
@@ -195,7 +196,10 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
             }
             $html_edit_back .= '<div class="' . $class . '">';
             $html_edit_back .= atbdp_get_preview_button();
-            $html_edit_back .= '<a href="' . esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)) . '" class="btn btn-outline-light">
+            $payment = isset($_GET['payment']) ? $_GET['payment'] : '';
+            $url = isset($_GET['redirect']) ? $_GET['redirect'] : '';
+            $edit_link = !empty($payment)?add_query_arg('redirect', $url, ATBDP_Permalink::get_edit_listing_page_link($post->ID)):ATBDP_Permalink::get_edit_listing_page_link($post->ID);
+            $html_edit_back .= '<a href="' . esc_url($edit_link) . '" class="btn btn-outline-light">
                             <span class="' . atbdp_icon_type() . '-edit"></span>' . apply_filters('atbdp_listing_edit_btn_text', esc_html__(' Edit', 'directorist')) . '</a>';
 
             $html_edit_back .= '</div>';

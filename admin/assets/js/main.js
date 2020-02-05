@@ -648,6 +648,8 @@ jQuery(function ($) {
     //Preview image
     var fill = $("#crop_width,#crop_height");
     var backType = $("#prv_background_type");
+    var backgroundType = $("#prv_background_color");
+    backgroundType.hide();
     fill.hide();
     backType.hide();
     $('select[name="way_to_show_preview"]').on("change", function () {
@@ -655,13 +657,18 @@ jQuery(function ($) {
             if($(this).val() === "contain"){
                 fill.show();
                 backType.show();
+                if($('select[name="prv_background_type"]').val() === 'color'){
+                    backgroundType.show();
+                }
             }else {
                 fill.show();
                 backType.hide();
+                backgroundType.hide();
             }
         }else{
             fill.hide();
             backType.hide();
+            backgroundType.hide();
         }
     });
     if(($('select[name="way_to_show_preview"]').val() === "contain")){
@@ -672,18 +679,19 @@ jQuery(function ($) {
         fill.show();
     }
     // background type
-    var background__type = $("#prv_background_color");
-    background__type.hide();
     $('select[name="prv_background_type"]').on("change", function () {
         if($(this).val() === 'color'){
-            background__type.show();
+            backgroundType.show();
         }else{
-            background__type.hide();
+            backgroundType.hide();
         }
     });
-    if($('select[name="prv_background_type"]').val() === 'color'){
-        background__type.show();
+     if(($('select[name="way_to_show_preview"]').val() === "contain")){
+        if($('select[name="prv_background_type"]').val() === 'color'){
+            backgroundType.show();
+        }
     }
+
 
 
     //

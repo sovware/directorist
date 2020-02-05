@@ -173,9 +173,11 @@ if (!class_exists('ATBDP_Listing')):
                                         $html_edit_back .= '<a href="javascript:history.back()" class="atbd_go_back"><i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', 'directorist') . '</a> ';
                                     }
                                     $html_edit_back .= '<div class="' . $class . '">';
-
                                     $html_edit_back .= atbdp_get_preview_button();
-                                    $html_edit_back .= '<a href="' . esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)) . '" class="btn btn-outline-light">
+                                    $payment = isset($_GET['payment']) ? $_GET['payment'] : '';
+                                    $url = isset($_GET['redirect']) ? $_GET['redirect'] : '';
+                                    $edit_link = !empty($payment)?add_query_arg('redirect', $url, ATBDP_Permalink::get_edit_listing_page_link($post->ID)):ATBDP_Permalink::get_edit_listing_page_link($post->ID);
+                                    $html_edit_back .= '<a href="' . esc_url($edit_link) . '" class="btn btn-outline-light">
                             <span class="' . atbdp_icon_type() . '-edit"></span>' . apply_filters('atbdp_listing_edit_btn_text', esc_html__(' Edit', 'directorist')) . '</a>';
                                     $html_edit_back .= '</div>';
                                     $html_edit_back .= '</div>';

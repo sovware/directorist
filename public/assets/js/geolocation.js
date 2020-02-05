@@ -1,6 +1,7 @@
 
 (function ($) {
     // Price Range Slider
+    var adbdp_geolocation = '';
     var slider_range = $(".atbd_slider-range");
     var miles = atbdp_search_listing.i18n_text.Miles;
     var dvalue = $("#atbd_rs_value").val();

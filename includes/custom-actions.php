@@ -179,6 +179,8 @@ function atbdp_get_preview_button()
         $preview_enable = get_directorist_option('preview_enable', 1);
         $payment = isset($_GET['payment']) ? $_GET['payment'] : '';
         $id = isset($_GET['p']) ? $_GET['p'] : '';
+        $post_id = isset($_GET['post_id']) ? $_GET['post_id'] : '';
+        $id = empty($id) ? $post_id : $id;
         $url = $preview_enable ? add_query_arg(array(!empty($payment) ? 'atbdp_listing_id' : 'p' => $id, 'reviewed' => 'yes'), $_GET['redirect']) : $_GET['redirect'];
         return '<a href="' . esc_url($url) . '" class="btn btn-success">' . apply_filters('atbdp_listing_preview_btn_text', !empty($payment) ? esc_html__(' Pay & Submit', 'directorist') : esc_html__(' Submit', 'directorist')) . '</a>';
     }
@@ -218,15 +220,16 @@ function atbdp_status_after_previewed_listing($listing_id)
 }
 
 /**
- * @since 6.2.3
  * @param string $plugin
  * @return array plugin data
+ * @since 6.2.3
  */
 
-function atbdp_get_plugin_data($plugin){
+function atbdp_get_plugin_data($plugin)
+{
     $plugins = get_plugins();
-    foreach ($plugins as $key => $data){
-        if ($plugin === $key){
+    foreach ($plugins as $key => $data) {
+        if ($plugin === $key) {
             return $data;
         }
     }

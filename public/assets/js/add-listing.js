@@ -515,7 +515,11 @@ jQuery(function ($) {
                             window.location.href = response.preview_url + '?preview=1&redirect=' + response.redirect_url;
                         }else {
                             $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
-                            window.location.href = response.preview_url + '?preview=1&redirect=' + response.redirect_url;
+                            if(qs['redirect']){
+                                window.location.href = response.preview_url + '?post_id='+response.id+'&preview=1&payment=1&redirect=' + qs['redirect'];
+                            }else{
+                                window.location.href = response.preview_url + '?preview=1&redirect=' + response.redirect_url;
+                            }
                         }
                         // preview mode active and need payment
                     }else if((response.preview_mode === true) && (response.need_payment === true)){

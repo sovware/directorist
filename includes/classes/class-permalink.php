@@ -146,12 +146,12 @@ class ATBDP_Permalink{
     public static function get_login_page_url($query_vars=array())
     {
         $link = home_url().'/login';
-        /*$id = get_directorist_option('user_login'); // get the page id of the custom registration page.
+        $id = get_directorist_option('user_login'); // get the page id of the custom registration page.
         if( $id ) $link = get_permalink( $id );
 
         if (!empty($query_vars) && is_array($query_vars)){
             $link = add_query_arg( $query_vars, $link );
-        }*/
+        }
 
         return apply_filters('atbdp_user_login_page_url', $link);
     }

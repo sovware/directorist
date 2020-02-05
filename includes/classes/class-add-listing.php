@@ -704,7 +704,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                         global $woocommerce;
                                         $woocommerce->cart->empty_cart();
                                         $woocommerce->cart->add_to_cart( $subscribed_package_id );
-                                        $data['redirect_url'] =  add_query_arg( 'atbdp_listing', $post_id,  wc_get_checkout_url() ) ;
+                                        $data['redirect_url'] =  add_query_arg( 'atbdp_listing_id', $post_id,  wc_get_checkout_url() ) ;
                                         $data['need_payment'] = true;
                                     }else{
                                         update_user_meta(get_current_user_id(), '_used_free_plan', array($subscribed_package_id,$post_id));
@@ -723,7 +723,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                         global $woocommerce;
                                         $woocommerce->cart->empty_cart();
                                         $woocommerce->cart->add_to_cart( $subscribed_package_id );
-                                        $data['redirect_url'] = add_query_arg( 'atbdp_listing', $post_id,  wc_get_checkout_url() ) ;
+                                        $data['redirect_url'] = add_query_arg( 'atbdp_listing_id', $post_id,  wc_get_checkout_url() ) ;
                                         $data['need_payment'] = true;
                                     }else{
                                         update_user_meta(get_current_user_id(), '_used_free_plan', array($subscribed_package_id,$post_id));
@@ -801,12 +801,13 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if ($preview_enable){
                         $data['preview_mode'] = true;
                     }
+                    $data['preview_url'] = get_permalink($post_id);
                     if ($p['listing_id']){
+                        $data['id'] = $post_id;
                         $data['edited_listing'] = true;
                     }
-                    $data['preview_url'] = get_permalink($post_id);
                     wp_send_json($data);
-                    die();
+                        die();
             }
         }
 

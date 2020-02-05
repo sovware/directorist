@@ -5970,7 +5970,6 @@ span.atbd_get_loc_wid {
 }
 
 /* =========================[ Thumbnail Card ]========================= */
-// Thumbnail Card
 #directorist .atbd-thumbnail-card {
   position: relative;
   width: 100%;
@@ -6028,6 +6027,10 @@ span.atbd_get_loc_wid {
 
 #directorist .atbd-thumbnail-card.card-cover .atbd-thumbnail-card-front-img {
   object-fit: cover;
+}
+
+#directorist .atbd-thumbnail-card.card-full .atbd-thumbnail-card-front-wrap {
+  position: relative;
 }
 
 #directorist .atbd-thumbnail-card.card-full .atbd-thumbnail-card-front-img {

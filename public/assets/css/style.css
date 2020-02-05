@@ -1932,6 +1932,10 @@ div#listing_notifier span {
   object-fit: cover;
 }
 
+#directorist .atbd-thumbnail-card.card-full .atbd-thumbnail-card-front-wrap {
+  position: relative;
+}
+
 #directorist .atbd-thumbnail-card.card-full .atbd-thumbnail-card-front-img {
   height: auto;
 }

@@ -1114,6 +1114,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   box-shadow: none;
   background: $primary;
   color: #fff;
+  padding: 8px 15px;
   transition: 0.3s ease;
 
   &:hover {
@@ -1133,7 +1134,7 @@ div#listing_notifier span {
   bottom: 120px;
   z-index: 99999;
   background: #444752;
-  padding: 20px;
+  padding: 20px !important;
   border-radius: 4px;
 
   .btn {
@@ -1353,3 +1354,4 @@ div#listing_notifier span {
       display: none !important;
   }
 }
+

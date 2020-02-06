@@ -69,6 +69,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    >h1{
+      flex: 1;
+    }
+    .atbd_author_filter_area{
+      width: auto;
+    }
   }
   .atbd_authors_listing{
     margin-top: 30px;

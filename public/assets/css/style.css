@@ -1707,6 +1707,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   box-shadow: none;
   background: #444752;
   color: #fff;
+  padding: 8px 15px;
   transition: 0.3s ease;
 }
 
@@ -1726,7 +1727,7 @@ div#listing_notifier span {
   bottom: 120px;
   z-index: 99999;
   background: #444752;
-  padding: 20px;
+  padding: 20px !important;
   border-radius: 4px;
 }
 
@@ -5035,6 +5036,7 @@ span.atbd_get_loc_wid {
   display: flex;
   align-items: center;
   justify-content: center;
+  line-height: 1;
 }
 
 #directorist.atbd_wrapper .wp-picker-container .wp-picker-input-wrap label {
@@ -5999,6 +6001,14 @@ span.atbd_get_loc_wid {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_author_listings_area > h1 {
+  flex: 1;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_author_listings_area .atbd_author_filter_area {
+  width: auto;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_authors_listing {

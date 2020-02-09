@@ -84,7 +84,6 @@ $privacy_label_link          = get_directorist_option('registration_privacy_labe
                         case '7':
                             ?> <p style="padding: 20px" class="alert-danger"> <span class="fa fa-exclamation-triangle"></span> <?php _e('Space is not allowed in username', 'directorist'); ?></p><?php
                             break;
-
                     }
                   ?>
                 </div>

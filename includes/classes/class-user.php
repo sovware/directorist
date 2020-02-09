@@ -97,7 +97,7 @@ class ATBDP_User {
         return false;
     }
 
-    public function registration_validation( $username, $password, $email, $website, $first_name, $last_name, $bio )  {
+    public function registration_validation( $username, $password, $email, $website, $first_name, $last_name, $bio, $privacy_policy, $t_c_check )  {
         global $reg_errors;
         $require_website             = get_directorist_option('require_website_reg',0);
         $display_website             = get_directorist_option('display_website_reg',1);
@@ -109,6 +109,10 @@ class ATBDP_User {
         $require_bio                 = get_directorist_option('require_bio_reg',0);
         $display_password            = get_directorist_option('display_password_reg',1);
         $require_password            = get_directorist_option('require_password_reg',0);
+        $registration_privacy        = get_directorist_option('registration_privacy',1);
+        $require_privacy             = get_directorist_option('require_registration_privacy',0);
+        $terms_condition             = get_directorist_option('regi_terms_condition',1);
+        $require_terms_condition     = get_directorist_option('require_regi_terms_conditions',0);
         //password validation
         if(!empty($require_password) && !empty($display_password) && empty($password)){
             $password_validation = 'yes';
@@ -129,8 +133,16 @@ class ATBDP_User {
         if(!empty($require_bio) && !empty($display_bio) && empty($bio)){
             $bio_validation = 'yes';
         }
+        //privacy validation
+        if(!empty($registration_privacy) && !empty($require_privacy) && empty($privacy_policy)){
+            $privacy_validation = 'yes';
+        }
+        //terms & conditions validation
+        if(!empty($terms_condition) && !empty($require_terms_condition) && empty($t_c_check)){
+            $t_c_validation = 'yes';
+        }
         $reg_errors = new WP_Error;
-        if ( empty( $username ) || !empty( $password_validation ) || empty( $email ) || !empty($website_validation) || !empty($fname_validation) || !empty($lname_validation) || !empty($bio_validation)) {
+        if ( empty( $username ) || !empty( $password_validation ) || empty( $email ) || !empty($website_validation) || !empty($fname_validation) || !empty($lname_validation) || !empty($bio_validation) || !empty($privacy_validation) || !empty($t_c_validation)) {
             $reg_errors->add('field', __('Required form field is missing. Please fill all required fields.', 'directorist'));
         }
 
@@ -150,6 +162,13 @@ class ATBDP_User {
 
         if ( ! empty( $password ) && 5 > strlen( $password ) ) {
             $reg_errors->add( 'password', __('Password length must be greater than 5', 'directorist') );
+        }
+
+        if ( empty( $privacy_policy ) ) {
+            $reg_errors->add( 'empty_privacy', __('Privacy field is required', 'directorist') );
+        }
+        if ( empty( $t_c_check ) ) {
+            $reg_errors->add( 'empty_terms', __('Terms and Condition field is required', 'directorist') );
         }
 
         if ( !is_email( $email ) ) {
@@ -249,16 +268,16 @@ class ATBDP_User {
             }
             //privacy validation
             if(!empty($registration_privacy) && !empty($require_privacy) && empty($privacy_policy)){
-                $bio_validation = 'yes';
+                $privacy_validation = 'yes';
             }
             //terms & conditions validation
             if(!empty($terms_condition) && !empty($require_terms_condition) && empty($t_c_check)){
-                $bio_validation = 'yes';
+                $t_c_validation = 'yes';
             }
             // validate all the inputs
-            $validation = $this->registration_validation( $username, $password, $email, $website, $first_name, $last_name, $bio );
+            $validation = $this->registration_validation( $username, $password, $email, $website, $first_name, $last_name, $bio, $privacy_policy, $t_c_check );
             if ('passed' !== $validation){
-                if (empty( $username ) || !empty( $password_validation ) || empty( $email ) || !empty($website_validation) || !empty($fname_validation) || !empty($lname_validation) || !empty($bio_validation)){
+                if (empty( $username ) || !empty( $password_validation ) || empty( $email ) || !empty($website_validation) || !empty($fname_validation) || !empty($lname_validation) || !empty($bio_validation)|| !empty($privacy_validation)|| !empty($t_c_validation)){
                     wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('errors' => 1)));
                     exit();
                 }elseif(email_exists($email)){

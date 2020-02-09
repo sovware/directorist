@@ -164,7 +164,7 @@ $container_fluid = 'container-fluid';
                                     ?>
                                     <li>
                                         <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
-                                        <span class="atbd_info"><?php echo !empty($website) ? esc_html($website) : ''; ?></span>
+                                        <span class="atbd_info"><a target="_blank" href="<?php echo !empty($website) ? esc_html($website) : ''; ?>"><?php echo !empty($website) ? esc_html($website) : ''; ?></a></span>
                                     </li>
                                     <?php
                                 }

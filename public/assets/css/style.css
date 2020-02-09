@@ -6049,6 +6049,10 @@ span.atbd_get_loc_wid {
   flex: 1;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_author_listings_area > h1 + .atbd_author_filter_area {
+  width: auto;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_author_listings_area .atbd_author_filter_area {
   width: 100%;
 }

@@ -71,6 +71,9 @@
     align-items: center;
     >h1{
       flex: 1;
+      & + .atbd_author_filter_area{
+        width: auto;
+      }
     }
     .atbd_author_filter_area{
       width: 100%;

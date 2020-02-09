@@ -1953,6 +1953,22 @@ div#listing_notifier span {
   }
 }
 
+#atbdp_custom_field_area select {
+  background: none;
+}
+
+.removeSocialField {
+  color: #fff;
+  height: 44px;
+  background: #e23636;
+  border-radius: 3px;
+  padding: 0 20px 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;
@@ -6008,7 +6024,11 @@ span.atbd_get_loc_wid {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_author_listings_area .atbd_author_filter_area {
-  width: auto;
+  width: 100%;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_author_listings_area .atbd_author_filter_area:before, .atbd_content_active #directorist.atbd_wrapper .atbd_author_listings_area .atbd_author_filter_area:after {
+  content: none;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_authors_listing {
@@ -6061,6 +6081,7 @@ span.atbd_get_loc_wid {
   background: rgba(0, 0, 0, 0.5);
   padding: 15px;
   flex-wrap: wrap;
+  margin: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure figcaption h3, .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure figcaption p {
@@ -6335,6 +6356,7 @@ span.atbd_get_loc_wid {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_category_single figure .icon {
@@ -6616,6 +6638,14 @@ span.atbd_get_loc_wid {
   .ads-advanced .bdas-filter-actions {
     flex-wrap: wrap;
   }
+  .edit_btn_wrap .atbdp_float_active {
+    bottom: 80px;
+  }
+  .edit_btn_wrap .atbdp_float_active .btn {
+    font-size: 15px !important;
+    padding: 13px 30px !important;
+    line-height: 20px !important;
+  }
 }
 
 @media (max-width: 650px) {
@@ -6773,6 +6803,15 @@ span.atbd_get_loc_wid {
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbd_single_listing_wrapper .atbd_listing_thumbnail_area img {
     border-radius: 3px 3px 0 0;
+  }
+  .edit_btn_wrap .atbdp_float_active {
+    right: 15px;
+    bottom: 0;
+  }
+  .edit_btn_wrap .atbdp_float_active .btn {
+    font-size: 15px !important;
+    padding: 10px 20px !important;
+    line-height: 18px !important;
   }
 }
 

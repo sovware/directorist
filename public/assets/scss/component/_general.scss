@@ -1355,3 +1355,18 @@ div#listing_notifier span {
   }
 }
 
+#atbdp_custom_field_area select{
+  background: none;
+}
+
+.removeSocialField{
+  color: #fff;
+  height: 44px;
+  background: $danger;
+  border-radius: 3px;
+  padding: 0 20px 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}

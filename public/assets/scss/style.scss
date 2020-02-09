@@ -135,6 +135,14 @@
   .ads-advanced .bdas-filter-actions{
     flex-wrap: wrap;
   }
+  .edit_btn_wrap .atbdp_float_active{
+    bottom: 80px;
+    .btn{
+      font-size: 15px !important;
+      padding: 13px 30px !important;
+      line-height: 20px !important;
+    }
+  }
 }
 
 @media (max-width: 650px) {
@@ -300,6 +308,15 @@
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbd_single_listing_wrapper .atbd_listing_thumbnail_area img{
     border-radius: 3px 3px 0 0;
+  }
+  .edit_btn_wrap .atbdp_float_active{
+    right: 15px;
+    bottom: 0;
+    .btn{
+      font-size: 15px !important;
+      padding: 10px 20px !important;
+      line-height: 18px !important;
+    }
   }
 }
 

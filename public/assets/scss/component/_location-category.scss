@@ -41,6 +41,7 @@
           background: rgba(#000, 0.5);
           padding: 15px;
           flex-wrap: wrap;
+          margin: 0;
           h3, p{
             color: #fff !important;
             margin: 0 2px;
@@ -292,6 +293,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      margin:0;
     }
     .icon{
       padding-bottom: 15px;

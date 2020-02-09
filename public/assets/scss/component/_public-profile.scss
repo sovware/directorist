@@ -73,7 +73,11 @@
       flex: 1;
     }
     .atbd_author_filter_area{
-      width: auto;
+      width: 100%;
+      &:before,
+      &:after{
+        content: none;
+      }
     }
   }
   .atbd_authors_listing{

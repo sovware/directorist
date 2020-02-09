@@ -311,11 +311,11 @@ class ATBDP_User {
             }else{
                 $password   =   sanitize_text_field( $_POST['password'] );
             }
-            $email      =   sanitize_email( $_POST['email'] );
-            $website    =   esc_url_raw( $_POST['website'] );
-            $first_name =   sanitize_text_field( $_POST['fname'] );
-            $last_name  =   sanitize_text_field( $_POST['lname'] );
-            $bio        =   sanitize_textarea_field( $_POST['bio'] );
+            $email      =   !empty($_POST['email']) ? sanitize_email( $_POST['email'] ) : '';
+            $website    =   !empty($_POST['website']) ? esc_url_raw( $_POST['website'] ) : '';
+            $first_name =   !empty($_POST['fname']) ? sanitize_text_field( $_POST['fname'] ) : '';
+            $last_name  =   !empty($_POST['lname']) ? sanitize_text_field( $_POST['lname'] ) : '';
+            $bio        =   !empty($_POST['bio']) ? sanitize_textarea_field( $_POST['bio'] ) : '';
 
             // call @function complete_registration to create the user
             // only when no WP_error is found

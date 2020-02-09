@@ -1369,4 +1369,18 @@ div#listing_notifier span {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  float: left;
+  margin-right: 10px;
+}
+
+.adl-move-icon{
+  color: #fff;
+  height: 44px;
+  background: $primary;
+  border-radius: 3px;
+  padding: 0 20px 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }

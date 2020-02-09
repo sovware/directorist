@@ -1983,6 +1983,18 @@ div#listing_notifier span {
   cursor: pointer;
 }
 
+#directorist.atbd_wrapper .atbd_directory_open_hours ul li:first-child {
+  padding-top: 0;
+}
+
+#directorist.atbd_wrapper .atbd_directory_open_hours .atbd_closed {
+  color: #e23636;
+}
+
+#directorist.atbd_wrapper .atbd_directory_open_hours .atbd_today {
+  color: #32cc6f;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

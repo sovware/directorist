@@ -1384,3 +1384,17 @@ div#listing_notifier span {
   justify-content: center;
   cursor: pointer;
 }
+
+#directorist.atbd_wrapper .atbd_directory_open_hours{
+  ul li{
+    &:first-child{
+      padding-top: 0;
+    }
+  }
+  .atbd_closed{
+    color: $danger;
+  }
+  .atbd_today{
+    color: $success;
+  }
+}

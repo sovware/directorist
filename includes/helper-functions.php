@@ -4383,8 +4383,11 @@ function atbdp_guest_submission($guest_email)
     }
     // Check if user exist by email
     if (email_exists($guest_email)) {
-        $msg = '<div class="alert alert-danger"><strong>' . __('Email already exists!', 'directorist') . '</strong></div>';
-        return $msg;
+        wp_send_json(array(
+                'error' => true,
+                'error_msg' => __('Email already registered. Please login first', 'directorist'),
+        ));
+        die();
     } else {
         // lets register the user
         $reg_errors = new WP_Error;

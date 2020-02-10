@@ -439,12 +439,24 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
         public function category_rows($empty_string, $column_name, $term_id)
         {
             $icon = get_term_meta($term_id, 'category_icon', true);
+            $icon_type = array();
+            if (!empty($icon)){
+                $icon_type = explode('-', $icon);
+            }
+            if ($icon_type[0] === 'fa'){
+                $class = 'fa '.$icon;
+            }elseif ($icon_type[0] === 'la'){
+                $class = 'la '.$icon;
+            }else{
+                $class = 'none';
+            }
+
             if ($column_name == 'ID') {
                 return $term_id;
             }
             if ($column_name == 'atbdp_category_icon') {
 
-                return !empty($icon) ? "<i class='fa {$icon}'></i>" : ' ';
+                return !empty($icon) ? "<i class='{$class}'></i>" : ' ';
             }
 
             if ($column_name == 'atbdp_category_icon_name') {

@@ -1110,10 +1110,12 @@ $query_args = array(
                                                 <div class="atbd_area_title">
                                                     <h4>
                                                         <?php
-                                                        if ($plan_video) {
+                                                        if ($plan_video && $display_gellery_field) {
                                                             _e("Images & Video", 'directorist');
-                                                        } else {
+                                                        } elseif(!$plan_video) {
                                                             _e("Images", 'directorist');
+                                                        }elseif (!$display_gellery_field){
+                                                            _e("Video", 'directorist');
                                                         }
                                                         ?></h4>
                                                 </div>
@@ -1138,7 +1140,7 @@ $query_args = array(
                                                     $req_gallery_image = get_directorist_option('require_gallery_img');
                                                     ?>
                                                     <div id="_listing_gallery" class="ez-media-uploader"
-                                                         data-max-file-items="<?php echo !empty($allow_slider)?'999':$plan_image; ?>"
+                                                         data-max-file-items="<?php echo !empty($slider_unl) ? '999' : $plan_image; ?>"
                                                          data-min-file-items="<?php echo !empty($req_gallery_image) ? '1' : ''; ?>"
                                                          data-max-total-file-size="<?php echo $max_size_kb; ?>"
                                                          data-show-alerts="0">
@@ -1189,7 +1191,8 @@ $query_args = array(
                                                             <!-- Info Text -->
                                                             <span class="ezmu-dictionary-info-max-total-file-size"><?php echo __('Maximum allowed file size is __DT__', 'directorist') ?></span>
 
-                                                            <span class="ezmu-dictionary-info-type" data-show='0'></span>
+                                                            <span class="ezmu-dictionary-info-type"
+                                                                  data-show='0'></span>
 
                                                             <span class="ezmu-dictionary-info-min-file-items">
                   <?php echo __('Minimum __DT__ file is required', 'directorist') ?></span>

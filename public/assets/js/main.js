@@ -741,9 +741,9 @@ jQuery(function ($) {
     /* atbd tooltip */
     var atbd_tooltip = $('.atbd_tooltip');
     if (atbd_tooltip.attr('aria-label') !== " ") {
-        atbd_tooltip.on('hover', function () {
-            $(this).toggleClass('atbd_tooltip_active');
-        });
+        $('body').on("hover", ".atbd_tooltip", function () {
+            $(".atbd_tooltip").toggleClass('atbd_tooltip_active');
+        })
     }
 
     /* User Dashboard tab */

@@ -80,7 +80,7 @@ class ATBDP_Upgrade
             $link = '<a class="atbdp-update-extension" data-update-info="' . $response . '" href="#">' . __('Update Now', 'directorist') . '</a>';
             if (($theme === $current_theme) && ($version <= $data['version'])) {
                 echo '<div id="message" class="notice notice-info" style="display: flex; background: #f7bdc7;  justify-content: space-between;"><p>';
-                printf(__('There is a new version of <b>%s</b> available. Please %s', 'directorist'), $theme, ($theme === 'direo') ? 'Update Now' : $link);
+                printf(__('There is a new version of <b>%s</b> available. Please %s.', 'directorist'), $theme, ($theme === 'direo') ? 'Update Now' : $link);
                 echo '</p><p><a href="#"></a></p></div>';
             }
         }

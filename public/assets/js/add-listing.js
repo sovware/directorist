@@ -516,7 +516,8 @@ jQuery(function ($) {
                         }else {
                             $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
                             if(qs['redirect']){
-                                window.location.href = response.preview_url + '?post_id='+response.id+'&preview=1&payment=1&redirect=' + qs['redirect'];
+                                var is_pending = response.pending?'&':'?';
+                                window.location.href = response.preview_url+is_pending + 'post_id='+response.id+'&preview=1&payment=1&redirect=' + qs['redirect'];
                             }else{
                                 window.location.href = response.preview_url + '?preview=1&redirect=' + response.redirect_url;
                             }

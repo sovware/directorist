@@ -192,7 +192,9 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
             $html_edit_back .= '<div class="edit_btn_wrap">';
             $display_back_link = get_directorist_option('display_back_link', 1);
             if (!empty($display_back_link)) {
-                $html_edit_back .= '<a href="javascript:history.back()" class="atbd_go_back"><i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', 'directorist') . '</a> ';
+                if (!isset($_GET['redirect'])){
+                    $html_edit_back .= '<a href="javascript:history.back()" class="atbd_go_back"><i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', 'directorist') . '</a> ';
+                }
             }
             $html_edit_back .= '<div class="' . $class . '">';
             $html_edit_back .= atbdp_get_preview_button();

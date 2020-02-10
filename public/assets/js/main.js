@@ -826,6 +826,11 @@ jQuery(function ($) {
         containerID: "single-listing-slider",
     });
     single_listing_slider.init();
+
+    //adding temporary css class to post draft page
+    if($(".edit_btn_wrap .atbdp_float_active").length){
+        $("body").addClass("atbd_post_draft");
+    }
 })(jQuery);
 
 // on load of the page: switch to the currently selected tab

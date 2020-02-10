@@ -137,7 +137,42 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 6.2.2 - Des 17, 2019 =
+= 6.3.0 - Feb 10, 2020 =
+* Add - Guest Listing Submission
+* Add - Option to use Custom Template in single Listing
+* Add - Two new pages (Terms & Conditions, Privacy Policy)
+* Tweak - Ajaxify Add Listing form
+* Add - Custom Media uploader in Add Listing form
+* Add - Ajax pagination in listing reviews
+* Improve - privacy in user registration process
+* Improve - Listing slider
+* Improve - preview image cropping
+* Improve - Formatted custom field and submit review date according to site default's
+* Improve - Firefox browser compatibility
+* Add - New hooks
+* Fix - Typos
+* Add - New option to customize terms & conditions label
+* Fix - Style issues
+* Add - Option to add Privacy Policy in add listing and registration form
+* Add - Option to set Max Image Upload Limit and Size
+* Fix - Prevent expired listing in related listing slider
+* Fix - Author name toll tip issue in listing pages
+* Add - Support Customer and Shop Maneger to submit listing
+* Tweak - Wrap listing phone with link
+* Improve - Login and registration pages
+* Tweak - custom rewrite for listing slug
+* Fix - user capability check issue while editing adding a listing from wp admin
+* Fix - Rating issue of author profile page
+* Fix - undefined function error
+* Teak - Validate username with space in registration form
+* Fix - Translation issue
+* Fix - Featured image issue in header
+* Add- Author listing's filter customization option
+* Fix- Zoom issue of OpenStreetMap map
+* Fix - Location ordering issue in widget
+* Fix - Website linking in author profile page
+
+= 6.2.2 - Dec 17, 2019 =
 
 * Add - Option to remove directorist's data on uninstall
 * Add - Using description of category and location as Meta Description

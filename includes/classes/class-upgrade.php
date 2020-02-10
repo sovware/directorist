@@ -35,7 +35,7 @@ class ATBDP_Upgrade{
                 'base' => 'directorist-gallery/bd-directorist-gallery.php',
             ),
           'Post_Your_Need' => array(
-              'version' => '1.0.1',
+              'version' => '1.0.2',
               'name' => 'need',
               'base' => 'directorist-post-your-need/directorist-post-your-need.php',
           ),

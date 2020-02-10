@@ -502,7 +502,6 @@ jQuery(function ($) {
             url: ajaxurl,
             data: form_data,
             success: function (response) {
-
                 // show the error notice
                 if (response.error === true) {
                     $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);

@@ -632,17 +632,19 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $listing_images = atbdp_get_listing_attachment_ids($post_id);
                     $files = !empty($_FILES["listing_img"]) ? $_FILES["listing_img"] : array();
                     $files_meta = !empty($_POST['files_meta']) ? $_POST['files_meta'] : array();
-                    foreach ($listing_images as $__old_id) {
-                        $match_found = false;
-                        foreach ($files_meta as $__new_id) {
-                            $new_id = (int)$__new_id['attachmentID'];
-                            if ($new_id === (int)$__old_id) {
-                                $match_found = true;
-                                break;
+                    if (!empty($listing_images)){
+                        foreach ($listing_images as $__old_id) {
+                            $match_found = false;
+                            foreach ($files_meta as $__new_id) {
+                                $new_id = (int)$__new_id['attachmentID'];
+                                if ($new_id === (int)$__old_id) {
+                                    $match_found = true;
+                                    break;
+                                }
                             }
-                        }
-                        if (!$match_found) {
-                            wp_delete_attachment((int)$__old_id, true);
+                            if (!$match_found) {
+                                wp_delete_attachment((int)$__old_id, true);
+                            }
                         }
                     }
                     $attach_data = array();

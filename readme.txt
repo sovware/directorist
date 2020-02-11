@@ -4,7 +4,7 @@ Donate link: https://directorist.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.3
-Stable tag: 6.2.2
+Stable tag: 6.3.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -58,11 +58,6 @@ Directorist is developed using Object Oriented PHP and following WordPress Best 
 = COMPATIBLE WITH ANY THEMES =
 You may know it is very difficult to make a plugin's design compatible with all themes because of the different layouts and markups different themes use. However, it is not a problem with Directorist. We have invested a lot of time on this plugin to make compatible with almost any WordPress themes.
 
-= DEDICATED PREMIUM THEME FOR FREE FOR THE PLUGIN! =
-Maybe your theme is not 100% compatible with our plugin. However, you want to get beyond that and want 100% compatibility. No problem. We have crafted a premium theme for this plugin and we are giving it for free to our valuable users of this plugin. Now making a modern and professional directory website is just a matter of some clicks.
-
-You can build an amazing directory site like this plugin demo site. Download it from here: [https://directorist.com/product/directoria](https://directorist.com/product/directoria)
-
 = EXTENDABLE & DEVELOPER-FRIENDLY =
 You can extend the functionality of this plugin using free & premium extensions. It is also developer-friendly. Any developer can extend this plugin using different actions and filters provided by this plugin.
 
@@ -70,12 +65,17 @@ You can extend the functionality of this plugin using free & premium extensions.
 Directorist is not developed by a single person. A team of dedicated developers and designers spent countless hours to make this plugin and they are working on it constantly to improve it and to add new features. Therefore, you get the most professional directory plugin from us. As it is backed by a company, you will get premium support now and upcoming years without any worries.
 
 = OTHER FEATURES =
+* Listing and Review submission without login (Guest Submission)
+* Private Directory
+* GDPR ready
 * List and grid view for categories, locations and listings pages
 * Front-end listing submission
 * Back-end listing submission
 * Front-end user dashboard
 * Related, Popular, Featured listings display
-* Google Map
+* Google Map & OpenStreetMap
+* Custom user Registration and Login
+* Ajax powered listing and review submission
 * Listing Ratings
 * Listing Reviews
 * Author public profile
@@ -90,6 +90,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Author info, category, location, map, add new listing, login, search listing, tags etc widgets
 * Custom sidebar
 * Listing filter
+* Translation ready
 * Create Unlimited listing based on location and category
 * Extendable settings (A developer can add his own settings to the settings page of Directorist using custom hooks provided by this plugins)
 * Extendable with extensions
@@ -138,39 +139,40 @@ Directorist is not developed by a single person. A team of dedicated developers 
 == Changelog ==
 
 = 6.3.0 - Feb 10, 2020 =
-* Add - Guest Listing Submission
-* Add - Option to use Custom Template in single Listing
-* Add - Two new pages (Terms & Conditions, Privacy Policy)
-* Tweak - Ajaxify Add Listing form
-* Add - Custom Media uploader in Add Listing form
+
+* Add - Guest Listing Submission (listing submission without login)
+* Add - Option to use custom template for single listing
+* Add - Custom Media uploader on Add Listing form
 * Add - Ajax pagination in listing reviews
-* Improve - privacy in user registration process
+* Add - A few new hooks
+* Add - Option to change terms & conditions label
+* Add - Option to add Privacy Policy on add listing and registration form
+* Add - Option to set maximum image upload limit and size
+* Add - Author listing's filter customization option
+* Add - Space validation of username in registration form
+* Add - Supports for user roles of WooCommerce plugin's "Customer" & "Shop Manager"
+* Improve - Author's website address linking
+* Improve - Listing submission without reloading page
+* Improve - Listing phone number 2 clickable
+* Improve - Login and Registration pages
+* Improve - User registration process
 * Improve - Listing slider
-* Improve - preview image cropping
-* Improve - Formatted custom field and submit review date according to site default's
+* Improve - Listings preview image cropping
+* Improve - Follow website's default date format for custom field and review
 * Improve - Firefox browser compatibility
-* Add - New hooks
-* Fix - Typos
-* Add - New option to customize terms & conditions label
-* Fix - Style issues
-* Add - Option to add Privacy Policy in add listing and registration form
-* Add - Option to set Max Image Upload Limit and Size
-* Fix - Prevent expired listing in related listing slider
-* Fix - Author name toll tip issue in listing pages
-* Add - Support Customer and Shop Maneger to submit listing
-* Tweak - Wrap listing phone with link
-* Improve - Login and registration pages
-* Tweak - custom rewrite for listing slug
-* Fix - user capability check issue while editing adding a listing from wp admin
+* Fix - Prevent displaying expired listings in related listing slider/carousel
+* Fix - Author name tooltip issue in listings pages
+* Fix - Custom rewrite for listing slug
+* Fix - Capability issue of listing submission from admin dashboard
 * Fix - Rating issue of author profile page
-* Fix - undefined function error
-* Teak - Validate username with space in registration form
-* Fix - Translation issue
-* Fix - Featured image issue in header
-* Add- Author listing's filter customization option
-* Fix- Zoom issue of OpenStreetMap map
-* Fix - Location ordering issue in widget
-* Fix - Website linking in author profile page
+* Fix - Undefined function error
+* Fix - Translation issues
+* Fix - Zoom issue of OpenStreetMap map
+* Fix - Ordering issue of Location widget
+* Fix - Style issues
+* Fix - Typos
+
+
 
 = 6.2.2 - Dec 17, 2019 =
 

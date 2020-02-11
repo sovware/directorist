@@ -18,22 +18,22 @@ class ATBDP_Upgrade
          */
         $extensions = array(
             'ATBDP_Pricing_Plans' => array(
-                'version' => '1.5.3',
+                'version' => '1.5.2',
                 'name' => 'atpp',
                 'base' => 'directorist-pricing-plans/directorist-pricing-plans.php',
             ),
             'DWPP_Pricing_Plans' => array(
-                'version' => '1.2.4',
+                'version' => '1.2.3',
                 'name' => 'dwpp',
                 'base' => 'directorist-woocommerce-pricing-plans/directorist-woocommerce-pricing-plans.php',
             ),
             'BD_Google_Recaptcha' => array(
-                'version' => '1.1.4',
+                'version' => '1.1.3',
                 'name' => 'recaptcha',
                 'base' => 'directorist-google-recaptcha/directorist-google-recaptcha.php',
             ),
             'BD_Gallery' => array(
-                'version' => '1.1.6',
+                'version' => '1.1.5',
                 'name' => 'gallery',
                 'base' => 'directorist-gallery/bd-directorist-gallery.php',
             ),
@@ -43,9 +43,14 @@ class ATBDP_Upgrade
                 'base' => 'directorist-post-your-need/directorist-post-your-need.php',
             ),
             'BD_Business_Hour' => array(
-                'version' => '2.3.2',
+                'version' => '2.3.1',
                 'name' => 'hours',
                 'base' => 'directorist-business-hours/bd-business-hour.php',
+            ),
+            'Listings_fAQs' => array(
+                'version' => '1.1.4',
+                'name' => 'faqs',
+                'base' => 'directorist-faqs/directorist-faqs.php',
             ),
         );
         if ((!function_exists('direo_setup') && !function_exists('dlist_setup') && !function_exists('dservice_setup') && !function_exists('drestaurant_setup') && !function_exists('findbiz_setup'))) {

@@ -3,6 +3,7 @@
     $('.atbdp_child_category').hide();
     $('.atbd_category_wrapper > .expander').on('click', function () {
         $(this).siblings('.atbdp_child_category').slideToggle();
+        $(this).toggleClass("e_collapsed");
     });
 
     $('.atbdp_child_category li .expander').on('click', function () {

@@ -86,7 +86,7 @@
     });
     $(".atbdpr_amount").text(slider_range.slider("value") + miles);
     $("#atbd_rs_value").val(slider_range.slider("value"));
-    $('.address_result').hide();
+    $('.address_result, #address_result').hide();
     if (atbdp_search_listing.i18n_text.select_listing_map === 'google') {
         function initialize() {
             var input = document.getElementById('address');
@@ -103,9 +103,9 @@
         $('#address, #q_addressss').on('keyup', function (event) {
             event.preventDefault();
             var search = $(this).val();
-            $(this).parent().next('.address_result').css({'display': 'block'});
+            $(this).parent().next('.address_result, #address_result').css({'display': 'block'});
             if (search === "") {
-                $(this).parent().next('.address_result').css({'display': 'none'});
+                $(this).parent().next('.address_result, #address_result').css({'display': 'none'});
             }
 
             var res = "";
@@ -118,7 +118,7 @@
                     for (var i = 0; i < data.length; i++) {
                         res += '<li><a href="#" data-lat=' + data[i].lat + ' data-lon=' + data[i].lon + '>' + data[i].display_name + '</a></li>'
                     }
-                    $(event.target).parent().next('.address_result').html('<ul>' + res + '</ul>');
+                    $(event.target).parent().next('.address_result, #address_result').html('<ul>' + res + '</ul>');
 
                 }
             });
@@ -126,11 +126,11 @@
         //hide address result when click outside the input field
         $(document).on("click", function (e) {
             if(!($(e.target).closest("#address, #q_addressss").length)){
-                $('.address_result').hide();
+                $('.address_result, #address_result').hide();
             }
         });
 
-        $('body').on('click', '.address_result ul li a', function (event) {
+        $('body').on('click', '.address_result ul li a, #address_result ul li a', function (event) {
             event.preventDefault();
             let text = $(this).text(),
                 lat = $(this).data('lat'),
@@ -140,10 +140,10 @@
             $('#cityLng').val(lon);
 
             $('#address, #q_addressss').val(text);
-            $('.address_result').hide();
+            $('.address_result, #address_result').hide();
         });
     }
     if ($('#address, #q_addressss').val() === "") {
-        $(this).parent().next('.address_result').css({'display': 'none'});
+        $(this).parent().next('.address_result, #address_result').css({'display': 'none'});
     }
 })(jQuery);

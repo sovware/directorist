@@ -208,29 +208,19 @@ class VP_Option
 			$this->init_options_set();
 			$this->init_options();
 
-			$option = $_POST['option'];
-			$nonce = $_POST['nonce'];
+			$option  = $_POST['option'];
+			$nonce   = $_POST['nonce'];
 
-			$option = VP_Util_Array::unite( $option, 'name', 'value' );
-			$option = $this->get_options_set()->normalize_values($option);
+			$option  = VP_Util_Array::unite( $option, 'name', 'value' );
+			$option  = $this->get_options_set()->normalize_values($option);
 
 			// stripslashes added by WP in $_GET / $_POST
-			$option = stripslashes_deep($option);
+			$option  = stripslashes_deep($option);
 
 			// get old options from set
 			$old_opt = $this->get_options_set()->get_values();
 
-			$updated_opt = [];
-			foreach ( $old_opt as $old_opt_key => $old_opt_value ) {
-				if ( array_key_exists( $old_opt_key, $option )) {
-					$updated_opt[$old_opt_key] = $option[$old_opt_key];
-				} else {
-					$updated_opt[$old_opt_key] = $old_opt_value;
-				}
-			}
-
-			// $this->get_options_set()->populate_values($option, true);
-			$this->get_options_set()->populate_values($updated_opt, true);
+			$this->get_options_set()->populate_values($option, true);
 
 			// get back options from set
 			$opt = $this->get_options_set()->get_values();
@@ -250,12 +240,6 @@ class VP_Option
 
 		if (ob_get_length()) ob_clean();
 		header('Content-type: application/json');
-
-		$result['option'] = $option;
-		$result['old_opt'] = $old_opt;
-		$result['updated_opt'] = $updated_opt;
-		$result['opt'] = $opt;
-
 		echo json_encode($result);
 		die();
 	}

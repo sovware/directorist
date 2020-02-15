@@ -1603,6 +1603,24 @@ jQuery(function ($) {
     });
 
 
+    // Single Slider - Display Dependency Options For Slider Image
+    var dsiplay_slider_single_page_inp = $('input[name="dsiplay_slider_single_page"]');
+    var dsiplay_slider_single_page_dep = $("#single_slider_image_size, #dsiplay_thumbnail_img, #gallery_crop_width, #gallery_crop_height");
+
+    dsiplay_slider_single_page_inp.on("change", function () {
+        if ( $(this).is(":checked") === true ) {
+            dsiplay_slider_single_page_dep.show();
+        } else {
+            dsiplay_slider_single_page_dep.hide();
+        }
+    });
+
+    dsiplay_slider_single_page_dep.hide();
+    if ( dsiplay_slider_single_page_inp.is(":checked")) {
+        dsiplay_slider_single_page_dep.show();
+    }
+
+
     // Single Slider - Display Background Type Options
     var single_slider_image_size_inp = $('select[name="single_slider_image_size"]');
     var single_slider_background_type_wrap = $("#single_slider_background_type");

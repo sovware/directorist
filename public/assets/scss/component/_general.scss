@@ -1355,12 +1355,6 @@ div#listing_notifier span {
   transition: all ease-in-out 300ms;
 }
 
-#directorist .atbd-thumbnail-card:hover .atbd-thumbnail-card-back-img {
-  -webkit-transform: scale(1.8);
-  -ms-transform: scale(1.8);
-  transform: scale(1.8);
-}
-
 @media all and (-ms-high-contrast:none) {
   #directorist .atbd-thumbnail-card .atbd-thumbnail-card-back-wrap {
       display: none !important;

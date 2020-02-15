@@ -92,7 +92,6 @@ class ATBDP_Review_Custom_Post
         wp_nonce_field('atbdp_review_save_details', 'atbdp_review_details_nonce');
 
         $post_meta = get_post_meta( $post->ID ) ? get_post_meta( $post->ID ) : '' ;
-        $claimer_phone = get_post_meta($post->ID, '_claimer_phone',true);
         ?>
         <table class="atbdp-input widefat" id="atbdp-field-details">
             <tbody>
@@ -108,7 +107,7 @@ class ATBDP_Review_Custom_Post
                         echo '<option>' . __("-Select a Listing-", 'directorist') . '</option>';
                         $args = array(
                             'post_type'      => ATBDP_POST_TYPE,
-                            'post_status'    => 'publish',
+                            'post_status'    => 'any',
                             'posts_per_page' => -1,
                         );
                         $listings = new WP_Query($args);
@@ -246,9 +245,6 @@ class ATBDP_Review_Custom_Post
 
                 $reviewer_rating = isset($_POST['reviewer_rating'])?$_POST['reviewer_rating']:'';
                 update_post_meta($post_id, '_reviewer_rating', $reviewer_rating);
-
-                $post_id = isset($_POST['post_id']) ? $_POST['post_id']:'';
-                update_post_meta($post_id, '_post_id', $post_id);
 
                 $email = isset($_POST['email']) ? $_POST['email']:'';
                 update_post_meta($post_id, '_email', $email);

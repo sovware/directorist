@@ -130,7 +130,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 $preview_enable = get_directorist_option('preview_enable', 1);
                 // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');
                 $metas = array();
-                $content = !empty($p['listing_content']) ? $p['listing_content'] : '';
+                $content = !empty($p['listing_content']) ? wp_kses($p['listing_content'], wp_kses_allowed_html('post')) : '';
                 $title = !empty($p['listing_title']) ? sanitize_text_field($p['listing_title']) : '';
                 $tag = !empty($p['tax_input']['at_biz_dir-tags']) ? ($p['tax_input']['at_biz_dir-tags']) : array();
                 $location = !empty($p['tax_input']['at_biz_dir-location']) ? ($p['tax_input']['at_biz_dir-location']) : array();

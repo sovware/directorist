@@ -3046,6 +3046,7 @@ The Administrator of ==SITE_NAME==
                         'description' => __('Hide/show preview image from all listing page.', 'directorist'),
                         'default' => 1,
                     ),
+                    
                     'way_to_show_preview' => array(
                         'type' => 'select',
                         'name' => 'way_to_show_preview',
@@ -5650,6 +5651,50 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Show Slider Image', 'directorist'),
                     'description' => __('Hide/show slider image from single listing page.', 'directorist'),
                     'default' => 1,
+                ),
+                'single_slider_image_size' => array(
+                    'type' => 'select',
+                    'name' => 'single_slider_image_size',
+                    'label' => __('Slider Image Size', 'directorist'),
+                    'items' => array(
+                        array(
+                            'value' => 'cover',
+                            'label' => __('Fill with container', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'contain',
+                            'label' => __('Fit with container', 'directorist'),
+                        ),
+                    ),
+                    'default' =>  array(
+                        'value' => 'cover',
+                        'label' => __('Fill with container', 'directorist'),
+                    ),
+                ),
+                'single_slider_background_type' => array(
+                    'type' => 'select',
+                    'name' => 'single_slider_background_type',
+                    'label' => __('Slider Background Type', 'directorist'),
+                    'items' => array(
+                        array(
+                            'value' => 'blur',
+                            'label' => __('Blur', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'custom-color',
+                            'label' => __('Custom Color', 'directorist'),
+                        ),
+                    ),
+                    'default' =>  array(
+                        'value' => 'custom-color',
+                        'label' => __('Custom Color', 'directorist'),
+                    ),
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'single_slider_background_color',
+                    'label' => __('Slider Background Color', 'directorist'),
+                    'default' => 'gainsboro',
                 ),
                 array(
                     'type' => 'toggle',

@@ -24,19 +24,23 @@ if (!class_exists('ATBDP_Helper')) :
         {
             $slider = '';
             $data = array();
-            $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+            $default_image = get_directorist_option(
+                'default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'
+            );
+            $background_type = get_directorist_option('single_slider_background_type', 'custom-color');
 
             // Default
             $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
             $data['images'] = [];
             $data['alt'] = '';
-            $data['blur-background'] = true;
+            $data['background-size'] = get_directorist_option('single_slider_image_size', 'cover');
+            $data['blur-background'] = ( 'blur' === $background_type ) ? true : false;
             $data['width'] = get_directorist_option('gallery_crop_width', 670);
             $data['height'] = get_directorist_option('gallery_crop_height', 750);
-            $data['background-color'] = 'gainsboro';
+            $data['background-color'] = get_directorist_option('single_slider_background_color', 'gainsboro');
             $data['thumbnail-background-color'] = '#fff';
             $data['show-thumbnails'] = get_directorist_option('dsiplay_thumbnail_img', true);
-            $data['gallery'] = true;
+            $data['gallery'] = get_directorist_option('dsiplay_slider_single_page', true);
             $data['rtl'] = is_rtl();
 
             // Extend Default

@@ -1603,5 +1603,38 @@ jQuery(function ($) {
     });
 
 
+    // Single Slider - Display Background Type Options
+    var single_slider_image_size_inp = $('select[name="single_slider_image_size"]');
+    var single_slider_background_type_wrap = $("#single_slider_background_type");
+
+    single_slider_image_size_inp.on("change", function () {
+        if ( $(this).val() === 'contain' ) {
+            single_slider_background_type_wrap.show();
+        } else {
+            single_slider_background_type_wrap.hide();
+        }
+    });
+
+    single_slider_background_type_wrap.hide();
+    if ( single_slider_image_size_inp.val() === 'contain') {
+        single_slider_background_type_wrap.show();
+    }
+
+    // Single Slider - Display Background Color Options
+    var single_slider_background_type_inp = $('select[name="single_slider_background_type"]');
+    var single_slider_background_color_wrap = $("#single_slider_background_color");
+
+    single_slider_background_type_inp.on("change", function () {
+        if ( $(this).val() === 'custom-color' ) {
+            single_slider_background_color_wrap.show();
+        } else {
+            single_slider_background_color_wrap.hide();
+        }
+    });
+
+    single_slider_background_color_wrap.hide();
+    if ( single_slider_background_type_inp.val() === 'custom-color') {
+        single_slider_background_color_wrap.show();
+    }
 
 });

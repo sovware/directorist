@@ -127,6 +127,9 @@
 
 .plasmaSlider__bgImgBlur {
   z-index: 55;
+  -webkit-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.5);
   -o-object-fit: cover;
      object-fit: cover;
   -webkit-filter: blur(10px);
@@ -134,6 +137,16 @@
 }
 .plasmaSlider__bgImg {
   z-index: 88;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.plasmaSlider__bgImg.plasmaSlider__contain {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.plasmaSlider__bgImg.plasmaSlider__cover {
   -o-object-fit: contain;
      object-fit: contain;
 }

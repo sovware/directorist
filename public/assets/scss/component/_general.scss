@@ -1347,6 +1347,18 @@ div#listing_notifier span {
   height: 100% !important;
   -webkit-filter: blur(5px);
   filter: blur(5px);
+  -webkit-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  transform: scale(1.5);
+  -webkit-transition: all ease-in-out 300ms;
+  -o-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
+}
+
+#directorist .atbd-thumbnail-card:hover .atbd-thumbnail-card-back-img {
+  -webkit-transform: scale(1.8);
+  -ms-transform: scale(1.8);
+  transform: scale(1.8);
 }
 
 @media all and (-ms-high-contrast:none) {

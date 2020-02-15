@@ -14,6 +14,7 @@
       width: 16,
       height: 9,
       images: [],
+      backgroundSize: 'cover',
       blurBackground: true,
       backgroundColor: 'gainsboro',
       thumbnailBackgroundColor: '#fff',
@@ -81,6 +82,11 @@
       var rtl = this.container.getAttribute('data-rtl');
       if ( rtl && isBoolean(rtl) !== null ) {
         this.options.rtl = isBoolean(rtl);
+      }
+
+      var background_size = this.container.getAttribute('data-background-size');
+      if ( background_size ) {
+        this.options.backgroundSize = background_size;
       }
 
       var blur_background = this.container.getAttribute('data-blur-background');
@@ -325,18 +331,19 @@
 
     var active_class = ( opt.active ) ? ' active' : '';
     var slider_item = createElementWithClass('plasmaSlider__sliderItem' + active_class);
+    var background_size = self.options.backgroundSize;
     var slider_item_bg = createElementWithClass('plasmaSlider__bg');
     var background_color = self.options.backgroundColor;
     slider_item_bg.setAttribute('style', 'background-color: ' + background_color +';' );
 
-    if ( self.options.blurBackground ) {
+    if ( 'contain' === self.options.backgroundSize && self.options.blurBackground ) {
       var slider_item_img_back = createElementWithClass('plasmaSlider__bgImgBlur', 'img');
       slider_item_img_back.src = opt.src;
       slider_item_bg.appendChild(slider_item_img_back);
     }
     
 
-    var slider_item_img_front = createElementWithClass('plasmaSlider__bgImg', 'img');
+    var slider_item_img_front = createElementWithClass('plasmaSlider__bgImg plasmaSlider__' + background_size, 'img');
     slider_item_img_front.src = opt.src;
     slider_item_img_front.alt = opt.alt;
     slider_item_bg.appendChild(slider_item_img_front);

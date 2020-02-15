@@ -53,7 +53,8 @@ class ATBDP_Upgrade
                 'base' => 'directorist-faqs/directorist-faqs.php',
             ),
         );
-        if ((!function_exists('direo_setup') && !function_exists('dlist_setup') && !function_exists('dservice_setup') && !function_exists('drestaurant_setup') && !function_exists('findbiz_setup'))) {
+        var_dump(class_exists('Direo_Plugins'));
+        if ((!function_exists('direo_setup') && !function_exists('dlist_setup') && !function_exists('dservice_setup') && !function_exists('drestaurant_setup') && !function_exists('findbiz_setup') && !class_exists('dList_Plugins') && !class_exists('Direo_Plugins') && !class_exists('Findbiz_Plugins'))) {
             foreach ($extensions as $class => $data) {
                 if (class_exists($class)) {
                     $response = $data['name'] . '-true';

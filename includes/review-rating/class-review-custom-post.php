@@ -246,6 +246,9 @@ class ATBDP_Review_Custom_Post
                 $reviewer_rating = isset($_POST['reviewer_rating'])?$_POST['reviewer_rating']:'';
                 update_post_meta($post_id, '_reviewer_rating', $reviewer_rating);
 
+                $id = isset($_POST['post_id']) ? $_POST['post_id']:'';
+                update_post_meta($post_id, '_post_id', $id);
+
                 $email = isset($_POST['email']) ? $_POST['email']:'';
                 update_post_meta($post_id, '_email', $email);
 

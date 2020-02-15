@@ -4,7 +4,7 @@ Donate link: https://directorist.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.3
-Stable tag: 6.3.0
+Stable tag: 6.3.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -137,6 +137,15 @@ Directorist is not developed by a single person. A team of dedicated developers 
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 6.3.1 - Feb 15, 2020 =
+
+* Fix - Saving issue of Settings panel
+* Fix - Review and listing email issue
+* Fix - Formatting issue of listing description
+* Fix - Filtering order history by order status
+* Fix - Design issues
+* Add - Options to customize single listing slider
 
 = 6.3.0 - Feb 10, 2020 =
 

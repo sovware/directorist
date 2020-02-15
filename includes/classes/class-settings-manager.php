@@ -3058,16 +3058,16 @@ The Administrator of ==SITE_NAME==
                             ),
                             array(
                                 'value' => 'cover',
-                                'label' => __('Fill', 'directorist'),
+                                'label' => __('Fill with Container', 'directorist'),
                             ),
                             array(
                                 'value' => 'contain',
-                                'label' => __('Fit', 'directorist'),
+                                'label' => __('Fit with Container', 'directorist'),
                             ),
                         ),
                         'default' =>  array(
                             'value' => 'cover',
-                            'label' => __('Fill', 'directorist'),
+                            'label' => __('Fill with Container', 'directorist'),
                         ),
                     ),
                     array(
@@ -5634,13 +5634,6 @@ The Administrator of ==SITE_NAME==
                 ),
                 array(
                     'type' => 'toggle',
-                    'name' => 'dsiplay_prv_single_page',
-                    'label' => __('Show Preview Image', 'directorist'),
-                    'description' => __('Hide/show preview image from single listing page.', 'directorist'),
-                    'default' => 1,
-                ),
-                array(
-                    'type' => 'toggle',
                     'name' => 'display_back_link',
                     'label' => __('Show Back Link', 'directorist'),
                     'default' => 1,
@@ -5659,16 +5652,16 @@ The Administrator of ==SITE_NAME==
                     'items' => array(
                         array(
                             'value' => 'cover',
-                            'label' => __('Fill with container', 'directorist'),
+                            'label' => __('Fill with Container', 'directorist'),
                         ),
                         array(
                             'value' => 'contain',
-                            'label' => __('Fit with container', 'directorist'),
+                            'label' => __('Fit with Container', 'directorist'),
                         ),
                     ),
                     'default' =>  array(
                         'value' => 'cover',
-                        'label' => __('Fill with container', 'directorist'),
+                        'label' => __('Fill with Container', 'directorist'),
                     ),
                 ),
                 'single_slider_background_type' => array(

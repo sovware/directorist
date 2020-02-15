@@ -110,7 +110,7 @@ return array(
 				)
 			),
 			'vp-option' => array(
-				'path'     => VP_PUBLIC_URL . '/js/option.min.js',
+				'path'     => VP_PUBLIC_URL . '/js/option.js',
 				'deps'     => array(),
 				'ver'      => '2.0',
 				'localize' => array(

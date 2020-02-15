@@ -32,7 +32,7 @@ class VP_Option_Depsloader
 			'use_new_media_upload' => false,
 			'main_js'  => array(
 				'name' => 'vp-option',
-				'path' => VP_PUBLIC_URL . '/js/option.min.js',
+				'path' => VP_PUBLIC_URL . '/js/option.js',
 			),
 			'main_css' => array(
 				'name' => 'vp-option',

@@ -2794,7 +2794,7 @@ The Administrator of ==SITE_NAME==
                         'max' => '1000',
                         'step' => '1',
                         'default' => '0',
-                        'validation' => 'numeric|minlength[1]',
+                        'validation' => 'numeric',
                     ),
                     'listings_filters_button' => array(
                         'type' => 'checkbox',
@@ -3744,7 +3744,7 @@ The Administrator of ==SITE_NAME==
                         'max' => '1000',
                         'step' => '1',
                         'default' => '0',
-                        'validation' => 'numeric|minlength[1]',
+                        'validation' => 'numeric',
                     ),
                     array(
                         'type' => 'textbox',
@@ -3969,7 +3969,7 @@ The Administrator of ==SITE_NAME==
                         'max' => '1000',
                         'step' => '1',
                         'default' => '0',
-                        'validation' => 'numeric|minlength[1]',
+                        'validation' => 'numeric',
                     ),
                     array(
                         'type' => 'checkbox',

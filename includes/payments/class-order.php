@@ -241,11 +241,9 @@ class ATBDP_Order
      */
     public function parse_query($query)
     {
-
         global $pagenow, $post_type;
-
-        if ('edit.php' == $pagenow && 'atbdp_orders' == $post_type) {
-            $st = !empty($_GET['_payment_status']) ? $_GET['_payment_status'] : '';
+        $st = isset($_GET['payment_status']) ? $_GET['payment_status'] : '';
+        if ('edit.php' == $pagenow && 'atbdp_orders' == $post_type && !empty($st)) {
             // Filter by post meta "payment_status"
             if ('' != $st && 'all' != $st) {
                 $query->query_vars['meta_key'] = '_payment_status';

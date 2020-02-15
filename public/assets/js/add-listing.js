@@ -321,7 +321,7 @@ jQuery(function ($) {
                 }
             }
         }
-        if ($('#_listing_gallery').length){
+        if ($('#_listing_gallery').length) {
             var hasValidFiles = listingMediaUploader.hasValidFiles();
             if (!hasValidFiles) {
                 $(".listing_submit_btn").removeClass("atbd_loading");
@@ -346,7 +346,7 @@ jQuery(function ($) {
             }
         }
 
-        if ($('#listing_gallery_ext').length){
+        if ($('#listing_gallery_ext').length) {
             var hasValidFiles = listingMediaUploader.hasValidFiles();
             if (!hasValidFiles) {
                 $(".listing_submit_btn").removeClass("atbd_loading");
@@ -357,9 +357,8 @@ jQuery(function ($) {
 
         var iframe = $('#listing_content_ifr');
         var serviceIframe = $('#service_offer_ifr');
-        var content = $('#tinymce[data-id="listing_content"]', iframe.contents()).text();
-        var service_offer = $('#tinymce[data-id="service_offer"]', serviceIframe.contents()).text();
-
+        var content = iframe.length ? tinymce.get('listing_content').getContent() : '';
+        var service_offer = serviceIframe.length ? tinymce.get('service_offer').getContent() : '';
         var excerpt = $("textarea#atbdp_excerpt").val();
         form_data.append('add_listing_nonce', atbdp_add_listing.nonce);
         //form_data.append('add_listing_form', $('input[name="add_listing_form"]').val());
@@ -472,18 +471,18 @@ jQuery(function ($) {
                 var type = $(value).attr('type');
                 if (type === "radio") {
                     var name = $(this).attr("name");
-                    if ($(this).is(':checked')){
+                    if ($(this).is(':checked')) {
                         form_data.append(name, $(this).val());
                     }
-                }else if(type === "checkbox"){
+                } else if (type === "checkbox") {
                     var name = $(this).attr("name");
                     var value = atbdp_is_checked(name);
                     form_data.append(name, value);
-                }else {
+                } else {
                     var name = $(this).attr("name");
                     var value = $(this).val();
-                    if (!value){
-                         value = $(this).attr('data-time');
+                    if (!value) {
+                        value = $(this).attr('data-time');
                     }
                     form_data.append(name, value);
                 }
@@ -507,25 +506,25 @@ jQuery(function ($) {
                     $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
                     $(".listing_submit_btn").removeClass("atbd_loading");
                     //window.location.href = response.redirect_url;
-                }else {
+                } else {
                     // preview on and no need to redirect to payment
                     if ((response.preview_mode === true) && (response.need_payment !== true)) {
-                        if (response.edited_listing !== true){
+                        if (response.edited_listing !== true) {
                             $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
                             window.location.href = response.preview_url + '?preview=1&redirect=' + response.redirect_url;
-                        }else {
+                        } else {
                             $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
-                            if(qs['redirect']){
-                                var is_pending = response.pending?'&':'?';
-                                window.location.href = response.preview_url+is_pending + 'post_id='+response.id+'&preview=1&payment=1&redirect=' + qs['redirect'];
-                            }else{
+                            if (qs['redirect']) {
+                                var is_pending = response.pending ? '&' : '?';
+                                window.location.href = response.preview_url + is_pending + 'post_id=' + response.id + '&preview=1&payment=1&redirect=' + qs['redirect'];
+                            } else {
                                 window.location.href = response.preview_url + '?preview=1&redirect=' + response.redirect_url;
                             }
                         }
                         // preview mode active and need payment
-                    }else if((response.preview_mode === true) && (response.need_payment === true)){
+                    } else if ((response.preview_mode === true) && (response.need_payment === true)) {
                         window.location.href = response.preview_url + '&preview=1&payment=1&redirect=' + response.redirect_url;
-                    }else {
+                    } else {
                         $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
                         window.location.href = response.redirect_url;
                     }

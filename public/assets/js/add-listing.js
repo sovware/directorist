@@ -235,7 +235,7 @@ jQuery(function ($) {
             'term_id': id
         };
 
-        $.post(ajaxurl, data, function (response) {
+        $.post(atbdp_add_listing.ajaxurl, data, function (response) {
             $('#atbdp-custom-fields-list-selected').html(response);
         });
     }
@@ -498,7 +498,7 @@ jQuery(function ($) {
             method: 'POST',
             processData: false,
             contentType: false,
-            url: ajaxurl,
+            url: atbdp_add_listing.ajaxurl,
             data: form_data,
             success: function (response) {
                 // show the error notice

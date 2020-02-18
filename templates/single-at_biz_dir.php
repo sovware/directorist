@@ -186,7 +186,7 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
         $html_edit_back = '';
         $html_edit_back .= '<div class="' . esc_attr($main_col_size) . ' col-md-12 atbd_col_left">';
         //is current user is logged in and the original author of the listing
-        if (is_user_logged_in() && $listing_author_id == get_current_user_id()) {
+        if (atbdp_logged_in_user() && $listing_author_id == get_current_user_id()) {
             //ok show the edit option
 
             $html_edit_back .= '<div class="edit_btn_wrap">';
@@ -280,7 +280,7 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
                     }
                     if ($enable_report_abuse) {
                         $listing_header .= '<div class="atbd_action atbd_report">';
-                        if (is_user_logged_in()) {
+                        if (atbdp_logged_in_user()) {
                             $listing_header .= '<span class="' . atbdp_icon_type() . '-flag"></span><a href="javascript:void(0)" data-target="atbdp-report-abuse-modal">' . __('Report', 'directorist') . '</a>'; //Modal (report abuse form)
                         } else {
                             $listing_header .= '<a href="javascript:void(0)"

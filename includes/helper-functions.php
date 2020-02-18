@@ -1343,7 +1343,7 @@ if (!function_exists('atbdp_only_logged_in_user')) {
      */
     function atbdp_is_user_logged_in($message = '')
     {
-        if (!is_user_logged_in()) {
+        if (!atbdp_logged_in_user()) {
             // user not logged in;
             $error_message = (empty($message))
                 ? sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters("atbdp_login_page_link", "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters("atbdp_signup_page_link", "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign up', 'directorist') . "</a>"))
@@ -2112,7 +2112,7 @@ function directorist_clean($var)
 function the_atbdp_favourites_link($post_id = 0)
 {
 
-    if (is_user_logged_in()) {
+    if (atbdp_logged_in_user()) {
 
         if ($post_id == 0) {
             global $post;
@@ -2175,7 +2175,7 @@ function atbdp_get_remove_favourites_page_link($listing_id)
 /*function the_atbdp_favourites_all_listing($post_id = 0)
 {
 
-    if (is_user_logged_in()) {
+    if (atbdp_logged_in_user()) {
 
         if ($post_id == 0) {
             global $post;
@@ -4644,4 +4644,8 @@ function atbdp_create_required_pages(){
         };
         update_option('atbdp_pages_version', 1);
     }
+}
+
+function atbdp_logged_in_user(){
+    return _wp_get_current_user()->exists();
 }

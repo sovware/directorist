@@ -103,7 +103,7 @@ if (!class_exists('BD_Author_Info_Widget')) {
                                     <?php
                                 }
                             } elseif ('logged_in' === $email_show) {
-                                if (is_user_logged_in()) {
+                                if (atbdp_logged_in_user()) {
                                     if (!empty($email)) {
                                         ?>
                                         <li>

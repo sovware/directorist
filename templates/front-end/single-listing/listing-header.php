@@ -145,7 +145,7 @@ do_action('atbdp_before_listing_section');
         }
         if ($enable_report_abuse) {
             $listing_header .= '<div class="atbd_action atbd_report">';
-            if (is_user_logged_in()) {
+            if (atbdp_logged_in_user()) {
                 $listing_header .= '<span class="' . atbdp_icon_type() . '-flag"></span><a href="" 
                                                                data-target="atbdp-report-abuse-modal">' . __('Report', 'directorist') . '</a>'; //Modal (report abuse form)
             } else {

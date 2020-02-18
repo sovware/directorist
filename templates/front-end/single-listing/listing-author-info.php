@@ -75,7 +75,7 @@ $atbd_author_info_title = get_directorist_option('atbd_author_info_title', __('A
                         <?php
                     }
                 } elseif ('logged_in' === $email_show) {
-                    if (is_user_logged_in()) {
+                    if (atbdp_logged_in_user()) {
                         if (!empty($email)) {
                             ?>
                             <li>

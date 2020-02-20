@@ -133,7 +133,7 @@ function atbdp_format_amount( $amount, $decimals = true, $currency_settings = ar
         $decimals = 0;
     }
 
-    $formatted = number_format( (int)$amount, $decimals, $decimal_sep, $thousands_sep );
+    $formatted = number_format( $amount, $decimals, $decimal_sep, $thousands_sep );
 
     return apply_filters( 'atbdp_format_amount', $formatted, $amount, $decimals, $decimal_sep, $thousands_sep );
 

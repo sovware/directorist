@@ -138,7 +138,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                             }
 
                                             if ($has_thumbnail) {
-                                                ATBDP()->helper::the_thumbnail_card($thumbnail_img);
+                                                the_thumbnail_card($thumbnail_img);
                                                 // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
                                             }
 

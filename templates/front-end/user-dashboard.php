@@ -142,7 +142,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                     }
 
                                                                     if ($has_thumbnail) {
-                                                                        ATBDP()->helper::the_thumbnail_card($thumbnail_img);
+                                                                        the_thumbnail_card($thumbnail_img);
                                                                         // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
                                                                     }
                                                                     ?>

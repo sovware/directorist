@@ -3,7 +3,7 @@ $display_prv_image                   = get_directorist_option('dsiplay_prv_singl
 $display_slider_image                = get_directorist_option('dsiplay_slider_single_page',1);
 $display_preview_image               = get_directorist_option('display_preview_image',1);
 $display_prv_field                   = get_directorist_option('display_prv_field', 1);
-$display_gellery_field               = get_directorist_option('display_gellery_field', 1);
+$display_gallery_field               = get_directorist_option('display_gallery_field', 1);
 $display_prv_img_for                 = get_directorist_option('display_prv_img_for', 0);
 $display_glr_img_for                 = get_directorist_option('display_glr_img_for', 0);
 $listing_imgs                        = (!empty($args['listing_img'])) ? $args['listing_img'] : array();
@@ -48,7 +48,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
     </div>
     <?php }
     ?>
-    <?php if( empty($display_glr_img_for) && !empty($display_gellery_field) && $plan_slider ) {?>
+    <?php if( empty($display_glr_img_for) && !empty($display_gallery_field) && $plan_slider ) {?>
     <div class="form-group">
         <!-- image container, which can be manipulated with js -->
         <div class="listing-img-container">
@@ -79,8 +79,8 @@ $active_mi_ext = is_multiple_images_active(); // default is no
             <a href="#" id="listing_image_btn" class="btn btn-primary">
                 <span class="dashicons dashicons-format-image"></span>
                 <?php
-                $gellery_label = get_directorist_option('gellery_label', apply_filters('atbdp_add_listing_slider_image_button_default_text',__('Upload Slider Images', 'directorist')));
-                echo esc_html($gellery_label);
+                $gallery_label = get_directorist_option('gallery_label', apply_filters('atbdp_add_listing_slider_image_button_default_text',__('Upload Slider Images', 'directorist')));
+                echo esc_html($gallery_label);
                 ?>
             </a>
             <a id="delete-custom-img" class="btn btn-danger <?php echo (!empty($image_links)) ? '' : 'hidden' ?>"

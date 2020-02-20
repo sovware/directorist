@@ -106,7 +106,7 @@ $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-
 do_action('atbdp_before_listing_section');
 ?>
 <div class="atbd_content_module atbd_listing_details atbdp_listing_ShortCode <?php do_action('atbdp_single_listing_details_class')?>">
-    <div class="atbd_content_module__tittle_area">
+    <div class="atbd_content_module_title_area">
         <?php if (!empty($listing_details_text)) { ?>
             <div class="atbd_area_title">
                 <h4>
@@ -279,7 +279,7 @@ do_action('atbdp_before_listing_section');
                 }
                 $data_info .= ' </div>';
             }
-            $data_info .= '<div class="atbd_listting_category"><ul class="directory_cats">';
+            $data_info .= '<div class="atbd_listing_category"><ul class="directory_cats">';
             if (!empty($cats)) {
                 $data_info .= '<li><span class="' . atbdp_icon_type() . '-tags"></span></li>';
                 $numberOfCat = count($cats);

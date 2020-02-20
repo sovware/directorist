@@ -74,7 +74,7 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
             </tbody>
         </table> <!--ends table-->
         <div class="atbd_content_module" id="directorist_payment_gateways">
-            <div class="atbd_content_module__tittle_area">
+            <div class="atbd_content_module_title_area">
                 <div class="atbd_area_title">
                     <h4><?php esc_html_e('Choose a payment method', 'directorist'); ?></h4>
                 </div>

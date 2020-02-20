@@ -17,7 +17,7 @@ $container_fluid = 'container-fluid';
                 $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                 $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
                 $bio = get_user_meta($author_id, 'description', true);
-                $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 96));
+                $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 96));
                 $address = esc_attr(get_user_meta($author_id, 'address', true));
                 $phone = esc_attr(get_user_meta($author_id, 'atbdp_phone', true));
                 $email = get_the_author_meta('user_email', $author_id);
@@ -31,7 +31,7 @@ $container_fluid = 'container-fluid';
                 <div class="atbd_auhor_profile_area">
                     <div class="atbd_author_avatar">
                         <?php if (empty($u_pro_pic)) {
-                            echo $avata_img;
+                            echo $avatar_img;
                         }
                         if (!empty($u_pro_pic)) { ?><img
                             src="<?php echo esc_url($u_pro_pic[0]); ?>"
@@ -92,7 +92,7 @@ $container_fluid = 'container-fluid';
             <div class="col-md-8">
                 <div class="atbd_author_module">
                     <div class="atbd_content_module">
-                        <div class="atbd_content_module__tittle_area">
+                        <div class="atbd_content_module_title_area">
                             <div class="atbd_area_title">
                                 <h4>
                                     <span class="<?php atbdp_icon_type(true); ?>-user"></span><?php _e('About', 'directorist'); ?>

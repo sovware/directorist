@@ -122,7 +122,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 $display_social_info_for = get_directorist_option('display_social_info_for', 0);
                 $display_prv_field = get_directorist_option('display_prv_field', 1);
                 $display_prv_img_for = get_directorist_option('display_prv_img_for', 0);
-                $display_gellery_field = get_directorist_option('display_gellery_field', 1);
+                $display_gallery_field = get_directorist_option('display_gallery_field', 1);
                 $display_glr_img_for = get_directorist_option('display_glr_img_for', 0);
                 $display_video_field = get_directorist_option('display_video_field', 1);
                 $display_video_for = get_directorist_option('display_video_for', 0);
@@ -700,7 +700,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                             }
                         }
                     }
-                    if (empty($display_glr_img_for) && !empty($display_gellery_field)) {
+                    if (empty($display_glr_img_for) && !empty($display_gallery_field)) {
                         update_post_meta($post_id, '_listing_img', $new_files_meta);
                     }
 

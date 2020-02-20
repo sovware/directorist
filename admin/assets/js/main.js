@@ -975,16 +975,16 @@ jQuery(function ($) {
     }
 
     //Display gallery image
-    var lf_opt29 = $("#gellery_label,#require_gallery_img,#display_glr_img_for");
+    var lf_opt29 = $("#gallery_label,#require_gallery_img,#display_glr_img_for");
     lf_opt29.hide();
-    $('input[name="display_gellery_field"]').on("change", function () {
+    $('input[name="display_gallery_field"]').on("change", function () {
         if($(this).is(":checked") === true){
             lf_opt29.show();
         }else{
             lf_opt29.hide();
         }
     });
-    if($('input[name="display_gellery_field"]').is(":checked") === true){
+    if($('input[name="display_gallery_field"]').is(":checked") === true){
         lf_opt29.show();
     }
 
@@ -1654,5 +1654,30 @@ jQuery(function ($) {
     if ( single_slider_background_type_inp.val() === 'custom-color') {
         single_slider_background_color_wrap.show();
     }
+
+    //button primary
+    var primary_button = $("#primary_color, #primary_hover_color, #back_primary_color, #back_primary_hover_color, #border_primary_color, #border_primary_hover_color");
+    var secondary_button = $("#secondary_color, #secondary_hover_color, #back_secondary_color, #back_secondary_hover_color, #secondary_border_color, #secondary_border_hover_color");
+    primary_button.hide();
+    secondary_button.hide();
+    $('select[name="button_type"]').on("change", function () {
+        if($(this).val() === "solid_primary"){
+            primary_button.show();
+            secondary_button.hide();
+        }else if($(this).val() === "solid_secondary") {
+            secondary_button.show();
+            primary_button.hide();
+        }else{
+            primary_button.hide();
+            secondary_button.hide();
+        }
+    });
+    if($('select[name="button_type"]').val() === "solid_primary"){
+        primary_button.show();
+    } else if($('select[name="button_type"]').val() === "solid_secondary"){
+        secondary_button.show();
+    }
+
+
 
 });

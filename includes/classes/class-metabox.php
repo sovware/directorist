@@ -119,7 +119,7 @@ class ATBDP_Metabox {
     public function listing_info_meta( $post )
     {
         $display_prv_field = get_directorist_option('display_prv_field', 1);
-        $display_gellery_field = get_directorist_option('display_gellery_field', 1);
+        $display_gallery_field = get_directorist_option('display_gallery_field', 1);
         $display_video_field = get_directorist_option('display_video_field', 1);
         add_meta_box('_listing_info',
             __('General Information', 'directorist'),
@@ -132,7 +132,7 @@ class ATBDP_Metabox {
             array($this, 'listing_contact_info'),
             ATBDP_POST_TYPE,
             'normal', 'high');
-        if (!empty($display_prv_field) || !empty($display_gellery_field)) {
+        if (!empty($display_prv_field) || !empty($display_gallery_field)) {
             add_meta_box('_listing_gallery',
                 __('Upload Preview & Slider Images for the Listing', 'directorist'),
                 array($this, 'listing_gallery'),

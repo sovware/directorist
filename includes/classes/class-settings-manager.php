@@ -187,6 +187,11 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'name' => 'color_settings',
                     'icon' => 'font-awesome:fa-home',
                     'controls' => apply_filters('atbdp_style_settings_controls', array(
+                        'button_type' => array(
+                            'type' => 'section',
+                            'title' => __('Button Color', 'directorist'),
+                            'fields' => $this->get_listings_button_type_fields(),
+                        ),
                         'primary_button' => array(
                             'type' => 'section',
                             'title' => __('Button', 'directorist'),
@@ -1180,43 +1185,141 @@ if (!class_exists('ATBDP_Settings_Manager')):
         public function get_listings_primary_button_fields()
         {
             return apply_filters('atbdp_parimary_color', array(
+
+
+
+
+            ));
+        }
+
+        public function get_listings_button_type_fields()
+        {
+            return apply_filters('atbdp_button_type', array(
+                'button_type' => array(
+                    'type' => 'select',
+                    'name' => 'button_type',
+                    'label' => __('Button Type', 'directorist'),
+                    'items' => array(
+                        array(
+                            'value' => 'solid_primary',
+                            'label' => __('Solid Primary', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'solid_secondary',
+                            'label' => __('Solid Secondary', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'solid_info',
+                            'label' => __('Solid Info', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'solid_danger',
+                            'label' => __('Solid Danger', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'solid_success',
+                            'label' => __('Solid Success', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'outline_primary',
+                            'label' => __('Outline Primary', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'outline_secondary',
+                            'label' => __('Outline Secondary', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'outline_info',
+                            'label' => __('Outline Info', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'outline_danger',
+                            'label' => __('Outline Danger', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'outline_success',
+                            'label' => __('Outline Success', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'outline_lightPrimary',
+                            'label' => __('Outline Light Primary', 'directorist'),
+                        ),
+                    ),
+
+                ),
                 array(
                     'type' => 'color',
                     'name' => 'primary_color',
-                    'label' => __('Text Color', 'directorist'),
+                    'label' => __('Primary Text Color', 'directorist'),
                     'default' => '#ffffff',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'primary_hover_color',
-                    'label' => __('Hover Color', 'directorist'),
+                    'label' => __('Primary Hover Color', 'directorist'),
                     'default' => '#ffffff',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'back_primary_color',
-                    'label' => __('Background Color', 'directorist'),
+                    'label' => __('Primary Background Color', 'directorist'),
                     'default' => '#444752',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'back_primary_hover_color',
-                    'label' => __('Background Hover Color', 'directorist'),
+                    'label' => __('Primary Background Hover Color', 'directorist'),
                     'default' => '#222222',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'border_primary_color',
-                    'label' => __('Border Color', 'directorist'),
+                    'label' => __('Primary Border Color', 'directorist'),
                     'default' => '#444752',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'border_primary_hover_color',
-                    'label' => __('Border Hover Color', 'directorist'),
+                    'label' => __('Primary Border Hover Color', 'directorist'),
                     'default' => '#222222',
                 ),
-
+                // solid secondary color
+                array(
+                    'type' => 'color',
+                    'name' => 'secondary_color',
+                    'label' => __('Secondary Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'secondary_hover_color',
+                    'label' => __('Secondary Hover Color', 'directorist'),
+                    'default' => '#000',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_secondary_color',
+                    'label' => __('Secondary Background Color', 'directorist'),
+                    'default' => '#122069',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_secondary_hover_color',
+                    'label' => __('Secondary Background Hover Color', 'directorist'),
+                    'default' => '#131469',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'secondary_border_color',
+                    'label' => __('Secondary Border Color', 'directorist'),
+                    'default' => '#131469',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'secondary_border_hover_color',
+                    'label' => __('Secondary Border Hover Color', 'directorist'),
+                    'default' => '#131469',
+                ),
             ));
         }
 
@@ -1228,30 +1331,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
         public function get_listings_secondary_button_fields()
         {
             return apply_filters('atbdp_secondary_color', array(
-                array(
-                    'type' => 'color',
-                    'name' => 'back_secondary_color',
-                    'label' => __('Background Color', 'directorist'),
-                    'default' => '#122069',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'back_secondary_hover_color',
-                    'label' => __('Background Hover Color', 'directorist'),
-                    'default' => '#131469',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'secondary_border_color',
-                    'label' => __('Border Color', 'directorist'),
-                    'default' => '#122069',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'secondary_border_hover_color',
-                    'label' => __('Border Hover Color', 'directorist'),
-                    'default' => '#131469',
-                ),
+
             ));
         }
 
@@ -5072,13 +5152,13 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_image_field_setting', array(
                 array(
                     'type' => 'toggle',
-                    'name' => 'display_gellery_field',
+                    'name' => 'display_gallery_field',
                     'label' => __('Enable Gallery Image', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
-                    'name' => 'gellery_label',
+                    'name' => 'gallery_label',
                     'label' => __('Gallery Image Label', 'directorist'),
                     'default' => __('Upload Slider Images', 'directorist'),
                 ),

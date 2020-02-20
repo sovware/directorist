@@ -167,7 +167,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
                                                         <div class="atbd_listing_info">
                                                             <div class="atbd_content_upper">
-                                                                <div class="atbd_dashboard_tittle_metas">
+                                                                <div class="atbd_dashboard_title_metas">
                                                                     <h4 class="atbd_listing_title">
                                                                         <a href="<?php echo get_post_permalink($post->ID); ?>">
                                                                             <?php echo !empty($post->post_title) ? esc_html(stripslashes($post->post_title)) : __('Untitled!', 'directorist'); ?>
@@ -574,7 +574,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             <td class="saved_item_category">
                                                 <a href="%s"><span class="%s"></span>%s</a>
                                             </td>
-                                             <td class="romove_saved_item">
+                                             <td class="remove_saved_item">
                                                %s
                                             </td>
                                             

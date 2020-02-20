@@ -2297,7 +2297,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                     $author_id = get_the_author_meta('ID');
                     $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                     $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
-                    $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
+                    $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                     $display_tagline_field = get_directorist_option('display_tagline_field', 0);
                     $display_pricing_field = get_directorist_option('display_pricing_field', 1);
                     $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
@@ -2366,7 +2366,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                                     <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
                                                        class="<?php echo $class; ?>"
                                                        aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>"><?php if (empty($u_pro_pic)) {
-                                                            echo $avata_img;
+                                                            echo $avatar_img;
                                                         }
                                                         if (!empty($u_pro_pic)) { ?>
                                                             <img
@@ -2617,7 +2617,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                             if (!empty($cats)) {
                                                 $totalTerm = count($cats);
                                                 $catViewCount .= '<div class="atbd_content_left">';
-                                                $catViewCount .= '<div class="atbd_listting_category">';
+                                                $catViewCount .= '<div class="atbd_listing_category">';
                                                 $catViewCount .= '<a href="' . ATBDP_Permalink::atbdp_get_category_page($cats[0]) . '">';
                                                 $catViewCount .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
                                                 $catViewCount .= $cats[0]->name;
@@ -2641,7 +2641,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                                 $catViewCount .= '</div>';
                                             } else {
                                                 $catViewCount .= '<div class="atbd_content_left">';
-                                                $catViewCount .= '<div class="atbd_listting_category">';
+                                                $catViewCount .= '<div class="atbd_listing_category">';
                                                 $catViewCount .= '<a href="">';
                                                 $catViewCount .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
                                                 $catViewCount .= __('Uncategorized', 'directorist');
@@ -2768,7 +2768,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                         $author_id = get_the_author_meta('ID');
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                         $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
-                        $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
+                        $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                         $display_tagline_field = get_directorist_option('display_tagline_field', 0);
                         $display_pricing_field = get_directorist_option('display_pricing_field', 1);
                         $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
@@ -2828,7 +2828,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                                         <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
                                                            class="<?php echo $class; ?>"
                                                            aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>"><?php if (empty($u_pro_pic)) {
-                                                                echo $avata_img;
+                                                                echo $avatar_img;
                                                             }
                                                             if (!empty($u_pro_pic)) { ?>
                                                                 <img
@@ -3075,7 +3075,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                                         $totalTerm = count($cats);
                                                         ?>
                                                         <div class="atbd_content_left">
-                                                            <div class="atbd_listting_category">
+                                                            <div class="atbd_listing_category">
                                                                 <a href="<?php echo esc_url(ATBDP_Permalink::atbdp_get_category_page($cats[0])); ?>"><span class="<?php atbdp_icon_type(true); ?>-tags"></span><?php echo $cats[0]->name; ?>
                                                                 </a>
                                                                 <?php
@@ -3100,7 +3100,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                                     <?php } else {
                                                         ?>
                                                         <div class="atbd_content_left">
-                                                            <div class="atbd_listting_category">
+                                                            <div class="atbd_listing_category">
                                                                 <a href=""><span
                                                                             class="<?php atbdp_icon_type(true); ?>-tags"></span><?php echo __('Uncategorized', 'directorist'); ?>
                                                                 </a>
@@ -3211,7 +3211,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                     $author_id = get_the_author_meta('ID');
                     $u_pro_pic_meta = get_user_meta($author_id, 'pro_pic', true);
                     $u_pro_pic = wp_get_attachment_image_src($u_pro_pic_meta, 'thumbnail');
-                    $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
+                    $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                     $display_tagline_field = get_directorist_option('display_tagline_field', 0);
                     $display_pricing_field = get_directorist_option('display_pricing_field', 1);
                     $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
@@ -3471,7 +3471,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                         if (!empty($cats)) {
                                             $totalTerm = count($cats);
                                             $catViewCountAuthor .= '<div class="atbd_content_left">';
-                                            $catViewCountAuthor .= '<div class="atbd_listting_category">';
+                                            $catViewCountAuthor .= '<div class="atbd_listing_category">';
                                             $catViewCountAuthor .= '<a href="' . ATBDP_Permalink::atbdp_get_category_page($cats[0]) . '">';
                                             $catViewCountAuthor .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
                                             $catViewCountAuthor .= $cats[0]->name;
@@ -3495,7 +3495,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                             $catViewCountAuthor .= '</div>';
                                         } else {
                                             $catViewCountAuthor .= '<div class="atbd_content_left">';
-                                            $catViewCountAuthor .= '<div class="atbd_listting_category">';
+                                            $catViewCountAuthor .= '<div class="atbd_listing_category">';
                                             $catViewCountAuthor .= '<a href="">';
                                             $catViewCountAuthor .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
                                             $catViewCountAuthor .= __('Uncategorized', 'directorist');
@@ -3519,7 +3519,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                             $catViewCountAuthor .= '<li class="atbd_author">';
                                             $catViewCountAuthor .= '<a href="' . ATBDP_Permalink::get_user_profile_page_link($author_id) . '" class="'. $class .'" aria-label="' . $author_first_last_name . '">';
                                             if (empty($u_pro_pic)) {
-                                                $catViewCountAuthor .= $avata_img;
+                                                $catViewCountAuthor .= $avatar_img;
                                             }
                                             if (!empty($u_pro_pic)) {
                                                 $catViewCountAuthor .= '<img src="' . esc_url($u_pro_pic[0]) . '" alt="Author Image">';

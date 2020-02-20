@@ -70,7 +70,7 @@ $listing_location_text = apply_filters('atbdp_single_listing_map_section_text', 
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) && !empty($display_map_field)) { ?>
     <div class="atbd_content_module">
-        <div class="atbd_content_module__tittle_area">
+        <div class="atbd_content_module_title_area">
             <div class="atbd_area_title">
                 <h4>
                     <span class="<?php atbdp_icon_type(true);?>-map atbd_area_icon"></span><?php _e($listing_location_text, 'directorist'); ?>

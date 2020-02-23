@@ -1320,6 +1320,43 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'label' => __('Secondary Border Hover Color', 'directorist'),
                     'default' => '#131469',
                 ),
+                // solid danger color
+                array(
+                    'type' => 'color',
+                    'name' => 'danger_color',
+                    'label' => __('Danger Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'danger_hover_color',
+                    'label' => __('Danger Hover Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_danger_color',
+                    'label' => __('Danger Background Color', 'directorist'),
+                    'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_danger_hover_color',
+                    'label' => __('Danger Background Hover Color', 'directorist'),
+                    'default' => '#c5001e',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'danger_border_color',
+                    'label' => __('Danger Border Color', 'directorist'),
+                    'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'danger_border_hover_color',
+                    'label' => __('Danger Border Hover Color', 'directorist'),
+                    'default' => '#c5001e',
+                ),
             ));
         }
 
@@ -1343,36 +1380,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
         public function get_listings_danger_button_fields()
         {
             return apply_filters('atbdp_danger_color', array(
-                array(
-                    'type' => 'color',
-                    'name' => 'danger_color',
-                    'label' => __('Text Color', 'directorist'),
-                    'default' => '#e23636',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'back_danger_color',
-                    'label' => __('Background Color', 'directorist'),
-                    'default' => '#e23636',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'back_danger_hover_color',
-                    'label' => __('Background Hover Color', 'directorist'),
-                    'default' => '#c5001e',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'border_danger_color',
-                    'label' => __('Border Color', 'directorist'),
-                    'default' => '#e23636',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'border_danger_hover_color',
-                    'label' => __('Border Hover Color', 'directorist'),
-                    'default' => '#c5001e',
-                ),
+
 
             ));
         }

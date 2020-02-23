@@ -1659,26 +1659,82 @@ jQuery(function ($) {
     var primary_button = $("#primary_color, #primary_hover_color, #back_primary_color, #back_primary_hover_color, #border_primary_color, #border_primary_hover_color");
     var secondary_button = $("#secondary_color, #secondary_hover_color, #back_secondary_color, #back_secondary_hover_color, #secondary_border_color, #secondary_border_hover_color");
     var danger_button = $("#danger_color, #danger_hover_color, #back_danger_color, #back_danger_hover_color, #danger_border_color, #danger_border_hover_color");
+    var success_button = $("#success_color, #success_hover_color, #back_success_color, #back_success_hover_color, #border_success_color, #border_success_hover_color");
+    var primary_outline = $("#priout_color, #priout_hover_color, #back_priout_color, #back_priout_hover_color, #border_priout_color, #border_priout_hover_color");
+    var primary_outline_light = $("#prioutlight_color, #prioutlight_hover_color, #back_prioutlight_color, #back_prioutlight_hover_color, #border_prioutlight_color, #border_prioutlight_hover_color");
+    var danger_outline = $("#danout_color, #danout_hover_color, #back_danout_color, #back_danout_hover_color, #border_danout_color, #border_danout_hover_color");
     primary_button.hide();
     secondary_button.hide();
     danger_button.hide();
+    success_button.hide();
+    primary_outline.hide();
+    primary_outline_light.hide();
+    danger_outline.hide();
     $('select[name="button_type"]').on("change", function () {
         if($(this).val() === "solid_primary"){
             primary_button.show();
             secondary_button.hide();
             danger_button.hide();
+            success_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
         }else if($(this).val() === "solid_secondary") {
             secondary_button.show();
             primary_button.hide();
             danger_button.hide();
+            success_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
         }else if($(this).val() === "solid_danger") {
             danger_button.show();
             primary_button.hide();
             secondary_button.hide();
+            success_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
+        }else if($(this).val() === "solid_success") {
+            success_button.show();
+            danger_button.hide();
+            primary_button.hide();
+            secondary_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
+        } else if($(this).val() === "primary_outline") {
+            primary_outline.show();
+            success_button.hide();
+            danger_button.hide();
+            primary_button.hide();
+            secondary_button.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
+        } else if($(this).val() === "primary_outline_light") {
+            primary_outline_light.show();
+            success_button.hide();
+            danger_button.hide();
+            primary_button.hide();
+            secondary_button.hide();
+            primary_outline.hide();
+            danger_outline.hide();
+        } else if($(this).val() === "danger_outline") {
+            danger_outline.show();
+            success_button.hide();
+            danger_button.hide();
+            primary_button.hide();
+            secondary_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
         }else{
             primary_button.hide();
             secondary_button.hide();
             danger_button.hide();
+            success_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
         }
     });
     if($('select[name="button_type"]').val() === "solid_primary"){
@@ -1687,6 +1743,14 @@ jQuery(function ($) {
         secondary_button.show();
     } else if($('select[name="button_type"]').val() === "solid_danger"){
         danger_button.show();
+    } else if($('select[name="button_type"]').val() === "solid_success"){
+        success_button.show();
+    } else if($('select[name="button_type"]').val() === "primary_outline"){
+        primary_outline.show();
+    } else if($('select[name="button_type"]').val() === "primary_outline_light"){
+        primary_outline_light.show();
+    } else if($('select[name="button_type"]').val() === "danger_outline"){
+        danger_outline.show();
     }
 
 

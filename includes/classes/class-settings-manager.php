@@ -1209,10 +1209,6 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'label' => __('Solid Secondary', 'directorist'),
                         ),
                         array(
-                            'value' => 'solid_info',
-                            'label' => __('Solid Info', 'directorist'),
-                        ),
-                        array(
                             'value' => 'solid_danger',
                             'label' => __('Solid Danger', 'directorist'),
                         ),
@@ -1221,28 +1217,16 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'label' => __('Solid Success', 'directorist'),
                         ),
                         array(
-                            'value' => 'outline_primary',
-                            'label' => __('Outline Primary', 'directorist'),
+                            'value' => 'primary_outline',
+                            'label' => __('Primary Outline', 'directorist'),
                         ),
                         array(
-                            'value' => 'outline_secondary',
-                            'label' => __('Outline Secondary', 'directorist'),
+                            'value' => 'primary_outline_light',
+                            'label' => __('Primary Outline Light', 'directorist'),
                         ),
                         array(
-                            'value' => 'outline_info',
-                            'label' => __('Outline Info', 'directorist'),
-                        ),
-                        array(
-                            'value' => 'outline_danger',
-                            'label' => __('Outline Danger', 'directorist'),
-                        ),
-                        array(
-                            'value' => 'outline_success',
-                            'label' => __('Outline Success', 'directorist'),
-                        ),
-                        array(
-                            'value' => 'outline_lightPrimary',
-                            'label' => __('Outline Light Primary', 'directorist'),
+                            'value' => 'danger_outline',
+                            'label' => __('Danger Outline', 'directorist'),
                         ),
                     ),
 
@@ -1357,6 +1341,154 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'label' => __('Danger Border Hover Color', 'directorist'),
                     'default' => '#c5001e',
                 ),
+                // solid success color
+                array(
+                    'type' => 'color',
+                    'name' => 'success_color',
+                    'label' => __('Success Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'success_hover_color',
+                    'label' => __('Success Hover Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_success_color',
+                    'label' => __('Success Background Color', 'directorist'),
+                    'default' => '#32cc6f',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_success_hover_color',
+                    'label' => __('Success Background Hover Color', 'directorist'),
+                    'default' => '#2ba251',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_success_color',
+                    'label' => __('Success Border Color', 'directorist'),
+                    'default' => '#32cc6f',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_success_hover_color',
+                    'label' => __('Success Border Hover Color', 'directorist'),
+                    'default' => '#2ba251',
+                ),
+                // primary outline
+                array(
+                    'type' => 'color',
+                    'name' => 'priout_color',
+                    'label' => __('Primary Outline Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'priout_hover_color',
+                    'label' => __('Primary Outline Hover Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_priout_color',
+                    'label' => __('Primary Outline Background Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_priout_hover_color',
+                    'label' => __('Primary Outline Background Hover Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_priout_color',
+                    'label' => __('Primary Outline Border Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_priout_hover_color',
+                    'label' => __('Primary Outline Border Hover Color', 'directorist'),
+                    'default' => '#9299b8',
+                ),
+                // primary outline light
+                array(
+                    'type' => 'color',
+                    'name' => 'prioutlight_color',
+                    'label' => __('Primary Outline Light Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'prioutlight_hover_color',
+                    'label' => __('Primary Outline Light Hover Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_prioutlight_color',
+                    'label' => __('Primary Outline Light Background Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_prioutlight_hover_color',
+                    'label' => __('Primary Outline Light Background Hover Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_prioutlight_color',
+                    'label' => __('Primary Outline Light Border Color', 'directorist'),
+                    'default' => '#e3e6ef',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_prioutlight_hover_color',
+                    'label' => __('Primary Outline Light Border Hover Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+                // Danger outline
+                array(
+                    'type' => 'color',
+                    'name' => 'danout_color',
+                    'label' => __('Danger Outline Color', 'directorist'),
+                    'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'danout_hover_color',
+                    'label' => __('Danger Outline Hover Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_danout_color',
+                    'label' => __('Danger Outline Background Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_danout_hover_color',
+                    'label' => __('Danger Outline Background Hover Color', 'directorist'),
+                    'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_danout_color',
+                    'label' => __('Danger Outline Border Color', 'directorist'),
+                    'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_danout_hover_color',
+                    'label' => __('Danger Outline Border Hover Color', 'directorist'),
+                    'default' => '#e23636',
+                ),
             ));
         }
 
@@ -1393,30 +1525,6 @@ if (!class_exists('ATBDP_Settings_Manager')):
         public function get_listings_success_button_fields()
         {
             return apply_filters('atbdp_success_color', array(
-                array(
-                    'type' => 'color',
-                    'name' => 'back_success_color',
-                    'label' => __('Background Color', 'directorist'),
-                    'default' => '#32cc6f',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'back_success_hover_color',
-                    'label' => __('Background Hover Color', 'directorist'),
-                    'default' => '#2ba251',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'border_success_color',
-                    'label' => __('Border Color', 'directorist'),
-                    'default' => '#32cc6f',
-                ),
-                array(
-                    'type' => 'color',
-                    'name' => 'border_success_hover_color',
-                    'label' => __('Border Hover Color', 'directorist'),
-                    'default' => '#2ba251',
-                ),
 
             ));
         }

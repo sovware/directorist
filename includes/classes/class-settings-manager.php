@@ -2441,7 +2441,6 @@ The Administrator of ==SITE_NAME==
          */
         function get_extension_settings_submenus()
         {
-
             return apply_filters('atbdp_extension_settings_submenus', array(
                 'submenu_1' => array(
                     'title' => __('Extensions General', 'directorist'),
@@ -6348,7 +6347,7 @@ The Administrator of ==SITE_NAME==
          * @return array
          * @since 3.0.0
          */
-        function get_extension_settings_fields()
+        function  get_extension_settings_fields()
         {
             return apply_filters('atbdp_extension_settings_fields', array(
                     'extension_promotion_set' => array(

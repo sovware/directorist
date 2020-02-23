@@ -61,16 +61,16 @@ if ($display_header == 'yes') { ?>
                             <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
                                 <!-- Views dropdown -->
                                 <?php if ($display_viewas_dropdown) {
-                                    $html = '<div class="dropdown">';
-                                    $html .= '<a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        ' . $view_as_text . '<span class="caret"></span>
+                                    $html = '<div class="atbd_dropdown">';
+                                    $html .= '<a class="atbd_dropdown-toggle" href="#" id="dropdownMenuLink">
+                                        ' . $view_as_text . '<span class="atbd_drop-caret"></span>
                                     </a>';
-                                    $html .= '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">';
+                                    $html .= '<div class="atbd_dropdown-menu" aria-labelledby="dropdownMenuLink">';
                                     $views = atbdp_get_listings_view_options($view_as_items);
                                     $view = !empty($view) ? $view : '';
                                     foreach ($views as $value => $label) {
                                         $active_class = ($view == $value) ? ' active' : '';
-                                        $html .= sprintf('<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg('view', $value), $label);
+                                        $html .= sprintf('<a class="atbd_dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg('view', $value), $label);
 
                                     }
                                     $html .= '</div>';
@@ -90,13 +90,12 @@ if ($display_header == 'yes') { ?>
                                 <?php
                                 $sort_html = '';
                                 if ($display_sortby_dropdown) {
-                                    $sort_html .= '<div class="dropdown">
-                                        <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button"
-                                           id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true"
-                                           aria-expanded="false">' .
-                                        $sort_by_text . ' <span class="caret"></span>
+                                    $sort_html .= '<div class="atbd_dropdown">
+                                        <a class="atbd_dropdown-toggle" href="#"
+                                           id="dropdownMenuLink2">' .
+                                        $sort_by_text . ' <span class="atbd_drop-caret"></span>
                                         </a>';
-                                    $sort_html .= '<div class="dropdown-menu dropdown-menu-right"
+                                    $sort_html .= '<div class="atbd_dropdown-menu atbd_dropdown-menu--lg"
                                              aria-labelledby="dropdownMenuLink2">';
 
                                     $options = atbdp_get_listings_orderby_options($sort_by_items);
@@ -105,7 +104,7 @@ if ($display_header == 'yes') { ?>
                                     foreach ($options as $value => $label) {
                                         $active_class = ($value == $current_order) ? ' active' : '';
 
-                                        $sort_html .= sprintf('<a class="dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg('sort', $value), $label);
+                                        $sort_html .= sprintf('<a class="atbd_dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg('sort', $value), $label);
                                     }
                                     $sort_html .= ' </div>';
                                     $sort_html .= ' </div>';

@@ -217,16 +217,16 @@ $container_fluid = 'container-fluid';
                          */
                         do_action('atbpd_before_author_listings_category_dropdown', $all_listings);
                         ?>
-                        <div class="dropdown">
-                            <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button"
-                               id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <?php _e("Filter by category", 'directorist'); ?> <span class="caret"></span>
+                        <div class="atbd_dropdown">
+                            <a class="atbd_dropdown-toggle" href="#"
+                               id="dropdownMenuLink">
+                                <?php _e("Filter by category", 'directorist'); ?> <span class="atbd_drop-caret"></span>
                             </a>
 
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <div class="atbd_dropdown-menu atbd_dropdown-menu--lg" aria-labelledby="dropdownMenuLink">
                                 <?php
                                 foreach ($categories as $category) {
-                                    printf('<a class="dropdown-item" href="%s">%s</a>', add_query_arg('category', $category->slug), $category->name);
+                                    printf('<a class="atbd_dropdown-item" href="%s">%s</a>', add_query_arg('category', $category->slug), $category->name);
                                 }
                                 ?>
                             </div>

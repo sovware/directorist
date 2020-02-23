@@ -192,26 +192,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'title' => __('Button Color', 'directorist'),
                             'fields' => $this->get_listings_button_type_fields(),
                         ),
-                        'primary_button' => array(
-                            'type' => 'section',
-                            'title' => __('Button', 'directorist'),
-                            'fields' => $this->get_listings_primary_button_fields(),
-                        ),
-                        /*'secondary_button' => array(
-                            'type' => 'section',
-                            'title' => __('Secondary Button', 'directorist'),
-                            'fields' => $this->get_listings_secondary_button_fields(),
-                        ),*/
-                        'danger_button' => array(
-                            'type' => 'section',
-                            'title' => __('Danger Button', 'directorist'),
-                            'fields' => $this->get_listings_danger_button_fields(),
-                        ),
-                        'success_button' => array(
-                            'type' => 'section',
-                            'title' => __('Success Button', 'directorist'),
-                            'fields' => $this->get_listings_success_button_fields(),
-                        ),
+
                         'badge_color' => array(
                             'type' => 'section',
                             'title' => __('Badge Color', 'directorist'),
@@ -1492,42 +1473,6 @@ if (!class_exists('ATBDP_Settings_Manager')):
             ));
         }
 
-        /**
-         * Get all the settings for secondary button
-         * @return array It returns an array of submenus
-         * @since 5.10.0
-         */
-        public function get_listings_secondary_button_fields()
-        {
-            return apply_filters('atbdp_secondary_color', array(
-
-            ));
-        }
-
-        /**
-         * Get all the settings for danger button
-         * @return array It returns an array of submenus
-         * @since 5.10.0
-         */
-        public function get_listings_danger_button_fields()
-        {
-            return apply_filters('atbdp_danger_color', array(
-
-
-            ));
-        }
-
-        /**
-         * Get all the settings for success button
-         * @return array It returns an array of submenus
-         * @since 5.10.0
-         */
-        public function get_listings_success_button_fields()
-        {
-            return apply_filters('atbdp_success_color', array(
-
-            ));
-        }
 
         /**
          * Get all the settings for badge color

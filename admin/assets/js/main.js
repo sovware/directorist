@@ -1658,24 +1658,35 @@ jQuery(function ($) {
     //button primary
     var primary_button = $("#primary_color, #primary_hover_color, #back_primary_color, #back_primary_hover_color, #border_primary_color, #border_primary_hover_color");
     var secondary_button = $("#secondary_color, #secondary_hover_color, #back_secondary_color, #back_secondary_hover_color, #secondary_border_color, #secondary_border_hover_color");
+    var danger_button = $("#danger_color, #danger_hover_color, #back_danger_color, #back_danger_hover_color, #danger_border_color, #danger_border_hover_color");
     primary_button.hide();
     secondary_button.hide();
+    danger_button.hide();
     $('select[name="button_type"]').on("change", function () {
         if($(this).val() === "solid_primary"){
             primary_button.show();
             secondary_button.hide();
+            danger_button.hide();
         }else if($(this).val() === "solid_secondary") {
             secondary_button.show();
             primary_button.hide();
+            danger_button.hide();
+        }else if($(this).val() === "solid_danger") {
+            danger_button.show();
+            primary_button.hide();
+            secondary_button.hide();
         }else{
             primary_button.hide();
             secondary_button.hide();
+            danger_button.hide();
         }
     });
     if($('select[name="button_type"]').val() === "solid_primary"){
         primary_button.show();
     } else if($('select[name="button_type"]').val() === "solid_secondary"){
         secondary_button.show();
+    } else if($('select[name="button_type"]').val() === "solid_danger"){
+        danger_button.show();
     }
 
 

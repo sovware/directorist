@@ -831,6 +831,21 @@ jQuery(function ($) {
     if($(".edit_btn_wrap .atbdp_float_active").length){
         $("body").addClass("atbd_post_draft");
     }
+
+    //atbd_dropdown
+    $(".atbd_dropdown").on("click", function (e) {
+        if($(this).attr("class") === "atbd_dropdown"){
+            e.preventDefault();
+            $(this).siblings(".atbd_dropdown").removeClass("atbd_drop--active");
+            $(this).toggleClass("atbd_drop--active");
+            e.stopPropagation();
+        }
+    });
+    $(document).on("click", function (e) {
+        if($(e.target).is(".atbd_dropdown, .atbd_drop--active") === false){
+            $(".atbd_dropdown").removeClass("atbd_drop--active");
+        }
+    })
 })(jQuery);
 
 // on load of the page: switch to the currently selected tab
@@ -841,4 +856,5 @@ if (tab_url.startsWith("#active_")) {
         document.querySelector(`a[target=${urlId}]`).click();
     }
 }
+
 

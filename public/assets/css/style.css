@@ -2046,6 +2046,7 @@ div#listing_notifier span {
   position: relative;
   display: flex;
   align-items: center;
+  transition: 0.3s ease;
 }
 
 .atbd_dropdown .atbd_dropdown-toggle .atbd_drop-caret {
@@ -2068,6 +2069,7 @@ div#listing_notifier span {
   top: 0;
   transform: rotate(-45deg);
   pointer-events: none;
+  transition: 0.3s ease;
 }
 
 .atbd_dropdown .atbd_dropdown-menu {

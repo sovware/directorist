@@ -733,3 +733,18 @@ div#need_post_area{
   padding-left: 20px;
   padding-right: 20px;
 }
+
+/* hide button example image top upload fields */
+#primary_example,
+#secondary_example,
+#success_example,
+#danger_example,
+#priout_example,
+#prioutlight_example,
+#danout_example{
+  display: flex;
+  align-items: center;
+  input[type="text"], .button{
+    display: none !important;
+  }
+}

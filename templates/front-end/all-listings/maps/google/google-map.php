@@ -67,7 +67,7 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
 
                                 echo '<img src="'.esc_url($prv_image).'" alt="'.esc_html(stripslashes(get_the_title())).'">';
 
-                            } if(!empty($listing_img[0]) && empty($listing_prv_img)) {
+                            }if(!empty($listing_img[0]) && empty($listing_prv_img)) {
 
                                 echo '<img src="' . esc_url($gallery_img) . '" alt="'.esc_html(stripslashes(get_the_title())).'">';
 

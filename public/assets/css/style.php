@@ -141,12 +141,12 @@ $marker_icon_color                = get_directorist_option('marker_icon_color','
     ======================================== */
     /* Color */
     .pricing .price_action .price_action--btn, #directorist.atbd_wrapper .btn-primary, .default-ad-search .submit_btn .btn-default, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic, #directorist.atbd_wrapper .at-modal .at-modal-close, .atbdp_login_form_shortcode #loginform p input[type="submit"], .atbd_manage_fees_wrapper .table tr .action p .btn-block, #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn, #directorist.atbd_wrapper .ezmu__btn{
-        color: <?php echo !empty($primary_color) ? $primary_color : '#fff';?>;
+        color: <?php echo !empty($primary_color) ? $primary_color : '#fff';?> !important;
     }
 
     /* Color Hover */
     .pricing .price_action .price_action--btn:hover, #directorist.atbd_wrapper .btn-primary:hover, .default-ad-search .submit_btn .btn-default:hover, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic:hover, #directorist.atbd_wrapper .at-modal .at-modal-close:hover, .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover, .atbd_manage_fees_wrapper .table tr .action p .btn-block:hover, #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn:hover, #directorist.atbd_wrapper .ezmu__btn:hover{
-        color: <?php echo !empty($primary_hover_color) ? $primary_hover_color : '#fff';?>;
+        color: <?php echo !empty($primary_hover_color) ? $primary_hover_color : '#fff';?> !important;
     }
 
     /* Background */
@@ -177,7 +177,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color','
         color: <?php echo !empty($secondary_color) ? $secondary_color : '#fff';?> !important;
     }
     #directorist.atbd_wrapper .btn-secondary:hover{
-        color: <?php echo !empty($secondary_hover_color) ? $secondary_hover_color : '#000';?>;
+        color: <?php echo !empty($secondary_hover_color) ? $secondary_hover_color : '#000';?> !important;
     }
 
     /* Background */
@@ -211,7 +211,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color','
 
     /* color hover */
     #directorist.atbd_wrapper .btn-danger:hover, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img #remove_pro_pic{
-        color: <?php echo !empty($danger_hover_color) ? $danger_hover_color : '#fff';?>;
+        color: <?php echo !empty($danger_hover_color) ? $danger_hover_color : '#fff';?> !important;
     }
 
     /* Background */
@@ -240,12 +240,12 @@ $marker_icon_color                = get_directorist_option('marker_icon_color','
     ======================================== */
     /* Color */
     #directorist.atbd_wrapper .btn-success{
-        color: <?php echo !empty($success_color) ? $success_color : '#fff';?>;
+        color: <?php echo !empty($success_color) ? $success_color : '#fff';?> !important;
     }
 
     /* color hover */
     #directorist.atbd_wrapper .btn-success:hover{
-        color: <?php echo !empty($success_hover_color) ? $success_hover_color : '#fff';?>;
+        color: <?php echo !empty($success_hover_color) ? $success_hover_color : '#fff';?> !important;
     }
 
     /* Background */
@@ -273,29 +273,37 @@ $marker_icon_color                = get_directorist_option('marker_icon_color','
     ======================================== */
 
     /* color */
-    .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter, #directorist.atbd_wrapper .btn-outline-primary{
-        color: <?php echo !empty($priout_color) ? $priout_color : '#444752';?>;
+    .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter, #directorist.atbd_wrapper .btn-outline-primary, .atbd_dropdown .atbd_dropdown-toggle{
+        color: <?php echo !empty($priout_color) ? $priout_color : '#444752';?> !important;
     }
     /* color hover */
-    .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter:hover, #directorist.atbd_wrapper .btn-outline-primary:hover{
-        color: <?php echo !empty($priout_hover_color) ? $priout_hover_color : '#444752';?>;
+    .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter:hover, #directorist.atbd_wrapper .btn-outline-primary:hover, .atbd_dropdown .atbd_dropdown-toggle:hover{
+        color: <?php echo !empty($priout_hover_color) ? $priout_hover_color : '#444752';?> !important;
     }
 
     /* border color */
-    .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter, #directorist.atbd_wrapper .btn-outline-primary{
-        border: 1px solid <?php echo !empty($border_priout_color) ? $border_priout_color : '#444752';?>;
+    .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter, #directorist.atbd_wrapper .btn-outline-primary, .atbd_dropdown .atbd_dropdown-toggle{
+        border: 1px solid <?php echo !empty($border_priout_color) ? $border_priout_color : '#444752';?> !important;
+    }
+    .atbd_dropdown .atbd_dropdown-toggle .atbd_drop-caret:before{
+        border-left: 1px solid <?php echo !empty($border_priout_color) ? $border_priout_color : '#444752';?> !important;
+        border-bottom: 1px solid <?php echo !empty($border_priout_color) ? $border_priout_color : '#444752';?> !important;
     }
     /* border color hover */
-    .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter:hover, #directorist.atbd_wrapper .btn-outline-primary:hover{
-        border-color: <?php echo !empty($border_priOut_hover_color) ? $border_priOut_hover_color : '#9299b8';?>;
+    .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter:hover, #directorist.atbd_wrapper .btn-outline-primary:hover, .atbd_dropdown .atbd_dropdown-toggle:hover{
+        border-color: <?php echo !empty($border_priOut_hover_color) ? $border_priOut_hover_color : '#9299b8';?> !important;
+    }
+    .atbd_dropdown .atbd_dropdown-toggle:hover .atbd_drop-caret:before{
+        border-left-color: <?php echo !empty($border_priOut_hover_color) ? $border_priOut_hover_color : '#9299b8';?> !important;
+        border-bottom-color: <?php echo !empty($border_priOut_hover_color) ? $border_priOut_hover_color : '#9299b8';?> !important;
     }
     /* background */
-    .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter, #directorist.atbd_wrapper .btn-outline-primary{
-        background: <?php echo !empty($back_priOut_color) ? $back_priOut_color : '#fff';?>;
+    .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter, #directorist.atbd_wrapper .btn-outline-primary, .atbd_dropdown .atbd_dropdown-toggle{
+        background: <?php echo !empty($back_priOut_color) ? $back_priOut_color : '#fff';?> !important;
     }
     /* background hover */
-    .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter:hover, #directorist.atbd_wrapper .btn-outline-primary:hover{
-        background: <?php echo !empty($back_priOut_hover_color) ? $back_priOut_hover_color : '#fff';?>;
+    .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter:hover, #directorist.atbd_wrapper .btn-outline-primary:hover, .atbd_dropdown .atbd_dropdown-toggle:hover{
+        background: <?php echo !empty($back_priOut_hover_color) ? $back_priOut_hover_color : '#fff';?> !important;
     }
 
     /* =======================================
@@ -304,28 +312,28 @@ $marker_icon_color                = get_directorist_option('marker_icon_color','
 
     /* color */
     .atbdp_float_none .btn.btn-outline-light, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action a{
-        color: <?php echo !empty($prioutlight_color) ? $prioutlight_color : '#444752';?>;
+        color: <?php echo !empty($prioutlight_color) ? $prioutlight_color : '#444752';?> !important;
     }
     /* color hover */
     .atbdp_float_none .btn.btn-outline-light:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action a:hover{
-        color: <?php echo !empty($prioutlight_hover_color) ? $prioutlight_hover_color : '#444752';?>;
+        color: <?php echo !empty($prioutlight_hover_color) ? $prioutlight_hover_color : '#444752';?> !important;
     }
 
     /* border color */
     .atbdp_float_none .btn.btn-outline-light, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action{
-        border: 1px solid <?php echo !empty($border_prioutlight_color) ? $border_prioutlight_color : '#e3e6ef';?>;
+        border: 1px solid <?php echo !empty($border_prioutlight_color) ? $border_prioutlight_color : '#e3e6ef';?> !important;
     }
     /* border color hover */
     .atbdp_float_none .btn.btn-outline-light:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover{
-        border-color: <?php echo !empty($border_prioutlight_hover_color) ? $border_prioutlight_hover_color : '#444752';?>;
+        border-color: <?php echo !empty($border_prioutlight_hover_color) ? $border_prioutlight_hover_color : '#444752';?> !important;
     }
     /* background */
     .atbdp_float_none .btn.btn-outline-light, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action{
-        background: <?php echo !empty($back_prioutlight_color) ? $back_prioutlight_color : '#fff';?>;
+        background: <?php echo !empty($back_prioutlight_color) ? $back_prioutlight_color : '#fff';?> !important;
     }
     /* background hover */
     .atbdp_float_none .btn.btn-outline-light:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover{
-        background: <?php echo !empty($back_prioutlight_hover_color) ? $back_prioutlight_hover_color : '#444752';?>;
+        background: <?php echo !empty($back_prioutlight_hover_color) ? $back_prioutlight_hover_color : '#444752';?> !important;
     }
 
 
@@ -335,28 +343,28 @@ $marker_icon_color                = get_directorist_option('marker_icon_color','
 
     /* color */
     #directorist.atbd_wrapper .btn-outline-danger{
-        color: <?php echo !empty($danout_color) ? $danout_color : '#e23636';?>;
+        color: <?php echo !empty($danout_color) ? $danout_color : '#e23636';?> !important;
     }
     /* color hover */
     #directorist.atbd_wrapper .btn-outline-danger:hover{
-        color: <?php echo !empty($danout_hover_color) ? $danout_hover_color : '#fff';?>;
+        color: <?php echo !empty($danout_hover_color) ? $danout_hover_color : '#fff';?> !important;
     }
     /* border color */
     #directorist.atbd_wrapper .btn-outline-danger{
-        border: 1px solid <?php echo !empty($border_danout_color) ? $border_danout_color : '#e23636';?>;
+        border: 1px solid <?php echo !empty($border_danout_color) ? $border_danout_color : '#e23636';?> !important;
     }
     /* border color hover */
     #directorist.atbd_wrapper .btn-outline-danger:hover{
-        border-color: <?php echo !empty($border_danout_hover_color) ? $border_danout_hover_color : '#e23636';?>;
+        border-color: <?php echo !empty($border_danout_hover_color) ? $border_danout_hover_color : '#e23636';?> !important;
     }
 
     /* background */
     #directorist.atbd_wrapper .btn-outline-danger{
-        background: <?php echo !empty($back_danout_color) ? $back_danout_color : '#fff';?>;
+        background: <?php echo !empty($back_danout_color) ? $back_danout_color : '#fff';?> !important;
     }
     /* background hover */
-    #directorist.atbd_wrapper .btn-outline-danger{
-        background: <?php echo !empty($back_danout_hover_color) ? $back_danout_hover_color : '#e23636';?>;
+    #directorist.atbd_wrapper .btn-outline-danger:hover{
+        background: <?php echo !empty($back_danout_hover_color) ? $back_danout_hover_color : '#e23636';?> !important;
     }
 
 

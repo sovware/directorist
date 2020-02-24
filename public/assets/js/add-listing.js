@@ -132,7 +132,7 @@
         $('#at_biz_dir-tags').select2({
             placeholder: atbdp_add_listing.i18n_text.tag_selection,
             tags: true,
-            tokenSeparators: [',', ' ']
+            tokenSeparators: [',']
         });
     } else {
         $('#at_biz_dir-tags').select2({
@@ -142,8 +142,7 @@
     }
     $('#at_biz_dir-categories').select2({
         placeholder: atbdp_add_listing.cat_placeholder,
-        tags: true,
-        tokenSeparators: [',', ' ']
+        allowClear: true
     });
 
 

@@ -631,7 +631,7 @@ jQuery(function ($) {
 
 
     //Display filter button
-    var lf_opt7 = $("#default_preview_image,#crop_width,#crop_height,#way_to_show_preview,#prv_background_type");
+    var lf_opt7 = $("#default_preview_image,#crop_width,#crop_height, div#prv_container_size_by, #way_to_show_preview,#prv_background_type");
     lf_opt7.hide();
     $('input[name="display_preview_image"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -646,7 +646,7 @@ jQuery(function ($) {
 
 
     //Preview image
-    var fill = $("#crop_width,#crop_height");
+    var fill = $("#crop_width, #crop_height, div#prv_container_size_by");
     var backType = $("#prv_background_type");
     var backgroundType = $("#prv_background_color");
     backgroundType.hide();
@@ -1602,25 +1602,6 @@ jQuery(function ($) {
         });
     });
 
-
-    // Single Slider - Display Dependency Options For Slider Image
-    var dsiplay_slider_single_page_inp = $('input[name="dsiplay_slider_single_page"]');
-    var dsiplay_slider_single_page_dep = $("#single_slider_image_size, #dsiplay_thumbnail_img, #gallery_crop_width, #gallery_crop_height");
-
-    dsiplay_slider_single_page_inp.on("change", function () {
-        if ( $(this).is(":checked") === true ) {
-            dsiplay_slider_single_page_dep.show();
-        } else {
-            dsiplay_slider_single_page_dep.hide();
-        }
-    });
-
-    dsiplay_slider_single_page_dep.hide();
-    if ( dsiplay_slider_single_page_inp.is(":checked")) {
-        dsiplay_slider_single_page_dep.show();
-    }
-
-
     // Single Slider - Display Background Type Options
     var single_slider_image_size_inp = $('select[name="single_slider_image_size"]');
     var single_slider_background_type_wrap = $("#single_slider_background_type");
@@ -1653,6 +1634,23 @@ jQuery(function ($) {
     single_slider_background_color_wrap.hide();
     if ( single_slider_background_type_inp.val() === 'custom-color') {
         single_slider_background_color_wrap.show();
+    }
+
+    // Single Slider - Display Dependency Options For Slider Image
+    var dsiplay_slider_single_page_inp = $('input[name="dsiplay_slider_single_page"]');
+    var dsiplay_slider_single_page_dep = $("div#single_slider_image_size, div#dsiplay_thumbnail_img, div#gallery_crop_width, div#gallery_crop_height, div#single_slider_background_color");
+
+    dsiplay_slider_single_page_inp.on("change", function () {
+        if ( $(this).is(":checked") === true ) {
+            dsiplay_slider_single_page_dep.show();
+        } else {
+            dsiplay_slider_single_page_dep.hide();
+        }
+    });
+
+    dsiplay_slider_single_page_dep.hide();
+    if ( dsiplay_slider_single_page_inp.is(":checked")) {
+        dsiplay_slider_single_page_dep.show();
     }
 
 });

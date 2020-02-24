@@ -2,6 +2,22 @@
 // Prohibit direct script loading.
 defined('ABSPATH') || die('No direct script access allowed!');
 
+if ( !function_exists('get_help') ) {
+    function get_help() {
+        $path = ATBDP_CLASS_DIR . 'class-helper.php';
+        if ( file_exists( $path ) ) {
+            require_once( $path );
+        }
+
+        if ( class_exists( 'ATBDP_Helper' ) ) {
+            $helper = new ATBDP_Helper;
+            return $helper;
+        }
+        
+        return null;
+    }
+}
+
 if (!function_exists('load_dependencies')):
     /**
      * It loads files from a given directory using require_once.
@@ -3236,27 +3252,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                 <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
                                     <?php
                                     }
-                                    $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
-                                    $has_thumbnail = false;
-                                    $thumbnail_img = '';
-
-                                    if (!empty($listing_prv_img)) {
-                                        $thumbnail_img = $prv_image_full;
-                                        $has_thumbnail = true;
-                                    }
-                                    if (!empty($listing_img[0]) && empty($listing_prv_img)) {
-                                        $thumbnail_img = $gallery_img_full;
-                                        $has_thumbnail = true;
-                                    }
-                                    if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
-                                        $thumbnail_img = $default_image;
-                                        $has_thumbnail = true;
-                                    }
-
-                                    if ($has_thumbnail) {
-                                        ATBDP()->helper::the_thumbnail_card($thumbnail_img);
-                                        // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
-                                    }
+                                    the_thumbnail_card();
                                     if (empty($disable_single_listing)) {
                                         echo '</a>';
                                     }
@@ -4644,4 +4640,144 @@ function atbdp_create_required_pages(){
         };
         update_option('atbdp_pages_version', 1);
     }
+}
+
+
+
+// the_thumbnail_card
+function the_thumbnail_card($img_src = '', $_args = array())
+{
+    $args = apply_filters('atbdp_preview_image_args', $_args);
+
+    // Default
+    $is_blur = get_directorist_option('prv_background_type', 'blur');
+    $is_blur = ('blur' === $is_blur ? true : false);
+    $alt = esc_html(get_the_title());
+    $container_size_by = get_directorist_option('prv_container_size_by', 'px');
+    $by_ratio = ( 'px' === $container_size_by ) ? false : true;
+    $image_size = get_directorist_option('way_to_show_preview', 'cover'); // contain / full / cover
+    $ratio_width = get_directorist_option('crop_width', 360);
+    $ratio_height = get_directorist_option('crop_height', 300);
+    $blur_background = $is_blur;
+    $background_color = get_directorist_option('prv_background_color', 'gainsboro');
+
+    $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
+    $listing_img_src = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
+
+    $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
+    $prv_image_src = wp_get_attachment_image_src($listing_prv_img, 'medium')[0];
+
+    $default_image_src = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+
+    if ( 'cover' === $image_size ) {
+        $listing_img_src = atbdp_image_cropping($listing_img, $ratio_width, $ratio_height, true, 100)['url'];
+        $prv_image_src = atbdp_image_cropping($listing_prv_img, $ratio_width, $ratio_height, true, 100)['url'];
+        $default_image_src = atbdp_image_cropping($default_image_src, $ratio_width, $ratio_height, true, 100)['url'];
+    }
+
+    $has_thumbnail = false;
+    $thumbnail_img = '';
+    
+    if (!empty($listing_img[0]) && empty($listing_prv_img_src)) {
+        $thumbnail_img = $listing_img_src;
+        $has_thumbnail = true;
+    }
+    if (empty($listing_img[0]) && empty($listing_prv_img_src) && !empty($default_image_src)) {
+        $thumbnail_img = $default_image_src;
+        $has_thumbnail = true;
+    }
+    if (!empty($listing_prv_img)) {
+        $thumbnail_img = $prv_image_src;
+        $has_thumbnail = true;
+    }
+    if (!empty($img_src)) {
+        $thumbnail_img = $img_src;
+        $has_thumbnail = true;
+    }
+
+    if ( !$has_thumbnail ) { return ''; }
+    $image = $thumbnail_img; 
+
+    // Extend Default
+    if ( isset($args['image']) ) {
+        $image = esc_html(stripslashes($args['image']));
+    }
+    if ( isset($args['image-size']) ) {
+        $image_size = esc_html(stripslashes($args['image-size']));
+    }
+    if ( isset($args['width']) ) {
+        $ratio_width = esc_html(stripslashes($args['width']));
+    }
+    if ( isset($args['height']) ) {
+        $ratio_height = esc_html(stripslashes($args['height']));
+    }
+    if ( isset($args['alt']) ) {
+        $alt = esc_html(stripslashes($args['alt']));
+    }
+    if ( isset($args['blur-background']) ) {
+        $blur_background = esc_html(stripslashes($args['blur-background']));
+    }
+    if ( isset($args['background-color']) ) {
+        $background_color = esc_html(stripslashes($args['background-color']));
+    }
+
+    // Style
+    $style = '';
+
+    if ( $by_ratio ) {
+        $padding_top_value = (int) $ratio_height / (int) $ratio_width * 100;
+        $padding_top_css = "padding-top: $padding_top_value%;";
+        $style .= $padding_top_css;
+    } else {
+        $height_value = (int) $ratio_height;
+        $height_css = "height: {$height_value}px;";
+        $style .= $height_css;
+    }
+
+    $background_color_css = '';
+    if ( $image_size !== 'full' && !$blur_background ) {
+        $background_color_css = "background-color: $background_color";
+        $style .= $background_color_css;
+    }
+
+    // Card Front Wrap
+    $card_front_wrap = "<div class='atbd-thumbnail-card-front-wrap'>";
+    $card_front__img = "<img src='$image' alt='$alt' class='atbd-thumbnail-card-front-img'/>";
+    $front_wrap_html = $card_front_wrap . $card_front__img . "</div>";
+
+    // Card Back Wrap
+    $card_back_wrap = "<div class='atbd-thumbnail-card-back-wrap'>";
+    $card_back__img = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
+    $back_wrap_html = $card_back_wrap . $card_back__img . "</div>";
+
+    $blur_bg = ( $blur_background ) ? $back_wrap_html : '';
+
+    // Card Contain 
+    $card_contain_wrap = "<div class='atbd-thumbnail-card card-contain' style='$style'>";
+    $card_back__img = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
+    $image_contain_html = $card_contain_wrap . $blur_bg . $front_wrap_html . "</div>";
+
+    // Card Cover
+    $card_cover_wrap = "<div class='atbd-thumbnail-card card-cover' style='$style'>";
+    $card_back__img = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
+    $image_cover_html = $card_cover_wrap . $front_wrap_html . "</div>";
+
+    // Card Full
+    $card_full_wrap = "<div class='atbd-thumbnail-card card-full' style='$background_color_css'>";
+    $image_full_html = $card_full_wrap . $front_wrap_html . "</div>";
+
+    $the_html = $image_cover_html;
+    switch ($image_size) {
+        case 'cover':
+            $the_html = $image_cover_html;
+            break;
+        case 'contain':
+            $the_html = $image_contain_html;
+            break;
+        case 'full':
+            $the_html = $image_full_html;
+            break;
+    }
+
+    echo $the_html;
 }

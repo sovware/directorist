@@ -325,6 +325,7 @@ final class Directorist_Base
      */
     private function includes()
     {
+        // $helper = new ATBDP_Helper;
         require_once ATBDP_TEMPLATES_DIR . 'single-template-shortcode.php';
         require_once ATBDP_LIB_DIR . 'vafpress/bootstrap.php'; // load option framework.
         require_once ATBDP_INC_DIR . 'helper-functions.php';

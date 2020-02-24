@@ -3044,7 +3044,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'display_preview_image',
                         'label' => __('Show Preview Image', 'directorist'),
                         'description' => __('Hide/show preview image from all listing page.', 'directorist'),
-                        'default' => 1,
+                        'default' => 'px',
                     ),
                     
                     'way_to_show_preview' => array(
@@ -3073,7 +3073,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'slider',
                         'name' => 'crop_width',
-                        'label' => __('Image Width', 'directorist'),
+                        'label' => __('Container Width', 'directorist'),
                         'min' => '1',
                         'max' => '1200',
                         'step' => '1',
@@ -3082,11 +3082,30 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'slider',
                         'name' => 'crop_height',
-                        'label' => __('Image Height', 'directorist'),
+                        'label' => __('Container Height', 'directorist'),
                         'min' => '1',
                         'max' => '1200',
                         'step' => '1',
                         'default' => '260',
+                    ),
+                    array(
+                        'type' => 'select',
+                        'name' => 'prv_container_size_by',
+                        'label' => __('Container Size By', 'directorist'),
+                        'items' => array(
+                            array(
+                                'value' => 'px',
+                                'label' => __('Pixel', 'directorist'),
+                            ),
+                            array(
+                                'value' => 'ratio',
+                                'label' => __('Ratio', 'directorist'),
+                            ),
+                        ),
+                        'default' => array(
+                            'value' => 'px',
+                            'label' => __('Pixel', 'directorist'),
+                        ),
                     ),
                     array(
                         'type' => 'select',

@@ -1248,6 +1248,12 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'label' => __('Primary Border Hover Color', 'directorist'),
                     'default' => '#222222',
                 ),
+                array(
+                    'type' => 'upload',
+                    'name' => 'primary_example',
+                    'label' => __('Primary Button Example', 'directorist'),
+                    'default' => 'https://directorist.com/wp-content/uploads/2020/02/solid-primary.png',
+                ),
                 // solid secondary color
                 array(
                     'type' => 'color',
@@ -1284,6 +1290,12 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'name' => 'secondary_border_hover_color',
                     'label' => __('Secondary Border Hover Color', 'directorist'),
                     'default' => '#131469',
+                ),
+                array(
+                    'type' => 'upload',
+                    'name' => 'secondary_example',
+                    'label' => __('Secondary Button Example', 'directorist'),
+                    'default' => 'https://directorist.com/wp-content/uploads/2020/02/solid-secondary.png',
                 ),
                 // solid danger color
                 array(
@@ -1322,6 +1334,12 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'label' => __('Danger Border Hover Color', 'directorist'),
                     'default' => '#c5001e',
                 ),
+                array(
+                    'type' => 'upload',
+                    'name' => 'danger_example',
+                    'label' => __('Danger Button Example', 'directorist'),
+                    'default' => 'https://directorist.com/wp-content/uploads/2020/02/solid-danger.png',
+                ),
                 // solid success color
                 array(
                     'type' => 'color',
@@ -1358,6 +1376,12 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'name' => 'border_success_hover_color',
                     'label' => __('Success Border Hover Color', 'directorist'),
                     'default' => '#2ba251',
+                ),
+                array(
+                    'type' => 'upload',
+                    'name' => 'success_example',
+                    'label' => __('Success Button Example', 'directorist'),
+                    'default' => 'https://directorist.com/wp-content/uploads/2020/02/solid-success.png',
                 ),
                 // primary outline
                 array(
@@ -1396,6 +1420,12 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'label' => __('Primary Outline Border Hover Color', 'directorist'),
                     'default' => '#9299b8',
                 ),
+                array(
+                    'type' => 'upload',
+                    'name' => 'priout_example',
+                    'label' => __('Primary Outline Button Example', 'directorist'),
+                    'default' => 'https://directorist.com/wp-content/uploads/2020/02/outline-primary.png',
+                ),
                 // primary outline light
                 array(
                     'type' => 'color',
@@ -1433,6 +1463,12 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'label' => __('Primary Outline Light Border Hover Color', 'directorist'),
                     'default' => '#444752',
                 ),
+                array(
+                    'type' => 'upload',
+                    'name' => 'prioutlight_example',
+                    'label' => __('Primary Button Light Example', 'directorist'),
+                    'default' => 'https://directorist.com/wp-content/uploads/2020/02/outline-primary-light.png',
+                ),
                 // Danger outline
                 array(
                     'type' => 'color',
@@ -1469,6 +1505,12 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'name' => 'border_danout_hover_color',
                     'label' => __('Danger Outline Border Hover Color', 'directorist'),
                     'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'upload',
+                    'name' => 'danout_example',
+                    'label' => __('Danger Outline Button Example', 'directorist'),
+                    'default' => 'https://directorist.com/wp-content/uploads/2020/02/outline-danger.png',
                 ),
             ));
         }

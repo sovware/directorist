@@ -1656,13 +1656,13 @@ jQuery(function ($) {
     }
 
     //button primary
-    var primary_button = $("#primary_color, #primary_hover_color, #back_primary_color, #back_primary_hover_color, #border_primary_color, #border_primary_hover_color");
-    var secondary_button = $("#secondary_color, #secondary_hover_color, #back_secondary_color, #back_secondary_hover_color, #secondary_border_color, #secondary_border_hover_color");
-    var danger_button = $("#danger_color, #danger_hover_color, #back_danger_color, #back_danger_hover_color, #danger_border_color, #danger_border_hover_color");
-    var success_button = $("#success_color, #success_hover_color, #back_success_color, #back_success_hover_color, #border_success_color, #border_success_hover_color");
-    var primary_outline = $("#priout_color, #priout_hover_color, #back_priout_color, #back_priout_hover_color, #border_priout_color, #border_priout_hover_color");
-    var primary_outline_light = $("#prioutlight_color, #prioutlight_hover_color, #back_prioutlight_color, #back_prioutlight_hover_color, #border_prioutlight_color, #border_prioutlight_hover_color");
-    var danger_outline = $("#danout_color, #danout_hover_color, #back_danout_color, #back_danout_hover_color, #border_danout_color, #border_danout_hover_color");
+    var primary_button = $("#primary_color, #primary_hover_color, #back_primary_color, #back_primary_hover_color, #border_primary_color, #border_primary_hover_color, #primary_example");
+    var secondary_button = $("#secondary_color, #secondary_hover_color, #back_secondary_color, #back_secondary_hover_color, #secondary_border_color, #secondary_border_hover_color, #secondary_example");
+    var danger_button = $("#danger_color, #danger_hover_color, #back_danger_color, #back_danger_hover_color, #danger_border_color, #danger_border_hover_color, #danger_example");
+    var success_button = $("#success_color, #success_hover_color, #back_success_color, #back_success_hover_color, #border_success_color, #border_success_hover_color, #success_example");
+    var primary_outline = $("#priout_color, #priout_hover_color, #back_priout_color, #back_priout_hover_color, #border_priout_color, #border_priout_hover_color, #priout_example");
+    var primary_outline_light = $("#prioutlight_color, #prioutlight_hover_color, #back_prioutlight_color, #back_prioutlight_hover_color, #border_prioutlight_color, #border_prioutlight_hover_color, #prioutlight_example");
+    var danger_outline = $("#danout_color, #danout_hover_color, #back_danout_color, #back_danout_hover_color, #border_danout_color, #border_danout_hover_color, #danout_example");
     primary_button.hide();
     secondary_button.hide();
     danger_button.hide();

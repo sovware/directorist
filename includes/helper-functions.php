@@ -4740,3 +4740,9 @@ function the_thumbnail_card($img_src = '', $_args = array())
 
     echo $the_html;
 }
+
+
+function atbdp_style_example_image ($src) {
+    $img = sprintf("<img src='%s'>", $src );
+    echo $img;
+}

@@ -120,33 +120,8 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                         <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
                                             <?php
                                             }
-<<<<<<< HEAD
-                                            the_thumbnail_card();
-=======
+                                            the_thumbnail_card($thumbnail_img);
 
-                                            $has_thumbnail = false;
-                                            $thumbnail_img = '';
-
-                                            
-                                            if (!empty($listing_img[0]) && empty($listing_prv_img)) {
-                                                $thumbnail_img = $gallery_img_full;
-                                                $has_thumbnail = true;
-                                            }
-                                            if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
-                                                $thumbnail_img = $default_image;
-                                                $has_thumbnail = true;
-                                            }
-                                            if (!empty($listing_prv_img)) {
-                                                $thumbnail_img = $prv_image_full;
-                                                $has_thumbnail = true;
-                                            }
-
-                                            if ($has_thumbnail) {
-                                                the_thumbnail_card($thumbnail_img);
-                                                // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
-                                            }
-
->>>>>>> b04212de97d65ffba0833f69ae85147810e673ec
                                             if (empty($disable_single_listing)) {
                                                 echo '</a>';
                                             }

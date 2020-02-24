@@ -1636,7 +1636,6 @@ jQuery(function ($) {
         single_slider_background_color_wrap.show();
     }
 
-<<<<<<< HEAD
     // Single Slider - Display Dependency Options For Slider Image
     var dsiplay_slider_single_page_inp = $('input[name="dsiplay_slider_single_page"]');
     var dsiplay_slider_single_page_dep = $("div#single_slider_image_size, div#dsiplay_thumbnail_img, div#gallery_crop_width, div#gallery_crop_height, div#single_slider_background_color");
@@ -1654,7 +1653,6 @@ jQuery(function ($) {
         dsiplay_slider_single_page_dep.show();
     }
 
-=======
     //button primary
     var primary_button = $("#primary_color, #primary_hover_color, #back_primary_color, #back_primary_hover_color, #border_primary_color, #border_primary_hover_color, #primary_example");
     var secondary_button = $("#secondary_color, #secondary_hover_color, #back_secondary_color, #back_secondary_hover_color, #secondary_border_color, #secondary_border_hover_color, #secondary_example");
@@ -1752,8 +1750,4 @@ jQuery(function ($) {
     } else if($('select[name="button_type"]').val() === "danger_outline"){
         danger_outline.show();
     }
-
-
-
->>>>>>> b04212de97d65ffba0833f69ae85147810e673ec
 });

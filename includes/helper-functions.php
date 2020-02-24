@@ -2350,27 +2350,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                         <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
                                             <?php
                                             }
-                                            $has_thumbnail = false;
-                                            $thumbnail_img = '';
-
-
-                                            if (!empty($listing_img[0]) && empty($listing_prv_img)) {
-                                                $thumbnail_img = $gallery_img_full;
-                                                $has_thumbnail = true;
-                                            }
-                                            if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
-                                                $thumbnail_img = $default_image;
-                                                $has_thumbnail = true;
-                                            }
-                                            if (!empty($listing_prv_img)) {
-                                                $thumbnail_img = $prv_image_full;
-                                                $has_thumbnail = true;
-                                            }
-
-                                            if ($has_thumbnail) {
-                                                the_thumbnail_card($thumbnail_img);
-                                                // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
-                                            }
+                                            the_thumbnail_card();
                                             if (empty($disable_single_listing)) {
                                                 echo '</a>';
                                             }
@@ -2812,27 +2792,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                             <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
                                                 <?php
                                                 }
-                                                $has_thumbnail = false;
-                                                $thumbnail_img = '';
-
-
-                                                if (!empty($listing_img[0]) && empty($listing_prv_img)) {
-                                                    $thumbnail_img = $gallery_img_full;
-                                                    $has_thumbnail = true;
-                                                }
-                                                if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
-                                                    $thumbnail_img = $default_image;
-                                                    $has_thumbnail = true;
-                                                }
-                                                if (!empty($listing_prv_img)) {
-                                                    $thumbnail_img = $prv_image_full;
-                                                    $has_thumbnail = true;
-                                                }
-
-                                                if ($has_thumbnail) {
-                                                    the_thumbnail_card($thumbnail_img);
-                                                    // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
-                                                }
+                                                the_thumbnail_card();
                                                 if (empty($disable_single_listing)) {
                                                     echo '</a>';
                                                 }
@@ -3252,31 +3212,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                 <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
                                     <?php
                                     }
-<<<<<<< HEAD
                                     the_thumbnail_card();
-=======
-                                    $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
-                                    $has_thumbnail = false;
-                                    $thumbnail_img = '';
-
-                                    if (!empty($listing_prv_img)) {
-                                        $thumbnail_img = $prv_image_full;
-                                        $has_thumbnail = true;
-                                    }
-                                    if (!empty($listing_img[0]) && empty($listing_prv_img)) {
-                                        $thumbnail_img = $gallery_img_full;
-                                        $has_thumbnail = true;
-                                    }
-                                    if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
-                                        $thumbnail_img = $default_image;
-                                        $has_thumbnail = true;
-                                    }
-
-                                    if ($has_thumbnail) {
-                                        the_thumbnail_card($thumbnail_img);
-                                        // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
-                                    }
->>>>>>> b04212de97d65ffba0833f69ae85147810e673ec
                                     if (empty($disable_single_listing)) {
                                         echo '</a>';
                                     }
@@ -4666,16 +4602,10 @@ function atbdp_create_required_pages(){
     }
 }
 
-<<<<<<< HEAD
-
-
-// the_thumbnail_card
-=======
 function atbdp_logged_in_user(){
     return _wp_get_current_user()->exists();
 }
 
->>>>>>> b04212de97d65ffba0833f69ae85147810e673ec
 function the_thumbnail_card($img_src = '', $_args = array())
 {
     $args = apply_filters('atbdp_preview_image_args', $_args);
@@ -4684,18 +4614,13 @@ function the_thumbnail_card($img_src = '', $_args = array())
     $is_blur = get_directorist_option('prv_background_type', 'blur');
     $is_blur = ('blur' === $is_blur ? true : false);
     $alt = esc_html(get_the_title());
-<<<<<<< HEAD
     $container_size_by = get_directorist_option('prv_container_size_by', 'px');
     $by_ratio = ( 'px' === $container_size_by ) ? false : true;
     $image_size = get_directorist_option('way_to_show_preview', 'cover'); // contain / full / cover
-=======
-    $image_size = get_directorist_option('way_to_show_preview', 'contain'); // contain / full / cover
->>>>>>> b04212de97d65ffba0833f69ae85147810e673ec
     $ratio_width = get_directorist_option('crop_width', 360);
     $ratio_height = get_directorist_option('crop_height', 300);
     $blur_background = $is_blur;
     $background_color = get_directorist_option('prv_background_color', 'gainsboro');
-<<<<<<< HEAD
 
     $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
     $listing_img_src = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
@@ -4733,9 +4658,6 @@ function the_thumbnail_card($img_src = '', $_args = array())
 
     if ( !$has_thumbnail ) { return ''; }
     $image = $thumbnail_img; 
-=======
-    $image = $img_src;
->>>>>>> b04212de97d65ffba0833f69ae85147810e673ec
 
     // Extend Default
     if ( isset($args['image']) ) {
@@ -4762,7 +4684,6 @@ function the_thumbnail_card($img_src = '', $_args = array())
 
     // Style
     $style = '';
-<<<<<<< HEAD
 
     if ( $by_ratio ) {
         $padding_top_value = (int) $ratio_height / (int) $ratio_width * 100;
@@ -4774,11 +4695,6 @@ function the_thumbnail_card($img_src = '', $_args = array())
         $style .= $height_css;
     }
 
-=======
-    $padding_top_value = (int) $ratio_height / (int) $ratio_width * 100;
-    $padding_top_css = "padding-top: $padding_top_value%;";
-    $style .= $padding_top_css;
->>>>>>> b04212de97d65ffba0833f69ae85147810e673ec
     $background_color_css = '';
     if ( $image_size !== 'full' && !$blur_background ) {
         $background_color_css = "background-color: $background_color";
@@ -4797,11 +4713,7 @@ function the_thumbnail_card($img_src = '', $_args = array())
 
     $blur_bg = ( $blur_background ) ? $back_wrap_html : '';
 
-<<<<<<< HEAD
     // Card Contain 
-=======
-    // Card Contain
->>>>>>> b04212de97d65ffba0833f69ae85147810e673ec
     $card_contain_wrap = "<div class='atbd-thumbnail-card card-contain' style='$style'>";
     $card_back__img = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
     $image_contain_html = $card_contain_wrap . $blur_bg . $front_wrap_html . "</div>";
@@ -4829,13 +4741,10 @@ function the_thumbnail_card($img_src = '', $_args = array())
     }
 
     echo $the_html;
-<<<<<<< HEAD
-=======
 }
 
 
 function atbdp_style_example_image ($src) {
     $img = sprintf("<img src='%s'>", $src );
     echo $img;
->>>>>>> b04212de97d65ffba0833f69ae85147810e673ec
 }
